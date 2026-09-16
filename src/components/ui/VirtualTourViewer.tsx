@@ -1,6 +1,7 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useRef } from 'react';
+import Link from 'next/link';
 import {
   Maximize,
   Minimize,
@@ -110,9 +111,8 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
     <div
       ref={containerRef}
       id="visite-virtuelle-360"
-      className={`relative bg-[#08080c] border-2 border-[#FFE500] rounded-none overflow-hidden shadow-[0_0_40px_rgba(255,229,0,0.15)] flex flex-col ${
-        isFullscreen ? 'fixed inset-0 z-50 p-0 m-0 w-screen h-screen' : ''
-      } ${className}`}
+      className={`relative bg-[#08080c] border-2 border-[#FFE500] rounded-none overflow-hidden shadow-[0_0_40px_rgba(255,229,0,0.15)] flex flex-col ${isFullscreen ? 'fixed inset-0 z-50 p-0 m-0 w-screen h-screen' : ''
+        } ${className}`}
     >
       {/* HUD Corners */}
 
@@ -154,7 +154,7 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
           <a
             href={TOUR_URL}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="px-2.5 py-1 text-[11px] font-mono-tech border border-zinc-800 bg-[#121218] text-zinc-300 hover:text-[#FFE500] hover:border-zinc-700 transition-colors flex items-center gap-1.5"
             title="Ouvrir en plein écran dans un nouvel onglet / Casque VR"
           >
@@ -242,17 +242,15 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
                 <button
                   key={spot.id}
                   onClick={() => setActiveSpot(spot)}
-                  className={`p-2.5 text-left border transition-all cursor-pointer flex flex-col justify-between ${
-                    isSelected
-                      ? 'bg-[#181824] border-[#FFE500] text-white shadow-[0_0_12px_rgba(255,229,0,0.25)]'
-                      : 'bg-[#101016] border-zinc-800/80 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
-                  }`}
+                  className={`p-2.5 text-left border transition-all cursor-pointer flex flex-col justify-between ${isSelected
+                    ? 'bg-[#181824] border-[#FFE500] text-white shadow-[0_0_12px_rgba(255,229,0,0.25)]'
+                    : 'bg-[#101016] border-zinc-800/80 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
+                    }`}
                 >
                   <div className="flex items-center justify-between gap-1 mb-1">
                     <span
-                      className={`text-[9px] font-mono-tech px-1 py-0.2 font-bold ${
-                        isSelected ? 'bg-[#FFE500] text-black' : 'bg-zinc-800 text-zinc-400'
-                      }`}
+                      className={`text-[9px] font-mono-tech px-1 py-0.2 font-bold ${isSelected ? 'bg-[#FFE500] text-black' : 'bg-zinc-800 text-zinc-400'
+                        }`}
                     >
                       {spot.code}
                     </span>
@@ -278,13 +276,13 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
                 {activeSpot.description}
               </span>
             </div>
-            <a
-              href="#installations-detail"
+            <Link
+              href="/visite-guidee#installations-detail"
               className="inline-flex items-center gap-1 text-[11px] font-mono-tech text-[#FFE500] hover:underline shrink-0"
             >
               <span>Voir la fiche technique complète</span>
               <ChevronRight className="w-3.5 h-3.5" />
-            </a>
+            </Link>
           </div>
         </div>
       )}

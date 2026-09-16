@@ -186,7 +186,7 @@ export const Navbar: React.FC = () => {
             <a
               href="https://ma-boutique-club.com/campus-universcascades/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="py-1 text-zinc-300 hover:text-[#FFE500] transition-colors flex items-center gap-1"
               title="Boutique Officielle CUC (Textiles, Sweats, Équipements)"
             >

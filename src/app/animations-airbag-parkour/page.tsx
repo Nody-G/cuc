@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import Link from 'next/link';
@@ -18,7 +18,7 @@ export default function AnimationsAirbagParkourPage() {
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
       <Navbar />
 
-      <main className="flex-grow pt-28">
+      <main id="contenu-principal" className="flex-grow pt-28">
         {/* Hero Header */}
         <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
           <div className="absolute inset-0 z-0">

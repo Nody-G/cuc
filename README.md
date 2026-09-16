@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CUC — Campus Univers Cascades
 
-## Getting Started
+Site officiel du **Campus Univers Cascades** (Le Cateau-Cambrésis, 59) : école de cascadeurs,
+agence événementielle et centre de formation professionnelle certifié **QUALIOPI**.
 
-First, run the development server:
+## Stack technique
+
+| Domaine | Technologie |
+| --- | --- |
+| Framework | [Next.js 16](https://nextjs.org) (App Router, React Server Components) |
+| UI | [React 19](https://react.dev) |
+| Styles | [Tailwind CSS 4](https://tailwindcss.com) |
+| Animations | [Framer Motion 13](https://motion.dev) |
+| 3D | [Three.js](https://threejs.org) (plan de campus interactif) |
+| Icônes | [lucide-react](https://lucide.dev) |
+| Langage | TypeScript 5 |
+
+## Démarrage
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrir [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Scripts disponibles
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Commande | Description |
+| --- | --- |
+| `npm run dev` | Serveur de développement |
+| `npm run build` | Build de production |
+| `npm run start` | Serveur de production |
+| `npm run lint` | Analyse ESLint |
 
-## Learn More
+## Structure du projet
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/                    # Routes (App Router) — 15 pages publiques
+│   ├── layout.tsx          # Layout racine (métadonnées, polices, Navbar/Footer)
+│   ├── page.tsx            # Accueil
+│   ├── globals.css         # Thème Tailwind 4 + design tokens
+│   └── <route>/            # Chaque route possède son layout.tsx (métadonnées)
+├── components/
+│   ├── layout/             # Navbar, Footer, drawers, barre d'actions
+│   ├── sections/           # Sections de page (home, formation, visite, …)
+│   └── ui/                 # Composants réutilisables (boutons, hero, 3D, palette)
+├── data/                   # Contenus statiques typés (programmes, équipe, films…)
+└── types/                  # Interfaces TypeScript partagées
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Routes publiques
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Route | Contenu |
+| --- | --- |
+| `/` | Accueil — hero parallax, présentation, visite, QUALIOPI, partenaires, réseaux |
+| `/formation-de-cascadeur` | Formation professionnelle 2 ans & formule découverte |
+| `/stages-cascades-parkour-2` | Stages week-end parkour & cascades |
+| `/stunt-workshop-cuc` | Workshop international |
+| `/equipe-cascadeurs-pro` | Équipe des formateurs |
+| `/cuc-team-cascadeur` | Tournages, films & affiches |
+| `/videos-cascadeur` | Reportages TV & vidéos |
+| `/spectacles-cascadeurs-yamakasi` | Spectacles & shows cinéma |
+| `/animations-airbag-parkour` | Xtrem Jump — airbag géant |
+| `/team-building-cascades` | Team building & séminaires |
+| `/cuc-events-agence` | Agence CUC Events |
+| `/visite-guidee` | Visite guidée du domaine (6 ha) |
+| `/visite-virtuelle` | Visite virtuelle 360° & plan 3D |
+| `/partenaires` | Partenaires officiels |
+| `/contact-cuc` | Contact, inscriptions & règlement |
 
-## Deploy on Vercel
+Les anciennes URL du site historique sont redirigées de façon permanente
+(voir [`next.config.ts`](next.config.ts)).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Conventions de code
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Composants** : `PascalCase`, un composant par fichier, export nommé.
+- **Données** : contenu statique isolé dans `src/data/` et typé via `src/types/`.
+- **Styles** : utilitaires Tailwind uniquement ; couleur d'accent `#FFE500`.
+- **Accessibilité** : `aria-label` sur les liens icônes, navigation clavier, contrastes AA.
+- **Liens externes** : toujours `target="_blank"` + `rel="noopener noreferrer"`.
+
+## Déploiement
+
+Le projet est optimisé pour un déploiement [Vercel](https://vercel.com/new).
+Consulter la [documentation de déploiement Next.js](https://nextjs.org/docs/app/building-your-application/deploying).
+
+## Documentation interne
+
+- [`plans/audit-complet-et-modernisation-2026.md`](plans/audit-complet-et-modernisation-2026.md) —
+  audit complet et feuille de route de modernisation.
+- [`AGENTS.md`](AGENTS.md) — règles destinées aux agents de développement.

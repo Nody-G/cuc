@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import Link from 'next/link';
@@ -85,7 +85,7 @@ export const VisiteAccessTransport: React.FC = () => {
                   <a
                     href="https://www.google.com/maps/dir/?api=1&destination=50.0909,3.5374"
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="px-2.5 py-1 bg-[#1a1a24] hover:bg-[#222230] text-zinc-300 hover:text-white border border-zinc-700 text-[11px] font-mono-tech inline-flex items-center gap-1 transition-colors"
                   >
                     <Navigation className="w-3 h-3 text-[#FFE500]" />

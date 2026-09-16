@@ -64,19 +64,19 @@ export const HomeSocialSection: React.FC = () => {
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
-                    RÉSEAUX SOCIAUX &amp; ACTUALITÉS
+                    RÉSEAUX SOCIAUX & ACTUALITÉS
                   </span>
                   <span className="text-xs font-mono-tech text-zinc-500">
                     • @CAMPUS.UNIVERS.CASCADES
                   </span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-tight text-white">
-                  COMMUNAUTÉ &amp; RÉSEAUX SOCIAUX
+                  COMMUNAUTÉ & RÉSEAUX SOCIAUX
                 </h2>
                 <p className="text-sm font-tech text-zinc-400 mt-1">
-                  🇲🇫 <strong className="text-white">French Stunt Team</strong> •
-                  Stuntmen | Fighters | Performers • 🔥 Break the limits • 🌍
-                  Biggest Stunt School in the World
+                  🇲🇫 <strong className="text-white">French Stunt Team</strong> • Stuntmen |
+                  Fighters | Performers • 🔥 Break the limits • 🌍 Biggest Stunt School in the
+                  World
                 </p>
               </div>
             </div>
@@ -84,7 +84,7 @@ export const HomeSocialSection: React.FC = () => {
             <a
               href="https://www.instagram.com/campus.univers.cascades/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               <TacticalButton
                 variant="secondary"
@@ -101,7 +101,7 @@ export const HomeSocialSection: React.FC = () => {
             <a
               href="https://www.instagram.com/campus.univers.cascades/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="bg-[#0e0e14] border border-zinc-800 hover:border-[#E1306C] p-3.5 flex items-center gap-3 transition-all duration-300 group hover:shadow-[0_0_20px_rgba(225,48,108,0.2)]"
             >
               <div className="p-2 bg-black/60 border border-zinc-800 group-hover:border-[#E1306C] transition-colors shrink-0">
@@ -123,7 +123,7 @@ export const HomeSocialSection: React.FC = () => {
             <a
               href="https://www.youtube.com/@campusuniverscascades"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="bg-[#0e0e14] border border-zinc-800 hover:border-[#FF0000] p-3.5 flex items-center gap-3 transition-all duration-300 group hover:shadow-[0_0_20px_rgba(255,0,0,0.2)]"
             >
               <div className="p-2 bg-black/60 border border-zinc-800 group-hover:border-[#FF0000] transition-colors shrink-0">
@@ -145,7 +145,7 @@ export const HomeSocialSection: React.FC = () => {
             <a
               href="https://www.tiktok.com/@campusuniverscascades"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="bg-[#0e0e14] border border-zinc-800 hover:border-[#25F4EE] p-3.5 flex items-center gap-3 transition-all duration-300 group hover:shadow-[0_0_20px_rgba(37,244,238,0.2)]"
             >
               <div className="p-2 bg-black/60 border border-zinc-800 group-hover:border-[#25F4EE] transition-colors shrink-0">
@@ -159,7 +159,7 @@ export const HomeSocialSection: React.FC = () => {
                   TikTok
                 </span>
                 <span className="text-[10px] font-tech text-zinc-400 truncate block">
-                  Cascades &amp; Backstage
+                  Cascades & Backstage
                 </span>
               </div>
             </a>
@@ -167,7 +167,7 @@ export const HomeSocialSection: React.FC = () => {
             <a
               href="https://www.facebook.com/CampusUniversCascades/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="bg-[#0e0e14] border border-zinc-800 hover:border-[#1877F2] p-3.5 flex items-center gap-3 transition-all duration-300 group hover:shadow-[0_0_20px_rgba(24,119,242,0.2)]"
             >
               <div className="p-2 bg-black/60 border border-zinc-800 group-hover:border-[#1877F2] transition-colors shrink-0">
@@ -181,7 +181,7 @@ export const HomeSocialSection: React.FC = () => {
                   Facebook
                 </span>
                 <span className="text-[10px] font-tech text-zinc-400 truncate block">
-                  Actualités &amp; Stages
+                  Actualités & Stages
                 </span>
               </div>
             </a>
@@ -189,7 +189,7 @@ export const HomeSocialSection: React.FC = () => {
             <a
               href="https://wa.me/33672849492"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="bg-[#0e0e14] border border-zinc-800 hover:border-[#25D366] p-3.5 flex items-center gap-3 transition-all duration-300 group hover:shadow-[0_0_20px_rgba(37,211,102,0.2)]"
             >
               <div className="p-2 bg-black/60 border border-zinc-800 group-hover:border-[#25D366] transition-colors shrink-0">
@@ -216,7 +216,7 @@ export const HomeSocialSection: React.FC = () => {
                 key={idx}
                 href={post.link}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/60 p-5 group transition-all flex flex-col justify-between"
               >
                 <div>

@@ -69,7 +69,7 @@ export const FooterDirectContacts: React.FC = () => {
           <a
             href="https://www.instagram.com/campus.univers.cascades/"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="flex items-center justify-between px-3 py-2 bg-[#101016] border border-zinc-800 hover:border-[#E1306C]/70 text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
           >
             <div className="flex items-center gap-2.5">
@@ -86,9 +86,9 @@ export const FooterDirectContacts: React.FC = () => {
 
           {/* YouTube */}
           <a
-            href="https://www.youtube.com/results?search_query=Campus+Univers+Cascades+officiel"
+            href="https://www.youtube.com/@campusuniverscascades"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="flex items-center justify-between px-3 py-2 bg-[#101016] border border-zinc-800 hover:border-[#FF0000]/70 text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
           >
             <div className="flex items-center gap-2.5">
@@ -105,9 +105,9 @@ export const FooterDirectContacts: React.FC = () => {
 
           {/* TikTok */}
           <a
-            href="https://www.tiktok.com/@campus.univers.cascades"
+            href="https://www.tiktok.com/@campusuniverscascades"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="flex items-center justify-between px-3 py-2 bg-[#101016] border border-zinc-800 hover:border-[#25F4EE]/70 text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
           >
             <div className="flex items-center gap-2.5">
@@ -118,7 +118,7 @@ export const FooterDirectContacts: React.FC = () => {
               <span className="group-hover:text-white">TikTok</span>
             </div>
             <span className="text-[10px] text-zinc-500 font-mono-tech group-hover:text-[#25F4EE]">
-              @campus.univers.cascades
+              @campusuniverscascades
             </span>
           </a>
 
@@ -126,7 +126,7 @@ export const FooterDirectContacts: React.FC = () => {
           <a
             href="https://www.facebook.com/campus.univers.cascades"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="flex items-center justify-between px-3 py-2 bg-[#101016] border border-zinc-800 hover:border-[#1877F2]/70 text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
           >
             <div className="flex items-center gap-2.5">
@@ -145,7 +145,7 @@ export const FooterDirectContacts: React.FC = () => {
           <a
             href="https://wa.me/33672849492?text=Bonjour%2C%20je%20souhaite%20des%20renseignements%20sur%20les%20formations%20du%20CUC"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="flex items-center justify-between px-3 py-2 bg-[#101016] border border-zinc-800 hover:border-[#25D366]/70 text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
           >
             <div className="flex items-center gap-2.5">

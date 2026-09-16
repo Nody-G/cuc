@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import Link from 'next/link';
@@ -22,7 +22,7 @@ export default function EquipeCascadeursProPage() {
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
       <Navbar />
 
-      <main className="flex-grow pt-28">
+      <main id="contenu-principal" className="flex-grow pt-28">
         {/* Hero Header */}
         <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
           <div className="absolute inset-0 z-0">
@@ -175,7 +175,7 @@ export default function EquipeCascadeursProPage() {
                         <a
                           href={member.externalUrl}
                           target="_blank"
-                          rel="noreferrer"
+                          rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 text-xs font-mono-tech text-[#FFE500] hover:underline"
                         >
                           <span>Fiche & Références</span>
@@ -189,7 +189,7 @@ export default function EquipeCascadeursProPage() {
                         <a
                           href={member.instagram}
                           target="_blank"
-                          rel="noreferrer"
+                          rel="noopener noreferrer"
                           className="p-1.5 text-zinc-400 hover:text-[#FFE500] hover:bg-white/5 border border-zinc-800 transition-colors"
                           title="Instagram"
                         >

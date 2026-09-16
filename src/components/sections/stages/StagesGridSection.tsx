@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import Image from 'next/image';
@@ -131,7 +131,7 @@ export const StagesGridSection: React.FC<StagesGridSectionProps> = ({
                       <a
                         href={stage.pdfLink.href}
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] transition-colors"
                       >
                         <FileText className="w-4 h-4 text-[#FFE500]" />

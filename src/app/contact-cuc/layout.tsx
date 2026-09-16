@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Candidater & Contacter le Campus Univers Cascades | CUC",
   description: "Secrétariat pédagogique et formulaire d'admission aux formations et stages de cascades du CUC au Cateau-Cambrésis.",
+  alternates: {
+    canonical: '/contact-cuc',
+  },
   openGraph: {
     title: "Candidater & Contacter le Campus Univers Cascades | CUC",
     description: "Secrétariat pédagogique et formulaire d'admission aux formations et stages de cascades du CUC au Cateau-Cambrésis.",

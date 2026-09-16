@@ -25,7 +25,7 @@ export const NavActionsBar: React.FC<NavActionsBarProps> = ({
         <a
           href="https://www.instagram.com/campus.univers.cascades/"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="p-1.5 text-zinc-400 hover:text-[#E1306C] hover:bg-white/5 transition-all group/soc"
           title="Instagram Officiel @campus.univers.cascades"
         >
@@ -37,7 +37,7 @@ export const NavActionsBar: React.FC<NavActionsBarProps> = ({
         <a
           href="https://www.youtube.com/@campusuniverscascades"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="p-1.5 text-zinc-400 hover:text-[#FF0000] hover:bg-white/5 transition-all group/soc"
           title="YouTube Officiel @campusuniverscascades"
         >
@@ -49,7 +49,7 @@ export const NavActionsBar: React.FC<NavActionsBarProps> = ({
         <a
           href="https://www.tiktok.com/@campusuniverscascades"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="p-1.5 text-zinc-400 hover:text-[#25F4EE] hover:bg-white/5 transition-all group/soc"
           title="TikTok Officiel @campusuniverscascades"
         >

@@ -7,6 +7,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export const FooterCreditsBar: React.FC = () => {
   const [showFloatingTop, setShowFloatingTop] = useState(false);
+  // Année calculée côté client uniquement : évite le gel de la valeur au
+  // moment du prerender (contrainte `cacheComponents` / PPR).
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,7 +32,7 @@ export const FooterCreditsBar: React.FC = () => {
       {/* Cinematic Credits Footer Bar */}
       <div className="pt-8 border-t border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] font-mono-tech text-zinc-500">
         <div>
-          &copy; {new Date().getFullYear()} CAMPUS UNIVERS CASCADES • TOUS DROITS
+          &copy; {year ?? 2026} CAMPUS UNIVERS CASCADES • TOUS DROITS
           RÉSERVÉS // CUC PROD
         </div>
 
@@ -39,10 +46,6 @@ export const FooterCreditsBar: React.FC = () => {
           </Link>
           <span>•</span>
           <span className="text-[#FFE500]/80">Agrément QUALIOPI</span>
-          <span>•</span>
-          <Link href="/contact-cuc" className="hover:text-white transition-colors">
-            Secrétariat Pédagogique
-          </Link>
         </div>
 
         <button

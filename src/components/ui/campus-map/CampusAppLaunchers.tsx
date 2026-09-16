@@ -21,7 +21,7 @@ export const CampusAppLaunchers: React.FC<CampusAppLaunchersProps> = ({
         <a
           href={`https://www.google.com/maps/dir/?api=1&destination=${coordinates}`}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="p-2.5 bg-[#121218] hover:bg-[#1a1a24] border border-zinc-800 hover:border-[#4285F4]/70 flex items-center justify-between text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
         >
           <div className="flex items-center gap-2">
@@ -35,7 +35,7 @@ export const CampusAppLaunchers: React.FC<CampusAppLaunchersProps> = ({
         <a
           href={`https://maps.apple.com/?daddr=${coordinates}`}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="p-2.5 bg-[#121218] hover:bg-[#1a1a24] border border-zinc-800 hover:border-zinc-400 flex items-center justify-between text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
         >
           <div className="flex items-center gap-2">
@@ -49,7 +49,7 @@ export const CampusAppLaunchers: React.FC<CampusAppLaunchersProps> = ({
         <a
           href={`https://waze.com/ul?ll=${coordinates}&navigate=yes`}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="p-2.5 bg-[#121218] hover:bg-[#1a1a24] border border-zinc-800 hover:border-[#33CCFF]/70 flex items-center justify-between text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
         >
           <div className="flex items-center gap-2">
@@ -63,7 +63,7 @@ export const CampusAppLaunchers: React.FC<CampusAppLaunchersProps> = ({
         <a
           href="https://www.sncf-connect.com/"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="p-2.5 bg-[#121218] hover:bg-[#1a1a24] border border-zinc-800 hover:border-[#0088CE]/70 flex items-center justify-between text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
         >
           <div className="flex items-center gap-2">

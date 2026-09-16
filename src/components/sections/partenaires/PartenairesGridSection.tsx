@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import Image from 'next/image';
@@ -75,7 +75,7 @@ export const PartenairesGridSection: React.FC = () => {
                       <a
                         href={partner.website}
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         className="text-[#FFE500] hover:underline flex items-center gap-1 font-bold"
                       >
                         <span>Site Officiel</span>

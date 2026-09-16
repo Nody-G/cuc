@@ -228,7 +228,7 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
             <a
               href="https://ma-boutique-club.com/campus-universcascades/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               onClick={onClose}
               className="text-base font-display uppercase tracking-widest text-zinc-200 hover:text-[#FFE500] py-2 border-b border-zinc-800 flex items-center justify-between"
             >
@@ -266,7 +266,7 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
               <a
                 href="https://www.instagram.com/campus.univers.cascades/"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="p-2 bg-[#14141c] border border-zinc-800 hover:border-[#E1306C] transition-colors group"
                 aria-label="Instagram CUC"
               >
@@ -278,7 +278,7 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
               <a
                 href="https://www.youtube.com/@campusuniverscascades"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="p-2 bg-[#14141c] border border-zinc-800 hover:border-[#FF0000] transition-colors group"
                 aria-label="YouTube CUC"
               >
@@ -290,7 +290,7 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
               <a
                 href="https://www.tiktok.com/@campusuniverscascades"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="p-2 bg-[#14141c] border border-zinc-800 hover:border-[#25F4EE] transition-colors group"
                 aria-label="TikTok CUC"
               >
@@ -302,7 +302,7 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
               <a
                 href="https://www.facebook.com/CampusUniversCascades/"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="p-2 bg-[#14141c] border border-zinc-800 hover:border-[#1877F2] transition-colors group"
                 aria-label="Facebook CUC"
               >
@@ -314,7 +314,7 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
               <a
                 href="https://wa.me/33672849492"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="p-2 bg-[#14141c] border border-zinc-800 hover:border-[#25D366] transition-colors group"
                 aria-label="WhatsApp CUC"
               >

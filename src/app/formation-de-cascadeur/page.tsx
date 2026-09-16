@@ -10,6 +10,7 @@ import {
   FormationDisciplinesExplorer,
   FormationPedagogyModalities,
 } from '@/components/sections/formation';
+import { courseJsonLd } from '@/lib/seo';
 
 export default function FormationDeCascadeurPage() {
   const [isApplicationOpen, setIsApplicationOpen] = useState(false);
@@ -24,7 +25,23 @@ export default function FormationDeCascadeurPage() {
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
       <Navbar />
 
-      <main className="flex-grow pt-28">
+      {/* Données structurées schema.org — Course */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            courseJsonLd({
+              name: "Formation Professionnelle de Cascadeur (2 ans / 720h)",
+              description:
+                "Cursus d'élite en 2 ans et Formule Découverte 12 jours. Combat chorégraphié, chutes, torche humaine, parkour et préparation cinéma au Cateau-Cambrésis.",
+              path: "/formation-de-cascadeur",
+              duration: "P2Y",
+            })
+          ),
+        }}
+      />
+
+      <main id="contenu-principal" className="flex-grow pt-28">
         {/* 1. Page Header Hero & Key Indicators */}
         <FormationHeroSection onApply={handleOpenApplication} />
 

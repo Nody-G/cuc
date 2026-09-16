@@ -17,7 +17,7 @@ export default function Home() {
     <div className="relative min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
       <Navbar />
 
-      <main className="flex-grow pt-16 sm:pt-20">
+      <main id="contenu-principal" className="flex-grow pt-28">
         {/* 1. Cinematic Multi-Plane Parallax Hero */}
         <ParallaxHero />
 

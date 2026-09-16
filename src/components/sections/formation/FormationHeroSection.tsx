@@ -89,7 +89,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
             <a
               href="https://www.campus-universcascades.com/wp-content/uploads/2024/12/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="inline-block hover:opacity-90 transition-opacity"
               title="Consulter le dossier d'agrément et certification officielle CUC"
             >

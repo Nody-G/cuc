@@ -41,7 +41,7 @@ export const FooterBrandAndSites: React.FC = () => {
           <a
             href="https://www.campus-universcascades.com/wp-content/uploads/2024/12/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="flex items-center justify-between p-2.5 bg-[#101017] hover:bg-[#161622] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors group"
             title="Voir le Certificat Qualiopi Officiel de la République Française"
           >
@@ -109,7 +109,7 @@ export const FooterBrandAndSites: React.FC = () => {
               <a
                 href="https://www.google.com/maps/dir/?api=1&destination=50.0909,3.5374"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-[10px] font-mono-tech text-zinc-400 hover:text-white flex items-center gap-1"
               >
                 <Navigation className="w-3 h-3 text-[#FFE500]" />
@@ -133,7 +133,7 @@ export const FooterBrandAndSites: React.FC = () => {
               <a
                 href="https://www.google.com/maps/search/?api=1&query=Gennevilliers+92230"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-[10px] font-mono-tech text-zinc-400 hover:text-[#FFE500] flex items-center gap-1"
               >
                 <MapPin className="w-3 h-3 text-[#FFE500]" />

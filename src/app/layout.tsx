@@ -2,6 +2,14 @@ import type { Metadata, Viewport } from "next";
 import { Bebas_Neue, Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { MobileStickyCTA } from "@/components/layout/MobileStickyCTA";
+import {
+  SITE_URL,
+  SITE_NAME,
+  SITE_DESCRIPTION,
+  DEFAULT_OG_IMAGE,
+  educationalOrganizationJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo";
 
 const bebasNeue = Bebas_Neue({
   weight: "400",
@@ -29,9 +37,15 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CAMPUS UNIVERS CASCADES (CUC) • Plus Grande École de Cascadeurs au Monde",
-  description:
-    "Centre d'entraînement d'élite pour cascadeurs professionnels de cinéma et spectacle. 6 hectares d'installations, CUC Tower 21m, chutes de hauteur, torche humaine, câblage 3D, agrément QUALIOPI et prise en charge AFDAS. Fondé en 2008 par Lucas Dollfus au Cateau-Cambrésis.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "CAMPUS UNIVERS CASCADES (CUC) • Plus Grande École de Cascadeurs au Monde",
+    template: "%s | CUC",
+  },
+  description: SITE_DESCRIPTION,
+  alternates: {
+    canonical: "/",
+  },
   keywords: [
     "cascadeur professionnel",
     "école de cascade",
@@ -49,16 +63,9 @@ export const metadata: Metadata = {
     title: "CAMPUS UNIVERS CASCADES • École Professionnelle de Cascadeurs",
     description:
       "La plus grande école de cascadeurs professionnels au monde. 6 hectares d'infrastructures, tour d'impact 21m, certification Qualiopi et formations AFDAS.",
-    url: "https://www.campus-universcascades.com",
-    siteName: "Campus Univers Cascades",
-    images: [
-      {
-        url: "https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Campus Univers Cascades - Cascadeurs professionnels",
-      },
-    ],
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    images: [DEFAULT_OG_IMAGE],
     locale: "fr_FR",
     type: "website",
   },
@@ -66,7 +73,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "CAMPUS UNIVERS CASCADES • Stunt Academy & Team",
     description: "Plus grand centre de formation professionnelle de cascadeurs de cinéma au monde.",
-    images: ["https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg"],
+    images: [DEFAULT_OG_IMAGE.url],
   },
   icons: {
     icon: [
@@ -95,8 +102,28 @@ export default function RootLayout({
       <body
         className={`${bebasNeue.variable} ${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased min-h-screen bg-[#060608] text-white flex flex-col`}
       >
+        {/* Lien d'évitement — accessibilité clavier (WCAG 2.4.1) */}
+        <a
+          href="#contenu-principal"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:px-4 focus:py-2 focus:bg-[#FFE500] focus:text-black focus:font-bold focus:text-sm focus:border-2 focus:border-black"
+        >
+          Aller au contenu principal
+        </a>
         {children}
         <MobileStickyCTA />
+        {/* Données structurées schema.org */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(educationalOrganizationJsonLd()),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd()),
+          }}
+        />
       </body>
     </html>
   );

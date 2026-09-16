@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -47,7 +47,7 @@ export const HomeQualiopiSection: React.FC = () => {
             <a
               href="https://www.campus-universcascades.com/wp-content/uploads/2024/12/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="shrink-0"
             >
               <TacticalButton

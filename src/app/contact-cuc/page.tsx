@@ -17,7 +17,7 @@ export default function ContactCucPage() {
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
       <Navbar />
 
-      <main className="flex-grow pt-28">
+      <main id="contenu-principal" className="flex-grow pt-28">
         {/* 1. Page Header Hero */}
         <ContactHeroSection />
 

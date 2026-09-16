@@ -43,7 +43,7 @@ export default function VisiteVirtuellePage() {
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
       <Navbar />
 
-      <main className="flex-grow pt-28 pb-16">
+      <main id="contenu-principal" className="flex-grow pt-28 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">

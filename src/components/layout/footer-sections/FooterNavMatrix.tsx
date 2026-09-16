@@ -184,7 +184,7 @@ export const FooterNavMatrix: React.FC = () => {
             <a
               href="https://ma-boutique-club.com/campus-universcascades/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="hover:text-white flex items-center gap-1 transition-colors"
             >
               Boutique Club <ExternalLink className="w-2.5 h-2.5" />

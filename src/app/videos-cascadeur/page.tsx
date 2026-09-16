@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -16,6 +16,7 @@ import {
   X
 } from 'lucide-react';
 import { PROGRAMMES_TV } from '@/data/videos';
+import { videoObjectJsonLd } from '@/lib/seo';
 
 export default function VideosCascadeurPage() {
   const [activeVideo, setActiveVideo] = useState<'tf1' | 'france2'>('tf1');
@@ -23,9 +24,27 @@ export default function VideosCascadeurPage() {
 
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
+      {/* JSON-LD : un VideoObject par programme TV (rich results Google Vidéo) */}
+      {PROGRAMMES_TV.map((v) => (
+        <script
+          key={v.dmId}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              videoObjectJsonLd({
+                name: v.title,
+                description: v.sub,
+                thumbnailUrl: v.img,
+                embedUrl: `https://www.dailymotion.com/embed/video/${v.dmId}`,
+              })
+            ),
+          }}
+        />
+      ))}
+
       <Navbar />
 
-      <main className="flex-grow pt-28">
+      <main id="contenu-principal" className="flex-grow pt-28">
         {/* Hero Header */}
         <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
           <div className="absolute inset-0 z-0">
@@ -76,11 +95,10 @@ export default function VideosCascadeurPage() {
             <div className="flex flex-wrap gap-3 mb-8">
               <button
                 onClick={() => setActiveVideo('tf1')}
-                className={`px-5 py-3 border font-mono-tech text-xs uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer ${
-                  activeVideo === 'tf1'
-                    ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-lg'
-                    : 'bg-[#101016] border-zinc-800 text-zinc-300 hover:border-zinc-700'
-                }`}
+                className={`px-5 py-3 border font-mono-tech text-xs uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer ${activeVideo === 'tf1'
+                  ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-lg'
+                  : 'bg-[#101016] border-zinc-800 text-zinc-300 hover:border-zinc-700'
+                  }`}
               >
                 <Tv className="w-4 h-4" />
                 <span>REPORTAGE TF1 (JT 20H)</span>
@@ -88,11 +106,10 @@ export default function VideosCascadeurPage() {
 
               <button
                 onClick={() => setActiveVideo('france2')}
-                className={`px-5 py-3 border font-mono-tech text-xs uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer ${
-                  activeVideo === 'france2'
-                    ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-lg'
-                    : 'bg-[#101016] border-zinc-800 text-zinc-300 hover:border-zinc-700'
-                }`}
+                className={`px-5 py-3 border font-mono-tech text-xs uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer ${activeVideo === 'france2'
+                  ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-lg'
+                  : 'bg-[#101016] border-zinc-800 text-zinc-300 hover:border-zinc-700'
+                  }`}
               >
                 <Tv className="w-4 h-4" />
                 <span>REPORTAGE FRANCE 2 (20H30 LE MAG)</span>
@@ -281,7 +298,7 @@ export default function VideosCascadeurPage() {
               <a
                 href="https://www.instagram.com/campus.univers.cascades/"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="px-5 py-3 bg-[#121218] border border-zinc-800 hover:border-[#FFE500] text-xs font-mono-tech text-zinc-300 hover:text-white flex items-center gap-2 transition-colors"
               >
                 <span>Voir les cascades sur Instagram</span>
@@ -291,7 +308,7 @@ export default function VideosCascadeurPage() {
               <a
                 href="https://www.tiktok.com/@campus.univers.cascades"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="px-5 py-3 bg-[#121218] border border-zinc-800 hover:border-[#FFE500] text-xs font-mono-tech text-zinc-300 hover:text-white flex items-center gap-2 transition-colors"
               >
                 <span>Suivre la Stunt Team sur TikTok</span>
