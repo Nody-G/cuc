@@ -10,9 +10,9 @@ export const contentType = OG_CONTENT_TYPE;
 
 export default function OpengraphImage() {
     return renderOgImage({
-        eyebrow: "PARTENAIRES OFFICIELS",
+        eyebrow: "PARTENAIRES",
         title: "NOS PARTENAIRES",
-        subtitle: "13 marques et fabricants accompagnent le Campus",
+        subtitle: "Les marques et fabricants qui accompagnent le Campus",
         metrics: ["NIKE", "RXR", "C17", "KILOUTOU"],
     });
 }

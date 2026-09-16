@@ -91,7 +91,7 @@ export const HomeSocialSection: React.FC = () => {
                 size="md"
                 icon={<ExternalLink className="w-4 h-4" />}
               >
-                Rejoindre le Compte Officiel
+                Rejoindre le compte
               </TacticalButton>
             </a>
           </div>
@@ -137,7 +137,7 @@ export const HomeSocialSection: React.FC = () => {
                   YouTube
                 </span>
                 <span className="text-[10px] font-tech text-zinc-400 truncate block">
-                  Chaîne Officielle CUC
+                  Chaîne CUC
                 </span>
               </div>
             </a>

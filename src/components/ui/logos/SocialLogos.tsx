@@ -4,18 +4,18 @@ import React from 'react';
 import { LogoProps } from './types';
 
 /**
- * Icônes de réseaux sociaux officielles.
+ * Icônes de réseaux sociaux.
  *
  * Les tracés vectoriels proviennent de Simple Icons (https://simpleicons.org),
- * la bibliothèque open-source de référence qui reprend les glyphes officiels
+ * la bibliothèque open-source de référence qui reprend les glyphes
  * des marques. Aucune icône n'est dessinée « à la main » : ce sont les tracés
  * authentiques publiés par chaque marque.
  *
  * `variant="mono"` (défaut) hérite de la couleur du texte via `currentColor`.
- * `variant="color"` applique la couleur officielle de la marque.
+ * `variant="color"` applique la couleur de la marque.
  */
 
-/** Instagram — glyphe officiel (Simple Icons). */
+/** Instagram — glyphe (Simple Icons). */
 export const InstagramLogo: React.FC<LogoProps & { variant?: 'mono' | 'color' }> = ({
   className = 'w-5 h-5',
   variant = 'mono',
@@ -60,7 +60,7 @@ export const InstagramLogo: React.FC<LogoProps & { variant?: 'mono' | 'color' }>
   );
 };
 
-/** YouTube — glyphe officiel (Simple Icons). */
+/** YouTube — glyphe (Simple Icons). */
 export const YouTubeLogo: React.FC<LogoProps & { variant?: 'mono' | 'color' }> = ({
   className = 'w-5 h-5',
   variant = 'color',
@@ -81,7 +81,7 @@ export const YouTubeLogo: React.FC<LogoProps & { variant?: 'mono' | 'color' }> =
   );
 };
 
-/** TikTok — glyphe officiel (Simple Icons). */
+/** TikTok — glyphe (Simple Icons). */
 export const TikTokLogo: React.FC<LogoProps & { variant?: 'mono' | 'color' }> = ({
   className = 'w-5 h-5',
   variant = 'color',
@@ -102,7 +102,7 @@ export const TikTokLogo: React.FC<LogoProps & { variant?: 'mono' | 'color' }> = 
   );
 };
 
-/** Facebook — glyphe officiel (Simple Icons). */
+/** Facebook — glyphe (Simple Icons). */
 export const FacebookLogo: React.FC<LogoProps & { variant?: 'mono' | 'color' }> = ({
   className = 'w-5 h-5',
   variant = 'color',
@@ -123,7 +123,7 @@ export const FacebookLogo: React.FC<LogoProps & { variant?: 'mono' | 'color' }> 
   );
 };
 
-/** LinkedIn — glyphe officiel (Simple Icons). */
+/** LinkedIn — glyphe (Simple Icons). */
 export const LinkedInLogo: React.FC<LogoProps & { variant?: 'mono' | 'color' }> = ({
   className = 'w-5 h-5',
   variant = 'color',
@@ -144,7 +144,7 @@ export const LinkedInLogo: React.FC<LogoProps & { variant?: 'mono' | 'color' }> 
   );
 };
 
-/** WhatsApp — glyphe officiel (Simple Icons). */
+/** WhatsApp — glyphe (Simple Icons). */
 export const WhatsAppLogo: React.FC<LogoProps & { variant?: 'mono' | 'color' }> = ({
   className = 'w-5 h-5',
   variant = 'color',

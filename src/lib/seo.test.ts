@@ -35,12 +35,12 @@ describe('seo — educationalOrganizationJsonLd()', () => {
         expect(jsonLd['@type']).toBe('EducationalOrganization');
     });
 
-    it('expose le nom officiel et l’URL du site', () => {
+    it('expose le nom et l’URL du site', () => {
         expect(jsonLd.name).toBe(SITE_NAME);
         expect(jsonLd.url).toBe(SITE_URL);
     });
 
-    it('inclut les profils sociaux officiels dans sameAs', () => {
+    it('inclut les profils sociaux dans sameAs', () => {
         expect(Array.isArray(jsonLd.sameAs)).toBe(true);
         expect(jsonLd.sameAs.length).toBeGreaterThan(0);
         expect(jsonLd.sameAs).toContain(

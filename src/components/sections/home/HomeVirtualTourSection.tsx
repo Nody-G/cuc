@@ -39,7 +39,7 @@ export const HomeVirtualTourSection: React.FC = () => {
                 <p className="text-sm sm:text-base font-tech text-zinc-300 leading-relaxed">
                   Découvrez nos 6 hectares comme si vous y étiez ! Arpentez les plateaux de tournage,
                   la fosse olympique de mousse, les dojos de combat chorégraphié, les hangars de cascades
-                  mécaniques et le manège équestre grâce à notre visite virtuelle interactive officielle.
+                  mécaniques et le manège équestre grâce à notre visite virtuelle interactive.
                 </p>
 
                 <div className="flex flex-wrap gap-4 pt-2">

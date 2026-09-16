@@ -110,7 +110,7 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
               <div className="relative w-8 h-8 opacity-75">
                 <Image
                   src="/images/logos/cuc-logo-bw.png"
-                  alt="Sceau Officiel CUC"
+                  alt="Sceau CUC"
                   width={32}
                   height={32}
                   className="object-contain"

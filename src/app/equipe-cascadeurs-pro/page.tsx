@@ -207,7 +207,7 @@ export default function EquipeCascadeursProPage() {
               <div className="text-center max-w-3xl mx-auto mb-10">
                 <div className="inline-flex items-center gap-2 mb-3">
                   <StuntBadge variant="yellow" icon={<Film className="w-3.5 h-3.5" />}>
-                    TOURNAGES & AFFICHES OFFICIELLES
+                    TOURNAGES & AFFICHES
                   </StuntBadge>
                   <span className="text-xs font-mono-tech text-zinc-400">
                     CINÉMA D'ACTION INTERNATIONAL

@@ -269,7 +269,7 @@ export default function VideosCascadeurPage() {
               </h2>
               <p className="text-sm font-tech text-zinc-400">
                 Découvrez les reportages consacrés aux coulisses du campus et à l'entraînement des cascadeurs
-                sur les grandes chaînes nationales et nos réseaux officiels.
+                sur les grandes chaînes nationales et nos réseaux.
               </p>
             </div>
 

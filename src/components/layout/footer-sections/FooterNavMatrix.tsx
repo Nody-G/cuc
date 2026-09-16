@@ -177,7 +177,7 @@ export const FooterNavMatrix: React.FC = () => {
               href="/partenaires"
               className="hover:text-white transition-colors"
             >
-              Nos Partenaires Officiels
+              Nos Partenaires
             </Link>
           </li>
           <li>

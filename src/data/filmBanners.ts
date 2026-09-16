@@ -5,19 +5,19 @@ export interface FilmBanner {
   description: string;
 }
 
-// Bandes d'affiches officielles du CUC.
+// Bandes d'affiches du CUC.
 // Les descriptions ont été retirées : seuls les visuels authentiques sont
 // présentés, sans commentaire inventé.
 export const OFFICIAL_FILM_BANNERS: FilmBanner[] = [
   {
     id: 'banner-lucas-cuc',
-    title: 'Bandeau Officiel — Films Coordonnés par Lucas Dollfus & CUC',
+    title: 'Bandeau — Films Coordonnés par Lucas Dollfus & CUC',
     url: 'https://www.campus-universcascades.com/wp-content/uploads/2026/04/Bandeau-Films-Lucas-CUC-bis-scaled.jpg',
     description: '',
   },
   {
     id: 'banner-2023',
-    title: 'Affiches Officielles CUC 2023-2024',
+    title: 'Affiches CUC 2023-2024',
     url: 'https://www.campus-universcascades.com/wp-content/uploads/2023/11/Bandeau-2023-scaled.jpg',
     description: '',
   },

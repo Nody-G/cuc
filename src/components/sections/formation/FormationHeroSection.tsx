@@ -46,7 +46,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
             <div className="relative w-9 h-9 shrink-0">
               <Image
                 src="/images/logos/cuc-logo-yellow.png"
-                alt="Logo Officiel CUC"
+                alt="Logo CUC"
                 width={36}
                 height={36}
                 className="object-contain drop-shadow-[0_0_8px_rgba(255,229,0,0.4)]"
@@ -91,11 +91,11 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block hover:opacity-90 transition-opacity"
-              title="Consulter le dossier d'agrément et certification officielle CUC"
+              title="Consulter le dossier d'agrément et de certification CUC"
             >
               <Image
                 src="https://www.campus-universcascades.com/wp-content/uploads/2021/06/Encart-plaquette.png"
-                alt="Télécharger la plaquette officielle CUC"
+                alt="Télécharger la plaquette CUC"
                 width={240}
                 height={50}
                 className="object-contain"
@@ -105,7 +105,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
         </div>
       </section>
 
-      {/* Chiffres Clés & Indicateurs Officiels */}
+      {/* Chiffres clés & indicateurs */}
       <section className="py-8 bg-[#0c0c10] border-b border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 items-center">

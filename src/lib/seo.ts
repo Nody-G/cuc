@@ -16,7 +16,7 @@ export const SITE_DESCRIPTION =
 
 export const SITE_LOCALE = "fr_FR";
 
-/** Image Open Graph par défaut (hébergée sur le domaine officiel). */
+/** Image Open Graph par défaut. */
 export const DEFAULT_OG_IMAGE = {
     url: `${SITE_URL}/wp-content/uploads/2023/02/slider-8-scaled.jpg`,
     width: 1200,
@@ -38,7 +38,7 @@ export const CAMPUS_ADDRESS = {
     addressCountry: "FR",
 };
 
-/** Profils sociaux officiels — utilisés pour `sameAs` dans le JSON-LD. */
+/** Profils sociaux — utilisés pour `sameAs` dans le JSON-LD. */
 export const SOCIAL_PROFILES = [
     "https://www.instagram.com/campus.univers.cascades",
     "https://www.youtube.com/@campusuniverscascades",

@@ -9,7 +9,7 @@ import { ChevronRight } from 'lucide-react';
 interface HomePartner {
   name: string;
   role: string;
-  /** Chemin vers le logo officiel du partenaire (fichier image réel). */
+  /** Chemin vers le logo du partenaire. */
   logo: string;
   bgVariant?: 'light' | 'dark';
 }
@@ -18,7 +18,7 @@ export const HomePartnersSection: React.FC = () => {
   const partners: HomePartner[] = [
     {
       name: 'Nike',
-      role: 'Équipementier Officiel',
+      role: 'Équipementier',
       logo: '/images/partenaires/nike.jpg',
       bgVariant: 'dark',
     },
@@ -30,13 +30,13 @@ export const HomePartnersSection: React.FC = () => {
     },
     {
       name: 'Qualiopi',
-      role: 'Certification d’État',
+      role: 'Certification',
       logo: '/images/partenaires/qualiopi.png',
       bgVariant: 'light',
     },
     {
       name: 'RXR Protect',
-      role: 'Air Shock Protection',
+      role: 'Protections Airbag',
       logo: '/images/partenaires/rxr-protect.jpg',
       bgVariant: 'dark',
     },
@@ -69,14 +69,14 @@ export const HomePartnersSection: React.FC = () => {
                 COLLABORATION INDUSTRIE &amp; CINÉMA
               </span>
               <h3 className="text-2xl sm:text-3xl font-display uppercase text-white">
-                NOS PARTENAIRES OFFICIELS
+                NOS PARTENAIRES
               </h3>
             </div>
             <Link
               href="/partenaires"
               className="text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] flex items-center gap-1.5 transition-colors"
             >
-              <span>Découvrir les 13 partenaires officiels</span>
+              <span>Voir tous les partenaires</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -90,8 +90,8 @@ export const HomePartnersSection: React.FC = () => {
               >
                 <div
                   className={`w-full h-14 ${partner.bgVariant === 'light'
-                      ? 'bg-white border-zinc-200'
-                      : 'bg-black/90 border-zinc-800'
+                    ? 'bg-white border-zinc-200'
+                    : 'bg-black/90 border-zinc-800'
                     } border p-1.5 flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105 duration-300 relative`}
                 >
                   <Image

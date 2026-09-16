@@ -76,12 +76,12 @@ export const Navbar: React.FC = () => {
           }`}
       >
         <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-          {/* Logo CUC Officiel */}
+          {/* Logo CUC */}
           <Link href="/" className="flex items-center gap-3 group shrink-0">
             <div className="relative w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
               <Image
                 src="/images/logos/cuc-logo-yellow.png"
-                alt="Logo Officiel Campus Univers Cascades"
+                alt="Logo Campus Univers Cascades"
                 width={48}
                 height={48}
                 priority
@@ -179,7 +179,7 @@ export const Navbar: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="py-1 text-zinc-300 hover:text-[#FFE500] transition-colors flex items-center gap-1"
-              title="Boutique Officielle CUC (Textiles, Sweats, Équipements)"
+              title="Boutique CUC (Textiles, Sweats, Équipements)"
             >
               <span>Boutique</span>
               <ExternalLink className="w-2.5 h-2.5 text-zinc-500" />

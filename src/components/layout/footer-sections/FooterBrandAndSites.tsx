@@ -14,7 +14,7 @@ export const FooterBrandAndSites: React.FC = () => {
           <div className="relative w-12 h-12 flex items-center justify-center shrink-0">
             <Image
               src="/images/logos/cuc-logo-yellow.png"
-              alt="Logo Officiel Campus Univers Cascades"
+              alt="Logo Campus Univers Cascades"
               width={48}
               height={48}
               className="object-contain drop-shadow-[0_0_10px_rgba(255,229,0,0.35)]"
@@ -42,13 +42,13 @@ export const FooterBrandAndSites: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-between p-2.5 bg-[#101017] hover:bg-[#161622] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors group"
-            title="Voir le Certificat Qualiopi Officiel de la République Française"
+            title="Voir le certificat Qualiopi"
           >
             <div className="flex items-center gap-2.5">
               <div className="relative w-16 h-8 shrink-0">
                 <Image
                   src="/images/partenaires/qualiopi.png"
-                  alt="Logo officiel Qualiopi — République Française"
+                  alt="Logo Qualiopi"
                   fill
                   className="object-contain"
                   sizes="64px"

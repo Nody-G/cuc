@@ -27,12 +27,12 @@ export const PartenairesHeroSection: React.FC = () => {
             ACCUEIL
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-          <span className="text-[#FFE500]">NOS PARTENAIRES OFFICIELS</span>
+          <span className="text-[#FFE500]">PARTENAIRES</span>
         </div>
 
         <div className="inline-flex items-center gap-2 mb-4">
           <StuntBadge variant="yellow" icon={<Handshake className="w-3.5 h-3.5" />}>
-            ALLIANCE D'EXCELLENCE
+            ILS NOUS ACCOMPAGNENT
           </StuntBadge>
           <span className="text-xs font-mono-tech text-zinc-400">
             ÉQUIPEMENTIERS • CINÉMA • INSTITUTIONNELS • ÉTAT
@@ -44,9 +44,8 @@ export const PartenairesHeroSection: React.FC = () => {
         </h1>
 
         <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-          Pour assurer une sécurité maximale, une formation de pointe et un matériel irréprochable,
-          le Campus Univers Cascades s'entoure des marques, fabricants et institutions les plus reconnus
-          au monde dans leurs domaines respectifs.
+          Le Campus Univers Cascades travaille avec des marques, fabricants et institutions
+          reconnus dans leurs domaines : équipement, protection, effets spéciaux et formation.
         </p>
       </div>
     </section>

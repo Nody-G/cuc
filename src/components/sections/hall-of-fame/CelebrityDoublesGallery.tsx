@@ -36,7 +36,7 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
           <div className="flex items-center gap-2 mb-2">
             <UserCheck className="w-5 h-5 text-[#FFE500]" />
             <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
-              DOUBLURES OFFICIELLES DU 7E ART // CASCADEURS RÉFÉRENTS CUC
+              DOUBLURES DU 7E ART // CASCADEURS CUC
             </span>
           </div>
           <h3 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-tight text-white">
@@ -52,31 +52,28 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
         <div className="flex flex-wrap items-center gap-2 self-start lg:self-center">
           <button
             onClick={() => setCelebrityFilter('all')}
-            className={`px-3 py-1.5 text-xs font-mono-tech uppercase border transition-all cursor-pointer ${
-              celebrityFilter === 'all'
+            className={`px-3 py-1.5 text-xs font-mono-tech uppercase border transition-all cursor-pointer ${celebrityFilter === 'all'
                 ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-[0_0_10px_rgba(255,229,0,0.3)]'
                 : 'bg-[#141419] text-zinc-300 border-zinc-800 hover:border-zinc-600'
-            }`}
+              }`}
           >
             Toutes les Stars ({DOUBLED_CELEBRITIES.length})
           </button>
           <button
             onClick={() => setCelebrityFilter('fr')}
-            className={`px-3 py-1.5 text-xs font-mono-tech uppercase border transition-all cursor-pointer ${
-              celebrityFilter === 'fr'
+            className={`px-3 py-1.5 text-xs font-mono-tech uppercase border transition-all cursor-pointer ${celebrityFilter === 'fr'
                 ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-[0_0_10px_rgba(255,229,0,0.3)]'
                 : 'bg-[#141419] text-zinc-300 border-zinc-800 hover:border-zinc-600'
-            }`}
+              }`}
           >
             Cinéma Français (9)
           </button>
           <button
             onClick={() => setCelebrityFilter('intl')}
-            className={`px-3 py-1.5 text-xs font-mono-tech uppercase border transition-all cursor-pointer ${
-              celebrityFilter === 'intl'
+            className={`px-3 py-1.5 text-xs font-mono-tech uppercase border transition-all cursor-pointer ${celebrityFilter === 'intl'
                 ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-[0_0_10px_rgba(255,229,0,0.3)]'
                 : 'bg-[#141419] text-zinc-300 border-zinc-800 hover:border-zinc-600'
-            }`}
+              }`}
           >
             Hollywood &amp; International (3)
           </button>

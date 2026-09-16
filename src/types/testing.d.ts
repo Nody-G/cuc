@@ -6,7 +6,7 @@ import type { TestingLibraryMatchers } from '@testing-library/jest-dom/matchers'
  * (`toBeInTheDocument`, `toBeDisabled`, `toContainElement`, …) au compilateur
  * TypeScript. Les matchers sont enregistrés à l'exécution dans `vitest.setup.mts`.
  *
- * Reproduit le pattern officiel de `@testing-library/jest-dom/types/vitest.d.ts`
+ * Reproduit le pattern de `@testing-library/jest-dom/types/vitest.d.ts`
  * (déclaration merging sur l'interface `Assertion` de Vitest).
  */
 declare module 'vitest' {

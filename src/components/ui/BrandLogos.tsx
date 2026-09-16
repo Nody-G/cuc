@@ -4,8 +4,8 @@
  * BrandLogos Barrel Module
  * Provides unified, modular access to official brand assets:
  * - SocialLogos: Instagram, YouTube, TikTok, Facebook, LinkedIn, WhatsApp
- *   (glyphes officiels issus de Simple Icons)
- * - MediaLogos: IMDb, AlloCiné (fichiers SVG officiels)
+ *   (glyphes issus de Simple Icons)
+ * - MediaLogos: IMDb, AlloCiné (fichiers SVG)
  *
  * Les logos partenaires (Nike, Kiloutou, Qualiopi, RXR Protect, etc.) sont
  * désormais servis comme fichiers images réels depuis `public/images/partenaires/`

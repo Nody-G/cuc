@@ -15,7 +15,7 @@ export const TeamBannersSection: React.FC<TeamBannersSectionProps> = ({
   onOpenLightbox,
 }) => {
   return (
-    <section id="affiches-officielles" className="py-16 bg-[#0c0c10] border-b border-zinc-800">
+    <section id="affiches" className="py-16 bg-[#0c0c10] border-b border-zinc-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10">
           <StuntBadge variant="yellow" icon={<Film className="w-3.5 h-3.5" />}>
@@ -25,7 +25,7 @@ export const TeamBannersSection: React.FC<TeamBannersSectionProps> = ({
             LES FILMS COORDONNÉS PAR LE CUC & LUCAS DOLLFUS
           </h2>
           <p className="text-xs sm:text-sm font-tech text-zinc-400">
-            Retrouvez les affiches officielles des productions françaises et internationales
+            Retrouvez les affiches des productions françaises et internationales
             sur lesquelles nos équipes sont intervenues. Cliquez sur une affiche pour la voir en haute résolution.
           </p>
         </div>

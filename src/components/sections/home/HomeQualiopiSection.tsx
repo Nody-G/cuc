@@ -22,7 +22,7 @@ export const HomeQualiopiSection: React.FC = () => {
               <div className="relative w-40 h-20 p-2 bg-white border-2 border-[#FFE500] shrink-0 shadow-md flex items-center justify-center">
                 <Image
                   src="/images/partenaires/qualiopi.png"
-                  alt="Logo officiel Qualiopi — République Française"
+                  alt="Logo Qualiopi"
                   fill
                   className="object-contain p-1.5"
                   sizes="160px"
@@ -31,20 +31,16 @@ export const HomeQualiopiSection: React.FC = () => {
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
-                    CERTIFICATION OFFICIELLE
-                  </span>
-                  <span className="text-xs font-mono-tech text-zinc-400">
-                    • RÉPUBLIQUE FRANÇAISE
+                    CERTIFICATION QUALIOPI
                   </span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-wider text-white">
-                  CERTIFICATION QUALIOPI
+                  FORMATIONS CERTIFIÉES
                 </h3>
                 <p className="text-xs sm:text-sm font-tech text-zinc-300 mt-1 max-w-2xl">
-                  La certification qualité a été délivrée au titre de la catégorie
-                  d’action suivante :{' '}
-                  <strong className="text-white">ACTIONS DE FORMATION</strong>. Une
-                  formation certifiée et éligible aux financements professionnels
+                  Certification délivrée au titre des{' '}
+                  <strong className="text-white">ACTIONS DE FORMATION</strong>. Nos
+                  formations sont éligibles aux financements professionnels
                   (AFDAS, France Travail).
                 </p>
               </div>
@@ -61,7 +57,7 @@ export const HomeQualiopiSection: React.FC = () => {
                 size="sm"
                 icon={<FileCheck className="w-4 h-4" />}
               >
-                Voir le Certificat Qualiopi (PDF)
+                Voir le certificat (PDF)
               </TacticalButton>
             </a>
           </div>

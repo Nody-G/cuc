@@ -54,7 +54,7 @@ export const ContactCoordinatesSidebar: React.FC = () => {
             <Mail className="w-5 h-5 text-[#FFE500] shrink-0" />
             <div>
               <strong className="text-zinc-300 font-mono-tech block">
-                EMAIL OFFICIEL :
+                EMAIL :
               </strong>
               <a
                 href="mailto:contact@campus-universcascades.com"
@@ -165,7 +165,7 @@ export const ContactCoordinatesSidebar: React.FC = () => {
       {/* Official Entities Logos */}
       <div className="bg-[#0e0e14] border border-zinc-800 p-6 text-center space-y-3">
         <span className="text-[10px] font-mono-tech uppercase text-zinc-500 block">
-          ENTITÉS &amp; DÉPARTEMENTS OFFICIELS DU CAMPUS
+          ENTITÉS &amp; DÉPARTEMENTS DU CAMPUS
         </span>
         <div className="flex items-center justify-center gap-6 pt-2">
           <div className="flex flex-col items-center">

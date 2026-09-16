@@ -217,7 +217,7 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
             >
               <div className="flex items-center gap-2">
                 <ShoppingBag className="w-4 h-4 text-[#FFE500]" />
-                <span>Boutique Officielle</span>
+                <span>Boutique</span>
               </div>
               <ExternalLink className="w-3.5 h-3.5 text-zinc-500" />
             </a>

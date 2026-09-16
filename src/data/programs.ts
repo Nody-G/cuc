@@ -52,7 +52,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
     id: 'stage-decouverte',
     category: 'discovery',
     title: 'Stage Découverte & Sélection',
-    badge: 'TREMPLIN OFFICIEL',
+    badge: 'TREMPLIN',
     highlight: false,
     tagline: '2 semaines intensives (80h) pour tester vos aptitudes et intégrer le cursus pro.',
     duration: '12 Jours consécutifs',

@@ -115,7 +115,7 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
                 <div className="relative w-10 h-10 shrink-0 hidden sm:block">
                   <Image
                     src="/images/logos/cuc-logo-yellow.png"
-                    alt="Logo Officiel CUC"
+                    alt="Logo CUC"
                     width={40}
                     height={40}
                     className="object-contain drop-shadow-[0_0_8px_rgba(255,229,0,0.4)]"

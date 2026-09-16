@@ -30,7 +30,7 @@ export default function Home() {
         {/* 4. Certification Qualiopi & Agrément État */}
         <HomeQualiopiSection />
 
-        {/* 5. Partenaires Officiels de Référence */}
+        {/* 5. Partenaires de référence */}
         <HomePartnersSection />
 
         {/* 6. Communauté & Réseaux Sociaux */}

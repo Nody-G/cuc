@@ -12,7 +12,7 @@ export interface Partner {
   category: string;
   role: string;
   description: string;
-  /** Chemin vers le logo officiel du partenaire (fichier image réel). */
+  /** Chemin vers le logo du partenaire. */
   logo: string;
   bgVariant?: 'light' | 'dark';
   website?: string;
@@ -31,10 +31,10 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
     icon: <Award className="w-4 h-4 text-[#FFE500]" />,
     partners: [
       {
-        name: "Qualiopi — République Française",
-        category: "Certification d'État",
-        role: "Actions de Formation Certifiées",
-        description: "Certification officielle de qualité délivrée au titre des Actions de Formation sous l'égide de la République Française. Garantit la conformité pédagogique et permet les prises en charge financières (AFDAS, France Travail, Régions).",
+        name: "Qualiopi",
+        category: "Certification",
+        role: "Certification Qualiopi",
+        description: "Certification qualité délivrée au titre des actions de formation. Elle rend nos formations éligibles aux financements professionnels (AFDAS, France Travail, Régions).",
         logo: "/images/partenaires/qualiopi.png",
         bgVariant: 'light',
         website: "https://www.campus-universcascades.com/wp-content/uploads/2024/12/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf",
@@ -49,8 +49,8 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
       {
         name: "Nike",
         category: "Équipementier",
-        role: "Équipementier Officiel",
-        description: "Fournisseur officiel de tenues techniques de training, chaussures d'impact et vêtements de performance pour les cascadeurs du campus.",
+        role: "Textiles & Chaussures",
+        description: "Tenues de training, chaussures d'impact et vêtements de performance pour les cascadeurs du campus.",
         logo: "/images/partenaires/nike.jpg",
         bgVariant: 'dark',
         website: "https://www.nike.com",
@@ -58,8 +58,8 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
       {
         name: "RXR Protect",
         category: "Protections",
-        role: "Gilets Gonflables Haute Technologie",
-        description: "Pionnier des protections thoraciques et dorsales intégrant la technologie Air Shock Absorber pour amortir les impacts violents et chutes à haute vélocité.",
+        role: "Gilets Gonflables",
+        description: "Protections thoraciques et dorsales à airbag, conçues pour amortir les impacts et les chutes à haute vitesse.",
         logo: "/images/partenaires/rxr-protect.jpg",
         bgVariant: 'dark',
         website: "https://www.rxrprotect.com",
@@ -67,8 +67,8 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
       {
         name: "Gravity",
         category: "Vêtements & Parkour",
-        role: "Ligne Spécialisée Mouvement",
-        description: "Marque textile dédiée aux athlètes d'action, aux traceurs de Parkour et aux cascadeurs physiques, alliant robustesse et souplesse totale.",
+        role: "Textiles Parkour",
+        description: "Textiles pensés pour le parkour et les cascades physiques, alliant résistance et liberté de mouvement.",
         logo: "/images/partenaires/gravity.jpg",
         bgVariant: 'light',
       },
@@ -81,8 +81,8 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
       {
         name: "C17 Special Effects",
         category: "Effets Spéciaux",
-        role: "Pyrotechnie & SFX Cinéma",
-        description: "Société de référence en effets spéciaux physiques, explosions contrôlées, armurerie de spectacle et feux de cascade pour le cinéma.",
+        role: "Pyrotechnie & SFX",
+        description: "Effets spéciaux physiques, explosions contrôlées, armurerie de spectacle et feux de cascade pour le cinéma.",
         logo: "/images/partenaires/c17.jpg",
         bgVariant: 'light',
         website: "https://c17sfx.com",
@@ -90,8 +90,8 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
       {
         name: "Kiloutou",
         category: "Logistique Plateau",
-        role: "Matériel de Levage & Nacelles",
-        description: "Partenaire matériel mettant à disposition les nacelles élévatrices, chariots télescopiques et engins nécessaires à la mise en place des câblages de cascades.",
+        role: "Levage & Nacelles",
+        description: "Nacelles élévatrices, chariots télescopiques et engins de levage pour la mise en place des câblages de cascades.",
         logo: "/images/partenaires/kiloutou.jpg",
         bgVariant: 'light',
         website: "https://www.kiloutou.fr",
@@ -99,8 +99,8 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
       {
         name: "OTM Incendie",
         category: "Sécurité Feu",
-        role: "Matériel de Protection Incendie",
-        description: "Expert en protection incendie, extincteurs spécialisés, gels ignifugés et tenues coupe-feu pour les exercices de torches humaines en toute sécurité.",
+        role: "Protection Incendie",
+        description: "Extincteurs spécialisés, gels ignifugés et tenues coupe-feu pour les exercices de torches humaines.",
         logo: "/images/partenaires/otm-incendie.jpg",
         bgVariant: 'dark',
       },
@@ -113,8 +113,8 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
       {
         name: "Action Cascade",
         category: "Coordination",
-        role: "Régie de Scènes d'Action",
-        description: "Équipe de coordination de cascades collaborant avec le CUC pour former les élèves aux exigences réelles des plateaux de tournage internationaux.",
+        role: "Régie de Cascades",
+        description: "Équipe de coordination de cascades qui forme nos élèves aux exigences des plateaux de tournage.",
         logo: "/images/partenaires/action-cascade.jpg",
         bgVariant: 'dark',
         website: "https://www.instagram.com/actioncascade/",
@@ -122,8 +122,8 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
       {
         name: "AYA Catch",
         category: "Combat & Projections",
-        role: "Techniques de Lutte Spectacle",
-        description: "Structure de référence pour l'apprentissage des techniques de projections théâtrales, prises de catch et absorptions corporelles sans blessure.",
+        role: "Lutte & Projections",
+        description: "Apprentissage des projections théâtrales, prises de catch et absorptions corporelles.",
         logo: "/images/partenaires/aya-catch.jpg",
         bgVariant: 'dark',
         website: "https://www.facebook.com/ayacatch/",
@@ -132,7 +132,7 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         name: "Cascade Demo Team",
         category: "Acrobaties Martiales",
         role: "Arts Martiaux Artistiques",
-        description: "Troupe légendaire d'arts martiaux artistiques (XMA) et de combats chorégraphiés de renommée mondiale intervenant lors de nos modules techniques.",
+        description: "Troupe d'arts martiaux artistiques (XMA) et de combats chorégraphiés, présente sur nos modules techniques.",
         logo: "/images/partenaires/cascade-demo-team.jpg",
         bgVariant: 'light',
         website: "https://www.instagram.com/cascadedemoteam/",
@@ -146,8 +146,8 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
       {
         name: "Xtrem Video",
         category: "Diffusion & Média",
-        role: "Média d'Action & Sports Extrêmes",
-        description: "Réseau et société de production audiovisuelle internationale assurant la valorisation et la visibilité des contenus vidéo de la CUC Stunt Team.",
+        role: "Média Sports Extrêmes",
+        description: "Production audiovisuelle et diffusion des contenus vidéo de la CUC Stunt Team.",
         logo: "/images/partenaires/xtrem-video.jpg",
         bgVariant: 'light',
         website: "https://www.youtube.com/@XtremVideo",
@@ -156,7 +156,7 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         name: "TaffCoeur",
         category: "Production Audiovisuelle",
         role: "Réalisation & Captation",
-        description: "Studio de création visuelle et de production de contenus promotionnels, clips et showreels pour les cascadeurs et comédiens du campus.",
+        description: "Studio de production de contenus promotionnels, clips et showreels pour les cascadeurs et comédiens du campus.",
         logo: "/images/partenaires/taffcoeur.jpg",
         bgVariant: 'light',
       },
@@ -169,8 +169,8 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
       {
         name: "MFR Le Cateau-Cambrésis",
         category: "Institutionnel",
-        role: "Hébergement & Logistique Locale",
-        description: "Partenaire institutionnel historique au Cateau-Cambrésis assurant les infrastructures d'hébergement, la restauration et l'accueil en pension complète de nos stagiaires sur un parc de 6 hectares.",
+        role: "Hébergement & Restauration",
+        description: "Hébergement, restauration et accueil en pension complète de nos stagiaires sur un parc de 6 hectares.",
         logo: "/images/partenaires/mfr-le-cateau.jpg",
         bgVariant: 'light',
         website: "https://www.mfr.fr/",
@@ -178,8 +178,8 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
       {
         name: "BSN Nutrition",
         category: "Nutrition Sportive",
-        role: "Performance & Récupération",
-        description: "Marque internationale de suppléments nutritionnels et protéines de haute qualité accompagnant la préparation physique intensive des cascadeurs.",
+        role: "Nutrition Sportive",
+        description: "Suppléments et protéines accompagnant la préparation physique des cascadeurs.",
         logo: "/images/partenaires/bsn.jpg",
         bgVariant: 'light',
         website: "https://www.gobsn.com",

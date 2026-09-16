@@ -73,7 +73,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
             <div className="md:col-span-7 flex flex-col justify-between space-y-4">
               <div>
                 <div className="text-xs font-mono-tech text-[#00e5ff] uppercase font-bold tracking-wider">
-                  {movie.category} • {movie.director ? `Réalisé par ${movie.director}` : 'Production Officielle'}
+                  {movie.category} • {movie.director ? `Réalisé par ${movie.director}` : 'Production'}
                 </div>
                 <h3 className="text-3xl font-display uppercase tracking-tight text-white mt-1">
                   {movie.title}
@@ -115,7 +115,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
               <div className="pt-2">
                 <div className="text-xs font-mono-tech text-zinc-400 uppercase tracking-wider font-bold mb-3 flex items-center gap-2">
                   <Layers className="w-4 h-4 text-[#00e5ff]" />
-                  <span>LIENS OFFICIELS DE L&apos;INDUSTRIE CINÉMA (ZÉRO LIEN MORT)</span>
+                  <span>LIENS DE L&apos;INDUSTRIE CINÉMA</span>
                 </div>
 
                 <div className="grid grid-cols-1 gap-2.5">
@@ -130,7 +130,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                       <ImdbLogo className="h-6 w-auto shadow-xs" />
                       <div>
                         <div className="text-xs font-mono-tech font-bold uppercase">
-                          Fiche Officielle IMDb (Industry Benchmark)
+                          Fiche IMDb
                         </div>
                         <div className="text-[11px] text-zinc-900 font-tech">
                           Crédits complets, département Stunts &amp; Fiche Équipe
@@ -151,7 +151,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                       <AllocineLogo className="h-6 w-auto shadow-xs" />
                       <div>
                         <div className="text-xs font-mono-tech font-bold text-[#fecc00] uppercase">
-                          Fiche Officielle AlloCiné (France)
+                          Fiche AlloCiné
                         </div>
                         <div className="text-[11px] text-zinc-400 font-tech">
                           Synopsis français, critiques presse, box-office &amp; casting
@@ -172,7 +172,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                       <YouTubeLogo className="w-6 h-6 shrink-0" variant="color" />
                       <div>
                         <div className="text-xs font-mono-tech font-bold text-red-400 uppercase">
-                          Bande-Annonce Officielle
+                          Bande-annonce
                         </div>
                         <div className="text-[11px] text-zinc-400 font-tech">
                           Visionner le trailer d&apos;action en haute définition

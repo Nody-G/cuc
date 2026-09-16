@@ -52,7 +52,7 @@ export const HallOfFame: React.FC = () => {
             <div className="relative w-14 h-14 drop-shadow-[0_0_20px_rgba(255,229,0,0.4)]">
               <Image
                 src="/images/logos/cuc-logo-yellow.png"
-                alt="Blason Officiel CUC Hall of Fame"
+                alt="Blason CUC"
                 fill
                 sizes="56px"
                 className="object-contain"
@@ -61,7 +61,7 @@ export const HallOfFame: React.FC = () => {
           </div>
           <div className="inline-flex items-center gap-2 mb-3">
             <StuntBadge variant="yellow" icon={<Clapperboard className="w-3.5 h-3.5" />}>
-              CRÉDITS &amp; TOURNAGES OFFICIELS
+              CRÉDITS &amp; TOURNAGES
             </StuntBadge>
             <span className="text-xs font-mono-tech text-zinc-500">PRODUCTIONS CUC &amp; ANCIENS ÉLÈVES</span>
           </div>
@@ -105,11 +105,10 @@ export const HallOfFame: React.FC = () => {
               <button
                 key={cat.id}
                 onClick={() => setFilter(cat.id)}
-                className={`px-4 py-2 text-xs font-display tracking-wider uppercase border transition-all cursor-pointer ${
-                  filter === cat.id
+                className={`px-4 py-2 text-xs font-display tracking-wider uppercase border transition-all cursor-pointer ${filter === cat.id
                     ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-[0_0_12px_rgba(255,229,0,0.3)]'
                     : 'bg-[#121216] text-zinc-300 border-zinc-800 hover:border-zinc-600'
-                }`}
+                  }`}
               >
                 {cat.label}
               </button>

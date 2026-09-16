@@ -20,13 +20,13 @@ export const VisitePhotoGallery: React.FC<VisitePhotoGalleryProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <StuntBadge variant="yellow" icon={<Building className="w-3.5 h-3.5" />}>
-            GALERIE OFFICIELLE DU CAMPUS
+            GALERIE DU CAMPUS
           </StuntBadge>
           <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mt-3 mb-3">
             LE DOMAINE EN IMAGES
           </h2>
           <p className="text-sm font-tech text-zinc-400">
-            100% des photographies réelles du campus au Cateau-Cambrésis issues du site officiel.
+            Photographies du campus au Cateau-Cambrésis.
             <span className="text-[#FFE500] block mt-1 font-mono-tech text-xs">
               (Cliquez sur n'importe quelle photo pour l'agrandir en haute résolution)
             </span>

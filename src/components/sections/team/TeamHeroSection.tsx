@@ -53,11 +53,11 @@ export const TeamHeroSection: React.FC = () => {
                 </TacticalButton>
               </Link>
               <a
-                href="#affiches-officielles"
+                href="#affiches"
                 className="inline-flex items-center gap-2 px-5 py-3 border border-zinc-700 bg-zinc-900/80 hover:bg-zinc-800 text-xs font-mono-tech uppercase tracking-wider text-zinc-300 hover:text-white transition-colors"
               >
                 <Film className="w-4 h-4 text-[#FFE500]" />
-                <span>Voir les Affiches Officielles</span>
+                <span>Voir les affiches</span>
               </a>
             </div>
           </div>
@@ -68,7 +68,7 @@ export const TeamHeroSection: React.FC = () => {
               <div className="relative w-full h-full overflow-hidden border border-zinc-800/80">
                 <Image
                   src="/images/logos/cuc-logo-cinematic.jpg"
-                  alt="Blason Cinématique Officiel CUC Stunt Team"
+                  alt="Blason CUC Stunt Team"
                   fill
                   priority
                   sizes="256px"

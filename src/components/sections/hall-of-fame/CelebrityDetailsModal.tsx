@@ -126,7 +126,7 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
         <div className="bg-[#141419] border-t border-zinc-800 px-6 py-3 flex items-center justify-between text-xs font-mono-tech text-zinc-400">
           <span className="flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-[#FFE500]" />
-            <span>RÉFÉRENCE OFFICIELLE CUC // LE CATEAU-CAMBRÉSIS</span>
+            <span>CASCADEURS CUC // LE CATEAU-CAMBRÉSIS</span>
           </span>
           <button
             onClick={onClose}

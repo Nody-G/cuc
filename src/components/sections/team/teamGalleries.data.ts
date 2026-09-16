@@ -38,5 +38,5 @@ export const EQUIPMENT_GALLERY: LightboxImage[] = [
 export const BANNER_GALLERY: LightboxImage[] = OFFICIAL_FILM_BANNERS.map((b) => ({
   src: b.url,
   title: b.title,
-  category: 'Affiches Officielles des Productions Coordonnées'
+  category: 'Affiches des Productions Coordonnées'
 }));

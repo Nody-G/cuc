@@ -56,7 +56,7 @@ export const FooterDirectContacts: React.FC = () => {
       {/* Socials & Networks with Official Brand Logos */}
       <div className="space-y-3">
         <h4 className="text-base font-display uppercase tracking-wider text-white border-b border-zinc-800 pb-2">
-          Réseaux &amp; Médias Officiels
+          Réseaux &amp; Médias
         </h4>
 
         <p className="text-xs text-zinc-400 font-tech">
@@ -137,7 +137,7 @@ export const FooterDirectContacts: React.FC = () => {
               <span className="group-hover:text-white">Facebook</span>
             </div>
             <span className="text-[10px] text-zinc-500 font-mono-tech group-hover:text-[#1877F2]">
-              Page Officielle
+              Page Facebook
             </span>
           </a>
 

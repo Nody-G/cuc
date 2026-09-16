@@ -29,14 +29,14 @@ export const PartenairesGridSection: React.FC = () => {
                     {/* Logo Box */}
                     <div
                       className={`relative h-28 w-full ${partner.bgVariant === 'light'
-                          ? 'bg-white border-zinc-200 shadow-sm group-hover:border-[#FFE500]'
-                          : 'bg-black/90 border-zinc-800 group-hover:border-[#FFE500]/60'
+                        ? 'bg-white border-zinc-200 shadow-sm group-hover:border-[#FFE500]'
+                        : 'bg-black/90 border-zinc-800 group-hover:border-[#FFE500]/60'
                         } mb-5 p-4 flex items-center justify-center overflow-hidden transition-colors`}
                     >
                       <div className="relative w-full h-full flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                         <Image
                           src={partner.logo}
-                          alt={`Logo officiel ${partner.name}`}
+                          alt={`Logo ${partner.name}`}
                           fill
                           className="object-contain p-2"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -63,7 +63,7 @@ export const PartenairesGridSection: React.FC = () => {
                   </div>
 
                   <div className="pt-4 mt-4 border-t border-zinc-800/80 flex items-center justify-between text-[11px] font-mono-tech text-zinc-500">
-                    <span>{partner.featuredCertificate || 'Partenaire Officiel CUC'}</span>
+                    <span>{partner.featuredCertificate || ''}</span>
                     {partner.website ? (
                       <a
                         href={partner.website}
@@ -71,12 +71,10 @@ export const PartenairesGridSection: React.FC = () => {
                         rel="noopener noreferrer"
                         className="text-[#FFE500] hover:underline flex items-center gap-1 font-bold"
                       >
-                        <span>Site Officiel</span>
+                        <span>Site web</span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
-                    ) : (
-                      <span className="text-[#FFE500]">Certifié</span>
-                    )}
+                    ) : null}
                   </div>
                 </div>
               ))}

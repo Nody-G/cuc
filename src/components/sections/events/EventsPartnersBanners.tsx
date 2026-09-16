@@ -7,7 +7,7 @@ import { StuntBadge } from '@/components/ui/StuntBadge';
 export const EventsPartnersBanners: React.FC = () => {
   return (
     <>
-      {/* SECTION OFFICIELLE : ILS NOUS ONT FAIT CONFIANCE (BANDES LOGOS) */}
+      {/* ILS NOUS ONT FAIT CONFIANCE (BANDES LOGOS) */}
       <section className="py-16 bg-[#09090d] border-t border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-10">
@@ -52,7 +52,7 @@ export const EventsPartnersBanners: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION BANDES AFFICHES DE FILMS OFFICIELLES */}
+      {/* BANDES AFFICHES DE FILMS */}
       <section className="py-16 bg-black border-t border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-10">

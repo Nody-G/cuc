@@ -85,7 +85,7 @@ export default function VisiteGuideePage() {
                 variant="yellow"
                 icon={<Compass className="w-3.5 h-3.5" />}
               >
-                EXPÉRIENCE 360° OFFICIELLE
+                EXPÉRIENCE 360°
               </StuntBadge>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-wide text-white mt-3 mb-3">
                 VISITE VIRTUELLE <span className="text-[#FFE500]">360° DU CAMPUS</span>

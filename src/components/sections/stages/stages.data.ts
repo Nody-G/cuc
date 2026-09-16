@@ -49,7 +49,7 @@ export const STAGES_LIST: StageData[] = [
     },
     image: {
       src: 'https://www.campus-universcascades.com/wp-content/uploads/2021/05/Stage-WE-Immersion.png',
-      alt: 'Affiche officielle Stage Week-end Immersion CUC',
+      alt: 'Affiche Stage Week-end Immersion CUC',
     },
   },
   {
@@ -70,7 +70,7 @@ export const STAGES_LIST: StageData[] = [
     buttonLabel: 'Demander ma Prise en Charge AFDAS',
     image: {
       src: 'https://www.campus-universcascades.com/wp-content/uploads/2022/04/Stage-AFDAS.png',
-      alt: 'Affiche officielle Stage AFDAS Artistes Interprètes CUC',
+      alt: 'Affiche Stage AFDAS Artistes Interprètes CUC',
     },
   },
   {
@@ -95,7 +95,7 @@ export const STAGES_LIST: StageData[] = [
     },
     image: {
       src: 'https://www.campus-universcascades.com/wp-content/uploads/2023/10/Stage-Summer-Camp-2.png',
-      alt: 'Affiche officielle Stunt Summer Camp CUC',
+      alt: 'Affiche Stunt Summer Camp CUC',
     },
   },
   {
@@ -114,7 +114,7 @@ export const STAGES_LIST: StageData[] = [
     buttonLabel: 'Contacter pour les Sessions Pro',
     image: {
       src: 'https://www.campus-universcascades.com/wp-content/uploads/2025/04/Stage-Cascadeur-Pro.png',
-      alt: 'Affiche officielle Stage Cascadeur Pro CUC Provence Studios',
+      alt: 'Affiche Stage Cascadeur Pro CUC Provence Studios',
     },
   },
 ];

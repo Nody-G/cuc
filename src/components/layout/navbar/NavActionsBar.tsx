@@ -19,9 +19,9 @@ export const NavActionsBar: React.FC = () => {
           href="https://www.instagram.com/campus.univers.cascades/"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Instagram officiel du Campus Univers Cascades (nouvelle fenêtre)"
+          aria-label="Instagram du Campus Univers Cascades (nouvelle fenêtre)"
           className="p-1.5 text-zinc-400 hover:text-[#E1306C] hover:bg-white/5 transition-all group/soc"
-          title="Instagram Officiel @campus.univers.cascades"
+          title="Instagram @campus.univers.cascades"
         >
           <InstagramLogo
             className="w-3.5 h-3.5 group-hover/soc:scale-110 transition-transform"
@@ -32,9 +32,9 @@ export const NavActionsBar: React.FC = () => {
           href="https://www.youtube.com/@campusuniverscascades"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Chaîne YouTube officielle du Campus Univers Cascades (nouvelle fenêtre)"
+          aria-label="Chaîne YouTube du Campus Univers Cascades (nouvelle fenêtre)"
           className="p-1.5 text-zinc-400 hover:text-[#FF0000] hover:bg-white/5 transition-all group/soc"
-          title="YouTube Officiel @campusuniverscascades"
+          title="YouTube @campusuniverscascades"
         >
           <YouTubeLogo
             className="w-3.5 h-3.5 group-hover/soc:scale-110 transition-transform"
@@ -45,9 +45,9 @@ export const NavActionsBar: React.FC = () => {
           href="https://www.tiktok.com/@campusuniverscascades"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="TikTok officiel du Campus Univers Cascades (nouvelle fenêtre)"
+          aria-label="TikTok du Campus Univers Cascades (nouvelle fenêtre)"
           className="p-1.5 text-zinc-400 hover:text-[#25F4EE] hover:bg-white/5 transition-all group/soc"
-          title="TikTok Officiel @campusuniverscascades"
+          title="TikTok @campusuniverscascades"
         >
           <TikTokLogo
             className="w-3.5 h-3.5 group-hover/soc:scale-110 transition-transform"

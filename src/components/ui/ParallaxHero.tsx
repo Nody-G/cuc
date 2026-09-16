@@ -112,7 +112,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = () => {
             <div className="relative w-16 h-16 sm:w-20 sm:h-20 drop-shadow-[0_0_25px_rgba(255,229,0,0.45)]">
               <Image
                 src="/images/logos/cuc-logo-yellow.png"
-                alt="Blason Officiel Campus Univers Cascades"
+                alt="Blason Campus Univers Cascades"
                 fill
                 sizes="64px"
                 priority

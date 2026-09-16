@@ -58,7 +58,7 @@ export const FilmGridCard: React.FC<FilmGridCardProps> = ({
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               className="flex items-center justify-between px-3 py-1.5 bg-[#f5c518] hover:bg-[#ffe500] text-black text-xs font-bold font-mono-tech transition-transform hover:scale-102 shadow-md"
-              title={`Voir la fiche IMDb officielle de ${movie.title}`}
+              title={`Voir la fiche IMDb de ${movie.title}`}
             >
               <span className="flex items-center gap-2">
                 <ImdbLogo className="h-4 w-auto shrink-0" />
