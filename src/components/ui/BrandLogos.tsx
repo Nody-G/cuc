@@ -2,13 +2,16 @@
 
 /**
  * BrandLogos Barrel Module
- * Provides unified, modular access to vector brand assets:
+ * Provides unified, modular access to official brand assets:
  * - SocialLogos: Instagram, YouTube, TikTok, Facebook, LinkedIn, WhatsApp
- * - MediaLogos: IMDb, AlloCiné
- * - PartnerLogos: Nike, Kiloutou, Qualiopi, RXR Protect, BSN, C17 SFX, etc.
+ *   (glyphes officiels issus de Simple Icons)
+ * - MediaLogos: IMDb, AlloCiné (fichiers SVG officiels)
+ *
+ * Les logos partenaires (Nike, Kiloutou, Qualiopi, RXR Protect, etc.) sont
+ * désormais servis comme fichiers images réels depuis `public/images/partenaires/`
+ * et ne sont plus des composants SVG.
  */
 
 export * from './logos/types';
 export * from './logos/SocialLogos';
 export * from './logos/MediaLogos';
-export * from './logos/PartnerLogos';

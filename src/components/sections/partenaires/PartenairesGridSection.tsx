@@ -28,27 +28,20 @@ export const PartenairesGridSection: React.FC = () => {
                   <div>
                     {/* Logo Box */}
                     <div
-                      className={`relative h-28 w-full ${
-                        partner.bgVariant === 'light'
+                      className={`relative h-28 w-full ${partner.bgVariant === 'light'
                           ? 'bg-white border-zinc-200 shadow-sm group-hover:border-[#FFE500]'
                           : 'bg-black/90 border-zinc-800 group-hover:border-[#FFE500]/60'
-                      } mb-5 p-4 flex items-center justify-center overflow-hidden transition-colors`}
+                        } mb-5 p-4 flex items-center justify-center overflow-hidden transition-colors`}
                     >
-                      {partner.logoComponent ? (
-                        <div className="flex items-center justify-center w-full group-hover:scale-105 transition-transform duration-300">
-                          {partner.logoComponent}
-                        </div>
-                      ) : (
-                        <div className="relative w-full h-full flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-                          <Image
-                            src={partner.logo!}
-                            alt={`Logo ${partner.name}`}
-                            fill
-                            className="object-contain p-2"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          />
-                        </div>
-                      )}
+                      <div className="relative w-full h-full flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                        <Image
+                          src={partner.logo}
+                          alt={`Logo officiel ${partner.name}`}
+                          fill
+                          className="object-contain p-2"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                      </div>
                     </div>
 
                     <div className="flex items-center justify-between gap-2 mb-2">

@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FileCheck } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
-import { QualiopiLogo } from '@/components/ui/BrandLogos';
 
 export const HomeQualiopiSection: React.FC = () => {
   return (
@@ -19,8 +19,14 @@ export const HomeQualiopiSection: React.FC = () => {
           <div className="bg-[#121218] border-2 border-[#FFE500] p-6 sm:p-8 relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[0_0_30px_rgba(255,229,0,0.08)]">
 
             <div className="flex items-start gap-4">
-              <div className="p-2 bg-white border-2 border-[#FFE500] shrink-0 shadow-md flex items-center justify-center">
-                <QualiopiLogo className="h-12 w-auto" />
+              <div className="relative w-40 h-20 p-2 bg-white border-2 border-[#FFE500] shrink-0 shadow-md flex items-center justify-center">
+                <Image
+                  src="/images/partenaires/qualiopi.png"
+                  alt="Logo officiel Qualiopi — République Française"
+                  fill
+                  className="object-contain p-1.5"
+                  sizes="160px"
+                />
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1">

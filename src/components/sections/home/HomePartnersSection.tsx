@@ -5,20 +5,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
-import {
-  NikeLogo,
-  KiloutouLogo,
-  QualiopiLogo,
-  RxrProtectLogo,
-  C17SfxLogo,
-  ActionCascadeLogo,
-} from '@/components/ui/BrandLogos';
 
 interface HomePartner {
   name: string;
   role: string;
-  logo?: string;
-  component?: React.ReactNode;
+  /** Chemin vers le logo officiel du partenaire (fichier image réel). */
+  logo: string;
   bgVariant?: 'light' | 'dark';
 }
 
@@ -27,37 +19,37 @@ export const HomePartnersSection: React.FC = () => {
     {
       name: 'Nike',
       role: 'Équipementier Officiel',
-      component: <NikeLogo className="w-20 h-9 text-white group-hover:text-[#FFE500] transition-colors" />,
+      logo: '/images/partenaires/nike.jpg',
       bgVariant: 'dark',
     },
     {
       name: 'Kiloutou',
       role: 'Nacelles & Levage',
-      component: <KiloutouLogo className="h-7 w-auto" />,
+      logo: '/images/partenaires/kiloutou.jpg',
       bgVariant: 'light',
     },
     {
       name: 'Qualiopi',
       role: 'Certification d’État',
-      component: <QualiopiLogo className="h-8 w-auto" />,
+      logo: '/images/partenaires/qualiopi.png',
       bgVariant: 'light',
     },
     {
       name: 'RXR Protect',
       role: 'Air Shock Protection',
-      component: <RxrProtectLogo className="h-7 w-auto" />,
+      logo: '/images/partenaires/rxr-protect.jpg',
       bgVariant: 'dark',
     },
     {
       name: 'C17 Special Effects',
       role: 'Pyrotechnie & SFX',
-      component: <C17SfxLogo className="h-7 w-auto" />,
+      logo: '/images/partenaires/c17.jpg',
       bgVariant: 'light',
     },
     {
       name: 'Action Cascade',
       role: 'Stunt & Rigging',
-      component: <ActionCascadeLogo className="h-7 w-auto" />,
+      logo: '/images/partenaires/action-cascade.jpg',
       bgVariant: 'dark',
     },
   ];
@@ -97,23 +89,18 @@ export const HomePartnersSection: React.FC = () => {
                 className="h-28 bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500] p-3 flex flex-col items-center justify-between transition-all duration-300 group hover:shadow-[0_4px_20px_rgba(255,229,0,0.12)] relative"
               >
                 <div
-                  className={`w-full h-14 ${
-                    partner.bgVariant === 'light'
+                  className={`w-full h-14 ${partner.bgVariant === 'light'
                       ? 'bg-white border-zinc-200'
                       : 'bg-black/90 border-zinc-800'
-                  } border p-1.5 flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105 duration-300 relative`}
+                    } border p-1.5 flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105 duration-300 relative`}
                 >
-                  {partner.component ? (
-                    partner.component
-                  ) : (
-                    <Image
-                      src={partner.logo!}
-                      alt={`Logo ${partner.name}`}
-                      fill
-                      className="object-contain p-1"
-                      sizes="160px"
-                    />
-                  )}
+                  <Image
+                    src={partner.logo}
+                    alt={`Logo ${partner.name}`}
+                    fill
+                    className="object-contain p-1"
+                    sizes="160px"
+                  />
                 </div>
                 <span className="text-[10px] font-mono-tech text-zinc-500 group-hover:text-zinc-300 transition-colors uppercase tracking-wider text-center line-clamp-1 mt-1">
                   {partner.role}

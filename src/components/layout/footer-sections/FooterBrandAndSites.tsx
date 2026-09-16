@@ -4,7 +4,6 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ExternalLink, Compass, Navigation, MapPin } from 'lucide-react';
-import { QualiopiLogo } from '@/components/ui/BrandLogos';
 
 export const FooterBrandAndSites: React.FC = () => {
   return (
@@ -46,7 +45,15 @@ export const FooterBrandAndSites: React.FC = () => {
             title="Voir le Certificat Qualiopi Officiel de la République Française"
           >
             <div className="flex items-center gap-2.5">
-              <QualiopiLogo className="h-7 w-auto" />
+              <div className="relative w-16 h-8 shrink-0">
+                <Image
+                  src="/images/partenaires/qualiopi.png"
+                  alt="Logo officiel Qualiopi — République Française"
+                  fill
+                  className="object-contain"
+                  sizes="64px"
+                />
+              </div>
               <div>
                 <span className="text-[11px] font-mono-tech text-white group-hover:text-[#FFE500] font-bold block">
                   Organisme Certifié Qualiopi

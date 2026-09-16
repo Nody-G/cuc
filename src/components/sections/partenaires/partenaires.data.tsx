@@ -6,30 +6,14 @@ import {
   Video,
   Building2,
 } from 'lucide-react';
-import {
-  QualiopiLogo,
-  NikeLogo,
-  KiloutouLogo,
-  RxrProtectLogo,
-  GravityLogo,
-  C17SfxLogo,
-  OtmIncendieLogo,
-  ActionCascadeLogo,
-  AyaCatchLogo,
-  CascadeDemoTeamLogo,
-  XtremVideoLogo,
-  TaffCoeurLogo,
-  MfrLogo,
-  BsnNutritionLogo,
-} from '@/components/ui/BrandLogos';
 
 export interface Partner {
   name: string;
   category: string;
   role: string;
   description: string;
-  logo?: string;
-  logoComponent?: React.ReactNode;
+  /** Chemin vers le logo officiel du partenaire (fichier image réel). */
+  logo: string;
   bgVariant?: 'light' | 'dark';
   website?: string;
   featuredCertificate?: string;
@@ -51,7 +35,7 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         category: "Certification d'État",
         role: "Actions de Formation Certifiées",
         description: "Certification officielle de qualité délivrée au titre des Actions de Formation sous l'égide de la République Française. Garantit la conformité pédagogique et permet les prises en charge financières (AFDAS, France Travail, Régions).",
-        logoComponent: <QualiopiLogo className="h-10 w-auto" />,
+        logo: "/images/partenaires/qualiopi.png",
         bgVariant: 'light',
         website: "https://www.campus-universcascades.com/wp-content/uploads/2024/12/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf",
         featuredCertificate: "Certificat N° 21452296",
@@ -68,7 +52,6 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         role: "Équipementier Officiel",
         description: "Fournisseur officiel de tenues techniques de training, chaussures d'impact et vêtements de performance pour les cascadeurs du campus.",
         logo: "/images/partenaires/nike.jpg",
-        logoComponent: <NikeLogo className="w-24 h-10 text-white group-hover:text-[#FFE500] transition-colors" />,
         bgVariant: 'dark',
         website: "https://www.nike.com",
       },
@@ -78,7 +61,6 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         role: "Gilets Gonflables Haute Technologie",
         description: "Pionnier des protections thoraciques et dorsales intégrant la technologie Air Shock Absorber pour amortir les impacts violents et chutes à haute vélocité.",
         logo: "/images/partenaires/rxr-protect.jpg",
-        logoComponent: <RxrProtectLogo className="h-9 w-auto" />,
         bgVariant: 'dark',
         website: "https://www.rxrprotect.com",
       },
@@ -88,7 +70,6 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         role: "Ligne Spécialisée Mouvement",
         description: "Marque textile dédiée aux athlètes d'action, aux traceurs de Parkour et aux cascadeurs physiques, alliant robustesse et souplesse totale.",
         logo: "/images/partenaires/gravity.jpg",
-        logoComponent: <GravityLogo className="h-9 w-auto" />,
         bgVariant: 'light',
       },
     ],
@@ -103,7 +84,6 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         role: "Pyrotechnie & SFX Cinéma",
         description: "Société de référence en effets spéciaux physiques, explosions contrôlées, armurerie de spectacle et feux de cascade pour le cinéma.",
         logo: "/images/partenaires/c17.jpg",
-        logoComponent: <C17SfxLogo className="h-9 w-auto" />,
         bgVariant: 'light',
         website: "https://c17sfx.com",
       },
@@ -113,7 +93,6 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         role: "Matériel de Levage & Nacelles",
         description: "Partenaire matériel mettant à disposition les nacelles élévatrices, chariots télescopiques et engins nécessaires à la mise en place des câblages de cascades.",
         logo: "/images/partenaires/kiloutou.jpg",
-        logoComponent: <KiloutouLogo className="h-9 w-auto" />,
         bgVariant: 'light',
         website: "https://www.kiloutou.fr",
       },
@@ -123,7 +102,6 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         role: "Matériel de Protection Incendie",
         description: "Expert en protection incendie, extincteurs spécialisés, gels ignifugés et tenues coupe-feu pour les exercices de torches humaines en toute sécurité.",
         logo: "/images/partenaires/otm-incendie.jpg",
-        logoComponent: <OtmIncendieLogo className="h-9 w-auto" />,
         bgVariant: 'dark',
       },
     ],
@@ -138,7 +116,6 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         role: "Régie de Scènes d'Action",
         description: "Équipe de coordination de cascades collaborant avec le CUC pour former les élèves aux exigences réelles des plateaux de tournage internationaux.",
         logo: "/images/partenaires/action-cascade.jpg",
-        logoComponent: <ActionCascadeLogo className="h-9 w-auto" />,
         bgVariant: 'dark',
         website: "https://www.instagram.com/actioncascade/",
       },
@@ -148,7 +125,6 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         role: "Techniques de Lutte Spectacle",
         description: "Structure de référence pour l'apprentissage des techniques de projections théâtrales, prises de catch et absorptions corporelles sans blessure.",
         logo: "/images/partenaires/aya-catch.jpg",
-        logoComponent: <AyaCatchLogo className="h-9 w-auto" />,
         bgVariant: 'dark',
         website: "https://www.facebook.com/ayacatch/",
       },
@@ -158,7 +134,6 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         role: "Arts Martiaux Artistiques",
         description: "Troupe légendaire d'arts martiaux artistiques (XMA) et de combats chorégraphiés de renommée mondiale intervenant lors de nos modules techniques.",
         logo: "/images/partenaires/cascade-demo-team.jpg",
-        logoComponent: <CascadeDemoTeamLogo className="h-9 w-auto" />,
         bgVariant: 'light',
         website: "https://www.instagram.com/cascadedemoteam/",
       },
@@ -174,7 +149,6 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         role: "Média d'Action & Sports Extrêmes",
         description: "Réseau et société de production audiovisuelle internationale assurant la valorisation et la visibilité des contenus vidéo de la CUC Stunt Team.",
         logo: "/images/partenaires/xtrem-video.jpg",
-        logoComponent: <XtremVideoLogo className="h-9 w-auto" />,
         bgVariant: 'light',
         website: "https://www.youtube.com/@XtremVideo",
       },
@@ -184,7 +158,6 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         role: "Réalisation & Captation",
         description: "Studio de création visuelle et de production de contenus promotionnels, clips et showreels pour les cascadeurs et comédiens du campus.",
         logo: "/images/partenaires/taffcoeur.jpg",
-        logoComponent: <TaffCoeurLogo className="h-9 w-auto" />,
         bgVariant: 'light',
       },
     ],
@@ -199,7 +172,6 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         role: "Hébergement & Logistique Locale",
         description: "Partenaire institutionnel historique au Cateau-Cambrésis assurant les infrastructures d'hébergement, la restauration et l'accueil en pension complète de nos stagiaires sur un parc de 6 hectares.",
         logo: "/images/partenaires/mfr-le-cateau.jpg",
-        logoComponent: <MfrLogo className="h-9 w-auto" />,
         bgVariant: 'light',
         website: "https://www.mfr.fr/",
       },
@@ -209,7 +181,6 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         role: "Performance & Récupération",
         description: "Marque internationale de suppléments nutritionnels et protéines de haute qualité accompagnant la préparation physique intensive des cascadeurs.",
         logo: "/images/partenaires/bsn.jpg",
-        logoComponent: <BsnNutritionLogo className="h-9 w-auto" />,
         bgVariant: 'light',
         website: "https://www.gobsn.com",
       },
