@@ -66,7 +66,7 @@ export const FacilitySpotlightCard: React.FC<FacilitySpotlightCardProps> = ({
 
       <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-zinc-800">
         <Link
-          href="/visite-guidee"
+          href={`/visite-guidee?installation=${encodeURIComponent(activeFacility.id)}#installations-detail`}
           className="px-3 py-1.5 bg-[#FFE500] hover:bg-white text-black font-mono-tech text-xs font-bold transition-colors flex items-center gap-1.5 shadow"
         >
           <span>Voir la fiche détaillée</span>

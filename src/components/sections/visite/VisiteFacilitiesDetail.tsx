@@ -1,14 +1,40 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ChevronRight, CheckCircle2 } from 'lucide-react';
 import { CAMPUS_FACILITIES } from '@/data/campus';
 
+/**
+ * Résout l'installation à afficher depuis le paramètre d'URL `?installation=<id>`
+ * (transmis par la fiche du plan 3D). Retombe sur la première installation si
+ * l'identifiant est absent ou inconnu.
+ */
+const resolveInitialFacilityId = (): string => {
+  if (typeof window === 'undefined') return CAMPUS_FACILITIES[0].id;
+  const requested = new URLSearchParams(window.location.search).get('installation');
+  if (requested && CAMPUS_FACILITIES.some((f) => f.id === requested)) {
+    return requested;
+  }
+  return CAMPUS_FACILITIES[0].id;
+};
+
 export const VisiteFacilitiesDetail: React.FC = () => {
-  const [activeFacilityId, setActiveFacilityId] = useState(
-    CAMPUS_FACILITIES[0].id
-  );
+  const [activeFacilityId, setActiveFacilityId] = useState(resolveInitialFacilityId);
+
+  // Synchronise la sélection si l'utilisateur arrive avec un autre paramètre
+  // (navigation client depuis le plan 3D vers la même page).
+  useEffect(() => {
+    const syncFromUrl = () => {
+      const requested = new URLSearchParams(window.location.search).get('installation');
+      if (requested && CAMPUS_FACILITIES.some((f) => f.id === requested)) {
+        setActiveFacilityId(requested);
+      }
+    };
+    syncFromUrl();
+    window.addEventListener('popstate', syncFromUrl);
+    return () => window.removeEventListener('popstate', syncFromUrl);
+  }, []);
 
   const selectedFacility =
     CAMPUS_FACILITIES.find((f) => f.id === activeFacilityId) ||
@@ -40,17 +66,15 @@ export const VisiteFacilitiesDetail: React.FC = () => {
                 <button
                   key={facility.id}
                   onClick={() => setActiveFacilityId(facility.id)}
-                  className={`w-full text-left p-3.5 border transition-all cursor-pointer flex items-center justify-between ${
-                    isSelected
+                  className={`w-full text-left p-3.5 border transition-all cursor-pointer flex items-center justify-between ${isSelected
                       ? 'bg-[#14141c] border-[#FFE500] text-white shadow-lg'
                       : 'bg-[#0b0b0f] border-zinc-800/80 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center gap-3 truncate">
                     <span
-                      className={`font-mono-tech text-xs font-bold ${
-                        isSelected ? 'text-[#FFE500]' : 'text-zinc-500'
-                      }`}
+                      className={`font-mono-tech text-xs font-bold ${isSelected ? 'text-[#FFE500]' : 'text-zinc-500'
+                        }`}
                     >
                       {facility.code}
                     </span>
@@ -64,9 +88,8 @@ export const VisiteFacilitiesDetail: React.FC = () => {
                     </div>
                   </div>
                   <ChevronRight
-                    className={`w-4 h-4 shrink-0 ${
-                      isSelected ? 'text-[#FFE500] translate-x-1' : 'text-zinc-600'
-                    }`}
+                    className={`w-4 h-4 shrink-0 ${isSelected ? 'text-[#FFE500] translate-x-1' : 'text-zinc-600'
+                      }`}
                   />
                 </button>
               );
