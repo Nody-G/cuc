@@ -211,12 +211,6 @@ export const CampusViewerHUD: React.FC<CampusViewerHUDProps> = ({
                   : 'bg-[#101016] border-zinc-800/80 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
                   }`}
               >
-                <span
-                  className={`text-[9px] font-mono-tech px-1.5 py-0.5 font-bold ${isSelected ? 'bg-[#FFE500] text-black' : 'bg-zinc-800 text-zinc-400'
-                    }`}
-                >
-                  {fac.code}
-                </span>
                 <span className="font-display uppercase text-xs tracking-wider text-white whitespace-nowrap">
                   {fac.name.split('—')[0].split('(')[0]}
                 </span>

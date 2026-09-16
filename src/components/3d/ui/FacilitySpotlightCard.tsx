@@ -27,9 +27,6 @@ export const FacilitySpotlightCard: React.FC<FacilitySpotlightCardProps> = ({
 
       <div className="flex items-start justify-between gap-3 mb-2">
         <div className="flex items-center gap-2">
-          <span className="bg-[#FFE500] text-black font-mono-tech text-xs font-bold px-2 py-0.5">
-            {activeFacility.code}
-          </span>
           <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold">
             {facData?.size || 'Campus CUC'}
           </span>
