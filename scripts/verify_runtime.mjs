@@ -1,40 +1,10 @@
-import { spawn, execSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 
 const PORT = 3111;
 const BASE = `http://127.0.0.1:${PORT}`;
-
-/**
- * Tue tout processus qui écoute déjà sur le port cible.
- * Indispensable sous Windows : `server.kill()` ne tue que le shell `cmd.exe`
- * intermédiaire et laisse le vrai `next start` orphelin, ce qui fait que le
- * run suivant se reconnecte silencieusement à l'ancien serveur (contenu périmé).
- */
-const killPort = () => {
-    try {
-        const out = execSync(`netstat -ano | findstr ":${PORT}"`, { encoding: 'utf8' });
-        const pids = new Set(
-            out
-                .split(/\r?\n/)
-                .filter((l) => l.includes('LISTENING'))
-                .map((l) => l.trim().split(/\s+/).pop())
-                .filter((p) => p && p !== '0')
-        );
-        for (const pid of pids) {
-            try {
-                execSync(`taskkill /F /T /PID ${pid}`, { stdio: 'ignore' });
-            } catch {
-                /* déjà mort */
-            }
-        }
-    } catch {
-        /* rien n'écoute sur le port */
-    }
-};
-
-killPort();
 
 const ROUTES = [
     '/',
@@ -92,7 +62,7 @@ server.stderr.on('data', (d) => (serverLog += d.toString()));
 const ok = await waitForServer();
 if (!ok) {
     console.error('Server did not start. Log:\n', serverLog);
-    killPort();
+    server.kill();
     process.exit(1);
 }
 console.log('Server up.\n');
@@ -178,8 +148,6 @@ console.log(`  sitemap.xml: ${sm.status}, ${urlCount} URLs`);
 const rb = await fetchText(`${BASE}/robots.txt`);
 console.log(`  robots.txt: ${rb.status}, ${rb.body.split('\n').length} lignes`);
 
-// `server.kill()` ne suffit pas sous Windows (shell intermédiaire) : on tue
-// l'arbre de processus complet via le port pour ne laisser aucun orphelin.
-killPort();
+server.kill();
 console.log(`\n=== RESULTAT: ${failures === 0 ? 'TOUT OK' : failures + ' ECHEC(S)'} ===`);
 process.exit(failures === 0 ? 0 : 1);
