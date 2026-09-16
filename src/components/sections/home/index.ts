@@ -1,4 +1,5 @@
 export * from './HomeAboutSection';
+export * from './HomeDepthRevealSection';
 export * from './HomeVirtualTourSection';
 export * from './HomeQualiopiSection';
 export * from './HomePartnersSection';

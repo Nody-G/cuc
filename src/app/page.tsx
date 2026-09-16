@@ -6,6 +6,7 @@ import { Footer } from '@/components/layout/Footer';
 import { ParallaxHero } from '@/components/ui/ParallaxHero';
 import {
   HomeAboutSection,
+  HomeDepthRevealSection,
   HomeVirtualTourSection,
   HomeQualiopiSection,
   HomePartnersSection,
@@ -21,7 +22,10 @@ export default function Home() {
         {/* 1. Cinematic Multi-Plane Parallax Hero */}
         <ParallaxHero />
 
-        {/* 2. Dossier Architectural & Institutionnel (Qui Sommes-Nous) */}
+        {/* 2. Cinematic Depth Reveal — parallaxe multi-plans + hub d'accès rapide */}
+        <HomeDepthRevealSection />
+
+        {/* 3. Dossier Architectural & Institutionnel (Qui Sommes-Nous) */}
         <HomeAboutSection />
 
         {/* 3. Visite Virtuelle 360° en Immersion HD Media */}
