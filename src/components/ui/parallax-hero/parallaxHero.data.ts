@@ -20,7 +20,7 @@ export const HERO_SLIDES: HeroSlide[] = [
   },
   {
     url: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-7-scaled.jpg',
-    caption: 'CHUTES DE HAUTEUR & CÂBLAGE',
+    caption: 'PLATEAUX TECHNIQUES DU DOMAINE',
     sub: 'Multiples paliers de saut, airbag géant et câblage 3D haute voltige',
     badge: 'SÉCURITÉ ABSOLUE & CONTRÔLE DE L\'IMPACT',
   },

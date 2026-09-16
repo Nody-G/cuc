@@ -16,16 +16,22 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
 }) => {
   const [celebrityFilter, setCelebrityFilter] = useState<'all' | 'fr' | 'intl'>('all');
 
+  // Acteurs doublés relevant du cinéma international / hollywoodien.
+  // Cette liste est l'unique source de vérité : le filtre « fr » est son
+  // complément exact, ce qui garantit des compteurs cohérents et sans doublon.
+  const INTERNATIONAL_CELEBRITY_IDS = ['keanu-reeves', 'kevin-costner', 'omar-sy'];
+
+  const isInternational = (id: string) => INTERNATIONAL_CELEBRITY_IDS.includes(id);
+
   const filteredCelebrities = DOUBLED_CELEBRITIES.filter((c) => {
     if (celebrityFilter === 'all') return true;
-    if (celebrityFilter === 'intl') {
-      return ['keanu-reeves', 'kevin-costner', 'omar-sy'].includes(c.id);
-    }
-    if (celebrityFilter === 'fr') {
-      return !['keanu-reeves', 'kevin-costner'].includes(c.id);
-    }
+    if (celebrityFilter === 'intl') return isInternational(c.id);
+    if (celebrityFilter === 'fr') return !isInternational(c.id);
     return true;
   });
+
+  const internationalCount = DOUBLED_CELEBRITIES.filter((c) => isInternational(c.id)).length;
+  const frenchCount = DOUBLED_CELEBRITIES.length - internationalCount;
 
   return (
     <div className="mb-20 bg-[#0c0c10] border-2 border-zinc-800 p-6 sm:p-8 relative shadow-2xl">
@@ -44,7 +50,7 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
           </h3>
           <p className="text-xs sm:text-sm text-zinc-400 font-tech mt-1 max-w-2xl">
             Nos formateurs et cascadeurs professionnels doublent régulièrement les figures majeures
-            du cinéma français et international sur des scènes d&apos;action physique extrême.
+            du cinéma français et international sur des scènes d'action physique extrême.
           </p>
         </div>
 
@@ -53,8 +59,8 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
           <button
             onClick={() => setCelebrityFilter('all')}
             className={`px-3 py-1.5 text-xs font-mono-tech uppercase border transition-all cursor-pointer ${celebrityFilter === 'all'
-                ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-[0_0_10px_rgba(255,229,0,0.3)]'
-                : 'bg-[#141419] text-zinc-300 border-zinc-800 hover:border-zinc-600'
+              ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-[0_0_10px_rgba(255,229,0,0.3)]'
+              : 'bg-[#141419] text-zinc-300 border-zinc-800 hover:border-zinc-600'
               }`}
           >
             Toutes les Stars ({DOUBLED_CELEBRITIES.length})
@@ -62,20 +68,20 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
           <button
             onClick={() => setCelebrityFilter('fr')}
             className={`px-3 py-1.5 text-xs font-mono-tech uppercase border transition-all cursor-pointer ${celebrityFilter === 'fr'
-                ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-[0_0_10px_rgba(255,229,0,0.3)]'
-                : 'bg-[#141419] text-zinc-300 border-zinc-800 hover:border-zinc-600'
+              ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-[0_0_10px_rgba(255,229,0,0.3)]'
+              : 'bg-[#141419] text-zinc-300 border-zinc-800 hover:border-zinc-600'
               }`}
           >
-            Cinéma Français (9)
+            Cinéma Français ({frenchCount})
           </button>
           <button
             onClick={() => setCelebrityFilter('intl')}
             className={`px-3 py-1.5 text-xs font-mono-tech uppercase border transition-all cursor-pointer ${celebrityFilter === 'intl'
-                ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-[0_0_10px_rgba(255,229,0,0.3)]'
-                : 'bg-[#141419] text-zinc-300 border-zinc-800 hover:border-zinc-600'
+              ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-[0_0_10px_rgba(255,229,0,0.3)]'
+              : 'bg-[#141419] text-zinc-300 border-zinc-800 hover:border-zinc-600'
               }`}
           >
-            Hollywood &amp; International (3)
+            Hollywood & International ({internationalCount})
           </button>
         </div>
       </div>

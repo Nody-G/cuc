@@ -45,7 +45,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Plateau modulable de tournage intérieur'
     ],
     specifications: 'Poutres IPN renforcées, ligne de vie continue, sol béton lissé pour glissades et tractions',
-    image: 'https://www.campus-universcascades.com/wp-content/uploads/2020/11/Zoë-Bell-Hall-sol-1.jpg'
+    image: 'https://www.campus-universcascades.com/wp-content/uploads/2022/06/Rigging.jpg'
   },
   {
     id: 'dojos-sceniques',
