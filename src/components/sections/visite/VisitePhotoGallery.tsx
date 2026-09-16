@@ -40,7 +40,7 @@ export const VisitePhotoGallery: React.FC<VisitePhotoGalleryProps> = ({
               onClick={() => onOpenLightbox(i)}
               className="bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500] transition-all p-2 group flex flex-col justify-between cursor-pointer text-left focus:outline-none focus:ring-1 focus:ring-[#FFE500]"
             >
-              <div className="relative aspect-video w-full overflow-hidden bg-black mb-2">
+              <div className="relative aspect-video w-full overflow-hidden bg-black">
                 <Image
                   src={photo.src}
                   alt={photo.title}
@@ -55,9 +55,6 @@ export const VisitePhotoGallery: React.FC<VisitePhotoGalleryProps> = ({
                   </div>
                 </div>
               </div>
-              <p className="text-[11px] font-mono-tech uppercase text-zinc-400 group-hover:text-[#FFE500] truncate text-center">
-                {photo.title}
-              </p>
             </button>
           ))}
         </div>

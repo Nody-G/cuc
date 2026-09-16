@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { LightboxImage } from '@/components/ui/LightboxModal';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { BANNER_GALLERY } from './teamGalleries.data';
-import { Film, Maximize2, Eye } from 'lucide-react';
+import { Film, Maximize2 } from 'lucide-react';
 
 interface TeamBannersSectionProps {
   onOpenLightbox: (images: LightboxImage[], index: number) => void;
@@ -51,15 +51,6 @@ export const TeamBannersSection: React.FC<TeamBannersSectionProps> = ({
                   <Maximize2 className="w-3.5 h-3.5" />
                   <span>AFFICHE HD</span>
                 </div>
-              </div>
-              <div className="pt-3 px-2 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs">
-                <span className="font-display uppercase tracking-wider text-white text-sm group-hover:text-[#FFE500] transition-colors">
-                  {banner.title}
-                </span>
-                <span className="font-mono-tech text-[#FFE500] text-[11px] flex items-center gap-1">
-                  <Eye className="w-3 h-3" />
-                  <span>Cliquer pour agrandir</span>
-                </span>
               </div>
             </div>
           ))}

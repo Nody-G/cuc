@@ -47,9 +47,6 @@ export const TeamProductionGalleries: React.FC<TeamProductionGalleriesProps> = (
                     <Maximize2 className="w-4 h-4" />
                   </span>
                 </div>
-                <div className="absolute bottom-2 left-2 bg-black/85 px-2.5 py-1 text-xs font-mono-tech text-zinc-300 group-hover:text-[#FFE500] border border-zinc-800">
-                  Vue #{i + 1}
-                </div>
               </button>
             ))}
           </div>
@@ -89,9 +86,6 @@ export const TeamProductionGalleries: React.FC<TeamProductionGalleriesProps> = (
                     <span>Agrandir</span>
                   </span>
                 </div>
-                <div className="absolute bottom-2 left-2 bg-black/90 px-2 py-0.5 text-[10px] font-mono-tech text-[#FFE500] border border-zinc-800">
-                  {item.title}
-                </div>
               </button>
             ))}
           </div>
@@ -129,9 +123,6 @@ export const TeamProductionGalleries: React.FC<TeamProductionGalleriesProps> = (
                   <span className="p-2.5 bg-black/85 rounded-full text-[#FFE500] border border-[#FFE500]/50 shadow-lg">
                     <Maximize2 className="w-4 h-4" />
                   </span>
-                </div>
-                <div className="absolute bottom-2 left-2 right-2 bg-black/85 px-2 py-1 text-[11px] font-mono-tech text-zinc-300 group-hover:text-[#FFE500] border border-zinc-800 truncate">
-                  {item.title}
                 </div>
               </button>
             ))}
