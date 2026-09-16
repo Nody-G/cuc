@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "International Stunt Workshop • Stages Intensifs | CUC",
+  title: "International Stunt Workshop • Stages Intensifs",
   description: "Workshops internationaux de cascades avec des invités et coordinateurs d'action du monde entier.",
   alternates: {
     canonical: '/stunt-workshop-cuc',
   },
   openGraph: {
-    title: "International Stunt Workshop • Stages Intensifs | CUC",
+    title: "International Stunt Workshop • Stages Intensifs",
     description: "Workshops internationaux de cascades avec des invités et coordinateurs d'action du monde entier.",
   },
 };

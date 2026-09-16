@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Spectacles Cascadeurs & Yamakasi • Shows Live | CUC",
+  title: "Spectacles Cascadeurs & Yamakasi • Shows Live",
   description: "Création et coordination de spectacles vivants d'action, parkour et cascades urbaines pour festivals et événements.",
   alternates: {
     canonical: '/spectacles-cascadeurs-yamakasi',
   },
   openGraph: {
-    title: "Spectacles Cascadeurs & Yamakasi • Shows Live | CUC",
+    title: "Spectacles Cascadeurs & Yamakasi • Shows Live",
     description: "Création et coordination de spectacles vivants d'action, parkour et cascades urbaines pour festivals et événements.",
   },
 };

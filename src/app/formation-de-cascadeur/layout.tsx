@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Formation Professionnelle de Cascadeur (2 ans / 720h) | CUC",
+  title: "Formation Professionnelle de Cascadeur (2 ans / 720h)",
   description: "Cursus d'élite en 2 ans et Formule Découverte 12 jours. Combat chorégraphié, chutes, torche humaine, parkour et préparation cinéma au Cateau-Cambrésis.",
   alternates: {
     canonical: '/formation-de-cascadeur',
   },
   openGraph: {
-    title: "Formation Professionnelle de Cascadeur (2 ans / 720h) | CUC",
+    title: "Formation Professionnelle de Cascadeur (2 ans / 720h)",
     description: "Cursus d'élite en 2 ans et Formule Découverte 12 jours. Combat chorégraphié, chutes, torche humaine, parkour et préparation cinéma au Cateau-Cambrésis.",
   },
 };

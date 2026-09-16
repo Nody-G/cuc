@@ -12,7 +12,7 @@ export const SITE_NAME = "Campus Univers Cascades";
 export const SITE_SHORT_NAME = "CUC";
 
 export const SITE_DESCRIPTION =
-    "Centre d'entraînement d'élite pour cascadeurs professionnels de cinéma et spectacle. 6 hectares d'installations, CUC Tower 21m, chutes de hauteur, torche humaine, câblage 3D, agrément QUALIOPI et prise en charge AFDAS. Fondé en 2008 par Lucas Dollfus au Cateau-Cambrésis.";
+    "École d'élite pour cascadeurs de cinéma et spectacle : 6 hectares, CUC Tower 21m, chutes de hauteur, câblage 3D. Agrément QUALIOPI et prise en charge AFDAS.";
 
 export const SITE_LOCALE = "fr_FR";
 

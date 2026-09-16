@@ -46,7 +46,7 @@ export const FacilitySpotlightCard: React.FC<FacilitySpotlightCardProps> = ({
 
       <div className="relative h-28 w-full mb-3 border border-zinc-800 overflow-hidden bg-black">
         <Image
-          src={facData?.image || '/images/campus/campus_aerien.jpg'}
+          src={facData?.image || '/images/cuc_campus_aerial_real.jpg'}
           alt={activeFacility.name}
           fill
           sizes="400px"

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "L'Équipe des Formateurs & Cascadeurs Professionnels | CUC",
+  title: "L'Équipe des Formateurs & Cascadeurs Professionnels",
   description: "Découvrez les coordinateurs de cascades, action designers, membres des Yamakasi et instructeurs d'élite du Campus Univers Cascades.",
   alternates: {
     canonical: '/equipe-cascadeurs-pro',
   },
   openGraph: {
-    title: "L'Équipe des Formateurs & Cascadeurs Professionnels | CUC",
+    title: "L'Équipe des Formateurs & Cascadeurs Professionnels",
     description: "Découvrez les coordinateurs de cascades, action designers, membres des Yamakasi et instructeurs d'élite du Campus Univers Cascades.",
   },
 };

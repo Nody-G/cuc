@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Agence CUC Events • Spectacles & Shows Cascadeurs | CUC",
+  title: "Agence CUC Events • Spectacles & Shows Cascadeurs",
   description: "Prestations événementielles spectaculaires, shows Yamakasi, animation Airbag Géant et team building pour entreprises.",
   alternates: {
     canonical: '/cuc-events-agence',
   },
   openGraph: {
-    title: "Agence CUC Events • Spectacles & Shows Cascadeurs | CUC",
+    title: "Agence CUC Events • Spectacles & Shows Cascadeurs",
     description: "Prestations événementielles spectaculaires, shows Yamakasi, animation Airbag Géant et team building pour entreprises.",
   },
 };

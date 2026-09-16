@@ -47,7 +47,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "CAMPUS UNIVERS CASCADES (CUC) • Plus Grande École de Cascadeurs au Monde",
+    default: "Campus Univers Cascades • École de Cascadeurs",
     template: "%s | CUC",
   },
   description: SITE_DESCRIPTION,
