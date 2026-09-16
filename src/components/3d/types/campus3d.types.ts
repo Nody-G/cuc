@@ -2,15 +2,10 @@ import type * as THREE from 'three';
 
 export type PlanMode = 'satellite' | 'blueprint' | 'daylight';
 
-export type CameraPreset =
-  | 'overview'
-  | 'zenith'
-  | 'tower'
-  | 'zoebell'
-  | 'citystade'
-  | 'drift'
-  | 'manege'
-  | 'qg';
+// Vues caméra publiques : la vue globale et le plan zénithal 2D.
+// Les cadrages par bâtiment sont gérés par `focusFacility` (sélecteur
+// d'installations), ce qui évite toute redondance dans l'interface.
+export type CameraPreset = 'overview' | 'zenith';
 
 export interface EditableFacilityItem {
   id: string;
@@ -30,7 +25,6 @@ export interface CameraPresetConfig {
   theta: number;
   phi: number;
   center: [number, number, number];
-  spotId?: string;
 }
 
 export type GizmoDragType = 'x' | 'z' | 'center' | 'rot' | null;
@@ -38,7 +32,6 @@ export type GizmoDragType = 'x' | 'z' | 'center' | 'rot' | null;
 export interface CampusPlan3DProps {
   initialMode?: PlanMode;
   className?: string;
-  enableDirectTourJump?: boolean;
 }
 
 export interface ThreeSceneContext {

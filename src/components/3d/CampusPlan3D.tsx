@@ -16,10 +16,18 @@ import { CampusJsonStudioModal } from './ui/CampusJsonStudioModal';
 
 export type { PlanMode, CameraPreset, EditableFacilityItem, CampusPlan3DProps };
 
+/**
+ * Plan 3D interactif du domaine CUC.
+ *
+ * Version publique épurée : l'utilisateur explore le campus (vues caméra,
+ * ambiances, sélection d'installations, fiche d'information). L'outil
+ * d'édition de placement (« studio ») reste disponible uniquement pour
+ * l'équipe technique, via le paramètre d'URL `?studio=1` — il n'est jamais
+ * exposé dans l'interface grand public.
+ */
 export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
   initialMode = 'satellite',
   className = '',
-  enableDirectTourJump = true,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -40,7 +48,13 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
   });
 
   const [selectedObjectId, setSelectedObjectId] = useState<string>('cuc-tower');
-  const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
+  // Le studio d'édition n'est accessible qu'aux techniciens via `?studio=1`.
+  // Il n'apparaît jamais dans l'interface publique.
+  const [isEditorOpen, setIsEditorOpen] = useState<boolean>(() =>
+    typeof window === 'undefined'
+      ? false
+      : new URLSearchParams(window.location.search).get('studio') === '1'
+  );
   const [snapGrid, setSnapGrid] = useState<number>(0.5);
   const [dragMode, setDragMode] = useState<'gizmo' | 'orbit'>('gizmo');
   const [isCardVisible, setIsCardVisible] = useState<boolean>(true);
@@ -108,9 +122,9 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
   const toggleFullscreen = useCallback(() => {
     if (!containerRef.current) return;
     if (!document.fullscreenElement) {
-      containerRef.current.requestFullscreen().then(() => setIsFullscreen(true)).catch(() => {});
+      containerRef.current.requestFullscreen().then(() => setIsFullscreen(true)).catch(() => { });
     } else {
-      document.exitFullscreen().then(() => setIsFullscreen(false)).catch(() => {});
+      document.exitFullscreen().then(() => setIsFullscreen(false)).catch(() => { });
     }
   }, []);
 
@@ -121,7 +135,7 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
       setCopiedFeedback(true);
       soundFX.playTacticalClick();
       setTimeout(() => setCopiedFeedback(false), 2500);
-    }).catch(() => {});
+    }).catch(() => { });
   }, [facilities]);
 
   // Download JSON configuration file
@@ -181,7 +195,7 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
     soundFX.playTacticalClick();
   }, [facilities, focusFacility]);
 
-  // Keyboard Navigation & Shortcuts
+  // Keyboard Navigation & Shortcuts (studio uniquement)
   useEffect(() => {
     if (!isEditorOpen) return;
 
@@ -243,23 +257,15 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-[650px] lg:h-[750px] bg-[#050608] border border-zinc-800 overflow-hidden flex flex-col ${
-        isFullscreen ? 'fixed inset-0 z-50 h-screen! w-screen! border-0' : ''
-      } ${className}`}
+      className={`relative w-full h-[650px] lg:h-[750px] bg-[#050608] border border-zinc-800 overflow-hidden flex flex-col ${isFullscreen ? 'fixed inset-0 z-50 h-screen! w-screen! border-0' : ''
+        } ${className}`}
     >
-      {/* Corner HUD Markers */}
-
-      {/* Tactical HUD Header, Presets, and Overlays */}
+      {/* Barre de contrôle, aide contextuelle et sélecteur d'installations */}
       <CampusViewerHUD
         mode={mode}
         onModeChange={setMode}
         activePreset={activePreset}
         onApplyPreset={applyPreset}
-        isEditorOpen={isEditorOpen}
-        onToggleEditor={() => {
-          setIsEditorOpen((prev) => !prev);
-          soundFX.playTacticalClick();
-        }}
         onZoom={handleZoom}
         onReset={handleReset}
         isFullscreen={isFullscreen}
@@ -276,22 +282,15 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
         activeFacility={activeFacility}
         isCardVisible={isCardVisible}
         onCloseCard={() => setIsCardVisible(false)}
-        enableDirectTourJump={enableDirectTourJump}
-        onCopyConfiguration={copyConfiguration}
-        copiedFeedback={copiedFeedback}
-        onOpenJsonStudio={(tab) => {
-          setExportModalTab(tab);
-          setShowExportModal(true);
-        }}
       />
 
-      {/* Main Viewport & Studio Sidebar */}
+      {/* Viewport WebGL */}
       <div className="relative flex-grow w-full h-full bg-black flex overflow-hidden">
         <div className="relative flex-grow w-full h-full cursor-grab active:cursor-grabbing">
           <canvas ref={canvasRef} className="w-full h-full block" />
         </div>
 
-        {/* 3D Placement Studio Sidebar */}
+        {/* Studio de placement — techniciens uniquement (?studio=1) */}
         <CampusEditorPanel
           isOpen={isEditorOpen}
           onClose={() => setIsEditorOpen(false)}
@@ -316,7 +315,7 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
         />
       </div>
 
-      {/* JSON Import/Export Modal */}
+      {/* JSON Import/Export Modal — techniciens uniquement */}
       <CampusJsonStudioModal
         isOpen={showExportModal}
         onClose={() => setShowExportModal(false)}

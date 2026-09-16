@@ -104,67 +104,22 @@ export const DEFAULT_FACILITIES: Record<string, EditableFacilityItem> = {
   },
 };
 
+// Vues caméra publiques : vue globale du domaine et plan zénithal 2D.
+// Le cadrage par bâtiment est assuré par `focusFacility` (sélecteur
+// d'installations), ce qui évite toute redondance dans l'interface.
 export const PRESET_CONFIGS: Record<CameraPreset, CameraPresetConfig> = {
   overview: {
-    label: 'Vue Globale Domaine',
+    label: 'Vue globale',
     radius: 95,
     theta: Math.PI * 0.25,
     phi: Math.PI * 0.32,
     center: [5, 2, 8],
   },
   zenith: {
-    label: 'Vue Ortho Zénithale (2D Plan)',
+    label: 'Plan 2D',
     radius: 120,
     theta: 0,
     phi: 0.05,
     center: [0, 0, 0],
-  },
-  tower: {
-    label: 'Tour de Saut 21m',
-    radius: 36,
-    theta: Math.PI * 0.35,
-    phi: Math.PI * 0.38,
-    center: [7, 8, 14],
-    spotId: 'cuc-tower',
-  },
-  zoebell: {
-    label: 'Zoé Bell Hall',
-    radius: 46,
-    theta: Math.PI * 0.65,
-    phi: Math.PI * 0.36,
-    center: [25, 4, 40],
-    spotId: 'zoe-bell-hall',
-  },
-  citystade: {
-    label: 'City Stade & Piste Bleue',
-    radius: 42,
-    theta: -Math.PI * 0.45,
-    phi: Math.PI * 0.32,
-    center: [-55, 2, -24],
-    spotId: 'city-stade-exterieur',
-  },
-  drift: {
-    label: 'Atelier Mécanique',
-    radius: 44,
-    theta: Math.PI * 0.15,
-    phi: Math.PI * 0.32,
-    center: [-32, 2, 43],
-    spotId: 'espace-mecanique',
-  },
-  manege: {
-    label: 'Manège Équestre',
-    radius: 46,
-    theta: Math.PI * 0.92,
-    phi: Math.PI * 0.34,
-    center: [62, 4, -48],
-    spotId: 'manege-equestre',
-  },
-  qg: {
-    label: 'QG & Hébergement',
-    radius: 44,
-    theta: Math.PI * 0.1,
-    phi: Math.PI * 0.32,
-    center: [28, 3, 24],
-    spotId: 'qg-staff-hebergement',
   },
 };

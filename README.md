@@ -32,6 +32,11 @@ Ouvrir [http://localhost:3000](http://localhost:3000).
 | `npm run build` | Build de production |
 | `npm run start` | Serveur de production |
 | `npm run lint` | Analyse ESLint |
+| `npm run typecheck` | Vérification des types TypeScript |
+| `npm run test` | Tests unitaires (Vitest) |
+| `npm run test:coverage` | Tests unitaires avec couverture |
+| `npm run audit` | Audit consolidé (routes, ancres, liens, taille des fichiers) |
+| `npm run audit:strict` | Idem, mais échoue si un problème est détecté (CI) |
 
 ## Structure du projet
 

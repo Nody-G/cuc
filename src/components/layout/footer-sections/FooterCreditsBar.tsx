@@ -9,11 +9,9 @@ export const FooterCreditsBar: React.FC = () => {
   const [showFloatingTop, setShowFloatingTop] = useState(false);
   // Année calculée côté client uniquement : évite le gel de la valeur au
   // moment du prerender (contrainte `cacheComponents` / PPR).
-  const [year, setYear] = useState<number | null>(null);
-
-  useEffect(() => {
-    setYear(new Date().getFullYear());
-  }, []);
+  const [year] = useState<number | null>(() =>
+    typeof window === 'undefined' ? null : new Date().getFullYear()
+  );
 
   useEffect(() => {
     const handleScroll = () => {

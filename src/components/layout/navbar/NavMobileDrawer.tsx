@@ -9,7 +9,6 @@ import {
   Layers,
   ShoppingBag,
   ExternalLink,
-  Search,
 } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import {
@@ -23,13 +22,11 @@ import {
 interface NavMobileDrawerProps {
   isOpen: boolean;
   onClose: () => void;
-  onOpenCommandPalette: () => void;
 }
 
 export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
   isOpen,
   onClose,
-  onOpenCommandPalette,
 }) => {
   return (
     <AnimatePresence>
@@ -196,20 +193,6 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
             >
               Partenaires
             </Link>
-
-            {/* Mobile Tactical Fast Actions */}
-            <div className="py-2 border-b border-zinc-800">
-              <button
-                onClick={() => {
-                  onClose();
-                  onOpenCommandPalette();
-                }}
-                className="w-full p-2.5 bg-[#14141c] border border-zinc-800 hover:border-[#FFE500] text-left flex items-center gap-2 text-xs font-mono-tech text-zinc-200 transition-colors"
-              >
-                <Search className="w-4 h-4 text-[#FFE500]" />
-                <span>Recherche rapide de formations, campus... (⌘K)</span>
-              </button>
-            </div>
 
             <Link
               href="/visite-virtuelle#plan-3d-campus"

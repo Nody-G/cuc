@@ -115,6 +115,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = () => {
                 src="/images/logos/cuc-logo-yellow.png"
                 alt="Blason Officiel Campus Univers Cascades"
                 fill
+                sizes="64px"
                 priority
                 className="object-contain"
               />

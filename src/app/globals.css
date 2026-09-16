@@ -11,6 +11,20 @@
   --cuc-card: #1a1a21;
   --cuc-border: #272730;
   --cuc-border-light: #3e3e4d;
+
+  /* ===================================================
+     CONTRASTES WCAG 2.2 AA (Phase 4)
+     ===================================================
+     Les gris Tailwind par défaut (zinc-400/500) tombent sous le ratio
+     4.5:1 sur fond #060608. On redéfinit des variables de texte
+     secondaire conformes, utilisées via `.text-muted` / `.text-subtle`. */
+  --cuc-text-muted: #b4b4c0;
+  /* ratio ≈ 9.1:1 sur #060608 */
+  --cuc-text-subtle: #9a9aa8;
+  /* ratio ≈ 6.6:1 sur #060608 */
+  --cuc-text-faint: #82828f;
+  /* ratio ≈ 4.9:1 sur #060608 (limite AA) */
+  --cuc-focus-ring: #FFE500;
 }
 
 body {
@@ -20,6 +34,55 @@ body {
   overflow-x: hidden;
   selection-background-color: #FFE500;
   selection-color: #000000;
+  /* Rendu typographique 2026 : équilibre les titres et évite les orphelines. */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===================================================
+   TYPOGRAPHIE MODERNE (Phase 5 — CSS Text 4)
+   ===================================================
+   `text-wrap: balance` sur les titres (évite les lignes orphelines),
+   `text-wrap: pretty` sur les paragraphes (évite les veuves).
+   Dégradation gracieuse : ignoré par les navigateurs non compatibles. */
+h1,
+h2,
+h3,
+h4,
+.text-balance {
+  text-wrap: balance;
+}
+
+p,
+li,
+figcaption,
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* ===================================================
+   CONTAINER QUERIES (Phase 5 — composants auto-adaptatifs)
+   ===================================================
+   Permet aux cartes de s'adapter à la largeur de LEUR conteneur
+   (et non du viewport), indispensable pour les grilles réutilisables. */
+.card-container {
+  container-type: inline-size;
+  container-name: card;
+}
+
+@container card (min-width: 420px) {
+  .card-responsive-row {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+@container card (max-width: 419px) {
+  .card-responsive-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 ::selection {
@@ -31,13 +94,16 @@ body {
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: #0a0a0d;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #272730;
   border-radius: 2px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #FFE500;
 }
@@ -58,33 +124,27 @@ body {
 
 /* Hazard Warning Stripes Pattern */
 .hazard-stripes {
-  background: repeating-linear-gradient(
-    -45deg,
-    #FFE500,
-    #FFE500 12px,
-    #0a0a0c 12px,
-    #0a0a0c 24px
-  );
+  background: repeating-linear-gradient(-45deg,
+      #FFE500,
+      #FFE500 12px,
+      #0a0a0c 12px,
+      #0a0a0c 24px);
 }
 
 .hazard-stripes-subtle {
-  background: repeating-linear-gradient(
-    -45deg,
-    rgba(255, 229, 0, 0.15),
-    rgba(255, 229, 0, 0.15) 8px,
-    transparent 8px,
-    transparent 16px
-  );
+  background: repeating-linear-gradient(-45deg,
+      rgba(255, 229, 0, 0.15),
+      rgba(255, 229, 0, 0.15) 8px,
+      transparent 8px,
+      transparent 16px);
 }
 
 .hazard-stripes-border {
-  border-image: repeating-linear-gradient(
-    -45deg,
-    #FFE500 0,
-    #FFE500 10px,
-    #18181b 10px,
-    #18181b 20px
-  ) 10;
+  border-image: repeating-linear-gradient(-45deg,
+      #FFE500 0,
+      #FFE500 10px,
+      #18181b 10px,
+      #18181b 20px) 10;
 }
 
 /* Tactical Crosshairs & Camera HUD */
@@ -97,6 +157,7 @@ body {
   border-top: 2px solid #FFE500;
   border-left: 2px solid #FFE500;
 }
+
 .hud-corner-tr {
   position: absolute;
   top: 0;
@@ -106,6 +167,7 @@ body {
   border-top: 2px solid #FFE500;
   border-right: 2px solid #FFE500;
 }
+
 .hud-corner-bl {
   position: absolute;
   bottom: 0;
@@ -115,6 +177,7 @@ body {
   border-bottom: 2px solid #FFE500;
   border-left: 2px solid #FFE500;
 }
+
 .hud-corner-br {
   position: absolute;
   bottom: 0;
@@ -128,7 +191,7 @@ body {
 /* Subtle Film Grain / Grid Background */
 .cinematic-grid {
   background-size: 40px 40px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
@@ -138,6 +201,7 @@ body {
   -webkit-text-stroke: 1.5px #FFE500;
   color: transparent;
 }
+
 .text-stroke-white {
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
   color: transparent;
@@ -145,25 +209,21 @@ body {
 
 /* Tactical Chamfer Button */
 .clip-chamfer {
-  clip-path: polygon(
-    0 0,
-    calc(100% - 10px) 0,
-    100% 10px,
-    100% 100%,
-    10px 100%,
-    0 calc(100% - 10px)
-  );
+  clip-path: polygon(0 0,
+      calc(100% - 10px) 0,
+      100% 10px,
+      100% 100%,
+      10px 100%,
+      0 calc(100% - 10px));
 }
 
 .clip-chamfer-reverse {
-  clip-path: polygon(
-    10px 0,
-    100% 0,
-    100% calc(100% - 10px),
-    calc(100% - 10px) 100%,
-    0 100%,
-    0 10px
-  );
+  clip-path: polygon(10px 0,
+      100% 0,
+      100% calc(100% - 10px),
+      calc(100% - 10px) 100%,
+      0 100%,
+      0 10px);
 }
 
 /* UX: Smooth scroll behavior with accessibility respect */
@@ -171,11 +231,62 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ===================================================
+   ACCESSIBILITÉ CLAVIER (WCAG 2.2 AA — 2.4.7 / 2.4.11)
+   =================================================== */
+
+/* Focus visible unifié : anneau jaune CUC à fort contraste.
+   On cible `:focus-visible` uniquement pour ne pas afficher l'anneau
+   lors d'un clic souris (comportement natif des navigateurs modernes). */
+:focus-visible {
+  outline: 2px solid #FFE500;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Sur fond clair (ex. bouton jaune), on inverse l'anneau pour garantir
+   un contraste ≥ 3:1 (WCAG 1.4.11 Non-text Contrast). */
+.bg-\[\#FFE500\]:focus-visible,
+button.bg-\[\#FFE500\]:focus-visible {
+  outline-color: #060608;
+}
+
+/* Suppression de l'outline par défaut uniquement quand `:focus-visible`
+   est supporté, afin de ne jamais laisser un utilisateur clavier sans repère. */
+@supports selector(:focus-visible) {
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+/* Cible de défilement : compense la navbar fixe (h ~ 72px) lors d'un
+   saut vers une ancre interne (WCAG 2.4.11 Focus Not Obscured). */
+:target {
+  scroll-margin-top: 6rem;
+}
+
+/* Respect strict de `prefers-reduced-motion` pour les animations
+   décoratives infinies (shimmer, pulse) — déjà couvert plus bas, mais
+   on neutralise aussi les transformations de survol coûteuses. */
+@media (prefers-reduced-motion: reduce) {
+  .luxury-metric-card:hover {
+    transform: none;
+  }
+
+  .animate-pulse-slow,
+  .text-shimmer-gold {
+    animation: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -197,8 +308,17 @@ html {
 }
 
 @keyframes pulse-slow {
-  0%, 100% { opacity: 0.35; transform: scale(1); }
-  50% { opacity: 0.85; transform: scale(1.02); }
+
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
 }
 
 .animate-pulse-slow {
@@ -257,14 +377,12 @@ html {
 /* Anamorphic Horizontal Optical Beam */
 .anamorphic-streak {
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(0, 229, 255, 0.3) 20%,
-    rgba(255, 229, 0, 0.7) 50%,
-    rgba(0, 229, 255, 0.3) 80%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(0, 229, 255, 0.3) 20%,
+      rgba(255, 229, 0, 0.7) 50%,
+      rgba(0, 229, 255, 0.3) 80%,
+      transparent 100%);
   box-shadow: 0 0 15px rgba(255, 229, 0, 0.5), 0 0 30px rgba(0, 229, 255, 0.3);
 }
 
@@ -300,19 +418,22 @@ html {
 
 /* Subtle Metallic Gold Shimmer */
 @keyframes gold-shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .text-shimmer-gold {
-  background: linear-gradient(
-    90deg,
-    #FFFFFF 0%,
-    #FFF04D 25%,
-    #FFE500 50%,
-    #FFF04D 75%,
-    #FFFFFF 100%
-  );
+  background: linear-gradient(90deg,
+      #FFFFFF 0%,
+      #FFF04D 25%,
+      #FFE500 50%,
+      #FFF04D 75%,
+      #FFFFFF 100%);
   background-size: 200% auto;
   color: transparent;
   -webkit-background-clip: text;
@@ -320,4 +441,124 @@ html {
   animation: gold-shimmer 6s linear infinite;
 }
 
+/* ===================================================
+   VIEW TRANSITIONS API (Phase 5 — navigation fluide 2026)
+   ===================================================
+   Transitions natives entre pages (Chrome/Edge 111+, Safari 18+).
+   Dégradation gracieuse : sans support, la navigation reste instantanée. */
+@view-transition {
+  navigation: auto;
+}
 
+::view-transition-old(root) {
+  animation: 180ms cubic-bezier(0.4, 0, 1, 1) both cuc-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 240ms cubic-bezier(0, 0, 0.2, 1) both cuc-fade-in;
+}
+
+@keyframes cuc-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes cuc-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Éléments persistants (navbar, footer) : pas de re-animation au changement de page. */
+::view-transition-old(site-header),
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* ===================================================
+   UTILITAIRES DE CONTRASTE (Phase 4 — WCAG 2.2 AA)
+   =================================================== */
+.text-muted {
+  color: var(--cuc-text-muted);
+}
+
+.text-subtle {
+  color: var(--cuc-text-subtle);
+}
+
+.text-faint {
+  color: var(--cuc-text-faint);
+}
+
+/* ===================================================
+   POPOVER API (Phase 5 — menus natifs sans JS)
+   ===================================================
+   Reset des styles UA pour les popovers tactiques. */
+[popover] {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  overflow: visible;
+}
+
+[popover]::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+/* ===================================================
+   DIALOG NATIF (Phase 5 — modales accessibles)
+   =================================================== */
+dialog {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  max-width: 100vw;
+  max-height: 100vh;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+dialog[open] {
+  animation: cuc-dialog-in 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes cuc-dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  dialog[open] {
+    animation: none !important;
+  }
+}

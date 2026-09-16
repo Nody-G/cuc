@@ -2,14 +2,29 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { VirtualTourViewer } from '@/components/ui/VirtualTourViewer';
-import { CampusPlan3D } from '@/components/3d/CampusPlan3D';
 import { soundFX } from '@/lib/soundFx';
+
+// Three.js (~600 ko) chargé à la demande, uniquement côté client, quand
+// l'utilisateur ouvre l'onglet « Plan 3D ». Évite de pénaliser le LCP initial.
+const CampusPlan3D = dynamic(
+  () => import('@/components/3d/CampusPlan3D').then((m) => m.CampusPlan3D),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[520px] sm:h-[620px] lg:h-[720px] flex items-center justify-center bg-[#0c0c12] border border-zinc-800">
+        <span className="text-xs font-mono-tech text-zinc-500 uppercase tracking-widest animate-pulse">
+          Chargement du plan 3D…
+        </span>
+      </div>
+    ),
+  }
+);
 import {
-  Compass,
   ChevronRight,
   MapPin,
   Building,
@@ -90,11 +105,10 @@ export default function VisiteVirtuellePage() {
                     setActiveTab('360');
                     soundFX.playTacticalClick();
                   }}
-                  className={`px-3 py-1.5 text-xs font-mono-tech font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer ${
-                    activeTab === '360'
-                      ? 'bg-[#FFE500] text-black shadow'
-                      : 'text-zinc-400 hover:text-white'
-                  }`}
+                  className={`px-3 py-1.5 text-xs font-mono-tech font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer ${activeTab === '360'
+                    ? 'bg-[#FFE500] text-black shadow'
+                    : 'text-zinc-400 hover:text-white'
+                    }`}
                 >
                   <Eye className="w-3.5 h-3.5" />
                   <span>Vue 360° VR</span>
@@ -105,11 +119,10 @@ export default function VisiteVirtuellePage() {
                     setActiveTab('3d');
                     soundFX.playTacticalClick();
                   }}
-                  className={`px-3 py-1.5 text-xs font-mono-tech font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer ${
-                    activeTab === '3d'
-                      ? 'bg-[#FFE500] text-black shadow'
-                      : 'text-zinc-400 hover:text-white'
-                  }`}
+                  className={`px-3 py-1.5 text-xs font-mono-tech font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer ${activeTab === '3d'
+                    ? 'bg-[#FFE500] text-black shadow'
+                    : 'text-zinc-400 hover:text-white'
+                    }`}
                 >
                   <Layers className="w-3.5 h-3.5" />
                   <span>Plan 3D</span>

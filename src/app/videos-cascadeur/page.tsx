@@ -12,7 +12,6 @@ import {
   Tv,
   ChevronRight,
   ExternalLink,
-  Eye,
   X
 } from 'lucide-react';
 import { PROGRAMMES_TV } from '@/data/videos';
@@ -211,9 +210,6 @@ export default function VideosCascadeurPage() {
                       <div className="w-12 h-12 rounded-full bg-[#FFE500] text-black flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                         <Play className="w-5 h-5 fill-black ml-0.5" />
                       </div>
-                    </div>
-                    <div className="absolute bottom-2 right-2 bg-black/80 px-2 py-0.5 text-[10px] font-mono-tech text-[#FFE500] border border-zinc-800">
-                      LANCER LA VIDÉO
                     </div>
                   </div>
                   <h3 className="font-display uppercase text-lg text-white group-hover:text-[#FFE500] transition-colors">

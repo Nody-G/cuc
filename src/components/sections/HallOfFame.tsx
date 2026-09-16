@@ -54,6 +54,7 @@ export const HallOfFame: React.FC = () => {
                 src="/images/logos/cuc-logo-yellow.png"
                 alt="Blason Officiel CUC Hall of Fame"
                 fill
+                sizes="56px"
                 className="object-contain"
               />
             </div>

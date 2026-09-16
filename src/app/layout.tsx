@@ -11,29 +11,37 @@ import {
   websiteJsonLd,
 } from "@/lib/seo";
 
+// Polices auto-hébergées par next/font (aucune requête vers Google au runtime).
+// `preload: true` uniquement pour les polices critiques (display + body) afin
+// de ne pas saturer la bande passante au premier rendu.
 const bebasNeue = Bebas_Neue({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-bebas-neue",
   display: "swap",
+  preload: true,
+  adjustFontFallback: false,
 });
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
+  preload: true,
 });
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
   display: "swap",
+  preload: false,
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
   display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -111,6 +119,39 @@ export default function RootLayout({
         </a>
         {children}
         <MobileStickyCTA />
+        {/* Speculation Rules API (Phase 5) — préchargement/prérendu instantané
+            des navigations internes au survol/clic. Dégradation gracieuse. */}
+        <script
+          type="speculationrules"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              prerender: [
+                {
+                  where: {
+                    and: [
+                      { href_matches: "/*" },
+                      { not: { href_matches: "/api/*" } },
+                      { not: { selector_matches: "[target=_blank]" } },
+                      { not: { selector_matches: "[rel~=nofollow]" } },
+                    ],
+                  },
+                  eagerness: "moderate",
+                },
+              ],
+              prefetch: [
+                {
+                  where: {
+                    and: [
+                      { href_matches: "/*" },
+                      { not: { href_matches: "/api/*" } },
+                    ],
+                  },
+                  eagerness: "conservative",
+                },
+              ],
+            }),
+          }}
+        />
         {/* Données structurées schema.org */}
         <script
           type="application/ld+json"

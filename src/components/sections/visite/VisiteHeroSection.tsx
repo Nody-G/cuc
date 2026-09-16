@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Building, ChevronRight, Layers, Compass } from 'lucide-react';
+import { ChevronRight, Layers, Compass } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 
 export const VisiteHeroSection: React.FC = () => {

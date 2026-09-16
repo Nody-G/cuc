@@ -1,13 +1,28 @@
 'use client';
 
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { VirtualTourViewer } from '@/components/ui/VirtualTourViewer';
 import { LightboxModal } from '@/components/ui/LightboxModal';
-import { CampusPlan3D } from '@/components/3d/CampusPlan3D';
 import { Layers, Compass } from 'lucide-react';
+
+// Three.js (~600 ko) chargé à la demande, uniquement côté client.
+const CampusPlan3D = dynamic(
+  () => import('@/components/3d/CampusPlan3D').then((m) => m.CampusPlan3D),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[520px] sm:h-[620px] lg:h-[720px] flex items-center justify-center bg-[#0c0c12] border border-zinc-800">
+        <span className="text-xs font-mono-tech text-zinc-500 uppercase tracking-widest animate-pulse">
+          Chargement du plan 3D…
+        </span>
+      </div>
+    ),
+  }
+);
 import {
   CAMPUS_GALLERY_PHOTOS,
   VisiteHeroSection,

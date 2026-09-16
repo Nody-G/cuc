@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ExternalLink } from 'lucide-react';
 import { TacticalButton } from '../ui/TacticalButton';
-import { CommandPalette } from '../ui/CommandPalette';
 import { NavDropdowns } from './navbar/NavDropdowns';
 import { NavActionsBar } from './navbar/NavActionsBar';
 import { NavMobileDrawer } from './navbar/NavMobileDrawer';
@@ -18,7 +17,6 @@ export const Navbar: React.FC = () => {
   const [formationsDropdownOpen, setFormationsDropdownOpen] = useState(false);
   const [campusDropdownOpen, setCampusDropdownOpen] = useState(false);
   const [eventsDropdownOpen, setEventsDropdownOpen] = useState(false);
-  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
 
   // UX: Auto-close dropdowns and mobile drawer on route change
   const [prevPathname, setPrevPathname] = useState(pathname);
@@ -30,13 +28,10 @@ export const Navbar: React.FC = () => {
     setMobileMenuOpen(false);
   }
 
-  // Global Keyboard: Listen for Cmd+K / Ctrl+K to open Command Palette
+  // Global Keyboard: Escape closes any open dropdown or the mobile drawer
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        setCommandPaletteOpen((prev) => !prev);
-      } else if (e.key === 'Escape') {
+      if (e.key === 'Escape') {
         setFormationsDropdownOpen(false);
         setCampusDropdownOpen(false);
         setEventsDropdownOpen(false);
@@ -69,14 +64,16 @@ export const Navbar: React.FC = () => {
     pathname.startsWith('/team-building');
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
+    <header
+      className="fixed top-0 left-0 right-0 z-50"
+      style={{ viewTransitionName: 'site-header' }}
+    >
       {/* Main Bar */}
       <nav
-        className={`transition-all duration-200 border-b ${
-          isScrolled
-            ? 'bg-[#060608]/95 backdrop-blur-md border-white/10 py-2.5 shadow-2xl'
-            : 'bg-[#060608]/85 backdrop-blur-xs border-white/5 py-3.5'
-        }`}
+        className={`transition-all duration-200 border-b ${isScrolled
+          ? 'bg-[#060608]/95 backdrop-blur-md border-white/10 py-2.5 shadow-2xl'
+          : 'bg-[#060608]/85 backdrop-blur-xs border-white/5 py-3.5'
+          }`}
       >
         <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           {/* Logo CUC Officiel */}
@@ -105,11 +102,10 @@ export const Navbar: React.FC = () => {
           <div className="hidden xl:flex items-center gap-3.5 2xl:gap-5 text-xs font-mono-tech uppercase tracking-wider shrink-0">
             <Link
               href="/"
-              className={`py-1 transition-colors ${
-                pathname === '/'
-                  ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
-                  : 'text-zinc-300 hover:text-[#FFE500]'
-              }`}
+              className={`py-1 transition-colors ${pathname === '/'
+                ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
+                : 'text-zinc-300 hover:text-[#FFE500]'
+                }`}
             >
               Accueil
             </Link>
@@ -129,55 +125,50 @@ export const Navbar: React.FC = () => {
 
             <Link
               href="/stunt-workshop-cuc"
-              className={`py-1 transition-colors ${
-                pathname === '/stunt-workshop-cuc'
-                  ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
-                  : 'text-zinc-300 hover:text-[#FFE500]'
-              }`}
+              className={`py-1 transition-colors ${pathname === '/stunt-workshop-cuc'
+                ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
+                : 'text-zinc-300 hover:text-[#FFE500]'
+                }`}
             >
               Workshop
             </Link>
 
             <Link
               href="/equipe-cascadeurs-pro"
-              className={`py-1 transition-colors ${
-                pathname === '/equipe-cascadeurs-pro'
-                  ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
-                  : 'text-zinc-300 hover:text-[#FFE500]'
-              }`}
+              className={`py-1 transition-colors ${pathname === '/equipe-cascadeurs-pro'
+                ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
+                : 'text-zinc-300 hover:text-[#FFE500]'
+                }`}
             >
               L’équipe
             </Link>
 
             <Link
               href="/videos-cascadeur"
-              className={`py-1 transition-colors ${
-                pathname === '/videos-cascadeur'
-                  ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
-                  : 'text-zinc-300 hover:text-[#FFE500]'
-              }`}
+              className={`py-1 transition-colors ${pathname === '/videos-cascadeur'
+                ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
+                : 'text-zinc-300 hover:text-[#FFE500]'
+                }`}
             >
               Nos Vidéos
             </Link>
 
             <Link
               href="/cuc-team-cascadeur"
-              className={`py-1 transition-colors ${
-                pathname === '/cuc-team-cascadeur'
-                  ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
-                  : 'text-zinc-300 hover:text-[#FFE500]'
-              }`}
+              className={`py-1 transition-colors ${pathname === '/cuc-team-cascadeur'
+                ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
+                : 'text-zinc-300 hover:text-[#FFE500]'
+                }`}
             >
               Tournages
             </Link>
 
             <Link
               href="/partenaires"
-              className={`py-1 transition-colors ${
-                pathname === '/partenaires'
-                  ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
-                  : 'text-zinc-300 hover:text-[#FFE500]'
-              }`}
+              className={`py-1 transition-colors ${pathname === '/partenaires'
+                ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
+                : 'text-zinc-300 hover:text-[#FFE500]'
+                }`}
             >
               Partenaires
             </Link>
@@ -196,20 +187,17 @@ export const Navbar: React.FC = () => {
 
             <Link
               href="/contact-cuc"
-              className={`py-1 transition-colors ${
-                pathname === '/contact-cuc'
-                  ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
-                  : 'text-zinc-300 hover:text-[#FFE500]'
-              }`}
+              className={`py-1 transition-colors ${pathname === '/contact-cuc'
+                ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
+                : 'text-zinc-300 hover:text-[#FFE500]'
+                }`}
             >
               Contact
             </Link>
           </div>
 
           {/* Right Action CTA & Quick Tools */}
-          <NavActionsBar
-            onOpenCommandPalette={() => setCommandPaletteOpen(true)}
-          />
+          <NavActionsBar />
 
           {/* Mobile Menu Toggle Button */}
           <div className="flex items-center gap-2 xl:hidden">
@@ -241,13 +229,6 @@ export const Navbar: React.FC = () => {
       <NavMobileDrawer
         isOpen={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
-        onOpenCommandPalette={() => setCommandPaletteOpen(true)}
-      />
-
-      {/* Universal Command Palette (Cmd + K) */}
-      <CommandPalette
-        isOpen={commandPaletteOpen}
-        onClose={() => setCommandPaletteOpen(false)}
       />
     </header>
   );

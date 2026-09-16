@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
+import path from "node:path";
 
 const nextConfig: NextConfig = {
+  // Racine Turbopack explicite : évite que Next.js remonte au-delà du dépôt
+  // (ex. `package-lock.json` dans le dossier parent) et fige la résolution.
+  turbopack: {
+    root: path.resolve(__dirname),
+  },
   // --- Performance (2026) ---
   // React Compiler : mémoïsation automatique des composants (plus besoin de
   // useMemo/useCallback manuels dans la majorité des cas).
@@ -52,6 +58,33 @@ const nextConfig: NextConfig = {
             value: "max-age=63072000; includeSubDomains; preload",
           },
           { key: "X-DNS-Prefetch-Control", value: "on" },
+          {
+            key: "Cross-Origin-Opener-Policy",
+            value: "same-origin",
+          },
+          {
+            // CSP : autorise les scripts inline de Next.js (hydratation + JSON-LD
+            // + Speculation Rules), les images distantes (Unsplash, campus) et
+            // les iframes de la visite virtuelle 360°. `frame-ancestors` et
+            // `object-src` verrouillent le clickjacking et les plugins.
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' data: blob: https:",
+              "font-src 'self' data:",
+              "connect-src 'self' https:",
+              "frame-src 'self' https:",
+              "media-src 'self' https: blob:",
+              "worker-src 'self' blob:",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "frame-ancestors 'self'",
+              "upgrade-insecure-requests",
+            ].join("; "),
+          },
         ],
       },
     ];
