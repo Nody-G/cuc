@@ -20,6 +20,8 @@ interface FacilitySpot {
   code: string;
   description: string;
   badge: string;
+  /** Nom réel de la scène krpano dans la visite HD Media (deep-link). */
+  scene: string;
 }
 
 const TOUR_HOTSPOTS: FacilitySpot[] = [
@@ -28,42 +30,48 @@ const TOUR_HOTSPOTS: FacilitySpot[] = [
     name: 'Zoé Bell Hall',
     code: 'ZONE 01',
     description: 'Fosse olympique à cubes de mousse, trampolines de propulsion et praticables de chutes.',
-    badge: 'Plateau Principal'
+    badge: 'Plateau Principal',
+    scene: 'scene_cbprqpmz9_815285'
   },
   {
     id: 'cuc-tower',
     name: 'CUC Tower 21M',
     code: 'ZONE 02',
     description: 'Tour monumentale de 21 mètres : simulations de défenestrations, rappels et sauts airbag.',
-    badge: 'Chutes Extrêmes'
+    badge: 'Chutes Extrêmes',
+    scene: 'scene_cbprqpmz9_2515159'
   },
   {
     id: 'dojos',
     name: "Dojos & Salle d'Armes",
     code: 'ZONE 03',
     description: "Tatamis d'impact, ring de boxe et arsenal d'armes factices pour combats de cinéma.",
-    badge: 'Fight Choreography'
+    badge: 'Fight Choreography',
+    scene: 'scene_cbprqpmz9_815297'
   },
   {
     id: 'manege',
     name: 'Manège Équestre',
     code: 'ZONE 04',
     description: 'Structure équestre couverte pour voltige, chutes de cheval et cascades équestres.',
-    badge: 'Cascades Équestres'
+    badge: 'Cascades Équestres',
+    scene: 'scene_cbprqpmz9_1382261'
   },
   {
     id: 'mecanique',
     name: 'Zone Mécanique & Piste',
     code: 'ZONE 05',
     description: 'Ateliers de préparation mécanique, quads, motos et véhicules de dérapage & percussions.',
-    badge: 'Cascades Véhicules'
+    badge: 'Cascades Véhicules',
+    scene: 'scene_cbprqpmz9_1382262'
   },
   {
     id: 'hebergement',
     name: 'QG Staff & Hébergements',
     code: 'ZONE 06',
     description: '90 lits en pension complète, réfectoire, salle de projection et pôle vie des élèves.',
-    badge: 'Vie de Campus'
+    badge: 'Vie de Campus',
+    scene: 'scene_cbprqpmz9_727445'
   }
 ];
 
@@ -84,6 +92,15 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
   const [iframeKey, setIframeKey] = useState(0);
   const [infoOpen, setInfoOpen] = useState(true);
 
+  const TOUR_URL =
+    'https://www.hdmedia.fr/visite-virtuelle/hd/cbprqpmz9-campus-univers-cascades-le-cateau-cambresis.html';
+
+  /**
+   * URL réellement chargée dans l'iframe. Le hash `#scene_xxx` est le mécanisme
+   * de deep-link natif de krpano : il ouvre directement la scène demandée.
+   */
+  const [tourSrc, setTourSrc] = useState<string>(TOUR_URL);
+
   const toggleFullscreen = () => {
     if (!containerRef.current) return;
 
@@ -101,11 +118,21 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
   };
 
   const handleResetTour = () => {
+    setActiveSpot(TOUR_HOTSPOTS[0]);
+    setTourSrc(TOUR_URL);
     setIframeKey((prev) => prev + 1);
   };
 
-  const TOUR_URL =
-    'https://www.hdmedia.fr/visite-virtuelle/hd/cbprqpmz9-campus-univers-cascades-le-cateau-cambresis.html';
+  /**
+   * Téléporte réellement la visite 360° vers la scène krpano correspondant au repère.
+   * On change le hash `#scene_xxx` puis on force le rechargement de l'iframe
+   * (le hash seul ne déclenche pas de navigation dans un iframe déjà monté).
+   */
+  const handleTeleport = (spot: FacilitySpot) => {
+    setActiveSpot(spot);
+    setTourSrc(`${TOUR_URL}#${spot.scene}`);
+    setIframeKey((prev) => prev + 1);
+  };
 
   return (
     <div
@@ -152,7 +179,7 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
           </button>
 
           <a
-            href={TOUR_URL}
+            href={tourSrc}
             target="_blank"
             rel="noopener noreferrer"
             className="px-2.5 py-1 text-[11px] font-mono-tech border border-zinc-800 bg-[#121218] text-zinc-300 hover:text-[#FFE500] hover:border-zinc-700 transition-colors flex items-center gap-1.5"
@@ -205,7 +232,7 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
         <iframe
           key={iframeKey}
           ref={iframeRef}
-          src={TOUR_URL}
+          src={tourSrc}
           title="Visite Virtuelle 360° Campus Univers Cascades"
           className="w-full h-full border-0"
           scrolling="no"
@@ -241,7 +268,8 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
               return (
                 <button
                   key={spot.id}
-                  onClick={() => setActiveSpot(spot)}
+                  onClick={() => handleTeleport(spot)}
+                  title={`Se téléporter vers : ${spot.name}`}
                   className={`p-2.5 text-left border transition-all cursor-pointer flex flex-col justify-between ${isSelected
                     ? 'bg-[#181824] border-[#FFE500] text-white shadow-[0_0_12px_rgba(255,229,0,0.25)]'
                     : 'bg-[#101016] border-zinc-800/80 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
@@ -269,6 +297,10 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
           {/* Active Spotlight Description Card */}
           <div className="mt-3 p-3 bg-[#12121a] border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
             <div>
+              <span className="inline-flex items-center gap-1 text-[9px] font-mono-tech font-bold uppercase text-black bg-[#FFE500] px-1.5 py-0.5 mr-2 align-middle">
+                <Compass className="w-3 h-3" />
+                Téléporté
+              </span>
               <span className="text-[#FFE500] font-mono-tech font-bold uppercase mr-2">
                 [{activeSpot.code}] {activeSpot.name} :
               </span>
