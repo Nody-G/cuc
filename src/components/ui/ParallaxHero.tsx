@@ -34,8 +34,8 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = () => {
   // Multi-plane parallax transforms
   const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
   const bgScale = useTransform(scrollYProgress, [0, 1], [1.02, 1.15]);
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '-24%']);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '-18%']);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.9], [1, 0]);
   const hudY = useTransform(scrollYProgress, [0, 1], ['0%', '10%']);
   const tickerX = useTransform(scrollYProgress, [0, 1], ['0%', '-25%']);
 
@@ -59,7 +59,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = () => {
     <section
       ref={heroRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-[90vh] sm:min-h-[94vh] flex flex-col justify-between overflow-hidden bg-black border-b border-zinc-800 select-none"
+      className="relative min-h-[88vh] sm:min-h-[92vh] flex flex-col justify-between overflow-hidden bg-black border-b border-zinc-800 select-none"
     >
       {/* 1. Parallax Layer: Background Photography with Depth Drift */}
       <motion.div
@@ -69,9 +69,8 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = () => {
         {HERO_SLIDES.map((slide, idx) => (
           <div
             key={idx}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              idx === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+              }`}
           >
             <Image
               src={slide.url}

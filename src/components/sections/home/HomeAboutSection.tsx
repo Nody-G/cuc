@@ -83,7 +83,7 @@ export const HomeAboutSection: React.FC = () => {
                 {[
                   {
                     title: "INFRASTRUCTURES DÉDIÉES",
-                    desc: "Tour de saut de 21 mètres, salle d'entraînement Zoé Bell de 700 m², fosse de réception, dojos et manège équestre sur 6 hectares.",
+                    desc: "Plateaux techniques complets : fosse de réception, dojos de combat chorégraphié, hangars de cascades mécaniques et manège équestre sur 6 hectares.",
                     tag: "6 HECTARES"
                   },
                   {

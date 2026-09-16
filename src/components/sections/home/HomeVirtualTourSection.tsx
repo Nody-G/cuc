@@ -37,9 +37,9 @@ export const HomeVirtualTourSection: React.FC = () => {
                 </h2>
 
                 <p className="text-sm sm:text-base font-tech text-zinc-300 leading-relaxed">
-                  Découvrez nos 6 hectares comme si vous y étiez ! Pénétrez dans le Zoé Bell Hall,
-                  la fosse olympique de mousse, la tour de saut et d&apos;impact, les dojos de combat chorégraphié
-                  et les hangars de cascades mécaniques grâce à notre visite virtuelle interactive officielle.
+                  Découvrez nos 6 hectares comme si vous y étiez ! Arpentez les plateaux de tournage,
+                  la fosse olympique de mousse, les dojos de combat chorégraphié, les hangars de cascades
+                  mécaniques et le manège équestre grâce à notre visite virtuelle interactive officielle.
                 </p>
 
                 <div className="flex flex-wrap gap-4 pt-2">
@@ -64,7 +64,7 @@ export const HomeVirtualTourSection: React.FC = () => {
                 <div className="relative h-64 sm:h-80 w-full border border-zinc-700 overflow-hidden bg-black group shadow-xl">
                   <Image
                     src="https://www.campus-universcascades.com/wp-content/uploads/2020/11/Zoé-Bell-Hall.jpg"
-                    alt="Aperçu 360 du Zoé Bell Hall au Campus Univers Cascades"
+                    alt="Aperçu 360 d'un plateau technique du Campus Univers Cascades"
                     fill
                     sizes="(max-width: 1024px) 100vw, 40vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"

@@ -33,8 +33,8 @@ export const HERO_SLIDES: HeroSlide[] = [
 ];
 
 export const HERO_QUICK_METRICS = [
-  { val: '6 HECTARES', label: 'DOMAINE PRIVÉ' },
-  { val: '21 MÈTRES', label: 'TOUR DE SAUT' },
-  { val: 'SALLE D\'ACTION', label: 'ZOÉ BELL HALL' },
+  { val: 'DEPUIS 2008', label: 'SAVOIR-FAIRE CUC' },
+  { val: '100% TERRAIN', label: 'PÉDAGOGIE ACTIVE' },
+  { val: 'CINÉMA & TV', label: 'INSERTION PRO' },
   { val: 'QUALIOPI', label: 'FORMATION CERTIFIÉE' },
 ];

@@ -325,6 +325,27 @@ button.bg-\[\#FFE500\]:focus-visible {
   animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
+/* Bandeau défilant noir / jaune — défilement continu sans vide */
+@keyframes cuc-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: cuc-marquee 60s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
+
 /* ===================================================
    HAUTE ORFEVRERIE & CINEMATIC OPTICAL SUITE (CUC)
    =================================================== */
