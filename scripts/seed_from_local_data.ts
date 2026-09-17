@@ -1,5 +1,4 @@
 import { createClient } from '@supabase/supabase-js';
-import * as dotenv from 'dotenv';
 import path from 'node:path';
 import fs from 'node:fs';
 import { STUNT_PROGRAMS } from '../src/data/programs';
@@ -8,7 +7,13 @@ import { FILMOGRAPHY_CREDITS } from '../src/data/filmography';
 
 const envPath = path.join(process.cwd(), '.env.local');
 if (fs.existsSync(envPath)) {
-  dotenv.config({ path: envPath });
+  const envContent = fs.readFileSync(envPath, 'utf-8');
+  envContent.split('\n').forEach((line) => {
+    const [key, ...vals] = line.split('=');
+    if (key && vals.length > 0) {
+      process.env[key.trim()] = vals.join('=').trim();
+    }
+  });
 }
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
