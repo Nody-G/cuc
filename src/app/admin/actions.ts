@@ -95,13 +95,13 @@ export async function createSession(data: {
 /**
  * Supprime une session de stage.
  */
-export async function deleteSession(sessionId: string) {
+export async function deleteSession(sessionIdentifier: string) {
   try {
     const adminClient = createAdminClient();
     const { error } = await adminClient
       .from('site_sessions')
       .delete()
-      .eq('id', sessionId);
+      .or(`id.eq.${sessionIdentifier},date_display.eq.${sessionIdentifier}`);
 
     if (error) throw error;
 
@@ -235,3 +235,46 @@ export async function upsertFilm(film: {
     return { success: false, error: message };
   }
 }
+
+/**
+ * Supprime un membre de l'équipe.
+ */
+export async function deleteTeamMember(id: string) {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('site_team')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+
+    await revalidateSite(['/equipe-cascadeurs-pro', '/']);
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Supprime un film de la filmographie.
+ */
+export async function deleteFilm(id: string) {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('site_films')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+
+    await revalidateSite(['/cuc-team-cascadeur', '/']);
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return { success: false, error: message };
+  }
+}
+
