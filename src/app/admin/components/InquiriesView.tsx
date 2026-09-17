@@ -16,9 +16,135 @@ import {
   RefreshCw,
   Check,
   X,
+  Copy,
+  Send,
+  CheckSquare,
+  Square,
+  Sparkles,
 } from 'lucide-react';
 import { SiteInquiry, getInquiries } from '@/lib/data/site-service';
 import { updateInquiryStatus, updateInquiryNotes, deleteInquiry } from '@/app/admin/actions';
+
+interface EmailTemplate {
+  id: string;
+  name: string;
+  badge: string;
+  subject: (inq: SiteInquiry) => string;
+  body: (inq: SiteInquiry) => string;
+}
+
+const RESPONSE_TEMPLATES: EmailTemplate[] = [
+  {
+    id: 'audition',
+    name: 'Convocation Audition CUC',
+    badge: 'Auditions',
+    subject: (inq) => `[CUC] Convocation aux auditions de sélection - ${inq.full_name}`,
+    body: (inq) => `Bonjour ${inq.full_name},
+
+Faisant suite à votre candidature pour la formation ${inq.program_title || inq.program_id}, nous avons le plaisir de vous convoquer aux prochaines auditions de sélection au sein du Campus Univers Cascades (Le Cannet-des-Maures, Var).
+
+Rappel des éléments requis le jour de l'audition :
+- Certificat médical de non-contre-indication à la pratique des cascades physiques de moins de 3 mois.
+- Tenue de sport adaptée (training, baskets propres d'intérieur, protège-dents conseillé).
+- Pièce d'identité en cours de validité.
+
+Merci de nous confirmer votre présence par retour de mail sous 48h.
+
+Bien cordialement,
+Lucas Dollfus & L'Équipe Pédagogique
+Campus Univers Cascades (CUC)
+contact@campus-univers-cascades.com`,
+  },
+  {
+    id: 'afdas',
+    name: 'Dossier AFDAS / OPCO',
+    badge: 'Financement',
+    subject: (inq) => `[CUC] Dossier de financement AFDAS / OPCO - ${inq.full_name}`,
+    body: (inq) => `Bonjour ${inq.full_name},
+
+Nous faisons suite à votre demande concernant le financement AFDAS pour la formation ${inq.program_title || inq.program_id} au Campus Univers Cascades.
+
+Le CUC étant un organisme de formation certifié Qualiopi (Certificat N° 21452296), nos parcours sont éligibles aux financements AFDAS (artistes, intermittents du spectacle et techniciens).
+
+Vous trouverez ci-joint :
+- Le programme pédagogique détaillé et le devis conventionné aux normes AFDAS.
+- L'attestation d'éligibilité et le calendrier prévisionnel.
+
+Procédure :
+1. Déposez ce devis et ce programme sur votre espace adhérent AFDAS au moins 4 semaines avant le début de la session.
+2. Transmettez-nous l'accord de prise en charge dès réception.
+
+Restant à votre entière disposition,
+Le Secrétariat Administratif CUC`,
+  },
+  {
+    id: 'devis_event',
+    name: 'Devis Immersion & Team Building',
+    badge: 'Entreprises',
+    subject: (inq) => `[CUC] Devis & Proposition d'immersion cascade cinéma - ${inq.full_name}`,
+    body: (inq) => `Bonjour ${inq.full_name},
+
+Merci pour votre prise de contact avec le Campus Univers Cascades.
+
+Nous avons le plaisir de vous soumettre notre proposition d'expérience immersive cascade cinéma adaptée à votre équipe :
+- Initiation aux chorégraphies de combats scéniques et maniement d'armes sous la direction de cascadeurs professionnels.
+- Ateliers chutes, câblage cinéma (wirework) et sécurité des plateaux.
+- Restitution et tournage d'une scène d'action montée en direct.
+
+N'hésitez pas à nous indiquer vos créneaux préférentiels pour convenir d'un échange téléphonique et caler le devis définitif.
+
+L'Équipe Événements CUC
+contact@campus-univers-cascades.com`,
+  },
+  {
+    id: 'admission',
+    name: 'Confirmation d\'Admission',
+    badge: 'Inscription',
+    subject: (inq) => `[CUC] Félicitations - Admission confirmée au Campus Univers Cascades - ${inq.full_name}`,
+    body: (inq) => `Bonjour ${inq.full_name},
+
+Nous avons le plaisir de vous annoncer votre admission officielle pour la session ${inq.program_title || inq.program_id} au sein du Campus Univers Cascades !
+
+Vos prochaines étapes :
+1. Retournez-nous le contrat de formation signé ainsi que le règlement intérieur paraphé.
+2. Réglez l'acompte de réservation de place (ou transmettez votre accord de prise en charge).
+3. Préparez votre arrivée sur le campus du Cannet-des-Maures (Var).
+
+Nous avons hâte de vous compter parmi nos élèves cascadeurs.
+
+Lucas Dollfus & L'Équipe du CUC`,
+  },
+];
+
+const CHECKLIST_STEPS = [
+  { id: 'contact', label: '1. Premier contact téléphonique effectué' },
+  { id: 'dossier', label: '2. Dossier & certificat médical reçus' },
+  { id: 'financement', label: '3. Financement validé (AFDAS / Personnel)' },
+  { id: 'convocation', label: '4. Convocation / Contrat officiel envoyé' },
+];
+
+function parseNotesAndChecklist(raw: string): { checklist: Record<string, boolean>; notes: string } {
+  const match = raw.match(/<!-- CUC_CHECKLIST:([a-z,]+) -->/);
+  if (!match) {
+    return { checklist: {}, notes: raw };
+  }
+  const completedKeys = match[1].split(',').filter(Boolean);
+  const checklist: Record<string, boolean> = {};
+  completedKeys.forEach((k) => {
+    checklist[k] = true;
+  });
+  const notes = raw.replace(/<!-- CUC_CHECKLIST:[a-z,]+ -->\n?/, '').trim();
+  return { checklist, notes };
+}
+
+function serializeNotesAndChecklist(checklist: Record<string, boolean>, notes: string): string {
+  const completed = Object.entries(checklist)
+    .filter(([, v]) => v)
+    .map(([k]) => k)
+    .join(',');
+  if (!completed) return notes;
+  return `<!-- CUC_CHECKLIST:${completed} -->\n${notes}`;
+}
 
 interface InquiriesViewProps {
   showToast: (msg: string) => void;
@@ -35,7 +161,10 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
   const [statusFilter, setStatusFilter] = useState<'all' | 'nouveau' | 'en_cours' | 'admis' | 'refuse' | 'archive'>('all');
   const [selectedInquiry, setSelectedInquiry] = useState<SiteInquiry | null>(null);
   const [editingNotes, setEditingNotes] = useState('');
+  const [currentChecklist, setCurrentChecklist] = useState<Record<string, boolean>>({});
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string>(RESPONSE_TEMPLATES[0].id);
   const [isSavingNotes, setIsSavingNotes] = useState(false);
+  const [copiedTemplate, setCopiedTemplate] = useState(false);
 
   const fetchInquiries = async () => {
     setLoading(true);
@@ -82,19 +211,47 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
 
   const handleSaveNotes = async (id: string) => {
     setIsSavingNotes(true);
-    const res = await updateInquiryNotes(id, editingNotes);
+    const serialized = serializeNotesAndChecklist(currentChecklist, editingNotes);
+    const res = await updateInquiryNotes(id, serialized);
     setIsSavingNotes(false);
     if (res.success) {
       setInquiries((prev) =>
-        prev.map((item) => (item.id === id ? { ...item, admin_notes: editingNotes } : item))
+        prev.map((item) => (item.id === id ? { ...item, admin_notes: serialized } : item))
       );
       if (selectedInquiry?.id === id) {
-        setSelectedInquiry((prev) => (prev ? { ...prev, admin_notes: editingNotes } : null));
+        setSelectedInquiry((prev) => (prev ? { ...prev, admin_notes: serialized } : null));
       }
       showToast('Note administrative enregistrée !');
     } else {
       showToast(`Erreur : ${res.error}`);
     }
+  };
+
+  const handleToggleChecklist = async (stepId: string) => {
+    if (!selectedInquiry) return;
+    const updatedChecklist = {
+      ...currentChecklist,
+      [stepId]: !currentChecklist[stepId],
+    };
+    setCurrentChecklist(updatedChecklist);
+    const serialized = serializeNotesAndChecklist(updatedChecklist, editingNotes);
+    const res = await updateInquiryNotes(selectedInquiry.id, serialized);
+    if (res.success) {
+      setInquiries((prev) =>
+        prev.map((item) => (item.id === selectedInquiry.id ? { ...item, admin_notes: serialized } : item))
+      );
+      setSelectedInquiry((prev) => (prev ? { ...prev, admin_notes: serialized } : null));
+      showToast('Suivi candidat mis à jour !');
+    }
+  };
+
+  const openInquiryModal = (inq: SiteInquiry) => {
+    const { checklist, notes } = parseNotesAndChecklist(inq.admin_notes || '');
+    setSelectedInquiry(inq);
+    setEditingNotes(notes);
+    setCurrentChecklist(checklist);
+    setSelectedTemplateId(RESPONSE_TEMPLATES[0].id);
+    setCopiedTemplate(false);
   };
 
   const handleDelete = async (id: string) => {
@@ -340,10 +497,7 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
               <div
                 key={inq.id}
                 className="p-4 hover:bg-white/5 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4 cursor-pointer"
-                onClick={() => {
-                  setSelectedInquiry(inq);
-                  setEditingNotes(inq.admin_notes || '');
-                }}
+                onClick={() => openInquiryModal(inq)}
               >
                 <div className="space-y-1 min-w-0 flex-1">
                   <div className="flex items-center gap-2.5 flex-wrap">
@@ -388,8 +542,7 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setSelectedInquiry(inq);
-                      setEditingNotes(inq.admin_notes || '');
+                      openInquiryModal(inq);
                     }}
                     className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-white border border-white/10 transition-colors cursor-pointer"
                   >
@@ -494,6 +647,126 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
               <div className="p-3.5 rounded-xl bg-[#14141c] border border-white/5 text-xs text-gray-200 leading-relaxed whitespace-pre-wrap">
                 {selectedInquiry.message || 'Aucun message particulier fourni.'}
               </div>
+            </div>
+
+            {/* Suivi Opérationnel & Checklist */}
+            <div className="space-y-2 border-t border-white/10 pt-4">
+              <div className="flex items-center justify-between text-xs font-mono">
+                <span className="text-[#FFE500] uppercase font-bold flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5" /> Suivi Opérationnel du Candidat
+                </span>
+                <span className="text-gray-400">
+                  {CHECKLIST_STEPS.filter((s) => currentChecklist[s.id]).length} / {CHECKLIST_STEPS.length} validés
+                </span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {CHECKLIST_STEPS.map((step) => {
+                  const isChecked = !!currentChecklist[step.id];
+                  return (
+                    <button
+                      key={step.id}
+                      type="button"
+                      onClick={() => handleToggleChecklist(step.id)}
+                      className={`flex items-center gap-2 p-2.5 rounded-lg text-left text-xs font-medium border transition-colors cursor-pointer ${
+                        isChecked
+                          ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
+                          : 'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:bg-white/10'
+                      }`}
+                    >
+                      {isChecked ? (
+                        <CheckSquare className="w-4 h-4 text-emerald-400 shrink-0" />
+                      ) : (
+                        <Square className="w-4 h-4 text-gray-500 shrink-0" />
+                      )}
+                      <span>{step.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Modèles de réponse officielle par email */}
+            <div className="space-y-3 border-t border-white/10 pt-4">
+              <div className="flex items-center justify-between text-xs font-mono">
+                <span className="text-[#FFE500] uppercase font-bold flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5" /> Modèles de Réponses Officielles
+                </span>
+                <span className="text-gray-500">Génération automatique</span>
+              </div>
+
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+                {RESPONSE_TEMPLATES.map((tmpl) => (
+                  <button
+                    key={tmpl.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedTemplateId(tmpl.id);
+                      setCopiedTemplate(false);
+                    }}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors flex items-center gap-1.5 cursor-pointer ${
+                      selectedTemplateId === tmpl.id
+                        ? 'bg-white text-black font-bold'
+                        : 'bg-white/5 text-gray-400 hover:text-white border border-white/5'
+                    }`}
+                  >
+                    <span>{tmpl.name}</span>
+                  </button>
+                ))}
+              </div>
+
+              {(() => {
+                const currentTemplate =
+                  RESPONSE_TEMPLATES.find((t) => t.id === selectedTemplateId) || RESPONSE_TEMPLATES[0];
+                const subject = currentTemplate.subject(selectedInquiry);
+                const body = currentTemplate.body(selectedInquiry);
+                const mailtoUrl = `mailto:${selectedInquiry.email}?subject=${encodeURIComponent(
+                  subject
+                )}&body=${encodeURIComponent(body)}`;
+
+                const handleCopyTemplate = () => {
+                  navigator.clipboard.writeText(`${subject}\n\n${body}`);
+                  setCopiedTemplate(true);
+                  showToast('Modèle d\'email copié dans le presse-papier !');
+                  setTimeout(() => setCopiedTemplate(false), 2500);
+                };
+
+                return (
+                  <div className="p-3.5 rounded-xl bg-[#14141c] border border-white/10 space-y-2.5">
+                    <div className="text-[11px] font-mono text-gray-400">
+                      <span className="text-gray-500 font-semibold">Objet :</span> {subject}
+                    </div>
+                    <div className="text-xs text-gray-300 whitespace-pre-wrap font-mono text-[11px] bg-black/40 p-3 rounded-lg max-h-36 overflow-y-auto border border-white/5">
+                      {body}
+                    </div>
+                    <div className="flex items-center justify-end gap-2 pt-1">
+                      <button
+                        type="button"
+                        onClick={handleCopyTemplate}
+                        className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white text-xs font-medium border border-white/10 flex items-center gap-1.5 transition-colors cursor-pointer"
+                      >
+                        {copiedTemplate ? (
+                          <>
+                            <Check className="w-3.5 h-3.5 text-emerald-400" />
+                            <span className="text-emerald-400">Copié !</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3.5 h-3.5 text-[#FFE500]" />
+                            <span>Copier le texte</span>
+                          </>
+                        )}
+                      </button>
+                      <a
+                        href={mailtoUrl}
+                        className="px-3 py-1.5 rounded-lg bg-[#FFE500] text-black text-xs font-bold hover:bg-yellow-400 transition-colors flex items-center gap-1.5 cursor-pointer"
+                      >
+                        <Send className="w-3.5 h-3.5" />
+                        <span>Ouvrir client email</span>
+                      </a>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
 
             {/* Notes administratives internes */}

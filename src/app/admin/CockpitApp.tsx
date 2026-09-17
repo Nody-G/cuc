@@ -21,6 +21,9 @@ import {
   Settings,
   Inbox,
   Database,
+  Search,
+  Activity,
+  Command,
 } from 'lucide-react';
 import {
   getPrograms,
@@ -62,6 +65,8 @@ import { SettingsView } from './components/SettingsView';
 import { UsersRolesView } from './components/UsersRolesView';
 import { InquiriesView } from './components/InquiriesView';
 import { BackupRestoreModal } from './components/BackupRestoreModal';
+import { CommandPalette } from './components/CommandPalette';
+import { SystemHealthModal } from './components/SystemHealthModal';
 
 export type TabType =
   | 'dashboard'
@@ -136,6 +141,8 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
   const [inquiriesCount, setInquiriesCount] = useState(3);
   const [newInquiriesCount, setNewInquiriesCount] = useState(1);
   const [isBackupModalOpen, setIsBackupModalOpen] = useState(false);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [isHealthModalOpen, setIsHealthModalOpen] = useState(false);
   const [announcement, setAnnouncement] = useState<SiteAnnouncement>({
     id: '',
     title: 'Inscriptions Ouvertes 2026-2027',
@@ -285,6 +292,18 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
     } catch {
       queueMicrotask(() => setRealtimeStatus('offline'));
     }
+  }, []);
+
+  // Prise en charge des raccourcis clavier globaux (Ctrl+K / Cmd+K)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsCommandPaletteOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   // Prise en charge des boutons Précédent/Suivant du navigateur
@@ -585,8 +604,59 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
         </div>
       </aside>
 
-      {/* Contenu principal */}
-      <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto w-full overflow-y-auto">
+      {/* Contenu principal avec Barre Supérieure d'accès rapide */}
+      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+        {/* Barre Supérieure du Cockpit */}
+        <header className="h-14 border-b border-white/10 bg-[#0D0D12]/90 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between gap-3 shrink-0 z-10">
+          <button
+            type="button"
+            onClick={() => setIsCommandPaletteOpen(true)}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white border border-white/10 text-xs transition-colors cursor-pointer w-48 sm:w-72 justify-between"
+          >
+            <div className="flex items-center gap-2 truncate">
+              <Search className="w-3.5 h-3.5 text-[#FFE500]" />
+              <span className="truncate">Recherche rapide...</span>
+            </div>
+            <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-black/40 border border-white/10 text-[10px] font-mono text-gray-400">
+              <Command className="w-2.5 h-2.5" /> K
+            </kbd>
+          </button>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setIsHealthModalOpen(true)}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-gray-300 hover:text-white transition-colors cursor-pointer"
+              title="Ouvrir le Diagnostic Système"
+            >
+              <Activity className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+              <span className="hidden sm:inline text-[11px]">Système</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setIsBackupModalOpen(true)}
+              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-gray-300 hover:text-white transition-colors cursor-pointer"
+              title="Sauvegardes & Restauration"
+            >
+              <Database className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="text-[11px]">Backups</span>
+            </button>
+
+            <Link
+              href="/"
+              target="_blank"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#FFE500]/10 hover:bg-[#FFE500]/20 border border-[#FFE500]/30 text-xs font-medium text-[#FFE500] transition-colors"
+              title="Voir le site vitrine en direct"
+            >
+              <Globe className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline text-[11px]">Site vitrine ↗</span>
+            </Link>
+          </div>
+        </header>
+
+        <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto w-full overflow-y-auto">
         {/* 1. TABLEAU DE BORD */}
         {activeTab === 'dashboard' && (
           <DashboardView
@@ -729,6 +799,7 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
           </div>
         )}
       </main>
+      </div>
 
       {/* Modale de Sauvegarde et Restauration Intégrale */}
       <BackupRestoreModal
@@ -739,6 +810,28 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
           showToast('Données restaurées avec succès !');
           window.location.reload();
         }}
+      />
+
+      {/* Palette de Commandes Universelle (Ctrl+K) */}
+      <CommandPalette
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+        onSelectTab={switchTab}
+        onOpenBackup={() => setIsBackupModalOpen(true)}
+        onOpenHealth={() => setIsHealthModalOpen(true)}
+      />
+
+      {/* Diagnostic & Santé Système */}
+      <SystemHealthModal
+        isOpen={isHealthModalOpen}
+        onClose={() => setIsHealthModalOpen(false)}
+        showToast={showToast}
+        realtimeStatus={realtimeStatus}
+        inquiriesCount={inquiriesCount}
+        newInquiriesCount={newInquiriesCount}
+        urgentInquiriesCount={newInquiriesCount}
+        totalSessions={totalSessions}
+        fullSessions={fullSessions}
       />
     </div>
   );

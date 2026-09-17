@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useTransition } from 'react';
-import { Calendar, Plus, Trash2 } from 'lucide-react';
+import { Calendar, Plus, Trash2, Copy } from 'lucide-react';
 import { StuntProgram } from '@/types';
 import { updateSessionStatus, createSession, deleteSession } from '@/app/admin/actions';
 
@@ -203,9 +203,24 @@ export const SessionsView: React.FC<SessionsViewProps> = ({
                         </select>
 
                         <button
+                          type="button"
+                          onClick={() => {
+                            setNewSessionDate(`${session.date} (Copie)`);
+                            setNewSessionStatus(
+                              session.status === 'bientôt' ? 'ouvert' : session.status
+                            );
+                            setShowAddSessionModal(true);
+                          }}
+                          title="Dupliquer cette date de session"
+                          className="p-1.5 text-gray-400 hover:text-[#FFE500] hover:bg-white/10 rounded transition-colors cursor-pointer"
+                        >
+                          <Copy className="w-4 h-4" />
+                        </button>
+
+                        <button
                           onClick={() => handleDeleteSession(currentProgram.id, session.date)}
                           title="Supprimer la date"
-                          className="p-1.5 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded transition-colors"
+                          className="p-1.5 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded transition-colors cursor-pointer"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
