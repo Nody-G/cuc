@@ -543,3 +543,49 @@ export async function deleteMediaFile(filename: string) {
   }
 }
 
+/**
+ * Action serveur d'authentification robuste pour le Cockpit.
+ * Permet de contourner tout blocage de cookies tiers ou de réseau côté client.
+ */
+export async function loginAdminAction(identifier: string, pass: string) {
+  try {
+    const supabase = await createClient();
+    let email = identifier.trim().toLowerCase();
+    if (!email.includes('@')) {
+      email = `${email}@cuc.fr`;
+    }
+    const cleanPassword = pass.trim();
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password: cleanPassword,
+    });
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    if (data.user) {
+      const adminClient = createAdminClient();
+      const { data: profile } = await adminClient
+        .from('profiles')
+        .select('role')
+        .eq('id', data.user.id)
+        .single();
+
+      if (profile?.role !== 'admin') {
+        await supabase.auth.signOut();
+        return { success: false, error: 'Accès refusé : ce compte ne possède pas le rôle administrateur.' };
+      }
+
+      return { success: true, userId: data.user.id };
+    }
+
+    return { success: false, error: 'Identifiant introuvable.' };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur d\'authentification serveur';
+    return { success: false, error: message };
+  }
+}
+
+
