@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
+import { getFilms } from '@/lib/data/site-service';
 import { FilmCredit, DoubledCelebrity } from '@/types';
 import { StuntBadge } from '../ui/StuntBadge';
 import { Clapperboard, Film } from 'lucide-react';
@@ -35,10 +36,16 @@ export const HallOfFame: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  const [movies, setMovies] = useState<FilmCredit[]>(FILMOGRAPHY_CREDITS);
+
+  useEffect(() => {
+    getFilms().then(setMovies);
+  }, []);
+
   const filteredMovies =
     filter === 'all'
-      ? FILMOGRAPHY_CREDITS
-      : FILMOGRAPHY_CREDITS.filter((m) => m.category === filter);
+      ? movies
+      : movies.filter((m) => m.category === filter);
 
   return (
     <section id="filmographie" className="py-24 bg-[#08080a] relative border-t border-zinc-800 overflow-hidden">

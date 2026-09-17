@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { motion, useScroll, useSpring, useTransform, useMotionValue, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { TacticalButton } from './TacticalButton';
@@ -15,7 +15,10 @@ import {
   HERO_QUICK_METRICS,
   HeroHudOverlay,
   HeroBottomControls,
+  HeroTechDepth,
 } from './parallax-hero';
+
+const SLIDE_DURATION_SEC = 6.5;
 
 interface ParallaxHeroProps {
   onOpenSearch?: () => void;
@@ -24,153 +27,207 @@ interface ParallaxHeroProps {
 export const ParallaxHero: React.FC<ParallaxHeroProps> = () => {
   const heroRef = useRef<HTMLElement>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
 
+  // 1. Saccade-absorbing hydraulic spring for scroll (absorbs wheel notches & finger flicks)
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
   });
 
-  // Multi-plane parallax transforms
-  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1.02, 1.15]);
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '-18%']);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.9], [1, 0]);
-  const hudY = useTransform(scrollYProgress, [0, 1], ['0%', '10%']);
-  const tickerX = useTransform(scrollYProgress, [0, 1], ['0%', '-25%']);
+  const smoothScroll = useSpring(scrollYProgress, {
+    stiffness: 45,
+    damping: 25,
+    mass: 0.8,
+    restDelta: 0.0001,
+  });
 
-  // Auto advance slide
+  // 2. Fluid gimbal inertia for pointer / touch movement
+  const rawMouseX = useMotionValue(0);
+  const rawMouseY = useMotionValue(0);
+
+  const smoothMouseX = useSpring(rawMouseX, {
+    stiffness: 35,
+    damping: 22,
+    mass: 0.7,
+  });
+
+  const smoothMouseY = useSpring(rawMouseY, {
+    stiffness: 35,
+    damping: 22,
+    mass: 0.7,
+  });
+
+  // 3. 3D Perspective Tilt on Background Environment (Not on text!)
+  const bgRotateX = useTransform(smoothMouseY, [-20, 20], [2, -2]);
+  const bgRotateY = useTransform(smoothMouseX, [-20, 20], [-2, 2]);
+  const bgShiftX = useTransform(smoothMouseX, [-20, 20], [-8, 8]);
+  const bgScrollY = useTransform(smoothScroll, [0, 1], ['0%', '14%']);
+
+  // 4. Focal Text Layer: 100% STABLE (No movement parallax on text!)
+  // Only smooth opacity fade on scroll driven by the damped spring
+  const focalTextOpacity = useTransform(smoothScroll, [0, 0.65], [1, 0]);
+
+  // Pointer event listeners with smooth coordinate mapping
+  const handlePointerMove = (e: React.PointerEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const normX = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
+    const normY = (e.clientY - rect.top) / rect.height - 0.5;
+    rawMouseX.set(normX * 24);
+    rawMouseY.set(normY * 24);
+  };
+
+  const handlePointerLeave = () => {
+    rawMouseX.set(0);
+    rawMouseY.set(0);
+  };
+
+  // Auto advance slide with clean reset
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 6500);
+    }, SLIDE_DURATION_SEC * 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [currentSlide]);
 
-  // Subtle mouse gyroscopic perspective tracking
-  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setMouseOffset({ x: x * 18, y: y * 18 });
-  };
+  const handleSelectSlide = useCallback((index: number) => {
+    setCurrentSlide(index);
+  }, []);
 
   return (
     <section
       ref={heroRef}
-      onMouseMove={handleMouseMove}
-      className="relative min-h-[88vh] sm:min-h-[92vh] flex flex-col justify-between overflow-hidden bg-black border-b border-zinc-800 select-none"
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+      className="relative min-h-[90vh] sm:min-h-[94vh] flex flex-col justify-between overflow-hidden bg-[#060608] border-b border-zinc-900 select-none [perspective:1200px]"
     >
-      {/* 1. Parallax Layer: Background Photography with Depth Drift */}
+      {/* 1. Deep 3D Background Layer: Photography + Ken-Burns + Organic Inertial Tilt */}
       <motion.div
-        style={{ y: bgY, scale: bgScale }}
-        className="absolute inset-0 z-0 will-change-transform"
+        style={{
+          y: bgScrollY,
+          x: bgShiftX,
+          rotateX: bgRotateX,
+          rotateY: bgRotateY,
+          transformStyle: 'preserve-3d',
+        }}
+        className="absolute -inset-8 z-0 will-change-transform overflow-hidden origin-center pointer-events-none"
       >
-        {HERO_SLIDES.map((slide, idx) => (
-          <div
-            key={idx}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+        {HERO_SLIDES.map((slide, idx) => {
+          const isActive = idx === currentSlide;
+          return (
+            <div
+              key={idx}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
               }`}
-          >
-            <Image
-              src={slide.url}
-              alt={slide.caption}
-              fill
-              priority={idx === 0}
-              sizes="100vw"
-              className="object-cover object-center brightness-45 contrast-115"
-            />
-            {/* Cinematic Gradient Vignettes */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/50 to-black/75" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#060608]/95 via-transparent to-[#060608]/95 pointer-events-none" />
-          </div>
-        ))}
+            >
+              {/* Ken-Burns slow breathing scale */}
+              <motion.div
+                animate={isActive ? { scale: [1, 1.05] } : { scale: 1 }}
+                transition={{ duration: SLIDE_DURATION_SEC, ease: 'easeOut' }}
+                className="relative w-full h-full scale-105"
+              >
+                <Image
+                  src={slide.url}
+                  alt={slide.caption}
+                  fill
+                  priority={idx === 0}
+                  sizes="100vw"
+                  className="object-cover object-center brightness-[0.50] contrast-[1.08]"
+                />
+              </motion.div>
+            </div>
+          );
+        })}
 
-        {/* Anamorphic Lens Flare Ambience */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full lens-flare-gold animate-pulse-slow" />
-        <div className="absolute bottom-1/3 right-1/4 w-[30rem] h-[30rem] rounded-full lens-flare-cyan animate-pulse-slow" />
+        {/* Cinematic Vignettes */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#060608]/75 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_30%,_rgba(6,6,8,0.72)_100%)]" />
       </motion.div>
 
-      {/* Anamorphic Horizontal Optical Beam */}
-      <div className="absolute top-1/2 left-0 right-0 z-10 anamorphic-streak opacity-40 pointer-events-none" />
+      {/* 2. Tech / Mech & Organic 3D Depth Layer (absorbs wheel & finger saccades) */}
+      <HeroTechDepth
+        smoothMouseX={smoothMouseX}
+        smoothMouseY={smoothMouseY}
+        smoothScroll={smoothScroll}
+      />
 
-      {/* 2. Parallax Layer: Tactical HUD Crosshair Frame */}
-      <HeroHudOverlay hudY={hudY} mouseOffsetX={mouseOffset.x} />
+      {/* 3. Subtle Location & Campus Header Overlay */}
+      <HeroHudOverlay />
 
-      {/* 3. Central Hero Content with Parallax Motion & Gyroscope */}
-      <div className="relative z-30 flex-grow flex items-center justify-center pt-24 pb-10">
+      {/* 4. Central Text Content: Rock-Solid Focal Plane (NO text displacement!) */}
+      <div className="relative z-20 flex-grow flex items-center justify-center pt-24 pb-8 sm:pt-28 pointer-events-auto">
         <motion.div
-          style={{
-            y: textY,
-            opacity: textOpacity,
-            x: mouseOffset.x * -0.6,
-          }}
-          className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center will-change-transform"
+          style={{ opacity: focalTextOpacity }}
+          className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center will-change-transform"
         >
-          {/* Official CUC Crest Badge */}
-          <div className="relative mb-3 flex items-center justify-center">
-            <div className="relative w-16 h-16 sm:w-20 sm:h-20 drop-shadow-[0_0_25px_rgba(255,229,0,0.45)]">
-              <Image
-                src="/images/logos/cuc-logo-yellow.png"
-                alt="Blason Campus Univers Cascades"
-                fill
-                sizes="64px"
-                priority
-                className="object-contain"
-              />
-            </div>
-          </div>
+          {/* Refined Pill Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 backdrop-blur-md text-[11px] font-mono-tech tracking-widest text-zinc-300 uppercase shadow-xs mb-5"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FFE500] animate-pulse" />
+            <span>Centre International de Formation de Cascadeurs</span>
+            <span className="text-zinc-600">•</span>
+            <span className="text-[#FFE500] font-semibold">Depuis 2008</span>
+          </motion.div>
 
-          {/* Top Category Label */}
-          <div className="flex items-center gap-2 mb-4 text-xs font-mono-tech uppercase font-bold tracking-widest text-[#FFE500]">
-            <span>CENTRE DE FORMATION DE CASCADEURS</span>
-            <span className="text-zinc-600 hidden sm:inline">•</span>
-            <span className="text-zinc-400 hidden sm:inline">DOMAINE DE 6 HECTARES</span>
-          </div>
-
-          {/* Main Title */}
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display uppercase tracking-tight text-white leading-[0.92] max-w-5xl">
-            CAMPUS UNIVERS <br />
-            <span className="text-[#FFE500] drop-shadow-[0_0_40px_rgba(255,229,0,0.4)]">
-              CASCADES
+          {/* Clean Editorial Title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display uppercase tracking-tight text-white leading-[0.92] max-w-5xl"
+          >
+            Campus Univers <br />
+            <span className="text-[#FFE500] drop-shadow-[0_0_35px_rgba(255,229,0,0.32)]">
+              Cascades
             </span>
-          </h1>
+          </motion.h1>
 
-          {/* Dynamic Subtitle */}
-          <div className="h-16 sm:h-12 flex items-center justify-center">
+          {/* Dynamic Subtitle with smooth crossfade */}
+          <div className="h-16 sm:h-12 flex items-center justify-center my-3">
             <AnimatePresence mode="wait">
               <motion.p
                 key={currentSlide}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.35, ease: 'easeOut' }}
-                className="text-base sm:text-lg md:text-xl text-zinc-200 max-w-3xl font-tech"
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="text-sm sm:text-base md:text-lg text-zinc-300 max-w-2xl font-normal leading-relaxed text-balance"
               >
                 {HERO_SLIDES[currentSlide].sub}
               </motion.p>
             </AnimatePresence>
           </div>
 
-          {/* Key Facts Strip */}
-          <div className="mt-4 mb-2 grid grid-cols-2 sm:grid-cols-4 gap-2.5 w-full max-w-3xl">
+          {/* Minimalist Key Metrics Capsule */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="my-3 inline-flex flex-wrap items-center justify-center gap-x-6 gap-y-2 px-4 py-2 rounded-xl bg-black/40 backdrop-blur-md border border-white/[0.08] text-xs font-mono-tech tracking-wider uppercase text-zinc-300"
+          >
             {HERO_QUICK_METRICS.map((stat, i) => (
-              <div
-                key={i}
-                className="bg-black/60 backdrop-blur-md border border-zinc-800/90 hover:border-[#FFE500]/50 py-2 px-3 transition-colors text-center relative group"
-              >
-                <div className="text-xs sm:text-sm font-display uppercase tracking-wider text-[#FFE500] group-hover:text-white transition-colors">
-                  {stat.val}
+              <React.Fragment key={i}>
+                {i > 0 && <span className="text-zinc-700 hidden sm:inline">•</span>}
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[#FFE500] font-semibold">{stat.val}</span>
+                  <span className="text-zinc-400 text-[10px]">{stat.label}</span>
                 </div>
-                <div className="text-[9px] font-mono-tech text-zinc-400 uppercase tracking-tight">
-                  {stat.label}
-                </div>
-              </div>
+              </React.Fragment>
             ))}
-          </div>
+          </motion.div>
 
-          {/* Main CTAs */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+          {/* Action CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
+          >
             <Link href="/formation-de-cascadeur">
               <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
                 Formation Professionnelle
@@ -193,19 +250,19 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = () => {
                 size="lg"
                 icon={<Compass className="w-4 h-4 text-[#FFE500]" />}
               >
-                Équipe Cascadeurs Pro
+                Stunt Team Pro
               </TacticalButton>
             </Link>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
 
-      {/* 4. Bottom Controls & Goldsmith Timepiece Slide Tabs */}
+      {/* 5. Modern Segmented Slide Navigation & Smooth Scroll Cue */}
       <HeroBottomControls
         slides={HERO_SLIDES}
         currentSlide={currentSlide}
-        onSelectSlide={setCurrentSlide}
-        tickerX={tickerX}
+        onSelectSlide={handleSelectSlide}
+        slideDuration={SLIDE_DURATION_SEC}
       />
     </section>
   );

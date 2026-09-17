@@ -8,6 +8,8 @@ import { Footer } from '@/components/layout/Footer';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { CUC_TEAM } from '@/data/team';
+import { getTeam } from '@/lib/data/site-service';
+import { Instructor } from '@/types';
 import { ALL_OFFICIAL_FILM_POSTERS } from '@/data/all_official_films';
 import {
   Users,
@@ -18,6 +20,12 @@ import {
 } from 'lucide-react';
 
 export default function EquipeCascadeursProPage() {
+  const [team, setTeam] = React.useState<Instructor[]>(CUC_TEAM);
+
+  React.useEffect(() => {
+    getTeam().then(setTeam);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
       <Navbar />
@@ -71,7 +79,7 @@ export default function EquipeCascadeursProPage() {
         <section className="py-16">
           <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-              {CUC_TEAM.map((member) => (
+              {team.map((member) => (
                 <div
                   key={member.id}
                   className="bg-[#0e0e14] border-2 border-zinc-800 hover:border-[#FFE500]/70 transition-all duration-300 relative flex flex-col justify-between group overflow-hidden shadow-xl hover:shadow-[0_15px_40px_rgba(255,229,0,0.1)]"

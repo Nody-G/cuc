@@ -9,6 +9,7 @@ import { TacticalButton } from '../ui/TacticalButton';
 import { NavDropdowns } from './navbar/NavDropdowns';
 import { NavActionsBar } from './navbar/NavActionsBar';
 import { NavMobileDrawer } from './navbar/NavMobileDrawer';
+import { AnnouncementBanner } from './AnnouncementBanner';
 
 export const Navbar: React.FC = () => {
   const pathname = usePathname();
@@ -68,6 +69,7 @@ export const Navbar: React.FC = () => {
       className="fixed top-0 left-0 right-0 z-50"
       style={{ viewTransitionName: 'site-header' }}
     >
+      <AnnouncementBanner />
       {/* Main Bar */}
       <nav
         className={`transition-all duration-200 border-b ${isScrolled
