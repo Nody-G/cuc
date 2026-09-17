@@ -20,8 +20,9 @@ export default function AdminLoginPage() {
 
     try {
       const supabase = createClient();
+      const normalizedEmail = email.includes('@') ? email.trim() : `${email.trim()}@cuc.fr`;
       const { data, error } = await supabase.auth.signInWithPassword({
-        email,
+        email: normalizedEmail,
         password,
       });
 
@@ -88,14 +89,14 @@ export default function AdminLoginPage() {
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-xs font-mono text-gray-400 mb-1.5 uppercase">
-                Adresse Email (Compte CUC Sign)
+                Identifiant ou Email
               </label>
               <div className="relative">
                 <Mail className="w-4 h-4 text-gray-500 absolute left-3.5 top-3" />
                 <input
-                  type="email"
+                  type="text"
                   required
-                  placeholder="admin@campus-universcascades.com"
+                  placeholder="admin ou admin@cuc.fr"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-black/60 border border-white/15 rounded-lg pl-10 pr-3 py-2.5 text-sm text-white focus:outline-none focus:border-[#FFE500] transition-colors"
