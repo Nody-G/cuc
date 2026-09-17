@@ -212,21 +212,27 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
             </AnimatePresence>
           </div>
 
-          {/* Minimalist Key Metrics Capsule */}
+          {/* Key Metrics Cards */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="my-3 inline-flex flex-wrap items-center justify-center gap-x-6 gap-y-2 px-4 py-2 rounded-xl bg-black/40 backdrop-blur-md border border-white/[0.08] text-xs font-mono-tech tracking-wider uppercase text-zinc-300"
+            className="my-4 flex flex-wrap items-center justify-center gap-3"
           >
             {HERO_QUICK_METRICS.map((stat, i) => (
-              <React.Fragment key={i}>
-                {i > 0 && <span className="text-zinc-700 hidden sm:inline">•</span>}
-                <div className="flex items-center gap-1.5">
-                  <span className="text-[#FFE500] font-semibold">{stat.val}</span>
-                  <span className="text-zinc-400 text-[10px]">{stat.label}</span>
+              <div
+                key={i}
+                className="flex items-center gap-3 pl-3 pr-4 py-2.5 bg-black/50 backdrop-blur-md border border-white/[0.08] border-l-2 border-l-[#FFE500]"
+              >
+                <div className="text-left">
+                  <div className="text-[#FFE500] font-display text-base sm:text-lg font-bold tracking-wide leading-none">
+                    {stat.val}
+                  </div>
+                  <div className="text-zinc-400 font-mono-tech text-[9px] uppercase tracking-widest mt-0.5">
+                    {stat.label}
+                  </div>
                 </div>
-              </React.Fragment>
+              </div>
             ))}
           </motion.div>
 
