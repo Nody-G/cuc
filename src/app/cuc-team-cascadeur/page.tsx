@@ -12,13 +12,37 @@ import {
   TeamProductionServices,
 } from '@/components/sections/team';
 
+import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+
 export default function CucTeamCascadeurPage() {
   const [activeGallery, setActiveGallery] = useState<LightboxImage[]>([]);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const { content } = usePageDynamicContent('cuc-team-cascadeur');
 
   const openLightbox = (images: LightboxImage[], index: number) => {
     setActiveGallery(images);
     setLightboxIndex(index);
+  };
+
+  const sortedSections = [...(content.layout_sections || [])]
+    .filter((s) => s.is_visible !== false)
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+
+  const renderSection = (id: string) => {
+    switch (id) {
+      case 'hero':
+        return <TeamHeroSection key="hero" hero={content.hero} />;
+      case 'galleries':
+        return <TeamProductionGalleries key="galleries" onOpenLightbox={openLightbox} />;
+      case 'banners':
+        return <TeamBannersSection key="banners" onOpenLightbox={openLightbox} />;
+      case 'hall_of_fame':
+        return <HallOfFame key="hall_of_fame" />;
+      case 'services':
+        return <TeamProductionServices key="services" />;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -26,11 +50,17 @@ export default function CucTeamCascadeurPage() {
       <Navbar />
 
       <main id="contenu-principal" className="flex-grow pt-28">
-        <TeamHeroSection />
-        <TeamProductionGalleries onOpenLightbox={openLightbox} />
-        <TeamBannersSection onOpenLightbox={openLightbox} />
-        <HallOfFame />
-        <TeamProductionServices />
+        {sortedSections.length > 0 ? (
+          sortedSections.map((sec) => renderSection(sec.id))
+        ) : (
+          <>
+            <TeamHeroSection hero={content.hero} />
+            <TeamProductionGalleries onOpenLightbox={openLightbox} />
+            <TeamBannersSection onOpenLightbox={openLightbox} />
+            <HallOfFame />
+            <TeamProductionServices />
+          </>
+        )}
       </main>
 
       {/* Lightbox Modal for HD Viewing */}

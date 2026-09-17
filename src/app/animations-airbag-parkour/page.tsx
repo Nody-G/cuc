@@ -13,7 +13,24 @@ import {
   CheckCircle2
 } from 'lucide-react';
 
+import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+
 export default function AnimationsAirbagParkourPage() {
+  const { content } = usePageDynamicContent('animations-airbag-parkour');
+
+  const heroBadge = content.hero?.badge || 'XTREM JUMP AIRBAG';
+  const heroTitle = content.hero?.title || 'ANIMATIONS AIRBAG & PARKOUR';
+  const heroSubtitle =
+    content.hero?.subtitle ||
+    "Faites vivre au grand public les sensations uniques de la chute libre sur coussin d'air géant de cinéma. Une animation spectaculaire et 100% sécurisée animée par les cascadeurs professionnels du Campus Univers Cascades.";
+  const heroBg =
+    content.hero?.bg_image ||
+    'https://www.campus-universcascades.com/wp-content/uploads/2021/07/xtrem-jump-1.png';
+  const ctaPrimaryText = content.hero?.cta_primary_text || 'Devis Animation Airbag';
+  const ctaPrimaryLink = content.hero?.cta_primary_link || '/contact-cuc';
+  const ctaSecondaryText = content.hero?.cta_secondary_text || 'Toutes les Offres CUC Events';
+  const ctaSecondaryLink = content.hero?.cta_secondary_link || '/cuc-events-agence';
+
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
       <Navbar />
@@ -23,7 +40,7 @@ export default function AnimationsAirbagParkourPage() {
         <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
           <div className="absolute inset-0 z-0">
             <Image
-              src="https://www.campus-universcascades.com/wp-content/uploads/2021/07/xtrem-jump-1.png"
+              src={heroBg}
               alt="Xtrem Jump Airbag Géant de Cinéma CUC Events"
               fill
               priority
@@ -48,7 +65,7 @@ export default function AnimationsAirbagParkourPage() {
 
             <div className="inline-flex items-center gap-2 mb-4">
               <StuntBadge variant="yellow" icon={<Flame className="w-3.5 h-3.5" />}>
-                XTREM JUMP AIRBAG
+                {heroBadge}
               </StuntBadge>
               <span className="text-xs font-mono-tech text-zinc-400">
                 +20 000 CHUTES ENCADRÉES • DEPUIS 2009
@@ -56,26 +73,33 @@ export default function AnimationsAirbagParkourPage() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
-              ANIMATIONS <span className="text-[#FFE500]">AIRBAG & PARKOUR</span>
+              {heroTitle.includes('&') ? (
+                <>
+                  {heroTitle.split('&')[0]} &amp;{' '}
+                  <span className="text-[#FFE500]">{heroTitle.split('&')[1]}</span>
+                </>
+              ) : (
+                heroTitle
+              )}
             </h1>
 
             <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-              Faites vivre au grand public les sensations uniques de la chute libre sur coussin
-              d'air géant de cinéma. Une animation spectaculaire et 100% sécurisée animée
-              par les cascadeurs professionnels du Campus Univers Cascades.
+              {heroSubtitle}
             </p>
 
             <div className="flex flex-wrap gap-4 mt-8">
-              <Link href="/contact-cuc">
+              <Link href={ctaPrimaryLink}>
                 <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
-                  Devis Animation Airbag
+                  {ctaPrimaryText}
                 </TacticalButton>
               </Link>
-              <Link href="/cuc-events-agence">
-                <TacticalButton variant="secondary" size="lg">
-                  Toutes les Offres CUC Events
-                </TacticalButton>
-              </Link>
+              {ctaSecondaryText && (
+                <Link href={ctaSecondaryLink}>
+                  <TacticalButton variant="secondary" size="lg">
+                    {ctaSecondaryText}
+                  </TacticalButton>
+                </Link>
+              )}
             </div>
           </div>
         </section>

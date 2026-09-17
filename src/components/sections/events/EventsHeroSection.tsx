@@ -7,12 +7,31 @@ import { StuntBadge } from '@/components/ui/StuntBadge';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { Sparkles, ChevronRight } from 'lucide-react';
 
-export const EventsHeroSection: React.FC = () => {
+import { SitePageHero } from '@/lib/data/site-service';
+
+interface EventsHeroSectionProps {
+  hero?: Partial<SitePageHero>;
+}
+
+export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) => {
+  const badge = hero?.badge || "AGENCE ÉVÉNEMENTIELLE D'ACTION";
+  const title = hero?.title || 'CUC EVENTS : SPECTACLES & ANIMATIONS';
+  const subtitle =
+    hero?.subtitle ||
+    "Marquez les esprits lors de vos festivals, lancements de marque, parcs à thème ou séminaires d'entreprise grâce à des shows d'action spectaculaires orchestrés par les cascadeurs professionnels du Campus Univers Cascades.";
+  const bgImage =
+    hero?.bg_image ||
+    'https://www.campus-universcascades.com/wp-content/uploads/2025/08/Image1-scaled.jpg';
+  const ctaPrimaryText = hero?.cta_primary_text || 'Demander un Devis Événementiel';
+  const ctaPrimaryLink = hero?.cta_primary_link || '/contact-cuc';
+  const ctaSecondaryText = hero?.cta_secondary_text || 'Voir nos Vidéos en Direct';
+  const ctaSecondaryLink = hero?.cta_secondary_link || '/videos-cascadeur';
+
   return (
     <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://www.campus-universcascades.com/wp-content/uploads/2025/08/Image1-scaled.jpg"
+          src={bgImage}
           alt="CUC Events spectacles de cascades et animations en direct"
           fill
           priority
@@ -33,7 +52,7 @@ export const EventsHeroSection: React.FC = () => {
 
         <div className="inline-flex items-center gap-2 mb-4">
           <StuntBadge variant="yellow" icon={<Sparkles className="w-3.5 h-3.5" />}>
-            AGENCE ÉVÉNEMENTIELLE D'ACTION
+            {badge}
           </StuntBadge>
           <span className="text-xs font-mono-tech text-zinc-400">
             SPECTACLES • ANIMATIONS • TEAM BUILDING
@@ -41,26 +60,33 @@ export const EventsHeroSection: React.FC = () => {
         </div>
 
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
-          CUC EVENTS : <span className="text-[#FFE500]">SPECTACLES & ANIMATIONS</span>
+          {title.includes(':') ? (
+            <>
+              {title.split(':')[0]} :{' '}
+              <span className="text-[#FFE500]">{title.split(':')[1]}</span>
+            </>
+          ) : (
+            title
+          )}
         </h1>
 
         <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-          Marquez les esprits lors de vos festivals, lancements de marque, parcs à thème
-          ou séminaires d'entreprise grâce à des shows d'action spectaculaires orchestrés
-          par les cascadeurs professionnels du Campus Univers Cascades.
+          {subtitle}
         </p>
 
         <div className="flex flex-wrap gap-4 mt-8">
-          <Link href="/contact-cuc">
+          <Link href={ctaPrimaryLink}>
             <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
-              Demander un Devis Événementiel
+              {ctaPrimaryText}
             </TacticalButton>
           </Link>
-          <Link href="/videos-cascadeur">
-            <TacticalButton variant="secondary" size="lg">
-              Voir nos Vidéos en Direct
-            </TacticalButton>
-          </Link>
+          {ctaSecondaryText && (
+            <Link href={ctaSecondaryLink}>
+              <TacticalButton variant="secondary" size="lg">
+                {ctaSecondaryText}
+              </TacticalButton>
+            </Link>
+          )}
         </div>
       </div>
     </section>

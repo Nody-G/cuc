@@ -23,7 +23,7 @@ import {
   RefreshCw,
   Link2,
 } from 'lucide-react';
-import { SitePageContent, SitePageSection, LayoutSection, DEFAULT_PAGE_CONTENTS } from '@/lib/data/site-service';
+import { SitePageContent, SitePageSection, LayoutSection, DEFAULT_PAGE_CONTENTS, normalizeSlug } from '@/lib/data/site-service';
 import { upsertPageContent, resetPageContentToDefault } from '@/app/admin/actions';
 import { MediaPickerModal } from './MediaPickerModal';
 import { PageLayoutManager } from './PageLayoutManager';
@@ -36,20 +36,20 @@ interface PagesEditorViewProps {
 
 const SITE_PAGES_OPTIONS = [
   { label: 'Accueil (/)', value: '/' },
-  { label: 'Formation Pro 2 Ans (/formation-de-cascadeur)', value: '/formation-de-cascadeur' },
-  { label: 'Stages & Initiations (/stages-cascades-parkour-2)', value: '/stages-cascades-parkour-2' },
-  { label: 'Stunt Workshops Masterclass (/stunt-workshop-cuc)', value: '/stunt-workshop-cuc' },
-  { label: 'Équipe & Instructeurs (/equipe-cascadeurs-pro)', value: '/equipe-cascadeurs-pro' },
-  { label: 'CUC Team & Action Design (/cuc-team-cascadeur)', value: '/cuc-team-cascadeur' },
-  { label: 'CUC Events Agence (/cuc-events-agence)', value: '/cuc-events-agence' },
-  { label: 'Team Building (/team-building-cascades)', value: '/team-building-cascades' },
-  { label: 'Spectacles Yamakasi (/spectacles-cascadeurs-yamakasi)', value: '/spectacles-cascadeurs-yamakasi' },
-  { label: 'Animations Airbag (/animations-airbag-parkour)', value: '/animations-airbag-parkour' },
-  { label: 'Visite Virtuelle 360° (/visite-virtuelle)', value: '/visite-virtuelle' },
-  { label: 'Visite Guidée Campus (/visite-guidee)', value: '/visite-guidee' },
-  { label: 'Vidéos & Démos (/videos-cascadeur)', value: '/videos-cascadeur' },
-  { label: 'Partenaires & Studios (/partenaires)', value: '/partenaires' },
-  { label: 'Contact & Accès (/contact-cuc)', value: '/contact-cuc' },
+  { label: 'Formation Pro 2 Ans (/formation-de-cascadeur)', value: 'formation-de-cascadeur' },
+  { label: 'Stages & Initiations (/stages-cascades-parkour-2)', value: 'stages-cascades-parkour-2' },
+  { label: 'Stunt Workshops Masterclass (/stunt-workshop-cuc)', value: 'stunt-workshop-cuc' },
+  { label: 'Équipe & Instructeurs (/equipe-cascadeurs-pro)', value: 'equipe-cascadeurs-pro' },
+  { label: 'CUC Team & Action Design (/cuc-team-cascadeur)', value: 'cuc-team-cascadeur' },
+  { label: 'CUC Events Agence (/cuc-events-agence)', value: 'cuc-events-agence' },
+  { label: 'Team Building (/team-building-cascades)', value: 'team-building-cascades' },
+  { label: 'Spectacles Yamakasi (/spectacles-cascadeurs-yamakasi)', value: 'spectacles-cascadeurs-yamakasi' },
+  { label: 'Animations Airbag (/animations-airbag-parkour)', value: 'animations-airbag-parkour' },
+  { label: 'Visite Virtuelle 360° (/visite-virtuelle)', value: 'visite-virtuelle' },
+  { label: 'Visite Guidée Campus (/visite-guidee)', value: 'visite-guidee' },
+  { label: 'Vidéos & Démos (/videos-cascadeur)', value: 'videos-cascadeur' },
+  { label: 'Partenaires & Studios (/partenaires)', value: 'partenaires' },
+  { label: 'Contact & Accès (/contact-cuc)', value: 'contact-cuc' },
 ];
 
 export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
@@ -66,14 +66,16 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   const [previewKey, setPreviewKey] = useState<number>(0);
 
   // Page active
-  const currentPage = pages.find((p) => p.slug === selectedSlug) || pages[0] || DEFAULT_PAGE_CONTENTS['/'];
+  const cleanSelectedSlug = normalizeSlug(selectedSlug);
+  const currentPage = pages.find((p) => normalizeSlug(p.slug) === cleanSelectedSlug) || pages[0] || DEFAULT_PAGE_CONTENTS['/'];
 
   // État local du formulaire avec initialisation sécurisée
   const [formData, setFormData] = useState<SitePageContent>(() => {
-    const defaultData = DEFAULT_PAGE_CONTENTS[selectedSlug] || {};
+    const defaultData = DEFAULT_PAGE_CONTENTS[cleanSelectedSlug] || {};
     return {
       ...defaultData,
       ...currentPage,
+      slug: cleanSelectedSlug,
       hero: { ...(defaultData.hero || {}), ...(currentPage?.hero || {}) },
       layout_sections:
         currentPage?.layout_sections && currentPage.layout_sections.length > 0
@@ -88,12 +90,14 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
 
   // Synchronisation lors du changement de page
   const handleSelectPage = (slug: string) => {
-    setSelectedSlug(slug);
-    const target = pages.find((p) => p.slug === slug);
-    const defaultData = DEFAULT_PAGE_CONTENTS[slug] || {};
+    const clean = normalizeSlug(slug);
+    setSelectedSlug(clean);
+    const target = pages.find((p) => normalizeSlug(p.slug) === clean);
+    const defaultData = DEFAULT_PAGE_CONTENTS[clean] || {};
     setFormData({
       ...defaultData,
       ...(target || {}),
+      slug: clean,
       hero: { ...(defaultData.hero || {}), ...(target?.hero || {}) },
       layout_sections:
         target?.layout_sections && target.layout_sections.length > 0
@@ -111,7 +115,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     if (e) e.preventDefault();
     setIsSaving(true);
 
-    const res = await upsertPageContent(formData.slug, {
+    const clean = normalizeSlug(formData.slug);
+    const res = await upsertPageContent(clean, {
       title: formData.title,
       meta_title: formData.meta_title,
       meta_description: formData.meta_description,

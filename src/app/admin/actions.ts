@@ -314,11 +314,12 @@ export async function upsertPageContent(slug: string, pageData: {
   is_published?: boolean;
 }) {
   try {
+    const cleanSlug = slug === '/' ? '/' : slug.replace(/^\//, '');
     const adminClient = createAdminClient();
     const { error } = await adminClient
       .from('site_pages')
       .upsert({
-        slug,
+        slug: cleanSlug,
         title: pageData.title,
         meta_title: pageData.meta_title,
         meta_description: pageData.meta_description,
@@ -333,7 +334,7 @@ export async function upsertPageContent(slug: string, pageData: {
 
     if (error) throw error;
 
-    const targetPath = slug === '/' ? '/' : `/${slug.replace(/^\//, '')}`;
+    const targetPath = cleanSlug === '/' ? '/' : `/${cleanSlug}`;
     await revalidateSite([targetPath, '/']);
     return { success: true };
   } catch (err: unknown) {
@@ -347,8 +348,9 @@ export async function upsertPageContent(slug: string, pageData: {
  */
 export async function resetPageContentToDefault(slug: string) {
   try {
+    const cleanSlug = slug === '/' ? '/' : slug.replace(/^\//, '');
     const { DEFAULT_PAGE_CONTENTS } = await import('@/lib/data/site-service');
-    const defaultData = DEFAULT_PAGE_CONTENTS[slug];
+    const defaultData = DEFAULT_PAGE_CONTENTS[cleanSlug];
     if (!defaultData) {
       throw new Error(`Aucun contenu par défaut trouvé pour le slug "${slug}"`);
     }
@@ -372,7 +374,7 @@ export async function resetPageContentToDefault(slug: string) {
 
     if (error) throw error;
 
-    const targetPath = slug === '/' ? '/' : `/${slug.replace(/^\//, '')}`;
+    const targetPath = cleanSlug === '/' ? '/' : `/${cleanSlug}`;
     await revalidateSite([targetPath, '/']);
     return { success: true, defaultData };
   } catch (err: unknown) {

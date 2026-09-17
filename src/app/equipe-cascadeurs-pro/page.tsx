@@ -20,8 +20,20 @@ import {
   Globe
 } from 'lucide-react';
 
+import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+
 export default function EquipeCascadeursProPage() {
   const [team, setTeam] = React.useState<Instructor[]>(CUC_TEAM);
+  const { content } = usePageDynamicContent('equipe-cascadeurs-pro');
+
+  const heroBadge = content.hero?.badge || 'COORDINATEURS & FORMATEURS';
+  const heroTitle = content.hero?.title || "L'ÉQUIPE PÉDAGOGIQUE DU CUC";
+  const heroSubtitle =
+    content.hero?.subtitle ||
+    "Une faculté d'action unique au monde. Des coordinateurs de cascades renommés, des pionniers des Yamakasi, et des cascadeurs en exercice sur les plus grandes productions hollywoodiennes et françaises qui transmettent chaque jour leur savoir-faire sur le terrain.";
+  const heroBg =
+    content.hero?.bg_image ||
+    'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-equipe.jpg';
 
   React.useEffect(() => {
     getTeam().then(setTeam);
@@ -56,7 +68,7 @@ export default function EquipeCascadeursProPage() {
         <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
           <div className="absolute inset-0 z-0">
             <Image
-              src="https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-equipe.jpg"
+              src={heroBg}
               alt="L'équipe pédagogique et cascadeurs professionnels du CUC"
               fill
               priority
@@ -72,12 +84,12 @@ export default function EquipeCascadeursProPage() {
                 ACCUEIL
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-              <span className="text-[#FFE500]">L'ÉQUIPE 2025-2026</span>
+              <span className="text-[#FFE500]">L'ÉQUIPE</span>
             </div>
 
             <div className="inline-flex items-center gap-2 mb-4">
               <StuntBadge variant="yellow" icon={<Users className="w-3.5 h-3.5" />}>
-                COORDINATEURS & FORMATEURS
+                {heroBadge}
               </StuntBadge>
               <span className="text-xs font-mono-tech text-zinc-400">
                 CASCADEURS DU CINÉMA D'ACTION INTERNATIONAL
@@ -85,13 +97,20 @@ export default function EquipeCascadeursProPage() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
-              L'ÉQUIPE <span className="text-[#FFE500]">PÉDAGOGIQUE DU CUC</span>
+              {heroTitle.includes(' ') ? (
+                <>
+                  {heroTitle.substring(0, heroTitle.lastIndexOf(' '))}{' '}
+                  <span className="text-[#FFE500]">
+                    {heroTitle.substring(heroTitle.lastIndexOf(' ') + 1)}
+                  </span>
+                </>
+              ) : (
+                heroTitle
+              )}
             </h1>
 
             <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-              Une faculté d'action unique au monde. Des coordinateurs de cascades renommés,
-              des pionniers des Yamakasi, et des cascadeurs en exercice sur les plus grandes productions
-              hollywoodiennes et françaises qui transmettent chaque jour leur savoir-faire sur le terrain.
+              {heroSubtitle}
             </p>
           </div>
         </section>

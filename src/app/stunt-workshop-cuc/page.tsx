@@ -18,8 +18,23 @@ import {
   Bed
 } from 'lucide-react';
 
+import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+
 export default function StuntWorkshopCucPage() {
   const [isApplicationOpen, setIsApplicationOpen] = useState(false);
+  const { content } = usePageDynamicContent('stunt-workshop-cuc');
+
+  const heroBadge = content.hero?.badge || 'STAGE INTERNATIONAL';
+  const heroTitle = content.hero?.title || 'INTERNATIONAL STUNT WORKSHOP';
+  const heroSubtitle =
+    content.hero?.subtitle ||
+    "Join performers and stuntmen from across the globe (USA, UK, Europe, Australia, Asia) at the world's premier stunt training facility. 2 weeks of full immersion, 10 physical disciplines, full board on our 6-hectare private estate in France.";
+  const heroBg =
+    content.hero?.bg_image ||
+    'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg';
+  const ctaPrimaryText = content.hero?.cta_primary_text || 'Apply for Next Session';
+  const ctaSecondaryText = content.hero?.cta_secondary_text || 'Inquire & Information';
+  const ctaSecondaryLink = content.hero?.cta_secondary_link || '/contact-cuc';
 
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
@@ -30,7 +45,7 @@ export default function StuntWorkshopCucPage() {
         <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
           <div className="absolute inset-0 z-0">
             <Image
-              src="https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg"
+              src={heroBg}
               alt="CUC International Stunt Workshop"
               fill
               priority
@@ -51,7 +66,7 @@ export default function StuntWorkshopCucPage() {
 
             <div className="inline-flex items-center gap-2 mb-4">
               <StuntBadge variant="yellow" icon={<Globe className="w-3.5 h-3.5" />}>
-                STAGE INTERNATIONAL
+                {heroBadge}
               </StuntBadge>
               <span className="text-xs font-mono-tech text-zinc-400">
                 EN ANGLAIS &amp; FRANÇAIS • 2 SEMAINES RÉSIDENTIELLES
@@ -59,13 +74,20 @@ export default function StuntWorkshopCucPage() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
-              INTERNATIONAL <span className="text-[#FFE500]">STUNT WORKSHOP</span>
+              {heroTitle.includes(' ') ? (
+                <>
+                  {heroTitle.substring(0, heroTitle.lastIndexOf(' '))}{' '}
+                  <span className="text-[#FFE500]">
+                    {heroTitle.substring(heroTitle.lastIndexOf(' ') + 1)}
+                  </span>
+                </>
+              ) : (
+                heroTitle
+              )}
             </h1>
 
             <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-              Join performers and stuntmen from across the globe (USA, UK, Europe, Australia, Asia)
-              at the world's premier stunt training facility. 2 weeks of full immersion, 10 physical
-              disciplines, full board on our 6-hectare private estate in France.
+              {heroSubtitle}
             </p>
 
             <div className="flex flex-wrap gap-4 mt-8">
@@ -75,11 +97,11 @@ export default function StuntWorkshopCucPage() {
                 icon={<ChevronRight className="w-4 h-4" />}
                 onClick={() => setIsApplicationOpen(true)}
               >
-                Apply for Next Session
+                {ctaPrimaryText}
               </TacticalButton>
-              <Link href="/contact-cuc">
+              <Link href={ctaSecondaryLink}>
                 <TacticalButton variant="secondary" size="lg">
-                  Inquire & Information
+                  {ctaSecondaryText}
                 </TacticalButton>
               </Link>
             </div>

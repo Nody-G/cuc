@@ -17,9 +17,21 @@ import {
 import { PROGRAMMES_TV } from '@/data/videos';
 import { videoObjectJsonLd } from '@/lib/seo';
 
+import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+
 export default function VideosCascadeurPage() {
   const [activeVideo, setActiveVideo] = useState<'tf1' | 'france2'>('tf1');
   const [selectedDmVideo, setSelectedDmVideo] = useState<{ id: string; title: string } | null>(null);
+  const { content } = usePageDynamicContent('videos-cascadeur');
+
+  const heroBadge = content.hero?.badge || 'REPORTAGES TÉLÉVISION';
+  const heroTitle = content.hero?.title || 'LES REPORTAGES & VIDÉOS DU CUC';
+  const heroSubtitle =
+    content.hero?.subtitle ||
+    "Plongez au cœur de l'entraînement des cascadeurs avec les reportages exclusifs diffusés sur les journaux télévisés de TF1 et France 2, ainsi que les showreels de la CUC Stunt Team.";
+  const heroBg =
+    content.hero?.bg_image ||
+    'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-5-scaled.jpg';
 
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
@@ -48,7 +60,7 @@ export default function VideosCascadeurPage() {
         <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
           <div className="absolute inset-0 z-0">
             <Image
-              src="https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-5-scaled.jpg"
+              src={heroBg}
               alt="Vidéos et reportages du Campus Univers Cascades"
               fill
               priority
@@ -64,12 +76,12 @@ export default function VideosCascadeurPage() {
                 ACCUEIL
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-              <span className="text-[#FFE500]">NOS VIDÉOS & REPORTAGES</span>
+              <span className="text-[#FFE500]">NOS VIDÉOS &amp; REPORTAGES</span>
             </div>
 
             <div className="inline-flex items-center gap-2 mb-4">
               <StuntBadge variant="yellow" icon={<Tv className="w-3.5 h-3.5" />}>
-                REPORTAGES TÉLÉVISION
+                {heroBadge}
               </StuntBadge>
               <span className="text-xs font-mono-tech text-zinc-400">
                 TF1 JT 20H • FRANCE 2 • BFM TV
@@ -77,12 +89,18 @@ export default function VideosCascadeurPage() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
-              LES REPORTAGES & <span className="text-[#FFE500]">VIDÉOS DU CUC</span>
+              {heroTitle.includes('&') ? (
+                <>
+                  {heroTitle.split('&')[0]} &amp;{' '}
+                  <span className="text-[#FFE500]">{heroTitle.split('&')[1]}</span>
+                </>
+              ) : (
+                heroTitle
+              )}
             </h1>
 
             <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-              Plongez au cœur de l'entraînement des cascadeurs avec les reportages exclusifs diffusés
-              sur les journaux télévisés de TF1 et France 2, ainsi que les showreels de la CUC Stunt Team.
+              {heroSubtitle}
             </p>
           </div>
         </section>

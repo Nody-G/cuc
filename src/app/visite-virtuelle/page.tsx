@@ -8,6 +8,16 @@ import { Footer } from '@/components/layout/Footer';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { VirtualTourViewer } from '@/components/ui/VirtualTourViewer';
 import { soundFX } from '@/lib/soundFx';
+import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+import {
+  ChevronRight,
+  MapPin,
+  Building,
+  ShieldCheck,
+  PhoneCall,
+  Layers,
+  Eye,
+} from 'lucide-react';
 
 // Three.js (~600 ko) chargé à la demande, uniquement côté client, quand
 // l'utilisateur ouvre l'onglet « Plan 3D ». Évite de pénaliser le LCP initial.
@@ -24,18 +34,17 @@ const CampusPlan3D = dynamic(
     ),
   }
 );
-import {
-  ChevronRight,
-  MapPin,
-  Building,
-  ShieldCheck,
-  PhoneCall,
-  Layers,
-  Eye
-} from 'lucide-react';
 
 export default function VisiteVirtuellePage() {
   const [activeTab, setActiveTab] = useState<'360' | '3d'>('360');
+  const { content } = usePageDynamicContent('visite-virtuelle');
+
+  const sortedSections = (content?.layout_sections ?? [])
+    .filter((s) => s.is_visible)
+    .sort((a, b) => a.order - b.order);
+
+  const isSectionVisible = (id: string) =>
+    sortedSections.some((s) => s.id === id);
 
   useEffect(() => {
     const handleHash = () => {
@@ -138,55 +147,59 @@ export default function VisiteVirtuellePage() {
           </div>
 
           {/* Interactive Viewer: either 360 Player or 3D Campus Plan */}
-          <div id="plan-3d-campus" className="mb-12 scroll-mt-28">
-            {activeTab === '360' ? (
-              <VirtualTourViewer />
-            ) : (
-              <CampusPlan3D />
-            )}
-          </div>
+          {isSectionVisible('viewer') && (
+            <div id="plan-3d-campus" className="mb-12 scroll-mt-28">
+              {activeTab === '360' ? (
+                <VirtualTourViewer />
+              ) : (
+                <CampusPlan3D />
+              )}
+            </div>
+          )}
 
           {/* Key Facts and Practical Info */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-tech">
-            <div className="bg-[#0e0e14] border border-zinc-800 p-6 relative">
-              <div className="flex items-center gap-3 mb-3">
-                <Building className="w-5 h-5 text-[#FFE500]" />
-                <h2 className="font-display uppercase text-lg text-white">
-                  6 Hectares d'Infrastructures
-                </h2>
+          {isSectionVisible('facilities') && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-tech">
+              <div className="bg-[#0e0e14] border border-zinc-800 p-6 relative">
+                <div className="flex items-center gap-3 mb-3">
+                  <Building className="w-5 h-5 text-[#FFE500]" />
+                  <h2 className="font-display uppercase text-lg text-white">
+                    6 Hectares d'Infrastructures
+                  </h2>
+                </div>
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  Tour de saut de 21 mètres, salle d'entraînement Zoé Bell, dojos,
+                  manège équestre et hangars de cascades mécaniques réunis sur un même domaine privé.
+                </p>
               </div>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Tour de saut de 21 mètres, salle d'entraînement Zoé Bell, dojos,
-                manège équestre et hangars de cascades mécaniques réunis sur un même domaine privé.
-              </p>
-            </div>
 
-            <div className="bg-[#0e0e14] border border-zinc-800 p-6 relative">
-              <div className="flex items-center gap-3 mb-3">
-                <ShieldCheck className="w-5 h-5 text-[#FFE500]" />
-                <h2 className="font-display uppercase text-lg text-white">
-                  Sécurité & Équipements
-                </h2>
+              <div className="bg-[#0e0e14] border border-zinc-800 p-6 relative">
+                <div className="flex items-center gap-3 mb-3">
+                  <ShieldCheck className="w-5 h-5 text-[#FFE500]" />
+                  <h2 className="font-display uppercase text-lg text-white">
+                    Sécurité & Équipements
+                  </h2>
+                </div>
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  Matériel professionnel de cascade aux normes en vigueur : matelas de réception certifiés,
+                  airbags de saut, trampolines et fosse de travail.
+                </p>
               </div>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Matériel professionnel de cascade aux normes en vigueur : matelas de réception certifiés,
-                airbags de saut, trampolines et fosse de travail.
-              </p>
-            </div>
 
-            <div className="bg-[#0e0e14] border border-zinc-800 p-6 relative">
-              <div className="flex items-center gap-3 mb-3">
-                <MapPin className="w-5 h-5 text-[#FFE500]" />
-                <h2 className="font-display uppercase text-lg text-white">
-                  Accès & Hébergement
-                </h2>
+              <div className="bg-[#0e0e14] border border-zinc-800 p-6 relative">
+                <div className="flex items-center gap-3 mb-3">
+                  <MapPin className="w-5 h-5 text-[#FFE500]" />
+                  <h2 className="font-display uppercase text-lg text-white">
+                    Accès & Hébergement
+                  </h2>
+                </div>
+                <p className="text-xs text-zinc-400 leading-relaxed">
+                  Situé au Cateau-Cambrésis (à 2h de Paris, 1h de Lille). Possibilité d'hébergement
+                  sur site en pension complète pour les élèves en formation et stages.
+                </p>
               </div>
-              <p className="text-xs text-zinc-400 leading-relaxed">
-                Situé au Cateau-Cambrésis (à 2h de Paris, 1h de Lille). Possibilité d'hébergement
-                sur site en pension complète pour les élèves en formation et stages.
-              </p>
             </div>
-          </div>
+          )}
         </div>
       </main>
 

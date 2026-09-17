@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { SitePageContent, DEFAULT_PAGE_CONTENTS } from '@/lib/data/site-service';
+import { SitePageContent, DEFAULT_PAGE_CONTENTS, normalizeSlug } from '@/lib/data/site-service';
 
 /**
  * Hook dynamique de synchronisation du contenu d'une page du site vitrine.
@@ -14,8 +14,9 @@ import { SitePageContent, DEFAULT_PAGE_CONTENTS } from '@/lib/data/site-service'
  * 4. Filet de sécurité anti-casse : conserve les textes et agencements de secours si des champs sont manquants.
  */
 export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageContent>) {
-  const defaultData: SitePageContent = DEFAULT_PAGE_CONTENTS[slug] || {
-    slug,
+  const cleanSlug = normalizeSlug(slug);
+  const defaultData: SitePageContent = DEFAULT_PAGE_CONTENTS[cleanSlug] || {
+    slug: cleanSlug,
     title: 'Campus Univers Cascades',
     hero: {
       title: 'CAMPUS UNIVERS CASCADES',
@@ -57,7 +58,7 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
         const { data, error } = await supabase
           .from('site_pages')
           .select('*')
-          .eq('slug', slug)
+          .eq('slug', cleanSlug)
           .maybeSingle();
 
         if (!error && data && isMounted) {
@@ -85,7 +86,7 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
           });
         }
       } catch (err) {
-        console.warn(`[usePageDynamicContent] Impossible de charger ${slug}:`, err);
+        console.warn(`[usePageDynamicContent] Impossible de charger ${cleanSlug}:`, err);
       } finally {
         if (isMounted) setIsLoading(false);
       }
@@ -95,14 +96,14 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
 
     // Abonnement Supabase Realtime instantané
     const channel = supabase
-      .channel(`realtime_page_${slug.replace(/[^a-zA-Z0-9_-]/g, '_')}`)
+      .channel(`realtime_page_${cleanSlug.replace(/[^a-zA-Z0-9_-]/g, '_')}`)
       .on(
         'postgres_changes',
         {
           event: '*',
           schema: 'public',
           table: 'site_pages',
-          filter: `slug=eq.${slug}`,
+          filter: `slug=eq.${cleanSlug}`,
         },
         (payload) => {
           if (payload.new && isMounted) {
@@ -136,7 +137,7 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
       isMounted = false;
       supabase.removeChannel(channel);
     };
-  }, [slug]);
+  }, [cleanSlug]);
 
   return { content, isLoading };
 }

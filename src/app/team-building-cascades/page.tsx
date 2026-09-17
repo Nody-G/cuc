@@ -45,7 +45,24 @@ const TEAM_BUILDING_WORKSHOPS = [
   }
 ];
 
+import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+
 export default function TeamBuildingCascadesPage() {
+  const { content } = usePageDynamicContent('team-building-cascades');
+
+  const heroBadge = content.hero?.badge || 'SÉMINAIRES & ENTREPRISES';
+  const heroTitle = content.hero?.title || "TEAM BUILDING D'EXCEPTION";
+  const heroSubtitle =
+    content.hero?.subtitle ||
+    "Offrez à vos équipes une immersion inoubliable dans l'univers du cinéma d'action et des cascadeurs professionnels. Ateliers modulables de 10 à 300 personnes sur notre campus ou sur le lieu de votre séminaire.";
+  const heroBg =
+    content.hero?.bg_image ||
+    'https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-combat-cinema-1.jpg';
+  const ctaPrimaryText = content.hero?.cta_primary_text || 'Construire votre Projet Team Building';
+  const ctaPrimaryLink = content.hero?.cta_primary_link || '/contact-cuc';
+  const ctaSecondaryText = content.hero?.cta_secondary_text || 'Découvrir CUC Events';
+  const ctaSecondaryLink = content.hero?.cta_secondary_link || '/cuc-events-agence';
+
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
       <Navbar />
@@ -55,7 +72,7 @@ export default function TeamBuildingCascadesPage() {
         <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
           <div className="absolute inset-0 z-0">
             <Image
-              src="https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-combat-cinema-1.jpg"
+              src={heroBg}
               alt="Team building cinéma et cascades CUC Events"
               fill
               priority
@@ -80,7 +97,7 @@ export default function TeamBuildingCascadesPage() {
 
             <div className="inline-flex items-center gap-2 mb-4">
               <StuntBadge variant="yellow" icon={<Users className="w-3.5 h-3.5" />}>
-                SÉMINAIRES & ENTREPRISES
+                {heroBadge}
               </StuntBadge>
               <span className="text-xs font-mono-tech text-zinc-400">
                 COHÉSION D'ÉQUIPE • COULISSES DU CINÉMA
@@ -88,26 +105,35 @@ export default function TeamBuildingCascadesPage() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
-              TEAM BUILDING <span className="text-[#FFE500]">D'EXCEPTION</span>
+              {heroTitle.includes(' ') ? (
+                <>
+                  {heroTitle.substring(0, heroTitle.lastIndexOf(' '))}{' '}
+                  <span className="text-[#FFE500]">
+                    {heroTitle.substring(heroTitle.lastIndexOf(' ') + 1)}
+                  </span>
+                </>
+              ) : (
+                heroTitle
+              )}
             </h1>
 
             <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-              Offrez à vos équipes une immersion inoubliable dans l'univers du cinéma d'action
-              et des cascadeurs professionnels. Ateliers modulables de 10 à 300 personnes sur notre campus
-              ou sur le lieu de votre séminaire.
+              {heroSubtitle}
             </p>
 
             <div className="flex flex-wrap gap-4 mt-8">
-              <Link href="/contact-cuc">
+              <Link href={ctaPrimaryLink}>
                 <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
-                  Construire votre Projet Team Building
+                  {ctaPrimaryText}
                 </TacticalButton>
               </Link>
-              <Link href="/cuc-events-agence">
-                <TacticalButton variant="secondary" size="lg">
-                  Découvrir CUC Events
-                </TacticalButton>
-              </Link>
+              {ctaSecondaryText && (
+                <Link href={ctaSecondaryLink}>
+                  <TacticalButton variant="secondary" size="lg">
+                    {ctaSecondaryText}
+                  </TacticalButton>
+                </Link>
+              )}
             </div>
           </div>
         </section>

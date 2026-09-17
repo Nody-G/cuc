@@ -5,13 +5,29 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { Film, ChevronRight } from 'lucide-react';
+import { SitePageHero } from '@/lib/data/site-service';
 
-export const TeamHeroSection: React.FC = () => {
+interface TeamHeroSectionProps {
+  hero?: Partial<SitePageHero>;
+}
+
+export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
+  const badge = hero?.badge || 'COORDINATION DE CASCADES • TOURNAGES & CINÉMA';
+  const title = hero?.title || 'TOURNAGES & CUC STUNT TEAM';
+  const subtitle =
+    hero?.subtitle ||
+    "Le Campus Univers Cascades et la CUC Stunt Team accompagnent les réalisateurs, producteurs et directeurs de casting de la conception des scènes d'action jusqu'au tournage en plateau avec un vivier de plus de 200 cascadeurs professionnels certifiés.";
+  const bgImage =
+    hero?.bg_image ||
+    'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg';
+  const ctaPrimaryText = hero?.cta_primary_text || "Contacter l'Équipe de Production";
+  const ctaPrimaryLink = hero?.cta_primary_link || '/contact-cuc';
+
   return (
     <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg"
+          src={bgImage}
           alt="CUC Stunt Team tournages cinéma et films d'action"
           fill
           priority
@@ -29,27 +45,32 @@ export const TeamHeroSection: React.FC = () => {
                 ACCUEIL
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-              <span className="text-[#FFE500]">TOURNAGES & CUC STUNT TEAM</span>
+              <span className="text-[#FFE500]">TOURNAGES &amp; CUC STUNT TEAM</span>
             </div>
 
             <div className="flex items-center gap-2 mb-4 text-xs font-mono-tech uppercase font-bold tracking-wider text-[#FFE500]">
-              <span>COORDINATION DE CASCADES • TOURNAGES &amp; CINÉMA</span>
+              <span>{badge}</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
-              TOURNAGES & <span className="text-[#FFE500]">CUC STUNT TEAM</span>
+              {title.includes('&') ? (
+                <>
+                  {title.split('&')[0]} &amp;{' '}
+                  <span className="text-[#FFE500]">{title.split('&')[1]}</span>
+                </>
+              ) : (
+                title
+              )}
             </h1>
 
             <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-              Le Campus Univers Cascades et la CUC Stunt Team accompagnent les réalisateurs,
-              producteurs et directeurs de casting de la conception des scènes d'action jusqu'au tournage
-              en plateau avec un vivier de plus de 200 cascadeurs professionnels certifiés.
+              {subtitle}
             </p>
 
             <div className="flex flex-wrap gap-4 mt-8">
-              <Link href="/contact-cuc">
+              <Link href={ctaPrimaryLink}>
                 <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
-                  Contacter l'Équipe de Production
+                  {ctaPrimaryText}
                 </TacticalButton>
               </Link>
               <a

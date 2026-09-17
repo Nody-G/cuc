@@ -13,7 +13,24 @@ import {
   Award
 } from 'lucide-react';
 
+import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+
 export default function SpectaclesCascadeursYamakasiPage() {
+  const { content } = usePageDynamicContent('spectacles-cascadeurs-yamakasi');
+
+  const heroBadge = content.hero?.badge || "LE CINÉMA S'INVITE SUR SCÈNE";
+  const heroTitle = content.hero?.title || 'SPECTACLES CASCADEURS & YAMAKASI';
+  const heroSubtitle =
+    content.hero?.subtitle ||
+    "Revivez les séquences d'action mythiques de vos films préférés avec les cascadeurs professionnels et doublures cinéma du Campus Univers Cascades. Combats, chutes, Parkour, humour et effets scéniques pour tous vos événements.";
+  const heroBg =
+    content.hero?.bg_image ||
+    'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg';
+  const ctaPrimaryText = content.hero?.cta_primary_text || 'Demander un Devis Spectacle';
+  const ctaPrimaryLink = content.hero?.cta_primary_link || '/contact-cuc';
+  const ctaSecondaryText = content.hero?.cta_secondary_text || 'Voir nos Vidéos en Direct';
+  const ctaSecondaryLink = content.hero?.cta_secondary_link || '/videos-cascadeur';
+
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
       <Navbar />
@@ -23,7 +40,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
         <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
           <div className="absolute inset-0 z-0">
             <Image
-              src="https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg"
+              src={heroBg}
               alt="Spectacles de cascadeurs professionnels CUC Events"
               fill
               priority
@@ -48,7 +65,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
 
             <div className="inline-flex items-center gap-2 mb-4">
               <StuntBadge variant="yellow" icon={<Sparkles className="w-3.5 h-3.5" />}>
-                LE CINÉMA S'INVITE SUR SCÈNE
+                {heroBadge}
               </StuntBadge>
               <span className="text-xs font-mono-tech text-zinc-400">
                 CASCADEURS • COMÉDIENS • SHOWS CLÉ EN MAIN
@@ -56,26 +73,33 @@ export default function SpectaclesCascadeursYamakasiPage() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
-              SPECTACLES <span className="text-[#FFE500]">CASCADEURS & YAMAKASI</span>
+              {heroTitle.includes('&') ? (
+                <>
+                  {heroTitle.split('&')[0]} &amp;{' '}
+                  <span className="text-[#FFE500]">{heroTitle.split('&')[1]}</span>
+                </>
+              ) : (
+                heroTitle
+              )}
             </h1>
 
             <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-              Revivez les séquences d'action mythiques de vos films préférés avec les cascadeurs
-              professionnels et doublures cinéma du Campus Univers Cascades. Combats, chutes, Parkour,
-              humour et effets scéniques pour tous vos événements.
+              {heroSubtitle}
             </p>
 
             <div className="flex flex-wrap gap-4 mt-8">
-              <Link href="/contact-cuc">
+              <Link href={ctaPrimaryLink}>
                 <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
-                  Demander un Devis Spectacle
+                  {ctaPrimaryText}
                 </TacticalButton>
               </Link>
-              <Link href="/videos-cascadeur">
-                <TacticalButton variant="secondary" size="lg">
-                  Voir nos Vidéos en Direct
-                </TacticalButton>
-              </Link>
+              {ctaSecondaryText && (
+                <Link href={ctaSecondaryLink}>
+                  <TacticalButton variant="secondary" size="lg">
+                    {ctaSecondaryText}
+                  </TacticalButton>
+                </Link>
+              )}
             </div>
           </div>
         </section>
