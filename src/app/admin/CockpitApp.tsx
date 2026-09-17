@@ -23,6 +23,11 @@ import {
   Eye,
   ExternalLink,
   LogOut,
+  FileText,
+  Image as ImageIcon,
+  Handshake,
+  Sparkles,
+  Settings,
 } from 'lucide-react';
 import { InstagramLogo } from '@/components/ui/logos/SocialLogos';
 import {
@@ -30,7 +35,17 @@ import {
   getTeam,
   getFilms,
   getActiveAnnouncement,
+  getAllPages,
+  getPartners,
+  getEvents,
+  getSiteSettings,
   SiteAnnouncement,
+  SitePageContent,
+  SitePartner,
+  SiteEvent,
+  SiteSettings,
+  DEFAULT_PARTNERS,
+  DEFAULT_SITE_SETTINGS,
 } from '@/lib/data/site-service';
 import {
   updateSessionStatus,
@@ -48,7 +63,24 @@ import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { createClient } from '@/lib/supabase/client';
 
-type TabType = 'dashboard' | 'sessions' | 'team' | 'films' | 'announcements';
+// Nouveaux composants CMS modulaires
+import { PagesEditorView } from './components/PagesEditorView';
+import { MediaLibraryView } from './components/MediaLibraryView';
+import { PartnersView } from './components/PartnersView';
+import { EventsView } from './components/EventsView';
+import { SettingsView } from './components/SettingsView';
+
+export type TabType = 
+  | 'dashboard' 
+  | 'pages' 
+  | 'sessions' 
+  | 'team' 
+  | 'films' 
+  | 'partners' 
+  | 'events' 
+  | 'media' 
+  | 'announcements' 
+  | 'settings';
 
 interface CockpitAppProps {
   initialTab?: TabType;
@@ -62,11 +94,21 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
   const getTabFromPath = (): TabType => {
     if (typeof window !== 'undefined') {
       const p = window.location.pathname;
+      if (p.includes('/pages')) return 'pages';
+      if (p.includes('/media')) return 'media';
+      if (p.includes('/partners')) return 'partners';
+      if (p.includes('/events')) return 'events';
+      if (p.includes('/settings')) return 'settings';
       if (p.includes('/sessions')) return 'sessions';
       if (p.includes('/team')) return 'team';
       if (p.includes('/films')) return 'films';
       if (p.includes('/announcements')) return 'announcements';
     }
+    if (pathname.includes('/pages')) return 'pages';
+    if (pathname.includes('/media')) return 'media';
+    if (pathname.includes('/partners')) return 'partners';
+    if (pathname.includes('/events')) return 'events';
+    if (pathname.includes('/settings')) return 'settings';
     if (pathname.includes('/sessions')) return 'sessions';
     if (pathname.includes('/team')) return 'team';
     if (pathname.includes('/films')) return 'films';
@@ -82,6 +124,10 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
   const [programs, setPrograms] = useState<StuntProgram[]>(STUNT_PROGRAMS);
   const [team, setTeam] = useState<Instructor[]>(CUC_TEAM);
   const [films, setFilms] = useState<FilmCredit[]>(FILMOGRAPHY_CREDITS);
+  const [pagesList, setPagesList] = useState<SitePageContent[]>([]);
+  const [partnersList, setPartnersList] = useState<SitePartner[]>(DEFAULT_PARTNERS);
+  const [eventsList, setEventsList] = useState<SiteEvent[]>([]);
+  const [siteSettings, setSiteSettings] = useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
   const [announcement, setAnnouncement] = useState<SiteAnnouncement>({
     id: '',
     title: 'Inscriptions Ouvertes 2026-2027',
@@ -103,11 +149,19 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
       getTeam(),
       getFilms(),
       getActiveAnnouncement(),
-    ]).then(([p, t, f, a]) => {
+      getAllPages(),
+      getPartners(),
+      getEvents(),
+      getSiteSettings(),
+    ]).then(([p, t, f, a, pages, parts, evts, st]) => {
       if (p && p.length > 0) setPrograms(p);
       if (t && t.length > 0) setTeam(t);
       if (f && f.length > 0) setFilms(f);
       if (a) setAnnouncement(a);
+      if (pages && pages.length > 0) setPagesList(pages);
+      if (parts && parts.length > 0) setPartnersList(parts);
+      if (evts && evts.length > 0) setEventsList(evts);
+      if (st) setSiteSettings(st);
     }).catch((err) => {
       console.warn('[CockpitApp] sync warning:', err);
     });
@@ -155,6 +209,42 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
             });
           }
         )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'site_pages' },
+          () => {
+            getAllPages().then((pages) => {
+              if (pages && pages.length > 0) setPagesList(pages);
+            });
+          }
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'site_partners' },
+          () => {
+            getPartners().then((parts) => {
+              if (parts && parts.length > 0) setPartnersList(parts);
+            });
+          }
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'site_events' },
+          () => {
+            getEvents().then((evts) => {
+              if (evts && evts.length > 0) setEventsList(evts);
+            });
+          }
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'site_settings' },
+          () => {
+            getSiteSettings().then((st) => {
+              if (st) setSiteSettings(st);
+            });
+          }
+        )
         .subscribe((status) => {
           if (status === 'SUBSCRIBED') {
             setRealtimeStatus('connected');
@@ -175,7 +265,12 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
   useEffect(() => {
     const handlePopState = () => {
       const currentPath = window.location.pathname;
-      if (currentPath.includes('/sessions')) setActiveTab('sessions');
+      if (currentPath.includes('/pages')) setActiveTab('pages');
+      else if (currentPath.includes('/media')) setActiveTab('media');
+      else if (currentPath.includes('/partners')) setActiveTab('partners');
+      else if (currentPath.includes('/events')) setActiveTab('events');
+      else if (currentPath.includes('/settings')) setActiveTab('settings');
+      else if (currentPath.includes('/sessions')) setActiveTab('sessions');
       else if (currentPath.includes('/team')) setActiveTab('team');
       else if (currentPath.includes('/films')) setActiveTab('films');
       else if (currentPath.includes('/announcements')) setActiveTab('announcements');
@@ -399,12 +494,37 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
     0
   );
 
-  const navItems = [
-    { id: 'dashboard' as TabType, label: 'Tableau de Bord', icon: LayoutDashboard },
-    { id: 'sessions' as TabType, label: 'Sessions & Stages', icon: Calendar },
-    { id: 'team' as TabType, label: 'Équipe & Coachs', icon: Users },
-    { id: 'films' as TabType, label: 'Filmographie', icon: Film },
-    { id: 'announcements' as TabType, label: 'Bandeau Flash', icon: Bell },
+  const navSections = [
+    {
+      title: "Vue d'ensemble",
+      items: [
+        { id: 'dashboard' as TabType, label: 'Tableau de Bord', icon: LayoutDashboard },
+      ],
+    },
+    {
+      title: "CMS & Vitrine",
+      items: [
+        { id: 'pages' as TabType, label: 'Éditeur de Pages', icon: FileText, badge: '15' },
+        { id: 'media' as TabType, label: 'Médiathèque Storage', icon: ImageIcon, badge: 'CDN' },
+      ],
+    },
+    {
+      title: "Contenus Spécifiques",
+      items: [
+        { id: 'sessions' as TabType, label: 'Sessions & Stages', icon: Calendar },
+        { id: 'team' as TabType, label: 'Équipe & Coachs', icon: Users },
+        { id: 'films' as TabType, label: 'Filmographie', icon: Film },
+        { id: 'events' as TabType, label: 'Prestations Events', icon: Sparkles },
+        { id: 'partners' as TabType, label: 'Partenaires & Labels', icon: Handshake },
+      ],
+    },
+    {
+      title: "Configuration",
+      items: [
+        { id: 'announcements' as TabType, label: 'Bandeau Flash', icon: Bell, badge: announcement.is_active ? 'Live' : undefined },
+        { id: 'settings' as TabType, label: 'Paramètres Globaux', icon: Settings },
+      ],
+    },
   ];
 
   return (
@@ -450,44 +570,60 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
           </span>
         </div>
 
-        {/* Navigation avec bascule 0 ms */}
-        <nav className="p-4 space-y-1.5 flex-1">
-          <div className="px-3 py-2 text-[10px] font-mono tracking-widest text-gray-400 uppercase">
-            Gestion du contenu
+        {/* Navigation catégorisée avec bascule 0 ms */}
+        <nav className="p-3 space-y-4 flex-1 overflow-y-auto">
+          {navSections.map((section, sIdx) => (
+            <div key={sIdx} className="space-y-1">
+              <div className="px-3 py-1 text-[10px] font-mono tracking-widest text-zinc-500 uppercase font-semibold">
+                {section.title}
+              </div>
+              {section.items.map((item) => {
+                const Icon = item.icon;
+                const isActive = activeTab === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => switchTab(item.id)}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all ${
+                      isActive
+                        ? 'bg-[#FFE500] text-black font-bold shadow-md shadow-yellow-500/10'
+                        : 'text-zinc-300 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-black' : 'text-zinc-400'}`} />
+                      <span className="truncate">{item.label}</span>
+                    </div>
+                    {item.badge && (
+                      <span
+                        className={`px-1.5 py-0.5 rounded text-[10px] font-mono uppercase ${
+                          isActive
+                            ? 'bg-black text-amber-300 font-bold'
+                            : 'bg-zinc-800 text-zinc-400 border border-zinc-700'
+                        }`}
+                      >
+                        {item.badge}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          ))}
+
+          <div className="pt-2">
+            <div className="px-3 py-1 text-[10px] font-mono tracking-widest text-zinc-500 uppercase font-semibold">
+              Raccourcis
+            </div>
+            <Link
+              href="/"
+              target="_blank"
+              className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-zinc-400 hover:text-[#FFE500] hover:bg-white/5 transition-colors"
+            >
+              <Globe className="w-4 h-4 text-zinc-500" />
+              <span>Voir le site vitrine ↗</span>
+            </Link>
           </div>
-
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeTab === item.id;
-
-            return (
-              <button
-                key={item.id}
-                onClick={() => switchTab(item.id)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                  isActive
-                    ? 'bg-[#FFE500] text-black font-bold shadow-md shadow-yellow-500/10'
-                    : 'text-gray-300 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-black' : 'text-gray-400'}`} />
-                {item.label}
-              </button>
-            );
-          })}
-
-          <div className="pt-4 px-3 py-2 text-[10px] font-mono tracking-widest text-gray-400 uppercase">
-            Raccourcis
-          </div>
-
-          <Link
-            href="/"
-            target="_blank"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-300 hover:text-[#FFE500] hover:bg-white/5 transition-colors"
-          >
-            <Globe className="w-4 h-4 text-gray-400" />
-            Voir le site vitrine ↗
-          </Link>
         </nav>
 
         {/* Footer sidebar */}
@@ -527,12 +663,53 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
                     Cockpit CUC — Administration
                   </h1>
                   <p className="text-sm text-gray-400 mt-1">
-                    Gérez les dates de stages, l&apos;équipe, la filmographie et les alertes du site en direct.
+                    Pilotez l&apos;intégralité de votre site vitrine : 15 pages, médias CDN, sessions, instructeurs, films et partenaires.
                   </p>
                 </div>
 
-                {/* Cartes stats */}
+                {/* Grille 8 modules Cockpit */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {/* Module Pages */}
+                  <button
+                    onClick={() => switchTab('pages')}
+                    className="bg-[#0F0F14] border border-white/10 rounded-xl p-5 text-left group hover:border-[#FFE500]/50 transition-all hover:scale-[1.01]"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-mono text-gray-400 uppercase tracking-wider">CMS Pages</span>
+                      <div className="p-2 rounded-lg bg-amber-500/10 text-[#FFE500]">
+                        <FileText className="w-4 h-4" />
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <div className="text-3xl font-black text-white">15</div>
+                      <div className="text-xs text-gray-400 mt-1">Pages vitrines éditables</div>
+                    </div>
+                    <div className="mt-4 inline-flex items-center gap-1.5 text-xs text-[#FFE500] font-medium">
+                      Éditer les pages <ArrowRight className="w-3 h-3" />
+                    </div>
+                  </button>
+
+                  {/* Module Médiathèque */}
+                  <button
+                    onClick={() => switchTab('media')}
+                    className="bg-[#0F0F14] border border-white/10 rounded-xl p-5 text-left group hover:border-[#FFE500]/50 transition-all hover:scale-[1.01]"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-mono text-gray-400 uppercase tracking-wider">Médiathèque</span>
+                      <div className="p-2 rounded-lg bg-sky-500/10 text-sky-400">
+                        <ImageIcon className="w-4 h-4" />
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <div className="text-3xl font-black text-white">CDN</div>
+                      <div className="text-xs text-gray-400 mt-1">Supabase Storage public</div>
+                    </div>
+                    <div className="mt-4 inline-flex items-center gap-1.5 text-xs text-[#FFE500] font-medium">
+                      Gérer les médias <ArrowRight className="w-3 h-3" />
+                    </div>
+                  </button>
+
+                  {/* Module Sessions */}
                   <button
                     onClick={() => switchTab('sessions')}
                     className="bg-[#0F0F14] border border-white/10 rounded-xl p-5 text-left group hover:border-[#FFE500]/50 transition-all hover:scale-[1.01]"
@@ -554,6 +731,7 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
                     </div>
                   </button>
 
+                  {/* Module Instructeurs */}
                   <button
                     onClick={() => switchTab('team')}
                     className="bg-[#0F0F14] border border-white/10 rounded-xl p-5 text-left group hover:border-[#FFE500]/50 transition-all hover:scale-[1.01]"
@@ -573,6 +751,7 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
                     </div>
                   </button>
 
+                  {/* Module Filmographie */}
                   <button
                     onClick={() => switchTab('films')}
                     className="bg-[#0F0F14] border border-white/10 rounded-xl p-5 text-left group hover:border-[#FFE500]/50 transition-all hover:scale-[1.01]"
@@ -592,30 +771,60 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
                     </div>
                   </button>
 
+                  {/* Module Prestations Events */}
                   <button
-                    onClick={() => switchTab('announcements')}
+                    onClick={() => switchTab('events')}
                     className="bg-[#0F0F14] border border-white/10 rounded-xl p-5 text-left group hover:border-[#FFE500]/50 transition-all hover:scale-[1.01]"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono text-gray-400 uppercase tracking-wider">Bandeau Flash</span>
-                      <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
-                        <Bell className="w-4 h-4" />
+                      <span className="text-xs font-mono text-gray-400 uppercase tracking-wider">CUC Events</span>
+                      <div className="p-2 rounded-lg bg-amber-500/10 text-amber-400">
+                        <Sparkles className="w-4 h-4" />
                       </div>
                     </div>
                     <div className="mt-4">
-                      <div className="text-lg font-bold text-white flex items-center gap-2">
-                        {announcement.is_active ? (
-                          <span className="inline-flex items-center gap-1.5 text-emerald-400">
-                            <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                            Actif
-                          </span>
-                        ) : (
-                          <span className="text-gray-400">Inactif</span>
-                        )}
+                      <div className="text-3xl font-black text-white">{eventsList.length || 3}</div>
+                      <div className="text-xs text-gray-400 mt-1">Shows & team-building</div>
+                    </div>
+                    <div className="mt-4 inline-flex items-center gap-1.5 text-xs text-[#FFE500] font-medium">
+                      Gérer les offres <ArrowRight className="w-3 h-3" />
+                    </div>
+                  </button>
+
+                  {/* Module Partenaires */}
+                  <button
+                    onClick={() => switchTab('partners')}
+                    className="bg-[#0F0F14] border border-white/10 rounded-xl p-5 text-left group hover:border-[#FFE500]/50 transition-all hover:scale-[1.01]"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-mono text-gray-400 uppercase tracking-wider">Partenaires</span>
+                      <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
+                        <Handshake className="w-4 h-4" />
                       </div>
-                      <div className="text-xs text-gray-400 mt-1 line-clamp-1">
-                        {announcement.is_active ? announcement.title : 'Aucune annonce'}
+                    </div>
+                    <div className="mt-4">
+                      <div className="text-3xl font-black text-white">{partnersList.length}</div>
+                      <div className="text-xs text-gray-400 mt-1">Cinéma & institutionnels</div>
+                    </div>
+                    <div className="mt-4 inline-flex items-center gap-1.5 text-xs text-[#FFE500] font-medium">
+                      Gérer les partenaires <ArrowRight className="w-3 h-3" />
+                    </div>
+                  </button>
+
+                  {/* Module Paramètres */}
+                  <button
+                    onClick={() => switchTab('settings')}
+                    className="bg-[#0F0F14] border border-white/10 rounded-xl p-5 text-left group hover:border-[#FFE500]/50 transition-all hover:scale-[1.01]"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-mono text-gray-400 uppercase tracking-wider">Paramètres</span>
+                      <div className="p-2 rounded-lg bg-rose-500/10 text-rose-400">
+                        <Settings className="w-4 h-4" />
                       </div>
+                    </div>
+                    <div className="mt-4">
+                      <div className="text-lg font-bold text-white truncate">{siteSettings.school_name || 'CUC'}</div>
+                      <div className="text-xs text-gray-400 mt-1">Coordonnées, footer, réseaux</div>
                     </div>
                     <div className="mt-4 inline-flex items-center gap-1.5 text-xs text-[#FFE500] font-medium">
                       Configurer <ArrowRight className="w-3 h-3" />
@@ -1371,6 +1580,75 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
                     </button>
                   </div>
                 </form>
+              </div>
+            )}
+
+            {/* 6. CMS ÉDITEUR DE PAGES */}
+            {activeTab === 'pages' && (
+              <div className="animate-in fade-in duration-200">
+                <PagesEditorView
+                  pages={pagesList}
+                  onPageSaved={(updated) => {
+                    setPagesList((prev) =>
+                      prev.map((p) => (p.slug === updated.slug ? updated : p))
+                    );
+                  }}
+                  showToast={showToast}
+                />
+              </div>
+            )}
+
+            {/* 7. MÉDIATHÈQUE STORAGE CDN */}
+            {activeTab === 'media' && (
+              <div className="animate-in fade-in duration-200">
+                <MediaLibraryView showToast={showToast} />
+              </div>
+            )}
+
+            {/* 8. PRESTATIONS CUC EVENTS */}
+            {activeTab === 'events' && (
+              <div className="animate-in fade-in duration-200">
+                <EventsView
+                  events={eventsList}
+                  onEventSaved={(evt) => {
+                    setEventsList((prev) => {
+                      const exists = prev.some((e) => e.id === evt.id);
+                      if (exists) return prev.map((e) => (e.id === evt.id ? evt : e));
+                      return [...prev, evt];
+                    });
+                  }}
+                  onEventDeleted={(id) => {
+                    setEventsList((prev) => prev.filter((e) => e.id !== id));
+                  }}
+                  showToast={showToast}
+                />
+              </div>
+            )}
+
+            {/* 9. PARTENAIRES CINÉMA & INSTITUTIONNELS */}
+            {activeTab === 'partners' && (
+              <div className="animate-in fade-in duration-200">
+                <PartnersView
+                  partners={partnersList}
+                  onPartnerSaved={(partner) => {
+                    setPartnersList((prev) => {
+                      const exists = prev.some((p) => p.id === partner.id);
+                      if (exists) return prev.map((p) => (p.id === partner.id ? partner : p));
+                      return [...prev, partner];
+                    });
+                  }}
+                  onPartnerDeleted={(id) => {
+                    setPartnersList((prev) => prev.filter((p) => p.id !== id));
+                  }}
+                  showToast={showToast}
+                />
+              </div>
+            )}
+
+            {/* 10. PARAMÈTRES GLOBAUX DU SITE */}
+            {activeTab === 'settings' && (
+              <div className="animate-in fade-in duration-200">
+                <SettingsView initialSettings={siteSettings} />
               </div>
             )}
           </>

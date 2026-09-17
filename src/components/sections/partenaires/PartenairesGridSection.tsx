@@ -1,14 +1,99 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { ExternalLink } from 'lucide-react';
-import { CUC_PARTNERS } from './partenaires.data';
+import { ExternalLink, Film, Award } from 'lucide-react';
+import { CUC_PARTNERS, PartnerCategoryGroup } from './partenaires.data';
+import { getPartners, SitePartner } from '@/lib/data/site-service';
 
 export const PartenairesGridSection: React.FC = () => {
+  const [dbPartners, setDbPartners] = useState<SitePartner[]>([]);
+
+  useEffect(() => {
+    getPartners().then((parts) => {
+      if (parts && parts.length > 0) {
+        setDbPartners(parts);
+      }
+    });
+  }, []);
+
+  // Enrichir avec les partenaires dynamiques du CMS
+  const dynamicCinemaPartners = dbPartners.filter((p) => p.category === 'cinema');
+  const dynamicInstPartners = dbPartners.filter((p) => p.category === 'institutionnel');
+
   return (
     <section className="py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+        {/* Section Partenaires Cinéma issus de la base si configurés */}
+        {dynamicCinemaPartners.length > 0 && (
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 border-b border-zinc-800 pb-3">
+              <Film className="w-4 h-4 text-[#FFE500]" />
+              <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
+                Studios &amp; Productions Partenaires
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {dynamicCinemaPartners.map((partner) => (
+                <div
+                  key={partner.id}
+                  className="bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/60 p-6 relative group transition-all flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="relative h-24 w-full bg-white/5 border border-zinc-800 group-hover:border-[#FFE500]/60 mb-4 p-4 flex items-center justify-center overflow-hidden transition-colors">
+                      {partner.logo_url ? (
+                        <div className="relative w-full h-full flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                          <Image
+                            src={partner.logo_url}
+                            alt={`Logo ${partner.name}`}
+                            fill
+                            className="object-contain p-2"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                          />
+                        </div>
+                      ) : (
+                        <span className="text-xs font-mono-tech text-[#FFE500] font-bold">{partner.name}</span>
+                      )}
+                    </div>
+
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold">
+                        Production Cinéma
+                      </span>
+                    </div>
+
+                    <h3 className="text-lg font-display uppercase text-white mb-2">
+                      {partner.name}
+                    </h3>
+
+                    {partner.description && (
+                      <p className="text-xs font-tech text-zinc-300 leading-relaxed">
+                        {partner.description}
+                      </p>
+                    )}
+                  </div>
+
+                  {partner.website_url && (
+                    <div className="pt-4 mt-4 border-t border-zinc-800/80 flex items-center justify-end text-[11px] font-mono-tech text-zinc-500">
+                      <a
+                        href={partner.website_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#FFE500] hover:underline flex items-center gap-1 font-bold"
+                      >
+                        <span>Site officiel</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Groupes de partenaires statiques certifiés */}
         {CUC_PARTNERS.map((catGroup, idx) => (
           <div key={idx} className="space-y-6">
             <div className="flex items-center gap-3 border-b border-zinc-800 pb-3">

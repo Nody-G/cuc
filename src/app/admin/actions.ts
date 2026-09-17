@@ -278,3 +278,268 @@ export async function deleteFilm(id: string) {
   }
 }
 
+/**
+ * Met à jour ou insère le contenu détaillé d'une page (Hero, sections, SEO).
+ */
+export async function upsertPageContent(slug: string, pageData: {
+  title: string;
+  meta_title?: string;
+  meta_description?: string;
+  og_image?: string;
+  hero: Record<string, any>;
+  sections?: any[];
+  is_published?: boolean;
+}) {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('site_pages')
+      .upsert({
+        slug,
+        title: pageData.title,
+        meta_title: pageData.meta_title,
+        meta_description: pageData.meta_description,
+        og_image: pageData.og_image,
+        hero: pageData.hero,
+        sections: pageData.sections || [],
+        is_published: pageData.is_published ?? true,
+        updated_at: new Date().toISOString(),
+      });
+
+    if (error) throw error;
+
+    const targetPath = slug === '/' ? '/' : `/${slug.replace(/^\//, '')}`;
+    await revalidateSite([targetPath, '/']);
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Met à jour ou insère un partenaire.
+ */
+export async function upsertPartner(partner: {
+  id: string;
+  name: string;
+  category: string;
+  logo_url: string;
+  website_url?: string;
+  description?: string;
+  order_index?: number;
+}) {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('site_partners')
+      .upsert({
+        ...partner,
+        updated_at: new Date().toISOString(),
+      });
+
+    if (error) throw error;
+    await revalidateSite(['/partenaires', '/']);
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Supprime un partenaire.
+ */
+export async function deletePartner(id: string) {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('site_partners')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+    await revalidateSite(['/partenaires', '/']);
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Met à jour ou insère une prestation CUC Events.
+ */
+export async function upsertEvent(event: {
+  id: string;
+  title: string;
+  subtitle?: string;
+  badge?: string;
+  description?: string;
+  features?: string[];
+  price_indicator?: string;
+  cta_text?: string;
+  cta_link?: string;
+  image_url?: string;
+  order_index?: number;
+}) {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('site_events')
+      .upsert({
+        ...event,
+        updated_at: new Date().toISOString(),
+      });
+
+    if (error) throw error;
+    await revalidateSite(['/cuc-events-agence', '/team-building-cascades', '/spectacles-cascadeurs-yamakasi', '/animations-airbag-parkour', '/']);
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Supprime une prestation CUC Events.
+ */
+export async function deleteEvent(id: string) {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('site_events')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+    await revalidateSite(['/cuc-events-agence', '/']);
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Met à jour les paramètres globaux (coordonnées, réseaux sociaux, footer).
+ */
+export async function updateSiteSettings(key: string, value: Record<string, any>) {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('site_settings')
+      .upsert({
+        key,
+        value,
+        updated_at: new Date().toISOString(),
+      });
+
+    if (error) throw error;
+    await revalidateSite(['/', '/contact-cuc']);
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Téléverse un fichier média vers Supabase Storage (cuc-vitrine-assets).
+ */
+export async function uploadMediaFile(formData: FormData) {
+  try {
+    const file = formData.get('file') as File;
+    if (!file) throw new Error('Aucun fichier fourni');
+
+    const adminClient = createAdminClient();
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+
+    const timestamp = Date.now();
+    const cleanName = file.name
+      .toLowerCase()
+      .replace(/[^a-z0-9.-]/g, '_');
+    const filePath = `uploads/${timestamp}_${cleanName}`;
+
+    const { data, error } = await adminClient.storage
+      .from('cuc-vitrine-assets')
+      .upload(filePath, buffer, {
+        contentType: file.type || 'image/jpeg',
+        upsert: true,
+      });
+
+    if (error) throw error;
+
+    const { data: publicUrlData } = adminClient.storage
+      .from('cuc-vitrine-assets')
+      .getPublicUrl(filePath);
+
+    return {
+      success: true,
+      url: publicUrlData.publicUrl,
+      path: data.path,
+      name: file.name,
+      size: file.size,
+    };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur upload';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Liste les fichiers de la médiathèque Supabase Storage.
+ */
+export async function listMediaFiles() {
+  try {
+    const adminClient = createAdminClient();
+    const { data, error } = await adminClient.storage
+      .from('cuc-vitrine-assets')
+      .list('uploads', {
+        limit: 100,
+        offset: 0,
+        sortBy: { column: 'created_at', order: 'desc' },
+      });
+
+    if (error) throw error;
+
+    const files = (data || [])
+      .filter((f) => f.name !== '.emptyFolderPlaceholder')
+      .map((f) => {
+        const { data: publicUrlData } = adminClient.storage
+          .from('cuc-vitrine-assets')
+          .getPublicUrl(`uploads/${f.name}`);
+        return {
+          name: f.name,
+          size: f.metadata?.size || 0,
+          createdAt: f.created_at,
+          url: publicUrlData.publicUrl,
+        };
+      });
+
+    return { success: true, files };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur liste médias';
+    return { success: false, error: message, files: [] };
+  }
+}
+
+/**
+ * Supprime un fichier média du stockage Supabase.
+ */
+export async function deleteMediaFile(filename: string) {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient.storage
+      .from('cuc-vitrine-assets')
+      .remove([`uploads/${filename}`]);
+
+    if (error) throw error;
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur suppression média';
+    return { success: false, error: message };
+  }
+}
+

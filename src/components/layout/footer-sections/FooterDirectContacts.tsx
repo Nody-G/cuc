@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Phone, Mail, ExternalLink } from 'lucide-react';
 import {
@@ -10,8 +10,17 @@ import {
   FacebookLogo,
   WhatsAppLogo,
 } from '@/components/ui/BrandLogos';
+import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data/site-service';
 
 export const FooterDirectContacts: React.FC = () => {
+  const [settings, setSettings] = useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
+
+  useEffect(() => {
+    getSiteSettings().then((s) => {
+      if (s) setSettings(s);
+    });
+  }, []);
+
   return (
     <>
       {/* Contacts Directs */}
@@ -24,20 +33,20 @@ export const FooterDirectContacts: React.FC = () => {
           <div className="flex items-center gap-2 text-zinc-300">
             <Phone className="w-4 h-4 text-[#FFE500] shrink-0" />
             <a
-              href="tel:+33672849492"
+              href={`tel:${(settings.phone || '+33672849492').replace(/\s+/g, '')}`}
               className="hover:text-[#FFE500] transition-colors"
             >
-              (+33) 06 72 84 94 92
+              {settings.phone || '(+33) 06 72 84 94 92'}
             </a>
           </div>
 
           <div className="flex items-center gap-2 text-zinc-300">
             <Mail className="w-4 h-4 text-[#FFE500] shrink-0" />
             <a
-              href="mailto:contact@campus-universcascades.com"
+              href={`mailto:${settings.email_general || 'contact@campus-universcascades.com'}`}
               className="hover:text-[#FFE500] transition-colors"
             >
-              contact@campus-universcascades.com
+              {settings.email_general || 'contact@campus-universcascades.com'}
             </a>
           </div>
 
