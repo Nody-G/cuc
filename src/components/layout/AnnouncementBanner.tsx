@@ -3,16 +3,48 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getActiveAnnouncement, SiteAnnouncement } from '@/lib/data/site-service';
+import { createClient } from '@/lib/supabase/client';
 
 export const AnnouncementBanner: React.FC = () => {
   const [announcement, setAnnouncement] = useState<SiteAnnouncement | null>(null);
 
   useEffect(() => {
+    // 1. Chargement initial
     getActiveAnnouncement().then((data) => {
       if (data && data.is_active) {
         setAnnouncement(data);
       }
     });
+
+    // 2. Souscription Supabase Realtime en direct
+    try {
+      const supabase = createClient();
+      const channel = supabase
+        .channel('realtime:site_announcements')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'site_announcements' },
+          (payload) => {
+            if (payload.eventType === 'DELETE') {
+              setAnnouncement(null);
+            } else {
+              const row = payload.new as SiteAnnouncement;
+              if (row && row.is_active) {
+                setAnnouncement(row);
+              } else {
+                setAnnouncement(null);
+              }
+            }
+          }
+        )
+        .subscribe();
+
+      return () => {
+        supabase.removeChannel(channel);
+      };
+    } catch (err) {
+      console.warn('[AnnouncementBanner] Realtime warning:', err);
+    }
   }, []);
 
   if (!announcement || !announcement.is_active) {

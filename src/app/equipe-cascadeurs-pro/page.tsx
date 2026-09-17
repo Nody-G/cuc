@@ -9,6 +9,7 @@ import { StuntBadge } from '@/components/ui/StuntBadge';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { CUC_TEAM } from '@/data/team';
 import { getTeam } from '@/lib/data/site-service';
+import { createClient } from '@/lib/supabase/client';
 import { Instructor } from '@/types';
 import { ALL_OFFICIAL_FILM_POSTERS } from '@/data/all_official_films';
 import {
@@ -24,6 +25,26 @@ export default function EquipeCascadeursProPage() {
 
   React.useEffect(() => {
     getTeam().then(setTeam);
+
+    try {
+      const supabase = createClient();
+      const channel = supabase
+        .channel('realtime:site_team')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'site_team' },
+          () => {
+            getTeam().then(setTeam);
+          }
+        )
+        .subscribe();
+
+      return () => {
+        supabase.removeChannel(channel);
+      };
+    } catch {
+      // Fallback
+    }
   }, []);
 
   return (

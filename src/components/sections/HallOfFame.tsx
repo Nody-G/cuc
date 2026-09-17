@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getFilms } from '@/lib/data/site-service';
+import { createClient } from '@/lib/supabase/client';
 import { FilmCredit, DoubledCelebrity } from '@/types';
 import { StuntBadge } from '../ui/StuntBadge';
 import { Clapperboard, Film } from 'lucide-react';
@@ -40,6 +41,26 @@ export const HallOfFame: React.FC = () => {
 
   useEffect(() => {
     getFilms().then(setMovies);
+
+    try {
+      const supabase = createClient();
+      const channel = supabase
+        .channel('realtime:site_films')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'site_films' },
+          () => {
+            getFilms().then(setMovies);
+          }
+        )
+        .subscribe();
+
+      return () => {
+        supabase.removeChannel(channel);
+      };
+    } catch {
+      // Fallback
+    }
   }, []);
 
   const filteredMovies =

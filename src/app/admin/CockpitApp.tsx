@@ -93,9 +93,11 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
     is_active: false,
   });
   const [loading, setLoading] = useState(false);
+  const [realtimeStatus, setRealtimeStatus] = useState<'connecting' | 'connected' | 'offline'>('connecting');
 
-  // Synchronisation des données Supabase en arrière-plan
+  // Synchronisation des données Supabase et écoute Realtime en direct
   useEffect(() => {
+    // 1. Chargement asynchrone des données
     Promise.all([
       getPrograms(),
       getTeam(),
@@ -109,6 +111,64 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
     }).catch((err) => {
       console.warn('[CockpitApp] sync warning:', err);
     });
+
+    // 2. Écoute Supabase Realtime multi-tables
+    try {
+      const supabase = createClient();
+      const channel = supabase
+        .channel('cockpit:all_changes')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'site_sessions' },
+          () => {
+            getPrograms().then((p) => {
+              if (p && p.length > 0) setPrograms(p);
+            });
+          }
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'site_announcements' },
+          (payload) => {
+            if (payload.eventType === 'DELETE') {
+              setAnnouncement((prev) => ({ ...prev, is_active: false }));
+            } else if (payload.new) {
+              setAnnouncement(payload.new as SiteAnnouncement);
+            }
+          }
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'site_team' },
+          () => {
+            getTeam().then((t) => {
+              if (t && t.length > 0) setTeam(t);
+            });
+          }
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'site_films' },
+          () => {
+            getFilms().then((f) => {
+              if (f && f.length > 0) setFilms(f);
+            });
+          }
+        )
+        .subscribe((status) => {
+          if (status === 'SUBSCRIBED') {
+            setRealtimeStatus('connected');
+          } else if (status === 'CLOSED' || status === 'CHANNEL_ERROR') {
+            setRealtimeStatus('offline');
+          }
+        });
+
+      return () => {
+        supabase.removeChannel(channel);
+      };
+    } catch {
+      setRealtimeStatus('offline');
+    }
   }, []);
 
   // Prise en charge des boutons Précédent/Suivant du navigateur
@@ -369,9 +429,24 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
               <div className="text-[10px] text-[#FFE500] font-semibold tracking-widest uppercase">Admin Vitrine</div>
             </div>
           </button>
-          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Live
+          <span
+            title={
+              realtimeStatus === 'connected'
+                ? 'Flux Supabase Realtime actif (synchronisation instantanée)'
+                : 'Connexion au flux Realtime...'
+            }
+            className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-medium border ${
+              realtimeStatus === 'connected'
+                ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                : 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20'
+            }`}
+          >
+            <span
+              className={`w-1.5 h-1.5 rounded-full ${
+                realtimeStatus === 'connected' ? 'bg-emerald-400 animate-pulse' : 'bg-yellow-400'
+              }`}
+            />
+            {realtimeStatus === 'connected' ? 'Realtime' : 'Syncing'}
           </span>
         </div>
 
