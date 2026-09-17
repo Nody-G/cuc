@@ -11,15 +11,18 @@ import {
   ContactForm,
   ContactCoordinatesSidebar,
 } from '@/components/sections/contact';
+import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 
 export default function ContactCucPage() {
+  const { content } = usePageDynamicContent('contact-cuc');
+
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
       <Navbar />
 
       <main id="contenu-principal" className="flex-grow pt-28">
         {/* 1. Page Header Hero */}
-        <ContactHeroSection />
+        <ContactHeroSection heroData={content.hero} />
 
         {/* 2. Contact Form & Coordinates Hub */}
         <section className="py-16">

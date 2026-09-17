@@ -18,13 +18,16 @@ import {
   HeroTechDepth,
 } from './parallax-hero';
 
+import { SitePageHero } from '@/lib/data/site-service';
+
 const SLIDE_DURATION_SEC = 6.5;
 
 interface ParallaxHeroProps {
   onOpenSearch?: () => void;
+  heroData?: Partial<SitePageHero>;
 }
 
-export const ParallaxHero: React.FC<ParallaxHeroProps> = () => {
+export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
   const heroRef = useRef<HTMLElement>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -169,7 +172,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = () => {
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 backdrop-blur-md text-[11px] font-mono-tech tracking-widest text-zinc-300 uppercase shadow-xs mb-5"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#FFE500] animate-pulse" />
-            <span>Centre International de Formation de Cascadeurs</span>
+            <span>{heroData?.badge || 'Centre International de Formation de Cascadeurs'}</span>
             <span className="text-zinc-600">•</span>
             <span className="text-[#FFE500] font-semibold">Depuis 2008</span>
           </motion.div>
@@ -181,10 +184,16 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = () => {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
             className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display uppercase tracking-tight text-white leading-[0.92] max-w-5xl"
           >
-            Campus Univers <br />
-            <span className="text-[#FFE500] drop-shadow-[0_0_35px_rgba(255,229,0,0.32)]">
-              Cascades
-            </span>
+            {heroData?.title ? (
+              <span>{heroData.title}</span>
+            ) : (
+              <>
+                Campus Univers <br />
+                <span className="text-[#FFE500] drop-shadow-[0_0_35px_rgba(255,229,0,0.32)]">
+                  Cascades
+                </span>
+              </>
+            )}
           </motion.h1>
 
           {/* Dynamic Subtitle with smooth crossfade */}
@@ -198,7 +207,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = () => {
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="text-sm sm:text-base md:text-lg text-zinc-300 max-w-2xl font-normal leading-relaxed text-balance"
               >
-                {HERO_SLIDES[currentSlide].sub}
+                {heroData?.subtitle || HERO_SLIDES[currentSlide].sub}
               </motion.p>
             </AnimatePresence>
           </div>
@@ -228,19 +237,19 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = () => {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
           >
-            <Link href="/formation-de-cascadeur">
+            <Link href={heroData?.cta_primary_link || '/formation-de-cascadeur'}>
               <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
-                Formation Professionnelle
+                {heroData?.cta_primary_text || 'Formation Professionnelle'}
               </TacticalButton>
             </Link>
 
-            <Link href="/visite-guidee">
+            <Link href={heroData?.cta_secondary_link || '/visite-guidee'}>
               <TacticalButton
                 variant="secondary"
                 size="lg"
                 icon={<Building className="w-4 h-4 text-[#FFE500]" />}
               >
-                Visiter le Campus
+                {heroData?.cta_secondary_text || 'Visiter le Campus'}
               </TacticalButton>
             </Link>
 

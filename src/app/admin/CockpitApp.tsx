@@ -69,6 +69,9 @@ import { MediaLibraryView } from './components/MediaLibraryView';
 import { PartnersView } from './components/PartnersView';
 import { EventsView } from './components/EventsView';
 import { SettingsView } from './components/SettingsView';
+import { UsersRolesView } from './components/UsersRolesView';
+import { getCurrentUserProfile } from '@/app/admin/actions';
+import { DEFAULT_PAGE_CONTENTS } from '@/lib/data/site-service';
 
 export type TabType = 
   | 'dashboard' 
@@ -80,6 +83,7 @@ export type TabType =
   | 'events' 
   | 'media' 
   | 'announcements' 
+  | 'users'
   | 'settings';
 
 interface CockpitAppProps {
@@ -98,6 +102,7 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
       if (p.includes('/media')) return 'media';
       if (p.includes('/partners')) return 'partners';
       if (p.includes('/events')) return 'events';
+      if (p.includes('/users')) return 'users';
       if (p.includes('/settings')) return 'settings';
       if (p.includes('/sessions')) return 'sessions';
       if (p.includes('/team')) return 'team';
@@ -108,6 +113,7 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
     if (pathname.includes('/media')) return 'media';
     if (pathname.includes('/partners')) return 'partners';
     if (pathname.includes('/events')) return 'events';
+    if (pathname.includes('/users')) return 'users';
     if (pathname.includes('/settings')) return 'settings';
     if (pathname.includes('/sessions')) return 'sessions';
     if (pathname.includes('/team')) return 'team';
@@ -119,6 +125,14 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
   const [activeTab, setActiveTab] = useState<TabType>(getTabFromPath());
   const [isPending, startTransition] = useTransition();
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [currentUserProfile, setCurrentUserProfile] = useState<{
+    id?: string;
+    email?: string;
+    full_name?: string | null;
+    first_name?: string | null;
+    last_name?: string | null;
+    role?: string;
+  } | null>(null);
 
   // Données locales réactives pré-remplies (Affichage instantané 0 ms sans écran blanc)
   const [programs, setPrograms] = useState<StuntProgram[]>(STUNT_PROGRAMS);
@@ -143,6 +157,11 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
 
   // Synchronisation des données Supabase et écoute Realtime en direct
   useEffect(() => {
+    // 0. Récupérer le profil et rôle de l'utilisateur connecté
+    getCurrentUserProfile().then((prof) => {
+      if (prof) setCurrentUserProfile(prof);
+    });
+
     // 1. Chargement asynchrone des données
     Promise.all([
       getPrograms(),
@@ -494,6 +513,11 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
     0
   );
 
+  const userRole = currentUserProfile?.role || 'admin';
+  const isDirecteurOrAdmin = ['directeur', 'admin'].includes(userRole);
+  const isSecretaire = userRole === 'secretaire';
+  const isCoach = userRole === 'coach';
+
   const navSections = [
     {
       title: "Vue d'ensemble",
@@ -501,30 +525,78 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
         { id: 'dashboard' as TabType, label: 'Tableau de Bord', icon: LayoutDashboard },
       ],
     },
+    ...(!isCoach
+      ? [
+          {
+            title: "CMS & Vitrine",
+            items: [
+              {
+                id: 'pages' as TabType,
+                label: 'Éditeur de Pages & Structure',
+                icon: FileText,
+                badge: '15',
+              },
+              {
+                id: 'media' as TabType,
+                label: 'Médiathèque Storage',
+                icon: ImageIcon,
+                badge: 'CDN',
+              },
+            ],
+          },
+        ]
+      : []),
     {
-      title: "CMS & Vitrine",
+      title: isCoach ? "Mes Activités" : "Contenus Spécifiques",
       items: [
-        { id: 'pages' as TabType, label: 'Éditeur de Pages', icon: FileText, badge: '15' },
-        { id: 'media' as TabType, label: 'Médiathèque Storage', icon: ImageIcon, badge: 'CDN' },
+        {
+          id: 'sessions' as TabType,
+          label: isCoach ? 'Sessions Encadrées' : 'Sessions & Stages',
+          icon: Calendar,
+        },
+        ...(!isSecretaire
+          ? [
+              {
+                id: 'team' as TabType,
+                label: isCoach ? 'Ma Fiche Formateur' : 'Équipe & Coachs',
+                icon: Users,
+              },
+              {
+                id: 'films' as TabType,
+                label: isCoach ? 'Mes Films & Crédits' : 'Filmographie',
+                icon: Film,
+              },
+            ]
+          : []),
+        ...(isDirecteurOrAdmin
+          ? [
+              { id: 'events' as TabType, label: 'Prestations Events', icon: Sparkles },
+              { id: 'partners' as TabType, label: 'Partenaires & Labels', icon: Handshake },
+            ]
+          : []),
       ],
     },
-    {
-      title: "Contenus Spécifiques",
-      items: [
-        { id: 'sessions' as TabType, label: 'Sessions & Stages', icon: Calendar },
-        { id: 'team' as TabType, label: 'Équipe & Coachs', icon: Users },
-        { id: 'films' as TabType, label: 'Filmographie', icon: Film },
-        { id: 'events' as TabType, label: 'Prestations Events', icon: Sparkles },
-        { id: 'partners' as TabType, label: 'Partenaires & Labels', icon: Handshake },
-      ],
-    },
-    {
-      title: "Configuration",
-      items: [
-        { id: 'announcements' as TabType, label: 'Bandeau Flash', icon: Bell, badge: announcement.is_active ? 'Live' : undefined },
-        { id: 'settings' as TabType, label: 'Paramètres Globaux', icon: Settings },
-      ],
-    },
+    ...(!isCoach
+      ? [
+          {
+            title: "Configuration",
+            items: [
+              {
+                id: 'announcements' as TabType,
+                label: 'Bandeau Flash',
+                icon: Bell,
+                badge: announcement.is_active ? 'Live' : undefined,
+              },
+              ...(isDirecteurOrAdmin
+                ? [
+                    { id: 'users' as TabType, label: 'Utilisateurs & Rôles', icon: Shield },
+                    { id: 'settings' as TabType, label: 'Paramètres Globaux', icon: Settings },
+                  ]
+                : []),
+            ],
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -546,7 +618,15 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
             </div>
             <div>
               <div className="text-sm font-bold tracking-wider text-white uppercase font-mono">COCKPIT</div>
-              <div className="text-[10px] text-[#FFE500] font-semibold tracking-widest uppercase">Admin Vitrine</div>
+              <div className="text-[10px] text-[#FFE500] font-semibold tracking-widest uppercase">
+                {userRole === 'directeur'
+                  ? 'Direction Campus'
+                  : userRole === 'secretaire'
+                  ? 'Secrétariat'
+                  : userRole === 'coach'
+                  ? 'Espace Formateur'
+                  : 'Admin Vitrine'}
+              </div>
             </div>
           </button>
           <span
@@ -626,20 +706,36 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
           </div>
         </nav>
 
-        {/* Footer sidebar */}
-        <div className="p-4 border-t border-white/10 bg-black/20 text-xs text-gray-400 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Shield className="w-4 h-4 text-[#FFE500]" />
-            <span className="text-[11px] font-mono">CUC Sign</span>
+        {/* Footer sidebar avec profil utilisateur */}
+        <div className="p-4 border-t border-white/10 bg-black/40 text-xs text-gray-400 space-y-3">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-[#FFE500]/10 border border-[#FFE500]/30 flex items-center justify-center text-xs font-black text-[#FFE500] uppercase">
+              {(currentUserProfile?.full_name || currentUserProfile?.first_name || 'A').charAt(0)}
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="text-xs font-bold text-white truncate">
+                {currentUserProfile?.full_name || [currentUserProfile?.first_name, currentUserProfile?.last_name].filter(Boolean).join(' ') || 'Admin CUC'}
+              </div>
+              <div className="text-[10px] font-mono text-[#FFE500] uppercase font-semibold">
+                {userRole}
+              </div>
+            </div>
           </div>
-          <button
-            onClick={handleLogout}
-            title="Se déconnecter du Cockpit"
-            className="flex items-center gap-1.5 text-[11px] font-mono text-gray-400 hover:text-red-400 transition-colors px-2 py-1 rounded hover:bg-white/5"
-          >
-            <LogOut className="w-3.5 h-3.5" />
-            <span>Déconnexion</span>
-          </button>
+
+          <div className="flex items-center justify-between pt-1 border-t border-white/5">
+            <div className="flex items-center gap-1.5 text-[10px] font-mono text-gray-500">
+              <Shield className="w-3.5 h-3.5 text-[#FFE500]" />
+              <span>CUC Secure</span>
+            </div>
+            <button
+              onClick={handleLogout}
+              title="Se déconnecter du Cockpit"
+              className="flex items-center gap-1 text-[10px] font-mono text-gray-400 hover:text-red-400 transition-colors px-2 py-1 rounded hover:bg-white/5"
+            >
+              <LogOut className="w-3 h-3" />
+              <span>Déconnexion</span>
+            </button>
+          </div>
         </div>
       </aside>
 
@@ -1587,11 +1683,19 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
             {activeTab === 'pages' && (
               <div className="animate-in fade-in duration-200">
                 <PagesEditorView
-                  pages={pagesList}
+                  pages={
+                    pagesList.length > 0
+                      ? pagesList
+                      : Object.values(DEFAULT_PAGE_CONTENTS)
+                  }
                   onPageSaved={(updated) => {
-                    setPagesList((prev) =>
-                      prev.map((p) => (p.slug === updated.slug ? updated : p))
-                    );
+                    setPagesList((prev) => {
+                      const exists = prev.some((p) => p.slug === updated.slug);
+                      if (exists) {
+                        return prev.map((p) => (p.slug === updated.slug ? updated : p));
+                      }
+                      return [...prev, updated];
+                    });
                   }}
                   showToast={showToast}
                 />
@@ -1649,6 +1753,16 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
             {activeTab === 'settings' && (
               <div className="animate-in fade-in duration-200">
                 <SettingsView initialSettings={siteSettings} />
+              </div>
+            )}
+
+            {/* 11. UTILISATEURS & RÔLES */}
+            {activeTab === 'users' && (
+              <div className="animate-in fade-in duration-200">
+                <UsersRolesView
+                  showToast={showToast}
+                  currentUserRole={userRole}
+                />
               </div>
             )}
           </>

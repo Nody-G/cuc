@@ -11,10 +11,12 @@ import {
   FormationPedagogyModalities,
 } from '@/components/sections/formation';
 import { courseJsonLd } from '@/lib/seo';
+import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 
 export default function FormationDeCascadeurPage() {
   const [isApplicationOpen, setIsApplicationOpen] = useState(false);
   const [selectedProgramId, setSelectedProgramId] = useState('pro-longue-duree');
+  const { content } = usePageDynamicContent('formation-de-cascadeur');
 
   const handleOpenApplication = (programId: string) => {
     setSelectedProgramId(programId);
@@ -43,7 +45,7 @@ export default function FormationDeCascadeurPage() {
 
       <main id="contenu-principal" className="flex-grow pt-28">
         {/* 1. Page Header Hero & Key Indicators */}
-        <FormationHeroSection onApply={handleOpenApplication} />
+        <FormationHeroSection onApply={handleOpenApplication} heroData={content.hero} />
 
         {/* 2. Les 2 Formules du Cursus Professionnel */}
         <FormationFormulesSection onApply={handleOpenApplication} />

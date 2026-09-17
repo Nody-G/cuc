@@ -7,12 +7,16 @@ import { Award, ChevronRight } from 'lucide-react';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 
+import { SitePageHero } from '@/lib/data/site-service';
+
 interface FormationHeroSectionProps {
   onApply: (programId: string) => void;
+  heroData?: Partial<SitePageHero>;
 }
 
 export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
   onApply,
+  heroData,
 }) => {
   return (
     <>
@@ -20,7 +24,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
       <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-7-scaled.jpg"
+            src={heroData?.bg_image || "https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-7-scaled.jpg"}
             alt="Formation professionnelle de cascadeur au Campus Univers Cascades"
             fill
             priority
@@ -53,7 +57,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
               />
             </div>
             <StuntBadge variant="yellow" icon={<Award className="w-3.5 h-3.5" />}>
-              CURSUS CERTIFIÉ QUALIOPI
+              {heroData?.badge || 'CURSUS CERTIFIÉ QUALIOPI'}
             </StuntBadge>
             <span className="text-xs font-mono-tech text-zinc-400 hidden sm:inline">
               AFDAS 100% • FRANCE TRAVAIL
@@ -61,13 +65,15 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
-            FORMATION PROFESSIONNELLE <span className="text-[#FFE500]">DE CASCADEUR</span>
+            {heroData?.title ? (
+              <span>{heroData.title}</span>
+            ) : (
+              <>FORMATION PROFESSIONNELLE <span className="text-[#FFE500]">DE CASCADEUR</span></>
+            )}
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-            Le cursus de référence mondiale fondé par Lucas Dollfus. Une immersion totale
-            sur le domaine de 6 hectares du Cateau-Cambrésis pour acquérir la polyvalence technique,
-            la discipline de plateau et les réflexes de sécurité exigés par le cinéma d'action contemporain.
+            {heroData?.subtitle || "Le cursus de référence mondiale fondé par Lucas Dollfus. Une immersion totale sur le domaine de 6 hectares du Cateau-Cambrésis pour acquérir la polyvalence technique, la discipline de plateau et les réflexes de sécurité exigés par le cinéma d'action contemporain."}
           </p>
 
           <div className="flex flex-wrap gap-4 mt-8">

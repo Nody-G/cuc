@@ -185,6 +185,13 @@ export async function getActiveAnnouncement(): Promise<SiteAnnouncement | null> 
   }
 }
 
+export interface LayoutSection {
+  id: string;
+  name: string;
+  order: number;
+  is_visible: boolean;
+}
+
 export interface SitePageHero {
   badge?: string;
   title: string;
@@ -214,9 +221,175 @@ export interface SitePageContent {
   og_image?: string;
   hero: SitePageHero;
   sections?: SitePageSection[];
+  layout_sections?: LayoutSection[];
+  sections_data?: Record<string, any>;
   is_published: boolean;
   updated_at?: string;
 }
+
+export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
+  '/': {
+    slug: '/',
+    title: 'Accueil',
+    meta_title: "Campus Univers Cascades | 1ère École de Cascadeurs Professionnels d'Europe",
+    meta_description: "Centre d'entraînement de cascadeurs professionnels fondé en 2008 par Lucas Dollfus. 11 000 m² d'infrastructures dédiées au cinéma d'action, parkour, combat et cascades.",
+    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/1-lucas.png',
+    hero: {
+      badge: 'PREMIER CENTRE EUROPÉEN • ACTION DESIGN & CASCADE CINÉMA',
+      title: 'CAMPUS UNIVERS CASCADES',
+      subtitle: "Le plus grand centre européen d'entraînement et de formation professionnelle de cascadeurs pour le cinéma d'action international.",
+      cta_primary_text: 'Découvrir la formation pro',
+      cta_primary_link: '/formation-de-cascadeur',
+      cta_secondary_text: 'Visite guidée du campus',
+      cta_secondary_link: '/visite-guidee',
+      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-campus.jpg',
+    },
+    layout_sections: [
+      { id: 'hero', name: 'Section Héros Parallaxe', order: 1, is_visible: true },
+      { id: 'about', name: 'Dossier Présentation & Piliers', order: 2, is_visible: true },
+      { id: 'virtual_tour', name: 'Visite Virtuelle 360°', order: 3, is_visible: true },
+      { id: 'qualiopi', name: 'Agrément Qualiopi & Financements', order: 4, is_visible: true },
+      { id: 'partners', name: 'Partenaires Studios & Labels', order: 5, is_visible: true },
+      { id: 'social', name: 'Réseaux Sociaux & Communauté', order: 6, is_visible: true },
+    ],
+    sections_data: {
+      about: {
+        tag: 'PRÉSENTATION',
+        subtag: '• CINÉMA, SÉRIES & SPECTACLE',
+        title: 'LE CENTRE DE FORMATION DE RÉFÉRENCE EN CASCADE DE CINÉMA',
+        description: "Créé en 2008 par Lucas Dollfus, le Campus Univers Cascades (CUC) est un centre de formation professionnelle dédié aux techniques de cascade physique et mécanique, établi sur un domaine privé de 6 hectares au Cateau-Cambrésis (59).",
+        founder_quote: "« Maîtriser le risque, créer l'inédit, repousser les limites de la vérité physique au service de la vision des plus grands réalisateurs. »",
+        founder_name: 'LUCAS DOLLFUS',
+        founder_role: 'FONDATEUR & RÉGLEUR',
+        badge_year: 'DEPUIS 2008',
+        image_url: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-5-scaled.jpg',
+        cta_primary_text: 'Découvrir la Formation Pro',
+        cta_primary_link: '/formation-de-cascadeur',
+        cta_secondary_text: "L'Équipe des Cascadeurs",
+        cta_secondary_link: '/equipe-cascadeurs-pro',
+      },
+      virtual_tour: {
+        badge: 'EXPLORATION 360° IMMERSIVE',
+        title: 'VISITE VIRTUELLE DU CAMPUS',
+        subtitle: "Explorez nos 11 000 m² d'infrastructures de pointe : fosse de chute, dojos de combat, hangars de câblerie et zones de cascades mécaniques.",
+        cta_text: "Lancer l'immersion 3D",
+        cta_link: '/visite-virtuelle',
+      },
+      qualiopi: {
+        badge: 'FORMATION PROFESSIONNELLE DIPLÔMANTE & CERTIFIÉE',
+        title: 'CERTIFICATION QUALIOPI & FINANCEMENTS',
+        subtitle: "Nos formations professionnelles répondent aux critères d'exigence du Référentiel National Qualité et sont éligibles aux prises en charge de la formation professionnelle.",
+        afdas_badge: 'AFDAS & AFDAS PRO',
+        afdas_text: 'Financement total ou partiel pour artistes et intermittents du spectacle.',
+        france_travail_badge: 'FRANCE TRAVAIL (AIF)',
+        france_travail_text: "Accompagnement et aide individuelle à la formation pour les demandeurs d'emploi.",
+        opco_badge: 'OPCO & PLANS ENTREPRISE',
+        opco_text: 'Prise en charge via les opérateurs de compétences pour les professionnels.',
+      },
+      partners: {
+        badge: 'COLLABORATIONS & STUDIOS',
+        title: 'ILS FONT CONFIANCE AU CAMPUS',
+        subtitle: 'Les plus grands diffuseurs, studios de cinéma et productions internationales font appel aux cascadeurs et régleurs formés au CUC.',
+      },
+      social: {
+        badge: 'COMMUNAUTÉ & TOURNAGES',
+        title: 'SUIVEZ LE CAMPUS EN DIRECT',
+        subtitle: 'Coulisses des entraînements, extraits de tournages et réalisations de nos élèves sur les réseaux officiels du CUC.',
+      },
+    },
+    sections: [
+      { id: 'stat_years', title: "Années d'expérience", value: '18 Ans', description: 'Fondé en 2008 par Lucas Dollfus' },
+      { id: 'stat_graduates', title: 'Cascadeurs formés', value: '1200+', description: 'Diplômés en activité dans le monde entier' },
+      { id: 'stat_productions', title: 'Productions cinéma', value: '150+', description: 'Films, séries et blockbusters internationaux' },
+      { id: 'stat_surface', title: 'Superficie totale', value: '11 000 m²', description: 'Infrastructures indoor et outdoor uniques en Europe' },
+    ],
+    is_published: true,
+  },
+  'formation-de-cascadeur': {
+    slug: 'formation-de-cascadeur',
+    title: 'Formation Professionnelle',
+    meta_title: 'Formation de Cascadeur Pro en 2 Ans | Campus Univers Cascades',
+    meta_description: "Formation professionnelle longue durée de 2 ans. 720h à 800h d'entraînement intensif aux combats, chutes, câblerie, feu et torche humaine.",
+    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-equipe.jpg',
+    hero: {
+      badge: 'CURSUS ÉLITE DIPLÔMANT • 2 ANS',
+      title: 'FORMATION PROFESSIONNELLE DE CASCADEUR',
+      subtitle: "Un cursus d'excellence de 720h à 800h sur 2 ans pour maîtriser l'ensemble des disciplines de la cascade physique et cinématographique.",
+      cta_primary_text: 'Candidater à la sélection',
+      cta_primary_link: '/stages-cascades-parkour-2',
+      cta_secondary_text: 'Télécharger la brochure',
+      cta_secondary_link: '/contact-cuc',
+      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-equipe.jpg',
+    },
+    layout_sections: [
+      { id: 'hero', name: 'En-tête & Titre Programme', order: 1, is_visible: true },
+      { id: 'overview', name: 'Fiche Synthèse (Durée, Lieu, Âge)', order: 2, is_visible: true },
+      { id: 'sessions', name: 'Calendrier des Prochaines Sessions', order: 3, is_visible: true },
+      { id: 'modules', name: 'Programme Pédagogique Détaillé', order: 4, is_visible: true },
+      { id: 'admission', name: "Critères d'Admissibilité & Démarches", order: 5, is_visible: true },
+      { id: 'cta', name: 'Bannière Postuler / Contact', order: 6, is_visible: true },
+    ],
+    sections_data: {},
+    sections: [
+      { id: 'duration', title: 'Durée du cursus', value: '2 Ans', description: 'Cursus structuré de 9 à 10 modules intensifs' },
+      { id: 'hours', title: 'Volume pratique', value: '720h à 800h', description: 'Entraînement en conditions réelles de tournage' },
+      { id: 'eligibility', title: "Sélection d'entrée", value: 'Stage 12 Jours', description: 'Validation obligatoire du stage découverte préalable' },
+    ],
+    is_published: true,
+  },
+  'stages-cascades-parkour-2': {
+    slug: 'stages-cascades-parkour-2',
+    title: 'Stages & Initiations',
+    meta_title: 'Stages de Cascade & Parkour | Campus Univers Cascades',
+    meta_description: 'Découvrez nos stages de cascade physique, parkour et cascades cinéma ouverts dès 16 ans. Initiations débutants et perfectionnements intensifs.',
+    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-campus.jpg',
+    hero: {
+      badge: 'STAGES INTENSIFS TOUS NIVEAUX • DÈS 16 ANS',
+      title: 'STAGES DE CASCADE & PARKOUR',
+      subtitle: "Du stage découverte immersion 12 jours aux week-ends intensifs, vivez l'entraînement des cascadeurs du cinéma dans des conditions de sécurité absolue.",
+      cta_primary_text: 'Voir les prochaines dates',
+      cta_primary_link: '#dates',
+      cta_secondary_text: "Modalités d'inscription",
+      cta_secondary_link: '/contact-cuc',
+      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-campus.jpg',
+    },
+    layout_sections: [
+      { id: 'hero', name: 'En-tête des Stages', order: 1, is_visible: true },
+      { id: 'stages_list', name: 'Catalogue des Stages Thématiques', order: 2, is_visible: true },
+      { id: 'sessions', name: 'Calendrier & Disponibilités', order: 3, is_visible: true },
+      { id: 'faq', name: 'Questions Fréquentes & Hébergement', order: 4, is_visible: true },
+    ],
+    sections_data: {},
+    sections: [],
+    is_published: true,
+  },
+  'contact-cuc': {
+    slug: 'contact-cuc',
+    title: 'Contact & Accès',
+    meta_title: 'Contact & Plan d’Accès | Campus Univers Cascades',
+    meta_description: 'Prenez contact avec le Campus Univers Cascades : secrétariat, candidatures formations, devis événements et plan d’accès au Cateau-Cambrésis.',
+    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-campus.jpg',
+    hero: {
+      badge: 'NOUS CONTACTER & PLAN D’ACCÈS',
+      title: 'CONTACTEZ LE CAMPUS',
+      subtitle: 'Notre équipe pédagogique et administrative est à votre disposition pour vous orienter vers le programme adapté à votre projet.',
+      cta_primary_text: 'Envoyer un message',
+      cta_primary_link: '#formulaire',
+      cta_secondary_text: 'Venir au campus',
+      cta_secondary_link: '#plan',
+      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-campus.jpg',
+    },
+    layout_sections: [
+      { id: 'hero', name: 'En-tête Contact & Plan d Accès', order: 1, is_visible: true },
+      { id: 'info_cards', name: 'Coordonnées, Horaires & Téléphones', order: 2, is_visible: true },
+      { id: 'contact_form', name: 'Formulaire de Message Direct', order: 3, is_visible: true },
+      { id: 'map_location', name: 'Carte & Accès Campus', order: 4, is_visible: true },
+    ],
+    sections_data: {},
+    sections: [],
+    is_published: true,
+  },
+};
 
 export interface SitePartner {
   id: string;

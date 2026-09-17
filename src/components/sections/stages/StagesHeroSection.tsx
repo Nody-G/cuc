@@ -6,14 +6,20 @@ import Image from 'next/image';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { Sparkles, ChevronRight } from 'lucide-react';
 
-export const StagesHeroSection: React.FC = () => {
+import { SitePageHero } from '@/lib/data/site-service';
+
+interface StagesHeroSectionProps {
+  heroData?: Partial<SitePageHero>;
+}
+
+export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }) => {
   return (
     <>
       {/* Hero Header */}
       <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-5-scaled.jpg"
+            src={heroData?.bg_image || "https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-5-scaled.jpg"}
             alt="Stages et séjours de cascades au Campus Univers Cascades"
             fill
             priority
@@ -34,7 +40,7 @@ export const StagesHeroSection: React.FC = () => {
 
           <div className="inline-flex items-center gap-2 mb-4">
             <StuntBadge variant="yellow" icon={<Sparkles className="w-3.5 h-3.5" />}>
-              IMMERSION & PERFECTIONNEMENT
+              {heroData?.badge || 'IMMERSION & PERFECTIONNEMENT'}
             </StuntBadge>
             <span className="text-xs font-mono-tech text-zinc-400">
               WEEK-ENDS DÈS 250€ • STAGES AFDAS 100% • SUMMER CAMP
@@ -42,13 +48,15 @@ export const StagesHeroSection: React.FC = () => {
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
-            STAGES DE CASCADE, <span className="text-[#FFE500]">PARKOUR & ACTION</span>
+            {heroData?.title ? (
+              <span>{heroData.title}</span>
+            ) : (
+              <>STAGES DE CASCADE, <span className="text-[#FFE500]">PARKOUR & ACTION</span></>
+            )}
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-            Pour vivre l'expérience cascadeur le temps d'un week-end en immersion totale à 250€,
-            profiter d'une prise en charge intégrale AFDAS en tant qu'artiste interprète, ou
-            rejoindre notre grand Summer Camp estival sur 6 hectares d'installations.
+            {heroData?.subtitle || "Pour vivre l'expérience cascadeur le temps d'un week-end en immersion totale à 250€, profiter d'une prise en charge intégrale AFDAS en tant qu'artiste interprète, ou rejoindre notre grand Summer Camp estival sur 6 hectares d'installations."}
           </p>
         </div>
       </section>

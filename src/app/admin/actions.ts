@@ -5,7 +5,7 @@ import { createAdminClient } from '@/lib/supabase/admin';
 import { revalidatePath } from 'next/cache';
 
 /**
- * Vérifie si l'utilisateur actuellement connecté est administrateur.
+ * Vérifie si l'utilisateur actuellement connecté a accès au Cockpit (admin, directeur, secretaire, coach).
  */
 export async function checkIsAdmin(): Promise<boolean> {
   try {
@@ -19,9 +19,30 @@ export async function checkIsAdmin(): Promise<boolean> {
       .eq('id', user.id)
       .single();
 
-    return profile?.role === 'admin';
+    return ['admin', 'directeur', 'secretaire', 'coach'].includes(profile?.role || '');
   } catch {
     return false;
+  }
+}
+
+/**
+ * Récupère le profil et rôle de l'utilisateur connecté dans le Cockpit.
+ */
+export async function getCurrentUserProfile() {
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return null;
+
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('id, email, full_name, first_name, last_name, role, avatar_url')
+      .eq('id', user.id)
+      .single();
+
+    return profile;
+  } catch {
+    return null;
   }
 }
 
@@ -279,7 +300,7 @@ export async function deleteFilm(id: string) {
 }
 
 /**
- * Met à jour ou insère le contenu détaillé d'une page (Hero, sections, SEO).
+ * Met à jour ou insère le contenu détaillé d'une page (Hero, sections, emplacements, SEO).
  */
 export async function upsertPageContent(slug: string, pageData: {
   title: string;
@@ -288,6 +309,8 @@ export async function upsertPageContent(slug: string, pageData: {
   og_image?: string;
   hero: Record<string, any>;
   sections?: any[];
+  layout_sections?: any[];
+  sections_data?: Record<string, any>;
   is_published?: boolean;
 }) {
   try {
@@ -302,6 +325,8 @@ export async function upsertPageContent(slug: string, pageData: {
         og_image: pageData.og_image,
         hero: pageData.hero,
         sections: pageData.sections || [],
+        layout_sections: pageData.layout_sections || [],
+        sections_data: pageData.sections_data || {},
         is_published: pageData.is_published ?? true,
         updated_at: new Date().toISOString(),
       });
@@ -313,6 +338,45 @@ export async function upsertPageContent(slug: string, pageData: {
     return { success: true };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Rétablit le contenu d'origine et la disposition par défaut validée d'une page.
+ */
+export async function resetPageContentToDefault(slug: string) {
+  try {
+    const { DEFAULT_PAGE_CONTENTS } = await import('@/lib/data/site-service');
+    const defaultData = DEFAULT_PAGE_CONTENTS[slug];
+    if (!defaultData) {
+      throw new Error(`Aucun contenu par défaut trouvé pour le slug "${slug}"`);
+    }
+
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('site_pages')
+      .upsert({
+        slug: defaultData.slug,
+        title: defaultData.title,
+        meta_title: defaultData.meta_title,
+        meta_description: defaultData.meta_description,
+        og_image: defaultData.og_image,
+        hero: defaultData.hero,
+        sections: defaultData.sections || [],
+        layout_sections: defaultData.layout_sections || [],
+        sections_data: defaultData.sections_data || {},
+        is_published: defaultData.is_published,
+        updated_at: new Date().toISOString(),
+      });
+
+    if (error) throw error;
+
+    const targetPath = slug === '/' ? '/' : `/${slug.replace(/^\//, '')}`;
+    await revalidateSite([targetPath, '/']);
+    return { success: true, defaultData };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur réinitialisation';
     return { success: false, error: message };
   }
 }
@@ -573,17 +637,59 @@ export async function loginAdminAction(identifier: string, pass: string) {
         .eq('id', data.user.id)
         .single();
 
-      if (profile?.role !== 'admin') {
+      if (!['admin', 'directeur', 'secretaire', 'coach'].includes(profile?.role || '')) {
         await supabase.auth.signOut();
-        return { success: false, error: 'Accès refusé : ce compte ne possède pas le rôle administrateur.' };
+        return { success: false, error: 'Accès refusé : ce compte ne possède pas les autorisations nécessaires pour accéder au Cockpit.' };
       }
 
-      return { success: true, userId: data.user.id };
+      return { success: true, userId: data.user.id, role: profile?.role };
     }
 
     return { success: false, error: 'Identifiant introuvable.' };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Erreur d\'authentification serveur';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Liste les collaborateurs du Cockpit (Admin, Directeur, Secrétaire, Coach).
+ */
+export async function listCockpitUsers() {
+  try {
+    const adminClient = createAdminClient();
+    const { data, error } = await adminClient
+      .from('profiles')
+      .select('id, email, full_name, first_name, last_name, role, updated_at, created_at')
+      .in('role', ['admin', 'directeur', 'secretaire', 'coach'])
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return { success: true, users: data || [] };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur liste utilisateurs';
+    return { success: false, error: message, users: [] };
+  }
+}
+
+/**
+ * Met à jour le rôle d'un collaborateur (Directeur, Secrétaire, Coach, Admin).
+ */
+export async function updateUserRole(userId: string, newRole: string) {
+  try {
+    const allowed = ['admin', 'directeur', 'secretaire', 'coach', 'student'];
+    if (!allowed.includes(newRole)) throw new Error('Rôle non autorisé');
+
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('profiles')
+      .update({ role: newRole, updated_at: new Date().toISOString() })
+      .eq('id', userId);
+
+    if (error) throw error;
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur modification rôle';
     return { success: false, error: message };
   }
 }

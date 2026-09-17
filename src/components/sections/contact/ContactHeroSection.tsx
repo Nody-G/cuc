@@ -6,12 +6,18 @@ import Link from 'next/link';
 import { Phone, ChevronRight } from 'lucide-react';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 
-export const ContactHeroSection: React.FC = () => {
+import { SitePageHero } from '@/lib/data/site-service';
+
+interface ContactHeroSectionProps {
+  heroData?: Partial<SitePageHero>;
+}
+
+export const ContactHeroSection: React.FC<ContactHeroSectionProps> = ({ heroData }) => {
   return (
     <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-7-scaled.jpg"
+          src={heroData?.bg_image || "https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-7-scaled.jpg"}
           alt="Contact et inscriptions au Campus Univers Cascades"
           fill
           priority
@@ -32,7 +38,7 @@ export const ContactHeroSection: React.FC = () => {
 
         <div className="inline-flex items-center gap-2 mb-4">
           <StuntBadge variant="yellow" icon={<Phone className="w-3.5 h-3.5" />}>
-            STANDARD &amp; CANDIDATURES
+            {heroData?.badge || 'STANDARD & CANDIDATURES'}
           </StuntBadge>
           <span className="text-xs font-mono-tech text-zinc-400">
             CAMPUS CUC • LE CATEAU-CAMBRÉSIS &amp; GENNEVILLIERS
@@ -40,13 +46,15 @@ export const ContactHeroSection: React.FC = () => {
         </div>
 
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
-          CONTACT &amp; <span className="text-[#FFE500]">CANDIDATURES</span>
+          {heroData?.title ? (
+            <span>{heroData.title}</span>
+          ) : (
+            <>CONTACT &amp; <span className="text-[#FFE500]">CANDIDATURES</span></>
+          )}
         </h1>
 
         <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-          Vous souhaitez rejoindre le cursus professionnel de cascadeur, réserver un stage
-          d'immersion week-end, monter un dossier de financement AFDAS ou collaborer sur une production ?
-          Contactez notre équipe dès aujourd'hui.
+          {heroData?.subtitle || "Vous souhaitez rejoindre le cursus professionnel de cascadeur, réserver un stage d'immersion week-end, monter un dossier de financement AFDAS ou collaborer sur une production ? Contactez notre équipe dès aujourd'hui."}
         </p>
       </div>
     </section>

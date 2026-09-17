@@ -12,8 +12,36 @@ import {
   HomePartnersSection,
   HomeSocialSection,
 } from '@/components/sections/home';
+import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 
 export default function Home() {
+  const { content } = usePageDynamicContent('/');
+
+  // Tri et filtrage des sections selon l'agencement configuré dans le Cockpit
+  const sortedSections = [...(content.layout_sections || [])]
+    .filter((s) => s.is_visible !== false)
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+
+  // Rendu modulaire de chaque bloc dynamique
+  const renderSection = (id: string) => {
+    switch (id) {
+      case 'hero':
+        return <ParallaxHero key="hero" heroData={content.hero} />;
+      case 'about':
+        return <HomeAboutSection key="about" aboutData={content.sections_data?.about} />;
+      case 'virtual_tour':
+        return <HomeVirtualTourSection key="virtual_tour" />;
+      case 'qualiopi':
+        return <HomeQualiopiSection key="qualiopi" />;
+      case 'partners':
+        return <HomePartnersSection key="partners" />;
+      case 'social':
+        return <HomeSocialSection key="social" />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="relative min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
       {/* Studio Animation Continuous Global Depth Atmosphere */}
@@ -22,23 +50,19 @@ export default function Home() {
       <Navbar />
 
       <main id="contenu-principal" className="flex-grow pt-28 relative z-10">
-        {/* 1. Cinematic Multi-Plane Parallax Hero */}
-        <ParallaxHero />
-
-        {/* 2. Dossier Architectural & Institutionnel (Qui Sommes-Nous) */}
-        <HomeAboutSection />
-
-        {/* 3. Visite Virtuelle 360° en Immersion HD Media */}
-        <HomeVirtualTourSection />
-
-        {/* 4. Certification Qualiopi & Agrément État */}
-        <HomeQualiopiSection />
-
-        {/* 5. Partenaires de référence */}
-        <HomePartnersSection />
-
-        {/* 6. Communauté & Réseaux Sociaux */}
-        <HomeSocialSection />
+        {sortedSections.length > 0 ? (
+          sortedSections.map((sec) => renderSection(sec.id))
+        ) : (
+          /* Fallback résilient officiel si aucune section n'est configurée */
+          <>
+            <ParallaxHero heroData={content.hero} />
+            <HomeAboutSection aboutData={content.sections_data?.about} />
+            <HomeVirtualTourSection />
+            <HomeQualiopiSection />
+            <HomePartnersSection />
+            <HomeSocialSection />
+          </>
+        )}
       </main>
 
       <Footer />
