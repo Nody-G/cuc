@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { getActiveAnnouncement, SiteAnnouncement } from '@/lib/data/site-service';
+import { getActiveAnnouncement, getSiteSettings, SiteAnnouncement } from '@/lib/data/site-service';
 import { createClient } from '@/lib/supabase/client';
 
 export const AnnouncementBanner: React.FC = () => {
@@ -13,6 +13,22 @@ export const AnnouncementBanner: React.FC = () => {
     getActiveAnnouncement().then((data) => {
       if (data && data.is_active) {
         setAnnouncement(data);
+      } else {
+        // Vérifie si une alerte d'urgence globale est active dans SiteSettings
+        getSiteSettings().then((st) => {
+          if (st.emergency_active && st.emergency_message) {
+            setAnnouncement({
+              id: 'emergency-alert',
+              title: st.emergency_badge || 'ALERTE CUC',
+              message: st.emergency_message,
+              badge: st.emergency_badge || 'URGENCE',
+              link_url: st.emergency_link_url || '',
+              link_text: st.emergency_link_text || 'En savoir plus',
+              style: st.emergency_style || 'alert',
+              is_active: true,
+            });
+          }
+        });
       }
     });
 

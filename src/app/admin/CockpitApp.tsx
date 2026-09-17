@@ -24,6 +24,7 @@ import {
   Search,
   Activity,
   Command,
+  Compass,
 } from 'lucide-react';
 import {
   getPrograms,
@@ -35,20 +36,25 @@ import {
   getEvents,
   getSiteSettings,
   getInquiries,
+  getDisciplines,
+  getCampusPOIs,
   SiteAnnouncement,
   SitePageContent,
   SitePartner,
   SiteEvent,
   SiteSettings,
+  SiteInquiry,
   DEFAULT_PARTNERS,
   DEFAULT_SITE_SETTINGS,
   DEFAULT_EVENTS,
 } from '@/lib/data/site-service';
 import { getCurrentUserProfile } from '@/app/admin/actions';
-import { StuntProgram, Instructor, FilmCredit } from '@/types';
+import { StuntProgram, Instructor, FilmCredit, Discipline } from '@/types';
 import { STUNT_PROGRAMS } from '@/data/programs';
 import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
+import { CUC_DISCIPLINES } from '@/data/disciplines';
+import { CAMPUS_POIS, POI } from '@/components/ui/campus-map/campusMap.data';
 import { createClient } from '@/lib/supabase/client';
 
 // Composants modulaires du Cockpit
@@ -56,6 +62,8 @@ import { DashboardView } from './components/DashboardView';
 import { SessionsView } from './components/SessionsView';
 import { TeamView } from './components/TeamView';
 import { FilmsView } from './components/FilmsView';
+import { DisciplinesView } from './components/DisciplinesView';
+import { CampusZonesView } from './components/CampusZonesView';
 import { AnnouncementsView } from './components/AnnouncementsView';
 import { PagesEditorView } from './components/PagesEditorView';
 import { MediaLibraryView } from './components/MediaLibraryView';
@@ -72,6 +80,8 @@ export type TabType =
   | 'dashboard'
   | 'inquiries'
   | 'pages'
+  | 'disciplines'
+  | 'campus'
   | 'sessions'
   | 'team'
   | 'films'
@@ -134,10 +144,13 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
   const [programs, setPrograms] = useState<StuntProgram[]>(STUNT_PROGRAMS);
   const [team, setTeam] = useState<Instructor[]>(CUC_TEAM);
   const [films, setFilms] = useState<FilmCredit[]>(FILMOGRAPHY_CREDITS);
+  const [disciplines, setDisciplines] = useState<Discipline[]>(CUC_DISCIPLINES);
+  const [campusPOIs, setCampusPOIs] = useState<POI[]>(CAMPUS_POIS);
   const [pagesList, setPagesList] = useState<SitePageContent[]>([]);
   const [partnersList, setPartnersList] = useState<SitePartner[]>(DEFAULT_PARTNERS);
   const [eventsList, setEventsList] = useState<SiteEvent[]>(DEFAULT_EVENTS);
   const [siteSettings, setSiteSettings] = useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
+  const [inquiriesList, setInquiriesList] = useState<SiteInquiry[]>([]);
   const [inquiriesCount, setInquiriesCount] = useState(3);
   const [newInquiriesCount, setNewInquiriesCount] = useState(1);
   const [isBackupModalOpen, setIsBackupModalOpen] = useState(false);
@@ -171,8 +184,10 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
       getEvents(),
       getSiteSettings(),
       getInquiries(),
+      getDisciplines(),
+      getCampusPOIs(),
     ])
-      .then(([p, t, f, a, pages, parts, evts, st, inqs]) => {
+      .then(([p, t, f, a, pages, parts, evts, st, inqs, discs, pois]) => {
         if (p && p.length > 0) setPrograms(p);
         if (t && t.length > 0) setTeam(t);
         if (f && f.length > 0) setFilms(f);
@@ -181,7 +196,10 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
         if (parts && parts.length > 0) setPartnersList(parts);
         if (evts && evts.length > 0) setEventsList(evts);
         if (st) setSiteSettings(st);
+        if (discs && discs.length > 0) setDisciplines(discs);
+        if (pois && pois.length > 0) setCampusPOIs(pois);
         if (inqs) {
+          setInquiriesList(inqs);
           setInquiriesCount(inqs.length);
           setNewInquiriesCount(inqs.filter((i) => i.status === 'nouveau').length);
         }
@@ -395,6 +413,23 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
           },
         ]
       : []),
+    {
+      title: "Pédagogie & Campus",
+      items: [
+        {
+          id: 'disciplines' as TabType,
+          label: 'Modules & Disciplines',
+          icon: Shield,
+          badge: 'MOD-10',
+        },
+        {
+          id: 'campus' as TabType,
+          label: 'Infrastructures (6 Ha)',
+          icon: Compass,
+          badge: 'Radar',
+        },
+      ],
+    },
     {
       title: isCoach ? "Mes Activités" : "Contenus Spécifiques",
       items: [
@@ -674,29 +709,57 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
           />
         )}
 
-        {/* 2. SESSIONS & STAGES */}
+        {/* 2. DISCIPLINES & MODULES (10 MODULES) */}
+        {activeTab === 'disciplines' && (
+          <DisciplinesView
+            disciplines={disciplines}
+            setDisciplines={setDisciplines}
+            team={team}
+            campusPOIs={campusPOIs}
+            films={films}
+            programs={programs}
+            showToast={showToast}
+          />
+        )}
+
+        {/* 3. INFRASTRUCTURES & ZONES CAMPUS (6 HA) */}
+        {activeTab === 'campus' && (
+          <CampusZonesView
+            campusPOIs={campusPOIs}
+            setCampusPOIs={setCampusPOIs}
+            disciplines={disciplines}
+            showToast={showToast}
+          />
+        )}
+
+        {/* 4. SESSIONS & STAGES */}
         {activeTab === 'sessions' && (
           <SessionsView
             programs={programs}
             setPrograms={setPrograms}
+            inquiries={inquiriesList}
             showToast={showToast}
           />
         )}
 
-        {/* 3. ÉQUIPE & COACHS */}
+        {/* 5. ÉQUIPE & COACHS */}
         {activeTab === 'team' && (
           <TeamView
             team={team}
             setTeam={setTeam}
+            films={films}
+            disciplines={disciplines}
             showToast={showToast}
           />
         )}
 
-        {/* 4. FILMOGRAPHIE */}
+        {/* 6. FILMOGRAPHIE */}
         {activeTab === 'films' && (
           <FilmsView
             films={films}
             setFilms={setFilms}
+            team={team}
+            disciplines={disciplines}
             showToast={showToast}
           />
         )}
@@ -795,6 +858,7 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
             <InquiriesView
               showToast={showToast}
               onInquiriesCountChange={(count) => setNewInquiriesCount(count)}
+              programs={programs}
             />
           </div>
         )}

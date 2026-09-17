@@ -21,8 +21,10 @@ import {
   CheckSquare,
   Square,
   Sparkles,
+  Calendar,
 } from 'lucide-react';
 import { SiteInquiry, getInquiries } from '@/lib/data/site-service';
+import { StuntProgram } from '@/types';
 import { updateInquiryStatus, updateInquiryNotes, deleteInquiry } from '@/app/admin/actions';
 
 interface EmailTemplate {
@@ -149,11 +151,13 @@ function serializeNotesAndChecklist(checklist: Record<string, boolean>, notes: s
 interface InquiriesViewProps {
   showToast: (msg: string) => void;
   onInquiriesCountChange?: (count: number) => void;
+  programs?: StuntProgram[];
 }
 
 export const InquiriesView: React.FC<InquiriesViewProps> = ({
   showToast,
   onInquiriesCountChange,
+  programs = [],
 }) => {
   const [inquiries, setInquiries] = useState<SiteInquiry[]>([]);
   const [loading, setLoading] = useState(true);
@@ -627,6 +631,40 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
                   <div className="text-white font-medium">{selectedInquiry.afdas_status}</div>
                 </div>
               )}
+              {/* Session CUC Assignée */}
+              <div className="p-3.5 rounded-xl bg-white/5 space-y-2 col-span-full">
+                <div className="flex items-center justify-between text-gray-400 font-mono">
+                  <span className="flex items-center gap-1.5 text-[#FFE500]">
+                    <Calendar className="w-3.5 h-3.5" /> Session &amp; Cursus Assigné
+                  </span>
+                  <span className="text-[11px] text-zinc-300 font-semibold">{selectedInquiry.session_date || 'Non assignée'}</span>
+                </div>
+                {programs && programs.length > 0 && (
+                  <div className="flex items-center gap-2 pt-1">
+                    <select
+                      value={selectedInquiry.session_date || ''}
+                      onChange={(e) => {
+                        const newDate = e.target.value;
+                        setSelectedInquiry({ ...selectedInquiry, session_date: newDate });
+                        setInquiries((prev) =>
+                          prev.map((it) => (it.id === selectedInquiry.id ? { ...it, session_date: newDate } : it))
+                        );
+                        showToast(`Session mise à jour : ${newDate || 'Aucune'}`);
+                      }}
+                      className="w-full bg-black/60 border border-white/20 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-[#FFE500] cursor-pointer"
+                    >
+                      <option value="">Sélectionner ou réassigner à une date de session...</option>
+                      {programs.flatMap((prog) =>
+                        (prog.nextSessions || []).map((s, idx) => (
+                          <option key={`${prog.id}-${idx}`} value={s.date}>
+                            {prog.title} — {s.date} ({s.status})
+                          </option>
+                        ))
+                      )}
+                    </select>
+                  </div>
+                )}
+              </div>
             </div>
 
             {selectedInquiry.sport_background && (

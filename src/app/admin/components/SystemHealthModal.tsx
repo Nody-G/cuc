@@ -37,11 +37,9 @@ export const SystemHealthModal: React.FC<SystemHealthModalProps> = ({
   fullSessions = 0,
 }) => {
   const [isRevalidating, setIsRevalidating] = useState(false);
-  const [lastCheck, setLastCheck] = useState<string>('');
-
-  useEffect(() => {
-    setLastCheck(new Date().toLocaleTimeString('fr-FR'));
-  }, []);
+  const [lastCheck, setLastCheck] = useState<string>(() =>
+    typeof window !== 'undefined' ? new Date().toLocaleTimeString('fr-FR') : 'En direct'
+  );
 
   const actualNewInquiries = urgentInquiriesCount !== undefined ? urgentInquiriesCount : newInquiriesCount;
 

@@ -9,22 +9,28 @@ import {
   Trash2,
   ExternalLink,
   Star,
+  Users,
+  Shield,
   Image as ImageIcon,
 } from 'lucide-react';
 import { ImdbLogo, AllocineLogo, YouTubeLogo } from '@/components/ui/BrandLogos';
-import { FilmCredit } from '@/types';
+import { FilmCredit, Instructor, Discipline } from '@/types';
 import { upsertFilm, deleteFilm } from '@/app/admin/actions';
 import { MediaPickerModal } from './MediaPickerModal';
 
 interface FilmsViewProps {
   films: FilmCredit[];
   setFilms: React.Dispatch<React.SetStateAction<FilmCredit[]>>;
+  team?: Instructor[];
+  disciplines?: Discipline[];
   showToast: (msg: string) => void;
 }
 
 export const FilmsView: React.FC<FilmsViewProps> = ({
   films,
   setFilms,
+  team = [],
+  disciplines = [],
   showToast,
 }) => {
   const [, startTransition] = useTransition();
@@ -184,6 +190,52 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
                 <p className="text-xs text-gray-400 line-clamp-2 leading-relaxed">
                   {film.stuntRoles}
                 </p>
+
+                {/* Interconnexions : Formateurs et Modules Liés */}
+                {(() => {
+                  const linkedStaff = team.filter(
+                    (t) => film.instructor_ids?.includes(t.id) || t.film_ids?.includes(film.id)
+                  );
+                  const linkedDisc = disciplines.filter((d) => d.film_ids?.includes(film.id));
+
+                  if (linkedStaff.length === 0 && linkedDisc.length === 0) return null;
+
+                  return (
+                    <div className="pt-2 border-t border-white/5 space-y-1 text-[10px]">
+                      {linkedStaff.length > 0 && (
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <Users className="w-3 h-3 text-sky-400 shrink-0" />
+                          <span className="text-zinc-500">Staff CUC :</span>
+                          {linkedStaff.slice(0, 2).map((t) => (
+                            <span
+                              key={t.id}
+                              className="px-1.5 py-0.2 bg-sky-950/40 text-sky-300 border border-sky-800/30 rounded"
+                            >
+                              {t.name.split(' ')[0]}
+                            </span>
+                          ))}
+                          {linkedStaff.length > 2 && (
+                            <span className="text-zinc-500 font-mono">+{linkedStaff.length - 2}</span>
+                          )}
+                        </div>
+                      )}
+                      {linkedDisc.length > 0 && (
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <Shield className="w-3 h-3 text-[#FFE500] shrink-0" />
+                          <span className="text-zinc-500">Modules :</span>
+                          {linkedDisc.slice(0, 2).map((d) => (
+                            <span
+                              key={d.id}
+                              className="px-1.5 py-0.2 bg-[#FFE500]/10 text-[#FFE500] border border-[#FFE500]/20 rounded font-mono"
+                            >
+                              {d.number}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
               </div>
 
               <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
@@ -428,6 +480,41 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
                   />
                 </div>
               </div>
+
+              {/* Interconnexions : Formateurs et Cascadeurs CUC */}
+              {team.length > 0 && (
+                <div className="p-3 bg-black/40 border border-white/10 rounded-xl space-y-2">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-[#FFE500] uppercase tracking-wider">
+                    <Users className="w-3.5 h-3.5 text-sky-400" />
+                    Instructeurs &amp; Cascadeurs CUC sur cette production
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 max-h-36 overflow-y-auto pr-1">
+                    {team.map((t) => {
+                      const isChecked = editingFilm.instructor_ids?.includes(t.id);
+                      return (
+                        <button
+                          type="button"
+                          key={t.id}
+                          onClick={() => {
+                            const current = editingFilm.instructor_ids || [];
+                            const updated = isChecked
+                              ? current.filter((id) => id !== t.id)
+                              : [...current, t.id];
+                            setEditingFilm({ ...editingFilm, instructor_ids: updated });
+                          }}
+                          className={`flex items-center gap-1.5 px-2 py-1 rounded text-left text-[11px] transition border ${
+                            isChecked
+                              ? 'bg-sky-500/20 border-sky-500 text-white font-semibold'
+                              : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/20'
+                          }`}
+                        >
+                          <span className="truncate">{t.name}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
 
               <div className="pt-2">
                 <label className="flex items-center gap-2 cursor-pointer select-none">

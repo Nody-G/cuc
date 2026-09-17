@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Navigation,
   Crosshair,
@@ -13,15 +13,26 @@ import {
   TRAVEL_ROUTES,
   POI,
 } from './campus-map/campusMap.data';
+import { getCampusPOIs } from '@/lib/data/site-service';
 import { CampusRadarView } from './campus-map/CampusRadarView';
 import { CampusAppLaunchers } from './campus-map/CampusAppLaunchers';
 import { CampusTravelPlanner } from './campus-map/CampusTravelPlanner';
 
 export const InteractiveCampusMap: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'map' | 'radar'>('map');
+  const [pois, setPois] = useState<POI[]>(CAMPUS_POIS);
   const [selectedPoi, setSelectedPoi] = useState<POI>(CAMPUS_POIS[0]);
   const [activeRoute, setActiveRoute] = useState<string>('paris');
   const [copied, setCopied] = useState<boolean>(false);
+
+  useEffect(() => {
+    getCampusPOIs().then((data) => {
+      if (data && data.length > 0) {
+        setPois(data);
+        setSelectedPoi((prev) => data.find((p) => p.id === prev.id) || data[0]);
+      }
+    });
+  }, []);
 
   const coordinates = '50.0909, 3.5374';
   const fullAddress =
@@ -150,7 +161,7 @@ export const InteractiveCampusMap: React.FC = () => {
               ) : (
                 /* Tactical Radar Layout for 6 Hectares Domain */
                 <CampusRadarView
-                  pois={CAMPUS_POIS}
+                  pois={pois}
                   selectedPoi={selectedPoi}
                   onSelectPoi={setSelectedPoi}
                 />

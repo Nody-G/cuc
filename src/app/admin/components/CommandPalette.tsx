@@ -21,6 +21,7 @@ import {
   ArrowRight,
   Activity,
   X,
+  Compass,
 } from 'lucide-react';
 import { TabType } from '../CockpitApp';
 
@@ -59,15 +60,14 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const actionsRef = useRef({
-    selectTab: switchTab || onSelectTab || (() => {}),
-    openBackup: onOpenBackupModal || onOpenBackup || (() => {}),
-    openHealth: onOpenHealthModal || onOpenHealth || (() => {}),
-  });
-  actionsRef.current = {
-    selectTab: switchTab || onSelectTab || (() => {}),
-    openBackup: onOpenBackupModal || onOpenBackup || (() => {}),
-    openHealth: onOpenHealthModal || onOpenHealth || (() => {}),
+  const selectTab = (tab: TabType) => {
+    (switchTab || onSelectTab)?.(tab);
+  };
+  const openBackup = () => {
+    (onOpenBackupModal || onOpenBackup)?.();
+  };
+  const openHealth = () => {
+    (onOpenHealthModal || onOpenHealth)?.();
   };
 
   const handleClose = () => {
@@ -91,7 +91,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         label: 'Aller au Tableau de Bord',
         category: 'Navigation',
         icon: LayoutDashboard,
-        action: () => actionsRef.current.selectTab('dashboard'),
+        action: () => selectTab('dashboard'),
         keywords: ['accueil', 'stats', 'kpi', 'home'],
       },
       {
@@ -99,7 +99,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         label: 'Gérer les Candidatures & Demandes de Contact',
         category: 'Navigation',
         icon: Inbox,
-        action: () => actionsRef.current.selectTab('inquiries'),
+        action: () => selectTab('inquiries'),
         badge: 'Admissions',
         keywords: ['leads', 'candidats', 'inscriptions', 'devis', 'contact'],
       },
@@ -108,16 +108,34 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         label: 'Éditer les Pages Vitrines & Structure',
         category: 'Navigation',
         icon: FileText,
-        action: () => actionsRef.current.selectTab('pages'),
+        action: () => selectTab('pages'),
         badge: 'CMS',
         keywords: ['contenu', 'vitrine', 'textes', 'sections', 'seo'],
+      },
+      {
+        id: 'nav-disciplines',
+        label: 'Modules & Disciplines de Cascade (10 Modules)',
+        category: 'Navigation',
+        icon: Shield,
+        action: () => selectTab('disciplines'),
+        badge: 'MOD-01 à 10',
+        keywords: ['combat', 'chute', 'torche', 'câblage', 'parkour', 'armes', 'escalier', 'acrobatie', 'disciplines', 'modules'],
+      },
+      {
+        id: 'nav-campus',
+        label: 'Infrastructures & Zones du Campus (6 Ha)',
+        category: 'Navigation',
+        icon: Compass,
+        action: () => selectTab('campus'),
+        badge: 'Radar 6 Ha',
+        keywords: ['campus', 'tour 21m', 'dojo', 'airbag', 'rigging', 'mfr', 'infrastructures', 'plan', 'radar'],
       },
       {
         id: 'nav-sessions',
         label: 'Gérer les Sessions de Stages & Formations',
         category: 'Navigation',
         icon: Calendar,
-        action: () => actionsRef.current.selectTab('sessions'),
+        action: () => selectTab('sessions'),
         keywords: ['dates', 'planning', 'calendrier', 'places', 'complet'],
       },
       {
@@ -125,7 +143,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         label: 'Équipe Pédagogique & Instructeurs',
         category: 'Navigation',
         icon: Users,
-        action: () => actionsRef.current.selectTab('team'),
+        action: () => selectTab('team'),
         keywords: ['coachs', 'formateurs', 'lucas dollfus', 'instructeurs'],
       },
       {
@@ -133,7 +151,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         label: 'Filmographie & Crédits Cascades',
         category: 'Navigation',
         icon: Film,
-        action: () => actionsRef.current.selectTab('films'),
+        action: () => selectTab('films'),
         keywords: ['films', 'crédits', 'cinéma', 'netflix', 'tournages'],
       },
       {
@@ -141,7 +159,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         label: 'Médiathèque Storage CDN',
         category: 'Navigation',
         icon: ImageIcon,
-        action: () => actionsRef.current.selectTab('media'),
+        action: () => selectTab('media'),
         keywords: ['photos', 'images', 'storage', 'upload', 'visuels'],
       },
       {
@@ -149,7 +167,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         label: 'Prestations Événementielles & Spectacles',
         category: 'Navigation',
         icon: Sparkles,
-        action: () => actionsRef.current.selectTab('events'),
+        action: () => selectTab('events'),
         keywords: ['shows', 'team building', 'entreprises', 'spectacles'],
       },
       {
@@ -157,7 +175,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         label: 'Partenaires, Labels & Équipementiers',
         category: 'Navigation',
         icon: Handshake,
-        action: () => actionsRef.current.selectTab('partners'),
+        action: () => selectTab('partners'),
         keywords: ['sponsors', 'marques', 'labels', 'partenariats'],
       },
       {
@@ -165,7 +183,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         label: 'Bandeau Flash & Alertes Vitrine',
         category: 'Navigation',
         icon: Bell,
-        action: () => actionsRef.current.selectTab('announcements'),
+        action: () => selectTab('announcements'),
         keywords: ['bannière', 'promo', 'message', 'flash'],
       },
       {
@@ -173,7 +191,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         label: 'Gestion des Utilisateurs & Rôles Admin',
         category: 'Navigation',
         icon: Shield,
-        action: () => actionsRef.current.selectTab('users'),
+        action: () => selectTab('users'),
         keywords: ['droits', 'permissions', 'comptes', 'coach', 'secretaire'],
       },
       {
@@ -181,7 +199,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         label: 'Paramètres Globaux du Site Vitrine',
         category: 'Navigation',
         icon: Settings,
-        action: () => actionsRef.current.selectTab('settings'),
+        action: () => selectTab('settings'),
         keywords: ['coordonnées', 'téléphone', 'adresse', 'réseaux'],
       },
 
@@ -192,7 +210,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         category: 'Actions Rapides',
         icon: Plus,
         action: () => {
-          actionsRef.current.selectTab('sessions');
+          selectTab('sessions');
         },
         badge: 'Action',
         keywords: ['créer session', 'ajouter date'],
@@ -202,7 +220,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         label: 'Lancer l’Audit de Santé & Diagnostic Système',
         category: 'Outils Système',
         icon: Activity,
-        action: () => actionsRef.current.openHealth(),
+        action: () => openHealth(),
         badge: 'Santé',
         keywords: ['diagnostic', 'test', 'cache', 'revalidation'],
       },
@@ -211,7 +229,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         label: 'Exporter une Sauvegarde Intégrale (.json)',
         category: 'Outils Système',
         icon: Database,
-        action: () => actionsRef.current.openBackup(),
+        action: () => openBackup(),
         badge: 'Sécurité',
         keywords: ['export', 'sauvegarde', 'restauration', 'json'],
       },
@@ -225,7 +243,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         keywords: ['voir site', 'front'],
       },
     ],
-    []
+    [switchTab, onSelectTab, onOpenBackupModal, onOpenBackup, onOpenHealthModal, onOpenHealth]
   );
 
   const filteredCommands = useMemo(() => {

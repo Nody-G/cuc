@@ -1,19 +1,22 @@
 'use client';
 
 import React, { useState, useTransition } from 'react';
-import { Calendar, Plus, Trash2, Copy } from 'lucide-react';
+import { Calendar, Plus, Trash2, Copy, Users } from 'lucide-react';
 import { StuntProgram } from '@/types';
+import { SiteInquiry } from '@/lib/data/site-service';
 import { updateSessionStatus, createSession, deleteSession } from '@/app/admin/actions';
 
 interface SessionsViewProps {
   programs: StuntProgram[];
   setPrograms: React.Dispatch<React.SetStateAction<StuntProgram[]>>;
+  inquiries?: SiteInquiry[];
   showToast: (msg: string) => void;
 }
 
 export const SessionsView: React.FC<SessionsViewProps> = ({
   programs,
   setPrograms,
+  inquiries = [],
   showToast,
 }) => {
   const [, startTransition] = useTransition();
@@ -173,7 +176,7 @@ export const SessionsView: React.FC<SessionsViewProps> = ({
                     >
                       <div>
                         <div className="text-sm font-bold text-white font-mono">{session.date}</div>
-                        <div className="flex items-center gap-2 mt-2">
+                        <div className="flex items-center gap-2 mt-2 flex-wrap">
                           <span
                             className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded border ${
                               statusColors[session.status] || 'bg-white/10 text-gray-300'
@@ -181,6 +184,34 @@ export const SessionsView: React.FC<SessionsViewProps> = ({
                           >
                             {session.status}
                           </span>
+
+                          {(() => {
+                            const matchingCandidates = (inquiries || []).filter((i) => {
+                              const matchesProg =
+                                i.program_id === currentProgram.id ||
+                                i.program_title?.toLowerCase().includes(currentProgram.title.toLowerCase());
+                              const matchesDate =
+                                !i.session_date ||
+                                session.date.includes(i.session_date) ||
+                                i.session_date.includes(session.date);
+                              return matchesProg && matchesDate;
+                            });
+
+                            if (matchingCandidates.length === 0) return null;
+
+                            const admitted = matchingCandidates.filter((c) => c.status === 'admis').length;
+
+                            return (
+                              <span
+                                className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20 flex items-center gap-1"
+                                title={`${matchingCandidates.length} dossier(s) déposé(s)`}
+                              >
+                                <Users className="w-3 h-3" />
+                                {matchingCandidates.length} candidat{matchingCandidates.length > 1 ? 's' : ''}
+                                {admitted > 0 && ` (${admitted} admis)`}
+                              </span>
+                            );
+                          })()}
                         </div>
                       </div>
 

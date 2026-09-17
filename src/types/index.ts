@@ -35,6 +35,10 @@ export interface Discipline {
   equipment: string[];
   cinemaContext: string;
   heroImage: string;
+  instructor_ids?: string[];
+  campus_zone_id?: string;
+  program_ids?: string[];
+  film_ids?: string[];
 }
 
 export interface FilmCredit {
@@ -51,6 +55,7 @@ export interface FilmCredit {
   imdbUrl: string;
   allocineUrl: string;
   trailerUrl: string;
+  instructor_ids?: string[];
 }
 
 export interface DoubledCelebrity {
@@ -78,6 +83,8 @@ export interface Instructor {
   avatarUrl?: string;
   instagram?: string;
   imdb?: string;
+  film_ids?: string[];
+  discipline_ids?: string[];
 }
 
 export interface InfrastructureSpot {

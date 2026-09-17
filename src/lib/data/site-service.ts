@@ -2,7 +2,9 @@ import { createClient } from '@/lib/supabase/client';
 import { STUNT_PROGRAMS } from '@/data/programs';
 import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
-import { StuntProgram, Instructor, FilmCredit } from '@/types';
+import { CUC_DISCIPLINES } from '@/data/disciplines';
+import { CAMPUS_POIS, POI } from '@/components/ui/campus-map/campusMap.data';
+import { StuntProgram, Instructor, FilmCredit, Discipline } from '@/types';
 
 export interface SiteAnnouncement {
   id: string;
@@ -839,14 +841,47 @@ export interface SiteEvent {
 }
 
 export interface SiteSettings {
+  // Identité & Campus
   school_name?: string;
   tagline?: string;
+  campus_surface?: string;
+  founding_year?: string;
+  founder_name?: string;
+
+  // Coordonnées Directes & Standard
   phone?: string;
+  emergency_phone?: string;
   email_general?: string;
   email_admissions?: string;
   email_events?: string;
   address?: string;
-  campus_surface?: string;
+  opening_hours?: string;
+  campus_access_info?: string;
+
+  // Accréditations & Certifications Officielles
+  qualiopi_number?: string;
+  qualiopi_url?: string;
+  afdas_status?: string;
+  france_travail_code?: string;
+
+  // Boutons d'Action & Navigation Vitrine
+  hero_primary_cta_text?: string;
+  hero_primary_cta_url?: string;
+  hero_secondary_cta_text?: string;
+  hero_secondary_cta_url?: string;
+
+  // Bandeau d'Alerte / Urgence Globale
+  emergency_active?: boolean;
+  emergency_badge?: string;
+  emergency_message?: string;
+  emergency_link_text?: string;
+  emergency_link_url?: string;
+  emergency_style?: 'gold' | 'alert' | 'info' | 'dark';
+
+  // Thème & Charte Graphique
+  accent_color?: string;
+
+  // Réseaux Sociaux & Mentions Légales
   instagram?: string;
   youtube?: string;
   linkedin?: string;
@@ -1058,12 +1093,38 @@ export const DEFAULT_EVENTS: SiteEvent[] = [
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   school_name: "Campus Univers Cascades",
   tagline: "Le Plus Grand Centre de Formation de Cascadeurs au Monde",
+  campus_surface: "11 000 m² (Domaine de 6 hectares)",
+  founding_year: "2008",
+  founder_name: "Lucas Dollfus",
+
   phone: "+33 (0)6 72 84 94 92",
+  emergency_phone: "+33 (0)6 72 84 94 92",
   email_general: "contact@campus-universcascades.com",
   email_admissions: "formations@campus-universcascades.com",
   email_events: "events@campus-universcascades.com",
   address: "Domaine CUC, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis",
-  campus_surface: "11 000 m² (Domaine de 6 hectares)",
+  opening_hours: "Lundi au Vendredi : 8h30 - 18h00 • Samedi sur sessions de stage",
+  campus_access_info: "Gare SNCF Le Cateau (1h40 de Paris Gare du Nord direct) • Navette privée CUC",
+
+  qualiopi_number: "21452296",
+  qualiopi_url: "https://www.campus-universcascades.com/wp-content/uploads/2024/12/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf",
+  afdas_status: "Prise en charge AFDAS certifiée pour artistes et techniciens du spectacle",
+  france_travail_code: "Éligible Aide Individuelle à la Formation (AIF)",
+
+  hero_primary_cta_text: "Candidater aux Formations",
+  hero_primary_cta_url: "/formation-de-cascadeur",
+  hero_secondary_cta_text: "Visite Guidée 3D",
+  hero_secondary_cta_url: "/visite-virtuelle",
+
+  emergency_active: false,
+  emergency_badge: "CUC INFO",
+  emergency_message: "Inscriptions ouvertes pour la session de formation professionnelle 2026-2027.",
+  emergency_link_text: "En savoir plus",
+  emergency_link_url: "/stages-cascades-parkour-2",
+  emergency_style: "gold",
+
+  accent_color: "#FFE500",
+
   instagram: "https://www.instagram.com/campusuniverscascades/",
   youtube: "https://www.youtube.com/@campusuniverscascades",
   linkedin: "https://www.linkedin.com/company/campus-univers-cascades/",
@@ -1334,5 +1395,69 @@ export async function getAuditLogs(): Promise<AuditLogEntry[]> {
   }
 
   return SAMPLE_AUDIT_LOGS;
+}
+
+/**
+ * Récupère les disciplines de cascade avec leurs liaisons croisées.
+ */
+export async function getDisciplines(): Promise<Discipline[]> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'disciplines')
+      .maybeSingle();
+
+    if (!error && data?.value?.list && Array.isArray(data.value.list) && data.value.list.length > 0) {
+      return data.value.list as Discipline[];
+    }
+  } catch {
+    // Fallback
+  }
+
+  // Fallback localStorage
+  if (typeof window !== 'undefined') {
+    try {
+      const cached = localStorage.getItem('cuc_disciplines');
+      if (cached) return JSON.parse(cached);
+    } catch {
+      // Ignore
+    }
+  }
+
+  return CUC_DISCIPLINES;
+}
+
+/**
+ * Récupère les points d'intérêt et infrastructures du campus (6 hectares).
+ */
+export async function getCampusPOIs(): Promise<POI[]> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'campus_pois')
+      .maybeSingle();
+
+    if (!error && data?.value?.list && Array.isArray(data.value.list) && data.value.list.length > 0) {
+      return data.value.list as POI[];
+    }
+  } catch {
+    // Fallback
+  }
+
+  // Fallback localStorage
+  if (typeof window !== 'undefined') {
+    try {
+      const cached = localStorage.getItem('cuc_campus_pois');
+      if (cached) return JSON.parse(cached);
+    } catch {
+      // Ignore
+    }
+  }
+
+  return CAMPUS_POIS;
 }
 

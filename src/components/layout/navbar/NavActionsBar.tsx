@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { PhoneCall, ChevronRight } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
@@ -9,8 +9,16 @@ import {
   YouTubeLogo,
   TikTokLogo,
 } from '@/components/ui/BrandLogos';
+import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data/site-service';
 
 export const NavActionsBar: React.FC = () => {
+  const [settings, setSettings] = useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
+
+  useEffect(() => {
+    getSiteSettings().then((s) => {
+      if (s) setSettings(s);
+    });
+  }, []);
   return (
     <div className="hidden sm:flex items-center gap-2.5 shrink-0">
       {/* Quick Official Social Icons */}
@@ -57,22 +65,22 @@ export const NavActionsBar: React.FC = () => {
       </div>
 
       <a
-        href="tel:+33672849492"
+        href={`tel:${(settings.phone || '06 72 84 94 92').replace(/\s/g, '')}`}
         className="hidden 2xl:flex whitespace-nowrap shrink-0 text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] items-center gap-1.5 px-2.5 py-1.5 border border-zinc-800 hover:border-zinc-600 transition-colors"
         title="Standard CUC"
       >
         <PhoneCall className="w-3.5 h-3.5 text-[#FFE500] shrink-0" />
-        <span className="whitespace-nowrap font-mono-tech">06 72 84 94 92</span>
+        <span className="whitespace-nowrap font-mono-tech">{settings.phone || '06 72 84 94 92'}</span>
       </a>
 
-      <Link href="/contact-cuc" className="shrink-0">
+      <Link href={settings.hero_primary_cta_url || '/contact-cuc'} className="shrink-0">
         <TacticalButton
           variant="primary"
           size="sm"
           icon={<ChevronRight className="w-4 h-4" />}
           className="whitespace-nowrap"
         >
-          Candidater / Réserver
+          {settings.hero_primary_cta_text || 'Candidater / Réserver'}
         </TacticalButton>
       </Link>
     </div>

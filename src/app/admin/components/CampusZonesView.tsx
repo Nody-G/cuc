@@ -1,0 +1,444 @@
+'use client';
+
+import React, { useState, useTransition } from 'react';
+import {
+  Plus,
+  Edit2,
+  Trash2,
+  Navigation,
+  Shield,
+  Compass,
+} from 'lucide-react';
+import { POI } from '@/components/ui/campus-map/campusMap.data';
+import { Discipline } from '@/types';
+import { updateSiteSettings } from '../actions';
+
+interface CampusZonesViewProps {
+  campusPOIs: POI[];
+  setCampusPOIs: React.Dispatch<React.SetStateAction<POI[]>>;
+  disciplines: Discipline[];
+  showToast: (msg: string) => void;
+}
+
+export const CampusZonesView: React.FC<CampusZonesViewProps> = ({
+  campusPOIs,
+  setCampusPOIs,
+  disciplines,
+  showToast,
+}) => {
+  const [, startTransition] = useTransition();
+  const [editingPOI, setEditingPOI] = useState<POI | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
+  const categories = Array.from(new Set(campusPOIs.map((p) => p.category)));
+
+  const filteredPOIs = campusPOIs.filter((p) =>
+    selectedCategory === 'all' ? true : p.category === selectedCategory
+  );
+
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingPOI) return;
+
+    let nextList: POI[] = [];
+    setCampusPOIs((prev) => {
+      const exists = prev.some((p) => p.id === editingPOI.id);
+      nextList = exists
+        ? prev.map((p) => (p.id === editingPOI.id ? editingPOI : p))
+        : [...prev, editingPOI];
+      return nextList;
+    });
+
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('cuc_campus_pois', JSON.stringify(nextList));
+      } catch {
+        // ignore
+      }
+    }
+
+    setEditingPOI(null);
+    showToast(`Zone "${editingPOI.name}" enregistrée !`);
+
+    startTransition(async () => {
+      await updateSiteSettings('campus_pois', { list: nextList });
+    });
+  };
+
+  const handleDelete = (id: string) => {
+    if (!confirm('Supprimer cet aménagement du campus ?')) return;
+
+    const nextList = campusPOIs.filter((p) => p.id !== id);
+    setCampusPOIs(nextList);
+
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('cuc_campus_pois', JSON.stringify(nextList));
+      } catch {
+        // ignore
+      }
+    }
+
+    showToast('Zone supprimée.');
+
+    startTransition(async () => {
+      await updateSiteSettings('campus_pois', { list: nextList });
+    });
+  };
+
+  return (
+    <div className="space-y-8 animate-fadeIn pb-12">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-800/80 pb-6">
+        <div>
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+              <Compass className="w-6 h-6" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
+                Infrastructures & Zones du Campus (6 Ha)
+                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-zinc-800 text-zinc-300 border border-zinc-700">
+                  {campusPOIs.length} Zones
+                </span>
+              </h1>
+              <p className="text-sm text-zinc-400 mt-1">
+                Configurez les points d’intérêt tactiques du parc de 6 hectares, coordonnées radar et modules associés.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <button
+          onClick={() => {
+            setEditingPOI({
+              id: `zone-${Date.now()}`,
+              name: '',
+              category: 'Hauteur & Chutes Libres',
+              description: '',
+              specs: '',
+              coordinates: '50.0910° N, 3.5375° E',
+              badge: 'NOUVEL ESPACE',
+              xPercent: 50,
+              yPercent: 50,
+            });
+          }}
+          className="flex items-center justify-center gap-2 px-5 py-2.5 bg-cuc-gold text-black font-semibold rounded-xl hover:bg-yellow-400 transition shadow-lg shadow-cuc-gold/10 text-sm shrink-0"
+        >
+          <Plus className="w-4 h-4" />
+          Ajouter une Zone
+        </button>
+      </div>
+
+      {/* Visualisation Radar Tactique Mini */}
+      <div className="relative w-full h-56 bg-zinc-950 rounded-2xl border border-zinc-800/80 overflow-hidden shadow-2xl p-4 flex flex-col justify-between">
+        {/* Grille Radar */}
+        <div className="absolute inset-0 bg-[radial-gradient(#27272a_1px,transparent_1px)] [background-size:16px_16px] opacity-40" />
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="w-48 h-48 rounded-full border border-zinc-800/80 animate-pulse" />
+          <div className="w-32 h-32 rounded-full border border-zinc-800/60 absolute" />
+        </div>
+
+        <div className="relative z-10 flex items-center justify-between">
+          <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 uppercase tracking-widest">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+            Radar Tactique Campus • Le Cateau-Cambrésis (Nord)
+          </div>
+          <span className="text-[11px] font-mono text-zinc-500">60 000 m² Domaine Privé</span>
+        </div>
+
+        {/* POI Markers sur le Radar */}
+        <div className="absolute inset-0 pointer-events-none">
+          {campusPOIs.map((poi) => (
+            <div
+              key={poi.id}
+              style={{ left: `${poi.xPercent}%`, top: `${poi.yPercent}%` }}
+              className="absolute -translate-x-1/2 -translate-y-1/2 group/pin pointer-events-auto"
+            >
+              <div className="relative cursor-pointer" onClick={() => setEditingPOI(poi)}>
+                <span className="flex h-4 w-4">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cuc-gold opacity-60" />
+                  <span className="relative inline-flex rounded-full h-4 w-4 bg-cuc-gold border-2 border-black" />
+                </span>
+                <div className="absolute left-5 top-0 hidden group-hover/pin:block bg-black/90 border border-zinc-700 text-white text-[11px] px-2.5 py-1 rounded-lg whitespace-nowrap z-30 shadow-xl backdrop-blur">
+                  <p className="font-bold text-cuc-gold">{poi.name}</p>
+                  <p className="text-zinc-400 text-[10px]">{poi.category}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="relative z-10 text-[11px] text-zinc-500">
+          Cliquez sur un point pour l&apos;éditer directement sur le radar.
+        </div>
+      </div>
+
+      {/* Filtres de catégorie */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-1">
+        <button
+          onClick={() => setSelectedCategory('all')}
+          className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition shrink-0 ${
+            selectedCategory === 'all'
+              ? 'bg-cuc-gold text-black shadow-md shadow-cuc-gold/20'
+              : 'bg-zinc-800 text-zinc-400 hover:text-white'
+          }`}
+        >
+          Toutes les zones ({campusPOIs.length})
+        </button>
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setSelectedCategory(cat)}
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition shrink-0 ${
+              selectedCategory === cat
+                ? 'bg-cuc-gold text-black shadow-md shadow-cuc-gold/20'
+                : 'bg-zinc-800 text-zinc-400 hover:text-white'
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* Grille des Zones */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {filteredPOIs.map((poi) => {
+          const associatedDisciplines = disciplines.filter((d) => d.campus_zone_id === poi.id);
+
+          return (
+            <div
+              key={poi.id}
+              className="group bg-gradient-to-b from-zinc-900/90 to-zinc-950 border border-zinc-800/80 rounded-2xl p-6 hover:border-cuc-gold/40 transition-all duration-300 flex flex-col justify-between shadow-xl"
+            >
+              <div className="space-y-4">
+                {/* Header Card */}
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <span className="px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-[10px] font-bold uppercase tracking-wider">
+                      {poi.badge || poi.category}
+                    </span>
+                    <h3 className="text-lg font-bold text-white group-hover:text-cuc-gold transition-colors mt-2">
+                      {poi.name}
+                    </h3>
+                    <p className="text-xs text-zinc-400 flex items-center gap-1.5 mt-1 font-mono">
+                      <Navigation className="w-3.5 h-3.5 text-zinc-500" />
+                      {poi.coordinates} • Radar ({poi.xPercent}%, {poi.yPercent}%)
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => setEditingPOI(poi)}
+                      className="p-1.5 rounded-lg bg-zinc-800 hover:bg-cuc-gold hover:text-black text-zinc-300 border border-zinc-700 transition"
+                      title="Modifier"
+                    >
+                      <Edit2 className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(poi.id)}
+                      className="p-1.5 rounded-lg bg-zinc-800 hover:bg-rose-500 hover:text-white text-zinc-300 border border-zinc-700 transition"
+                      title="Supprimer"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+
+                <p className="text-xs text-zinc-300 leading-relaxed">{poi.description}</p>
+
+                {/* Spécifications Techniques */}
+                <div className="p-3 bg-zinc-950/70 border border-zinc-800/80 rounded-xl text-xs space-y-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 block">
+                    Spécifications & Équipements
+                  </span>
+                  <p className="text-zinc-300 font-mono text-[11px]">{poi.specs}</p>
+                </div>
+
+                {/* Modules & Disciplines Enseignés Ici */}
+                <div className="pt-2 border-t border-zinc-800/80">
+                  <span className="text-xs font-semibold text-zinc-400 flex items-center gap-1.5 mb-2">
+                    <Shield className="w-3.5 h-3.5 text-cuc-gold" />
+                    Modules de cascade pratiqués dans cette zone :
+                  </span>
+                  {associatedDisciplines.length > 0 ? (
+                    <div className="flex flex-wrap gap-1.5">
+                      {associatedDisciplines.map((d) => (
+                        <span
+                          key={d.id}
+                          className="px-2.5 py-1 bg-zinc-800 text-zinc-200 border border-zinc-700 rounded-lg text-xs flex items-center gap-1.5"
+                        >
+                          <span className="text-cuc-gold font-mono font-bold text-[10px]">
+                            {d.number}
+                          </span>
+                          <span className="truncate max-w-[150px]">{d.name}</span>
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-xs text-zinc-500 italic">
+                      Aucune discipline assignée à cette zone.
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Modal d'édition d'une zone */}
+      {editingPOI && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
+          <div className="bg-zinc-900 border border-zinc-700 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl my-8">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800 bg-zinc-950">
+              <h3 className="font-bold text-lg text-white">
+                {editingPOI.name || 'Nouvelle Zone du Campus'}
+              </h3>
+              <button
+                onClick={() => setEditingPOI(null)}
+                className="text-zinc-400 hover:text-white text-sm"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleSave} className="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
+              <div>
+                <label className="block text-xs font-semibold text-zinc-400 mb-1">
+                  Nom de l&apos;Infrastructure / Spot
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={editingPOI.name}
+                  onChange={(e) => setEditingPOI({ ...editingPOI, name: e.target.value })}
+                  placeholder="ex: Tour de Saut Extrême 21m"
+                  className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-cuc-gold"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-zinc-400 mb-1">
+                    Catégorie
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={editingPOI.category}
+                    onChange={(e) => setEditingPOI({ ...editingPOI, category: e.target.value })}
+                    placeholder="Hauteur, Combat, Câbles..."
+                    className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-cuc-gold"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-zinc-400 mb-1">
+                    Badge Affiché (Vitrine)
+                  </label>
+                  <input
+                    type="text"
+                    value={editingPOI.badge}
+                    onChange={(e) => setEditingPOI({ ...editingPOI, badge: e.target.value })}
+                    placeholder="ex: HOMOLOGUÉ APAVE"
+                    className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-cuc-gold"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-zinc-400 mb-1">
+                  Description Détaillée
+                </label>
+                <textarea
+                  rows={3}
+                  required
+                  value={editingPOI.description}
+                  onChange={(e) => setEditingPOI({ ...editingPOI, description: e.target.value })}
+                  className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-cuc-gold"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-zinc-400 mb-1">
+                  Spécifications Techniques & Homologations
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={editingPOI.specs}
+                  onChange={(e) => setEditingPOI({ ...editingPOI, specs: e.target.value })}
+                  placeholder="ex: Hauteur 21m • 5 paliers • Poutre de largage"
+                  className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-cuc-gold"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-zinc-400 mb-1">
+                    Coordonnées GPS
+                  </label>
+                  <input
+                    type="text"
+                    value={editingPOI.coordinates}
+                    onChange={(e) =>
+                      setEditingPOI({ ...editingPOI, coordinates: e.target.value })
+                    }
+                    placeholder="50.0912° N, 3.5380° E"
+                    className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-cuc-gold"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-zinc-400 mb-1">
+                    Position Radar X (%)
+                  </label>
+                  <input
+                    type="number"
+                    min={0}
+                    max={100}
+                    value={editingPOI.xPercent}
+                    onChange={(e) =>
+                      setEditingPOI({ ...editingPOI, xPercent: Number(e.target.value) })
+                    }
+                    className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-cuc-gold"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-zinc-400 mb-1">
+                    Position Radar Y (%)
+                  </label>
+                  <input
+                    type="number"
+                    min={0}
+                    max={100}
+                    value={editingPOI.yPercent}
+                    onChange={(e) =>
+                      setEditingPOI({ ...editingPOI, yPercent: Number(e.target.value) })
+                    }
+                    className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-cuc-gold"
+                  />
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-3 pt-4 border-t border-zinc-800">
+                <button
+                  type="button"
+                  onClick={() => setEditingPOI(null)}
+                  className="px-5 py-2.5 rounded-xl border border-zinc-800 text-zinc-300 text-xs font-semibold hover:bg-zinc-800 transition"
+                >
+                  Annuler
+                </button>
+                <button
+                  type="submit"
+                  className="px-6 py-2.5 rounded-xl bg-cuc-gold text-black text-xs font-bold hover:bg-yellow-400 transition shadow-lg shadow-cuc-gold/20"
+                >
+                  Enregistrer
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
