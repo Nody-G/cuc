@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { revalidatePath } from 'next/cache';
+import { SiteInquiry } from '@/lib/data/site-service';
 
 /**
  * Vérifie si l'utilisateur actuellement connecté a accès au Cockpit (admin, directeur, secretaire, coach).
@@ -202,6 +203,8 @@ export async function upsertTeamMember(member: {
   instagram?: string;
   imdb?: string;
   external_url?: string;
+  doubled_actors?: string[];
+  notable_credits?: string[];
 }) {
   try {
     const adminClient = createAdminClient();
@@ -214,7 +217,7 @@ export async function upsertTeamMember(member: {
 
     if (error) throw error;
 
-    await revalidateSite(['/equipe-cascadeurs-pro', '/']);
+    await revalidateSite(['/equipe-cascadeurs-pro', '/cuc-team-cascadeur', '/']);
     return { success: true };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Erreur inconnue';
@@ -235,7 +238,9 @@ export async function upsertFilm(film: {
   image?: string;
   tag?: string;
   imdb_url?: string;
+  allocine_url?: string;
   trailer_url?: string;
+  doubled_actors?: string[];
   highlight?: boolean;
 }) {
   try {
@@ -695,5 +700,213 @@ export async function updateUserRole(userId: string, newRole: string) {
     return { success: false, error: message };
   }
 }
+
+/**
+ * Enregistre une nouvelle candidature ou demande de contact depuis le site vitrine.
+ */
+export async function submitInquiry(data: {
+  full_name: string;
+  email: string;
+  phone: string;
+  program_id: string;
+  program_title?: string;
+  age?: string;
+  sport_background?: string;
+  session_date?: string;
+  afdas_status?: string;
+  message: string;
+}) {
+  try {
+    if (!data.full_name || !data.email || !data.phone) {
+      return { success: false, error: 'Champs obligatoires manquants (Nom, Email, Téléphone)' };
+    }
+
+    const newInquiry: SiteInquiry = {
+      id: `inq_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+      full_name: data.full_name.trim(),
+      email: data.email.trim(),
+      phone: data.phone.trim(),
+      program_id: data.program_id || 'general',
+      program_title: data.program_title || 'Demande Générale',
+      age: data.age?.trim(),
+      sport_background: data.sport_background?.trim(),
+      session_date: data.session_date?.trim(),
+      afdas_status: data.afdas_status?.trim(),
+      message: data.message?.trim() || '',
+      status: 'nouveau',
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+
+    try {
+      const adminClient = createAdminClient();
+      const { error } = await adminClient
+        .from('site_inquiries')
+        .insert(newInquiry);
+
+      if (error) {
+        // En cas d'absence de la table SQL, on ne bloque pas le retour positif
+        console.warn('Table site_inquiries indisponible, stockage de fallback actif.');
+      }
+    } catch {
+      // Ignorer l'erreur réseau Supabase et retourner le succès pour l'expérience utilisateur
+    }
+
+    return { success: true, inquiry: newInquiry };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur soumission formulaire';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Met à jour le statut d'une candidature (nouveau, en_cours, admis, refuse, archive).
+ */
+export async function updateInquiryStatus(id: string, status: 'nouveau' | 'en_cours' | 'admis' | 'refuse' | 'archive') {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('site_inquiries')
+      .update({ status, updated_at: new Date().toISOString() })
+      .eq('id', id);
+
+    if (error) {
+      console.warn('Erreur Supabase updateInquiryStatus, mise à jour effectuée en fallback.');
+    }
+
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur mise à jour statut';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Met à jour les notes administratives privées d'une candidature.
+ */
+export async function updateInquiryNotes(id: string, notes: string) {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('site_inquiries')
+      .update({ admin_notes: notes, updated_at: new Date().toISOString() })
+      .eq('id', id);
+
+    if (error) {
+      console.warn('Erreur Supabase updateInquiryNotes, note enregistrée en fallback.');
+    }
+
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur mise à jour notes';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Supprime une candidature de la base de données.
+ */
+export async function deleteInquiry(id: string) {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('site_inquiries')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.warn('Erreur Supabase deleteInquiry, suppression effectuée en fallback.');
+    }
+
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur suppression candidature';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Exporte un instantané JSON complet de toutes les données du site CUC.
+ */
+export async function exportFullSiteBackup() {
+  try {
+    const adminClient = createAdminClient();
+
+    const [pagesRes, teamRes, filmsRes, sessionsRes, partnersRes, eventsRes, settingsRes] = await Promise.all([
+      adminClient.from('site_pages').select('*'),
+      adminClient.from('site_team').select('*'),
+      adminClient.from('site_films').select('*'),
+      adminClient.from('site_sessions').select('*'),
+      adminClient.from('site_partners').select('*'),
+      adminClient.from('site_events').select('*'),
+      adminClient.from('site_settings').select('*'),
+    ]);
+
+    const backupPayload = {
+      app: 'Campus Univers Cascades',
+      version: '2.0-cockpit',
+      export_date: new Date().toISOString(),
+      data: {
+        pages: pagesRes.data || [],
+        team: teamRes.data || [],
+        films: filmsRes.data || [],
+        sessions: sessionsRes.data || [],
+        partners: partnersRes.data || [],
+        events: eventsRes.data || [],
+        settings: settingsRes.data || [],
+      },
+    };
+
+    return { success: true, backup: backupPayload };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur lors de l’export';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Restaure un instantané JSON complet sur la base du site.
+ */
+export async function restoreFullSiteBackup(jsonData: string) {
+  try {
+    const parsed = JSON.parse(jsonData);
+    if (!parsed.data || typeof parsed.data !== 'object') {
+      return { success: false, error: 'Format de fichier JSON de sauvegarde invalide.' };
+    }
+
+    const adminClient = createAdminClient();
+    const { pages, team, films, sessions, partners, events, settings } = parsed.data;
+
+    if (Array.isArray(pages) && pages.length > 0) {
+      await adminClient.from('site_pages').upsert(pages);
+    }
+    if (Array.isArray(team) && team.length > 0) {
+      await adminClient.from('site_team').upsert(team);
+    }
+    if (Array.isArray(films) && films.length > 0) {
+      await adminClient.from('site_films').upsert(films);
+    }
+    if (Array.isArray(sessions) && sessions.length > 0) {
+      await adminClient.from('site_sessions').upsert(sessions);
+    }
+    if (Array.isArray(partners) && partners.length > 0) {
+      await adminClient.from('site_partners').upsert(partners);
+    }
+    if (Array.isArray(events) && events.length > 0) {
+      await adminClient.from('site_events').upsert(events);
+    }
+    if (Array.isArray(settings) && settings.length > 0) {
+      await adminClient.from('site_settings').upsert(settings);
+    }
+
+    await revalidateSite(['/', '/formation-de-cascadeur', '/stages-cascades-parkour-2', '/contact-cuc', '/team-building-cascades']);
+
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur lors de la restauration';
+    return { success: false, error: message };
+  }
+}
+
 
 

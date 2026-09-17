@@ -10,6 +10,7 @@ import {
   Edit3,
   CheckCircle2,
   AlertCircle,
+  RotateCcw,
 } from 'lucide-react';
 import { LayoutSection } from '@/lib/data/site-service';
 
@@ -17,12 +18,14 @@ interface PageLayoutManagerProps {
   layoutSections: LayoutSection[];
   onChange: (sections: LayoutSection[]) => void;
   onEditSection?: (sectionId: string) => void;
+  onReset?: () => void;
 }
 
 export const PageLayoutManager: React.FC<PageLayoutManagerProps> = ({
   layoutSections,
   onChange,
   onEditSection,
+  onReset,
 }) => {
   // Tri des sections par ordre croissant
   const sortedSections = [...(layoutSections || [])].sort(
@@ -104,6 +107,17 @@ export const PageLayoutManager: React.FC<PageLayoutManagerProps> = ({
         </div>
 
         <div className="flex items-center gap-2">
+          {onReset && (
+            <button
+              type="button"
+              onClick={onReset}
+              className="px-2.5 py-1 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] font-mono text-gray-300 hover:text-white flex items-center gap-1.5 transition-colors"
+              title="Réinitialiser la disposition par défaut"
+            >
+              <RotateCcw className="w-3 h-3 text-[#FFE500]" />
+              <span>Par défaut</span>
+            </button>
+          )}
           <span className="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono text-gray-300">
             <strong className="text-[#FFE500]">{visibleCount}</strong> / {sortedSections.length} sections actives
           </span>

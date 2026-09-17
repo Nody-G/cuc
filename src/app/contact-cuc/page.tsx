@@ -32,7 +32,7 @@ export default function ContactCucPage() {
               <ContactForm />
 
               {/* Coordonnées, Standard & Deux Sites */}
-              <ContactCoordinatesSidebar />
+              <ContactCoordinatesSidebar accessInfo={content.sections_data?.access_info} />
             </div>
           </div>
         </section>

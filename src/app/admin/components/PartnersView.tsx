@@ -231,9 +231,9 @@ export const PartnersView: React.FC<PartnersViewProps> = ({
                 <label className="block text-xs font-mono text-gray-400 mb-1">URL du Logo</label>
                 <div className="flex gap-2">
                   <input
-                    type="url"
+                    type="text"
                     required
-                    placeholder="https://..."
+                    placeholder="/images/... ou https://..."
                     value={editingPartner.logo_url}
                     onChange={(e) => setEditingPartner({ ...editingPartner, logo_url: e.target.value })}
                     className="flex-1 bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500]"

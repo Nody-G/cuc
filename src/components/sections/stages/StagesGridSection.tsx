@@ -17,6 +17,7 @@ import {
 
 interface StagesGridSectionProps {
   onOpenApplication: (programId: string) => void;
+  customStages?: any[];
 }
 
 const renderIcon = (type: string) => {
@@ -67,11 +68,45 @@ const renderBadge = (badge: StageData['badge']) => {
 
 export const StagesGridSection: React.FC<StagesGridSectionProps> = ({
   onOpenApplication,
+  customStages,
 }) => {
+  const displayList: StageData[] = (customStages && customStages.length > 0)
+    ? customStages.map((cs: any, idx: number) => {
+        const match = STAGES_LIST.find((s) => s.id === cs.id) || STAGES_LIST[idx % STAGES_LIST.length];
+        return {
+          ...match,
+          id: cs.id || match?.id || `stage-${idx}`,
+          title: cs.title || match?.title,
+          description: cs.description || match?.description,
+          badge: cs.level
+            ? { text: cs.level, variant: 'yellow' as const }
+            : (match?.badge || { text: 'STAGE CUC', variant: 'yellow' as const }),
+          subBadge: cs.subtitle || match?.subBadge,
+          buttonLabel: cs.price
+            ? `Réserver (${cs.price})`
+            : (match?.buttonLabel || 'Réserver mon stage'),
+          details: cs.duration
+            ? [
+                { icon: 'clock' as const, text: cs.duration },
+                ...(match?.details?.slice(1) || [
+                  { icon: 'map' as const, text: 'Campus CUC, Le Cateau-Cambrésis (59)' },
+                ]),
+              ]
+            : (match?.details || []),
+          image: cs.image?.src
+            ? cs.image
+            : (match?.image || {
+                src: 'https://www.campus-universcascades.com/wp-content/uploads/2021/05/Stage-WE-Immersion.png',
+                alt: cs.title || 'Stage CUC',
+              }),
+        };
+      })
+    : STAGES_LIST;
+
   return (
     <section className="py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        {STAGES_LIST.map((stage) => {
+        {displayList.map((stage) => {
           const isHighlight = stage.isPopular;
           return (
             <div

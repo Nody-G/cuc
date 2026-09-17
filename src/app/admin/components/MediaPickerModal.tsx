@@ -30,20 +30,34 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
   const [uploading, setUploading] = useState(false);
   const [selectedUrl, setSelectedUrl] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (isOpen) {
-      loadFiles();
+  const loadFiles = React.useCallback(async (showLoading = false) => {
+    if (showLoading) setLoading(true);
+    try {
+      const res = await listMediaFiles();
+      if (res.success && res.files) {
+        setFiles(res.files);
+      }
+    } finally {
+      setLoading(false);
     }
-  }, [isOpen]);
+  }, []);
 
-  const loadFiles = async () => {
-    setLoading(true);
-    const res = await listMediaFiles();
-    if (res.success && res.files) {
-      setFiles(res.files);
+  useEffect(() => {
+    let active = true;
+    if (isOpen) {
+      listMediaFiles().then((res) => {
+        if (active) {
+          if (res.success && res.files) {
+            setFiles(res.files);
+          }
+          setLoading(false);
+        }
+      });
     }
-    setLoading(false);
-  };
+    return () => {
+      active = false;
+    };
+  }, [isOpen]);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;

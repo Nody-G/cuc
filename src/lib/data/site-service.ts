@@ -334,7 +334,41 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       { id: 'admission', name: "Critères d'Admissibilité & Démarches", order: 5, is_visible: true },
       { id: 'cta', name: 'Bannière Postuler / Contact', order: 6, is_visible: true },
     ],
-    sections_data: {},
+    sections_data: {
+      formules: {
+        badge: "PARCOURS D'ADMISSION & CURSUS",
+        title: "DU STAGE DÉCOUVERTE AU DIPLÔME PRO",
+        subtitle: "L'accès à la formation longue durée est conditionné par la validation du stage découverte. Ce protocole sélectif garantit la sécurité de tous et le niveau d'excellence de la promotion.",
+        items: [
+          {
+            id: 'decouverte',
+            step_badge: 'ÉTAPE 01 • SÉLECTION OBLIGATOIRE',
+            duration_badge: '80 HEURES',
+            title: 'STAGE DÉCOUVERTE & SÉLECTION',
+            description: "12 jours consécutifs pour tester vos aptitudes physiques, votre sang-froid et votre capacité d'adaptation avant de postuler au cursus long.",
+            duration_text: '12 jours consécutifs (80h de pratique)',
+            schedule_text: 'Du lundi au samedi (9h-18h)',
+            boarding_text: 'Hébergement & restauration sur place',
+            certification_text: 'Bilan d’évaluation personnalisé & attestation de stage',
+            cta_text: 'Postuler au Stage Découverte',
+            program_id: 'stage-decouverte',
+          },
+          {
+            id: 'pro_longue_duree',
+            step_badge: 'ÉTAPE 02 • CURSUS ÉLITE DIPLÔMANT',
+            duration_badge: '720H À 800H',
+            title: 'FORMATION PROFESSIONNELLE 2 ANS',
+            description: "Le cursus complet pour devenir cascadeur professionnel certifié. 9 modules intensifs répartis sur 2 ans d'entraînement physique et cinématographique.",
+            duration_text: '2 ans (9 à 10 modules de 80h)',
+            schedule_text: 'Entraînements intensifs + mises en situation réelles',
+            boarding_text: 'Accès illimité aux 11 000 m² d’infrastructures',
+            certification_text: 'Agrément Qualiopi & Financements (AFDAS, France Travail)',
+            cta_text: 'Candidater au Cursus Pro 2 Ans',
+            program_id: 'pro-longue-duree',
+          },
+        ],
+      },
+    },
     sections: [
       { id: 'duration', title: 'Durée du cursus', value: '2 Ans', description: 'Cursus structuré de 9 à 10 modules intensifs' },
       { id: 'hours', title: 'Volume pratique', value: '720h à 800h', description: 'Entraînement en conditions réelles de tournage' },
@@ -364,7 +398,47 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       { id: 'sessions', name: 'Calendrier & Disponibilités', order: 3, is_visible: true },
       { id: 'faq', name: 'Questions Fréquentes & Hébergement', order: 4, is_visible: true },
     ],
-    sections_data: {},
+    sections_data: {
+      stages_catalogue: {
+        badge: 'CATALOGUE DES STAGES',
+        title: 'TOUS NOS FORMATS D’IMMERSION',
+        description: "Stages intensifs ouverts dès 16 ans, du week-end découverte à la masterclass de perfectionnement professionnel.",
+        items: [
+          {
+            id: 'stage-decouverte',
+            title: 'Stage Découverte Immersion (12 Jours)',
+            duration: '12 Jours (80h)',
+            badge: 'SÉLECTION OBLIGATOIRE',
+            desc: "L'immersion complète au cœur du campus CUC. Entraînement physique, combat scénique, chutes, câblerie et passage obligatoire pour intégrer le cursus pro.",
+            tag: 'TOUS NIVEAUX',
+          },
+          {
+            id: 'stage-weekend-parkour',
+            title: 'Week-End Cascades & Parkour',
+            duration: '2 Jours (16h)',
+            badge: 'INITIATION RAPIDE',
+            desc: "Découverte des franchissements urbains Yamakasi, réceptions d'impact et acrobaties au sol en toute sécurité sur nos structures intérieures.",
+            tag: 'DÈS 16 ANS',
+          },
+          {
+            id: 'masterclass-combat',
+            title: 'Masterclass Combat & Action Design',
+            duration: '5 Jours (35h)',
+            badge: 'PERFECTIONNEMENT',
+            desc: "Chorégraphies martiales pour caméras, maniement d'armes d'accessoire, timing d'impact et techniques de réaction au coup.",
+            tag: 'NIVEAU AVANCÉ',
+          },
+          {
+            id: 'stage-cablage-feu',
+            title: 'Stage Rigging, Câblerie & Torche Humaine',
+            duration: '5 Jours (35h)',
+            badge: 'SPÉCIALISATION CINÉMA',
+            desc: "Vol sur harnais, projections câblées par treuil et protocole de sécurité complet de la torche humaine encadrée par des artificiers certifiés.",
+            tag: 'CASCADEURS PROS',
+          },
+        ],
+      },
+    },
     sections: [],
     is_published: true,
   },
@@ -495,7 +569,53 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       { id: 'pedagogy', name: 'Objectifs Managériaux & Confiance', order: 3, is_visible: true },
       { id: 'quote', name: 'Demande de Devis sur Mesure', order: 4, is_visible: true },
     ],
-    sections_data: {},
+    sections_data: {
+      overview: {
+        badge: 'SÉMINAIRES & ENTREPRISES',
+        title: 'DES ATELIERS SUR MESURE POUR VOTRE ÉQUIPE',
+        description: "Offrez à vos collaborateurs une expérience fédératrice hors du commun : cascades de cinéma, doublage vocal et cascade physique encadrées par des professionnels certifiés.",
+        capacity: '10 à 300 personnes',
+        location: 'Sur notre domaine de 6 hectares ou sur le lieu de votre séminaire',
+        duration: 'Demi-journée, journée ou nocturne',
+      },
+      workshops: [
+        {
+          id: 'airbag',
+          title: "Chute de Hauteur sur Airbag",
+          category: "Adrénaline & Confiance",
+          desc: "En intérieur comme en extérieur, faites goûter à vos collaborateurs les sensations de la chute libre sur coussin d'air géant de cinéma. Dépassement de soi et cohésion collective garantie.",
+          img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-chute-hauteur-1.jpg",
+        },
+        {
+          id: 'combat',
+          title: "Combats au Cinéma",
+          category: "Chorégraphie & Précision",
+          desc: "Plongez au cœur d'une scène d'action ! Initiation aux techniques de combats de films : esquives, feintes, coups de poing de cinéma et respect chirurgical des axes caméra.",
+          img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-combat-cinema-1.jpg",
+        },
+        {
+          id: 'parkour',
+          title: "Parkour & Yamakasi",
+          category: "Agilité & Mouvement",
+          desc: "Initiation encadrée par des cascadeurs professionnels et spécialistes du déplacement urbain : franchissements d'obstacles, sauts de précision et motricité.",
+          img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-parkour-1.jpg",
+        },
+        {
+          id: 'sfx',
+          title: "Maquillage Effets Spéciaux (SFX)",
+          category: "Coulisses & Cinéma",
+          desc: "Découvrez les secrets des maquilleurs de cinéma : création de blessures ultra-réalistes, fausses cicatrices, impacts de balles et prothèses d'action.",
+          img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-maquillage.jpg",
+        },
+        {
+          id: 'doublage',
+          title: "Doublage de Voix & Post-Production",
+          category: "Créativité & Voix",
+          desc: "Mettez-vous dans la peau d'un comédien de doublage ! Enregistrez en équipe les répliques et bruitages de séquences cultes du cinéma d'action.",
+          img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-doublage-voix.jpg",
+        },
+      ],
+    },
     sections: [],
     is_published: true,
   },
@@ -676,7 +796,17 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       { id: 'contact_form', name: 'Formulaire de Message Direct', order: 3, is_visible: true },
       { id: 'map_location', name: 'Carte & Accès Campus', order: 4, is_visible: true },
     ],
-    sections_data: {},
+    sections_data: {
+      access_info: {
+        badge: 'ACCÈS & TRANSPORTS',
+        title: 'COMMENT VENIR AU DOMAINE CUC',
+        description: 'Le Domaine CUC de 6 hectares est situé au Cateau-Cambrésis (59360), au carrefour des grandes métropoles européennes.',
+        train_info: 'Gare du Cateau (10 min) ou Valenciennes / Cambrai (30 min). Liaisons directes en 1h30 depuis Paris Nord.',
+        car_info: 'Autoroutes A2 et A26. À 1h15 de Lille, 1h45 de Bruxelles et 2h de Paris.',
+        parking_info: 'Grand parking privé gratuit pour autocars, camions régie et véhicules individuels.',
+        schedule_info: 'Secrétariat et accueil ouverts du lundi au vendredi de 9h00 à 18h30.',
+      },
+    },
     sections: [],
     is_published: true,
   },
@@ -726,24 +856,214 @@ export interface SiteSettings {
 }
 
 export const DEFAULT_PARTNERS: SitePartner[] = [
-  { id: 'europacorp', name: 'EuropaCorp', category: 'cinema', logo_url: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-europacorp.png', website_url: 'https://www.europacorp.com' },
-  { id: 'gaumont', name: 'Gaumont', category: 'cinema', logo_url: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-gaumont.png', website_url: 'https://www.gaumont.fr' },
-  { id: 'pathe', name: 'Pathé', category: 'cinema', logo_url: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-pathe.png', website_url: 'https://www.pathe.fr' },
-  { id: 'studiocanal', name: 'StudioCanal', category: 'cinema', logo_url: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-studiocanal.png', website_url: 'https://www.studiocanal.com' },
-  { id: 'qualiopi', name: 'Certification Qualiopi', category: 'institutionnel', logo_url: 'https://www.campus-universcascades.com/wp-content/uploads/2021/04/qualiopi.png', website_url: 'https://travail-emploi.gouv.fr' },
-  { id: 'afdas', name: 'AFDAS', category: 'institutionnel', logo_url: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-afdas.png', website_url: 'https://www.afdas.com' },
-  { id: 'france-travail', name: 'France Travail', category: 'institutionnel', logo_url: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-pole-emploi.png', website_url: 'https://www.francetravail.fr' },
+  {
+    id: 'qualiopi',
+    name: 'Qualiopi',
+    category: 'institutionnel',
+    logo_url: '/images/partenaires/qualiopi.png',
+    website_url: 'https://www.campus-universcascades.com/wp-content/uploads/2024/12/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf',
+    description: 'Certification qualité délivrée au titre des actions de formation (AFDAS, France Travail, Régions). Certificat N° 21452296.',
+    order_index: 1,
+    is_published: true,
+  },
+  {
+    id: 'nike',
+    name: 'Nike',
+    category: 'materiel',
+    logo_url: '/images/partenaires/nike.jpg',
+    website_url: 'https://www.nike.com',
+    description: "Tenues de training, chaussures d'impact et vêtements de performance pour les cascadeurs du campus.",
+    order_index: 2,
+    is_published: true,
+  },
+  {
+    id: 'rxr-protect',
+    name: 'RXR Protect',
+    category: 'materiel',
+    logo_url: '/images/partenaires/rxr-protect.jpg',
+    website_url: 'https://www.rxrprotect.com',
+    description: 'Protections thoraciques et dorsales à airbag, conçues pour amortir les impacts et chutes à haute vitesse.',
+    order_index: 3,
+    is_published: true,
+  },
+  {
+    id: 'gravity',
+    name: 'Gravity',
+    category: 'materiel',
+    logo_url: '/images/partenaires/gravity.jpg',
+    description: 'Textiles pensés pour le parkour et les cascades physiques, alliant résistance et liberté de mouvement.',
+    order_index: 4,
+    is_published: true,
+  },
+  {
+    id: 'c17',
+    name: 'C17 Special Effects',
+    category: 'materiel',
+    logo_url: '/images/partenaires/c17.jpg',
+    website_url: 'https://c17sfx.com',
+    description: 'Effets spéciaux physiques, explosions contrôlées, armurerie de spectacle et feux de cascade pour le cinéma.',
+    order_index: 5,
+    is_published: true,
+  },
+  {
+    id: 'kiloutou',
+    name: 'Kiloutou',
+    category: 'materiel',
+    logo_url: '/images/partenaires/kiloutou.jpg',
+    website_url: 'https://www.kiloutou.fr',
+    description: 'Nacelles élévatrices, chariots télescopiques et engins de levage pour le câblage de cascades.',
+    order_index: 6,
+    is_published: true,
+  },
+  {
+    id: 'otm-incendie',
+    name: 'OTM Incendie',
+    category: 'materiel',
+    logo_url: '/images/partenaires/otm-incendie.jpg',
+    description: 'Extincteurs spécialisés, gels ignifugés et tenues coupe-feu pour les exercices de torches humaines.',
+    order_index: 7,
+    is_published: true,
+  },
+  {
+    id: 'action-cascade',
+    name: 'Action Cascade',
+    category: 'cinema',
+    logo_url: '/images/partenaires/action-cascade.jpg',
+    website_url: 'https://www.instagram.com/actioncascade/',
+    description: 'Équipe de coordination de cascades qui forme nos élèves aux exigences des plateaux de tournage.',
+    order_index: 8,
+    is_published: true,
+  },
+  {
+    id: 'aya-catch',
+    name: 'AYA Catch',
+    category: 'cinema',
+    logo_url: '/images/partenaires/aya-catch.jpg',
+    website_url: 'https://www.facebook.com/ayacatch/',
+    description: 'Apprentissage des projections théâtrales, prises de catch et absorptions corporelles.',
+    order_index: 9,
+    is_published: true,
+  },
+  {
+    id: 'cascade-demo-team',
+    name: 'Cascade Demo Team',
+    category: 'cinema',
+    logo_url: '/images/partenaires/cascade-demo-team.jpg',
+    website_url: 'https://www.instagram.com/cascadedemoteam/',
+    description: "Troupe d'arts martiaux artistiques (XMA) et de combats chorégraphiés.",
+    order_index: 10,
+    is_published: true,
+  },
+  {
+    id: 'xtrem-video',
+    name: 'Xtrem Video',
+    category: 'media',
+    logo_url: '/images/partenaires/xtrem-video.jpg',
+    website_url: 'https://www.youtube.com/@XtremVideo',
+    description: 'Production audiovisuelle et diffusion des contenus vidéo de la CUC Stunt Team.',
+    order_index: 11,
+    is_published: true,
+  },
+  {
+    id: 'taffcoeur',
+    name: 'TaffCoeur',
+    category: 'media',
+    logo_url: '/images/partenaires/taffcoeur.jpg',
+    description: 'Studio de production de contenus promotionnels, clips et showreels pour les cascadeurs.',
+    order_index: 12,
+    is_published: true,
+  },
+  {
+    id: 'mfr-le-cateau',
+    name: 'MFR Le Cateau-Cambrésis',
+    category: 'institutionnel',
+    logo_url: '/images/partenaires/mfr-le-cateau.jpg',
+    website_url: 'https://www.mfr.fr/',
+    description: 'Hébergement, restauration et accueil en pension complète de nos stagiaires sur un parc de 6 hectares.',
+    order_index: 13,
+    is_published: true,
+  },
+  {
+    id: 'bsn',
+    name: 'BSN Nutrition',
+    category: 'materiel',
+    logo_url: '/images/partenaires/bsn.jpg',
+    website_url: 'https://www.gobsn.com',
+    description: 'Suppléments et protéines accompagnant la préparation physique des cascadeurs.',
+    order_index: 14,
+    is_published: true,
+  },
+];
+
+export const DEFAULT_EVENTS: SiteEvent[] = [
+  {
+    id: 'spectacles-cascades',
+    title: 'Spectacles de Cascades & Shows Yamakasi',
+    subtitle: 'Combats chorégraphiés, voltige urbaine et pyrotechnie en direct',
+    badge: 'PRESTATIONS & SHOWS EN DIRECT',
+    description: 'Spectacles vivants sur-mesure pour parcs, festivals, lancements de produit et grands événements. Combats chorégraphiés, voltige Yamakasi, chutes de hauteur et torches humaines.',
+    features: [
+      'Cascadeurs professionnels diplômés',
+      'Combats chorégraphiés (médiéval, contemporain, SFX)',
+      'Torches humaines et pyrotechnie homologuée',
+      'Régie technique et sécurité intégrale',
+    ],
+    price_indicator: 'Sur devis',
+    cta_text: 'Découvrir les Spectacles',
+    cta_link: '/spectacles-cascadeurs-yamakasi',
+    image_url: 'https://www.campus-universcascades.com/wp-content/uploads/2021/05/Photos-Spectacle-300x200.jpg',
+    order_index: 1,
+    is_published: true,
+  },
+  {
+    id: 'animations-airbag',
+    title: 'Animations & FreeJump Airbag',
+    subtitle: 'Sauts dans le vide sur coussin d’air géant de cinéma',
+    badge: 'SENSATIONS FORTES GRAND PUBLIC',
+    description: 'Faites vivre au grand public les sensations uniques de la chute libre sur coussin d’air géant (sauts de 4 à 8 mètres). Encadrement 100% sécurisé par des cascadeurs professionnels.',
+    features: [
+      '+20 000 chutes encadrées en sécurité',
+      'Airbag géant homologué cinéma & spectacle',
+      'Ateliers d’initiation au parkour avec les Yamakasi',
+      'Assurance professionnelle et encadrement certifié',
+    ],
+    price_indicator: 'Sur devis',
+    cta_text: 'Découvrir les Animations',
+    cta_link: '/animations-airbag-parkour',
+    image_url: 'https://www.campus-universcascades.com/wp-content/uploads/2021/06/FreeJump-CCJ-Puteaux-03-300x200.jpg',
+    order_index: 2,
+    is_published: true,
+  },
+  {
+    id: 'team-building-cinema',
+    title: 'Team Building Cinéma d’Action',
+    subtitle: 'Immersion entreprise sur le domaine de 6 hectares du CUC',
+    badge: 'SÉMINAIRES & IMMERSION ENTREPRISE',
+    description: 'Fédérez vos équipes lors d’un séminaire d’action inoubliable : tournage de faux trailer d’action, combat cinéma, doublage vocal et saut airbag. Accueil jusqu’à 90 personnes avec hébergement et restauration.',
+    features: [
+      'Ateliers cinéma indoor et cascades physiques',
+      'Initiation combat cinéma et axes caméra',
+      'Atelier doublage de voix & effets spéciaux (SFX)',
+      'Hébergement et restauration sur site (domaine 6 Ha)',
+    ],
+    price_indicator: 'Sur devis',
+    cta_text: 'Organiser un Team Building',
+    cta_link: '/team-building-cascades',
+    image_url: 'https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-combat-cinema-1.jpg',
+    order_index: 3,
+    is_published: true,
+  },
 ];
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   school_name: "Campus Univers Cascades",
   tagline: "Le Plus Grand Centre de Formation de Cascadeurs au Monde",
-  phone: "+33 (0)3 27 00 00 00",
+  phone: "+33 (0)6 72 84 94 92",
   email_general: "contact@campus-universcascades.com",
   email_admissions: "formations@campus-universcascades.com",
   email_events: "events@campus-universcascades.com",
-  address: "Le Cateau-Cambrésis (59360), Hauts-de-France, France",
-  campus_surface: "11 000 m²",
+  address: "Domaine CUC, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis",
+  campus_surface: "11 000 m² (Domaine de 6 hectares)",
   instagram: "https://www.instagram.com/campusuniverscascades/",
   youtube: "https://www.youtube.com/@campusuniverscascades",
   linkedin: "https://www.linkedin.com/company/campus-univers-cascades/",
@@ -820,10 +1140,10 @@ export async function getEvents(): Promise<SiteEvent[]> {
       .eq('is_published', true)
       .order('order_index', { ascending: true });
 
-    if (error || !data || data.length === 0) return [];
+    if (error || !data || data.length === 0) return DEFAULT_EVENTS;
     return data as SiteEvent[];
   } catch {
-    return [];
+    return DEFAULT_EVENTS;
   }
 }
 
@@ -844,5 +1164,175 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   } catch {
     return DEFAULT_SITE_SETTINGS;
   }
+}
+
+export interface SiteInquiry {
+  id: string;
+  full_name: string;
+  email: string;
+  phone: string;
+  program_id: string;
+  program_title?: string;
+  age?: string;
+  sport_background?: string;
+  session_date?: string;
+  afdas_status?: string;
+  message: string;
+  status: 'nouveau' | 'en_cours' | 'admis' | 'refuse' | 'archive';
+  admin_notes?: string;
+  created_at: string;
+  updated_at?: string;
+}
+
+export interface AuditLogEntry {
+  id: string;
+  user_name: string;
+  action: string;
+  entity: string;
+  details?: string;
+  created_at: string;
+}
+
+export const SAMPLE_INQUIRIES: SiteInquiry[] = [
+  {
+    id: 'inq-1',
+    full_name: 'Maxime Lefebvre',
+    email: 'm.lefebvre.gym@gmail.com',
+    phone: '06 14 28 39 50',
+    program_id: 'pro-longue-duree',
+    program_title: 'Formation Professionnelle 2 ans',
+    age: '21 ans',
+    sport_background: 'Gymnastique artistique haut niveau (12 ans), Parkour & Tricking',
+    session_date: 'Septembre 2026',
+    afdas_status: 'Demandeur d’emploi / Financement individuel',
+    message: 'Passionné de cascade physique et de cinéma d’action, je souhaite intégrer la promotion 2026. Disponible pour les auditions physiques au Cateau-Cambrésis.',
+    status: 'nouveau',
+    admin_notes: 'Profil physique très prometteur. Dossier de candidature complet reçu.',
+    created_at: new Date(Date.now() - 3600000 * 4).toISOString(),
+  },
+  {
+    id: 'inq-2',
+    full_name: 'Camille Vasseur',
+    email: 'camille.vasseur.pro@outlook.fr',
+    phone: '06 82 45 10 99',
+    program_id: 'stage-afdas-pro',
+    program_title: 'Stage Professionnel AFDAS',
+    age: '27 ans',
+    sport_background: 'Comédienne comédie musicale, escrime de spectacle, boxe thaï',
+    session_date: 'Juillet 2026',
+    afdas_status: 'Intermittent du spectacle (AFDAS accordé)',
+    message: 'Comédienne intermittente, je cherche à perfectionner mes compétences en combat chorégraphié et chutes câblées pour de futurs tournages.',
+    status: 'en_cours',
+    admin_notes: 'Contactée par téléphone. Convention AFDAS transmise au secrétariat.',
+    created_at: new Date(Date.now() - 3600000 * 26).toISOString(),
+  },
+  {
+    id: 'inq-3',
+    full_name: 'Lucas Bernard (RH Warner Bros Fr)',
+    email: 'l.bernard@prod-events.fr',
+    phone: '01 42 68 90 00',
+    program_id: 'team-building',
+    program_title: 'Team Building Cascade 45 personnes',
+    age: 'N/A',
+    sport_background: 'Équipe de production de 45 collaborateurs',
+    session_date: '18 Juin 2026',
+    afdas_status: 'Financement Entreprise / OPCO',
+    message: 'Bonjour, nous souhaiterions privatiser le domaine pour une journée Team Building avec ateliers Chute Airbag et Combat Scénique pour notre équipe.',
+    status: 'admis',
+    admin_notes: 'Devis envoyé et signé. Accompte 30% reçu. Encadrement prévu avec 4 instructeurs.',
+    created_at: new Date(Date.now() - 3600000 * 72).toISOString(),
+  },
+];
+
+export const SAMPLE_AUDIT_LOGS: AuditLogEntry[] = [
+  {
+    id: 'log-1',
+    user_name: 'Lucas Dollfus (Directeur)',
+    action: 'Mise à jour de page',
+    entity: 'team-building-cascades',
+    details: 'Mise à jour des descriptifs d’ateliers et réorganisation de grille',
+    created_at: new Date(Date.now() - 1000 * 60 * 15).toISOString(),
+  },
+  {
+    id: 'log-2',
+    user_name: 'Secrétariat CUC',
+    action: 'Nouvelle Session',
+    entity: 'Formation Découverte',
+    details: 'Session 15-26 Juillet 2026 ouverte aux inscriptions',
+    created_at: new Date(Date.now() - 1000 * 60 * 95).toISOString(),
+  },
+  {
+    id: 'log-3',
+    user_name: 'Admin Système',
+    action: 'Bandeau Flash',
+    entity: 'site_announcements',
+    details: 'Activation de l’alerte Journée Portes Ouvertes Campus',
+    created_at: new Date(Date.now() - 3600000 * 5).toISOString(),
+  },
+];
+
+const LOCAL_STORAGE_INQUIRIES_KEY = 'cuc_site_inquiries_cache';
+
+/**
+ * Récupère la liste des candidatures et demandes de contact.
+ * Se synchronise avec Supabase et dispose d'une sauvegarde persistante locale.
+ */
+export async function getInquiries(): Promise<SiteInquiry[]> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('site_inquiries')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (!error && data && data.length > 0) {
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.setItem(LOCAL_STORAGE_INQUIRIES_KEY, JSON.stringify(data));
+        } catch {
+          // Ignore quota error
+        }
+      }
+      return data as SiteInquiry[];
+    }
+  } catch {
+    // Ignore error
+  }
+
+  // Fallback localStorage
+  if (typeof window !== 'undefined') {
+    try {
+      const cached = localStorage.getItem(LOCAL_STORAGE_INQUIRIES_KEY);
+      if (cached) {
+        return JSON.parse(cached);
+      }
+    } catch {
+      // Ignore parse error
+    }
+  }
+
+  return SAMPLE_INQUIRIES;
+}
+
+/**
+ * Récupère l'historique d'audit des actions administratives.
+ */
+export async function getAuditLogs(): Promise<AuditLogEntry[]> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('site_audit_logs')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(20);
+
+    if (!error && data && data.length > 0) {
+      return data as AuditLogEntry[];
+    }
+  } catch {
+    // Ignore
+  }
+
+  return SAMPLE_AUDIT_LOGS;
 }
 

@@ -48,7 +48,10 @@ export default function FormationDeCascadeurPage() {
         <FormationHeroSection onApply={handleOpenApplication} heroData={content.hero} />
 
         {/* 2. Les 2 Formules du Cursus Professionnel */}
-        <FormationFormulesSection onApply={handleOpenApplication} />
+        <FormationFormulesSection
+          onApply={handleOpenApplication}
+          formulesData={content.sections_data?.formules}
+        />
 
         {/* 3. Les 10 Disciplines de la Cascade Physique */}
         <FormationDisciplinesExplorer />

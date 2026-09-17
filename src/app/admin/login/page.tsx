@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import { loginAdminAction } from '../actions';
 import { Shield, Lock, Mail, ArrowLeft, AlertCircle, RefreshCw, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
@@ -93,8 +94,15 @@ export default function AdminLoginPage() {
       <div className="max-w-md w-full space-y-6">
         {/* Header Logo */}
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#FFE500] text-black font-black text-2xl shadow-[0_0_30px_rgba(255,229,0,0.3)] mb-2">
-            CUC
+          <div className="inline-flex items-center justify-center relative w-16 h-16 mb-2">
+            <Image
+              src="/images/logos/cuc-logo-yellow.png"
+              alt="Campus Univers Cascades"
+              width={64}
+              height={64}
+              className="object-contain drop-shadow-[0_0_20px_rgba(255,229,0,0.4)]"
+              priority
+            />
           </div>
           <h1 className="text-2xl font-black uppercase tracking-wider text-white">
             Cockpit Administration

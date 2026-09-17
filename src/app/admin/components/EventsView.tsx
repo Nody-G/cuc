@@ -10,7 +10,6 @@ import {
   CheckCircle2,
   Save,
   Image as ImageIcon,
-  ArrowRight,
 } from 'lucide-react';
 import { SiteEvent } from '@/lib/data/site-service';
 import { upsertEvent, deleteEvent } from '@/app/admin/actions';
@@ -260,8 +259,8 @@ export const EventsView: React.FC<EventsViewProps> = ({
                 <label className="block text-xs font-mono text-gray-400 mb-1">URL Image</label>
                 <div className="flex gap-2">
                   <input
-                    type="url"
-                    placeholder="https://..."
+                    type="text"
+                    placeholder="/images/... ou https://..."
                     value={editingEvent.image_url || ''}
                     onChange={(e) => setEditingEvent({ ...editingEvent, image_url: e.target.value })}
                     className="flex-1 bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500]"

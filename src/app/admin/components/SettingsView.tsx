@@ -161,7 +161,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
                   type="text"
                   value={settings.address || ''}
                   onChange={(e) => handleChange('address', e.target.value)}
-                  placeholder="Ex: Le Cateau-Cambrésis (59360), Hauts-de-France, France"
+                  placeholder="Ex: Domaine CUC, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis"
                   className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-10 pr-3.5 py-2.5 text-sm text-zinc-100 focus:outline-none focus:border-amber-400"
                 />
               </div>
@@ -192,7 +192,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
                   type="text"
                   value={settings.phone || ''}
                   onChange={(e) => handleChange('phone', e.target.value)}
-                  placeholder="+33 (0)3 27 00 00 00"
+                  placeholder="+33 (0)6 72 84 94 92"
                   className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-10 pr-3.5 py-2.5 text-sm text-zinc-100 focus:outline-none focus:border-amber-400"
                 />
               </div>

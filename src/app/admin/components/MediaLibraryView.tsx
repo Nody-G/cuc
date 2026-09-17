@@ -10,9 +10,7 @@ import {
   Trash2,
   RefreshCw,
   Search,
-  ExternalLink,
   HardDrive,
-  Filter,
 } from 'lucide-react';
 import { listMediaFiles, uploadMediaFile, deleteMediaFile } from '@/app/admin/actions';
 
@@ -35,18 +33,32 @@ export const MediaLibraryView: React.FC<MediaLibraryViewProps> = ({ showToast })
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
   const [previewFile, setPreviewFile] = useState<MediaFile | null>(null);
 
-  useEffect(() => {
-    loadFiles();
+  const loadFiles = React.useCallback(async (showLoading = false) => {
+    if (showLoading) setLoading(true);
+    try {
+      const res = await listMediaFiles();
+      if (res.success && res.files) {
+        setFiles(res.files);
+      }
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const loadFiles = async () => {
-    setLoading(true);
-    const res = await listMediaFiles();
-    if (res.success && res.files) {
-      setFiles(res.files);
-    }
-    setLoading(false);
-  };
+  useEffect(() => {
+    let active = true;
+    listMediaFiles().then((res) => {
+      if (active) {
+        if (res.success && res.files) {
+          setFiles(res.files);
+        }
+        setLoading(false);
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
@@ -156,7 +168,8 @@ export const MediaLibraryView: React.FC<MediaLibraryViewProps> = ({ showToast })
         <div className="flex items-center gap-4 text-xs font-mono text-gray-400 w-full sm:w-auto justify-between">
           <span>{filteredFiles.length} FICHIER(S) DISPONIBLE(S)</span>
           <button
-            onClick={loadFiles}
+            type="button"
+            onClick={() => loadFiles(true)}
             title="Rafraîchir la liste"
             className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-[#FFE500] transition-colors"
           >

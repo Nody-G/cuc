@@ -2,15 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import {
-  Users,
   Shield,
-  UserCheck,
   Briefcase,
   GraduationCap,
   KeyRound,
-  CheckCircle2,
   RefreshCw,
-  AlertCircle,
   Copy,
 } from 'lucide-react';
 import { listCockpitUsers, updateUserRole } from '@/app/admin/actions';
@@ -51,8 +47,20 @@ export const UsersRolesView: React.FC<UsersRolesViewProps> = ({
   };
 
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    let isMounted = true;
+    listCockpitUsers().then((res) => {
+      if (!isMounted) return;
+      setLoading(false);
+      if (res.success && res.users) {
+        setUsers(res.users as CockpitUser[]);
+      } else {
+        showToast(`Erreur chargement utilisateurs: ${res.error}`);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, [showToast]);
 
   const handleRoleChange = async (userId: string, newRole: string) => {
     setUpdatingUserId(userId);
@@ -123,9 +131,15 @@ export const UsersRolesView: React.FC<UsersRolesViewProps> = ({
           <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight uppercase">
             Gestion des Utilisateurs &amp; Rôles
           </h1>
-          <p className="text-sm text-gray-400 mt-1">
-            Contrôlez les accès accordés à chaque membre de l&apos;équipe du campus (Direction, Secrétariat, Formateurs).
-          </p>
+          <div className="flex items-center gap-3 mt-1.5 flex-wrap">
+            <p className="text-sm text-gray-400">
+              Contrôlez les accès accordés à chaque membre de l&apos;équipe du campus (Direction, Secrétariat, Formateurs).
+            </p>
+            <div className="flex items-center gap-1.5 text-xs text-gray-400">
+              <span>Votre session :</span>
+              {getRoleBadge(currentUserRole)}
+            </div>
+          </div>
         </div>
 
         <div className="flex items-center gap-2">

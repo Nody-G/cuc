@@ -13,7 +13,18 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 
-export const ContactCoordinatesSidebar: React.FC = () => {
+interface ContactCoordinatesSidebarProps {
+  accessInfo?: {
+    train?: string;
+    car?: string;
+    plane?: string;
+    opening_hours?: string;
+  };
+}
+
+export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps> = ({
+  accessInfo,
+}) => {
   return (
     <div className="lg:col-span-5 space-y-6">
       {/* Standard téléphonique */}
@@ -72,12 +83,32 @@ export const ContactCoordinatesSidebar: React.FC = () => {
                 HORAIRES DU STANDARD :
               </strong>
               <span className="text-zinc-400">
-                Du Lundi au Vendredi : 09h00 - 18h30
-                <br />
-                Samedi (jours de stage) : 09h00 - 17h00
+                {accessInfo?.opening_hours || (
+                  <>
+                    Du Lundi au Vendredi : 09h00 - 18h30
+                    <br />
+                    Samedi (jours de stage) : 09h00 - 17h00
+                  </>
+                )}
               </span>
             </div>
           </div>
+          {(accessInfo?.train || accessInfo?.car) && (
+            <div className="pt-3 border-t border-zinc-800/80 space-y-1.5 text-[11px] text-zinc-400">
+              {accessInfo?.train && (
+                <div className="flex items-start gap-2">
+                  <span className="text-[#FFE500] font-mono-tech font-bold shrink-0">TRAIN :</span>
+                  <span>{accessInfo.train}</span>
+                </div>
+              )}
+              {accessInfo?.car && (
+                <div className="flex items-start gap-2">
+                  <span className="text-[#FFE500] font-mono-tech font-bold shrink-0">ROUTE :</span>
+                  <span>{accessInfo.car}</span>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 

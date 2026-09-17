@@ -1,32 +1,29 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import {
-  FileText,
   Save,
   Globe,
-  Search,
-  CheckCircle2,
-  ExternalLink,
-  Plus,
-  Trash2,
-  Image as ImageIcon,
-  Eye,
   Sliders,
   Sparkles,
-  MoveVertical,
   RotateCcw,
   Smartphone,
   Tablet,
   Monitor,
   RefreshCw,
-  Link2,
+  Eye,
+  Image as ImageIcon,
 } from 'lucide-react';
-import { SitePageContent, SitePageSection, LayoutSection, DEFAULT_PAGE_CONTENTS, normalizeSlug } from '@/lib/data/site-service';
+import { SitePageContent, DEFAULT_PAGE_CONTENTS, normalizeSlug } from '@/lib/data/site-service';
 import { upsertPageContent, resetPageContentToDefault } from '@/app/admin/actions';
 import { MediaPickerModal } from './MediaPickerModal';
 import { PageLayoutManager } from './PageLayoutManager';
+import { HeroSeoEditor } from './pages-editor/HeroSeoEditor';
+import { TeamBuildingPageEditor } from './pages-editor/TeamBuildingPageEditor';
+import { FormationPageEditor } from './pages-editor/FormationPageEditor';
+import { StagesPageEditor } from './pages-editor/StagesPageEditor';
+import { ContactPageEditor } from './pages-editor/ContactPageEditor';
+import { KeyStatsEditor } from './pages-editor/KeyStatsEditor';
 
 interface PagesEditorViewProps {
   pages: SitePageContent[];
@@ -138,7 +135,6 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     }
   };
 
-  // Restauration d'origine avec confirmation
   const handleResetToDefault = async () => {
     const confirmed = window.confirm(
       `Êtes-vous sûr de vouloir rétablir les textes et la disposition d'origine pour "${formData.title}" ? Vos modifications personnalisées sur cette page seront réinitialisées.`
@@ -149,105 +145,195 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     const res = await resetPageContentToDefault(formData.slug);
     setIsResetting(false);
 
-    if (res.success && res.defaultData) {
-      setFormData(res.defaultData);
-      onPageSaved(res.defaultData);
-      setPreviewKey((prev) => prev + 1);
-      showToast(`Textes d'origine rétablis pour "${formData.title}".`);
+    if (res.success) {
+      const defaultData = DEFAULT_PAGE_CONTENTS[formData.slug];
+      if (defaultData) {
+        setFormData({ ...defaultData });
+        onPageSaved(defaultData);
+        setPreviewKey((prev) => prev + 1);
+        showToast(`Page "${formData.title}" rétablie aux réglages d'origine CUC.`);
+      }
     } else {
-      showToast(`Erreur lors du rétablissement : ${res.error}`);
+      showToast(`Erreur lors de la réinitialisation : ${res.error}`);
     }
   };
 
-  // Mise à jour de layout_sections
-  const handleLayoutChange = (newLayout: LayoutSection[]) => {
-    setFormData((prev) => ({
-      ...prev,
-      layout_sections: newLayout,
-    }));
-  };
-
-  // Mise à jour de sections_data
-  const handleUpdateSectionData = (sectionKey: string, field: string, value: any) => {
+  // Handlers pour Team Building
+  const handleUpdateWorkshop = (index: number, updates: any) => {
+    const currentList = Array.isArray(formData.sections_data?.workshops)
+      ? [...formData.sections_data.workshops]
+      : [];
+    currentList[index] = { ...currentList[index], ...updates };
     setFormData((prev) => ({
       ...prev,
       sections_data: {
         ...(prev.sections_data || {}),
-        [sectionKey]: {
-          ...(prev.sections_data?.[sectionKey] || {}),
-          [field]: value,
+        workshops: currentList,
+      },
+    }));
+  };
+
+  const handleAddWorkshop = () => {
+    const currentList = Array.isArray(formData.sections_data?.workshops)
+      ? [...formData.sections_data.workshops]
+      : [];
+    currentList.push({
+      id: `workshop_${Date.now()}`,
+      title: 'Nouvel Atelier Cascade',
+      category: 'Initiation & Action',
+      desc: 'Description des exercices et sensations proposées aux équipes.',
+      img: 'https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-combat-cinema-1.jpg',
+    });
+    setFormData((prev) => ({
+      ...prev,
+      sections_data: {
+        ...(prev.sections_data || {}),
+        workshops: currentList,
+      },
+    }));
+  };
+
+  const handleRemoveWorkshop = (index: number) => {
+    const currentList = Array.isArray(formData.sections_data?.workshops)
+      ? formData.sections_data.workshops.filter((_: any, i: number) => i !== index)
+      : [];
+    setFormData((prev) => ({
+      ...prev,
+      sections_data: {
+        ...(prev.sections_data || {}),
+        workshops: currentList,
+      },
+    }));
+  };
+
+  // Handlers pour Formules
+  const handleUpdateFormule = (index: number, updates: any) => {
+    const current = formData.sections_data?.formules || {};
+    const items = Array.isArray(current.items) ? [...current.items] : [];
+    items[index] = { ...items[index], ...updates };
+    setFormData((prev) => ({
+      ...prev,
+      sections_data: {
+        ...(prev.sections_data || {}),
+        formules: {
+          ...current,
+          items,
         },
       },
     }));
   };
 
-  // Gestion des blocs de chiffres clés
-  const handleAddKeyStat = () => {
-    const newSec: SitePageSection = {
-      id: `stat_${Date.now()}`,
-      title: 'Nouvelle statistique',
-      value: '100%',
-      description: 'Précision ou indication',
-    };
-    setFormData({
-      ...formData,
-      sections: [...(formData.sections || []), newSec],
+  // Handlers pour Stages
+  const handleUpdateStageItem = (index: number, updates: any) => {
+    const current = formData.sections_data?.stages_catalogue || {};
+    const items = Array.isArray(current.items) ? [...current.items] : [];
+    items[index] = { ...items[index], ...updates };
+    setFormData((prev) => ({
+      ...prev,
+      sections_data: {
+        ...(prev.sections_data || {}),
+        stages_catalogue: {
+          ...current,
+          items,
+        },
+      },
+    }));
+  };
+
+  const handleAddStageItem = () => {
+    const current = formData.sections_data?.stages_catalogue || {};
+    const items = Array.isArray(current.items) ? [...current.items] : [];
+    items.push({
+      id: `stage_${Date.now()}`,
+      title: 'Nouveau Stage Thématique',
+      duration: '3 Jours (21h)',
+      desc: 'Description des disciplines enseignées et du niveau requis.',
     });
+    setFormData((prev) => ({
+      ...prev,
+      sections_data: {
+        ...(prev.sections_data || {}),
+        stages_catalogue: {
+          ...current,
+          items,
+        },
+      },
+    }));
+  };
+
+  const handleRemoveStageItem = (index: number) => {
+    const current = formData.sections_data?.stages_catalogue || {};
+    const items = Array.isArray(current.items)
+      ? current.items.filter((_: any, i: number) => i !== index)
+      : [];
+    setFormData((prev) => ({
+      ...prev,
+      sections_data: {
+        ...(prev.sections_data || {}),
+        stages_catalogue: {
+          ...current,
+          items,
+        },
+      },
+    }));
+  };
+
+  // Handlers pour Chiffres Clés
+  const handleAddKeyStat = () => {
+    const currentList = Array.isArray(formData.sections) ? [...formData.sections] : [];
+    currentList.push({
+      id: `stat_${Date.now()}`,
+      title: 'Nouvelle Statistique',
+      value: '100%',
+      description: 'Précision sur la métrique',
+    });
+    setFormData((prev) => ({ ...prev, sections: currentList }));
   };
 
   const handleRemoveKeyStat = (id: string) => {
-    setFormData({
-      ...formData,
-      sections: (formData.sections || []).filter((s) => s.id !== id),
-    });
+    const currentList = (formData.sections || []).filter((s) => s.id !== id);
+    setFormData((prev) => ({ ...prev, sections: currentList }));
   };
 
-  const handleUpdateKeyStat = (id: string, updates: Partial<SitePageSection>) => {
-    setFormData({
-      ...formData,
-      sections: (formData.sections || []).map((s) => (s.id === id ? { ...s, ...updates } : s)),
-    });
+  const handleUpdateKeyStat = (id: string, updates: Partial<{ title: string; value: string; description: string }>) => {
+    const currentList = (formData.sections || []).map((s) =>
+      s.id === id ? { ...s, ...updates } : s
+    );
+    setFormData((prev) => ({ ...prev, sections: currentList }));
   };
 
-  const previewUrl = formData.slug === '/' ? '/' : `/${formData.slug.replace(/^\//, '')}`;
+  const previewUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}${formData.slug === '/' ? '' : `/${formData.slug}`}`;
 
   return (
     <div className="space-y-6">
-      {/* En-tête principal */}
-      <div className="border-b border-white/10 pb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-[#FFE500] uppercase tracking-wider mb-1">
-            <Sliders className="w-3.5 h-3.5" /> Pilotage Intégral du Site Vitrine
-          </div>
-          <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight uppercase">
-            Gestion des Pages, Textes &amp; Emplacements
-          </h1>
-          <p className="text-sm text-gray-400 mt-1">
-            Modifiez chaque texte, image, ordre des sections et boutons. Vos changements s&apos;appliquent en direct sans toucher au code.
-          </p>
+      {/* Barre Supérieure : Sélecteur de Page & Enregistrement */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-xl bg-[#0D0D12] border border-white/10">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <label className="text-xs font-mono uppercase text-gray-400">Page Vitrine à éditer :</label>
+          <select
+            value={selectedSlug}
+            onChange={(e) => handleSelectPage(e.target.value)}
+            className="bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-xs text-white font-medium focus:border-[#FFE500] focus:outline-none min-w-[280px]"
+          >
+            {SITE_PAGES_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value} className="bg-zinc-900 text-white">
+                {opt.label}
+              </option>
+            ))}
+          </select>
         </div>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={handleResetToDefault}
             disabled={isResetting}
-            title="Rétablir les textes et dispositions officielles du campus"
-            className="px-3.5 py-2 rounded-lg bg-white/5 hover:bg-red-500/10 hover:border-red-500/30 text-gray-300 hover:text-red-300 text-xs font-medium border border-white/10 flex items-center gap-2 transition-colors disabled:opacity-50"
+            className="px-3.5 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 border border-white/10 transition-colors disabled:opacity-50"
+            title="Rétablir la version officielle d'origine CUC"
           >
-            <RotateCcw className="w-3.5 h-3.5" />
-            <span>{isResetting ? 'Rétablissement...' : 'Rétablir origine'}</span>
+            <RotateCcw className={`w-3.5 h-3.5 ${isResetting ? 'animate-spin' : ''}`} />
+            <span>Réinitialiser</span>
           </button>
-
-          <a
-            href={previewUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="px-3.5 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white text-xs font-medium border border-white/10 flex items-center gap-2 transition-colors"
-          >
-            <span>Voir en direct</span>
-            <ExternalLink className="w-3.5 h-3.5 text-[#FFE500]" />
-          </a>
 
           <button
             type="button"
@@ -255,532 +341,152 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
             disabled={isSaving}
             className="px-5 py-2 rounded-lg bg-[#FFE500] hover:bg-[#ffe600e6] text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-yellow-500/10 disabled:opacity-50 transition-transform active:scale-95"
           >
-            <Save className="w-4 h-4" />
+            <Save className="w-3.5 h-3.5" />
             <span>{isSaving ? 'Enregistrement...' : 'Enregistrer'}</span>
           </button>
         </div>
       </div>
 
-      {/* Sélecteur de page horizontal défilable */}
-      <div className="bg-[#0D0D12] border border-white/10 rounded-xl p-3">
-        <div className="text-[11px] font-mono text-gray-400 uppercase tracking-wider mb-2 px-2 flex items-center justify-between">
-          <span>Sélectionner la page à piloter ({pages.length} pages disponibles) :</span>
-          <span className="text-[#FFE500] font-bold">Page active : {formData.title}</span>
-        </div>
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
-          {pages.map((p) => {
-            const isSelected = p.slug === selectedSlug;
-            return (
-              <button
-                key={p.slug}
-                type="button"
-                onClick={() => handleSelectPage(p.slug)}
-                className={`px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all flex items-center gap-2 ${
-                  isSelected
-                    ? 'bg-[#FFE500] text-black shadow-md shadow-yellow-500/20'
-                    : 'bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white'
-                }`}
-              >
-                <span>{p.title}</span>
-                <span
-                  className={`text-[9px] font-mono px-1.5 py-0.5 rounded ${
-                    isSelected ? 'bg-black/20 text-black' : 'bg-black/40 text-gray-400'
-                  }`}
-                >
-                  {p.slug}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* 4 Onglets Principaux : Structure, Textes, Studio Preview, SEO */}
-      <div className="flex border-b border-white/10 overflow-x-auto">
+      {/* Onglets de contrôle */}
+      <div className="flex border-b border-white/10 gap-1">
         <button
           type="button"
-          onClick={() => setActiveTab('layout')}
-          className={`px-5 py-3 text-xs font-bold uppercase tracking-wider transition-colors border-b-2 flex items-center gap-2 whitespace-nowrap ${
-            activeTab === 'layout'
-              ? 'border-[#FFE500] text-[#FFE500]'
+          onClick={() => setActiveTab('content')}
+          className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-colors ${
+            activeTab === 'content'
+              ? 'border-[#FFE500] text-[#FFE500] bg-white/5'
               : 'border-transparent text-gray-400 hover:text-white'
           }`}
         >
-          <MoveVertical className="w-4 h-4" />
-          1. Structure &amp; Emplacements ({formData.layout_sections?.length || 0})
+          <Sparkles className="w-3.5 h-3.5" />
+          <span>Contenu &amp; Textes</span>
         </button>
 
         <button
           type="button"
-          onClick={() => setActiveTab('content')}
-          className={`px-5 py-3 text-xs font-bold uppercase tracking-wider transition-colors border-b-2 flex items-center gap-2 whitespace-nowrap ${
-            activeTab === 'content'
-              ? 'border-[#FFE500] text-[#FFE500]'
+          onClick={() => setActiveTab('layout')}
+          className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-colors ${
+            activeTab === 'layout'
+              ? 'border-[#FFE500] text-[#FFE500] bg-white/5'
               : 'border-transparent text-gray-400 hover:text-white'
           }`}
         >
-          <FileText className="w-4 h-4" />
-          2. Textes, Médias &amp; Boutons
+          <Sliders className="w-3.5 h-3.5" />
+          <span>Mise en Page ({formData.layout_sections?.length || 0})</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('preview')}
-          className={`px-5 py-3 text-xs font-bold uppercase tracking-wider transition-colors border-b-2 flex items-center gap-2 whitespace-nowrap ${
+          className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-colors ${
             activeTab === 'preview'
-              ? 'border-[#FFE500] text-[#FFE500]'
+              ? 'border-[#FFE500] text-[#FFE500] bg-white/5'
               : 'border-transparent text-gray-400 hover:text-white'
           }`}
         >
-          <Eye className="w-4 h-4" />
-          3. Studio Live Preview
+          <Eye className="w-3.5 h-3.5" />
+          <span>Aperçu en Direct</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('seo')}
-          className={`px-5 py-3 text-xs font-bold uppercase tracking-wider transition-colors border-b-2 flex items-center gap-2 whitespace-nowrap ${
+          className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-colors ${
             activeTab === 'seo'
-              ? 'border-[#FFE500] text-[#FFE500]'
+              ? 'border-[#FFE500] text-[#FFE500] bg-white/5'
               : 'border-transparent text-gray-400 hover:text-white'
           }`}
         >
-          <Search className="w-4 h-4" />
-          4. Référencement Google (SEO)
+          <Globe className="w-3.5 h-3.5" />
+          <span>Référencement (SEO)</span>
         </button>
       </div>
 
-      {/* ========================================================================= */}
-      {/* 1. ONGLET STRUCTURE & EMPLACEMENTS (PageLayoutManager)                    */}
-      {/* ========================================================================= */}
+      {/* 1. ONGLET STRUCTURE & EMPLACEMENTS (PageLayoutManager) */}
       {activeTab === 'layout' && (
-        <div className="space-y-6 animate-in fade-in duration-150">
+        <div className="animate-in fade-in duration-150">
           <PageLayoutManager
             layoutSections={formData.layout_sections || []}
-            onChange={handleLayoutChange}
-            onEditSection={(secId) => {
-              setActiveTab('content');
+            onChange={(updatedSections) =>
+              setFormData((prev) => ({
+                ...prev,
+                layout_sections: updatedSections,
+              }))
+            }
+            onReset={() => {
+              const defaultData = DEFAULT_PAGE_CONTENTS[formData.slug];
+              if (defaultData?.layout_sections) {
+                setFormData((prev) => ({
+                  ...prev,
+                  layout_sections: defaultData.layout_sections,
+                }));
+                showToast('Disposition des blocs réinitialisée à sa configuration d’origine.');
+              }
             }}
           />
         </div>
       )}
 
-      {/* ========================================================================= */}
-      {/* 2. ONGLET TEXTES, MÉDIAS & BOUTONS                                       */}
-      {/* ========================================================================= */}
+      {/* 2. ONGLET CONTENU & TEXTES */}
       {activeTab === 'content' && (
-        <div className="space-y-8 animate-in fade-in duration-150">
-          {/* BLOC A : EN-TÊTE & HÉROS PARALLAXE */}
-          <div className="bg-[#0D0D12] border border-white/10 rounded-xl p-6 space-y-6">
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
-              <div className="flex items-center gap-2">
-                <span className="p-1.5 rounded-lg bg-[#FFE500]/10 text-[#FFE500]">
-                  <Sparkles className="w-4 h-4" />
-                </span>
-                <div>
-                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-                    En-tête &amp; Section Héros (H1)
-                  </h3>
-                  <p className="text-xs text-gray-400">
-                    Grand titre principal, surtitre et boutons d&apos;accroche au sommet de la page.
-                  </p>
-                </div>
-              </div>
-            </div>
+        <div className="space-y-6 animate-in fade-in duration-150">
+          {/* Bloc A & B1 : Hero & Référencement */}
+          <HeroSeoEditor
+            formData={formData}
+            setFormData={setFormData}
+            setMediaPickerTarget={setMediaPickerTarget}
+          />
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="sm:col-span-2">
-                <label className="block text-xs font-mono text-gray-400 mb-1">
-                  Titre Principal H1 (affiché en grand)
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={formData.hero.title}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      hero: { ...formData.hero, title: e.target.value },
-                    })
-                  }
-                  className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white font-bold focus:outline-none focus:border-[#FFE500]"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-mono text-gray-400 mb-1">
-                  Badge Surtitre (au-dessus du titre)
-                </label>
-                <input
-                  type="text"
-                  value={formData.hero.badge || ''}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      hero: { ...formData.hero, badge: e.target.value },
-                    })
-                  }
-                  placeholder="ex: FORMATION DIPLÔMANTE • 2 ANS"
-                  className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-[#FFE500] font-mono focus:outline-none focus:border-[#FFE500]"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-mono text-gray-400 mb-1">
-                Sous-titre explicatif &amp; Texte d&apos;accroche
-              </label>
-              <textarea
-                rows={3}
-                value={formData.hero.subtitle}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    hero: { ...formData.hero, subtitle: e.target.value },
-                  })
-                }
-                className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500]"
-              />
-            </div>
-
-            {/* Photo d'arrière-plan avec accès direct à la médiathèque */}
-            <div>
-              <label className="block text-xs font-mono text-gray-400 mb-1">
-                Photo d&apos;arrière-plan de l&apos;en-tête
-              </label>
-              <div className="flex gap-2">
-                <input
-                  type="url"
-                  placeholder="https://..."
-                  value={formData.hero.bg_image || ''}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      hero: { ...formData.hero, bg_image: e.target.value },
-                    })
-                  }
-                  className="flex-1 bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500]"
-                />
-                <button
-                  type="button"
-                  onClick={() => setMediaPickerTarget('hero_bg')}
-                  className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-bold text-white flex items-center gap-1.5 transition-colors"
-                >
-                  <ImageIcon className="w-3.5 h-3.5 text-[#FFE500]" />
-                  Médiathèque
-                </button>
-              </div>
-            </div>
-
-            {/* Boutons d'action avec sélecteur de lien ergonomique */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-3 border-t border-white/10">
-              {/* Bouton 1 */}
-              <div className="space-y-3 p-4 rounded-xl bg-black/40 border border-white/5">
-                <div className="text-xs font-mono text-[#FFE500] uppercase font-bold flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-[#FFE500]" /> Bouton Principal (Jaune)
-                </div>
-                <div>
-                  <label className="block text-[11px] font-mono text-gray-400 mb-1">Texte du bouton</label>
-                  <input
-                    type="text"
-                    value={formData.hero.cta_primary_text || ''}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        hero: { ...formData.hero, cta_primary_text: e.target.value },
-                      })
-                    }
-                    placeholder="ex: Découvrir la formation"
-                    className="w-full bg-black/60 border border-white/20 rounded px-2.5 py-1.5 text-xs text-white"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-mono text-gray-400 mb-1">Destination du clic</label>
-                  <div className="space-y-1.5">
-                    <select
-                      value={formData.hero.cta_primary_link || '/formation-de-cascadeur'}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          hero: { ...formData.hero, cta_primary_link: e.target.value },
-                        })
-                      }
-                      className="w-full bg-black/80 border border-white/20 rounded px-2.5 py-1.5 text-xs text-white"
-                    >
-                      {SITE_PAGES_OPTIONS.map((opt) => (
-                        <option key={opt.value} value={opt.value}>
-                          {opt.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bouton 2 */}
-              <div className="space-y-3 p-4 rounded-xl bg-black/40 border border-white/5">
-                <div className="text-xs font-mono text-gray-300 uppercase font-bold flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-zinc-500" /> Bouton Secondaire (Contour)
-                </div>
-                <div>
-                  <label className="block text-[11px] font-mono text-gray-400 mb-1">Texte du bouton</label>
-                  <input
-                    type="text"
-                    value={formData.hero.cta_secondary_text || ''}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        hero: { ...formData.hero, cta_secondary_text: e.target.value },
-                      })
-                    }
-                    placeholder="ex: Visiter le campus"
-                    className="w-full bg-black/60 border border-white/20 rounded px-2.5 py-1.5 text-xs text-white"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-mono text-gray-400 mb-1">Destination du clic</label>
-                  <select
-                    value={formData.hero.cta_secondary_link || '/visite-guidee'}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        hero: { ...formData.hero, cta_secondary_link: e.target.value },
-                      })
-                    }
-                    className="w-full bg-black/80 border border-white/20 rounded px-2.5 py-1.5 text-xs text-white"
-                  >
-                    {SITE_PAGES_OPTIONS.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* BLOC B : CONTENUS SPÉCIFIQUES DE LA PAGE ACCUEIL (Si page '/') */}
-          {formData.slug === '/' && (
-            <div className="space-y-6">
-              {/* 1. Dossier Présentation & Piliers (About) */}
-              <div className="bg-[#0D0D12] border border-white/10 rounded-xl p-6 space-y-4">
-                <div className="border-b border-white/10 pb-3 flex items-center justify-between">
-                  <div>
-                    <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-                      Dossier Présentation &amp; Piliers (Qui Sommes-Nous)
-                    </h3>
-                    <p className="text-xs text-gray-400">
-                      Titre de la section, citation du fondateur Lucas Dollfus et arguments d&apos;excellence.
-                    </p>
-                  </div>
-                  <span className="text-[10px] font-mono text-[#FFE500] px-2 py-0.5 rounded bg-white/5 border border-white/10">
-                    Section id: about
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-mono text-gray-400 mb-1">Titre de section</label>
-                    <input
-                      type="text"
-                      value={formData.sections_data?.about?.title || 'LE CENTRE DE FORMATION DE RÉFÉRENCE EN CASCADE DE CINÉMA'}
-                      onChange={(e) => handleUpdateSectionData('about', 'title', e.target.value)}
-                      className="w-full bg-black/60 border border-white/20 rounded px-3 py-2 text-xs text-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-mono text-gray-400 mb-1">Badge Surtitre</label>
-                    <input
-                      type="text"
-                      value={formData.sections_data?.about?.tag || 'PRÉSENTATION'}
-                      onChange={(e) => handleUpdateSectionData('about', 'tag', e.target.value)}
-                      className="w-full bg-black/60 border border-white/20 rounded px-3 py-2 text-xs text-[#FFE500]"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono text-gray-400 mb-1">Description principale</label>
-                  <textarea
-                    rows={3}
-                    value={formData.sections_data?.about?.description || ''}
-                    onChange={(e) => handleUpdateSectionData('about', 'description', e.target.value)}
-                    className="w-full bg-black/60 border border-white/20 rounded px-3 py-2 text-xs text-white"
-                  />
-                </div>
-
-                <div className="p-4 rounded-xl bg-black/40 border border-white/5 space-y-3">
-                  <div className="text-xs font-mono text-[#FFE500] uppercase font-bold">
-                    Citation du Fondateur (Lucas Dollfus)
-                  </div>
-                  <div>
-                    <label className="block text-[11px] font-mono text-gray-400 mb-1">Texte de la citation</label>
-                    <textarea
-                      rows={2}
-                      value={formData.sections_data?.about?.founder_quote || ''}
-                      onChange={(e) => handleUpdateSectionData('about', 'founder_quote', e.target.value)}
-                      className="w-full bg-black/60 border border-white/20 rounded px-2.5 py-1.5 text-xs text-white italic"
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-[11px] font-mono text-gray-400 mb-1">Nom du signataire</label>
-                      <input
-                        type="text"
-                        value={formData.sections_data?.about?.founder_name || 'LUCAS DOLLFUS'}
-                        onChange={(e) => handleUpdateSectionData('about', 'founder_name', e.target.value)}
-                        className="w-full bg-black/60 border border-white/20 rounded px-2.5 py-1.5 text-xs text-white"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-mono text-gray-400 mb-1">Rôle / Titre</label>
-                      <input
-                        type="text"
-                        value={formData.sections_data?.about?.founder_role || 'FONDATEUR & RÉGLEUR'}
-                        onChange={(e) => handleUpdateSectionData('about', 'founder_role', e.target.value)}
-                        className="w-full bg-black/60 border border-white/20 rounded px-2.5 py-1.5 text-xs text-[#FFE500]"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 2. Certification Qualiopi & Financements */}
-              <div className="bg-[#0D0D12] border border-white/10 rounded-xl p-6 space-y-4">
-                <div className="border-b border-white/10 pb-3 flex items-center justify-between">
-                  <div>
-                    <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-                      Agrément Qualiopi &amp; Prise en Charge
-                    </h3>
-                    <p className="text-xs text-gray-400">
-                      Informations sur les financements AFDAS, France Travail et OPCO.
-                    </p>
-                  </div>
-                  <span className="text-[10px] font-mono text-[#FFE500] px-2 py-0.5 rounded bg-white/5 border border-white/10">
-                    Section id: qualiopi
-                  </span>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono text-gray-400 mb-1">Titre de la section</label>
-                  <input
-                    type="text"
-                    value={formData.sections_data?.qualiopi?.title || 'CERTIFICATION QUALIOPI & FINANCEMENTS'}
-                    onChange={(e) => handleUpdateSectionData('qualiopi', 'title', e.target.value)}
-                    className="w-full bg-black/60 border border-white/20 rounded px-3 py-2 text-xs text-white"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono text-gray-400 mb-1">Sous-titre explicatif</label>
-                  <textarea
-                    rows={2}
-                    value={formData.sections_data?.qualiopi?.subtitle || ''}
-                    onChange={(e) => handleUpdateSectionData('qualiopi', 'subtitle', e.target.value)}
-                    className="w-full bg-black/60 border border-white/20 rounded px-3 py-2 text-xs text-white"
-                  />
-                </div>
-              </div>
-            </div>
+          {/* Bloc B2 : Team Building */}
+          {formData.slug === 'team-building-cascades' && (
+            <TeamBuildingPageEditor
+              formData={formData}
+              setFormData={setFormData}
+              setMediaPickerTarget={setMediaPickerTarget}
+              handleUpdateWorkshop={handleUpdateWorkshop}
+              handleAddWorkshop={handleAddWorkshop}
+              handleRemoveWorkshop={handleRemoveWorkshop}
+            />
           )}
 
-          {/* BLOC C : CHIFFRES CLÉS & STATISTIQUES */}
-          <div className="bg-[#0D0D12] border border-white/10 rounded-xl p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
-              <div>
-                <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-                  Chiffres Clés &amp; Statistiques ({formData.sections?.length || 0})
-                </h3>
-                <p className="text-xs text-gray-400">
-                  Capsules numériques affichées sur cette page (ex: 18 Ans, 1200+ Diplômés, 11 000 m²).
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={handleAddKeyStat}
-                className="px-3 py-1.5 rounded-lg bg-[#FFE500] text-black text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 hover:bg-[#ffe600e6]"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                Ajouter un chiffre
-              </button>
-            </div>
+          {/* Bloc B3 : Formation Pro 2 Ans */}
+          {formData.slug === 'formation-de-cascadeur' && (
+            <FormationPageEditor
+              formData={formData}
+              setFormData={setFormData}
+              handleUpdateFormule={handleUpdateFormule}
+            />
+          )}
 
-            {(!formData.sections || formData.sections.length === 0) ? (
-              <div className="p-8 text-center border border-dashed border-white/10 rounded-xl space-y-2">
-                <p className="text-xs text-gray-400">Aucun chiffre clé configuré.</p>
-                <button
-                  type="button"
-                  onClick={handleAddKeyStat}
-                  className="px-3 py-1.5 rounded-lg bg-white/10 text-white text-xs font-semibold inline-flex items-center gap-1.5"
-                >
-                  <Plus className="w-3.5 h-3.5" /> Créer un premier indicateur
-                </button>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                {formData.sections.map((sec, idx) => (
-                  <div
-                    key={sec.id || idx}
-                    className="bg-black/40 border border-white/10 rounded-xl p-4 space-y-2.5 relative group"
-                  >
-                    <div className="flex items-center justify-between border-b border-white/5 pb-1.5">
-                      <span className="text-[10px] font-mono text-[#FFE500] uppercase font-bold">
-                        Indicateur #{idx + 1}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveKeyStat(sec.id)}
-                        className="p-1 text-gray-500 hover:text-red-400 transition-colors"
-                        title="Supprimer"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
+          {/* Bloc B4 : Stages & Parkour */}
+          {formData.slug === 'stages-cascades-parkour-2' && (
+            <StagesPageEditor
+              formData={formData}
+              handleUpdateStageItem={handleUpdateStageItem}
+              handleAddStageItem={handleAddStageItem}
+              handleRemoveStageItem={handleRemoveStageItem}
+            />
+          )}
 
-                    <div className="grid grid-cols-2 gap-2.5">
-                      <div>
-                        <label className="block text-[10px] font-mono text-gray-400 mb-1">Chiffre / Valeur</label>
-                        <input
-                          type="text"
-                          value={sec.value || ''}
-                          onChange={(e) => handleUpdateKeyStat(sec.id, { value: e.target.value })}
-                          placeholder="ex: 18 Ans"
-                          className="w-full bg-black/60 border border-white/20 rounded px-2 py-1 text-xs text-[#FFE500] font-bold"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[10px] font-mono text-gray-400 mb-1">Intitulé</label>
-                        <input
-                          type="text"
-                          value={sec.title}
-                          onChange={(e) => handleUpdateKeyStat(sec.id, { title: e.target.value })}
-                          placeholder="ex: Expérience"
-                          className="w-full bg-black/60 border border-white/20 rounded px-2 py-1 text-xs text-white"
-                        />
-                      </div>
-                    </div>
+          {/* Bloc B5 : Contact & Accès */}
+          {formData.slug === 'contact-cuc' && (
+            <ContactPageEditor
+              formData={formData}
+              setFormData={setFormData}
+            />
+          )}
 
-                    <div>
-                      <label className="block text-[10px] font-mono text-gray-400 mb-1">Sous-texte descriptif</label>
-                      <input
-                        type="text"
-                        value={sec.description || ''}
-                        onChange={(e) => handleUpdateKeyStat(sec.id, { description: e.target.value })}
-                        placeholder="ex: Fondé en 2008 par Lucas Dollfus"
-                        className="w-full bg-black/60 border border-white/20 rounded px-2 py-1 text-xs text-zinc-300"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+          {/* Bloc C : Chiffres Clés & Statistiques */}
+          <KeyStatsEditor
+            formData={formData}
+            handleAddKeyStat={handleAddKeyStat}
+            handleRemoveKeyStat={handleRemoveKeyStat}
+            handleUpdateKeyStat={handleUpdateKeyStat}
+          />
         </div>
       )}
 
-      {/* ========================================================================= */}
-      {/* 3. ONGLET STUDIO LIVE PREVIEW                                            */}
-      {/* ========================================================================= */}
+      {/* 3. ONGLET STUDIO LIVE PREVIEW */}
       {activeTab === 'preview' && (
         <div className="space-y-4 animate-in fade-in duration-150">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-3 rounded-xl bg-[#0D0D12] border border-white/10">
@@ -791,7 +497,6 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
             </div>
 
             <div className="flex items-center gap-2">
-              {/* Bascule Desktop / Tablet / Mobile */}
               <div className="flex items-center bg-black/60 p-1 rounded-lg border border-white/10">
                 <button
                   type="button"
@@ -825,7 +530,6 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
                 </button>
               </div>
 
-              {/* Bouton Recharger */}
               <button
                 type="button"
                 onClick={() => setPreviewKey((prev) => prev + 1)}
@@ -837,7 +541,6 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
             </div>
           </div>
 
-          {/* Cadre de simulation avec centrage adaptatif */}
           <div className="bg-[#050508] border border-white/10 rounded-2xl p-4 overflow-hidden flex justify-center min-h-[640px]">
             <div
               className={`transition-all duration-300 w-full rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-black ${
@@ -859,9 +562,7 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
         </div>
       )}
 
-      {/* ========================================================================= */}
-      {/* 4. ONGLET RÉFÉRENCEMENT & SEO GOOGLE                                     */}
-      {/* ========================================================================= */}
+      {/* 4. ONGLET RÉFÉRENCEMENT & SEO GOOGLE */}
       {activeTab === 'seo' && (
         <div className="space-y-6 animate-in fade-in duration-150">
           <div className="space-y-2">
@@ -933,8 +634,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
               </label>
               <div className="flex gap-2">
                 <input
-                  type="url"
-                  placeholder="https://..."
+                  type="text"
+                  placeholder="https://... ou /images/..."
                   value={formData.og_image || ''}
                   onChange={(e) => setFormData({ ...formData, og_image: e.target.value })}
                   className="flex-1 bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500]"
@@ -953,25 +654,6 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
         </div>
       )}
 
-      {/* Barre d'enregistrement basse persistante */}
-      <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-        <div className="text-xs text-gray-400">
-          Dernière mise à jour :{' '}
-          <span className="text-white font-mono">
-            {formData.updated_at ? new Date(formData.updated_at).toLocaleString('fr-FR') : 'Non modifiée'}
-          </span>
-        </div>
-        <button
-          type="button"
-          onClick={() => handleSave()}
-          disabled={isSaving}
-          className="px-6 py-2.5 rounded-lg bg-[#FFE500] hover:bg-[#ffe600e6] text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-yellow-500/10 disabled:opacity-50 transition-transform active:scale-95"
-        >
-          <Save className="w-4 h-4" />
-          <span>{isSaving ? 'Enregistrement...' : 'Enregistrer la page'}</span>
-        </button>
-      </div>
-
       {/* Modal Médiathèque intégrée */}
       {mediaPickerTarget && (
         <MediaPickerModal
@@ -985,6 +667,9 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
               });
             } else if (mediaPickerTarget === 'og_image') {
               setFormData({ ...formData, og_image: url });
+            } else if (mediaPickerTarget.startsWith('workshop_img_')) {
+              const idx = parseInt(mediaPickerTarget.replace('workshop_img_', ''), 10);
+              handleUpdateWorkshop(idx, { img: url });
             }
             setMediaPickerTarget(null);
           }}

@@ -23,7 +23,10 @@ export default function StagesCascadesParkourPage() {
 
       <main id="contenu-principal" className="flex-grow pt-28">
         <StagesHeroSection heroData={content.hero} />
-        <StagesGridSection onOpenApplication={handleOpenApplication} />
+        <StagesGridSection
+          onOpenApplication={handleOpenApplication}
+          customStages={content.sections_data?.stages_catalogue}
+        />
       </main>
 
       <Footer />

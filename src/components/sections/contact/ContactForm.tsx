@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Send, CheckCircle2 } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
+import { submitInquiry } from '@/app/admin/actions';
 
 export const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -16,14 +17,41 @@ export const ContactForm: React.FC = () => {
 
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setErrorMessage(null);
+
+    const programLabels: Record<string, string> = {
+      'pro-longue-duree': 'Formation Pro Longue Durée (2 ans)',
+      'stage-decouverte': 'Stage Découverte & Sélection (12j / 80h)',
+      'weekend-immersion': 'Formule Week-end Immersion',
+      'afdas-artistes-interpretes': 'Stage AFDAS Artistes Interprètes',
+      'stunt-summer-camp': 'Stunt Summer Camp',
+      'workshop-international': 'International Stunt Workshop',
+      'tournage-production': 'Production & Tournage Cinéma',
+      'cuc-events': 'CUC Events & Prestations',
+      'autre': 'Question Générale',
+    };
+
+    const res = await submitInquiry({
+      full_name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      program_id: formData.program,
+      program_title: programLabels[formData.program] || formData.program,
+      sport_background: formData.sportExperience,
+      message: formData.message,
+    });
+
+    setIsSubmitting(false);
+    if (res.success) {
       setSubmitted(true);
-    }, 450);
+    } else {
+      setErrorMessage(res.error || 'Une erreur est survenue lors de l’envoi. Veuillez réessayer.');
+    }
   };
 
   return (
@@ -206,6 +234,12 @@ export const ContactForm: React.FC = () => {
               className="w-full bg-[#14141c] border border-zinc-800 p-3 text-white focus:border-[#FFE500] focus:outline-hidden"
             />
           </div>
+
+          {errorMessage && (
+            <div className="p-3 bg-red-950/40 border border-red-500/50 text-red-300 text-xs rounded-xs">
+              {errorMessage}
+            </div>
+          )}
 
           <div className="pt-2">
             <TacticalButton

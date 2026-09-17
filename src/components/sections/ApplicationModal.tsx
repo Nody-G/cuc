@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { X, CheckCircle2, Shield, Phone, Mail, MapPin, Send } from 'lucide-react';
 import { TacticalButton } from '../ui/TacticalButton';
 import { StuntBadge } from '../ui/StuntBadge';
+import { submitInquiry } from '@/app/admin/actions';
 
 type ProfileType = 'pro' | 'discovery' | 'weekend' | 'afdas' | 'prod';
 
@@ -41,6 +42,8 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Synchronize profileType when defaultProgramId changes
   const [prevDefaultProgramId, setPrevDefaultProgramId] = useState(defaultProgramId);
@@ -71,9 +74,38 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    const programTitles: Record<ProfileType, string> = {
+      pro: 'Formation Professionnelle Longue Durée 2 ans',
+      discovery: 'Stage Découverte & Sélection (12 jours)',
+      weekend: 'Week-end Immersion Cascade',
+      afdas: 'Stage AFDAS Artistes-Interprètes (Paris Gennevilliers)',
+      prod: 'Coordination Cascade & Tournage Production',
+    };
+
+    const res = await submitInquiry({
+      full_name: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+      program_id: defaultProgramId || profileType,
+      program_title: programTitles[profileType] || profileType,
+      age: formData.age,
+      sport_background: formData.sportBackground,
+      session_date: formData.sessionDate,
+      afdas_status: formData.afdasStatus,
+      message: formData.message,
+    });
+
+    setIsSubmitting(false);
+    if (res.success) {
+      setIsSubmitted(true);
+    } else {
+      setSubmitError(res.error || 'Erreur lors de la transmission du dossier.');
+    }
   };
 
   return (
@@ -268,6 +300,12 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
                 </p>
               </div>
 
+              {submitError && (
+                <div className="p-3 bg-red-950/40 border border-red-500/50 text-red-300 text-xs rounded-xs">
+                  {submitError}
+                </div>
+              )}
+
               <div className="flex items-center justify-end gap-3 pt-2">
                 <button
                   type="button"
@@ -276,8 +314,13 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
                 >
                   Annuler
                 </button>
-                <TacticalButton type="submit" variant="primary" icon={<Send className="w-4 h-4" />}>
-                  Transmettre ma Candidature
+                <TacticalButton
+                  type="submit"
+                  variant="primary"
+                  disabled={isSubmitting}
+                  icon={<Send className="w-4 h-4" />}
+                >
+                  {isSubmitting ? 'Transmission...' : 'Transmettre ma Candidature'}
                 </TacticalButton>
               </div>
             </form>

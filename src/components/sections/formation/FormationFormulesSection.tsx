@@ -7,25 +7,48 @@ import { TacticalButton } from '@/components/ui/TacticalButton';
 
 interface FormationFormulesSectionProps {
   onApply: (programId: string) => void;
+  formulesData?: {
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+    items?: Array<{
+      id: string;
+      step_badge?: string;
+      duration_badge?: string;
+      title: string;
+      description?: string;
+      duration_text?: string;
+      schedule_text?: string;
+      boarding_text?: string;
+      certification_text?: string;
+      cta_text?: string;
+      program_id?: string;
+    }>;
+  };
 }
 
 export const FormationFormulesSection: React.FC<FormationFormulesSectionProps> = ({
   onApply,
+  formulesData,
 }) => {
+  const badge = formulesData?.badge || "PARCOURS D'ADMISSION & CURSUS";
+  const title = formulesData?.title || "DU STAGE DÉCOUVERTE AU DIPLÔME PRO";
+  const subtitle =
+    formulesData?.subtitle ||
+    "L'accès à la formation longue durée est conditionné par la validation du stage découverte. Ce protocole sélectif garantit la sécurité de tous et le niveau d'excellence de la promotion.";
+
   return (
     <section className="py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <StuntBadge variant="yellow" icon={<Target className="w-3.5 h-3.5" />}>
-            PARCOURS D'ADMISSION &amp; CURSUS
+            {badge}
           </StuntBadge>
           <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mt-3 mb-3">
-            DU STAGE DÉCOUVERTE AU DIPLÔME PRO
+            {title}
           </h2>
           <p className="text-sm font-tech text-zinc-400">
-            L'accès à la formation longue durée est conditionné par la validation du
-            stage découverte. Ce protocole sélectif garantit la sécurité de tous et
-            le niveau d'excellence de la promotion.
+            {subtitle}
           </p>
         </div>
 
