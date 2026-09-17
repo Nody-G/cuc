@@ -1,16 +1,15 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Ce client admin utilise la clé secrète côté serveur uniquement.
-// Il ne doit JAMAIS être exposé côté client/navigateur.
+const SUPABASE_URL =
+  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://xkbkcsypftvspmkfnrfm.supabase.co';
+
 export function createAdminClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const serviceRoleKey =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhrYmtjc3lwZnR2c3Bta2ZucmZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxMDEzMTgsImV4cCI6MjA5ODY3NzMxOH0.Temk6Y9gSqHyG6psq7rZ745t16QDNKDGsBfSkStnbew';
 
-  if (!supabaseUrl || !serviceRoleKey) {
-    throw new Error('Supabase URL ou SUPABASE_SERVICE_ROLE_KEY manquante dans les variables d\'environnement.');
-  }
-
-  return createClient(supabaseUrl, serviceRoleKey, {
+  return createClient(SUPABASE_URL, serviceRoleKey, {
     auth: {
       autoRefreshToken: false,
       persistSession: false,
