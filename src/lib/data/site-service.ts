@@ -1241,8 +1241,8 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   afdas_status: "Prise en charge AFDAS certifiée pour artistes et techniciens du spectacle",
   france_travail_code: "Éligible Aide Individuelle à la Formation (AIF)",
 
-  hero_primary_cta_text: "Candidater aux Formations",
-  hero_primary_cta_url: "/formation-de-cascadeur",
+  hero_primary_cta_text: "Contacter le Campus",
+  hero_primary_cta_url: "/contact-cuc",
   hero_secondary_cta_text: "Visite Guidée 3D",
   hero_secondary_cta_url: "/visite-virtuelle",
 

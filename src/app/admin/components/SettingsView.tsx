@@ -306,7 +306,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
                     type="text"
                     value={settings.hero_primary_cta_text || ''}
                     onChange={(e) => handleChange('hero_primary_cta_text', e.target.value)}
-                    placeholder="Ex: Candidater aux Formations"
+                    placeholder="Ex: Contacter le Campus"
                     className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-sm text-zinc-100 focus:outline-none focus:border-emerald-400"
                   />
                 </div>
@@ -318,7 +318,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
                     type="text"
                     value={settings.hero_primary_cta_url || ''}
                     onChange={(e) => handleChange('hero_primary_cta_url', e.target.value)}
-                    placeholder="Ex: /formation-de-cascadeur"
+                    placeholder="Ex: /contact-cuc"
                     className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-sm text-zinc-100 focus:outline-none focus:border-emerald-400 font-mono text-xs"
                   />
                 </div>

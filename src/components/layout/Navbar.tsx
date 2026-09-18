@@ -209,7 +209,7 @@ export const Navbar: React.FC = () => {
                 size="sm"
                 className="text-xs px-2.5 py-1 sm:hidden"
               >
-                Candidater
+                Contacter
               </TacticalButton>
             </Link>
             <button
