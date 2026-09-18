@@ -51,20 +51,17 @@ export const FilmGridCard: React.FC<FilmGridCardProps> = ({
           </div>
 
           <div className="flex flex-col gap-2 w-full max-w-[210px]">
-            {/* IMDb Pro Link */}
+            {/* IMDb Link */}
             <a
               href={movie.imdbUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center justify-between px-3 py-1.5 bg-[#f5c518] hover:bg-[#ffe500] text-black text-xs font-bold font-mono-tech transition-transform hover:scale-102 shadow-md"
+              className="flex items-center justify-center gap-2 px-3 py-1.5 bg-[#f5c518] hover:bg-[#ffe500] text-black text-xs font-bold font-mono-tech transition-transform hover:scale-102 shadow-md"
               title={`Voir la fiche IMDb de ${movie.title}`}
             >
-              <span className="flex items-center gap-2">
-                <ImdbLogo className="h-4 w-auto shrink-0" />
-                <span className="text-[11px]">Fiche &amp; Stunt Team</span>
-              </span>
-              <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+              <ImdbLogo className="h-4 w-auto shrink-0" />
+              <span className="text-[11px]">Fiche &amp; Stunt Team</span>
             </a>
 
             {/* AlloCiné Link */}
@@ -73,14 +70,11 @@ export const FilmGridCard: React.FC<FilmGridCardProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center justify-between px-3 py-1.5 bg-[#1f1f26] hover:bg-[#2c2c36] text-[#fecc00] border border-[#fecc00]/40 text-xs font-mono-tech transition-transform hover:scale-102"
+              className="flex items-center justify-center gap-2 px-3 py-1.5 bg-[#1f1f26] hover:bg-[#2c2c36] text-[#fecc00] border border-[#fecc00]/40 text-xs font-mono-tech transition-transform hover:scale-102"
               title={`Voir la fiche AlloCiné de ${movie.title}`}
             >
-              <span className="flex items-center gap-2">
-                <AllocineLogo className="h-4 w-auto shrink-0" />
-                <span className="text-[11px]">Fiche France</span>
-              </span>
-              <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+              <AllocineLogo className="h-4 w-auto shrink-0" />
+              <span className="text-[11px]">Fiche France</span>
             </a>
 
             {/* Official Trailer Link */}
@@ -142,7 +136,6 @@ export const FilmGridCard: React.FC<FilmGridCardProps> = ({
               title="IMDb"
             >
               <ImdbLogo className="h-3 w-auto" />
-              <ExternalLink className="w-2.5 h-2.5" />
             </a>
 
             <a
@@ -154,7 +147,6 @@ export const FilmGridCard: React.FC<FilmGridCardProps> = ({
               title="AlloCiné"
             >
               <AllocineLogo className="h-3 w-auto" />
-              <ExternalLink className="w-2.5 h-2.5" />
             </a>
 
             <a

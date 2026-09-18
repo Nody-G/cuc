@@ -7,7 +7,6 @@ import {
   Plus,
   Edit2,
   Trash2,
-  ExternalLink,
   Star,
   Users,
   Shield,
@@ -295,11 +294,10 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
                       href={film.imdbUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="px-1.5 py-1 rounded bg-[#f5c518]/15 hover:bg-[#f5c518]/30 text-[#f5c518] flex items-center gap-1 transition-colors"
+                      className="px-1.5 py-1 rounded bg-[#f5c518]/15 hover:bg-[#f5c518]/30 text-[#f5c518] flex items-center transition-colors"
                       title="Fiche IMDb"
                     >
                       <ImdbLogo className="h-3 w-auto shrink-0" />
-                      <ExternalLink className="w-2 h-2" />
                     </a>
                   )}
                   {film.allocineUrl && (
@@ -307,11 +305,10 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
                       href={film.allocineUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="px-1.5 py-1 rounded bg-[#fecc00]/15 hover:bg-[#fecc00]/30 text-[#fecc00] flex items-center gap-1 transition-colors"
+                      className="px-1.5 py-1 rounded bg-[#fecc00]/15 hover:bg-[#fecc00]/30 text-[#fecc00] flex items-center transition-colors"
                       title="Fiche AlloCiné"
                     >
                       <AllocineLogo className="h-3 w-auto shrink-0" />
-                      <ExternalLink className="w-2 h-2" />
                     </a>
                   )}
                   {film.trailerUrl && (
@@ -319,11 +316,10 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
                       href={film.trailerUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="px-1.5 py-1 rounded bg-red-600/15 hover:bg-red-600/30 text-red-400 flex items-center gap-1 transition-colors"
+                      className="px-1.5 py-1 rounded bg-red-600/15 hover:bg-red-600/30 text-red-400 flex items-center transition-colors"
                       title="Bande-annonce"
                     >
                       <YouTubeLogo className="w-3 h-3 shrink-0" variant="color" />
-                      <ExternalLink className="w-2 h-2" />
                     </a>
                   )}
                 </div>

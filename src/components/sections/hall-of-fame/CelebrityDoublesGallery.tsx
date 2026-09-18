@@ -122,11 +122,10 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="absolute top-3 right-3 z-10 px-2 py-1 bg-[#f5c518] hover:bg-[#ffe500] text-black font-black text-[10px] font-mono-tech rounded-xs shadow-md flex items-center gap-1.5 transition-colors"
+                className="absolute top-3 right-3 z-10 px-2 py-1 bg-[#f5c518] hover:bg-[#ffe500] text-black font-black text-[10px] font-mono-tech rounded-xs shadow-md flex items-center transition-colors"
                 title={`Voir la filmographie IMDb de ${actor.name}`}
               >
                 <ImdbLogo className="h-3 w-auto" />
-                <ExternalLink className="w-2.5 h-2.5" />
               </a>
             </div>
 

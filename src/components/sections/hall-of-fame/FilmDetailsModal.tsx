@@ -187,7 +187,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                     href={movie.imdbUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/btn flex items-center justify-between p-3 bg-[#f5c518] hover:bg-[#ffe500] text-black transition-all shadow-md"
+                    className="group/btn flex items-center p-3 bg-[#f5c518] hover:bg-[#ffe500] text-black transition-all shadow-md"
                   >
                     <div className="flex items-center gap-3">
                       <ImdbLogo className="h-6 w-auto shadow-xs" />
@@ -200,7 +200,6 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                         </div>
                       </div>
                     </div>
-                    <ExternalLink className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                   </a>
 
                   {/* AlloCiné Link */}
@@ -208,7 +207,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                     href={movie.allocineUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/btn flex items-center justify-between p-3 bg-[#181820] hover:bg-[#22222d] border border-[#fecc00]/50 text-white transition-all"
+                    className="group/btn flex items-center p-3 bg-[#181820] hover:bg-[#22222d] border border-[#fecc00]/50 text-white transition-all"
                   >
                     <div className="flex items-center gap-3">
                       <AllocineLogo className="h-6 w-auto shadow-xs" />
@@ -221,7 +220,6 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                         </div>
                       </div>
                     </div>
-                    <ExternalLink className="w-4 h-4 text-[#fecc00] group-hover/btn:translate-x-1 transition-transform" />
                   </a>
 
                   {/* Official Trailer Link */}

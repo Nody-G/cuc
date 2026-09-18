@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { DoubledCelebrity } from '@/types';
-import { X, ShieldCheck, Sparkles, ExternalLink } from 'lucide-react';
+import { X, ShieldCheck, Sparkles } from 'lucide-react';
 
 interface CelebrityDetailsModalProps {
   celebrity: DoubledCelebrity | null;
@@ -108,15 +108,12 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                 href={celebrity.imdbUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-3 bg-[#f5c518] hover:bg-[#ffe500] text-black font-bold font-mono-tech text-xs transition-colors shadow-md mt-4"
+                className="flex items-center justify-center gap-2 p-3 bg-[#f5c518] hover:bg-[#ffe500] text-black font-bold font-mono-tech text-xs transition-colors shadow-md mt-4"
               >
-                <span className="flex items-center gap-2">
-                  <span className="px-1.5 py-0.5 bg-black text-[#f5c518] text-[10px] rounded font-black">
-                    IMDb
-                  </span>
-                  <span>Consulter la Filmographie Complète sur IMDb Pro</span>
+                <span className="px-1.5 py-0.5 bg-black text-[#f5c518] text-[10px] rounded font-black">
+                  IMDb
                 </span>
-                <ExternalLink className="w-4 h-4" />
+                <span>Consulter la Filmographie Complète sur IMDb Pro</span>
               </a>
             </div>
           </div>
