@@ -234,7 +234,7 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
           <div className="pt-3 flex flex-col gap-2">
             <Link href="/contact-cuc" onClick={onClose}>
               <TacticalButton variant="primary" size="md" className="w-full">
-                Contacter le Campus
+                Contact &amp; Projets
               </TacticalButton>
             </Link>
             <div className="flex items-center justify-between text-xs font-mono-tech text-zinc-400 pt-2">

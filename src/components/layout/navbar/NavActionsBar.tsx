@@ -80,7 +80,7 @@ export const NavActionsBar: React.FC = () => {
           icon={<ChevronRight className="w-4 h-4" />}
           className="whitespace-nowrap"
         >
-          {settings.hero_primary_cta_text || 'Contacter le Campus'}
+          {settings.hero_primary_cta_text || 'Contact & Projets'}
         </TacticalButton>
       </Link>
     </div>

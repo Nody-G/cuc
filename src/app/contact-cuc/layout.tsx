@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Candidater & Contacter le Campus Univers Cascades",
-  description: "Secrétariat pédagogique et formulaire d'admission aux formations et stages de cascades du CUC au Cateau-Cambrésis.",
+  title: "Contact & Projets | Campus Univers Cascades",
+  description: "Productions cinéma, action design, formations professionnelles de cascadeurs, stages et événements : échangez directement avec les équipes du Campus Univers Cascades.",
   alternates: {
     canonical: '/contact-cuc',
   },
   openGraph: {
-    title: "Candidater & Contacter le Campus Univers Cascades",
-    description: "Secrétariat pédagogique et formulaire d'admission aux formations et stages de cascades du CUC au Cateau-Cambrésis.",
+    title: "Contact & Projets | Campus Univers Cascades",
+    description: "Productions cinéma, action design, formations professionnelles de cascadeurs, stages et événements : échangez directement avec les équipes du Campus Univers Cascades.",
   },
 };
 

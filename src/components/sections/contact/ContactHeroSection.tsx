@@ -33,12 +33,12 @@ export const ContactHeroSection: React.FC<ContactHeroSectionProps> = ({ heroData
             ACCUEIL
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-          <span className="text-[#FFE500]">CONTACT &amp; ADMISSIONS</span>
+          <span className="text-[#FFE500]">CONTACT &amp; PROJETS</span>
         </div>
 
         <div className="inline-flex items-center gap-2 mb-4">
           <StuntBadge variant="yellow" icon={<Phone className="w-3.5 h-3.5" />}>
-            {heroData?.badge || 'STANDARD & CANDIDATURES'}
+            {heroData?.badge || 'HUB OPÉRATIONNEL • PRODUCTION & ADMISSIONS'}
           </StuntBadge>
           <span className="text-xs font-mono-tech text-zinc-400">
             CAMPUS CUC • LE CATEAU-CAMBRÉSIS &amp; GENNEVILLIERS
@@ -49,12 +49,12 @@ export const ContactHeroSection: React.FC<ContactHeroSectionProps> = ({ heroData
           {heroData?.title ? (
             <span>{heroData.title}</span>
           ) : (
-            <>CONTACT &amp; <span className="text-[#FFE500]">CANDIDATURES</span></>
+            <>CONTACT &amp; <span className="text-[#FFE500]">PROJETS</span></>
           )}
         </h1>
 
         <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-          {heroData?.subtitle || "Vous souhaitez rejoindre le cursus professionnel de cascadeur, réserver un stage d'immersion week-end, monter un dossier de financement AFDAS ou collaborer sur une production ? Contactez notre équipe dès aujourd'hui."}
+          {heroData?.subtitle || "Productions cinématographiques, action design, formations professionnelles de cascadeurs, stages ou événements d'entreprise : échangez directement avec les équipes du CUC."}
         </p>
       </div>
     </section>

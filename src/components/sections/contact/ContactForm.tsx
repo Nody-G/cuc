@@ -58,10 +58,10 @@ export const ContactForm: React.FC = () => {
     <div className="lg:col-span-7 bg-[#0e0e14] border-2 border-zinc-800 p-6 sm:p-8 relative">
 
       <h2 className="text-2xl sm:text-3xl font-display uppercase text-white mb-2">
-        FORMULAIRE DE CONTACT &amp; ADMISSIONS
+        DÉMARRER UN PROJET OU ÉCHANGER
       </h2>
       <p className="text-xs font-tech text-zinc-400 mb-6">
-        Remplissez ce formulaire. Notre équipe pédagogique vous répondra sous 24 à
+        Transmettez-nous les détails de votre demande. Notre équipe opérationnelle vous répondra sous 24 à
         48 heures ouvrées.
       </p>
 
@@ -74,9 +74,8 @@ export const ContactForm: React.FC = () => {
             MESSAGE TRANSMIS AVEC SUCCÈS
           </h3>
           <p className="text-xs font-tech text-zinc-300 max-w-md mx-auto">
-            Merci pour votre intérêt pour le Campus Univers Cascades. Notre secrétariat
-            pédagogique prendra contact avec vous rapidement pour examiner votre
-            demande.
+            Merci pour votre prise de contact avec le Campus Univers Cascades. Notre équipe
+            examinera votre projet et reviendra vers vous avec réactivité.
           </p>
           <button
             onClick={() => setSubmitted(false)}
