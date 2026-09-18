@@ -17,7 +17,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Le-salaire-de-la-peur.jpg",
     "tag": "NETFLIX ACTION",
     "imdbUrl": "https://www.imdb.com/title/tt27488094/",
-    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=315182.html",
+    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=315125.html",
     "trailerUrl": "https://www.youtube.com/watch?v=GRrqa3nD2YY",
     "cuc_team_involved": []
   },
@@ -49,7 +49,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Fiasco.jpg",
     "tag": "NETFLIX SÉRIE",
     "imdbUrl": "https://www.imdb.com/title/tt27299066/",
-    "allocineUrl": "https://www.allocine.fr/series/ficheserie_gen_cserie=31477.html",
+    "allocineUrl": "https://www.allocine.fr/series/ficheserie_gen_cserie=34019.html",
     "trailerUrl": "https://www.youtube.com/watch?v=0GxNXM6HcmU",
     "cuc_team_involved": []
   },
@@ -65,7 +65,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/GTMAX.jpg",
     "tag": "NETFLIX",
     "imdbUrl": "https://www.imdb.com/title/tt29342795/",
-    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=322495.html",
+    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=310532.html",
     "trailerUrl": "https://www.youtube.com/watch?v=GrqirSt4nww",
     "cuc_team_involved": []
   },
@@ -251,7 +251,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2023/03/Alibi2.jpg",
     "tag": "COMÉDIE / CASCADES",
     "imdbUrl": "https://www.imdb.com/title/tt17072938/",
-    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=298950.html",
+    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=281261.html",
     "trailerUrl": "https://www.youtube.com/watch?v=TNvXaQrS-e0",
     "cuc_team_involved": []
   },
@@ -267,7 +267,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2023/03/murder-mystery-2.jpg",
     "tag": "NETFLIX WORLDWIDE",
     "imdbUrl": "https://www.imdb.com/title/tt15295770/",
-    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=277491.html",
+    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=278052.html",
     "trailerUrl": "https://www.youtube.com/watch?v=p0OljkLzV3w",
     "cuc_team_involved": []
   },
@@ -467,7 +467,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2022/03/dune-1.jpg",
     "tag": "WARNER BROS",
     "imdbUrl": "https://www.imdb.com/title/tt1160419/",
-    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=252643.html",
+    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=235875.html",
     "trailerUrl": "https://www.youtube.com/watch?v=gHt8tCHbB2M",
     "cuc_team_involved": []
   },
@@ -483,7 +483,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2022/03/family-business.jpg",
     "tag": "NETFLIX",
     "imdbUrl": "https://www.imdb.com/title/tt9215096/",
-    "allocineUrl": "https://www.allocine.fr/series/ficheserie_gen_cserie=24564.html",
+    "allocineUrl": "https://www.allocine.fr/series/ficheserie_gen_cserie=24218.html",
     "trailerUrl": "https://www.youtube.com/watch?v=7p5R8z8V4j0",
     "cuc_team_involved": []
   },
@@ -499,7 +499,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2021/04/Police.jpg",
     "tag": "POLICIER",
     "imdbUrl": "https://www.imdb.com/title/tt9404284/",
-    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=269894.html",
+    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=259500.html",
     "trailerUrl": "https://www.youtube.com/watch?v=ip8vJ31SJCg",
     "cuc_team_involved": []
   },
@@ -579,7 +579,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2021/04/6Underground.jpg",
     "tag": "NETFLIX EXTRÊME",
     "imdbUrl": "https://www.imdb.com/title/tt8106534/",
-    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=263158.html",
+    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=261474.html",
     "trailerUrl": "https://www.youtube.com/watch?v=bLfmyVTwFN8",
     "cuc_team_involved": []
   },
@@ -643,7 +643,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/5-Raid-dingue.jpg",
     "tag": "BOX-OFFICE",
     "imdbUrl": "https://www.imdb.com/title/tt5442742/",
-    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=244670.html",
+    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=238378.html",
     "trailerUrl": "https://www.youtube.com/watch?v=S0T0-qJq7iE",
     "cuc_team_involved": []
   },
@@ -717,7 +717,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/3-Alibi-com.jpg",
     "tag": "BOX-OFFICE",
     "imdbUrl": "https://www.imdb.com/title/tt5814534/",
-    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=244833.html",
+    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=247411.html",
     "trailerUrl": "https://www.youtube.com/watch?v=-eiOzI8wBLE",
     "cuc_team_involved": []
   },
@@ -733,7 +733,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/26-Jason-Bourne-5.jpg",
     "tag": "UNIVERSAL",
     "imdbUrl": "https://www.imdb.com/title/tt4196776/",
-    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=231367.html",
+    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=231615.html",
     "trailerUrl": "https://www.youtube.com/watch?v=euya1zwQ6U0",
     "cuc_team_involved": []
   },
@@ -850,7 +850,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/10-3-Day-to-kill.jpg",
     "tag": "EUROPACORP",
     "imdbUrl": "https://www.imdb.com/title/tt2172934/",
-    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=208358.html",
+    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=208084.html",
     "trailerUrl": "https://www.youtube.com/watch?v=hPUkoHYkbQM",
     "cuc_team_involved": []
   },
@@ -1003,7 +1003,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/28-Largo-Winch.jpg",
     "tag": "TOMER SISLEY",
     "imdbUrl": "https://www.imdb.com/title/tt0808339/",
-    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=124948.html",
+    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=128357.html",
     "trailerUrl": "https://www.youtube.com/watch?v=rnYZHu_YaQY",
     "cuc_team_involved": []
   },

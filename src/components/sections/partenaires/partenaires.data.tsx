@@ -126,7 +126,7 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         description: "Apprentissage des projections théâtrales, prises de catch et absorptions corporelles.",
         logo: "/images/partenaires/aya-catch.jpg",
         bgVariant: 'dark',
-        website: "https://www.facebook.com/ayacatch/",
+        website: "https://www.youtube.com/@ayacatch",
       },
       {
         name: "Cascade Demo Team",

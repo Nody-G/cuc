@@ -271,7 +271,7 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
                 />
               </a>
               <a
-                href="https://www.tiktok.com/@campusuniverscascades"
+                href="https://www.tiktok.com/@campus.univers.cascades"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 bg-[#14141c] border border-zinc-800 hover:border-[#25F4EE] transition-colors group"
@@ -283,7 +283,7 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
                 />
               </a>
               <a
-                href="https://www.facebook.com/CampusUniversCascades/"
+                href="https://www.facebook.com/campus.univers.cascades"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 bg-[#14141c] border border-zinc-800 hover:border-[#1877F2] transition-colors group"

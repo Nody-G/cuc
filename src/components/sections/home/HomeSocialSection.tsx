@@ -153,7 +153,7 @@ export const HomeSocialSection: React.FC = () => {
           </a>
 
           <a
-            href="https://www.tiktok.com/@campusuniverscascades"
+            href="https://www.tiktok.com/@campus.univers.cascades"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-[#0e0e14]/90 backdrop-blur-xs border border-zinc-800 hover:border-[#25F4EE] p-3.5 flex items-center gap-3 transition-all duration-300 group hover:shadow-[0_0_20px_rgba(37,244,238,0.2)]"
@@ -175,7 +175,7 @@ export const HomeSocialSection: React.FC = () => {
           </a>
 
           <a
-            href="https://www.facebook.com/CampusUniversCascades/"
+            href="https://www.facebook.com/campus.univers.cascades"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-[#0e0e14]/90 backdrop-blur-xs border border-zinc-800 hover:border-[#1877F2] p-3.5 flex items-center gap-3 transition-all duration-300 group hover:shadow-[0_0_20px_rgba(24,119,242,0.2)]"

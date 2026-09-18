@@ -631,7 +631,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
                   type="url"
                   value={settings.instagram || ''}
                   onChange={(e) => handleChange('instagram', e.target.value)}
-                  placeholder="https://www.instagram.com/campusuniverscascades/"
+                  placeholder="https://www.instagram.com/campus.univers.cascades/"
                   className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-amber-400"
                 />
               </div>
@@ -657,7 +657,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
                   type="url"
                   value={settings.linkedin || ''}
                   onChange={(e) => handleChange('linkedin', e.target.value)}
-                  placeholder="https://www.linkedin.com/company/campus-univers-cascades/"
+                  placeholder="https://www.linkedin.com/..."
                   className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-amber-400"
                 />
               </div>
@@ -670,7 +670,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
                   type="url"
                   value={settings.facebook || ''}
                   onChange={(e) => handleChange('facebook', e.target.value)}
-                  placeholder="https://www.facebook.com/campusuniverscascades/"
+                  placeholder="https://www.facebook.com/campus.univers.cascades"
                   className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-amber-400"
                 />
               </div>
@@ -683,7 +683,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
                   type="url"
                   value={settings.tiktok || ''}
                   onChange={(e) => handleChange('tiktok', e.target.value)}
-                  placeholder="https://www.tiktok.com/@campusuniverscascades"
+                  placeholder="https://www.tiktok.com/@campus.univers.cascades"
                   className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-amber-400"
                 />
               </div>

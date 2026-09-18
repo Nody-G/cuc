@@ -227,7 +227,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                     href={movie.trailerUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/btn flex items-center justify-between p-3 bg-[#181820] hover:bg-red-950/40 border border-red-600/50 text-white transition-all"
+                    className="group/btn flex items-center p-3 bg-[#181820] hover:bg-red-950/40 border border-red-600/50 text-white transition-all"
                   >
                     <div className="flex items-center gap-3">
                       <YouTubeLogo className="w-6 h-6 shrink-0" variant="color" />
@@ -240,7 +240,6 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                         </div>
                       </div>
                     </div>
-                    <ExternalLink className="w-4 h-4 text-red-400 group-hover/btn:translate-x-1 transition-transform" />
                   </a>
                 </div>
               </div>

@@ -72,7 +72,7 @@ export const CUC_TEAM: Instructor[] = [
     specialties: ['Action design', 'Combat chorégraphié cinématographique', 'Découpage d\'action', 'Prévisualisation'],
     bio: 'Action Designer et coordinateur de combats réputé pour sa vision dynamique et rythmée des scènes d\'affrontement. Il façonne le style visuel des combats à mains nues et armés en étroite collaboration avec les réalisateurs les plus exigeants.',
     notableCredits: ['Films d\'action français et étrangers', 'Chorégraphe de combat', 'Action Director'],
-    externalUrl: 'http://www.kefiabrikh.com',
+    externalUrl: 'https://www.kefiabrikh.com/',
     avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/10-kefi.png',
     imdb: 'https://www.imdb.com/name/nm3966567/'
   },

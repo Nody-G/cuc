@@ -114,7 +114,7 @@ export const FooterDirectContacts: React.FC = () => {
 
           {/* TikTok */}
           <a
-            href="https://www.tiktok.com/@campusuniverscascades"
+            href="https://www.tiktok.com/@campus.univers.cascades"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-between px-3 py-2 bg-[#101016] border border-zinc-800 hover:border-[#25F4EE]/70 text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
@@ -127,7 +127,7 @@ export const FooterDirectContacts: React.FC = () => {
               <span className="group-hover:text-white">TikTok</span>
             </div>
             <span className="text-[10px] text-zinc-500 font-mono-tech group-hover:text-[#25F4EE]">
-              @campusuniverscascades
+              @campus.univers.cascades
             </span>
           </a>
 

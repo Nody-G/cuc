@@ -789,7 +789,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Animations Airbag',
     meta_title: 'Animation Airbag Géant de Chute Libre & Parkour | CUC Events',
     meta_description: "Faites vivre le grand frisson du saut dans le vide sur coussin d'air géant de cinéma. Animation 100% sécurisée encadrée par des cascadeurs.",
-    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2021/07/Animation-airbag-chute-libre.jpg',
+    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2021/07/xtrem-jump-1.png',
     hero: {
       badge: 'XTREM JUMP AIRBAG • +20 000 CHUTES ENCADRÉES',
       title: 'ANIMATIONS AIRBAG & PARKOUR',
@@ -798,7 +798,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Toutes les Offres CUC Events',
       cta_secondary_link: '/cuc-events-agence',
-      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2021/07/Animation-airbag-chute-libre.jpg',
+      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2021/07/xtrem-jump-1.png',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Animation Airbag Géant', order: 1, is_visible: true },
@@ -1111,7 +1111,7 @@ export const DEFAULT_PARTNERS: SitePartner[] = [
     name: 'AYA Catch',
     category: 'cinema',
     logo_url: '/images/partenaires/aya-catch.jpg',
-    website_url: 'https://www.facebook.com/ayacatch/',
+    website_url: 'https://www.youtube.com/@ayacatch',
     description: 'Apprentissage des projections théâtrales, prises de catch et absorptions corporelles.',
     order_index: 9,
     is_published: true,
@@ -1262,11 +1262,11 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
 
   accent_color: "#FFE500",
 
-  instagram: "https://www.instagram.com/campusuniverscascades/",
+  instagram: "https://www.instagram.com/campus.univers.cascades/",
   youtube: "https://www.youtube.com/@campusuniverscascades",
-  linkedin: "https://www.linkedin.com/company/campus-univers-cascades/",
-  facebook: "https://www.facebook.com/campusuniverscascades/",
-  tiktok: "https://www.tiktok.com/@campusuniverscascades",
+  linkedin: "",
+  facebook: "https://www.facebook.com/campus.univers.cascades",
+  tiktok: "https://www.tiktok.com/@campus.univers.cascades",
   footer_copyright: "© 2008 - 2026 Campus Univers Cascades. Tous droits réservés."
 };
 

@@ -32,7 +32,7 @@ const FEATURED_PRODUCTIONS: HighlightProject[] = [
     year: '2023',
     category: 'Blockbuster US',
     actors: 'Cascadeurs CUC & Gun-Fu',
-    poster: 'https://www.campus-universcascades.com/wp-content/uploads/2024/12/John-Wick-4.jpg',
+    poster: 'https://www.campus-universcascades.com/wp-content/uploads/2023/03/John-Wick-4.jpg',
   },
   {
     title: 'The Substance',

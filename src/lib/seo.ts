@@ -42,8 +42,8 @@ export const CAMPUS_ADDRESS = {
 export const SOCIAL_PROFILES = [
     "https://www.instagram.com/campus.univers.cascades",
     "https://www.youtube.com/@campusuniverscascades",
-    "https://www.tiktok.com/@campusuniverscascades",
-    "https://www.facebook.com/CampusUniversCascades",
+    "https://www.tiktok.com/@campus.univers.cascades",
+    "https://www.facebook.com/campus.univers.cascades",
 ];
 
 /**
