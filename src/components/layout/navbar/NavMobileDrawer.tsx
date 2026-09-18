@@ -109,7 +109,7 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
                 <Link
                   href="/visite-virtuelle"
                   onClick={onClose}
-                  className="block text-[#FFE500] font-bold flex items-center gap-1.5"
+                  className="block text-zinc-300 hover:text-[#FFE500] flex items-center gap-1.5"
                 >
                   <Compass className="w-3.5 h-3.5" />
                   <span>• Visite Virtuelle 360° (HD Media)</span>

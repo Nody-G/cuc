@@ -99,9 +99,6 @@ export const NavDropdowns: React.FC<NavDropdownsProps> = ({
           aria-expanded={campusDropdownOpen}
         >
           <span>Le Campus</span>
-          <span className="text-[9px] bg-[#FFE500] text-black px-1 py-0.2 font-bold ml-0.5">
-            360°
-          </span>
           <ChevronDown className="w-3 h-3" />
         </button>
 
@@ -133,10 +130,8 @@ export const NavDropdowns: React.FC<NavDropdownsProps> = ({
                 className="block p-2.5 text-xs font-mono-tech text-zinc-200 hover:bg-[#FFE500] hover:text-black transition-colors border-t border-zinc-800"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-[#FFE500] group-hover:text-black">
-                    PLAN 3D INTERACTIF
-                  </span>
-                  <Layers className="w-3.5 h-3.5 text-[#FFE500]" />
+                  <span className="font-bold">PLAN 3D INTERACTIF</span>
+                  <Layers className="w-3.5 h-3.5" />
                 </div>
                 <span className="text-[10px] opacity-80 block">
                   Three.js WebGL • 6 Hectares modélisés
