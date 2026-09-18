@@ -72,14 +72,16 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
         className="flex items-center justify-between z-10 w-full max-w-7xl mx-auto border-b border-zinc-800 pb-3"
       >
         <div className="flex items-center gap-3">
-          <span className="px-2.5 py-0.5 bg-[#FFE500] text-black font-mono-tech text-xs font-bold uppercase">
-            PHOTO CUC
-          </span>
-          <span className="text-xs font-mono-tech text-zinc-400">
+          <span className="text-xs font-mono-tech text-[#FFE500] font-bold">
             {currentIndex + 1} / {images.length}
           </span>
+          {currentImage.title && (
+            <span className="text-xs font-display uppercase tracking-wider text-white hidden sm:inline">
+              {currentImage.title}
+            </span>
+          )}
           {currentImage.category && (
-            <span className="text-xs font-mono-tech text-zinc-500 hidden sm:inline">
+            <span className="text-xs font-mono-tech text-zinc-500 hidden md:inline">
               {'// ' + currentImage.category}
             </span>
           )}

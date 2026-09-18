@@ -27,9 +27,6 @@ export const VisitePhotoGallery: React.FC<VisitePhotoGalleryProps> = ({
           </h2>
           <p className="text-sm font-tech text-zinc-400">
             Photographies du campus au Cateau-Cambrésis.
-            <span className="text-[#FFE500] block mt-1 font-mono-tech text-xs">
-              (Cliquez sur n'importe quelle photo pour l'agrandir en haute résolution)
-            </span>
           </p>
         </div>
 

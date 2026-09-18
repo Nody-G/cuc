@@ -22,9 +22,6 @@ export const FormationDisciplinesExplorer: React.FC = () => {
               LES 10 DISCIPLINES DE LA CASCADE PHYSIQUE
             </h2>
           </div>
-          <p className="text-xs font-mono-tech text-zinc-400 mt-2 md:mt-0">
-            100% DES IMAGES ISSUES DU CAMPUS
-          </p>
         </div>
 
         {/* Interactive Discipline Explorer */}
@@ -79,12 +76,6 @@ export const FormationDisciplinesExplorer: React.FC = () => {
                 sizes="(max-width: 1024px) 100vw, 60vw"
                 className="object-cover object-center brightness-90 contrast-110"
               />
-              <div className="absolute top-3 left-3 bg-black/80 px-2.5 py-1 border border-[#FFE500]/50 font-mono-tech text-[10px] text-[#FFE500] uppercase">
-                {activeDiscipline.number} • {activeDiscipline.level}
-              </div>
-              <div className="absolute bottom-3 right-3 bg-black/80 px-2.5 py-1 font-mono-tech text-[10px] text-zinc-400">
-                PHOTO CAMPUS CUC
-              </div>
             </div>
 
             <div className="flex items-center justify-between mb-3">

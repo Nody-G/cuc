@@ -1,17 +1,13 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import Link from 'next/link';
 import {
   Maximize,
   Minimize,
   RotateCcw,
   Compass,
   ExternalLink,
-  Building,
   Info,
-  ChevronRight,
-  Eye
 } from 'lucide-react';
 
 interface FacilitySpot {
@@ -239,29 +235,11 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
           allowFullScreen
           allow="fullscreen; xr-spatial-tracking; autoplay; gyroscope; accelerometer"
         />
-
-        {/* Live Watermark / HUD Badge on top of frame */}
-        <div className="absolute top-4 left-4 pointer-events-none hidden sm:flex items-center gap-2 bg-black/85 backdrop-blur-xs px-3 py-1.5 border border-zinc-700/80 text-[11px] font-mono-tech text-zinc-300">
-          <Eye className="w-3.5 h-3.5 text-[#FFE500]" />
-          <span>VUE 360° DIRECTE DU DOMAINE CUC</span>
-        </div>
       </div>
 
       {/* Quick Jump Hotspots Navigation Bar */}
       {showHotspots && !isFullscreen && (
-        <div className="bg-[#0b0b10] border-t border-zinc-800 p-4">
-          <div className="flex items-center justify-between gap-2 mb-3">
-            <div className="flex items-center gap-2">
-              <Building className="w-4 h-4 text-[#FFE500]" />
-              <span className="text-xs font-mono-tech uppercase text-white font-bold">
-                Repères & Espaces d'Entraînement Clés du Campus
-              </span>
-            </div>
-            <span className="text-[11px] font-mono-tech text-zinc-500 hidden sm:inline">
-              Sélectionnez une zone pour voir ses spécifications
-            </span>
-          </div>
-
+        <div className="bg-[#0b0b10] border-t border-zinc-800 p-3">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
             {TOUR_HOTSPOTS.map((spot) => {
               const isSelected = activeSpot.id === spot.id;
@@ -269,52 +247,21 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
                 <button
                   key={spot.id}
                   onClick={() => handleTeleport(spot)}
-                  title={`Se téléporter vers : ${spot.name}`}
-                  className={`p-2.5 text-left border transition-all cursor-pointer flex flex-col justify-between ${isSelected
+                  title={spot.name}
+                  className={`p-2.5 text-center border transition-all cursor-pointer flex flex-col justify-center items-center ${isSelected
                     ? 'bg-[#181824] border-[#FFE500] text-white shadow-[0_0_12px_rgba(255,229,0,0.25)]'
                     : 'bg-[#101016] border-zinc-800/80 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
                     }`}
                 >
-                  <div className="flex items-center justify-between gap-1 mb-1">
-                    <span
-                      className={`text-[9px] font-mono-tech px-1 py-0.2 font-bold ${isSelected ? 'bg-[#FFE500] text-black' : 'bg-zinc-800 text-zinc-400'
-                        }`}
-                    >
-                      {spot.code}
-                    </span>
-                    <span className="text-[9px] font-mono-tech text-zinc-500 truncate">
-                      {spot.badge}
-                    </span>
-                  </div>
+                  <span className="text-[9px] font-mono-tech text-zinc-500 mb-0.5">
+                    {spot.badge}
+                  </span>
                   <span className="font-display uppercase text-xs tracking-wide block truncate text-white">
                     {spot.name}
                   </span>
                 </button>
               );
             })}
-          </div>
-
-          {/* Active Spotlight Description Card */}
-          <div className="mt-3 p-3 bg-[#12121a] border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
-            <div>
-              <span className="inline-flex items-center gap-1 text-[9px] font-mono-tech font-bold uppercase text-black bg-[#FFE500] px-1.5 py-0.5 mr-2 align-middle">
-                <Compass className="w-3 h-3" />
-                Téléporté
-              </span>
-              <span className="text-[#FFE500] font-mono-tech font-bold uppercase mr-2">
-                [{activeSpot.code}] {activeSpot.name} :
-              </span>
-              <span className="text-zinc-300 font-tech">
-                {activeSpot.description}
-              </span>
-            </div>
-            <Link
-              href="/visite-guidee#installations-detail"
-              className="inline-flex items-center gap-1 text-[11px] font-mono-tech text-[#FFE500] hover:underline shrink-0"
-            >
-              <span>Voir la fiche technique complète</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-            </Link>
           </div>
         </div>
       )}

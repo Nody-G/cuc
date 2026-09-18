@@ -70,7 +70,7 @@ export const VisiteFacilitiesDetail: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Selector List */}
           <div className="lg:col-span-4 space-y-2">
-            {CAMPUS_FACILITIES.map((facility) => {
+            {CAMPUS_FACILITIES.map((facility, index) => {
               const isSelected = facility.id === activeFacilityId;
               return (
                 <button
@@ -86,7 +86,7 @@ export const VisiteFacilitiesDetail: React.FC = () => {
                       className={`font-mono-tech text-xs font-bold ${isSelected ? 'text-[#FFE500]' : 'text-zinc-500'
                         }`}
                     >
-                      {facility.code}
+                      {String(index + 1).padStart(2, '0')}
                     </span>
                     <div className="truncate">
                       <span className="font-display uppercase text-sm tracking-wide block truncate">
@@ -117,9 +117,6 @@ export const VisiteFacilitiesDetail: React.FC = () => {
                 sizes="(max-width: 1024px) 100vw, 70vw"
                 className="object-cover object-center"
               />
-              <div className="absolute top-3 left-3 bg-black/85 px-3 py-1 border border-[#FFE500]/50 font-mono-tech text-xs text-[#FFE500]">
-                {selectedFacility.code} • {selectedFacility.size}
-              </div>
             </div>
 
             <h3 className="text-2xl sm:text-3xl font-display uppercase text-white mb-2">
