@@ -48,7 +48,7 @@ import {
   DEFAULT_SITE_SETTINGS,
   DEFAULT_EVENTS,
 } from '@/lib/data/site-service';
-import { getCurrentUserProfile } from '@/app/admin/actions';
+import { getCurrentUserProfile, syncSessionsSeatCountsFromCucSign } from '@/app/admin/actions';
 import { StuntProgram, Instructor, FilmCredit, Discipline } from '@/types';
 import { STUNT_PROGRAMS } from '@/data/programs';
 import { CUC_TEAM } from '@/data/team';
@@ -228,6 +228,16 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
             getPrograms().then((p) => {
               if (p && p.length > 0) setPrograms(p);
             });
+          }
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'group_memberships' },
+          async () => {
+            console.log('[Realtime CUC Sign] Changement détecté dans group_memberships, auto-synchronisation...');
+            await syncSessionsSeatCountsFromCucSign();
+            const p = await getPrograms();
+            if (p && p.length > 0) setPrograms(p);
           }
         )
         .on(

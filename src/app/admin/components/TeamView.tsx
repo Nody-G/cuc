@@ -194,6 +194,7 @@ export const TeamView: React.FC<TeamViewProps> = ({
               const relatedFilms = films.filter(
                 (f) =>
                   member.film_ids?.includes(f.id) ||
+                  f.cuc_team_involved?.includes(member.id) ||
                   f.instructor_ids?.includes(member.id) ||
                   member.notableCredits?.some((c) => f.title.toLowerCase().includes(c.toLowerCase()))
               );

@@ -73,6 +73,7 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
         trailer_url: updated.trailerUrl,
         doubled_actors: updated.doubledActors,
         highlight: updated.highlight,
+        cuc_team_involved: updated.cuc_team_involved || updated.instructor_ids || [],
       });
     });
   };
@@ -194,7 +195,10 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
                 {/* Interconnexions : Formateurs et Modules Liés */}
                 {(() => {
                   const linkedStaff = team.filter(
-                    (t) => film.instructor_ids?.includes(t.id) || t.film_ids?.includes(film.id)
+                    (t) =>
+                      film.cuc_team_involved?.includes(t.id) ||
+                      film.instructor_ids?.includes(t.id) ||
+                      t.film_ids?.includes(film.id)
                   );
                   const linkedDisc = disciplines.filter((d) => d.film_ids?.includes(film.id));
 
@@ -490,19 +494,28 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
                   </div>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 max-h-36 overflow-y-auto pr-1">
                     {team.map((t) => {
-                      const isChecked = editingFilm.instructor_ids?.includes(t.id);
+                      const isChecked =
+                        editingFilm.cuc_team_involved?.includes(t.id) ||
+                        editingFilm.instructor_ids?.includes(t.id);
                       return (
                         <button
                           type="button"
                           key={t.id}
                           onClick={() => {
-                            const current = editingFilm.instructor_ids || [];
+                            const current =
+                              editingFilm.cuc_team_involved ||
+                              editingFilm.instructor_ids ||
+                              [];
                             const updated = isChecked
                               ? current.filter((id) => id !== t.id)
                               : [...current, t.id];
-                            setEditingFilm({ ...editingFilm, instructor_ids: updated });
+                            setEditingFilm({
+                              ...editingFilm,
+                              cuc_team_involved: updated,
+                              instructor_ids: updated,
+                            });
                           }}
-                          className={`flex items-center gap-1.5 px-2 py-1 rounded text-left text-[11px] transition border ${
+                          className={`flex items-center gap-1.5 px-2 py-1 rounded text-left text-[11px] transition border cursor-pointer ${
                             isChecked
                               ? 'bg-sky-500/20 border-sky-500 text-white font-semibold'
                               : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/20'

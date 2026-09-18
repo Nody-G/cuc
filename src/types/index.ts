@@ -60,6 +60,7 @@ export interface FilmCredit {
   allocineUrl: string;
   trailerUrl: string;
   instructor_ids?: string[];
+  cuc_team_involved?: string[];
 }
 
 export interface DoubledCelebrity {

@@ -8,22 +8,27 @@ import { Footer } from '@/components/layout/Footer';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { CUC_TEAM } from '@/data/team';
-import { getTeam } from '@/lib/data/site-service';
+import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
+import { getTeam, getFilms } from '@/lib/data/site-service';
 import { createClient } from '@/lib/supabase/client';
-import { Instructor } from '@/types';
+import { Instructor, FilmCredit } from '@/types';
 import { ALL_OFFICIAL_FILM_POSTERS } from '@/data/all_official_films';
+import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
 import {
   Users,
   ExternalLink,
   ChevronRight,
   Film,
-  Globe
+  Globe,
+  CheckCircle2,
 } from 'lucide-react';
 
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 
 export default function EquipeCascadeursProPage() {
   const [team, setTeam] = React.useState<Instructor[]>(CUC_TEAM);
+  const [films, setFilms] = React.useState<FilmCredit[]>(FILMOGRAPHY_CREDITS);
+  const [selectedFilm, setSelectedFilm] = React.useState<FilmCredit | null>(null);
   const { content } = usePageDynamicContent('equipe-cascadeurs-pro');
 
   const heroBadge = content.hero?.badge || 'COORDINATEURS & FORMATEURS';
@@ -37,15 +42,24 @@ export default function EquipeCascadeursProPage() {
 
   React.useEffect(() => {
     getTeam().then(setTeam);
+    getFilms().then(setFilms);
 
     try {
       const supabase = createClient();
       const channel = supabase
-        .channel('realtime:site_team')
+        .channel('realtime:site_team_films')
         .on(
           'postgres_changes',
           { event: '*', schema: 'public', table: 'site_team' },
           () => {
+            getTeam().then(setTeam);
+          }
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'site_films' },
+          () => {
+            getFilms().then(setFilms);
             getTeam().then(setTeam);
           }
         )
@@ -119,11 +133,19 @@ export default function EquipeCascadeursProPage() {
         <section className="py-16">
           <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-              {team.map((member) => (
-                <div
-                  key={member.id}
-                  className="bg-[#0e0e14] border-2 border-zinc-800 hover:border-[#FFE500]/70 transition-all duration-300 relative flex flex-col justify-between group overflow-hidden shadow-xl hover:shadow-[0_15px_40px_rgba(255,229,0,0.1)]"
-                >
+              {team.map((member) => {
+                const coachFilms = films.filter(
+                  (f) =>
+                    (member.film_ids && member.film_ids.includes(f.id)) ||
+                    (f.cuc_team_involved && f.cuc_team_involved.includes(member.id))
+                );
+
+                return (
+                  <div
+                    key={member.id}
+                    id={member.id}
+                    className="bg-[#0e0e14] border-2 border-zinc-800 hover:border-[#FFE500]/70 transition-all duration-300 relative flex flex-col justify-between group overflow-hidden shadow-xl hover:shadow-[0_15px_40px_rgba(255,229,0,0.1)] scroll-mt-32"
+                  >
                   {/* Grand Dedicated Portrait Showcase Stage */}
                   <div className="relative w-full h-80 sm:h-96 md:h-[420px] bg-gradient-to-b from-[#181824] via-[#101016] to-[#0e0e14] overflow-hidden flex items-end justify-center border-b border-zinc-800/80">
                     {/* Ambient Glow on hover */}
@@ -214,6 +236,47 @@ export default function EquipeCascadeursProPage() {
                             </p>
                           </div>
                         )}
+
+                        {/* Filmographie CUC Certifiée & Interconnectée */}
+                        {coachFilms.length > 0 && (
+                          <div className="pt-3 border-t border-zinc-800/80">
+                            <div className="flex items-center justify-between gap-1 mb-2">
+                              <span className="text-[11px] font-mono-tech text-[#FFE500] uppercase font-bold flex items-center gap-1.5">
+                                <Film className="w-3.5 h-3.5 text-[#FFE500]" />
+                                Tournages Certifiés CUC ({coachFilms.length})
+                              </span>
+                              {member.profile_id && (
+                                <span className="text-[9px] font-mono-tech px-1.5 py-0.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-bold rounded flex items-center gap-1">
+                                  <CheckCircle2 className="w-2.5 h-2.5" />
+                                  CUC Sign
+                                </span>
+                              )}
+                            </div>
+                            <div className="grid grid-cols-3 gap-2">
+                              {coachFilms.slice(0, 3).map((f) => (
+                                <button
+                                  key={f.id}
+                                  type="button"
+                                  onClick={() => setSelectedFilm(f)}
+                                  className="group/thumb relative aspect-[2/3] bg-black border border-zinc-800 hover:border-[#FFE500] overflow-hidden rounded-xs cursor-pointer transition-all text-left"
+                                  title={`${f.title} (${f.year}) - Cliquez pour ouvrir la fiche de production`}
+                                >
+                                  <Image
+                                    src={f.image}
+                                    alt={f.title}
+                                    fill
+                                    sizes="80px"
+                                    className="object-cover group-hover/thumb:scale-105 transition-transform"
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent opacity-90" />
+                                  <span className="absolute bottom-1 left-1 right-1 text-[8px] font-mono-tech uppercase text-zinc-200 group-hover/thumb:text-[#FFE500] truncate text-center font-bold block">
+                                    {f.title}
+                                  </span>
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
 
@@ -247,7 +310,8 @@ export default function EquipeCascadeursProPage() {
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* FILMOGRAPHIE & TOURNAGES DE L'ÉQUIPE (Authentique du site CUC) */}
@@ -314,6 +378,12 @@ export default function EquipeCascadeursProPage() {
       </main>
 
       <Footer />
+
+      {/* Modal Dossier de Production du Film */}
+      <FilmDetailsModal
+        movie={selectedFilm}
+        onClose={() => setSelectedFilm(null)}
+      />
     </div>
   );
 }

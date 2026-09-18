@@ -167,6 +167,11 @@ export const SessionsView: React.FC<SessionsViewProps> = ({
             </div>
 
             <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-mono">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                <span className="font-bold">CUC Sign Realtime</span>
+              </div>
+
               <button
                 type="button"
                 onClick={handleSyncSeats}
@@ -175,7 +180,7 @@ export const SessionsView: React.FC<SessionsViewProps> = ({
                 title="Met à jour les places restantes depuis les effectifs réels CUC Sign"
               >
                 <RefreshCw className={`w-3.5 h-3.5 text-[#FFE500] ${isSyncingSeats ? 'animate-spin' : ''}`} />
-                <span>{isSyncingSeats ? 'Sync en cours...' : 'Sync Places CUC Sign'}</span>
+                <span>{isSyncingSeats ? 'Sync en cours...' : 'Sync Manuel'}</span>
               </button>
 
               <button

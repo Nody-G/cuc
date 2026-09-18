@@ -337,6 +337,7 @@ export async function upsertFilm(film: {
   trailer_url?: string;
   doubled_actors?: string[];
   highlight?: boolean;
+  cuc_team_involved?: string[];
 }) {
   try {
     const adminClient = createAdminClient();
@@ -349,7 +350,31 @@ export async function upsertFilm(film: {
 
     if (error) throw error;
 
-    await revalidateSite(['/cuc-team-cascadeur', '/']);
+    // Fallback miroir site_settings (key=films)
+    try {
+      const { data: row } = await adminClient
+        .from('site_settings')
+        .select('value')
+        .eq('key', 'films')
+        .maybeSingle();
+
+      const list: any[] = row?.value?.list || [];
+      const idx = list.findIndex((f: any) => f.id === film.id);
+      if (idx >= 0) {
+        list[idx] = { ...list[idx], ...film, updated_at: new Date().toISOString() };
+      } else {
+        list.push({ ...film, updated_at: new Date().toISOString() });
+      }
+      await adminClient.from('site_settings').upsert({
+        key: 'films',
+        value: { list },
+        updated_at: new Date().toISOString(),
+      });
+    } catch {
+      // ignore
+    }
+
+    await revalidateSite(['/cuc-team-cascadeur', '/equipe-cascadeurs-pro', '/']);
     return { success: true };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Erreur inconnue';
@@ -1441,6 +1466,13 @@ export async function convertInquiryToCucSignStudent(inquiryId: string) {
       }
     } catch (e) {
       console.warn('Erreur miroir updateInquiry convert:', e);
+    }
+
+    // Auto-synchronisation immédiate des jauges de places dans site_sessions
+    try {
+      await syncSessionsSeatCountsFromCucSign();
+    } catch (errSync) {
+      console.warn('Erreur auto-sync jauges sessions:', errSync);
     }
 
     // 6. Audit Log

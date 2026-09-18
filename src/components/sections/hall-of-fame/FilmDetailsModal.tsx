@@ -2,9 +2,12 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { FilmCredit } from '@/types';
+import Link from 'next/link';
+import { FilmCredit, Instructor } from '@/types';
+import { CUC_TEAM } from '@/data/team';
+import { getTeam } from '@/lib/data/site-service';
 import { ImdbLogo, AllocineLogo, YouTubeLogo } from '@/components/ui/BrandLogos';
-import { X, ShieldCheck, UserCheck, Layers, ExternalLink, Sparkles } from 'lucide-react';
+import { X, ShieldCheck, UserCheck, Layers, ExternalLink, Sparkles, Users, ChevronRight } from 'lucide-react';
 
 interface FilmDetailsModalProps {
   movie: FilmCredit | null;
@@ -15,7 +18,16 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
   movie,
   onClose,
 }) => {
+  const [teamMembers, setTeamMembers] = React.useState<Instructor[]>(CUC_TEAM);
+
+  React.useEffect(() => {
+    getTeam().then(setTeamMembers);
+  }, []);
+
   if (!movie) return null;
+
+  const involvedIds = movie.cuc_team_involved || [];
+  const involvedTeamMembers = teamMembers.filter((m) => involvedIds.includes(m.id));
 
   return (
     <div
@@ -106,6 +118,57 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                       >
                         {actor}
                       </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Cascadeurs et Formateurs CUC engagés */}
+              {involvedTeamMembers.length > 0 && (
+                <div className="bg-[#141419] border border-[#FFE500]/30 p-4">
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] font-bold uppercase">
+                      <Users className="w-4 h-4 text-[#FFE500]" />
+                      <span>CASCADEURS &amp; FORMATEURS CUC ENGAGÉS</span>
+                    </div>
+                    <span className="text-[10px] font-mono-tech px-2 py-0.5 bg-[#FFE500]/10 border border-[#FFE500]/30 text-[#FFE500] font-bold">
+                      CERTIFIÉ CUC
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {involvedTeamMembers.map((member) => (
+                      <Link
+                        key={member.id}
+                        href={`/equipe-cascadeurs-pro#${member.id}`}
+                        onClick={onClose}
+                        className="group/member flex items-center gap-3 p-2 bg-black/60 border border-zinc-800 hover:border-[#FFE500] transition-colors"
+                      >
+                        <div className="relative w-10 h-10 rounded-full overflow-hidden bg-zinc-800 shrink-0 border border-zinc-700 group-hover/member:border-[#FFE500]">
+                          {member.avatarUrl ? (
+                            <Image
+                              src={member.avatarUrl}
+                              alt={member.name}
+                              fill
+                              sizes="40px"
+                              className="object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-xs font-bold text-zinc-400">
+                              {member.name.charAt(0)}
+                            </div>
+                          )}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="text-xs font-display uppercase text-white group-hover/member:text-[#FFE500] truncate font-bold">
+                            {member.name}
+                          </div>
+                          <div className="text-[10px] font-mono-tech text-zinc-400 truncate">
+                            {member.role}
+                          </div>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-zinc-600 group-hover/member:text-[#FFE500] shrink-0" />
+                      </Link>
                     ))}
                   </div>
                 </div>

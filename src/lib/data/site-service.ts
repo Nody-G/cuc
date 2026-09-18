@@ -112,6 +112,28 @@ export async function getTeam(): Promise<Instructor[]> {
       return CUC_TEAM;
     }
 
+    // Récupération des correspondances de films pour relier les cascades certifiées
+    let teamFilmsMap: Record<string, string[]> = {};
+    try {
+      const { data: filmsData } = await supabase
+        .from('site_films')
+        .select('id, cuc_team_involved')
+        .eq('is_published', true);
+
+      if (filmsData) {
+        for (const f of filmsData) {
+          if (Array.isArray(f.cuc_team_involved)) {
+            for (const memberId of f.cuc_team_involved) {
+              if (!teamFilmsMap[memberId]) teamFilmsMap[memberId] = [];
+              teamFilmsMap[memberId].push(f.id);
+            }
+          }
+        }
+      }
+    } catch {
+      // Ignorer si échec
+    }
+
     return data.map((t) => ({
       id: t.id,
       name: t.name,
@@ -126,6 +148,7 @@ export async function getTeam(): Promise<Instructor[]> {
       instagram: t.instagram,
       imdb: t.imdb,
       profile_id: t.profile_id || null,
+      film_ids: teamFilmsMap[t.id] || [],
     }));
   } catch {
     return CUC_TEAM;
@@ -162,6 +185,7 @@ export async function getFilms(): Promise<FilmCredit[]> {
       imdbUrl: f.imdb_url || '',
       allocineUrl: f.allocine_url || '',
       trailerUrl: f.trailer_url || '',
+      cuc_team_involved: f.cuc_team_involved || [],
     }));
   } catch {
     return FILMOGRAPHY_CREDITS;
