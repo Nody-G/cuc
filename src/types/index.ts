@@ -17,6 +17,8 @@ export interface StuntProgram {
     cuc_sign_formation_id?: string | null;
     date: string;
     status: 'complet' | 'ouvert' | 'dernières places' | 'bientôt';
+    booked_seats?: number;
+    max_seats?: number;
   }[];
   description: string;
   objectives: string[];

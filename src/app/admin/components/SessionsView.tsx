@@ -1,10 +1,15 @@
 'use client';
 
 import React, { useState, useTransition } from 'react';
-import { Calendar, Plus, Trash2, Copy, Users } from 'lucide-react';
+import { Calendar, Plus, Trash2, Copy, Users, RefreshCw } from 'lucide-react';
 import { StuntProgram } from '@/types';
 import { SiteInquiry } from '@/lib/data/site-service';
-import { updateSessionStatus, createSession, deleteSession } from '@/app/admin/actions';
+import {
+  updateSessionStatus,
+  createSession,
+  deleteSession,
+  syncSessionsSeatCountsFromCucSign,
+} from '@/app/admin/actions';
 
 interface SessionsViewProps {
   programs: StuntProgram[];
@@ -24,8 +29,25 @@ export const SessionsView: React.FC<SessionsViewProps> = ({
   const [showAddSessionModal, setShowAddSessionModal] = useState(false);
   const [newSessionDate, setNewSessionDate] = useState('');
   const [newSessionStatus, setNewSessionStatus] = useState<'ouvert' | 'dernières places' | 'complet'>('ouvert');
+  const [isSyncingSeats, setIsSyncingSeats] = useState(false);
 
   const currentProgram = programs.find((p) => p.id === (selectedProgramId || programs[0]?.id)) || programs[0];
+
+  const handleSyncSeats = async () => {
+    setIsSyncingSeats(true);
+    try {
+      const res = await syncSessionsSeatCountsFromCucSign();
+      if (res.success) {
+        showToast(res.message || 'Effectifs CUC Sign synchronisés !');
+      } else {
+        showToast(`Erreur : ${res.error}`);
+      }
+    } catch (err: any) {
+      showToast(`Erreur : ${err.message}`);
+    } finally {
+      setIsSyncingSeats(false);
+    }
+  };
 
   const handleStatusChange = (
     progId: string,
@@ -144,13 +166,27 @@ export const SessionsView: React.FC<SessionsViewProps> = ({
               </div>
             </div>
 
-            <button
-              onClick={() => setShowAddSessionModal(true)}
-              className="px-4 py-2 rounded-lg bg-[#FFE500] hover:bg-[#ffe600e6] text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-transform active:scale-95"
-            >
-              <Plus className="w-4 h-4" />
-              Ajouter une session
-            </button>
+            <div className="flex items-center gap-2 flex-wrap">
+              <button
+                type="button"
+                onClick={handleSyncSeats}
+                disabled={isSyncingSeats}
+                className="px-3.5 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition disabled:opacity-50 cursor-pointer"
+                title="Met à jour les places restantes depuis les effectifs réels CUC Sign"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 text-[#FFE500] ${isSyncingSeats ? 'animate-spin' : ''}`} />
+                <span>{isSyncingSeats ? 'Sync en cours...' : 'Sync Places CUC Sign'}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setShowAddSessionModal(true)}
+                className="px-4 py-2 rounded-lg bg-[#FFE500] hover:bg-[#ffe600e6] text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-transform active:scale-95 cursor-pointer"
+              >
+                <Plus className="w-4 h-4" />
+                Ajouter une session
+              </button>
+            </div>
           </div>
 
           <div className="space-y-3">
@@ -225,6 +261,34 @@ export const SessionsView: React.FC<SessionsViewProps> = ({
                             </span>
                           )}
                         </div>
+
+                        {session.booked_seats !== undefined && session.max_seats ? (
+                          <div className="mt-2 text-[11px] font-mono text-zinc-400 max-w-xs">
+                            <div className="flex items-center justify-between gap-2">
+                              <span>Inscrits CUC Sign :</span>
+                              <span className="font-bold text-white">
+                                {session.booked_seats} / {session.max_seats} élèves
+                              </span>
+                            </div>
+                            <div className="w-full h-1.5 bg-black/60 rounded-full overflow-hidden mt-1 border border-white/10">
+                              <div
+                                className={`h-full transition-all ${
+                                  session.booked_seats >= session.max_seats
+                                    ? 'bg-rose-500'
+                                    : session.max_seats - session.booked_seats <= 3
+                                    ? 'bg-amber-400'
+                                    : 'bg-emerald-400'
+                                }`}
+                                style={{
+                                  width: `${Math.min(
+                                    100,
+                                    (session.booked_seats / session.max_seats) * 100
+                                  )}%`,
+                                }}
+                              />
+                            </div>
+                          </div>
+                        ) : null}
                       </div>
 
                       <div className="flex items-center gap-1.5">

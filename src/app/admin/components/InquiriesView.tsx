@@ -22,10 +22,17 @@ import {
   Square,
   Sparkles,
   Calendar,
+  GraduationCap,
+  UserPlus,
 } from 'lucide-react';
 import { SiteInquiry, getInquiries } from '@/lib/data/site-service';
 import { StuntProgram } from '@/types';
-import { updateInquiryStatus, updateInquiryNotes, deleteInquiry } from '@/app/admin/actions';
+import {
+  updateInquiryStatus,
+  updateInquiryNotes,
+  deleteInquiry,
+  convertInquiryToCucSignStudent,
+} from '@/app/admin/actions';
 
 interface EmailTemplate {
   id: string;
@@ -169,6 +176,7 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
   const [selectedTemplateId, setSelectedTemplateId] = useState<string>(RESPONSE_TEMPLATES[0].id);
   const [isSavingNotes, setIsSavingNotes] = useState(false);
   const [copiedTemplate, setCopiedTemplate] = useState(false);
+  const [isConverting, setIsConverting] = useState(false);
 
   const fetchInquiries = async () => {
     setLoading(true);
@@ -269,6 +277,54 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
       onInquiriesCountChange?.(newCount);
     } else {
       showToast(`Erreur : ${res.error}`);
+    }
+  };
+
+  const handleConvertToCucSign = async (id: string) => {
+    setIsConverting(true);
+    try {
+      const res = await convertInquiryToCucSignStudent(id);
+      if (res.success) {
+        showToast(res.message || 'Élève créé avec succès dans CUC Sign !');
+        setInquiries((prev) =>
+          prev.map((it) =>
+            it.id === id
+              ? {
+                  ...it,
+                  status: 'admis',
+                  metadata: {
+                    ...(it.metadata || {}),
+                    cuc_sign_student_id: res.profile_id,
+                    cuc_sign_formation_id: res.formation_id,
+                    converted_at: new Date().toISOString(),
+                  },
+                }
+              : it
+          )
+        );
+        if (selectedInquiry?.id === id) {
+          setSelectedInquiry((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  status: 'admis',
+                  metadata: {
+                    ...(prev.metadata || {}),
+                    cuc_sign_student_id: res.profile_id,
+                    cuc_sign_formation_id: res.formation_id,
+                    converted_at: new Date().toISOString(),
+                  },
+                }
+              : null
+          );
+        }
+      } else {
+        showToast(`Erreur : ${res.error}`);
+      }
+    } catch (e: any) {
+      showToast(`Erreur : ${e.message}`);
+    } finally {
+      setIsConverting(false);
     }
   };
 
@@ -509,6 +565,11 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
                       {inq.full_name}
                     </span>
                     {getStatusBadge(inq.status)}
+                    {inq.metadata?.cuc_sign_student_id && (
+                      <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                        <GraduationCap className="w-3 h-3" /> CUC Sign
+                      </span>
+                    )}
                     <span className="text-[11px] font-mono text-gray-500">
                       {new Date(inq.created_at).toLocaleDateString('fr-FR', {
                         day: '2-digit',
@@ -833,6 +894,61 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
                   <span>{isSavingNotes ? 'Enregistrement...' : 'Sauvegarder la note'}</span>
                 </button>
               </div>
+            </div>
+
+            {/* Passerelle CUC Sign : Création de compte élève 1-Clic */}
+            <div className="p-4 rounded-xl bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/30 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="p-2 rounded-lg bg-[#FFE500]/20 text-[#FFE500]">
+                    <GraduationCap className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-white uppercase tracking-wide">
+                      Passerelle Admissions CUC Sign
+                    </div>
+                    <div className="text-[11px] text-zinc-400">
+                      Générer le compte élève, le dossier administratif et l&apos;affecter à la session dans CUC Sign.
+                    </div>
+                  </div>
+                </div>
+                {selectedInquiry.metadata?.cuc_sign_student_id ? (
+                  <span className="px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[10px] font-mono font-bold flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5" /> Élève CUC Sign Créé
+                  </span>
+                ) : null}
+              </div>
+
+              {selectedInquiry.metadata?.cuc_sign_student_id ? (
+                <div className="p-2.5 rounded-lg bg-black/60 border border-emerald-500/20 text-xs font-mono text-zinc-300 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-zinc-500">ID Profil CUC Sign :</span>
+                    <span className="text-emerald-400 select-all">{selectedInquiry.metadata.cuc_sign_student_id}</span>
+                  </div>
+                  {selectedInquiry.metadata.cuc_sign_formation_id && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-zinc-500">ID Promotion CUC Sign :</span>
+                      <span className="text-[#FFE500] select-all">{selectedInquiry.metadata.cuc_sign_formation_id}</span>
+                    </div>
+                  )}
+                  {selectedInquiry.metadata.converted_at && (
+                    <div className="flex items-center justify-between text-[10px] text-zinc-500">
+                      <span>Date d&apos;admission :</span>
+                      <span>{new Date(selectedInquiry.metadata.converted_at).toLocaleString('fr-FR')}</span>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  disabled={isConverting}
+                  onClick={() => handleConvertToCucSign(selectedInquiry.id)}
+                  className="w-full py-2.5 px-4 rounded-xl bg-[#FFE500] hover:bg-yellow-400 text-black text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition shadow-lg shadow-amber-500/10 cursor-pointer disabled:opacity-50"
+                >
+                  <UserPlus className="w-4 h-4" />
+                  <span>{isConverting ? 'Création du compte en cours...' : 'Valider l\'admission & Créer le compte CUC Sign'}</span>
+                </button>
+              )}
             </div>
 
             {/* Actions de clôture */}

@@ -63,6 +63,8 @@ export async function getPrograms(): Promise<StuntProgram[]> {
           cuc_sign_formation_id: s.cuc_sign_formation_id,
           date: s.date_display,
           status: s.status as 'complet' | 'ouvert' | 'dernières places' | 'bientôt',
+          booked_seats: s.booked_seats,
+          max_seats: s.max_seats,
         }));
 
       return {
@@ -1244,6 +1246,7 @@ export interface SiteInquiry {
   message: string;
   status: 'nouveau' | 'en_cours' | 'admis' | 'refuse' | 'archive';
   admin_notes?: string;
+  metadata?: Record<string, any>;
   created_at: string;
   updated_at?: string;
 }

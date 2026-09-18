@@ -19,7 +19,7 @@ import { CampusAppLaunchers } from './campus-map/CampusAppLaunchers';
 import { CampusTravelPlanner } from './campus-map/CampusTravelPlanner';
 
 export const InteractiveCampusMap: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'map' | 'radar'>('map');
+  const [activeTab, setActiveTab] = useState<'radar' | 'map'>('radar');
   const [pois, setPois] = useState<POI[]>(CAMPUS_POIS);
   const [selectedPoi, setSelectedPoi] = useState<POI>(CAMPUS_POIS[0]);
   const [activeRoute, setActiveRoute] = useState<string>('paris');
@@ -80,18 +80,6 @@ export const InteractiveCampusMap: React.FC = () => {
               <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={() => setActiveTab('map')}
-                  className={`px-3 py-1.5 text-xs font-mono-tech uppercase transition-all flex items-center gap-2 cursor-pointer ${
-                    activeTab === 'map'
-                      ? 'bg-[#FFE500] text-black font-bold shadow-[0_0_15px_rgba(255,229,0,0.3)]'
-                      : 'bg-[#15151e] text-zinc-400 hover:text-white border border-zinc-800'
-                  }`}
-                >
-                  <Navigation className="w-3.5 h-3.5" />
-                  <span>Carte Satellite Live</span>
-                </button>
-                <button
-                  type="button"
                   onClick={() => setActiveTab('radar')}
                   className={`px-3 py-1.5 text-xs font-mono-tech uppercase transition-all flex items-center gap-2 cursor-pointer ${
                     activeTab === 'radar'
@@ -100,7 +88,19 @@ export const InteractiveCampusMap: React.FC = () => {
                   }`}
                 >
                   <Crosshair className="w-3.5 h-3.5" />
-                  <span>Radar Domaine 6 Ha</span>
+                  <span>Radar Satellite 6 Ha</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('map')}
+                  className={`px-3 py-1.5 text-xs font-mono-tech uppercase transition-all flex items-center gap-2 cursor-pointer ${
+                    activeTab === 'map'
+                      ? 'bg-[#FFE500] text-black font-bold shadow-[0_0_15px_rgba(255,229,0,0.3)]'
+                      : 'bg-[#15151e] text-zinc-400 hover:text-white border border-zinc-800'
+                  }`}
+                >
+                  <Navigation className="w-3.5 h-3.5" />
+                  <span>Carte Routière</span>
                 </button>
               </div>
 
