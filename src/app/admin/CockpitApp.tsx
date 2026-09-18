@@ -214,7 +214,7 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
         .channel('cockpit:all_changes')
         .on(
           'postgres_changes',
-          { event: '*', schema: 'public', table: 'sessions' },
+          { event: '*', schema: 'public', table: 'site_programs' },
           () => {
             getPrograms().then((p) => {
               if (p && p.length > 0) setPrograms(p);
@@ -223,7 +223,16 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
         )
         .on(
           'postgres_changes',
-          { event: '*', schema: 'public', table: 'team_members' },
+          { event: '*', schema: 'public', table: 'site_sessions' },
+          () => {
+            getPrograms().then((p) => {
+              if (p && p.length > 0) setPrograms(p);
+            });
+          }
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'site_team' },
           () => {
             getTeam().then((t) => {
               if (t && t.length > 0) setTeam(t);
@@ -232,10 +241,28 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
         )
         .on(
           'postgres_changes',
-          { event: '*', schema: 'public', table: 'films' },
+          { event: '*', schema: 'public', table: 'site_films' },
           () => {
             getFilms().then((f) => {
               if (f && f.length > 0) setFilms(f);
+            });
+          }
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'site_disciplines' },
+          () => {
+            getDisciplines().then((d) => {
+              if (d && d.length > 0) setDisciplines(d);
+            });
+          }
+        )
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'site_campus_pois' },
+          () => {
+            getCampusPOIs().then((pois) => {
+              if (pois && pois.length > 0) setCampusPOIs(pois);
             });
           }
         )
@@ -254,6 +281,7 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
           () => {
             getInquiries().then((inqs) => {
               if (inqs) {
+                setInquiriesList(inqs);
                 setInquiriesCount(inqs.length);
                 setNewInquiriesCount(inqs.filter((i) => i.status === 'nouveau').length);
               }
@@ -293,6 +321,12 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
           () => {
             getSiteSettings().then((st) => {
               if (st) setSiteSettings(st);
+            });
+            getDisciplines().then((d) => {
+              if (d && d.length > 0) setDisciplines(d);
+            });
+            getCampusPOIs().then((pois) => {
+              if (pois && pois.length > 0) setCampusPOIs(pois);
             });
           }
         )

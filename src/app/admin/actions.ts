@@ -63,15 +63,27 @@ export async function revalidateSite(paths: string[] = ['/', '/formation-de-casc
 }
 
 /**
- * Met à jour le statut d'une session de stage en 1 clic.
+ * Met à jour le statut d'une session de stage en 1 clic (avec liaison CUC Sign optionnelle).
  */
-export async function updateSessionStatus(sessionId: string, newStatus: string) {
+export async function updateSessionStatus(
+  sessionId: string,
+  newStatus: string,
+  cucSignFormationId?: string | null
+) {
   try {
     const adminClient = createAdminClient();
+    const updateData: Record<string, any> = {
+      status: newStatus,
+      updated_at: new Date().toISOString(),
+    };
+    if (cucSignFormationId !== undefined) {
+      updateData.cuc_sign_formation_id = cucSignFormationId;
+    }
+
     const { error } = await adminClient
       .from('site_sessions')
-      .update({ status: newStatus, updated_at: new Date().toISOString() })
-      .eq('id', sessionId);
+      .update(updateData)
+      .or(`id.eq.${sessionId},date_display.eq.${sessionId}`);
 
     if (error) throw error;
 
@@ -84,22 +96,35 @@ export async function updateSessionStatus(sessionId: string, newStatus: string) 
 }
 
 /**
- * Crée une nouvelle session de stage.
+ * Crée une nouvelle session de stage (recherche automatique de correspondance CUC Sign).
  */
 export async function createSession(data: {
   program_id: string;
   date_display: string;
   status: string;
   order_index?: number;
+  cuc_sign_formation_id?: string | null;
 }) {
   try {
     const adminClient = createAdminClient();
+    let formationId = data.cuc_sign_formation_id || null;
+
+    if (!formationId) {
+      const { data: formations } = await adminClient.from('formations').select('id, name');
+      const matched = (formations || []).find((f: { id: string; name: string }) =>
+        f.name.toLowerCase().includes(data.date_display.toLowerCase()) ||
+        data.date_display.toLowerCase().includes(f.name.toLowerCase())
+      );
+      if (matched) formationId = matched.id;
+    }
+
     const { error } = await adminClient
       .from('site_sessions')
       .insert({
         program_id: data.program_id,
         date_display: data.date_display,
         status: data.status,
+        cuc_sign_formation_id: formationId,
         order_index: data.order_index ?? 0,
         is_published: true,
       });
@@ -131,6 +156,74 @@ export async function deleteSession(sessionIdentifier: string) {
     return { success: true };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Met à jour ou insère un programme de formation CUC (site_programs).
+ */
+export async function upsertProgram(program: {
+  id: string;
+  category?: string;
+  title: string;
+  badge?: string;
+  highlight?: boolean;
+  tagline?: string;
+  duration?: string;
+  hours?: string;
+  location?: string;
+  price?: string;
+  price_note?: string;
+  age_requirement?: string;
+  eligibility?: string[];
+  description?: string;
+  objectives?: string[];
+  key_modules?: string[];
+  certification?: string;
+  cta_text?: string;
+  cta_link?: string;
+  brochure_url?: string;
+  image_url?: string;
+  order_index?: number;
+  is_published?: boolean;
+}) {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('site_programs')
+      .upsert({
+        ...program,
+        updated_at: new Date().toISOString(),
+      });
+
+    if (error) throw error;
+
+    await revalidateSite(['/', '/formation-de-cascadeur', '/stages-cascades-parkour-2', '/stunt-workshop-cuc']);
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur mise à jour programme';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Supprime un programme de formation CUC.
+ */
+export async function deleteProgram(id: string) {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('site_programs')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+
+    await revalidateSite(['/', '/formation-de-cascadeur', '/stages-cascades-parkour-2']);
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur suppression programme';
     return { success: false, error: message };
   }
 }
@@ -205,6 +298,7 @@ export async function upsertTeamMember(member: {
   external_url?: string;
   doubled_actors?: string[];
   notable_credits?: string[];
+  profile_id?: string | null;
 }) {
   try {
     const adminClient = createAdminClient();
@@ -212,6 +306,7 @@ export async function upsertTeamMember(member: {
       .from('site_team')
       .upsert({
         ...member,
+        profile_id: member.profile_id || null,
         updated_at: new Date().toISOString(),
       });
 
@@ -516,6 +611,256 @@ export async function updateSiteSettings(key: string, value: Record<string, any>
 }
 
 /**
+ * Met à jour ou insère une discipline de cascade (site_disciplines + miroir site_settings).
+ */
+export async function upsertDiscipline(discipline: any) {
+  try {
+    const adminClient = createAdminClient();
+
+    // 1. Tenter l'écriture dans la table dédiée site_disciplines
+    try {
+      await adminClient
+        .from('site_disciplines')
+        .upsert({
+          id: discipline.id,
+          number: discipline.number,
+          name: discipline.name,
+          category: discipline.category,
+          level: discipline.level,
+          duration: discipline.duration,
+          short_desc: discipline.shortDesc || discipline.short_desc,
+          full_desc: discipline.fullDesc || discipline.full_desc,
+          objectives: discipline.objectives || [],
+          equipment: discipline.equipment || [],
+          safety_rules: discipline.safetyRules || discipline.safety_rules || [],
+          prerequisites: discipline.prerequisites || [],
+          instructor_ids: discipline.instructor_ids || [],
+          film_ids: discipline.film_ids || [],
+          program_ids: discipline.program_ids || [],
+          order_index: discipline.order_index ?? 0,
+          is_active: discipline.is_active ?? true,
+          updated_at: new Date().toISOString(),
+        });
+    } catch {
+      // Table dédiée non encore créée
+    }
+
+    // 2. Maintenir le miroir dans site_settings pour garantir zéro orphelin
+    const { data: currentSettings } = await adminClient
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'disciplines')
+      .maybeSingle();
+
+    let list: any[] = currentSettings?.value?.list || [];
+    const idx = list.findIndex((d: any) => d.id === discipline.id);
+    if (idx >= 0) {
+      list[idx] = discipline;
+    } else {
+      list.push(discipline);
+    }
+
+    await adminClient
+      .from('site_settings')
+      .upsert({
+        key: 'disciplines',
+        value: { list },
+        updated_at: new Date().toISOString(),
+      });
+
+    await revalidateSite(['/', '/formation-de-cascadeur', '/stages-cascades-parkour-2']);
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Supprime une discipline de cascade.
+ */
+export async function deleteDiscipline(id: string) {
+  try {
+    const adminClient = createAdminClient();
+    try {
+      await adminClient.from('site_disciplines').delete().eq('id', id);
+    } catch {
+      // ignore
+    }
+
+    const { data: currentSettings } = await adminClient
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'disciplines')
+      .maybeSingle();
+
+    let list: any[] = currentSettings?.value?.list || [];
+    list = list.filter((d: any) => d.id !== id);
+
+    await adminClient
+      .from('site_settings')
+      .upsert({
+        key: 'disciplines',
+        value: { list },
+        updated_at: new Date().toISOString(),
+      });
+
+    await revalidateSite(['/']);
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur suppression discipline';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Met à jour ou insère une infrastructure/zone du campus (site_campus_pois + miroir site_settings).
+ */
+export async function upsertCampusPOI(poi: any) {
+  try {
+    const adminClient = createAdminClient();
+
+    // 1. Tenter l'écriture dans la table dédiée site_campus_pois
+    try {
+      await adminClient
+        .from('site_campus_pois')
+        .upsert({
+          id: poi.id,
+          location_id: poi.location_id || null,
+          name: poi.name,
+          type: poi.type || 'indoor',
+          category: poi.category || 'technical',
+          coords: poi.coords || { x: poi.xPercent || 50, y: poi.yPercent || 50 },
+          level: poi.level || 'polyvalent',
+          surface: poi.surface || null,
+          capacity: poi.capacity || null,
+          equipment: poi.equipment || [],
+          features: poi.features || [],
+          disciplines: poi.disciplines || [],
+          coaches: poi.coaches || [],
+          description: poi.description || null,
+          is_active: poi.is_active ?? true,
+          updated_at: new Date().toISOString(),
+        });
+    } catch {
+      // Table dédiée non encore créée
+    }
+
+    // 2. Maintenir le miroir dans site_settings
+    const { data: currentSettings } = await adminClient
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'campus_pois')
+      .maybeSingle();
+
+    let list: any[] = currentSettings?.value?.list || [];
+    const idx = list.findIndex((p: any) => p.id === poi.id);
+    if (idx >= 0) {
+      list[idx] = poi;
+    } else {
+      list.push(poi);
+    }
+
+    await adminClient
+      .from('site_settings')
+      .upsert({
+        key: 'campus_pois',
+        value: { list },
+        updated_at: new Date().toISOString(),
+      });
+
+    await revalidateSite(['/', '/visite-guidee', '/visite-virtuelle']);
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Supprime une zone/infrastructure du campus.
+ */
+export async function deleteCampusPOI(id: string) {
+  try {
+    const adminClient = createAdminClient();
+    try {
+      await adminClient.from('site_campus_pois').delete().eq('id', id);
+    } catch {
+      // ignore
+    }
+
+    const { data: currentSettings } = await adminClient
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'campus_pois')
+      .maybeSingle();
+
+    let list: any[] = currentSettings?.value?.list || [];
+    list = list.filter((p: any) => p.id !== id);
+
+    await adminClient
+      .from('site_settings')
+      .upsert({
+        key: 'campus_pois',
+        value: { list },
+        updated_at: new Date().toISOString(),
+      });
+
+    await revalidateSite(['/visite-guidee']);
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur suppression POI';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Enregistre une action d'audit dans site_audit_logs et site_settings.
+ */
+export async function logAuditEvent(action: string, target: string, details?: string) {
+  try {
+    const adminClient = createAdminClient();
+    const userProfile = await getCurrentUserProfile();
+
+    try {
+      await adminClient.from('site_audit_logs').insert({
+        user_id: userProfile?.id || null,
+        user_name: userProfile?.full_name || userProfile?.email || 'Administrateur',
+        action,
+        target,
+        details: details || null,
+      });
+    } catch {
+      // Fallback site_settings key='audit_logs'
+      const { data: row } = await adminClient
+        .from('site_settings')
+        .select('value')
+        .eq('key', 'audit_logs')
+        .maybeSingle();
+
+      const list: any[] = row?.value?.list || [];
+      list.unshift({
+        id: `log_${Date.now()}`,
+        user_name: userProfile?.full_name || 'Admin',
+        action,
+        target,
+        details,
+        created_at: new Date().toISOString(),
+      });
+      if (list.length > 50) list.length = 50;
+
+      await adminClient.from('site_settings').upsert({
+        key: 'audit_logs',
+        value: { list },
+        updated_at: new Date().toISOString(),
+      });
+    }
+  } catch {
+    // Ignore logging failures
+  }
+}
+
+/**
  * Téléverse un fichier média vers Supabase Storage (cuc-vitrine-assets).
  */
 export async function uploadMediaFile(formData: FormData) {
@@ -738,18 +1083,34 @@ export async function submitInquiry(data: {
       updated_at: new Date().toISOString(),
     };
 
-    try {
-      const adminClient = createAdminClient();
-      const { error } = await adminClient
-        .from('site_inquiries')
-        .insert(newInquiry);
+    const adminClient = createAdminClient();
 
-      if (error) {
-        // En cas d'absence de la table SQL, on ne bloque pas le retour positif
-        console.warn('Table site_inquiries indisponible, stockage de fallback actif.');
-      }
+    // 1. Tenter l'insertion dans la table dédiée site_inquiries
+    try {
+      await adminClient.from('site_inquiries').insert(newInquiry);
     } catch {
-      // Ignorer l'erreur réseau Supabase et retourner le succès pour l'expérience utilisateur
+      // Table non encore créée
+    }
+
+    // 2. Toujours persister dans site_settings key='inquiries' pour garantir zéro orphelin
+    try {
+      const { data: settingRow } = await adminClient
+        .from('site_settings')
+        .select('value')
+        .eq('key', 'inquiries')
+        .maybeSingle();
+
+      const inqs: any[] = settingRow?.value?.list || [];
+      inqs.unshift(newInquiry);
+
+      await adminClient.from('site_settings').upsert({
+        key: 'inquiries',
+        value: { list: inqs },
+        description: 'Registre des candidatures et devis CUC',
+        updated_at: new Date().toISOString(),
+      });
+    } catch (e) {
+      console.warn('Erreur synchronisation site_settings inquiries:', e);
     }
 
     return { success: true, inquiry: newInquiry };
@@ -765,13 +1126,38 @@ export async function submitInquiry(data: {
 export async function updateInquiryStatus(id: string, status: 'nouveau' | 'en_cours' | 'admis' | 'refuse' | 'archive') {
   try {
     const adminClient = createAdminClient();
-    const { error } = await adminClient
-      .from('site_inquiries')
-      .update({ status, updated_at: new Date().toISOString() })
-      .eq('id', id);
 
-    if (error) {
-      console.warn('Erreur Supabase updateInquiryStatus, mise à jour effectuée en fallback.');
+    // 1. Table site_inquiries
+    try {
+      await adminClient
+        .from('site_inquiries')
+        .update({ status, updated_at: new Date().toISOString() })
+        .eq('id', id);
+    } catch {
+      // ignore
+    }
+
+    // 2. Miroir site_settings
+    try {
+      const { data: settingRow } = await adminClient
+        .from('site_settings')
+        .select('value')
+        .eq('key', 'inquiries')
+        .maybeSingle();
+
+      const inqs: any[] = settingRow?.value?.list || [];
+      const item = inqs.find((i: any) => i.id === id);
+      if (item) {
+        item.status = status;
+        item.updated_at = new Date().toISOString();
+        await adminClient.from('site_settings').upsert({
+          key: 'inquiries',
+          value: { list: inqs },
+          updated_at: new Date().toISOString(),
+        });
+      }
+    } catch (e) {
+      console.warn('Erreur miroir updateInquiryStatus:', e);
     }
 
     return { success: true };
@@ -787,13 +1173,38 @@ export async function updateInquiryStatus(id: string, status: 'nouveau' | 'en_co
 export async function updateInquiryNotes(id: string, notes: string) {
   try {
     const adminClient = createAdminClient();
-    const { error } = await adminClient
-      .from('site_inquiries')
-      .update({ admin_notes: notes, updated_at: new Date().toISOString() })
-      .eq('id', id);
 
-    if (error) {
-      console.warn('Erreur Supabase updateInquiryNotes, note enregistrée en fallback.');
+    // 1. Table site_inquiries
+    try {
+      await adminClient
+        .from('site_inquiries')
+        .update({ admin_notes: notes, updated_at: new Date().toISOString() })
+        .eq('id', id);
+    } catch {
+      // ignore
+    }
+
+    // 2. Miroir site_settings
+    try {
+      const { data: settingRow } = await adminClient
+        .from('site_settings')
+        .select('value')
+        .eq('key', 'inquiries')
+        .maybeSingle();
+
+      const inqs: any[] = settingRow?.value?.list || [];
+      const item = inqs.find((i: any) => i.id === id);
+      if (item) {
+        item.admin_notes = notes;
+        item.updated_at = new Date().toISOString();
+        await adminClient.from('site_settings').upsert({
+          key: 'inquiries',
+          value: { list: inqs },
+          updated_at: new Date().toISOString(),
+        });
+      }
+    } catch (e) {
+      console.warn('Erreur miroir updateInquiryNotes:', e);
     }
 
     return { success: true };
@@ -809,13 +1220,34 @@ export async function updateInquiryNotes(id: string, notes: string) {
 export async function deleteInquiry(id: string) {
   try {
     const adminClient = createAdminClient();
-    const { error } = await adminClient
-      .from('site_inquiries')
-      .delete()
-      .eq('id', id);
 
-    if (error) {
-      console.warn('Erreur Supabase deleteInquiry, suppression effectuée en fallback.');
+    // 1. Table site_inquiries
+    try {
+      await adminClient
+        .from('site_inquiries')
+        .delete()
+        .eq('id', id);
+    } catch {
+      // ignore
+    }
+
+    // 2. Miroir site_settings
+    try {
+      const { data: settingRow } = await adminClient
+        .from('site_settings')
+        .select('value')
+        .eq('key', 'inquiries')
+        .maybeSingle();
+
+      let inqs: any[] = settingRow?.value?.list || [];
+      inqs = inqs.filter((i: any) => i.id !== id);
+      await adminClient.from('site_settings').upsert({
+        key: 'inquiries',
+        value: { list: inqs },
+        updated_at: new Date().toISOString(),
+      });
+    } catch (e) {
+      console.warn('Erreur miroir deleteInquiry:', e);
     }
 
     return { success: true };
@@ -832,7 +1264,20 @@ export async function exportFullSiteBackup() {
   try {
     const adminClient = createAdminClient();
 
-    const [pagesRes, teamRes, filmsRes, sessionsRes, partnersRes, eventsRes, settingsRes] = await Promise.all([
+    const [
+      programsRes,
+      pagesRes,
+      teamRes,
+      filmsRes,
+      sessionsRes,
+      partnersRes,
+      eventsRes,
+      settingsRes,
+      disciplinesRes,
+      poisRes,
+      inquiriesRes
+    ] = await Promise.all([
+      adminClient.from('site_programs').select('*'),
       adminClient.from('site_pages').select('*'),
       adminClient.from('site_team').select('*'),
       adminClient.from('site_films').select('*'),
@@ -840,6 +1285,9 @@ export async function exportFullSiteBackup() {
       adminClient.from('site_partners').select('*'),
       adminClient.from('site_events').select('*'),
       adminClient.from('site_settings').select('*'),
+      adminClient.from('site_disciplines').select('*'),
+      adminClient.from('site_campus_pois').select('*'),
+      adminClient.from('site_inquiries').select('*'),
     ]);
 
     const backupPayload = {
@@ -847,6 +1295,7 @@ export async function exportFullSiteBackup() {
       version: '2.0-cockpit',
       export_date: new Date().toISOString(),
       data: {
+        programs: programsRes.data || [],
         pages: pagesRes.data || [],
         team: teamRes.data || [],
         films: filmsRes.data || [],
@@ -854,6 +1303,9 @@ export async function exportFullSiteBackup() {
         partners: partnersRes.data || [],
         events: eventsRes.data || [],
         settings: settingsRes.data || [],
+        disciplines: disciplinesRes.data || [],
+        campus_pois: poisRes.data || [],
+        inquiries: inquiriesRes.data || [],
       },
     };
 
@@ -875,8 +1327,23 @@ export async function restoreFullSiteBackup(jsonData: string) {
     }
 
     const adminClient = createAdminClient();
-    const { pages, team, films, sessions, partners, events, settings } = parsed.data;
+    const {
+      programs,
+      pages,
+      team,
+      films,
+      sessions,
+      partners,
+      events,
+      settings,
+      disciplines,
+      campus_pois,
+      inquiries
+    } = parsed.data;
 
+    if (Array.isArray(programs) && programs.length > 0) {
+      await adminClient.from('site_programs').upsert(programs);
+    }
     if (Array.isArray(pages) && pages.length > 0) {
       await adminClient.from('site_pages').upsert(pages);
     }
@@ -897,6 +1364,27 @@ export async function restoreFullSiteBackup(jsonData: string) {
     }
     if (Array.isArray(settings) && settings.length > 0) {
       await adminClient.from('site_settings').upsert(settings);
+    }
+    if (Array.isArray(disciplines) && disciplines.length > 0) {
+      try {
+        await adminClient.from('site_disciplines').upsert(disciplines);
+      } catch {
+        await adminClient.from('site_settings').upsert({ key: 'disciplines', value: { list: disciplines } });
+      }
+    }
+    if (Array.isArray(campus_pois) && campus_pois.length > 0) {
+      try {
+        await adminClient.from('site_campus_pois').upsert(campus_pois);
+      } catch {
+        await adminClient.from('site_settings').upsert({ key: 'campus_pois', value: { list: campus_pois } });
+      }
+    }
+    if (Array.isArray(inquiries) && inquiries.length > 0) {
+      try {
+        await adminClient.from('site_inquiries').upsert(inquiries);
+      } catch {
+        await adminClient.from('site_settings').upsert({ key: 'inquiries', value: { list: inquiries } });
+      }
     }
 
     await revalidateSite(['/', '/formation-de-cascadeur', '/stages-cascades-parkour-2', '/contact-cuc', '/team-building-cascades']);

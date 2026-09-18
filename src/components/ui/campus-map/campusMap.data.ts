@@ -8,6 +8,14 @@ export interface POI {
   badge: string;
   xPercent: number; // For tactical radar layout
   yPercent: number;
+  location_id?: string | null;
+  surface?: string;
+  capacity?: number;
+  equipment?: string[];
+  features?: string[];
+  disciplines?: string[];
+  coaches?: string[];
+  is_active?: boolean;
 }
 
 export interface TravelRoute {
@@ -38,6 +46,7 @@ export const CAMPUS_POIS: POI[] = [
     badge: 'INAUGURÉE OCT. 2024',
     xPercent: 52,
     yPercent: 32,
+    location_id: '732aad62-6c56-4329-85da-debb88be9fad', // Tour Jérome Gaspard
   },
   {
     id: 'grand-dojo',
@@ -50,6 +59,7 @@ export const CAMPUS_POIS: POI[] = [
     badge: 'ESPACE CHORÉGRAPHIE',
     xPercent: 35,
     yPercent: 58,
+    location_id: '0fc475db-34ae-47ce-95f2-b20b402c2859', // Dojo Malik
   },
   {
     id: 'airbag-zone',
@@ -62,6 +72,7 @@ export const CAMPUS_POIS: POI[] = [
     badge: 'ZONE IMPACT',
     xPercent: 68,
     yPercent: 44,
+    location_id: '732aad62-6c56-4329-85da-debb88be9fad',
   },
   {
     id: 'rigging-cables',
@@ -74,6 +85,7 @@ export const CAMPUS_POIS: POI[] = [
     badge: 'RIGGING 3D',
     xPercent: 72,
     yPercent: 65,
+    location_id: 'a195f7db-e934-4605-befa-df47b35c2049', // Salle Zoé Bell
   },
   {
     id: 'mfr-residence',

@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { Discipline, Instructor, FilmCredit, StuntProgram } from '@/types';
 import { POI } from '@/components/ui/campus-map/campusMap.data';
-import { updateSiteSettings } from '../actions';
+import { upsertDiscipline, deleteDiscipline, updateSiteSettings } from '../actions';
 import { MediaPickerModal } from './MediaPickerModal';
 
 interface DisciplinesViewProps {
@@ -88,6 +88,7 @@ export const DisciplinesView: React.FC<DisciplinesViewProps> = ({
     showToast(`Discipline ${updated.number} enregistrée !`);
 
     startTransition(async () => {
+      await upsertDiscipline(updated);
       await updateSiteSettings('disciplines', { list: nextList });
     });
   };
@@ -109,6 +110,7 @@ export const DisciplinesView: React.FC<DisciplinesViewProps> = ({
     showToast('Module supprimé.');
 
     startTransition(async () => {
+      await deleteDiscipline(id);
       await updateSiteSettings('disciplines', { list: nextList });
     });
   };

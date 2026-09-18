@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { POI } from '@/components/ui/campus-map/campusMap.data';
 import { Discipline } from '@/types';
-import { updateSiteSettings } from '../actions';
+import { upsertCampusPOI, deleteCampusPOI, updateSiteSettings } from '../actions';
 
 interface CampusZonesViewProps {
   campusPOIs: POI[];
@@ -61,6 +61,7 @@ export const CampusZonesView: React.FC<CampusZonesViewProps> = ({
     showToast(`Zone "${editingPOI.name}" enregistrée !`);
 
     startTransition(async () => {
+      await upsertCampusPOI(editingPOI);
       await updateSiteSettings('campus_pois', { list: nextList });
     });
   };
@@ -82,6 +83,7 @@ export const CampusZonesView: React.FC<CampusZonesViewProps> = ({
     showToast('Zone supprimée.');
 
     startTransition(async () => {
+      await deleteCampusPOI(id);
       await updateSiteSettings('campus_pois', { list: nextList });
     });
   };
@@ -215,9 +217,16 @@ export const CampusZonesView: React.FC<CampusZonesViewProps> = ({
                 {/* Header Card */}
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <span className="px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-[10px] font-bold uppercase tracking-wider">
-                      {poi.badge || poi.category}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-[10px] font-bold uppercase tracking-wider">
+                        {poi.badge || poi.category}
+                      </span>
+                      {poi.location_id && (
+                        <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shrink-0">
+                          ✓ CUC Sign lié
+                        </span>
+                      )}
+                    </div>
                     <h3 className="text-lg font-bold text-white group-hover:text-cuc-gold transition-colors mt-2">
                       {poi.name}
                     </h3>
@@ -371,6 +380,40 @@ export const CampusZonesView: React.FC<CampusZonesViewProps> = ({
                   placeholder="ex: Hauteur 21m • 5 paliers • Poutre de largage"
                   className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-cuc-gold"
                 />
+              </div>
+              {/* Liaison CUC Sign Location */}
+              <div className="p-3.5 bg-zinc-900 border border-zinc-800 rounded-xl space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-semibold text-zinc-300">
+                    Lieu CUC Sign associé (Base Supabase &Eacute;margement) :
+                  </label>
+                  {editingPOI.location_id && (
+                    <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
+                      Lieu Lié
+                    </span>
+                  )}
+                </div>
+                <select
+                  value={editingPOI.location_id || ''}
+                  onChange={(e) =>
+                    setEditingPOI({ ...editingPOI, location_id: e.target.value || undefined })
+                  }
+                  className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-xs text-white focus:outline-none focus:border-cuc-gold"
+                >
+                  <option value="">-- Aucun lieu CUC Sign lié --</option>
+                  <option value="0fc475db-34ae-47ce-95f2-b20b402c2859">Dojo Malik (indoor)</option>
+                  <option value="732aad62-6c56-4329-85da-debb88be9fad">Tour Jérome Gaspard (outdoor)</option>
+                  <option value="a195f7db-e934-4605-befa-df47b35c2049">Salle Zoé Bell (indoor)</option>
+                  <option value="84b68801-d21e-4f97-8d3a-a8dd6d966fea">Dojo Maurice (indoor)</option>
+                  <option value="7a64268f-54ec-4650-b364-1cb78ebb0e38">Salle Escalade (indoor)</option>
+                  <option value="c5e00d0e-16c0-468b-ac13-431a6ce75c1f">Salle Tabata (indoor)</option>
+                  <option value="85190227-31ee-4ee8-945a-5dbd22ad38f0">Amphithéatre (indoor)</option>
+                  <option value="42d2da33-de57-4069-ab32-0467c8b3fb1d">Escaliers (outdoor)</option>
+                  <option value="1f87ca78-ca18-459a-b8ec-0895ce699660">City Stade (outdoor)</option>
+                </select>
+                <p className="text-[11px] text-zinc-500 font-mono">
+                  Permet à CUC Sign de rattacher les plannings et l&apos;émargement sur ce spot précis du campus.
+                </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

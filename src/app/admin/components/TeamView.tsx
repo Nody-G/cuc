@@ -82,6 +82,7 @@ export const TeamView: React.FC<TeamViewProps> = ({
         instagram: updated.instagram,
         imdb: updated.imdb,
         external_url: updated.externalUrl,
+        profile_id: updated.profile_id,
       });
     });
   };
@@ -155,7 +156,14 @@ export const TeamView: React.FC<TeamViewProps> = ({
                 )}
               </div>
               <div className="min-w-0 flex-1">
-                <div className="text-sm font-bold text-white truncate">{member.name}</div>
+                <div className="text-sm font-bold text-white truncate flex items-center justify-between gap-1">
+                  <span className="truncate">{member.name}</span>
+                  {member.profile_id && (
+                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shrink-0">
+                      ✓ CUC Sign
+                    </span>
+                  )}
+                </div>
                 <div className="text-xs text-[#FFE500] font-medium truncate">{member.role}</div>
                 <div className="text-[11px] text-gray-400 truncate mt-0.5">{member.title}</div>
               </div>
@@ -435,11 +443,45 @@ export const TeamView: React.FC<TeamViewProps> = ({
                 </div>
               </div>
 
-              {/* Interconnexions : Disciplines & Projets Cinéma */}
+              {/* Interconnexions : CUC Sign, Disciplines & Projets Cinéma */}
               <div className="p-3.5 bg-black/40 border border-white/10 rounded-xl space-y-3">
-                <div className="flex items-center gap-2 text-xs font-bold text-[#FFE500] uppercase tracking-wider">
-                  <Layers className="w-3.5 h-3.5" />
-                  Interconnexions Cockpit
+                <div className="flex items-center justify-between text-xs font-bold text-[#FFE500] uppercase tracking-wider">
+                  <div className="flex items-center gap-2">
+                    <Layers className="w-3.5 h-3.5" />
+                    Interconnexions Cockpit &amp; CUC Sign
+                  </div>
+                  {editingMember.profile_id && (
+                    <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
+                      Compte Lié
+                    </span>
+                  )}
+                </div>
+
+                {/* Liaison CUC Sign */}
+                <div>
+                  <label className="block text-[11px] font-mono text-zinc-400 mb-1.5">
+                    Lier à un compte formateur CUC Sign (Supabase) :
+                  </label>
+                  <select
+                    value={editingMember.profile_id || ''}
+                    onChange={(e) =>
+                      setEditingMember({
+                        ...editingMember,
+                        profile_id: e.target.value || undefined,
+                      })
+                    }
+                    className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#FFE500]"
+                  >
+                    <option value="">-- Aucun compte CUC Sign lié --</option>
+                    <option value="92d46b8f-866e-4474-9825-58207293a618">Lucas DOLLFUS (cuc@cuc.fr)</option>
+                    <option value="7cf41cec-1f89-48c3-9e42-968cb9054994">Malik DIOUF (cuc2@cuc.fr)</option>
+                    <option value="4ef3188e-aee2-40a1-8afd-532816b11888">Bastien TROUVÉ (cuc10@cuc.fr)</option>
+                    <option value="050b4b7b-660b-44d2-bf9f-4a1f6591420a">Pierre GOMES (cuc4@cuc.fr)</option>
+                    <option value="76177715-c401-454c-8ee6-a4af13baa311">Franck BLANC (cuc1@cuc.fr)</option>
+                    <option value="3aae8334-5d77-40c3-b4ab-3b44581ac242">Morgane TAILLARD (cuc3@cuc.fr)</option>
+                    <option value="18a663c5-1bc6-4160-8342-e106525e23e6">Admin CUC (admin@cuc.fr)</option>
+                    <option value="fcae4c8a-b488-415a-8c3b-4f392f6204a0">Niels Dalery (niels.dalery@gmail.com)</option>
+                  </select>
                 </div>
 
                 {/* Modules enseignés */}

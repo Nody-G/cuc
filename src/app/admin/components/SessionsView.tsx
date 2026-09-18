@@ -29,22 +29,25 @@ export const SessionsView: React.FC<SessionsViewProps> = ({
 
   const handleStatusChange = (
     progId: string,
-    dateDisplay: string,
+    session: { id?: string; date: string; cuc_sign_formation_id?: string | null },
     newStat: 'ouvert' | 'dernières places' | 'complet' | 'bientôt'
   ) => {
+    const sessionKey = session.id || session.date;
     setPrograms((prev) =>
       prev.map((p) => {
         if (p.id !== progId) return p;
         return {
           ...p,
-          nextSessions: p.nextSessions.map((s) => (s.date === dateDisplay ? { ...s, status: newStat } : s)),
+          nextSessions: p.nextSessions.map((s) =>
+            ((s.id && s.id === session.id) || s.date === session.date) ? { ...s, status: newStat } : s
+          ),
         };
       })
     );
     showToast(`Statut mis à jour : ${newStat}`);
 
     startTransition(async () => {
-      await updateSessionStatus(dateDisplay, newStat);
+      await updateSessionStatus(sessionKey, newStat, session.cuc_sign_formation_id);
     });
   };
 
@@ -212,6 +215,15 @@ export const SessionsView: React.FC<SessionsViewProps> = ({
                               </span>
                             );
                           })()}
+
+                          {session.cuc_sign_formation_id && (
+                            <span
+                              className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 flex items-center gap-1"
+                              title="Session connectée et synchronisée avec CUC Sign"
+                            >
+                              ✓ CUC Sign
+                            </span>
+                          )}
                         </div>
                       </div>
 
@@ -221,7 +233,7 @@ export const SessionsView: React.FC<SessionsViewProps> = ({
                           onChange={(e) =>
                             handleStatusChange(
                               currentProgram.id,
-                              session.date,
+                              session,
                               e.target.value as 'ouvert' | 'dernières places' | 'complet' | 'bientôt'
                             )
                           }
@@ -249,7 +261,7 @@ export const SessionsView: React.FC<SessionsViewProps> = ({
                         </button>
 
                         <button
-                          onClick={() => handleDeleteSession(currentProgram.id, session.date)}
+                          onClick={() => handleDeleteSession(currentProgram.id, session.id || session.date)}
                           title="Supprimer la date"
                           className="p-1.5 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded transition-colors cursor-pointer"
                         >

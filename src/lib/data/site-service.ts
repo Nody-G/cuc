@@ -59,6 +59,8 @@ export async function getPrograms(): Promise<StuntProgram[]> {
       const progSessions = sessions
         .filter((s) => s.program_id === p.id)
         .map((s) => ({
+          id: s.id,
+          cuc_sign_formation_id: s.cuc_sign_formation_id,
           date: s.date_display,
           status: s.status as 'complet' | 'ouvert' | 'dernières places' | 'bientôt',
         }));
@@ -121,6 +123,7 @@ export async function getTeam(): Promise<Instructor[]> {
       avatarUrl: t.avatar_url,
       instagram: t.instagram,
       imdb: t.imdb,
+      profile_id: t.profile_id || null,
     }));
   } catch {
     return CUC_TEAM;
@@ -1336,7 +1339,7 @@ const LOCAL_STORAGE_INQUIRIES_KEY = 'cuc_site_inquiries_cache';
 
 /**
  * Récupère la liste des candidatures et demandes de contact.
- * Se synchronise avec Supabase et dispose d'une sauvegarde persistante locale.
+ * Se synchronise en direct avec Supabase (table dédiée site_inquiries + miroir site_settings).
  */
 export async function getInquiries(): Promise<SiteInquiry[]> {
   try {
@@ -1346,15 +1349,26 @@ export async function getInquiries(): Promise<SiteInquiry[]> {
       .select('*')
       .order('created_at', { ascending: false });
 
-    if (!error && data && data.length > 0) {
+    if (!error && Array.isArray(data)) {
       if (typeof window !== 'undefined') {
         try {
           localStorage.setItem(LOCAL_STORAGE_INQUIRIES_KEY, JSON.stringify(data));
         } catch {
-          // Ignore quota error
+          // ignore
         }
       }
       return data as SiteInquiry[];
+    }
+
+    // 2. Fallback Supabase site_settings key='inquiries'
+    const { data: settingRow } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'inquiries')
+      .maybeSingle();
+
+    if (settingRow?.value?.list && Array.isArray(settingRow.value.list)) {
+      return settingRow.value.list as SiteInquiry[];
     }
   } catch {
     // Ignore error
@@ -1390,6 +1404,17 @@ export async function getAuditLogs(): Promise<AuditLogEntry[]> {
     if (!error && data && data.length > 0) {
       return data as AuditLogEntry[];
     }
+
+    // Fallback Supabase site_settings key='audit_logs'
+    const { data: row } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'audit_logs')
+      .maybeSingle();
+
+    if (row?.value?.list && Array.isArray(row.value.list)) {
+      return row.value.list as AuditLogEntry[];
+    }
   } catch {
     // Ignore
   }
@@ -1399,18 +1424,53 @@ export async function getAuditLogs(): Promise<AuditLogEntry[]> {
 
 /**
  * Récupère les disciplines de cascade avec leurs liaisons croisées.
+ * Priorité : 1. table dédiée site_disciplines, 2. miroir Supabase site_settings, 3. statique.
  */
 export async function getDisciplines(): Promise<Discipline[]> {
   try {
     const supabase = createClient();
-    const { data, error } = await supabase
+
+    // 1. Table dédiée site_disciplines
+    const { data: tableData, error: tableError } = await supabase
+      .from('site_disciplines')
+      .select('*')
+      .eq('is_active', true)
+      .order('order_index', { ascending: true });
+
+    if (!tableError && tableData && tableData.length > 0) {
+      return tableData.map((d) => ({
+        id: d.id,
+        number: d.number,
+        name: d.name,
+        category: d.category,
+        level: d.level,
+        duration: d.duration,
+        shortDesc: d.short_desc,
+        fullDesc: d.full_desc,
+        iconName: d.category === 'Hauteur & Chutes' ? 'Tower' : 'Shield',
+        cinemaContext: d.metadata?.cinemaContext || '',
+        heroImage: d.metadata?.heroImage || '',
+        objectives: d.objectives || [],
+        equipment: d.equipment || [],
+        safetyRules: d.safety_rules || [],
+        prerequisites: d.prerequisites || [],
+        instructor_ids: d.instructor_ids || [],
+        film_ids: d.film_ids || [],
+        program_ids: d.program_ids || [],
+        order_index: d.order_index,
+        is_active: d.is_active,
+      })) as Discipline[];
+    }
+
+    // 2. Miroir Supabase site_settings
+    const { data: settingData, error: settingError } = await supabase
       .from('site_settings')
       .select('value')
       .eq('key', 'disciplines')
       .maybeSingle();
 
-    if (!error && data?.value?.list && Array.isArray(data.value.list) && data.value.list.length > 0) {
-      return data.value.list as Discipline[];
+    if (!settingError && settingData?.value?.list && Array.isArray(settingData.value.list) && settingData.value.list.length > 0) {
+      return settingData.value.list as Discipline[];
     }
   } catch {
     // Fallback
@@ -1431,18 +1491,50 @@ export async function getDisciplines(): Promise<Discipline[]> {
 
 /**
  * Récupère les points d'intérêt et infrastructures du campus (6 hectares).
+ * Priorité : 1. table dédiée site_campus_pois (avec liaison CUC Sign), 2. miroir Supabase site_settings, 3. statique.
  */
 export async function getCampusPOIs(): Promise<POI[]> {
   try {
     const supabase = createClient();
-    const { data, error } = await supabase
+
+    // 1. Table dédiée site_campus_pois
+    const { data: tableData, error: tableError } = await supabase
+      .from('site_campus_pois')
+      .select('*')
+      .eq('is_active', true)
+      .order('name', { ascending: true });
+
+    if (!tableError && tableData && tableData.length > 0) {
+      return tableData.map((p) => ({
+        id: p.id,
+        name: p.name,
+        category: p.category || 'Zone Technique',
+        description: p.description || '',
+        specs: p.surface ? `Surface ${p.surface} • Capacité ${p.capacity || 'N/A'}` : '',
+        coordinates: `${p.coords?.x || 50}% - ${p.coords?.y || 50}%`,
+        badge: p.level || 'INSTALLATION CUC',
+        xPercent: typeof p.coords?.x === 'number' ? p.coords.x : 50,
+        yPercent: typeof p.coords?.y === 'number' ? p.coords.y : 50,
+        location_id: p.location_id || null,
+        surface: p.surface || undefined,
+        capacity: p.capacity || undefined,
+        equipment: p.equipment || [],
+        features: p.features || [],
+        disciplines: p.disciplines || [],
+        coaches: p.coaches || [],
+        is_active: p.is_active,
+      })) as POI[];
+    }
+
+    // 2. Miroir Supabase site_settings
+    const { data: settingData, error: settingError } = await supabase
       .from('site_settings')
       .select('value')
       .eq('key', 'campus_pois')
       .maybeSingle();
 
-    if (!error && data?.value?.list && Array.isArray(data.value.list) && data.value.list.length > 0) {
-      return data.value.list as POI[];
+    if (!settingError && settingData?.value?.list && Array.isArray(settingData.value.list) && settingData.value.list.length > 0) {
+      return settingData.value.list as POI[];
     }
   } catch {
     // Fallback

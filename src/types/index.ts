@@ -13,6 +13,8 @@ export interface StuntProgram {
   ageRequirement: string;
   eligibility: string[];
   nextSessions: {
+    id?: string;
+    cuc_sign_formation_id?: string | null;
     date: string;
     status: 'complet' | 'ouvert' | 'dernières places' | 'bientôt';
   }[];
@@ -85,6 +87,7 @@ export interface Instructor {
   imdb?: string;
   film_ids?: string[];
   discipline_ids?: string[];
+  profile_id?: string | null;
 }
 
 export interface InfrastructureSpot {
