@@ -15,6 +15,7 @@ import {
   X
 } from 'lucide-react';
 import { PROGRAMMES_TV } from '@/data/videos';
+import { getVideos } from '@/lib/data/site-service';
 import { videoObjectJsonLd } from '@/lib/seo';
 
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
@@ -22,7 +23,12 @@ import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 export default function VideosCascadeurPage() {
   const [activeVideo, setActiveVideo] = useState<'tf1' | 'france2'>('tf1');
   const [selectedDmVideo, setSelectedDmVideo] = useState<{ id: string; title: string } | null>(null);
+  const [tvPrograms, setTvPrograms] = useState(PROGRAMMES_TV);
   const { content } = usePageDynamicContent('videos-cascadeur');
+
+  React.useEffect(() => {
+    getVideos().then(setTvPrograms);
+  }, []);
 
   const heroBadge = content.hero?.badge || 'REPORTAGES TÉLÉVISION';
   const heroTitle = content.hero?.title || 'LES REPORTAGES & VIDÉOS DU CUC';
@@ -36,7 +42,7 @@ export default function VideosCascadeurPage() {
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
       {/* JSON-LD : un VideoObject par programme TV (rich results Google Vidéo) */}
-      {PROGRAMMES_TV.map((v) => (
+      {tvPrograms.map((v) => (
         <script
           key={v.dmId}
           type="application/ld+json"
@@ -209,7 +215,7 @@ export default function VideosCascadeurPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {PROGRAMMES_TV.map((v, i) => (
+              {tvPrograms.map((v, i) => (
                 <button
                   key={i}
                   type="button"

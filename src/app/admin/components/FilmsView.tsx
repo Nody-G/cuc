@@ -12,6 +12,7 @@ import {
   Users,
   Shield,
   Image as ImageIcon,
+  Search,
 } from 'lucide-react';
 import { ImdbLogo, AllocineLogo, YouTubeLogo } from '@/components/ui/BrandLogos';
 import { FilmCredit, Instructor, Discipline } from '@/types';
@@ -36,6 +37,18 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
   const [, startTransition] = useTransition();
   const [editingFilm, setEditingFilm] = useState<FilmCredit | null>(null);
   const [showMediaPickerFilm, setShowMediaPickerFilm] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('all');
+
+  const filteredFilms = films.filter((f) => {
+    const matchSearch =
+      !searchTerm ||
+      f.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (f.director && f.director.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (f.year && f.year.includes(searchTerm));
+    const matchCat = categoryFilter === 'all' || f.category === categoryFilter;
+    return matchSearch && matchCat;
+  });
 
   const handleSaveFilm = (e: React.FormEvent) => {
     e.preventDefault();
@@ -103,8 +116,23 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
         </p>
       </div>
 
-      <div className="flex justify-between items-center">
-        <div className="text-xs font-mono text-gray-400">{films.length} PROJETS</div>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-3 flex-wrap">
+          <div className="relative">
+            <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="Rechercher un film, réalisateur, année..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-9 pr-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white text-xs placeholder:text-gray-500 focus:outline-none focus:border-[#FFE500] w-64"
+            />
+          </div>
+          <div className="text-xs font-mono text-gray-400">
+            {filteredFilms.length} / {films.length} PROJETS
+          </div>
+        </div>
+
         <button
           onClick={() =>
             setEditingFilm({
@@ -121,15 +149,33 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
               trailerUrl: '',
             })
           }
-          className="px-4 py-2 rounded-lg bg-[#FFE500] text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 hover:bg-[#ffe600e6]"
+          className="px-4 py-2 rounded-lg bg-[#FFE500] text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 hover:bg-[#ffe600e6] shrink-0"
         >
           <Plus className="w-4 h-4" />
           Ajouter un projet
         </button>
       </div>
 
+      {/* Catégories rapides */}
+      <div className="flex flex-wrap gap-1.5 pb-2">
+        {['all', 'Blockbuster', 'Cinéma Français', 'Cinéma International', 'Série / Plateforme', 'Film Culte', 'Streaming Global'].map((cat) => (
+          <button
+            key={cat}
+            type="button"
+            onClick={() => setCategoryFilter(cat)}
+            className={`px-2.5 py-1 rounded text-[11px] font-mono transition cursor-pointer ${
+              categoryFilter === cat
+                ? 'bg-[#FFE500] text-black font-bold'
+                : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
+            }`}
+          >
+            {cat === 'all' ? 'Tous les films' : cat}
+          </button>
+        ))}
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {films.map((film) => (
+        {filteredFilms.map((film) => (
           <div
             key={film.id}
             className="bg-[#0D0D12] border border-white/10 rounded-xl overflow-hidden flex flex-col justify-between hover:border-white/20 transition-colors group"

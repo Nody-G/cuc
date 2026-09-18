@@ -4,41 +4,51 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ChevronRight, CheckCircle2 } from 'lucide-react';
 import { CAMPUS_FACILITIES } from '@/data/campus';
+import { getCampusFacilities } from '@/lib/data/site-service';
+import { InfrastructureSpot } from '@/types';
 
 /**
  * Résout l'installation à afficher depuis le paramètre d'URL `?installation=<id>`
  * (transmis par la fiche du plan 3D). Retombe sur la première installation si
  * l'identifiant est absent ou inconnu.
  */
-const resolveInitialFacilityId = (): string => {
-  if (typeof window === 'undefined') return CAMPUS_FACILITIES[0].id;
+const resolveInitialFacilityId = (list: InfrastructureSpot[] = CAMPUS_FACILITIES): string => {
+  if (typeof window === 'undefined') return list[0].id;
   const requested = new URLSearchParams(window.location.search).get('installation');
-  if (requested && CAMPUS_FACILITIES.some((f) => f.id === requested)) {
+  if (requested && list.some((f) => f.id === requested)) {
     return requested;
   }
-  return CAMPUS_FACILITIES[0].id;
+  return list[0].id;
 };
 
 export const VisiteFacilitiesDetail: React.FC = () => {
-  const [activeFacilityId, setActiveFacilityId] = useState(resolveInitialFacilityId);
+  const [facilities, setFacilities] = useState<InfrastructureSpot[]>(CAMPUS_FACILITIES);
+  const [activeFacilityId, setActiveFacilityId] = useState(() => resolveInitialFacilityId(CAMPUS_FACILITIES));
+
+  useEffect(() => {
+    getCampusFacilities().then((data) => {
+      if (data && data.length > 0) {
+        setFacilities(data);
+      }
+    });
+  }, []);
 
   // Synchronise la sélection si l'utilisateur arrive avec un autre paramètre
-  // (navigation client depuis le plan 3D vers la même page).
   useEffect(() => {
     const syncFromUrl = () => {
       const requested = new URLSearchParams(window.location.search).get('installation');
-      if (requested && CAMPUS_FACILITIES.some((f) => f.id === requested)) {
+      if (requested && facilities.some((f) => f.id === requested)) {
         setActiveFacilityId(requested);
       }
     };
     syncFromUrl();
     window.addEventListener('popstate', syncFromUrl);
     return () => window.removeEventListener('popstate', syncFromUrl);
-  }, []);
+  }, [facilities]);
 
   const selectedFacility =
-    CAMPUS_FACILITIES.find((f) => f.id === activeFacilityId) ||
-    CAMPUS_FACILITIES[0];
+    facilities.find((f) => f.id === activeFacilityId) ||
+    facilities[0];
 
   return (
     <section id="installations-detail" className="py-16 scroll-mt-24">

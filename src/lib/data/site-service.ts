@@ -3,8 +3,12 @@ import { STUNT_PROGRAMS } from '@/data/programs';
 import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { CUC_DISCIPLINES } from '@/data/disciplines';
+import { DOUBLED_CELEBRITIES } from '@/data/celebrities';
+import { PROGRAMMES_TV, ProgrammeTvItem } from '@/data/videos';
+import { OFFICIAL_FILM_BANNERS, FilmBanner } from '@/data/filmBanners';
+import { CAMPUS_FACILITIES } from '@/data/campus';
 import { CAMPUS_POIS, POI } from '@/components/ui/campus-map/campusMap.data';
-import { StuntProgram, Instructor, FilmCredit, Discipline } from '@/types';
+import { StuntProgram, Instructor, FilmCredit, Discipline, DoubledCelebrity, InfrastructureSpot } from '@/types';
 
 export interface SiteAnnouncement {
   id: string;
@@ -168,6 +172,15 @@ export async function getFilms(): Promise<FilmCredit[]> {
       .order('order_index', { ascending: true });
 
     if (error || !data || data.length === 0) {
+      const { data: settingRow } = await supabase
+        .from('site_settings')
+        .select('value')
+        .eq('key', 'films')
+        .maybeSingle();
+
+      if (settingRow?.value?.list && Array.isArray(settingRow.value.list) && settingRow.value.list.length > 0) {
+        return settingRow.value.list as FilmCredit[];
+      }
       return FILMOGRAPHY_CREDITS;
     }
 
@@ -189,6 +202,94 @@ export async function getFilms(): Promise<FilmCredit[]> {
     }));
   } catch {
     return FILMOGRAPHY_CREDITS;
+  }
+}
+
+/**
+ * Récupère les célébrités et comédiens doublés par le CUC.
+ * Persisté dans Supabase (site_settings key='celebrities').
+ */
+export async function getCelebrities(): Promise<DoubledCelebrity[]> {
+  try {
+    const supabase = createClient();
+    const { data: row } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'celebrities')
+      .maybeSingle();
+
+    if (row?.value?.list && Array.isArray(row.value.list) && row.value.list.length > 0) {
+      return row.value.list as DoubledCelebrity[];
+    }
+    return DOUBLED_CELEBRITIES;
+  } catch {
+    return DOUBLED_CELEBRITIES;
+  }
+}
+
+/**
+ * Récupère les reportages TV et vidéos d'archives du CUC.
+ * Persisté dans Supabase (site_settings key='videos').
+ */
+export async function getVideos(): Promise<ProgrammeTvItem[]> {
+  try {
+    const supabase = createClient();
+    const { data: row } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'videos')
+      .maybeSingle();
+
+    if (row?.value?.list && Array.isArray(row.value.list) && row.value.list.length > 0) {
+      return row.value.list as ProgrammeTvItem[];
+    }
+    return PROGRAMMES_TV;
+  } catch {
+    return PROGRAMMES_TV;
+  }
+}
+
+/**
+ * Récupère les bannières cinéma panoramiques du CUC.
+ * Persisté dans Supabase (site_settings key='film_banners').
+ */
+export async function getFilmBanners(): Promise<FilmBanner[]> {
+  try {
+    const supabase = createClient();
+    const { data: row } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'film_banners')
+      .maybeSingle();
+
+    if (row?.value?.list && Array.isArray(row.value.list) && row.value.list.length > 0) {
+      return row.value.list as FilmBanner[];
+    }
+    return OFFICIAL_FILM_BANNERS;
+  } catch {
+    return OFFICIAL_FILM_BANNERS;
+  }
+}
+
+/**
+ * Récupère les installations et infrastructures techniques du campus.
+ * Persisté dans Supabase (site_settings key='campus_facilities').
+ */
+export async function getCampusFacilities(): Promise<InfrastructureSpot[]> {
+  try {
+    const supabase = createClient();
+    const { data: row } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'campus_facilities')
+      .maybeSingle();
+
+    if (row?.value?.list && Array.isArray(row.value.list) && row.value.list.length > 0) {
+      return row.value.list as InfrastructureSpot[];
+    }
+    return CAMPUS_FACILITIES;
+  } catch {
+    return CAMPUS_FACILITIES;
   }
 }
 

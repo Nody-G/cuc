@@ -12,7 +12,6 @@ import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getTeam, getFilms } from '@/lib/data/site-service';
 import { createClient } from '@/lib/supabase/client';
 import { Instructor, FilmCredit } from '@/types';
-import { ALL_OFFICIAL_FILM_POSTERS } from '@/data/all_official_films';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
 import {
   Users,
@@ -333,26 +332,34 @@ export default function EquipeCascadeursProPage() {
                 </p>
               </div>
 
-              {/* Grid of All 60 Authentic Posters */}
+              {/* Grid of All 63 Authentic Posters loaded dynamically from Supabase */}
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-                {ALL_OFFICIAL_FILM_POSTERS.map((film, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/60 transition-all p-2 group flex flex-col justify-between"
+                {films.map((film) => (
+                  <button
+                    key={film.id}
+                    type="button"
+                    onClick={() => setSelectedFilm(film)}
+                    className="bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/60 transition-all p-2 group flex flex-col justify-between cursor-pointer text-left"
+                    title={`${film.title} (${film.year}) - Cliquez pour voir le dossier`}
                   >
                     <div className="relative aspect-[2/3] w-full overflow-hidden bg-black mb-2">
                       <Image
-                        src={film.img}
+                        src={film.image}
                         alt={film.title}
                         fill
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
+                      {film.year && (
+                        <span className="absolute top-1 left-1 px-1.5 py-0.2 bg-black/80 text-[#FFE500] font-mono-tech text-[9px] font-bold">
+                          {film.year}
+                        </span>
+                      )}
                     </div>
                     <p className="text-[11px] font-mono-tech uppercase text-zinc-300 group-hover:text-[#FFE500] truncate text-center">
                       {film.title}
                     </p>
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>

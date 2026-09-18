@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { DOUBLED_CELEBRITIES } from '@/data/filmography';
+import { getCelebrities } from '@/lib/data/site-service';
 import { DoubledCelebrity } from '@/types';
 import { ImdbLogo } from '@/components/ui/BrandLogos';
 import { UserCheck, ExternalLink, ShieldCheck, Info } from 'lucide-react';
@@ -14,24 +15,27 @@ interface CelebrityDoublesGalleryProps {
 export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = ({
   onSelectCelebrity,
 }) => {
+  const [celebrities, setCelebrities] = useState<DoubledCelebrity[]>(DOUBLED_CELEBRITIES);
   const [celebrityFilter, setCelebrityFilter] = useState<'all' | 'fr' | 'intl'>('all');
 
+  useEffect(() => {
+    getCelebrities().then(setCelebrities);
+  }, []);
+
   // Acteurs doublés relevant du cinéma international / hollywoodien.
-  // Cette liste est l'unique source de vérité : le filtre « fr » est son
-  // complément exact, ce qui garantit des compteurs cohérents et sans doublon.
-  const INTERNATIONAL_CELEBRITY_IDS = ['keanu-reeves', 'kevin-costner', 'omar-sy'];
+  const INTERNATIONAL_CELEBRITY_IDS = ['keanu-reeves', 'kevin-costner', 'omar-sy', 'demi-moore'];
 
   const isInternational = (id: string) => INTERNATIONAL_CELEBRITY_IDS.includes(id);
 
-  const filteredCelebrities = DOUBLED_CELEBRITIES.filter((c) => {
+  const filteredCelebrities = celebrities.filter((c) => {
     if (celebrityFilter === 'all') return true;
     if (celebrityFilter === 'intl') return isInternational(c.id);
     if (celebrityFilter === 'fr') return !isInternational(c.id);
     return true;
   });
 
-  const internationalCount = DOUBLED_CELEBRITIES.filter((c) => isInternational(c.id)).length;
-  const frenchCount = DOUBLED_CELEBRITIES.length - internationalCount;
+  const internationalCount = celebrities.filter((c) => isInternational(c.id)).length;
+  const frenchCount = celebrities.length - internationalCount;
 
   return (
     <div className="mb-20 bg-[#0c0c10] border-2 border-zinc-800 p-6 sm:p-8 relative shadow-2xl">
