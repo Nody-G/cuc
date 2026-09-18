@@ -384,7 +384,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     layout_sections: [
       { id: 'hero', name: 'Section Héros Parallaxe', order: 1, is_visible: true },
       { id: 'about', name: 'Dossier Présentation & Piliers', order: 2, is_visible: true },
-      { id: 'virtual_tour', name: 'Visite Virtuelle 360°', order: 3, is_visible: true },
+      { id: 'tournages', name: 'Tournages & Productions Cinéma', order: 3, is_visible: true },
       { id: 'qualiopi', name: 'Agrément Qualiopi & Financements', order: 4, is_visible: true },
       { id: 'partners', name: 'Partenaires Studios & Labels', order: 5, is_visible: true },
       { id: 'social', name: 'Réseaux Sociaux & Communauté', order: 6, is_visible: true },
@@ -404,6 +404,13 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
         cta_primary_link: '/formation-de-cascadeur',
         cta_secondary_text: "L'Équipe des Cascadeurs",
         cta_secondary_link: '/equipe-cascadeurs-pro',
+      },
+      tournages: {
+        badge: 'ACTION DESIGN & COORDINATION DE CASCADES',
+        title: 'TOURNAGES & PRODUCTIONS CINÉMA',
+        subtitle: 'De la prévisualisation 3D aux tournages internationaux : le CUC accompagne les plus grands réalisateurs et plateformes mondiales.',
+        cta_text: 'Échanger sur votre production',
+        cta_link: '/contact-cuc',
       },
       virtual_tour: {
         badge: 'EXPLORATION 360° IMMERSIVE',

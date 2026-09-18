@@ -7,7 +7,7 @@ import { ParallaxHero } from '@/components/ui/ParallaxHero';
 import { StudioGlobalAtmosphere } from '@/components/ui/parallax';
 import {
   HomeAboutSection,
-  HomeVirtualTourSection,
+  HomeTournagesSection,
   HomeQualiopiSection,
   HomePartnersSection,
   HomeSocialSection,
@@ -29,8 +29,9 @@ export default function Home() {
         return <ParallaxHero key="hero" heroData={content.hero} />;
       case 'about':
         return <HomeAboutSection key="about" aboutData={content.sections_data?.about} />;
+      case 'tournages':
       case 'virtual_tour':
-        return <HomeVirtualTourSection key="virtual_tour" />;
+        return <HomeTournagesSection key="tournages" />;
       case 'qualiopi':
         return <HomeQualiopiSection key="qualiopi" />;
       case 'partners':
@@ -57,7 +58,7 @@ export default function Home() {
           <>
             <ParallaxHero heroData={content.hero} />
             <HomeAboutSection aboutData={content.sections_data?.about} />
-            <HomeVirtualTourSection />
+            <HomeTournagesSection />
             <HomeQualiopiSection />
             <HomePartnersSection />
             <HomeSocialSection />
