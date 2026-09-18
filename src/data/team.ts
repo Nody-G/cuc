@@ -22,7 +22,8 @@ export const CUC_TEAM: Instructor[] = [
     bio: 'Pilier incontournable de la cascade en France et en Europe, Jérôme Gaspard a coordonné des projets d\'envergure internationale avec Action Cascade. Il veille à l\'adéquation permanente entre les enseignements du campus et les standards impitoyables des plateaux de tournage hollywoodiens et européens.',
     notableCredits: ['Blockbusters français & internationaux', 'Doublures acteurs majeurs', 'Action Cascade'],
     externalUrl: 'https://www.action-cascade.com/coordinateur-de-cascades/',
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/2-jerome.png'
+    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/2-jerome.png',
+    imdb: 'https://www.imdb.com/name/nm2440332/'
   },
   {
     id: 'malik-diouf',
@@ -34,7 +35,8 @@ export const CUC_TEAM: Instructor[] = [
     notableCredits: ['Yamakasi (Film culte)', 'Les Fils du Vent', 'Productions Luc Besson', 'Pionnier mondial de l\'Art du Déplacement'],
     externalUrl: 'https://www.imdb.com/name/nm0228086/',
     avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/3-malik.png',
-    imdb: 'https://www.imdb.com/name/nm0228086/'
+    imdb: 'https://www.imdb.com/name/nm0228086/',
+    instagram: 'https://www.instagram.com/malikdiouf_yamakasi/'
   },
   {
     id: 'franck-blanc',
@@ -58,7 +60,9 @@ export const CUC_TEAM: Instructor[] = [
     doubledActors: ['Tomer Sisley', 'Comédiens cinéma d\'action'],
     notableCredits: ['Largo Winch', 'Balthazar', 'Séries d\'action internationales'],
     externalUrl: 'https://fr.vincentbouillon.com/',
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2020/05/13-vincent-OK.png'
+    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2020/05/13-vincent-OK.png',
+    imdb: 'https://www.imdb.com/name/nm3763784/',
+    instagram: 'https://www.instagram.com/vincentbouillon/'
   },
   {
     id: 'kefi-abrikh',
@@ -69,7 +73,8 @@ export const CUC_TEAM: Instructor[] = [
     bio: 'Action Designer et coordinateur de combats réputé pour sa vision dynamique et rythmée des scènes d\'affrontement. Il façonne le style visuel des combats à mains nues et armés en étroite collaboration avec les réalisateurs les plus exigeants.',
     notableCredits: ['Films d\'action français et étrangers', 'Chorégraphe de combat', 'Action Director'],
     externalUrl: 'http://www.kefiabrikh.com',
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/10-kefi.png'
+    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/10-kefi.png',
+    imdb: 'https://www.imdb.com/name/nm3966567/'
   },
   {
     id: 'maurice-chan',
@@ -80,7 +85,8 @@ export const CUC_TEAM: Instructor[] = [
     bio: 'Artiste martial de renom et cascadeur chevronné, Maurice Chan maîtrise l\'alliance subtile entre la rigueur physique martiale et l\'humour gestuel de la comédie d\'action à la Jackie Chan.',
     notableCredits: ['Productions Europacorp', 'Spectacles parcs à thème', 'Courts-métrages d\'action primés'],
     externalUrl: 'https://mauricechan.book.fr',
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/9-maurice.png'
+    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/9-maurice.png',
+    imdb: 'https://www.imdb.com/name/nm2592500/'
   },
   {
     id: 'michael-troude',
@@ -90,7 +96,8 @@ export const CUC_TEAM: Instructor[] = [
     specialties: ['Combat de contact', 'Crédibilité des impacts', 'Chutes de sa hauteur', 'Bagarre urbaine'],
     bio: 'Cascadeur réputé pour son sens du réalisme brutal et son travail sur la vérité physique du mouvement. Il enseigne l\'art de recevoir les impacts sans dommage tout en projetant une intensité maximale à l\'image.',
     notableCredits: ['Cinéma français & international', 'Séries policières d\'action', 'Doublures cascades physiques'],
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2021/03/14-michel.png'
+    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2021/03/14-michel.png',
+    imdb: 'https://www.imdb.com/name/nm2869502/'
   },
   {
     id: 'amedeo-cazzella',
@@ -100,7 +107,8 @@ export const CUC_TEAM: Instructor[] = [
     specialties: ['Armes blanches', 'Escrime de spectacle', 'Katanas et sabres', 'Chorégraphies multi-adversaires'],
     bio: 'Expert en maniement d\'armes blanches historiques et modernes. Il enseigne le respect des distances critiques, la précision du tranchant et la mise en scène chorégraphique des affrontements armés.',
     notableCredits: ['Films historiques', 'Fresques d\'époque', 'Duels d\'action'],
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/7-amadeo.png'
+    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/7-amadeo.png',
+    imdb: 'https://www.imdb.com/name/nm5449764/'
   },
   {
     id: 'niels-dalery',
@@ -110,7 +118,8 @@ export const CUC_TEAM: Instructor[] = [
     specialties: ['Acrobatie aérienne', 'Freerunning urbain', 'Tricks de scène', 'Propulsion trampoline'],
     bio: 'Virtuose de l\'acrobatie au sol et des évolutions aériennes. Niels Dalery forme les élèves du CUC à la gestion de la rotation corporelle et aux transitions fluides entre cascades acrobatiques et impacts au sol.',
     notableCredits: ['Performances acrobatiques cinéma', 'Vidéos de freerun virales', 'Doublures acrobatiques'],
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/6-niels.png'
+    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/6-niels.png',
+    imdb: 'https://www.imdb.com/name/nm9102434/'
   },
   {
     id: 'bastien-trouve',

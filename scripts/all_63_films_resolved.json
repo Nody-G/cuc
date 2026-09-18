@@ -1,0 +1,506 @@
+[
+  {
+    "id": "machine",
+    "title": "Machine",
+    "year": "2024",
+    "imdb_url": "https://www.imdb.com/title/tt27718012/",
+    "allocine_url": "https://www.allocine.fr/series/ficheserie_gen_cserie=32007.html",
+    "trailer_url": "https://www.youtube.com/watch?v=apLu21Bods4"
+  },
+  {
+    "id": "gtmax",
+    "title": "GTMAX",
+    "year": "2024",
+    "imdb_url": "https://www.imdb.com/title/tt29342795/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=322495.html",
+    "trailer_url": "https://www.youtube.com/watch?v=GrqirSt4nww"
+  },
+  {
+    "id": "furies",
+    "title": "Furies",
+    "year": "2024",
+    "imdb_url": "https://www.imdb.com/title/tt23730594/",
+    "allocine_url": "https://www.allocine.fr/series/ficheserie_gen_cserie=31317.html",
+    "trailer_url": "https://www.youtube.com/watch?v=69mXM7ApcDI"
+  },
+  {
+    "id": "fiasco",
+    "title": "Fiasco",
+    "year": "2024",
+    "imdb_url": "https://www.imdb.com/title/tt27299066/",
+    "allocine_url": "https://www.allocine.fr/series/ficheserie_gen_cserie=31477.html",
+    "trailer_url": "https://www.youtube.com/watch?v=0GxNXM6HcmU"
+  },
+  {
+    "id": "le-salaire-de-la-peur",
+    "title": "Le Salaire de la Peur",
+    "year": "2024",
+    "imdb_url": "https://www.imdb.com/title/tt27488094/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=315182.html",
+    "trailer_url": "https://www.youtube.com/watch?v=GRrqa3nD2YY"
+  },
+  {
+    "id": "monte-cristo",
+    "title": "Le Comte de Monte-Cristo",
+    "year": "2024",
+    "imdb_url": "https://www.imdb.com/title/tt26446278/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=288404.html",
+    "trailer_url": "https://www.youtube.com/watch?v=u0YnbsyvGS0"
+  },
+  {
+    "id": "the-killer",
+    "title": "The Killer",
+    "year": "2024",
+    "imdb_url": "https://www.imdb.com/title/tt2552882/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=131724.html",
+    "trailer_url": "https://www.youtube.com/watch?v=ooNWWB0S1KM"
+  },
+  {
+    "id": "largo-winch-3",
+    "title": "Largo Winch : Le Prix de l'argent",
+    "year": "2024",
+    "imdb_url": "https://www.imdb.com/title/tt23049322/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=210439.html",
+    "trailer_url": "https://www.youtube.com/watch?v=3-Dm59tR_rM"
+  },
+  {
+    "id": "sous-la-seine",
+    "title": "Sous la Seine",
+    "year": "2024",
+    "imdb_url": "https://www.imdb.com/title/tt13964390/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=313341.html",
+    "trailer_url": "https://www.youtube.com/watch?v=HPfkQ9gMLMY"
+  },
+  {
+    "id": "lamour-ouf",
+    "title": "L'Amour Ouf",
+    "year": "2024",
+    "imdb_url": "https://www.imdb.com/title/tt27490099/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=221617.html",
+    "trailer_url": "https://www.youtube.com/watch?v=bSbA6Aeydbs"
+  },
+  {
+    "id": "elyas",
+    "title": "Elyas",
+    "year": "2024",
+    "imdb_url": "https://www.imdb.com/title/tt28336131/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=317127.html",
+    "trailer_url": "https://www.youtube.com/watch?v=CurKNMuYof8"
+  },
+  {
+    "id": "the-substance",
+    "title": "The Substance",
+    "year": "2024",
+    "imdb_url": "https://www.imdb.com/title/tt17526714/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=300680.html",
+    "trailer_url": "https://www.youtube.com/watch?v=mcEFQwRbBZg"
+  },
+  {
+    "id": "alibi-com-2",
+    "title": "Alibi.com 2",
+    "year": "2023",
+    "imdb_url": "https://www.imdb.com/title/tt17072938/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=298950.html",
+    "trailer_url": "https://www.youtube.com/watch?v=TNvXaQrS-e0"
+  },
+  {
+    "id": "john-wick-4",
+    "title": "John Wick : Chapitre 4",
+    "year": "2023",
+    "imdb_url": "https://www.imdb.com/title/tt10366206/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=274387.html",
+    "trailer_url": "https://www.youtube.com/watch?v=JjBZ2iEBcxM"
+  },
+  {
+    "id": "murder-mystery-2",
+    "title": "Murder Mystery 2",
+    "year": "2023",
+    "imdb_url": "https://www.imdb.com/title/tt15295770/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=277491.html",
+    "trailer_url": "https://www.youtube.com/watch?v=p0OljkLzV3w"
+  },
+  {
+    "id": "uncharted",
+    "title": "Uncharted",
+    "year": "2022",
+    "imdb_url": "https://www.imdb.com/title/tt1464335/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=184989.html",
+    "trailer_url": "https://www.youtube.com/watch?v=mduvAjUGl4s"
+  },
+  {
+    "id": "goliath",
+    "title": "Goliath",
+    "year": "2022",
+    "imdb_url": "https://www.imdb.com/title/tt11928096/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=273618.html",
+    "trailer_url": "https://www.youtube.com/watch?v=I3gZ6Iz6yQI"
+  },
+  {
+    "id": "wednesday-mercredi",
+    "title": "Wednesday (Mercredi)",
+    "year": "2022",
+    "imdb_url": "https://www.imdb.com/title/tt13443470/",
+    "allocine_url": "https://www.allocine.fr/series/ficheserie_gen_cserie=27878.html",
+    "trailer_url": "https://www.youtube.com/watch?v=4PWEKKTc8-M"
+  },
+  {
+    "id": "the-355",
+    "title": "The 355",
+    "year": "2022",
+    "imdb_url": "https://www.imdb.com/title/tt8356942/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=264560.html",
+    "trailer_url": "https://www.youtube.com/watch?v=ka3Fe65TYkw"
+  },
+  {
+    "id": "bac-nord",
+    "title": "Bac Nord",
+    "year": "2021",
+    "imdb_url": "https://www.imdb.com/title/tt10404944/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=274530.html",
+    "trailer_url": "https://www.youtube.com/watch?v=E4FdK4VdGz0"
+  },
+  {
+    "id": "black-widow",
+    "title": "Black Widow",
+    "year": "2021",
+    "imdb_url": "https://www.imdb.com/title/tt3480822/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=197998.html",
+    "trailer_url": "https://www.youtube.com/watch?v=4l99M0zOEaA"
+  },
+  {
+    "id": "lupin",
+    "title": "Lupin",
+    "year": "2021",
+    "imdb_url": "https://www.imdb.com/title/tt2531336/",
+    "allocine_url": "https://www.allocine.fr/series/ficheserie_gen_cserie=24118.html",
+    "trailer_url": "https://www.youtube.com/watch?v=tAIUNPYRfHA"
+  },
+  {
+    "id": "sentinelle",
+    "title": "Sentinelle",
+    "year": "2021",
+    "imdb_url": "https://www.imdb.com/title/tt11734264/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=279090.html",
+    "trailer_url": "https://www.youtube.com/watch?v=VJX9V1FnOHY"
+  },
+  {
+    "id": "family-business",
+    "title": "Family Business",
+    "year": "2021",
+    "imdb_url": "https://www.imdb.com/title/tt9215096/",
+    "allocine_url": "https://www.allocine.fr/series/ficheserie_gen_cserie=24564.html",
+    "trailer_url": "https://www.youtube.com/watch?v=7p5R8z8V4j0"
+  },
+  {
+    "id": "stillwater",
+    "title": "Stillwater",
+    "year": "2021",
+    "imdb_url": "https://www.imdb.com/title/tt10633456/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=275704.html",
+    "trailer_url": "https://www.youtube.com/watch?v=FfalESJsRZA"
+  },
+  {
+    "id": "dune",
+    "title": "Dune",
+    "year": "2021",
+    "imdb_url": "https://www.imdb.com/title/tt1160419/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=252643.html",
+    "trailer_url": "https://www.youtube.com/watch?v=gHt8tCHbB2M"
+  },
+  {
+    "id": "braqueurs",
+    "title": "Braqueurs",
+    "year": "2021",
+    "imdb_url": "https://www.imdb.com/title/tt13300584/",
+    "allocine_url": "https://www.allocine.fr/series/ficheserie_gen_cserie=27473.html",
+    "trailer_url": "https://www.youtube.com/watch?v=3-M9o1N2d5E"
+  },
+  {
+    "id": "30-jours-max",
+    "title": "30 Jours Max",
+    "year": "2020",
+    "imdb_url": "https://www.imdb.com/title/tt11261314/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=277433.html",
+    "trailer_url": "https://www.youtube.com/watch?v=0k5qfS35Kk4"
+  },
+  {
+    "id": "balle-perdue",
+    "title": "Balle Perdue",
+    "year": "2020",
+    "imdb_url": "https://www.imdb.com/title/tt11855660/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=271813.html",
+    "trailer_url": "https://www.youtube.com/watch?v=kYJ5oVb06fM"
+  },
+  {
+    "id": "bronx",
+    "title": "Bronx",
+    "year": "2020",
+    "imdb_url": "https://www.imdb.com/title/tt10442742/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=274483.html",
+    "trailer_url": "https://www.youtube.com/watch?v=LTt-hVUzSJI"
+  },
+  {
+    "id": "police",
+    "title": "Police",
+    "year": "2020",
+    "imdb_url": "https://www.imdb.com/title/tt9404284/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=269894.html",
+    "trailer_url": "https://www.youtube.com/watch?v=ip8vJ31SJCg"
+  },
+  {
+    "id": "mortel",
+    "title": "Mortel",
+    "year": "2019",
+    "imdb_url": "https://www.imdb.com/title/tt8268484/",
+    "allocine_url": "https://www.allocine.fr/series/ficheserie_gen_cserie=23528.html",
+    "trailer_url": "https://www.youtube.com/watch?v=uVUY-t2_O2k"
+  },
+  {
+    "id": "6-underground",
+    "title": "6 Underground",
+    "year": "2019",
+    "imdb_url": "https://www.imdb.com/title/tt8106534/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=263158.html",
+    "trailer_url": "https://www.youtube.com/watch?v=bLfmyVTwFN8"
+  },
+  {
+    "id": "les-miserables",
+    "title": "Les Misérables",
+    "year": "2019",
+    "imdb_url": "https://www.imdb.com/title/tt10199590/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=268406.html",
+    "trailer_url": "https://www.youtube.com/watch?v=lU5y-Yx3wS4"
+  },
+  {
+    "id": "nicky-larson",
+    "title": "Nicky Larson",
+    "year": "2019",
+    "imdb_url": "https://www.imdb.com/title/tt7146608/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=257604.html",
+    "trailer_url": "https://www.youtube.com/watch?v=R9o83i8aNqA"
+  },
+  {
+    "id": "mission-impossible-fallout",
+    "title": "Mission : Impossible - Fallout",
+    "year": "2018",
+    "imdb_url": "https://www.imdb.com/title/tt4649466/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=239857.html",
+    "trailer_url": "https://www.youtube.com/watch?v=wb49-oV0F78"
+  },
+  {
+    "id": "overdrive",
+    "title": "Overdrive",
+    "year": "2017",
+    "imdb_url": "https://www.imdb.com/title/tt1995150/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=193796.html",
+    "trailer_url": "https://www.youtube.com/watch?v=744hyCHXcas"
+  },
+  {
+    "id": "dunkirk",
+    "title": "Dunkerque (Dunkirk)",
+    "year": "2017",
+    "imdb_url": "https://www.imdb.com/title/tt5013056/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=240850.html",
+    "trailer_url": "https://www.youtube.com/watch?v=chRUCIk3K94"
+  },
+  {
+    "id": "valerian",
+    "title": "Valérian et la Cité des mille planètes",
+    "year": "2017",
+    "imdb_url": "https://www.imdb.com/title/tt2239822/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=237821.html",
+    "trailer_url": "https://www.youtube.com/watch?v=FPcRK7MvTn4"
+  },
+  {
+    "id": "alibi-com",
+    "title": "Alibi.com",
+    "year": "2017",
+    "imdb_url": "https://www.imdb.com/title/tt5814534/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=244833.html",
+    "trailer_url": "https://www.youtube.com/watch?v=-eiOzI8wBLE"
+  },
+  {
+    "id": "raid-dingue",
+    "title": "Raid Dingue",
+    "year": "2017",
+    "imdb_url": "https://www.imdb.com/title/tt5442742/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=244670.html",
+    "trailer_url": "https://www.youtube.com/watch?v=S0T0-qJq7iE"
+  },
+  {
+    "id": "jason-bourne",
+    "title": "Jason Bourne",
+    "year": "2016",
+    "imdb_url": "https://www.imdb.com/title/tt4196776/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=231367.html",
+    "trailer_url": "https://www.youtube.com/watch?v=euya1zwQ6U0"
+  },
+  {
+    "id": "bastille-day",
+    "title": "Bastille Day",
+    "year": "2016",
+    "imdb_url": "https://www.imdb.com/title/tt2368619/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=215286.html",
+    "trailer_url": "https://www.youtube.com/watch?v=kYv9l5y4Q9E"
+  },
+  {
+    "id": "taken-3",
+    "title": "Taken 3",
+    "year": "2015",
+    "imdb_url": "https://www.imdb.com/title/tt2446042/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=213453.html",
+    "trailer_url": "https://www.youtube.com/watch?v=A2wG392cKpc"
+  },
+  {
+    "id": "james-bond-spectre",
+    "title": "007 Spectre",
+    "year": "2015",
+    "imdb_url": "https://www.imdb.com/title/tt2379713/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=206892.html",
+    "trailer_url": "https://www.youtube.com/watch?v=NlZS1pSF2hU"
+  },
+  {
+    "id": "le-transporteur-heritage",
+    "title": "Le Transporteur Héritage",
+    "year": "2015",
+    "imdb_url": "https://www.imdb.com/title/tt2938956/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=219462.html",
+    "trailer_url": "https://www.youtube.com/watch?v=DRuyPTWsydY"
+  },
+  {
+    "id": "l-affaire-sk1",
+    "title": "L'Affaire SK1",
+    "year": "2014",
+    "imdb_url": "https://www.imdb.com/title/tt3392576/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=224795.html",
+    "trailer_url": "https://www.youtube.com/watch?v=WR-qmom7D6k"
+  },
+  {
+    "id": "3-days-to-kill",
+    "title": "3 Days to Kill",
+    "year": "2014",
+    "imdb_url": "https://www.imdb.com/title/tt2172934/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=208358.html",
+    "trailer_url": "https://www.youtube.com/watch?v=hPUkoHYkbQM"
+  },
+  {
+    "id": "the-hunger-games",
+    "title": "The Hunger Games",
+    "year": "2014",
+    "imdb_url": "https://www.imdb.com/title/tt1951265/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=200088.html",
+    "trailer_url": "https://www.youtube.com/watch?v=zdMIft77FEY"
+  },
+  {
+    "id": "lucy",
+    "title": "Lucy",
+    "year": "2014",
+    "imdb_url": "https://www.imdb.com/title/tt2872732/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=186452.html",
+    "trailer_url": "https://www.youtube.com/watch?v=7gPrNpHaFX8"
+  },
+  {
+    "id": "fast-furious-6",
+    "title": "Fast & Furious 6",
+    "year": "2013",
+    "imdb_url": "https://www.imdb.com/title/tt1905041/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=189651.html",
+    "trailer_url": "https://www.youtube.com/watch?v=Ewu0WTPbOVY"
+  },
+  {
+    "id": "malavita",
+    "title": "Malavita",
+    "year": "2013",
+    "imdb_url": "https://www.imdb.com/title/tt2404311/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=207825.html",
+    "trailer_url": "https://www.youtube.com/watch?v=xSV9hN_GIxc"
+  },
+  {
+    "id": "de-l-autre-cote-du-periph",
+    "title": "De l'autre côté du périph",
+    "year": "2012",
+    "imdb_url": "https://www.imdb.com/title/tt2215286/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=190911.html",
+    "trailer_url": "https://www.youtube.com/watch?v=ng5LG59AgAM"
+  },
+  {
+    "id": "taken-2",
+    "title": "Taken 2",
+    "year": "2012",
+    "imdb_url": "https://www.imdb.com/title/tt1397280/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=187841.html",
+    "trailer_url": "https://www.youtube.com/watch?v=G_U2ZpXjpeg"
+  },
+  {
+    "id": "from-paris-with-love",
+    "title": "From Paris with Love",
+    "year": "2010",
+    "imdb_url": "https://www.imdb.com/title/tt1179040/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=135547.html",
+    "trailer_url": "https://www.youtube.com/watch?v=bc-2ZUhGnQU"
+  },
+  {
+    "id": "un-prophete",
+    "title": "Un Prophète",
+    "year": "2009",
+    "imdb_url": "https://www.imdb.com/title/tt1229238/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=125866.html",
+    "trailer_url": "https://www.youtube.com/watch?v=9UqWnZ-xX9w"
+  },
+  {
+    "id": "banlieue-13-ultimatum",
+    "title": "Banlieue 13 : Ultimatum",
+    "year": "2009",
+    "imdb_url": "https://www.imdb.com/title/tt1247640/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=134188.html",
+    "trailer_url": "https://www.youtube.com/watch?v=VgZUE0KN4E4"
+  },
+  {
+    "id": "babylon-a-d",
+    "title": "Babylon A.D.",
+    "year": "2008",
+    "imdb_url": "https://www.imdb.com/title/tt0364970/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=58941.html",
+    "trailer_url": "https://www.youtube.com/watch?v=g6lyYQ8ruOM"
+  },
+  {
+    "id": "largo-winch",
+    "title": "Largo Winch",
+    "year": "2008",
+    "imdb_url": "https://www.imdb.com/title/tt0808339/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=124948.html",
+    "trailer_url": "https://www.youtube.com/watch?v=rnYZHu_YaQY"
+  },
+  {
+    "id": "mesrine-l-ennemi-public-n-1",
+    "title": "Mesrine : L'Ennemi public n°1",
+    "year": "2008",
+    "imdb_url": "https://www.imdb.com/title/tt0411272/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=111809.html",
+    "trailer_url": "https://www.youtube.com/watch?v=y7gIy4H-nU0"
+  },
+  {
+    "id": "taxi-4",
+    "title": "Taxi 4",
+    "year": "2007",
+    "imdb_url": "https://www.imdb.com/title/tt0804540/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=110681.html",
+    "trailer_url": "https://www.youtube.com/watch?v=EUgh1OEEoko"
+  },
+  {
+    "id": "danny-the-dog",
+    "title": "Danny the Dog",
+    "year": "2005",
+    "imdb_url": "https://www.imdb.com/title/tt0342258/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=52538.html",
+    "trailer_url": "https://www.youtube.com/watch?v=WcMgkbfJIRg"
+  },
+  {
+    "id": "yamakasi",
+    "title": "Yamakasi : Les samouraïs des temps modernes",
+    "year": "2001",
+    "imdb_url": "https://www.imdb.com/title/tt0267129/",
+    "allocine_url": "https://www.allocine.fr/film/fichefilm_gen_cfilm=29366.html",
+    "trailer_url": "https://www.youtube.com/watch?v=aA0wW7E-Wok"
+  }
+]
