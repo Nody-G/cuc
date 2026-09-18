@@ -98,6 +98,7 @@ export const CAMPUS_POIS: POI[] = [
     badge: 'PENSION COMPLÈTE',
     xPercent: 25,
     yPercent: 78,
+    location_id: '85190227-31ee-4ee8-945a-5dbd22ad38f0', // Amphithéâtre
   },
 ];
 

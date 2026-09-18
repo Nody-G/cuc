@@ -97,8 +97,8 @@ async function linkSessionsToFormations() {
       if (s.date_display.includes('18 au 30 octobre 2026') && f.name.includes('18 au 30 octobre 2026')) return true;
       if (s.date_display.includes('21 février au 05 mars 2027') && (f.name.includes('21 février') || f.name.includes('Février 2027'))) return true;
       if (s.date_display.includes('18 au 30 avril 2027') && f.name.includes('18 au 30 avril 2027')) return true;
-      if (s.date_display.includes('12 et 13 septembre 2026') && f.name.includes('12-13 septembre 2026')) return true;
-      if (s.date_display.includes('21 et 22 novembre 2026') && f.name.includes('21-22 novembre 2026')) return true;
+      if (s.date_display.includes('12 et 13 septembre 2026') && (f.name.includes('Septembre 2026') || f.start_date === '2026-09-12')) return true;
+      if (s.date_display.includes('21 et 22 novembre 2026') && (f.name.includes('21-22 novembre') || f.start_date === '2026-11-21')) return true;
       if (s.date_display.includes('09 au 20 novembre 2026') && f.name.includes('novembre 2026')) return true;
       if (s.date_display.includes('15 au 26 mars 2027') && f.name.includes('mars')) return true;
       if (s.date_display.includes('11 au 16 juillet 2027') && f.name.includes('Summer Camp')) return true;
@@ -135,6 +135,9 @@ async function linkTeamToProfiles() {
     'malik-diouf': profiles.find(p => p.email === 'cuc2@cuc.fr'),
     'bastien-trouve': profiles.find(p => p.email === 'cuc10@cuc.fr'),
     'pierre-gomes': profiles.find(p => p.email === 'cuc4@cuc.fr'),
+    'franck-blanc': profiles.find(p => p.email === 'cuc1@cuc.fr'),
+    'niels-dalery': profiles.find(p => p.email === 'niels.dalery@gmail.com'),
+    'morgane-taillard': profiles.find(p => p.email === 'cuc3@cuc.fr'),
   };
 
   for (const member of team) {
