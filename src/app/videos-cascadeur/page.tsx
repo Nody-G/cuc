@@ -34,7 +34,7 @@ export default function VideosCascadeurPage() {
   const heroTitle = content.hero?.title || 'LES REPORTAGES & VIDÉOS DU CUC';
   const heroSubtitle =
     content.hero?.subtitle ||
-    "Plongez au cœur de l'entraînement des cascadeurs avec les reportages exclusifs diffusés sur les journaux télévisés de TF1 et France 2, ainsi que les showreels de la CUC Stunt Team.";
+    "Découvrez les coulisses de l'entraînement des cascadeurs avec les reportages diffusés sur TF1 et France 2, ainsi que les vidéos officielles du Campus Univers Cascades.";
   const heroBg =
     content.hero?.bg_image ||
     'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-5-scaled.jpg';

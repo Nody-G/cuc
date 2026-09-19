@@ -30,8 +30,7 @@ export const FooterCreditsBar: React.FC = () => {
       {/* Cinematic Credits Footer Bar */}
       <div className="pt-8 border-t border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] font-mono-tech text-zinc-500">
         <div>
-          &copy; {year ?? 2026} CAMPUS UNIVERS CASCADES • TOUS DROITS
-          RÉSERVÉS // CUC PROD
+          &copy; {year ?? 2026} CAMPUS UNIVERS CASCADES • TOUS DROITS RÉSERVÉS
         </div>
 
         <div className="flex items-center gap-4 text-zinc-400 flex-wrap justify-center">

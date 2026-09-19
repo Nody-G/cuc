@@ -6,7 +6,7 @@ export const DEFAULT_FACILITIES: Record<string, EditableFacilityItem> = {
   'cuc-tower': {
     id: 'cuc-tower',
     name: 'CUC Tower 21m (Inaugurée 2024)',
-    code: 'INFRA-01',
+    code: '01',
     x: 7.0,
     z: 14.0,
     rotationY: 0,
@@ -17,7 +17,7 @@ export const DEFAULT_FACILITIES: Record<string, EditableFacilityItem> = {
   'zoe-bell-hall': {
     id: 'zoe-bell-hall',
     name: 'Zoé Bell Hall (700m²)',
-    code: 'INFRA-02',
+    code: '02',
     x: 25.0,
     z: 40.0,
     rotationY: 0,
@@ -28,7 +28,7 @@ export const DEFAULT_FACILITIES: Record<string, EditableFacilityItem> = {
   'hangar-wirework': {
     id: 'hangar-wirework',
     name: 'Hall Câblage & Cascades',
-    code: 'INFRA-03',
+    code: '03',
     x: 14.0,
     z: 38.0,
     rotationY: 0,
@@ -39,7 +39,7 @@ export const DEFAULT_FACILITIES: Record<string, EditableFacilityItem> = {
   'dojos-sceniques': {
     id: 'dojos-sceniques',
     name: 'Dojos Scéniques (Salle 3)',
-    code: 'INFRA-04',
+    code: '04',
     x: 38.0,
     z: 36.0,
     rotationY: 0,
@@ -49,8 +49,8 @@ export const DEFAULT_FACILITIES: Record<string, EditableFacilityItem> = {
   },
   'city-stade-exterieur': {
     id: 'city-stade-exterieur',
-    name: 'City Stade & Piste Bleue',
-    code: 'INFRA-09',
+    name: 'City Stade & Espace Sportif',
+    code: '09',
     x: -55.0,
     z: -24.0,
     rotationY: 0,
@@ -61,7 +61,7 @@ export const DEFAULT_FACILITIES: Record<string, EditableFacilityItem> = {
   'espace-mecanique': {
     id: 'espace-mecanique',
     name: 'Atelier Mécanique & Stunt',
-    code: 'INFRA-06',
+    code: '06',
     x: -32.0,
     z: 43.0,
     rotationY: 0,
@@ -72,7 +72,7 @@ export const DEFAULT_FACILITIES: Record<string, EditableFacilityItem> = {
   'site-tournage': {
     id: 'site-tournage',
     name: 'Site Extérieur (6 Hectares)',
-    code: 'INFRA-07',
+    code: '07',
     x: 11.0,
     z: -39.0,
     rotationY: 0,
@@ -82,8 +82,8 @@ export const DEFAULT_FACILITIES: Record<string, EditableFacilityItem> = {
   },
   'qg-staff-hebergement': {
     id: 'qg-staff-hebergement',
-    name: 'QG & Hébergement 90 Lits',
-    code: 'INFRA-08',
+    name: 'Hébergement & Accueil (90 Lits)',
+    code: '08',
     x: 28.0,
     z: 24.0,
     rotationY: 0,
@@ -94,7 +94,7 @@ export const DEFAULT_FACILITIES: Record<string, EditableFacilityItem> = {
   'manege-equestre': {
     id: 'manege-equestre',
     name: 'Manège Équestre & Paddock',
-    code: 'INFRA-05',
+    code: '05',
     x: 62.0,
     z: -48.0,
     rotationY: 0,

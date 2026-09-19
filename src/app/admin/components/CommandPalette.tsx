@@ -118,7 +118,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         category: 'Navigation',
         icon: Shield,
         action: () => selectTab('disciplines'),
-        badge: 'MOD-01 à 10',
+        badge: '10 Modules',
         keywords: ['combat', 'chute', 'torche', 'câblage', 'parkour', 'armes', 'escalier', 'acrobatie', 'disciplines', 'modules'],
       },
       {

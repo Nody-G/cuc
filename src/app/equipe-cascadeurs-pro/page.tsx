@@ -340,7 +340,7 @@ export default function EquipeCascadeursProPage() {
                     type="button"
                     onClick={() => setSelectedFilm(film)}
                     className="bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/60 transition-all p-2 group flex flex-col justify-between cursor-pointer text-left"
-                    title={`${film.title} (${film.year}) - Cliquez pour voir le dossier`}
+                    title={`${film.title} (${film.year}) - Cliquez pour voir la fiche`}
                   >
                     <div className="relative aspect-[2/3] w-full overflow-hidden bg-black mb-2">
                       <Image

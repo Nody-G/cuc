@@ -141,8 +141,8 @@ export const ApplicationModal: React.FC<ApplicationModalProps> = ({
             <div className="mb-6">
               <div className="flex items-center justify-between gap-4 mb-2">
                 <div className="flex items-center gap-2">
-                  <StuntBadge variant="yellow">DOSSIER D'ADMISSION & CONTACT</StuntBadge>
-                  <span className="text-xs font-mono-tech text-zinc-500">CUC-REF // 2026-2027</span>
+                  <StuntBadge variant="yellow">CANDIDATURE &amp; ADMISSIONS</StuntBadge>
+                  <span className="text-xs font-mono-tech text-zinc-500">SESSION 2026-2027</span>
                 </div>
                 <div className="relative w-10 h-10 shrink-0 hidden sm:block">
                   <Image

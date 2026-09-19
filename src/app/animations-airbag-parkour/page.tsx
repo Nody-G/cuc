@@ -18,11 +18,11 @@ import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 export default function AnimationsAirbagParkourPage() {
   const { content } = usePageDynamicContent('animations-airbag-parkour');
 
-  const heroBadge = content.hero?.badge || 'XTREM JUMP AIRBAG';
+  const heroBadge = content.hero?.badge || 'AIRBAG DE CINÉMA • ENCADREMENT PROFESSIONNEL';
   const heroTitle = content.hero?.title || 'ANIMATIONS AIRBAG & PARKOUR';
   const heroSubtitle =
     content.hero?.subtitle ||
-    "Faites vivre au grand public les sensations uniques de la chute libre sur coussin d'air géant de cinéma. Une animation spectaculaire et 100% sécurisée animée par les cascadeurs professionnels du Campus Univers Cascades.";
+    "Faites vivre au grand public les sensations uniques de la chute libre sur coussin d'air géant de cinéma. Une animation spectaculaire encadrée par les cascadeurs professionnels du Campus Univers Cascades.";
   const heroBg =
     content.hero?.bg_image ||
     'https://www.campus-universcascades.com/wp-content/uploads/2021/07/xtrem-jump-1.png';

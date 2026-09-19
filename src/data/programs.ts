@@ -5,7 +5,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
     id: 'pro-longue-duree',
     category: 'pro',
     title: 'Formation Professionnelle Longue Durée',
-    badge: 'CURSUS ÉLITE CUC',
+    badge: 'FORMATION PROFESSIONNELLE 2 ANS',
     highlight: true,
     tagline: 'Devenez cascadeur professionnel polyvalent pour le cinéma d\'action international.',
     duration: '2 Ans (Cursus de 9 à 10 stages)',
@@ -27,13 +27,13 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
       { date: '18 au 30 avril 2027', status: 'complet' },
       { date: '27 juin au 09 juillet 2027', status: 'dernières places' }
     ],
-    description: 'Le cursus de référence mondiale pour intégrer l\'industrie du cinéma d\'action. 9 à 10 stages immersifs de 12 jours échelonnés tous les deux mois sur deux ans. Évaluation quotidienne, polyvalence absolue, confrontation aux conditions réelles de plateau de tournage.',
+    description: 'Le cursus de référence pour intégrer l\'industrie du cinéma d\'action. 9 à 10 stages immersifs de 12 jours échelonnés sur deux ans. Évaluation continue, travail pluridisciplinaire et mise en situation réelle de plateau de tournage.',
     objectives: [
       'Maîtriser l\'intégralité des 10 disciplines de la cascade physique',
-      'Paramétrer scientifiquement les risques et assurer la sécurité absolue sur plateau',
+      'Anticiper les risques et appliquer les protocoles de sécurité sur plateau',
       'Exécuter des chorégraphies martiales complexes avec synchronisation caméra',
       'Réaliser des chutes de très grande hauteur (jusqu\'à 21m sur la CUC Tower)',
-      'Intégrer les réseaux professionnels de coordinateurs cascades hollywoodiens et européens'
+      'Intégrer les réseaux professionnels de coordinateurs cascades et de productions'
     ],
     keyModules: [
       'Combats chorégraphiés & Action Design',
@@ -112,7 +112,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
       { date: '21 et 22 novembre 2026', status: 'ouvert' },
       { date: '20 et 21 mars 2027', status: 'bientôt' }
     ],
-    description: 'Une plongée directe dans l\'univers spectaculaire des cascades de cinéma. Dormez sur le campus, mangez avec les cascadeurs pro et apprenez les bases des chutes, des combats scéniques et du saut sur airbag géant dans une ambiance fraternelle et ultra-sécurisée.',
+    description: 'Une immersion dans l\'univers des cascades de cinéma. Dormez sur le campus, partagez le quotidien des cascadeurs professionnels et apprenez les bases des chutes, des combats scéniques et du saut sur airbag géant.',
     objectives: [
       'Repousser ses peurs en toute sécurité sur nos installations professionnelles',
       'Apprendre les rudiments de la bagarre de cinéma crédible',
@@ -134,13 +134,13 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
     id: 'afdas-artistes-interpretes',
     category: 'afdas',
     title: 'Stage AFDAS — Artistes Interprètes',
-    badge: '100% PRIS EN CHARGE',
+    badge: 'PRISE EN CHARGE AFDAS',
     highlight: true,
     tagline: 'Formation cascades dédiée aux comédiens, danseurs, circassiens et intermittents.',
     duration: '2 Semaines (10 jours ouvrés)',
     hours: '70 heures conventionnées',
     location: 'Pôle CUC Île-de-France — Gennevilliers (92)',
-    price: '0 € (Prise en charge AFDAS 100%)',
+    price: 'Prise en charge intégrale',
     priceNote: 'Prise en charge intégrale au titre de la formation continue des artistes',
     ageRequirement: 'Dès 18 ans',
     eligibility: [

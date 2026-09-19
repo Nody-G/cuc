@@ -410,7 +410,7 @@ export const DisciplinesView: React.FC<DisciplinesViewProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-zinc-400 mb-1">
-                    Code Module (ex: MOD-01)
+                    Numéro (ex: 01)
                   </label>
                   <input
                     type="text"

@@ -16,30 +16,30 @@ export const HERO_SLIDES: HeroSlide[] = [
   },
   {
     url: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg',
-    caption: "L'ÉLITE DE LA CASCADE DE CINÉMA",
+    caption: "L'EXCELLENCE DE LA CASCADE DE CINÉMA",
     sub: 'Combat chorégraphié, arts martiaux et cascades physiques de haut vol',
-    badge: 'ACTION DESIGN & HOLLYWOOD RIGUEUR',
+    badge: 'ACTION DESIGN & CHORÉGRAPHIE',
     tag: 'Combat & Action',
   },
   {
     url: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-7-scaled.jpg',
     caption: 'PLATEAUX TECHNIQUES DU DOMAINE',
-    sub: 'Multiples paliers de saut, airbag géant et câblage 3D haute voltige',
-    badge: 'SÉCURITÉ ABSOLUE & CONTRÔLE DE L\'IMPACT',
+    sub: 'Plateformes de saut, airbag géant et câblage 3D haute voltige',
+    badge: 'SÉCURITÉ & RIGGING CINÉMA',
     tag: 'Plateaux & Rigging',
   },
   {
     url: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-5-scaled.jpg',
     caption: 'STUNT TEAM INTERNATIONALE',
     sub: 'Fondé en 2008 par Lucas Dollfus • Longs-métrages, Marvel & EuropaCorp',
-    badge: 'AGRÉMENT QUALIOPI • PRISE EN CHARGE AFDAS 100%',
+    badge: 'CERTIFIÉ QUALIOPI • ÉLIGIBLE AFDAS',
     tag: 'Stunt Team Pro',
   },
 ];
 
 export const HERO_QUICK_METRICS = [
   { val: 'DEPUIS 2008', label: 'SAVOIR-FAIRE CUC' },
-  { val: '100% TERRAIN', label: 'PÉDAGOGIE ACTIVE' },
+  { val: 'IMMERSION', label: 'PÉDAGOGIE ACTIVE' },
   { val: 'CINÉMA & TV', label: 'INSERTION PRO' },
   { val: 'QUALIOPI', label: 'FORMATION CERTIFIÉE' },
 ];

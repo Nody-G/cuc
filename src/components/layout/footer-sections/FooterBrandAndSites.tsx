@@ -89,13 +89,10 @@ export const FooterBrandAndSites: React.FC = () => {
 
         <div className="space-y-3 text-xs font-tech">
           <div className="p-2.5 bg-[#101016] border border-zinc-800/80 hover:border-[#FFE500]/50 transition-colors">
-            <div className="flex items-center justify-between">
+            <div>
               <strong className="text-[#FFE500] font-mono-tech block">
                 CAMPUS PRINCIPAL (6 HA) :
               </strong>
-              <span className="text-[9px] font-mono-tech text-emerald-400 bg-emerald-500/10 px-1 py-0.2">
-                GPS ACTIF
-              </span>
             </div>
             <p className="text-zinc-300 mt-0.5">
               Domaine CUC, 59360 Le Cateau-Cambrésis

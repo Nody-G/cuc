@@ -68,7 +68,7 @@ export const CampusEditorPanel: React.FC<CampusEditorPanelProps> = ({
         <div className="flex items-center gap-2">
           <Sliders className="w-4 h-4 text-[#00e5ff]" />
           <span className="font-display uppercase text-sm font-bold text-white tracking-wider">
-            STUDIO 3D // PLACEMENT
+            STUDIO 3D • PLACEMENT
           </span>
         </div>
         <button

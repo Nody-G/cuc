@@ -114,11 +114,8 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
 
       {/* Implantations */}
       <div className="bg-[#0e0e14] border border-zinc-800 p-6 space-y-4 text-xs font-tech">
-        <h3 className="text-lg font-display uppercase text-white border-b border-zinc-800 pb-2 flex items-center justify-between">
-          <span>NOS DEUX SITES</span>
-          <span className="text-[10px] font-mono-tech text-[#FFE500]">
-            GPS ACTIF
-          </span>
+        <h3 className="text-lg font-display uppercase text-white border-b border-zinc-800 pb-2">
+          NOS DEUX SITES
         </h3>
 
         <div className="p-3 bg-[#12121a] border border-zinc-800/80 hover:border-[#FFE500]/50 transition-colors">

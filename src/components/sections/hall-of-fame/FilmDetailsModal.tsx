@@ -44,13 +44,13 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
           <div className="flex items-center gap-3">
             <span className="w-2.5 h-2.5 rounded-full bg-[#FFE500] animate-pulse" />
             <span className="text-xs font-mono-tech text-[#FFE500] font-bold tracking-wider uppercase">
-              DOSSIER PRODUCTION // TOURNAGE &amp; RÉFÉRENCES CUC
+              RÉFÉRENCES &amp; TOURNAGES
             </span>
           </div>
           <button
             onClick={onClose}
             className="text-zinc-400 hover:text-white p-1 hover:bg-zinc-800 transition-colors cursor-pointer"
-            aria-label="Fermer le dossier"
+            aria-label="Fermer la fiche"
           >
             <X className="w-5 h-5" />
           </button>
@@ -96,7 +96,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
               <div className="bg-[#141419] border border-zinc-800 p-4">
                 <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] font-bold uppercase mb-2">
                   <ShieldCheck className="w-4 h-4 text-[#FFE500]" />
-                  <span>MISSION CASCADES &amp; RÔLE OPÉRATIONNEL CUC</span>
+                  <span>RÔLE &amp; INTERVENTION CUC</span>
                 </div>
                 <p className="text-sm text-zinc-300 font-tech leading-relaxed">
                   {movie.stuntRoles}
@@ -108,7 +108,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                 <div className="bg-[#141419] border border-zinc-800 p-4">
                   <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] font-bold uppercase mb-2">
                     <UserCheck className="w-4 h-4 text-[#FFE500]" />
-                    <span>DOUBLURES CÉLÉBRITÉS &amp; CASCADEURS ASSOCIÉS</span>
+                    <span>DOUBLURES &amp; COMÉDIENS DOUBLÉS</span>
                   </div>
                   <div className="text-xs text-zinc-300 font-tech flex flex-wrap gap-2">
                     {movie.doubledActors.map((actor, idx) => (
@@ -129,10 +129,10 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                   <div className="flex items-center justify-between gap-2 mb-3">
                     <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] font-bold uppercase">
                       <Users className="w-4 h-4 text-[#FFE500]" />
-                      <span>CASCADEURS &amp; FORMATEURS CUC ENGAGÉS</span>
+                      <span>ÉQUIPE CUC ENGAGÉE</span>
                     </div>
                     <span className="text-[10px] font-mono-tech px-2 py-0.5 bg-[#FFE500]/10 border border-[#FFE500]/30 text-[#FFE500] font-bold">
-                      CERTIFIÉ CUC
+                      ÉQUIPE OFFICIELLE
                     </span>
                   </div>
 
@@ -178,7 +178,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
               <div className="pt-2">
                 <div className="text-xs font-mono-tech text-zinc-400 uppercase tracking-wider font-bold mb-3 flex items-center gap-2">
                   <Layers className="w-4 h-4 text-[#00e5ff]" />
-                  <span>LIENS DE L&apos;INDUSTRIE CINÉMA</span>
+                  <span>FICHES OFFICIELLES &amp; CRÉDITS</span>
                 </div>
 
                 <div className="grid grid-cols-1 gap-2.5">
@@ -251,7 +251,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
         <div className="bg-[#141419] border-t border-zinc-800 px-6 py-3 flex items-center justify-between text-xs font-mono-tech text-zinc-400">
           <span className="flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-[#FFE500]" />
-            <span>CERTIFIÉ CAMPUS UNIVERS CASCADES // LE CATEAU-CAMBRÉSIS</span>
+            <span>CAMPUS UNIVERS CASCADES • LE CATEAU-CAMBRÉSIS</span>
           </span>
           <button
             onClick={onClose}

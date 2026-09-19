@@ -464,7 +464,7 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
           id: 'disciplines' as TabType,
           label: 'Modules & Disciplines',
           icon: Shield,
-          badge: 'MOD-10',
+          badge: '10 Disciplines',
         },
         {
           id: 'campus' as TabType,

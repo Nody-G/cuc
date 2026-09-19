@@ -38,7 +38,7 @@ export const ContactHeroSection: React.FC<ContactHeroSectionProps> = ({ heroData
 
         <div className="inline-flex items-center gap-2 mb-4">
           <StuntBadge variant="yellow" icon={<Phone className="w-3.5 h-3.5" />}>
-            {heroData?.badge || 'HUB OPÉRATIONNEL • PRODUCTION & ADMISSIONS'}
+            {heroData?.badge || 'CONTACT & ADMISSIONS'}
           </StuntBadge>
           <span className="text-xs font-mono-tech text-zinc-400">
             CAMPUS CUC • LE CATEAU-CAMBRÉSIS &amp; GENNEVILLIERS

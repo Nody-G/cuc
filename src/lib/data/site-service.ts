@@ -456,7 +456,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     meta_description: "Formation professionnelle longue durée de 2 ans. 720h à 800h d'entraînement intensif aux combats, chutes, câblerie, feu et torche humaine.",
     og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-equipe.jpg',
     hero: {
-      badge: 'CURSUS ÉLITE DIPLÔMANT • 2 ANS',
+      badge: 'FORMATION PROFESSIONNELLE • 2 ANS',
       title: 'FORMATION PROFESSIONNELLE DE CASCADEUR',
       subtitle: "Un cursus d'excellence de 720h à 800h sur 2 ans pour maîtriser l'ensemble des disciplines de la cascade physique et cinématographique.",
       cta_primary_text: 'Candidater à la sélection',
@@ -494,7 +494,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
           },
           {
             id: 'pro_longue_duree',
-            step_badge: 'ÉTAPE 02 • CURSUS ÉLITE DIPLÔMANT',
+            step_badge: 'ÉTAPE 02 • FORMATION PROFESSIONNELLE',
             duration_badge: '720H À 800H',
             title: 'FORMATION PROFESSIONNELLE 2 ANS',
             description: "Le cursus complet pour devenir cascadeur professionnel certifié. 9 modules intensifs répartis sur 2 ans d'entraînement physique et cinématographique.",
@@ -729,7 +729,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
           id: 'combat',
           title: "Combats au Cinéma",
           category: "Chorégraphie & Précision",
-          desc: "Plongez au cœur d'une scène d'action ! Initiation aux techniques de combats de films : esquives, feintes, coups de poing de cinéma et respect chirurgical des axes caméra.",
+          desc: "Initiation aux techniques de combats de films : esquives, feintes, coups scéniques et synchronisation avec les axes caméra.",
           img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-combat-cinema-1.jpg",
         },
         {
@@ -788,12 +788,12 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     slug: 'animations-airbag-parkour',
     title: 'Animations Airbag',
     meta_title: 'Animation Airbag Géant de Chute Libre & Parkour | CUC Events',
-    meta_description: "Faites vivre le grand frisson du saut dans le vide sur coussin d'air géant de cinéma. Animation 100% sécurisée encadrée par des cascadeurs.",
+    meta_description: "Faites vivre le grand frisson du saut dans le vide sur coussin d'air géant de cinéma. Animation encadrée par des cascadeurs professionnels.",
     og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2021/07/xtrem-jump-1.png',
     hero: {
-      badge: 'XTREM JUMP AIRBAG • +20 000 CHUTES ENCADRÉES',
+      badge: 'AIRBAG DE CINÉMA • ENCADREMENT PROFESSIONNEL',
       title: 'ANIMATIONS AIRBAG & PARKOUR',
-      subtitle: "Faites vivre au grand public les sensations uniques de la chute libre sur coussin d'air géant de cinéma dans une sécurité absolue.",
+      subtitle: "Faites vivre au grand public les sensations uniques de la chute libre sur coussin d'air géant de cinéma dans un cadre sécurisé.",
       cta_primary_text: 'Devis Animation Airbag',
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Toutes les Offres CUC Events',
@@ -872,7 +872,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     hero: {
       badge: 'REPORTAGES TÉLÉVISION • TF1 JT 20H • FRANCE 2',
       title: 'LES REPORTAGES & VIDÉOS DU CUC',
-      subtitle: "Plongez au cœur de l'entraînement des cascadeurs avec les reportages exclusifs de TF1, France 2 et les showreels de la CUC Stunt Team.",
+      subtitle: "Découvrez les coulisses de l'entraînement des cascadeurs avec les reportages de TF1, France 2 et les showreels du Campus Univers Cascades.",
       cta_primary_text: 'Reportage TF1 (JT 20H)',
       cta_primary_link: '#tf1',
       cta_secondary_text: 'Reportage France 2',
@@ -920,7 +920,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     meta_description: "Productions cinéma, action design, formations professionnelles de cascadeurs, stages et événements : contactez l'équipe du Campus Univers Cascades.",
     og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-campus.jpg',
     hero: {
-      badge: 'HUB OPÉRATIONNEL • PRODUCTION & ADMISSIONS',
+      badge: 'CONTACT & ADMISSIONS',
       title: 'CONTACT & PROJETS',
       subtitle: "Productions cinématographiques, action design, formations professionnelles, stages ou événements d'entreprise : échangez directement avec les équipes du CUC.",
       cta_primary_text: 'Démarrer un projet',
@@ -1192,7 +1192,7 @@ export const DEFAULT_EVENTS: SiteEvent[] = [
     title: 'Animations & FreeJump Airbag',
     subtitle: 'Sauts dans le vide sur coussin d’air géant de cinéma',
     badge: 'SENSATIONS FORTES GRAND PUBLIC',
-    description: 'Faites vivre au grand public les sensations uniques de la chute libre sur coussin d’air géant (sauts de 4 à 8 mètres). Encadrement 100% sécurisé par des cascadeurs professionnels.',
+    description: 'Faites vivre au grand public les sensations uniques de la chute libre sur coussin d’air géant (sauts de 4 à 8 mètres). Encadrement assuré par des cascadeurs professionnels certifiés.',
     features: [
       '+20 000 chutes encadrées en sécurité',
       'Airbag géant homologué cinéma & spectacle',

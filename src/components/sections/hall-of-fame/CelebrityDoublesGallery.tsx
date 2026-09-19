@@ -46,7 +46,7 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
           <div className="flex items-center gap-2 mb-2">
             <UserCheck className="w-5 h-5 text-[#FFE500]" />
             <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
-              DOUBLURES DU 7E ART // CASCADEURS CUC
+              DOUBLURES DU 7E ART • CASCADEURS CUC
             </span>
           </div>
           <h3 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-tight text-white">

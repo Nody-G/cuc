@@ -11,7 +11,7 @@ export const EventsGuaranteesSection: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div className="p-6 bg-[#121218] border border-zinc-800">
             <ShieldCheck className="w-8 h-8 text-[#FFE500] mx-auto mb-3" />
-            <h3 className="font-display uppercase text-lg text-white mb-1">SÉCURITÉ 100% GARANTIE</h3>
+            <h3 className="font-display uppercase text-lg text-white mb-1">SÉCURITÉ &amp; HOMOLOGATION</h3>
             <p className="text-xs font-tech text-zinc-400">
               Assurance professionnelle spectacle, matériel homologué et protocoles stricts.
             </p>

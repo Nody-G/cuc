@@ -22,7 +22,7 @@ const TEAM_BUILDING_WORKSHOPS = [
   {
     title: "Combats au Cinéma",
     category: "Chorégraphie & Précision",
-    desc: "Plongez au cœur d'une scène d'action ! Initiation aux techniques de combats de films : esquives, feintes, coups de poing de cinéma et respect chirurgical des axes caméra.",
+    desc: "Initiation aux techniques de combats de films : esquives, feintes, coups scéniques et synchronisation avec les axes caméra.",
     img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-combat-cinema-1.jpg"
   },
   {

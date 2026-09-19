@@ -31,13 +31,13 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
           <div className="flex items-center gap-3">
             <span className="w-2.5 h-2.5 rounded-full bg-[#FFE500] animate-pulse" />
             <span className="text-xs font-mono-tech text-[#FFE500] font-bold tracking-wider uppercase">
-              DOSSIER DOUBLURE // COMÉDIEN &amp; CASCADES CUC
+              DOUBLURE CINÉMA • COMÉDIEN &amp; CASCADES
             </span>
           </div>
           <button
             onClick={onClose}
             className="text-zinc-400 hover:text-white p-1 hover:bg-zinc-800 transition-colors cursor-pointer"
-            aria-label="Fermer le dossier"
+            aria-label="Fermer la fiche"
           >
             <X className="w-5 h-5" />
           </button>
@@ -123,7 +123,7 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
         <div className="bg-[#141419] border-t border-zinc-800 px-6 py-3 flex items-center justify-between text-xs font-mono-tech text-zinc-400">
           <span className="flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-[#FFE500]" />
-            <span>CASCADEURS CUC // LE CATEAU-CAMBRÉSIS</span>
+            <span>CAMPUS UNIVERS CASCADES • LE CATEAU-CAMBRÉSIS</span>
           </span>
           <button
             onClick={onClose}

@@ -82,7 +82,7 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
           )}
           {currentImage.category && (
             <span className="text-xs font-mono-tech text-zinc-500 hidden md:inline">
-              {'// ' + currentImage.category}
+              {'• ' + currentImage.category}
             </span>
           )}
         </div>

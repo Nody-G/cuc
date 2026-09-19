@@ -108,18 +108,7 @@ export const HeroTechDepth: React.FC<HeroTechDepthProps> = ({
           <div className="absolute bottom-24 left-6 sm:left-12 w-6 h-6 border-b border-l border-white/20" />
           <div className="absolute bottom-24 right-6 sm:right-12 w-6 h-6 border-b border-r border-white/20" />
 
-          {/* Micro Telemetry Stamps (Purely aesthetic, quiet tech accents) */}
-          <div className="hidden lg:flex items-center gap-4 absolute top-20 left-16 text-[9px] font-mono-tech text-zinc-600 tracking-widest uppercase">
-            <span>OPTICAL DEPTH // 35MM</span>
-            <span>•</span>
-            <span>CUC SENSOR MATRIX v2.6</span>
-          </div>
 
-          <div className="hidden lg:flex items-center gap-4 absolute bottom-28 right-16 text-[9px] font-mono-tech text-zinc-600 tracking-widest uppercase">
-            <span>FPS // 120 DAMPENED</span>
-            <span>•</span>
-            <span className="text-[#FFE500]/50">INERTIAL STABILIZED</span>
-          </div>
         </motion.div>
       </motion.div>
 

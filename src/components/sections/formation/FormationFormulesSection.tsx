@@ -139,7 +139,7 @@ export const FormationFormulesSection: React.FC<FormationFormulesSectionProps> =
             <div>
               <div className="flex items-center justify-between gap-2 mb-4">
                 <span className="px-2.5 py-1 bg-[#FFE500] text-black font-mono-tech text-[10px] font-bold uppercase tracking-wider">
-                  ÉTAPE 02 • CURSUS ÉLITE CUC
+                  ÉTAPE 02 • FORMATION PROFESSIONNELLE
                 </span>
                 <span className="text-xs font-mono-tech text-[#FFE500]">
                   720 À 800 HEURES

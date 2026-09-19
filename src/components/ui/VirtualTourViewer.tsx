@@ -147,14 +147,14 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </div>
           <span className="font-display uppercase tracking-wider text-sm text-white font-bold flex items-center gap-2">
-            VISITE VIRTUELLE 360° INTERACTIVE <span className="text-[#FFE500] font-mono-tech text-xs">{'// HD MEDIA'}</span>
+            VISITE VIRTUELLE 360° INTERACTIVE
           </span>
           <span className="hidden sm:inline-block px-2 py-0.5 bg-[#14141c] border border-zinc-800 text-[10px] font-mono-tech text-zinc-400">
             6 HECTARES • LE CATEAU-CAMBRÉSIS
           </span>
         </div>
 
-        {/* Tactical Actions */}
+        {/* Actions */}
         <div className="flex items-center gap-2">
           <button
             onClick={() => setInfoOpen(!infoOpen)}
