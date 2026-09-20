@@ -1,0 +1,268 @@
+{
+  "generatedAt": "2026-09-20T21:49:08.551Z",
+  "dryRun": false,
+  "mappingEntries": 221,
+  "database": {
+    "tables": [
+      {
+        "table": "site_pages",
+        "scanned": 15,
+        "updated": 0,
+        "replacements": 36,
+        "skipped": null
+      },
+      {
+        "table": "site_films",
+        "scanned": 570,
+        "updated": 0,
+        "replacements": 0,
+        "skipped": null
+      },
+      {
+        "table": "site_team",
+        "scanned": 12,
+        "updated": 12,
+        "replacements": 12,
+        "skipped": null
+      },
+      {
+        "table": "site_partners",
+        "scanned": 8,
+        "updated": 0,
+        "replacements": 0,
+        "skipped": null
+      },
+      {
+        "table": "site_events",
+        "scanned": 3,
+        "updated": 3,
+        "replacements": 3,
+        "skipped": null
+      },
+      {
+        "table": "site_settings",
+        "scanned": 10,
+        "updated": 0,
+        "replacements": 110,
+        "skipped": null
+      },
+      {
+        "table": "site_disciplines",
+        "scanned": 0,
+        "updated": 0,
+        "replacements": 0,
+        "skipped": "Could not find the table 'public.site_disciplines' in the schema cache"
+      },
+      {
+        "table": "site_campus_pois",
+        "scanned": 0,
+        "updated": 0,
+        "replacements": 0,
+        "skipped": "Could not find the table 'public.site_campus_pois' in the schema cache"
+      },
+      {
+        "table": "site_navigation",
+        "scanned": 0,
+        "updated": 0,
+        "replacements": 0,
+        "skipped": "Could not find the table 'public.site_navigation' in the schema cache"
+      },
+      {
+        "table": "site_footer",
+        "scanned": 0,
+        "updated": 0,
+        "replacements": 0,
+        "skipped": "Could not find the table 'public.site_footer' in the schema cache"
+      },
+      {
+        "table": "site_social_links",
+        "scanned": 0,
+        "updated": 0,
+        "replacements": 0,
+        "skipped": "Could not find the table 'public.site_social_links' in the schema cache"
+      }
+    ],
+    "rowsUpdated": 15,
+    "replacements": 161,
+    "errors": [
+      "site_pages#undefined : column site_pages.id does not exist",
+      "site_pages#undefined : column site_pages.id does not exist",
+      "site_pages#undefined : column site_pages.id does not exist",
+      "site_pages#undefined : column site_pages.id does not exist",
+      "site_pages#undefined : column site_pages.id does not exist",
+      "site_pages#undefined : column site_pages.id does not exist",
+      "site_pages#undefined : column site_pages.id does not exist",
+      "site_pages#undefined : column site_pages.id does not exist",
+      "site_pages#undefined : column site_pages.id does not exist",
+      "site_pages#undefined : column site_pages.id does not exist",
+      "site_pages#undefined : column site_pages.id does not exist",
+      "site_pages#undefined : column site_pages.id does not exist",
+      "site_pages#undefined : column site_pages.id does not exist",
+      "site_pages#undefined : column site_pages.id does not exist",
+      "site_pages#undefined : column site_pages.id does not exist",
+      "site_settings#undefined : column site_settings.id does not exist",
+      "site_settings#undefined : column site_settings.id does not exist",
+      "site_settings#undefined : column site_settings.id does not exist",
+      "site_settings#undefined : column site_settings.id does not exist",
+      "site_settings#undefined : column site_settings.id does not exist",
+      "site_settings#undefined : column site_settings.id does not exist",
+      "site_settings#undefined : column site_settings.id does not exist",
+      "site_settings#undefined : column site_settings.id does not exist"
+    ]
+  },
+  "source": {
+    "files": [
+      {
+        "file": "src\\app\\admin\\components\\PagesEditorView.tsx",
+        "replacements": 1
+      },
+      {
+        "file": "src\\app\\animations-airbag-parkour\\page.tsx",
+        "replacements": 2
+      },
+      {
+        "file": "src\\app\\equipe-cascadeurs-pro\\page.tsx",
+        "replacements": 1
+      },
+      {
+        "file": "src\\app\\spectacles-cascadeurs-yamakasi\\page.tsx",
+        "replacements": 3
+      },
+      {
+        "file": "src\\app\\stunt-workshop-cuc\\page.tsx",
+        "replacements": 5
+      },
+      {
+        "file": "src\\app\\team-building-cascades\\page.tsx",
+        "replacements": 6
+      },
+      {
+        "file": "src\\app\\videos-cascadeur\\page.tsx",
+        "replacements": 3
+      },
+      {
+        "file": "src\\components\\layout\\footer-sections\\FooterBrandAndSites.tsx",
+        "replacements": 1
+      },
+      {
+        "file": "src\\components\\sections\\contact\\ContactCoordinatesSidebar.tsx",
+        "replacements": 2
+      },
+      {
+        "file": "src\\components\\sections\\contact\\ContactHeroSection.tsx",
+        "replacements": 1
+      },
+      {
+        "file": "src\\components\\sections\\events\\EventsHeroSection.tsx",
+        "replacements": 1
+      },
+      {
+        "file": "src\\components\\sections\\events\\EventsPillarsSection.tsx",
+        "replacements": 3
+      },
+      {
+        "file": "src\\components\\sections\\formation\\FormationHeroSection.tsx",
+        "replacements": 3
+      },
+      {
+        "file": "src\\components\\sections\\home\\HomeAboutSection.tsx",
+        "replacements": 1
+      },
+      {
+        "file": "src\\components\\sections\\home\\HomeQualiopiSection.tsx",
+        "replacements": 1
+      },
+      {
+        "file": "src\\components\\sections\\home\\HomeSocialSection.tsx",
+        "replacements": 4
+      },
+      {
+        "file": "src\\components\\sections\\home\\HomeTournagesSection.tsx",
+        "replacements": 4
+      },
+      {
+        "file": "src\\components\\sections\\home\\HomeVirtualTourSection.tsx",
+        "replacements": 1
+      },
+      {
+        "file": "src\\components\\sections\\partenaires\\partenaires.data.tsx",
+        "replacements": 1
+      },
+      {
+        "file": "src\\components\\sections\\partenaires\\PartenairesHeroSection.tsx",
+        "replacements": 1
+      },
+      {
+        "file": "src\\components\\sections\\stages\\stages.data.ts",
+        "replacements": 6
+      },
+      {
+        "file": "src\\components\\sections\\stages\\StagesGridSection.tsx",
+        "replacements": 1
+      },
+      {
+        "file": "src\\components\\sections\\stages\\StagesHeroSection.tsx",
+        "replacements": 2
+      },
+      {
+        "file": "src\\components\\sections\\team\\teamGalleries.data.ts",
+        "replacements": 21
+      },
+      {
+        "file": "src\\components\\sections\\team\\TeamHeroSection.tsx",
+        "replacements": 1
+      },
+      {
+        "file": "src\\components\\sections\\visite\\VisiteHeroSection.tsx",
+        "replacements": 1
+      },
+      {
+        "file": "src\\components\\sections\\visite\\visitePhotos.data.ts",
+        "replacements": 16
+      },
+      {
+        "file": "src\\components\\ui\\parallax-hero\\parallaxHero.data.ts",
+        "replacements": 4
+      },
+      {
+        "file": "src\\data\\all_official_films.ts",
+        "replacements": 63
+      },
+      {
+        "file": "src\\data\\campus.ts",
+        "replacements": 9
+      },
+      {
+        "file": "src\\data\\disciplines.ts",
+        "replacements": 10
+      },
+      {
+        "file": "src\\data\\filmBanners.ts",
+        "replacements": 6
+      },
+      {
+        "file": "src\\data\\filmography.ts",
+        "replacements": 63
+      },
+      {
+        "file": "src\\data\\programs.ts",
+        "replacements": 3
+      },
+      {
+        "file": "src\\data\\team.ts",
+        "replacements": 12
+      },
+      {
+        "file": "src\\data\\videos.ts",
+        "replacements": 6
+      },
+      {
+        "file": "src\\lib\\data\\site-service.ts",
+        "replacements": 41
+      }
+    ],
+    "filesUpdated": 37,
+    "replacements": 310,
+    "errors": []
+  }
+}

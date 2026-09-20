@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/client';
+import { createPublicClient } from '@/lib/supabase/public';
 import { STUNT_PROGRAMS } from '@/data/programs';
 import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
@@ -19,6 +19,22 @@ import {
   type SiteSocialLink,
 } from '@/data/navigation';
 import { StuntProgram, Instructor, FilmCredit, Discipline, DoubledCelebrity, InfrastructureSpot } from '@/types';
+
+/**
+ * Fabrique Supabase isomorphe pour les lectures publiques du site vitrine.
+ *
+ * `site-service.ts` est consommé à la fois par des composants clients
+ * (`'use client'`) et par des Server Components. Un `createBrowserClient`
+ * échoue côté serveur (accès à `document`/`window`) et un client basé sur
+ * `next/headers` échoue côté client (build Turbopack).
+ *
+ * `createPublicClient()` (voir `@/lib/supabase/public`) n'utilise ni cookies
+ * ni session : il s'authentifie avec la clé anonyme et lit les contenus
+ * publiés via RLS. Il est donc sûr dans les deux contextes.
+ */
+function getSupabaseClient() {
+  return createPublicClient();
+}
 
 export interface SiteAnnouncement {
   id: string;
@@ -47,7 +63,7 @@ export interface SiteSession {
  */
 export async function getPrograms(): Promise<StuntProgram[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data: programs, error: progError } = await supabase
       .from('site_programs')
       .select('*')
@@ -115,7 +131,7 @@ export async function getPrograms(): Promise<StuntProgram[]> {
  */
 export async function getTeam(): Promise<Instructor[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     // `featured_credits` et `credits_display_limit` sont optionnelles : si la
     // migration n'a pas encore été appliquée, on retombe sur un select de base
     // pour ne jamais casser l'affichage public.
@@ -199,7 +215,7 @@ export async function getTeam(): Promise<Instructor[]> {
  */
 export async function getFilms(): Promise<FilmCredit[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('site_films')
       .select('*')
@@ -248,7 +264,7 @@ export async function getFilms(): Promise<FilmCredit[]> {
  */
 export async function getCelebrities(): Promise<DoubledCelebrity[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data: row } = await supabase
       .from('site_settings')
       .select('value')
@@ -270,7 +286,7 @@ export async function getCelebrities(): Promise<DoubledCelebrity[]> {
  */
 export async function getVideos(): Promise<ProgrammeTvItem[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data: row } = await supabase
       .from('site_settings')
       .select('value')
@@ -292,7 +308,7 @@ export async function getVideos(): Promise<ProgrammeTvItem[]> {
  */
 export async function getFilmBanners(): Promise<FilmBanner[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data: row } = await supabase
       .from('site_settings')
       .select('value')
@@ -314,7 +330,7 @@ export async function getFilmBanners(): Promise<FilmBanner[]> {
  */
 export async function getCampusFacilities(): Promise<InfrastructureSpot[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data: row } = await supabase
       .from('site_settings')
       .select('value')
@@ -335,7 +351,7 @@ export async function getCampusFacilities(): Promise<InfrastructureSpot[]> {
  */
 export async function getActiveAnnouncement(): Promise<SiteAnnouncement | null> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('site_announcements')
       .select('*')
@@ -407,7 +423,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Accueil',
     meta_title: "Campus Univers Cascades | 1ère École de Cascadeurs Professionnels d'Europe",
     meta_description: "Centre d'entraînement de cascadeurs professionnels fondé en 2008 par Lucas Dollfus. 11 000 m² d'infrastructures dédiées au cinéma d'action, parkour, combat et cascades.",
-    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/1-lucas.png',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/1-lucas.png',
     hero: {
       badge: 'PREMIER CENTRE EUROPÉEN • ACTION DESIGN & CASCADE CINÉMA',
       title: 'CAMPUS UNIVERS CASCADES',
@@ -416,7 +432,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/formation-de-cascadeur',
       cta_secondary_text: 'Visite guidée du campus',
       cta_secondary_link: '/visite-guidee',
-      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-campus.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
     },
     layout_sections: [
       { id: 'hero', name: 'Section Héros Parallaxe', order: 1, is_visible: true },
@@ -436,7 +452,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
         founder_name: 'LUCAS DOLLFUS',
         founder_role: 'FONDATEUR & RÉGLEUR',
         badge_year: 'DEPUIS 2008',
-        image_url: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-5-scaled.jpg',
+        image_url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg',
         cta_primary_text: 'Découvrir la Formation Pro',
         cta_primary_link: '/formation-de-cascadeur',
         cta_secondary_text: "L'Équipe des Cascadeurs",
@@ -491,7 +507,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Formation Professionnelle',
     meta_title: 'Formation de Cascadeur Pro en 2 Ans | Campus Univers Cascades',
     meta_description: "Formation professionnelle longue durée de 2 ans. 720h à 800h d'entraînement intensif aux combats, chutes, câblerie, feu et torche humaine.",
-    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-equipe.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg',
     hero: {
       badge: 'FORMATION PROFESSIONNELLE • 2 ANS',
       title: 'FORMATION PROFESSIONNELLE DE CASCADEUR',
@@ -500,7 +516,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/stages-cascades-parkour-2',
       cta_secondary_text: 'Télécharger la brochure',
       cta_secondary_link: '/contact-cuc',
-      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-equipe.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête & Titre Programme', order: 1, is_visible: true },
@@ -557,7 +573,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Stages & Initiations',
     meta_title: 'Stages de Cascade & Parkour | Campus Univers Cascades',
     meta_description: 'Découvrez nos stages de cascade physique, parkour et cascades cinéma ouverts dès 16 ans. Initiations débutants et perfectionnements intensifs.',
-    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-campus.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
     hero: {
       badge: 'STAGES INTENSIFS TOUS NIVEAUX • DÈS 16 ANS',
       title: 'STAGES DE CASCADE & PARKOUR',
@@ -566,7 +582,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '#dates',
       cta_secondary_text: "Modalités d'inscription",
       cta_secondary_link: '/contact-cuc',
-      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-campus.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête des Stages', order: 1, is_visible: true },
@@ -623,7 +639,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Stunt Workshops Masterclass',
     meta_title: 'International Stunt Workshop | Campus Univers Cascades',
     meta_description: "Stage international de cascade en anglais et français. 2 semaines résidentielles d'immersion au Cateau-Cambrésis.",
-    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg',
     hero: {
       badge: 'STAGE INTERNATIONAL • EN ANGLAIS & FRANÇAIS',
       title: 'INTERNATIONAL STUNT WORKSHOP',
@@ -632,7 +648,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '#apply',
       cta_secondary_text: 'Inquire & Information',
       cta_secondary_link: '/contact-cuc',
-      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête International Workshop', order: 1, is_visible: true },
@@ -650,7 +666,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Équipe & Instructeurs',
     meta_title: 'Équipe Pédagogique & Instructeurs | Campus Univers Cascades',
     meta_description: "Découvrez les instructeurs, coordinateurs de cascades et cascadeurs professionnels qui enseignent au CUC.",
-    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-equipe.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg',
     hero: {
       badge: 'COORDINATEURS & FORMATEURS • CINÉMA INTERNATIONAL',
       title: "L'ÉQUIPE PÉDAGOGIQUE DU CUC",
@@ -659,7 +675,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/formation-de-cascadeur',
       cta_secondary_text: 'Prendre contact',
       cta_secondary_link: '/contact-cuc',
-      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-equipe.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Équipe & Instructeurs', order: 1, is_visible: true },
@@ -675,7 +691,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'CUC Team & Action Design',
     meta_title: 'Tournages & CUC Stunt Team | Campus Univers Cascades',
     meta_description: "La CUC Stunt Team accompagne réalisateurs et productions cinéma de la conception des cascades jusqu'au tournage en plateau.",
-    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg',
     hero: {
       badge: 'COORDINATION DE CASCADES • TOURNAGES & CINÉMA',
       title: 'TOURNAGES & CUC STUNT TEAM',
@@ -684,7 +700,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Voir les affiches',
       cta_secondary_link: '#affiches',
-      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Tournages & Régie', order: 1, is_visible: true },
@@ -702,7 +718,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'CUC Events Agence',
     meta_title: 'CUC Events | Agence de Spectacles & Cascades en Direct',
     meta_description: "Spectacles vivants, animations airbag géant et team building d'entreprise orchestrés par les cascadeurs professionnels du CUC.",
-    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2025/08/Image1-scaled.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Image1-scaled.jpg',
     hero: {
       badge: 'AGENCE ÉVÉNEMENTIELLE D’ACTION • SHOWS CLÉ EN MAIN',
       title: 'CUC EVENTS : SPECTACLES & ANIMATIONS',
@@ -711,7 +727,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Toutes nos vidéos de shows',
       cta_secondary_link: '/videos-cascadeur',
-      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2025/08/Image1-scaled.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Image1-scaled.jpg',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Agence CUC Events', order: 1, is_visible: true },
@@ -728,7 +744,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Team Building',
     meta_title: 'Team Building Cinéma & Cascades | CUC Events',
     meta_description: "Séminaires d'entreprise et cohésion d'équipe dans les coulisses du cinéma : combat chorégraphié, doublage voix et dépassement de soi.",
-    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-combat-cinema-1.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg',
     hero: {
       badge: 'SÉMINAIRES & ENTREPRISES • COHÉSION D’ÉQUIPE',
       title: 'TEAM BUILDING D’EXCEPTION',
@@ -737,7 +753,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Toutes les Offres CUC Events',
       cta_secondary_link: '/cuc-events-agence',
-      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-combat-cinema-1.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Team Building Entreprise', order: 1, is_visible: true },
@@ -760,35 +776,35 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
           title: "Chute de Hauteur sur Airbag",
           category: "Adrénaline & Confiance",
           desc: "En intérieur comme en extérieur, faites goûter à vos collaborateurs les sensations de la chute libre sur coussin d'air géant de cinéma. Dépassement de soi et cohésion collective garantie.",
-          img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-chute-hauteur-1.jpg",
+          img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-chute-hauteur-1.jpg",
         },
         {
           id: 'combat',
           title: "Combats au Cinéma",
           category: "Chorégraphie & Précision",
           desc: "Initiation aux techniques de combats de films : esquives, feintes, coups scéniques et synchronisation avec les axes caméra.",
-          img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-combat-cinema-1.jpg",
+          img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg",
         },
         {
           id: 'parkour',
           title: "Parkour & Yamakasi",
           category: "Agilité & Mouvement",
           desc: "Initiation encadrée par des cascadeurs professionnels et spécialistes du déplacement urbain : franchissements d'obstacles, sauts de précision et motricité.",
-          img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-parkour-1.jpg",
+          img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-parkour-1.jpg",
         },
         {
           id: 'sfx',
           title: "Maquillage Effets Spéciaux (SFX)",
           category: "Coulisses & Cinéma",
           desc: "Découvrez les secrets des maquilleurs de cinéma : création de blessures ultra-réalistes, fausses cicatrices, impacts de balles et prothèses d'action.",
-          img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-maquillage.jpg",
+          img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-maquillage.jpg",
         },
         {
           id: 'doublage',
           title: "Doublage de Voix & Post-Production",
           category: "Créativité & Voix",
           desc: "Mettez-vous dans la peau d'un comédien de doublage ! Enregistrez en équipe les répliques et bruitages de séquences cultes du cinéma d'action.",
-          img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-doublage-voix.jpg",
+          img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-doublage-voix.jpg",
         },
       ],
     },
@@ -800,7 +816,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Spectacles Yamakasi',
     meta_title: 'Spectacles de Cascadeurs & Shows Yamakasi | CUC Events',
     meta_description: "Spectacles vivants d'action, combats chorégraphiés et acrobaties urbaines Yamakasi pour vos événements, festivals et parcs.",
-    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg',
     hero: {
       badge: 'LE CINÉMA S’INVITE SUR SCÈNE • SHOWS CLÉ EN MAIN',
       title: 'SPECTACLES CASCADEURS & YAMAKASI',
@@ -809,7 +825,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Voir les vidéos de shows',
       cta_secondary_link: '/videos-cascadeur',
-      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Spectacles & Shows Vivants', order: 1, is_visible: true },
@@ -826,7 +842,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Animations Airbag',
     meta_title: 'Animation Airbag Géant de Chute Libre & Parkour | CUC Events',
     meta_description: "Faites vivre le grand frisson du saut dans le vide sur coussin d'air géant de cinéma. Animation encadrée par des cascadeurs professionnels.",
-    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2021/07/xtrem-jump-1.png',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/xtrem-jump-1.png',
     hero: {
       badge: 'AIRBAG DE CINÉMA • ENCADREMENT PROFESSIONNEL',
       title: 'ANIMATIONS AIRBAG & PARKOUR',
@@ -835,7 +851,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Toutes les Offres CUC Events',
       cta_secondary_link: '/cuc-events-agence',
-      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2021/07/xtrem-jump-1.png',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/xtrem-jump-1.png',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Animation Airbag Géant', order: 1, is_visible: true },
@@ -852,7 +868,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Visite Virtuelle 360°',
     meta_title: 'Visite Virtuelle 360° & Plan 3D du Campus | CUC',
     meta_description: "Explorez les 11 000 m² du Campus Univers Cascades en immersion 360° ou via le plan topographique 3D interactif.",
-    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2020/11/img-campus-2.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.jpg',
     hero: {
       badge: 'IMMERSION 360° & PLAN 3D • 6 HECTARES',
       title: 'DÉCOUVRIR LE CAMPUS',
@@ -861,7 +877,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '#viewer',
       cta_secondary_text: 'Plan 3D Interactif',
       cta_secondary_link: '#plan-3d-campus',
-      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2020/11/img-campus-2.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.jpg',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Visite Virtuelle', order: 1, is_visible: true },
@@ -877,7 +893,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Visite Guidée',
     meta_title: 'Visite Guidée des Infrastructures du Campus | CUC',
     meta_description: "Découvrez en détail les installations du CUC : tour de saut 21m, 1300 m² de hangars, dojo de combat, fosse de réception et hébergement.",
-    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2020/11/img-campus-2.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.jpg',
     hero: {
       badge: 'INFRASTRUCTURES DE FORMATION • 6 HECTARES',
       title: 'VISITE GUIDÉE DU CAMPUS',
@@ -886,7 +902,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '#plan-3d-domaine',
       cta_secondary_text: 'Galerie Photos HD',
       cta_secondary_link: '#photos',
-      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2020/11/img-campus-2.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.jpg',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Visite Guidée & Chiffres Clés', order: 1, is_visible: true },
@@ -905,7 +921,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Vidéothèque',
     meta_title: 'Reportages TV & Vidéos de Cascades | Campus Univers Cascades',
     meta_description: "Retrouvez les reportages diffusés aux JT de TF1 et France 2 sur le CUC ainsi que les showreels des cascadeurs du campus.",
-    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-5-scaled.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg',
     hero: {
       badge: 'REPORTAGES TÉLÉVISION • TF1 JT 20H • FRANCE 2',
       title: 'LES REPORTAGES & VIDÉOS DU CUC',
@@ -914,7 +930,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '#tf1',
       cta_secondary_text: 'Reportage France 2',
       cta_secondary_link: '#france2',
-      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-5-scaled.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Vidéos & Émissions TV', order: 1, is_visible: true },
@@ -930,7 +946,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Partenaires',
     meta_title: 'Nos Partenaires, Studios & Équipementiers | CUC',
     meta_description: "Le Campus Univers Cascades collabore avec les plus grandes marques de protection, studios de cinéma et institutions certifiées.",
-    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-6-scaled.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-6-scaled.jpg',
     hero: {
       badge: 'ILS NOUS ACCOMPAGNENT • MARQUES & INSTITUTIONS',
       title: 'NOS PARTENAIRES',
@@ -939,7 +955,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Voir les certifications',
       cta_secondary_link: '#certifications',
-      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-6-scaled.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-6-scaled.jpg',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Partenaires', order: 1, is_visible: true },
@@ -955,7 +971,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Contact & Projets',
     meta_title: 'Contact & Projets | Campus Univers Cascades • Action Design & Formations',
     meta_description: "Productions cinéma, action design, formations professionnelles de cascadeurs, stages et événements : contactez l'équipe du Campus Univers Cascades.",
-    og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-campus.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
     hero: {
       badge: 'CONTACT & ADMISSIONS',
       title: 'CONTACT & PROJETS',
@@ -964,7 +980,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '#formulaire',
       cta_secondary_text: 'Venir au campus',
       cta_secondary_link: '#campus-map-hub',
-      bg_image: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-campus.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Contact & Plan d Accès', order: 1, is_visible: true },
@@ -1093,7 +1109,7 @@ export const DEFAULT_PARTNERS: SitePartner[] = [
     name: 'Qualiopi',
     category: 'institutionnel',
     logo_url: '/images/partenaires/qualiopi.png',
-    website_url: 'https://www.campus-universcascades.com/wp-content/uploads/2024/12/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf',
+    website_url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf',
     description: 'Certification qualité des actions de formation (éligible AFDAS, France Travail).',
     order_index: 1,
     is_published: true,
@@ -1243,7 +1259,7 @@ export const DEFAULT_EVENTS: SiteEvent[] = [
     price_indicator: 'Sur devis',
     cta_text: 'Découvrir les Spectacles',
     cta_link: '/spectacles-cascadeurs-yamakasi',
-    image_url: 'https://www.campus-universcascades.com/wp-content/uploads/2021/05/Photos-Spectacle-300x200.jpg',
+    image_url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Photos-Spectacle-300x200.jpg',
     order_index: 1,
     is_published: true,
   },
@@ -1262,7 +1278,7 @@ export const DEFAULT_EVENTS: SiteEvent[] = [
     price_indicator: 'Sur devis',
     cta_text: 'Découvrir les Animations',
     cta_link: '/animations-airbag-parkour',
-    image_url: 'https://www.campus-universcascades.com/wp-content/uploads/2021/06/FreeJump-CCJ-Puteaux-03-300x200.jpg',
+    image_url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/FreeJump-CCJ-Puteaux-03-300x200.jpg',
     order_index: 2,
     is_published: true,
   },
@@ -1281,7 +1297,7 @@ export const DEFAULT_EVENTS: SiteEvent[] = [
     price_indicator: 'Sur devis',
     cta_text: 'Organiser un Team Building',
     cta_link: '/team-building-cascades',
-    image_url: 'https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-combat-cinema-1.jpg',
+    image_url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg',
     order_index: 3,
     is_published: true,
   },
@@ -1304,7 +1320,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   campus_access_info: "Gare SNCF Le Cateau (1h40 de Paris Gare du Nord direct) • Navette privée CUC",
 
   qualiopi_number: "21452296",
-  qualiopi_url: "https://www.campus-universcascades.com/wp-content/uploads/2024/12/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf",
+  qualiopi_url: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf",
   afdas_status: "Prise en charge AFDAS certifiée pour artistes et techniciens du spectacle",
   france_travail_code: "Éligible Aide Individuelle à la Formation (AIF)",
 
@@ -1328,7 +1344,7 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
  */
 export async function getAllPages(): Promise<SitePageContent[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('site_pages')
       .select('*')
@@ -1346,7 +1362,7 @@ export async function getAllPages(): Promise<SitePageContent[]> {
  */
 export async function getPageContent(slug: string): Promise<SitePageContent | null> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('site_pages')
       .select('*')
@@ -1365,7 +1381,7 @@ export async function getPageContent(slug: string): Promise<SitePageContent | nu
  */
 export async function getPartners(): Promise<SitePartner[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('site_partners')
       .select('*')
@@ -1384,7 +1400,7 @@ export async function getPartners(): Promise<SitePartner[]> {
  */
 export async function getEvents(): Promise<SiteEvent[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('site_events')
       .select('*')
@@ -1403,7 +1419,7 @@ export async function getEvents(): Promise<SiteEvent[]> {
  */
 export async function getSiteSettings(): Promise<SiteSettings> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('site_settings')
       .select('value')
@@ -1531,7 +1547,7 @@ const LOCAL_STORAGE_INQUIRIES_KEY = 'cuc_site_inquiries_cache';
  */
 export async function getInquiries(): Promise<SiteInquiry[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('site_inquiries')
       .select('*')
@@ -1582,7 +1598,7 @@ export async function getInquiries(): Promise<SiteInquiry[]> {
  */
 export async function getAuditLogs(): Promise<AuditLogEntry[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('site_audit_logs')
       .select('*')
@@ -1616,7 +1632,7 @@ export async function getAuditLogs(): Promise<AuditLogEntry[]> {
  */
 export async function getAuditLogsExtended(limit = 500): Promise<AuditLogEntry[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('site_audit_logs')
       .select('*')
@@ -1649,7 +1665,7 @@ export async function getAuditLogsExtended(limit = 500): Promise<AuditLogEntry[]
  */
 export async function getDisciplines(): Promise<Discipline[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
 
     // 1. Table dédiée site_disciplines
     const { data: tableData, error: tableError } = await supabase
@@ -1716,14 +1732,21 @@ export async function getDisciplines(): Promise<Discipline[]> {
  */
 export async function getCampusPOIs(): Promise<POI[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
 
-    // 1. Table dédiée site_campus_pois
+    // 1. Table dédiée site_campus_pois (source de vérité)
     const { data: tableData, error: tableError } = await supabase
       .from('site_campus_pois')
       .select('*')
       .eq('is_active', true)
+      .order('order_index', { ascending: true, nullsFirst: false })
       .order('name', { ascending: true });
+
+    if (tableError) {
+      console.error(
+        `[getCampusPOIs] Lecture site_campus_pois impossible : ${tableError.message}`
+      );
+    }
 
     if (!tableError && tableData && tableData.length > 0) {
       return tableData.map((p) => ({
@@ -1743,6 +1766,8 @@ export async function getCampusPOIs(): Promise<POI[]> {
         features: p.features || [],
         disciplines: p.disciplines || [],
         coaches: p.coaches || [],
+        image_url: p.image_url || undefined,
+        order_index: typeof p.order_index === 'number' ? p.order_index : undefined,
         is_active: p.is_active,
       })) as POI[];
     }
@@ -1757,20 +1782,15 @@ export async function getCampusPOIs(): Promise<POI[]> {
     if (!settingError && settingData?.value?.list && Array.isArray(settingData.value.list) && settingData.value.list.length > 0) {
       return settingData.value.list as POI[];
     }
-  } catch {
-    // Fallback
+  } catch (err: unknown) {
+    console.error(
+      `[getCampusPOIs] Échec de lecture Supabase : ${err instanceof Error ? err.message : 'Erreur inconnue'}`
+    );
   }
 
-  // Fallback localStorage
-  if (typeof window !== 'undefined') {
-    try {
-      const cached = localStorage.getItem('cuc_campus_pois');
-      if (cached) return JSON.parse(cached);
-    } catch {
-      // Ignore
-    }
-  }
-
+  // Doctrine « Zéro Valeur Orpheline » : aucun repli sur localStorage.
+  // Le dernier recours est la constante de référence du dépôt, qui est
+  // versionnée et donc traçable — jamais un cache navigateur non synchronisé.
   return CAMPUS_POIS;
 }
 
@@ -1789,7 +1809,7 @@ export async function getCampusPOIs(): Promise<POI[]> {
  */
 export async function getNavigation(id: string = 'main'): Promise<SiteNavigation> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('site_navigation')
       .select('*')
@@ -1827,7 +1847,7 @@ export async function getNavigation(id: string = 'main'): Promise<SiteNavigation
  */
 export async function getFooter(id: string = 'main'): Promise<SiteFooter> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('site_footer')
       .select('*')
@@ -1866,7 +1886,7 @@ export async function getFooter(id: string = 'main'): Promise<SiteFooter> {
  */
 export async function getSocialLinks(): Promise<SiteSocialLink[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('site_social_links')
       .select('*')
@@ -1905,7 +1925,7 @@ export async function upsertNavigation(
   options: { id?: string; label?: string; isPublished?: boolean } = {}
 ): Promise<boolean> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const id = options.id ?? 'main';
     const { error } = await supabase.from('site_navigation').upsert(
       {
@@ -1932,7 +1952,7 @@ export async function upsertFooter(
   options: { id?: string; label?: string; isPublished?: boolean } = {}
 ): Promise<boolean> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const id = options.id ?? 'main';
     const { error } = await supabase.from('site_footer').upsert(
       {
@@ -1956,7 +1976,7 @@ export async function upsertFooter(
  */
 export async function upsertSocialLink(link: SiteSocialLink): Promise<boolean> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { error } = await supabase.from('site_social_links').upsert(
       {
         id: link.id,
@@ -1987,7 +2007,7 @@ export async function upsertSocialLink(link: SiteSocialLink): Promise<boolean> {
  */
 export async function deleteSocialLink(id: string): Promise<boolean> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { error } = await supabase.from('site_social_links').delete().eq('id', id);
     return !error;
   } catch {
@@ -2028,7 +2048,7 @@ export async function getPageRevisions(
   limit = 50
 ): Promise<SitePageRevision[]> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('site_page_revisions')
       .select('*')
@@ -2048,7 +2068,7 @@ export async function getPageRevisions(
  */
 export async function getPageRevision(id: string): Promise<SitePageRevision | null> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from('site_page_revisions')
       .select('*')
@@ -2072,7 +2092,7 @@ export async function createPageRevision(
   options: { label?: string; status?: PageRevisionStatus } = {}
 ): Promise<SitePageRevision | null> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
 
     const { data: last } = await supabase
       .from('site_page_revisions')
@@ -2119,7 +2139,7 @@ export async function restorePageRevision(
     const revision = await getPageRevision(revisionId);
     if (!revision) return null;
 
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const snap = revision.snapshot ?? {};
 
     const { data, error } = await supabase
@@ -2150,7 +2170,7 @@ export async function restorePageRevision(
  */
 export async function deletePageRevision(id: string): Promise<boolean> {
   try {
-    const supabase = createClient();
+    const supabase = getSupabaseClient();
     const { error } = await supabase.from('site_page_revisions').delete().eq('id', id);
     return !error;
   } catch {

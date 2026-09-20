@@ -19,7 +19,7 @@ export const PartenairesHeroSection: React.FC<PartenairesHeroSectionProps> = ({ 
     'Équipementiers, effets spéciaux, protections et structures partenaires du Campus Univers Cascades.';
   const bgImage =
     hero?.bg_image ||
-    'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-6-scaled.jpg';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-6-scaled.jpg';
 
   return (
     <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">

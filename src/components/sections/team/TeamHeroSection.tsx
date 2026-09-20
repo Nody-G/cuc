@@ -19,7 +19,7 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
     "Le Campus Univers Cascades et la CUC Stunt Team accompagnent les productions cinématographiques et audiovisuelles, de la conception des chorégraphies d'action jusqu'au tournage en plateau.";
   const bgImage =
     hero?.bg_image ||
-    'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg';
   const ctaPrimaryText = hero?.cta_primary_text || "Contacter l'Équipe de Production";
   const ctaPrimaryLink = hero?.cta_primary_link || '/contact-cuc';
 

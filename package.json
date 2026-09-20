@@ -26,7 +26,22 @@
     "coaches:sync:preview": "node scripts/sync_coach_credits_supabase.mjs",
     "coaches:seed:featured": "node scripts/seed_featured_credits.mjs",
     "coaches:seed:featured:write": "node scripts/seed_featured_credits.mjs --write",
-    "cms:seed:navigation": "node scripts/seed_navigation_footer.mjs"
+    "cms:seed:navigation": "node scripts/seed_navigation_footer.mjs",
+    "cms:seed:partners": "node scripts/seed_partners_from_defaults.mjs",
+    "cms:seed:partners:dry": "node scripts/seed_partners_from_defaults.mjs --dry-run",
+    "cms:audit:partners": "node scripts/audit_partners_gap.mjs",
+    "cms:audit:films": "node scripts/audit_films_team_links.mjs",
+    "cms:seed:braqueurs": "node scripts/seed_braqueurs_team_links.mjs",
+    "cms:seed:braqueurs:dry": "node scripts/seed_braqueurs_team_links.mjs --dry-run",
+    "media:audit": "node scripts/audit_original_media.mjs",
+    "media:classify": "node scripts/classify_media_inventory.mjs",
+    "media:download": "node scripts/download_original_media.mjs",
+    "media:upload": "node scripts/upload_media_to_supabase.mjs",
+    "media:fetch-missing": "node scripts/fetch_missing_media.mjs",
+    "media:rewrite": "node scripts/rewrite_media_urls.mjs",
+    "media:rewrite:dry": "node scripts/rewrite_media_urls.mjs --dry-run",
+    "media:verify:coverage": "node scripts/verify_media_url_coverage.mjs",
+    "media:verify:reachable": "node scripts/verify_supabase_media_reachable.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

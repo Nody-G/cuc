@@ -25,7 +25,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
     "Revivez les séquences d'action mythiques de vos films préférés avec les cascadeurs professionnels et doublures cinéma du Campus Univers Cascades. Combats, chutes, Parkour, humour et effets scéniques pour tous vos événements.";
   const heroBg =
     content.hero?.bg_image ||
-    'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg';
   const ctaPrimaryText = content.hero?.cta_primary_text || 'Demander un Devis Spectacle';
   const ctaPrimaryLink = content.hero?.cta_primary_link || '/contact-cuc';
   const ctaSecondaryText = content.hero?.cta_secondary_text || 'Voir nos Vidéos en Direct';
@@ -156,7 +156,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
                 <div className="lg:col-span-5 relative">
                   <div className="relative h-72 sm:h-96 w-full border border-zinc-800 overflow-hidden bg-black shadow-xl">
                     <Image
-                      src="https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-7-scaled.jpg"
+                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-7-scaled.jpg"
                       alt="Spectacles cascadeurs CUC sur scène"
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"
@@ -174,7 +174,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
                 <div className="lg:col-span-5 relative">
                   <div className="relative h-72 w-full border border-zinc-700 overflow-hidden bg-black">
                     <Image
-                      src="https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-5-scaled.jpg"
+                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg"
                       alt="CUC Events spectacle et performance live cascadeurs"
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"

@@ -96,7 +96,7 @@ export const StagesGridSection: React.FC<StagesGridSectionProps> = ({
           image: cs.image?.src
             ? cs.image
             : (match?.image || {
-                src: 'https://www.campus-universcascades.com/wp-content/uploads/2021/05/Stage-WE-Immersion.png',
+                src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Stage-WE-Immersion.png',
                 alt: cs.title || 'Stage CUC',
               }),
         };

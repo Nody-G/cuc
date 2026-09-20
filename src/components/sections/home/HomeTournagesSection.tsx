@@ -50,28 +50,28 @@ const FEATURED_PRODUCTIONS: HighlightProject[] = [
     year: '2024',
     category: 'Cinéma Français',
     actors: 'Cascades & combats',
-    poster: 'https://www.campus-universcascades.com/wp-content/uploads/2024/12/LE-COMTE-DE-MONTECRISTO-1.jpg',
+    poster: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/LE-COMTE-DE-MONTECRISTO-1.jpg',
   },
   {
     title: 'John Wick : Chapitre 4',
     year: '2023',
     category: 'Blockbuster US',
     actors: 'Cascadeurs CUC (tournage Paris)',
-    poster: 'https://www.campus-universcascades.com/wp-content/uploads/2023/03/John-Wick-4.jpg',
+    poster: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/John-Wick-4.jpg',
   },
   {
     title: 'The Substance',
     year: '2024',
     category: 'Cinéma',
     actors: 'Demi Moore & M. Qualley',
-    poster: 'https://www.campus-universcascades.com/wp-content/uploads/2024/12/The-substance.jpg',
+    poster: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/The-substance.jpg',
   },
   {
     title: "L'Amour Ouf",
     year: '2024',
     category: 'Cinéma Français',
     actors: 'Équipe cascades CUC',
-    poster: 'https://www.campus-universcascades.com/wp-content/uploads/2024/12/Lamour-ouf.jpg',
+    poster: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Lamour-ouf.jpg',
   },
 ];
 

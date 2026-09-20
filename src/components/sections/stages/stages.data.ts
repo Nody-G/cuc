@@ -44,11 +44,11 @@ export const STAGES_LIST: StageData[] = [
     ],
     buttonLabel: 'Réserver mon Week-end (250,00 €)',
     pdfLink: {
-      href: 'https://www.campus-universcascades.com/wp-content/uploads/2025/01/Plaquette-Week-end-Immersion-CUC.pdf',
+      href: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/Plaquette-Week-end-Immersion-CUC.pdf',
       label: 'Télécharger la Plaquette Week-end (PDF)',
     },
     image: {
-      src: 'https://www.campus-universcascades.com/wp-content/uploads/2021/05/Stage-WE-Immersion.png',
+      src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Stage-WE-Immersion.png',
       alt: 'Affiche Stage Week-end Immersion CUC',
     },
   },
@@ -69,7 +69,7 @@ export const STAGES_LIST: StageData[] = [
     ],
     buttonLabel: 'Demander ma Prise en Charge AFDAS',
     image: {
-      src: 'https://www.campus-universcascades.com/wp-content/uploads/2022/04/Stage-AFDAS.png',
+      src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/Stage-AFDAS.png',
       alt: 'Affiche Stage AFDAS Artistes Interprètes CUC',
     },
   },
@@ -90,11 +90,11 @@ export const STAGES_LIST: StageData[] = [
     ],
     buttonLabel: 'Pré-inscriptions Summer Camp',
     pdfLink: {
-      href: 'https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-CUC-Summer-Camp-2k27.pdf',
+      href: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/Plaquette-CUC-Summer-Camp-2k27.pdf',
       label: 'Télécharger la Plaquette Summer Camp (PDF)',
     },
     image: {
-      src: 'https://www.campus-universcascades.com/wp-content/uploads/2023/10/Stage-Summer-Camp-2.png',
+      src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Stage-Summer-Camp-2.png',
       alt: 'Affiche Stunt Summer Camp CUC',
     },
   },
@@ -113,7 +113,7 @@ export const STAGES_LIST: StageData[] = [
     ],
     buttonLabel: 'Contacter pour les Sessions Pro',
     image: {
-      src: 'https://www.campus-universcascades.com/wp-content/uploads/2025/04/Stage-Cascadeur-Pro.png',
+      src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Stage-Cascadeur-Pro.png',
       alt: 'Affiche Stage Cascadeur Pro CUC Provence Studios',
     },
   },

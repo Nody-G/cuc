@@ -17,31 +17,31 @@ const TEAM_BUILDING_WORKSHOPS = [
     title: "Chute de Hauteur sur Airbag",
     category: "Adrénaline & Confiance",
     desc: "En intérieur comme en extérieur, faites goûter à vos collaborateurs les sensations de la chute libre sur coussin d'air géant de cinéma. Dépassement de soi et cohésion collective garantie.",
-    img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-chute-hauteur-1.jpg"
+    img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-chute-hauteur-1.jpg"
   },
   {
     title: "Combats au Cinéma",
     category: "Chorégraphie & Précision",
     desc: "Initiation aux techniques de combats de films : esquives, feintes, coups scéniques et synchronisation avec les axes caméra.",
-    img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-combat-cinema-1.jpg"
+    img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg"
   },
   {
     title: "Parkour & Yamakasi",
     category: "Agilité & Mouvement",
     desc: "Initiation encadrée par des cascadeurs professionnels et spécialistes du déplacement urbain : franchissements d'obstacles, sauts de précision et motricité.",
-    img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-parkour-1.jpg"
+    img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-parkour-1.jpg"
   },
   {
     title: "Maquillage Effets Spéciaux (SFX)",
     category: "Coulisses & Cinéma",
     desc: "Découvrez les secrets des maquilleurs de cinéma : création de blessures ultra-réalistes, fausses cicatrices, impacts de balles et prothèses d'action.",
-    img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-maquillage.jpg"
+    img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-maquillage.jpg"
   },
   {
     title: "Doublage de Voix & Post-Production",
     category: "Créativité & Voix",
     desc: "Mettez-vous dans la peau d'un comédien de doublage ! Enregistrez en équipe les répliques et bruitages de séquences cultes du cinéma d'action.",
-    img: "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-doublage-voix.jpg"
+    img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-doublage-voix.jpg"
   }
 ];
 
@@ -57,7 +57,7 @@ export default function TeamBuildingCascadesPage() {
     "Offrez à vos équipes une immersion inoubliable dans l'univers du cinéma d'action et des cascadeurs professionnels. Ateliers modulables de 10 à 300 personnes sur notre campus ou sur le lieu de votre séminaire.";
   const heroBg =
     content.hero?.bg_image ||
-    'https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-combat-cinema-1.jpg';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg';
   const ctaPrimaryText = content.hero?.cta_primary_text || 'Construire votre Projet Team Building';
   const ctaPrimaryLink = content.hero?.cta_primary_link || '/contact-cuc';
   const ctaSecondaryText = content.hero?.cta_secondary_text || 'Découvrir CUC Events';

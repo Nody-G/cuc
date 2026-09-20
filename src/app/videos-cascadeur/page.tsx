@@ -37,7 +37,7 @@ export default function VideosCascadeurPage() {
     "Découvrez les coulisses de l'entraînement des cascadeurs avec les reportages diffusés sur TF1 et France 2, ainsi que les vidéos officielles du Campus Univers Cascades.";
   const heroBg =
     content.hero?.bg_image ||
-    'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-5-scaled.jpg';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg';
 
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
@@ -149,7 +149,7 @@ export default function VideosCascadeurPage() {
                     controls
                     preload="metadata"
                     className="w-full h-full object-contain"
-                    poster="https://www.campus-universcascades.com/wp-content/uploads/2025/12/ReportageBFMTV-Alecoledescascadeurs.jpeg"
+                    poster="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/ReportageBFMTV-Alecoledescascadeurs.jpeg"
                   >
                     <source
                       src="https://www.campus-universcascades.com/wp-content/uploads/2021/07/TF1-JT-20h-CUC-reportage-1.mp4"
@@ -163,7 +163,7 @@ export default function VideosCascadeurPage() {
                     controls
                     preload="metadata"
                     className="w-full h-full object-contain"
-                    poster="https://www.campus-universcascades.com/wp-content/uploads/2025/12/coeur-de-cascadeurs.jpeg"
+                    poster="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/coeur-de-cascadeurs.jpeg"
                   >
                     <source
                       src="https://www.campus-universcascades.com/wp-content/uploads/2021/07/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4"

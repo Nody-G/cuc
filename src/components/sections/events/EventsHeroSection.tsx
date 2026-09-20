@@ -21,7 +21,7 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
     "Marquez les esprits lors de vos festivals, lancements de marque, parcs à thème ou séminaires d'entreprise grâce à des shows d'action spectaculaires orchestrés par les cascadeurs professionnels du Campus Univers Cascades.";
   const bgImage =
     hero?.bg_image ||
-    'https://www.campus-universcascades.com/wp-content/uploads/2025/08/Image1-scaled.jpg';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Image1-scaled.jpg';
   const ctaPrimaryText = hero?.cta_primary_text || 'Demander un Devis Événementiel';
   const ctaPrimaryLink = hero?.cta_primary_link || '/contact-cuc';
   const ctaSecondaryText = hero?.cta_secondary_text || 'Voir nos Vidéos en Direct';

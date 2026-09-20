@@ -212,7 +212,7 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
       title: 'Nouvel Atelier Cascade',
       category: 'Initiation & Action',
       desc: 'Description des exercices et sensations proposées aux équipes.',
-      img: 'https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-combat-cinema-1.jpg',
+      img: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg',
     });
     setFormData((prev) => ({
       ...prev,

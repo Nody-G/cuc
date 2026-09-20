@@ -19,7 +19,7 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
       <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src={heroData?.bg_image || "https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-5-scaled.jpg"}
+            src={heroData?.bg_image || "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg"}
             alt="Stages et séjours de cascades au Campus Univers Cascades"
             fill
             priority
@@ -65,7 +65,7 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
       <section className="py-6 bg-[#09090d] border-b border-zinc-800">
         <div className="max-w-4xl mx-auto px-4 flex justify-center">
           <Image
-            src="https://www.campus-universcascades.com/wp-content/uploads/2025/03/Logos-stages-3-768x139.png"
+            src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/Logos-stages-3-768x139.png"
             alt="Logos des stages CUC"
             width={768}
             height={139}

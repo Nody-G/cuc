@@ -17,7 +17,7 @@ export const ContactHeroSection: React.FC<ContactHeroSectionProps> = ({ heroData
     <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src={heroData?.bg_image || "https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-7-scaled.jpg"}
+          src={heroData?.bg_image || "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-7-scaled.jpg"}
           alt="Contact et inscriptions au Campus Univers Cascades"
           fill
           priority

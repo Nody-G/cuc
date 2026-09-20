@@ -13,7 +13,7 @@ export const VisiteHeroSection: React.FC = () => {
       <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://www.campus-universcascades.com/wp-content/uploads/2020/11/img-campus-2.jpg"
+            src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.jpg"
             alt="Domaine de 6 hectares du Campus Univers Cascades"
             fill
             priority

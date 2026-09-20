@@ -62,7 +62,7 @@ export default function EquipeCascadeursProPage() {
     "Une faculté d'action unique au monde. Des coordinateurs de cascades renommés, des pionniers des Yamakasi, et des cascadeurs en exercice sur les plus grandes productions hollywoodiennes et françaises qui transmettent chaque jour leur savoir-faire sur le terrain.";
   const heroBg =
     content.hero?.bg_image ||
-    'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-equipe.jpg';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg';
 
   React.useEffect(() => {
     getTeam().then(setTeam);

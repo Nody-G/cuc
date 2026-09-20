@@ -91,7 +91,7 @@ export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
                   {/* Sliding Internal 360 Photo (Layer Depth) */}
                   <StudioParallaxLayer speed={-0.12} className="relative w-full h-[120%] -top-[10%]">
                     <Image
-                      src="https://www.campus-universcascades.com/wp-content/uploads/2020/11/Zoé-Bell-Hall.jpg"
+                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Zoe-Bell-Hall.jpg"
                       alt="Aperçu 360 d'un plateau technique du Campus Univers Cascades"
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"

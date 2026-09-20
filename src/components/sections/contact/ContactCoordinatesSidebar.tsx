@@ -197,7 +197,7 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
 
           <div className="flex flex-col items-center">
             <Image
-              src="https://www.campus-universcascades.com/wp-content/uploads/2021/06/logo-CUC-Events-150x150.png"
+              src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/logo-CUC-Events-150x150.png"
               alt="CUC Events"
               width={60}
               height={60}
@@ -210,7 +210,7 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
 
           <div className="flex flex-col items-center">
             <Image
-              src="https://www.campus-universcascades.com/wp-content/uploads/2024/05/CUC-TEAM-fond-noir-Website-1-150x150.png"
+              src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/CUC-TEAM-fond-noir-Website-1-150x150.png"
               alt="CUC Team"
               width={60}
               height={60}

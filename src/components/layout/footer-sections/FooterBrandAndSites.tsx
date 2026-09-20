@@ -44,7 +44,7 @@ export const FooterBrandAndSites: React.FC = () => {
 
         <div className="pt-2 space-y-2">
           <a
-            href="https://www.campus-universcascades.com/wp-content/uploads/2024/12/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf"
+            href="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-between p-2.5 bg-[#101017] hover:bg-[#161622] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors group"

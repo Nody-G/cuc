@@ -16,6 +16,10 @@ export interface POI {
   disciplines?: string[];
   coaches?: string[];
   is_active?: boolean;
+  /** Visuel de la zone (Supabase Storage ou chemin local). */
+  image_url?: string;
+  /** Ordre d'affichage explicite dans la grille et le radar. */
+  order_index?: number;
 }
 
 export interface TravelRoute {

@@ -46,7 +46,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
     ],
     certification: 'Certification QUALIOPI & Éligibilité AFDAS',
     ctaText: 'Postuler au Cursus Pro',
-    brochureUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2024/12/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf'
+    brochureUrl: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf'
   },
   {
     id: 'stage-decouverte',
@@ -128,7 +128,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
     ],
     certification: 'Certificat de stage Immersion CUC',
     ctaText: 'Réserver mon Week-end (250€)',
-    brochureUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2025/01/Plaquette-Week-end-Immersion-CUC.pdf'
+    brochureUrl: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/Plaquette-Week-end-Immersion-CUC.pdf'
   },
   {
     id: 'afdas-artistes-interpretes',
@@ -208,7 +208,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
     ],
     certification: 'Diplôme du Stunt Summer Camp CUC',
     ctaText: 'Pré-inscriptions Summer Camp',
-    brochureUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-CUC-Summer-Camp-2k27.pdf'
+    brochureUrl: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/Plaquette-CUC-Summer-Camp-2k27.pdf'
   },
   {
     id: 'afdas-cascadeurs-pro',

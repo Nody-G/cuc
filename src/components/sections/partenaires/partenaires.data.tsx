@@ -37,7 +37,7 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         description: "Certification qualité des actions de formation (éligible AFDAS, France Travail).",
         logo: "/images/partenaires/qualiopi.png",
         bgVariant: 'light',
-        website: "https://www.campus-universcascades.com/wp-content/uploads/2024/12/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf",
+        website: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf",
         featuredCertificate: "Certificat N° 21452296",
       },
     ],

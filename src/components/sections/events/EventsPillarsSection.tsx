@@ -138,7 +138,7 @@ export const EventsPillarsSection: React.FC = () => {
 
                 <div className="lg:col-span-5 relative h-64 sm:h-72 border border-zinc-800 overflow-hidden bg-black">
                   <Image
-                    src="https://www.campus-universcascades.com/wp-content/uploads/2021/05/Photos-Spectacle-300x200.jpg"
+                    src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Photos-Spectacle-300x200.jpg"
                     alt="Photo Spectacle CUC Events"
                     fill
                     sizes="(max-width: 1024px) 100vw, 40vw"
@@ -153,7 +153,7 @@ export const EventsPillarsSection: React.FC = () => {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-5 relative h-64 sm:h-72 border border-zinc-800 overflow-hidden bg-black order-2 lg:order-1">
                   <Image
-                    src="https://www.campus-universcascades.com/wp-content/uploads/2021/06/FreeJump-CCJ-Puteaux-03-300x200.jpg"
+                    src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/FreeJump-CCJ-Puteaux-03-300x200.jpg"
                     alt="Animation FreeJump Airbag CUC Events"
                     fill
                     sizes="(max-width: 1024px) 100vw, 40vw"
@@ -220,7 +220,7 @@ export const EventsPillarsSection: React.FC = () => {
 
                 <div className="lg:col-span-5 relative h-64 sm:h-72 border border-zinc-800 overflow-hidden bg-black">
                   <Image
-                    src="https://www.campus-universcascades.com/wp-content/uploads/2021/05/A-atelier-cinema-indoor-300x200.jpg"
+                    src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/A-atelier-cinema-indoor-300x200.jpg"
                     alt="Atelier Cinéma Indoor Team Building"
                     fill
                     sizes="(max-width: 1024px) 100vw, 40vw"

@@ -11,7 +11,7 @@ export const CUC_DISCIPLINES: Discipline[] = [
     level: 'Fondamental',
     equipment: ['Protège-tibias et coquilles dissimulables', 'Mitaines d\'entraînement', 'Sacs de frappe et paos', 'Caméras de contrôle d\'axe'],
     cinemaContext: 'Scènes de corps-à-corps, bastons, duels au couteau, assauts d\'action rapprochés.',
-    heroImage: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-combat-1024x683.jpg'
+    heroImage: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-formation-combat-1024x683.jpg'
   },
   {
     id: 'chute-grande-hauteur',
@@ -23,7 +23,7 @@ export const CUC_DISCIPLINES: Discipline[] = [
     level: 'Extrême',
     equipment: ['Tour de saut CUC 21m', 'Airbag géant CUC homologué', 'Matelas haute densité de réception', 'Cartons de cascade calibrés'],
     cinemaContext: 'Chutes de toits, défenestrations, projections hors de passerelles ou d\'hélicoptères.',
-    heroImage: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-chute-hauteur-1024x536.jpg'
+    heroImage: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-formation-chute-hauteur-1024x536.jpg'
   },
   {
     id: 'torche-humaine',
@@ -35,7 +35,7 @@ export const CUC_DISCIPLINES: Discipline[] = [
     level: 'Extrême',
     equipment: ['Combinaisons Nomex multicouches', 'Gel thermique haute isolation', 'Cagoules & visières ignifugées', 'Extincteurs CO2 et couvertures anti-feu'],
     cinemaContext: 'Victimes d\'explosions, scènes d\'incendie, accidents de laboratoire ou de véhicules.',
-    heroImage: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-torche-1024x682.jpg'
+    heroImage: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-formation-torche-1024x682.jpg'
   },
   {
     id: 'cablage-wirework',
@@ -47,7 +47,7 @@ export const CUC_DISCIPLINES: Discipline[] = [
     level: 'Avancé',
     equipment: ['Harnais de voltige intégrés', 'Câbles kevlar & acier aéro', 'Poulies à roulement scellé', 'Plaques de protection hanches et lombaires'],
     cinemaContext: 'Films de super-héros, projections arrière suite à un tir balistique, vols acrobatiques de cinéma d\'action.',
-    heroImage: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-cablage-1024x682.jpg'
+    heroImage: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-formation-cablage-1024x682.jpg'
   },
   {
     id: 'forces-speciales',
@@ -59,7 +59,7 @@ export const CUC_DISCIPLINES: Discipline[] = [
     level: 'Avancé',
     equipment: ['Répliques d\'armes factices et à blanc', 'Holsters d\'action', 'Cordes de rappel et descendeurs', 'Gilets tactiques de cinéma'],
     cinemaContext: 'Infiltrations, fusillades d\'action urbaine, interventions policières et scènes de braquage.',
-    heroImage: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-forces-speciales-1024x682.jpg'
+    heroImage: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-formation-forces-speciales-1024x682.jpg'
   },
   {
     id: 'parkour-yamakasi',
@@ -71,7 +71,7 @@ export const CUC_DISCIPLINES: Discipline[] = [
     level: 'Fondamental',
     equipment: ['Parkour Park dédié modulable', 'Structures métalliques et barres d\'évolution', 'Praticables amortissants', 'Surfaces béton et bois brut'],
     cinemaContext: 'Poursuites sur les toits, fuites agiles, scènes d\'action urbaines réalistes sans trucages numériques.',
-    heroImage: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-parkour-1024x682.jpg'
+    heroImage: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-formation-parkour-1024x682.jpg'
   },
   {
     id: 'chutes-sa-hauteur',
@@ -83,7 +83,7 @@ export const CUC_DISCIPLINES: Discipline[] = [
     level: 'Fondamental',
     equipment: ['Coudières et genouillères néoprène plates', 'Mobilier cassable de cinéma (balsa)', 'Verre de cinéma résine', 'Revêtements sol béton & carrelage'],
     cinemaContext: 'K.O., bagarres, projections contre des éléments de décor, chutes au sol après impact.',
-    heroImage: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-chutes-1024x682.jpg'
+    heroImage: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-formation-chutes-1024x682.jpg'
   },
   {
     id: 'armes-blanches',
@@ -95,7 +95,7 @@ export const CUC_DISCIPLINES: Discipline[] = [
     level: 'Avancé',
     equipment: ['Katanas de pratique & bokkens', 'Épées médiévales en aluminium scénique', 'Rapières et dagues de parade', 'Boucliers de scène'],
     cinemaContext: 'Fresques historiques, combats d\'époque, duels d\'escrime et scènes d\'action modernes au sabre.',
-    heroImage: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-armes-1024x682.jpg'
+    heroImage: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-formation-armes-1024x682.jpg'
   },
   {
     id: 'chute-escalier',
@@ -107,7 +107,7 @@ export const CUC_DISCIPLINES: Discipline[] = [
     level: 'Avancé',
     equipment: ['Escalier d\'entraînement modulable', 'Protections D3O sous vêtements', 'Système de guidage de rampe', 'Caméras basse perspective'],
     cinemaContext: 'Confrontations rapprochées en cage d\'escalier, bousculades et chutes d\'étage.',
-    heroImage: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-chutes-escaliers-1024x637.jpg'
+    heroImage: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-formation-chutes-escaliers-1024x637.jpg'
   },
   {
     id: 'acrobatie-physique',
@@ -119,6 +119,6 @@ export const CUC_DISCIPLINES: Discipline[] = [
     level: 'Fondamental',
     equipment: ['Fosse à cubes de mousse 50m³', 'Trampolines de gymnastique pro', 'Pistes de tumbling et praticables', 'Tapis de réception de 40cm'],
     cinemaContext: 'Esquives spectaculaires, franchissements de véhicules, roulades d\'impact.',
-    heroImage: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-acro-1024x682.jpg'
+    heroImage: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-formation-acro-1024x682.jpg'
   }
 ];

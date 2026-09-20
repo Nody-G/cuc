@@ -24,7 +24,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
       <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src={heroData?.bg_image || "https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-7-scaled.jpg"}
+            src={heroData?.bg_image || "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-7-scaled.jpg"}
             alt="Formation professionnelle de cascadeur au Campus Univers Cascades"
             fill
             priority
@@ -93,14 +93,14 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
               Formule Découverte (12 jours)
             </TacticalButton>
             <a
-              href="https://www.campus-universcascades.com/wp-content/uploads/2024/12/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf"
+              href="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block hover:opacity-90 transition-opacity"
               title="Consulter le dossier d'agrément et de certification CUC"
             >
               <Image
-                src="https://www.campus-universcascades.com/wp-content/uploads/2021/06/Encart-plaquette.png"
+                src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Encart-plaquette.png"
                 alt="Télécharger la plaquette CUC"
                 width={240}
                 height={50}

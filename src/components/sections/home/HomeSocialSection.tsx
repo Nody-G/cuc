@@ -41,7 +41,7 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
       desc: 'Cascades coordonnées et doublées par la CUC Stunt Team pour le long-métrage de Roxine Helberg avec Fadily Camara, Zoé Marchal, Eva Huault.',
       link: 'https://www.instagram.com/reel/DJW5wq0MIzt/',
       image:
-        'https://www.campus-universcascades.com/wp-content/uploads/2022/12/001.jpg',
+        'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/001.jpg',
       speed: -0.05,
     },
     {
@@ -50,7 +50,7 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
       desc: "Coordination chirurgicale des frappes et esquives sur tatamis d'impact avec l'équipe de chorégraphes du campus.",
       link: 'https://www.instagram.com/reel/DKAFa9dsRVa/',
       image:
-        'https://www.campus-universcascades.com/wp-content/uploads/2022/12/002.jpg',
+        'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/002.jpg',
       speed: 0.05,
     },
     {
@@ -59,7 +59,7 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
       desc: 'Exercices de chutes de hauteur et simulation de défenestration sur le domaine du Cateau-Cambrésis.',
       link: 'https://www.instagram.com/reel/DJmOS2tMQpk/',
       image:
-        'https://www.campus-universcascades.com/wp-content/uploads/2022/12/défenestration.jpg',
+        'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/defenestration.jpg',
       speed: -0.04,
     },
   ];
@@ -78,7 +78,7 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
             <StudioParallaxCard maxTilt={8}>
               <div className="relative w-16 h-16 rounded-full border-2 border-[#FFE500] overflow-hidden bg-black shrink-0 shadow-[0_0_20px_rgba(255,229,0,0.35)]">
                 <Image
-                  src="https://www.campus-universcascades.com/wp-content/uploads/sb-instagram-feed-images/campus.univers.cascades.webp"
+                  src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus.univers.cascades.webp"
                   alt="Campus Univers Cascades Instagram"
                   fill
                   sizes="64px"

@@ -31,7 +31,7 @@ export default function StuntWorkshopCucPage() {
     "Join performers and stuntmen from across the globe (USA, UK, Europe, Australia, Asia) at the world's premier stunt training facility. 2 weeks of full immersion, 10 physical disciplines, full board on our 6-hectare private estate in France.";
   const heroBg =
     content.hero?.bg_image ||
-    'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg';
   const ctaPrimaryText = content.hero?.cta_primary_text || 'Apply for Next Session';
   const ctaSecondaryText = content.hero?.cta_secondary_text || 'Inquire & Information';
   const ctaSecondaryLink = content.hero?.cta_secondary_link || '/contact-cuc';
@@ -212,7 +212,7 @@ export default function StuntWorkshopCucPage() {
               <div className="lg:col-span-5 space-y-6">
                 <div className="relative h-64 border border-zinc-800 overflow-hidden bg-black/40">
                   <Image
-                    src="https://www.campus-universcascades.com/wp-content/uploads/2025/03/Stage-Workshop-2.png"
+                    src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Stage-Workshop-2.png"
                     alt="International Stunt Workshop Official Poster"
                     fill
                     sizes="(max-width: 1024px) 100vw, 40vw"
@@ -223,7 +223,7 @@ export default function StuntWorkshopCucPage() {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="relative h-40 border border-zinc-800 overflow-hidden">
                     <Image
-                      src="https://www.campus-universcascades.com/wp-content/uploads/2025/04/CUC-BRI.jpg"
+                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/CUC-BRI.jpg"
                       alt="CUC BRI Tactical Stunt Training"
                       fill
                       sizes="25vw"
@@ -233,7 +233,7 @@ export default function StuntWorkshopCucPage() {
 
                   <div className="relative h-40 border border-zinc-800 overflow-hidden">
                     <Image
-                      src="https://www.campus-universcascades.com/wp-content/uploads/2025/03/Dos-CUC-TOWER-scaled.jpeg"
+                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Dos-CUC-TOWER-scaled.jpeg"
                       alt="CUC Tower Stunt Jump"
                       fill
                       sizes="25vw"
@@ -244,7 +244,7 @@ export default function StuntWorkshopCucPage() {
 
                 <div className="relative h-48 border border-zinc-800 overflow-hidden">
                   <Image
-                    src="https://www.campus-universcascades.com/wp-content/uploads/2025/03/CUC-5.0-586.jpg"
+                    src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/CUC-5.0-586.jpg"
                     alt="International Performers at CUC"
                     fill
                     sizes="(max-width: 1024px) 100vw, 40vw"

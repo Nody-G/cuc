@@ -1,0 +1,1767 @@
+{
+  "generatedAt": "2026-09-20T21:39:25.194Z",
+  "stagingDir": ".staging/media",
+  "includeVideos": false,
+  "totals": {
+    "targets": 219,
+    "downloaded": 219,
+    "cached": 0,
+    "failed": 0,
+    "totalBytes": 156989450,
+    "totalHuman": "149.72 Mo"
+  },
+  "files": [
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Bandes-affiches-film-3.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Bandes-affiches-film-3.png",
+      "bytes": 12987051,
+      "sha256": "dacb69abf76bdc98096cf6671909ac297872dc7b737941e8af718edd916ce1f3",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Bandes-affiches-film-1-1.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Bandes-affiches-film-1-1.png",
+      "bytes": 12104783,
+      "sha256": "be01b51a52bc71d0c7acfc0d5b40247f2dfff443f8247cccd3bc2c9d2db95ecf",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Bandes-affiches-film-2.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Bandes-affiches-film-2.png",
+      "bytes": 11149563,
+      "sha256": "0e368f02ee6c9f57d889a859accac5baaa688fb0816dfcb6fe005244e01bcee2",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Bandes-affiches-film-4.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Bandes-affiches-film-4.png",
+      "bytes": 8682514,
+      "sha256": "e3fe5783f0c57151f7cc7b91736803d14da19fe8e7f65a0584e80d926e80dc33",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/parkour-1.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/parkour-1.png",
+      "bytes": 8160079,
+      "sha256": "6944ce526ba328138eb91eb2e22d0a6fd5dd2cd6a9541c27a892cf883fd2d276",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/03/Bandeau-images-films.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Bandeau-images-films.png",
+      "bytes": 6974221,
+      "sha256": "ea001a3ac67b506fd8f717a35c7f4852955f682457a5195577f6acf6e28190b3",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/xtrem-jump-1.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/xtrem-jump-1.png",
+      "bytes": 6364084,
+      "sha256": "e6a8bb8d83094ab2abc20d3e37dedd8189b0f21d239eb8c04293462ba3395e2a",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2020/04/IMG_6928.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/IMG_6928.jpg",
+      "bytes": 6035627,
+      "sha256": "5dae8edd8aadad9406a2d399f8fd3377bc3a23d71e5b95a692465391ed3e3faf",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/06/img-spectacles.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/img-spectacles.png",
+      "bytes": 3936310,
+      "sha256": "87aaf569fa8be38d70e504cd58ba924322ef45aaa84d6b8f1d84118c751d2490",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2020/04/IMG_20190820_154249.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/IMG_20190820_154249.jpg",
+      "bytes": 2421011,
+      "sha256": "446061b92ff48e9792e4fd5139b2bb14cfdc214e28accd6740421030ec48fc5e",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2020/11/img-campus-2.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/img-campus-2.jpg",
+      "bytes": 1979224,
+      "sha256": "2717f607866b6bf35ad09ce591f11823ab07e2b860ebe0fe5665a46d2feeb853",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2020/11/Zoé-Bell-Hall.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Zoe-Bell-Hall.jpg",
+      "bytes": 1636866,
+      "sha256": "a3ca5e048c38074aff0888f845f40e3adfe6481a3b544cb216f23518a7a68151",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/12/CUC-PROD.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-PROD.jpg",
+      "bytes": 1545101,
+      "sha256": "bd3b56a86fd73527a1936071e1fabce2f6c1e4b60517f1d7769733b8b6574220",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2020/11/Zoë-Bell-Hall-sol-1.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Zoe-Bell-Hall-sol-1.jpg",
+      "bytes": 1472312,
+      "sha256": "a9c83e232a2d3d3fe2e2956fac16cac15220a1657a784bdaf77bad433053872f",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/12/20221222_095652.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/20221222_095652.jpg",
+      "bytes": 1407305,
+      "sha256": "40eefe4c57acaad51e6de18655dca1fce5212054a327fb4e0a927c6b039fc045",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/05/SSE-4web.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/SSE-4web.jpg",
+      "bytes": 1286579,
+      "sha256": "5021544c451539253842054d0a5d24f5b600f0296eea0a092fa6cd08d0e6ff10",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2020/04/salle-3.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/salle-3.jpg",
+      "bytes": 1263675,
+      "sha256": "6ca85d13b3b0102a9ab90448a6746d69ba5f78edc72377d2e0d43274789e6bce",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/ecole-de-cascade.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/ecole-de-cascade.jpg",
+      "bytes": 1131470,
+      "sha256": "fa1c991d2d26708920b256157330b341fec0013414e2526ee5df37294006633f",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/04/CUC-BRI.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-BRI.jpg",
+      "bytes": 1062301,
+      "sha256": "313b7fb2a5ec03aa2c59e2dd0bb2696c5e91f0f835c754eab074fe7861545a7e",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/11/1000052477-scaled-e1763630640338.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/1000052477-scaled-e1763630640338.jpg",
+      "bytes": 967105,
+      "sha256": "ae825b612d5512e3fe17dcac32faa78e73b416861f2d9d5f47bee1254d7be29a",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2019/05/12-alex.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/12-alex.png",
+      "bytes": 890272,
+      "sha256": "3db6bc5efaf8cef53a5d40948b762b3690dc8622ef0c0fa97e80fe221706075b",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/06/MG_5464-1.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/MG_5464-1.jpg",
+      "bytes": 824181,
+      "sha256": "d155f21a51db9b74b8ba6da658ec07ca105bad33679d6da52e3e43502288a332",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/11/1000053353-scaled-e1763629965386.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/1000053353-scaled-e1763629965386.jpg",
+      "bytes": 812029,
+      "sha256": "a40caf20fb32acd7b3ae7fefae411b1747b9c5a2605610be571ded40d9e7e07b",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/11/NERO-6-scaled-e1763629837156.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/NERO-6-scaled-e1763629837156.jpg",
+      "bytes": 759037,
+      "sha256": "c133398ad0fc17894b25ff6bb77dde715dfa4989579d0f6d99ab9b8c96c3c348",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/06/Matelas.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Matelas.png",
+      "bytes": 756074,
+      "sha256": "8d2ce84e6b6eaee4c958581bd851725291dcad1af5333a970cef38df9008d05d",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/05/Stage-WE-Immersion.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Stage-WE-Immersion.png",
+      "bytes": 746273,
+      "sha256": "bb6c546a662a27302cfa90737e04c440b9b155f7ccab3998ca87418d60a11bda",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/03/CUC-5.0-586.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-5.0-586.jpg",
+      "bytes": 739632,
+      "sha256": "11b059fc8d8441c39e3e1b050dad7a4428c0efb5c04e186d370c6633881bd619",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/06/CUC-5.0-51.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-5.0-51.jpg",
+      "bytes": 732801,
+      "sha256": "d2251e94e0227cd7129610bd3db78ec1b8b56f230e02af4c9727705d5cd66247",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/10/Stage-Summer-Camp-2.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Stage-Summer-Camp-2.png",
+      "bytes": 716629,
+      "sha256": "92042d8e914b84e95f002e806efc6aa19e4ddff6c43deb9154867a9cca8b07bf",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/03/Stage-Workshop-2.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Stage-Workshop-2.png",
+      "bytes": 678334,
+      "sha256": "868bd7f369f10fcac51dd135f86f31bdf16e7d2d574c4230f091b587e02a86c2",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2019/02/CUC-Ecole-de-cascade.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-Ecole-de-cascade.jpg",
+      "bytes": 649259,
+      "sha256": "5b0aa1ca6d297e15602dbe59e23ad8faac42e2f5a3120dbfe926241e513b6521",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/11/20240612_191918-scaled-e1763630249952.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/20240612_191918-scaled-e1763630249952.jpg",
+      "bytes": 610874,
+      "sha256": "e9c52bbf70b9037056976c5c990e80f499eee9ba79bc3d97b951985597c2ff76",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/01/CUC-TOWER-Team-scaled.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-TOWER-Team-scaled.jpg",
+      "bytes": 601181,
+      "sha256": "db1bd28d9833ca8d3ef519ad57171f4918464468ba87daf070211a9e7cc6ccc7",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-brigade-1.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Team-building-brigade-1.jpg",
+      "bytes": 587736,
+      "sha256": "803cae4349d9e3f65e0745db911bf857ec40d8bd814b7ec0a2ff29dd853ba705",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-parkour-1.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Team-building-parkour-1.jpg",
+      "bytes": 559393,
+      "sha256": "b191a8c4fb005f1fedbd134f3966979a5ba4a354506db765b2538af7bbaae673",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-5-scaled.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/slider-5-scaled.jpg",
+      "bytes": 547269,
+      "sha256": "d4a889b69b752b7c5333f01d27042c89c7c517b5999ce74d77c85487e4bee3bb",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2026/04/Bandeau-Films-Lucas-CUC-bis-scaled.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Bandeau-Films-Lucas-CUC-bis-scaled.jpg",
+      "bytes": 524284,
+      "sha256": "9fe0f1c23888eb2218e169cf9968abd13946758cf1b0fe0483fd8abe1b9bac1d",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-chute-hauteur-1.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Team-building-chute-hauteur-1.jpg",
+      "bytes": 510377,
+      "sha256": "a329434b49dd070fac53be602785693f4d9020d23471b4c1a5620387fc296b0f",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/12/défenestration.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/defenestration.jpg",
+      "bytes": 474012,
+      "sha256": "298d29142d5f41728d050d5013ef5c3f40223c254f6638fa85c6ac74e7f953f5",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-tournage.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Team-building-tournage.jpg",
+      "bytes": 467372,
+      "sha256": "66b7feaaff72eedc243588b1ffcbfa90215b01ea9431a6d91b71aa6e0a2894db",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-combat-cinema-1.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Team-building-combat-cinema-1.jpg",
+      "bytes": 455232,
+      "sha256": "bb5654566d69d01965446edef9f81a3835164ef5e79ebc61e8f74c487ff7ec34",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2020/11/QG-STAFF-CUC-5.0-Copie.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/QG-STAFF-CUC-5.0-Copie.jpg",
+      "bytes": 452930,
+      "sha256": "fdafdfe6c89c0b8a07b4c8c73ef242b77fe1b17bc74d4e16a9d43a530f024bb4",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-6-scaled.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/slider-6-scaled.jpg",
+      "bytes": 430048,
+      "sha256": "041e4fe9dd26c34a5ff38cbc4bbd7a5d25e5eaf19169c527b6033548176c5e42",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/06/CUC-5.0-462-e1671701953374.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-5.0-462-e1671701953374.jpg",
+      "bytes": 429926,
+      "sha256": "e7b57e2a7ee18fed1285c75a68204655b87c7c37f1e83797a1be50f884f24edf",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/Espace-mécanique-campus.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Espace-mecanique-campus.jpg",
+      "bytes": 408747,
+      "sha256": "82f67c05b833f0b32ed89c8f672e5b1ab8eef9d2aaf46ed2f6f273221c05388b",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/04/Stage-Cascadeur-Pro.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Stage-Cascadeur-Pro.png",
+      "bytes": 401906,
+      "sha256": "288e6ca3f532c52d784cdac550ab18e557b132694f557017c2ed45f53d14db89",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/06/CUC-5.0-320-e1671701864164.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-5.0-320-e1671701864164.jpg",
+      "bytes": 385146,
+      "sha256": "7402aa842d8e3cae58d806d03971223bf1cb9e535e0fb7d0acbabaa42eb7f161",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-7-scaled.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/slider-7-scaled.jpg",
+      "bytes": 373648,
+      "sha256": "a639ac67fa1ead2587d3f6ce77f8b312c20af779e15127f1fc552d1198b21fe1",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2020/11/CUC-5.0-554.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-5.0-554.jpg",
+      "bytes": 372850,
+      "sha256": "5a8b2c2f2694f98f2b80de8e7e65003b19dd06c502eff91eac083bb5ffa876b1",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/01/A7409066-scaled.jpeg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/A7409066-scaled.jpeg",
+      "bytes": 368349,
+      "sha256": "a940cc43248332937495a30b19fa2716c2eb61eb5188b8764167cedacde899d7",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-maniement-armes.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Team-building-maniement-armes.jpg",
+      "bytes": 328846,
+      "sha256": "3599174eac673e75716f0f313108d9a93cafb26b4de0e422fb430d71fdcd1395",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/12/003.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/003.jpg",
+      "bytes": 297278,
+      "sha256": "dc003adc4c823936c6749c244323d70236ab5e437f33a86a7c0acc8ed57a6918",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/05/17-anthony.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/17-anthony.png",
+      "bytes": 296637,
+      "sha256": "cf2648dc89e679bc576dd1f778491f88533756b8319297b0da83b93de4320a74",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-maquillage.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Team-building-maquillage.jpg",
+      "bytes": 296431,
+      "sha256": "a6185ba0fc7a6ec3c102173a04d180e5b6cf6f7886794e22ab9e559af4747020",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/04/22-nicolas-rertabi.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/22-nicolas-rertabi.png",
+      "bytes": 290540,
+      "sha256": "fec758e04f8e3bfa41f389459ab1fa7a43030f9852a3ed1c6152cc499209d012",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/04/23-teddy-ponceau.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/23-teddy-ponceau.png",
+      "bytes": 287136,
+      "sha256": "c00e8a57906ef2c5602ae14a73fd179b93b3dcaea9f23a4f0f876090298ba471",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/05/18-jonathan.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/18-jonathan.png",
+      "bytes": 285661,
+      "sha256": "16b94a6ca9a3fe12c91d2f437b0f9de30851010d03842683a5e125d30f320795",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/10-kefi.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/10-kefi.png",
+      "bytes": 284919,
+      "sha256": "c6e9a9663aa52ba9f34e3f43ba8fe110b55bd952afb0b12f9b5b6c7e29c71de2",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/05/15-sarah.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/15-sarah.png",
+      "bytes": 280178,
+      "sha256": "9caa3eb0a0bf61f8e7c39bea6eccbc0bcb10899b339a3c5dc81cd9f80e1198b0",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/04/CUC-BRI-1-scaled.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-BRI-1-scaled.jpg",
+      "bytes": 278923,
+      "sha256": "27cec5ab9eae8c31d4c78a7be189483326527ac51f95856fa101ed2f17a17796",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/03/21-alan-cueff.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/21-alan-cueff.png",
+      "bytes": 276198,
+      "sha256": "deae6cb5c7b7f84bedbb37a6c260209e033e3bb10a121ec0f4c3e3477456ce4f",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/06/CUC-Tower-1-scaled.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-Tower-1-scaled.jpg",
+      "bytes": 270987,
+      "sha256": "1067820b920e2be0782cd424a9e25b1f6045a1fb4c2f1efa5db2c465b6089e1c",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/03/14-michel.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/14-michel.png",
+      "bytes": 266705,
+      "sha256": "b1b854f6f3f12d5accfdaf40cdb686a63298fae31bb2226d509166e962643a87",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/07/19-bastien.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/19-bastien.png",
+      "bytes": 261363,
+      "sha256": "61020a313eb9fe54bea3c4eea4b1f4c887103882e720b8eb4bd36e0c5f7a0e60",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/12/coeur-de-cascadeurs.jpeg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/coeur-de-cascadeurs.jpeg",
+      "bytes": 260912,
+      "sha256": "13d55337e80a9f409686db61d6c3251cc4d611550da07c5befb21149f7917ed5",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/05/16-pierre.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/16-pierre.png",
+      "bytes": 260850,
+      "sha256": "9a17924015c91cd28f6df889289b3a41ac29b8ab113c49f5b3cc4dd9a302016e",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/06/Rigging.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Rigging.jpg",
+      "bytes": 260377,
+      "sha256": "c3d438748ac30118fd3c43a6be8526bc081a8115006683795ef75a7db628d64d",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/03/Dos-CUC-TOWER-scaled.jpeg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Dos-CUC-TOWER-scaled.jpeg",
+      "bytes": 256987,
+      "sha256": "b25a9963eb4643c2937747a68d3fcdcb1d162ded5edd58c64bcdcc5de6facba0",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/12/StuntRider-CampusLife.jpeg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/StuntRider-CampusLife.jpeg",
+      "bytes": 254572,
+      "sha256": "bed084909ffb21a5ab819372eb5d085cb98a09c6b1a0e421eae726c03a1e32ec",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/11/Bandeau-2023-scaled.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Bandeau-2023-scaled.jpg",
+      "bytes": 247561,
+      "sha256": "f5b485a84aa3b86c5fcecfcd6fd6fa23d7ece980fdeef42519881f3942040198",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/9-maurice.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/9-maurice.png",
+      "bytes": 245719,
+      "sha256": "2b34d76f9b5d5d2e81fca823636f4745193a4e7e6cdc06d6f49504b4ec14b7d9",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/6-niels.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/6-niels.png",
+      "bytes": 244838,
+      "sha256": "f2a1920d0eb863611d9fd30c5d60307809660db4b905594b9de77f6a6b6a0d4d",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/4-franck.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/4-franck.png",
+      "bytes": 242091,
+      "sha256": "f0ffccc2b077e9428bff93df0b926e29e95dc6008d8176a2d0e3c22c9faf7475",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/2-jerome.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/2-jerome.png",
+      "bytes": 241510,
+      "sha256": "9d67be7111a8909950c04b345f8942856335b5dacfb8253dbae7a2703ee0c24a",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/1-lucas.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/1-lucas.png",
+      "bytes": 240284,
+      "sha256": "793220d864876a0a3e314efc58dce8e02530eacac1557467c632a103c923a79c",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/5-frederic.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/5-frederic.png",
+      "bytes": 238155,
+      "sha256": "bc7cb3a2c56aee5f228c2071027c56ea772c01cb9676f14996ba5506c79930a5",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/06/CUC-5.0-203-e1671702096970.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-5.0-203-e1671702096970.jpg",
+      "bytes": 233973,
+      "sha256": "b8eb510aab9bddb0517769982f792baa8eb68c133568ac2e62e1c3e7010d4d55",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-equipe.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/img-equipe.jpg",
+      "bytes": 229796,
+      "sha256": "4063e1e925f6effe35f022965a1158becae9b08d88bc57a9bac887a8cae73e6b",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Team-building-doublage-voix.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Team-building-doublage-voix.jpg",
+      "bytes": 227488,
+      "sha256": "77586afb129035616f6af6ac7d90c49196a9b0cf1c67a64a790929986888dfce",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/12/ReportageBFMTV-Alecoledescascadeurs.jpeg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/ReportageBFMTV-Alecoledescascadeurs.jpeg",
+      "bytes": 227154,
+      "sha256": "ff05401a70ad780cd185dcbb8f7402cbbfda9a8acd4b8f95c6492efd02a19fbd",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/3-malik.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/3-malik.png",
+      "bytes": 226829,
+      "sha256": "41e560783b5c0f93ec901658d5e67d27cc70f1fddffb0fa7027d6fb23d237a28",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/12/002.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/002.jpg",
+      "bytes": 225278,
+      "sha256": "6a83f9dbdc4b9be001f83f74ae6e8d24c1b646723059477381c6f7c9561c779e",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/slider-8-scaled.jpg",
+      "bytes": 223773,
+      "sha256": "a5e3348fa6e2060009e2f19851375adacb3bd429b95aab68fad1185e45c3f465",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/7-amadeo.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/7-amadeo.png",
+      "bytes": 222235,
+      "sha256": "667444ff0b56f48c244a00460e6e8c621a90a4e8e817f19f03f46bfebf674627",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/12/004.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/004.jpg",
+      "bytes": 220534,
+      "sha256": "7f505e62fbdc9332c26c51e9ab895f28de6accf6a9f9deec9b1dbbddd469abf3",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/12/001.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/001.jpg",
+      "bytes": 220505,
+      "sha256": "9bb875283e56a71c20eb30c24e85212297c4e981afecf16483610e73289e2397",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2020/05/13-vincent-OK.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/13-vincent-OK.png",
+      "bytes": 214291,
+      "sha256": "4fcfde29e7428ca0173fac7cfd684c67b32d23fcf8b8b344cc43d05c889c068b",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/12/005.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/005.jpg",
+      "bytes": 210794,
+      "sha256": "305191b2c9eb188ca4a062cbf3cfe577e712a8cf52105121f3b935058eff1d01",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/12/CUC-session-Aout-2017.jpeg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-session-Aout-2017.jpeg",
+      "bytes": 208169,
+      "sha256": "d85429e9dfdce25237fd4766bbf71d69dca42394950ef710a03603f21e71fc53",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/06/Airbag-vert.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Airbag-vert.jpg",
+      "bytes": 206553,
+      "sha256": "c0f6cc277d1bc2808b22df5639d2571abde864869ad5f096a6bfa29bf3452a85",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/Page-Campus-site-tournage.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Page-Campus-site-tournage.jpg",
+      "bytes": 205426,
+      "sha256": "6f852f1cbfd72325bc3ce9c042fdf7b7e4ed1a3ab94f63bbd2ec77e5760bb3ab",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/06/Spectacles-entete-logo-830x198.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Spectacles-entete-logo-830x198.png",
+      "bytes": 204526,
+      "sha256": "f94bda61d4381bd95044aa31feed4d9cb534e257c6b78a80acf22e952bc0cb39",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/06/Encart-plaquette.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Encart-plaquette.png",
+      "bytes": 193605,
+      "sha256": "933d2d1a76cf7d0e06edfe7538400da0f02e76b7f67d139993985ade1d2c3622",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/06/City-Stade-CUC-2.0.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/City-Stade-CUC-2.0.jpg",
+      "bytes": 186681,
+      "sha256": "5ef2e0333c4652a7c9efb246d4ecad38e75f6adaf84f756540623a3b42ae6e94",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/08/Image1-scaled.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Image1-scaled.jpg",
+      "bytes": 160600,
+      "sha256": "af02a3d7ea143c0fdbb94de8b1e2c1e6df37314e4dffdfd618369c2bdda86664",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/06/CUC-5.0-371-e1671702083907.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-5.0-371-e1671702083907.jpg",
+      "bytes": 154853,
+      "sha256": "6ee6291363f6c51df88f1e23912f62eb4a13010fb960b27ecaaa42af29aa1eab",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/Page-Campus-Manège-équestre2-2.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Page-Campus-Manege-equestre2-2.jpg",
+      "bytes": 153261,
+      "sha256": "9dc77cc06dec6899dadc685f54899e6995080d8e1ca9c55a89da7746558a458e",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/12/006.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/006.jpg",
+      "bytes": 148927,
+      "sha256": "caa0447336796cdae26fd0f1bbf68d0efd4412f280ff7870e409a85847e931da",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/12/zoebell.jpeg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/zoebell.jpeg",
+      "bytes": 109087,
+      "sha256": "98950c7ebca8fd23fd8941573805c8893ea6cfbf7233544a5ff85093494dbebf",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-armes-1024x682.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/img-formation-armes-1024x682.jpg",
+      "bytes": 93306,
+      "sha256": "1fa80e481007b4b85859389a01ae2c560a0c4a74e2404ddd69789d0e9d96afb0",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-torche-1024x682.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/img-formation-torche-1024x682.jpg",
+      "bytes": 90379,
+      "sha256": "ec1bcc1a25094e8d189f7eed0a8d46bf8b777b769609d79bdfc26bb1c8624f38",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-chutes-escaliers-1024x637.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/img-formation-chutes-escaliers-1024x637.jpg",
+      "bytes": 87982,
+      "sha256": "cfed7ceb1f8e3d345339cd30590bba676f21dd93786caf5e81049e9ed0bebd54",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-parkour-1024x682.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/img-formation-parkour-1024x682.jpg",
+      "bytes": 86085,
+      "sha256": "a075697be8b943bcc3ff09ec3a973dfc3af3548a650b4ffe384c6b04e473ecc3",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-combat-1024x683.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/img-formation-combat-1024x683.jpg",
+      "bytes": 86021,
+      "sha256": "11be72bdb3ef467768006dfa3a2bbddcef7bf07f2ddf0ea6859f10f2a13d19b0",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-forces-speciales-1024x682.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/img-formation-forces-speciales-1024x682.jpg",
+      "bytes": 85004,
+      "sha256": "d37f2a12f014efe421333904a64f6a6f877168cc67672a0f8e1d965f910454e3",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-chute-hauteur-1024x536.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/img-formation-chute-hauteur-1024x536.jpg",
+      "bytes": 83573,
+      "sha256": "33e3691c1d29dd9514849210c22aa2b84108e4357062543cfd7604206fa6b76e",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-cablage-1024x682.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/img-formation-cablage-1024x682.jpg",
+      "bytes": 77654,
+      "sha256": "2574a707617ab1b82f81097cadc0e191a6b0cb97df090ea305028f6b59d53b39",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/12/HappyBirthdayCUC-2009-2019.jpeg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/HappyBirthdayCUC-2009-2019.jpeg",
+      "bytes": 77415,
+      "sha256": "cae420cb39a27e49bfc5cac9b3ce8462902b0256ca4ccef26cf8ef37d2a562b4",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-acro-1024x682.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/img-formation-acro-1024x682.jpg",
+      "bytes": 76245,
+      "sha256": "fc6ce9be42ea3fce1404078d5592591e14eb8c4ffa3d471d5f653bab3fd72868",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-formation-chutes-1024x682.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/img-formation-chutes-1024x682.jpg",
+      "bytes": 72680,
+      "sha256": "e27426b7748b5f76e4ca9f798292fa21f48ce0dce3bede8b3e398635ade095fd",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/bg-equipe.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/bg-equipe.jpg",
+      "bytes": 49573,
+      "sha256": "eed770e4c52a0999baf035e9daf4e1be994b2f285039b66aeee1382647ea3f36",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/01/A7409066-200x300.jpeg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/A7409066-200x300.jpeg",
+      "bytes": 37585,
+      "sha256": "a3ee6468f69ebd55c36ee57bf4c2e95b2fa6fbb316aa7824b49abacff41613a2",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/05/A-atelier-cinema-indoor-300x200.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/A-atelier-cinema-indoor-300x200.jpg",
+      "bytes": 35526,
+      "sha256": "a354e497b9462b49d8593b749e46e205cad9c8a582d8a3e34b2c535ff13a3f56",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/06/FreeJump-CCJ-Puteaux-03-300x200.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/FreeJump-CCJ-Puteaux-03-300x200.jpg",
+      "bytes": 23294,
+      "sha256": "09877f84ac213cabee1aeebb28763564548374f8d031364518638bae8b9b4b04",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Spectacles-mots-performers-1-300x300.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Spectacles-mots-performers-1-300x300.png",
+      "bytes": 19267,
+      "sha256": "e41a56842114a4d058504f96040c987f4a58ca14164b49ee39ad71ca43339ea3",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/01/CUC-TOWER-Team-225x300.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-TOWER-Team-225x300.jpg",
+      "bytes": 15776,
+      "sha256": "ea238bc20dc5b1419b620403c4c1b85d2496fb81e71366b3b11646f714617429",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2026/04/Bandeau-Films-Lucas-CUC-bis-300x158.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Bandeau-Films-Lucas-CUC-bis-300x158.jpg",
+      "bytes": 14507,
+      "sha256": "80818141588e6a8b613a2fcbd87b50b4b525a3bdbd97e96c3dc3856ed11581f4",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-5-300x122.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/slider-5-300x122.jpg",
+      "bytes": 13569,
+      "sha256": "e9f0e6b91161681395203d35e5dcc4b3cf8f11eeb42d29569cbd0fafdc2e1e5f",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Bouton-infos.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Bouton-infos.jpg",
+      "bytes": 12320,
+      "sha256": "4d4572c7169cf6f1f68606e5c8fbb3a272ef87e85097ed8151bf1f9dd7702740",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-6-300x122.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/slider-6-300x122.jpg",
+      "bytes": 12238,
+      "sha256": "98f246c2e110a5ccdb2a1eaa59f771664f07958892f3ab81baba830ac6ba82ee",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/03/Dos-CUC-TOWER-200x300.jpeg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Dos-CUC-TOWER-200x300.jpeg",
+      "bytes": 10875,
+      "sha256": "6f027005aa79f7ce85595975605e19cdccd63eb5b66c9e815f31149688dee040",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-7-300x122.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/slider-7-300x122.jpg",
+      "bytes": 10769,
+      "sha256": "82e27b1b80f5196ca89cd19b2197483699c43bba467aedbc956534bc8f47c05a",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/04/CUC-BRI-1-300x134.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-BRI-1-300x134.jpg",
+      "bytes": 10393,
+      "sha256": "943717ec311aa7192dd17f4877b35558da5319c1689b0ca238d76b6bfeedeef9",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/05/Photos-Spectacle-300x200.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Photos-Spectacle-300x200.jpg",
+      "bytes": 9979,
+      "sha256": "731bc9dbed53ef64b516eb1877089622b6630e5f8875227da0b116f4695d60d0",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/06/CUC-Tower-1-230x300.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/CUC-Tower-1-230x300.jpg",
+      "bytes": 9770,
+      "sha256": "09c48e3d878d7e3ca8274794216b9e91e8a513fc26ffcc8d8dd91874507056ff",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-300x122.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/slider-8-300x122.jpg",
+      "bytes": 8888,
+      "sha256": "c234d9e1ac80559cec830de081667851153f002af957454bf4178f8ebc98199f",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/06/Bouton-en-savoir-plus.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Bouton-en-savoir-plus.png",
+      "bytes": 7822,
+      "sha256": "ef91db350db8819d40122f6f6df66993211e1159254c6c1d9693a2506c39ec64",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/11/Bandeau-2023-300x65.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Bandeau-2023-300x65.jpg",
+      "bytes": 7599,
+      "sha256": "9e3a702c13193dcacd15de0e112a57a16d0162a85eca2ee7855ebd3a80f21335",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/06/Titres-CUC-Prod-salle-300x66.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Titres-CUC-Prod-salle-300x66.png",
+      "bytes": 7597,
+      "sha256": "cbdf11636c3c1979bf9a75639405d93f2ad0d634ebd598eb2f7623a578879104",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/08/Taux-satisfaction-350x43.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Taux-satisfaction-350x43.png",
+      "bytes": 6428,
+      "sha256": "315a6280777c333390e3d862039e8209d6576eac1baf664d125c4afbcd06b145",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/06/Titres-CUC-Prod-equipements-300x66.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Titres-CUC-Prod-equipements-300x66.png",
+      "bytes": 6174,
+      "sha256": "1dca733211010bc91fd6be514c2e06edec318a702d67537de5424598212e6a77",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/06/Titres-CUC-Prod-Cascadeurs-300x66.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Titres-CUC-Prod-Cascadeurs-300x66.png",
+      "bytes": 6104,
+      "sha256": "e542f754dcd731b9bd98301cffcafa46464240bd9160ed6e51b329a6e0de4401",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/06/Titre-Team-building-300x66.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Titre-Team-building-300x66.jpg",
+      "bytes": 6091,
+      "sha256": "a260855b699949c6cec907d3d676fb92d71a4f3162c6f1ae85a34c09a4b56caf",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/08/Titre-tableau-350x48.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Titre-tableau-350x48.png",
+      "bytes": 5966,
+      "sha256": "9da9016a63c0cfd355e15c44e92a9fe5d77912d845154984dc0db88b9cded3fa",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/08/Image1-300x185.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Image1-300x185.jpg",
+      "bytes": 5848,
+      "sha256": "266b924405e97bf8b10c36e9a8b191ac026ada2f1d5ed278888fb88560c24cc3",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/06/Titre-animations-300x66.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Titre-animations-300x66.jpg",
+      "bytes": 5574,
+      "sha256": "3b1a38a534bc28ecfd47336b7ae15f409ebe605dd637d43d431ec8bfc6f106b9",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/06/Titre-spectacles-300x66.jpg",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Titre-spectacles-300x66.jpg",
+      "bytes": 5545,
+      "sha256": "d03776a2e24f5f547f7f6faa19f611dc491a3753313f5f6bf6fb30d166218c77",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/06/Trait-logos-gauche.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Trait-logos-gauche.png",
+      "bytes": 3644,
+      "sha256": "019adbcd70f6f3aaec1c486c22a010b5a7b50a3cf4a0943d4f6f195942209ec3",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/06/Trait-logos-droite.png",
+      "category": "cuc-visual",
+      "localPath": ".staging/media/cuc-visual/Trait-logos-droite.png",
+      "bytes": 3588,
+      "sha256": "2dcdaab5d54bb12e96e9dc6bdb2a47db19a8fb12d7d2d4246e7d741b6cde8bf1",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/03/John-Wick-4.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/John-Wick-4.jpg",
+      "bytes": 1319973,
+      "sha256": "3a5c41b1c73c9dbf8dbf9fef766cf8ef92c1c011a7198420b59c8f2876425fe5",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/20-Bastille-day.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/20-Bastille-day.jpg",
+      "bytes": 845055,
+      "sha256": "251643fc0ffcdc04501449ed1770dd0dfcaa5d2bf9a58dae52555a39df330f4f",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/30-Malavita.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/30-Malavita.jpg",
+      "bytes": 753725,
+      "sha256": "7b53414f9dd7d211b8cf2ccceaf9642a121606b3994e0a1d4a074a355852074e",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/03/murder-mystery-2.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/murder-mystery-2.jpg",
+      "bytes": 745002,
+      "sha256": "b1d2ef91c72efda8cee95a80c2bf3ab459d6f06930254bc75c91a64d031048f9",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/04/Police.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Police.jpg",
+      "bytes": 637069,
+      "sha256": "d53977f77dd1d81c6b1a544f8ef141455e7057c74b96be4a8ac7512c19614a88",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/03/stillwater.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/stillwater.jpg",
+      "bytes": 627270,
+      "sha256": "b4b02e1de9074df94882dc5242c16b27c74b31c40c7175d3f9ba73f43362118d",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Fiasco.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Fiasco.jpg",
+      "bytes": 621263,
+      "sha256": "cfb805bf32f790dc43e684f761179133128f8709466d27d41b5a29467f960b7d",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/04/Les-Midérables.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Les-Miderables.jpg",
+      "bytes": 569084,
+      "sha256": "7541461bc7c97de1b8479dbd720f9dd9c2ab54f0e0433d7dc0534b97d9a5ffaf",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/32-Overdrive.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/32-Overdrive.jpg",
+      "bytes": 560322,
+      "sha256": "a11dea8fda6eff255473b0858630aed5c9463d79696a1f0e5068fa6d601a0b2b",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/7-Taken-3.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/7-Taken-3.jpg",
+      "bytes": 547423,
+      "sha256": "dc734335bb3614e2c1be7ea8850177816c784578c0776c544b70c8d47c1b01c8",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/19-Babylone-AD.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/19-Babylone-AD.jpg",
+      "bytes": 544284,
+      "sha256": "0073bcaab65c89c6f1b5bb46c09f1aa7625e0fa227cead96c8b164ca60438eba",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Largo-Winch.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Largo-Winch.jpg",
+      "bytes": 543812,
+      "sha256": "b9ff3ee4f126819a78c3e2ee6a277c262cae9592bb8ac31d153bd205f159206d",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/17-Taxi-4.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/17-Taxi-4.jpg",
+      "bytes": 543636,
+      "sha256": "30414fc466afb7ee6d5e0195afab459f685653e7619608c5753916ea16390caf",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/33-SK1.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/33-SK1.jpg",
+      "bytes": 541782,
+      "sha256": "fc5ea1a9ae838fac5d689c73387d6c38f2f6085880d2059266dab4851d957e1b",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/03/Wednesday.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Wednesday.jpg",
+      "bytes": 537105,
+      "sha256": "27a6fadd199afaa1acf3e318baeb436fcbf475664865026c16dd0fd3aa093318",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/36-Un-prophete.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/36-Un-prophete.jpg",
+      "bytes": 533392,
+      "sha256": "d114ca85d5f5c77e6282c1cc3e64902ec2c750165b54ee6c1bd8ee16ec3c648a",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/13-From-Paris-with-Love.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/13-From-Paris-with-Love.jpg",
+      "bytes": 514413,
+      "sha256": "79b7fcd7ea0f062b8de741ba186bbad19c490a731fa4e5a71185a324bcd85d47",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/25-Dunkirk.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/25-Dunkirk.jpg",
+      "bytes": 511250,
+      "sha256": "12409c837a16a5a9bd584f33ccb2f134669c28b54587f74946b6e03a9fd83931",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/24-Danny-the-dog.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/24-Danny-the-dog.jpg",
+      "bytes": 499284,
+      "sha256": "45ce76da0b5c85fbff7263fca678b5c784177689663bee65791f83cbc41aced4",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/3-Alibi-com.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/3-Alibi-com.jpg",
+      "bytes": 498325,
+      "sha256": "6868c1ed65768f79f2d4ec70e337b3abf68a1a1db07bf0188552228d557b724f",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/12-De-lautre-cotÇ-du-periph.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/12-De-lautre-cotC-du-periph.jpg",
+      "bytes": 488309,
+      "sha256": "d5dc0072d50959669a952d647bc9a4af23eef7c7bf21ec75db84ebe0c0d9ab32",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/5-Raid-dingue.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/5-Raid-dingue.jpg",
+      "bytes": 474429,
+      "sha256": "2158784c519af7277f9758153b74c3f9d4bff5868a0071f596fb115ca50a3712",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/14-D13-U-District13-ultimatum.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/14-D13-U-District13-ultimatum.jpg",
+      "bytes": 471607,
+      "sha256": "cf2a86abda3c1a93090a1cd4ca4c6fce701411a919c3404463307409b598c6f8",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/1-Valerian.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/1-Valerian.jpg",
+      "bytes": 445910,
+      "sha256": "b4075256ccad67b9229cda412479a8d853a4c0e613c51ac4047819b83cd7de83",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/28-Largo-Winch.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/28-Largo-Winch.jpg",
+      "bytes": 427770,
+      "sha256": "3d3b24d0aa029424d20099b5f4da975d0297c4d00fc762d9ee1ea4498f374245",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/4-James-Bond-spectre.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/4-James-Bond-spectre.jpg",
+      "bytes": 415477,
+      "sha256": "6ac2bf5704f836f8cdc00b55f2d0ffade072e69e63f72531aa440dd6c72c8f91",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/18-Yamakasi.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/18-Yamakasi.jpg",
+      "bytes": 396179,
+      "sha256": "511261b0ecc701e45c3966f91ad6fc20a50f74a2b9aeb6f186d748a37aed8390",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/26-Jason-Bourne-5.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/26-Jason-Bourne-5.jpg",
+      "bytes": 387813,
+      "sha256": "f5c095396bc1220ced868615da9e0340c78d2b276c6e1818f45ca501e4d26391",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/9-Fast-Furious-6.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/9-Fast-Furious-6.jpg",
+      "bytes": 378647,
+      "sha256": "84e568b055fe48c507c954bf5c889708d9e30589200bebcc162e5a0f8ce56e8f",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/11-Le-Transporteur-HÇritage.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/11-Le-Transporteur-HCritage.jpg",
+      "bytes": 350647,
+      "sha256": "70931ea63342c6f7bb7f95ff2999a0e69204f8f1311a4164d608d5db6f226ceb",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/06/3-Le-site-photos-du-bas-2.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/3-Le-site-photos-du-bas-2.jpg",
+      "bytes": 325303,
+      "sha256": "469fe37e4c05f0a9acd2890ad8759ad0c90909b469d52cdf104beed06e18d32c",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/04/30-Jours-max.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/30-Jours-max.jpg",
+      "bytes": 308040,
+      "sha256": "e64b41d71dd06cafd70e14ef3ca4108105b836791d320fc9d81659e22d141eff",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/04/Mission-Impossible-Fallout.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Mission-Impossible-Fallout.jpg",
+      "bytes": 269241,
+      "sha256": "affd7cf3f813f9ca37b4666993d3da08f94488598411de816e052de9307936d8",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/34-Taken-2.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/34-Taken-2.jpg",
+      "bytes": 266115,
+      "sha256": "7905e60c03e03698177df813e4ec6d9720635c6795f80eabea3aac42d16b57ab",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/6-Lucy.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/6-Lucy.jpg",
+      "bytes": 262801,
+      "sha256": "266495f174e548951bc9a7fa1be5a22ff3073dcefd8436fd99cb55f3aefad515",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/16-Mesrine-Part-2-Public-Enemy-1.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/16-Mesrine-Part-2-Public-Enemy-1.jpg",
+      "bytes": 252746,
+      "sha256": "9830b29780aff31c0a3f757478a57028eba2a6c7e9b2c040b8e75a56aafaf23c",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Le-salaire-de-la-peur.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Le-salaire-de-la-peur.jpg",
+      "bytes": 246143,
+      "sha256": "3888a7d8980731541822f972c9d68c1cd5c9d20fa7c585a4966785cbfbfb9353",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/04/Mortel.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Mortel.jpg",
+      "bytes": 231181,
+      "sha256": "9295e671e9417595ed844d65c5fc2a9c4050c09af0ba422ae7749a5a5a7ef86e",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/The-substance.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/The-substance.jpg",
+      "bytes": 229267,
+      "sha256": "0a9873ee0bb1feb5007ad050ba16787a284ad91a3cad98fa10d68735da4b36e7",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/10-3-Day-to-kill.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/10-3-Day-to-kill.jpg",
+      "bytes": 206755,
+      "sha256": "28edd9a14b136ab8f6c68561618bdb7b64f412be4ce134ad632a834a4c2b574d",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/8-The-Hunger-Games-Mockingjay-Part-1.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/8-The-Hunger-Games-Mockingjay-Part-1.jpg",
+      "bytes": 190113,
+      "sha256": "de599899bd0ff04b0ace4803008a6d48515aedfff0bb5aa4fdc69d7042cf22d6",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/04/Nikki-Larson.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Nikki-Larson.jpg",
+      "bytes": 177931,
+      "sha256": "ebf098a89cdbec77fa2334cc48bae270b8bd6c83b0c62eadb63b34430767acbf",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/The-Killer.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/The-Killer.jpg",
+      "bytes": 164394,
+      "sha256": "21417412df03b8c540719958fce77fd073362db889af4cc82297369a9ff9bf48",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/04/Lupin.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Lupin.jpg",
+      "bytes": 157835,
+      "sha256": "9208533d17e8695f20a5687dc7c5aed8d5362e266223df5006a871e7f192f86a",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/GTMAX.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/GTMAX.jpg",
+      "bytes": 157796,
+      "sha256": "93760b7cebb2ec6bcb16bc5c610740c7d3b95875b1d2831853c7c0033de27137",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/04/Balle-perdue.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Balle-perdue.jpg",
+      "bytes": 153716,
+      "sha256": "c790e11486fc74015bc3a6ee755e005c7ad2942ea9997083233c1d90652ded1d",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Sous-la-seine.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Sous-la-seine.jpg",
+      "bytes": 152832,
+      "sha256": "2938084c98f8110111dc767e077cff05998c789603491d4c73623c540926f8c7",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/03/dune-1.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/dune-1.jpg",
+      "bytes": 129529,
+      "sha256": "bef0dbbff0adeb23d682c29930d859ac762a4ff3be90cb41588f8e695bee556b",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Machine.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Machine.jpg",
+      "bytes": 128658,
+      "sha256": "7583003119b556080823cd5b613f1cfc8f75119e8b9e115350367882a5a81b45",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/03/Alibi2.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Alibi2.jpg",
+      "bytes": 128478,
+      "sha256": "00cbb536f8003b883a448de1e4cf191fccdbd34053469ddc958698dbba32c97e",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/LE-COMTE-DE-MONTECRISTO-1.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/LE-COMTE-DE-MONTECRISTO-1.jpg",
+      "bytes": 108900,
+      "sha256": "45b9137336a13d67b22620da27fcfb1d9105c79948f5e434dead20e8bcdec807",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/ELYAS.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/ELYAS.jpg",
+      "bytes": 91006,
+      "sha256": "a9a08bae245cc2408d3b50b7db495c02b160605175c133c34edb271bb88c0035",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Lamour-ouf.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Lamour-ouf.jpg",
+      "bytes": 85646,
+      "sha256": "da6db650ba435b6d4c4aa498ab38ea808dd4afcc3a2f00b20dff258911d925da",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/04/6Underground.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/6Underground.jpg",
+      "bytes": 77993,
+      "sha256": "2c3d7924124ea679071f609757a3ec73a3fda87270fa77b1da561519e560c76b",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/04/Sentinelle.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Sentinelle.jpg",
+      "bytes": 75195,
+      "sha256": "2488dc00876a016e7e15f8db366e02af4e810399d23703d1745a38787a42e105",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/04/Bronx.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Bronx.jpg",
+      "bytes": 68967,
+      "sha256": "65eec6e5a75d8f3088687b27fc41d6874e2ff3ffc845f04661fa98c6c454a682",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Furies.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/Furies.jpg",
+      "bytes": 60532,
+      "sha256": "847472f0eb30cc1a7db20c302d177d971def873c2e9079577ba03fd43cb08044",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/03/black-widow.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/black-widow.jpg",
+      "bytes": 13131,
+      "sha256": "01085f8e9e6f3050fe04d59626ed375becb3410029b7571eaaf830955bc1c648",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/03/goliath.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/goliath.jpg",
+      "bytes": 12088,
+      "sha256": "717ded2928e7b0cfb7ad10a469b2d6d95990686aca3682b674c97b3a6da965fc",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/03/uncharted.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/uncharted.jpg",
+      "bytes": 11440,
+      "sha256": "7408c5cdf62a38968d2919621d6a512fcf00b47d169c28264f5a6cc6e5ad4713",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/03/family-business.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/family-business.jpg",
+      "bytes": 11243,
+      "sha256": "cdbfc2cb69c88103c1e3ec4541dc9ad4ac57d67c82641f3d67b68b79d1f0cdce",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/03/bac-nord.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/bac-nord.jpg",
+      "bytes": 11149,
+      "sha256": "ab3db33b6b027eb9a53c2e0e0c51af4d270ba2e5f248b83d3c469c1236e77afb",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/03/braqueurs.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/braqueurs.jpg",
+      "bytes": 9595,
+      "sha256": "460f312da53c197776d957edf4483ed96d5ae02f1bd5e83736c307e6f33d4e27",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/03/355.jpg",
+      "category": "film-poster",
+      "localPath": ".staging/media/film-poster/355.jpg",
+      "bytes": 9054,
+      "sha256": "4ab444ddb646c78ae17fdaa2b5a0ba67ddcc549af312e3237509b42571d99fd6",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/05/Bandes-logos-2.png",
+      "category": "partner-logo",
+      "localPath": ".staging/media/partner-logo/Bandes-logos-2.png",
+      "bytes": 1047772,
+      "sha256": "38681f3f6bac7e7ff7a88ea1a83ddef0d1fd73f512b0562ab970b9ac5d1c52b0",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2022/04/Stage-AFDAS.png",
+      "category": "partner-logo",
+      "localPath": ".staging/media/partner-logo/Stage-AFDAS.png",
+      "bytes": 609676,
+      "sha256": "d243c8d9bbae02ac9b0725cdc19176197785e43ad6c63c9b579d50b66e4625d8",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/05/Bandes-logos-3.png",
+      "category": "partner-logo",
+      "localPath": ".staging/media/partner-logo/Bandes-logos-3.png",
+      "bytes": 559552,
+      "sha256": "652ae0d8ab8e43cac0a8f98178b66bc6c0ba4f90e7f290dc4d3e733830db7b90",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/05/Bandes-logos-1.png",
+      "category": "partner-logo",
+      "localPath": ".staging/media/partner-logo/Bandes-logos-1.png",
+      "bytes": 455562,
+      "sha256": "60f59314f637fbd7e8c5c30da1c21711cfeabce340c3f4bfb390bb21eb9cea70",
+      "status": "downloaded"
+    },
+    {
+      "url": "http://campus-universcascades.com/wp-content/uploads/2017/11/logo-CUC.jpg",
+      "category": "partner-logo",
+      "localPath": ".staging/media/partner-logo/logo-CUC.jpg",
+      "bytes": 92472,
+      "sha256": "ff6e65a7f125f7c4e46986c59a8e6fa84d1b41ba470c237f5caa72a1f5c937a1",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/03/Logos-stages-3-768x139.png",
+      "category": "partner-logo",
+      "localPath": ".staging/media/partner-logo/Logos-stages-3-768x139.png",
+      "bytes": 56197,
+      "sha256": "9d8524f06759f07fb8063f2a382158a5bc4cc48f7b8b165455ce69fcb8557b05",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/Favicon-CUC-150x150.jpg",
+      "category": "partner-logo",
+      "localPath": ".staging/media/partner-logo/Favicon-CUC-150x150.jpg",
+      "bytes": 24365,
+      "sha256": "4a89652b65f62490dcbecc80ef76402a5a1a57480874a65d04f4fd3c929bf7e4",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/06/logo-CUC-Events-150x150.png",
+      "category": "partner-logo",
+      "localPath": ".staging/media/partner-logo/logo-CUC-Events-150x150.png",
+      "bytes": 23806,
+      "sha256": "1311e0a0d3eb3cc23e83bc8ae5a74be60529efd14a3d116331bfce3b92db2b51",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/05/CUC-TEAM-fond-noir-Website-1-150x150.png",
+      "category": "partner-logo",
+      "localPath": ".staging/media/partner-logo/CUC-TEAM-fond-noir-Website-1-150x150.png",
+      "bytes": 19049,
+      "sha256": "48fc30d2d72054c8bb424385a19fd0f9d34ec220da363c2f0b58c2fc727c0c80",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/10/LogoQualiopi-300dpi-Avec-Marianne-300x160.png",
+      "category": "partner-logo",
+      "localPath": ".staging/media/partner-logo/LogoQualiopi-300dpi-Avec-Marianne-300x160.png",
+      "bytes": 18802,
+      "sha256": "896be5aa8b93eab85e9a465081f58b9b5f4f6b722486441366307a61767bacd2",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/cropped-Favicon-CUC-32x32.jpg",
+      "category": "partner-logo",
+      "localPath": ".staging/media/partner-logo/cropped-Favicon-CUC-32x32.jpg",
+      "bytes": 15589,
+      "sha256": "9e97b679e7bf0166114fc719ca9151a29cb1845fba989b3df5b1369a3dcafd8f",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2026/01/Presentation-Campus-Univers-Cascades.pdf",
+      "category": "document",
+      "localPath": ".staging/media/document/Presentation-Campus-Univers-Cascades.pdf",
+      "bytes": 4185421,
+      "sha256": "c6ede74c5b9dc470cbbab7b393c057d8eb4bf0f9695b60c5efd249180dd77904",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf",
+      "category": "document",
+      "localPath": ".staging/media/document/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf",
+      "bytes": 1560976,
+      "sha256": "31d2a2608aa0b88a86f7654d43df888fce9ab04650876fecf6e1cfa097dfdac3",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-CUC-Summer-Camp-2k27.pdf",
+      "category": "document",
+      "localPath": ".staging/media/document/Plaquette-CUC-Summer-Camp-2k27.pdf",
+      "bytes": 1495195,
+      "sha256": "cda9214c8f7d434408c434d2ae765d468967062aac84a62f47c42400172a8b37",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2025/01/Plaquette-Week-end-Immersion-CUC.pdf",
+      "category": "document",
+      "localPath": ".staging/media/document/Plaquette-Week-end-Immersion-CUC.pdf",
+      "bytes": 1460339,
+      "sha256": "28e866a0e11f2ca559d90cbcc9739bf4644abeb9ec2be12eafa91024dd0d9720",
+      "status": "downloaded"
+    },
+    {
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf",
+      "category": "document",
+      "localPath": ".staging/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf",
+      "bytes": 1117976,
+      "sha256": "35688f6ea7d4f02e42eb28eb004633b7e1c43fef62df05c03ee8e5a6d93c140e",
+      "status": "downloaded"
+    }
+  ]
+}

@@ -90,7 +90,7 @@ export const HomeQualiopiSection: React.FC<HomeQualiopiSectionProps> = ({
             </div>
 
             <a
-              href="https://www.campus-universcascades.com/wp-content/uploads/2024/12/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf"
+              href="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="shrink-0"

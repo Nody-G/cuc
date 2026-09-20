@@ -25,7 +25,7 @@ export default function AnimationsAirbagParkourPage() {
     "Faites vivre au grand public les sensations uniques de la chute libre sur coussin d'air géant de cinéma. Une animation spectaculaire encadrée par les cascadeurs professionnels du Campus Univers Cascades.";
   const heroBg =
     content.hero?.bg_image ||
-    'https://www.campus-universcascades.com/wp-content/uploads/2021/07/xtrem-jump-1.png';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/xtrem-jump-1.png';
   const ctaPrimaryText = content.hero?.cta_primary_text || 'Devis Animation Airbag';
   const ctaPrimaryLink = content.hero?.cta_primary_link || '/contact-cuc';
   const ctaSecondaryText = content.hero?.cta_secondary_text || 'Toutes les Offres CUC Events';
@@ -198,7 +198,7 @@ export default function AnimationsAirbagParkourPage() {
                 <div className="lg:col-span-5 relative">
                   <div className="relative h-80 sm:h-[450px] w-full border border-zinc-800 overflow-hidden bg-black shadow-2xl">
                     <Image
-                      src="https://www.campus-universcascades.com/wp-content/uploads/2021/07/xtrem-jump-1.png"
+                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/xtrem-jump-1.png"
                       alt="Saut sur Airbag géant CUC"
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"

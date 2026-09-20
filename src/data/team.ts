@@ -35,7 +35,7 @@ export const CUC_TEAM: Instructor[] = [
       'Mortel (2019) — Cascadeur',
     ],
     externalUrl: 'https://www.instagram.com/lucas.dollfus/',
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/1-lucas.png',
+    avatarUrl: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/1-lucas.png',
     instagram: 'https://www.instagram.com/lucas.dollfus/',
     imdb: 'https://www.imdb.com/name/nm8686683/',
     metadata: {
@@ -102,7 +102,7 @@ export const CUC_TEAM: Instructor[] = [
       'Mylène Farmer: C\'est à qui le tour (2026) — Cascadeur',
     ],
     externalUrl: 'https://www.action-cascade.com/coordinateur-de-cascades/',
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/2-jerome.png',
+    avatarUrl: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/2-jerome.png',
     imdb: 'https://www.imdb.com/name/nm2285249/',
     metadata: {
       film_roles: {
@@ -168,7 +168,7 @@ export const CUC_TEAM: Instructor[] = [
       'Le Comte de Monte-Cristo (2024) — Cascadeur & Doublure combats',
     ],
     externalUrl: 'https://vincentbouillon.com/',
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2020/05/13-vincent-OK.png',
+    avatarUrl: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/13-vincent-OK.png',
     instagram: 'https://www.instagram.com/vincentbouillon/',
     imdb: 'https://www.imdb.com/name/nm3763784/',
     metadata: {
@@ -234,7 +234,7 @@ export const CUC_TEAM: Instructor[] = [
       'Challenger (2024) — Cascadeur',
     ],
     externalUrl: 'https://www.imdb.com/name/nm0228086/',
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/3-malik.png',
+    avatarUrl: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/3-malik.png',
     instagram: 'https://www.instagram.com/malikdiouf_yamakasi/',
     imdb: 'https://www.imdb.com/name/nm0228086/',
     metadata: {
@@ -300,7 +300,7 @@ export const CUC_TEAM: Instructor[] = [
       'Valérian et la Cité des mille planètes (2017) — Cascadeur & Câblage',
     ],
     externalUrl: 'https://www.imdb.com/name/nm6923086/',
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/4-franck.png',
+    avatarUrl: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/4-franck.png',
     imdb: 'https://www.imdb.com/name/nm6923086/',
     metadata: {
       film_roles: {
@@ -365,7 +365,7 @@ export const CUC_TEAM: Instructor[] = [
       'Furies (2024) — Action Designer & Combats',
     ],
     externalUrl: 'https://www.kefiabrikh.com/',
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/10-kefi.png',
+    avatarUrl: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/10-kefi.png',
     imdb: 'https://www.imdb.com/name/nm3768608/',
     metadata: {
       film_roles: {
@@ -430,7 +430,7 @@ export const CUC_TEAM: Instructor[] = [
       'Machine (2024) — Cascadeur',
     ],
     externalUrl: 'https://mauricechan.book.fr',
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/9-maurice.png',
+    avatarUrl: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/9-maurice.png',
     imdb: 'https://www.imdb.com/name/nm0151023/',
     metadata: {
       film_roles: {
@@ -521,7 +521,7 @@ export const CUC_TEAM: Instructor[] = [
       'La Fille de d\'Artagnan (1994) — Cascadeur',
       'Highlander (1992) — Cascadeur',
     ],
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2021/03/14-michel.png',
+    avatarUrl: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/14-michel.png',
     imdb: 'https://www.imdb.com/name/nm0099365/',
     externalUrl: 'https://www.michel-bouis-cascade.fr/',
     metadata: {
@@ -606,7 +606,7 @@ export const CUC_TEAM: Instructor[] = [
       'Panique au Grand Magasin (2025) — Cascadeur',
       'Le Comte de Monte-Cristo (2024) — Cascadeur & Combats d\'époque',
     ],
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/7-amadeo.png',
+    avatarUrl: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/7-amadeo.png',
     imdb: 'https://www.imdb.com/name/nm5449764/',
     metadata: {
       film_roles: {
@@ -647,7 +647,7 @@ export const CUC_TEAM: Instructor[] = [
     notableCredits: [
       'Loin du périph (2022) — Cascadeur',
     ],
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/6-niels.png',
+    avatarUrl: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/6-niels.png',
     instagram: 'https://www.instagram.com/nielsdalery',
   },
   {
@@ -683,7 +683,7 @@ export const CUC_TEAM: Instructor[] = [
       'Loin du périph (2022) — Cascadeur',
       'Notre-Dame, la Part du feu (2022) — Cascadeur',
     ],
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2023/07/19-bastien.png',
+    avatarUrl: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/19-bastien.png',
     metadata: {
       film_roles: {
         'l-amour-ouf': 'Cascadeur',
@@ -742,7 +742,7 @@ export const CUC_TEAM: Instructor[] = [
       'Junga (2018) — Cascadeur',
       'The Sentinels (2024) — Cascadeur',
     ],
-    avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2024/03/21-alan-cueff.png',
+    avatarUrl: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/21-alan-cueff.png',
     metadata: {
       film_roles: {
         'quasimodo': 'Cascadeur & Acrobaties',
