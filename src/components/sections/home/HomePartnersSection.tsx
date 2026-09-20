@@ -36,14 +36,14 @@ export const HomePartnersSection: React.FC = () => {
     },
     {
       name: 'Qualiopi',
-      role: 'Certification',
+      role: 'Certification Qualiopi',
       logo: '/images/partenaires/qualiopi.png',
       bgVariant: 'light',
       speed: -0.05,
     },
     {
       name: 'RXR Protect',
-      role: 'Protections Airbag',
+      role: 'Protections Corporelles',
       logo: '/images/partenaires/rxr-protect.jpg',
       bgVariant: 'dark',
       speed: 0.05,
@@ -57,7 +57,7 @@ export const HomePartnersSection: React.FC = () => {
     },
     {
       name: 'Action Cascade',
-      role: 'Stunt & Rigging',
+      role: 'Cascade Professionnelle',
       logo: '/images/partenaires/action-cascade.jpg',
       bgVariant: 'dark',
       speed: 0.06,
