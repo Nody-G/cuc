@@ -64,11 +64,12 @@ const nextConfig: NextConfig = {
         source: "/(.*)",
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
-          // NOTE : `X-Frame-Options` est volontairement omis. Il est redondant
-          // avec `frame-ancestors 'self'` (CSP, ci-dessous) qui le supplante
-          // dans tous les navigateurs modernes, et sa présence bloquait
-          // l'aperçu live du Cockpit (iframe same-origin). `frame-ancestors`
-          // assure la même protection anti-clickjacking sans casser l'aperçu.
+          // NOTE : `SAMEORIGIN` (et non `DENY`) est indispensable : l'aperçu
+          // live du Cockpit encadre une page same-origin dans une iframe.
+          // `DENY` bloquait cet encadrement (« This page couldn't load »).
+          // `SAMEORIGIN` conserve la protection anti-clickjacking tout en
+          // autorisant l'aperçu. Redondant avec `frame-ancestors 'self'` (CSP).
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           {
             key: "Permissions-Policy",
@@ -80,8 +81,13 @@ const nextConfig: NextConfig = {
           },
           { key: "X-DNS-Prefetch-Control", value: "on" },
           {
+            // `same-origin-allow-popups` (et non `same-origin`) : `same-origin`
+            // isole totalement le contexte de navigation et empêchait l'aperçu
+            // live (iframe same-origin) de se charger sur Vercel. Cette valeur
+            // conserve l'isolation tout en autorisant les popups/iframes
+            // légitimes du Cockpit.
             key: "Cross-Origin-Opener-Policy",
-            value: "same-origin",
+            value: "same-origin-allow-popups",
           },
           {
             // CSP : autorise les scripts inline de Next.js (hydratation + JSON-LD
