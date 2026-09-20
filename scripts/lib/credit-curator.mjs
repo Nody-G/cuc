@@ -86,7 +86,22 @@ export const NON_CINEMA_TITLES = new Set([
     'le plus grand cabaret du monde',
     'back to the future (the musical)',
     'the prodigy: run with the wolves (fan video)',
+    // Titres sportifs / distinctions personnelles : ne sont pas des tournages.
+    'champion de france speed running',
 ]);
+
+/**
+ * Listes blanches par coach : quand un coach n'a qu'une participation
+ * cinématographique vérifiée, on restreint explicitement ses crédits à cette
+ * œuvre (doctrine « zéro invention » + arbitrage utilisateur).
+ *
+ * Clé = id du coach, valeur = ensemble de titres normalisés (minuscules).
+ * Un coach absent de cette table n'est pas filtré.
+ */
+export const COACH_TITLE_ALLOWLIST = {
+    // Niels Dalery : « Sous la Seine » uniquement (demande explicite répétée).
+    'niels-dalery': new Set(['sous la seine']),
+};
 
 /**
  * Détermine si un titre relève d'un contenu non cinématographique.
@@ -103,39 +118,109 @@ export function isNonCinemaTitle(title) {
 }
 
 // ---------------------------------------------------------------------------
-// 2. Préservation des rôles déclarés riches
+// 2. Normalisation des rôles — 3 libellés canoniques SEULEMENT
 // ---------------------------------------------------------------------------
 
 /**
- * Rôles génériques qui n'apportent aucune information éditoriale et qui
- * doivent céder la place à une déclaration plus riche si elle existe.
+ * Les 3 libellés de rôle autorisés sur les fiches coachs CUC.
+ *
+ * Demande explicite de l'utilisateur : « marque juste si ils ont ete
+ * cascadeur doublure ou coordinateur. je veux que ces 3 titre rien d autre,
+ * pas parkour ou autre ».
+ *
+ * Toute autre précision (parkour, câblage, chorégraphie, action designer,
+ * superviseur…) est ramenée à l'un de ces 3 libellés. La précision d'origine
+ * reste conservée dans `metadata.cuc_team_roles_detail` côté Supabase.
  */
-const GENERIC_ROLES = new Set([
-    'cascadeur',
-    'stunts',
-    'stunt',
-    'cascade',
-    'cascades',
-    'stunt performer',
-    'cascadeur parkour',
-]);
+export const CANONICAL_ROLES = ['Coordinateur des cascades', 'Doublure', 'Cascadeur'];
+
+/**
+ * Motifs de détection, testés sur le libellé replié (minuscules, sans accents).
+ * L'ordre de priorité est : coordination > doublure > cascadeur.
+ */
+const COORDINATION_PATTERNS = [
+    /\bcoordinateur\b/,
+    /\bcoordinatrice\b/,
+    /\bcoordinator\b/,
+    /\bstunt coord/,
+    /\bregisseur\b/,
+    /\bchef cascadeur\b/,
+    /\baction designer\b/,
+    /\baction director\b/,
+    /\bsuperviseur\b/,
+    /\bsupervisor\b/,
+];
+
+const DOUBLURE_PATTERNS = [
+    /\bdoublure\b/,
+    /\bdoublure\b/,
+    /\bdouble\b/,
+    /\bstunt double\b/,
+    /\bphoto double\b/,
+    /\bstand[- ]?in\b/,
+];
+
+const CASCADEUR_PATTERNS = [
+    /\bcascadeur\b/,
+    /\bcascadeuse\b/,
+    /\bstunt\b/,
+    /\bstunts\b/,
+    /\bcascade\b/,
+    /\bcascades\b/,
+    /\bparkour\b/,
+    /\bcablage\b/,
+    /\bwire\b/,
+    /\bchute\b/,
+    /\bcombat\b/,
+    /\bchor[ée]graph/,
+];
+
+/**
+ * Replie une chaîne : minuscules, accents retirés. Permet une détection
+ * robuste indépendante de la casse et des diacritiques.
+ *
+ * @param {string} value
+ * @returns {string}
+ */
+function fold(value) {
+    return String(value || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .trim();
+}
+
+/**
+ * Ramène un libellé de rôle brut à l'un des 3 libellés canoniques.
+ *
+ * Priorité : Coordinateur des cascades > Doublure > Cascadeur.
+ * Un libellé vide ou non reconnu devient « Cascadeur » (repli neutre, jamais
+ * inventé : tout crédit IMDb de cascade est au minimum un cascadeur).
+ *
+ * @param {string} role
+ * @returns {'Coordinateur des cascades'|'Doublure'|'Cascadeur'}
+ */
+export function toCanonicalRole(role) {
+    const f = fold(role);
+    if (!f) return 'Cascadeur';
+    if (COORDINATION_PATTERNS.some((re) => re.test(f))) return 'Coordinateur des cascades';
+    if (DOUBLURE_PATTERNS.some((re) => re.test(f))) return 'Doublure';
+    if (CASCADEUR_PATTERNS.some((re) => re.test(f))) return 'Cascadeur';
+    // Libellé inconnu : repli neutre sur Cascadeur (aucune invention).
+    return 'Cascadeur';
+}
 
 /**
  * Un rôle est « riche » s'il apporte une précision au-delà du simple
- * « Cascadeur » : coordination, doublure nommée, câblage, chorégraphie,
- * parkour, effets physiques, etc.
+ * « Cascadeur » : coordination ou doublure. Utilisé pour le tri éditorial
+ * (les rôles précis passent devant les génériques).
  *
  * @param {string} role
  * @returns {boolean}
  */
 export function isRichRole(role) {
-    if (!role) return false;
-    const normalized = String(role).trim().toLowerCase();
-    if (!normalized) return false;
-    if (GENERIC_ROLES.has(normalized)) return false;
-    // Un rôle composé (« Cascadeur & Câblage ») est riche dès qu'il dépasse
-    // le générique seul.
-    return true;
+    const canonical = toCanonicalRole(role);
+    return canonical === 'Coordinateur des cascades' || canonical === 'Doublure';
 }
 
 // ---------------------------------------------------------------------------
@@ -183,33 +268,36 @@ export function sanitizeRoleText(text) {
 }
 
 /**
- * Choisit le rôle éditorial final d'un crédit.
+ * Choisit le rôle éditorial final d'un crédit, ramené à l'un des 3 libellés
+ * canoniques (Cascadeur / Doublure / Coordinateur des cascades).
  *
- * Priorité (doctrine « zéro appauvrissement ») :
- *   1. Rôle déclaré riche (le coach sait ce qu'il a fait) ;
- *   2. Rôle IMDb spécifique (ex. « Cascadeur Parkour ») ;
- *   3. Rôle déclaré même générique ;
- *   4. Rôle IMDb générique ;
- *   5. « Cascadeur » par défaut.
+ * Priorité de lecture (doctrine « zéro appauvrissement ») :
+ *   1. Rôle déclaré (le coach sait ce qu'il a fait) ;
+ *   2. Rôle IMDb ;
+ *   3. Rôle TMDB ;
+ *   4. « Cascadeur » par défaut.
+ *
+ * Le libellé retenu est ensuite normalisé via `toCanonicalRole`, ce qui
+ * garantit exactement 3 valeurs possibles en sortie.
  *
  * @param {{ declaredRole?: string, imdbRole?: string, tmdbRole?: string }} entry
- * @returns {string}
+ * @returns {'Coordinateur des cascades'|'Doublure'|'Cascadeur'}
  */
 export function pickEditorialRole(entry) {
     const declared = (entry.declaredRole || '').trim();
     const imdb = (entry.imdbRole || '').trim();
     const tmdb = (entry.tmdbRole || '').trim();
 
-    let chosen;
-    if (isRichRole(declared)) chosen = declared;
-    else if (isRichRole(imdb)) chosen = imdb;
-    else if (declared) chosen = declared;
-    else if (imdb) chosen = imdb;
-    else if (tmdb) chosen = tmdb;
-    else chosen = 'Cascadeur';
-
-    // Assainissement doctrinal systématique (Parkour, zéro « gun-fu », etc.).
-    return sanitizeRoleText(chosen) || 'Cascadeur';
+    // On privilégie d'abord un libellé riche (coordination / doublure), quel
+    // que soit le champ d'origine, puis on retombe sur le premier disponible.
+    const candidates = [declared, imdb, tmdb].filter(Boolean);
+    for (const candidate of candidates) {
+        if (isRichRole(candidate)) return toCanonicalRole(candidate);
+    }
+    for (const candidate of candidates) {
+        return toCanonicalRole(candidate);
+    }
+    return 'Cascadeur';
 }
 
 // ---------------------------------------------------------------------------
@@ -275,21 +363,27 @@ export function notabilityScore(entry, currentYear) {
  */
 
 /**
- * Curation d'un coach : filtre, fusionne, trie et plafonne ses crédits.
+ * Curation d'un coach : filtre, fusionne et trie ses crédits.
+ *
+ * AUCUN PLAFOND : tous les crédits cinématographiques vérifiables sont
+ * conservés (demande utilisateur : « je devrais avoir des centaines de rôle
+ * de mes coach et surement des centaines de films »).
  *
  * @param {Object} coachReport  Entrée `coaches[]` du rapport IMDb
  * @param {Object} [options]
- * @param {number} [options.limit=24]     Nombre max de crédits retenus
  * @param {number} [options.currentYear]  Année de référence pour la récence
  * @param {boolean} [options.keepExcluded=false] Conserver la trace des exclus
  * @returns {{ kept: CuratedCredit[], excluded: CuratedCredit[], stats: Object }}
  */
 export function curateCoachCredits(coachReport, options = {}) {
-    const limit = options.limit ?? 24;
     const currentYear = options.currentYear ?? new Date().getFullYear();
     const keepExcluded = options.keepExcluded ?? false;
 
     const entries = Array.isArray(coachReport?.entries) ? coachReport.entries : [];
+
+    // Liste blanche éventuelle : restreint les crédits d'un coach à des titres
+    // explicitement validés (ex. Niels Dalery → « Sous la Seine » uniquement).
+    const allowlist = COACH_TITLE_ALLOWLIST[coachReport?.id] || null;
 
     /** @type {CuratedCredit[]} */
     const kept = [];
@@ -327,6 +421,14 @@ export function curateCoachCredits(coachReport, options = {}) {
             continue;
         }
 
+        // Exclusion : hors liste blanche du coach (arbitrage utilisateur).
+        if (allowlist && !allowlist.has(title.toLowerCase())) {
+            record.excluded = true;
+            record.reason = 'Hors périmètre validé pour ce coach';
+            excluded.push(record);
+            continue;
+        }
+
         // Exclusion : crédit non publiable. Un crédit sans identifiant IMDb ET
         // sans année ne peut être daté ni rattaché à une œuvre vérifiable. Le
         // publier obligerait à inventer une date (doctrine « zéro invention »).
@@ -347,47 +449,15 @@ export function curateCoachCredits(coachReport, options = {}) {
         }
     }
 
-    // Tri par score décroissant, puis par année décroissante, puis titre.
-    const ranked = Array.from(byTitle.values()).sort((a, b) => {
-        if (b.score !== a.score) return b.score - a.score;
-        const ya = a.year ?? 0;
-        const yb = b.year ?? 0;
-        if (yb !== ya) return yb - ya;
-        return a.title.localeCompare(b.title, 'fr');
-    });
+    // Tous les crédits retenus (aucun plafond).
+    kept.push(...byTitle.values());
 
-    // Doctrine « zéro appauvrissement » : un rôle précis (coordination,
-    // doublure nommée, câblage, chorégraphie…) ne doit JAMAIS être écarté par
-    // le plafond. On garantit d'abord la présence de tous les rôles précis,
-    // puis on complète avec les meilleurs crédits génériques.
-    const rich = ranked.filter((r) => isRichRole(r.role));
-    const generic = ranked.filter((r) => !isRichRole(r.role));
-
-    for (const record of rich) {
-        kept.push(record);
-    }
-
-    for (const record of generic) {
-        if (kept.length < limit) {
-            kept.push(record);
-        } else {
-            record.excluded = true;
-            record.reason = `Au-delà du plafond éditorial (${limit})`;
-            excluded.push(record);
-        }
-    }
-
-    // Si les rôles précis dépassent à eux seuls le plafond, on les conserve
-    // tous (l'information prime sur le plafond) et on le signale.
-    if (rich.length > limit) {
-        console.warn(
-            `⚠ ${coachReport?.name || coachReport?.id || 'coach'} : ` +
-            `${rich.length} rôles précis > plafond ${limit} — tous conservés.`
-        );
-    }
-
-    // Réordonnancement final : score décroissant sur l'ensemble retenu.
+    // Tri final : rôles précis d'abord (coordination / doublure), puis score
+    // décroissant, puis année décroissante, puis titre.
     kept.sort((a, b) => {
+        const ra = isRichRole(a.role) ? 1 : 0;
+        const rb = isRichRole(b.role) ? 1 : 0;
+        if (rb !== ra) return rb - ra;
         if (b.score !== a.score) return b.score - a.score;
         const ya = a.year ?? 0;
         const yb = b.year ?? 0;
@@ -399,7 +469,9 @@ export function curateCoachCredits(coachReport, options = {}) {
         total: entries.length,
         kept: kept.length,
         excludedNonCinema: excluded.filter((e) => e.reason.startsWith('Contenu')).length,
-        excludedOverLimit: excluded.filter((e) => e.reason.startsWith('Au-delà')).length,
+        excludedUnverifiable: excluded.filter((e) => e.reason.startsWith('Crédit non daté')).length,
+        coordinators: kept.filter((c) => c.role === 'Coordinateur des cascades').length,
+        doublures: kept.filter((c) => c.role === 'Doublure').length,
         richRoles: kept.filter((c) => isRichRole(c.role)).length,
     };
 
@@ -425,7 +497,9 @@ export function curateReport(report, options = {}) {
         totalRaw: 0,
         totalKept: 0,
         totalExcludedNonCinema: 0,
-        totalExcludedOverLimit: 0,
+        totalExcludedUnverifiable: 0,
+        totalCoordinators: 0,
+        totalDoublures: 0,
         totalRichRoles: 0,
     };
 
@@ -445,7 +519,9 @@ export function curateReport(report, options = {}) {
         globalStats.totalRaw += stats.total;
         globalStats.totalKept += stats.kept;
         globalStats.totalExcludedNonCinema += stats.excludedNonCinema;
-        globalStats.totalExcludedOverLimit += stats.excludedOverLimit;
+        globalStats.totalExcludedUnverifiable += stats.excludedUnverifiable;
+        globalStats.totalCoordinators += stats.coordinators;
+        globalStats.totalDoublures += stats.doublures;
         globalStats.totalRichRoles += stats.richRoles;
     }
 

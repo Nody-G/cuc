@@ -6,25 +6,25 @@
  * « Coordinateur des cascades & Action Designer », « Doublure Keanu Reeves »…)
  * à un jeu réduit et stable de rôles canoniques.
  *
+ * Demande explicite de l'utilisateur : « marque juste si ils ont ete cascadeur
+ * doublure ou coordinateur. je veux que ces 3 titre rien d autre, pas parkour
+ * ou autre ». Il n'existe donc que 3 libellés affichables.
+ *
  * Doctrine : on ne supprime aucune information factuelle. Le rôle détaillé
  * d'origine reste disponible (`detail`) ; seul l'affichage principal est
  * normalisé. Aucun rôle n'est inventé.
  */
 
-/** Rôles canoniques affichables (5 maximum, ordre = priorité décroissante). */
+/** Rôles canoniques affichables (3 exactement, ordre = priorité décroissante). */
 export type CanonicalRole =
     | 'Coordinateur des cascades'
     | 'Doublure'
-    | 'Cascadeur'
-    | 'Parkour'
-    | 'Câblage';
+    | 'Cascadeur';
 
 export const CANONICAL_ROLE_ORDER: CanonicalRole[] = [
     'Coordinateur des cascades',
     'Doublure',
     'Cascadeur',
-    'Parkour',
-    'Câblage',
 ];
 
 export interface NormalizedRole {
@@ -74,13 +74,17 @@ export function extractDoubledActors(role: string): string[] {
 }
 
 /**
- * Normalise un libellé de rôle de plateau vers les rôles canoniques.
+ * Normalise un libellé de rôle de plateau vers les 3 rôles canoniques.
+ *
+ * Priorité : Coordinateur des cascades > Doublure > Cascadeur.
+ * Toute précision (parkour, câblage, chorégraphie, action designer…) est
+ * ramenée à l'un de ces 3 libellés ; le libellé d'origine reste dans `detail`.
  *
  * @example
  * normalizeRole('Coordinateur des cascades & Action Designer')
  *   → { roles: ['Coordinateur des cascades'], label: 'Coordinateur des cascades', ... }
  * normalizeRole('Cascadeur & Doublure Keanu Reeves')
- *   → { roles: ['Doublure', 'Cascadeur'], label: 'Doublure · Cascadeur', ... }
+ *   → { roles: ['Doublure', 'Cascadeur'], label: 'Doublure de Keanu Reeves · Cascadeur', ... }
  */
 export function normalizeRole(role: string): NormalizedRole {
     const detail = String(role || '').trim();
@@ -99,19 +103,9 @@ export function normalizeRole(role: string): NormalizedRole {
         roles.push('Doublure');
     }
 
-    // Parkour / freerun / yamakasi
-    if (has('parkour', 'freerun', 'free run', 'yamakasi', 'franchissement')) {
-        roles.push('Parkour');
-    }
-
-    // Câblage / rigging
-    if (has('cablage', 'câblage', 'cable', 'câble', 'rigger', 'rigging', 'wire')) {
-        roles.push('Câblage');
-    }
-
     // Cascadeur : rôle par défaut si rien d'autre n'a été détecté, ou si
-    // explicitement mentionné (« Cascadeur & Câblage » → Cascadeur + Câblage).
-    if (has('cascadeur', 'cascade', 'stunt', 'chute', 'combat', 'acrobat', 'chorégraph', 'choregraph')) {
+    // explicitement mentionné (« Cascadeur & Câblage » → Cascadeur).
+    if (has('cascadeur', 'cascade', 'stunt', 'chute', 'combat', 'acrobat', 'chorégraph', 'choregraph', 'parkour', 'cablage', 'câblage', 'wire')) {
         if (!roles.includes('Cascadeur')) roles.push('Cascadeur');
     }
 
@@ -166,10 +160,6 @@ export function roleAccent(role: CanonicalRole): string {
             return 'text-[#FFE500]';
         case 'Doublure':
             return 'text-sky-300';
-        case 'Parkour':
-            return 'text-emerald-300';
-        case 'Câblage':
-            return 'text-violet-300';
         default:
             return 'text-zinc-300';
     }

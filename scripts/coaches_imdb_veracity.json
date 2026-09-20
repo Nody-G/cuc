@@ -1,0 +1,254 @@
+{
+  "generatedAt": "2026-09-20T16:30:34.777Z",
+  "source": "imdb",
+  "global": {
+    "coaches": 12,
+    "resolved": 11,
+    "unresolved": 1,
+    "confirmed": 60,
+    "new": 785,
+    "contradictory": 18,
+    "unverifiable": 31
+  },
+  "coaches": [
+    {
+      "id": "lucas-dollfus",
+      "name": "Lucas Dollfus",
+      "imdbId": "nm9598200",
+      "imdbName": "Lucas Dollfus",
+      "identityStatus": "RÉSOLU",
+      "resolved": true,
+      "nameMatch": true,
+      "declaredCreditsCount": 9,
+      "scrapedCreditsCount": 29,
+      "counts": {
+        "CONFIRMÉ": 2,
+        "NOUVEAU": 23,
+        "CONTRADICTOIRE": 4,
+        "NON VÉRIFIABLE": 3
+      },
+      "flags": [
+        "3 crédit(s) non vérifiable(s)"
+      ]
+    },
+    {
+      "id": "jerome-gaspard",
+      "name": "Jérôme Gaspard",
+      "imdbId": "nm2285249",
+      "imdbName": "Jérôme Gaspard",
+      "identityStatus": "RÉSOLU",
+      "resolved": true,
+      "nameMatch": true,
+      "declaredCreditsCount": 15,
+      "scrapedCreditsCount": 200,
+      "counts": {
+        "CONFIRMÉ": 6,
+        "NOUVEAU": 186,
+        "CONTRADICTOIRE": 8,
+        "NON VÉRIFIABLE": 4
+      },
+      "flags": [
+        "4 crédit(s) non vérifiable(s)"
+      ]
+    },
+    {
+      "id": "vincent-bouillon",
+      "name": "Vincent Bouillon",
+      "imdbId": "nm4933991",
+      "imdbName": "Vincent Bouillon",
+      "identityStatus": "RÉSOLU",
+      "resolved": true,
+      "nameMatch": true,
+      "declaredCreditsCount": 12,
+      "scrapedCreditsCount": 79,
+      "counts": {
+        "CONFIRMÉ": 4,
+        "NOUVEAU": 75,
+        "CONTRADICTOIRE": 0,
+        "NON VÉRIFIABLE": 8
+      },
+      "flags": [
+        "8 crédit(s) non vérifiable(s)"
+      ]
+    },
+    {
+      "id": "malik-diouf",
+      "name": "Malik Diouf",
+      "imdbId": "nm0228086",
+      "imdbName": "Malik Diouf",
+      "identityStatus": "RÉSOLU",
+      "resolved": true,
+      "nameMatch": true,
+      "declaredCreditsCount": 10,
+      "scrapedCreditsCount": 77,
+      "counts": {
+        "CONFIRMÉ": 8,
+        "NOUVEAU": 66,
+        "CONTRADICTOIRE": 3,
+        "NON VÉRIFIABLE": 0
+      },
+      "flags": []
+    },
+    {
+      "id": "franck-blanc",
+      "name": "Franck Blanc",
+      "imdbId": "nm6923086",
+      "imdbName": "Franck Blanc",
+      "identityStatus": "RÉSOLU",
+      "resolved": true,
+      "nameMatch": true,
+      "declaredCreditsCount": 9,
+      "scrapedCreditsCount": 68,
+      "counts": {
+        "CONFIRMÉ": 5,
+        "NOUVEAU": 63,
+        "CONTRADICTOIRE": 0,
+        "NON VÉRIFIABLE": 4
+      },
+      "flags": [
+        "4 crédit(s) non vérifiable(s)"
+      ]
+    },
+    {
+      "id": "kefi-abrikh",
+      "name": "Kefi Abrikh",
+      "imdbId": "nm3768608",
+      "imdbName": "Kefi Abrikh",
+      "identityStatus": "RÉSOLU",
+      "resolved": true,
+      "nameMatch": true,
+      "declaredCreditsCount": 8,
+      "scrapedCreditsCount": 81,
+      "counts": {
+        "CONFIRMÉ": 4,
+        "NOUVEAU": 74,
+        "CONTRADICTOIRE": 3,
+        "NON VÉRIFIABLE": 1
+      },
+      "flags": [
+        "1 crédit(s) non vérifiable(s)"
+      ]
+    },
+    {
+      "id": "maurice-chan",
+      "name": "Maurice Chan",
+      "imdbId": "nm0151023",
+      "imdbName": "Maurice Chan",
+      "identityStatus": "RÉSOLU",
+      "resolved": true,
+      "nameMatch": true,
+      "declaredCreditsCount": 7,
+      "scrapedCreditsCount": 62,
+      "counts": {
+        "CONFIRMÉ": 6,
+        "NOUVEAU": 56,
+        "CONTRADICTOIRE": 0,
+        "NON VÉRIFIABLE": 1
+      },
+      "flags": [
+        "1 crédit(s) non vérifiable(s)"
+      ]
+    },
+    {
+      "id": "michael-troude",
+      "name": "Michaël Troude",
+      "imdbId": "nm0873735",
+      "imdbName": "Michaël Troude",
+      "identityStatus": "RÉSOLU",
+      "resolved": true,
+      "nameMatch": true,
+      "declaredCreditsCount": 11,
+      "scrapedCreditsCount": 100,
+      "counts": {
+        "CONFIRMÉ": 10,
+        "NOUVEAU": 90,
+        "CONTRADICTOIRE": 0,
+        "NON VÉRIFIABLE": 2
+      },
+      "flags": [
+        "2 crédit(s) non vérifiable(s)"
+      ]
+    },
+    {
+      "id": "amedeo-cazzella",
+      "name": "Amédéo Cazzella",
+      "imdbId": "nm1000561",
+      "imdbName": "Amédéo Cazzella",
+      "identityStatus": "RÉSOLU",
+      "resolved": true,
+      "nameMatch": true,
+      "declaredCreditsCount": 11,
+      "scrapedCreditsCount": 113,
+      "counts": {
+        "CONFIRMÉ": 10,
+        "NOUVEAU": 103,
+        "CONTRADICTOIRE": 0,
+        "NON VÉRIFIABLE": 1
+      },
+      "flags": [
+        "1 crédit(s) non vérifiable(s)"
+      ]
+    },
+    {
+      "id": "niels-dalery",
+      "name": "Niels Dalery",
+      "imdbId": null,
+      "imdbName": "Niels Dalery",
+      "identityStatus": "INTROUVABLE",
+      "resolved": false,
+      "nameMatch": null,
+      "declaredCreditsCount": 4,
+      "scrapedCreditsCount": 0,
+      "counts": {
+        "CONFIRMÉ": 0,
+        "NOUVEAU": 0,
+        "CONTRADICTOIRE": 0,
+        "NON VÉRIFIABLE": 4
+      },
+      "flags": [
+        "IDENTITÉ NON RÉSOLUE",
+        "4 crédit(s) non vérifiable(s)"
+      ]
+    },
+    {
+      "id": "bastien-trouve",
+      "name": "Bastien Trouvé",
+      "imdbId": "nm9687362",
+      "imdbName": "Bastien Trouvé",
+      "identityStatus": "RÉSOLU",
+      "resolved": true,
+      "nameMatch": true,
+      "declaredCreditsCount": 4,
+      "scrapedCreditsCount": 36,
+      "counts": {
+        "CONFIRMÉ": 3,
+        "NOUVEAU": 33,
+        "CONTRADICTOIRE": 0,
+        "NON VÉRIFIABLE": 1
+      },
+      "flags": [
+        "1 crédit(s) non vérifiable(s)"
+      ]
+    },
+    {
+      "id": "alan-cueff",
+      "name": "Alan Cueff",
+      "imdbId": "nm10995720",
+      "imdbName": "Alan Cueff",
+      "identityStatus": "RÉSOLU",
+      "resolved": true,
+      "nameMatch": true,
+      "declaredCreditsCount": 4,
+      "scrapedCreditsCount": 18,
+      "counts": {
+        "CONFIRMÉ": 2,
+        "NOUVEAU": 16,
+        "CONTRADICTOIRE": 0,
+        "NON VÉRIFIABLE": 2
+      },
+      "flags": [
+        "2 crédit(s) non vérifiable(s)"
+      ]
+    }
+  ]
+}
