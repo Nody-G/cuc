@@ -1334,29 +1334,9 @@ export const TeamView: React.FC<TeamViewProps> = ({
                                 </div>
 
                                 {isFeatured && (
-                                  <>
-                                    <span className="font-mono text-[9px] text-[#FFE500] w-3 text-center shrink-0">
-                                      {featuredRank + 1}
-                                    </span>
-                                    <button
-                                      type="button"
-                                      onClick={() => moveFeatured(key, -1)}
-                                      disabled={featuredRank === 0}
-                                      className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30 shrink-0"
-                                      title="Monter dans la mise en avant"
-                                    >
-                                      <ArrowUp className="w-3 h-3" />
-                                    </button>
-                                    <button
-                                      type="button"
-                                      onClick={() => moveFeatured(key, 1)}
-                                      disabled={featuredRank === featuredCount - 1}
-                                      className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30 shrink-0"
-                                      title="Descendre dans la mise en avant"
-                                    >
-                                      <ArrowDown className="w-3 h-3" />
-                                    </button>
-                                  </>
+                                  <span className="font-mono text-[9px] text-[#FFE500] w-3 text-center shrink-0">
+                                    {featuredRank + 1}
+                                  </span>
                                 )}
                                 <button
                                   type="button"
