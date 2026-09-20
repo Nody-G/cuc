@@ -323,7 +323,7 @@ export const TeamView: React.FC<TeamViewProps> = ({
       {/* Modal édition membre */}
       {editingMember && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-[#12121A] border border-white/10 rounded-xl p-6 max-w-lg w-full space-y-4 shadow-2xl my-8">
+          <div className="bg-[#12121A] border border-white/10 rounded-xl p-6 max-w-4xl w-full space-y-4 shadow-2xl my-8">
             <h3 className="text-base font-bold text-white uppercase tracking-wide">
               {editingMember.name ? `Modifier : ${editingMember.name}` : 'Nouveau formateur'}
             </h3>
