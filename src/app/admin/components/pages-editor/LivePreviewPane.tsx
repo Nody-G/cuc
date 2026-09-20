@@ -171,6 +171,12 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
                                 title="Aperçu live de la page"
                                 className="w-full border-0 bg-[#060608]"
                                 style={{ height: '72vh' }}
+                                // Pas de `sandbox` : le contenu est notre propre
+                                // route same-origin et de confiance. Un sandbox
+                                // (même avec `allow-same-origin`) peut faire
+                                // échouer l'aperçu après un affichage fugace.
+                                referrerPolicy="same-origin"
+                                loading="eager"
                             />
                         ) : (
                             <div

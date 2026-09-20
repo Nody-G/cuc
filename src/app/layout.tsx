@@ -3,6 +3,7 @@ import { Bebas_Neue, Inter, Space_Grotesk, JetBrains_Mono } from "next/font/goog
 import "./globals.css";
 import { MobileStickyCTA } from "@/components/layout/MobileStickyCTA";
 import { PreviewBridgeClient } from "@/components/preview/PreviewBridgeClient";
+import { SpeculationRules } from "@/components/preview/SpeculationRules";
 import {
   SITE_URL,
   SITE_NAME,
@@ -124,38 +125,11 @@ export default function RootLayout({
             inline (clic → focus du champ) et l'injection du brouillon non publié. */}
         <PreviewBridgeClient />
         {/* Speculation Rules API (Phase 5) — préchargement/prérendu instantané
-            des navigations internes au survol/clic. Dégradation gracieuse. */}
-        <script
-          type="speculationrules"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              prerender: [
-                {
-                  where: {
-                    and: [
-                      { href_matches: "/*" },
-                      { not: { href_matches: "/api/*" } },
-                      { not: { selector_matches: "[target=_blank]" } },
-                      { not: { selector_matches: "[rel~=nofollow]" } },
-                    ],
-                  },
-                  eagerness: "moderate",
-                },
-              ],
-              prefetch: [
-                {
-                  where: {
-                    and: [
-                      { href_matches: "/*" },
-                      { not: { href_matches: "/api/*" } },
-                    ],
-                  },
-                  eagerness: "conservative",
-                },
-              ],
-            }),
-          }}
-        />
+            des navigations internes au survol/clic. Dégradation gracieuse.
+            Désactivé dans un cadre embarqué (aperçu Cockpit) : le `prerender`
+            de Chrome y est restreint et pouvait remplacer l'aperçu par la page
+            d'erreur du navigateur après un affichage fugace. */}
+        <SpeculationRules />
         {/* Données structurées schema.org */}
         <script
           type="application/ld+json"

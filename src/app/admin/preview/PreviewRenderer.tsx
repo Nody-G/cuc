@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import { useSearchParams } from 'next/navigation';
+import React, { useState } from 'react';
 import { ParallaxHero } from '@/components/ui/ParallaxHero';
 import {
     HomeAboutSection,
@@ -16,8 +15,15 @@ import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 /**
  * Rendu de l'aperçu live (même origine que le Cockpit).
  *
- * Le slug est lu depuis `?slug=` (défaut `/`). Le contenu provient de
- * `usePageDynamicContent`, qui :
+ * Le slug est lu **directement depuis `window.location.search`** (et non via
+ * `useSearchParams`). Pourquoi ? `useSearchParams` suspend le rendu dans une
+ * frontière `Suspense` et, avec les Cache Components de Next.js, la coquille
+ * statique pouvait s'afficher une fraction de seconde puis échouer à
+ * s'hydrater dans l'iframe — exactement le symptôme « ça ouvre puis ça met le
+ * message d'erreur ». Une lecture directe de l'URL, purement côté client,
+ * supprime toute dépendance à la frontière de suspense.
+ *
+ * Le contenu provient de `usePageDynamicContent`, qui :
  *  1. charge la version publiée depuis Supabase (rendu initial fidèle) ;
  *  2. s'abonne au store d'aperçu, alimenté par `PreviewBridgeClient` via
  *     `postMessage` — chaque modification du formulaire est donc reflétée
@@ -27,8 +33,15 @@ import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
  * repli résilient sur l'ensemble des sections si l'agencement est vide.
  */
 export const PreviewRenderer: React.FC = () => {
-    const searchParams = useSearchParams();
-    const slug = searchParams.get('slug') || '/';
+    // Lecture directe de l'URL via un initialiseur paresseux : aucune frontière
+    // de suspense, aucun échec d'hydratation possible dans l'iframe, et aucune
+    // écriture d'état dans un effet (pas de rendu en cascade).
+    const [slug] = useState<string>(() => {
+        if (typeof window === 'undefined') return '/';
+        const params = new URLSearchParams(window.location.search);
+        return params.get('slug') || '/';
+    });
+
     const { content } = usePageDynamicContent(slug);
 
     const sortedSections = [...(content.layout_sections || [])]

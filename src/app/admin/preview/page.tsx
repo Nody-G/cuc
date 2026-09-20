@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { PreviewRenderer } from './PreviewRenderer';
 
 /**
@@ -15,17 +15,11 @@ import { PreviewRenderer } from './PreviewRenderer';
  * Cockpit : l'encadrement est donc toujours autorisé, quel que soit le domaine
  * d'accès. Elle rend les vrais composants de section de la vitrine et reçoit le
  * brouillon non publié via `postMessage` (voir `PreviewBridgeClient`).
+ *
+ * Aucune frontière `Suspense` n'est nécessaire : `PreviewRenderer` lit le slug
+ * directement dans l'URL côté client (pas de `useSearchParams`), ce qui évite
+ * tout échec d'hydratation dans l'iframe.
  */
 export default function AdminPreviewPage() {
-    return (
-        <Suspense
-            fallback={
-                <div className="min-h-screen bg-[#060608] text-zinc-500 flex items-center justify-center text-[11px] font-mono">
-                    Initialisation de l’aperçu…
-                </div>
-            }
-        >
-            <PreviewRenderer />
-        </Suspense>
-    );
+    return <PreviewRenderer />;
 }
