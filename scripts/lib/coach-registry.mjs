@@ -90,12 +90,21 @@ export const COACH_REGISTRY = [
         discipline: 'Combats & arts martiaux',
     },
     {
-        id: 'michael-troude',
-        name: 'Michaël Troude',
-        imdbId: 'nm0873735',
+        // CORRECTION D'IDENTITÉ (vérifiée sur 3 sources indépendantes) :
+        // la fiche portait « Michaël Troude » / nm0873735, mais l'avatar
+        // officiel du campus est `14-michel.png` et le site du campus
+        // (campus-universcascades.com/equipe/) nomme explicitement ce coach
+        // « Michel Bouis » (title="Michel Bouis - Campus Univers Cascades")
+        // avec le rôle « Spécialiste Chutes et Maniement d'armes ».
+        // IMDb : nm0099365 (Stunts, 244 crédits cascades dont Lupin, Elyas,
+        // L'Amour ouf, Loin du périph, L'Empereur de Paris).
+        // nm0873735 est une AUTRE personne (Michaël Troude, 100 crédits).
+        id: 'michel-bouis',
+        name: 'Michel Bouis',
+        imdbId: 'nm0099365',
         tmdbId: null,
-        nameVariants: ['Michaël Troude', 'Michael Troude', 'Mickaël Troude'],
-        discipline: 'Combat rapproché',
+        nameVariants: ['Michel Bouis', 'Michel Bouis (cascadeur)'],
+        discipline: 'Chutes & maniement d\'armes',
     },
     {
         // IMDb corrigé : nm5449764 était erroné (aucune fiche). Le vrai profil

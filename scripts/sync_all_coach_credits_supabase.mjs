@@ -1,3 +1,22 @@
+/**
+ * ==============================================================================
+ * ⚠️  SCRIPT HISTORIQUE — NE PAS RELANCER TEL QUEL
+ * ==============================================================================
+ * Ce script contient encore l'ancienne identité erronée « michael-troude »
+ * (IMDb nm0873735). L'identité réelle du coach est **Michel Bouis**
+ * (IMDb nm0099365), vérifiée sur 3 sources (site campus, IMDb, avatar
+ * officiel `14-michel.png`).
+ *
+ * Source de vérité actuelle :
+ *   - `scripts/lib/coach-registry.mjs` (registre canonique des 12 coachs)
+ *   - `src/data/team.ts` (fiche publique)
+ *   - pipeline : `npm run coaches:scrape:imdb` → `coaches:curate` →
+ *     `coaches:apply` → `coaches:sync`
+ *
+ * Migration d'identité déjà appliquée en base via
+ * `scripts/migrate_michel_bouis_supabase.mjs`.
+ * ==============================================================================
+ */
 import { createClient } from '@supabase/supabase-js';
 import * as dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });

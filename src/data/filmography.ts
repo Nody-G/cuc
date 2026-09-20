@@ -57,11 +57,11 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt15445056/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=295328.html",
     "trailerUrl": "https://www.youtube.com/watch?v=z8BvWJ4jJqQ",
-    "cuc_team_involved": ["jerome-gaspard", "malik-diouf", "michael-troude"],
+    "cuc_team_involved": ["jerome-gaspard", "malik-diouf", "michel-bouis"],
     "cuc_team_roles": {
       "jerome-gaspard": "Coordinateur des cascades",
       "malik-diouf": "Conseiller Franchissement & Parkour",
-      "michael-troude": "Cascadeur (Impacts & affrontements)"
+      "michel-bouis": "Cascadeur (Impacts & affrontements)"
     }
   },
   {
@@ -254,7 +254,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "trailerUrl": "https://www.youtube.com/watch?v=CurKNMuYof8",
     "cuc_team_involved": [
       "vincent-bouillon",
-      "michael-troude",
+      "michel-bouis",
       "alan-cueff"
     ]
   },
@@ -320,7 +320,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=300680.html",
     "trailerUrl": "https://www.youtube.com/watch?v=mcEFQwRbBZg",
     "cuc_team_involved": [
-      "michael-troude",
+      "michel-bouis",
       "vincent-bouillon"
     ]
   },
@@ -529,7 +529,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=274530.html",
     "trailerUrl": "https://www.youtube.com/watch?v=E4FdK4VdGz0",
     "cuc_team_involved": [
-      "michael-troude"
+      "michel-bouis"
     ]
   },
   {
@@ -611,7 +611,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=271813.html",
     "trailerUrl": "https://www.youtube.com/watch?v=kYJ5oVb06fM",
     "cuc_team_involved": [
-      "michael-troude"
+      "michel-bouis"
     ]
   },
   {
@@ -715,7 +715,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "allocineUrl": "https://www.allocine.fr/series/ficheserie_gen_cserie=23528.html",
     "trailerUrl": "https://www.youtube.com/watch?v=uVUY-t2_O2k",
     "cuc_team_involved": [
-      "michael-troude"
+      "michel-bouis"
     ]
   },
   {
@@ -804,7 +804,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "trailerUrl": "https://www.youtube.com/watch?v=chRUCIk3K94",
     "cuc_team_involved": [
       "jerome-gaspard",
-      "michael-troude"
+      "michel-bouis"
     ]
   },
   {
@@ -1182,7 +1182,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "trailerUrl": "https://www.youtube.com/watch?v=WcMgkbfJIRg",
     "cuc_team_involved": [
       "maurice-chan",
-      "michael-troude",
+      "michel-bouis",
       "amedeo-cazzella"
     ]
   },

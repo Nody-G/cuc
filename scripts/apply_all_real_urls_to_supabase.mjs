@@ -49,9 +49,12 @@ const TEAM_UPDATES = [
     instagram: null
   },
   {
-    id: 'michael-troude',
-    imdb: 'https://www.imdb.com/name/nm0873735/',
-    external_url: null,
+    // IDENTITÉ CORRIGÉE : la fiche portait à tort « Michaël Troude » (nm0873735).
+    // L'avatar officiel du campus (`14-michel.png`) et le site du campus
+    // désignent Michel Bouis (nm0099365, 244 crédits cascades).
+    id: 'michel-bouis',
+    imdb: 'https://www.imdb.com/name/nm0099365/',
+    external_url: 'https://www.michel-bouis-cascade.fr/',
     instagram: null
   },
   {

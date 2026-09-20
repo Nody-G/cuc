@@ -1,0 +1,2215 @@
+{
+  "imdbId": "nm0099365",
+  "name": "Michel Bouis",
+  "totalCredits": 277,
+  "stuntCredits": 244,
+  "byCategory": {
+    "Stunts": 244
+  },
+  "byType": {
+    "TV Movie": 30,
+    "TV Mini Series": 20,
+    "Movie": 121,
+    "TV Series": 70,
+    "Short": 2,
+    "Video": 1
+  },
+  "credits": [
+    {
+      "titleId": "tt39299809",
+      "title": "Impacts",
+      "year": 2026,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt33093141",
+      "title": "Deep",
+      "year": 2026,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt37740990",
+      "title": "Le Fantôme de l'Opéra",
+      "year": 2026,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt40571629",
+      "title": "La maison de nos rêves",
+      "year": 2026,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt35476147",
+      "title": "Vigilante",
+      "year": 2026,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt35676750",
+      "title": "Apparences",
+      "year": 2026,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt35404853",
+      "title": "Ceux qui comptent",
+      "year": 2026,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt41101766",
+      "title": "Papa Malgre Lui",
+      "year": 2026,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt36841139",
+      "title": "LOL 2.0",
+      "year": 2026,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt34139155",
+      "title": "Les Lionnes",
+      "year": 2026,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt37319645",
+      "title": "Mitterrand confidentiel",
+      "year": 2025,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt39201469",
+      "title": "Les 3 Brestoises",
+      "year": 2025,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt41228966",
+      "title": "Les aventurières",
+      "year": 2025,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt35889176",
+      "title": "Désenchantées",
+      "year": 2025,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt29312656",
+      "title": "Gérald le conquérant",
+      "year": 2025,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt34479814",
+      "title": "Regarde",
+      "year": 2025,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt36833584",
+      "title": "Influencers",
+      "year": 2025,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt33362861",
+      "title": "La Danse des renards",
+      "year": 2025,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt36553782",
+      "title": "Que ma volonté soit faite",
+      "year": 2025,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt33354944",
+      "title": "Anaon",
+      "year": 2025,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt30330486",
+      "title": "Zion",
+      "year": 2025,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt26813534",
+      "title": "Mademoiselle Holmes",
+      "year": 2024,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt36093729",
+      "title": "Commandant Saint-Barth",
+      "year": 2024,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt33396608",
+      "title": "Les Boules de Noël",
+      "year": 2024,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt30415406",
+      "title": "Ollie",
+      "year": 2024,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt33257950",
+      "title": "Blood River",
+      "year": 2024,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt9713418",
+      "title": "The Last Front",
+      "year": 2024,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt28336131",
+      "title": "Elyas",
+      "year": 2024,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt16826430",
+      "title": "La nuit se traîne",
+      "year": 2024,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt27490099",
+      "title": "L'Amour ouf",
+      "year": 2024,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt27722530",
+      "title": "Ici et là-bas",
+      "year": 2024,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt23546622",
+      "title": "En place",
+      "year": 2023,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt9115752",
+      "title": "Chasse gardée",
+      "year": 2023,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt29274601",
+      "title": "Vjeran Tomic: L'homme-araignée de Paris",
+      "year": 2023,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt18413548",
+      "title": "D'argent et de sang",
+      "year": 2023,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt13482796",
+      "title": "Captives",
+      "year": 2023,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt26771225",
+      "title": "Par-delà les montagnes",
+      "year": 2023,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt22374610",
+      "title": "Madame de Sévigné",
+      "year": 2023,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt22533910",
+      "title": "Iris et les hommes",
+      "year": 2023,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt27987407",
+      "title": "Cash",
+      "year": 2023,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt26342863",
+      "title": "Rosalie",
+      "year": 2023,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt16983432",
+      "title": "10 jours encore sans maman",
+      "year": 2023,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt15568526",
+      "title": "Sage homme",
+      "year": 2023,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt25621774",
+      "title": "L'Attaque des déchets",
+      "year": 2022,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt30953658",
+      "title": "Rendez-vous avec le crime",
+      "year": 2022,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt18036574",
+      "title": "Tropic",
+      "year": 2022,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt18990128",
+      "title": "La gravité",
+      "year": 2022,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt15484716",
+      "title": "En roue libre",
+      "year": 2022,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt13822738",
+      "title": "Loin du périph",
+      "year": 2022,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt11669538",
+      "title": "Viens je t'emmène",
+      "year": 2022,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt2531336",
+      "title": "Lupin",
+      "year": 2021,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt13224952",
+      "title": "Malabar",
+      "year": 2021,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "short",
+      "titleTypeLabel": "Short"
+    },
+    {
+      "titleId": "tt13044528",
+      "title": "La Révolution",
+      "year": 2020,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt12444642",
+      "title": "Rouge",
+      "year": 2020,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt9908390",
+      "title": "Le lion",
+      "year": 2020,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt10688206",
+      "title": "Tropiques criminels",
+      "year": 2019,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt13761678",
+      "title": "Le crime lui va si bien",
+      "year": 2019,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt10545470",
+      "title": "Au nom de la terre",
+      "year": 2019,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt7043380",
+      "title": "Osmosis",
+      "year": 2019,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt7791184",
+      "title": "La Promesse de l'Eau",
+      "year": 2019,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt7025976",
+      "title": "L'Empereur de Paris",
+      "year": 2018,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt9262090",
+      "title": "Le pont du diable",
+      "year": 2018,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt7136896",
+      "title": "Alad'2",
+      "year": 2018,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt6938828",
+      "title": "At Eternity's Gate",
+      "year": 2018,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt7555774",
+      "title": "En guerre",
+      "year": 2018,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt7854398",
+      "title": "Les innocents",
+      "year": 2018,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt6190050",
+      "title": "L'art du crime",
+      "year": 2017,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt6338762",
+      "title": "Le rêve français",
+      "year": 2017,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt2935516",
+      "title": "Money",
+      "year": 2017,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt6286630",
+      "title": "Mon poussin",
+      "year": 2017,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1935194",
+      "title": "Overdrive",
+      "year": 2017,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt6253942",
+      "title": "De toutes mes forces",
+      "year": 2017,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt6510840",
+      "title": "Meurtres à Dunkerque",
+      "year": 2016,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt5608998",
+      "title": "Meurtres à La Ciotat",
+      "year": 2016,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt3830558",
+      "title": "Versailles",
+      "year": 2015,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt3490432",
+      "title": "Accusé",
+      "year": 2015,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt4833040",
+      "title": "Meurtres en Bourgogne",
+      "year": 2015,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt2296747",
+      "title": "En mai, fais ce qu'il te plaît",
+      "year": 2015,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt4224920",
+      "title": "Le secret d'Elise",
+      "year": 2015,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt4579480",
+      "title": "Le mystère du lac",
+      "year": 2015,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt4331318",
+      "title": "Coup de chaud",
+      "year": 2015,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt4080768",
+      "title": "La belle saison",
+      "year": 2015,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt27404611",
+      "title": "Organ Donation-The Man who Died the most in the Movies",
+      "year": 2015,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "video",
+      "titleTypeLabel": "Video"
+    },
+    {
+      "titleId": "tt4025156",
+      "title": "En immersion",
+      "year": 2015,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt3592172",
+      "title": "Les gorilles",
+      "year": 2015,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt4322508",
+      "title": "Les témoins",
+      "year": 2014,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt4094242",
+      "title": "Ceux de 14",
+      "year": 2014,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt3713152",
+      "title": "Duel au soleil",
+      "year": 2014,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt3335946",
+      "title": "Origines",
+      "year": 2014,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt3114432",
+      "title": "Les Francis",
+      "year": 2014,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt2994636",
+      "title": "Maintenant ou jamais",
+      "year": 2014,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt3335590",
+      "title": "Ça va passer... Mais quand?",
+      "year": 2014,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt3556544",
+      "title": "3xManon",
+      "year": 2014,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt3136752",
+      "title": "Le dernier diamant",
+      "year": 2014,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt3156284",
+      "title": "Richelieu: La pourpre et le sang",
+      "year": 2014,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt2172934",
+      "title": "3 Days to Kill",
+      "year": 2014,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt3112654",
+      "title": "Mea Culpa",
+      "year": 2014,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt3405250",
+      "title": "Une femme dans la Révolution",
+      "year": 2013,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt2776074",
+      "title": "Angélique",
+      "year": 2013,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt2522934",
+      "title": "La confrérie des larmes",
+      "year": 2013,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt2843344",
+      "title": "L'autre vie de Richard Kemp",
+      "year": 2013,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt2763886",
+      "title": "La croisière",
+      "year": 2013,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt2994628",
+      "title": "Mortel été",
+      "year": 2013,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt2129887",
+      "title": "Au bonheur des ogres",
+      "year": 2013,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt2794396",
+      "title": "Il faut marier maman",
+      "year": 2013,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt2639724",
+      "title": "Crime d'État",
+      "year": 2013,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt2364258",
+      "title": "Caïn",
+      "year": 2012,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt2493230",
+      "title": "No Limit",
+      "year": 2012,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt2342207",
+      "title": "Mais qui a re-tué Pamela Rose?",
+      "year": 2012,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt2359700",
+      "title": "Main courante",
+      "year": 2012,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt2359650",
+      "title": "Mes deux amours",
+      "year": 2012,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt1849111",
+      "title": "Superstar",
+      "year": 2012,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt2359668",
+      "title": "Mauvaise fille",
+      "year": 2012,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt2166143",
+      "title": "Stars 80",
+      "year": 2012,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt2369497",
+      "title": "Trois mondes",
+      "year": 2012,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt2076176",
+      "title": "Cloclo",
+      "year": 2012,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt2248731",
+      "title": "Crapuleuses",
+      "year": 2012,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt2062690",
+      "title": "Toussaint Louverture",
+      "year": 2012,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt2313227",
+      "title": "Eléonore, l'intrépide",
+      "year": 2012,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt1745066",
+      "title": "Doc Martin",
+      "year": 2011,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt2202218",
+      "title": "L'homme de la situation",
+      "year": 2011,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1809792",
+      "title": "Le sang de la vigne",
+      "year": 2011,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1688064",
+      "title": "Bye Bye Blondie",
+      "year": 2011,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt2039092",
+      "title": "Rani",
+      "year": 2011,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1781843",
+      "title": "L'exercice de l'Etat",
+      "year": 2011,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1857209",
+      "title": "Les beaux mecs",
+      "year": 2011,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt1723047",
+      "title": "Requiem pour une tueuse",
+      "year": 2011,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1570727",
+      "title": "Une cible dans le dos",
+      "year": 2011,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt1739189",
+      "title": "La grève des femmes",
+      "year": 2011,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt1548603",
+      "title": "Le fils à Jo",
+      "year": 2011,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1600746",
+      "title": "Clem",
+      "year": 2010,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1563664",
+      "title": "La loi selon Bartoli",
+      "year": 2010,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1611715",
+      "title": "Victoire Bonnot",
+      "year": 2010,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1545759",
+      "title": "À bout portant",
+      "year": 2010,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1389057",
+      "title": "Les vivants et les morts",
+      "year": 2010,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1726637",
+      "title": "Fracture",
+      "year": 2010,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt1710581",
+      "title": "Merci papa, merci maman",
+      "year": 2010,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt1661316",
+      "title": "Nouvelle Maud",
+      "year": 2010,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1229381",
+      "title": "Hors-la-loi",
+      "year": 2010,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1479269",
+      "title": "L'autre monde",
+      "year": 2010,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1376421",
+      "title": "Imogène McCarthery",
+      "year": 2010,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1611868",
+      "title": "Je, François Villon, voleur, assassin, poète",
+      "year": 2010,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt1405807",
+      "title": "Le baltringue",
+      "year": 2010,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1288631",
+      "title": "Un village français",
+      "year": 2009,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1418572",
+      "title": "Profilage",
+      "year": 2009,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt3307176",
+      "title": "Malevil",
+      "year": 2009,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt1345507",
+      "title": "RTT",
+      "year": 2009,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1548331",
+      "title": "Commissaire Magellan",
+      "year": 2009,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1130984",
+      "title": "Cinéman",
+      "year": 2009,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1463450",
+      "title": "Rose & noir",
+      "year": 2009,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1383237",
+      "title": "Cartouche, le brigand magnifique",
+      "year": 2009,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1397517",
+      "title": "L'évasion",
+      "year": 2009,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt1315883",
+      "title": "Incognito",
+      "year": 2009,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1230415",
+      "title": "Action spéciale douanes",
+      "year": 2009,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1247640",
+      "title": "Banlieue 13: Ultimatum",
+      "year": 2009,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1304873",
+      "title": "Nicolas Le Floch",
+      "year": 2008,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1199099",
+      "title": "Merlin",
+      "year": 2008,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1099219",
+      "title": "Flics",
+      "year": 2008,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1156509",
+      "title": "La dame de Monsoreau",
+      "year": 2008,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt1239397",
+      "title": "De sang et d'encre",
+      "year": 2008,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt1129442",
+      "title": "Le transporteur 3",
+      "year": 2008,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1249303",
+      "title": "Le gendre idéal",
+      "year": 2008,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt1134801",
+      "title": "Bouquet final",
+      "year": 2008,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1179855",
+      "title": "Go Fast: Au coeur du trafic",
+      "year": 2008,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1259014",
+      "title": "L'Instinct de mort",
+      "year": 2008,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1165961",
+      "title": "Terre de lumière",
+      "year": 2008,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt1043818",
+      "title": "Duval et Moretti",
+      "year": 2008,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1124397",
+      "title": "Skate or Die",
+      "year": 2008,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1034397",
+      "title": "Les insoumis",
+      "year": 2008,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0869994",
+      "title": "Paris",
+      "year": 2008,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt1101174",
+      "title": "Fais pas ci, fais pas ça",
+      "year": 2007,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1055436",
+      "title": "Brigade Navarro",
+      "year": 2007,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt1002919",
+      "title": "Paris enquêtes criminelles",
+      "year": 2007,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0804540",
+      "title": "Taxi 4",
+      "year": 2007,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0446707",
+      "title": "Pars vite et reviens tard",
+      "year": 2007,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0806905",
+      "title": "Section de recherches",
+      "year": 2006,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0497156",
+      "title": "R.I.S. Police scientifique",
+      "year": 2006,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0759057",
+      "title": "Les bleus: premiers pas dans la police",
+      "year": 2006,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0878088",
+      "title": "Les tricheurs",
+      "year": 2006,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0486084",
+      "title": "Les Aristos",
+      "year": 2006,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0444519",
+      "title": "Un ticket pour l'espace",
+      "year": 2006,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0477507",
+      "title": "Engrenages",
+      "year": 2005,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0443948",
+      "title": "Clara Sheller",
+      "year": 2005,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0486783",
+      "title": "Commissaire Cordier",
+      "year": 2005,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0435967",
+      "title": "Le juge",
+      "year": 2005,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt0411009",
+      "title": "Léa Parker",
+      "year": 2004,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0414852",
+      "title": "Banlieue 13",
+      "year": 2004,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0430594",
+      "title": "Le silence de la mer",
+      "year": 2004,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt0286058",
+      "title": "Secret Passage",
+      "year": 2004,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0381008",
+      "title": "L'américain",
+      "year": 2004,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0389282",
+      "title": "Poids léger",
+      "year": 2004,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0389275",
+      "title": "Pierre et Jean",
+      "year": 2004,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt0337103",
+      "title": "Les Rivières pourpres 2 : Les Anges de l'apocalypse",
+      "year": 2004,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0354296",
+      "title": "Franck Keller",
+      "year": 2003,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0397508",
+      "title": "Lagardère",
+      "year": 2003,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0310203",
+      "title": "Tais-toi !",
+      "year": 2003,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0386934",
+      "title": "Fargas",
+      "year": 2003,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0307553",
+      "title": "Tempo",
+      "year": 2003,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0323465",
+      "title": "Octane",
+      "year": 2003,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0356922",
+      "title": "Le Mystère de la chambre jaune",
+      "year": 2003,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0305568",
+      "title": "Fanfan la Tulipe",
+      "year": 2003,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0285052",
+      "title": "Effroyables Jardins",
+      "year": 2003,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0295721",
+      "title": "Taxi 3",
+      "year": 2003,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0271136",
+      "title": "Un tueur aux trousses",
+      "year": 2003,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0404664",
+      "title": "S.O.S. 18",
+      "year": 2002,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0310511",
+      "title": "Père et maire",
+      "year": 2002,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0337215",
+      "title": "SoeurThérèse.com",
+      "year": 2002,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0346950",
+      "title": "Et demain, Paula?",
+      "year": 2002,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMovie",
+      "titleTypeLabel": "TV Movie"
+    },
+    {
+      "titleId": "tt0293662",
+      "title": "Le Transporteur",
+      "year": 2002,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0280665",
+      "title": "Femme fatale",
+      "year": 2002,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0282251",
+      "title": "Vivante",
+      "year": 2002,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0250223",
+      "title": "Astérix & Obélix : Mission Cléopâtre",
+      "year": 2002,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0267163",
+      "title": "Commissariat Bastille",
+      "year": 2001,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0224902",
+      "title": "Largo Winch",
+      "year": 2001,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0265116",
+      "title": "Chaos",
+      "year": 2001,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0246544",
+      "title": "D'Artagnan",
+      "year": 2001,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0262301",
+      "title": "La boîte",
+      "year": 2001,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0271027",
+      "title": "Le Baiser mortel du dragon",
+      "year": 2001,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0388918",
+      "title": "Entre 4 murs",
+      "year": 2000,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "short",
+      "titleTypeLabel": "Short"
+    },
+    {
+      "titleId": "tt0262674",
+      "title": "Paria",
+      "year": 2000,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0239507",
+      "title": "Les filles ne savent pas nager",
+      "year": 2000,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0187656",
+      "title": "Mary Lester",
+      "year": 2000,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0183869",
+      "title": "Taxi 2",
+      "year": 2000,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0188318",
+      "title": "Boulevard du Palais",
+      "year": 1999,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0151137",
+      "title": "Jeanne d'Arc",
+      "year": 1999,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0142688",
+      "title": "La Neuvième Porte",
+      "year": 1999,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0203427",
+      "title": "Le créateur",
+      "year": 1999,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0120563",
+      "title": "Ça ne se refuse pas",
+      "year": 1998,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0120744",
+      "title": "L'homme au masque de fer",
+      "year": 1998,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0172014",
+      "title": "Joséphine, ange gardien",
+      "year": 1997,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0173604",
+      "title": "Vérité oblige",
+      "year": 1997,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0166927",
+      "title": "P.J.",
+      "year": 1997,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0217955",
+      "title": "Louis Page",
+      "year": 1997,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0118996",
+      "title": "Dobermann",
+      "year": 1997,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0115274",
+      "title": "Aventures Caraïbes",
+      "year": 1996,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvMiniSeries",
+      "titleTypeLabel": "TV Mini Series"
+    },
+    {
+      "titleId": "tt0116271",
+      "title": "Fallait pas!..",
+      "year": 1996,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0109798",
+      "title": "La Fille de d'Artagnan",
+      "year": 1994,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0110963",
+      "title": "La reine Margot",
+      "year": 1994,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "movie",
+      "titleTypeLabel": "Movie"
+    },
+    {
+      "titleId": "tt0169458",
+      "title": "Le juge est une femme",
+      "year": 1993,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0173541",
+      "title": "Deux justiciers dans la ville",
+      "year": 1993,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0169504",
+      "title": "Une famille formidable",
+      "year": 1992,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0106042",
+      "title": "Julie Lescaut",
+      "year": 1992,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0103442",
+      "title": "Highlander",
+      "year": 1992,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    },
+    {
+      "titleId": "tt0096658",
+      "title": "Navarro",
+      "year": 1989,
+      "category": "Stunts",
+      "categoryId": "stunts",
+      "titleType": "tvSeries",
+      "titleTypeLabel": "TV Series"
+    }
+  ]
+}

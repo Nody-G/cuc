@@ -10,17 +10,17 @@ const FILM_TEAM_MAPPINGS = {
   'yamakasi': ['malik-diouf'],
   'largo-winch-3': ['vincent-bouillon', 'lucas-dollfus', 'bastien-trouve'],
   'monte-cristo': ['jerome-gaspard', 'vincent-bouillon', 'amedeo-cazzella'],
-  'the-substance': ['michael-troude', 'vincent-bouillon'],
+  'the-substance': ['michel-bouis', 'vincent-bouillon'],
   'lamour-ouf': ['vincent-bouillon', 'lucas-dollfus', 'bastien-trouve'],
   'john-wick-4': ['jerome-gaspard', 'vincent-bouillon', 'maurice-chan', 'kefi-abrikh'],
   'the-killer': ['vincent-bouillon', 'maurice-chan', 'franck-blanc'],
-  'elyas': ['vincent-bouillon', 'michael-troude', 'alan-cueff'],
+  'elyas': ['vincent-bouillon', 'michel-bouis', 'alan-cueff'],
   'sous-la-seine': ['franck-blanc', 'niels-dalery', 'lucas-dollfus'],
   'fast-furious-6': ['jerome-gaspard'],
   'james-bond-spectre': ['jerome-gaspard', 'vincent-bouillon'],
   'lucy': ['maurice-chan', 'jerome-gaspard'],
   'valerian': ['jerome-gaspard', 'franck-blanc'],
-  'dunkirk': ['jerome-gaspard', 'michael-troude'],
+  'dunkirk': ['jerome-gaspard', 'michel-bouis'],
 };
 
 async function run() {
