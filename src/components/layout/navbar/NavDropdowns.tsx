@@ -75,7 +75,7 @@ export const NavDropdowns: React.FC<NavDropdownsProps> = ({
               >
                 <span className="font-bold block">STAGES & SÉJOURS</span>
                 <span className="text-[10px] opacity-80 block">
-                  Week-end 250€, AFDAS, Summer Camp
+                  Week-end, AFDAS, Summer Camp
                 </span>
               </Link>
             </motion.div>
