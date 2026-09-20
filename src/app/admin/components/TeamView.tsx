@@ -1333,25 +1333,25 @@ export const TeamView: React.FC<TeamViewProps> = ({
                                   })}
                                 </div>
 
-                                {isFeatured && (
-                                  <span className="font-mono text-[9px] text-[#FFE500] w-3 text-center shrink-0">
-                                    {featuredRank + 1}
-                                  </span>
-                                )}
                                 <button
                                   type="button"
                                   onClick={() => toggleFeatured(title)}
-                                  className={`p-0.5 rounded transition shrink-0 ${isFeatured
+                                  className={`relative p-0.5 rounded transition shrink-0 ${isFeatured
                                     ? 'text-[#FFE500]'
                                     : 'text-zinc-600 hover:text-[#FFE500]'
                                     }`}
                                   title={
                                     isFeatured
-                                      ? 'Retirer de la mise en avant'
+                                      ? `Mise en avant n°${featuredRank + 1} — cliquer pour retirer`
                                       : 'Mettre en avant sur la fiche publique'
                                   }
                                 >
                                   <Star className={`w-3.5 h-3.5 ${isFeatured ? 'fill-current' : ''}`} />
+                                  {isFeatured && (
+                                    <span className="absolute -top-1 -right-1 min-w-[12px] h-3 px-0.5 rounded-full bg-[#FFE500] text-black font-mono text-[8px] font-bold leading-3 text-center">
+                                      {featuredRank + 1}
+                                    </span>
+                                  )}
                                 </button>
                                 <button
                                   type="button"
