@@ -104,12 +104,25 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
                       LE MOT DU FONDATEUR
                     </span>
                   </div>
-                  <p className="text-xs sm:text-sm text-zinc-300 font-tech italic leading-relaxed">
+                  <p
+                    data-cuc-field="sections_data.about.founder_quote"
+                    className="text-xs sm:text-sm text-zinc-300 font-tech italic leading-relaxed"
+                  >
                     {founderQuote}
                   </p>
                   <div className="mt-3 pt-2.5 border-t border-zinc-800 flex items-center justify-between text-[10px] font-mono-tech text-zinc-400">
-                    <span className="text-white font-bold">{founderName}</span>
-                    <span className="text-[#FFE500]">{founderRole}</span>
+                    <span
+                      data-cuc-field="sections_data.about.founder_name"
+                      className="text-white font-bold"
+                    >
+                      {founderName}
+                    </span>
+                    <span
+                      data-cuc-field="sections_data.about.founder_role"
+                      className="text-[#FFE500]"
+                    >
+                      {founderRole}
+                    </span>
                   </div>
                 </div>
               </StudioParallaxCard>
@@ -117,7 +130,10 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
 
             {/* Layer C: Year Tag Badge (Floating foreground plane) */}
             <StudioParallaxLayer speed={0.16} className="absolute -top-4 -left-3 z-30">
-              <div className="bg-[#FFE500] text-black font-display text-sm tracking-widest px-4 py-1.5 font-bold shadow-[0_4px_25px_rgba(255,229,0,0.35)]">
+              <div
+                data-cuc-field="sections_data.about.badge_year"
+                className="bg-[#FFE500] text-black font-display text-sm tracking-widest px-4 py-1.5 font-bold shadow-[0_4px_25px_rgba(255,229,0,0.35)]"
+              >
                 {badgeYear}
               </div>
             </StudioParallaxLayer>
@@ -132,19 +148,31 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
               transition={{ duration: 0.6 }}
             >
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
+                <span
+                  data-cuc-field="sections_data.about.tag"
+                  className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider"
+                >
                   {tag}
                 </span>
-                <span className="text-xs font-mono-tech text-zinc-400">
+                <span
+                  data-cuc-field="sections_data.about.subtag"
+                  className="text-xs font-mono-tech text-zinc-400"
+                >
                   {subtag}
                 </span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-tight text-white leading-tight">
+              <h2
+                data-cuc-field="sections_data.about.title"
+                className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-tight text-white leading-tight"
+              >
                 {title}
               </h2>
 
-              <p className="text-sm sm:text-base font-tech text-zinc-300 mt-3 leading-relaxed">
+              <p
+                data-cuc-field="sections_data.about.description"
+                className="text-sm sm:text-base font-tech text-zinc-300 mt-3 leading-relaxed"
+              >
                 {description}
               </p>
             </motion.div>
@@ -176,12 +204,12 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
 
             {/* CTAs */}
             <div className="pt-2 flex flex-wrap gap-3">
-              <Link href={ctaPrimaryLink}>
+              <Link href={ctaPrimaryLink} data-cuc-field="sections_data.about.cta_primary_text">
                 <TacticalButton variant="primary" size="md" icon={<ArrowRight className="w-4 h-4" />}>
                   {ctaPrimaryText}
                 </TacticalButton>
               </Link>
-              <Link href={ctaSecondaryLink}>
+              <Link href={ctaSecondaryLink} data-cuc-field="sections_data.about.cta_secondary_text">
                 <TacticalButton variant="secondary" size="md">
                   {ctaSecondaryText}
                 </TacticalButton>

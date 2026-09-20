@@ -8,6 +8,16 @@ import { PROGRAMMES_TV, ProgrammeTvItem } from '@/data/videos';
 import { OFFICIAL_FILM_BANNERS, FilmBanner } from '@/data/filmBanners';
 import { CAMPUS_FACILITIES } from '@/data/campus';
 import { CAMPUS_POIS, POI } from '@/components/ui/campus-map/campusMap.data';
+import {
+  DEFAULT_NAVIGATION,
+  DEFAULT_FOOTER,
+  DEFAULT_SOCIAL_LINKS,
+  type SiteNavigation,
+  type NavigationStructure,
+  type SiteFooter,
+  type FooterStructure,
+  type SiteSocialLink,
+} from '@/data/navigation';
 import { StuntProgram, Instructor, FilmCredit, Discipline, DoubledCelebrity, InfrastructureSpot } from '@/types';
 
 export interface SiteAnnouncement {
@@ -136,7 +146,7 @@ export async function getTeam(): Promise<Instructor[]> {
     }
 
     // Récupération des correspondances de films pour relier les cascades certifiées
-    let teamFilmsMap: Record<string, string[]> = {};
+    const teamFilmsMap: Record<string, string[]> = {};
     try {
       const { data: filmsData } = await supabase
         .from('site_films')
@@ -1033,6 +1043,32 @@ export interface SiteSettings {
   hero_primary_cta_url?: string;
   hero_secondary_cta_text?: string;
   hero_secondary_cta_url?: string;
+  /** Libellé du CTA principal de la barre de navigation (desktop + mobile). */
+  navbar_cta_text?: string;
+  /** URL du CTA principal de la barre de navigation. */
+  navbar_cta_url?: string;
+  /** Libellé du bouton d'appel de la barre collante mobile. */
+  mobile_sticky_call_label?: string;
+  /** Libellé du CTA principal de la barre collante mobile. */
+  mobile_sticky_cta_text?: string;
+  /** URL du CTA principal de la barre collante mobile. */
+  mobile_sticky_cta_url?: string;
+  /** Libellé du bouton « Haut de page » du pied de page. */
+  footer_back_to_top_label?: string;
+  /** Libellé du badge de certification affiché dans le pied de page. */
+  footer_certification_badge?: string;
+
+  // Identité Visuelle & Métadonnées Globales
+  /** URL du logo principal (navbar, footer, favicon fallback). */
+  logo_url?: string;
+  /** URL du favicon. */
+  favicon_url?: string;
+  /** Titre SEO global par défaut (balise `<title>`). */
+  meta_title?: string;
+  /** Description SEO globale par défaut. */
+  meta_description?: string;
+  /** Image Open Graph globale par défaut. */
+  og_image_url?: string;
 
   // Bandeau d'Alerte / Urgence Globale
   emergency_active?: boolean;
@@ -1585,6 +1621,39 @@ export async function getAuditLogs(): Promise<AuditLogEntry[]> {
 }
 
 /**
+ * Récupère un volume élargi de journaux d'audit pour la vue dédiée du Cockpit.
+ * Priorité : 1. table dédiée site_audit_logs, 2. miroir site_settings, 3. échantillon local.
+ */
+export async function getAuditLogsExtended(limit = 500): Promise<AuditLogEntry[]> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('site_audit_logs')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(limit);
+
+    if (!error && data && data.length > 0) {
+      return data as AuditLogEntry[];
+    }
+
+    const { data: row } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'audit_logs')
+      .maybeSingle();
+
+    if (row?.value?.list && Array.isArray(row.value.list)) {
+      return row.value.list as AuditLogEntry[];
+    }
+  } catch {
+    // Ignore
+  }
+
+  return SAMPLE_AUDIT_LOGS;
+}
+
+/**
  * Récupère les disciplines de cascade avec leurs liaisons croisées.
  * Priorité : 1. table dédiée site_disciplines, 2. miroir Supabase site_settings, 3. statique.
  */
@@ -1713,5 +1782,428 @@ export async function getCampusPOIs(): Promise<POI[]> {
   }
 
   return CAMPUS_POIS;
+}
+
+// ==============================================================================
+// NAVIGATION, FOOTER & RÉSEAUX SOCIAUX ÉDITABLES
+// ==============================================================================
+// Ces services alimentent les zones historiquement codées en dur de la vitrine
+// (Navbar, dropdowns, drawer mobile, Footer, réseaux sociaux).
+// Résilience : fallback systématique sur les constantes de `src/data/navigation.ts`
+// afin de garantir ZÉRO régression si Supabase est indisponible ou vide.
+// ==============================================================================
+
+/**
+ * Récupère la structure de navigation principale (menu desktop + mobile).
+ * Priorité : 1. table `site_navigation`, 2. fallback `DEFAULT_NAVIGATION`.
+ */
+export async function getNavigation(id: string = 'main'): Promise<SiteNavigation> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('site_navigation')
+      .select('*')
+      .eq('id', id)
+      .eq('is_published', true)
+      .maybeSingle();
+
+    if (error || !data || !data.structure) {
+      return DEFAULT_NAVIGATION;
+    }
+
+    const structure = data.structure as NavigationStructure;
+    if (!structure.items || !Array.isArray(structure.items) || structure.items.length === 0) {
+      return DEFAULT_NAVIGATION;
+    }
+
+    return {
+      id: data.id,
+      label: data.label || DEFAULT_NAVIGATION.label,
+      structure: {
+        items: structure.items,
+        cta: structure.cta || DEFAULT_NAVIGATION.structure.cta,
+      },
+      is_published: data.is_published ?? true,
+      updated_at: data.updated_at,
+    };
+  } catch {
+    return DEFAULT_NAVIGATION;
+  }
+}
+
+/**
+ * Récupère la structure du pied de page.
+ * Priorité : 1. table `site_footer`, 2. fallback `DEFAULT_FOOTER`.
+ */
+export async function getFooter(id: string = 'main'): Promise<SiteFooter> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('site_footer')
+      .select('*')
+      .eq('id', id)
+      .eq('is_published', true)
+      .maybeSingle();
+
+    if (error || !data || !data.structure) {
+      return DEFAULT_FOOTER;
+    }
+
+    const structure = data.structure as FooterStructure;
+    if (!structure.columns || !Array.isArray(structure.columns)) {
+      return DEFAULT_FOOTER;
+    }
+
+    return {
+      id: data.id,
+      label: data.label || DEFAULT_FOOTER.label,
+      structure: {
+        columns: structure.columns,
+        brand: structure.brand || DEFAULT_FOOTER.structure.brand,
+        legal: structure.legal || DEFAULT_FOOTER.structure.legal,
+      },
+      is_published: data.is_published ?? true,
+      updated_at: data.updated_at,
+    };
+  } catch {
+    return DEFAULT_FOOTER;
+  }
+}
+
+/**
+ * Récupère les réseaux sociaux officiels (source unique de vérité).
+ * Priorité : 1. table `site_social_links`, 2. fallback `DEFAULT_SOCIAL_LINKS`.
+ */
+export async function getSocialLinks(): Promise<SiteSocialLink[]> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('site_social_links')
+      .select('*')
+      .eq('is_active', true)
+      .order('order_index', { ascending: true });
+
+    if (error || !data || data.length === 0) {
+      return DEFAULT_SOCIAL_LINKS;
+    }
+
+    return data.map((s) => ({
+      id: s.id,
+      platform: s.platform,
+      label: s.label,
+      handle: s.handle || undefined,
+      url: s.url,
+      display_hint: s.display_hint || undefined,
+      brand_color: s.brand_color || undefined,
+      order_index: s.order_index ?? 0,
+      is_active: s.is_active ?? true,
+      show_in_navbar: s.show_in_navbar ?? true,
+      show_in_footer: s.show_in_footer ?? true,
+      show_in_drawer: s.show_in_drawer ?? true,
+    })) as SiteSocialLink[];
+  } catch {
+    return DEFAULT_SOCIAL_LINKS;
+  }
+}
+
+/**
+ * Écrit (crée ou met à jour) la structure de navigation principale.
+ * Réservé au Cockpit (RLS admin). Retourne `true` en cas de succès.
+ */
+export async function upsertNavigation(
+  structure: NavigationStructure,
+  options: { id?: string; label?: string; isPublished?: boolean } = {}
+): Promise<boolean> {
+  try {
+    const supabase = createClient();
+    const id = options.id ?? 'main';
+    const { error } = await supabase.from('site_navigation').upsert(
+      {
+        id,
+        label: options.label ?? DEFAULT_NAVIGATION.label,
+        structure,
+        is_published: options.isPublished ?? true,
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: 'id' }
+    );
+    return !error;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Écrit (crée ou met à jour) la structure du pied de page.
+ * Réservé au Cockpit (RLS admin). Retourne `true` en cas de succès.
+ */
+export async function upsertFooter(
+  structure: FooterStructure,
+  options: { id?: string; label?: string; isPublished?: boolean } = {}
+): Promise<boolean> {
+  try {
+    const supabase = createClient();
+    const id = options.id ?? 'main';
+    const { error } = await supabase.from('site_footer').upsert(
+      {
+        id,
+        label: options.label ?? DEFAULT_FOOTER.label,
+        structure,
+        is_published: options.isPublished ?? true,
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: 'id' }
+    );
+    return !error;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Écrit (crée ou met à jour) un réseau social officiel.
+ * Réservé au Cockpit (RLS admin). Retourne `true` en cas de succès.
+ */
+export async function upsertSocialLink(link: SiteSocialLink): Promise<boolean> {
+  try {
+    const supabase = createClient();
+    const { error } = await supabase.from('site_social_links').upsert(
+      {
+        id: link.id,
+        platform: link.platform,
+        label: link.label,
+        handle: link.handle ?? null,
+        url: link.url,
+        display_hint: link.display_hint ?? null,
+        brand_color: link.brand_color ?? null,
+        order_index: link.order_index ?? 0,
+        is_active: link.is_active ?? true,
+        show_in_navbar: link.show_in_navbar ?? true,
+        show_in_footer: link.show_in_footer ?? true,
+        show_in_drawer: link.show_in_drawer ?? true,
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: 'id' }
+    );
+    return !error;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Supprime un réseau social officiel.
+ * Réservé au Cockpit (RLS admin). Retourne `true` en cas de succès.
+ */
+export async function deleteSocialLink(id: string): Promise<boolean> {
+  try {
+    const supabase = createClient();
+    const { error } = await supabase.from('site_social_links').delete().eq('id', id);
+    return !error;
+  } catch {
+    return false;
+  }
+}
+
+/* ============================================================================
+ * HISTORIQUE DE VERSIONS DES PAGES (site_page_revisions)
+ * ----------------------------------------------------------------------------
+ * Chaque révision est un instantané immuable du contenu d'une page. Le trigger
+ * SQL `trg_snapshot_site_page_revision` crée automatiquement un instantané
+ * avant chaque UPDATE de `site_pages`. Les fonctions ci-dessous permettent au
+ * Cockpit de lister, comparer et restaurer ces versions.
+ * ========================================================================== */
+
+export type PageRevisionStatus = 'draft' | 'published' | 'archived';
+
+export interface SitePageRevision {
+  id: string;
+  page_slug: string;
+  revision_number: number;
+  snapshot: Partial<SitePageContent>;
+  status: PageRevisionStatus;
+  label: string | null;
+  author_id: string | null;
+  author_name: string | null;
+  metadata: Record<string, unknown>;
+  created_at: string;
+}
+
+/**
+ * Liste l'historique des révisions d'une page, de la plus récente à la plus
+ * ancienne. Retourne un tableau vide en cas d'erreur (zéro régression).
+ */
+export async function getPageRevisions(
+  slug: string,
+  limit = 50
+): Promise<SitePageRevision[]> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('site_page_revisions')
+      .select('*')
+      .eq('page_slug', slug)
+      .order('revision_number', { ascending: false })
+      .limit(limit);
+
+    if (error || !data) return [];
+    return data as SitePageRevision[];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Récupère une révision précise par son identifiant.
+ */
+export async function getPageRevision(id: string): Promise<SitePageRevision | null> {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('site_page_revisions')
+      .select('*')
+      .eq('id', id)
+      .maybeSingle();
+
+    if (error || !data) return null;
+    return data as SitePageRevision;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Crée manuellement une révision (instantané) d'une page.
+ * Utile pour marquer un jalon avant une modification importante.
+ */
+export async function createPageRevision(
+  slug: string,
+  snapshot: Partial<SitePageContent>,
+  options: { label?: string; status?: PageRevisionStatus } = {}
+): Promise<SitePageRevision | null> {
+  try {
+    const supabase = createClient();
+
+    const { data: last } = await supabase
+      .from('site_page_revisions')
+      .select('revision_number')
+      .eq('page_slug', slug)
+      .order('revision_number', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    const nextNumber = ((last?.revision_number as number | undefined) ?? 0) + 1;
+
+    const { data: auth } = await supabase.auth.getUser();
+    const authorId = auth?.user?.id ?? null;
+
+    const { data, error } = await supabase
+      .from('site_page_revisions')
+      .insert({
+        page_slug: slug,
+        revision_number: nextNumber,
+        snapshot,
+        status: options.status ?? 'draft',
+        label: options.label ?? null,
+        author_id: authorId,
+      })
+      .select('*')
+      .maybeSingle();
+
+    if (error || !data) return null;
+    return data as SitePageRevision;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Restaure une révision : réapplique son instantané sur `site_pages`.
+ * L'état courant est automatiquement sauvegardé par le trigger SQL avant
+ * l'écriture, ce qui rend la restauration elle-même réversible.
+ */
+export async function restorePageRevision(
+  revisionId: string
+): Promise<SitePageContent | null> {
+  try {
+    const revision = await getPageRevision(revisionId);
+    if (!revision) return null;
+
+    const supabase = createClient();
+    const snap = revision.snapshot ?? {};
+
+    const { data, error } = await supabase
+      .from('site_pages')
+      .update({
+        title: snap.title,
+        meta_title: snap.meta_title,
+        meta_description: snap.meta_description,
+        og_image: snap.og_image,
+        hero: snap.hero,
+        sections: snap.sections,
+        is_published: snap.is_published,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('slug', revision.page_slug)
+      .select('*')
+      .maybeSingle();
+
+    if (error || !data) return null;
+    return data as SitePageContent;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Supprime une révision de l'historique.
+ */
+export async function deletePageRevision(id: string): Promise<boolean> {
+  try {
+    const supabase = createClient();
+    const { error } = await supabase.from('site_page_revisions').delete().eq('id', id);
+    return !error;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Calcule un diff lisible entre deux instantanés de page.
+ * Retourne la liste des champs modifiés avec leurs valeurs avant/après.
+ */
+export interface PageRevisionDiffEntry {
+  field: string;
+  before: unknown;
+  after: unknown;
+}
+
+export function diffPageSnapshots(
+  before: Partial<SitePageContent> | null | undefined,
+  after: Partial<SitePageContent> | null | undefined
+): PageRevisionDiffEntry[] {
+  const fields: (keyof SitePageContent)[] = [
+    'title',
+    'meta_title',
+    'meta_description',
+    'og_image',
+    'hero',
+    'sections',
+    'is_published',
+  ];
+
+  const a = before ?? {};
+  const b = after ?? {};
+  const changes: PageRevisionDiffEntry[] = [];
+
+  for (const field of fields) {
+    const beforeValue = (a as Record<string, unknown>)[field as string];
+    const afterValue = (b as Record<string, unknown>)[field as string];
+    if (JSON.stringify(beforeValue) !== JSON.stringify(afterValue)) {
+      changes.push({ field: field as string, before: beforeValue, after: afterValue });
+    }
+  }
+
+  return changes;
 }
 

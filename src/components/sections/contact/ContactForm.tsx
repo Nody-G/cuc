@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Send, CheckCircle2 } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { submitInquiry } from '@/app/admin/actions';
@@ -32,22 +32,17 @@ const resolveInitialProgram = (): string => {
 };
 
 export const ContactForm: React.FC = () => {
-  const [formData, setFormData] = useState({
+  // Préremplissage depuis le paramètre d'URL `?demande=...` : résolu une seule
+  // fois via l'initialiseur paresseux (côté client), sans effet ni rendu en
+  // cascade. Le rendu serveur retombe sur la valeur par défaut.
+  const [formData, setFormData] = useState(() => ({
     name: '',
     email: '',
     phone: '',
-    program: 'pro-longue-duree',
+    program: resolveInitialProgram(),
     sportExperience: '',
     message: '',
-  });
-
-  // Préremplissage depuis le paramètre d'URL `?demande=...`
-  useEffect(() => {
-    const initial = resolveInitialProgram();
-    if (initial !== 'pro-longue-duree') {
-      setFormData((prev) => ({ ...prev, program: initial }));
-    }
-  }, []);
+  }));
 
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);

@@ -3,201 +3,99 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Building, Compass, Layers } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
+import type { NavItem } from '@/data/navigation';
 
 interface NavDropdownsProps {
-  isFormationsActive: boolean;
-  isCampusActive: boolean;
-  isEventsActive: boolean;
-  formationsDropdownOpen: boolean;
-  setFormationsDropdownOpen: (open: boolean) => void;
-  campusDropdownOpen: boolean;
-  setCampusDropdownOpen: (open: boolean) => void;
-  eventsDropdownOpen: boolean;
-  setEventsDropdownOpen: (open: boolean) => void;
+  /** Items de type « dropdown » issus de `site_navigation` (fallback constantes). */
+  dropdownItems: NavItem[];
+  /** Identifiant du dropdown actuellement ouvert (un seul à la fois). */
+  openDropdownId: string | null;
+  setOpenDropdownId: (id: string | null) => void;
+  /** Détermine si un item (ou l'un de ses enfants) correspond à la route courante. */
+  isItemActive: (item: NavItem) => boolean;
 }
 
+/**
+ * Méga-menus de la Navbar desktop.
+ *
+ * Doctrine : entièrement piloté par la structure `site_navigation`. Aucun
+ * libellé, lien ou description n'est codé en dur ici — le fallback
+ * `DEFAULT_NAVIGATION` garantit un rendu identique à l'historique.
+ */
 export const NavDropdowns: React.FC<NavDropdownsProps> = ({
-  isFormationsActive,
-  isCampusActive,
-  isEventsActive,
-  formationsDropdownOpen,
-  setFormationsDropdownOpen,
-  campusDropdownOpen,
-  setCampusDropdownOpen,
-  eventsDropdownOpen,
-  setEventsDropdownOpen,
+  dropdownItems,
+  openDropdownId,
+  setOpenDropdownId,
+  isItemActive,
 }) => {
+  if (!dropdownItems.length) return null;
+
   return (
     <>
-      {/* Dropdown Formation & Stages */}
-      <div
-        className="relative py-2"
-        onMouseEnter={() => setFormationsDropdownOpen(true)}
-        onMouseLeave={() => setFormationsDropdownOpen(false)}
-      >
-        <button
-          className={`flex items-center gap-1 uppercase transition-colors cursor-pointer ${isFormationsActive
-              ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
-              : 'text-zinc-300 hover:text-[#FFE500]'
-            }`}
-          aria-haspopup="true"
-          aria-expanded={formationsDropdownOpen}
-        >
-          <span>Formation & Stages</span>
-          <ChevronDown className="w-3 h-3" />
-        </button>
+      {dropdownItems.map((item) => {
+        const isOpen = openDropdownId === item.id;
+        const active = isItemActive(item);
+        const children = (item.children ?? [])
+          .filter((child) => child.is_visible)
+          .sort((a, b) => a.order - b.order);
 
-        <AnimatePresence>
-          {formationsDropdownOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: 6, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 4, scale: 0.98 }}
-              transition={{ duration: 0.15, ease: 'easeOut' }}
-              className="absolute top-full left-0 w-64 bg-[#0e0e14] border-2 border-[#FFE500] p-2 shadow-2xl space-y-1 z-50 origin-top"
+        return (
+          <div
+            key={item.id}
+            className="relative"
+            onMouseEnter={() => setOpenDropdownId(item.id)}
+            onMouseLeave={() => setOpenDropdownId(null)}
+          >
+            <button
+              type="button"
+              onClick={() => setOpenDropdownId(isOpen ? null : item.id)}
+              aria-expanded={isOpen}
+              aria-haspopup="true"
+              className={`py-1 transition-colors flex items-center gap-1 cursor-pointer ${active
+                ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
+                : 'text-zinc-300 hover:text-[#FFE500]'
+                }`}
             >
-              <Link
-                href="/formation-de-cascadeur"
-                onClick={() => setFormationsDropdownOpen(false)}
-                className="block p-2.5 text-xs font-mono-tech text-zinc-200 hover:bg-[#FFE500] hover:text-black transition-colors"
-              >
-                <span className="font-bold block">FORMATION DE CASCADEUR</span>
-                <span className="text-[10px] opacity-80 block">
-                  Formule découverte & Cursus pro 2 ans
-                </span>
-              </Link>
-              <Link
-                href="/stages-cascades-parkour-2"
-                onClick={() => setFormationsDropdownOpen(false)}
-                className="block p-2.5 text-xs font-mono-tech text-zinc-200 hover:bg-[#FFE500] hover:text-black transition-colors border-t border-zinc-800"
-              >
-                <span className="font-bold block">STAGES & SÉJOURS</span>
-                <span className="text-[10px] opacity-80 block">
-                  Week-end, AFDAS, Summer Camp
-                </span>
-              </Link>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+              <span>{item.label}</span>
+              <ChevronDown
+                className={`w-3 h-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+              />
+            </button>
 
-      {/* Dropdown Le Campus (Visite Guidée + Visite Virtuelle 360°) */}
-      <div
-        className="relative py-2"
-        onMouseEnter={() => setCampusDropdownOpen(true)}
-        onMouseLeave={() => setCampusDropdownOpen(false)}
-      >
-        <button
-          className={`flex items-center gap-1 uppercase transition-colors cursor-pointer ${isCampusActive
-              ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
-              : 'text-zinc-300 hover:text-[#FFE500]'
-            }`}
-          aria-haspopup="true"
-          aria-expanded={campusDropdownOpen}
-        >
-          <span>Le Campus</span>
-          <ChevronDown className="w-3 h-3" />
-        </button>
-
-        <AnimatePresence>
-          {campusDropdownOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: 6, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 4, scale: 0.98 }}
-              transition={{ duration: 0.15, ease: 'easeOut' }}
-              className="absolute top-full left-0 w-72 bg-[#0e0e14] border-2 border-[#FFE500] p-2 shadow-2xl space-y-1 z-50 origin-top"
-            >
-              <Link
-                href="/visite-guidee"
-                onClick={() => setCampusDropdownOpen(false)}
-                className="block p-2.5 text-xs font-mono-tech text-zinc-200 hover:bg-[#FFE500] hover:text-black transition-colors"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-bold">LE CAMPUS</span>
-                  <Building className="w-3.5 h-3.5" />
-                </div>
-                <span className="text-[10px] opacity-80 block">
-                  Infrastructures, visite 360° et plan 3D
-                </span>
-              </Link>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* Dropdown Events */}
-      <div
-        className="relative py-2"
-        onMouseEnter={() => setEventsDropdownOpen(true)}
-        onMouseLeave={() => setEventsDropdownOpen(false)}
-      >
-        <button
-          className={`flex items-center gap-1 uppercase transition-colors cursor-pointer ${isEventsActive
-              ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
-              : 'text-zinc-300 hover:text-[#FFE500]'
-            }`}
-          aria-haspopup="true"
-          aria-expanded={eventsDropdownOpen}
-        >
-          <span>Events</span>
-          <ChevronDown className="w-3 h-3" />
-        </button>
-
-        <AnimatePresence>
-          {eventsDropdownOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: 6, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 4, scale: 0.98 }}
-              transition={{ duration: 0.15, ease: 'easeOut' }}
-              className="absolute top-full left-0 w-72 bg-[#0e0e14] border-2 border-[#FFE500] p-2 shadow-2xl space-y-1 z-50 origin-top"
-            >
-              <Link
-                href="/cuc-events-agence"
-                onClick={() => setEventsDropdownOpen(false)}
-                className="block p-2 text-xs font-mono-tech text-zinc-200 hover:bg-[#FFE500] hover:text-black transition-colors"
-              >
-                <span className="font-bold block">AGENCE CUC EVENTS</span>
-                <span className="text-[10px] opacity-80 block">
-                  Présentation globale des prestations
-                </span>
-              </Link>
-              <Link
-                href="/spectacles-cascadeurs-yamakasi"
-                onClick={() => setEventsDropdownOpen(false)}
-                className="block p-2 text-xs font-mono-tech text-zinc-200 hover:bg-[#FFE500] hover:text-black transition-colors border-t border-zinc-800"
-              >
-                <span className="font-bold block">SPECTACLES CASCADEURS</span>
-                <span className="text-[10px] opacity-80 block">
-                  Shows clé en main & Yamakasi
-                </span>
-              </Link>
-              <Link
-                href="/animations-airbag-parkour"
-                onClick={() => setEventsDropdownOpen(false)}
-                className="block p-2 text-xs font-mono-tech text-zinc-200 hover:bg-[#FFE500] hover:text-black transition-colors border-t border-zinc-800"
-              >
-                <span className="font-bold block">ANIMATION AIRBAG GÉANT</span>
-                <span className="text-[10px] opacity-80 block">
-                  Xtrem Jump initiation grand public
-                </span>
-              </Link>
-              <Link
-                href="/team-building-cascades"
-                onClick={() => setEventsDropdownOpen(false)}
-                className="block p-2 text-xs font-mono-tech text-zinc-200 hover:bg-[#FFE500] hover:text-black transition-colors border-t border-zinc-800"
-              >
-                <span className="font-bold block">TEAM BUILDING D'EXCEPTION</span>
-                <span className="text-[10px] opacity-80 block">
-                  Ateliers d'action pour entreprises
-                </span>
-              </Link>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+            <AnimatePresence>
+              {isOpen && children.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute top-full left-0 mt-2 min-w-[280px] bg-[#0D0D12]/98 backdrop-blur-md border border-white/10 shadow-2xl p-2 z-50"
+                >
+                  {children.map((child) => (
+                    <Link
+                      key={child.id}
+                      href={child.href}
+                      target={child.is_external ? '_blank' : undefined}
+                      rel={child.is_external ? 'noopener noreferrer' : undefined}
+                      className="block px-3 py-2.5 hover:bg-white/5 transition-colors group/item"
+                    >
+                      <span className="block text-xs font-display uppercase tracking-wider text-zinc-200 group-hover/item:text-[#FFE500] transition-colors">
+                        {child.label}
+                      </span>
+                      {child.description && (
+                        <span className="block text-[10px] font-mono-tech text-zinc-500 mt-0.5 normal-case tracking-normal">
+                          {child.description}
+                        </span>
+                      )}
+                    </Link>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        );
+      })}
     </>
   );
 };

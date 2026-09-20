@@ -4,8 +4,16 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ExternalLink, Compass, Navigation, MapPin } from 'lucide-react';
+import { useFooter } from '@/lib/hooks/useNavigation';
 
+/**
+ * Bloc marque + implantations du pied de page.
+ * Le nom, la signature et la description proviennent de `site_footer`
+ * (fallback `DEFAULT_FOOTER`, zéro régression).
+ */
 export const FooterBrandAndSites: React.FC = () => {
+  const { brand } = useFooter();
+
   return (
     <>
       {/* Brand & Mission */}
@@ -22,18 +30,16 @@ export const FooterBrandAndSites: React.FC = () => {
           </div>
           <div>
             <span className="font-display text-xl font-bold text-white tracking-wider block">
-              CAMPUS UNIVERS CASCADES
+              {brand.name}
             </span>
             <span className="text-[10px] font-mono-tech text-zinc-500 uppercase">
-              Fondé en 2008 • Plus grande école au monde
+              {brand.tagline}
             </span>
           </div>
         </div>
 
         <p className="text-xs text-zinc-400 font-tech leading-relaxed">
-          Centre de formation professionnelle de cascadeurs, coordinateurs et
-          action designers pour l'industrie cinématographique internationale. 6
-          hectares d'installations de pointe.
+          {brand.description}
         </p>
 
         <div className="pt-2 space-y-2">

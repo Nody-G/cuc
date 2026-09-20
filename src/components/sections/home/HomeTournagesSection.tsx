@@ -19,6 +19,31 @@ interface HighlightProject {
   poster: string;
 }
 
+/**
+ * Données éditables du bloc « tournages » (page Accueil).
+ * Toutes les clés sont optionnelles : en leur absence, les valeurs
+ * certifiées ci-dessous sont utilisées (zéro régression).
+ */
+export interface HomeTournagesData {
+  badge?: string;
+  title?: string;
+  subtitle?: string;
+  cta_text?: string;
+  cta_link?: string;
+}
+
+export interface HomeVirtualTourData {
+  badge?: string;
+  title?: string;
+  subtitle?: string;
+  cta_text?: string;
+  cta_link?: string;
+}
+
+interface HomeTournagesSectionProps {
+  tournagesData?: HomeTournagesData;
+}
+
 const FEATURED_PRODUCTIONS: HighlightProject[] = [
   {
     title: 'Le Comte de Monte-Cristo',
@@ -50,7 +75,17 @@ const FEATURED_PRODUCTIONS: HighlightProject[] = [
   },
 ];
 
-export const HomeTournagesSection: React.FC = () => {
+export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
+  tournagesData,
+}) => {
+  const badge = tournagesData?.badge || 'SECTEUR PRODUCTION CINÉMA & TOURNAGES';
+  const title = tournagesData?.title || 'COORDINATION DE CASCADES & TOURNAGES';
+  const subtitle =
+    tournagesData?.subtitle ||
+    "Partenaire privilégié des productions de cinéma, des séries et des diffuseurs mondiaux, le Campus Univers Cascades met à disposition son expertise en action design, direction de combats et sécurité sur plateau avec plus de 63 longs-métrages coordonnés au box-office.";
+  const ctaText = tournagesData?.cta_text || 'Découvrir la CUC Stunt Team';
+  const ctaLink = tournagesData?.cta_link || '/cuc-team-cascadeur';
+
   return (
     <StudioParallaxScene className="py-24 sm:py-28 bg-[#08080c] border-b border-zinc-800/80 relative overflow-hidden">
       {/* Cinematic Golden Ambience Beam */}
@@ -64,30 +99,37 @@ export const HomeTournagesSection: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider flex items-center gap-1.5">
+              <span
+                data-cuc-field="sections_data.tournages.badge"
+                className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider flex items-center gap-1.5"
+              >
                 <Clapperboard className="w-3.5 h-3.5" />
-                SECTEUR PRODUCTION CINÉMA &amp; TOURNAGES
+                {badge}
               </span>
               <span className="text-xs font-mono-tech text-zinc-500 hidden sm:inline">
                 • CUC STUNT TEAM
               </span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-tight text-white leading-tight max-w-3xl">
-              COORDINATION DE CASCADES &amp; <span className="text-[#FFE500]">TOURNAGES</span>
+            <h2
+              data-cuc-field="sections_data.tournages.title"
+              className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-tight text-white leading-tight max-w-3xl"
+            >
+              {title}
             </h2>
 
-            <p className="text-sm sm:text-base font-tech text-zinc-300 leading-relaxed max-w-3xl">
-              Partenaire privilégié des productions de cinéma, des séries et des diffuseurs mondiaux, le Campus
-              Univers Cascades met à disposition son expertise en action design, direction de combats et sécurité
-              sur plateau avec plus de 63 longs-métrages coordonnés au box-office.
+            <p
+              data-cuc-field="sections_data.tournages.subtitle"
+              className="text-sm sm:text-base font-tech text-zinc-300 leading-relaxed max-w-3xl"
+            >
+              {subtitle}
             </p>
           </div>
 
           <div className="shrink-0 flex items-center gap-3">
-            <Link href="/cuc-team-cascadeur">
+            <Link href={ctaLink} data-cuc-field="sections_data.tournages.cta_text">
               <TacticalButton variant="primary" size="md" icon={<ChevronRight className="w-4 h-4" />}>
-                Découvrir la CUC Stunt Team
+                {ctaText}
               </TacticalButton>
             </Link>
           </div>
@@ -102,7 +144,7 @@ export const HomeTournagesSection: React.FC = () => {
                 <div className="p-4 bg-[#14141c] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors">
                   <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] uppercase font-bold mb-1">
                     <Film className="w-3.5 h-3.5" />
-                    <span>1. Action Design &amp; Chorégraphie d'Action</span>
+                    <span>1. Action Design & Chorégraphie d'Action</span>
                   </div>
                   <p className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed">
                     Découpage technique, prévisualisation vidéo, chorégraphie sur-mesure des fusillades et combats,
@@ -113,7 +155,7 @@ export const HomeTournagesSection: React.FC = () => {
                 <div className="p-4 bg-[#14141c] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors">
                   <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] uppercase font-bold mb-1">
                     <Sparkles className="w-3.5 h-3.5" />
-                    <span>2. Vivier de 200+ Cascadeurs &amp; Doublures</span>
+                    <span>2. Vivier de 200+ Cascadeurs & Doublures</span>
                   </div>
                   <p className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed">
                     Doublures cascades et cascadeurs professionnels sur les plus grandes productions de cinéma et de streaming,
@@ -124,7 +166,7 @@ export const HomeTournagesSection: React.FC = () => {
                 <div className="p-4 bg-[#14141c] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors">
                   <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] uppercase font-bold mb-1">
                     <ShieldCheck className="w-3.5 h-3.5" />
-                    <span>3. Régie Cascade &amp; Sécurité Homologuée CNC</span>
+                    <span>3. Régie Cascade & Sécurité Homologuée CNC</span>
                   </div>
                   <p className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed">
                     Régleurs de cascades chevronnés, matériel de pointe (airbags certifiés, rigging 3D, crash-pads)

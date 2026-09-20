@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -12,7 +12,6 @@ import {
   LayoutDashboard,
   Globe,
   Shield,
-  Check,
   LogOut,
   FileText,
   Image as ImageIcon,
@@ -25,7 +24,15 @@ import {
   Activity,
   Command,
   Compass,
+  Menu,
+  PanelBottom,
+  Share2,
+  Sun,
+  Moon,
+  Stethoscope,
+  BarChart3,
 } from 'lucide-react';
+import { CockpitThemeProvider, useCockpitTheme } from './components/ui/CockpitThemeProvider';
 import {
   getPrograms,
   getTeam,
@@ -55,6 +62,8 @@ import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { CUC_DISCIPLINES } from '@/data/disciplines';
 import { CAMPUS_POIS, POI } from '@/components/ui/campus-map/campusMap.data';
+import { ToastProvider, useToast } from './components/ui/ToastProvider';
+import { ShortcutsHelpModal } from './components/ShortcutsHelpModal';
 import { createClient } from '@/lib/supabase/client';
 
 // Composants modulaires du Cockpit
@@ -72,6 +81,13 @@ import { EventsView } from './components/EventsView';
 import { SettingsView } from './components/SettingsView';
 import { UsersRolesView } from './components/UsersRolesView';
 import { InquiriesView } from './components/InquiriesView';
+import { NavigationView } from './components/NavigationView';
+import { FooterView } from './components/FooterView';
+import { SocialLinksView } from './components/SocialLinksView';
+import { AuditLogView } from './components/AuditLogView';
+import { ContentHealthView } from './components/ContentHealthView';
+import { AnalyticsView } from './components/AnalyticsView';
+import { CockpitSidebar } from './components/CockpitSidebar';
 import { BackupRestoreModal } from './components/BackupRestoreModal';
 import { CommandPalette } from './components/CommandPalette';
 import { SystemHealthModal } from './components/SystemHealthModal';
@@ -80,6 +96,9 @@ export type TabType =
   | 'dashboard'
   | 'inquiries'
   | 'pages'
+  | 'navigation'
+  | 'footer'
+  | 'social'
   | 'disciplines'
   | 'campus'
   | 'sessions'
@@ -90,15 +109,20 @@ export type TabType =
   | 'media'
   | 'announcements'
   | 'users'
+  | 'audit'
+  | 'health'
+  | 'analytics'
   | 'settings';
 
 interface CockpitAppProps {
   initialTab?: TabType;
 }
 
-export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }) => {
+const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }) => {
+  const { theme, toggleTheme } = useCockpitTheme();
   const router = useRouter();
   const pathname = usePathname();
+  const { showToast } = useToast();
 
   const getTabFromPath = (): TabType => {
     if (typeof window !== 'undefined') {
@@ -130,7 +154,6 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
   };
 
   const [activeTab, setActiveTab] = useState<TabType>(getTabFromPath());
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [currentUserProfile, setCurrentUserProfile] = useState<{
     id?: string;
     email?: string;
@@ -156,6 +179,8 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
   const [isBackupModalOpen, setIsBackupModalOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isHealthModalOpen, setIsHealthModalOpen] = useState(false);
+  const [isShortcutsHelpOpen, setIsShortcutsHelpOpen] = useState(false);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [announcement, setAnnouncement] = useState<SiteAnnouncement>({
     id: '',
     title: 'Inscriptions Ouvertes 2026-2027',
@@ -356,17 +381,103 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
     }
   }, []);
 
-  // Prise en charge des raccourcis clavier globaux (Ctrl+K / Cmd+K)
+  // Prise en charge des raccourcis clavier globaux
+  const switchTab = useCallback((tab: TabType) => {
+    setActiveTab(tab);
+    const targetUrl = tab === 'dashboard' ? '/admin' : `/admin/${tab}`;
+    if (window.location.pathname !== targetUrl) {
+      window.history.pushState(null, '', targetUrl);
+    }
+  }, []);
+
   useEffect(() => {
+    const QUICK_TABS: TabType[] = [
+      'dashboard',
+      'inquiries',
+      'pages',
+      'sessions',
+      'team',
+      'films',
+    ];
+
+    const isTypingTarget = (target: EventTarget | null): boolean => {
+      const el = target as HTMLElement | null;
+      if (!el) return false;
+      const tag = el.tagName;
+      return (
+        tag === 'INPUT' ||
+        tag === 'TEXTAREA' ||
+        tag === 'SELECT' ||
+        el.isContentEditable === true
+      );
+    };
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      const mod = e.ctrlKey || e.metaKey;
+      const key = e.key.toLowerCase();
+
+      // Ctrl/Cmd + K : palette de commandes
+      if (mod && key === 'k') {
         e.preventDefault();
         setIsCommandPaletteOpen((prev) => !prev);
+        return;
+      }
+
+      // Ctrl/Cmd + / : aide des raccourcis
+      if (mod && (e.key === '/' || e.key === '?')) {
+        e.preventDefault();
+        setIsShortcutsHelpOpen((prev) => !prev);
+        return;
+      }
+
+      // Ctrl/Cmd + B : replier/déplier la navigation latérale
+      if (mod && key === 'b' && !e.shiftKey) {
+        e.preventDefault();
+        window.dispatchEvent(new CustomEvent('cuc:cockpit:toggle-sidebar'));
+        return;
+      }
+
+      // Ctrl/Cmd + Shift + B : sauvegarde / restauration
+      if (mod && e.shiftKey && key === 'b') {
+        e.preventDefault();
+        setIsBackupModalOpen(true);
+        return;
+      }
+
+      // Ctrl/Cmd + Shift + H : diagnostic système
+      if (mod && e.shiftKey && key === 'h') {
+        e.preventDefault();
+        setIsHealthModalOpen(true);
+        return;
+      }
+
+      // Alt + 1..6 : navigation rapide entre les onglets principaux
+      if (e.altKey && !mod && !e.shiftKey) {
+        const digit = Number.parseInt(e.key, 10);
+        if (!Number.isNaN(digit) && digit >= 1 && digit <= QUICK_TABS.length) {
+          e.preventDefault();
+          switchTab(QUICK_TABS[digit - 1]);
+          return;
+        }
+      }
+
+      // Échap : fermer la fenêtre active (hors saisie de texte)
+      if (e.key === 'Escape' && !isTypingTarget(e.target)) {
+        if (isCommandPaletteOpen) {
+          setIsCommandPaletteOpen(false);
+        } else if (isShortcutsHelpOpen) {
+          setIsShortcutsHelpOpen(false);
+        } else if (isBackupModalOpen) {
+          setIsBackupModalOpen(false);
+        } else if (isHealthModalOpen) {
+          setIsHealthModalOpen(false);
+        }
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [isCommandPaletteOpen, isShortcutsHelpOpen, isBackupModalOpen, isHealthModalOpen, switchTab]);
 
   // Prise en charge des boutons Précédent/Suivant du navigateur
   useEffect(() => {
@@ -388,19 +499,6 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
-
-  const showToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3000);
-  };
-
-  const switchTab = (tab: TabType) => {
-    setActiveTab(tab);
-    const targetUrl = tab === 'dashboard' ? '/admin' : `/admin/${tab}`;
-    if (window.location.pathname !== targetUrl) {
-      window.history.pushState(null, '', targetUrl);
-    }
-  };
 
   const handleLogout = async () => {
     try {
@@ -434,28 +532,46 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
           icon: Inbox,
           badge: newInquiriesCount > 0 ? `${newInquiriesCount} new` : undefined,
         },
+        ...(isDirecteurOrAdmin
+          ? [{ id: 'analytics' as TabType, label: 'Analytique', icon: BarChart3 }]
+          : []),
       ],
     },
     ...(!isCoach
       ? [
-          {
-            title: "CMS & Vitrine",
-            items: [
-              {
-                id: 'pages' as TabType,
-                label: 'Éditeur de Pages & Structure',
-                icon: FileText,
-                badge: '15',
-              },
-              {
-                id: 'media' as TabType,
-                label: 'Médiathèque Storage',
-                icon: ImageIcon,
-                badge: 'CDN',
-              },
-            ],
-          },
-        ]
+        {
+          title: "CMS & Vitrine",
+          items: [
+            {
+              id: 'pages' as TabType,
+              label: 'Éditeur de Pages & Structure',
+              icon: FileText,
+              badge: '15',
+            },
+            {
+              id: 'navigation' as TabType,
+              label: 'Navigation & Menus',
+              icon: Menu,
+            },
+            {
+              id: 'footer' as TabType,
+              label: 'Pied de Page',
+              icon: PanelBottom,
+            },
+            {
+              id: 'social' as TabType,
+              label: 'Réseaux Sociaux',
+              icon: Share2,
+            },
+            {
+              id: 'media' as TabType,
+              label: 'Médiathèque Storage',
+              icon: ImageIcon,
+              badge: 'CDN',
+            },
+          ],
+        },
+      ]
       : []),
     {
       title: "Pédagogie & Campus",
@@ -484,429 +600,363 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
         },
         ...(!isSecretaire
           ? [
-              {
-                id: 'team' as TabType,
-                label: isCoach ? 'Ma Fiche Formateur' : 'Équipe & Coachs',
-                icon: Users,
-              },
-              {
-                id: 'films' as TabType,
-                label: isCoach ? 'Mes Films & Crédits' : 'Filmographie',
-                icon: Film,
-              },
-            ]
+            {
+              id: 'team' as TabType,
+              label: isCoach ? 'Ma Fiche Formateur' : 'Équipe & Coachs',
+              icon: Users,
+            },
+            {
+              id: 'films' as TabType,
+              label: isCoach ? 'Mes Films & Crédits' : 'Filmographie',
+              icon: Film,
+            },
+          ]
           : []),
         ...(isDirecteurOrAdmin
           ? [
-              { id: 'events' as TabType, label: 'Prestations Events', icon: Sparkles },
-              { id: 'partners' as TabType, label: 'Partenaires & Labels', icon: Handshake },
-            ]
+            { id: 'events' as TabType, label: 'Prestations Events', icon: Sparkles },
+            { id: 'partners' as TabType, label: 'Partenaires & Labels', icon: Handshake },
+          ]
           : []),
       ],
     },
     ...(!isCoach
       ? [
-          {
-            title: "Configuration",
-            items: [
-              {
-                id: 'announcements' as TabType,
-                label: 'Bandeau Flash',
-                icon: Bell,
-                badge: announcement.is_active ? 'Live' : undefined,
-              },
-              ...(isDirecteurOrAdmin
-                ? [
-                    { id: 'users' as TabType, label: 'Utilisateurs & Rôles', icon: Shield },
-                    { id: 'settings' as TabType, label: 'Paramètres Globaux', icon: Settings },
-                  ]
-                : []),
-            ],
-          },
-        ]
+        {
+          title: "Configuration",
+          items: [
+            {
+              id: 'announcements' as TabType,
+              label: 'Bandeau Flash',
+              icon: Bell,
+              badge: announcement.is_active ? 'Live' : undefined,
+            },
+            ...(isDirecteurOrAdmin
+              ? [
+                { id: 'users' as TabType, label: 'Utilisateurs & Rôles', icon: Shield },
+                { id: 'audit' as TabType, label: 'Journal d’Audit', icon: Activity },
+                { id: 'health' as TabType, label: 'Diagnostic de Contenu', icon: Stethoscope },
+                { id: 'settings' as TabType, label: 'Paramètres Globaux', icon: Settings },
+              ]
+              : []),
+          ],
+        },
+      ]
       : []),
   ];
 
   return (
-    <div className="min-h-screen bg-[#070709] text-gray-100 flex flex-col md:flex-row antialiased">
-      {/* Toast de confirmation */}
-      {toastMessage && (
-        <div className="fixed top-6 right-6 z-50 bg-[#FFE500] text-black px-4 py-2.5 rounded-lg shadow-xl font-bold text-sm flex items-center gap-2 animate-in fade-in slide-in-from-top-4">
-          <Check className="w-4 h-4" />
-          {toastMessage}
-        </div>
-      )}
+    <div
+      data-cockpit-root
+      className="min-h-screen bg-[#070709] text-gray-100 flex flex-col md:flex-row antialiased"
+    >
+      {/* Lien d'évitement (WCAG 2.2 — 2.4.1) */}
+      <a
+        href="#cockpit-main"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-[#FFE500] focus:text-black focus:text-xs focus:font-black focus:uppercase focus:tracking-wider"
+      >
+        Aller au contenu principal
+      </a>
 
-      {/* Sidebar latérale */}
-      <aside className="w-full md:w-64 bg-[#0D0D12] border-b md:border-b-0 md:border-r border-white/10 flex flex-col shrink-0">
-        <div className="p-6 border-b border-white/10 flex items-center justify-between">
-          <button onClick={() => switchTab('dashboard')} className="flex items-center gap-3 text-left group">
-            <div className="relative w-10 h-10 shrink-0">
-              <Image
-                src="/images/logos/cuc-logo-yellow.png"
-                alt="Logo Campus Univers Cascades"
-                fill
-                className="object-contain drop-shadow-[0_0_12px_rgba(255,229,0,0.35)] group-hover:scale-105 transition-transform"
-                sizes="40px"
-                priority
-              />
-            </div>
-            <div>
-              <div className="text-sm font-bold tracking-wider text-white uppercase font-mono">COCKPIT</div>
-              <div className="text-[10px] text-[#FFE500] font-semibold tracking-widest uppercase">
-                {userRole === 'directeur'
-                  ? 'Direction Campus'
-                  : userRole === 'secretaire'
-                  ? 'Secrétariat'
-                  : userRole === 'coach'
-                  ? 'Espace Formateur'
-                  : 'Admin Vitrine'}
-              </div>
-            </div>
-          </button>
-          <span
-            title={
-              realtimeStatus === 'connected'
-                ? 'Flux Supabase Realtime actif (synchronisation instantanée)'
-                : 'Connexion au flux Realtime...'
-            }
-            className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-medium border ${
-              realtimeStatus === 'connected'
-                ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                : 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20'
-            }`}
-          >
-            <span
-              className={`w-1.5 h-1.5 rounded-full ${
-                realtimeStatus === 'connected' ? 'bg-emerald-400 animate-pulse' : 'bg-yellow-400'
-              }`}
-            />
-            {realtimeStatus === 'connected' ? 'Realtime' : 'Syncing'}
-          </span>
-        </div>
-
-        <nav className="p-3 space-y-4 flex-1 overflow-y-auto">
-          {navSections.map((section, sIdx) => (
-            <div key={sIdx} className="space-y-1">
-              <div className="px-3 py-1 text-[10px] font-mono tracking-widest text-zinc-500 uppercase font-semibold">
-                {section.title}
-              </div>
-              {section.items.map((item) => {
-                const Icon = item.icon;
-                const isActive = activeTab === item.id;
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => switchTab(item.id)}
-                    className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all ${
-                      isActive
-                        ? 'bg-[#FFE500] text-black font-bold shadow-md shadow-yellow-500/10'
-                        : 'text-zinc-300 hover:text-white hover:bg-white/5'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-black' : 'text-zinc-400'}`} />
-                      <span className="truncate">{item.label}</span>
-                    </div>
-                    {item.badge && (
-                      <span
-                        className={`px-1.5 py-0.5 rounded text-[10px] font-mono uppercase ${
-                          isActive
-                            ? 'bg-black text-amber-300 font-bold'
-                            : 'bg-zinc-800 text-zinc-400 border border-zinc-700'
-                        }`}
-                      >
-                        {item.badge}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          ))}
-
-          <div className="pt-2">
-            <div className="px-3 py-1 text-[10px] font-mono tracking-widest text-zinc-500 uppercase font-semibold">
-              Raccourcis
-            </div>
-            <Link
-              href="/"
-              target="_blank"
-              className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-zinc-400 hover:text-[#FFE500] hover:bg-white/5 transition-colors"
-            >
-              <Globe className="w-4 h-4 text-zinc-500" />
-              <span>Voir le site vitrine ↗</span>
-            </Link>
-            <button
-              type="button"
-              onClick={() => setIsBackupModalOpen(true)}
-              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-zinc-400 hover:text-[#FFE500] hover:bg-white/5 transition-colors cursor-pointer text-left"
-            >
-              <Database className="w-4 h-4 text-emerald-400" />
-              <span>Sauvegardes / Export ↗</span>
-            </button>
-          </div>
-        </nav>
-
-        {/* Footer sidebar */}
-        <div className="p-4 border-t border-white/10 bg-black/40 text-xs text-gray-400 space-y-3">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#FFE500]/10 border border-[#FFE500]/30 flex items-center justify-center text-xs font-black text-[#FFE500] uppercase">
-              {(currentUserProfile?.full_name || currentUserProfile?.first_name || 'A').charAt(0)}
-            </div>
-            <div className="min-w-0 flex-1">
-              <div className="text-xs font-bold text-white truncate">
-                {currentUserProfile?.full_name ||
-                  [currentUserProfile?.first_name, currentUserProfile?.last_name].filter(Boolean).join(' ') ||
-                  'Admin CUC'}
-              </div>
-              <div className="text-[10px] font-mono text-[#FFE500] uppercase font-semibold">
-                {userRole}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between pt-1 border-t border-white/5">
-            <div className="flex items-center gap-1.5 text-[10px] font-mono text-gray-500">
-              <Shield className="w-3.5 h-3.5 text-[#FFE500]" />
-              <span>CUC Secure</span>
-            </div>
-            <button
-              onClick={handleLogout}
-              title="Se déconnecter du Cockpit"
-              className="flex items-center gap-1 text-[10px] font-mono text-gray-400 hover:text-red-400 transition-colors px-2 py-1 rounded hover:bg-white/5"
-            >
-              <LogOut className="w-3 h-3" />
-              <span>Déconnexion</span>
-            </button>
-          </div>
-        </div>
-      </aside>
+      {/* Sidebar latérale (groupes repliables, recherche, favoris, tiroir mobile) */}
+      <CockpitSidebar
+        navSections={navSections}
+        activeTab={activeTab}
+        onSelectTab={switchTab}
+        userRole={userRole}
+        realtimeStatus={realtimeStatus === 'connected' ? 'connected' : 'connecting'}
+        userName={
+          currentUserProfile?.full_name ||
+          [currentUserProfile?.first_name, currentUserProfile?.last_name].filter(Boolean).join(' ') ||
+          'Admin CUC'
+        }
+        onLogout={handleLogout}
+        onOpenBackup={() => setIsBackupModalOpen(true)}
+        isMobileOpen={isMobileNavOpen}
+        onCloseMobile={() => setIsMobileNavOpen(false)}
+      />
 
       {/* Contenu principal avec Barre Supérieure d'accès rapide */}
       <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
         {/* Barre Supérieure du Cockpit */}
         <header className="h-14 border-b border-white/10 bg-[#0D0D12]/90 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between gap-3 shrink-0 z-10">
-          <button
-            type="button"
-            onClick={() => setIsCommandPaletteOpen(true)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white border border-white/10 text-xs transition-colors cursor-pointer w-48 sm:w-72 justify-between"
-          >
-            <div className="flex items-center gap-2 truncate">
-              <Search className="w-3.5 h-3.5 text-[#FFE500]" />
-              <span className="truncate">Recherche rapide...</span>
+          <div className="flex items-center gap-2 min-w-0 flex-1">
+            <button
+              type="button"
+              onClick={() => setIsMobileNavOpen(true)}
+              aria-label="Ouvrir le menu du Cockpit"
+              className="md:hidden p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white transition-colors shrink-0"
+            >
+              <Menu className="w-4 h-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsCommandPaletteOpen(true)}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white border border-white/10 text-xs transition-colors cursor-pointer w-full sm:w-72 justify-between"
+            >
+              <div className="flex items-center gap-2 truncate">
+                <Search className="w-3.5 h-3.5 text-[#FFE500]" />
+                <span className="truncate">Recherche rapide...</span>
+              </div>
+              <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-black/40 border border-white/10 text-[10px] font-mono text-gray-400">
+                <Command className="w-2.5 h-2.5" /> K
+              </kbd>
+            </button>
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setIsHealthModalOpen(true)}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-gray-300 hover:text-white transition-colors cursor-pointer"
+                title="Ouvrir le Diagnostic Système"
+              >
+                <Activity className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+                <span className="hidden sm:inline text-[11px]">Système</span>
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setIsBackupModalOpen(true)}
+                className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-gray-300 hover:text-white transition-colors cursor-pointer"
+                title="Sauvegardes & Restauration"
+              >
+                <Database className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="text-[11px]">Backups</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="flex items-center justify-center p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-300 hover:text-white transition-colors cursor-pointer"
+                title={theme === 'dark' ? 'Passer au thème clair' : 'Passer au thème sombre'}
+                aria-label={theme === 'dark' ? 'Activer le thème clair' : 'Activer le thème sombre'}
+              >
+                {theme === 'dark' ? (
+                  <Sun className="w-3.5 h-3.5" />
+                ) : (
+                  <Moon className="w-3.5 h-3.5" />
+                )}
+              </button>
+
+              <Link
+                href="/"
+                target="_blank"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#FFE500]/10 hover:bg-[#FFE500]/20 border border-[#FFE500]/30 text-xs font-medium text-[#FFE500] transition-colors"
+                title="Voir le site vitrine en direct"
+              >
+                <Globe className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline text-[11px]">Site vitrine ↗</span>
+              </Link>
             </div>
-            <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-black/40 border border-white/10 text-[10px] font-mono text-gray-400">
-              <Command className="w-2.5 h-2.5" /> K
-            </kbd>
-          </button>
-
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setIsHealthModalOpen(true)}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-gray-300 hover:text-white transition-colors cursor-pointer"
-              title="Ouvrir le Diagnostic Système"
-            >
-              <Activity className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-              <span className="hidden sm:inline text-[11px]">Système</span>
-              <span className="w-2 h-2 rounded-full bg-emerald-400" />
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setIsBackupModalOpen(true)}
-              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-gray-300 hover:text-white transition-colors cursor-pointer"
-              title="Sauvegardes & Restauration"
-            >
-              <Database className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="text-[11px]">Backups</span>
-            </button>
-
-            <Link
-              href="/"
-              target="_blank"
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#FFE500]/10 hover:bg-[#FFE500]/20 border border-[#FFE500]/30 text-xs font-medium text-[#FFE500] transition-colors"
-              title="Voir le site vitrine en direct"
-            >
-              <Globe className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline text-[11px]">Site vitrine ↗</span>
-            </Link>
           </div>
         </header>
 
-        <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto w-full overflow-y-auto">
-        {/* 1. TABLEAU DE BORD */}
-        {activeTab === 'dashboard' && (
-          <DashboardView
-            switchTab={switchTab}
-            teamLength={team.length}
-            filmsLength={films.length}
-            eventsLength={eventsList.length}
-            partnersLength={partnersList.length}
-            totalSessions={totalSessions}
-            fullSessions={fullSessions}
-            siteSettings={siteSettings}
-            inquiriesCount={inquiriesCount}
-            newInquiriesCount={newInquiriesCount}
-            onOpenBackupModal={() => setIsBackupModalOpen(true)}
-          />
-        )}
-
-        {/* 2. DISCIPLINES & MODULES (10 MODULES) */}
-        {activeTab === 'disciplines' && (
-          <DisciplinesView
-            disciplines={disciplines}
-            setDisciplines={setDisciplines}
-            team={team}
-            campusPOIs={campusPOIs}
-            films={films}
-            programs={programs}
-            showToast={showToast}
-          />
-        )}
-
-        {/* 3. INFRASTRUCTURES & ZONES CAMPUS (6 HA) */}
-        {activeTab === 'campus' && (
-          <CampusZonesView
-            campusPOIs={campusPOIs}
-            setCampusPOIs={setCampusPOIs}
-            disciplines={disciplines}
-            showToast={showToast}
-          />
-        )}
-
-        {/* 4. SESSIONS & STAGES */}
-        {activeTab === 'sessions' && (
-          <SessionsView
-            programs={programs}
-            setPrograms={setPrograms}
-            inquiries={inquiriesList}
-            showToast={showToast}
-          />
-        )}
-
-        {/* 5. ÉQUIPE & COACHS */}
-        {activeTab === 'team' && (
-          <TeamView
-            team={team}
-            setTeam={setTeam}
-            films={films}
-            disciplines={disciplines}
-            showToast={showToast}
-          />
-        )}
-
-        {/* 6. FILMOGRAPHIE */}
-        {activeTab === 'films' && (
-          <FilmsView
-            films={films}
-            setFilms={setFilms}
-            team={team}
-            disciplines={disciplines}
-            showToast={showToast}
-          />
-        )}
-
-        {/* 5. BANDEAU FLASH */}
-        {activeTab === 'announcements' && (
-          <AnnouncementsView
-            announcement={announcement}
-            setAnnouncement={setAnnouncement}
-            showToast={showToast}
-          />
-        )}
-
-        {/* 6. CMS ÉDITEUR DE PAGES */}
-        {activeTab === 'pages' && (
-          <div className="space-y-6 animate-in fade-in duration-200">
-            <PagesEditorView
-              pages={pagesList}
-              onPageSaved={(updated) => {
-                setPagesList((prev) =>
-                  prev.map((p) => (p.slug === updated.slug ? updated : p))
-                );
-              }}
-              showToast={showToast}
+        <main
+          id="cockpit-main"
+          tabIndex={-1}
+          aria-label="Contenu du Cockpit"
+          className="flex-1 p-6 md:p-10 max-w-7xl mx-auto w-full overflow-y-auto focus:outline-none"
+        >
+          {/* 1. TABLEAU DE BORD */}
+          {activeTab === 'dashboard' && (
+            <DashboardView
+              switchTab={switchTab}
+              teamLength={team.length}
+              filmsLength={films.length}
+              eventsLength={eventsList.length}
+              partnersLength={partnersList.length}
+              totalSessions={totalSessions}
+              fullSessions={fullSessions}
+              siteSettings={siteSettings}
+              inquiriesCount={inquiriesCount}
+              newInquiriesCount={newInquiriesCount}
+              onOpenBackupModal={() => setIsBackupModalOpen(true)}
             />
-          </div>
-        )}
+          )}
 
-        {/* 7. MÉDIATHÈQUE STORAGE */}
-        {activeTab === 'media' && (
-          <div className="space-y-6 animate-in fade-in duration-200">
-            <MediaLibraryView showToast={showToast} />
-          </div>
-        )}
-
-        {/* 8. PRESTATIONS EVENTS */}
-        {activeTab === 'events' && (
-          <div className="space-y-6 animate-in fade-in duration-200">
-            <EventsView
-              events={eventsList}
-              onEventSaved={(saved) => {
-                setEventsList((prev) =>
-                  prev.some((e) => e.id === saved.id)
-                    ? prev.map((e) => (e.id === saved.id ? saved : e))
-                    : [...prev, saved]
-                );
-              }}
-              onEventDeleted={(id) => {
-                setEventsList((prev) => prev.filter((e) => e.id !== id));
-              }}
-              showToast={showToast}
-            />
-          </div>
-        )}
-
-        {/* 9. PARTENAIRES */}
-        {activeTab === 'partners' && (
-          <div className="space-y-6 animate-in fade-in duration-200">
-            <PartnersView
-              partners={partnersList}
-              onPartnerSaved={(saved) => {
-                setPartnersList((prev) =>
-                  prev.some((p) => p.id === saved.id)
-                    ? prev.map((p) => (p.id === saved.id ? saved : p))
-                    : [...prev, saved]
-                );
-              }}
-              onPartnerDeleted={(id) => {
-                setPartnersList((prev) => prev.filter((p) => p.id !== id));
-              }}
-              showToast={showToast}
-            />
-          </div>
-        )}
-
-        {/* 10. PARAMÈTRES GLOBAUX */}
-        {activeTab === 'settings' && (
-          <div className="space-y-6 animate-in fade-in duration-200">
-            <SettingsView initialSettings={siteSettings} />
-          </div>
-        )}
-
-        {/* 11. UTILISATEURS & RÔLES */}
-        {activeTab === 'users' && (
-          <div className="space-y-6 animate-in fade-in duration-200">
-            <UsersRolesView
-              showToast={showToast}
-              currentUserRole={userRole}
-            />
-          </div>
-        )}
-
-        {/* 12. CANDIDATURES & DEMANDES DE CONTACT */}
-        {activeTab === 'inquiries' && (
-          <div className="space-y-6 animate-in fade-in duration-200">
-            <InquiriesView
-              showToast={showToast}
-              onInquiriesCountChange={(count) => setNewInquiriesCount(count)}
+          {/* 2. DISCIPLINES & MODULES (10 MODULES) */}
+          {activeTab === 'disciplines' && (
+            <DisciplinesView
+              disciplines={disciplines}
+              setDisciplines={setDisciplines}
+              team={team}
+              campusPOIs={campusPOIs}
+              films={films}
               programs={programs}
+              showToast={showToast}
             />
-          </div>
-        )}
-      </main>
+          )}
+
+          {/* 3. INFRASTRUCTURES & ZONES CAMPUS (6 HA) */}
+          {activeTab === 'campus' && (
+            <CampusZonesView
+              campusPOIs={campusPOIs}
+              setCampusPOIs={setCampusPOIs}
+              disciplines={disciplines}
+              showToast={showToast}
+            />
+          )}
+
+          {/* 4. SESSIONS & STAGES */}
+          {activeTab === 'sessions' && (
+            <SessionsView
+              programs={programs}
+              setPrograms={setPrograms}
+              inquiries={inquiriesList}
+              showToast={showToast}
+            />
+          )}
+
+          {/* 5. ÉQUIPE & COACHS */}
+          {activeTab === 'team' && (
+            <TeamView
+              team={team}
+              setTeam={setTeam}
+              films={films}
+              disciplines={disciplines}
+              showToast={showToast}
+            />
+          )}
+
+          {/* 6. FILMOGRAPHIE */}
+          {activeTab === 'films' && (
+            <FilmsView
+              films={films}
+              setFilms={setFilms}
+              team={team}
+              disciplines={disciplines}
+              showToast={showToast}
+            />
+          )}
+
+          {/* 5. BANDEAU FLASH */}
+          {activeTab === 'announcements' && (
+            <AnnouncementsView
+              announcement={announcement}
+              setAnnouncement={setAnnouncement}
+              showToast={showToast}
+            />
+          )}
+
+          {/* 6. CMS ÉDITEUR DE PAGES */}
+          {activeTab === 'pages' && (
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <PagesEditorView
+                pages={pagesList}
+                onPageSaved={(updated) => {
+                  setPagesList((prev) =>
+                    prev.map((p) => (p.slug === updated.slug ? updated : p))
+                  );
+                }}
+                showToast={showToast}
+              />
+            </div>
+          )}
+
+          {/* 6b. NAVIGATION & MENUS */}
+          {activeTab === 'navigation' && <NavigationView showToast={showToast} />}
+
+          {/* 6c. PIED DE PAGE */}
+          {activeTab === 'footer' && <FooterView showToast={showToast} />}
+
+          {/* 6d. RÉSEAUX SOCIAUX */}
+          {activeTab === 'social' && <SocialLinksView showToast={showToast} />}
+
+          {/* 7. MÉDIATHÈQUE STORAGE */}
+          {activeTab === 'media' && (
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <MediaLibraryView showToast={showToast} />
+            </div>
+          )}
+
+          {/* 8. PRESTATIONS EVENTS */}
+          {activeTab === 'events' && (
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <EventsView
+                events={eventsList}
+                onEventSaved={(saved) => {
+                  setEventsList((prev) =>
+                    prev.some((e) => e.id === saved.id)
+                      ? prev.map((e) => (e.id === saved.id ? saved : e))
+                      : [...prev, saved]
+                  );
+                }}
+                onEventDeleted={(id) => {
+                  setEventsList((prev) => prev.filter((e) => e.id !== id));
+                }}
+                showToast={showToast}
+              />
+            </div>
+          )}
+
+          {/* 9. PARTENAIRES */}
+          {activeTab === 'partners' && (
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <PartnersView
+                partners={partnersList}
+                onPartnerSaved={(saved) => {
+                  setPartnersList((prev) =>
+                    prev.some((p) => p.id === saved.id)
+                      ? prev.map((p) => (p.id === saved.id ? saved : p))
+                      : [...prev, saved]
+                  );
+                }}
+                onPartnerDeleted={(id) => {
+                  setPartnersList((prev) => prev.filter((p) => p.id !== id));
+                }}
+                showToast={showToast}
+              />
+            </div>
+          )}
+
+          {/* 10. PARAMÈTRES GLOBAUX */}
+          {activeTab === 'settings' && (
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <SettingsView initialSettings={siteSettings} />
+            </div>
+          )}
+
+          {/* 11. UTILISATEURS & RÔLES */}
+          {activeTab === 'users' && (
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <UsersRolesView
+                showToast={showToast}
+                currentUserRole={userRole}
+              />
+            </div>
+          )}
+
+          {/* 11 bis. JOURNAL D'AUDIT */}
+          {activeTab === 'audit' && (
+            <AuditLogView showToast={showToast} />
+          )}
+
+          {/* 11 ter. DIAGNOSTIC DE SANTÉ DU CONTENU */}
+          {activeTab === 'health' && (
+            <ContentHealthView
+              pages={pagesList}
+              showToast={showToast}
+              onNavigateToTab={(tab) => switchTab(tab as TabType)}
+            />
+          )}
+
+          {/* 11 quater. TABLEAU DE BORD ANALYTIQUE */}
+          {activeTab === 'analytics' && (
+            <AnalyticsView programs={programs} pages={pagesList} showToast={showToast} />
+          )}
+
+          {/* 12. CANDIDATURES & DEMANDES DE CONTACT */}
+          {activeTab === 'inquiries' && (
+            <div className="space-y-6 animate-in fade-in duration-200">
+              <InquiriesView
+                showToast={showToast}
+                onInquiriesCountChange={(count) => setNewInquiriesCount(count)}
+                programs={programs}
+              />
+            </div>
+          )}
+        </main>
       </div>
 
       {/* Modale de Sauvegarde et Restauration Intégrale */}
@@ -930,6 +980,12 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
       />
 
       {/* Diagnostic & Santé Système */}
+      {/* Aide des raccourcis clavier */}
+      <ShortcutsHelpModal
+        isOpen={isShortcutsHelpOpen}
+        onClose={() => setIsShortcutsHelpOpen(false)}
+      />
+
       <SystemHealthModal
         isOpen={isHealthModalOpen}
         onClose={() => setIsHealthModalOpen(false)}
@@ -944,3 +1000,17 @@ export const CockpitApp: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard'
     </div>
   );
 };
+
+/**
+ * Enveloppe le Cockpit dans les fournisseurs transverses :
+ * - `CockpitThemeProvider` : thème clair/sombre persisté, scopé à `[data-cockpit-root]`
+ *   pour ne jamais affecter la vitrine publique.
+ * - `ToastProvider` : notifications unifiées consommées via `useToast()`.
+ */
+export const CockpitApp: React.FC<CockpitAppProps> = (props) => (
+  <CockpitThemeProvider>
+    <ToastProvider>
+      <CockpitAppInner {...props} />
+    </ToastProvider>
+  </CockpitThemeProvider>
+);

@@ -26,6 +26,7 @@ import { Instructor, FilmCredit, Discipline, parseCredit } from '@/types';
 import { creditTitleKey } from '@/lib/credit-title';
 import { upsertTeamMember, deleteTeamMember, upsertFilm } from '@/app/admin/actions';
 import { MediaPickerModal } from './MediaPickerModal';
+import { CockpitLoadMore, useProgressiveList } from './ui';
 
 interface TeamViewProps {
   team: Instructor[];
@@ -87,6 +88,17 @@ export const TeamView: React.FC<TeamViewProps> = ({
 
   /** Tri de la liste « Tous les crédits » : par date (défaut) ou par nom. */
   const [creditSort, setCreditSort] = useState<'date' | 'name'>('date');
+
+  const {
+    visibleItems: visibleTeam,
+    visibleCount: visibleTeamCount,
+    total: totalTeam,
+    hasMore: hasMoreTeam,
+    loadMore: loadMoreTeam,
+  } = useProgressiveList(team, {
+    step: 24,
+    initial: 24,
+  });
 
   const handleSaveTeamMember = (e: React.FormEvent) => {
     e.preventDefault();
@@ -519,7 +531,7 @@ export const TeamView: React.FC<TeamViewProps> = ({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {team.map((member) => (
+        {visibleTeam.map((member) => (
           <div
             key={member.id}
             className="bg-[#0D0D12] border border-white/10 rounded-xl p-5 flex flex-col justify-between hover:border-white/20 transition-colors group"
@@ -688,6 +700,13 @@ export const TeamView: React.FC<TeamViewProps> = ({
           </div>
         ))}
       </div>
+
+      <CockpitLoadMore
+        visibleCount={visibleTeamCount}
+        total={totalTeam}
+        onLoadMore={loadMoreTeam}
+        label="Afficher plus de formateurs"
+      />
 
       {/* Modal édition membre */}
       {editingMember && (

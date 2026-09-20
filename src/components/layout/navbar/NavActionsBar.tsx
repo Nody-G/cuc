@@ -4,65 +4,54 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { PhoneCall, ChevronRight } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
-import {
-  InstagramLogo,
-  YouTubeLogo,
-  TikTokLogo,
-} from '@/components/ui/BrandLogos';
+import { SocialIcon } from '@/components/ui/logos/SocialLogos';
+import { useSocialLinks } from '@/lib/hooks/useNavigation';
 import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data/site-service';
 
+/**
+ * Barre d'actions de la Navbar (réseaux sociaux, téléphone, CTA).
+ *
+ * Doctrine : les réseaux sociaux proviennent de `site_social_links` (source
+ * unique de vérité partagée avec le Footer et le drawer mobile). Le fallback
+ * `DEFAULT_SOCIAL_LINKS` corrige l'incohérence historique TikTok/YouTube en
+ * unifiant les handles sur `@campusuniverscascades`.
+ */
 export const NavActionsBar: React.FC = () => {
   const [settings, setSettings] = useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
+  const socialLinks = useSocialLinks();
 
   useEffect(() => {
     getSiteSettings().then((s) => {
       if (s) setSettings(s);
     });
   }, []);
+
+  const navbarSocials = socialLinks.filter((s) => s.show_in_navbar);
+
   return (
     <div className="hidden sm:flex items-center gap-2.5 shrink-0">
-      {/* Quick Official Social Icons */}
-      <div className="hidden xl:flex items-center gap-1 border-r border-zinc-800 pr-2">
-        <a
-          href="https://www.instagram.com/campus.univers.cascades/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Instagram du Campus Univers Cascades (nouvelle fenêtre)"
-          className="p-1.5 text-zinc-400 hover:text-[#E1306C] hover:bg-white/5 transition-all group/soc"
-          title="Instagram @campus.univers.cascades"
-        >
-          <InstagramLogo
-            className="w-3.5 h-3.5 group-hover/soc:scale-110 transition-transform"
-            variant="color"
-          />
-        </a>
-        <a
-          href="https://www.youtube.com/@campusuniverscascades"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Chaîne YouTube du Campus Univers Cascades (nouvelle fenêtre)"
-          className="p-1.5 text-zinc-400 hover:text-[#FF0000] hover:bg-white/5 transition-all group/soc"
-          title="YouTube @campusuniverscascades"
-        >
-          <YouTubeLogo
-            className="w-3.5 h-3.5 group-hover/soc:scale-110 transition-transform"
-            variant="color"
-          />
-        </a>
-        <a
-          href="https://www.tiktok.com/@campusuniverscascades"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="TikTok du Campus Univers Cascades (nouvelle fenêtre)"
-          className="p-1.5 text-zinc-400 hover:text-[#25F4EE] hover:bg-white/5 transition-all group/soc"
-          title="TikTok @campusuniverscascades"
-        >
-          <TikTokLogo
-            className="w-3.5 h-3.5 group-hover/soc:scale-110 transition-transform"
-            variant="color"
-          />
-        </a>
-      </div>
+      {/* Quick Official Social Icons — pilotés par site_social_links */}
+      {navbarSocials.length > 0 && (
+        <div className="hidden xl:flex items-center gap-1 border-r border-zinc-800 pr-2">
+          {navbarSocials.map((social) => (
+            <a
+              key={social.id}
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${social.label} (nouvelle fenêtre)`}
+              className="p-1.5 text-zinc-400 hover:text-[#FFE500] hover:bg-white/5 transition-all group/soc"
+              title={social.handle ? `${social.label} ${social.handle}` : social.label}
+            >
+              <SocialIcon
+                platform={social.platform}
+                className="w-3.5 h-3.5 group-hover/soc:scale-110 transition-transform"
+                variant="color"
+              />
+            </a>
+          ))}
+        </div>
+      )}
 
       <a
         href={`tel:${(settings.phone || '06 72 84 94 92').replace(/\s/g, '')}`}

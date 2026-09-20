@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useTransition } from 'react';
+import React, { useMemo, useState, useTransition } from 'react';
 import Image from 'next/image';
 import {
   Shield,
@@ -18,6 +18,7 @@ import { Discipline, Instructor, FilmCredit, StuntProgram } from '@/types';
 import { POI } from '@/components/ui/campus-map/campusMap.data';
 import { upsertDiscipline, deleteDiscipline, updateSiteSettings } from '../actions';
 import { MediaPickerModal } from './MediaPickerModal';
+import { CockpitLoadMore, useProgressiveList } from './ui';
 
 interface DisciplinesViewProps {
   disciplines: Discipline[];
@@ -44,13 +45,29 @@ export const DisciplinesView: React.FC<DisciplinesViewProps> = ({
   const [filterLevel, setFilterLevel] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredDisciplines = disciplines.filter((d) => {
-    const matchesLevel = filterLevel === 'all' || d.level === filterLevel;
-    const matchesQuery =
-      d.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      d.number.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      d.shortDesc.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesLevel && matchesQuery;
+  const filteredDisciplines = useMemo(
+    () =>
+      disciplines.filter((d) => {
+        const matchesLevel = filterLevel === 'all' || d.level === filterLevel;
+        const matchesQuery =
+          d.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          d.number.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          d.shortDesc.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesLevel && matchesQuery;
+      }),
+    [disciplines, filterLevel, searchQuery]
+  );
+
+  const {
+    visibleItems: visibleDisciplines,
+    visibleCount: visibleDisciplineCount,
+    total: totalDisciplines,
+    hasMore: hasMoreDisciplines,
+    loadMore: loadMoreDisciplines,
+  } = useProgressiveList(filteredDisciplines, {
+    step: 24,
+    initial: 24,
+    resetKey: `${filterLevel}|${searchQuery}`,
   });
 
   const handleSave = (e: React.FormEvent) => {
@@ -62,11 +79,11 @@ export const DisciplinesView: React.FC<DisciplinesViewProps> = ({
       equipment: Array.isArray(editingDiscipline.equipment)
         ? editingDiscipline.equipment
         : typeof (editingDiscipline as any).equipment === 'string'
-        ? (editingDiscipline as any).equipment
+          ? (editingDiscipline as any).equipment
             .split(',')
             .map((s: string) => s.trim())
             .filter(Boolean)
-        : [],
+          : [],
     };
 
     let nextList: Discipline[] = [];
@@ -180,11 +197,10 @@ export const DisciplinesView: React.FC<DisciplinesViewProps> = ({
             <button
               key={lvl}
               onClick={() => setFilterLevel(lvl)}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition shrink-0 ${
-                filterLevel === lvl
-                  ? 'bg-cuc-gold text-black shadow-md shadow-cuc-gold/20'
-                  : 'bg-zinc-800/80 text-zinc-400 hover:text-white hover:bg-zinc-700'
-              }`}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition shrink-0 ${filterLevel === lvl
+                ? 'bg-cuc-gold text-black shadow-md shadow-cuc-gold/20'
+                : 'bg-zinc-800/80 text-zinc-400 hover:text-white hover:bg-zinc-700'
+                }`}
             >
               {lvl === 'all' ? 'Tous les niveaux' : lvl}
             </button>
@@ -202,7 +218,7 @@ export const DisciplinesView: React.FC<DisciplinesViewProps> = ({
 
       {/* Grille des modules */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {filteredDisciplines.map((d) => {
+        {visibleDisciplines.map((d) => {
           const zone = campusPOIs.find((p) => p.id === d.campus_zone_id);
           const linkedInstructors = team.filter((m) => d.instructor_ids?.includes(m.id));
           const linkedFilms = films.filter((f) => d.film_ids?.includes(f.id));
@@ -238,15 +254,14 @@ export const DisciplinesView: React.FC<DisciplinesViewProps> = ({
                       {d.number}
                     </span>
                     <span
-                      className={`px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider ${
-                        d.level === 'Extrême'
-                          ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
-                          : d.level === 'Tactique'
+                      className={`px-2 py-0.5 rounded-lg text-[10px] font-bold uppercase tracking-wider ${d.level === 'Extrême'
+                        ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
+                        : d.level === 'Tactique'
                           ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
                           : d.level === 'Avancé'
-                          ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30'
-                          : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                      }`}
+                            ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30'
+                            : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                        }`}
                     >
                       {d.level}
                     </span>
@@ -383,6 +398,13 @@ export const DisciplinesView: React.FC<DisciplinesViewProps> = ({
           );
         })}
       </div>
+
+      <CockpitLoadMore
+        visibleCount={visibleDisciplineCount}
+        total={totalDisciplines}
+        onLoadMore={loadMoreDisciplines}
+        label="Afficher plus de modules"
+      />
 
       {/* Modal d'édition / création ultra-complète */}
       {editingDiscipline && (
@@ -604,16 +626,14 @@ export const DisciplinesView: React.FC<DisciplinesViewProps> = ({
                           type="button"
                           key={inst.id}
                           onClick={() => toggleArrayItem('instructor_ids', inst.id)}
-                          className={`flex items-center gap-2 px-3 py-2 rounded-xl text-left text-xs transition border ${
-                            isChecked
-                              ? 'bg-cuc-gold/15 border-cuc-gold text-white font-semibold'
-                              : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
-                          }`}
+                          className={`flex items-center gap-2 px-3 py-2 rounded-xl text-left text-xs transition border ${isChecked
+                            ? 'bg-cuc-gold/15 border-cuc-gold text-white font-semibold'
+                            : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
+                            }`}
                         >
                           <div
-                            className={`w-3.5 h-3.5 rounded flex items-center justify-center border ${
-                              isChecked ? 'bg-cuc-gold border-cuc-gold text-black' : 'border-zinc-700'
-                            }`}
+                            className={`w-3.5 h-3.5 rounded flex items-center justify-center border ${isChecked ? 'bg-cuc-gold border-cuc-gold text-black' : 'border-zinc-700'
+                              }`}
                           >
                             {isChecked && '✓'}
                           </div>
@@ -637,16 +657,14 @@ export const DisciplinesView: React.FC<DisciplinesViewProps> = ({
                           type="button"
                           key={prog.id}
                           onClick={() => toggleArrayItem('program_ids', prog.id)}
-                          className={`flex items-center gap-2 px-3 py-2 rounded-xl text-left text-xs transition border ${
-                            isChecked
-                              ? 'bg-emerald-500/15 border-emerald-500 text-white font-semibold'
-                              : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
-                          }`}
+                          className={`flex items-center gap-2 px-3 py-2 rounded-xl text-left text-xs transition border ${isChecked
+                            ? 'bg-emerald-500/15 border-emerald-500 text-white font-semibold'
+                            : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
+                            }`}
                         >
                           <div
-                            className={`w-3.5 h-3.5 rounded flex items-center justify-center border ${
-                              isChecked ? 'bg-emerald-500 border-emerald-500 text-black' : 'border-zinc-700'
-                            }`}
+                            className={`w-3.5 h-3.5 rounded flex items-center justify-center border ${isChecked ? 'bg-emerald-500 border-emerald-500 text-black' : 'border-zinc-700'
+                              }`}
                           >
                             {isChecked && '✓'}
                           </div>
@@ -670,16 +688,14 @@ export const DisciplinesView: React.FC<DisciplinesViewProps> = ({
                           type="button"
                           key={film.id}
                           onClick={() => toggleArrayItem('film_ids', film.id)}
-                          className={`flex items-center gap-2 px-3 py-2 rounded-xl text-left text-xs transition border ${
-                            isChecked
-                              ? 'bg-purple-500/15 border-purple-500 text-white font-semibold'
-                              : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
-                          }`}
+                          className={`flex items-center gap-2 px-3 py-2 rounded-xl text-left text-xs transition border ${isChecked
+                            ? 'bg-purple-500/15 border-purple-500 text-white font-semibold'
+                            : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-700'
+                            }`}
                         >
                           <div
-                            className={`w-3.5 h-3.5 rounded flex items-center justify-center border ${
-                              isChecked ? 'bg-purple-500 border-purple-500 text-white' : 'border-zinc-700'
-                            }`}
+                            className={`w-3.5 h-3.5 rounded flex items-center justify-center border ${isChecked ? 'bg-purple-500 border-purple-500 text-white' : 'border-zinc-700'
+                              }`}
                           >
                             {isChecked && '✓'}
                           </div>

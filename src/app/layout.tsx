@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bebas_Neue, Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { MobileStickyCTA } from "@/components/layout/MobileStickyCTA";
+import { PreviewBridgeClient } from "@/components/preview/PreviewBridgeClient";
 import {
   SITE_URL,
   SITE_NAME,
@@ -119,6 +120,9 @@ export default function RootLayout({
         </a>
         {children}
         <MobileStickyCTA />
+        {/* Pont d'aperçu live du Cockpit — inerte hors iframe. Permet l'édition
+            inline (clic → focus du champ) et l'injection du brouillon non publié. */}
+        <PreviewBridgeClient />
         {/* Speculation Rules API (Phase 5) — préchargement/prérendu instantané
             des navigations internes au survol/clic. Dégradation gracieuse. */}
         <script

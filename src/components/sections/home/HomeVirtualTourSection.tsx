@@ -10,8 +10,23 @@ import {
   StudioParallaxLayer,
   StudioParallaxCard,
 } from '@/components/ui/parallax';
+import type { HomeVirtualTourData } from './HomeTournagesSection';
 
-export const HomeVirtualTourSection: React.FC = () => {
+interface HomeVirtualTourSectionProps {
+  virtualTourData?: HomeVirtualTourData;
+}
+
+export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
+  virtualTourData,
+}) => {
+  const badge = virtualTourData?.badge || 'IMMERSION INTERACTIVE';
+  const title = virtualTourData?.title || 'VISITE VIRTUELLE EN IMMERSION 360°';
+  const subtitle =
+    virtualTourData?.subtitle ||
+    "Découvrez nos 6 hectares comme si vous y étiez ! Arpentez les plateaux de tournage, la fosse olympique de mousse, les dojos de combat chorégraphié, les hangars de cascades mécaniques et le manège équestre grâce à notre visite virtuelle interactive.";
+  const ctaText = virtualTourData?.cta_text || 'Ouvrir la Visite Virtuelle 360°';
+  const ctaLink = virtualTourData?.cta_link || '/visite-virtuelle';
+
   return (
     <StudioParallaxScene className="py-28 bg-[#08080c] border-b border-zinc-800/80 relative overflow-hidden">
       {/* Background Volumetric Beam */}
@@ -27,32 +42,39 @@ export const HomeVirtualTourSection: React.FC = () => {
               {/* Text Side */}
               <div className="lg:col-span-7 space-y-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
-                    IMMERSION INTERACTIVE
+                  <span
+                    data-cuc-field="sections_data.virtual_tour.badge"
+                    className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider"
+                  >
+                    {badge}
                   </span>
                   <span className="text-xs font-mono-tech text-zinc-400">
                     • VISITE 360° VR HD MEDIA
                   </span>
                 </div>
 
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-tight text-white leading-tight">
-                  VISITE VIRTUELLE <span className="text-[#FFE500]">EN IMMERSION 360°</span>
+                <h2
+                  data-cuc-field="sections_data.virtual_tour.title"
+                  className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-tight text-white leading-tight"
+                >
+                  {title}
                 </h2>
 
-                <p className="text-sm sm:text-base font-tech text-zinc-300 leading-relaxed">
-                  Découvrez nos 6 hectares comme si vous y étiez ! Arpentez les plateaux de tournage,
-                  la fosse olympique de mousse, les dojos de combat chorégraphié, les hangars de cascades
-                  mécaniques et le manège équestre grâce à notre visite virtuelle interactive.
+                <p
+                  data-cuc-field="sections_data.virtual_tour.subtitle"
+                  className="text-sm sm:text-base font-tech text-zinc-300 leading-relaxed"
+                >
+                  {subtitle}
                 </p>
 
                 <div className="flex flex-wrap gap-4 pt-3">
-                  <Link href="/visite-virtuelle">
+                  <Link href={ctaLink} data-cuc-field="sections_data.virtual_tour.cta_text">
                     <TacticalButton
                       variant="primary"
                       size="lg"
                       icon={<Compass className="w-4 h-4" />}
                     >
-                      Ouvrir la Visite Virtuelle 360°
+                      {ctaText}
                     </TacticalButton>
                   </Link>
                   <Link href="/visite-guidee">
@@ -93,7 +115,7 @@ export const HomeVirtualTourSection: React.FC = () => {
                   </div>
 
                   <Link
-                    href="/visite-virtuelle"
+                    href={ctaLink}
                     className="absolute inset-0 z-20"
                     aria-label="Lancer la visite virtuelle 360"
                   />

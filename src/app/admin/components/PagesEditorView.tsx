@@ -1,29 +1,31 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   Save,
   Globe,
   Sliders,
   Sparkles,
   RotateCcw,
-  Smartphone,
-  Tablet,
-  Monitor,
-  RefreshCw,
   Eye,
+  EyeOff,
+  Rocket,
   Image as ImageIcon,
+  Columns2,
 } from 'lucide-react';
 import { SitePageContent, DEFAULT_PAGE_CONTENTS, normalizeSlug } from '@/lib/data/site-service';
-import { upsertPageContent, resetPageContentToDefault } from '@/app/admin/actions';
+import { upsertPageContent, resetPageContentToDefault, setPagePublishState } from '@/app/admin/actions';
 import { MediaPickerModal } from './MediaPickerModal';
 import { PageLayoutManager } from './PageLayoutManager';
 import { HeroSeoEditor } from './pages-editor/HeroSeoEditor';
+import { HomePageEditor } from './pages-editor/HomePageEditor';
 import { TeamBuildingPageEditor } from './pages-editor/TeamBuildingPageEditor';
 import { FormationPageEditor } from './pages-editor/FormationPageEditor';
 import { StagesPageEditor } from './pages-editor/StagesPageEditor';
 import { ContactPageEditor } from './pages-editor/ContactPageEditor';
 import { KeyStatsEditor } from './pages-editor/KeyStatsEditor';
+import { PageRevisionsPanel } from './PageRevisionsPanel';
+import { LivePreviewPane } from './pages-editor/LivePreviewPane';
 
 interface PagesEditorViewProps {
   pages: SitePageContent[];
@@ -58,9 +60,10 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   const [activeTab, setActiveTab] = useState<'layout' | 'content' | 'preview' | 'seo'>('content');
   const [isSaving, setIsSaving] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
+  const [isPublishing, setIsPublishing] = useState(false);
   const [mediaPickerTarget, setMediaPickerTarget] = useState<string | null>(null);
-  const [previewDevice, setPreviewDevice] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
   const [previewKey, setPreviewKey] = useState<number>(0);
+  const [isSplitView, setIsSplitView] = useState(false);
 
   // Page active
   const cleanSelectedSlug = normalizeSlug(selectedSlug);
@@ -132,6 +135,27 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
       showToast(`Page "${formData.title}" enregistrée avec succès !`);
     } else {
       showToast(`Erreur : ${res.error || 'Sauvegarde impossible'}`);
+    }
+  };
+
+  const handleTogglePublish = async () => {
+    const nextState = !formData.is_published;
+    setIsPublishing(true);
+    const res = await setPagePublishState(formData.slug, nextState);
+    setIsPublishing(false);
+
+    if (res.success) {
+      const updated = { ...formData, is_published: nextState };
+      setFormData(updated);
+      onPageSaved(updated);
+      setPreviewKey((prev) => prev + 1);
+      showToast(
+        nextState
+          ? `Page "${formData.title}" publiée sur la vitrine.`
+          : `Page "${formData.title}" repassée en brouillon (non visible publiquement).`
+      );
+    } else {
+      showToast(`Erreur : ${res.error || 'Changement de statut impossible'}`);
     }
   };
 
@@ -304,6 +328,98 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
 
   const previewUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}${formData.slug === '/' ? '' : `/${formData.slug}`}`;
 
+  /**
+   * Édition inline : lorsqu'un champ est cliqué dans l'aperçu, on retrouve
+   * l'input correspondant (marqué `data-cuc-field="<clé>"`) dans l'éditeur,
+   * on le fait défiler en vue et on lui donne le focus.
+   */
+  const handlePreviewFieldFocus = useCallback((field: string) => {
+    if (typeof document === 'undefined') return;
+    const selector = `[data-cuc-field="${CSS.escape(field)}"]`;
+    const el = document.querySelector<HTMLElement>(selector);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
+      el.focus({ preventScroll: true });
+      el.select();
+    } else if (el instanceof HTMLSelectElement) {
+      el.focus({ preventScroll: true });
+    } else {
+      el.focus?.({ preventScroll: true });
+    }
+    el.setAttribute('data-cuc-field-active', '');
+    window.setTimeout(() => el.removeAttribute('data-cuc-field-active'), 1600);
+  }, []);
+
+  /**
+   * Éditeurs de contenu de la page courante. Extrait dans une fonction pour
+   * pouvoir être rendu soit seul (onglet « Contenu »), soit côte à côte avec
+   * l'aperçu live (vue partagée).
+   */
+  const renderContentEditors = () => (
+    <div className="space-y-6 animate-in fade-in duration-150">
+      {/* Bloc A & B1 : Hero & Référencement */}
+      <HeroSeoEditor
+        formData={formData}
+        setFormData={setFormData}
+        setMediaPickerTarget={setMediaPickerTarget}
+      />
+
+      {/* Bloc B1 : Accueil (6 blocs de contenu) */}
+      {formData.slug === '/' && (
+        <HomePageEditor
+          formData={formData}
+          setFormData={setFormData}
+          setMediaPickerTarget={setMediaPickerTarget}
+        />
+      )}
+
+      {/* Bloc B2 : Team Building */}
+      {formData.slug === 'team-building-cascades' && (
+        <TeamBuildingPageEditor
+          formData={formData}
+          setFormData={setFormData}
+          setMediaPickerTarget={setMediaPickerTarget}
+          handleUpdateWorkshop={handleUpdateWorkshop}
+          handleAddWorkshop={handleAddWorkshop}
+          handleRemoveWorkshop={handleRemoveWorkshop}
+        />
+      )}
+
+      {/* Bloc B3 : Formation Pro 2 Ans */}
+      {formData.slug === 'formation-de-cascadeur' && (
+        <FormationPageEditor
+          formData={formData}
+          setFormData={setFormData}
+          handleUpdateFormule={handleUpdateFormule}
+        />
+      )}
+
+      {/* Bloc B4 : Stages & Parkour */}
+      {formData.slug === 'stages-cascades-parkour-2' && (
+        <StagesPageEditor
+          formData={formData}
+          handleUpdateStageItem={handleUpdateStageItem}
+          handleAddStageItem={handleAddStageItem}
+          handleRemoveStageItem={handleRemoveStageItem}
+        />
+      )}
+
+      {/* Bloc B5 : Contact & Accès */}
+      {formData.slug === 'contact-cuc' && (
+        <ContactPageEditor formData={formData} setFormData={setFormData} />
+      )}
+
+      {/* Bloc C : Chiffres Clés & Statistiques */}
+      <KeyStatsEditor
+        formData={formData}
+        handleAddKeyStat={handleAddKeyStat}
+        handleRemoveKeyStat={handleRemoveKeyStat}
+        handleUpdateKeyStat={handleUpdateKeyStat}
+      />
+    </div>
+  );
+
   return (
     <div className="space-y-6">
       {/* Barre Supérieure : Sélecteur de Page & Enregistrement */}
@@ -323,7 +439,65 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
           </select>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          {/* Statut de publication (workflow brouillon → publié) */}
+          <span
+            className={`px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider border flex items-center gap-1.5 ${formData.is_published
+              ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+              : 'bg-amber-500/10 text-amber-400 border-amber-500/30'
+              }`}
+            title={
+              formData.is_published
+                ? 'La page est visible sur la vitrine publique.'
+                : 'La page est en brouillon : elle n’est pas visible publiquement.'
+            }
+          >
+            <span
+              className={`w-1.5 h-1.5 rounded-full ${formData.is_published ? 'bg-emerald-400' : 'bg-amber-400'
+                }`}
+            />
+            {formData.is_published ? 'Publiée' : 'Brouillon'}
+          </span>
+
+          <a
+            href={previewUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3.5 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 border border-white/10 transition-colors"
+            title="Ouvrir la page dans un nouvel onglet"
+          >
+            <Eye className="w-3.5 h-3.5" />
+            <span>Aperçu</span>
+          </a>
+
+          <button
+            type="button"
+            onClick={handleTogglePublish}
+            disabled={isPublishing}
+            className={`px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 border transition-colors disabled:opacity-50 ${formData.is_published
+              ? 'bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border-white/10'
+              : 'bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border-emerald-500/30'
+              }`}
+            title={
+              formData.is_published
+                ? 'Repasser la page en brouillon'
+                : 'Publier la page sur la vitrine'
+            }
+          >
+            {formData.is_published ? (
+              <EyeOff className="w-3.5 h-3.5" />
+            ) : (
+              <Rocket className="w-3.5 h-3.5" />
+            )}
+            <span>
+              {isPublishing
+                ? '…'
+                : formData.is_published
+                  ? 'Dépublier'
+                  : 'Publier'}
+            </span>
+          </button>
+
           <button
             type="button"
             onClick={handleResetToDefault}
@@ -352,11 +526,10 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
         <button
           type="button"
           onClick={() => setActiveTab('content')}
-          className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-colors ${
-            activeTab === 'content'
-              ? 'border-[#FFE500] text-[#FFE500] bg-white/5'
-              : 'border-transparent text-gray-400 hover:text-white'
-          }`}
+          className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-colors ${activeTab === 'content'
+            ? 'border-[#FFE500] text-[#FFE500] bg-white/5'
+            : 'border-transparent text-gray-400 hover:text-white'
+            }`}
         >
           <Sparkles className="w-3.5 h-3.5" />
           <span>Contenu &amp; Textes</span>
@@ -365,11 +538,10 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
         <button
           type="button"
           onClick={() => setActiveTab('layout')}
-          className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-colors ${
-            activeTab === 'layout'
-              ? 'border-[#FFE500] text-[#FFE500] bg-white/5'
-              : 'border-transparent text-gray-400 hover:text-white'
-          }`}
+          className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-colors ${activeTab === 'layout'
+            ? 'border-[#FFE500] text-[#FFE500] bg-white/5'
+            : 'border-transparent text-gray-400 hover:text-white'
+            }`}
         >
           <Sliders className="w-3.5 h-3.5" />
           <span>Mise en Page ({formData.layout_sections?.length || 0})</span>
@@ -378,11 +550,10 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
         <button
           type="button"
           onClick={() => setActiveTab('preview')}
-          className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-colors ${
-            activeTab === 'preview'
-              ? 'border-[#FFE500] text-[#FFE500] bg-white/5'
-              : 'border-transparent text-gray-400 hover:text-white'
-          }`}
+          className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-colors ${activeTab === 'preview'
+            ? 'border-[#FFE500] text-[#FFE500] bg-white/5'
+            : 'border-transparent text-gray-400 hover:text-white'
+            }`}
         >
           <Eye className="w-3.5 h-3.5" />
           <span>Aperçu en Direct</span>
@@ -391,11 +562,10 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
         <button
           type="button"
           onClick={() => setActiveTab('seo')}
-          className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-colors ${
-            activeTab === 'seo'
-              ? 'border-[#FFE500] text-[#FFE500] bg-white/5'
-              : 'border-transparent text-gray-400 hover:text-white'
-          }`}
+          className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-colors ${activeTab === 'seo'
+            ? 'border-[#FFE500] text-[#FFE500] bg-white/5'
+            : 'border-transparent text-gray-400 hover:text-white'
+            }`}
         >
           <Globe className="w-3.5 h-3.5" />
           <span>Référencement (SEO)</span>
@@ -428,137 +598,52 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
       )}
 
       {/* 2. ONGLET CONTENU & TEXTES */}
-      {activeTab === 'content' && (
-        <div className="space-y-6 animate-in fade-in duration-150">
-          {/* Bloc A & B1 : Hero & Référencement */}
-          <HeroSeoEditor
-            formData={formData}
-            setFormData={setFormData}
-            setMediaPickerTarget={setMediaPickerTarget}
-          />
-
-          {/* Bloc B2 : Team Building */}
-          {formData.slug === 'team-building-cascades' && (
-            <TeamBuildingPageEditor
-              formData={formData}
-              setFormData={setFormData}
-              setMediaPickerTarget={setMediaPickerTarget}
-              handleUpdateWorkshop={handleUpdateWorkshop}
-              handleAddWorkshop={handleAddWorkshop}
-              handleRemoveWorkshop={handleRemoveWorkshop}
-            />
-          )}
-
-          {/* Bloc B3 : Formation Pro 2 Ans */}
-          {formData.slug === 'formation-de-cascadeur' && (
-            <FormationPageEditor
-              formData={formData}
-              setFormData={setFormData}
-              handleUpdateFormule={handleUpdateFormule}
-            />
-          )}
-
-          {/* Bloc B4 : Stages & Parkour */}
-          {formData.slug === 'stages-cascades-parkour-2' && (
-            <StagesPageEditor
-              formData={formData}
-              handleUpdateStageItem={handleUpdateStageItem}
-              handleAddStageItem={handleAddStageItem}
-              handleRemoveStageItem={handleRemoveStageItem}
-            />
-          )}
-
-          {/* Bloc B5 : Contact & Accès */}
-          {formData.slug === 'contact-cuc' && (
-            <ContactPageEditor
-              formData={formData}
-              setFormData={setFormData}
-            />
-          )}
-
-          {/* Bloc C : Chiffres Clés & Statistiques */}
-          <KeyStatsEditor
-            formData={formData}
-            handleAddKeyStat={handleAddKeyStat}
-            handleRemoveKeyStat={handleRemoveKeyStat}
-            handleUpdateKeyStat={handleUpdateKeyStat}
-          />
-        </div>
-      )}
+      {activeTab === 'content' && renderContentEditors()}
 
       {/* 3. ONGLET STUDIO LIVE PREVIEW */}
       {activeTab === 'preview' && (
         <div className="space-y-4 animate-in fade-in duration-150">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-3 rounded-xl bg-[#0D0D12] border border-white/10">
-            <div className="flex items-center gap-2 text-xs text-gray-300">
-              <Eye className="w-4 h-4 text-[#FFE500]" />
-              <span className="font-bold uppercase tracking-wider">Aperçu Visuel en Direct :</span>
-              <span className="font-mono text-[#FFE500]">{previewUrl}</span>
+            <div className="flex items-center gap-2 text-xs text-gray-300 min-w-0">
+              <Eye className="w-4 h-4 text-[#FFE500] shrink-0" />
+              <span className="font-bold uppercase tracking-wider shrink-0">Aperçu Live :</span>
+              <span className="font-mono text-[#FFE500] truncate">{previewUrl}</span>
             </div>
 
-            <div className="flex items-center gap-2">
-              <div className="flex items-center bg-black/60 p-1 rounded-lg border border-white/10">
-                <button
-                  type="button"
-                  onClick={() => setPreviewDevice('desktop')}
-                  className={`p-1.5 rounded transition-colors ${
-                    previewDevice === 'desktop' ? 'bg-[#FFE500] text-black' : 'text-gray-400 hover:text-white'
-                  }`}
-                  title="Format Ordinateur (100%)"
-                >
-                  <Monitor className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPreviewDevice('tablet')}
-                  className={`p-1.5 rounded transition-colors ${
-                    previewDevice === 'tablet' ? 'bg-[#FFE500] text-black' : 'text-gray-400 hover:text-white'
-                  }`}
-                  title="Format Tablette (768px)"
-                >
-                  <Tablet className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPreviewDevice('mobile')}
-                  className={`p-1.5 rounded transition-colors ${
-                    previewDevice === 'mobile' ? 'bg-[#FFE500] text-black' : 'text-gray-400 hover:text-white'
-                  }`}
-                  title="Format Smartphone (375px)"
-                >
-                  <Smartphone className="w-3.5 h-3.5" />
-                </button>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setPreviewKey((prev) => prev + 1)}
-                className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border border-white/10 transition-colors"
-                title="Actualiser l'aperçu"
-              >
-                <RefreshCw className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-
-          <div className="bg-[#050508] border border-white/10 rounded-2xl p-4 overflow-hidden flex justify-center min-h-[640px]">
-            <div
-              className={`transition-all duration-300 w-full rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-black ${
-                previewDevice === 'desktop'
-                  ? 'max-w-full h-[720px]'
-                  : previewDevice === 'tablet'
-                  ? 'max-w-[768px] h-[720px]'
-                  : 'max-w-[375px] h-[700px]'
-              }`}
+            <button
+              type="button"
+              onClick={() => setIsSplitView((prev) => !prev)}
+              className={`px-3 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 border transition-colors shrink-0 ${isSplitView
+                ? 'bg-[#FFE500] text-black border-[#FFE500]'
+                : 'bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border-white/10'
+                }`}
+              title="Afficher l’éditeur et l’aperçu côte à côte"
             >
-              <iframe
-                key={previewKey}
-                src={previewUrl}
-                title="Studio Live Preview"
-                className="w-full h-full border-0 bg-[#060608]"
-              />
-            </div>
+              <Columns2 className="w-3.5 h-3.5" />
+              <span>Vue partagée</span>
+            </button>
           </div>
+
+          {isSplitView ? (
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-start">
+              <div className="min-w-0">{renderContentEditors()}</div>
+              <div className="min-w-0 xl:sticky xl:top-4">
+                <LivePreviewPane
+                  draft={formData}
+                  previewUrl={previewUrl}
+                  reloadKey={previewKey}
+                  onFieldFocus={handlePreviewFieldFocus}
+                />
+              </div>
+            </div>
+          ) : (
+            <LivePreviewPane
+              draft={formData}
+              previewUrl={previewUrl}
+              reloadKey={previewKey}
+              onFieldFocus={handlePreviewFieldFocus}
+            />
+          )}
         </div>
       )}
 
@@ -592,9 +677,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
                   Balise &lt;title&gt; Google (Recommandé : 50-65 caractères)
                 </label>
                 <span
-                  className={`text-[11px] font-mono ${
-                    (formData.meta_title?.length || 0) > 65 ? 'text-yellow-400' : 'text-gray-400'
-                  }`}
+                  className={`text-[11px] font-mono ${(formData.meta_title?.length || 0) > 65 ? 'text-yellow-400' : 'text-gray-400'
+                    }`}
                 >
                   {formData.meta_title?.length || 0} / 65 car.
                 </span>
@@ -613,9 +697,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
                   Meta Description Google (Recommandé : 120-160 caractères)
                 </label>
                 <span
-                  className={`text-[11px] font-mono ${
-                    (formData.meta_description?.length || 0) > 160 ? 'text-yellow-400' : 'text-gray-400'
-                  }`}
+                  className={`text-[11px] font-mono ${(formData.meta_description?.length || 0) > 160 ? 'text-yellow-400' : 'text-gray-400'
+                    }`}
                 >
                   {formData.meta_description?.length || 0} / 160 car.
                 </span>
@@ -654,6 +737,18 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
         </div>
       )}
 
+      {/* 5. HISTORIQUE DES VERSIONS (site_page_revisions) */}
+      <PageRevisionsPanel
+        slug={cleanSelectedSlug}
+        currentContent={currentPage}
+        showToast={showToast}
+        onRestored={(restored) => {
+          setFormData(restored);
+          onPageSaved(restored);
+          setPreviewKey((prev) => prev + 1);
+        }}
+      />
+
       {/* Modal Médiathèque intégrée */}
       {mediaPickerTarget && (
         <MediaPickerModal
@@ -670,6 +765,22 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
             } else if (mediaPickerTarget.startsWith('workshop_img_')) {
               const idx = parseInt(mediaPickerTarget.replace('workshop_img_', ''), 10);
               handleUpdateWorkshop(idx, { img: url });
+            } else if (mediaPickerTarget.startsWith('sections_data.')) {
+              // Cible générique `sections_data.<bloc>.<champ>` : écrit la valeur
+              // dans le bloc correspondant sans dupliquer la logique par page.
+              const [, block, field] = mediaPickerTarget.split('.');
+              if (block && field) {
+                setFormData((prev) => ({
+                  ...prev,
+                  sections_data: {
+                    ...(prev.sections_data || {}),
+                    [block]: {
+                      ...((prev.sections_data || {})[block] || {}),
+                      [field]: url,
+                    },
+                  },
+                }));
+              }
             }
             setMediaPickerTarget(null);
           }}

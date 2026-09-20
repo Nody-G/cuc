@@ -25,7 +25,8 @@
     "coaches:sync": "node scripts/sync_coach_credits_supabase.mjs --write",
     "coaches:sync:preview": "node scripts/sync_coach_credits_supabase.mjs",
     "coaches:seed:featured": "node scripts/seed_featured_credits.mjs",
-    "coaches:seed:featured:write": "node scripts/seed_featured_credits.mjs --write"
+    "coaches:seed:featured:write": "node scripts/seed_featured_credits.mjs --write",
+    "cms:seed:navigation": "node scripts/seed_navigation_footer.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

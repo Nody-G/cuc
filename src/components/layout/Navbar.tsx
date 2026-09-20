@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -10,22 +10,21 @@ import { NavDropdowns } from './navbar/NavDropdowns';
 import { NavActionsBar } from './navbar/NavActionsBar';
 import { NavMobileDrawer } from './navbar/NavMobileDrawer';
 import { AnnouncementBanner } from './AnnouncementBanner';
+import { useNavigation } from '@/lib/hooks/useNavigation';
+import type { NavItem } from '@/data/navigation';
 
 export const Navbar: React.FC = () => {
   const pathname = usePathname();
+  const navigation = useNavigation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [formationsDropdownOpen, setFormationsDropdownOpen] = useState(false);
-  const [campusDropdownOpen, setCampusDropdownOpen] = useState(false);
-  const [eventsDropdownOpen, setEventsDropdownOpen] = useState(false);
+  const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
 
   // UX: Auto-close dropdowns and mobile drawer on route change
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (prevPathname !== pathname) {
     setPrevPathname(pathname);
-    setFormationsDropdownOpen(false);
-    setCampusDropdownOpen(false);
-    setEventsDropdownOpen(false);
+    setOpenDropdownId(null);
     setMobileMenuOpen(false);
   }
 
@@ -33,9 +32,7 @@ export const Navbar: React.FC = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setFormationsDropdownOpen(false);
-        setCampusDropdownOpen(false);
-        setEventsDropdownOpen(false);
+        setOpenDropdownId(null);
         setMobileMenuOpen(false);
       }
     };
@@ -51,18 +48,24 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const isFormationsActive =
-    pathname.startsWith('/formation') || pathname.startsWith('/stages');
+  const isItemActive = (item: NavItem): boolean => {
+    if (item.href && pathname === item.href) return true;
+    if (item.activeMatchPrefixes?.some((prefix) => pathname.startsWith(prefix))) return true;
+    if (item.children?.some((child) => child.href && pathname === child.href)) return true;
+    return false;
+  };
 
-  const isCampusActive =
-    pathname.startsWith('/visite-guidee') ||
-    pathname.startsWith('/visite-virtuelle');
+  const dropdownItems = useMemo(
+    () => navigation.items.filter((item) => item.type === 'dropdown' && item.children?.length),
+    [navigation.items]
+  );
 
-  const isEventsActive =
-    pathname.startsWith('/cuc-events') ||
-    pathname.startsWith('/spectacles') ||
-    pathname.startsWith('/animations') ||
-    pathname.startsWith('/team-building');
+  const linkItems = useMemo(
+    () => navigation.items.filter((item) => item.type !== 'dropdown'),
+    [navigation.items]
+  );
+
+  const cta = navigation.cta;
 
   return (
     <header
@@ -102,100 +105,44 @@ export const Navbar: React.FC = () => {
 
           {/* Desktop Navigation Links */}
           <div className="hidden xl:flex items-center gap-3.5 2xl:gap-5 text-xs font-mono-tech uppercase tracking-wider shrink-0">
-            <Link
-              href="/"
-              className={`py-1 transition-colors ${pathname === '/'
-                ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
-                : 'text-zinc-300 hover:text-[#FFE500]'
-                }`}
-            >
-              Accueil
-            </Link>
-
-            {/* Dropdowns (Formation, Campus, Events) */}
+            {/* Dropdowns (Formation, Campus, Events) — pilotés par site_navigation */}
             <NavDropdowns
-              isFormationsActive={isFormationsActive}
-              isCampusActive={isCampusActive}
-              isEventsActive={isEventsActive}
-              formationsDropdownOpen={formationsDropdownOpen}
-              setFormationsDropdownOpen={setFormationsDropdownOpen}
-              campusDropdownOpen={campusDropdownOpen}
-              setCampusDropdownOpen={setCampusDropdownOpen}
-              eventsDropdownOpen={eventsDropdownOpen}
-              setEventsDropdownOpen={setEventsDropdownOpen}
+              dropdownItems={dropdownItems}
+              openDropdownId={openDropdownId}
+              setOpenDropdownId={setOpenDropdownId}
+              isItemActive={isItemActive}
             />
 
-            <Link
-              href="/stunt-workshop-cuc"
-              className={`py-1 transition-colors ${pathname === '/stunt-workshop-cuc'
+            {/* Liens simples — pilotés par site_navigation */}
+            {linkItems.map((item) => {
+              const active = isItemActive(item);
+              const baseClass = `py-1 transition-colors ${active
                 ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
                 : 'text-zinc-300 hover:text-[#FFE500]'
-                }`}
-            >
-              Workshop
-            </Link>
+                }`;
 
-            <Link
-              href="/equipe-cascadeurs-pro"
-              className={`py-1 transition-colors ${pathname === '/equipe-cascadeurs-pro'
-                ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
-                : 'text-zinc-300 hover:text-[#FFE500]'
-                }`}
-            >
-              L’équipe
-            </Link>
+              if (item.is_external || item.type === 'external') {
+                return (
+                  <a
+                    key={item.id}
+                    href={item.href ?? '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${baseClass} flex items-center gap-1`}
+                    title={item.title}
+                  >
+                    <span>{item.label}</span>
+                    <ExternalLink className="w-2.5 h-2.5 text-zinc-500" />
+                  </a>
+                );
+              }
 
-            <Link
-              href="/videos-cascadeur"
-              className={`py-1 transition-colors ${pathname === '/videos-cascadeur'
-                ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
-                : 'text-zinc-300 hover:text-[#FFE500]'
-                }`}
-            >
-              Nos Vidéos
-            </Link>
-
-            <Link
-              href="/cuc-team-cascadeur"
-              className={`py-1 transition-colors ${pathname === '/cuc-team-cascadeur'
-                ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
-                : 'text-zinc-300 hover:text-[#FFE500]'
-                }`}
-            >
-              Tournages
-            </Link>
-
-            <Link
-              href="/partenaires"
-              className={`py-1 transition-colors ${pathname === '/partenaires'
-                ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
-                : 'text-zinc-300 hover:text-[#FFE500]'
-                }`}
-            >
-              Partenaires
-            </Link>
-
-            {/* Boutique Link */}
-            <a
-              href="https://ma-boutique-club.com/campus-universcascades/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="py-1 text-zinc-300 hover:text-[#FFE500] transition-colors flex items-center gap-1"
-              title="Boutique CUC (Textiles, Sweats, Équipements)"
-            >
-              <span>Boutique</span>
-              <ExternalLink className="w-2.5 h-2.5 text-zinc-500" />
-            </a>
-
-            <Link
-              href="/contact-cuc"
-              className={`py-1 transition-colors ${pathname === '/contact-cuc'
-                ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
-                : 'text-zinc-300 hover:text-[#FFE500]'
-                }`}
-            >
-              Contact
-            </Link>
+              return (
+                <Link key={item.id} href={item.href ?? '/'} className={baseClass}>
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Right Action CTA & Quick Tools */}
@@ -203,13 +150,13 @@ export const Navbar: React.FC = () => {
 
           {/* Mobile Menu Toggle Button */}
           <div className="flex items-center gap-2 xl:hidden">
-            <Link href="/contact-cuc">
+            <Link href={cta.href}>
               <TacticalButton
                 variant="primary"
                 size="sm"
                 className="text-xs px-2.5 py-1 sm:hidden"
               >
-                Contact &amp; Projets
+                {cta.label}
               </TacticalButton>
             </Link>
             <button

@@ -10,6 +10,7 @@ import {
   Copy,
 } from 'lucide-react';
 import { listCockpitUsers, updateUserRole } from '@/app/admin/actions';
+import { CockpitSkeletonList, CockpitEmptyState } from './ui';
 
 interface CockpitUser {
   id: string;
@@ -203,14 +204,16 @@ export const UsersRolesView: React.FC<UsersRolesViewProps> = ({
         </div>
 
         {loading ? (
-          <div className="p-12 text-center text-xs text-gray-400 space-y-2">
-            <RefreshCw className="w-6 h-6 animate-spin text-[#FFE500] mx-auto" />
-            <p>Chargement des utilisateurs...</p>
+          <div className="p-4">
+            <CockpitSkeletonList rows={4} />
           </div>
         ) : users.length === 0 ? (
-          <div className="p-12 text-center text-xs text-gray-400">
-            Aucun collaborateur trouvé.
-          </div>
+          <CockpitEmptyState
+            icon={Shield}
+            title="Aucun collaborateur trouvé"
+            description="Les comptes disposant d'un accès au Cockpit apparaîtront ici."
+            className="border-0 bg-transparent"
+          />
         ) : (
           <div className="divide-y divide-white/5 overflow-x-auto">
             {users.map((u) => {

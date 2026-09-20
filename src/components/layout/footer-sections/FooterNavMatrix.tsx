@@ -3,195 +3,60 @@
 import React from 'react';
 import Link from 'next/link';
 import { ExternalLink } from 'lucide-react';
+import { useFooter } from '@/lib/hooks/useNavigation';
 
+/**
+ * Matrice de navigation du pied de page — pilotée par `site_footer`.
+ * Fallback intégral sur `DEFAULT_FOOTER` (zéro régression) tant que la table
+ * n'est pas modifiée dans le Cockpit.
+ */
 export const FooterNavMatrix: React.FC = () => {
+  const footer = useFooter();
+
+  const columns = [...footer.columns]
+    .filter((column) => column.is_visible)
+    .sort((a, b) => a.order - b.order);
+
   return (
     <div className="py-8 border-t border-zinc-800/80 grid grid-cols-2 sm:grid-cols-4 gap-6 text-xs font-mono-tech">
-      <div>
-        <span className="text-[#FFE500] uppercase font-bold block mb-2">
-          Formations
-        </span>
-        <ul className="space-y-1.5 text-zinc-400">
-          <li>
-            <Link
-              href="/formation-de-cascadeur"
-              className="hover:text-white transition-colors"
-            >
-              Formation Pro 2 ans
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/formation-de-cascadeur"
-              className="hover:text-white transition-colors"
-            >
-              Formule Découverte (12j)
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/stages-cascades-parkour-2"
-              className="hover:text-white transition-colors"
-            >
-              Stages Week-end (250€)
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/stages-cascades-parkour-2"
-              className="hover:text-white transition-colors"
-            >
-              Prise en charge AFDAS
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/stunt-workshop-cuc"
-              className="hover:text-white transition-colors"
-            >
-              International Workshop
-            </Link>
-          </li>
-        </ul>
-      </div>
+      {columns.map((column) => {
+        const links = [...column.links]
+          .filter((link) => link.is_visible)
+          .sort((a, b) => a.order - b.order);
 
-      <div>
-        <span className="text-[#FFE500] uppercase font-bold block mb-2">
-          Le Campus
-        </span>
-        <ul className="space-y-1.5 text-zinc-400">
-          <li>
-            <Link
-              href="/visite-guidee"
-              className="hover:text-white transition-colors"
-            >
-              Visite Guidée des 6 Ha
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/visite-virtuelle"
-              className="hover:text-white text-[#FFE500] font-semibold transition-colors"
-            >
-              Visite Virtuelle 360°
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/visite-guidee"
-              className="hover:text-white transition-colors"
-            >
-              Zoé Bell Hall &amp; Fosse
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/visite-guidee"
-              className="hover:text-white transition-colors"
-            >
-              CUC Tower 21 mètres
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/visite-guidee"
-              className="hover:text-white transition-colors"
-            >
-              Dojos &amp; Manège équestre
-            </Link>
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <span className="text-[#FFE500] uppercase font-bold block mb-2">
-          CUC Events
-        </span>
-        <ul className="space-y-1.5 text-zinc-400">
-          <li>
-            <Link
-              href="/cuc-events-agence"
-              className="hover:text-white transition-colors"
-            >
-              Agence CUC Events
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/spectacles-cascadeurs-yamakasi"
-              className="hover:text-white transition-colors"
-            >
-              Spectacles &amp; Shows Cinéma
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/animations-airbag-parkour"
-              className="hover:text-white transition-colors"
-            >
-              Xtrem Jump Airbag Géant
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/team-building-cascades"
-              className="hover:text-white transition-colors"
-            >
-              Team Building Séminaires
-            </Link>
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <span className="text-[#FFE500] uppercase font-bold block mb-2">
-          L'Académie
-        </span>
-        <ul className="space-y-1.5 text-zinc-400">
-          <li>
-            <Link
-              href="/equipe-cascadeurs-pro"
-              className="hover:text-white transition-colors"
-            >
-              L'Équipe des Formateurs
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/cuc-team-cascadeur"
-              className="hover:text-white transition-colors"
-            >
-              Tournages &amp; Affiches Films
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/videos-cascadeur"
-              className="hover:text-white transition-colors"
-            >
-              Reportages TF1 &amp; France 2
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/partenaires"
-              className="hover:text-white transition-colors"
-            >
-              Nos Partenaires
-            </Link>
-          </li>
-          <li>
-            <a
-              href="https://ma-boutique-club.com/campus-universcascades/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white flex items-center gap-1 transition-colors"
-            >
-              Boutique Club <ExternalLink className="w-2.5 h-2.5" />
-            </a>
-          </li>
-        </ul>
-      </div>
+        return (
+          <div key={column.id}>
+            <span className="text-[#FFE500] uppercase font-bold block mb-2">
+              {column.title}
+            </span>
+            <ul className="space-y-1.5 text-zinc-400">
+              {links.map((link) =>
+                link.is_external ? (
+                  <li key={link.id}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-white flex items-center gap-1 transition-colors"
+                    >
+                      {link.label} <ExternalLink className="w-2.5 h-2.5" />
+                    </a>
+                  </li>
+                ) : (
+                  <li key={link.id}>
+                    <Link
+                      href={link.href}
+                      className="hover:text-white transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
+        );
+      })}
     </div>
   );
 };

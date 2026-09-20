@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useTransition } from 'react';
+import React, { useMemo, useState, useTransition } from 'react';
 import Image from 'next/image';
 import {
   Film,
@@ -17,6 +17,7 @@ import { ImdbLogo, AllocineLogo, YouTubeLogo } from '@/components/ui/BrandLogos'
 import { FilmCredit, Instructor, Discipline } from '@/types';
 import { upsertFilm, deleteFilm } from '@/app/admin/actions';
 import { MediaPickerModal } from './MediaPickerModal';
+import { CockpitLoadMore, useProgressiveList } from './ui';
 
 interface FilmsViewProps {
   films: FilmCredit[];
@@ -39,14 +40,33 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
 
-  const filteredFilms = films.filter((f) => {
-    const matchSearch =
-      !searchTerm ||
-      f.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (f.director && f.director.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (f.year && f.year.includes(searchTerm));
-    const matchCat = categoryFilter === 'all' || f.category === categoryFilter;
-    return matchSearch && matchCat;
+  const filteredFilms = useMemo(() => {
+    const term = searchTerm.toLowerCase();
+    return films.filter((f) => {
+      const matchSearch =
+        !searchTerm ||
+        f.title.toLowerCase().includes(term) ||
+        (f.director && f.director.toLowerCase().includes(term)) ||
+        (f.year && f.year.includes(searchTerm));
+      const matchCat = categoryFilter === 'all' || f.category === categoryFilter;
+      return matchSearch && matchCat;
+    });
+  }, [films, searchTerm, categoryFilter]);
+
+  /**
+   * Rendu progressif du catalogue : borne le nombre de cartes montées.
+   * La fenêtre se réinitialise à chaque changement de recherche ou de catégorie.
+   */
+  const {
+    visibleItems: visibleFilms,
+    visibleCount: visibleFilmCount,
+    total: totalFilms,
+    hasMore: hasMoreFilms,
+    loadMore: loadMoreFilms,
+  } = useProgressiveList(filteredFilms, {
+    step: 24,
+    initial: 24,
+    resetKey: `${categoryFilter}|${searchTerm}`,
   });
 
   const handleSaveFilm = (e: React.FormEvent) => {
@@ -164,8 +184,8 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
             type="button"
             onClick={() => setCategoryFilter(cat)}
             className={`px-2.5 py-1 rounded text-[11px] font-mono transition cursor-pointer ${categoryFilter === cat
-                ? 'bg-[#FFE500] text-black font-bold'
-                : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
+              ? 'bg-[#FFE500] text-black font-bold'
+              : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
               }`}
           >
             {cat === 'all' ? 'Tous les films' : cat}
@@ -174,7 +194,7 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {filteredFilms.map((film) => (
+        {visibleFilms.map((film) => (
           <div
             key={film.id}
             className="bg-[#0D0D12] border border-white/10 rounded-xl overflow-hidden flex flex-col justify-between hover:border-white/20 transition-colors group"
@@ -339,6 +359,13 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
           </div>
         ))}
       </div>
+
+      <CockpitLoadMore
+        visibleCount={visibleFilmCount}
+        total={totalFilms}
+        onLoadMore={loadMoreFilms}
+        label="Afficher plus de projets"
+      />
 
       {/* Modal édition film */}
       {editingFilm && (
@@ -559,8 +586,8 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
                             });
                           }}
                           className={`flex items-center gap-1.5 px-2 py-1 rounded text-left text-[11px] transition border cursor-pointer ${isChecked
-                              ? 'bg-sky-500/20 border-sky-500 text-white font-semibold'
-                              : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/20'
+                            ? 'bg-sky-500/20 border-sky-500 text-white font-semibold'
+                            : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/20'
                             }`}
                         >
                           <span className="truncate">{t.name}</span>

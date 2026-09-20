@@ -17,7 +17,23 @@ import {
   StudioParallaxCard,
 } from '@/components/ui/parallax';
 
-export const HomeSocialSection: React.FC = () => {
+export interface HomeSocialData {
+  badge?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+interface HomeSocialSectionProps {
+  socialData?: HomeSocialData;
+}
+
+export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData }) => {
+  const badge = socialData?.badge || 'RÉSEAUX SOCIAUX & ACTUALITÉS';
+  const title = socialData?.title || 'COMMUNAUTÉ & RÉSEAUX SOCIAUX';
+  const subtitle =
+    socialData?.subtitle ||
+    '🇲🇫 French Stunt Team • Stuntmen | Fighters | Performers • 🔥 Break the limits • 🌍 Biggest Stunt School in the World';
+
   const instagramPosts = [
     {
       title: 'COKA CHICAS au cinéma',
@@ -73,20 +89,27 @@ export const HomeSocialSection: React.FC = () => {
 
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
-                  RÉSEAUX SOCIAUX &amp; ACTUALITÉS
+                <span
+                  data-cuc-field="sections_data.social.badge"
+                  className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider"
+                >
+                  {badge}
                 </span>
                 <span className="text-xs font-mono-tech text-zinc-500">
                   • @CAMPUS.UNIVERS.CASCADES
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-tight text-white">
-                COMMUNAUTÉ &amp; RÉSEAUX SOCIAUX
+              <h2
+                data-cuc-field="sections_data.social.title"
+                className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-tight text-white"
+              >
+                {title}
               </h2>
-              <p className="text-sm font-tech text-zinc-400 mt-1">
-                🇲🇫 <strong className="text-white">French Stunt Team</strong> • Stuntmen |
-                Fighters | Performers • 🔥 Break the limits • 🌍 Biggest Stunt School in the
-                World
+              <p
+                data-cuc-field="sections_data.social.subtitle"
+                className="text-sm font-tech text-zinc-400 mt-1"
+              >
+                {subtitle}
               </p>
             </div>
           </div>
@@ -169,7 +192,7 @@ export const HomeSocialSection: React.FC = () => {
                 TikTok
               </span>
               <span className="text-[10px] font-tech text-zinc-400 truncate block">
-                Cascades &amp; Backstage
+                Cascades & Backstage
               </span>
             </div>
           </a>
@@ -191,7 +214,7 @@ export const HomeSocialSection: React.FC = () => {
                 Facebook
               </span>
               <span className="text-[10px] font-tech text-zinc-400 truncate block">
-                Actualités &amp; Stages
+                Actualités & Stages
               </span>
             </div>
           </a>

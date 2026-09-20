@@ -10,7 +10,36 @@ import {
   StudioParallaxCard,
 } from '@/components/ui/parallax';
 
-export const HomeQualiopiSection: React.FC = () => {
+/**
+ * Données éditables du bloc « qualiopi » (page Accueil).
+ * Toutes les clés sont optionnelles : en leur absence, les valeurs
+ * certifiées ci-dessous sont utilisées (zéro régression).
+ */
+export interface HomeQualiopiData {
+  badge?: string;
+  title?: string;
+  subtitle?: string;
+  afdas_badge?: string;
+  afdas_text?: string;
+  france_travail_badge?: string;
+  france_travail_text?: string;
+  opco_badge?: string;
+  opco_text?: string;
+}
+
+interface HomeQualiopiSectionProps {
+  qualiopiData?: HomeQualiopiData;
+}
+
+export const HomeQualiopiSection: React.FC<HomeQualiopiSectionProps> = ({
+  qualiopiData,
+}) => {
+  const badge = qualiopiData?.badge || 'CERTIFICATION QUALIOPI';
+  const title = qualiopiData?.title || 'FORMATIONS CERTIFIÉES';
+  const subtitle =
+    qualiopiData?.subtitle ||
+    'Certification délivrée au titre des ACTIONS DE FORMATION. Nos formations sont éligibles aux financements professionnels (AFDAS, France Travail).';
+
   return (
     <StudioParallaxScene className="py-16 bg-[#0e0e14]/90 border-b border-zinc-800/80 relative overflow-hidden">
       {/* Ambient Certification Glow */}
@@ -38,18 +67,24 @@ export const HomeQualiopiSection: React.FC = () => {
 
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
-                    CERTIFICATION QUALIOPI
+                  <span
+                    data-cuc-field="sections_data.qualiopi.badge"
+                    className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider"
+                  >
+                    {badge}
                   </span>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-wider text-white">
-                  FORMATIONS CERTIFIÉES
+                <h3
+                  data-cuc-field="sections_data.qualiopi.title"
+                  className="text-2xl sm:text-3xl font-display uppercase tracking-wider text-white"
+                >
+                  {title}
                 </h3>
-                <p className="text-xs sm:text-sm font-tech text-zinc-300 mt-1 max-w-2xl leading-relaxed">
-                  Certification délivrée au titre des{' '}
-                  <strong className="text-white">ACTIONS DE FORMATION</strong>. Nos
-                  formations sont éligibles aux financements professionnels
-                  (AFDAS, France Travail).
+                <p
+                  data-cuc-field="sections_data.qualiopi.subtitle"
+                  className="text-xs sm:text-sm font-tech text-zinc-300 mt-1 max-w-2xl leading-relaxed"
+                >
+                  {subtitle}
                 </p>
               </div>
             </div>

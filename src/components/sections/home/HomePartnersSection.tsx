@@ -18,7 +18,28 @@ interface HomePartner {
   speed: number;
 }
 
-export const HomePartnersSection: React.FC = () => {
+/**
+ * Données éditables du bloc « partners » (page Accueil).
+ * Toutes les clés sont optionnelles : en leur absence, les valeurs
+ * certifiées ci-dessous sont utilisées (zéro régression).
+ */
+export interface HomePartnersData {
+  badge?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+interface HomePartnersSectionProps {
+  partnersData?: HomePartnersData;
+}
+
+export const HomePartnersSection: React.FC<HomePartnersSectionProps> = ({
+  partnersData,
+}) => {
+  const badge = partnersData?.badge || 'COLLABORATION INDUSTRIE & CINÉMA';
+  const title = partnersData?.title || 'NOS PARTENAIRES';
+  const subtitle = partnersData?.subtitle || '';
+
   const partners: HomePartner[] = [
     {
       name: 'Nike',
@@ -75,12 +96,26 @@ export const HomePartnersSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
           <div>
-            <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold block mb-1">
-              COLLABORATION INDUSTRIE &amp; CINÉMA
+            <span
+              data-cuc-field="sections_data.partners.badge"
+              className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold block mb-1"
+            >
+              {badge}
             </span>
-            <h3 className="text-2xl sm:text-3xl font-display uppercase text-white">
-              NOS PARTENAIRES
+            <h3
+              data-cuc-field="sections_data.partners.title"
+              className="text-2xl sm:text-3xl font-display uppercase text-white"
+            >
+              {title}
             </h3>
+            {subtitle ? (
+              <p
+                data-cuc-field="sections_data.partners.subtitle"
+                className="text-xs sm:text-sm font-tech text-zinc-400 mt-1 max-w-2xl"
+              >
+                {subtitle}
+              </p>
+            ) : null}
           </div>
           <Link
             href="/partenaires"
@@ -101,11 +136,10 @@ export const HomePartnersSection: React.FC = () => {
                   className="h-28 bg-[#0e0e14]/90 backdrop-blur-xs border border-zinc-800 hover:border-[#FFE500]/50 p-3 flex flex-col items-center justify-between transition-all duration-300 group hover:shadow-[0_4px_25px_rgba(255,229,0,0.12)] relative rounded-xs block h-full"
                 >
                   <div
-                    className={`w-full h-14 ${
-                      partner.bgVariant === 'light'
-                        ? 'bg-white border-zinc-200'
-                        : 'bg-black/90 border-zinc-800'
-                    } border p-1.5 flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105 duration-300 relative`}
+                    className={`w-full h-14 ${partner.bgVariant === 'light'
+                      ? 'bg-white border-zinc-200'
+                      : 'bg-black/90 border-zinc-800'
+                      } border p-1.5 flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105 duration-300 relative`}
                   >
                     <Image
                       src={partner.logo}

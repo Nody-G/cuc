@@ -4,14 +4,24 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useFooter } from '@/lib/hooks/useNavigation';
 
+/**
+ * Barre de crédits légaux du pied de page — pilotée par `site_footer.legal`
+ * (fallback `DEFAULT_FOOTER`, zéro régression).
+ */
 export const FooterCreditsBar: React.FC = () => {
+  const { legal } = useFooter();
   const [showFloatingTop, setShowFloatingTop] = useState(false);
   // Année calculée côté client uniquement : évite le gel de la valeur au
   // moment du prerender (contrainte `cacheComponents` / PPR).
   const [year] = useState<number | null>(() =>
     typeof window === 'undefined' ? null : new Date().getFullYear()
   );
+
+  const legalLinks = [...legal.links]
+    .filter((link) => link.is_visible)
+    .sort((a, b) => a.order - b.order);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,17 +40,29 @@ export const FooterCreditsBar: React.FC = () => {
       {/* Cinematic Credits Footer Bar */}
       <div className="pt-8 border-t border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] font-mono-tech text-zinc-500">
         <div>
-          &copy; {year ?? 2026} CAMPUS UNIVERS CASCADES • TOUS DROITS RÉSERVÉS
+          {legal.copyright.replace('{year}', String(year ?? 2026))}
         </div>
 
         <div className="flex items-center gap-4 text-zinc-400 flex-wrap justify-center">
-          <Link href="/visite-guidee" className="hover:text-white transition-colors">
-            Le Cateau-Cambrésis (59)
-          </Link>
-          <span>•</span>
-          <Link href="/contact-cuc" className="hover:text-white transition-colors">
-            Règlement &amp; Inscriptions
-          </Link>
+          {legalLinks.map((link, idx) => (
+            <React.Fragment key={link.id}>
+              {idx > 0 && <span>•</span>}
+              {link.is_external ? (
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link href={link.href} className="hover:text-white transition-colors">
+                  {link.label}
+                </Link>
+              )}
+            </React.Fragment>
+          ))}
           <span>•</span>
           <span className="text-[#FFE500]/80">Agrément QUALIOPI</span>
         </div>

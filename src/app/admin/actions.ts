@@ -507,6 +507,42 @@ export async function upsertPageContent(slug: string, pageData: {
 }
 
 /**
+ * Publie ou dépublie une page (workflow brouillon → prévisualisation → publication).
+ *
+ * - `publish` : rend la page visible sur la vitrine (`is_published = true`).
+ * - `unpublish` : repasse la page en brouillon (`is_published = false`), elle
+ *   n'est alors plus servie publiquement mais reste éditable dans le Cockpit.
+ *
+ * Un instantané de l'état précédent est créé automatiquement par le trigger
+ * SQL `trg_snapshot_site_page_revision` avant l'écriture.
+ */
+export async function setPagePublishState(
+  slug: string,
+  publish: boolean
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const cleanSlug = slug === '/' ? '/' : slug.replace(/^\//, '');
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('site_pages')
+      .update({
+        is_published: publish,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('slug', cleanSlug);
+
+    if (error) throw error;
+
+    const targetPath = cleanSlug === '/' ? '/' : `/${cleanSlug}`;
+    await revalidateSite([targetPath, '/']);
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return { success: false, error: message };
+  }
+}
+
+/**
  * Rétablit le contenu d'origine et la disposition par défaut validée d'une page.
  */
 export async function resetPageContentToDefault(slug: string) {
@@ -715,7 +751,7 @@ export async function upsertDiscipline(discipline: any) {
       .eq('key', 'disciplines')
       .maybeSingle();
 
-    let list: any[] = currentSettings?.value?.list || [];
+    const list: any[] = currentSettings?.value?.list || [];
     const idx = list.findIndex((d: any) => d.id === discipline.id);
     if (idx >= 0) {
       list[idx] = discipline;
@@ -816,7 +852,7 @@ export async function upsertCampusPOI(poi: any) {
       .eq('key', 'campus_pois')
       .maybeSingle();
 
-    let list: any[] = currentSettings?.value?.list || [];
+    const list: any[] = currentSettings?.value?.list || [];
     const idx = list.findIndex((p: any) => p.id === poi.id);
     if (idx >= 0) {
       list[idx] = poi;

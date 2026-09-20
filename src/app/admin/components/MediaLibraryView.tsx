@@ -13,6 +13,7 @@ import {
   HardDrive,
 } from 'lucide-react';
 import { listMediaFiles, uploadMediaFile, deleteMediaFile } from '@/app/admin/actions';
+import { CockpitSkeletonList, CockpitEmptyState } from './ui';
 
 interface MediaFile {
   name: string;
@@ -180,18 +181,13 @@ export const MediaLibraryView: React.FC<MediaLibraryViewProps> = ({ showToast })
 
       {/* Grille des médias */}
       {loading ? (
-        <div className="flex items-center justify-center py-24 text-xs font-mono text-gray-400 gap-2">
-          <RefreshCw className="w-4 h-4 animate-spin text-[#FFE500]" />
-          Chargement de la médiathèque...
-        </div>
+        <CockpitSkeletonList rows={5} />
       ) : filteredFiles.length === 0 ? (
-        <div className="text-center py-20 border border-dashed border-white/10 rounded-2xl space-y-3 bg-[#0D0D12]">
-          <ImageIcon className="w-10 h-10 text-gray-600 mx-auto" />
-          <h3 className="text-base font-bold text-white uppercase">Aucun fichier trouvé</h3>
-          <p className="text-xs text-gray-400 max-w-sm mx-auto">
-            Glissez-déposez ou cliquez sur &quot;Ajouter des images&quot; pour téléverser vos premières photos dans Supabase Storage.
-          </p>
-        </div>
+        <CockpitEmptyState
+          icon={ImageIcon}
+          title="Aucun fichier trouvé"
+          description={'Glissez-déposez ou cliquez sur "Ajouter des images" pour téléverser vos premières photos dans Supabase Storage.'}
+        />
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
           {filteredFiles.map((file) => (
@@ -286,7 +282,7 @@ export const MediaLibraryView: React.FC<MediaLibraryViewProps> = ({ showToast })
                 }}
                 className="px-3 py-1 rounded bg-[#FFE500] text-black text-[10px] font-bold uppercase"
               >
-                Copier l&apos;URL
+                Copier l'URL
               </button>
             </div>
           </div>

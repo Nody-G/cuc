@@ -3,23 +3,28 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Phone, Mail, ExternalLink } from 'lucide-react';
-import {
-  InstagramLogo,
-  YouTubeLogo,
-  TikTokLogo,
-  FacebookLogo,
-  WhatsAppLogo,
-} from '@/components/ui/BrandLogos';
+import { SocialIcon } from '@/components/ui/logos/SocialLogos';
 import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data/site-service';
+import { useSocialLinks } from '@/lib/hooks/useNavigation';
 
+/**
+ * Lignes directes + réseaux sociaux du pied de page.
+ * Les réseaux sont pilotés par `site_social_links` (fallback `DEFAULT_SOCIAL_LINKS`),
+ * les coordonnées par `site_settings`.
+ */
 export const FooterDirectContacts: React.FC = () => {
   const [settings, setSettings] = useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
+  const socialLinks = useSocialLinks();
 
   useEffect(() => {
     getSiteSettings().then((s) => {
       if (s) setSettings(s);
     });
   }, []);
+
+  const footerSocials = [...socialLinks]
+    .filter((social) => social.is_active && social.show_in_footer)
+    .sort((a, b) => a.order_index - b.order_index);
 
   return (
     <>
@@ -55,17 +60,17 @@ export const FooterDirectContacts: React.FC = () => {
               href="/contact-cuc"
               className="inline-flex items-center justify-between w-full p-2.5 bg-[#FFE500] text-black font-display uppercase font-bold text-xs tracking-wider hover:bg-[#FFF04D] transition-colors"
             >
-              <span>Dossier d&apos;Admission 2026/2027</span>
+              <span>Dossier d'Admission 2026/2027</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Socials & Networks with Official Brand Logos */}
+      {/* Socials & Networks — pilotés par site_social_links */}
       <div className="space-y-3">
         <h4 className="text-base font-display uppercase tracking-wider text-white border-b border-zinc-800 pb-2">
-          Réseaux &amp; Médias
+          Réseaux & Médias
         </h4>
 
         <p className="text-xs text-zinc-400 font-tech">
@@ -74,97 +79,29 @@ export const FooterDirectContacts: React.FC = () => {
         </p>
 
         <div className="flex flex-col space-y-2">
-          {/* Instagram */}
-          <a
-            href="https://www.instagram.com/campus.univers.cascades/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between px-3 py-2 bg-[#101016] border border-zinc-800 hover:border-[#E1306C]/70 text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
-          >
-            <div className="flex items-center gap-2.5">
-              <InstagramLogo
-                variant="color"
-                className="w-4 h-4 shrink-0 group-hover:scale-110 transition-transform"
-              />
-              <span className="group-hover:text-white">Instagram</span>
-            </div>
-            <span className="text-[10px] text-zinc-500 font-mono-tech group-hover:text-[#E1306C]">
-              @campus.univers.cascades
-            </span>
-          </a>
-
-          {/* YouTube */}
-          <a
-            href="https://www.youtube.com/@campusuniverscascades"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between px-3 py-2 bg-[#101016] border border-zinc-800 hover:border-[#FF0000]/70 text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
-          >
-            <div className="flex items-center gap-2.5">
-              <YouTubeLogo
-                variant="color"
-                className="w-4 h-4 shrink-0 group-hover:scale-110 transition-transform"
-              />
-              <span className="group-hover:text-white">YouTube</span>
-            </div>
-            <span className="text-[10px] text-zinc-500 font-mono-tech group-hover:text-[#FF0000]">
-              Chaîne Stunt Team
-            </span>
-          </a>
-
-          {/* TikTok */}
-          <a
-            href="https://www.tiktok.com/@campus.univers.cascades"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between px-3 py-2 bg-[#101016] border border-zinc-800 hover:border-[#25F4EE]/70 text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
-          >
-            <div className="flex items-center gap-2.5">
-              <TikTokLogo
-                variant="color"
-                className="w-4 h-4 shrink-0 group-hover:scale-110 transition-transform"
-              />
-              <span className="group-hover:text-white">TikTok</span>
-            </div>
-            <span className="text-[10px] text-zinc-500 font-mono-tech group-hover:text-[#25F4EE]">
-              @campus.univers.cascades
-            </span>
-          </a>
-
-          {/* Facebook */}
-          <a
-            href="https://www.facebook.com/campus.univers.cascades"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between px-3 py-2 bg-[#101016] border border-zinc-800 hover:border-[#1877F2]/70 text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
-          >
-            <div className="flex items-center gap-2.5">
-              <FacebookLogo
-                variant="color"
-                className="w-4 h-4 shrink-0 group-hover:scale-110 transition-transform"
-              />
-              <span className="group-hover:text-white">Facebook</span>
-            </div>
-            <span className="text-[10px] text-zinc-500 font-mono-tech group-hover:text-[#1877F2]">
-              Page Facebook
-            </span>
-          </a>
-
-          {/* WhatsApp Pro */}
-          <a
-            href="https://wa.me/33672849492?text=Bonjour%2C%20je%20souhaite%20des%20renseignements%20sur%20les%20formations%20du%20CUC"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between px-3 py-2 bg-[#101016] border border-zinc-800 hover:border-[#25D366]/70 text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
-          >
-            <div className="flex items-center gap-2.5">
-              <WhatsAppLogo className="w-4 h-4 shrink-0 group-hover:scale-110 transition-transform" />
-              <span className="group-hover:text-white">WhatsApp</span>
-            </div>
-            <span className="text-[10px] text-zinc-500 font-mono-tech group-hover:text-[#25D366]">
-              Ligne Admission Pro
-            </span>
-          </a>
+          {footerSocials.map((social) => (
+            <a
+              key={social.id}
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between px-3 py-2 bg-[#101016] border border-zinc-800 hover:border-[#FFE500]/70 text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
+            >
+              <div className="flex items-center gap-2.5">
+                <SocialIcon
+                  platform={social.platform}
+                  variant="color"
+                  className="w-4 h-4 shrink-0 group-hover:scale-110 transition-transform"
+                />
+                <span className="group-hover:text-white">{social.label}</span>
+              </div>
+              {social.display_hint && (
+                <span className="text-[10px] text-zinc-500 font-mono-tech group-hover:text-[#FFE500]">
+                  {social.display_hint}
+                </span>
+              )}
+            </a>
+          ))}
         </div>
       </div>
     </>

@@ -8,6 +8,7 @@ import { StudioGlobalAtmosphere } from '@/components/ui/parallax';
 import {
   HomeAboutSection,
   HomeTournagesSection,
+  HomeVirtualTourSection,
   HomeQualiopiSection,
   HomePartnersSection,
   HomeSocialSection,
@@ -30,14 +31,37 @@ export default function Home() {
       case 'about':
         return <HomeAboutSection key="about" aboutData={content.sections_data?.about} />;
       case 'tournages':
+        return (
+          <HomeTournagesSection
+            key="tournages"
+            tournagesData={content.sections_data?.tournages}
+          />
+        );
       case 'virtual_tour':
-        return <HomeTournagesSection key="tournages" />;
+        return (
+          <HomeVirtualTourSection
+            key="virtual_tour"
+            virtualTourData={content.sections_data?.virtual_tour}
+          />
+        );
       case 'qualiopi':
-        return <HomeQualiopiSection key="qualiopi" />;
+        return (
+          <HomeQualiopiSection
+            key="qualiopi"
+            qualiopiData={content.sections_data?.qualiopi}
+          />
+        );
       case 'partners':
-        return <HomePartnersSection key="partners" />;
+        return (
+          <HomePartnersSection
+            key="partners"
+            partnersData={content.sections_data?.partners}
+          />
+        );
       case 'social':
-        return <HomeSocialSection key="social" />;
+        return (
+          <HomeSocialSection key="social" socialData={content.sections_data?.social} />
+        );
       default:
         return null;
     }
@@ -58,10 +82,13 @@ export default function Home() {
           <>
             <ParallaxHero heroData={content.hero} />
             <HomeAboutSection aboutData={content.sections_data?.about} />
-            <HomeTournagesSection />
-            <HomeQualiopiSection />
-            <HomePartnersSection />
-            <HomeSocialSection />
+            <HomeTournagesSection tournagesData={content.sections_data?.tournages} />
+            <HomeVirtualTourSection
+              virtualTourData={content.sections_data?.virtual_tour}
+            />
+            <HomeQualiopiSection qualiopiData={content.sections_data?.qualiopi} />
+            <HomePartnersSection partnersData={content.sections_data?.partners} />
+            <HomeSocialSection socialData={content.sections_data?.social} />
           </>
         )}
       </main>

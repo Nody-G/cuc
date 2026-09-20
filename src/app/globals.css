@@ -583,3 +583,94 @@ dialog[open] {
     animation: none !important;
   }
 }
+
+/* ===================================================
+   THÈME CLAIR DU COCKPIT (Phase 2 — confort de travail)
+   ===================================================
+   Strictement scopé à `[data-cockpit-root][data-cockpit-theme="light"]` :
+   la vitrine publique n'est jamais affectée. On remappe les surfaces
+   sombres du Cockpit vers des équivalents clairs à fort contraste
+   (WCAG 2.2 AA) tout en conservant l'accent jaune CUC. */
+
+[data-cockpit-root][data-cockpit-theme='light'] {
+  --cockpit-bg: #f4f4f7;
+  --cockpit-surface: #ffffff;
+  --cockpit-surface-2: #fafafc;
+  --cockpit-border: rgba(0, 0, 0, 0.1);
+  --cockpit-text: #16161c;
+  --cockpit-text-muted: #4b4b57;
+  background-color: var(--cockpit-bg);
+  color: var(--cockpit-text);
+}
+
+/* Fonds sombres → clairs */
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#070709\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#060608\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#08080C\] {
+  background-color: var(--cockpit-bg);
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#0D0D12\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#121218\] {
+  background-color: var(--cockpit-surface);
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .bg-black\/60,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-black\/50,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-black\/40 {
+  background-color: var(--cockpit-surface-2);
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .bg-white\/5 {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .bg-white\/10 {
+  background-color: rgba(0, 0, 0, 0.07);
+}
+
+/* Bordures */
+[data-cockpit-root][data-cockpit-theme='light'] .border-white\/10,
+[data-cockpit-root][data-cockpit-theme='light'] .border-white\/15,
+[data-cockpit-root][data-cockpit-theme='light'] .border-white\/20,
+[data-cockpit-root][data-cockpit-theme='light'] .border-white\/5 {
+  border-color: var(--cockpit-border);
+}
+
+/* Textes */
+[data-cockpit-root][data-cockpit-theme='light'] .text-white {
+  color: var(--cockpit-text);
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .text-gray-100,
+[data-cockpit-root][data-cockpit-theme='light'] .text-gray-300 {
+  color: #2b2b34;
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .text-gray-400,
+[data-cockpit-root][data-cockpit-theme='light'] .text-zinc-400,
+[data-cockpit-root][data-cockpit-theme='light'] .text-zinc-500 {
+  color: var(--cockpit-text-muted);
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .text-gray-500,
+[data-cockpit-root][data-cockpit-theme='light'] .text-gray-600 {
+  color: #6b6b78;
+}
+
+/* Champs de saisie */
+[data-cockpit-root][data-cockpit-theme='light'] input,
+[data-cockpit-root][data-cockpit-theme='light'] textarea,
+[data-cockpit-root][data-cockpit-theme='light'] select {
+  color: var(--cockpit-text);
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] input::placeholder,
+[data-cockpit-root][data-cockpit-theme='light'] textarea::placeholder {
+  color: #8a8a96;
+}
+
+/* Le jaune CUC reste lisible : on assombrit le texte posé dessus */
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#FFE500\] {
+  color: #000000;
+}

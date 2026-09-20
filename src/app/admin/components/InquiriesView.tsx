@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { SiteInquiry, getInquiries } from '@/lib/data/site-service';
 import { StuntProgram } from '@/types';
+import { CockpitLoadMore, useProgressiveList } from './ui';
 import {
   updateInquiryStatus,
   updateInquiryNotes,
@@ -290,15 +291,15 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
           prev.map((it) =>
             it.id === id
               ? {
-                  ...it,
-                  status: 'admis',
-                  metadata: {
-                    ...(it.metadata || {}),
-                    cuc_sign_student_id: res.profile_id,
-                    cuc_sign_formation_id: res.formation_id,
-                    converted_at: new Date().toISOString(),
-                  },
-                }
+                ...it,
+                status: 'admis',
+                metadata: {
+                  ...(it.metadata || {}),
+                  cuc_sign_student_id: res.profile_id,
+                  cuc_sign_formation_id: res.formation_id,
+                  converted_at: new Date().toISOString(),
+                },
+              }
               : it
           )
         );
@@ -306,15 +307,15 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
           setSelectedInquiry((prev) =>
             prev
               ? {
-                  ...prev,
-                  status: 'admis',
-                  metadata: {
-                    ...(prev.metadata || {}),
-                    cuc_sign_student_id: res.profile_id,
-                    cuc_sign_formation_id: res.formation_id,
-                    converted_at: new Date().toISOString(),
-                  },
-                }
+                ...prev,
+                status: 'admis',
+                metadata: {
+                  ...(prev.metadata || {}),
+                  cuc_sign_student_id: res.profile_id,
+                  cuc_sign_formation_id: res.formation_id,
+                  converted_at: new Date().toISOString(),
+                },
+              }
               : null
           );
         }
@@ -390,6 +391,23 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
       return matchesStatus && matchesQuery;
     });
   }, [inquiries, statusFilter, searchQuery]);
+
+  /**
+   * Rendu progressif : on ne monte qu'une fenêtre bornée de candidatures.
+   * La fenêtre se réinitialise à chaque changement de filtre ou de recherche
+   * pour éviter de conserver un rendu étendu hors contexte.
+   */
+  const {
+    visibleItems: visibleInquiries,
+    visibleCount: visibleInquiryCount,
+    total: totalInquiries,
+    hasMore: hasMoreInquiries,
+    loadMore: loadMoreInquiries,
+  } = useProgressiveList(filteredInquiries, {
+    step: 25,
+    initial: 25,
+    resetKey: `${statusFilter}|${searchQuery}`,
+  });
 
   const stats = useMemo(() => {
     return {
@@ -511,18 +529,16 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
               key={tab.id}
               type="button"
               onClick={() => setStatusFilter(tab.id)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors flex items-center gap-1.5 cursor-pointer ${
-                statusFilter === tab.id
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors flex items-center gap-1.5 cursor-pointer ${statusFilter === tab.id
                   ? 'bg-[#FFE500] text-black font-bold'
                   : 'text-gray-400 hover:text-white hover:bg-white/5'
-              }`}
+                }`}
             >
               <span>{tab.label}</span>
               {tab.count !== undefined && tab.count > 0 && (
                 <span
-                  className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                    statusFilter === tab.id ? 'bg-black text-[#FFE500]' : 'bg-white/10 text-gray-300'
-                  }`}
+                  className={`text-[10px] px-1.5 py-0.2 rounded-full ${statusFilter === tab.id ? 'bg-black text-[#FFE500]' : 'bg-white/10 text-gray-300'
+                    }`}
                 >
                   {tab.count}
                 </span>
@@ -553,7 +569,7 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
           </div>
         ) : (
           <div className="divide-y divide-white/5">
-            {filteredInquiries.map((inq) => (
+            {visibleInquiries.map((inq) => (
               <div
                 key={inq.id}
                 className="p-4 hover:bg-white/5 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4 cursor-pointer"
@@ -631,6 +647,16 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
                 </div>
               </div>
             ))}
+            {hasMoreInquiries && (
+              <div className="p-4">
+                <CockpitLoadMore
+                  visibleCount={visibleInquiryCount}
+                  total={totalInquiries}
+                  onLoadMore={loadMoreInquiries}
+                  label="Afficher plus de candidatures"
+                />
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -766,11 +792,10 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
                       key={step.id}
                       type="button"
                       onClick={() => handleToggleChecklist(step.id)}
-                      className={`flex items-center gap-2 p-2.5 rounded-lg text-left text-xs font-medium border transition-colors cursor-pointer ${
-                        isChecked
+                      className={`flex items-center gap-2 p-2.5 rounded-lg text-left text-xs font-medium border transition-colors cursor-pointer ${isChecked
                           ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
                           : 'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:bg-white/10'
-                      }`}
+                        }`}
                     >
                       {isChecked ? (
                         <CheckSquare className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -802,11 +827,10 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
                       setSelectedTemplateId(tmpl.id);
                       setCopiedTemplate(false);
                     }}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors flex items-center gap-1.5 cursor-pointer ${
-                      selectedTemplateId === tmpl.id
+                    className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors flex items-center gap-1.5 cursor-pointer ${selectedTemplateId === tmpl.id
                         ? 'bg-white text-black font-bold'
                         : 'bg-white/5 text-gray-400 hover:text-white border border-white/5'
-                    }`}
+                      }`}
                   >
                     <span>{tmpl.name}</span>
                   </button>

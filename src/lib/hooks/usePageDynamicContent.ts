@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { SitePageContent, DEFAULT_PAGE_CONTENTS, normalizeSlug } from '@/lib/data/site-service';
+import { getPreviewDraft, subscribePreviewDraft } from '@/lib/preview/preview-store';
 
 /**
  * Hook dynamique de synchronisation du contenu d'une page du site vitrine.
@@ -168,6 +169,35 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
       isMounted = false;
       supabase.removeChannel(channel);
     };
+  }, [cleanSlug]);
+
+  // Aperçu live du Cockpit : si un brouillon est poussé via `postMessage`,
+  // il prend le pas sur le contenu Supabase sans rechargement ni écriture.
+  useEffect(() => {
+    const applyDraft = (draft: SitePageContent) => {
+      if (normalizeSlug(draft.slug) !== cleanSlug) return;
+      setContent((prev) => ({
+        ...prev,
+        ...draft,
+        hero: { ...prev.hero, ...(draft.hero || {}) },
+        layout_sections:
+          draft.layout_sections && draft.layout_sections.length > 0
+            ? draft.layout_sections
+            : prev.layout_sections,
+        sections_data: deepMergeSectionsData(
+          defaultData.sections_data,
+          draft.sections_data
+        ),
+        sections:
+          draft.sections && draft.sections.length > 0 ? draft.sections : prev.sections,
+      }));
+    };
+
+    // Applique un éventuel brouillon déjà présent (iframe rechargée).
+    const existing = getPreviewDraft();
+    if (existing) applyDraft(existing);
+
+    return subscribePreviewDraft(applyDraft);
   }, [cleanSlug]);
 
   return { content, isLoading };

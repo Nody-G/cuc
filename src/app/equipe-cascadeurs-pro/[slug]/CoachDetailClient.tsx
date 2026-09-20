@@ -64,47 +64,29 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
   const member = allTeam.find((m) => m.id === slug) || CUC_TEAM.find((m) => m.id === slug);
 
   // Parsing des crédits de tournage du coach
+  const notableCredits = member?.notableCredits;
   const parsedCredits: ParsedCredit[] = useMemo(() => {
-    if (!member?.notableCredits) return [];
-    return member.notableCredits.map(parseCredit);
-  }, [member?.notableCredits]);
-
-  if (!member) {
-    return (
-      <div className="min-h-screen bg-[#060608] text-white flex flex-col items-center justify-center p-4">
-        <Navbar />
-        <div className="text-center max-w-md my-auto">
-          <h1 className="text-4xl font-display uppercase text-white mb-4">Coach Introuvable</h1>
-          <p className="text-sm font-tech text-zinc-400 mb-6">
-            Ce membre de l'équipe pédagogique n'existe pas ou a été déplacé.
-          </p>
-          <Link
-            href="/equipe-cascadeurs-pro"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FFE500] text-black font-mono-tech text-xs uppercase font-bold"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Retour à l'équipe</span>
-          </Link>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
+    if (!notableCredits) return [];
+    return notableCredits.map(parseCredit);
+  }, [notableCredits]);
 
   // Films associés à cet instructeur.
   // L'appariement par crédit se fait sur le TITRE normalisé (suffixe d'année
   // retiré) et non plus par sous-chaîne brute : « Lupin (2021) — Cascadeur »
   // correspond désormais au film « Lupin » du catalogue.
-  const relatedFilms = allFilms.filter((f) => {
-    if (member.film_ids && member.film_ids.includes(f.id)) return true;
-    if (f.cuc_team_involved && f.cuc_team_involved.includes(member.id)) return true;
-    if (!member.notableCredits) return false;
-    const filmKey = normalizeTitleKey(f.title);
-    return member.notableCredits.some((c) => {
-      const creditKey = normalizeTitleKey(parseCredit(c).title || c);
-      return creditKey && creditKey === filmKey;
+  const relatedFilms = useMemo(() => {
+    if (!member) return [];
+    return allFilms.filter((f) => {
+      if (member.film_ids && member.film_ids.includes(f.id)) return true;
+      if (f.cuc_team_involved && f.cuc_team_involved.includes(member.id)) return true;
+      if (!member.notableCredits) return false;
+      const filmKey = normalizeTitleKey(f.title);
+      return member.notableCredits.some((c) => {
+        const creditKey = normalizeTitleKey(parseCredit(c).title || c);
+        return creditKey && creditKey === filmKey;
+      });
     });
-  });
+  }, [allFilms, member]);
 
   // Crédits mis en avant depuis le cockpit (ordre d'affichage prioritaire).
   // Le libellé stocké peut être « Titre — Rôle » : on ne compare que le titre,
@@ -150,6 +132,30 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
       return compare(a, b);
     });
   }, [relatedFilms, filmSort, featuredOrder]);
+
+  // Garde d'affichage placée APRÈS tous les hooks : les règles des hooks
+  // imposent un nombre d'appels constant entre les rendus.
+  if (!member) {
+    return (
+      <div className="min-h-screen bg-[#060608] text-white flex flex-col items-center justify-center p-4">
+        <Navbar />
+        <div className="text-center max-w-md my-auto">
+          <h1 className="text-4xl font-display uppercase text-white mb-4">Coach Introuvable</h1>
+          <p className="text-sm font-tech text-zinc-400 mb-6">
+            Ce membre de l'équipe pédagogique n'existe pas ou a été déplacé.
+          </p>
+          <Link
+            href="/equipe-cascadeurs-pro"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FFE500] text-black font-mono-tech text-xs uppercase font-bold"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Retour à l'équipe</span>
+          </Link>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   // Fonction pour obtenir le rôle précis du coach sur un film donné.
   // Le libellé brut est systématiquement ramené à un rôle canonique lisible

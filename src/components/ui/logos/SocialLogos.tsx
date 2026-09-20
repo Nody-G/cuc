@@ -164,3 +164,29 @@ export const WhatsAppLogo: React.FC<LogoProps & { variant?: 'mono' | 'color' }> 
     </svg>
   );
 };
+
+/**
+ * Dispatcher d'icône sociale par plateforme.
+ *
+ * Permet de rendre dynamiquement les réseaux sociaux issus de la table
+ * `site_social_links` sans coder en dur chaque logo dans les composants.
+ * Les plateformes inconnues sont ignorées (retour `null`).
+ */
+export const SocialIcon: React.FC<
+  LogoProps & { platform: string; variant?: 'mono' | 'color' }
+> = ({ platform, className, variant = 'color' }) => {
+  switch (platform) {
+    case 'instagram':
+      return <InstagramLogo className={className} variant={variant} />;
+    case 'youtube':
+      return <YouTubeLogo className={className} variant={variant} />;
+    case 'tiktok':
+      return <TikTokLogo className={className} variant={variant} />;
+    case 'facebook':
+      return <FacebookLogo className={className} variant={variant} />;
+    case 'whatsapp':
+      return <WhatsAppLogo className={className} variant={variant} />;
+    default:
+      return null;
+  }
+};
