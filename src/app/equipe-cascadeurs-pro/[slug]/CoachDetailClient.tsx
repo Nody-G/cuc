@@ -10,7 +10,6 @@ import { TacticalButton } from '@/components/ui/TacticalButton';
 import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getTeam, getFilms } from '@/lib/data/site-service';
-import { orderCreditsForDisplay } from '@/lib/credit-notability';
 import { normalizeRole } from '@/lib/credit-role';
 import { Instructor, FilmCredit, parseCredit, ParsedCredit } from '@/types';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
@@ -20,14 +19,10 @@ import {
   Film,
   Award,
   Globe,
-  Clapperboard,
   Users,
   ArrowRight,
   ArrowLeft,
   Sparkles,
-  Search,
-  CheckCircle2,
-  Filter,
   Maximize2,
 } from 'lucide-react';
 
@@ -39,11 +34,6 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
   const [allTeam, setAllTeam] = useState<Instructor[]>(CUC_TEAM);
   const [allFilms, setAllFilms] = useState<FilmCredit[]>(FILMOGRAPHY_CREDITS);
   const [selectedFilmModal, setSelectedFilmModal] = useState<FilmCredit | null>(null);
-
-  // Filtres & recherche pour les crédits de tournage
-  const [creditFilter, setCreditFilter] = useState<'all' | 'coordination' | 'stunt' | 'doublure'>('all');
-  const [creditSearch, setCreditSearch] = useState('');
-  const [isCreditsExpanded, setIsCreditsExpanded] = useState(false);
 
   useEffect(() => {
     getTeam().then((t) => {
@@ -61,49 +51,6 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
     if (!member?.notableCredits) return [];
     return member.notableCredits.map(parseCredit);
   }, [member?.notableCredits]);
-
-  const coordCount = useMemo(
-    () => parsedCredits.filter((c) => c.category === 'coordination').length,
-    [parsedCredits]
-  );
-  const doublureCount = useMemo(
-    () => parsedCredits.filter((c) => c.category === 'doublure').length,
-    [parsedCredits]
-  );
-  const stuntCount = useMemo(
-    () => parsedCredits.filter((c) => c.category !== 'coordination').length,
-    [parsedCredits]
-  );
-
-  // Ordre d'affichage : les crédits mis en avant dans le Cockpit d'abord,
-  // puis les autres par notoriété décroissante du film correspondant.
-  const orderedCredits = useMemo(
-    () => orderCreditsForDisplay(member?.notableCredits || [], member?.featuredCredits, allFilms),
-    [member?.notableCredits, member?.featuredCredits, allFilms]
-  );
-
-  const filteredCredits = useMemo(() => {
-    return orderedCredits.filter((c) => {
-      if (creditFilter === 'coordination' && c.category !== 'coordination') return false;
-      if (creditFilter === 'doublure' && c.category !== 'doublure') return false;
-      if (creditFilter === 'stunt' && c.category === 'coordination') return false;
-      if (creditSearch) {
-        const q = creditSearch.toLowerCase();
-        return c.title.toLowerCase().includes(q) || (c.role && c.role.toLowerCase().includes(q));
-      }
-      return true;
-    });
-  }, [orderedCredits, creditFilter, creditSearch]);
-
-  // Limite d'affichage configurable depuis le Cockpit (défaut : 8).
-  const creditsDisplayLimit =
-    typeof member?.creditsDisplayLimit === 'number' && member.creditsDisplayLimit > 0
-      ? member.creditsDisplayLimit
-      : 8;
-
-  const displayedCredits = isCreditsExpanded
-    ? filteredCredits
-    : filteredCredits.slice(0, creditsDisplayLimit);
 
   if (!member) {
     return (
@@ -322,7 +269,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
               <div className="bg-[#0e0e14] border border-zinc-800 p-6 sm:p-8 relative">
                 <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 uppercase tracking-wider mb-4 pb-3 border-b border-zinc-800/80">
                   <Award className="w-4 h-4 text-[#FFE500]" />
-                  <span>Trajectoire &amp; Philosophie</span>
+                  <span>Trajectoire & Philosophie</span>
                 </div>
 
                 <p className="text-sm sm:text-base font-tech text-zinc-200 leading-relaxed whitespace-pre-line">
@@ -334,7 +281,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
               <div>
                 <h2 className="text-sm font-mono-tech uppercase tracking-wider text-zinc-400 mb-3 flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-[#FFE500]" />
-                  <span>Domaines d'expertise &amp; Disciplines enseignées :</span>
+                  <span>Domaines d'expertise & Disciplines enseignées :</span>
                 </h2>
                 <div className="flex flex-wrap gap-2">
                   {member.specialties.map((spec, idx) => (
@@ -353,169 +300,11 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
                 <div className="bg-[#14141e] border border-zinc-800 p-5">
                   <h2 className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider mb-2 flex items-center gap-2">
                     <Users className="w-4 h-4" />
-                    <span>Acteurs doublés à l&apos;écran :</span>
+                    <span>Acteurs doublés à l'écran :</span>
                   </h2>
                   <p className="text-sm font-tech text-zinc-300">
                     {member.doubledActors.join(' • ')}
                   </p>
-                </div>
-              )}
-
-              {/* Tournages & Crédits Qualifiés (Coordination vs Cascades) */}
-              {parsedCredits.length > 0 && (
-                <div className="bg-[#0e0e14] border border-zinc-800 p-5 sm:p-6 space-y-4">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-zinc-800/80">
-                    <div>
-                      <h2 className="text-xs font-mono-tech text-white uppercase tracking-wider font-bold flex items-center gap-2">
-                        <Clapperboard className="w-4 h-4 text-[#FFE500]" />
-                        <span>Tournages &amp; Crédits Techniques ({parsedCredits.length})</span>
-                      </h2>
-                      <p className="text-[11px] font-tech text-zinc-400 mt-0.5">
-                        Distinction précise des rôles exercés (Coordination, Cascades physiques, Doublures)
-                      </p>
-                    </div>
-
-                    {/* Filtres par catégorie */}
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <button
-                        type="button"
-                        onClick={() => setCreditFilter('all')}
-                        className={`px-2.5 py-1 text-[10px] font-mono-tech uppercase font-bold transition rounded-xs cursor-pointer ${creditFilter === 'all'
-                          ? 'bg-[#FFE500] text-black'
-                          : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'
-                          }`}
-                      >
-                        Tous ({parsedCredits.length})
-                      </button>
-
-                      {coordCount > 0 && (
-                        <button
-                          type="button"
-                          onClick={() => setCreditFilter('coordination')}
-                          className={`px-2.5 py-1 text-[10px] font-mono-tech uppercase font-bold transition rounded-xs cursor-pointer flex items-center gap-1 ${creditFilter === 'coordination'
-                            ? 'bg-[#FFE500] text-black font-extrabold'
-                            : 'bg-zinc-900 text-[#FFE500] hover:bg-[#FFE500]/10 border border-[#FFE500]/30'
-                            }`}
-                        >
-                          <ShieldCheck className="w-3 h-3" />
-                          <span>Coordination ({coordCount})</span>
-                        </button>
-                      )}
-
-                      {stuntCount > 0 && (
-                        <button
-                          type="button"
-                          onClick={() => setCreditFilter('stunt')}
-                          className={`px-2.5 py-1 text-[10px] font-mono-tech uppercase font-bold transition rounded-xs cursor-pointer flex items-center gap-1 ${creditFilter === 'stunt'
-                            ? 'bg-zinc-200 text-black font-extrabold'
-                            : 'bg-zinc-900 text-zinc-300 hover:text-white border border-zinc-800'
-                            }`}
-                        >
-                          <Award className="w-3 h-3" />
-                          <span>Cascades ({stuntCount})</span>
-                        </button>
-                      )}
-
-                      {doublureCount > 0 && (
-                        <button
-                          type="button"
-                          onClick={() => setCreditFilter('doublure')}
-                          className={`px-2.5 py-1 text-[10px] font-mono-tech uppercase font-bold transition rounded-xs cursor-pointer flex items-center gap-1 ${creditFilter === 'doublure'
-                            ? 'bg-sky-400 text-black font-extrabold'
-                            : 'bg-zinc-900 text-sky-300 hover:bg-sky-500/10 border border-sky-500/30'
-                            }`}
-                        >
-                          <Users className="w-3 h-3" />
-                          <span>Doublures ({doublureCount})</span>
-                        </button>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Champ de recherche si plus de 6 crédits */}
-                  {parsedCredits.length > 6 && (
-                    <div className="relative">
-                      <Search className="w-3.5 h-3.5 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                      <input
-                        type="text"
-                        placeholder="Filtrer les films ou rôles de ce formateur..."
-                        value={creditSearch}
-                        onChange={(e) => setCreditSearch(e.target.value)}
-                        className="w-full bg-black/60 border border-zinc-800 rounded-xs pl-8 pr-3 py-1.5 text-xs text-zinc-200 placeholder:text-zinc-600 focus:outline-none focus:border-[#FFE500]"
-                      />
-                    </div>
-                  )}
-
-                  {/* Grille des crédits précis */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {displayedCredits.map((credit, cIdx) => {
-                      const isCoord = credit.category === 'coordination';
-                      const isDoublure = credit.category === 'doublure';
-
-                      return (
-                        <div
-                          key={cIdx}
-                          className={`p-2.5 bg-black/60 border rounded-xs flex flex-col justify-between transition-colors ${isCoord
-                            ? 'border-[#FFE500]/40 hover:border-[#FFE500]'
-                            : isDoublure
-                              ? 'border-sky-500/40 hover:border-sky-400'
-                              : 'border-zinc-800 hover:border-zinc-700'
-                            }`}
-                        >
-                          <div className="flex items-start justify-between gap-2 mb-1.5">
-                            <span className="font-display uppercase text-sm text-white tracking-wide">
-                              {credit.title}
-                            </span>
-                            {credit.year && (
-                              <span className="text-[10px] font-mono-tech text-zinc-500 shrink-0">
-                                {credit.year}
-                              </span>
-                            )}
-                          </div>
-
-                          <div>
-                            {isCoord ? (
-                              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-[#FFE500]/15 text-[#FFE500] border border-[#FFE500]/40 text-[10px] font-mono-tech font-bold uppercase rounded-xs">
-                                <ShieldCheck className="w-3 h-3 shrink-0" />
-                                <span>{credit.role || 'Coordinateur des cascades'}</span>
-                              </span>
-                            ) : isDoublure ? (
-                              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-sky-500/15 text-sky-300 border border-sky-500/30 text-[10px] font-mono-tech font-bold uppercase rounded-xs">
-                                <Users className="w-3 h-3 shrink-0" />
-                                <span>{credit.role || 'Doublure'}</span>
-                              </span>
-                            ) : (
-                              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-zinc-800/80 text-zinc-300 border border-zinc-700 text-[10px] font-mono-tech uppercase rounded-xs">
-                                <Award className="w-3 h-3 shrink-0 text-zinc-400" />
-                                <span>{credit.role || 'Cascadeur'}</span>
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  {/* Bouton pour afficher l'ensemble des crédits */}
-                  {filteredCredits.length > 8 && (
-                    <div className="pt-2 text-center">
-                      <button
-                        type="button"
-                        onClick={() => setIsCreditsExpanded(!isCreditsExpanded)}
-                        className="px-4 py-2 bg-zinc-900 hover:bg-[#FFE500] hover:text-black border border-zinc-800 hover:border-[#FFE500] text-xs font-mono-tech uppercase font-bold transition-all cursor-pointer inline-flex items-center gap-2"
-                      >
-                        <span>
-                          {isCreditsExpanded
-                            ? 'Réduire la liste'
-                            : `Afficher tous les crédits (${filteredCredits.length})`}
-                        </span>
-                        <ChevronRight
-                          className={`w-3.5 h-3.5 transition-transform ${isCreditsExpanded ? '-rotate-90' : 'rotate-90'
-                            }`}
-                        />
-                      </button>
-                    </div>
-                  )}
                 </div>
               )}
 
@@ -543,10 +332,10 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
                 <div>
                   <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] uppercase font-bold mb-1">
                     <Film className="w-4 h-4" />
-                    <span>FILMOGRAPHIE &amp; PRODUCTIONS CINÉMA</span>
+                    <span>FILMOGRAPHIE & PRODUCTIONS CINÉMA</span>
                   </div>
                   <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                    Cascades &amp; Tournages de {member.name}
+                    Cascades & Tournages de {member.name}
                   </h2>
                   <p className="text-xs font-tech text-zinc-400 mt-1">
                     Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués.
@@ -654,7 +443,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
                   FACULTÉ DU CAMPUS
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                  Autres Coordinateurs &amp; Instructeurs
+                  Autres Coordinateurs & Instructeurs
                 </h2>
               </div>
 
