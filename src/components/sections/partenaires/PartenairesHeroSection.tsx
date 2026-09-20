@@ -16,7 +16,7 @@ export const PartenairesHeroSection: React.FC<PartenairesHeroSectionProps> = ({ 
   const title = hero?.title || 'NOS PARTENAIRES';
   const subtitle =
     hero?.subtitle ||
-    'Le Campus Univers Cascades travaille avec des marques, fabricants et institutions reconnus dans leurs domaines : équipement, protection, effets spéciaux et formation.';
+    'Équipementiers, effets spéciaux, protections et structures partenaires du Campus Univers Cascades.';
   const bgImage =
     hero?.bg_image ||
     'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-6-scaled.jpg';
