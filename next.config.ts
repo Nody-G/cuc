@@ -38,6 +38,23 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      // Affiches officielles IMDb (Amazon Media Group).
+      {
+        protocol: "https",
+        hostname: "m.media-amazon.com",
+      },
+      {
+        protocol: "https",
+        hostname: "media-amazon.com",
+      },
+      {
+        protocol: "https",
+        hostname: "ia.media-imdb.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images-na.ssl-images-amazon.com",
+      },
     ],
   },
   // --- Sécurité ---

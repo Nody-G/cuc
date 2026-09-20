@@ -571,13 +571,22 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
                       <div>
                         {/* Affiche du film */}
                         <div className="relative aspect-[2/3] w-full bg-black overflow-hidden">
-                          <Image
-                            src={film.image}
-                            alt={film.title}
-                            fill
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                            className="object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
+                          {film.image ? (
+                            <Image
+                              src={film.image}
+                              alt={film.title}
+                              fill
+                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                              className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                          ) : (
+                            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-zinc-900 to-black">
+                              <Film className="w-10 h-10 text-zinc-700" />
+                              <span className="text-[10px] font-mono-tech uppercase tracking-wider text-zinc-600 px-4 text-center">
+                                {film.title}
+                              </span>
+                            </div>
+                          )}
                           <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e14] via-transparent to-transparent opacity-90" />
 
                           {/* Année */}
