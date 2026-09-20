@@ -1088,10 +1088,10 @@ export const DEFAULT_PARTNERS: SitePartner[] = [
     is_published: true,
   },
   {
-    id: 'otm-incendie',
-    name: 'OTM Incendie',
+    id: 'tm-incendie',
+    name: 'TM Incendie',
     category: 'materiel',
-    logo_url: '/images/partenaires/otm-incendie.jpg',
+    logo_url: '/images/partenaires/tm-incendie.jpg',
     description: "Vente et maintenance d'équipements de sécurité incendie et extincteurs.",
     order_index: 7,
     is_published: true,

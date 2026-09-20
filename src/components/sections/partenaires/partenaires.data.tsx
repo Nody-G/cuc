@@ -97,11 +97,11 @@ export const CUC_PARTNERS: PartnerCategoryGroup[] = [
         website: "https://www.kiloutou.fr",
       },
       {
-        name: "OTM Incendie",
+        name: "TM Incendie",
         category: "Sécurité Incendie",
         role: "Protection Incendie",
         description: "Vente et maintenance de matériel de sécurité incendie et extincteurs.",
-        logo: "/images/partenaires/otm-incendie.jpg",
+        logo: "/images/partenaires/tm-incendie.jpg",
         bgVariant: 'dark',
       },
     ],
