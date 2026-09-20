@@ -11,6 +11,7 @@ import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getTeam, getFilms } from '@/lib/data/site-service';
 import { normalizeRole } from '@/lib/credit-role';
+import { ImdbLogo } from '@/components/ui/BrandLogos';
 import { Instructor, FilmCredit, parseCredit, ParsedCredit } from '@/types';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
 import {
@@ -243,17 +244,17 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
                 </div>
 
                 {/* Liens Officiels & Profils en pied de photo */}
-                <div className="p-4 bg-[#0a0a0f] flex items-center justify-between gap-2 border-t border-zinc-800/80">
+                <div className="p-4 bg-[#0a0a0f] flex items-center gap-2 border-t border-zinc-800/80">
                   <div className="flex items-center gap-2">
                     {member.imdb && (
                       <a
                         href={member.imdb}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-1.5 bg-[#14141e] hover:bg-[#F5C518] hover:text-black border border-zinc-800 hover:border-[#F5C518] text-xs font-mono-tech font-bold uppercase transition-colors"
+                        className="px-3 py-1.5 bg-[#14141e] hover:bg-[#F5C518] border border-zinc-800 hover:border-[#F5C518] transition-colors flex items-center"
                         title="Fiche IMDb Officielle"
                       >
-                        IMDb
+                        <ImdbLogo className="h-4 w-auto" />
                       </a>
                     )}
 
@@ -294,10 +295,6 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
                       </a>
                     )}
                   </div>
-
-                  <span className="text-[10px] font-mono-tech text-zinc-500 uppercase tracking-wider">
-                    STAFF CUC
-                  </span>
                 </div>
               </div>
             </div>

@@ -739,41 +739,6 @@ export const TeamView: React.FC<TeamViewProps> = ({
                         </select>
                       </div>
 
-                      {/* Modules enseignés */}
-                      {disciplines.length > 0 && (
-                        <div>
-                          <label className="block text-[11px] font-mono text-zinc-400 mb-1.5">
-                            Modules de cascade enseignés par ce formateur :
-                          </label>
-                          <div className="grid grid-cols-2 gap-1.5 max-h-48 overflow-y-auto pr-1">
-                            {disciplines.map((d) => {
-                              const isChecked =
-                                editingMember.discipline_ids?.includes(d.id) ||
-                                d.instructor_ids?.includes(editingMember.id);
-                              return (
-                                <button
-                                  type="button"
-                                  key={d.id}
-                                  onClick={() => {
-                                    const current = editingMember.discipline_ids || [];
-                                    const updated = isChecked
-                                      ? current.filter((id) => id !== d.id)
-                                      : [...current, d.id];
-                                    setEditingMember({ ...editingMember, discipline_ids: updated });
-                                  }}
-                                  className={`flex items-center gap-1.5 px-2 py-1 rounded text-left text-[11px] transition border ${isChecked
-                                    ? 'bg-[#FFE500]/15 border-[#FFE500] text-white font-semibold'
-                                    : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/20'
-                                    }`}
-                                >
-                                  <span className="font-mono text-[10px] text-[#FFE500]">{d.number}</span>
-                                  <span className="truncate">{d.name}</span>
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
                     </div>
                   </div>
 
