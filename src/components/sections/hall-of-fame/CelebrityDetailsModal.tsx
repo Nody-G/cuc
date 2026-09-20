@@ -65,25 +65,29 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                 </h3>
               </div>
 
-              {/* Cascades */}
-              <div className="space-y-1">
-                <span className="text-[11px] font-mono-tech text-[#FFE500] uppercase font-bold block">
-                  Cascades &amp; scènes d&apos;action :
-                </span>
-                <p className="text-xs text-zinc-300 font-tech leading-relaxed">
-                  {celebrity.stuntSpecialty}
-                </p>
-              </div>
+              {/* Doublure cascades - Uniquement si une doublure dédiée est renseignée */}
+              {celebrity.stuntDoubles ? (
+                <div className="space-y-1">
+                  <span className="text-[11px] font-mono-tech text-[#FFE500] uppercase font-bold block">
+                    Doublure cascades :
+                  </span>
+                  <span className="text-xs text-white font-mono-tech font-bold">
+                    {celebrity.stuntDoubles}
+                  </span>
+                </div>
+              ) : null}
 
-              {/* Équipe / Doublure */}
-              <div className="space-y-1">
-                <span className="text-[11px] font-mono-tech text-zinc-500 uppercase font-bold block">
-                  Équipe CUC / Doublure :
-                </span>
-                <span className="text-xs text-zinc-200 font-mono-tech">
-                  {celebrity.stuntDoubles}
-                </span>
-              </div>
+              {/* Scènes d'action */}
+              {celebrity.stuntSpecialty ? (
+                <div className="space-y-1">
+                  <span className="text-[11px] font-mono-tech text-zinc-400 uppercase font-bold block">
+                    Cascades &amp; scènes d&apos;action :
+                  </span>
+                  <p className="text-xs text-zinc-300 font-tech leading-relaxed">
+                    {celebrity.stuntSpecialty}
+                  </p>
+                </div>
+              ) : null}
 
               {/* Films */}
               <div className="space-y-1.5">

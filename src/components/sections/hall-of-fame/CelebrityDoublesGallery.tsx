@@ -128,21 +128,20 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
                   {actor.name}
                 </h4>
 
-                {/* Stunt Specialty */}
-                <div className="mt-2.5 space-y-1">
-                  <div className="text-[10px] font-mono-tech text-[#FFE500] uppercase font-bold">
-                    Cascades :
+                {/* Stunt Double Reference - Uniquement si une doublure dédiée est renseignée */}
+                {actor.stuntDoubles ? (
+                  <div className="mt-2.5 inline-flex items-center gap-1.5 px-2 py-1 bg-[#FFE500]/10 border border-[#FFE500]/40 text-[10px] font-mono-tech text-[#FFE500] font-bold">
+                    <UserCheck className="w-3 h-3 flex-shrink-0" />
+                    <span>{actor.stuntDoubles}</span>
                   </div>
-                  <p className="text-[11px] text-zinc-300 font-tech leading-relaxed line-clamp-2">
+                ) : null}
+
+                {/* Stunt Specialty */}
+                {actor.stuntSpecialty ? (
+                  <p className="mt-2 text-[11px] text-zinc-300 font-tech leading-relaxed line-clamp-2">
                     {actor.stuntSpecialty}
                   </p>
-                </div>
-
-                {/* Stunt Double Reference */}
-                <div className="mt-2 text-[10px] font-mono-tech text-zinc-400">
-                  <span className="text-zinc-500 uppercase">Équipe / Doublure : </span>
-                  <span className="text-white font-bold">{actor.stuntDoubles}</span>
-                </div>
+                ) : null}
               </div>
 
               {/* Key Productions Badges */}

@@ -116,7 +116,7 @@ export const HomeTournagesSection: React.FC = () => {
                     <span>2. Vivier de 200+ Cascadeurs &amp; Doublures</span>
                   </div>
                   <p className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed">
-                    Doublures physiques des plus grands acteurs (Keanu Reeves, Pierre Niney, Tomer Sisley, Demi Moore...),
+                    Doublures cascades et cascadeurs professionnels sur les plus grandes productions de cinéma et de streaming,
                     performers multi-disciplinaires (chutes de hauteur, torche humaine, câblerie, parkour, armes).
                   </p>
                 </div>
