@@ -147,9 +147,17 @@ export const TeamView: React.FC<TeamViewProps> = ({
   /* ------------------------------------------------------------------ */
 
   /**
-   * Un crédit est identifié par le titre du film (clé stable côté base :
-   * `notable_credits` stocke "Titre — Rôle" et `featured_credits` stocke
-   * la même chaîne). On dérive donc tout depuis `notableCredits`.
+   * Clé canonique d'un crédit : le titre du film, normalisé (minuscules,
+   * espaces compactés). C'est la SEULE clé utilisée pour relier
+   * `notable_credits` et `featured_credits`, ce qui évite toute
+   * désynchronisation lorsque le rôle change.
+   */
+  const creditKey = (title: string) => title.trim().toLowerCase().replace(/\s+/g, ' ');
+
+  /**
+   * Index des crédits du formateur, dérivé de `notableCredits`.
+   * `raw` = chaîne persistée "Titre — Rôle" (ou "Titre"), `title` = titre
+   * affiché, `role` = rôle courant.
    */
   const creditIndex = useMemo(() => {
     const map = new Map<string, { raw: string; title: string; role: string }>();
@@ -157,7 +165,7 @@ export const TeamView: React.FC<TeamViewProps> = ({
       const parsed = parseCredit(raw);
       const title = (parsed.title || raw).trim();
       if (!title) return;
-      map.set(title.toLowerCase(), {
+      map.set(creditKey(title), {
         raw,
         title,
         role: parsed.role || extractRoleFromCredit(raw),
@@ -166,8 +174,19 @@ export const TeamView: React.FC<TeamViewProps> = ({
     return map;
   }, [editingMember?.notableCredits]);
 
+  /**
+   * Ensemble des titres mis en avant (clé = titre normalisé).
+   * On résout chaque entrée de `featured_credits` via `parseCredit` pour
+   * ne comparer que des titres — jamais des chaînes "Titre — Rôle".
+   */
   const featuredSet = useMemo(
-    () => new Set((editingMember?.featuredCredits || []).map((c) => c.toLowerCase())),
+    () =>
+      new Set(
+        (editingMember?.featuredCredits || [])
+          .map((c) => parseCredit(c).title || c)
+          .map((t) => creditKey(t))
+          .filter(Boolean)
+      ),
     [editingMember?.featuredCredits]
   );
 
@@ -177,7 +196,7 @@ export const TeamView: React.FC<TeamViewProps> = ({
     return films
       .filter((f) => {
         if (q && !f.title.toLowerCase().includes(q)) return false;
-        if (filmFilter === 'selected' && !creditIndex.has(f.title.toLowerCase())) return false;
+        if (filmFilter === 'selected' && !creditIndex.has(creditKey(f.title))) return false;
         return true;
       })
       .sort((a, b) => {
@@ -192,27 +211,46 @@ export const TeamView: React.FC<TeamViewProps> = ({
 
   /** Crédits saisis qui ne correspondent à aucun film du catalogue. */
   const orphanCredits = useMemo(() => {
-    const catalogueTitles = new Set(films.map((f) => f.title.toLowerCase()));
+    const catalogueTitles = new Set(films.map((f) => creditKey(f.title)));
     return (editingMember?.notableCredits || []).filter((raw) => {
       const parsed = parseCredit(raw);
-      const title = (parsed.title || raw).trim().toLowerCase();
+      const title = creditKey(parsed.title || raw);
       return title && !catalogueTitles.has(title);
     });
   }, [editingMember?.notableCredits, films]);
 
+  /**
+   * Liste unifiée : les crédits mis en avant d'abord (dans l'ordre choisi),
+   * puis les autres crédits du formateur. Sert de source unique d'affichage
+   * pour éviter la confusion entre "catalogue" et "crédits".
+   */
+  const featuredCreditsOrdered = useMemo(() => {
+    const list = editingMember?.featuredCredits || [];
+    return list
+      .map((raw, idx) => {
+        const parsed = parseCredit(raw);
+        const title = (parsed.title || raw).trim();
+        return { raw, title, key: creditKey(title), rank: idx };
+      })
+      .filter((e) => e.key);
+  }, [editingMember?.featuredCredits]);
+
   /** Ajoute ou retire un film du catalogue comme crédit du formateur. */
   const toggleFilmCredit = (film: FilmCredit) => {
     if (!editingMember) return;
-    const key = film.title.toLowerCase();
+    const key = creditKey(film.title);
     const existing = creditIndex.get(key);
     const currentCredits = editingMember.notableCredits || [];
     const currentFeatured = editingMember.featuredCredits || [];
 
     if (existing) {
+      // Retrait : on purge aussi la mise en avant correspondante (par titre).
       setEditingMember({
         ...editingMember,
         notableCredits: currentCredits.filter((c) => c !== existing.raw),
-        featuredCredits: currentFeatured.filter((c) => c !== existing.raw),
+        featuredCredits: currentFeatured.filter(
+          (c) => creditKey(parseCredit(c).title || c) !== key
+        ),
       });
       return;
     }
@@ -227,7 +265,7 @@ export const TeamView: React.FC<TeamViewProps> = ({
   /** Change le rôle d'un crédit existant (reconstruit la chaîne). */
   const setCreditRole = (filmTitle: string, role: string) => {
     if (!editingMember) return;
-    const key = filmTitle.toLowerCase();
+    const key = creditKey(filmTitle);
     const existing = creditIndex.get(key);
     if (!existing) return;
 
@@ -238,31 +276,38 @@ export const TeamView: React.FC<TeamViewProps> = ({
     setEditingMember({
       ...editingMember,
       notableCredits: currentCredits.map((c) => (c === existing.raw ? nextRaw : c)),
-      featuredCredits: currentFeatured.map((c) => (c === existing.raw ? nextRaw : c)),
+      // La mise en avant suit le nouveau libellé, appariée par titre.
+      featuredCredits: currentFeatured.map((c) =>
+        creditKey(parseCredit(c).title || c) === key ? nextRaw : c
+      ),
     });
   };
 
-  /** Bascule la mise en avant d'un crédit. */
+  /** Bascule la mise en avant d'un crédit (appariement par titre). */
   const toggleFeatured = (filmTitle: string) => {
     if (!editingMember) return;
-    const existing = creditIndex.get(filmTitle.toLowerCase());
+    const key = creditKey(filmTitle);
+    const existing = creditIndex.get(key);
     if (!existing) return;
 
     const currentFeatured = editingMember.featuredCredits || [];
-    const isFeatured = currentFeatured.includes(existing.raw);
+    const isFeatured = currentFeatured.some(
+      (c) => creditKey(parseCredit(c).title || c) === key
+    );
+
     setEditingMember({
       ...editingMember,
       featuredCredits: isFeatured
-        ? currentFeatured.filter((c) => c !== existing.raw)
+        ? currentFeatured.filter((c) => creditKey(parseCredit(c).title || c) !== key)
         : [...currentFeatured, existing.raw],
     });
   };
 
-  /** Réordonne les crédits mis en avant. */
-  const moveFeatured = (raw: string, direction: -1 | 1) => {
+  /** Réordonne les crédits mis en avant (par titre normalisé). */
+  const moveFeatured = (key: string, direction: -1 | 1) => {
     if (!editingMember) return;
     const featured = editingMember.featuredCredits || [];
-    const idx = featured.indexOf(raw);
+    const idx = featured.findIndex((c) => creditKey(parseCredit(c).title || c) === key);
     if (idx < 0) return;
     const target = idx + direction;
     if (target < 0 || target >= featured.length) return;
@@ -274,15 +319,18 @@ export const TeamView: React.FC<TeamViewProps> = ({
   /** Supprime un crédit orphelin (hors catalogue). */
   const removeOrphanCredit = (raw: string) => {
     if (!editingMember) return;
+    const key = creditKey(parseCredit(raw).title || raw);
     setEditingMember({
       ...editingMember,
       notableCredits: (editingMember.notableCredits || []).filter((c) => c !== raw),
-      featuredCredits: (editingMember.featuredCredits || []).filter((c) => c !== raw),
+      featuredCredits: (editingMember.featuredCredits || []).filter(
+        (c) => creditKey(parseCredit(c).title || c) !== key
+      ),
     });
   };
 
   const selectedCount = creditIndex.size;
-  const featuredCount = (editingMember?.featuredCredits || []).length;
+  const featuredCount = featuredCreditsOrdered.length;
 
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
@@ -766,64 +814,12 @@ export const TeamView: React.FC<TeamViewProps> = ({
                       </select>
                     </div>
 
-                    {/* Crédits mis en avant (ordre d'affichage public) */}
-                    {featuredCount > 0 && (
-                      <div className="p-3.5 bg-black/40 border border-[#FFE500]/25 rounded-xl space-y-2">
-                        <div className="flex items-center gap-2 text-[11px] font-bold text-[#FFE500] uppercase tracking-wider">
-                          <Star className="w-3.5 h-3.5" />
-                          En tête de fiche publique (ordre d'affichage)
-                        </div>
-                        <div className="space-y-1">
-                          {(editingMember.featuredCredits || []).map((raw, idx) => (
-                            <div
-                              key={raw}
-                              className="flex items-center gap-1.5 px-2 py-1 bg-[#FFE500]/10 border border-[#FFE500]/30 rounded text-[11px]"
-                            >
-                              <span className="font-mono text-[10px] text-[#FFE500] w-4 shrink-0">
-                                {idx + 1}
-                              </span>
-                              <span className="flex-1 truncate text-white">{raw}</span>
-                              <button
-                                type="button"
-                                onClick={() => moveFeatured(raw, -1)}
-                                disabled={idx === 0}
-                                className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30"
-                                title="Monter"
-                              >
-                                <ArrowUp className="w-3 h-3" />
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => moveFeatured(raw, 1)}
-                                disabled={idx === (editingMember.featuredCredits || []).length - 1}
-                                className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30"
-                                title="Descendre"
-                              >
-                                <ArrowDown className="w-3 h-3" />
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  const parsed = parseCredit(raw);
-                                  toggleFeatured(parsed.title || raw);
-                                }}
-                                className="p-0.5 text-zinc-400 hover:text-red-400"
-                                title="Retirer de la mise en avant"
-                              >
-                                <Trash2 className="w-3 h-3" />
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Catalogue de films : source unique de sélection */}
+                    {/* Filmographie unifiée : une seule liste, mise en avant incluse */}
                     <div className="p-3.5 bg-black/40 border border-white/10 rounded-xl space-y-3">
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-2 text-xs font-bold text-[#FFE500] uppercase tracking-wider">
                           <Film className="w-3.5 h-3.5" />
-                          Catalogue de films
+                          Filmographie du formateur
                         </div>
                         <span className="text-[10px] font-mono text-purple-300 shrink-0">
                           {selectedCount} / {films.length}
@@ -832,8 +828,10 @@ export const TeamView: React.FC<TeamViewProps> = ({
 
                       <p className="text-[11px] text-zinc-400 leading-relaxed">
                         Cochez les films où ce formateur est intervenu, puis précisez son rôle.
-                        Cliquez sur l'étoile <Star className="inline w-3 h-3 text-[#FFE500] -mt-0.5" /> pour
-                        placer un film en tête de la fiche publique, puis réordonnez-le ci-dessus.
+                        Cliquez sur l'étoile{' '}
+                        <Star className="inline w-3 h-3 text-[#FFE500] -mt-0.5" /> pour placer un film
+                        en tête de la fiche publique : les films étoilés remontent en haut de la liste
+                        et se réordonnent avec les flèches.
                       </p>
 
                       {/* Recherche + tri + filtre */}
@@ -875,14 +873,21 @@ export const TeamView: React.FC<TeamViewProps> = ({
 
                       <div className="max-h-[26rem] overflow-y-auto pr-1 space-y-1.5">
                         {visibleFilms.map((f) => {
-                          const entry = creditIndex.get(f.title.toLowerCase());
+                          const key = creditKey(f.title);
+                          const entry = creditIndex.get(key);
                           const isChecked = Boolean(entry);
+                          const isFeatured = featuredSet.has(key);
+                          const featuredRank = featuredCreditsOrdered.findIndex(
+                            (e) => e.key === key
+                          );
                           return (
                             <div
                               key={f.id}
-                              className={`rounded-lg border transition ${isChecked
-                                ? 'bg-purple-500/10 border-purple-500/50'
-                                : 'bg-black/60 border-white/10 hover:border-white/20'
+                              className={`rounded-lg border transition ${isFeatured
+                                ? 'bg-[#FFE500]/10 border-[#FFE500]/40'
+                                : isChecked
+                                  ? 'bg-purple-500/10 border-purple-500/50'
+                                  : 'bg-black/60 border-white/10 hover:border-white/20'
                                 }`}
                             >
                               <div className="flex items-center gap-2 px-2 py-1.5">
@@ -913,21 +918,48 @@ export const TeamView: React.FC<TeamViewProps> = ({
                                 </button>
 
                                 {isChecked && (
-                                  <button
-                                    type="button"
-                                    onClick={() => toggleFeatured(f.title)}
-                                    className={`p-1 rounded shrink-0 transition ${featuredSet.has(f.title.toLowerCase())
-                                      ? 'text-[#FFE500]'
-                                      : 'text-zinc-600 hover:text-[#FFE500]'
-                                      }`}
-                                    title={
-                                      featuredSet.has(f.title.toLowerCase())
-                                        ? 'Retirer de la mise en avant'
-                                        : 'Mettre en avant sur la fiche publique'
-                                    }
-                                  >
-                                    <Star className="w-3.5 h-3.5" />
-                                  </button>
+                                  <div className="flex items-center gap-0.5 shrink-0">
+                                    {isFeatured && (
+                                      <>
+                                        <span className="font-mono text-[9px] text-[#FFE500] w-3 text-center">
+                                          {featuredRank + 1}
+                                        </span>
+                                        <button
+                                          type="button"
+                                          onClick={() => moveFeatured(key, -1)}
+                                          disabled={featuredRank === 0}
+                                          className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30"
+                                          title="Monter dans la mise en avant"
+                                        >
+                                          <ArrowUp className="w-3 h-3" />
+                                        </button>
+                                        <button
+                                          type="button"
+                                          onClick={() => moveFeatured(key, 1)}
+                                          disabled={featuredRank === featuredCount - 1}
+                                          className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30"
+                                          title="Descendre dans la mise en avant"
+                                        >
+                                          <ArrowDown className="w-3 h-3" />
+                                        </button>
+                                      </>
+                                    )}
+                                    <button
+                                      type="button"
+                                      onClick={() => toggleFeatured(f.title)}
+                                      className={`p-1 rounded transition ${isFeatured
+                                        ? 'text-[#FFE500]'
+                                        : 'text-zinc-600 hover:text-[#FFE500]'
+                                        }`}
+                                      title={
+                                        isFeatured
+                                          ? 'Retirer de la mise en avant'
+                                          : 'Mettre en avant sur la fiche publique'
+                                      }
+                                    >
+                                      <Star className="w-3.5 h-3.5" />
+                                    </button>
+                                  </div>
                                 )}
                               </div>
 

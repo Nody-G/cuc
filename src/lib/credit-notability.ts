@@ -90,13 +90,22 @@ export function matchFilmForCredit(credit: ParsedCredit, films: FilmCredit[]): F
 }
 
 /**
+ * Clé canonique d'un titre : minuscules + espaces compactés.
+ * Identique à `creditKey()` (cockpit) et `normalizeTitleKey()` (fiche publique)
+ * afin que la mise en avant soit reconnue partout, même si le rôle a changé.
+ */
+function titleKey(title: string): string {
+    return title.trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+/**
  * Construit la liste ordonnée des crédits d'un coach, en mettant en tête les
  * films explicitement sélectionnés dans le Cockpit (`featuredCredits`), puis
  * les autres par notoriété décroissante.
  *
- * `featuredCredits` contient des chaînes de crédit brutes (identiques à celles
- * de `notableCredits`) : la sélection est donc stable même si l'ordre de
- * `notableCredits` change.
+ * L'appariement se fait par TITRE (et non par chaîne brute "Titre — Rôle") :
+ * la mise en avant reste donc valide même si le rôle du crédit est modifié
+ * après coup dans le Cockpit.
  */
 export function orderCreditsForDisplay(
     notableCredits: string[],
@@ -110,17 +119,28 @@ export function orderCreditsForDisplay(
         return sortCreditsByFilmNotability(parsed, films);
     }
 
-    const featuredSet = new Set(featured);
+    // Rang de mise en avant indexé par titre normalisé.
+    const featuredRank = new Map<string, number>();
+    featured.forEach((raw, idx) => {
+        const key = titleKey(parseCredit(raw).title || raw);
+        if (key && !featuredRank.has(key)) featuredRank.set(key, idx);
+    });
+
     const pinned: ParsedCredit[] = [];
     const rest: ParsedCredit[] = [];
 
     for (const credit of parsed) {
-        if (featuredSet.has(credit.raw)) pinned.push(credit);
+        const key = titleKey(credit.title || credit.raw);
+        if (featuredRank.has(key)) pinned.push(credit);
         else rest.push(credit);
     }
 
     // Conserve l'ordre de sélection choisi dans le Cockpit.
-    pinned.sort((a, b) => featured.indexOf(a.raw) - featured.indexOf(b.raw));
+    pinned.sort(
+        (a, b) =>
+            (featuredRank.get(titleKey(a.title || a.raw)) ?? 0) -
+            (featuredRank.get(titleKey(b.title || b.raw)) ?? 0)
+    );
 
     return [...pinned, ...sortCreditsByFilmNotability(rest, films)];
 }

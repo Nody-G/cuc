@@ -29,6 +29,15 @@ import {
 
 type FilmSort = 'year-desc' | 'year-asc' | 'title-asc' | 'title-desc';
 
+/**
+ * Clé canonique d'un titre de film : minuscules + espaces compactés.
+ * Doit rester identique à `creditKey()` du cockpit (TeamView) pour que la
+ * mise en avant définie côté admin soit reconnue côté public.
+ */
+function normalizeTitleKey(title: string): string {
+  return title.trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
 interface CoachDetailClientProps {
   slug: string;
 }
@@ -88,12 +97,13 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
   );
 
   // Crédits mis en avant depuis le cockpit (ordre d'affichage prioritaire).
-  // Le libellé stocké peut être « Titre — Rôle » : on ne compare que le titre.
+  // Le libellé stocké peut être « Titre — Rôle » : on ne compare que le titre,
+  // normalisé exactement comme dans le cockpit (minuscules + espaces compactés).
   const featuredOrder = useMemo(() => {
     const map = new Map<string, number>();
     (member?.featuredCredits || []).forEach((raw, idx) => {
       const title = parseCredit(raw).title || raw;
-      map.set(title.trim().toLowerCase(), idx);
+      map.set(normalizeTitleKey(title), idx);
     });
     return map;
   }, [member?.featuredCredits]);
@@ -120,8 +130,8 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
       }
     };
     return list.sort((a, b) => {
-      const rankA = featuredOrder.get(a.title.trim().toLowerCase());
-      const rankB = featuredOrder.get(b.title.trim().toLowerCase());
+      const rankA = featuredOrder.get(normalizeTitleKey(a.title));
+      const rankB = featuredOrder.get(normalizeTitleKey(b.title));
       const isFeaturedA = rankA !== undefined;
       const isFeaturedB = rankB !== undefined;
       if (isFeaturedA && isFeaturedB) return (rankA as number) - (rankB as number);
@@ -413,7 +423,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {sortedFilms.map((film) => {
                   const { role, isCoord, isDoublure } = getCoachFilmRole(film);
-                  const isFeatured = featuredOrder.has(film.title.trim().toLowerCase());
+                  const isFeatured = featuredOrder.has(normalizeTitleKey(film.title));
 
                   return (
                     <div
