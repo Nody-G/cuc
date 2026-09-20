@@ -98,8 +98,7 @@ export const HallOfFame: React.FC = () => {
           </h2>
           <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-[#FFE500] to-transparent mx-auto my-3" />
           <p className="text-sm sm:text-base text-zinc-400 font-tech mt-2">
-            L&apos;équipe fondatrice et les cascadeurs diplômés du Campus Univers Cascades conçoivent, coordonnent
-            et exécutent les cascades des plus grandes franchises mondiales et doublent les stars du 7e art.
+            Retrouvez une sélection de productions audiovisuelles et cinématographiques sur lesquelles sont intervenus les cascadeurs et formateurs du CUC.
           </p>
         </div>
 
@@ -111,19 +110,18 @@ export const HallOfFame: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <Film className="w-4 h-4 text-[#00e5ff]" />
-                <span className="text-xs font-mono-tech text-[#00e5ff] uppercase font-bold tracking-wider">
-                  CATALOGUE TOURNAGES DU CAMPUS
+                <Film className="w-4 h-4 text-[#FFE500]" />
+                <span className="text-xs font-mono-tech text-zinc-400 uppercase font-bold tracking-wider">
+                  FILMOGRAPHIE
                 </span>
               </div>
               <h3 className="text-3xl sm:text-4xl font-display uppercase tracking-tight text-white">
-                LES FILMS COORDONNÉS &amp; DOUBLÉS
+                FILMS &amp; SÉRIES
               </h3>
             </div>
 
             <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400">
-              <span className="inline-block w-2 h-2 rounded-full bg-[#00e5ff] animate-pulse" />
-              <span>CLIQUEZ SUR UN FILM POUR LE DOSSIER DE PRODUCTION (MULTI-LIENS PROS)</span>
+              <span>Cliquez sur un film pour afficher les détails</span>
             </div>
           </div>
 

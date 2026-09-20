@@ -43,11 +43,11 @@ export const FilmGridCard: React.FC<FilmGridCardProps> = ({
           </span>
         </div>
 
-        {/* HOVER ACTION BAR (DESKTOP QUICK ACCESS MULTI-LINK) */}
+        {/* HOVER ACTION BAR */}
         <div className="absolute inset-0 bg-black/85 backdrop-blur-xs flex flex-col items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20">
-          <div className="text-[10px] font-mono-tech text-[#FFE500] uppercase tracking-wider font-bold mb-3 flex items-center gap-1.5">
-            <Film className="w-3.5 h-3.5" />
-            <span>RÉFÉRENCES PROFESSIONNELLES</span>
+          <div className="text-[10px] font-mono-tech text-zinc-400 uppercase tracking-wider font-bold mb-3 flex items-center gap-1.5">
+            <Film className="w-3.5 h-3.5 text-[#FFE500]" />
+            <span>LIENS</span>
           </div>
 
           <div className="flex flex-col gap-2 w-full max-w-[210px]">
@@ -61,7 +61,7 @@ export const FilmGridCard: React.FC<FilmGridCardProps> = ({
               title={`Voir la fiche IMDb de ${movie.title}`}
             >
               <ImdbLogo className="h-4 w-auto shrink-0" />
-              <span className="text-[11px]">Fiche &amp; Stunt Team</span>
+              <span className="text-[11px]">Fiche IMDb</span>
             </a>
 
             {/* AlloCiné Link */}
@@ -74,7 +74,7 @@ export const FilmGridCard: React.FC<FilmGridCardProps> = ({
               title={`Voir la fiche AlloCiné de ${movie.title}`}
             >
               <AllocineLogo className="h-4 w-auto shrink-0" />
-              <span className="text-[11px]">Fiche France</span>
+              <span className="text-[11px]">AlloCiné</span>
             </a>
 
             {/* Official Trailer Link */}
@@ -88,15 +88,15 @@ export const FilmGridCard: React.FC<FilmGridCardProps> = ({
             >
               <span className="flex items-center gap-2">
                 <YouTubeLogo className="w-4 h-4 shrink-0" variant="color" />
-                <span className="text-[11px]">Trailer HD</span>
+                <span className="text-[11px]">Bande-annonce</span>
               </span>
               <ExternalLink className="w-3.5 h-3.5 shrink-0" />
             </a>
           </div>
 
           <span className="text-[10px] text-zinc-400 font-tech mt-3 flex items-center gap-1">
-            <Info className="w-3 h-3 text-[#00e5ff]" />
-            <span>Cliquez pour le dossier complet</span>
+            <Info className="w-3 h-3 text-zinc-400" />
+            <span>Cliquer pour les détails</span>
           </span>
         </div>
       </div>

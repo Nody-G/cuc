@@ -75,9 +75,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2024",
     "category": "Blockbuster",
     "director": "John Woo",
-    "stuntRoles": "Gun-fu John Woo, câblage 3D, chutes à travers cloisons et fusillades au ralenti.",
+    "stuntRoles": "Combats chorégraphiés, câblage et cascades physiques.",
     "doubledActors": [
-      "Nathalie Emmanuel & Omar Sy (Doublures Cascades CUC)"
+      "Doublures cascades CUC"
     ],
     "highlight": true,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/The-Killer.jpg",
@@ -97,9 +97,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2024",
     "category": "Cinéma Français",
     "director": "Olivier Masset-Depasse",
-    "stuntRoles": "Combats véloces à mains nues, chutes de véhicules lancés, rigging aérien et poursuites.",
+    "stuntRoles": "Combats et cascades physiques.",
     "doubledActors": [
-      "Tomer Sisley (Doublé par Vincent Bouillon & CUC Team)"
+      "Tomer Sisley (doublé par Vincent Bouillon)"
     ],
     "highlight": true,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Largo-Winch.jpg",
@@ -119,13 +119,13 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2024",
     "category": "Streaming Global",
     "director": "Xavier Gens",
-    "stuntRoles": "Cascades subaquatiques, mouvements de panique fluviale, chutes dans l'eau et impacts d'explosions.",
+    "stuntRoles": "Cascades subaquatiques et physiques.",
     "doubledActors": [
-      "Bérénice Bejo & Nassim Lyes (Équipe Cascades CUC)"
+      "Équipe cascades CUC"
     ],
     "highlight": true,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Sous-la-seine.jpg",
-    "tag": "NETFLIX WORLDWIDE",
+    "tag": "NETFLIX",
     "imdbUrl": "https://www.imdb.com/title/tt13964390/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=313341.html",
     "trailerUrl": "https://www.youtube.com/watch?v=HPfkQ9gMLMY",
@@ -141,7 +141,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2024",
     "category": "Série / Plateforme",
     "director": "Cédric Nicolas-Troyan",
-    "stuntRoles": "Combats rapprochés féminins rythmés, gun-fu, chutes de passerelles et bagarres dans les bas-fonds parisiens.",
+    "stuntRoles": "Combats chorégraphiés et cascades physiques.",
     "doubledActors": [],
     "highlight": false,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Furies.jpg",
@@ -157,13 +157,13 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2024",
     "category": "Cinéma Français",
     "director": "Florent-Emilio Siri",
-    "stuntRoles": "Combats tactiques rapprochés, affrontements à mains nues et fusillades en espace confiné.",
+    "stuntRoles": "Combats et cascades physiques.",
     "doubledActors": [
-      "Roschdy Zem (Cascades & Combats Rapprochés)"
+      "Roschdy Zem"
     ],
     "highlight": true,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/ELYAS.jpg",
-    "tag": "POLAR TACTIQUE",
+    "tag": "POLAR",
     "imdbUrl": "https://www.imdb.com/title/tt28336131/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=317127.html",
     "trailerUrl": "https://www.youtube.com/watch?v=CurKNMuYof8",
@@ -179,9 +179,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2024",
     "category": "Cinéma Français",
     "director": "Matthieu Delaporte & Alexandre de La Patellière",
-    "stuntRoles": "Combats d'époque à l'épée, sauts de falaise, chutes en mer et évasion du Château d'If.",
+    "stuntRoles": "Combats d'époque à l'épée et cascades physiques.",
     "doubledActors": [
-      "Pierre Niney (Équipe Cascades & Combats)"
+      "Pierre Niney"
     ],
     "highlight": true,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/LE-COMTE-DE-MONTECRISTO-1.jpg",
@@ -201,14 +201,14 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2024",
     "category": "Cinéma Français",
     "director": "Gilles Lellouche",
-    "stuntRoles": "Affrontements de rue percutants, fusillades, chutes sur sol dur et scènes de poursuite.",
+    "stuntRoles": "Combats et cascades physiques.",
     "doubledActors": [
       "François Civil",
-      "Adèle Exarchopoulos (Cascades Action)"
+      "Adèle Exarchopoulos"
     ],
     "highlight": true,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Lamour-ouf.jpg",
-    "tag": "BOX-OFFICE",
+    "tag": "CINÉMA",
     "imdbUrl": "https://www.imdb.com/title/tt27490099/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=221617.html",
     "trailerUrl": "https://www.youtube.com/watch?v=bSbA6Aeydbs",
@@ -224,13 +224,13 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2024",
     "category": "Cinéma International",
     "director": "Coralie Fargeat",
-    "stuntRoles": "Cascades physiques sous prothèses lourdes, chutes corporelles et impacts de haute intensité.",
+    "stuntRoles": "Cascades physiques.",
     "doubledActors": [
-      "Demi Moore & Margaret Qualley (Stunt Support)"
+      "Équipe cascades CUC"
     ],
     "highlight": true,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/The-substance.jpg",
-    "tag": "FESTIVAL DE CANNES",
+    "tag": "CINÉMA",
     "imdbUrl": "https://www.imdb.com/title/tt17526714/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=300680.html",
     "trailerUrl": "https://www.youtube.com/watch?v=mcEFQwRbBZg",
@@ -277,10 +277,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2023",
     "category": "Blockbuster",
     "director": "Chad Stahelski",
-    "stuntRoles": "Combats de triades, gun-fu, chutes dans les 222 marches de Montmartre et cascades physiques.",
+    "stuntRoles": "Combats et cascades physiques (séquences parisiennes).",
     "doubledActors": [
-      "Keanu Reeves (Stunt Doubling Support)",
-      "High Table Enforcers (CUC Performers)"
+      "Cascadeurs CUC"
     ],
     "highlight": true,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2023/03/John-Wick-4.jpg",
@@ -557,7 +556,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2019",
     "category": "Cinéma Français",
     "director": "Philippe Lacheau",
-    "stuntRoles": "Chorégraphies d'action manga rythmées, gun-fu cartoonesque, chutes de mobilier et esquives spectaculaires.",
+    "stuntRoles": "Combats chorégraphiés et cascades physiques.",
     "doubledActors": [],
     "highlight": false,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2021/04/Nikki-Larson.jpg",
@@ -669,16 +668,14 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2017",
     "category": "Blockbuster",
     "director": "Luc Besson",
-    "stuntRoles": "Wirework 3 axes, harnais suspendus et simulations d'apesanteur en studio.",
-    "doubledActors": [
-      "Spécialistes Rigging & Cascadeurs CUC"
-    ],
+    "stuntRoles": "Câblage et cascades physiques en studio.",
+    "doubledActors": [],
     "highlight": false,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/1-Valerian.jpg",
     "tag": "SCIENCE-FICTION",
     "imdbUrl": "https://www.imdb.com/title/tt2239822/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=237821.html",
-    "trailerUrl": "https://www.youtube.com/watch?v=FPcRK7MvTn4",
+    "trailerUrl": "https://www.youtube.com/watch?FPcRK7MvTn4",
     "cuc_team_involved": [
       "jerome-gaspard",
       "franck-blanc"
@@ -690,10 +687,8 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2017",
     "category": "Blockbuster",
     "director": "Christopher Nolan",
-    "stuntRoles": "Chutes en mer, explosions côtières et mouvements de panique de masse tournés sur les plages du Nord.",
-    "doubledActors": [
-      "Soldats britanniques et marins (Performers Hauts-de-France / CUC)"
-    ],
+    "stuntRoles": "Chutes en mer et cascades physiques.",
+    "doubledActors": [],
     "highlight": false,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/25-Dunkirk.jpg",
     "tag": "WARNER BROS",
@@ -759,10 +754,8 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2015",
     "category": "Blockbuster",
     "director": "Sam Mendes",
-    "stuntRoles": "Cascades d'action urbaine, explosions contrôlées, poursuites et affrontements rapprochés.",
-    "doubledActors": [
-      "SPECTRE Enforcers & Performers Action"
-    ],
+    "stuntRoles": "Cascades physiques et scènes d'action.",
+    "doubledActors": [],
     "highlight": false,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/4-James-Bond-spectre.jpg",
     "tag": "EON PROD",
@@ -860,10 +853,8 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2014",
     "category": "Blockbuster",
     "director": "Luc Besson",
-    "stuntRoles": "Combats martiaux rapprochés, projections par câblage et réactions physiques aux impacts balistiques.",
-    "doubledActors": [
-      "Performers de Combat & Rigging CUC"
-    ],
+    "stuntRoles": "Combats et cascades physiques.",
+    "doubledActors": [],
     "highlight": false,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/6-Lucy.jpg",
     "tag": "EUROPACORP",
@@ -881,10 +872,8 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2013",
     "category": "Blockbuster",
     "director": "Justin Lin",
-    "stuntRoles": "Cascades automobiles, impacts cinétiques violents et combats d'action au corps-à-corps.",
-    "doubledActors": [
-      "Pilotes & Performers Cascades"
-    ],
+    "stuntRoles": "Cascades automobiles et physiques.",
+    "doubledActors": [],
     "highlight": false,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/9-Fast-Furious-6.jpg",
     "tag": "UNIVERSAL",
@@ -1077,13 +1066,13 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2001",
     "category": "Film Culte",
     "director": "Ariel Zeitoun & Julien Seri",
-    "stuntRoles": "Pionniers mondiaux du parkour et de l'Art du Déplacement (ADD), cascades urbaines sur les toitures.",
+    "stuntRoles": "Art du Déplacement (ADD) et cascades urbaines.",
     "doubledActors": [
-      "Malik Diouf (Rôle Titulaire Original & Co-fondateur CUC)"
+      "Malik Diouf (co-fondateur CUC)"
     ],
     "highlight": true,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/18-Yamakasi.jpg",
-    "tag": "ORIGINES DU PARKOUR",
+    "tag": "PARKOUR & ADD",
     "imdbUrl": "https://www.imdb.com/title/tt0267129/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=29366.html",
     "trailerUrl": "https://www.youtube.com/watch?v=aA0wW7E-Wok",

@@ -7,7 +7,7 @@ import { FilmCredit, Instructor } from '@/types';
 import { CUC_TEAM } from '@/data/team';
 import { getTeam } from '@/lib/data/site-service';
 import { ImdbLogo, AllocineLogo, YouTubeLogo } from '@/components/ui/BrandLogos';
-import { X, ShieldCheck, UserCheck, Layers, ExternalLink, Sparkles, Users, ChevronRight } from 'lucide-react';
+import { X, Clapperboard, ExternalLink, ChevronRight } from 'lucide-react';
 
 interface FilmDetailsModalProps {
   movie: FilmCredit | null;
@@ -31,90 +31,81 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-xs animate-fade-in"
       onClick={onClose}
     >
       <div
-        className="bg-[#0e0e12] border-2 border-[#FFE500] w-full max-w-3xl overflow-hidden relative shadow-[0_0_50px_rgba(0,0,0,0.9)] max-h-[90vh] flex flex-col"
+        className="bg-[#0e0e12] border border-zinc-700 w-full max-w-2xl overflow-hidden relative shadow-2xl max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-
-        {/* Modal Header */}
-        <div className="bg-[#141419] border-b border-zinc-800 px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FFE500] animate-pulse" />
-            <span className="text-xs font-mono-tech text-[#FFE500] font-bold tracking-wider uppercase">
-              RÉFÉRENCES &amp; TOURNAGES
+        {/* Header */}
+        <div className="bg-[#141419] border-b border-zinc-800 px-5 py-3.5 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Clapperboard className="w-4 h-4 text-[#FFE500]" />
+            <span className="text-xs font-mono-tech text-zinc-300 font-bold uppercase tracking-wider">
+              Détails du Film
             </span>
           </div>
           <button
             onClick={onClose}
-            className="text-zinc-400 hover:text-white p-1 hover:bg-zinc-800 transition-colors cursor-pointer"
-            aria-label="Fermer la fiche"
+            className="text-zinc-400 hover:text-white p-1 hover:bg-zinc-800 rounded-xs transition-colors cursor-pointer"
+            aria-label="Fermer"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Modal Scrollable Content */}
-        <div className="p-6 overflow-y-auto space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            {/* Left: Film Poster */}
-            <div className="md:col-span-5 relative h-72 md:h-full min-h-[300px] border border-zinc-800 bg-zinc-900 overflow-hidden">
+        {/* Content */}
+        <div className="p-6 overflow-y-auto space-y-5">
+          <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-start">
+            {/* Poster */}
+            <div className="sm:col-span-5 relative h-64 sm:h-72 w-full border border-zinc-800 bg-zinc-900 overflow-hidden">
               <Image
                 src={movie.image}
                 alt={movie.title}
                 fill
-                sizes="(max-width: 768px) 100vw, 300px"
+                sizes="(max-width: 640px) 100vw, 250px"
                 className="object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-              <div className="absolute top-3 left-3">
-                <span className="bg-[#FFE500] text-black text-xs font-mono-tech font-bold px-2 py-0.5">
+              <div className="absolute top-2 right-2">
+                <span className="bg-[#FFE500] text-black text-[10px] font-mono-tech font-bold px-2 py-0.5">
                   {movie.year}
-                </span>
-              </div>
-              <div className="absolute bottom-3 left-3 right-3 text-center">
-                <span className="bg-black/90 backdrop-blur-xs border border-white/20 text-xs font-mono-tech text-[#FFE500] px-3 py-1 font-bold inline-block">
-                  {movie.tag}
                 </span>
               </div>
             </div>
 
-            {/* Right: Detailed Dossier */}
-            <div className="md:col-span-7 flex flex-col justify-between space-y-4">
+            {/* Details */}
+            <div className="sm:col-span-7 space-y-4">
               <div>
-                <div className="text-xs font-mono-tech text-[#00e5ff] uppercase font-bold tracking-wider">
-                  {movie.category} • {movie.director ? `Réalisé par ${movie.director}` : 'Production'}
+                <div className="text-[11px] font-mono-tech text-zinc-500 uppercase">
+                  {movie.category}{movie.director ? ` • Réalisé par ${movie.director}` : ''}
                 </div>
-                <h3 className="text-3xl font-display uppercase tracking-tight text-white mt-1">
+                <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white mt-0.5">
                   {movie.title}
                 </h3>
               </div>
 
-              {/* CUC Real Stunt Mission */}
-              <div className="bg-[#141419] border border-zinc-800 p-4">
-                <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] font-bold uppercase mb-2">
-                  <ShieldCheck className="w-4 h-4 text-[#FFE500]" />
-                  <span>RÔLE &amp; INTERVENTION CUC</span>
-                </div>
-                <p className="text-sm text-zinc-300 font-tech leading-relaxed">
+              {/* Cascades / Intervention */}
+              <div className="space-y-1">
+                <span className="text-[11px] font-mono-tech text-[#FFE500] uppercase font-bold block">
+                  Cascades &amp; rôle :
+                </span>
+                <p className="text-xs text-zinc-300 font-tech leading-relaxed">
                   {movie.stuntRoles}
                 </p>
               </div>
 
-              {/* Doubled Actors */}
+              {/* Doublures */}
               {movie.doubledActors && movie.doubledActors.length > 0 && (
-                <div className="bg-[#141419] border border-zinc-800 p-4">
-                  <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] font-bold uppercase mb-2">
-                    <UserCheck className="w-4 h-4 text-[#FFE500]" />
-                    <span>DOUBLURES &amp; COMÉDIENS DOUBLÉS</span>
-                  </div>
-                  <div className="text-xs text-zinc-300 font-tech flex flex-wrap gap-2">
+                <div className="space-y-1">
+                  <span className="text-[11px] font-mono-tech text-zinc-500 uppercase font-bold block">
+                    Doublures &amp; comédiens :
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
                     {movie.doubledActors.map((actor, idx) => (
                       <span
                         key={idx}
-                        className="bg-black/60 border border-zinc-700 px-2 py-1 text-zinc-200"
+                        className="px-2 py-0.5 bg-[#141419] border border-zinc-800 text-xs font-mono-tech text-zinc-300"
                       >
                         {actor}
                       </span>
@@ -123,141 +114,100 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                 </div>
               )}
 
-              {/* Cascadeurs et Formateurs CUC engagés */}
+              {/* Équipe CUC */}
               {involvedTeamMembers.length > 0 && (
-                <div className="bg-[#141419] border border-[#FFE500]/30 p-4">
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] font-bold uppercase">
-                      <Users className="w-4 h-4 text-[#FFE500]" />
-                      <span>ÉQUIPE CUC ENGAGÉE</span>
-                    </div>
-                    <span className="text-[10px] font-mono-tech px-2 py-0.5 bg-[#FFE500]/10 border border-[#FFE500]/30 text-[#FFE500] font-bold">
-                      ÉQUIPE OFFICIELLE
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div className="space-y-1.5">
+                  <span className="text-[11px] font-mono-tech text-zinc-500 uppercase font-bold block">
+                    Équipe CUC :
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {involvedTeamMembers.map((member) => (
                       <Link
                         key={member.id}
-                        href={`/equipe-cascadeurs-pro#${member.id}`}
+                        href={`/equipe-cascadeurs-pro/${member.id}`}
                         onClick={onClose}
-                        className="group/member flex items-center gap-3 p-2 bg-black/60 border border-zinc-800 hover:border-[#FFE500] transition-colors"
+                        className="flex items-center gap-2.5 p-1.5 bg-[#141419] border border-zinc-800 hover:border-zinc-600 transition-colors"
                       >
-                        <div className="relative w-10 h-10 rounded-full overflow-hidden bg-zinc-800 shrink-0 border border-zinc-700 group-hover/member:border-[#FFE500]">
+                        <div className="relative w-7 h-7 rounded-full overflow-hidden bg-zinc-800 shrink-0">
                           {member.avatarUrl ? (
                             <Image
                               src={member.avatarUrl}
                               alt={member.name}
                               fill
-                              sizes="40px"
+                              sizes="28px"
                               className="object-cover"
                             />
                           ) : (
-                            <div className="w-full h-full flex items-center justify-center text-xs font-bold text-zinc-400">
+                            <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-zinc-400">
                               {member.name.charAt(0)}
                             </div>
                           )}
                         </div>
                         <div className="min-w-0 flex-1">
-                          <div className="text-xs font-display uppercase text-white group-hover/member:text-[#FFE500] truncate font-bold">
+                          <div className="text-xs font-mono-tech text-white truncate font-bold">
                             {member.name}
                           </div>
-                          <div className="text-[10px] font-mono-tech text-zinc-400 truncate">
+                          <div className="text-[10px] font-mono-tech text-zinc-500 truncate">
                             {member.role}
                           </div>
                         </div>
-                        <ChevronRight className="w-4 h-4 text-zinc-600 group-hover/member:text-[#FFE500] shrink-0" />
+                        <ChevronRight className="w-3.5 h-3.5 text-zinc-600 shrink-0" />
                       </Link>
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* Multi-Link Professional Hub */}
-              <div className="pt-2">
-                <div className="text-xs font-mono-tech text-zinc-400 uppercase tracking-wider font-bold mb-3 flex items-center gap-2">
-                  <Layers className="w-4 h-4 text-[#00e5ff]" />
-                  <span>FICHES OFFICIELLES &amp; CRÉDITS</span>
-                </div>
-
-                <div className="grid grid-cols-1 gap-2.5">
-                  {/* IMDb Link */}
+              {/* Liens externes */}
+              <div className="pt-2 flex flex-wrap gap-2">
+                {movie.imdbUrl && (
                   <a
                     href={movie.imdbUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/btn flex items-center p-3 bg-[#f5c518] hover:bg-[#ffe500] text-black transition-all shadow-md"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#f5c518] hover:bg-[#ffe500] text-black font-bold font-mono-tech text-xs transition-colors"
                   >
-                    <div className="flex items-center gap-3">
-                      <ImdbLogo className="h-6 w-auto shadow-xs" />
-                      <div>
-                        <div className="text-xs font-mono-tech font-bold uppercase">
-                          Fiche IMDb
-                        </div>
-                        <div className="text-[11px] text-zinc-900 font-tech">
-                          Crédits complets, département Stunts &amp; Fiche Équipe
-                        </div>
-                      </div>
-                    </div>
+                    <ImdbLogo className="h-3.5 w-auto" />
+                    <span>IMDb</span>
+                    <ExternalLink className="w-3 h-3 ml-0.5" />
                   </a>
-
-                  {/* AlloCiné Link */}
+                )}
+                {movie.allocineUrl && (
                   <a
                     href={movie.allocineUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/btn flex items-center p-3 bg-[#181820] hover:bg-[#22222d] border border-[#fecc00]/50 text-white transition-all"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#141419] hover:bg-zinc-800 text-[#fecc00] border border-zinc-700 font-mono-tech text-xs transition-colors"
                   >
-                    <div className="flex items-center gap-3">
-                      <AllocineLogo className="h-6 w-auto shadow-xs" />
-                      <div>
-                        <div className="text-xs font-mono-tech font-bold text-[#fecc00] uppercase">
-                          Fiche AlloCiné
-                        </div>
-                        <div className="text-[11px] text-zinc-400 font-tech">
-                          Synopsis français, critiques presse, box-office &amp; casting
-                        </div>
-                      </div>
-                    </div>
+                    <AllocineLogo className="h-3.5 w-auto" />
+                    <span>AlloCiné</span>
+                    <ExternalLink className="w-3 h-3 ml-0.5" />
                   </a>
-
-                  {/* Official Trailer Link */}
+                )}
+                {movie.trailerUrl && (
                   <a
                     href={movie.trailerUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/btn flex items-center p-3 bg-[#181820] hover:bg-red-950/40 border border-red-600/50 text-white transition-all"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#141419] hover:bg-zinc-800 text-red-400 border border-zinc-700 font-mono-tech text-xs transition-colors"
                   >
-                    <div className="flex items-center gap-3">
-                      <YouTubeLogo className="w-6 h-6 shrink-0" variant="color" />
-                      <div>
-                        <div className="text-xs font-mono-tech font-bold text-red-400 uppercase">
-                          Bande-annonce
-                        </div>
-                        <div className="text-[11px] text-zinc-400 font-tech">
-                          Visionner le trailer d&apos;action en haute définition
-                        </div>
-                      </div>
-                    </div>
+                    <YouTubeLogo className="w-3.5 h-3.5" variant="color" />
+                    <span>Bande-annonce</span>
+                    <ExternalLink className="w-3 h-3 ml-0.5" />
                   </a>
-                </div>
+                )}
               </div>
             </div>
           </div>
         </div>
 
-        {/* Modal Footer */}
-        <div className="bg-[#141419] border-t border-zinc-800 px-6 py-3 flex items-center justify-between text-xs font-mono-tech text-zinc-400">
-          <span className="flex items-center gap-2">
-            <Sparkles className="w-3.5 h-3.5 text-[#FFE500]" />
-            <span>CAMPUS UNIVERS CASCADES • LE CATEAU-CAMBRÉSIS</span>
-          </span>
+        {/* Footer */}
+        <div className="bg-[#141419] border-t border-zinc-800 px-5 py-2.5 flex items-center justify-end text-xs font-mono-tech">
           <button
             onClick={onClose}
-            className="text-[#FFE500] hover:underline uppercase font-bold cursor-pointer"
+            className="text-zinc-400 hover:text-white uppercase font-bold cursor-pointer transition-colors"
           >
-            Fermer (Échap)
+            Fermer
           </button>
         </div>
       </div>

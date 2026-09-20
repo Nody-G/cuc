@@ -6,7 +6,7 @@ import { DOUBLED_CELEBRITIES } from '@/data/filmography';
 import { getCelebrities } from '@/lib/data/site-service';
 import { DoubledCelebrity } from '@/types';
 import { ImdbLogo } from '@/components/ui/BrandLogos';
-import { UserCheck, ExternalLink, ShieldCheck, Info } from 'lucide-react';
+import { UserCheck, ExternalLink, Info } from 'lucide-react';
 
 interface CelebrityDoublesGalleryProps {
   onSelectCelebrity: (celebrity: DoubledCelebrity) => void;
@@ -46,15 +46,14 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
           <div className="flex items-center gap-2 mb-2">
             <UserCheck className="w-5 h-5 text-[#FFE500]" />
             <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
-              DOUBLURES DU 7E ART • CASCADEURS CUC
+              ACTEURS &amp; TOURNAGES
             </span>
           </div>
           <h3 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-tight text-white">
-            LES ACTEURS ET COMÉDIENS DOUBLÉS
+            LES ACTEURS DOUBLÉS &amp; PRODUCTIONS
           </h3>
           <p className="text-xs sm:text-sm text-zinc-400 font-tech mt-1 max-w-2xl">
-            Nos formateurs et cascadeurs professionnels doublent régulièrement les figures majeures
-            du cinéma français et international sur des scènes d'action physique extrême.
+            Les formateurs et cascadeurs du Campus Univers Cascades interviennent sur les scènes d&apos;action des tournages français et internationaux.
           </p>
         </div>
 
@@ -67,7 +66,7 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
               : 'bg-[#141419] text-zinc-300 border-zinc-800 hover:border-zinc-600'
               }`}
           >
-            Toutes les Stars ({DOUBLED_CELEBRITIES.length})
+            Tous les acteurs ({DOUBLED_CELEBRITIES.length})
           </button>
           <button
             onClick={() => setCelebrityFilter('fr')}
@@ -85,12 +84,12 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
               : 'bg-[#141419] text-zinc-300 border-zinc-800 hover:border-zinc-600'
               }`}
           >
-            Hollywood & International ({internationalCount})
+            Cinéma International ({internationalCount})
           </button>
         </div>
       </div>
 
-      {/* Celebrities Grid with Real Portraits & Rich Tactical Cards */}
+      {/* Celebrities Grid with Real Portraits & Clean Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-8">
         {filteredCelebrities.map((actor) => (
           <div
@@ -109,13 +108,6 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#121218] via-[#121218]/30 to-transparent" />
 
-              {/* Highlight Tag */}
-              <div className="absolute top-3 left-3 z-10">
-                <span className="bg-black/90 backdrop-blur-xs border border-white/20 text-[10px] font-mono-tech text-[#FFE500] px-2.5 py-0.5 font-bold uppercase">
-                  {actor.highlightTag}
-                </span>
-              </div>
-
               {/* IMDb Direct Link */}
               <a
                 href={actor.imdbUrl}
@@ -132,27 +124,23 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
             {/* Body Content */}
             <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
               <div>
-                <div className="text-[10px] font-mono-tech text-[#00e5ff] uppercase font-bold tracking-wider mb-1">
-                  {actor.roleType}
-                </div>
                 <h4 className="text-xl font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors leading-tight">
                   {actor.name}
                 </h4>
 
                 {/* Stunt Specialty */}
-                <div className="mt-3 bg-[#181822] border border-zinc-800/80 p-2.5">
-                  <div className="text-[10px] font-mono-tech text-[#FFE500] uppercase font-bold flex items-center gap-1.5 mb-1">
-                    <ShieldCheck className="w-3 h-3 text-[#FFE500]" />
-                    <span>Cascades Exécutées :</span>
+                <div className="mt-2.5 space-y-1">
+                  <div className="text-[10px] font-mono-tech text-[#FFE500] uppercase font-bold">
+                    Cascades :
                   </div>
-                  <p className="text-[11px] text-zinc-300 font-tech leading-relaxed line-clamp-3">
+                  <p className="text-[11px] text-zinc-300 font-tech leading-relaxed line-clamp-2">
                     {actor.stuntSpecialty}
                   </p>
                 </div>
 
                 {/* Stunt Double Reference */}
                 <div className="mt-2 text-[10px] font-mono-tech text-zinc-400">
-                  <span className="text-zinc-500 uppercase">Doublure CUC : </span>
+                  <span className="text-zinc-500 uppercase">Équipe / Doublure : </span>
                   <span className="text-white font-bold">{actor.stuntDoubles}</span>
                 </div>
               </div>
@@ -160,7 +148,7 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
               {/* Key Productions Badges */}
               <div>
                 <div className="text-[9px] font-mono-tech text-zinc-500 uppercase tracking-wider mb-1.5 font-bold">
-                  Productions Clés :
+                  Films :
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {actor.productions.slice(0, 3).map((prod, pIdx) => (
@@ -188,7 +176,7 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
                     onClick={(e) => e.stopPropagation()}
                     className="px-2 py-1 bg-[#f5c518]/15 hover:bg-[#f5c518] text-[#f5c518] hover:text-black border border-[#f5c518]/40 text-[10px] font-mono-tech font-bold flex items-center gap-1 transition-colors"
                   >
-                    <span>Profil Pro</span>
+                    <span>IMDb</span>
                     <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>
