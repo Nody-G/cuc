@@ -18,11 +18,13 @@ import {
   Eye,
   Search,
   X,
+  Check,
+  PlusCircle,
 } from 'lucide-react';
 import { InstagramLogo, ImdbLogo } from '@/components/ui/BrandLogos';
 import { Instructor, FilmCredit, Discipline, parseCredit } from '@/types';
 import { creditTitleKey } from '@/lib/credit-title';
-import { upsertTeamMember, deleteTeamMember } from '@/app/admin/actions';
+import { upsertTeamMember, deleteTeamMember, upsertFilm } from '@/app/admin/actions';
 import { MediaPickerModal } from './MediaPickerModal';
 
 interface TeamViewProps {
@@ -72,6 +74,16 @@ export const TeamView: React.FC<TeamViewProps> = ({
    * Vide = aucun résultat affiché (on ne noie pas l'écran sous 700 films).
    */
   const [creditSearch, setCreditSearch] = useState('');
+
+  /**
+   * Formulaire de création d'une fiche film manquante au catalogue.
+   * `null` = fermé. Sinon contient le titre pré-rempli depuis la recherche.
+   */
+  const [newFilmDraft, setNewFilmDraft] = useState<{
+    title: string;
+    year: string;
+    category: FilmCredit['category'];
+  } | null>(null);
 
   const handleSaveTeamMember = (e: React.FormEvent) => {
     e.preventDefault();
@@ -216,15 +228,38 @@ export const TeamView: React.FC<TeamViewProps> = ({
       .slice(0, 40);
   }, [films, creditSearch]);
 
-  /** Crédits saisis qui ne correspondent à aucun film du catalogue. */
-  const orphanCredits = useMemo(() => {
-    const catalogueTitles = new Set(films.map((f) => creditKey(f.title)));
-    return (editingMember?.notableCredits || []).filter((raw) => {
-      const parsed = parseCredit(raw);
-      const title = creditKey(parsed.title || raw);
-      return title && !catalogueTitles.has(title);
-    });
-  }, [editingMember?.notableCredits, films]);
+  /** Ensemble des clés de titres présents dans le catalogue. */
+  const catalogueKeys = useMemo(
+    () => new Set(films.map((f) => creditKey(f.title))),
+    [films]
+  );
+
+  /**
+   * SOURCE UNIQUE DE VÉRITÉ : la totalité des crédits du formateur.
+   *
+   * Contient *tous* les `notableCredits`, qu'ils soient présents au catalogue
+   * ou non. C'est ce qui manquait auparavant : un crédit présent au catalogue
+   * mais non étoilé n'apparaissait nulle part.
+   *
+   * Chaque entrée expose : le libellé brut, le titre, le rôle, la clé
+   * normalisée, et un drapeau `inCatalogue`.
+   */
+  const allCredits = useMemo(() => {
+    return (editingMember?.notableCredits || [])
+      .map((raw) => {
+        const parsed = parseCredit(raw);
+        const title = (parsed.title || raw).trim();
+        const key = creditKey(title);
+        return {
+          raw,
+          title,
+          role: parsed.role || extractRoleFromCredit(raw),
+          key,
+          inCatalogue: catalogueKeys.has(key),
+        };
+      })
+      .filter((e) => e.key);
+  }, [editingMember?.notableCredits, catalogueKeys]);
 
   /**
    * Liste unifiée : les crédits mis en avant d'abord (dans l'ordre choisi),
@@ -341,8 +376,11 @@ export const TeamView: React.FC<TeamViewProps> = ({
     setEditingMember({ ...editingMember, featuredCredits: next });
   };
 
-  /** Supprime un crédit orphelin (hors catalogue). */
-  const removeOrphanCredit = (raw: string) => {
+  /**
+   * Supprime définitivement un crédit de la filmographie du formateur
+   * (et sa mise en avant éventuelle). Vaut pour le catalogue comme hors catalogue.
+   */
+  const removeCredit = (raw: string) => {
     if (!editingMember) return;
     const key = creditKey(parseCredit(raw).title || raw);
     setEditingMember({
@@ -352,6 +390,65 @@ export const TeamView: React.FC<TeamViewProps> = ({
         (c) => creditKey(parseCredit(c).title || c) !== key
       ),
     });
+  };
+
+  /**
+   * Crée une fiche film manquante dans `site_films`, puis l'ajoute
+   * immédiatement comme crédit du formateur en cours d'édition.
+   *
+   * C'est le point qui manquait : pouvoir référencer une œuvre absente du
+   * catalogue sans quitter le Cockpit.
+   */
+  const createFilmAndCredit = async () => {
+    if (!editingMember || !newFilmDraft) return;
+    const title = newFilmDraft.title.trim();
+    if (!title) return;
+
+    const slug =
+      title
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .slice(0, 60) || `film-${Date.now()}`;
+
+    const year = newFilmDraft.year.trim();
+
+    // 1. Ajout immédiat au formateur (optimiste).
+    const raw = buildCreditString(year ? `${title} (${year})` : title, 'Cascadeur');
+    const currentCredits = editingMember.notableCredits || [];
+    if (!creditIndex.has(creditKey(title))) {
+      setEditingMember({
+        ...editingMember,
+        notableCredits: [...currentCredits, raw],
+      });
+    }
+
+    // 2. Persistance de la fiche film dans le catalogue.
+    startTransition(async () => {
+      const res = await upsertFilm({
+        id: slug,
+        title,
+        year,
+        category: newFilmDraft.category,
+        stunt_roles: '',
+        highlight: false,
+        image: '',
+        tag: '',
+        imdb_url: '',
+        allocine_url: '',
+        trailer_url: '',
+      });
+      if (res && 'success' in res && !res.success) {
+        showToast(`Fiche « ${title} » non enregistrée : ${res.error ?? 'erreur'}`);
+      } else {
+        showToast(`Fiche « ${title} » créée et ajoutée au formateur.`);
+      }
+    });
+
+    setNewFilmDraft(null);
+    setCreditSearch('');
   };
 
   const selectedCount = creditIndex.size;
@@ -914,9 +1011,96 @@ export const TeamView: React.FC<TeamViewProps> = ({
                           })}
 
                           {searchResults.length === 0 && (
-                            <p className="text-[11px] text-zinc-500 italic py-2">
-                              Aucun film du catalogue ne correspond à « {creditSearch} ».
-                            </p>
+                            <div className="py-2 space-y-2">
+                              <p className="text-[11px] text-zinc-500 italic">
+                                Aucun film du catalogue ne correspond à « {creditSearch} ».
+                              </p>
+                              {!newFilmDraft && (
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    setNewFilmDraft({
+                                      title: creditSearch.trim(),
+                                      year: '',
+                                      category: 'Cinéma Français',
+                                    })
+                                  }
+                                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#FFE500]/15 border border-[#FFE500]/40 text-[11px] font-semibold text-[#FFE500] hover:bg-[#FFE500]/25 transition"
+                                >
+                                  <PlusCircle className="w-3.5 h-3.5" />
+                                  Créer la fiche « {creditSearch.trim()} »
+                                </button>
+                              )}
+                            </div>
+                          )}
+
+                          {newFilmDraft && (
+                            <div className="p-2.5 bg-[#FFE500]/5 border border-[#FFE500]/30 rounded-lg space-y-2">
+                              <div className="text-[10px] font-mono text-[#FFE500] uppercase tracking-wider">
+                                Nouvelle fiche film
+                              </div>
+                              <div className="grid grid-cols-[1fr_5rem] gap-2">
+                                <input
+                                  type="text"
+                                  value={newFilmDraft.title}
+                                  onChange={(e) =>
+                                    setNewFilmDraft({ ...newFilmDraft, title: e.target.value })
+                                  }
+                                  placeholder="Titre du film"
+                                  className="bg-black/60 border border-white/15 rounded-lg px-2 py-1.5 text-[11px] text-white focus:outline-none focus:border-[#FFE500]"
+                                />
+                                <input
+                                  type="text"
+                                  value={newFilmDraft.year}
+                                  onChange={(e) =>
+                                    setNewFilmDraft({ ...newFilmDraft, year: e.target.value })
+                                  }
+                                  placeholder="Année"
+                                  className="bg-black/60 border border-white/15 rounded-lg px-2 py-1.5 text-[11px] text-white focus:outline-none focus:border-[#FFE500]"
+                                />
+                              </div>
+                              <select
+                                value={newFilmDraft.category}
+                                onChange={(e) =>
+                                  setNewFilmDraft({
+                                    ...newFilmDraft,
+                                    category: e.target.value as FilmCredit['category'],
+                                  })
+                                }
+                                className="w-full bg-black/60 border border-white/15 rounded-lg px-2 py-1.5 text-[11px] text-white focus:outline-none focus:border-[#FFE500]"
+                              >
+                                {[
+                                  'Blockbuster',
+                                  'Cinéma Français',
+                                  'Cinéma International',
+                                  'Série / Plateforme',
+                                  'Film Culte',
+                                  'Streaming Global',
+                                ].map((c) => (
+                                  <option key={c} value={c}>
+                                    {c}
+                                  </option>
+                                ))}
+                              </select>
+                              <div className="flex items-center gap-2">
+                                <button
+                                  type="button"
+                                  onClick={createFilmAndCredit}
+                                  disabled={!newFilmDraft.title.trim()}
+                                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#FFE500] text-black text-[11px] font-bold uppercase tracking-wider hover:bg-[#ffe600e6] disabled:opacity-40"
+                                >
+                                  <Check className="w-3.5 h-3.5" />
+                                  Créer et ajouter
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => setNewFilmDraft(null)}
+                                  className="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-300 text-[11px] font-semibold"
+                                >
+                                  Annuler
+                                </button>
+                              </div>
+                            </div>
                           )}
                         </div>
                       )}
@@ -1020,24 +1204,26 @@ export const TeamView: React.FC<TeamViewProps> = ({
                       )}
                     </div>
 
-                    {/* 3. Crédits hors catalogue (saisie libre conservée) */}
-                    {orphanCredits.length > 0 && (
-                      <div className="p-3.5 bg-black/40 border border-white/10 rounded-xl space-y-2">
-                        <div className="flex items-center justify-between">
-                          <div className="text-[11px] font-bold text-zinc-300 uppercase tracking-wider">
-                            Crédits hors catalogue ({orphanCredits.length})
-                          </div>
-                          <span className="text-[10px] font-mono text-zinc-500">
-                            Conservés tels quels
-                          </span>
+                    {/* 3. TOUS LES CRÉDITS — source unique, catalogue et hors catalogue */}
+                    <div className="p-3.5 bg-black/40 border border-white/10 rounded-xl space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className="text-[11px] font-bold text-zinc-300 uppercase tracking-wider">
+                          Tous les crédits ({allCredits.length})
                         </div>
-                        <div className="space-y-1">
-                          {orphanCredits.map((raw) => {
-                            const parsed = parseCredit(raw);
-                            const isCoord = parsed.category === 'coordination';
-                            const isDoublure = parsed.category === 'doublure';
-                            const title = (parsed.title || raw).trim();
-                            const key = creditKey(title);
+                        <span className="text-[10px] font-mono text-zinc-500">
+                          {allCredits.filter((c) => c.inCatalogue).length} au catalogue •{' '}
+                          {allCredits.filter((c) => !c.inCatalogue).length} hors catalogue
+                        </span>
+                      </div>
+
+                      <p className="text-[11px] text-zinc-400 leading-relaxed">
+                        Cliquez sur l'étoile pour mettre un crédit en avant sur la fiche publique.
+                        Les crédits hors catalogue restent affichés tels quels.
+                      </p>
+
+                      {allCredits.length > 0 ? (
+                        <div className="space-y-1 max-h-[22rem] overflow-y-auto pr-1">
+                          {allCredits.map(({ raw, title, role, key, inCatalogue }) => {
                             const isFeatured = featuredSet.has(key);
                             const featuredRank = featuredCreditsOrdered.findIndex(
                               (e) => e.key === key
@@ -1051,16 +1237,22 @@ export const TeamView: React.FC<TeamViewProps> = ({
                                   }`}
                               >
                                 <span
-                                  className={`px-1.5 py-0.5 rounded text-[9px] font-mono border shrink-0 ${isCoord
-                                    ? 'bg-[#FFE500]/15 text-[#FFE500] border-[#FFE500]/40'
-                                    : isDoublure
-                                      ? 'bg-sky-500/15 text-sky-300 border-sky-500/30'
-                                      : 'bg-white/5 text-zinc-400 border-white/10'
+                                  className={`px-1.5 py-0.5 rounded text-[9px] font-mono border shrink-0 ${inCatalogue
+                                    ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
+                                    : 'bg-white/5 text-zinc-500 border-white/10'
                                     }`}
+                                  title={
+                                    inCatalogue
+                                      ? 'Présent au catalogue'
+                                      : 'Absent du catalogue — fiche à créer si besoin'
+                                  }
                                 >
-                                  {parsed.role || 'Rôle non précisé'}
+                                  {inCatalogue ? 'CATALOGUE' : 'HORS CAT.'}
                                 </span>
                                 <span className="flex-1 truncate text-zinc-200">{title}</span>
+                                <span className="text-[9px] font-mono text-zinc-500 shrink-0">
+                                  {role || 'Rôle non précisé'}
+                                </span>
                                 {isFeatured && (
                                   <>
                                     <span className="font-mono text-[9px] text-[#FFE500] w-3 text-center shrink-0">
@@ -1099,11 +1291,11 @@ export const TeamView: React.FC<TeamViewProps> = ({
                                       : 'Mettre en avant sur la fiche publique'
                                   }
                                 >
-                                  <Star className="w-3.5 h-3.5" />
+                                  <Star className={`w-3.5 h-3.5 ${isFeatured ? 'fill-current' : ''}`} />
                                 </button>
                                 <button
                                   type="button"
-                                  onClick={() => removeOrphanCredit(raw)}
+                                  onClick={() => removeCredit(raw)}
                                   className="p-0.5 text-zinc-500 hover:text-red-400 shrink-0"
                                   title="Supprimer ce crédit"
                                 >
@@ -1113,8 +1305,12 @@ export const TeamView: React.FC<TeamViewProps> = ({
                             );
                           })}
                         </div>
-                      </div>
-                    )}
+                      ) : (
+                        <p className="text-[11px] text-zinc-500 italic py-2">
+                          Aucun crédit. Recherchez un film ci-dessus pour en ajouter un.
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

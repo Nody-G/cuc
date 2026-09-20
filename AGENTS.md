@@ -148,3 +148,20 @@ normaliseur, et exiger un taux d'appariement **non nul** avant de considérer la
 mise en avant fonctionnelle. Un taux de 0 % signale une régression de
 normalisation, pas un manque de données.
 
+Scripts de contrôle réutilisables :
+- `node scripts/verify_featured_matching.mjs [coachId]` — taux d'appariement
+  crédits ↔ catalogue + détection des mises en avant orphelines. Sort en code 2
+  si l'appariement tombe à 0 (régression de normalisation).
+- `node scripts/seed_michel_bouis_featured.mjs` — amorce 4 crédits réellement
+  présents au catalogue et prouve la résolution de bout en bout (persistance
+  `featured_credits` → résolution côté public).
+
+## 5. Une seule liste de crédits dans le Cockpit
+Le Cockpit ne doit **jamais** séparer les crédits en « catalogue » et « hors
+catalogue » pour l'étoilage. La liste unique **« Tous les crédits »** (dérivée de
+`allCredits`, chaque entrée portant `inCatalogue`) est la seule source
+d'affichage : elle garantit que l'étoile est disponible sur **tous** les crédits,
+y compris ceux qui ne sont pas encore au catalogue. Un crédit absent du catalogue
+peut être créé à la volée via « Créer la fiche » (recherche sans résultat →
+`upsertFilm` → ajout immédiat du crédit).
+
