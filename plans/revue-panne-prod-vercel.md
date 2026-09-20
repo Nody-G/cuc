@@ -2,7 +2,7 @@
 
 **Date :** 2026-09-20
 **Symptôme :** `https://cuc-new.vercel.app/` affiche « This page couldn't load / Reload to try again, or go back. » sur toutes les pages sauf le Cockpit, quel que soit le cache ou la navigation privée.
-**Statut :** ✅ Corrigé et vérifié en local (16/16 routes, build 63/63 pages).
+**Statut :** ✅ Corrigé, déployé et **vérifié en production** (commit 4efff33).
 
 ---
 
@@ -137,3 +137,35 @@ npm run probe:prod
 > **Tout canal Supabase Realtime doit passer par `createSafeChannel()`.**
 > Jamais de `.channel('nom-statique')` en dur, jamais de `.on()` après `.subscribe()`.
 > Le nom doit être unique par instance de composant.
+
+---
+
+## 8. Vérification post-déploiement (production réelle)
+
+**Commit déployé :** 4efff33 — poussé sur origin/master.
+
+| Contrôle | Commande | Résultat |
+|----------|----------|----------|
+| Routes publiques | npm run probe:prod | ✅ 15/15 routes HTTP 200 + marqueur de contenu |
+| Bundle JS (correctif Realtime) | npm run probe:prod:bundle | ✅ createSafeChannel + removeSafeChannel présents dans 3 chunks |
+| En-tête CSP | inspection manuelle | ✅ connect-src inclut wss: et wss://*.supabase.co |
+| Optimiseur d images Supabase | npm run probe:prod:images | ✅ /_next/image renvoie HTTP 200 (image/jpeg) |
+
+### 8.1 Piège de vérification à connaître
+
+Le template literal de uniqueChannelName() est compilé en **concaténation** :
+la chaîne littérale site_social_links# n existe **jamais** dans le bundle.
+Chercher ce motif produit un **faux négatif**. Le marqueur fiable est le nom
+des helpers importés nommément (createSafeChannel / removeSafeChannel), qui
+survit à la minification. C est ce que fait verify_prod_bundle_fix.mjs.
+
+De même, tester /_next/image avec un **PDF** renvoie 400 légitimement.
+verify_prod_image_optimizer.mjs filtre donc sur les extensions d image.
+
+### 8.2 Commandes de vérification production
+
+```bash
+npm run probe:prod          # 15 routes publiques
+npm run probe:prod:bundle   # correctif Realtime dans le bundle
+npm run probe:prod:images   # optimiseur d images Supabase
+```

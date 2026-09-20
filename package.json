@@ -46,7 +46,9 @@
     "media:rewrite": "node scripts/rewrite_media_urls.mjs",
     "media:rewrite:dry": "node scripts/rewrite_media_urls.mjs --dry-run",
     "media:verify:coverage": "node scripts/verify_media_url_coverage.mjs",
-    "media:verify:reachable": "node scripts/verify_supabase_media_reachable.mjs"
+    "media:verify:reachable": "node scripts/verify_supabase_media_reachable.mjs",
+    "probe:prod:bundle": "node scripts/verify_prod_bundle_fix.mjs",
+    "probe:prod:images": "node scripts/verify_prod_image_optimizer.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
