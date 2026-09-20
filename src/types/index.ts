@@ -88,6 +88,7 @@ export interface Instructor {
   avatarUrl?: string;
   instagram?: string;
   imdb?: string;
+  allocine?: string;
   film_ids?: string[];
   discipline_ids?: string[];
   profile_id?: string | null;

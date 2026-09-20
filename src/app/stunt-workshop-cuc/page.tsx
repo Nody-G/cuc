@@ -250,9 +250,6 @@ export default function StuntWorkshopCucPage() {
                     sizes="(max-width: 1024px) 100vw, 40vw"
                     className="object-cover object-center"
                   />
-                  <div className="absolute bottom-2 left-2 bg-black/85 px-2 py-0.5 text-[10px] font-mono-tech text-[#FFE500]">
-                    WORLDWIDE COHORT TRAINING
-                  </div>
                 </div>
               </div>
             </div>

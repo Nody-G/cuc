@@ -10,92 +10,22 @@ import {
   Info,
 } from 'lucide-react';
 
-interface FacilitySpot {
-  id: string;
-  name: string;
-  code: string;
-  description: string;
-  badge: string;
-  /** Nom réel de la scène krpano dans la visite HD Media (deep-link). */
-  scene: string;
-}
-
-const TOUR_HOTSPOTS: FacilitySpot[] = [
-  {
-    id: 'zoe-bell',
-    name: 'Zoé Bell Hall',
-    code: 'ZONE 01',
-    description: 'Fosse olympique à cubes de mousse, trampolines de propulsion et praticables de chutes.',
-    badge: 'Plateau Principal',
-    scene: 'scene_cbprqpmz9_815285'
-  },
-  {
-    id: 'cuc-tower',
-    name: 'CUC Tower 21M',
-    code: 'ZONE 02',
-    description: 'Tour monumentale de 21 mètres : simulations de défenestrations, rappels et sauts airbag.',
-    badge: 'Chutes Extrêmes',
-    scene: 'scene_cbprqpmz9_2515159'
-  },
-  {
-    id: 'dojos',
-    name: "Dojos & Salle d'Armes",
-    code: 'ZONE 03',
-    description: "Tatamis d'impact, ring de boxe et arsenal d'armes factices pour combats de cinéma.",
-    badge: 'Fight Choreography',
-    scene: 'scene_cbprqpmz9_815297'
-  },
-  {
-    id: 'manege',
-    name: 'Manège Équestre',
-    code: 'ZONE 04',
-    description: 'Structure équestre couverte pour voltige, chutes de cheval et cascades équestres.',
-    badge: 'Cascades Équestres',
-    scene: 'scene_cbprqpmz9_1382261'
-  },
-  {
-    id: 'mecanique',
-    name: 'Zone Mécanique & Piste',
-    code: 'ZONE 05',
-    description: 'Ateliers de préparation mécanique, quads, motos et véhicules de dérapage & percussions.',
-    badge: 'Cascades Véhicules',
-    scene: 'scene_cbprqpmz9_1382262'
-  },
-  {
-    id: 'hebergement',
-    name: 'QG Staff & Hébergements',
-    code: 'ZONE 06',
-    description: '90 lits en pension complète, réfectoire, salle de projection et pôle vie des élèves.',
-    badge: 'Vie de Campus',
-    scene: 'scene_cbprqpmz9_727445'
-  }
-];
-
 interface VirtualTourViewerProps {
   className?: string;
-  showHotspots?: boolean;
   defaultFullscreen?: boolean;
 }
 
 export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
   className = '',
-  showHotspots = true
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [activeSpot, setActiveSpot] = useState<FacilitySpot>(TOUR_HOTSPOTS[0]);
   const [iframeKey, setIframeKey] = useState(0);
   const [infoOpen, setInfoOpen] = useState(true);
 
   const TOUR_URL =
     'https://www.hdmedia.fr/visite-virtuelle/hd/cbprqpmz9-campus-univers-cascades-le-cateau-cambresis.html';
-
-  /**
-   * URL réellement chargée dans l'iframe. Le hash `#scene_xxx` est le mécanisme
-   * de deep-link natif de krpano : il ouvre directement la scène demandée.
-   */
-  const [tourSrc, setTourSrc] = useState<string>(TOUR_URL);
 
   const toggleFullscreen = () => {
     if (!containerRef.current) return;
@@ -114,19 +44,6 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
   };
 
   const handleResetTour = () => {
-    setActiveSpot(TOUR_HOTSPOTS[0]);
-    setTourSrc(TOUR_URL);
-    setIframeKey((prev) => prev + 1);
-  };
-
-  /**
-   * Téléporte réellement la visite 360° vers la scène krpano correspondant au repère.
-   * On change le hash `#scene_xxx` puis on force le rechargement de l'iframe
-   * (le hash seul ne déclenche pas de navigation dans un iframe déjà monté).
-   */
-  const handleTeleport = (spot: FacilitySpot) => {
-    setActiveSpot(spot);
-    setTourSrc(`${TOUR_URL}#${spot.scene}`);
     setIframeKey((prev) => prev + 1);
   };
 
@@ -137,8 +54,6 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
       className={`relative bg-[#08080c] border-2 border-[#FFE500] rounded-none overflow-hidden shadow-[0_0_40px_rgba(255,229,0,0.15)] flex flex-col ${isFullscreen ? 'fixed inset-0 z-50 p-0 m-0 w-screen h-screen' : ''
         } ${className}`}
     >
-      {/* HUD Corners */}
-
       {/* HUD Top Control Bar */}
       <div className="bg-[#0b0b10] border-b border-zinc-800 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 select-none z-10">
         <div className="flex items-center gap-2.5">
@@ -175,7 +90,7 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
           </button>
 
           <a
-            href={tourSrc}
+            href={TOUR_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="px-2.5 py-1 text-[11px] font-mono-tech border border-zinc-800 bg-[#121218] text-zinc-300 hover:text-[#FFE500] hover:border-zinc-700 transition-colors flex items-center gap-1.5"
@@ -228,7 +143,7 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
         <iframe
           key={iframeKey}
           ref={iframeRef}
-          src={tourSrc}
+          src={TOUR_URL}
           title="Visite Virtuelle 360° Campus Univers Cascades"
           className="w-full h-full border-0"
           scrolling="no"
@@ -236,35 +151,6 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
           allow="fullscreen; xr-spatial-tracking; autoplay; gyroscope; accelerometer"
         />
       </div>
-
-      {/* Quick Jump Hotspots Navigation Bar */}
-      {showHotspots && !isFullscreen && (
-        <div className="bg-[#0b0b10] border-t border-zinc-800 p-3">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
-            {TOUR_HOTSPOTS.map((spot) => {
-              const isSelected = activeSpot.id === spot.id;
-              return (
-                <button
-                  key={spot.id}
-                  onClick={() => handleTeleport(spot)}
-                  title={spot.name}
-                  className={`p-2.5 text-center border transition-all cursor-pointer flex flex-col justify-center items-center ${isSelected
-                    ? 'bg-[#181824] border-[#FFE500] text-white shadow-[0_0_12px_rgba(255,229,0,0.25)]'
-                    : 'bg-[#101016] border-zinc-800/80 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
-                    }`}
-                >
-                  <span className="text-[9px] font-mono-tech text-zinc-500 mb-0.5">
-                    {spot.badge}
-                  </span>
-                  <span className="font-display uppercase text-xs tracking-wide block truncate text-white">
-                    {spot.name}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
     </div>
   );
 };

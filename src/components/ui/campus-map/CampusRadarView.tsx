@@ -166,13 +166,6 @@ export const CampusRadarView: React.FC<CampusRadarViewProps> = ({
             <Sparkles className="w-3.5 h-3.5" />
             <span>{selectedPoi.specs}</span>
           </div>
-
-          {selectedPoi.location_id && (
-            <div className="flex items-center gap-1 text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded text-[10px]">
-              <CheckCircle2 className="w-3 h-3" />
-              <span>CUC Sign : {CUC_SIGN_LOCATION_NAMES[selectedPoi.location_id] || 'Lieu Officiel Connecté'}</span>
-            </div>
-          )}
         </div>
       </div>
     </div>

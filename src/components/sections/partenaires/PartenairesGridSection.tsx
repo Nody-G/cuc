@@ -8,6 +8,7 @@ import { getPartners, SitePartner } from '@/lib/data/site-service';
 
 export const PartenairesGridSection: React.FC = () => {
   const [dbPartners, setDbPartners] = useState<SitePartner[]>([]);
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     getPartners().then((parts) => {
@@ -49,8 +50,8 @@ export const PartenairesGridSection: React.FC = () => {
                   className="bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/60 p-6 relative group transition-all flex flex-col justify-between"
                 >
                   <div>
-                    <div className="relative h-24 w-full bg-white/5 border border-zinc-800 group-hover:border-[#FFE500]/60 mb-4 p-4 flex items-center justify-center overflow-hidden transition-colors">
-                      {partner.logo_url ? (
+                    <div className="relative h-24 w-full bg-white border border-zinc-200 group-hover:border-[#FFE500] mb-4 p-4 flex items-center justify-center overflow-hidden transition-colors rounded-xs">
+                      {partner.logo_url && !failedImages[partner.id] ? (
                         <div className="relative w-full h-full flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                           <Image
                             src={partner.logo_url}
@@ -58,10 +59,11 @@ export const PartenairesGridSection: React.FC = () => {
                             fill
                             className="object-contain p-2"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                            onError={() => setFailedImages((prev) => ({ ...prev, [partner.id]: true }))}
                           />
                         </div>
                       ) : (
-                        <span className="text-xs font-mono-tech text-[#FFE500] font-bold">{partner.name}</span>
+                        <span className="text-base font-display uppercase text-zinc-900 font-bold tracking-wider">{partner.name}</span>
                       )}
                     </div>
 
@@ -107,7 +109,7 @@ export const PartenairesGridSection: React.FC = () => {
             <div className="flex items-center gap-3 border-b border-zinc-800 pb-3">
               <Award className="w-4 h-4 text-[#FFE500]" />
               <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                Partenaires Spécialisés &amp; Certifiés
+                Partenaires Spécialisés &amp; Institutionnels
               </h2>
             </div>
 
@@ -118,8 +120,8 @@ export const PartenairesGridSection: React.FC = () => {
                   className="bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/60 p-6 relative group transition-all flex flex-col justify-between"
                 >
                   <div>
-                    <div className="relative h-24 w-full bg-white/5 border border-zinc-800 group-hover:border-[#FFE500]/60 mb-4 p-4 flex items-center justify-center overflow-hidden transition-colors">
-                      {partner.logo_url ? (
+                    <div className="relative h-24 w-full bg-white border border-zinc-200 group-hover:border-[#FFE500] mb-4 p-4 flex items-center justify-center overflow-hidden transition-colors rounded-xs">
+                      {partner.logo_url && !failedImages[partner.id] ? (
                         <div className="relative w-full h-full flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                           <Image
                             src={partner.logo_url}
@@ -127,10 +129,11 @@ export const PartenairesGridSection: React.FC = () => {
                             fill
                             className="object-contain p-2"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                            onError={() => setFailedImages((prev) => ({ ...prev, [partner.id]: true }))}
                           />
                         </div>
                       ) : (
-                        <span className="text-xs font-mono-tech text-[#FFE500] font-bold">{partner.name}</span>
+                        <span className="text-base font-display uppercase text-zinc-900 font-bold tracking-wider">{partner.name}</span>
                       )}
                     </div>
 
