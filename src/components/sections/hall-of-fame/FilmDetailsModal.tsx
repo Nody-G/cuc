@@ -147,9 +147,35 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                           <div className="text-xs font-mono-tech text-white truncate font-bold">
                             {member.name}
                           </div>
-                          <div className="text-[10px] font-mono-tech text-zinc-500 truncate">
-                            {member.role}
-                          </div>
+                          {(() => {
+                            const specificRole =
+                              movie.cuc_team_roles?.[member.id] ||
+                              member.metadata?.film_roles?.[movie.id] ||
+                              (() => {
+                                const matchingCredit = member.notableCredits?.find((c) =>
+                                  c.toLowerCase().includes(movie.title.toLowerCase())
+                                );
+                                if (matchingCredit && matchingCredit.includes(' — ')) {
+                                  return matchingCredit.split(' — ')[1].trim();
+                                }
+                                return member.role;
+                              })();
+
+                            const isCoord =
+                              specificRole.toLowerCase().includes('coordinat') ||
+                              specificRole.toLowerCase().includes('action designer');
+
+                            return (
+                              <div
+                                className={`text-[10px] font-mono-tech truncate ${
+                                  isCoord ? 'text-[#FFE500] font-semibold' : 'text-zinc-400'
+                                }`}
+                                title={specificRole}
+                              >
+                                {specificRole}
+                              </div>
+                            );
+                          })()}
                         </div>
                         <ChevronRight className="w-3.5 h-3.5 text-zinc-600 shrink-0" />
                       </Link>

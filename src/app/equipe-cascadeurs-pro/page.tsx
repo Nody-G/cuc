@@ -11,7 +11,7 @@ import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getTeam, getFilms } from '@/lib/data/site-service';
 import { createClient } from '@/lib/supabase/client';
-import { Instructor, FilmCredit } from '@/types';
+import { Instructor, FilmCredit, parseCredit } from '@/types';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
 import {
   Users,
@@ -146,7 +146,7 @@ export default function EquipeCascadeursProPage() {
                     id={member.id}
                     className="bg-[#0e0e14] border-2 border-zinc-800 hover:border-[#FFE500]/70 transition-all duration-300 relative flex flex-col justify-between group overflow-hidden shadow-xl hover:shadow-[0_15px_40px_rgba(255,229,0,0.1)] scroll-mt-32"
                   >
-                  {/* Portrait Showcase Stage (Taille compacte optimisée) */}
+                  {/* Portrait Showcase Stage */}
                   <Link
                     href={`/equipe-cascadeurs-pro/${member.id}`}
                     className="relative w-full h-56 sm:h-64 bg-gradient-to-b from-[#181824] via-[#101016] to-[#0e0e14] overflow-hidden flex items-end justify-center border-b border-zinc-800/80 block cursor-pointer group/img"
@@ -224,14 +224,50 @@ export default function EquipeCascadeursProPage() {
                           </div>
                         </div>
 
+                        {/* Références & Tournages Qualifiés */}
                         {member.notableCredits && member.notableCredits.length > 0 && (
                           <div className="pt-2">
-                            <strong className="text-[11px] font-mono-tech text-zinc-400 uppercase block mb-1">
-                              Références & Tournages :
-                            </strong>
-                            <p className="text-[11px] font-tech text-zinc-400 leading-relaxed">
-                              {member.notableCredits.join(' • ')}
-                            </p>
+                            <div className="flex items-center justify-between gap-1 mb-1.5">
+                              <strong className="text-[11px] font-mono-tech text-zinc-400 uppercase block">
+                                Références &amp; Tournages :
+                              </strong>
+                              <span className="text-[10px] font-mono-tech text-zinc-500">
+                                {member.notableCredits.length} crédits
+                              </span>
+                            </div>
+                            <div className="flex flex-wrap gap-1.5">
+                              {member.notableCredits.slice(0, 4).map((credit, idx) => {
+                                const parsed = parseCredit(credit);
+                                const isCoord = parsed.category === 'coordination';
+                                const isDoublure = parsed.category === 'doublure';
+
+                                return (
+                                  <span
+                                    key={idx}
+                                    className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-mono-tech border rounded-xs ${
+                                      isCoord
+                                        ? 'bg-[#FFE500]/10 text-[#FFE500] border-[#FFE500]/30 font-semibold'
+                                        : isDoublure
+                                        ? 'bg-sky-500/10 text-sky-300 border-sky-500/30'
+                                        : 'bg-black/60 text-zinc-300 border-zinc-800'
+                                    }`}
+                                    title={parsed.role ? `${parsed.title} (${parsed.role})` : parsed.title}
+                                  >
+                                    <span className="truncate max-w-[130px]">{parsed.title}</span>
+                                    {parsed.role && (
+                                      <span className="text-[9px] opacity-75 font-normal shrink-0">
+                                        [{isCoord ? 'Coordination' : isDoublure ? 'Doublure' : 'Cascade'}]
+                                      </span>
+                                    )}
+                                  </span>
+                                );
+                              })}
+                              {member.notableCredits.length > 4 && (
+                                <span className="text-[10px] font-mono-tech text-[#FFE500] self-center px-1 font-semibold">
+                                  +{member.notableCredits.length - 4} autres
+                                </span>
+                              )}
+                            </div>
                           </div>
                         )}
 

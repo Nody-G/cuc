@@ -299,6 +299,7 @@ export async function upsertTeamMember(member: {
   doubled_actors?: string[];
   notable_credits?: string[];
   profile_id?: string | null;
+  metadata?: any;
 }) {
   try {
     const adminClient = createAdminClient();
@@ -307,6 +308,7 @@ export async function upsertTeamMember(member: {
       .upsert({
         ...member,
         profile_id: member.profile_id || null,
+        metadata: member.metadata || {},
         updated_at: new Date().toISOString(),
       });
 
@@ -338,13 +340,34 @@ export async function upsertFilm(film: {
   doubled_actors?: string[];
   highlight?: boolean;
   cuc_team_involved?: string[];
+  cuc_team_roles?: Record<string, string>;
+  metadata?: any;
 }) {
   try {
     const adminClient = createAdminClient();
+    const mergedMetadata = {
+      ...(film.metadata || {}),
+      ...(film.cuc_team_roles ? { cuc_team_roles: film.cuc_team_roles } : {}),
+    };
+
     const { error } = await adminClient
       .from('site_films')
       .upsert({
-        ...film,
+        id: film.id,
+        title: film.title,
+        year: film.year,
+        category: film.category,
+        director: film.director,
+        stunt_roles: film.stunt_roles,
+        image: film.image,
+        tag: film.tag,
+        imdb_url: film.imdb_url,
+        allocine_url: film.allocine_url,
+        trailer_url: film.trailer_url,
+        doubled_actors: film.doubled_actors,
+        highlight: film.highlight,
+        cuc_team_involved: film.cuc_team_involved,
+        metadata: mergedMetadata,
         updated_at: new Date().toISOString(),
       });
 

@@ -6,6 +6,85 @@ export { DOUBLED_CELEBRITIES } from './celebrities';
 
 export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
   {
+    "id": "bagarre",
+    "title": "Bagarre",
+    "year": "2024",
+    "category": "Cinéma Français",
+    "director": "Julien Royal",
+    "stuntRoles": "Action design, combats rapprochés percutants et chorégraphies physiques.",
+    "doubledActors": ["Nassim Lyes"],
+    "highlight": true,
+    "image": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Bagarre.jpg",
+    "tag": "ACTION DESIGN",
+    "imdbUrl": "https://www.imdb.com/title/tt31189772/",
+    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=324021.html",
+    "trailerUrl": "https://www.youtube.com/watch?v=3-Dm59tR_rM",
+    "cuc_team_involved": ["lucas-dollfus"],
+    "cuc_team_roles": {
+      "lucas-dollfus": "Coordinateur des cascades & Action Designer"
+    }
+  },
+  {
+    "id": "nouveaux-riches",
+    "title": "Nouveaux Riches",
+    "year": "2023",
+    "category": "Streaming Global",
+    "director": "Julien Royal",
+    "stuntRoles": "Combats rapprochés, cascades urbaines, chutes physiques et poursuites.",
+    "doubledActors": ["Nassim Lyes"],
+    "highlight": true,
+    "image": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Nouveaux-riches.jpg",
+    "tag": "NETFLIX ACTION",
+    "imdbUrl": "https://www.imdb.com/title/tt27995874/",
+    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=317540.html",
+    "trailerUrl": "https://www.youtube.com/watch?v=J9K4WlQv_tE",
+    "cuc_team_involved": ["lucas-dollfus"],
+    "cuc_team_roles": {
+      "lucas-dollfus": "Coordinateur des cascades"
+    }
+  },
+  {
+    "id": "athena",
+    "title": "Athena",
+    "year": "2022",
+    "category": "Streaming Global",
+    "director": "Romain Gavras",
+    "stuntRoles": "Coordination générale des cascades, plans-séquences d'émeutes, pyrotechnie et franchissements Parkour.",
+    "doubledActors": ["Équipe cascades CUC"],
+    "highlight": true,
+    "image": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Athena.jpg",
+    "tag": "PLAN-SÉQUENCE ACTION",
+    "imdbUrl": "https://www.imdb.com/title/tt15445056/",
+    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=295328.html",
+    "trailerUrl": "https://www.youtube.com/watch?v=z8BvWJ4jJqQ",
+    "cuc_team_involved": ["jerome-gaspard", "malik-diouf", "michael-troude"],
+    "cuc_team_roles": {
+      "jerome-gaspard": "Coordinateur des cascades",
+      "malik-diouf": "Conseiller Franchissement & Parkour",
+      "michael-troude": "Cascadeur (Impacts & affrontements)"
+    }
+  },
+  {
+    "id": "le-pacte-des-loups",
+    "title": "Le Pacte des loups",
+    "year": "2001",
+    "category": "Film Culte",
+    "director": "Christophe Gans",
+    "stuntRoles": "Combats d'époque, escrime scénique, chutes de hauteur et cascades équestres.",
+    "doubledActors": ["Samuel Le Bihan (doublé par Jérôme Gaspard)"],
+    "highlight": true,
+    "image": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Le-Pacte-des-Loups.jpg",
+    "tag": "FILM CULTE ACTION",
+    "imdbUrl": "https://www.imdb.com/title/tt0252444/",
+    "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=27765.html",
+    "trailerUrl": "https://www.youtube.com/watch?v=kYJmQ6oBqB4",
+    "cuc_team_involved": ["jerome-gaspard", "amedeo-cazzella"],
+    "cuc_team_roles": {
+      "jerome-gaspard": "Cascadeur & Doublure Samuel Le Bihan",
+      "amedeo-cazzella": "Cascadeur (Escrime scénique)"
+    }
+  },
+  {
     "id": "le-salaire-de-la-peur",
     "title": "Le Salaire de la Peur",
     "year": "2024",

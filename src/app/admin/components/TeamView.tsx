@@ -12,9 +12,10 @@ import {
   Shield,
   Layers,
   Image as ImageIcon,
+  Clapperboard,
 } from 'lucide-react';
 import { InstagramLogo, ImdbLogo } from '@/components/ui/BrandLogos';
-import { Instructor, FilmCredit, Discipline } from '@/types';
+import { Instructor, FilmCredit, Discipline, parseCredit } from '@/types';
 import { upsertTeamMember, deleteTeamMember } from '@/app/admin/actions';
 import { MediaPickerModal } from './MediaPickerModal';
 
@@ -83,6 +84,7 @@ export const TeamView: React.FC<TeamViewProps> = ({
         imdb: updated.imdb,
         external_url: updated.externalUrl,
         profile_id: updated.profile_id,
+        metadata: updated.metadata,
       });
     });
   };
@@ -442,6 +444,68 @@ export const TeamView: React.FC<TeamViewProps> = ({
                     className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500]"
                   />
                 </div>
+              </div>
+
+              {/* Tournages & Crédits Techniques (Coordination vs Cascades) */}
+              <div className="p-3.5 bg-black/40 border border-white/10 rounded-xl space-y-3">
+                <div className="flex items-center justify-between text-xs font-bold text-[#FFE500] uppercase tracking-wider">
+                  <div className="flex items-center gap-2">
+                    <Clapperboard className="w-3.5 h-3.5" />
+                    Tournages &amp; Crédits Qualifiés ({editingMember.notableCredits?.length || 0})
+                  </div>
+                  <span className="text-[10px] font-mono text-zinc-400">
+                    Format : Titre — Rôle
+                  </span>
+                </div>
+
+                <p className="text-[11px] text-zinc-400 leading-relaxed">
+                  Indiquez les films et rôles précis (un par ligne), ex : <br />
+                  <span className="text-[#FFE500] font-mono">Bagarre — Coordinateur des cascades &amp; Action Designer</span><br />
+                  <span className="text-zinc-300 font-mono">John Wick : Chapitre 4 — Cascadeur</span>
+                </p>
+
+                <textarea
+                  rows={6}
+                  placeholder={`Bagarre — Coordinateur des cascades & Action Designer\nJohn Wick : Chapitre 4 — Cascadeur\nSous la Seine — Cascadeur (Cascades subaquatiques)`}
+                  value={
+                    Array.isArray(editingMember.notableCredits)
+                      ? editingMember.notableCredits.join('\n')
+                      : (editingMember as any).notableCredits || ''
+                  }
+                  onChange={(e) =>
+                    setEditingMember({
+                      ...editingMember,
+                      notableCredits: e.target.value.split('\n').map((s) => s.trim()).filter(Boolean),
+                    })
+                  }
+                  className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-[#FFE500] leading-relaxed"
+                />
+
+                {/* Aperçu interactif des pastilles de rôles */}
+                {editingMember.notableCredits && editingMember.notableCredits.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {editingMember.notableCredits.map((c, i) => {
+                      const parsed = parseCredit(c);
+                      const isCoord = parsed.category === 'coordination';
+                      const isDoublure = parsed.category === 'doublure';
+                      return (
+                        <span
+                          key={i}
+                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono border ${
+                            isCoord
+                              ? 'bg-[#FFE500]/15 text-[#FFE500] border-[#FFE500]/40 font-bold'
+                              : isDoublure
+                              ? 'bg-sky-500/15 text-sky-300 border-sky-500/30'
+                              : 'bg-black/60 text-zinc-300 border-zinc-700'
+                          }`}
+                        >
+                          <span className="font-semibold">{parsed.title}</span>
+                          {parsed.role && <span className="opacity-75 font-normal">[{parsed.role}]</span>}
+                        </span>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
 
               {/* Interconnexions : CUC Sign, Disciplines & Projets Cinéma */}

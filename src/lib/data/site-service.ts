@@ -153,6 +153,7 @@ export async function getTeam(): Promise<Instructor[]> {
       imdb: t.imdb,
       profile_id: t.profile_id || null,
       film_ids: teamFilmsMap[t.id] || [],
+      metadata: t.metadata || {},
     }));
   } catch {
     return CUC_TEAM;
@@ -175,11 +176,11 @@ export async function getFilms(): Promise<FilmCredit[]> {
       const { data: settingRow } = await supabase
         .from('site_settings')
         .select('value')
-        .eq('key', 'films')
+        .eq('key', 'filmography_credits')
         .maybeSingle();
 
-      if (settingRow?.value?.list && Array.isArray(settingRow.value.list) && settingRow.value.list.length > 0) {
-        return settingRow.value.list as FilmCredit[];
+      if (settingRow && Array.isArray(settingRow.value) && settingRow.value.length > 0) {
+        return settingRow.value as FilmCredit[];
       }
       return FILMOGRAPHY_CREDITS;
     }
@@ -199,6 +200,7 @@ export async function getFilms(): Promise<FilmCredit[]> {
       allocineUrl: f.allocine_url || '',
       trailerUrl: f.trailer_url || '',
       cuc_team_involved: f.cuc_team_involved || [],
+      cuc_team_roles: f.metadata?.cuc_team_roles || f.cuc_team_roles || {},
     }));
   } catch {
     return FILMOGRAPHY_CREDITS;

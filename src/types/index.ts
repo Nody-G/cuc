@@ -61,6 +61,72 @@ export interface FilmCredit {
   trailerUrl: string;
   instructor_ids?: string[];
   cuc_team_involved?: string[];
+  cuc_team_roles?: Record<string, string>;
+}
+
+export type StuntRoleCategory = 'coordination' | 'stunt' | 'doublure' | 'choreography' | 'rigger' | 'parkour' | 'special';
+
+export interface ParsedCredit {
+  raw: string;
+  title: string;
+  role?: string;
+  category: StuntRoleCategory;
+  year?: string;
+}
+
+/**
+ * Analyse un crédit de tournage pour séparer proprement le titre de l'œuvre et le rôle exact
+ * (ex: Coordinateur des cascades, Cascadeur, Doublure de Tomer Sisley, etc.)
+ */
+export function parseCredit(creditStr: string): ParsedCredit {
+  if (!creditStr) {
+    return { raw: '', title: '', category: 'stunt' };
+  }
+  const raw = creditStr.trim();
+
+  let title = raw;
+  let role: string | undefined = undefined;
+
+  // Format "Titre — Rôle"
+  if (raw.includes(' — ')) {
+    const parts = raw.split(' — ');
+    title = parts[0].trim();
+    role = parts.slice(1).join(' — ').trim();
+  } else {
+    // Format "Titre (Rôle)" à la fin
+    const matchParen = raw.match(/^(.*?)\s*\(([^)]+)\)$/);
+    if (matchParen) {
+      const candidateTitle = matchParen[1].trim();
+      const candidateRole = matchParen[2].trim();
+      // Si ce n'est pas simplement une année isolée (ex: 2024)
+      if (!/^\d{4}$/.test(candidateRole)) {
+        title = candidateTitle;
+        role = candidateRole;
+      }
+    }
+  }
+
+  // Détection de la catégorie technique
+  let category: StuntRoleCategory = 'stunt';
+  const roleLower = (role || '').toLowerCase();
+
+  if (roleLower.includes('coordinat') || roleLower.includes('régleur') || roleLower.includes('supervis')) {
+    category = 'coordination';
+  } else if (roleLower.includes('doublure') || roleLower.includes('double')) {
+    category = 'doublure';
+  } else if (roleLower.includes('chorégraph') || roleLower.includes('action designer')) {
+    category = 'choreography';
+  } else if (roleLower.includes('parkour') || roleLower.includes('freerun') || roleLower.includes('yamakasi')) {
+    category = 'parkour';
+  } else if (roleLower.includes('câbl') || roleLower.includes('rigger') || roleLower.includes('rigging')) {
+    category = 'rigger';
+  } else if (raw.toLowerCase().includes('champion') || raw.toLowerCase().includes('award')) {
+    category = 'special';
+  } else {
+    category = 'stunt';
+  }
+
+  return { raw, title, role, category };
 }
 
 export interface DoubledCelebrity {
@@ -92,6 +158,10 @@ export interface Instructor {
   film_ids?: string[];
   discipline_ids?: string[];
   profile_id?: string | null;
+  metadata?: {
+    film_roles?: Record<string, string>;
+    [key: string]: any;
+  };
 }
 
 export interface InfrastructureSpot {

@@ -86,6 +86,7 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
         doubled_actors: updated.doubledActors,
         highlight: updated.highlight,
         cuc_team_involved: updated.cuc_team_involved || updated.instructor_ids || [],
+        cuc_team_roles: updated.cuc_team_roles || {},
       });
     });
   };
@@ -527,13 +528,19 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
                 </div>
               </div>
 
-              {/* Interconnexions : Formateurs et Cascadeurs CUC */}
+              {/* Interconnexions : Formateurs et Cascadeurs CUC avec Rôles précis */}
               {team.length > 0 && (
-                <div className="p-3 bg-black/40 border border-white/10 rounded-xl space-y-2">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-[#FFE500] uppercase tracking-wider">
-                    <Users className="w-3.5 h-3.5 text-sky-400" />
-                    Instructeurs &amp; Cascadeurs CUC sur cette production
+                <div className="p-3.5 bg-black/40 border border-white/10 rounded-xl space-y-3">
+                  <div className="flex items-center justify-between text-xs font-bold text-[#FFE500] uppercase tracking-wider">
+                    <div className="flex items-center gap-1.5">
+                      <Users className="w-3.5 h-3.5 text-sky-400" />
+                      Instructeurs &amp; Cascadeurs CUC sur cette production
+                    </div>
+                    <span className="text-[10px] font-mono text-zinc-400">
+                      {(editingFilm.cuc_team_involved || []).length} intervenants
+                    </span>
                   </div>
+
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 max-h-36 overflow-y-auto pr-1">
                     {team.map((t) => {
                       const isChecked =
@@ -568,6 +575,52 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
                       );
                     })}
                   </div>
+
+                  {/* Rôles qualifiés par membre sélectionné */}
+                  {(editingFilm.cuc_team_involved || []).length > 0 && (
+                    <div className="pt-2 border-t border-white/10 space-y-2">
+                      <label className="block text-[11px] font-mono text-zinc-400 uppercase">
+                        Rôle technique précis de chaque cascadeur sur ce film :
+                      </label>
+                      <div className="space-y-1.5 max-h-40 overflow-y-auto pr-1">
+                        {(editingFilm.cuc_team_involved || []).map((memberId) => {
+                          const memberObj = team.find((t) => t.id === memberId);
+                          const currentRole =
+                            editingFilm.cuc_team_roles?.[memberId] ||
+                            (memberObj?.title.toLowerCase().includes('coordinateur')
+                              ? 'Coordinateur des cascades'
+                              : 'Cascadeur (Stunt Performer)');
+
+                          return (
+                            <div
+                              key={memberId}
+                              className="flex items-center gap-2 p-1.5 bg-black/60 border border-white/10 rounded"
+                            >
+                              <span className="text-xs text-white font-bold truncate w-32 shrink-0">
+                                {memberObj?.name || memberId} :
+                              </span>
+                              <input
+                                type="text"
+                                placeholder="ex: Coordinateur des cascades / Cascadeur / Doublure..."
+                                value={currentRole}
+                                onChange={(e) => {
+                                  const roles = {
+                                    ...(editingFilm.cuc_team_roles || {}),
+                                    [memberId]: e.target.value,
+                                  };
+                                  setEditingFilm({
+                                    ...editingFilm,
+                                    cuc_team_roles: roles,
+                                  });
+                                }}
+                                className="flex-1 bg-black/80 border border-white/20 rounded px-2 py-1 text-xs text-zinc-200 focus:outline-none focus:border-[#FFE500]"
+                              />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
