@@ -1120,7 +1120,8 @@ export const TeamView: React.FC<TeamViewProps> = ({
 
                       <p className="text-[11px] text-zinc-400 leading-relaxed">
                         Films mis en avant sur la fiche publique, dans cet ordre. Réordonnez-les
-                        avec les flèches, retirez-en un avec l'étoile.
+                        avec les flèches, retirez-en un avec l'étoile. Le rôle se choisit dans
+                        « Tous les crédits » ci-dessous.
                       </p>
 
                       {catalogueFilms.length > 0 ? (
@@ -1175,24 +1176,6 @@ export const TeamView: React.FC<TeamViewProps> = ({
                                   </button>
                                 </div>
                               </div>
-                              <div className="flex items-center gap-1.5 px-2.5 pb-2 pl-9">
-                                {ROLE_OPTIONS.map((role) => {
-                                  const active = creditIndex.get(entry.key)?.role === role;
-                                  return (
-                                    <button
-                                      type="button"
-                                      key={role}
-                                      onClick={() => setCreditRole(film.title, active ? '' : role)}
-                                      className={`px-2 py-0.5 rounded text-[10px] font-mono border transition ${active
-                                        ? 'bg-[#FFE500]/20 border-[#FFE500] text-[#FFE500] font-bold'
-                                        : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/25'
-                                        }`}
-                                    >
-                                      {role}
-                                    </button>
-                                  );
-                                })}
-                              </div>
                             </li>
                           ))}
                         </ol>
@@ -1222,7 +1205,7 @@ export const TeamView: React.FC<TeamViewProps> = ({
                       </p>
 
                       {allCredits.length > 0 ? (
-                        <div className="space-y-1 max-h-[22rem] overflow-y-auto pr-1">
+                        <div className="space-y-1.5 max-h-[26rem] overflow-y-auto pr-1">
                           {allCredits.map(({ raw, title, role, key, inCatalogue }) => {
                             const isFeatured = featuredSet.has(key);
                             const featuredRank = featuredCreditsOrdered.findIndex(
@@ -1231,76 +1214,100 @@ export const TeamView: React.FC<TeamViewProps> = ({
                             return (
                               <div
                                 key={raw}
-                                className={`flex items-center gap-2 px-2 py-1 border rounded text-[11px] ${isFeatured
+                                className={`border rounded-lg ${isFeatured
                                   ? 'bg-[#FFE500]/10 border-[#FFE500]/40'
                                   : 'bg-black/60 border-white/10'
                                   }`}
                               >
-                                <span
-                                  className={`px-1.5 py-0.5 rounded text-[9px] font-mono border shrink-0 ${inCatalogue
-                                    ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
-                                    : 'bg-white/5 text-zinc-500 border-white/10'
-                                    }`}
-                                  title={
-                                    inCatalogue
-                                      ? 'Présent au catalogue'
-                                      : 'Absent du catalogue — fiche à créer si besoin'
-                                  }
-                                >
-                                  {inCatalogue ? 'CATALOGUE' : 'HORS CAT.'}
-                                </span>
-                                <span className="flex-1 truncate text-zinc-200">{title}</span>
-                                <span className="text-[9px] font-mono text-zinc-500 shrink-0">
-                                  {role || 'Rôle non précisé'}
-                                </span>
-                                {isFeatured && (
-                                  <>
-                                    <span className="font-mono text-[9px] text-[#FFE500] w-3 text-center shrink-0">
-                                      {featuredRank + 1}
-                                    </span>
-                                    <button
-                                      type="button"
-                                      onClick={() => moveFeatured(key, -1)}
-                                      disabled={featuredRank === 0}
-                                      className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30 shrink-0"
-                                      title="Monter dans la mise en avant"
-                                    >
-                                      <ArrowUp className="w-3 h-3" />
-                                    </button>
-                                    <button
-                                      type="button"
-                                      onClick={() => moveFeatured(key, 1)}
-                                      disabled={featuredRank === featuredCount - 1}
-                                      className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30 shrink-0"
-                                      title="Descendre dans la mise en avant"
-                                    >
-                                      <ArrowDown className="w-3 h-3" />
-                                    </button>
-                                  </>
-                                )}
-                                <button
-                                  type="button"
-                                  onClick={() => toggleFeatured(title)}
-                                  className={`p-1 rounded transition shrink-0 ${isFeatured
-                                    ? 'text-[#FFE500]'
-                                    : 'text-zinc-600 hover:text-[#FFE500]'
-                                    }`}
-                                  title={
-                                    isFeatured
-                                      ? 'Retirer de la mise en avant'
-                                      : 'Mettre en avant sur la fiche publique'
-                                  }
-                                >
-                                  <Star className={`w-3.5 h-3.5 ${isFeatured ? 'fill-current' : ''}`} />
-                                </button>
-                                <button
-                                  type="button"
-                                  onClick={() => removeCredit(raw)}
-                                  className="p-0.5 text-zinc-500 hover:text-red-400 shrink-0"
-                                  title="Supprimer ce crédit"
-                                >
-                                  <Trash2 className="w-3 h-3" />
-                                </button>
+                                <div className="flex items-center gap-2 px-2 py-1.5">
+                                  <span
+                                    className={`px-1.5 py-0.5 rounded text-[9px] font-mono border shrink-0 ${inCatalogue
+                                      ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
+                                      : 'bg-white/5 text-zinc-500 border-white/10'
+                                      }`}
+                                    title={
+                                      inCatalogue
+                                        ? 'Présent au catalogue'
+                                        : 'Absent du catalogue — fiche à créer si besoin'
+                                    }
+                                  >
+                                    {inCatalogue ? 'CATALOGUE' : 'HORS CAT.'}
+                                  </span>
+                                  <span className="flex-1 truncate text-[11px] text-zinc-200">
+                                    {title}
+                                  </span>
+                                  {isFeatured && (
+                                    <>
+                                      <span className="font-mono text-[9px] text-[#FFE500] w-3 text-center shrink-0">
+                                        {featuredRank + 1}
+                                      </span>
+                                      <button
+                                        type="button"
+                                        onClick={() => moveFeatured(key, -1)}
+                                        disabled={featuredRank === 0}
+                                        className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30 shrink-0"
+                                        title="Monter dans la mise en avant"
+                                      >
+                                        <ArrowUp className="w-3 h-3" />
+                                      </button>
+                                      <button
+                                        type="button"
+                                        onClick={() => moveFeatured(key, 1)}
+                                        disabled={featuredRank === featuredCount - 1}
+                                        className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30 shrink-0"
+                                        title="Descendre dans la mise en avant"
+                                      >
+                                        <ArrowDown className="w-3 h-3" />
+                                      </button>
+                                    </>
+                                  )}
+                                  <button
+                                    type="button"
+                                    onClick={() => toggleFeatured(title)}
+                                    className={`p-1 rounded transition shrink-0 ${isFeatured
+                                      ? 'text-[#FFE500]'
+                                      : 'text-zinc-600 hover:text-[#FFE500]'
+                                      }`}
+                                    title={
+                                      isFeatured
+                                        ? 'Retirer de la mise en avant'
+                                        : 'Mettre en avant sur la fiche publique'
+                                    }
+                                  >
+                                    <Star className={`w-3.5 h-3.5 ${isFeatured ? 'fill-current' : ''}`} />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => removeCredit(raw)}
+                                    className="p-0.5 text-zinc-500 hover:text-red-400 shrink-0"
+                                    title="Supprimer ce crédit"
+                                  >
+                                    <Trash2 className="w-3 h-3" />
+                                  </button>
+                                </div>
+
+                                {/* Choix du rôle du coach sur ce film */}
+                                <div className="flex items-center gap-1.5 px-2 pb-2 pl-2">
+                                  <span className="text-[9px] font-mono text-zinc-500 shrink-0">
+                                    Rôle :
+                                  </span>
+                                  {ROLE_OPTIONS.map((option) => {
+                                    const active = role === option;
+                                    return (
+                                      <button
+                                        type="button"
+                                        key={option}
+                                        onClick={() => setCreditRole(title, active ? '' : option)}
+                                        className={`px-2 py-0.5 rounded text-[10px] font-mono border transition ${active
+                                          ? 'bg-[#FFE500]/20 border-[#FFE500] text-[#FFE500] font-bold'
+                                          : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/25'
+                                          }`}
+                                      >
+                                        {option}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
                               </div>
                             );
                           })}
