@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { InstagramLogo, ImdbLogo } from '@/components/ui/BrandLogos';
 import { Instructor, FilmCredit, Discipline, parseCredit } from '@/types';
+import { creditTitleKey } from '@/lib/credit-title';
 import { upsertTeamMember, deleteTeamMember } from '@/app/admin/actions';
 import { MediaPickerModal } from './MediaPickerModal';
 
@@ -153,7 +154,13 @@ export const TeamView: React.FC<TeamViewProps> = ({
    * `notable_credits` et `featured_credits`, ce qui évite toute
    * désynchronisation lorsque le rôle change.
    */
-  const creditKey = (title: string) => title.trim().toLowerCase().replace(/\s+/g, ' ');
+  /**
+   * Clé canonique d'un titre — déléguée au helper partagé `creditTitleKey`.
+   * Elle retire notamment le suffixe d'année « (2021) » : sans cela, les
+   * crédits du formateur (« Lupin (2021) ») ne correspondaient jamais aux
+   * titres nus du catalogue (« Lupin »), rendant la mise en avant inopérante.
+   */
+  const creditKey = (title: string) => creditTitleKey(title);
 
   /**
    * Index des crédits du formateur, dérivé de `notableCredits`.

@@ -11,6 +11,7 @@ import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getTeam, getFilms } from '@/lib/data/site-service';
 import { normalizeRole } from '@/lib/credit-role';
+import { creditTitleKey } from '@/lib/credit-title';
 import { ImdbLogo } from '@/components/ui/BrandLogos';
 import { Instructor, FilmCredit, parseCredit, ParsedCredit } from '@/types';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
@@ -31,12 +32,14 @@ import {
 type FilmSort = 'year-desc' | 'year-asc' | 'title-asc' | 'title-desc';
 
 /**
- * Clé canonique d'un titre de film : minuscules + espaces compactés.
- * Doit rester identique à `creditKey()` du cockpit (TeamView) pour que la
- * mise en avant définie côté admin soit reconnue côté public.
+ * Clé canonique d'un titre de film.
+ * Délègue au helper partagé `creditTitleKey` (retrait du suffixe d'année
+ * « (2021) », accents, ponctuation) afin que la mise en avant définie côté
+ * admin soit reconnue côté public — y compris pour les crédits sourcés IMDb
+ * qui portent toujours leur année.
  */
 function normalizeTitleKey(title: string): string {
-  return title.trim().toLowerCase().replace(/\s+/g, ' ');
+  return creditTitleKey(title);
 }
 
 interface CoachDetailClientProps {
@@ -88,14 +91,20 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
     );
   }
 
-  // Films associés à cet instructeur
-  const relatedFilms = allFilms.filter(
-    (f) =>
-      (member.film_ids && member.film_ids.includes(f.id)) ||
-      (f.cuc_team_involved && f.cuc_team_involved.includes(member.id)) ||
-      (member.notableCredits &&
-        member.notableCredits.some((c) => f.title.toLowerCase().includes(c.toLowerCase()) || c.toLowerCase().includes(f.title.toLowerCase())))
-  );
+  // Films associés à cet instructeur.
+  // L'appariement par crédit se fait sur le TITRE normalisé (suffixe d'année
+  // retiré) et non plus par sous-chaîne brute : « Lupin (2021) — Cascadeur »
+  // correspond désormais au film « Lupin » du catalogue.
+  const relatedFilms = allFilms.filter((f) => {
+    if (member.film_ids && member.film_ids.includes(f.id)) return true;
+    if (f.cuc_team_involved && f.cuc_team_involved.includes(member.id)) return true;
+    if (!member.notableCredits) return false;
+    const filmKey = normalizeTitleKey(f.title);
+    return member.notableCredits.some((c) => {
+      const creditKey = normalizeTitleKey(parseCredit(c).title || c);
+      return creditKey && creditKey === filmKey;
+    });
+  });
 
   // Crédits mis en avant depuis le cockpit (ordre d'affichage prioritaire).
   // Le libellé stocké peut être « Titre — Rôle » : on ne compare que le titre,

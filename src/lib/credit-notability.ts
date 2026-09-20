@@ -1,4 +1,5 @@
 import { FilmCredit, ParsedCredit, parseCredit } from '@/types';
+import { creditTitleKey } from '@/lib/credit-title';
 
 /**
  * Score de notoriété d'un film du catalogue.
@@ -58,15 +59,14 @@ export function sortFilmsByNotability(films: FilmCredit[]): FilmCredit[] {
 }
 
 /**
- * Normalise un titre pour comparaison tolérante (accents, casse, ponctuation).
+ * Normalise un titre pour comparaison tolérante (accents, casse, ponctuation,
+ * et surtout suffixe d'année « (2021) »).
+ *
+ * Délègue au helper canonique partagé `creditTitleKey` afin que le Cockpit, la
+ * fiche publique et la notoriété utilisent EXACTEMENT la même clé.
  */
 export function normalizeTitle(title: string): string {
-    return title
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/[^a-z0-9]+/g, ' ')
-        .trim();
+    return creditTitleKey(title);
 }
 
 /**
@@ -90,12 +90,13 @@ export function matchFilmForCredit(credit: ParsedCredit, films: FilmCredit[]): F
 }
 
 /**
- * Clé canonique d'un titre : minuscules + espaces compactés.
+ * Clé canonique d'un titre.
  * Identique à `creditKey()` (cockpit) et `normalizeTitleKey()` (fiche publique)
  * afin que la mise en avant soit reconnue partout, même si le rôle a changé.
+ * Délègue au helper partagé `creditTitleKey` (retrait du suffixe d'année inclus).
  */
 function titleKey(title: string): string {
-    return title.trim().toLowerCase().replace(/\s+/g, ' ');
+    return creditTitleKey(title);
 }
 
 /**
