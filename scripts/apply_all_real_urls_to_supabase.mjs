@@ -10,18 +10,18 @@ const TEAM_UPDATES = [
     id: 'lucas-dollfus',
     instagram: 'https://www.instagram.com/lucas.dollfus/',
     external_url: 'https://www.instagram.com/lucas.dollfus/',
-    imdb: null
+    imdb: 'https://www.imdb.com/name/nm8686683/'
   },
   {
     id: 'jerome-gaspard',
-    imdb: 'https://www.imdb.com/name/nm2440332/',
+    imdb: 'https://www.imdb.com/name/nm2285249/',
     external_url: 'https://www.action-cascade.com/coordinateur-de-cascades/',
     instagram: null
   },
   {
     id: 'vincent-bouillon',
     imdb: 'https://www.imdb.com/name/nm3763784/',
-    external_url: 'https://fr.vincentbouillon.com/',
+    external_url: 'https://vincentbouillon.com/',
     instagram: 'https://www.instagram.com/vincentbouillon/'
   },
   {
@@ -38,19 +38,19 @@ const TEAM_UPDATES = [
   },
   {
     id: 'kefi-abrikh',
-    imdb: 'https://www.imdb.com/name/nm3966567/',
-    external_url: 'http://www.kefiabrikh.com',
+    imdb: 'https://www.imdb.com/name/nm3768608/',
+    external_url: 'https://www.kefiabrikh.com/',
     instagram: null
   },
   {
     id: 'maurice-chan',
-    imdb: 'https://www.imdb.com/name/nm2592500/',
+    imdb: 'https://www.imdb.com/name/nm0151023/',
     external_url: 'https://mauricechan.book.fr',
     instagram: null
   },
   {
     id: 'michael-troude',
-    imdb: 'https://www.imdb.com/name/nm2869502/',
+    imdb: 'https://www.imdb.com/name/nm0873735/',
     external_url: null,
     instagram: null
   },
@@ -63,8 +63,8 @@ const TEAM_UPDATES = [
   {
     id: 'niels-dalery',
     imdb: 'https://www.imdb.com/name/nm9102434/',
-    external_url: null,
-    instagram: null
+    external_url: 'https://nielsdalery.com/',
+    instagram: 'https://www.instagram.com/nielsdalery'
   }
 ];
 

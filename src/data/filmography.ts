@@ -19,7 +19,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt27488094/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=315125.html",
     "trailerUrl": "https://www.youtube.com/watch?v=GRrqa3nD2YY",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "jerome-gaspard"
+    ]
   },
   {
     "id": "machine",
@@ -35,7 +37,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt27718012/",
     "allocineUrl": "https://www.allocine.fr/series/ficheserie_gen_cserie=32007.html",
     "trailerUrl": "https://www.youtube.com/watch?v=apLu21Bods4",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "malik-diouf"
+    ]
   },
   {
     "id": "fiasco",
@@ -51,7 +55,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt27299066/",
     "allocineUrl": "https://www.allocine.fr/series/ficheserie_gen_cserie=34019.html",
     "trailerUrl": "https://www.youtube.com/watch?v=0GxNXM6HcmU",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "malik-diouf"
+    ]
   },
   {
     "id": "gtmax",
@@ -88,7 +94,8 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "cuc_team_involved": [
       "vincent-bouillon",
       "maurice-chan",
-      "franck-blanc"
+      "franck-blanc",
+      "amedeo-cazzella"
     ]
   },
   {
@@ -269,7 +276,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt15295770/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=278052.html",
     "trailerUrl": "https://www.youtube.com/watch?v=p0OljkLzV3w",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "vincent-bouillon"
+    ]
   },
   {
     "id": "john-wick-4",
@@ -291,7 +300,10 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
       "jerome-gaspard",
       "vincent-bouillon",
       "maurice-chan",
-      "kefi-abrikh"
+      "kefi-abrikh",
+      "lucas-dollfus",
+      "franck-blanc",
+      "amedeo-cazzella"
     ]
   },
   {
@@ -388,7 +400,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt11734264/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=279090.html",
     "trailerUrl": "https://www.youtube.com/watch?v=VJX9V1FnOHY",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "jerome-gaspard"
+    ]
   },
   {
     "id": "black-widow",
@@ -436,7 +450,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt10404944/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=274530.html",
     "trailerUrl": "https://www.youtube.com/watch?v=E4FdK4VdGz0",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "michael-troude"
+    ]
   },
   {
     "id": "stillwater",
@@ -516,7 +532,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt11855660/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=271813.html",
     "trailerUrl": "https://www.youtube.com/watch?v=kYJ5oVb06fM",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "michael-troude"
+    ]
   },
   {
     "id": "bronx",
@@ -564,7 +582,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt7146608/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=257604.html",
     "trailerUrl": "https://www.youtube.com/watch?v=R9o83i8aNqA",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "kefi-abrikh"
+    ]
   },
   {
     "id": "6-underground",
@@ -580,7 +600,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt8106534/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=261474.html",
     "trailerUrl": "https://www.youtube.com/watch?v=bLfmyVTwFN8",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "vincent-bouillon"
+    ]
   },
   {
     "id": "les-miserables",
@@ -596,7 +618,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt10199590/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=268406.html",
     "trailerUrl": "https://www.youtube.com/watch?v=lU5y-Yx3wS4",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "malik-diouf"
+    ]
   },
   {
     "id": "mortel",
@@ -612,7 +636,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt8268484/",
     "allocineUrl": "https://www.allocine.fr/series/ficheserie_gen_cserie=23528.html",
     "trailerUrl": "https://www.youtube.com/watch?v=uVUY-t2_O2k",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "michael-troude"
+    ]
   },
   {
     "id": "mission-impossible-fallout",
@@ -644,7 +670,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt5442742/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=238378.html",
     "trailerUrl": "https://www.youtube.com/watch?v=S0T0-qJq7iE",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "amedeo-cazzella"
+    ]
   },
   {
     "id": "overdrive",
@@ -678,7 +706,8 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "trailerUrl": "https://www.youtube.com/watch?FPcRK7MvTn4",
     "cuc_team_involved": [
       "jerome-gaspard",
-      "franck-blanc"
+      "franck-blanc",
+      "amedeo-cazzella"
     ]
   },
   {
@@ -730,7 +759,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt4196776/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=231615.html",
     "trailerUrl": "https://www.youtube.com/watch?v=euya1zwQ6U0",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "kefi-abrikh"
+    ]
   },
   {
     "id": "bastille-day",
@@ -764,7 +795,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "trailerUrl": "https://www.youtube.com/watch?v=NlZS1pSF2hU",
     "cuc_team_involved": [
       "jerome-gaspard",
-      "vincent-bouillon"
+      "vincent-bouillon",
+      "kefi-abrikh",
+      "maurice-chan"
     ]
   },
   {
@@ -797,7 +830,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt2938956/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=219462.html",
     "trailerUrl": "https://www.youtube.com/watch?v=DRuyPTWsydY",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "amedeo-cazzella"
+    ]
   },
   {
     "id": "the-hunger-games",
@@ -813,7 +848,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt1951265/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=200088.html",
     "trailerUrl": "https://www.youtube.com/watch?v=zdMIft77FEY",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "vincent-bouillon"
+    ]
   },
   {
     "id": "l-affaire-sk1",
@@ -863,7 +900,8 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "trailerUrl": "https://www.youtube.com/watch?v=7gPrNpHaFX8",
     "cuc_team_involved": [
       "maurice-chan",
-      "jerome-gaspard"
+      "jerome-gaspard",
+      "amedeo-cazzella"
     ]
   },
   {
@@ -881,7 +919,8 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=189651.html",
     "trailerUrl": "https://www.youtube.com/watch?v=Ewu0WTPbOVY",
     "cuc_team_involved": [
-      "jerome-gaspard"
+      "jerome-gaspard",
+      "kefi-abrikh"
     ]
   },
   {
@@ -914,7 +953,9 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt1397280/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=187841.html",
     "trailerUrl": "https://www.youtube.com/watch?v=G_U2ZpXjpeg",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "amedeo-cazzella"
+    ]
   },
   {
     "id": "de-l-autre-cote-du-periph",
@@ -994,7 +1035,10 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt0808339/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=128357.html",
     "trailerUrl": "https://www.youtube.com/watch?v=rnYZHu_YaQY",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "vincent-bouillon",
+      "jerome-gaspard"
+    ]
   },
   {
     "id": "mesrine-l-ennemi-public-n-1",
@@ -1058,7 +1102,11 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "imdbUrl": "https://www.imdb.com/title/tt0342258/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=52538.html",
     "trailerUrl": "https://www.youtube.com/watch?v=WcMgkbfJIRg",
-    "cuc_team_involved": []
+    "cuc_team_involved": [
+      "maurice-chan",
+      "michael-troude",
+      "amedeo-cazzella"
+    ]
   },
   {
     "id": "yamakasi",
