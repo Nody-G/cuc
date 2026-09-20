@@ -118,6 +118,39 @@ interface CockpitAppProps {
   initialTab?: TabType;
 }
 
+/**
+ * Source de vérité unique de la correspondance onglet ↔ segment d'URL.
+ * Toute vue du Cockpit doit y figurer afin que le deep-linking, le bouton
+ * Précédent/Suivant et le rafraîchissement direct d'une URL restent cohérents.
+ */
+const TAB_ROUTES: ReadonlyArray<{ tab: TabType; segment: string }> = [
+  { tab: 'inquiries', segment: 'inquiries' },
+  { tab: 'pages', segment: 'pages' },
+  { tab: 'navigation', segment: 'navigation' },
+  { tab: 'footer', segment: 'footer' },
+  { tab: 'social', segment: 'social' },
+  { tab: 'disciplines', segment: 'disciplines' },
+  { tab: 'campus', segment: 'campus' },
+  { tab: 'sessions', segment: 'sessions' },
+  { tab: 'team', segment: 'team' },
+  { tab: 'films', segment: 'films' },
+  { tab: 'partners', segment: 'partners' },
+  { tab: 'events', segment: 'events' },
+  { tab: 'media', segment: 'media' },
+  { tab: 'announcements', segment: 'announcements' },
+  { tab: 'users', segment: 'users' },
+  { tab: 'audit', segment: 'audit' },
+  { tab: 'health', segment: 'health' },
+  { tab: 'analytics', segment: 'analytics' },
+  { tab: 'settings', segment: 'settings' },
+];
+
+/** Résout un chemin d'URL vers l'onglet correspondant (ou `null` si inconnu). */
+function resolveTabFromPath(path: string): TabType | null {
+  const match = TAB_ROUTES.find(({ segment }) => path.includes(`/${segment}`));
+  return match ? match.tab : null;
+}
+
 const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }) => {
   const { theme, toggleTheme } = useCockpitTheme();
   const router = useRouter();
@@ -126,31 +159,10 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
 
   const getTabFromPath = (): TabType => {
     if (typeof window !== 'undefined') {
-      const p = window.location.pathname;
-      if (p.includes('/inquiries')) return 'inquiries';
-      if (p.includes('/pages')) return 'pages';
-      if (p.includes('/media')) return 'media';
-      if (p.includes('/partners')) return 'partners';
-      if (p.includes('/events')) return 'events';
-      if (p.includes('/users')) return 'users';
-      if (p.includes('/settings')) return 'settings';
-      if (p.includes('/sessions')) return 'sessions';
-      if (p.includes('/team')) return 'team';
-      if (p.includes('/films')) return 'films';
-      if (p.includes('/announcements')) return 'announcements';
+      const resolved = resolveTabFromPath(window.location.pathname);
+      if (resolved) return resolved;
     }
-    if (pathname.includes('/inquiries')) return 'inquiries';
-    if (pathname.includes('/pages')) return 'pages';
-    if (pathname.includes('/media')) return 'media';
-    if (pathname.includes('/partners')) return 'partners';
-    if (pathname.includes('/events')) return 'events';
-    if (pathname.includes('/users')) return 'users';
-    if (pathname.includes('/settings')) return 'settings';
-    if (pathname.includes('/sessions')) return 'sessions';
-    if (pathname.includes('/team')) return 'team';
-    if (pathname.includes('/films')) return 'films';
-    if (pathname.includes('/announcements')) return 'announcements';
-    return initialTab;
+    return resolveTabFromPath(pathname) ?? initialTab;
   };
 
   const [activeTab, setActiveTab] = useState<TabType>(getTabFromPath());
@@ -482,18 +494,7 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
   // Prise en charge des boutons Précédent/Suivant du navigateur
   useEffect(() => {
     const handlePopState = () => {
-      const currentPath = window.location.pathname;
-      if (currentPath.includes('/pages')) setActiveTab('pages');
-      else if (currentPath.includes('/media')) setActiveTab('media');
-      else if (currentPath.includes('/partners')) setActiveTab('partners');
-      else if (currentPath.includes('/events')) setActiveTab('events');
-      else if (currentPath.includes('/users')) setActiveTab('users');
-      else if (currentPath.includes('/settings')) setActiveTab('settings');
-      else if (currentPath.includes('/sessions')) setActiveTab('sessions');
-      else if (currentPath.includes('/team')) setActiveTab('team');
-      else if (currentPath.includes('/films')) setActiveTab('films');
-      else if (currentPath.includes('/announcements')) setActiveTab('announcements');
-      else setActiveTab('dashboard');
+      setActiveTab(resolveTabFromPath(window.location.pathname) ?? 'dashboard');
     };
 
     window.addEventListener('popstate', handlePopState);
@@ -830,7 +831,7 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
             />
           )}
 
-          {/* 5. BANDEAU FLASH */}
+          {/* 7. BANDEAU FLASH */}
           {activeTab === 'announcements' && (
             <AnnouncementsView
               announcement={announcement}
@@ -839,7 +840,7 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
             />
           )}
 
-          {/* 6. CMS ÉDITEUR DE PAGES */}
+          {/* 8. CMS ÉDITEUR DE PAGES */}
           {activeTab === 'pages' && (
             <div className="space-y-6 animate-in fade-in duration-200">
               <PagesEditorView
@@ -854,23 +855,23 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
             </div>
           )}
 
-          {/* 6b. NAVIGATION & MENUS */}
+          {/* 9. NAVIGATION & MENUS */}
           {activeTab === 'navigation' && <NavigationView showToast={showToast} />}
 
-          {/* 6c. PIED DE PAGE */}
+          {/* 10. PIED DE PAGE */}
           {activeTab === 'footer' && <FooterView showToast={showToast} />}
 
-          {/* 6d. RÉSEAUX SOCIAUX */}
+          {/* 11. RÉSEAUX SOCIAUX */}
           {activeTab === 'social' && <SocialLinksView showToast={showToast} />}
 
-          {/* 7. MÉDIATHÈQUE STORAGE */}
+          {/* 12. MÉDIATHÈQUE STORAGE */}
           {activeTab === 'media' && (
             <div className="space-y-6 animate-in fade-in duration-200">
               <MediaLibraryView showToast={showToast} />
             </div>
           )}
 
-          {/* 8. PRESTATIONS EVENTS */}
+          {/* 13. PRESTATIONS EVENTS */}
           {activeTab === 'events' && (
             <div className="space-y-6 animate-in fade-in duration-200">
               <EventsView
@@ -890,7 +891,7 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
             </div>
           )}
 
-          {/* 9. PARTENAIRES */}
+          {/* 14. PARTENAIRES */}
           {activeTab === 'partners' && (
             <div className="space-y-6 animate-in fade-in duration-200">
               <PartnersView
@@ -910,14 +911,14 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
             </div>
           )}
 
-          {/* 10. PARAMÈTRES GLOBAUX */}
+          {/* 15. PARAMÈTRES GLOBAUX */}
           {activeTab === 'settings' && (
             <div className="space-y-6 animate-in fade-in duration-200">
-              <SettingsView initialSettings={siteSettings} />
+              <SettingsView initialSettings={siteSettings} onNavigateToTab={switchTab} />
             </div>
           )}
 
-          {/* 11. UTILISATEURS & RÔLES */}
+          {/* 16. UTILISATEURS & RÔLES */}
           {activeTab === 'users' && (
             <div className="space-y-6 animate-in fade-in duration-200">
               <UsersRolesView
@@ -927,12 +928,12 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
             </div>
           )}
 
-          {/* 11 bis. JOURNAL D'AUDIT */}
+          {/* 17. JOURNAL D'AUDIT */}
           {activeTab === 'audit' && (
             <AuditLogView showToast={showToast} />
           )}
 
-          {/* 11 ter. DIAGNOSTIC DE SANTÉ DU CONTENU */}
+          {/* 18. DIAGNOSTIC DE SANTÉ DU CONTENU */}
           {activeTab === 'health' && (
             <ContentHealthView
               pages={pagesList}
@@ -941,12 +942,12 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
             />
           )}
 
-          {/* 11 quater. TABLEAU DE BORD ANALYTIQUE */}
+          {/* 19. TABLEAU DE BORD ANALYTIQUE */}
           {activeTab === 'analytics' && (
             <AnalyticsView programs={programs} pages={pagesList} showToast={showToast} />
           )}
 
-          {/* 12. CANDIDATURES & DEMANDES DE CONTACT */}
+          {/* 20. CANDIDATURES & DEMANDES DE CONTACT */}
           {activeTab === 'inquiries' && (
             <div className="space-y-6 animate-in fade-in duration-200">
               <InquiriesView

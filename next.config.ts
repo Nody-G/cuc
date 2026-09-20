@@ -64,7 +64,11 @@ const nextConfig: NextConfig = {
         source: "/(.*)",
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          // NOTE : `X-Frame-Options` est volontairement omis. Il est redondant
+          // avec `frame-ancestors 'self'` (CSP, ci-dessous) qui le supplante
+          // dans tous les navigateurs modernes, et sa présence bloquait
+          // l'aperçu live du Cockpit (iframe same-origin). `frame-ancestors`
+          // assure la même protection anti-clickjacking sans casser l'aperçu.
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           {
             key: "Permissions-Policy",

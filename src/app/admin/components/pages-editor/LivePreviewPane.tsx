@@ -163,14 +163,23 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
                         className="bg-black border border-white/10 rounded-lg overflow-hidden transition-[width] duration-200 ease-out"
                         style={{ width: frameWidth, maxWidth: '100%' }}
                     >
-                        <iframe
-                            key={`${reloadKey}-${localKey}`}
-                            ref={iframeRef}
-                            src={previewUrl}
-                            title="Aperçu live de la page"
-                            className="w-full border-0 bg-[#060608]"
-                            style={{ height: '72vh' }}
-                        />
+                        {previewUrl ? (
+                            <iframe
+                                key={`${reloadKey}-${localKey}`}
+                                ref={iframeRef}
+                                src={previewUrl}
+                                title="Aperçu live de la page"
+                                className="w-full border-0 bg-[#060608]"
+                                style={{ height: '72vh' }}
+                            />
+                        ) : (
+                            <div
+                                className="w-full flex items-center justify-center text-[11px] font-mono-tech text-zinc-500"
+                                style={{ height: '72vh' }}
+                            >
+                                Initialisation de l’aperçu…
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

@@ -1081,13 +1081,10 @@ export interface SiteSettings {
   // Thème & Charte Graphique
   accent_color?: string;
 
-  // Réseaux Sociaux & Mentions Légales
-  instagram?: string;
-  youtube?: string;
-  linkedin?: string;
-  facebook?: string;
-  tiktok?: string;
-  footer_copyright?: string;
+  // NOTE : les réseaux sociaux et le copyright du pied de page ne sont plus
+  // stockés ici. Ils sont pilotés par les tables canoniques `site_social_links`
+  // et `site_footer` (éditeurs dédiés du Cockpit), afin d'éviter toute seconde
+  // source de vérité désynchronisée de la vitrine publique.
 }
 
 export const DEFAULT_PARTNERS: SitePartner[] = [
@@ -1324,13 +1321,6 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   emergency_style: "gold",
 
   accent_color: "#FFE500",
-
-  instagram: "https://www.instagram.com/campus.univers.cascades/",
-  youtube: "https://www.youtube.com/@campusuniverscascades",
-  linkedin: "",
-  facebook: "https://www.facebook.com/campus.univers.cascades",
-  tiktok: "https://www.tiktok.com/@campus.univers.cascades",
-  footer_copyright: "© 2008 - 2026 Campus Univers Cascades. Tous droits réservés."
 };
 
 /**

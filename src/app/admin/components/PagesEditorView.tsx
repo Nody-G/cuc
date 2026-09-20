@@ -64,6 +64,12 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   const [mediaPickerTarget, setMediaPickerTarget] = useState<string | null>(null);
   const [previewKey, setPreviewKey] = useState<number>(0);
   const [isSplitView, setIsSplitView] = useState(false);
+  // Origine résolue côté client uniquement : évite un `src=""` au premier rendu
+  // (qui ferait charger la page courante dans l'iframe → « This page couldn't load »).
+  // Initialiseur paresseux : aucune écriture d'état dans un effet (pas de rendu en cascade).
+  const [previewOrigin] = useState<string>(() =>
+    typeof window !== 'undefined' ? window.location.origin : '',
+  );
 
   // Page active
   const cleanSelectedSlug = normalizeSlug(selectedSlug);
@@ -326,7 +332,13 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     setFormData((prev) => ({ ...prev, sections: currentList }));
   };
 
-  const previewUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}${formData.slug === '/' ? '' : `/${formData.slug}`}`;
+  // URL d'aperçu construite à partir de l'origine résolue côté client.
+  // Tant que `previewOrigin` est vide (rendu serveur / premier rendu), on ne
+  // produit pas d'URL : l'iframe n'est pas montée, ce qui évite un `src=""`
+  // qui chargerait la page courante dans l'iframe (« This page couldn't load »).
+  const previewUrl = previewOrigin
+    ? `${previewOrigin}${formData.slug === '/' ? '' : `/${formData.slug}`}`
+    : '';
 
   /**
    * Édition inline : lorsqu'un champ est cliqué dans l'aperçu, on retrouve

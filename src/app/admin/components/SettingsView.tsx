@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useTransition } from 'react';
-import { 
-  Building2, Phone, MapPin, Globe, Video,
-  Share2, Save, Check, RefreshCw, Sparkles, Layers,
+import {
+  Building2, Phone, MapPin, Share2,
+  Save, Check, RefreshCw, Sparkles, Layers,
   Award, AlertTriangle, MousePointerClick, Clock, ShieldCheck
 } from 'lucide-react';
 import { SiteSettings, DEFAULT_SITE_SETTINGS } from '@/lib/data/site-service';
@@ -11,9 +11,10 @@ import { updateSiteSettings } from '../actions';
 
 interface SettingsViewProps {
   initialSettings?: SiteSettings;
+  onNavigateToTab?: (tab: 'social' | 'footer') => void;
 }
 
-export function SettingsView({ initialSettings }: SettingsViewProps) {
+export function SettingsView({ initialSettings, onNavigateToTab }: SettingsViewProps) {
   const [settings, setSettings] = useState<SiteSettings>(initialSettings || DEFAULT_SITE_SETTINGS);
   const [isPending, startTransition] = useTransition();
   const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
@@ -52,12 +53,12 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20 font-mono">
-              <Sparkles className="w-3 h-3" /> Configuration Globale &amp; Interconnexion
+              <Sparkles className="w-3 h-3" /> Configuration Globale & Interconnexion
             </span>
           </div>
           <h2 className="text-2xl font-black tracking-tight text-white uppercase">Paramètres Généraux du Campus</h2>
           <p className="text-sm text-zinc-400 mt-1">
-            Personnalisez l&apos;identité, les accréditations Qualiopi, les boutons d&apos;action CTA, les alertes d&apos;urgence et les coordonnées vitrine.
+            Personnalisez l'identité, les accréditations Qualiopi, les boutons d'action CTA, les alertes d'urgence et les coordonnées vitrine.
           </p>
         </div>
 
@@ -89,11 +90,10 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
       </div>
 
       {statusMessage && (
-        <div className={`p-4 rounded-xl text-sm border flex items-center gap-3 animate-in fade-in duration-200 ${
-          statusMessage.type === 'success' 
-            ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-300' 
-            : 'bg-red-950/30 border-red-500/30 text-red-300'
-        }`}>
+        <div className={`p-4 rounded-xl text-sm border flex items-center gap-3 animate-in fade-in duration-200 ${statusMessage.type === 'success'
+          ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-300'
+          : 'bg-red-950/30 border-red-500/30 text-red-300'
+          }`}>
           {statusMessage.type === 'success' ? <Check className="w-5 h-5 shrink-0" /> : <Layers className="w-5 h-5 shrink-0" />}
           <span>{statusMessage.text}</span>
         </div>
@@ -114,11 +114,10 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
             key={tab.id}
             type="button"
             onClick={() => setActiveSection(tab.id)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition cursor-pointer ${
-              activeSection === tab.id
-                ? 'bg-white text-black font-bold'
-                : 'text-zinc-400 hover:text-white bg-zinc-900 border border-zinc-800'
-            }`}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition cursor-pointer ${activeSection === tab.id
+              ? 'bg-white text-black font-bold'
+              : 'text-zinc-400 hover:text-white bg-zinc-900 border border-zinc-800'
+              }`}
           >
             {tab.label}
           </button>
@@ -127,7 +126,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
 
       {/* Grille des réglages */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
+
         {/* 1. Identité & Campus */}
         {(activeSection === 'all' || activeSection === 'identity') && (
           <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-6 space-y-5">
@@ -136,7 +135,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
                 <Building2 className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-semibold text-zinc-100">Identité &amp; Infrastructure</h3>
+                <h3 className="text-base font-semibold text-zinc-100">Identité & Infrastructure</h3>
                 <p className="text-xs text-zinc-400">Nom officiel, devise et superficie du domaine</p>
               </div>
             </div>
@@ -144,7 +143,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
             <div className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-zinc-300 mb-1.5 uppercase tracking-wider font-mono">
-                  Nom de l&apos;Établissement
+                  Nom de l'Établissement
                 </label>
                 <input
                   type="text"
@@ -197,7 +196,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
 
               <div>
                 <label className="block text-xs font-semibold text-zinc-300 mb-1.5 uppercase tracking-wider font-mono">
-                  Fondateur &amp; Direction Pédagogique
+                  Fondateur & Direction Pédagogique
                 </label>
                 <input
                   type="text"
@@ -219,7 +218,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
                 <Award className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-semibold text-zinc-100">Accréditations &amp; Financements</h3>
+                <h3 className="text-base font-semibold text-zinc-100">Accréditations & Financements</h3>
                 <p className="text-xs text-zinc-400">Label Qualiopi N° 21452296, AFDAS et France Travail</p>
               </div>
             </div>
@@ -291,7 +290,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
                 <MousePointerClick className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-semibold text-zinc-100">Boutons d&apos;Action Vitrine (CTA)</h3>
+                <h3 className="text-base font-semibold text-zinc-100">Boutons d'Action Vitrine (CTA)</h3>
                 <p className="text-xs text-zinc-400">Textes et liens des boutons principaux de conversion</p>
               </div>
             </div>
@@ -353,7 +352,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
 
               <div>
                 <label className="block text-xs font-semibold text-zinc-300 mb-1.5 uppercase tracking-wider font-mono">
-                  Teinte d&apos;Accent Principale
+                  Teinte d'Accent Principale
                 </label>
                 <div className="flex items-center gap-3">
                   {[
@@ -367,11 +366,10 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
                       key={c.hex}
                       type="button"
                       onClick={() => handleChange('accent_color', c.hex)}
-                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-mono cursor-pointer transition ${
-                        settings.accent_color === c.hex
-                          ? 'border-white bg-white/10 text-white font-bold'
-                          : 'border-white/10 text-zinc-400 hover:text-white'
-                      }`}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-mono cursor-pointer transition ${settings.accent_color === c.hex
+                        ? 'border-white bg-white/10 text-white font-bold'
+                        : 'border-white/10 text-zinc-400 hover:text-white'
+                        }`}
                     >
                       <span className="w-3 h-3 rounded-full border border-black/50" style={{ backgroundColor: c.hex }} />
                       <span>{c.name}</span>
@@ -392,7 +390,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
               </div>
               <div className="flex-1 flex items-center justify-between">
                 <div>
-                  <h3 className="text-base font-semibold text-zinc-100">Bandeau d&apos;Alerte / Urgence Globale</h3>
+                  <h3 className="text-base font-semibold text-zinc-100">Bandeau d'Alerte / Urgence Globale</h3>
                   <p className="text-xs text-zinc-400">Affiché tout en haut du site vitrine</p>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
@@ -411,7 +409,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-semibold text-zinc-300 mb-1.5 uppercase tracking-wider font-mono">
-                    Badge de l&apos;Alerte
+                    Badge de l'Alerte
                   </label>
                   <input
                     type="text"
@@ -440,7 +438,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
 
               <div>
                 <label className="block text-xs font-semibold text-zinc-300 mb-1.5 uppercase tracking-wider font-mono">
-                  Message d&apos;Urgence
+                  Message d'Urgence
                 </label>
                 <textarea
                   rows={2}
@@ -489,7 +487,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
                 <Clock className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-semibold text-zinc-100">Standard, Horaires &amp; Accès</h3>
+                <h3 className="text-base font-semibold text-zinc-100">Standard, Horaires & Accès</h3>
                 <p className="text-xs text-zinc-400">Coordonnées et informations pratiques aux candidats</p>
               </div>
             </div>
@@ -527,7 +525,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
 
               <div>
                 <label className="block text-xs font-semibold text-zinc-300 mb-1.5 uppercase tracking-wider font-mono">
-                  Horaires d&apos;Ouverture Standard
+                  Horaires d'Ouverture Standard
                 </label>
                 <input
                   type="text"
@@ -556,7 +554,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
 
               <div>
                 <label className="block text-xs font-semibold text-zinc-300 mb-1.5 uppercase tracking-wider font-mono">
-                  Accès &amp; Transports (Gare, Navette)
+                  Accès & Transports (Gare, Navette)
                 </label>
                 <input
                   type="text"
@@ -609,97 +607,43 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
           </div>
         )}
 
-        {/* 6. Réseaux Sociaux & Mentions */}
+        {/* 6. Renvoi vers les éditeurs canoniques (anti-doublon) */}
         {(activeSection === 'all' || activeSection === 'social') && (
-          <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-6 space-y-5 lg:col-span-2">
+          <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-6 space-y-4 lg:col-span-2">
             <div className="flex items-center gap-3 border-b border-zinc-800/60 pb-3">
               <div className="p-2 rounded-lg bg-sky-500/10 text-sky-400">
-                <Globe className="w-5 h-5" />
+                <Share2 className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-semibold text-zinc-100">Réseaux Sociaux Officiels &amp; Mentions Légales</h3>
-                <p className="text-xs text-zinc-400">Canaux officiels de diffusion et copyright</p>
+                <h3 className="text-base font-semibold text-zinc-100">Réseaux Sociaux & Pied de Page</h3>
+                <p className="text-xs text-zinc-400">
+                  Ces contenus disposent désormais d'un éditeur dédié, source unique de vérité.
+                </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1.5 flex items-center gap-1.5">
-                  <Share2 className="w-4 h-4 text-pink-400" /> Instagram
-                </label>
-                <input
-                  type="url"
-                  value={settings.instagram || ''}
-                  onChange={(e) => handleChange('instagram', e.target.value)}
-                  placeholder="https://www.instagram.com/campus.univers.cascades/"
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-amber-400"
-                />
-              </div>
+            <p className="text-xs text-zinc-400 leading-relaxed">
+              Les liens de réseaux sociaux sont pilotés par la table{' '}
+              <code className="text-amber-400">site_social_links</code> et le pied de page par{' '}
+              <code className="text-amber-400">site_footer</code>. Les modifier ici créerait une
+              seconde source de vérité désynchronisée de la vitrine publique.
+            </p>
 
-              <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1.5 flex items-center gap-1.5">
-                  <Video className="w-4 h-4 text-red-400" /> YouTube
-                </label>
-                <input
-                  type="url"
-                  value={settings.youtube || ''}
-                  onChange={(e) => handleChange('youtube', e.target.value)}
-                  placeholder="https://www.youtube.com/@campusuniverscascades"
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-amber-400"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1.5 flex items-center gap-1.5">
-                  <Share2 className="w-4 h-4 text-blue-400" /> LinkedIn
-                </label>
-                <input
-                  type="url"
-                  value={settings.linkedin || ''}
-                  onChange={(e) => handleChange('linkedin', e.target.value)}
-                  placeholder="https://www.linkedin.com/..."
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-amber-400"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1.5 flex items-center gap-1.5">
-                  <Share2 className="w-4 h-4 text-indigo-400" /> Facebook
-                </label>
-                <input
-                  type="url"
-                  value={settings.facebook || ''}
-                  onChange={(e) => handleChange('facebook', e.target.value)}
-                  placeholder="https://www.facebook.com/campus.univers.cascades"
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-amber-400"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1.5 flex items-center gap-1.5">
-                  <Globe className="w-4 h-4 text-purple-400" /> TikTok
-                </label>
-                <input
-                  type="url"
-                  value={settings.tiktok || ''}
-                  onChange={(e) => handleChange('tiktok', e.target.value)}
-                  placeholder="https://www.tiktok.com/@campus.univers.cascades"
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-amber-400"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1.5 flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-amber-400" /> Mention Copyright Pied de Page
-                </label>
-                <input
-                  type="text"
-                  value={settings.footer_copyright || ''}
-                  onChange={(e) => handleChange('footer_copyright', e.target.value)}
-                  placeholder="© 2008 - 2026 Campus Univers Cascades."
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-amber-400"
-                />
-              </div>
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => onNavigateToTab?.('social')}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider text-black bg-[#FFE500] hover:bg-yellow-400 transition cursor-pointer"
+              >
+                <Share2 className="w-4 h-4" /> Éditer les réseaux sociaux
+              </button>
+              <button
+                type="button"
+                onClick={() => onNavigateToTab?.('footer')}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium text-zinc-200 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition cursor-pointer"
+              >
+                <Layers className="w-4 h-4" /> Éditer le pied de page
+              </button>
             </div>
           </div>
         )}
