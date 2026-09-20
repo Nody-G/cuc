@@ -3,16 +3,20 @@
 import { useEffect } from 'react';
 
 /**
- * Speculation Rules API — préchargement/prérendu des navigations internes.
+ * Speculation Rules API — **préchargement uniquement** (`prefetch`).
  *
- * **Désactivé lorsque la page est encadrée** (aperçu live du Cockpit).
- * Dans une iframe, le `prerender` de Chrome est restreint : une navigation
- * prérendue peut échouer et remplacer le contenu du cadre par la page d'erreur
- * du navigateur (« This page couldn't load »), alors que la page s'affiche
- * correctement une fraction de seconde auparavant.
+ * Le `prerender` a été retiré volontairement. Il demandait à Chrome de rendre
+ * en arrière-plan chaque lien interne survolé (`/*`). Sur ce site, les pages
+ * sont lourdes (HTML volumineux + dizaines d'images distantes) : un prérendu
+ * interrompu ou en échec pouvait être activé par le navigateur et **remplacer
+ * la page courante par sa propre page d'erreur** (« This page couldn't load »),
+ * alors que la page s'affichait correctement une fraction de seconde auparavant.
  *
- * Les règles sont donc injectées uniquement en navigation de premier niveau,
- * où elles apportent leur bénéfice sans risque.
+ * Le `prefetch` ne fait que télécharger la ressource en avance : il ne remplace
+ * jamais le contenu affiché et ne peut donc pas provoquer cet écran d'erreur.
+ * Le gain de latence reste réel, sans le risque.
+ *
+ * Les règles sont en outre désactivées dans un cadre embarqué (aperçu Cockpit).
  */
 export const SpeculationRules: React.FC = () => {
     useEffect(() => {
@@ -23,19 +27,6 @@ export const SpeculationRules: React.FC = () => {
         const script = document.createElement('script');
         script.type = 'speculationrules';
         script.textContent = JSON.stringify({
-            prerender: [
-                {
-                    where: {
-                        and: [
-                            { href_matches: '/*' },
-                            { not: { href_matches: '/api/*' } },
-                            { not: { selector_matches: '[target=_blank]' } },
-                            { not: { selector_matches: '[rel~=nofollow]' } },
-                        ],
-                    },
-                    eagerness: 'moderate',
-                },
-            ],
             prefetch: [
                 {
                     where: {
