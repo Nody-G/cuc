@@ -832,7 +832,8 @@ export const TeamView: React.FC<TeamViewProps> = ({
 
                       <p className="text-[11px] text-zinc-400 leading-relaxed">
                         Cochez les films où ce formateur est intervenu, puis précisez son rôle.
-                        Les crédits cochés alimentent automatiquement la fiche publique.
+                        Cliquez sur l'étoile <Star className="inline w-3 h-3 text-[#FFE500] -mt-0.5" /> pour
+                        placer un film en tête de la fiche publique, puis réordonnez-le ci-dessus.
                       </p>
 
                       {/* Recherche + tri + filtre */}

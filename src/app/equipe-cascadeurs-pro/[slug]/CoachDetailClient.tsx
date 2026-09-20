@@ -87,25 +87,49 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
         member.notableCredits.some((c) => f.title.toLowerCase().includes(c.toLowerCase()) || c.toLowerCase().includes(f.title.toLowerCase())))
   );
 
-  // Tri de la filmographie (date ou nom, croissant/décroissant)
+  // Crédits mis en avant depuis le cockpit (ordre d'affichage prioritaire).
+  // Le libellé stocké peut être « Titre — Rôle » : on ne compare que le titre.
+  const featuredOrder = useMemo(() => {
+    const map = new Map<string, number>();
+    (member?.featuredCredits || []).forEach((raw, idx) => {
+      const title = parseCredit(raw).title || raw;
+      map.set(title.trim().toLowerCase(), idx);
+    });
+    return map;
+  }, [member?.featuredCredits]);
+
+  // Tri de la filmographie : les crédits mis en avant d'abord (dans l'ordre
+  // défini dans le cockpit), puis le reste selon le tri choisi par le visiteur.
   const sortedFilms = useMemo(() => {
     const list = [...relatedFilms];
     const yearOf = (f: FilmCredit) => {
       const parsed = parseInt(String(f.year ?? '').replace(/\D/g, ''), 10);
       return Number.isFinite(parsed) ? parsed : 0;
     };
-    switch (filmSort) {
-      case 'year-asc':
-        return list.sort((a, b) => yearOf(a) - yearOf(b));
-      case 'title-asc':
-        return list.sort((a, b) => a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' }));
-      case 'title-desc':
-        return list.sort((a, b) => b.title.localeCompare(a.title, 'fr', { sensitivity: 'base' }));
-      case 'year-desc':
-      default:
-        return list.sort((a, b) => yearOf(b) - yearOf(a));
-    }
-  }, [relatedFilms, filmSort]);
+    const compare = (a: FilmCredit, b: FilmCredit) => {
+      switch (filmSort) {
+        case 'year-asc':
+          return yearOf(a) - yearOf(b);
+        case 'title-asc':
+          return a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' });
+        case 'title-desc':
+          return b.title.localeCompare(a.title, 'fr', { sensitivity: 'base' });
+        case 'year-desc':
+        default:
+          return yearOf(b) - yearOf(a);
+      }
+    };
+    return list.sort((a, b) => {
+      const rankA = featuredOrder.get(a.title.trim().toLowerCase());
+      const rankB = featuredOrder.get(b.title.trim().toLowerCase());
+      const isFeaturedA = rankA !== undefined;
+      const isFeaturedB = rankB !== undefined;
+      if (isFeaturedA && isFeaturedB) return (rankA as number) - (rankB as number);
+      if (isFeaturedA) return -1;
+      if (isFeaturedB) return 1;
+      return compare(a, b);
+    });
+  }, [relatedFilms, filmSort, featuredOrder]);
 
   // Fonction pour obtenir le rôle précis du coach sur un film donné.
   // Le libellé brut est systématiquement ramené à un rôle canonique lisible
@@ -389,12 +413,13 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {sortedFilms.map((film) => {
                   const { role, isCoord, isDoublure } = getCoachFilmRole(film);
+                  const isFeatured = featuredOrder.has(film.title.trim().toLowerCase());
 
                   return (
                     <div
                       key={film.id}
                       onClick={() => setSelectedFilmModal(film)}
-                      className="bg-[#0e0e14] border-2 border-zinc-800 hover:border-[#FFE500] transition-all flex flex-col justify-between group overflow-hidden cursor-pointer shadow-lg hover:shadow-[0_10px_30px_rgba(255,229,0,0.1)]"
+                      className={`bg-[#0e0e14] border-2 transition-all flex flex-col justify-between group overflow-hidden cursor-pointer shadow-lg hover:shadow-[0_10px_30px_rgba(255,229,0,0.1)] ${isFeatured ? 'border-[#FFE500]/60 hover:border-[#FFE500]' : 'border-zinc-800 hover:border-[#FFE500]'}`}
                       title={`Cliquez pour voir les détails de ${film.title}`}
                     >
                       <div>
@@ -422,6 +447,13 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
                           <span className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-black/85 backdrop-blur-xs text-[10px] font-mono-tech text-[#FFE500] border border-zinc-800 font-bold shadow-md">
                             {film.year}
                           </span>
+
+                          {/* Mise en avant (définie dans le cockpit) */}
+                          {isFeatured && (
+                            <span className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-[#FFE500] text-black text-[9px] font-mono-tech font-bold uppercase tracking-wider shadow-md">
+                              Mis en avant
+                            </span>
+                          )}
 
                           {/* Hover action icon */}
                           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
