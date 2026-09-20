@@ -31,12 +31,7 @@ export const FilmGridCard: React.FC<FilmGridCardProps> = ({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e12] via-black/30 to-transparent" />
 
-        {/* Top Badges */}
-        <div className="absolute top-3 left-3 flex items-center gap-2 z-10">
-          <span className="bg-black/85 backdrop-blur-xs border border-white/20 text-[10px] font-mono-tech text-[#FFE500] px-2 py-0.5 font-bold">
-            {movie.tag}
-          </span>
-        </div>
+        {/* Année uniquement — pas de badge catégorie sur l'affiche */}
         <div className="absolute top-3 right-3 z-10">
           <span className="bg-[#FFE500] text-black text-[10px] font-mono-tech px-2 py-0.5 font-bold">
             {movie.year}
@@ -105,13 +100,13 @@ export const FilmGridCard: React.FC<FilmGridCardProps> = ({
       <div className="p-5 flex-1 flex flex-col justify-between">
         <div>
           <div className="text-[10px] font-mono-tech text-zinc-500 uppercase mb-1">
-            {movie.director || movie.category}
+            {movie.director || movie.year}
           </div>
           <h4 className="text-xl font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors leading-tight mb-2">
             {movie.title}
           </h4>
           <p className="text-xs text-zinc-400 font-tech leading-relaxed mb-4 line-clamp-3">
-            {movie.stuntRoles}
+            {movie.description || movie.stuntRoles}
           </p>
         </div>
 

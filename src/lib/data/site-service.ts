@@ -216,6 +216,7 @@ export async function getFilms(): Promise<FilmCredit[]> {
       category: f.category || 'Cinéma',
       director: f.director,
       stuntRoles: f.stunt_roles || '',
+      description: f.description || '',
       doubledActors: f.doubled_actors,
       highlight: !!f.highlight,
       image: f.image || '',

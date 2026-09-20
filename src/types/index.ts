@@ -52,6 +52,8 @@ export interface FilmCredit {
   category: 'Blockbuster' | 'Cinéma Français' | 'Cinéma International' | 'Série / Plateforme' | 'Show & Événement' | 'Film Culte' | 'Streaming Global';
   director?: string;
   stuntRoles: string;
+  /** Description factuelle de la fiche film (générée depuis les données vérifiées). */
+  description?: string;
   doubledActors?: string[];
   highlight: boolean;
   image: string;

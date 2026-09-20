@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { FilmCredit, Instructor } from '@/types';
 import { CUC_TEAM } from '@/data/team';
 import { getTeam } from '@/lib/data/site-service';
+import { normalizeRole } from '@/lib/credit-role';
 import { ImdbLogo, AllocineLogo, YouTubeLogo } from '@/components/ui/BrandLogos';
 import { X, Clapperboard, ExternalLink, ChevronRight } from 'lucide-react';
 
@@ -78,12 +79,19 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
             <div className="sm:col-span-7 space-y-4">
               <div>
                 <div className="text-[11px] font-mono-tech text-zinc-500 uppercase">
-                  {movie.category}{movie.director ? ` • Réalisé par ${movie.director}` : ''}
+                  {movie.year}{movie.director ? ` • Réalisé par ${movie.director}` : ''}
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white mt-0.5">
                   {movie.title}
                 </h3>
               </div>
+
+              {/* Description factuelle de la fiche film */}
+              {movie.description && (
+                <p className="text-xs text-zinc-300 font-tech leading-relaxed">
+                  {movie.description}
+                </p>
+              )}
 
               {/* Cascades / Intervention */}
               <div className="space-y-1">
@@ -148,7 +156,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                             {member.name}
                           </div>
                           {(() => {
-                            const specificRole =
+                            const rawRole =
                               movie.cuc_team_roles?.[member.id] ||
                               member.metadata?.film_roles?.[movie.id] ||
                               (() => {
@@ -161,18 +169,18 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                                 return member.role;
                               })();
 
-                            const isCoord =
-                              specificRole.toLowerCase().includes('coordinat') ||
-                              specificRole.toLowerCase().includes('action designer');
+                            // Rôle ramené à un libellé canonique lisible
+                            // (Coordinateur des cascades · Doublure de X · Cascadeur · Parkour · Câblage).
+                            const normalized = normalizeRole(rawRole);
+                            const isCoord = normalized.roles.includes('Coordinateur des cascades');
 
                             return (
                               <div
-                                className={`text-[10px] font-mono-tech truncate ${
-                                  isCoord ? 'text-[#FFE500] font-semibold' : 'text-zinc-400'
-                                }`}
-                                title={specificRole}
+                                className={`text-[10px] font-mono-tech truncate ${isCoord ? 'text-[#FFE500] font-semibold' : 'text-zinc-400'
+                                  }`}
+                                title={normalized.detail || normalized.label}
                               >
-                                {specificRole}
+                                {normalized.label}
                               </div>
                             );
                           })()}

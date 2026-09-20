@@ -11,6 +11,7 @@ import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getTeam, getFilms } from '@/lib/data/site-service';
 import { orderCreditsForDisplay } from '@/lib/credit-notability';
+import { normalizeRole } from '@/lib/credit-role';
 import { Instructor, FilmCredit, parseCredit, ParsedCredit } from '@/types';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
 import {
@@ -135,21 +136,26 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
         member.notableCredits.some((c) => f.title.toLowerCase().includes(c.toLowerCase()) || c.toLowerCase().includes(f.title.toLowerCase())))
   );
 
-  // Fonction pour obtenir le rôle précis du coach sur un film donné
+  // Fonction pour obtenir le rôle précis du coach sur un film donné.
+  // Le libellé brut est systématiquement ramené à un rôle canonique lisible
+  // (Coordinateur des cascades · Doublure de X · Cascadeur · Parkour · Câblage).
   const getCoachFilmRole = (film: FilmCredit): { role: string; isCoord: boolean; isDoublure: boolean } => {
+    const fromRaw = (raw: string) => {
+      const n = normalizeRole(raw);
+      return {
+        role: n.label,
+        isCoord: n.roles.includes('Coordinateur des cascades'),
+        isDoublure: n.roles.includes('Doublure'),
+      };
+    };
+
     // 1. Rôle direct dans cuc_team_roles du film
     if (film.cuc_team_roles && film.cuc_team_roles[member.id]) {
-      const r = film.cuc_team_roles[member.id];
-      const isCoord = r.toLowerCase().includes('coordinat') || r.toLowerCase().includes('régleur') || r.toLowerCase().includes('action designer');
-      const isDoublure = r.toLowerCase().includes('doublure');
-      return { role: r, isCoord, isDoublure };
+      return fromRaw(film.cuc_team_roles[member.id]);
     }
     // 2. Rôle dans les metadata du membre
     if (member.metadata?.film_roles && member.metadata.film_roles[film.id]) {
-      const r = member.metadata.film_roles[film.id];
-      const isCoord = r.toLowerCase().includes('coordinat') || r.toLowerCase().includes('régleur');
-      const isDoublure = r.toLowerCase().includes('doublure');
-      return { role: r, isCoord, isDoublure };
+      return fromRaw(member.metadata.film_roles[film.id]);
     }
     // 3. Correspondance dans les crédits parsés
     const matched = parsedCredits.find(
@@ -158,17 +164,13 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
         film.title.toLowerCase().includes(c.title.toLowerCase())
     );
     if (matched && matched.role) {
-      return {
-        role: matched.role,
-        isCoord: matched.category === 'coordination',
-        isDoublure: matched.category === 'doublure',
-      };
+      return fromRaw(matched.role);
     }
     // 4. Déduction basée sur le titre principal
     if (member.title.toLowerCase().includes('coordinateur')) {
       return { role: 'Coordinateur des cascades', isCoord: true, isDoublure: false };
     }
-    return { role: 'Cascadeur (Stunt Performer)', isCoord: false, isDoublure: false };
+    return { role: 'Cascadeur', isCoord: false, isDoublure: false };
   };
 
   // Autres membres de l'équipe
@@ -581,11 +583,6 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
                           {/* Année */}
                           <span className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-black/85 backdrop-blur-xs text-[10px] font-mono-tech text-[#FFE500] border border-zinc-800 font-bold shadow-md">
                             {film.year}
-                          </span>
-
-                          {/* Tag catégorie */}
-                          <span className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-black/85 backdrop-blur-xs text-[9px] font-mono-tech text-zinc-300 border border-zinc-800 uppercase font-semibold">
-                            {film.category}
                           </span>
 
                           {/* Hover action icon */}

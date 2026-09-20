@@ -58,8 +58,8 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
       doubledActors: Array.isArray(editingFilm.doubledActors)
         ? editingFilm.doubledActors
         : typeof (editingFilm as any).doubledActors === 'string'
-        ? (editingFilm as any).doubledActors.split(',').map((s: string) => s.trim()).filter(Boolean)
-        : [],
+          ? (editingFilm as any).doubledActors.split(',').map((s: string) => s.trim()).filter(Boolean)
+          : [],
     };
 
     setFilms((prev) => {
@@ -163,11 +163,10 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
             key={cat}
             type="button"
             onClick={() => setCategoryFilter(cat)}
-            className={`px-2.5 py-1 rounded text-[11px] font-mono transition cursor-pointer ${
-              categoryFilter === cat
+            className={`px-2.5 py-1 rounded text-[11px] font-mono transition cursor-pointer ${categoryFilter === cat
                 ? 'bg-[#FFE500] text-black font-bold'
                 : 'bg-white/5 text-gray-400 hover:text-white hover:bg-white/10'
-            }`}
+              }`}
           >
             {cat === 'all' ? 'Tous les films' : cat}
           </button>
@@ -194,18 +193,13 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
                   PAS D&apos;AFFICHE
                 </div>
               )}
-              <div className="absolute top-2 left-2 flex items-center gap-1.5">
-                {film.tag && (
-                  <span className="px-2 py-0.5 rounded bg-[#FFE500] text-black text-[10px] font-black uppercase shadow">
-                    {film.tag}
-                  </span>
-                )}
-                {film.highlight && (
+              {film.highlight && (
+                <div className="absolute top-2 left-2 flex items-center gap-1.5">
                   <span className="px-1.5 py-0.5 rounded bg-amber-400 text-black text-[9px] font-black uppercase flex items-center gap-1 shadow">
                     <Star className="w-2.5 h-2.5 fill-black" /> Vedette
                   </span>
-                )}
-              </div>
+                </div>
+              )}
               <span className="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-black/80 backdrop-blur-sm text-white text-[10px] font-mono">
                 {film.year}
               </span>
@@ -564,11 +558,10 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
                               instructor_ids: updated,
                             });
                           }}
-                          className={`flex items-center gap-1.5 px-2 py-1 rounded text-left text-[11px] transition border cursor-pointer ${
-                            isChecked
+                          className={`flex items-center gap-1.5 px-2 py-1 rounded text-left text-[11px] transition border cursor-pointer ${isChecked
                               ? 'bg-sky-500/20 border-sky-500 text-white font-semibold'
                               : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/20'
-                          }`}
+                            }`}
                         >
                           <span className="truncate">{t.name}</span>
                         </button>
