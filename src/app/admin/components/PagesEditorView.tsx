@@ -336,8 +336,14 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   // Tant que `previewOrigin` est vide (rendu serveur / premier rendu), on ne
   // produit pas d'URL : l'iframe n'est pas montée, ce qui évite un `src=""`
   // qui chargerait la page courante dans l'iframe (« This page couldn't load »).
+  //
+  // On encadre la route dédiée `/admin/preview` (même origine que le Cockpit)
+  // plutôt que la page vitrine réelle : l'encadrement est ainsi toujours
+  // autorisé, quel que soit le domaine d'accès (déploiement de prévisualisation
+  // Vercel, `www` vs apex, domaine personnalisé). Encadrer l'URL publique
+  // échouait dès que les origines différaient (« This page couldn't load »).
   const previewUrl = previewOrigin
-    ? `${previewOrigin}${formData.slug === '/' ? '' : `/${formData.slug}`}`
+    ? `${previewOrigin}/admin/preview?slug=${encodeURIComponent(formData.slug)}`
     : '';
 
   /**
