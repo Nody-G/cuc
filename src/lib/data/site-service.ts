@@ -106,11 +106,30 @@ export async function getPrograms(): Promise<StuntProgram[]> {
 export async function getTeam(): Promise<Instructor[]> {
   try {
     const supabase = createClient();
-    const { data, error } = await supabase
+    // `featured_credits` et `credits_display_limit` sont optionnelles : si la
+    // migration n'a pas encore été appliquée, on retombe sur un select de base
+    // pour ne jamais casser l'affichage public.
+    let data: any[] | null = null;
+    let error: any = null;
+
+    const extended = await supabase
       .from('site_team')
-      .select('*')
+      .select('*, featured_credits, credits_display_limit')
       .eq('is_published', true)
       .order('order_index', { ascending: true });
+
+    if (extended.error) {
+      const fallback = await supabase
+        .from('site_team')
+        .select('*')
+        .eq('is_published', true)
+        .order('order_index', { ascending: true });
+      data = fallback.data;
+      error = fallback.error;
+    } else {
+      data = extended.data;
+      error = extended.error;
+    }
 
     if (error || !data || data.length === 0) {
       return CUC_TEAM;
@@ -147,6 +166,11 @@ export async function getTeam(): Promise<Instructor[]> {
       bio: t.bio || '',
       doubledActors: t.doubled_actors,
       notableCredits: t.notable_credits || [],
+      featuredCredits: t.featured_credits || [],
+      creditsDisplayLimit:
+        typeof t.credits_display_limit === 'number' && t.credits_display_limit > 0
+          ? t.credits_display_limit
+          : 8,
       externalUrl: t.external_url,
       avatarUrl: t.avatar_url,
       instagram: t.instagram,

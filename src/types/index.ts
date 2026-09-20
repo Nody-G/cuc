@@ -150,6 +150,17 @@ export interface Instructor {
   bio: string;
   doubledActors?: string[];
   notableCredits: string[];
+  /**
+   * Crédits mis en avant sur la fiche publique, dans l'ordre choisi dans le
+   * Cockpit. Contient des chaînes identiques à celles de `notableCredits`
+   * (format « Titre (Année) — Rôle »). Vide = tri automatique par notoriété.
+   */
+  featuredCredits?: string[];
+  /**
+   * Nombre de crédits affichés avant le bouton « Afficher tous les crédits ».
+   * Défaut : 8.
+   */
+  creditsDisplayLimit?: number;
   externalUrl?: string;
   avatarUrl?: string;
   instagram?: string;

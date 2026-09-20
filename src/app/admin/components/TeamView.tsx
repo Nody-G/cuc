@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useTransition } from 'react';
+import React, { useState, useTransition, useMemo } from 'react';
 import Image from 'next/image';
 import {
   Users,
@@ -13,9 +13,14 @@ import {
   Layers,
   Image as ImageIcon,
   Clapperboard,
+  Star,
+  ArrowUp,
+  ArrowDown,
+  Eye,
 } from 'lucide-react';
 import { InstagramLogo, ImdbLogo } from '@/components/ui/BrandLogos';
 import { Instructor, FilmCredit, Discipline, parseCredit } from '@/types';
+import { scoreFilmNotability, matchFilmForCredit } from '@/lib/credit-notability';
 import { upsertTeamMember, deleteTeamMember } from '@/app/admin/actions';
 import { MediaPickerModal } from './MediaPickerModal';
 
@@ -47,18 +52,25 @@ export const TeamView: React.FC<TeamViewProps> = ({
       specialties: Array.isArray(editingMember.specialties)
         ? editingMember.specialties
         : typeof (editingMember as any).specialties === 'string'
-        ? (editingMember as any).specialties.split(',').map((s: string) => s.trim()).filter(Boolean)
-        : [],
+          ? (editingMember as any).specialties.split(',').map((s: string) => s.trim()).filter(Boolean)
+          : [],
       doubledActors: Array.isArray(editingMember.doubledActors)
         ? editingMember.doubledActors
         : typeof (editingMember as any).doubledActors === 'string'
-        ? (editingMember as any).doubledActors.split(',').map((s: string) => s.trim()).filter(Boolean)
-        : [],
+          ? (editingMember as any).doubledActors.split(',').map((s: string) => s.trim()).filter(Boolean)
+          : [],
       notableCredits: Array.isArray(editingMember.notableCredits)
         ? editingMember.notableCredits
         : typeof (editingMember as any).notableCredits === 'string'
-        ? (editingMember as any).notableCredits.split(',').map((s: string) => s.trim()).filter(Boolean)
+          ? (editingMember as any).notableCredits.split(',').map((s: string) => s.trim()).filter(Boolean)
+          : [],
+      featuredCredits: Array.isArray(editingMember.featuredCredits)
+        ? editingMember.featuredCredits
         : [],
+      creditsDisplayLimit:
+        typeof editingMember.creditsDisplayLimit === 'number' && editingMember.creditsDisplayLimit > 0
+          ? editingMember.creditsDisplayLimit
+          : 8,
     };
 
     setTeam((prev) => {
@@ -80,6 +92,8 @@ export const TeamView: React.FC<TeamViewProps> = ({
         specialties: updated.specialties,
         doubled_actors: updated.doubledActors,
         notable_credits: updated.notableCredits,
+        featured_credits: updated.featuredCredits,
+        credits_display_limit: updated.creditsDisplayLimit,
         instagram: updated.instagram,
         imdb: updated.imdb,
         external_url: updated.externalUrl,
@@ -491,13 +505,12 @@ export const TeamView: React.FC<TeamViewProps> = ({
                       return (
                         <span
                           key={i}
-                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono border ${
-                            isCoord
-                              ? 'bg-[#FFE500]/15 text-[#FFE500] border-[#FFE500]/40 font-bold'
-                              : isDoublure
+                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono border ${isCoord
+                            ? 'bg-[#FFE500]/15 text-[#FFE500] border-[#FFE500]/40 font-bold'
+                            : isDoublure
                               ? 'bg-sky-500/15 text-sky-300 border-sky-500/30'
                               : 'bg-black/60 text-zinc-300 border-zinc-700'
-                          }`}
+                            }`}
                         >
                           <span className="font-semibold">{parsed.title}</span>
                           {parsed.role && <span className="opacity-75 font-normal">[{parsed.role}]</span>}
@@ -506,6 +519,161 @@ export const TeamView: React.FC<TeamViewProps> = ({
                     })}
                   </div>
                 )}
+              </div>
+
+              {/* Mise en avant & affichage public */}
+              <div className="p-3.5 bg-black/40 border border-white/10 rounded-xl space-y-3">
+                <div className="flex items-center justify-between text-xs font-bold text-[#FFE500] uppercase tracking-wider">
+                  <div className="flex items-center gap-2">
+                    <Star className="w-3.5 h-3.5" />
+                    Mise en avant sur la fiche publique
+                  </div>
+                  <span className="text-[10px] font-mono text-zinc-400">
+                    {editingMember.featuredCredits?.length || 0} sélectionné(s)
+                  </span>
+                </div>
+
+                <p className="text-[11px] text-zinc-400 leading-relaxed">
+                  Choisissez les tournages à afficher en premier sur la fiche du coach. Sans
+                  sélection, les crédits sont triés automatiquement par notoriété du film
+                  (blockbusters et films mis en avant d'abord).
+                </p>
+
+                {/* Limite d'affichage */}
+                <div className="flex items-center gap-3">
+                  <label className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-400 shrink-0">
+                    <Eye className="w-3.5 h-3.5" />
+                    Crédits visibles avant « voir plus » :
+                  </label>
+                  <select
+                    value={editingMember.creditsDisplayLimit ?? 8}
+                    onChange={(e) =>
+                      setEditingMember({
+                        ...editingMember,
+                        creditsDisplayLimit: parseInt(e.target.value, 10),
+                      })
+                    }
+                    className="bg-black/60 border border-white/20 rounded-lg px-2 py-1 text-xs text-white focus:outline-none focus:border-[#FFE500]"
+                  >
+                    {[4, 6, 8, 10, 12, 16, 24].map((n) => (
+                      <option key={n} value={n}>
+                        {n}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Sélection ordonnée des crédits mis en avant */}
+                {(() => {
+                  const credits = editingMember.notableCredits || [];
+                  const featured = editingMember.featuredCredits || [];
+
+                  if (credits.length === 0) {
+                    return (
+                      <p className="text-[11px] text-zinc-500 italic">
+                        Ajoutez d'abord des tournages ci-dessus pour pouvoir les mettre en avant.
+                      </p>
+                    );
+                  }
+
+                  const toggleFeatured = (raw: string) => {
+                    const next = featured.includes(raw)
+                      ? featured.filter((c) => c !== raw)
+                      : [...featured, raw];
+                    setEditingMember({ ...editingMember, featuredCredits: next });
+                  };
+
+                  const moveFeatured = (raw: string, direction: -1 | 1) => {
+                    const idx = featured.indexOf(raw);
+                    if (idx < 0) return;
+                    const target = idx + direction;
+                    if (target < 0 || target >= featured.length) return;
+                    const next = [...featured];
+                    [next[idx], next[target]] = [next[target], next[idx]];
+                    setEditingMember({ ...editingMember, featuredCredits: next });
+                  };
+
+                  // Le reste est trié par notoriété du film correspondant.
+                  const remaining = [...credits]
+                    .filter((c) => !featured.includes(c))
+                    .sort((a, b) => {
+                      const filmA = matchFilmForCredit(parseCredit(a), films);
+                      const filmB = matchFilmForCredit(parseCredit(b), films);
+                      const scoreA = filmA ? scoreFilmNotability(filmA) : -1;
+                      const scoreB = filmB ? scoreFilmNotability(filmB) : -1;
+                      return scoreB - scoreA;
+                    });
+
+                  return (
+                    <div className="space-y-2">
+                      {/* Crédits mis en avant, réordonnables */}
+                      {featured.length > 0 && (
+                        <div className="space-y-1">
+                          <div className="text-[10px] font-mono text-[#FFE500] uppercase">
+                            En tête de fiche (ordre d'affichage)
+                          </div>
+                          {featured.map((raw, idx) => (
+                            <div
+                              key={raw}
+                              className="flex items-center gap-1.5 px-2 py-1 bg-[#FFE500]/10 border border-[#FFE500]/30 rounded text-[11px]"
+                            >
+                              <span className="font-mono text-[10px] text-[#FFE500] w-4 shrink-0">
+                                {idx + 1}
+                              </span>
+                              <span className="flex-1 truncate text-white">{raw}</span>
+                              <button
+                                type="button"
+                                onClick={() => moveFeatured(raw, -1)}
+                                disabled={idx === 0}
+                                className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30"
+                                title="Monter"
+                              >
+                                <ArrowUp className="w-3 h-3" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => moveFeatured(raw, 1)}
+                                disabled={idx === featured.length - 1}
+                                className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30"
+                                title="Descendre"
+                              >
+                                <ArrowDown className="w-3 h-3" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => toggleFeatured(raw)}
+                                className="p-0.5 text-zinc-400 hover:text-red-400"
+                                title="Retirer de la mise en avant"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Crédits disponibles */}
+                      <div className="space-y-1">
+                        <div className="text-[10px] font-mono text-zinc-500 uppercase">
+                          Autres tournages (cliquer pour mettre en avant)
+                        </div>
+                        <div className="max-h-40 overflow-y-auto pr-1 space-y-1">
+                          {remaining.map((raw) => (
+                            <button
+                              type="button"
+                              key={raw}
+                              onClick={() => toggleFeatured(raw)}
+                              className="w-full flex items-center gap-1.5 px-2 py-1 bg-black/60 border border-white/10 hover:border-[#FFE500]/50 rounded text-left text-[11px] text-zinc-300 transition"
+                            >
+                              <Star className="w-3 h-3 text-zinc-600 shrink-0" />
+                              <span className="truncate">{raw}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
 
               {/* Interconnexions : CUC Sign, Disciplines & Projets Cinéma */}
@@ -571,11 +739,10 @@ export const TeamView: React.FC<TeamViewProps> = ({
                                 : [...current, d.id];
                               setEditingMember({ ...editingMember, discipline_ids: updated });
                             }}
-                            className={`flex items-center gap-1.5 px-2 py-1 rounded text-left text-[11px] transition border ${
-                              isChecked
-                                ? 'bg-[#FFE500]/15 border-[#FFE500] text-white font-semibold'
-                                : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/20'
-                            }`}
+                            className={`flex items-center gap-1.5 px-2 py-1 rounded text-left text-[11px] transition border ${isChecked
+                              ? 'bg-[#FFE500]/15 border-[#FFE500] text-white font-semibold'
+                              : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/20'
+                              }`}
                           >
                             <span className="font-mono text-[10px] text-[#FFE500]">{d.number}</span>
                             <span className="truncate">{d.name}</span>
@@ -608,11 +775,10 @@ export const TeamView: React.FC<TeamViewProps> = ({
                                 : [...current, f.id];
                               setEditingMember({ ...editingMember, film_ids: updated });
                             }}
-                            className={`flex items-center gap-1.5 px-2 py-1 rounded text-left text-[11px] transition border ${
-                              isChecked
-                                ? 'bg-purple-500/20 border-purple-500 text-white font-semibold'
-                                : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/20'
-                            }`}
+                            className={`flex items-center gap-1.5 px-2 py-1 rounded text-left text-[11px] transition border ${isChecked
+                              ? 'bg-purple-500/20 border-purple-500 text-white font-semibold'
+                              : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/20'
+                              }`}
                           >
                             <Film className="w-3 h-3 text-purple-400 shrink-0" />
                             <span className="truncate">{f.title}</span>
