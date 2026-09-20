@@ -9,10 +9,10 @@
 | --- | --- |
 | Coachs traités | 12 |
 | Crédits bruts analysés | 894 |
-| Crédits retenus (publiables) | 264 |
+| Crédits retenus (publiables) | 262 |
 | Exclus — contenu non cinématographique | 8 |
-| Exclus — au-delà du plafond éditorial | 620 |
-| Rôles précis conservés | 67 |
+| Exclus — au-delà du plafond éditorial | 616 |
+| Rôles précis conservés | 63 |
 
 ## Légende
 
@@ -69,7 +69,7 @@
 - Crédits bruts : 204
 - Crédits retenus : **24**
 - Exclus (non cinéma) : 0
-- Exclus (plafond) : 179
+- Exclus (plafond) : 178
 - Rôles précis : 8
 
 | # | Titre | Année | Rôle retenu | Statut |
@@ -109,8 +109,8 @@
 - Crédits bruts : 87
 - Crédits retenus : **24**
 - Exclus (non cinéma) : 1
-- Exclus (plafond) : 62
-- Rôles précis : 8
+- Exclus (plafond) : 61
+- Rôles précis : 7
 
 | # | Titre | Année | Rôle retenu | Statut |
 | --- | --- | --- | --- | --- |
@@ -133,11 +133,11 @@
 | 17 | Tigres & Hyènes | 2024 | Cascadeur | NOUVEAU |
 | 18 | Troubleshooters | 2024 | Cascadeur | NOUVEAU |
 | 19 | Zorro | 2024 | Cascadeur | NOUVEAU |
-| 20 | Elyas | 2024 | Cascadeur (Combats rapprochés) ★ | NON VÉRIFIABLE |
-| 21 | L'Amour Ouf | 2024 | Cascadeur & Combats ★ | NON VÉRIFIABLE |
-| 22 | Largo Winch : Le Prix de l'argent | 2024 | Cascadeur & Doublure Tomer Sisley ★ | NON VÉRIFIABLE |
-| 23 | Le Comte de Monte-Cristo | 2024 | Cascadeur & Doublure combats ★ | NON VÉRIFIABLE |
-| 24 | Balthazar (Série TF1) | 0 | Doublure cascades Tomer Sisley ★ | NON VÉRIFIABLE |
+| 20 | Acide | 2023 | Cascadeur | NOUVEAU |
+| 21 | Elyas | 2024 | Cascadeur (Combats rapprochés) ★ | NON VÉRIFIABLE |
+| 22 | L'Amour Ouf | 2024 | Cascadeur & Combats ★ | NON VÉRIFIABLE |
+| 23 | Largo Winch : Le Prix de l'argent | 2024 | Cascadeur & Doublure Tomer Sisley ★ | NON VÉRIFIABLE |
+| 24 | Le Comte de Monte-Cristo | 2024 | Cascadeur & Doublure combats ★ | NON VÉRIFIABLE |
 
 ★ = rôle précis (coordination, doublure nommée, câblage, chorégraphie…).
 
@@ -309,7 +309,7 @@
 - Crédits bruts : 102
 - Crédits retenus : **24**
 - Exclus (non cinéma) : 0
-- Exclus (plafond) : 78
+- Exclus (plafond) : 77
 - Rôles précis : 4
 
 | # | Titre | Année | Rôle retenu | Statut |
@@ -387,17 +387,15 @@
 
 - Identité IMDb : **INTROUVABLE**
 - Crédits bruts : 4
-- Crédits retenus : **4**
+- Crédits retenus : **2**
 - Exclus (non cinéma) : 0
 - Exclus (plafond) : 0
-- Rôles précis : 4
+- Rôles précis : 2
 
 | # | Titre | Année | Rôle retenu | Statut |
 | --- | --- | --- | --- | --- |
 | 1 | Sous la Seine | 2024 | Cascadeur (Acrobaties & cascades subaquatiques) ★ | NON VÉRIFIABLE |
 | 2 | Champion de France Speed Running | 2013 | Titre National ★ | NON VÉRIFIABLE |
-| 3 | Trigger | 0 | Cascadeur & Freerunner ★ | NON VÉRIFIABLE |
-| 4 | XTreme Gravity | 0 | Performer acrobaties & tricks ★ | NON VÉRIFIABLE |
 
 ★ = rôle précis (coordination, doublure nommée, câblage, chorégraphie…).
 
@@ -409,8 +407,8 @@
 - Crédits bruts : 37
 - Crédits retenus : **24**
 - Exclus (non cinéma) : 1
-- Exclus (plafond) : 12
-- Rôles précis : 1
+- Exclus (plafond) : 11
+- Rôles précis : 0
 
 | # | Titre | Année | Rôle retenu | Statut |
 | --- | --- | --- | --- | --- |
@@ -437,7 +435,7 @@
 | 21 | Balle perdue 2 | 2022 | Cascadeur | NOUVEAU |
 | 22 | Détox | 2022 | Cascadeur | NOUVEAU |
 | 23 | Loin du périph | 2022 | Cascadeur | NOUVEAU |
-| 24 | Fight concepts cinéma | 0 | Performer & Chorégraphe ★ | NON VÉRIFIABLE |
+| 24 | Notre-Dame, la Part du feu | 2022 | Cascadeur | NOUVEAU |
 
 ★ = rôle précis (coordination, doublure nommée, câblage, chorégraphie…).
 
@@ -454,7 +452,7 @@
 
 | # | Titre | Année | Rôle retenu | Statut |
 | --- | --- | --- | --- | --- |
-| 1 | Quasimodo | 0 | Cascadeur & Acrobaties ★ | CONFIRMÉ |
+| 1 | Quasimodo | — | Cascadeur & Acrobaties ★ | CONFIRMÉ |
 | 2 | Anna | 2019 | Cascadeur | CONFIRMÉ |
 | 3 | Furies | 2024 | Cascadeur Parkour & Cascadeur ★ | NOUVEAU |
 | 4 | Bagarre | 2026 | Cascadeur | NOUVEAU |

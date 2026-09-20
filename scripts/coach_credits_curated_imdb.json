@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-09-20T15:18:29.990Z",
+  "generatedAt": "2026-09-20T15:30:39.583Z",
   "source": "imdb",
   "curatedFrom": "coach_credits_review_imdb.json",
   "limit": 24,
   "globalStats": {
     "coaches": 12,
     "totalRaw": 894,
-    "totalKept": 264,
+    "totalKept": 262,
     "totalExcludedNonCinema": 8,
-    "totalExcludedOverLimit": 620,
-    "totalRichRoles": 67
+    "totalExcludedOverLimit": 616,
+    "totalRichRoles": 63
   },
   "coaches": [
     {
@@ -252,7 +252,7 @@
         "total": 204,
         "kept": 24,
         "excludedNonCinema": 0,
-        "excludedOverLimit": 179,
+        "excludedOverLimit": 178,
         "richRoles": 8
       },
       "credits": [
@@ -483,8 +483,8 @@
         "total": 87,
         "kept": 24,
         "excludedNonCinema": 1,
-        "excludedOverLimit": 62,
-        "richRoles": 8
+        "excludedOverLimit": 61,
+        "richRoles": 7
       },
       "credits": [
         {
@@ -659,6 +659,15 @@
           "formatted": "Zorro (2024) — Cascadeur"
         },
         {
+          "title": "Acide",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt17569526",
+          "score": 67,
+          "formatted": "Acide (2023) — Cascadeur"
+        },
+        {
           "title": "Elyas",
           "year": 2024,
           "role": "Cascadeur (Combats rapprochés)",
@@ -693,15 +702,6 @@
           "imdbId": null,
           "score": 63,
           "formatted": "Le Comte de Monte-Cristo (2024) — Cascadeur & Doublure combats"
-        },
-        {
-          "title": "Balthazar (Série TF1)",
-          "year": 0,
-          "role": "Doublure cascades Tomer Sisley",
-          "status": "NON VÉRIFIABLE",
-          "imdbId": null,
-          "score": 35,
-          "formatted": "Balthazar (Série TF1) — Doublure cascades Tomer Sisley"
         }
       ]
     },
@@ -1638,7 +1638,7 @@
         "total": 102,
         "kept": 24,
         "excludedNonCinema": 0,
-        "excludedOverLimit": 78,
+        "excludedOverLimit": 77,
         "richRoles": 4
       },
       "credits": [
@@ -2098,10 +2098,10 @@
       "declaredCreditsCount": 4,
       "stats": {
         "total": 4,
-        "kept": 4,
+        "kept": 2,
         "excludedNonCinema": 0,
         "excludedOverLimit": 0,
-        "richRoles": 4
+        "richRoles": 2
       },
       "credits": [
         {
@@ -2121,24 +2121,6 @@
           "imdbId": null,
           "score": 52,
           "formatted": "Champion de France Speed Running (2013) — Titre National"
-        },
-        {
-          "title": "Trigger",
-          "year": 0,
-          "role": "Cascadeur & Freerunner",
-          "status": "NON VÉRIFIABLE",
-          "imdbId": null,
-          "score": 35,
-          "formatted": "Trigger — Cascadeur & Freerunner"
-        },
-        {
-          "title": "XTreme Gravity",
-          "year": 0,
-          "role": "Performer acrobaties & tricks",
-          "status": "NON VÉRIFIABLE",
-          "imdbId": null,
-          "score": 35,
-          "formatted": "XTreme Gravity — Performer acrobaties & tricks"
         }
       ]
     },
@@ -2151,8 +2133,8 @@
         "total": 37,
         "kept": 24,
         "excludedNonCinema": 1,
-        "excludedOverLimit": 12,
-        "richRoles": 1
+        "excludedOverLimit": 11,
+        "richRoles": 0
       },
       "credits": [
         {
@@ -2363,13 +2345,13 @@
           "formatted": "Loin du périph (2022) — Cascadeur"
         },
         {
-          "title": "Fight concepts cinéma",
-          "year": 0,
-          "role": "Performer & Chorégraphe",
-          "status": "NON VÉRIFIABLE",
-          "imdbId": null,
-          "score": 35,
-          "formatted": "Fight concepts cinéma — Performer & Chorégraphe"
+          "title": "Notre-Dame, la Part du feu",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt15046742",
+          "score": 66,
+          "formatted": "Notre-Dame, la Part du feu (2022) — Cascadeur"
         }
       ]
     },
@@ -2388,7 +2370,7 @@
       "credits": [
         {
           "title": "Quasimodo",
-          "year": 0,
+          "year": null,
           "role": "Cascadeur & Acrobaties",
           "status": "CONFIRMÉ",
           "imdbId": "tt37267166",

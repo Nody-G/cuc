@@ -304,9 +304,13 @@ export function curateCoachCredits(coachReport, options = {}) {
         const role = pickEditorialRole(entry);
         const score = notabilityScore(entry, currentYear);
 
+        // Une année absente ou nulle (0) est normalisée en `null` : on ne
+        // fabrique jamais une date pour combler un vide (doctrine « zéro
+        // invention »).
+        const rawYear = Number(entry.year);
         const record = {
             title,
-            year: Number.isFinite(Number(entry.year)) ? Number(entry.year) : null,
+            year: Number.isFinite(rawYear) && rawYear > 1900 ? rawYear : null,
             role,
             status: entry.status || 'NOUVEAU',
             imdbId: entry.imdbId || null,
@@ -319,6 +323,18 @@ export function curateCoachCredits(coachReport, options = {}) {
         if (isNonCinemaTitle(title)) {
             record.excluded = true;
             record.reason = 'Contenu non cinématographique (clip, publicité, émission…)';
+            excluded.push(record);
+            continue;
+        }
+
+        // Exclusion : crédit non publiable. Un crédit sans identifiant IMDb ET
+        // sans année ne peut être daté ni rattaché à une œuvre vérifiable. Le
+        // publier obligerait à inventer une date (doctrine « zéro invention »).
+        // Un crédit rattaché à IMDb (imdbId) reste publiable même sans année :
+        // l'œuvre est vérifiable, seule la date est inconnue (film non sorti).
+        if (!record.imdbId && !record.year) {
+            record.excluded = true;
+            record.reason = 'Crédit non daté et non rattaché à IMDb — non publiable';
             excluded.push(record);
             continue;
         }
@@ -443,6 +459,7 @@ export function curateReport(report, options = {}) {
  * @returns {string}
  */
 export function formatCuratedCredit(credit) {
-    const yearPart = credit.year ? ` (${credit.year})` : '';
+    const year = Number(credit.year);
+    const yearPart = Number.isFinite(year) && year > 1900 ? ` (${year})` : '';
     return `${credit.title}${yearPart} — ${credit.role}`;
 }

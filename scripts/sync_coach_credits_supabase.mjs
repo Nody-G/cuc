@@ -47,7 +47,29 @@ function loadFilms() {
     const start = code.indexOf('export const FILMOGRAPHY_CREDITS: FilmCredit[] = [');
     if (start === -1) throw new Error('Impossible de parser FILMOGRAPHY_CREDITS');
     const jsonStart = code.indexOf('[', start);
-    const jsonEnd = code.lastIndexOf(']');
+
+    // Recherche de la parenthèse fermante équilibrée (le fichier contient
+    // d'autres tableaux après FILMOGRAPHY_CREDITS, donc lastIndexOf(']') est faux).
+    let depth = 0;
+    let inString = false;
+    let escaped = false;
+    let jsonEnd = -1;
+    for (let i = jsonStart; i < code.length; i++) {
+        const ch = code[i];
+        if (inString) {
+            if (escaped) escaped = false;
+            else if (ch === '\\') escaped = true;
+            else if (ch === '"') inString = false;
+            continue;
+        }
+        if (ch === '"') inString = true;
+        else if (ch === '[') depth++;
+        else if (ch === ']') {
+            depth--;
+            if (depth === 0) { jsonEnd = i; break; }
+        }
+    }
+    if (jsonEnd === -1) throw new Error('Crochet fermant introuvable pour FILMOGRAPHY_CREDITS');
     return JSON.parse(code.slice(jsonStart, jsonEnd + 1));
 }
 

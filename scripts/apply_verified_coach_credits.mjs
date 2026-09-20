@@ -32,11 +32,23 @@ import { loadCurrentTeam } from './lib/credit-verifier.mjs';
 const sourceArg = process.argv.find((a) => a.startsWith('--source='));
 const SOURCE = sourceArg ? sourceArg.split('=')[1] : 'imdb';
 
-const REVIEW_JSON = path.resolve(
+// Par défaut, on applique la sélection CURATÉE (filtre non-cinéma, rôles précis
+// préservés, assainissement doctrinal). Utiliser --raw pour appliquer le vrac brut.
+const USE_RAW = process.argv.includes('--raw');
+
+const RAW_JSON = path.resolve(
     process.cwd(),
     'scripts',
     SOURCE === 'tmdb' ? 'coach_credits_review.json' : 'coach_credits_review_imdb.json',
 );
+const CURATED_JSON = path.resolve(
+    process.cwd(),
+    'scripts',
+    SOURCE === 'tmdb' ? 'coach_credits_curated.json' : 'coach_credits_curated_imdb.json',
+);
+
+const REVIEW_JSON =
+    !USE_RAW && fs.existsSync(CURATED_JSON) ? CURATED_JSON : RAW_JSON;
 const TEAM_FILE = path.resolve(process.cwd(), 'src', 'data', 'team.ts');
 
 /**
@@ -58,6 +70,25 @@ function buildCoachCredits(coachReport) {
     const credits = [];
     const filmRoles = {};
     const seen = new Set();
+
+    // Format CURATÉ : la sélection éditoriale est déjà arbitrée (filtre
+    // non-cinéma, rôles précis préservés, assainissement doctrinal). On la
+    // reprend telle quelle, sans réinterpréter les statuts.
+    if (Array.isArray(coachReport.credits)) {
+        for (const credit of coachReport.credits) {
+            const year = Number(credit.year);
+            const yearPart = Number.isFinite(year) && year > 1900 ? ` (${year})` : '';
+            const formatted = credit.formatted
+                || `${credit.title}${yearPart} — ${credit.role}`;
+            if (seen.has(formatted)) continue;
+            seen.add(formatted);
+            credits.push(formatted);
+            if (credit.title) {
+                filmRoles[slugify(credit.title)] = credit.role;
+            }
+        }
+        return { credits, filmRoles };
+    }
 
     for (const entry of coachReport.entries) {
         if (entry.status === 'REJETÉ') continue;
@@ -184,9 +215,12 @@ async function main() {
         const coachReport = reviewById.get(member.id);
 
         // Le statut de résolution est porté soit à la racine (TMDB), soit dans
-        // `identity` (IMDb).
+        // `identity` (IMDb), soit dans `identityStatus` (artefact curaté).
         const resolutionStatus =
-            coachReport?.status ?? coachReport?.identity?.status ?? null;
+            coachReport?.status
+            ?? coachReport?.identity?.status
+            ?? coachReport?.identityStatus
+            ?? null;
 
         if (!coachReport || resolutionStatus !== 'RÉSOLU') {
             console.log(`→ ${member.name} — identité non résolue, fiche conservée telle quelle.`);
