@@ -19,3 +19,4 @@ Le site du Campus Univers Cascades (CUC) a une vocation d'excellence et d'extrê
 1. **Factuel et Précis** : Décrire les cascades et compétences avec sobriété (ex: *"Combats et cascades physiques"*, *"Câblage et rigging en studio"*, *"Cascades automobiles"*).
 2. **Vérité des Crédits** : Mentionner fidèlement les comédiens, les doublures réelles et les équipes cascades intervenues sur les tournages.
 3. **Concision** : Préférer des phrases courtes, nettes et directes à des paragraphes à rallonge au contenu vide ou redondant.
+4. **Terminologie Parkour & Malik Diouf** : Ne JAMAIS employer l'acronyme *"ADD"* ni l'expression *"Art du Déplacement"* pour Malik Diouf ou les modules d'entraînement. Utiliser exclusivement le terme **Parkour** (ou *"Méthode Yamakasi"*).

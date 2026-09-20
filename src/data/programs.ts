@@ -41,7 +41,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
       'Torche humaine (cascades en feu intégrales)',
       'Câblage 3D & Harnais super-héros',
       'Forces spéciales & maniement d\'armes à blanc',
-      'Parkour & Art du déplacement (Yamakasi)',
+      'Parkour & Méthode Yamakasi',
       'Cascades mécaniques & chutes d\'escaliers'
     ],
     certification: 'Certification QUALIOPI & Éligibilité AFDAS',

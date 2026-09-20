@@ -1066,13 +1066,13 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2001",
     "category": "Film Culte",
     "director": "Ariel Zeitoun & Julien Seri",
-    "stuntRoles": "Art du Déplacement (ADD) et cascades urbaines.",
+    "stuntRoles": "Parkour et cascades urbaines.",
     "doubledActors": [
       "Malik Diouf (co-fondateur CUC)"
     ],
     "highlight": true,
     "image": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/18-Yamakasi.jpg",
-    "tag": "PARKOUR & ADD",
+    "tag": "PARKOUR",
     "imdbUrl": "https://www.imdb.com/title/tt0267129/",
     "allocineUrl": "https://www.allocine.fr/film/fichefilm_gen_cfilm=29366.html",
     "trailerUrl": "https://www.youtube.com/watch?v=aA0wW7E-Wok",

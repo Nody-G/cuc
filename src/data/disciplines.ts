@@ -64,9 +64,9 @@ export const CUC_DISCIPLINES: Discipline[] = [
   {
     id: 'parkour-yamakasi',
     number: '06',
-    name: 'Parkour & Art du Déplacement (Yamakasi)',
-    shortDesc: 'Franchissement rapide d\'obstacles urbains, fluidité cinétique et méthode originale conçue avec Malik Diouf.',
-    fullDesc: 'L\'Art du Déplacement enseigné au CUC bénéficie de l\'expertise directe de Malik Diouf, co-fondateur du groupe Yamakasi. Sur un Parkour Park modulable de plusieurs centaines de mètres carrés, les cascadeurs apprennent le saut de bras, le saut de chat, le passe-muraille, les réceptions roulées sur sol dur et l\'enchaînement de trajectoires en milieu urbain sans rupture de vitesse.',
+    name: 'Parkour & Méthode Yamakasi',
+    shortDesc: 'Franchissement rapide d\'obstacles urbains, fluidité et technique de Parkour avec Malik Diouf.',
+    fullDesc: 'Le Parkour enseigné au CUC bénéficie de l\'expertise directe de Malik Diouf, co-fondateur du groupe Yamakasi. Sur un Parkour Park modulable de plusieurs centaines de mètres carrés, les cascadeurs apprennent le saut de bras, le saut de chat, le passe-muraille, les réceptions roulées sur sol dur et l\'enchaînement de trajectoires en milieu urbain sans rupture de vitesse.',
     iconName: 'Activity',
     level: 'Fondamental',
     equipment: ['Parkour Park dédié modulable', 'Structures métalliques et barres d\'évolution', 'Praticables amortissants', 'Surfaces béton et bois brut'],
