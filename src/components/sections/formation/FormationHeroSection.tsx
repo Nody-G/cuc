@@ -73,7 +73,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-            {heroData?.subtitle || "Le cursus de référence mondiale fondé par Lucas Dollfus. Une immersion totale sur le domaine de 6 hectares du Cateau-Cambrésis pour acquérir la polyvalence technique, la discipline de plateau et les réflexes de sécurité exigés par le cinéma d'action contemporain."}
+            {heroData?.subtitle || "Cursus de formation professionnelle fondé par Lucas Dollfus. Une immersion technique sur le domaine de 6 hectares au Cateau-Cambrésis pour acquérir les compétences, la discipline de plateau et les réflexes de sécurité exigés par le cinéma d'action."}
           </p>
 
           <div className="flex flex-wrap gap-4 mt-8">

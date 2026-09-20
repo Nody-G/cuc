@@ -81,11 +81,11 @@ export const STAGES_LIST: StageData[] = [
     },
     subBadge: 'DÈS 15 ANS • PARKOUR & AIRBAG',
     title: 'STUNT SUMMER CAMP CUC',
-    description: "Le rendez-vous de la saison estivale : une semaine d'entraînement intensif et d'adrénaline pure. Parkour Park Yamakasi, sauts libres sur airbag géant, acrobaties sur fosse à cubes et combats de cinéma. Formule internat avec ambiance fraternelle et défis d'action.",
+    description: "Une semaine d'entraînement estival au CUC : Parkour, sauts sur airbag, acrobaties sur fosse à cubes et combats de cinéma. Formule internat avec hébergement et pension complète.",
     details: [
       { icon: 'clock', text: '1 Semaine (Du dimanche au vendredi soir / 35h)' },
       { icon: 'bed', text: 'Formule internat avec hébergement et pension complète' },
-      { icon: 'users', text: 'Encadré par les traceurs d\'élite et cascadeurs CUC' },
+      { icon: 'users', text: 'Encadré par les cascadeurs et formateurs CUC' },
       { icon: 'map', text: 'Campus CUC, 59360 Le Cateau-Cambrésis' },
     ],
     buttonLabel: 'Pré-inscriptions Summer Camp',
@@ -106,7 +106,7 @@ export const STAGES_LIST: StageData[] = [
     },
     subBadge: 'PROVENCE STUDIOS (MARTIGUES)',
     title: 'STAGE AFDAS — CASCADEURS PRO (PROVENCE STUDIOS)',
-    description: "Session de perfectionnement d'élite organisée au sein des infrastructures monumentales de Provence Studios. Rigs de câblage 3 axes haute vitesse, catapultes pneumatiques (ratchets), torches humaines intégrales et protocoles de sauvetage d'urgence pour tournages hollywoodiens.",
+    description: "Session de perfectionnement technique organisée au sein des studios de tournage à Provence Studios. Câblage multi-axes, catapultes pneumatiques (ratchets), torches humaines et protocoles de sécurité pour tournages professionnels.",
     details: [
       { icon: 'map', text: 'Provence Studios, Martigues (Bouches-du-Rhône)' },
       { icon: 'shield', text: 'Prise en charge AFDAS Intermittents Cascadeurs' },

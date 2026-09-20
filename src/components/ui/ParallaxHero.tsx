@@ -171,7 +171,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 backdrop-blur-md text-[11px] font-mono-tech tracking-widest text-zinc-300 uppercase shadow-xs mb-5"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FFE500] animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FFE500]" />
             <span>{heroData?.badge || 'Centre International de Formation de Cascadeurs'}</span>
             <span className="text-zinc-600">•</span>
             <span className="text-[#FFE500] font-semibold">Depuis 2008</span>

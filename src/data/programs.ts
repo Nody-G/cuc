@@ -200,7 +200,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
       'Vivre une semaine de cohésion inoubliable sur 6 hectares d\'infrastructures'
     ],
     keyModules: [
-      'Parkour & Freerun sous la supervision de traceurs d\'élite',
+      'Parkour & Freerun encadré par des professionnels',
       'Chute de hauteur libre sur Airbag',
       'Acrobaties sur praticables et fosse à cubes',
       'Combats chorégraphiés et tournage d\'un reel',
@@ -214,14 +214,14 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
     id: 'afdas-cascadeurs-pro',
     category: 'afdas',
     title: 'Stage AFDAS — Cascadeurs PRO (Provence Studios)',
-    badge: 'PROS SEULEMENT',
+    badge: 'CASCADEURS PRO',
     highlight: false,
-    tagline: 'Perfectionnement de pointe réservé aux cascadeurs en exercice à Provence Studios.',
+    tagline: 'Perfectionnement technique réservé aux cascadeurs en exercice à Provence Studios.',
     duration: 'Session spécifique de perfectionnement',
-    hours: 'Module expert de haut niveau',
+    hours: 'Module expert',
     location: 'Provence Studios (Martigues, Bouches-du-Rhône)',
     price: 'Prise en charge AFDAS',
-    priceNote: 'Réservé exclusivement aux cascadeurs professionnels immatriculés',
+    priceNote: 'Réservé aux cascadeurs professionnels en activité',
     ageRequirement: 'Cascadeurs professionnels confirmés',
     eligibility: [
       'Cascadeuses et cascadeurs professionnels en activité',
@@ -231,7 +231,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
     nextSessions: [
       { date: 'Session 2026/2027 annoncée prochainement', status: 'bientôt' }
     ],
-    description: 'Une formation d\'élite organisée au sein de la plus vaste infrastructure de studios de cinéma du Sud de la France (Provence Studios). Conçue par des coordinateurs cascades majeurs pour affiner les gestes techniques extrêmes, les nouveaux dispositifs de câblage et la sécurité pyrotechnique de dernière génération.',
+    description: 'Formation de perfectionnement organisée au sein des studios de cinéma à Provence Studios (Martigues). Destinée aux professionnels pour approfondir les techniques de câblage, les chutes et la sécurité pyrotechnique sur les plateaux de tournage.',
     objectives: [
       'Affiner les réactions biomécaniques sur impacts lourds et projections',
       'Expérimenter les rigs de câblage complexes et déclencheurs pneumatiques',

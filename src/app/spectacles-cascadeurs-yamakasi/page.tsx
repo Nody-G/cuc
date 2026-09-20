@@ -186,9 +186,9 @@ export default function SpectaclesCascadeursYamakasiPage() {
                 <div className="lg:col-span-7 space-y-4">
                   <div className="flex items-center gap-2">
                     <StuntBadge variant="yellow" icon={<Award className="w-3.5 h-3.5" />}>
-                      RÉFÉRENCE MAJEURE
+                      ÉVÉNEMENT
                     </StuntBadge>
-                    <span className="text-xs font-mono-tech text-zinc-400">PARIS BERCY</span>
+                    <span className="text-xs font-mono-tech text-zinc-400">ACCOR ARENA • PARIS</span>
                   </div>
 
                   <h3 className="text-3xl font-display uppercase text-white">
@@ -196,9 +196,9 @@ export default function SpectaclesCascadeursYamakasiPage() {
                   </h3>
 
                   <p className="text-sm font-tech text-zinc-300 leading-relaxed">
-                    Devant plus de 15 000 spectateurs, la CUC Stunt Team a assuré le show d'ouverture
+                    Devant plus de 15 000 spectateurs, la CUC Stunt Team a assuré le show d&apos;ouverture
                     avec des cascades synchronisées, des sauts depuis les structures aériennes et des combats
-                    spectaculaires retransmis sur écrans géants.
+                    retransmis sur écrans géants.
                   </p>
 
                   <div className="pt-2">

@@ -35,7 +35,7 @@ export default function FormationDeCascadeurPage() {
             courseJsonLd({
               name: "Formation Professionnelle de Cascadeur (2 ans / 720h)",
               description:
-                "Cursus d'élite en 2 ans et Formule Découverte 12 jours. Combat chorégraphié, chutes, torche humaine, parkour et préparation cinéma au Cateau-Cambrésis.",
+                "Cursus professionnel en 2 ans et Formule Découverte 12 jours. Combat chorégraphié, chutes, torche humaine, parkour et préparation cinéma au Cateau-Cambrésis.",
               path: "/formation-de-cascadeur",
               duration: "P2Y",
             })

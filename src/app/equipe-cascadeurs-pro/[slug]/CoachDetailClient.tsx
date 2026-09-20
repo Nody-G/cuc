@@ -253,7 +253,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
                 <div className="bg-[#14141e] border border-zinc-800 p-5">
                   <h2 className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider mb-2 flex items-center gap-2">
                     <Users className="w-4 h-4" />
-                    <span>Acteurs &amp; Célébrités Doublés à l'écran :</span>
+                    <span>Acteurs doublés à l&apos;écran :</span>
                   </h2>
                   <p className="text-sm font-tech text-zinc-300">
                     {member.doubledActors.join(' • ')}
@@ -266,7 +266,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
                 <div className="bg-[#0e0e14] border border-zinc-800 p-5">
                   <h2 className="text-xs font-mono-tech text-zinc-400 uppercase tracking-wider mb-2 flex items-center gap-2">
                     <Clapperboard className="w-4 h-4 text-[#FFE500]" />
-                    <span>Références &amp; Crédits Majeurs :</span>
+                    <span>Tournages &amp; Crédits :</span>
                   </h2>
                   <div className="flex flex-wrap gap-2 text-xs font-tech text-zinc-300">
                     {member.notableCredits.map((credit, cIdx) => (

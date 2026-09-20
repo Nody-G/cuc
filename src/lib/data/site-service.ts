@@ -585,7 +585,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     slug: 'stunt-workshop-cuc',
     title: 'Stunt Workshops Masterclass',
     meta_title: 'International Stunt Workshop | Campus Univers Cascades',
-    meta_description: "Stage international d'élite en anglais et français. 2 semaines résidentielles d'immersion au Cateau-Cambrésis.",
+    meta_description: "Stage international de cascade en anglais et français. 2 semaines résidentielles d'immersion au Cateau-Cambrésis.",
     og_image: 'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg',
     hero: {
       badge: 'STAGE INTERNATIONAL • EN ANGLAIS & FRANÇAIS',

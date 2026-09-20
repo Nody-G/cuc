@@ -296,8 +296,7 @@ export default function StuntWorkshopCucPage() {
                   <h3 className="font-display uppercase text-lg text-white">OFFICIAL CERTIFICATE</h3>
                 </div>
                 <p className="text-xs font-tech text-zinc-300 leading-relaxed mb-4">
-                  Graduates receive the official CUC Worldwide Stunt Certificate, recognized
-                  by international action directors and stunt coordinating agencies globally.
+                  Graduates receive the official CUC Workshop Certificate detailing all hours and disciplines completed during the session.
                 </p>
                 <div className="text-[11px] font-mono-tech text-zinc-500">
                   Includes raw 4K footage of your choreographed action scenes.

@@ -16,7 +16,7 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
   const title = hero?.title || 'TOURNAGES & CUC STUNT TEAM';
   const subtitle =
     hero?.subtitle ||
-    "Le Campus Univers Cascades et la CUC Stunt Team accompagnent les réalisateurs, producteurs et directeurs de casting de la conception des scènes d'action jusqu'au tournage en plateau avec un vivier de plus de 200 cascadeurs professionnels certifiés.";
+    "Le Campus Univers Cascades et la CUC Stunt Team accompagnent les productions cinématographiques et audiovisuelles, de la conception des chorégraphies d'action jusqu'au tournage en plateau.";
   const bgImage =
     hero?.bg_image ||
     'https://www.campus-universcascades.com/wp-content/uploads/2023/02/slider-8-scaled.jpg';
