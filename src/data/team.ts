@@ -181,18 +181,18 @@ export const CUC_TEAM: Instructor[] = [
     id: 'niels-dalery',
     name: 'Niels Dalery',
     role: 'Formateur Acrobatie & Freerun',
-    title: 'Spécialiste Acrobaties, Freerunning & Prises de Vue Drone',
-    specialties: ['Acrobatie au sol', 'Freerunning urbain', 'Tricks de scène', 'Télépilote de drone cinéma'],
-    bio: 'Cascadeur, freerunner professionnel et champion de France de Speed Running (2013). Également télépilote certifié de drone pour prises de vues aériennes d\'action au cinéma.',
+    title: 'Spécialiste Acrobaties & Freerunning',
+    specialties: ['Acrobatie au sol', 'Freerunning urbain', 'Tricks de scène', 'Trampoline'],
+    bio: 'Cascadeur, freerunner professionnel et champion de France de Speed Running (2013). Niels Dalery enseigne au CUC la maîtrise des acrobaties au sol, des rotations et du freerunning appliqués à la cascade.',
     notableCredits: [
       'Champion de France Speed Running (2013)',
       'XTreme Gravity',
       'Sous la Seine',
       'Trigger'
     ],
-    externalUrl: 'https://nielsdalery.com/',
     avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/6-niels.png',
-    imdb: 'https://www.imdb.com/name/nm9102434/'
+    imdb: 'https://www.imdb.com/name/nm9102434/',
+    instagram: 'https://www.instagram.com/nielsdalery'
   },
   {
     id: 'bastien-trouve',

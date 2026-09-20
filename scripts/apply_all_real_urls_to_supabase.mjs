@@ -63,7 +63,7 @@ const TEAM_UPDATES = [
   {
     id: 'niels-dalery',
     imdb: 'https://www.imdb.com/name/nm9102434/',
-    external_url: 'https://nielsdalery.com/',
+    external_url: null,
     instagram: 'https://www.instagram.com/nielsdalery'
   }
 ];
