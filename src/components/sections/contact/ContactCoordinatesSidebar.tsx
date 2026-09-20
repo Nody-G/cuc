@@ -8,8 +8,6 @@ import {
   Clock,
   Compass,
   Navigation,
-  MapPin,
-  ExternalLink,
   ShieldCheck,
 } from 'lucide-react';
 
@@ -160,18 +158,6 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
               92230 Gennevilliers (Région Parisienne)
             </span>
           </p>
-          <div className="mt-2.5">
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=Gennevilliers+92230"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-[11px] font-mono-tech text-zinc-400 hover:text-[#FFE500] transition-colors"
-            >
-              <MapPin className="w-3 h-3 text-[#FFE500]" />
-              <span>Localiser le Studio Paris (Google Maps)</span>
-              <ExternalLink className="w-2.5 h-2.5" />
-            </a>
-          </div>
         </div>
 
         <div className="pt-2 border-t border-zinc-800/80">
