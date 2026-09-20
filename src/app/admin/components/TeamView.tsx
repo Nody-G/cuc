@@ -85,6 +85,9 @@ export const TeamView: React.FC<TeamViewProps> = ({
     category: FilmCredit['category'];
   } | null>(null);
 
+  /** Tri de la liste « Tous les crédits » : par date (défaut) ou par nom. */
+  const [creditSort, setCreditSort] = useState<'date' | 'name'>('date');
+
   const handleSaveTeamMember = (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingMember) return;
@@ -245,21 +248,47 @@ export const TeamView: React.FC<TeamViewProps> = ({
    * normalisée, et un drapeau `inCatalogue`.
    */
   const allCredits = useMemo(() => {
+    const filmByKey = new Map(films.map((f) => [creditKey(f.title), f]));
     return (editingMember?.notableCredits || [])
       .map((raw) => {
         const parsed = parseCredit(raw);
         const title = (parsed.title || raw).trim();
         const key = creditKey(title);
+        const film = filmByKey.get(key);
+        // Année : priorité au catalogue, sinon extraite du titre « Titre (2021) ».
+        const yearFromTitle = title.match(/\((\d{4})(?:\s*[-–—]\s*\d{4})?\)\s*$/)?.[1];
+        const year = film?.year ? String(film.year) : yearFromTitle || '';
         return {
           raw,
-          title,
+          title: title.replace(/\s*\(\s*\d{4}\s*(?:[-–—]\s*\d{4}\s*)?\)\s*$/, '').trim() || title,
           role: parsed.role || extractRoleFromCredit(raw),
           key,
+          year,
           inCatalogue: catalogueKeys.has(key),
         };
       })
       .filter((e) => e.key);
-  }, [editingMember?.notableCredits, catalogueKeys]);
+  }, [editingMember?.notableCredits, catalogueKeys, films]);
+
+  /**
+   * Tri de la liste « Tous les crédits » : par date (année décroissante) ou
+   * par nom (alphabétique). Les crédits sans année sont relégués en fin de
+   * tri par date.
+   */
+  const allCreditsSorted = useMemo(() => {
+    const list = [...allCredits];
+    if (creditSort === 'name') {
+      return list.sort((a, b) =>
+        a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' })
+      );
+    }
+    return list.sort((a, b) => {
+      const ya = parseInt(a.year, 10) || 0;
+      const yb = parseInt(b.year, 10) || 0;
+      if (yb !== ya) return yb - ya;
+      return a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' });
+    });
+  }, [allCredits, creditSort]);
 
   /**
    * Liste unifiée : les crédits mis en avant d'abord (dans l'ordre choisi),
@@ -1189,24 +1218,43 @@ export const TeamView: React.FC<TeamViewProps> = ({
 
                     {/* 3. TOUS LES CRÉDITS — source unique, catalogue et hors catalogue */}
                     <div className="p-3.5 bg-black/40 border border-white/10 rounded-xl space-y-2">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-between gap-2">
                         <div className="text-[11px] font-bold text-zinc-300 uppercase tracking-wider">
                           Tous les crédits ({allCredits.length})
                         </div>
-                        <span className="text-[10px] font-mono text-zinc-500">
-                          {allCredits.filter((c) => c.inCatalogue).length} au catalogue •{' '}
-                          {allCredits.filter((c) => !c.inCatalogue).length} hors catalogue
-                        </span>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="text-[10px] font-mono text-zinc-500">
+                            {allCredits.filter((c) => c.inCatalogue).length} cat. •{' '}
+                            {allCredits.filter((c) => !c.inCatalogue).length} hors cat.
+                          </span>
+                          {/* Tri : par date (année décroissante) ou par nom */}
+                          <div className="flex items-center rounded-md border border-white/10 overflow-hidden">
+                            {(['date', 'name'] as const).map((mode) => (
+                              <button
+                                type="button"
+                                key={mode}
+                                onClick={() => setCreditSort(mode)}
+                                className={`px-2 py-0.5 text-[10px] font-mono transition ${creditSort === mode
+                                  ? 'bg-white/15 text-white font-bold'
+                                  : 'bg-black/40 text-zinc-500 hover:text-zinc-300'
+                                  }`}
+                                title={mode === 'date' ? 'Trier par date' : 'Trier par nom'}
+                              >
+                                {mode === 'date' ? 'DATE' : 'NOM'}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
                       </div>
 
                       <p className="text-[11px] text-zinc-400 leading-relaxed">
-                        Cliquez sur l'étoile pour mettre un crédit en avant sur la fiche publique.
-                        Les crédits hors catalogue restent affichés tels quels.
+                        Cliquez sur l'étoile pour mettre un crédit en avant. Le rôle se choisit
+                        directement sur chaque ligne.
                       </p>
 
-                      {allCredits.length > 0 ? (
-                        <div className="space-y-1.5 max-h-[26rem] overflow-y-auto pr-1">
-                          {allCredits.map(({ raw, title, role, key, inCatalogue }) => {
+                      {allCreditsSorted.length > 0 ? (
+                        <div className="space-y-1 max-h-[26rem] overflow-y-auto pr-1">
+                          {allCreditsSorted.map(({ raw, title, role, key, year, inCatalogue }) => {
                             const isFeatured = featuredSet.has(key);
                             const featuredRank = featuredCreditsOrdered.findIndex(
                               (e) => e.key === key
@@ -1214,83 +1262,35 @@ export const TeamView: React.FC<TeamViewProps> = ({
                             return (
                               <div
                                 key={raw}
-                                className={`border rounded-lg ${isFeatured
+                                className={`flex items-center gap-1.5 px-2 py-1 rounded-lg border ${isFeatured
                                   ? 'bg-[#FFE500]/10 border-[#FFE500]/40'
                                   : 'bg-black/60 border-white/10'
                                   }`}
                               >
-                                <div className="flex items-center gap-2 px-2 py-1.5">
-                                  <span
-                                    className={`px-1.5 py-0.5 rounded text-[9px] font-mono border shrink-0 ${inCatalogue
-                                      ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
-                                      : 'bg-white/5 text-zinc-500 border-white/10'
-                                      }`}
-                                    title={
-                                      inCatalogue
-                                        ? 'Présent au catalogue'
-                                        : 'Absent du catalogue — fiche à créer si besoin'
-                                    }
-                                  >
-                                    {inCatalogue ? 'CATALOGUE' : 'HORS CAT.'}
-                                  </span>
-                                  <span className="flex-1 truncate text-[11px] text-zinc-200">
-                                    {title}
-                                  </span>
-                                  {isFeatured && (
-                                    <>
-                                      <span className="font-mono text-[9px] text-[#FFE500] w-3 text-center shrink-0">
-                                        {featuredRank + 1}
-                                      </span>
-                                      <button
-                                        type="button"
-                                        onClick={() => moveFeatured(key, -1)}
-                                        disabled={featuredRank === 0}
-                                        className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30 shrink-0"
-                                        title="Monter dans la mise en avant"
-                                      >
-                                        <ArrowUp className="w-3 h-3" />
-                                      </button>
-                                      <button
-                                        type="button"
-                                        onClick={() => moveFeatured(key, 1)}
-                                        disabled={featuredRank === featuredCount - 1}
-                                        className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30 shrink-0"
-                                        title="Descendre dans la mise en avant"
-                                      >
-                                        <ArrowDown className="w-3 h-3" />
-                                      </button>
-                                    </>
+                                <span
+                                  className={`px-1 py-0.5 rounded text-[8px] font-mono border shrink-0 ${inCatalogue
+                                    ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
+                                    : 'bg-white/5 text-zinc-500 border-white/10'
+                                    }`}
+                                  title={
+                                    inCatalogue
+                                      ? 'Présent au catalogue'
+                                      : 'Absent du catalogue — fiche à créer si besoin'
+                                  }
+                                >
+                                  {inCatalogue ? 'CAT.' : 'H.C.'}
+                                </span>
+                                <span className="flex-1 min-w-0 truncate text-[11px] text-zinc-200">
+                                  {title}
+                                  {year && (
+                                    <span className="ml-1.5 font-mono text-[9px] text-zinc-500">
+                                      {year}
+                                    </span>
                                   )}
-                                  <button
-                                    type="button"
-                                    onClick={() => toggleFeatured(title)}
-                                    className={`p-1 rounded transition shrink-0 ${isFeatured
-                                      ? 'text-[#FFE500]'
-                                      : 'text-zinc-600 hover:text-[#FFE500]'
-                                      }`}
-                                    title={
-                                      isFeatured
-                                        ? 'Retirer de la mise en avant'
-                                        : 'Mettre en avant sur la fiche publique'
-                                    }
-                                  >
-                                    <Star className={`w-3.5 h-3.5 ${isFeatured ? 'fill-current' : ''}`} />
-                                  </button>
-                                  <button
-                                    type="button"
-                                    onClick={() => removeCredit(raw)}
-                                    className="p-0.5 text-zinc-500 hover:text-red-400 shrink-0"
-                                    title="Supprimer ce crédit"
-                                  >
-                                    <Trash2 className="w-3 h-3" />
-                                  </button>
-                                </div>
+                                </span>
 
-                                {/* Choix du rôle du coach sur ce film */}
-                                <div className="flex items-center gap-1.5 px-2 pb-2 pl-2">
-                                  <span className="text-[9px] font-mono text-zinc-500 shrink-0">
-                                    Rôle :
-                                  </span>
+                                {/* Rôle : sélecteur compact sur la même ligne */}
+                                <div className="flex items-center gap-0.5 shrink-0">
                                   {ROLE_OPTIONS.map((option) => {
                                     const active = role === option;
                                     return (
@@ -1298,16 +1298,70 @@ export const TeamView: React.FC<TeamViewProps> = ({
                                         type="button"
                                         key={option}
                                         onClick={() => setCreditRole(title, active ? '' : option)}
-                                        className={`px-2 py-0.5 rounded text-[10px] font-mono border transition ${active
+                                        className={`px-1.5 py-0.5 rounded text-[9px] font-mono border transition ${active
                                           ? 'bg-[#FFE500]/20 border-[#FFE500] text-[#FFE500] font-bold'
-                                          : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/25'
+                                          : 'bg-black/60 border-white/10 text-zinc-500 hover:border-white/25'
                                           }`}
+                                        title={option}
                                       >
-                                        {option}
+                                        {option === 'Coordinateur des cascades'
+                                          ? 'Coord.'
+                                          : option === 'Doublure'
+                                            ? 'Doubl.'
+                                            : 'Casc.'}
                                       </button>
                                     );
                                   })}
                                 </div>
+
+                                {isFeatured && (
+                                  <>
+                                    <span className="font-mono text-[9px] text-[#FFE500] w-3 text-center shrink-0">
+                                      {featuredRank + 1}
+                                    </span>
+                                    <button
+                                      type="button"
+                                      onClick={() => moveFeatured(key, -1)}
+                                      disabled={featuredRank === 0}
+                                      className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30 shrink-0"
+                                      title="Monter dans la mise en avant"
+                                    >
+                                      <ArrowUp className="w-3 h-3" />
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={() => moveFeatured(key, 1)}
+                                      disabled={featuredRank === featuredCount - 1}
+                                      className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30 shrink-0"
+                                      title="Descendre dans la mise en avant"
+                                    >
+                                      <ArrowDown className="w-3 h-3" />
+                                    </button>
+                                  </>
+                                )}
+                                <button
+                                  type="button"
+                                  onClick={() => toggleFeatured(title)}
+                                  className={`p-0.5 rounded transition shrink-0 ${isFeatured
+                                    ? 'text-[#FFE500]'
+                                    : 'text-zinc-600 hover:text-[#FFE500]'
+                                    }`}
+                                  title={
+                                    isFeatured
+                                      ? 'Retirer de la mise en avant'
+                                      : 'Mettre en avant sur la fiche publique'
+                                  }
+                                >
+                                  <Star className={`w-3.5 h-3.5 ${isFeatured ? 'fill-current' : ''}`} />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => removeCredit(raw)}
+                                  className="p-0.5 text-zinc-500 hover:text-red-400 shrink-0"
+                                  title="Supprimer ce crédit"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </button>
                               </div>
                             );
                           })}
