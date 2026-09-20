@@ -922,7 +922,7 @@ export const TeamView: React.FC<TeamViewProps> = ({
                       )}
                     </div>
 
-                    {/* 2. CATALOGUE — films mis en avant, ordre de la fiche publique */}
+                    {/* 2. CATALOGUE — liste ordonnée des films mis en avant */}
                     <div className="p-3.5 bg-black/40 border border-white/10 rounded-xl space-y-3">
                       <div className="flex items-center justify-between gap-2">
                         <div className="flex items-center gap-2 text-xs font-bold text-[#FFE500] uppercase tracking-wider">
@@ -935,85 +935,89 @@ export const TeamView: React.FC<TeamViewProps> = ({
                       </div>
 
                       <p className="text-[11px] text-zinc-400 leading-relaxed">
-                        Films mis en avant sur la fiche publique, dans cet ordre. Utilisez les
-                        flèches pour les réordonner, l'étoile pour les retirer.
+                        Films mis en avant sur la fiche publique, dans cet ordre. Réordonnez-les
+                        avec les flèches, retirez-en un avec l'étoile.
                       </p>
 
-                      <div className="max-h-[22rem] overflow-y-auto pr-1 space-y-1.5">
-                        {catalogueFilms.map(({ entry, film }, idx) => (
-                          <div
-                            key={film.id}
-                            className="rounded-lg border bg-[#FFE500]/10 border-[#FFE500]/40"
-                          >
-                            <div className="flex items-center gap-2 px-2 py-1.5">
-                              <span className="font-mono text-[10px] text-[#FFE500] w-4 text-center shrink-0">
-                                {idx + 1}
-                              </span>
-                              <span className="flex-1 truncate text-[11px] text-white font-semibold">
-                                {film.title}
-                              </span>
-                              {film.year && (
-                                <span className="text-[9px] font-mono text-zinc-500 shrink-0">
-                                  {film.year}
+                      {catalogueFilms.length > 0 ? (
+                        <ol className="max-h-[22rem] overflow-y-auto pr-1 divide-y divide-white/5 border border-[#FFE500]/25 rounded-lg overflow-hidden">
+                          {catalogueFilms.map(({ entry, film }, idx) => (
+                            <li key={film.id} className="bg-[#FFE500]/5">
+                              <div className="flex items-center gap-2 px-2.5 py-2">
+                                <span className="font-mono text-[11px] font-bold text-[#FFE500] w-5 text-center shrink-0 tabular-nums">
+                                  {idx + 1}
                                 </span>
-                              )}
-                              <div className="flex items-center gap-0.5 shrink-0">
-                                <button
-                                  type="button"
-                                  onClick={() => moveFeatured(entry.key, -1)}
-                                  disabled={idx === 0}
-                                  className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30"
-                                  title="Monter"
-                                >
-                                  <ArrowUp className="w-3 h-3" />
-                                </button>
-                                <button
-                                  type="button"
-                                  onClick={() => moveFeatured(entry.key, 1)}
-                                  disabled={idx === catalogueFilms.length - 1}
-                                  className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30"
-                                  title="Descendre"
-                                >
-                                  <ArrowDown className="w-3 h-3" />
-                                </button>
-                                <button
-                                  type="button"
-                                  onClick={() => toggleFeatured(film.title)}
-                                  className="p-1 rounded text-[#FFE500] hover:text-red-400 transition"
-                                  title="Retirer de la mise en avant"
-                                >
-                                  <Star className="w-3.5 h-3.5" />
-                                </button>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-1.5 px-2 pb-2 pl-8">
-                              {ROLE_OPTIONS.map((role) => {
-                                const active = creditIndex.get(entry.key)?.role === role;
-                                return (
+                                <div className="flex-1 min-w-0">
+                                  <div className="truncate text-[11px] text-white font-semibold">
+                                    {film.title}
+                                  </div>
+                                  <div className="flex items-center gap-1.5 mt-0.5">
+                                    {film.year && (
+                                      <span className="text-[9px] font-mono text-zinc-500">
+                                        {film.year}
+                                      </span>
+                                    )}
+                                    <span className="text-[9px] font-mono text-zinc-500">
+                                      {creditIndex.get(entry.key)?.role || 'Rôle à préciser'}
+                                    </span>
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-0.5 shrink-0">
                                   <button
                                     type="button"
-                                    key={role}
-                                    onClick={() => setCreditRole(film.title, active ? '' : role)}
-                                    className={`px-2 py-0.5 rounded text-[10px] font-mono border transition ${active
-                                      ? 'bg-[#FFE500]/20 border-[#FFE500] text-[#FFE500] font-bold'
-                                      : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/25'
-                                      }`}
+                                    onClick={() => moveFeatured(entry.key, -1)}
+                                    disabled={idx === 0}
+                                    className="p-1 rounded text-zinc-400 hover:text-white hover:bg-white/10 disabled:opacity-25 disabled:hover:bg-transparent"
+                                    title="Monter dans la liste"
                                   >
-                                    {role}
+                                    <ArrowUp className="w-3.5 h-3.5" />
                                   </button>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        ))}
-
-                        {catalogueFilms.length === 0 && (
-                          <p className="text-[11px] text-zinc-500 italic py-2">
-                            Aucun film mis en avant. Recherchez un film ci-dessus, ajoutez-le, puis
-                            cliquez sur son étoile.
-                          </p>
-                        )}
-                      </div>
+                                  <button
+                                    type="button"
+                                    onClick={() => moveFeatured(entry.key, 1)}
+                                    disabled={idx === catalogueFilms.length - 1}
+                                    className="p-1 rounded text-zinc-400 hover:text-white hover:bg-white/10 disabled:opacity-25 disabled:hover:bg-transparent"
+                                    title="Descendre dans la liste"
+                                  >
+                                    <ArrowDown className="w-3.5 h-3.5" />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => toggleFeatured(film.title)}
+                                    className="p-1 rounded text-[#FFE500] hover:text-red-400 hover:bg-white/10 transition"
+                                    title="Retirer de la mise en avant"
+                                  >
+                                    <Star className="w-3.5 h-3.5 fill-current" />
+                                  </button>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-1.5 px-2.5 pb-2 pl-9">
+                                {ROLE_OPTIONS.map((role) => {
+                                  const active = creditIndex.get(entry.key)?.role === role;
+                                  return (
+                                    <button
+                                      type="button"
+                                      key={role}
+                                      onClick={() => setCreditRole(film.title, active ? '' : role)}
+                                      className={`px-2 py-0.5 rounded text-[10px] font-mono border transition ${active
+                                        ? 'bg-[#FFE500]/20 border-[#FFE500] text-[#FFE500] font-bold'
+                                        : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/25'
+                                        }`}
+                                    >
+                                      {role}
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            </li>
+                          ))}
+                        </ol>
+                      ) : (
+                        <p className="text-[11px] text-zinc-500 italic py-2">
+                          Aucun film mis en avant. Recherchez un film ci-dessus, ajoutez-le, puis
+                          cliquez sur son étoile.
+                        </p>
+                      )}
                     </div>
 
                     {/* 3. Crédits hors catalogue (saisie libre conservée) */}

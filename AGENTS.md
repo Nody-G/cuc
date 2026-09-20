@@ -112,3 +112,39 @@ Lorsqu'une identité est corrigée, mettre à jour **dans cet ordre** :
 ## 5. Règle de nommage des slugs
 Le slug (`id`) doit refléter l'**identité réelle** (`michel-bouis`), jamais l'identité erronée. Un slug erroné se propage dans les URLs publiques, les clés étrangères et les métadonnées.
 
+# DOCTRINE NORMALISATION DES TITRES & MISE EN AVANT DES CRÉDITS
+
+**Règle Permanente — Un seul normaliseur de titre, `creditTitleKey()`.**
+
+## 1. Le piège structurel (bug réel corrigé)
+Les crédits issus d'IMDb sont stockés avec leur **année** dans le titre :
+`"Lupin (2021) — Cascadeur"`. Or `site_films.title` ne contient que le titre
+**nu** : `"Lupin"`. Toute comparaison qui ne retire pas le suffixe `(YYYY)`
+échoue **systématiquement** — cas réel : Michel Bouis, **0/44 crédits appariés**,
+mise en avant totalement inopérante.
+
+## 2. Source unique de vérité
+`src/lib/credit-title.ts` → `creditTitleKey(title)` applique, dans l'ordre :
+1. Retrait du suffixe d'année finale `(2021)` ou `(2021-2023)`.
+2. Suppression des accents (NFD + diacritiques).
+3. Minuscules.
+4. Ponctuation → espace.
+5. Compactage des espaces.
+
+**Ne JAMAIS réimplémenter une clé de titre localement.** Les trois points
+d'appel doivent déléguer à ce helper :
+- `creditKey()` — [`TeamView.tsx`](src/app/admin/components/TeamView.tsx) (Cockpit)
+- `normalizeTitleKey()` — [`CoachDetailClient.tsx`](src/app/equipe-cascadeurs-pro/[slug]/CoachDetailClient.tsx) (fiche publique)
+- `normalizeTitle()` / `titleKey()` — [`credit-notability.ts`](src/lib/credit-notability.ts) (tri par notoriété)
+
+## 3. Appariement crédit ↔ film
+Toujours apparier sur le **titre normalisé** via `parseCredit(c).title` puis
+`creditTitleKey(...)`. **Jamais** de `String.includes()` sur la chaîne brute
+`"Titre — Rôle"` (faux positifs + échec dès qu'un rôle change).
+
+## 4. Vérification obligatoire après toute modification
+Comparer les `notable_credits` d'un coach aux titres de `site_films` avec le
+normaliseur, et exiger un taux d'appariement **non nul** avant de considérer la
+mise en avant fonctionnelle. Un taux de 0 % signale une régression de
+normalisation, pas un manque de données.
+
