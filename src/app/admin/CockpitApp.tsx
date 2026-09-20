@@ -65,6 +65,7 @@ import { CAMPUS_POIS, POI } from '@/components/ui/campus-map/campusMap.data';
 import { ToastProvider, useToast } from './components/ui/ToastProvider';
 import { ShortcutsHelpModal } from './components/ShortcutsHelpModal';
 import { createClient } from '@/lib/supabase/client';
+import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
 
 // Composants modulaires du Cockpit
 import { DashboardView } from './components/DashboardView';
@@ -247,146 +248,152 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
 
     try {
       const supabase = createClient();
-      const channel = supabase
-        .channel('cockpit:all_changes')
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'site_programs' },
-          () => {
-            getPrograms().then((p) => {
+      const channel = createSafeChannel(supabase, 'cockpit:all_changes', (ch) =>
+        ch
+          .on(
+            'postgres_changes',
+            { event: '*', schema: 'public', table: 'site_programs' },
+            () => {
+              getPrograms().then((p) => {
+                if (p && p.length > 0) setPrograms(p);
+              });
+            }
+          )
+          .on(
+            'postgres_changes',
+            { event: '*', schema: 'public', table: 'site_sessions' },
+            () => {
+              getPrograms().then((p) => {
+                if (p && p.length > 0) setPrograms(p);
+              });
+            }
+          )
+          .on(
+            'postgres_changes',
+            { event: '*', schema: 'public', table: 'group_memberships' },
+            async () => {
+              console.log('[Realtime CUC Sign] Changement détecté dans group_memberships, auto-synchronisation...');
+              await syncSessionsSeatCountsFromCucSign();
+              const p = await getPrograms();
               if (p && p.length > 0) setPrograms(p);
-            });
-          }
-        )
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'site_sessions' },
-          () => {
-            getPrograms().then((p) => {
-              if (p && p.length > 0) setPrograms(p);
-            });
-          }
-        )
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'group_memberships' },
-          async () => {
-            console.log('[Realtime CUC Sign] Changement détecté dans group_memberships, auto-synchronisation...');
-            await syncSessionsSeatCountsFromCucSign();
-            const p = await getPrograms();
-            if (p && p.length > 0) setPrograms(p);
-          }
-        )
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'site_team' },
-          () => {
-            getTeam().then((t) => {
-              if (t && t.length > 0) setTeam(t);
-            });
-          }
-        )
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'site_films' },
-          () => {
-            getFilms().then((f) => {
-              if (f && f.length > 0) setFilms(f);
-            });
-          }
-        )
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'site_disciplines' },
-          () => {
-            getDisciplines().then((d) => {
-              if (d && d.length > 0) setDisciplines(d);
-            });
-          }
-        )
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'site_campus_pois' },
-          () => {
-            getCampusPOIs().then((pois) => {
-              if (pois && pois.length > 0) setCampusPOIs(pois);
-            });
-          }
-        )
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'site_announcements' },
-          () => {
-            getActiveAnnouncement().then((a) => {
-              if (a) setAnnouncement(a);
-            });
-          }
-        )
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'site_inquiries' },
-          () => {
-            getInquiries().then((inqs) => {
-              if (inqs) {
-                setInquiriesList(inqs);
-                setInquiriesCount(inqs.length);
-                setNewInquiriesCount(inqs.filter((i) => i.status === 'nouveau').length);
-              }
-            });
-          }
-        )
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'site_pages' },
-          () => {
-            getAllPages().then((pgs) => {
-              if (pgs && pgs.length > 0) setPagesList(pgs);
-            });
-          }
-        )
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'site_partners' },
-          () => {
-            getPartners().then((pts) => {
-              if (pts && pts.length > 0) setPartnersList(pts);
-            });
-          }
-        )
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'site_events' },
-          () => {
-            getEvents().then((evs) => {
-              if (evs && evs.length > 0) setEventsList(evs);
-            });
-          }
-        )
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'site_settings' },
-          () => {
-            getSiteSettings().then((st) => {
-              if (st) setSiteSettings(st);
-            });
-            getDisciplines().then((d) => {
-              if (d && d.length > 0) setDisciplines(d);
-            });
-            getCampusPOIs().then((pois) => {
-              if (pois && pois.length > 0) setCampusPOIs(pois);
-            });
-          }
-        )
-        .subscribe((status) => {
+            }
+          )
+          .on(
+            'postgres_changes',
+            { event: '*', schema: 'public', table: 'site_team' },
+            () => {
+              getTeam().then((t) => {
+                if (t && t.length > 0) setTeam(t);
+              });
+            }
+          )
+          .on(
+            'postgres_changes',
+            { event: '*', schema: 'public', table: 'site_films' },
+            () => {
+              getFilms().then((f) => {
+                if (f && f.length > 0) setFilms(f);
+              });
+            }
+          )
+          .on(
+            'postgres_changes',
+            { event: '*', schema: 'public', table: 'site_disciplines' },
+            () => {
+              getDisciplines().then((d) => {
+                if (d && d.length > 0) setDisciplines(d);
+              });
+            }
+          )
+          .on(
+            'postgres_changes',
+            { event: '*', schema: 'public', table: 'site_campus_pois' },
+            () => {
+              getCampusPOIs().then((pois) => {
+                if (pois && pois.length > 0) setCampusPOIs(pois);
+              });
+            }
+          )
+          .on(
+            'postgres_changes',
+            { event: '*', schema: 'public', table: 'site_announcements' },
+            () => {
+              getActiveAnnouncement().then((a) => {
+                if (a) setAnnouncement(a);
+              });
+            }
+          )
+          .on(
+            'postgres_changes',
+            { event: '*', schema: 'public', table: 'site_inquiries' },
+            () => {
+              getInquiries().then((inqs) => {
+                if (inqs) {
+                  setInquiriesList(inqs);
+                  setInquiriesCount(inqs.length);
+                  setNewInquiriesCount(inqs.filter((i) => i.status === 'nouveau').length);
+                }
+              });
+            }
+          )
+          .on(
+            'postgres_changes',
+            { event: '*', schema: 'public', table: 'site_pages' },
+            () => {
+              getAllPages().then((pgs) => {
+                if (pgs && pgs.length > 0) setPagesList(pgs);
+              });
+            }
+          )
+          .on(
+            'postgres_changes',
+            { event: '*', schema: 'public', table: 'site_partners' },
+            () => {
+              getPartners().then((pts) => {
+                if (pts && pts.length > 0) setPartnersList(pts);
+              });
+            }
+          )
+          .on(
+            'postgres_changes',
+            { event: '*', schema: 'public', table: 'site_events' },
+            () => {
+              getEvents().then((evs) => {
+                if (evs && evs.length > 0) setEventsList(evs);
+              });
+            }
+          )
+          .on(
+            'postgres_changes',
+            { event: '*', schema: 'public', table: 'site_settings' },
+            () => {
+              getSiteSettings().then((st) => {
+                if (st) setSiteSettings(st);
+              });
+              getDisciplines().then((d) => {
+                if (d && d.length > 0) setDisciplines(d);
+              });
+              getCampusPOIs().then((pois) => {
+                if (pois && pois.length > 0) setCampusPOIs(pois);
+              });
+            }
+          )
+      );
+
+      if (channel) {
+        channel.subscribe((status) => {
           if (status === 'SUBSCRIBED') {
             setRealtimeStatus('connected');
           } else if (status === 'CLOSED' || status === 'CHANNEL_ERROR') {
             setRealtimeStatus('offline');
           }
         });
+      } else {
+        queueMicrotask(() => setRealtimeStatus('offline'));
+      }
 
       return () => {
-        supabase.removeChannel(channel);
+        removeSafeChannel(supabase, channel);
       };
     } catch {
       queueMicrotask(() => setRealtimeStatus('offline'));

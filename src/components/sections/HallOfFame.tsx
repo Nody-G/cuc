@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getFilms } from '@/lib/data/site-service';
 import { createClient } from '@/lib/supabase/client';
+import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
 import { FilmCredit, DoubledCelebrity } from '@/types';
 import { StuntBadge } from '../ui/StuntBadge';
 import { Clapperboard, Film } from 'lucide-react';
@@ -42,25 +43,20 @@ export const HallOfFame: React.FC = () => {
   useEffect(() => {
     getFilms().then(setMovies);
 
-    try {
-      const supabase = createClient();
-      const channel = supabase
-        .channel('realtime:site_films')
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'site_films' },
-          () => {
-            getFilms().then(setMovies);
-          }
-        )
-        .subscribe();
+    const supabase = createClient();
+    const channel = createSafeChannel(supabase, 'realtime:site_films', (ch) =>
+      ch.on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'site_films' },
+        () => {
+          getFilms().then(setMovies);
+        }
+      )
+    );
 
-      return () => {
-        supabase.removeChannel(channel);
-      };
-    } catch {
-      // Fallback
-    }
+    return () => {
+      removeSafeChannel(supabase, channel);
+    };
   }, []);
 
   const filteredMovies =
@@ -132,8 +128,8 @@ export const HallOfFame: React.FC = () => {
                 key={cat.id}
                 onClick={() => setFilter(cat.id)}
                 className={`px-4 py-2 text-xs font-display tracking-wider uppercase border transition-all cursor-pointer ${filter === cat.id
-                    ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-[0_0_12px_rgba(255,229,0,0.3)]'
-                    : 'bg-[#121216] text-zinc-300 border-zinc-800 hover:border-zinc-600'
+                  ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-[0_0_12px_rgba(255,229,0,0.3)]'
+                  : 'bg-[#121216] text-zinc-300 border-zinc-800 hover:border-zinc-600'
                   }`}
               >
                 {cat.label}

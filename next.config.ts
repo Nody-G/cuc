@@ -38,6 +38,19 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      // Médias rapatriés sur Supabase Storage (bucket `cuc-vitrine-assets`).
+      // Sans cette entrée, TOUTE requête `/_next/image?url=...supabase.co/...`
+      // renvoie 400 Bad Request (erreur constatée en production sur les
+      // slides du hero : slider-5/6/7/8-scaled.jpg).
+      {
+        protocol: "https",
+        hostname: "xkbkcsypftvspmkfnrfm.supabase.co",
+      },
+      // Filet de sécurité : tout projet Supabase (sous-domaines Storage/CDN).
+      {
+        protocol: "https",
+        hostname: "**.supabase.co",
+      },
       // Affiches officielles IMDb (Amazon Media Group).
       {
         protocol: "https",
@@ -101,7 +114,11 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https:",
               "font-src 'self' data:",
-              "connect-src 'self' https:",
+              // `wss:` est INDISPENSABLE : sans lui, le WebSocket Realtime de
+              // Supabase est bloqué par le navigateur (« violates the following
+              // Content Security Policy directive: connect-src 'self' https: »)
+              // et la synchronisation Cockpit ↔ Vitrine ne fonctionne plus.
+              "connect-src 'self' https: wss: wss://*.supabase.co",
               "frame-src 'self' https:",
               "media-src 'self' https: blob:",
               "worker-src 'self' blob:",

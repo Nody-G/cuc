@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
 import {
     DEFAULT_NAVIGATION,
     DEFAULT_FOOTER,
@@ -56,9 +57,10 @@ export function useNavigation(id: string = 'main'): NavigationStructure {
 
         fetchNavigation();
 
-        const channel = supabase
-            .channel(`site_navigation:${id}`)
-            .on(
+        // Canal à nom unique + garde : évite la collision qui provoquait
+        // « cannot add postgres_changes callbacks ... after subscribe() ».
+        const channel = createSafeChannel(supabase, `site_navigation:${id}`, (ch) =>
+            ch.on(
                 'postgres_changes',
                 { event: '*', schema: 'public', table: 'site_navigation', filter: `id=eq.${id}` },
                 (payload) => {
@@ -78,11 +80,11 @@ export function useNavigation(id: string = 'main'): NavigationStructure {
                     });
                 }
             )
-            .subscribe();
+        );
 
         return () => {
             cancelled = true;
-            supabase.removeChannel(channel);
+            removeSafeChannel(supabase, channel);
         };
     }, [id]);
 
@@ -126,9 +128,8 @@ export function useFooter(id: string = 'main'): FooterStructure {
 
         fetchFooter();
 
-        const channel = supabase
-            .channel(`site_footer:${id}`)
-            .on(
+        const channel = createSafeChannel(supabase, `site_footer:${id}`, (ch) =>
+            ch.on(
                 'postgres_changes',
                 { event: '*', schema: 'public', table: 'site_footer', filter: `id=eq.${id}` },
                 (payload) => {
@@ -149,11 +150,11 @@ export function useFooter(id: string = 'main'): FooterStructure {
                     });
                 }
             )
-            .subscribe();
+        );
 
         return () => {
             cancelled = true;
-            supabase.removeChannel(channel);
+            removeSafeChannel(supabase, channel);
         };
     }, [id]);
 
@@ -204,20 +205,22 @@ export function useSocialLinks(): SiteSocialLink[] {
 
         fetchLinks();
 
-        const channel = supabase
-            .channel('site_social_links:all')
-            .on(
+        // Canal nommé dans l'exception de production :
+        // "cannot add postgres_changes callbacks for realtime:site_social_links:all
+        //  after subscribe()". Le nom unique par instance supprime la collision.
+        const channel = createSafeChannel(supabase, 'site_social_links:all', (ch) =>
+            ch.on(
                 'postgres_changes',
                 { event: '*', schema: 'public', table: 'site_social_links' },
                 () => {
                     fetchLinks();
                 }
             )
-            .subscribe();
+        );
 
         return () => {
             cancelled = true;
-            supabase.removeChannel(channel);
+            removeSafeChannel(supabase, channel);
         };
     }, []);
 

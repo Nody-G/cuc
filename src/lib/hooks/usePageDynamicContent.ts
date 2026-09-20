@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
 import { SitePageContent, DEFAULT_PAGE_CONTENTS, normalizeSlug } from '@/lib/data/site-service';
 import { getPreviewDraft, subscribePreviewDraft } from '@/lib/preview/preview-store';
 
@@ -127,47 +128,49 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
     fetchFreshContent();
 
     // Abonnement Supabase Realtime instantané
-    const channel = supabase
-      .channel(`realtime_page_${cleanSlug.replace(/[^a-zA-Z0-9_-]/g, '_')}`)
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'site_pages',
-          filter: `slug=eq.${cleanSlug}`,
-        },
-        (payload) => {
-          if (payload.new && isMounted) {
-            const updated = payload.new as SitePageContent;
-            setContent((prev) => ({
-              ...prev,
-              ...updated,
-              hero: {
-                ...prev.hero,
-                ...(updated.hero || {}),
-              },
-              layout_sections:
-                updated.layout_sections && updated.layout_sections.length > 0
-                  ? updated.layout_sections
-                  : prev.layout_sections,
-              sections_data: deepMergeSectionsData(
-                defaultData.sections_data,
-                updated.sections_data
-              ),
-              sections:
-                updated.sections && updated.sections.length > 0
-                  ? updated.sections
-                  : prev.sections,
-            }));
+    const channel = createSafeChannel(
+      supabase,
+      `realtime_page_${cleanSlug.replace(/[^a-zA-Z0-9_-]/g, '_')}`,
+      (ch) =>
+        ch.on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'site_pages',
+            filter: `slug=eq.${cleanSlug}`,
+          },
+          (payload) => {
+            if (payload.new && isMounted) {
+              const updated = payload.new as SitePageContent;
+              setContent((prev) => ({
+                ...prev,
+                ...updated,
+                hero: {
+                  ...prev.hero,
+                  ...(updated.hero || {}),
+                },
+                layout_sections:
+                  updated.layout_sections && updated.layout_sections.length > 0
+                    ? updated.layout_sections
+                    : prev.layout_sections,
+                sections_data: deepMergeSectionsData(
+                  defaultData.sections_data,
+                  updated.sections_data
+                ),
+                sections:
+                  updated.sections && updated.sections.length > 0
+                    ? updated.sections
+                    : prev.sections,
+              }));
+            }
           }
-        }
-      )
-      .subscribe();
+        )
+    );
 
     return () => {
       isMounted = false;
-      supabase.removeChannel(channel);
+      removeSafeChannel(supabase, channel);
     };
   }, [cleanSlug]);
 

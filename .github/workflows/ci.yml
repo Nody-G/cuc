@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
   pull_request:
-    branches: [main]
+    branches: [main, master]
 
 # Annule les exécutions obsolètes lorsqu'un nouveau commit arrive sur la même branche.
 concurrency:

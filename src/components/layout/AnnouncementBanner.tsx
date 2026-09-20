@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getActiveAnnouncement, getSiteSettings, SiteAnnouncement } from '@/lib/data/site-service';
 import { createClient } from '@/lib/supabase/client';
+import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
 
 export const AnnouncementBanner: React.FC = () => {
   const [announcement, setAnnouncement] = useState<SiteAnnouncement | null>(null);
@@ -32,35 +33,30 @@ export const AnnouncementBanner: React.FC = () => {
       }
     });
 
-    // 2. Souscription Supabase Realtime en direct
-    try {
-      const supabase = createClient();
-      const channel = supabase
-        .channel('realtime:site_announcements')
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'site_announcements' },
-          (payload) => {
-            if (payload.eventType === 'DELETE') {
-              setAnnouncement(null);
+    // 2. Souscription Supabase Realtime en direct (canal à nom unique + garde)
+    const supabase = createClient();
+    const channel = createSafeChannel(supabase, 'realtime:site_announcements', (ch) =>
+      ch.on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'site_announcements' },
+        (payload) => {
+          if (payload.eventType === 'DELETE') {
+            setAnnouncement(null);
+          } else {
+            const row = payload.new as SiteAnnouncement;
+            if (row && row.is_active) {
+              setAnnouncement(row);
             } else {
-              const row = payload.new as SiteAnnouncement;
-              if (row && row.is_active) {
-                setAnnouncement(row);
-              } else {
-                setAnnouncement(null);
-              }
+              setAnnouncement(null);
             }
           }
-        )
-        .subscribe();
+        }
+      )
+    );
 
-      return () => {
-        supabase.removeChannel(channel);
-      };
-    } catch (err) {
-      console.warn('[AnnouncementBanner] Realtime warning:', err);
-    }
+    return () => {
+      removeSafeChannel(supabase, channel);
+    };
   }, []);
 
   if (!announcement || !announcement.is_active) {
@@ -77,9 +73,8 @@ export const AnnouncementBanner: React.FC = () => {
   return (
     <aside
       aria-label="Annonce importante"
-      className={`relative z-50 w-full py-1.5 px-4 text-xs font-semibold tracking-wide transition-all ${
-        styleClasses[announcement.style] || styleClasses.gold
-      }`}
+      className={`relative z-50 w-full py-1.5 px-4 text-xs font-semibold tracking-wide transition-all ${styleClasses[announcement.style] || styleClasses.gold
+        }`}
     >
       <div className="max-w-[1680px] mx-auto flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5 overflow-hidden">

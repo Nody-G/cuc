@@ -11,6 +11,7 @@ import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getTeam, getFilms } from '@/lib/data/site-service';
 import { createClient } from '@/lib/supabase/client';
+import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
 import { Instructor, FilmCredit, parseCredit } from '@/types';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
 import {
@@ -68,10 +69,9 @@ export default function EquipeCascadeursProPage() {
     getTeam().then(setTeam);
     getFilms().then(setFilms);
 
-    try {
-      const supabase = createClient();
-      const channel = supabase
-        .channel('realtime:site_team_films')
+    const supabase = createClient();
+    const channel = createSafeChannel(supabase, 'realtime:site_team_films', (ch) =>
+      ch
         .on(
           'postgres_changes',
           { event: '*', schema: 'public', table: 'site_team' },
@@ -87,14 +87,11 @@ export default function EquipeCascadeursProPage() {
             getTeam().then(setTeam);
           }
         )
-        .subscribe();
+    );
 
-      return () => {
-        supabase.removeChannel(channel);
-      };
-    } catch {
-      // Fallback
-    }
+    return () => {
+      removeSafeChannel(supabase, channel);
+    };
   }, []);
 
   return (
