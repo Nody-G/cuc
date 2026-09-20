@@ -58,7 +58,7 @@ export const VisiteFacilitiesDetail: React.FC = () => {
             INFRASTRUCTURES
           </span>
           <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mb-3">
-            LES INSTALLATIONS DU CAMPUS EN DÉTAIL
+            NOS INFRASTRUCTURES
           </h2>
           <p className="text-sm font-tech text-zinc-400">
             Chaque espace est conçu pour le travail des cascades physiques et mécaniques,
@@ -77,8 +77,8 @@ export const VisiteFacilitiesDetail: React.FC = () => {
                   key={facility.id}
                   onClick={() => setActiveFacilityId(facility.id)}
                   className={`w-full text-left p-3.5 border transition-all cursor-pointer flex items-center justify-between ${isSelected
-                      ? 'bg-[#14141c] border-[#FFE500] text-white shadow-lg'
-                      : 'bg-[#0b0b0f] border-zinc-800/80 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
+                    ? 'bg-[#14141c] border-[#FFE500] text-white shadow-lg'
+                    : 'bg-[#0b0b0f] border-zinc-800/80 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
                     }`}
                 >
                   <div className="flex items-center gap-3 truncate">

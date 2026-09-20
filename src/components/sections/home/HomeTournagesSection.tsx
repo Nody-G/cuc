@@ -133,7 +133,7 @@ export const HomeTournagesSection: React.FC = () => {
                 </div>
 
                 <div className="pt-2 flex flex-wrap items-center gap-4">
-                  <Link href="/contact-cuc">
+                  <Link href="/contact-cuc?demande=tournage-production">
                     <TacticalButton variant="primary" size="md">
                       Échanger sur votre Production
                     </TacticalButton>

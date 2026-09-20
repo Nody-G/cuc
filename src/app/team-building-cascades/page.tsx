@@ -228,7 +228,7 @@ export default function TeamBuildingCascadesPage() {
               Nous adaptons le déroulement, le nombre d'animateurs cascadeurs et le matériel selon vos objectifs,
               vos contraintes de planning et la taille de votre groupe.
             </p>
-            <Link href="/contact-cuc">
+            <Link href="/contact-cuc?demande=cuc-events">
               <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
                 Recevoir une Proposition Détaillée & Devis
               </TacticalButton>

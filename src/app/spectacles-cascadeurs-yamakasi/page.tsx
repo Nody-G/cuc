@@ -202,7 +202,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
                   </p>
 
                   <div className="pt-2">
-                    <Link href="/contact-cuc">
+                    <Link href="/contact-cuc?demande=cuc-events">
                       <TacticalButton variant="primary" size="md">
                         Organiser un Show dans votre Salle
                       </TacticalButton>

@@ -138,7 +138,7 @@ export default function VisiteVirtuellePage() {
                 </button>
               </div>
 
-              <Link href="/contact-cuc">
+              <Link href="/contact-cuc?demande=stage-decouverte">
                 <TacticalButton variant="primary" size="md" icon={<PhoneCall className="w-4 h-4" />}>
                   Prendre Rendez-vous
                 </TacticalButton>

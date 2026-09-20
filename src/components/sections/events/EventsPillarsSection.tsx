@@ -31,9 +31,8 @@ export const EventsPillarsSection: React.FC = () => {
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                   <div
-                    className={`lg:col-span-7 space-y-4 ${
-                      isReversed ? 'order-1 lg:order-2' : ''
-                    }`}
+                    className={`lg:col-span-7 space-y-4 ${isReversed ? 'order-1 lg:order-2' : ''
+                      }`}
                   >
                     <div className="mb-4">
                       {evt.badge && (
@@ -72,7 +71,7 @@ export const EventsPillarsSection: React.FC = () => {
                     )}
 
                     <div className="pt-4">
-                      <Link href={evt.cta_link || '/contact-cuc'}>
+                      <Link href={evt.cta_link || '/contact-cuc?demande=cuc-events'}>
                         <TacticalButton
                           variant="primary"
                           size="md"
@@ -85,9 +84,8 @@ export const EventsPillarsSection: React.FC = () => {
                   </div>
 
                   <div
-                    className={`lg:col-span-5 relative h-64 sm:h-72 border border-zinc-800 overflow-hidden bg-black ${
-                      isReversed ? 'order-2 lg:order-1' : ''
-                    }`}
+                    className={`lg:col-span-5 relative h-64 sm:h-72 border border-zinc-800 overflow-hidden bg-black ${isReversed ? 'order-2 lg:order-1' : ''
+                      }`}
                   >
                     {evt.image_url ? (
                       <Image
@@ -130,7 +128,7 @@ export const EventsPillarsSection: React.FC = () => {
                   </p>
 
                   <div className="pt-4">
-                    <Link href="/contact-cuc">
+                    <Link href="/contact-cuc?demande=cuc-events">
                       <TacticalButton variant="primary" size="md" icon={<ArrowRight className="w-4 h-4" />}>
                         En savoir plus sur nos Spectacles
                       </TacticalButton>
@@ -181,7 +179,7 @@ export const EventsPillarsSection: React.FC = () => {
                   </p>
 
                   <div className="pt-4">
-                    <Link href="/contact-cuc">
+                    <Link href="/contact-cuc?demande=cuc-events">
                       <TacticalButton variant="primary" size="md" icon={<ArrowRight className="w-4 h-4" />}>
                         En savoir plus sur nos Animations
                       </TacticalButton>
@@ -212,7 +210,7 @@ export const EventsPillarsSection: React.FC = () => {
                   </p>
 
                   <div className="pt-4">
-                    <Link href="/contact-cuc">
+                    <Link href="/contact-cuc?demande=cuc-events">
                       <TacticalButton variant="primary" size="md" icon={<ArrowRight className="w-4 h-4" />}>
                         Organiser un Team Building
                       </TacticalButton>

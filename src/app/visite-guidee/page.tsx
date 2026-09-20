@@ -36,9 +36,23 @@ export default function VisiteGuideePage() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const { content } = usePageDynamicContent('visite-guidee');
 
+  // Ordre éditorial imposé : infrastructures d'abord, puis visite 360°, puis plan 3D.
+  const SECTION_ORDER: Record<string, number> = {
+    hero: 0,
+    facilities: 1,
+    virtual_tour: 2,
+    plan_3d: 3,
+    photos: 4,
+    access: 5,
+  };
+
   const sortedSections = (content?.layout_sections ?? [])
     .filter((s) => s.is_visible)
-    .sort((a, b) => a.order - b.order);
+    .sort((a, b) => {
+      const orderA = SECTION_ORDER[a.id] ?? a.order + 100;
+      const orderB = SECTION_ORDER[b.id] ?? b.order + 100;
+      return orderA - orderB;
+    });
 
   const renderSection = (sectionId: string) => {
     switch (sectionId) {

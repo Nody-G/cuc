@@ -1,9 +1,35 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Send, CheckCircle2 } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { submitInquiry } from '@/app/admin/actions';
+
+/** Identifiants valides du sélecteur « Votre Demande Concerne ». */
+const VALID_PROGRAMS = [
+  'pro-longue-duree',
+  'stage-decouverte',
+  'weekend-immersion',
+  'afdas-artistes-interpretes',
+  'stunt-summer-camp',
+  'workshop-international',
+  'tournage-production',
+  'cuc-events',
+  'autre',
+] as const;
+
+/**
+ * Lit le paramètre d'URL `?demande=<id>` pour préremplir le sélecteur
+ * « Votre Demande Concerne » depuis un call-to-action contextuel.
+ */
+const resolveInitialProgram = (): string => {
+  if (typeof window === 'undefined') return 'pro-longue-duree';
+  const requested = new URLSearchParams(window.location.search).get('demande');
+  if (requested && (VALID_PROGRAMS as readonly string[]).includes(requested)) {
+    return requested;
+  }
+  return 'pro-longue-duree';
+};
 
 export const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +40,14 @@ export const ContactForm: React.FC = () => {
     sportExperience: '',
     message: '',
   });
+
+  // Préremplissage depuis le paramètre d'URL `?demande=...`
+  useEffect(() => {
+    const initial = resolveInitialProgram();
+    if (initial !== 'pro-longue-duree') {
+      setFormData((prev) => ({ ...prev, program: initial }));
+    }
+  }, []);
 
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);

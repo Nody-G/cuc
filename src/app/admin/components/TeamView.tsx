@@ -575,7 +575,7 @@ export const TeamView: React.FC<TeamViewProps> = ({
 
                     <div>
                       <label className="block text-xs font-mono text-gray-400 mb-1">
-                        Spécialités (séparées par des virgules)
+                        Domaines d'expertise & Disciplines enseignées (séparés par des virgules)
                       </label>
                       <input
                         type="text"

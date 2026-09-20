@@ -125,7 +125,7 @@ export const VisiteAccessTransport: React.FC = () => {
               </div>
             </div>
 
-            <Link href="/contact-cuc">
+            <Link href="/contact-cuc?demande=stage-decouverte">
               <TacticalButton variant="primary" size="md" className="w-full">
                 Planifier une Visite ou Réserver un Stage
               </TacticalButton>

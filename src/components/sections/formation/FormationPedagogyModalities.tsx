@@ -152,7 +152,7 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
             >
               Candidater au Cursus Pro
             </TacticalButton>
-            <Link href="/contact-cuc">
+            <Link href="/contact-cuc?demande=afdas-artistes-interpretes">
               <TacticalButton variant="secondary" size="lg">
                 Nous Contacter par Téléphone
               </TacticalButton>

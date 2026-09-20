@@ -20,7 +20,7 @@ export const PartenairesCtaSection: React.FC = () => {
           Vous êtes équipementier, fabricant de matériel, société d'effets spéciaux ou marque
           souhaitant associer son image au campus ?
         </p>
-        <Link href="/contact-cuc">
+        <Link href="/contact-cuc?demande=tournage-production">
           <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
             Nous contacter
           </TacticalButton>

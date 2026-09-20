@@ -37,11 +37,10 @@ export const NavDropdowns: React.FC<NavDropdownsProps> = ({
         onMouseLeave={() => setFormationsDropdownOpen(false)}
       >
         <button
-          className={`flex items-center gap-1 uppercase transition-colors cursor-pointer ${
-            isFormationsActive
+          className={`flex items-center gap-1 uppercase transition-colors cursor-pointer ${isFormationsActive
               ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
               : 'text-zinc-300 hover:text-[#FFE500]'
-          }`}
+            }`}
           aria-haspopup="true"
           aria-expanded={formationsDropdownOpen}
         >
@@ -90,11 +89,10 @@ export const NavDropdowns: React.FC<NavDropdownsProps> = ({
         onMouseLeave={() => setCampusDropdownOpen(false)}
       >
         <button
-          className={`flex items-center gap-1 uppercase transition-colors cursor-pointer ${
-            isCampusActive
+          className={`flex items-center gap-1 uppercase transition-colors cursor-pointer ${isCampusActive
               ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
               : 'text-zinc-300 hover:text-[#FFE500]'
-          }`}
+            }`}
           aria-haspopup="true"
           aria-expanded={campusDropdownOpen}
         >
@@ -117,37 +115,11 @@ export const NavDropdowns: React.FC<NavDropdownsProps> = ({
                 className="block p-2.5 text-xs font-mono-tech text-zinc-200 hover:bg-[#FFE500] hover:text-black transition-colors"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-bold">VISITE GUIDÉE (6 HA)</span>
+                  <span className="font-bold">LE CAMPUS</span>
                   <Building className="w-3.5 h-3.5" />
                 </div>
                 <span className="text-[10px] opacity-80 block">
-                  Les 9 installations et parc technique
-                </span>
-              </Link>
-              <Link
-                href="/visite-virtuelle#plan-3d-campus"
-                onClick={() => setCampusDropdownOpen(false)}
-                className="block p-2.5 text-xs font-mono-tech text-zinc-200 hover:bg-[#FFE500] hover:text-black transition-colors border-t border-zinc-800"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-bold">PLAN 3D INTERACTIF</span>
-                  <Layers className="w-3.5 h-3.5" />
-                </div>
-                <span className="text-[10px] opacity-80 block">
-                  Three.js WebGL • 6 Hectares modélisés
-                </span>
-              </Link>
-              <Link
-                href="/visite-virtuelle"
-                onClick={() => setCampusDropdownOpen(false)}
-                className="block p-2.5 text-xs font-mono-tech text-zinc-200 hover:bg-[#FFE500] hover:text-black transition-colors border-t border-zinc-800"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-bold">VISITE VIRTUELLE 360°</span>
-                  <Compass className="w-3.5 h-3.5 text-[#FFE500]" />
-                </div>
-                <span className="text-[10px] opacity-80 block">
-                  Immersion interactive HD Media
+                  Infrastructures, visite 360° et plan 3D
                 </span>
               </Link>
             </motion.div>
@@ -162,11 +134,10 @@ export const NavDropdowns: React.FC<NavDropdownsProps> = ({
         onMouseLeave={() => setEventsDropdownOpen(false)}
       >
         <button
-          className={`flex items-center gap-1 uppercase transition-colors cursor-pointer ${
-            isEventsActive
+          className={`flex items-center gap-1 uppercase transition-colors cursor-pointer ${isEventsActive
               ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
               : 'text-zinc-300 hover:text-[#FFE500]'
-          }`}
+            }`}
           aria-haspopup="true"
           aria-expanded={eventsDropdownOpen}
         >

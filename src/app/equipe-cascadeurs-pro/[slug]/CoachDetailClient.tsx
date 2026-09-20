@@ -24,7 +24,10 @@ import {
   ArrowLeft,
   Sparkles,
   Maximize2,
+  ArrowUpDown,
 } from 'lucide-react';
+
+type FilmSort = 'year-desc' | 'year-asc' | 'title-asc' | 'title-desc';
 
 interface CoachDetailClientProps {
   slug: string;
@@ -34,6 +37,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
   const [allTeam, setAllTeam] = useState<Instructor[]>(CUC_TEAM);
   const [allFilms, setAllFilms] = useState<FilmCredit[]>(FILMOGRAPHY_CREDITS);
   const [selectedFilmModal, setSelectedFilmModal] = useState<FilmCredit | null>(null);
+  const [filmSort, setFilmSort] = useState<FilmSort>('year-desc');
 
   useEffect(() => {
     getTeam().then((t) => {
@@ -82,6 +86,26 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
       (member.notableCredits &&
         member.notableCredits.some((c) => f.title.toLowerCase().includes(c.toLowerCase()) || c.toLowerCase().includes(f.title.toLowerCase())))
   );
+
+  // Tri de la filmographie (date ou nom, croissant/décroissant)
+  const sortedFilms = useMemo(() => {
+    const list = [...relatedFilms];
+    const yearOf = (f: FilmCredit) => {
+      const parsed = parseInt(String(f.year ?? '').replace(/\D/g, ''), 10);
+      return Number.isFinite(parsed) ? parsed : 0;
+    };
+    switch (filmSort) {
+      case 'year-asc':
+        return list.sort((a, b) => yearOf(a) - yearOf(b));
+      case 'title-asc':
+        return list.sort((a, b) => a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' }));
+      case 'title-desc':
+        return list.sort((a, b) => b.title.localeCompare(a.title, 'fr', { sensitivity: 'base' }));
+      case 'year-desc':
+      default:
+        return list.sort((a, b) => yearOf(b) - yearOf(a));
+    }
+  }, [relatedFilms, filmSort]);
 
   // Fonction pour obtenir le rôle précis du coach sur un film donné.
   // Le libellé brut est systématiquement ramené à un rôle canonique lisible
@@ -310,7 +334,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
 
               {/* Call to Action Direct */}
               <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
-                <Link href="/contact-cuc" className="w-full sm:w-auto flex-1">
+                <Link href="/contact-cuc?demande=tournage-production" className="w-full sm:w-auto flex-1">
                   <TacticalButton variant="primary" size="lg" className="w-full justify-center">
                     Solliciter ce régleur pour une production
                   </TacticalButton>
@@ -341,13 +365,29 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
                     Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués.
                   </p>
                 </div>
-                <span className="text-xs font-mono-tech text-zinc-400">
-                  {relatedFilms.length} production{relatedFilms.length > 1 ? 's' : ''} répertoriée{relatedFilms.length > 1 ? 's' : ''}
-                </span>
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-mono-tech text-zinc-400">
+                    {relatedFilms.length} production{relatedFilms.length > 1 ? 's' : ''} répertoriée{relatedFilms.length > 1 ? 's' : ''}
+                  </span>
+                  <label className="flex items-center gap-1.5 text-[11px] font-mono-tech text-zinc-400">
+                    <ArrowUpDown className="w-3.5 h-3.5 text-[#FFE500]" />
+                    <select
+                      value={filmSort}
+                      onChange={(e) => setFilmSort(e.target.value as FilmSort)}
+                      className="bg-black/60 border border-zinc-700 text-zinc-200 text-[11px] font-mono-tech px-2 py-1 focus:outline-none focus:border-[#FFE500]"
+                      aria-label="Trier la filmographie"
+                    >
+                      <option value="year-desc">Année (récent → ancien)</option>
+                      <option value="year-asc">Année (ancien → récent)</option>
+                      <option value="title-asc">Nom (A → Z)</option>
+                      <option value="title-desc">Nom (Z → A)</option>
+                    </select>
+                  </label>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {relatedFilms.map((film) => {
+                {sortedFilms.map((film) => {
                   const { role, isCoord, isDoublure } = getCoachFilmRole(film);
 
                   return (

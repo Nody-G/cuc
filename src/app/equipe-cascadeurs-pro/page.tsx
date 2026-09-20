@@ -21,7 +21,10 @@ import {
   Globe,
   CheckCircle2,
   ArrowRight,
+  ArrowUpDown,
 } from 'lucide-react';
+
+type FilmSort = 'year-desc' | 'year-asc' | 'title-asc' | 'title-desc';
 
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 
@@ -29,7 +32,28 @@ export default function EquipeCascadeursProPage() {
   const [team, setTeam] = React.useState<Instructor[]>(CUC_TEAM);
   const [films, setFilms] = React.useState<FilmCredit[]>(FILMOGRAPHY_CREDITS);
   const [selectedFilm, setSelectedFilm] = React.useState<FilmCredit | null>(null);
+  const [filmSort, setFilmSort] = React.useState<FilmSort>('year-desc');
   const { content } = usePageDynamicContent('equipe-cascadeurs-pro');
+
+  // Tri du catalogue de films (date ou nom, croissant/décroissant)
+  const sortedFilms = React.useMemo(() => {
+    const list = [...films];
+    const yearOf = (f: FilmCredit) => {
+      const parsed = parseInt(String(f.year ?? '').replace(/\D/g, ''), 10);
+      return Number.isFinite(parsed) ? parsed : 0;
+    };
+    switch (filmSort) {
+      case 'year-asc':
+        return list.sort((a, b) => yearOf(a) - yearOf(b));
+      case 'title-asc':
+        return list.sort((a, b) => a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' }));
+      case 'title-desc':
+        return list.sort((a, b) => b.title.localeCompare(a.title, 'fr', { sensitivity: 'base' }));
+      case 'year-desc':
+      default:
+        return list.sort((a, b) => yearOf(b) - yearOf(a));
+    }
+  }, [films, filmSort]);
 
   const heroBadge = content.hero?.badge || 'COORDINATEURS & FORMATEURS';
   const heroTitle = content.hero?.title || "L'ÉQUIPE PÉDAGOGIQUE DU CUC";
@@ -372,11 +396,26 @@ export default function EquipeCascadeursProPage() {
                 <p className="text-xs sm:text-sm font-tech text-zinc-400">
                   Découvrez l'ensemble des productions cinématographiques et télévisuelles sur lesquelles nos cascadeurs et formateurs sont intervenus.
                 </p>
+                <label className="mt-5 inline-flex items-center gap-2 text-[11px] font-mono-tech text-zinc-400">
+                  <ArrowUpDown className="w-3.5 h-3.5 text-[#FFE500]" />
+                  <span className="uppercase tracking-wider">Trier :</span>
+                  <select
+                    value={filmSort}
+                    onChange={(e) => setFilmSort(e.target.value as FilmSort)}
+                    className="bg-black/60 border border-zinc-700 text-zinc-200 text-[11px] font-mono-tech px-2 py-1 focus:outline-none focus:border-[#FFE500]"
+                    aria-label="Trier les films"
+                  >
+                    <option value="year-desc">Année (récent → ancien)</option>
+                    <option value="year-asc">Année (ancien → récent)</option>
+                    <option value="title-asc">Nom (A → Z)</option>
+                    <option value="title-desc">Nom (Z → A)</option>
+                  </select>
+                </label>
               </div>
 
               {/* Grid of All 63 Authentic Posters loaded dynamically from Supabase */}
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-                {films.map((film) => (
+                {sortedFilms.map((film) => (
                   <button
                     key={film.id}
                     type="button"
