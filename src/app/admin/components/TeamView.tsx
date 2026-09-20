@@ -12,7 +12,6 @@ import {
   Shield,
   Layers,
   Image as ImageIcon,
-  Clapperboard,
   Star,
   ArrowUp,
   ArrowDown,
@@ -23,7 +22,6 @@ import {
 } from 'lucide-react';
 import { InstagramLogo, ImdbLogo } from '@/components/ui/BrandLogos';
 import { Instructor, FilmCredit, Discipline, parseCredit } from '@/types';
-import { scoreFilmNotability, matchFilmForCredit } from '@/lib/credit-notability';
 import { upsertTeamMember, deleteTeamMember } from '@/app/admin/actions';
 import { MediaPickerModal } from './MediaPickerModal';
 
@@ -33,6 +31,30 @@ interface TeamViewProps {
   films?: FilmCredit[];
   disciplines?: Discipline[];
   showToast: (msg: string) => void;
+}
+
+/** Rôles canoniques proposés pour un crédit film. */
+const ROLE_OPTIONS = [
+  'Cascadeur',
+  'Doublure',
+  'Coordinateur des cascades',
+] as const;
+
+type CanonicalRoleOption = (typeof ROLE_OPTIONS)[number];
+
+/** Construit la chaîne "Titre — Rôle" persistée dans notable_credits. */
+function buildCreditString(title: string, role: string): string {
+  const cleanTitle = title.trim();
+  const cleanRole = role.trim();
+  if (!cleanTitle) return '';
+  return cleanRole ? `${cleanTitle} — ${cleanRole}` : cleanTitle;
+}
+
+/** Extrait le rôle d'une chaîne "Titre — Rôle" (ou "Titre - Rôle"). */
+function extractRoleFromCredit(raw: string): string {
+  const parts = raw.split(/\s+[—–-]\s+/);
+  if (parts.length < 2) return '';
+  return parts.slice(1).join(' — ').trim();
 }
 
 export const TeamView: React.FC<TeamViewProps> = ({
@@ -47,6 +69,7 @@ export const TeamView: React.FC<TeamViewProps> = ({
   const [showMediaPickerTeam, setShowMediaPickerTeam] = useState(false);
   const [filmSearch, setFilmSearch] = useState('');
   const [filmSort, setFilmSort] = useState<'name' | 'year-desc' | 'year-asc'>('name');
+  const [filmFilter, setFilmFilter] = useState<'all' | 'selected'>('all');
 
   const handleSaveTeamMember = (e: React.FormEvent) => {
     e.preventDefault();
@@ -119,11 +142,153 @@ export const TeamView: React.FC<TeamViewProps> = ({
     });
   };
 
+  /* ------------------------------------------------------------------ */
+  /* Gestion unifiée des crédits film du formateur en cours d'édition    */
+  /* ------------------------------------------------------------------ */
+
+  /**
+   * Un crédit est identifié par le titre du film (clé stable côté base :
+   * `notable_credits` stocke "Titre — Rôle" et `featured_credits` stocke
+   * la même chaîne). On dérive donc tout depuis `notableCredits`.
+   */
+  const creditIndex = useMemo(() => {
+    const map = new Map<string, { raw: string; title: string; role: string }>();
+    (editingMember?.notableCredits || []).forEach((raw) => {
+      const parsed = parseCredit(raw);
+      const title = (parsed.title || raw).trim();
+      if (!title) return;
+      map.set(title.toLowerCase(), {
+        raw,
+        title,
+        role: parsed.role || extractRoleFromCredit(raw),
+      });
+    });
+    return map;
+  }, [editingMember?.notableCredits]);
+
+  const featuredSet = useMemo(
+    () => new Set((editingMember?.featuredCredits || []).map((c) => c.toLowerCase())),
+    [editingMember?.featuredCredits]
+  );
+
+  /** Films du catalogue filtrés + triés pour l'affichage. */
+  const visibleFilms = useMemo(() => {
+    const q = filmSearch.trim().toLowerCase();
+    return films
+      .filter((f) => {
+        if (q && !f.title.toLowerCase().includes(q)) return false;
+        if (filmFilter === 'selected' && !creditIndex.has(f.title.toLowerCase())) return false;
+        return true;
+      })
+      .sort((a, b) => {
+        if (filmSort === 'name') {
+          return a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' });
+        }
+        const ya = parseInt(String(a.year), 10) || 0;
+        const yb = parseInt(String(b.year), 10) || 0;
+        return filmSort === 'year-desc' ? yb - ya : ya - yb;
+      });
+  }, [films, filmSearch, filmSort, filmFilter, creditIndex]);
+
+  /** Crédits saisis qui ne correspondent à aucun film du catalogue. */
+  const orphanCredits = useMemo(() => {
+    const catalogueTitles = new Set(films.map((f) => f.title.toLowerCase()));
+    return (editingMember?.notableCredits || []).filter((raw) => {
+      const parsed = parseCredit(raw);
+      const title = (parsed.title || raw).trim().toLowerCase();
+      return title && !catalogueTitles.has(title);
+    });
+  }, [editingMember?.notableCredits, films]);
+
+  /** Ajoute ou retire un film du catalogue comme crédit du formateur. */
+  const toggleFilmCredit = (film: FilmCredit) => {
+    if (!editingMember) return;
+    const key = film.title.toLowerCase();
+    const existing = creditIndex.get(key);
+    const currentCredits = editingMember.notableCredits || [];
+    const currentFeatured = editingMember.featuredCredits || [];
+
+    if (existing) {
+      setEditingMember({
+        ...editingMember,
+        notableCredits: currentCredits.filter((c) => c !== existing.raw),
+        featuredCredits: currentFeatured.filter((c) => c !== existing.raw),
+      });
+      return;
+    }
+
+    const raw = buildCreditString(film.title, 'Cascadeur');
+    setEditingMember({
+      ...editingMember,
+      notableCredits: [...currentCredits, raw],
+    });
+  };
+
+  /** Change le rôle d'un crédit existant (reconstruit la chaîne). */
+  const setCreditRole = (filmTitle: string, role: string) => {
+    if (!editingMember) return;
+    const key = filmTitle.toLowerCase();
+    const existing = creditIndex.get(key);
+    if (!existing) return;
+
+    const nextRaw = buildCreditString(existing.title, role);
+    const currentCredits = editingMember.notableCredits || [];
+    const currentFeatured = editingMember.featuredCredits || [];
+
+    setEditingMember({
+      ...editingMember,
+      notableCredits: currentCredits.map((c) => (c === existing.raw ? nextRaw : c)),
+      featuredCredits: currentFeatured.map((c) => (c === existing.raw ? nextRaw : c)),
+    });
+  };
+
+  /** Bascule la mise en avant d'un crédit. */
+  const toggleFeatured = (filmTitle: string) => {
+    if (!editingMember) return;
+    const existing = creditIndex.get(filmTitle.toLowerCase());
+    if (!existing) return;
+
+    const currentFeatured = editingMember.featuredCredits || [];
+    const isFeatured = currentFeatured.includes(existing.raw);
+    setEditingMember({
+      ...editingMember,
+      featuredCredits: isFeatured
+        ? currentFeatured.filter((c) => c !== existing.raw)
+        : [...currentFeatured, existing.raw],
+    });
+  };
+
+  /** Réordonne les crédits mis en avant. */
+  const moveFeatured = (raw: string, direction: -1 | 1) => {
+    if (!editingMember) return;
+    const featured = editingMember.featuredCredits || [];
+    const idx = featured.indexOf(raw);
+    if (idx < 0) return;
+    const target = idx + direction;
+    if (target < 0 || target >= featured.length) return;
+    const next = [...featured];
+    [next[idx], next[target]] = [next[target], next[idx]];
+    setEditingMember({ ...editingMember, featuredCredits: next });
+  };
+
+  /** Supprime un crédit orphelin (hors catalogue). */
+  const removeOrphanCredit = (raw: string) => {
+    if (!editingMember) return;
+    setEditingMember({
+      ...editingMember,
+      notableCredits: (editingMember.notableCredits || []).filter((c) => c !== raw),
+      featuredCredits: (editingMember.featuredCredits || []).filter((c) => c !== raw),
+    });
+  };
+
+  const selectedCount = creditIndex.size;
+  const featuredCount = (editingMember?.featuredCredits || []).length;
+
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       <div className="border-b border-white/10 pb-6">
         <div className="flex items-center gap-2 text-xs font-mono text-[#FFE500] uppercase tracking-wider mb-1">
-          <Users className="w-3.5 h-3.5" /> Équipe &amp; Instructeurs
+          <Users className="w-3.5 h-3.5" /> Équipe & Instructeurs
         </div>
         <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight uppercase">
           Gestion des Formateurs
@@ -377,7 +542,7 @@ export const TeamView: React.FC<TeamViewProps> = ({
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono text-gray-400 mb-1">Titre &amp; Spécialisation</label>
+                      <label className="block text-xs font-mono text-gray-400 mb-1">Titre & Spécialisation</label>
                       <input
                         type="text"
                         required
@@ -485,236 +650,12 @@ export const TeamView: React.FC<TeamViewProps> = ({
                       </div>
                     </div>
 
-                  </div>
-
-                  {/* Colonne droite : crédits, mise en avant & interconnexions */}
-                  <div className="space-y-4">
-                    <div className="text-[11px] font-mono text-[#FFE500] uppercase tracking-wider font-bold">
-                      Crédits & Interconnexions
-                    </div>
-
-                    {/* Tournages & Crédits Techniques (Coordination vs Cascades) */}
-                    <div className="p-3.5 bg-black/40 border border-white/10 rounded-xl space-y-3">
-                      <div className="flex items-center justify-between text-xs font-bold text-[#FFE500] uppercase tracking-wider">
-                        <div className="flex items-center gap-2">
-                          <Clapperboard className="w-3.5 h-3.5" />
-                          Tournages &amp; Crédits Qualifiés ({editingMember.notableCredits?.length || 0})
-                        </div>
-                        <span className="text-[10px] font-mono text-zinc-400">
-                          Format : Titre — Rôle
-                        </span>
-                      </div>
-
-                      <p className="text-[11px] text-zinc-400 leading-relaxed">
-                        Indiquez les films et rôles précis (un par ligne), ex : <br />
-                        <span className="text-[#FFE500] font-mono">Bagarre — Coordinateur des cascades &amp; Action Designer</span><br />
-                        <span className="text-zinc-300 font-mono">John Wick : Chapitre 4 — Cascadeur</span>
-                      </p>
-
-                      <textarea
-                        rows={6}
-                        placeholder={`Bagarre — Coordinateur des cascades & Action Designer\nJohn Wick : Chapitre 4 — Cascadeur\nSous la Seine — Cascadeur (Cascades subaquatiques)`}
-                        value={
-                          Array.isArray(editingMember.notableCredits)
-                            ? editingMember.notableCredits.join('\n')
-                            : (editingMember as any).notableCredits || ''
-                        }
-                        onChange={(e) =>
-                          setEditingMember({
-                            ...editingMember,
-                            notableCredits: e.target.value.split('\n').map((s) => s.trim()).filter(Boolean),
-                          })
-                        }
-                        className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-[#FFE500] leading-relaxed"
-                      />
-
-                      {/* Aperçu interactif des pastilles de rôles */}
-                      {editingMember.notableCredits && editingMember.notableCredits.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 pt-1">
-                          {editingMember.notableCredits.map((c, i) => {
-                            const parsed = parseCredit(c);
-                            const isCoord = parsed.category === 'coordination';
-                            const isDoublure = parsed.category === 'doublure';
-                            return (
-                              <span
-                                key={i}
-                                className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono border ${isCoord
-                                  ? 'bg-[#FFE500]/15 text-[#FFE500] border-[#FFE500]/40 font-bold'
-                                  : isDoublure
-                                    ? 'bg-sky-500/15 text-sky-300 border-sky-500/30'
-                                    : 'bg-black/60 text-zinc-300 border-zinc-700'
-                                  }`}
-                              >
-                                <span className="font-semibold">{parsed.title}</span>
-                                {parsed.role && <span className="opacity-75 font-normal">[{parsed.role}]</span>}
-                              </span>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Mise en avant & affichage public */}
-                    <div className="p-3.5 bg-black/40 border border-white/10 rounded-xl space-y-3">
-                      <div className="flex items-center justify-between text-xs font-bold text-[#FFE500] uppercase tracking-wider">
-                        <div className="flex items-center gap-2">
-                          <Star className="w-3.5 h-3.5" />
-                          Mise en avant sur la fiche publique
-                        </div>
-                        <span className="text-[10px] font-mono text-zinc-400">
-                          {editingMember.featuredCredits?.length || 0} sélectionné(s)
-                        </span>
-                      </div>
-
-                      <p className="text-[11px] text-zinc-400 leading-relaxed">
-                        Choisissez les tournages à afficher en premier sur la fiche du coach. Sans
-                        sélection, les crédits sont triés automatiquement par notoriété du film
-                        (blockbusters et films mis en avant d'abord).
-                      </p>
-
-                      {/* Limite d'affichage */}
-                      <div className="flex items-center gap-3">
-                        <label className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-400 shrink-0">
-                          <Eye className="w-3.5 h-3.5" />
-                          Crédits visibles avant « voir plus » :
-                        </label>
-                        <select
-                          value={editingMember.creditsDisplayLimit ?? 8}
-                          onChange={(e) =>
-                            setEditingMember({
-                              ...editingMember,
-                              creditsDisplayLimit: parseInt(e.target.value, 10),
-                            })
-                          }
-                          className="bg-black/60 border border-white/20 rounded-lg px-2 py-1 text-xs text-white focus:outline-none focus:border-[#FFE500]"
-                        >
-                          {[4, 6, 8, 10, 12, 16, 24].map((n) => (
-                            <option key={n} value={n}>
-                              {n}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* Sélection ordonnée des crédits mis en avant */}
-                      {(() => {
-                        const credits = editingMember.notableCredits || [];
-                        const featured = editingMember.featuredCredits || [];
-
-                        if (credits.length === 0) {
-                          return (
-                            <p className="text-[11px] text-zinc-500 italic">
-                              Ajoutez d'abord des tournages ci-dessus pour pouvoir les mettre en avant.
-                            </p>
-                          );
-                        }
-
-                        const toggleFeatured = (raw: string) => {
-                          const next = featured.includes(raw)
-                            ? featured.filter((c) => c !== raw)
-                            : [...featured, raw];
-                          setEditingMember({ ...editingMember, featuredCredits: next });
-                        };
-
-                        const moveFeatured = (raw: string, direction: -1 | 1) => {
-                          const idx = featured.indexOf(raw);
-                          if (idx < 0) return;
-                          const target = idx + direction;
-                          if (target < 0 || target >= featured.length) return;
-                          const next = [...featured];
-                          [next[idx], next[target]] = [next[target], next[idx]];
-                          setEditingMember({ ...editingMember, featuredCredits: next });
-                        };
-
-                        // Le reste est trié par notoriété du film correspondant.
-                        const remaining = [...credits]
-                          .filter((c) => !featured.includes(c))
-                          .sort((a, b) => {
-                            const filmA = matchFilmForCredit(parseCredit(a), films);
-                            const filmB = matchFilmForCredit(parseCredit(b), films);
-                            const scoreA = filmA ? scoreFilmNotability(filmA) : -1;
-                            const scoreB = filmB ? scoreFilmNotability(filmB) : -1;
-                            return scoreB - scoreA;
-                          });
-
-                        return (
-                          <div className="space-y-2">
-                            {/* Crédits mis en avant, réordonnables */}
-                            {featured.length > 0 && (
-                              <div className="space-y-1">
-                                <div className="text-[10px] font-mono text-[#FFE500] uppercase">
-                                  En tête de fiche (ordre d'affichage)
-                                </div>
-                                {featured.map((raw, idx) => (
-                                  <div
-                                    key={raw}
-                                    className="flex items-center gap-1.5 px-2 py-1 bg-[#FFE500]/10 border border-[#FFE500]/30 rounded text-[11px]"
-                                  >
-                                    <span className="font-mono text-[10px] text-[#FFE500] w-4 shrink-0">
-                                      {idx + 1}
-                                    </span>
-                                    <span className="flex-1 truncate text-white">{raw}</span>
-                                    <button
-                                      type="button"
-                                      onClick={() => moveFeatured(raw, -1)}
-                                      disabled={idx === 0}
-                                      className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30"
-                                      title="Monter"
-                                    >
-                                      <ArrowUp className="w-3 h-3" />
-                                    </button>
-                                    <button
-                                      type="button"
-                                      onClick={() => moveFeatured(raw, 1)}
-                                      disabled={idx === featured.length - 1}
-                                      className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30"
-                                      title="Descendre"
-                                    >
-                                      <ArrowDown className="w-3 h-3" />
-                                    </button>
-                                    <button
-                                      type="button"
-                                      onClick={() => toggleFeatured(raw)}
-                                      className="p-0.5 text-zinc-400 hover:text-red-400"
-                                      title="Retirer de la mise en avant"
-                                    >
-                                      <Trash2 className="w-3 h-3" />
-                                    </button>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-
-                            {/* Crédits disponibles */}
-                            <div className="space-y-1">
-                              <div className="text-[10px] font-mono text-zinc-500 uppercase">
-                                Autres tournages (cliquer pour mettre en avant)
-                              </div>
-                              <div className="max-h-56 overflow-y-auto pr-1 space-y-1">
-                                {remaining.map((raw) => (
-                                  <button
-                                    type="button"
-                                    key={raw}
-                                    onClick={() => toggleFeatured(raw)}
-                                    className="w-full flex items-center gap-1.5 px-2 py-1 bg-black/60 border border-white/10 hover:border-[#FFE500]/50 rounded text-left text-[11px] text-zinc-300 transition"
-                                  >
-                                    <Star className="w-3 h-3 text-zinc-600 shrink-0" />
-                                    <span className="truncate">{raw}</span>
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })()}
-                    </div>
-
-                    {/* Interconnexions : CUC Sign, Disciplines & Projets Cinéma */}
+                    {/* Interconnexions : CUC Sign & Disciplines */}
                     <div className="p-3.5 bg-black/40 border border-white/10 rounded-xl space-y-3">
                       <div className="flex items-center justify-between text-xs font-bold text-[#FFE500] uppercase tracking-wider">
                         <div className="flex items-center gap-2">
                           <Layers className="w-3.5 h-3.5" />
-                          Interconnexions Cockpit &amp; CUC Sign
+                          Interconnexions Cockpit & CUC Sign
                         </div>
                         {editingMember.profile_id && (
                           <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
@@ -785,125 +726,314 @@ export const TeamView: React.FC<TeamViewProps> = ({
                           </div>
                         </div>
                       )}
+                    </div>
+                  </div>
 
-                      {/* Projets Filmographie */}
-                      {films.length > 0 && (() => {
-                        const selectedCount = films.filter(
-                          (f) =>
-                            editingMember.film_ids?.includes(f.id) ||
-                            f.instructor_ids?.includes(editingMember.id)
-                        ).length;
-
-                        const q = filmSearch.trim().toLowerCase();
-                        const visibleFilms = films
-                          .filter((f) => !q || f.title.toLowerCase().includes(q))
-                          .sort((a, b) => {
-                            if (filmSort === 'name') {
-                              return a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' });
-                            }
-                            const ya = parseInt(String(a.year), 10) || 0;
-                            const yb = parseInt(String(b.year), 10) || 0;
-                            return filmSort === 'year-desc' ? yb - ya : ya - yb;
-                          });
-
-                        return (
-                          <div>
-                            <div className="flex items-center justify-between gap-2 mb-1.5">
-                              <label className="block text-[11px] font-mono text-zinc-400">
-                                Films du catalogue où ce formateur est intervenu :
-                              </label>
-                              <span className="text-[10px] font-mono text-purple-300 shrink-0">
-                                {selectedCount} / {films.length}
-                              </span>
-                            </div>
-
-                            {/* Recherche + tri */}
-                            <div className="flex items-center gap-1.5 mb-1.5">
-                              <div className="relative flex-1">
-                                <Search className="w-3 h-3 text-zinc-500 absolute left-2 top-1/2 -translate-y-1/2" />
-                                <input
-                                  type="text"
-                                  value={filmSearch}
-                                  onChange={(e) => setFilmSearch(e.target.value)}
-                                  placeholder="Rechercher un film..."
-                                  className="w-full bg-black/60 border border-white/15 rounded-lg pl-7 pr-2 py-1.5 text-[11px] text-white focus:outline-none focus:border-[#FFE500]"
-                                />
-                              </div>
-                              <div className="relative shrink-0">
-                                <ArrowUpDown className="w-3 h-3 text-zinc-500 absolute left-2 top-1/2 -translate-y-1/2 pointer-events-none" />
-                                <select
-                                  value={filmSort}
-                                  onChange={(e) => setFilmSort(e.target.value as 'name' | 'year-desc' | 'year-asc')}
-                                  className="bg-black/60 border border-white/15 rounded-lg pl-7 pr-2 py-1.5 text-[11px] text-white focus:outline-none focus:border-[#FFE500] cursor-pointer"
-                                >
-                                  <option value="name">Nom (A→Z)</option>
-                                  <option value="year-desc">Année (récent)</option>
-                                  <option value="year-asc">Année (ancien)</option>
-                                </select>
-                              </div>
-                            </div>
-
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 max-h-64 overflow-y-auto pr-1">
-                              {visibleFilms.map((f) => {
-                                const isChecked =
-                                  editingMember.film_ids?.includes(f.id) ||
-                                  f.instructor_ids?.includes(editingMember.id);
-                                return (
-                                  <button
-                                    type="button"
-                                    key={f.id}
-                                    onClick={() => {
-                                      const current = editingMember.film_ids || [];
-                                      const updated = isChecked
-                                        ? current.filter((id) => id !== f.id)
-                                        : [...current, f.id];
-                                      setEditingMember({ ...editingMember, film_ids: updated });
-                                    }}
-                                    className={`flex items-center gap-1.5 px-2 py-1 rounded text-left text-[11px] transition border ${isChecked
-                                      ? 'bg-purple-500/20 border-purple-500 text-white font-semibold'
-                                      : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/20'
-                                      }`}
-                                  >
-                                    <Film className="w-3 h-3 text-purple-400 shrink-0" />
-                                    <span className="truncate flex-1">{f.title}</span>
-                                    {f.year && (
-                                      <span className="text-[9px] font-mono text-zinc-500 shrink-0">
-                                        {f.year}
-                                      </span>
-                                    )}
-                                  </button>
-                                );
-                              })}
-                              {visibleFilms.length === 0 && (
-                                <p className="col-span-full text-[11px] text-zinc-500 italic py-2">
-                                  Aucun film ne correspond à « {filmSearch} ».
-                                </p>
-                              )}
-                            </div>
-                          </div>
-                        );
-                      })()}
+                  {/* Colonne droite : filmographie unifiée */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="text-[11px] font-mono text-[#FFE500] uppercase tracking-wider font-bold">
+                        Filmographie & Rôles
+                      </div>
+                      <div className="flex items-center gap-2 text-[10px] font-mono">
+                        <span className="text-purple-300">{selectedCount} crédit(s)</span>
+                        <span className="text-zinc-600">•</span>
+                        <span className="text-[#FFE500]">{featuredCount} en avant</span>
+                      </div>
                     </div>
 
+                    {/* Limite d'affichage public */}
+                    <div className="flex items-center gap-3 p-3 bg-black/40 border border-white/10 rounded-xl">
+                      <label className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-400 shrink-0">
+                        <Eye className="w-3.5 h-3.5" />
+                        Crédits visibles avant « voir plus » :
+                      </label>
+                      <select
+                        value={editingMember.creditsDisplayLimit ?? 8}
+                        onChange={(e) =>
+                          setEditingMember({
+                            ...editingMember,
+                            creditsDisplayLimit: parseInt(e.target.value, 10),
+                          })
+                        }
+                        className="bg-black/60 border border-white/20 rounded-lg px-2 py-1 text-xs text-white focus:outline-none focus:border-[#FFE500]"
+                      >
+                        {[4, 6, 8, 10, 12, 16, 24].map((n) => (
+                          <option key={n} value={n}>
+                            {n}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Crédits mis en avant (ordre d'affichage public) */}
+                    {featuredCount > 0 && (
+                      <div className="p-3.5 bg-black/40 border border-[#FFE500]/25 rounded-xl space-y-2">
+                        <div className="flex items-center gap-2 text-[11px] font-bold text-[#FFE500] uppercase tracking-wider">
+                          <Star className="w-3.5 h-3.5" />
+                          En tête de fiche publique (ordre d'affichage)
+                        </div>
+                        <div className="space-y-1">
+                          {(editingMember.featuredCredits || []).map((raw, idx) => (
+                            <div
+                              key={raw}
+                              className="flex items-center gap-1.5 px-2 py-1 bg-[#FFE500]/10 border border-[#FFE500]/30 rounded text-[11px]"
+                            >
+                              <span className="font-mono text-[10px] text-[#FFE500] w-4 shrink-0">
+                                {idx + 1}
+                              </span>
+                              <span className="flex-1 truncate text-white">{raw}</span>
+                              <button
+                                type="button"
+                                onClick={() => moveFeatured(raw, -1)}
+                                disabled={idx === 0}
+                                className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30"
+                                title="Monter"
+                              >
+                                <ArrowUp className="w-3 h-3" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => moveFeatured(raw, 1)}
+                                disabled={idx === (editingMember.featuredCredits || []).length - 1}
+                                className="p-0.5 text-zinc-400 hover:text-white disabled:opacity-30"
+                                title="Descendre"
+                              >
+                                <ArrowDown className="w-3 h-3" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const parsed = parseCredit(raw);
+                                  toggleFeatured(parsed.title || raw);
+                                }}
+                                className="p-0.5 text-zinc-400 hover:text-red-400"
+                                title="Retirer de la mise en avant"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Catalogue de films : source unique de sélection */}
+                    <div className="p-3.5 bg-black/40 border border-white/10 rounded-xl space-y-3">
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 text-xs font-bold text-[#FFE500] uppercase tracking-wider">
+                          <Film className="w-3.5 h-3.5" />
+                          Catalogue de films
+                        </div>
+                        <span className="text-[10px] font-mono text-purple-300 shrink-0">
+                          {selectedCount} / {films.length}
+                        </span>
+                      </div>
+
+                      <p className="text-[11px] text-zinc-400 leading-relaxed">
+                        Cochez les films où ce formateur est intervenu, puis précisez son rôle.
+                        Les crédits cochés alimentent automatiquement la fiche publique.
+                      </p>
+
+                      {/* Recherche + tri + filtre */}
+                      <div className="flex items-center gap-1.5">
+                        <div className="relative flex-1">
+                          <Search className="w-3 h-3 text-zinc-500 absolute left-2 top-1/2 -translate-y-1/2" />
+                          <input
+                            type="text"
+                            value={filmSearch}
+                            onChange={(e) => setFilmSearch(e.target.value)}
+                            placeholder="Rechercher un film..."
+                            className="w-full bg-black/60 border border-white/15 rounded-lg pl-7 pr-2 py-1.5 text-[11px] text-white focus:outline-none focus:border-[#FFE500]"
+                          />
+                        </div>
+                        <div className="relative shrink-0">
+                          <ArrowUpDown className="w-3 h-3 text-zinc-500 absolute left-2 top-1/2 -translate-y-1/2 pointer-events-none" />
+                          <select
+                            value={filmSort}
+                            onChange={(e) => setFilmSort(e.target.value as 'name' | 'year-desc' | 'year-asc')}
+                            className="bg-black/60 border border-white/15 rounded-lg pl-7 pr-2 py-1.5 text-[11px] text-white focus:outline-none focus:border-[#FFE500] cursor-pointer"
+                          >
+                            <option value="name">Nom (A→Z)</option>
+                            <option value="year-desc">Année (récent)</option>
+                            <option value="year-asc">Année (ancien)</option>
+                          </select>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setFilmFilter((f) => (f === 'all' ? 'selected' : 'all'))}
+                          className={`shrink-0 px-2 py-1.5 rounded-lg text-[11px] font-mono border transition ${filmFilter === 'selected'
+                            ? 'bg-purple-500/20 border-purple-500 text-white'
+                            : 'bg-black/60 border-white/15 text-zinc-400 hover:border-white/25'
+                            }`}
+                          title="N'afficher que les films sélectionnés"
+                        >
+                          {filmFilter === 'selected' ? 'Sélection' : 'Tous'}
+                        </button>
+                      </div>
+
+                      <div className="max-h-[26rem] overflow-y-auto pr-1 space-y-1.5">
+                        {visibleFilms.map((f) => {
+                          const entry = creditIndex.get(f.title.toLowerCase());
+                          const isChecked = Boolean(entry);
+                          return (
+                            <div
+                              key={f.id}
+                              className={`rounded-lg border transition ${isChecked
+                                ? 'bg-purple-500/10 border-purple-500/50'
+                                : 'bg-black/60 border-white/10 hover:border-white/20'
+                                }`}
+                            >
+                              <div className="flex items-center gap-2 px-2 py-1.5">
+                                <button
+                                  type="button"
+                                  onClick={() => toggleFilmCredit(f)}
+                                  className="flex items-center gap-2 flex-1 min-w-0 text-left"
+                                >
+                                  <span
+                                    className={`w-3.5 h-3.5 rounded border flex items-center justify-center shrink-0 text-[9px] font-bold ${isChecked
+                                      ? 'bg-purple-500 border-purple-400 text-white'
+                                      : 'border-zinc-600 text-transparent'
+                                      }`}
+                                  >
+                                    ✓
+                                  </span>
+                                  <span
+                                    className={`truncate text-[11px] ${isChecked ? 'text-white font-semibold' : 'text-zinc-300'
+                                      }`}
+                                  >
+                                    {f.title}
+                                  </span>
+                                  {f.year && (
+                                    <span className="text-[9px] font-mono text-zinc-500 shrink-0">
+                                      {f.year}
+                                    </span>
+                                  )}
+                                </button>
+
+                                {isChecked && (
+                                  <button
+                                    type="button"
+                                    onClick={() => toggleFeatured(f.title)}
+                                    className={`p-1 rounded shrink-0 transition ${featuredSet.has(f.title.toLowerCase())
+                                      ? 'text-[#FFE500]'
+                                      : 'text-zinc-600 hover:text-[#FFE500]'
+                                      }`}
+                                    title={
+                                      featuredSet.has(f.title.toLowerCase())
+                                        ? 'Retirer de la mise en avant'
+                                        : 'Mettre en avant sur la fiche publique'
+                                    }
+                                  >
+                                    <Star className="w-3.5 h-3.5" />
+                                  </button>
+                                )}
+                              </div>
+
+                              {isChecked && (
+                                <div className="flex items-center gap-1.5 px-2 pb-2 pl-7">
+                                  {ROLE_OPTIONS.map((role) => {
+                                    const active = entry?.role === role;
+                                    return (
+                                      <button
+                                        type="button"
+                                        key={role}
+                                        onClick={() => setCreditRole(f.title, active ? '' : role)}
+                                        className={`px-2 py-0.5 rounded text-[10px] font-mono border transition ${active
+                                          ? 'bg-[#FFE500]/20 border-[#FFE500] text-[#FFE500] font-bold'
+                                          : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/25'
+                                          }`}
+                                      >
+                                        {role}
+                                      </button>
+                                    );
+                                  })}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+
+                        {visibleFilms.length === 0 && (
+                          <p className="text-[11px] text-zinc-500 italic py-2">
+                            {filmFilter === 'selected'
+                              ? 'Aucun film sélectionné pour ce formateur.'
+                              : `Aucun film ne correspond à « ${filmSearch} ».`}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Crédits hors catalogue (saisie libre conservée) */}
+                    {orphanCredits.length > 0 && (
+                      <div className="p-3.5 bg-black/40 border border-white/10 rounded-xl space-y-2">
+                        <div className="flex items-center justify-between">
+                          <div className="text-[11px] font-bold text-zinc-300 uppercase tracking-wider">
+                            Crédits hors catalogue ({orphanCredits.length})
+                          </div>
+                          <span className="text-[10px] font-mono text-zinc-500">
+                            Conservés tels quels
+                          </span>
+                        </div>
+                        <div className="space-y-1">
+                          {orphanCredits.map((raw) => {
+                            const parsed = parseCredit(raw);
+                            const isCoord = parsed.category === 'coordination';
+                            const isDoublure = parsed.category === 'doublure';
+                            return (
+                              <div
+                                key={raw}
+                                className="flex items-center gap-2 px-2 py-1 bg-black/60 border border-white/10 rounded text-[11px]"
+                              >
+                                <span
+                                  className={`px-1.5 py-0.5 rounded text-[9px] font-mono border shrink-0 ${isCoord
+                                    ? 'bg-[#FFE500]/15 text-[#FFE500] border-[#FFE500]/40'
+                                    : isDoublure
+                                      ? 'bg-sky-500/15 text-sky-300 border-sky-500/30'
+                                      : 'bg-white/5 text-zinc-400 border-white/10'
+                                    }`}
+                                >
+                                  {parsed.role || 'Rôle non précisé'}
+                                </span>
+                                <span className="flex-1 truncate text-zinc-200">{parsed.title || raw}</span>
+                                <button
+                                  type="button"
+                                  onClick={() => removeOrphanCredit(raw)}
+                                  className="p-0.5 text-zinc-500 hover:text-red-400 shrink-0"
+                                  title="Supprimer ce crédit"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
 
               {/* Pied fixe */}
-              <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-white/10 bg-[#16161F] shrink-0">
-                <button
-                  type="button"
-                  onClick={() => setEditingMember(null)}
-                  className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 text-xs font-semibold"
-                >
-                  Annuler
-                </button>
-                <button
-                  type="submit"
-                  className="px-5 py-2 rounded-lg bg-[#FFE500] hover:bg-[#ffe600e6] text-black text-xs font-bold uppercase tracking-wider"
-                >
-                  Enregistrer
-                </button>
+              <div className="flex items-center justify-between gap-3 px-6 py-4 border-t border-white/10 bg-[#16161F] shrink-0">
+                <div className="text-[11px] font-mono text-zinc-500">
+                  {selectedCount} crédit(s) • {featuredCount} mis en avant
+                </div>
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setEditingMember(null)}
+                    className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 text-xs font-semibold"
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-5 py-2 rounded-lg bg-[#FFE500] hover:bg-[#ffe600e6] text-black text-xs font-bold uppercase tracking-wider"
+                  >
+                    Enregistrer
+                  </button>
+                </div>
               </div>
             </form>
           </div>
