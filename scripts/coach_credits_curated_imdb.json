@@ -1,0 +1,2572 @@
+{
+  "generatedAt": "2026-09-20T15:18:29.990Z",
+  "source": "imdb",
+  "curatedFrom": "coach_credits_review_imdb.json",
+  "limit": 24,
+  "globalStats": {
+    "coaches": 12,
+    "totalRaw": 894,
+    "totalKept": 264,
+    "totalExcludedNonCinema": 8,
+    "totalExcludedOverLimit": 620,
+    "totalRichRoles": 67
+  },
+  "coaches": [
+    {
+      "id": "lucas-dollfus",
+      "name": "Lucas Dollfus",
+      "identityStatus": "RÉSOLU",
+      "declaredCreditsCount": 9,
+      "stats": {
+        "total": 32,
+        "kept": 24,
+        "excludedNonCinema": 1,
+        "excludedOverLimit": 7,
+        "richRoles": 8
+      },
+      "credits": [
+        {
+          "title": "L'Amour ouf",
+          "year": 2024,
+          "role": "Cascadeur & Câblage",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt27490099",
+          "score": 153,
+          "formatted": "L'Amour ouf (2024) — Cascadeur & Câblage"
+        },
+        {
+          "title": "John Wick : Chapitre 4",
+          "year": 2023,
+          "role": "Cascadeur (Combats et cascades physiques à Paris)",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt10366206",
+          "score": 152,
+          "formatted": "John Wick : Chapitre 4 (2023) — Cascadeur (Combats et cascades physiques à Paris)"
+        },
+        {
+          "title": "Bagarre",
+          "year": 2026,
+          "role": "Coordinateur des cascades & Action Designer",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt34724686",
+          "score": 115,
+          "formatted": "Bagarre (2026) — Coordinateur des cascades & Action Designer"
+        },
+        {
+          "title": "Coka Chicas",
+          "year": 2025,
+          "role": "Coordinateur des cascades",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt33270077",
+          "score": 114,
+          "formatted": "Coka Chicas (2025) — Coordinateur des cascades"
+        },
+        {
+          "title": "Néro",
+          "year": 2025,
+          "role": "Coordinateur des cascades superviseur",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt32400599",
+          "score": 114,
+          "formatted": "Néro (2025) — Coordinateur des cascades superviseur"
+        },
+        {
+          "title": "Nouveaux riches",
+          "year": 2023,
+          "role": "Coordinateur des cascades",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt27921620",
+          "score": 112,
+          "formatted": "Nouveaux riches (2023) — Coordinateur des cascades"
+        },
+        {
+          "title": "Forty Love",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt38361305",
+          "score": 70,
+          "formatted": "Forty Love (2026) — Cascadeur"
+        },
+        {
+          "title": "Jupiter",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt37424290",
+          "score": 70,
+          "formatted": "Jupiter (2026) — Cascadeur"
+        },
+        {
+          "title": "La nirvana",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt40571633",
+          "score": 70,
+          "formatted": "La nirvana (2026) — Cascadeur"
+        },
+        {
+          "title": "Pour le plaisir",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt38607784",
+          "score": 70,
+          "formatted": "Pour le plaisir (2026) — Cascadeur"
+        },
+        {
+          "title": "Chien 51",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt33255286",
+          "score": 69,
+          "formatted": "Chien 51 (2025) — Cascadeur"
+        },
+        {
+          "title": "Sous écrous",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt33396612",
+          "score": 68,
+          "formatted": "Sous écrous (2024) — Cascadeur"
+        },
+        {
+          "title": "Antigang: La Relève",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt28199975",
+          "score": 67,
+          "formatted": "Antigang: La Relève (2023) — Cascadeur"
+        },
+        {
+          "title": "Le négociateur",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt27470643",
+          "score": 67,
+          "formatted": "Le négociateur (2023) — Cascadeur"
+        },
+        {
+          "title": "Balle perdue 2",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt14465706",
+          "score": 66,
+          "formatted": "Balle perdue 2 (2022) — Cascadeur"
+        },
+        {
+          "title": "Goliath",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt13399946",
+          "score": 66,
+          "formatted": "Goliath (2022) — Cascadeur"
+        },
+        {
+          "title": "Loin du périph",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt13822738",
+          "score": 66,
+          "formatted": "Loin du périph (2022) — Cascadeur"
+        },
+        {
+          "title": "Good Vibes Only",
+          "year": 2026,
+          "role": "Coordinateur des cascades",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 65,
+          "formatted": "Good Vibes Only (2026) — Coordinateur des cascades"
+        },
+        {
+          "title": "Braqueurs: La série",
+          "year": 2021,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt13278100",
+          "score": 65,
+          "formatted": "Braqueurs: La série (2021) — Cascadeur"
+        },
+        {
+          "title": "Lupin",
+          "year": 2021,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt2531336",
+          "score": 65,
+          "formatted": "Lupin (2021) — Cascadeur"
+        },
+        {
+          "title": "Warlike",
+          "year": 2021,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt14289048",
+          "score": 65,
+          "formatted": "Warlike (2021) — Cascadeur"
+        },
+        {
+          "title": "La Révolution",
+          "year": 2020,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt13044528",
+          "score": 64,
+          "formatted": "La Révolution (2020) — Cascadeur"
+        },
+        {
+          "title": "Sous la Seine",
+          "year": 2024,
+          "role": "Cascadeur (Cascades subaquatiques et physiques)",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 63,
+          "formatted": "Sous la Seine (2024) — Cascadeur (Cascades subaquatiques et physiques)"
+        },
+        {
+          "title": "Mortel",
+          "year": 2019,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt8403570",
+          "score": 63,
+          "formatted": "Mortel (2019) — Cascadeur"
+        }
+      ]
+    },
+    {
+      "id": "jerome-gaspard",
+      "name": "Jérôme Gaspard",
+      "identityStatus": "RÉSOLU",
+      "declaredCreditsCount": 15,
+      "stats": {
+        "total": 204,
+        "kept": 24,
+        "excludedNonCinema": 0,
+        "excludedOverLimit": 179,
+        "richRoles": 8
+      },
+      "credits": [
+        {
+          "title": "Le Pacte des loups",
+          "year": 2001,
+          "role": "Cascadeur & Doublure Samuel Le Bihan",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt0237534",
+          "score": 130,
+          "formatted": "Le Pacte des loups (2001) — Cascadeur & Doublure Samuel Le Bihan"
+        },
+        {
+          "title": "Largo Winch: Le prix de l'argent",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt23049322",
+          "score": 128,
+          "formatted": "Largo Winch: Le prix de l'argent (2024) — Cascadeur"
+        },
+        {
+          "title": "Bastille Day",
+          "year": 2016,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt2368619",
+          "score": 120,
+          "formatted": "Bastille Day (2016) — Cascadeur"
+        },
+        {
+          "title": "Lucy",
+          "year": 2014,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt2872732",
+          "score": 118,
+          "formatted": "Lucy (2014) — Cascadeur"
+        },
+        {
+          "title": "Largo Winch II",
+          "year": 2011,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt1322333",
+          "score": 115,
+          "formatted": "Largo Winch II (2011) — Cascadeur"
+        },
+        {
+          "title": "Sacrifice",
+          "year": 2025,
+          "role": "Coordinateur des cascades",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt32268992",
+          "score": 114,
+          "formatted": "Sacrifice (2025) — Coordinateur des cascades"
+        },
+        {
+          "title": "Le salaire de la peur",
+          "year": 2024,
+          "role": "Coordinateur des cascades",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt27487473",
+          "score": 113,
+          "formatted": "Le salaire de la peur (2024) — Coordinateur des cascades"
+        },
+        {
+          "title": "The Substance",
+          "year": 2024,
+          "role": "Coordinateur des cascades France",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt17526714",
+          "score": 113,
+          "formatted": "The Substance (2024) — Coordinateur des cascades France"
+        },
+        {
+          "title": "Sentinelle",
+          "year": 2023,
+          "role": "Coordinateur des cascades",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt23898856",
+          "score": 112,
+          "formatted": "Sentinelle (2023) — Coordinateur des cascades"
+        },
+        {
+          "title": "Largo Winch",
+          "year": 2008,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt0808339",
+          "score": 112,
+          "formatted": "Largo Winch (2008) — Cascadeur"
+        },
+        {
+          "title": "Athena",
+          "year": 2022,
+          "role": "Coordinateur des cascades",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt15445056",
+          "score": 111,
+          "formatted": "Athena (2022) — Coordinateur des cascades"
+        },
+        {
+          "title": "Valérian et la Cité des mille planètes",
+          "year": 2017,
+          "role": "Coordinateur des cascades & Câblage",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt2239822",
+          "score": 106,
+          "formatted": "Valérian et la Cité des mille planètes (2017) — Coordinateur des cascades & Câblage"
+        },
+        {
+          "title": "Braquo",
+          "year": 2009,
+          "role": "Coordinateur des cascades",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt1429534",
+          "score": 98,
+          "formatted": "Braquo (2009) — Coordinateur des cascades"
+        },
+        {
+          "title": "Fantômas - Le nouveau monde",
+          "year": 2027,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt38857102",
+          "score": 70,
+          "formatted": "Fantômas - Le nouveau monde (2027) — Cascadeur"
+        },
+        {
+          "title": "Les Profs 3 - Retour vers le passé",
+          "year": 2027,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt43612906",
+          "score": 70,
+          "formatted": "Les Profs 3 - Retour vers le passé (2027) — Cascadeur"
+        },
+        {
+          "title": "Adieu monde cruel",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt34427439",
+          "score": 70,
+          "formatted": "Adieu monde cruel (2026) — Cascadeur"
+        },
+        {
+          "title": "Banlieusards 3",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt37800570",
+          "score": 70,
+          "formatted": "Banlieusards 3 (2026) — Cascadeur"
+        },
+        {
+          "title": "Full Phil",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt38607959",
+          "score": 70,
+          "formatted": "Full Phil (2026) — Cascadeur"
+        },
+        {
+          "title": "GIGN",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt35495063",
+          "score": 70,
+          "formatted": "GIGN (2026) — Cascadeur"
+        },
+        {
+          "title": "La Cible",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt38275562",
+          "score": 70,
+          "formatted": "La Cible (2026) — Cascadeur"
+        },
+        {
+          "title": "Le triangle d'or",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt39462979",
+          "score": 70,
+          "formatted": "Le triangle d'or (2026) — Cascadeur"
+        },
+        {
+          "title": "Les Parfait(s): Arnaques en famille",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt36313230",
+          "score": 70,
+          "formatted": "Les Parfait(s): Arnaques en famille (2026) — Cascadeur"
+        },
+        {
+          "title": "Mata",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt35671745",
+          "score": 70,
+          "formatted": "Mata (2026) — Cascadeur"
+        },
+        {
+          "title": "Mylène Farmer: C'est à qui le tour",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt43612613",
+          "score": 70,
+          "formatted": "Mylène Farmer: C'est à qui le tour (2026) — Cascadeur"
+        }
+      ]
+    },
+    {
+      "id": "vincent-bouillon",
+      "name": "Vincent Bouillon",
+      "identityStatus": "RÉSOLU",
+      "declaredCreditsCount": 12,
+      "stats": {
+        "total": 87,
+        "kept": 24,
+        "excludedNonCinema": 1,
+        "excludedOverLimit": 62,
+        "richRoles": 8
+      },
+      "credits": [
+        {
+          "title": "The Killer",
+          "year": 2024,
+          "role": "Stunt Coordinator (Nomination Taurus Award) & Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt1121948",
+          "score": 153,
+          "formatted": "The Killer (2024) — Stunt Coordinator (Nomination Taurus Award) & Cascadeur"
+        },
+        {
+          "title": "John Wick : Chapitre 4",
+          "year": 2023,
+          "role": "Cascadeur & Doublure Keanu Reeves (Taurus World Stunt Award)",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt10366206",
+          "score": 152,
+          "formatted": "John Wick : Chapitre 4 (2023) — Cascadeur & Doublure Keanu Reeves (Taurus World Stunt Award)"
+        },
+        {
+          "title": "Murder Mystery 2",
+          "year": 2023,
+          "role": "Cascadeur & Doublure",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt15255288",
+          "score": 152,
+          "formatted": "Murder Mystery 2 (2023) — Cascadeur & Doublure"
+        },
+        {
+          "title": "6 Underground",
+          "year": 2019,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt8106534",
+          "score": 123,
+          "formatted": "6 Underground (2019) — Cascadeur"
+        },
+        {
+          "title": "Ceux qui comptent",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt35404853",
+          "score": 70,
+          "formatted": "Ceux qui comptent (2026) — Cascadeur"
+        },
+        {
+          "title": "Ballerina",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt7181546",
+          "score": 69,
+          "formatted": "Ballerina (2025) — Cascadeur"
+        },
+        {
+          "title": "Dracula",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt31434030",
+          "score": 69,
+          "formatted": "Dracula (2025) — Cascadeur"
+        },
+        {
+          "title": "Exquis",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt32047217",
+          "score": 69,
+          "formatted": "Exquis (2025) — Cascadeur"
+        },
+        {
+          "title": "Lie hu xing dong",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt10712788",
+          "score": 69,
+          "formatted": "Lie hu xing dong (2025) — Cascadeur"
+        },
+        {
+          "title": "Predator: Badlands",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt31227572",
+          "score": 69,
+          "formatted": "Predator: Badlands (2025) — Cascadeur"
+        },
+        {
+          "title": "Privilèges",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt35677100",
+          "score": 69,
+          "formatted": "Privilèges (2025) — Cascadeur"
+        },
+        {
+          "title": "The Family Plan 2",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt34276058",
+          "score": 69,
+          "formatted": "The Family Plan 2 (2025) — Cascadeur"
+        },
+        {
+          "title": "Machine",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt26750284",
+          "score": 68,
+          "formatted": "Machine (2024) — Cascadeur"
+        },
+        {
+          "title": "N'avoue jamais",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt30442596",
+          "score": 68,
+          "formatted": "N'avoue jamais (2024) — Cascadeur"
+        },
+        {
+          "title": "Ourika",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt19520308",
+          "score": 68,
+          "formatted": "Ourika (2024) — Cascadeur"
+        },
+        {
+          "title": "Paris Has Fallen",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt33184638",
+          "score": 68,
+          "formatted": "Paris Has Fallen (2024) — Cascadeur"
+        },
+        {
+          "title": "Tigres & Hyènes",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt28639058",
+          "score": 68,
+          "formatted": "Tigres & Hyènes (2024) — Cascadeur"
+        },
+        {
+          "title": "Troubleshooters",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt30661504",
+          "score": 68,
+          "formatted": "Troubleshooters (2024) — Cascadeur"
+        },
+        {
+          "title": "Zorro",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt31844643",
+          "score": 68,
+          "formatted": "Zorro (2024) — Cascadeur"
+        },
+        {
+          "title": "Elyas",
+          "year": 2024,
+          "role": "Cascadeur (Combats rapprochés)",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 63,
+          "formatted": "Elyas (2024) — Cascadeur (Combats rapprochés)"
+        },
+        {
+          "title": "L'Amour Ouf",
+          "year": 2024,
+          "role": "Cascadeur & Combats",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 63,
+          "formatted": "L'Amour Ouf (2024) — Cascadeur & Combats"
+        },
+        {
+          "title": "Largo Winch : Le Prix de l'argent",
+          "year": 2024,
+          "role": "Cascadeur & Doublure Tomer Sisley",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 63,
+          "formatted": "Largo Winch : Le Prix de l'argent (2024) — Cascadeur & Doublure Tomer Sisley"
+        },
+        {
+          "title": "Le Comte de Monte-Cristo",
+          "year": 2024,
+          "role": "Cascadeur & Doublure combats",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 63,
+          "formatted": "Le Comte de Monte-Cristo (2024) — Cascadeur & Doublure combats"
+        },
+        {
+          "title": "Balthazar (Série TF1)",
+          "year": 0,
+          "role": "Doublure cascades Tomer Sisley",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 35,
+          "formatted": "Balthazar (Série TF1) — Doublure cascades Tomer Sisley"
+        }
+      ]
+    },
+    {
+      "id": "malik-diouf",
+      "name": "Malik Diouf",
+      "identityStatus": "RÉSOLU",
+      "declaredCreditsCount": 10,
+      "stats": {
+        "total": 77,
+        "kept": 24,
+        "excludedNonCinema": 0,
+        "excludedOverLimit": 53,
+        "richRoles": 11
+      },
+      "credits": [
+        {
+          "title": "AKA",
+          "year": 2023,
+          "role": "Acteur principal & Cascadeur Parkour",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt27197387",
+          "score": 152,
+          "formatted": "AKA (2023) — Acteur principal & Cascadeur Parkour"
+        },
+        {
+          "title": "Athena",
+          "year": 2022,
+          "role": "Cascadeur & Franchissement Parkour",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt15445056",
+          "score": 151,
+          "formatted": "Athena (2022) — Cascadeur & Franchissement Parkour"
+        },
+        {
+          "title": "Les Misérables",
+          "year": 2019,
+          "role": "Conseiller Parkour & Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt10199590",
+          "score": 148,
+          "formatted": "Les Misérables (2019) — Conseiller Parkour & Cascadeur"
+        },
+        {
+          "title": "Les fils du vent",
+          "year": 2004,
+          "role": "Acteur principal & Cascadeur Parkour",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt0345235",
+          "score": 133,
+          "formatted": "Les fils du vent (2004) — Acteur principal & Cascadeur Parkour"
+        },
+        {
+          "title": "Yamakasi : Les Samouraïs des temps modernes",
+          "year": 2001,
+          "role": "Acteur principal & Cascadeur Parkour",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt0267129",
+          "score": 130,
+          "formatted": "Yamakasi : Les Samouraïs des temps modernes (2001) — Acteur principal & Cascadeur Parkour"
+        },
+        {
+          "title": "Taxi 2",
+          "year": 2000,
+          "role": "Cascadeur (Traceur Parkour)",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt0183869",
+          "score": 129,
+          "formatted": "Taxi 2 (2000) — Cascadeur (Traceur Parkour)"
+        },
+        {
+          "title": "Fiasco",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt27415863",
+          "score": 128,
+          "formatted": "Fiasco (2024) — Cascadeur"
+        },
+        {
+          "title": "BAC Nord",
+          "year": 2020,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt10404944",
+          "score": 124,
+          "formatted": "BAC Nord (2020) — Cascadeur"
+        },
+        {
+          "title": "Machine",
+          "year": 2024,
+          "role": "Coordinateur des cascades & Régleur Parkour",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt26750284",
+          "score": 113,
+          "formatted": "Machine (2024) — Coordinateur des cascades & Régleur Parkour"
+        },
+        {
+          "title": "Planète B",
+          "year": 2024,
+          "role": "Coordinateur des cascades",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt28636876",
+          "score": 113,
+          "formatted": "Planète B (2024) — Coordinateur des cascades"
+        },
+        {
+          "title": "Le Roi des Ombres",
+          "year": 2023,
+          "role": "Coordinateur des cascades",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt26763229",
+          "score": 112,
+          "formatted": "Le Roi des Ombres (2023) — Coordinateur des cascades"
+        },
+        {
+          "title": "Inséparables",
+          "year": 2019,
+          "role": "Cascadeur Parkour & Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt9811374",
+          "score": 88,
+          "formatted": "Inséparables (2019) — Cascadeur Parkour & Cascadeur"
+        },
+        {
+          "title": "Bye Bye Blondie",
+          "year": 2011,
+          "role": "Cascadeur Parkour & Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt1688064",
+          "score": 80,
+          "formatted": "Bye Bye Blondie (2011) — Cascadeur Parkour & Cascadeur"
+        },
+        {
+          "title": "Bagarre",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt34724686",
+          "score": 70,
+          "formatted": "Bagarre (2026) — Cascadeur"
+        },
+        {
+          "title": "Full Phil",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt38607959",
+          "score": 70,
+          "formatted": "Full Phil (2026) — Cascadeur"
+        },
+        {
+          "title": "Ad Vitam",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt32138452",
+          "score": 69,
+          "formatted": "Ad Vitam (2025) — Cascadeur"
+        },
+        {
+          "title": "Balle Perdue 3",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt29768333",
+          "score": 69,
+          "formatted": "Balle Perdue 3 (2025) — Cascadeur"
+        },
+        {
+          "title": "Chien 51",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt33255286",
+          "score": 69,
+          "formatted": "Chien 51 (2025) — Cascadeur"
+        },
+        {
+          "title": "Coka Chicas",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt33270077",
+          "score": 69,
+          "formatted": "Coka Chicas (2025) — Cascadeur"
+        },
+        {
+          "title": "Dracula",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt31434030",
+          "score": 69,
+          "formatted": "Dracula (2025) — Cascadeur"
+        },
+        {
+          "title": "Élise sous emprise",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt35458236",
+          "score": 69,
+          "formatted": "Élise sous emprise (2025) — Cascadeur"
+        },
+        {
+          "title": "Les braises",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt29729103",
+          "score": 69,
+          "formatted": "Les braises (2025) — Cascadeur"
+        },
+        {
+          "title": "Yoroï",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt33402929",
+          "score": 69,
+          "formatted": "Yoroï (2025) — Cascadeur"
+        },
+        {
+          "title": "Challenger",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt33269637",
+          "score": 68,
+          "formatted": "Challenger (2024) — Cascadeur"
+        }
+      ]
+    },
+    {
+      "id": "franck-blanc",
+      "name": "Franck Blanc",
+      "identityStatus": "RÉSOLU",
+      "declaredCreditsCount": 9,
+      "stats": {
+        "total": 72,
+        "kept": 24,
+        "excludedNonCinema": 1,
+        "excludedOverLimit": 47,
+        "richRoles": 9
+      },
+      "credits": [
+        {
+          "title": "Acide",
+          "year": 2023,
+          "role": "Cascadeur & Effets physiques",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt17569526",
+          "score": 152,
+          "formatted": "Acide (2023) — Cascadeur & Effets physiques"
+        },
+        {
+          "title": "John Wick : Chapitre 4",
+          "year": 2023,
+          "role": "Cascadeur (Combats & Chutes)",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt10366206",
+          "score": 152,
+          "formatted": "John Wick : Chapitre 4 (2023) — Cascadeur (Combats & Chutes)"
+        },
+        {
+          "title": "Overdose",
+          "year": 2022,
+          "role": "Cascadeur & Torches humaines",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt15713012",
+          "score": 151,
+          "formatted": "Overdose (2022) — Cascadeur & Torches humaines"
+        },
+        {
+          "title": "Anna",
+          "year": 2019,
+          "role": "Cascadeur & Câblage",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt7456310",
+          "score": 148,
+          "formatted": "Anna (2019) — Cascadeur & Câblage"
+        },
+        {
+          "title": "Kepler(s)",
+          "year": 2018,
+          "role": "Cascadeur & Pyrotechnie",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt8548922",
+          "score": 147,
+          "formatted": "Kepler(s) (2018) — Cascadeur & Pyrotechnie"
+        },
+        {
+          "title": "GIGN",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt35495063",
+          "score": 70,
+          "formatted": "GIGN (2026) — Cascadeur"
+        },
+        {
+          "title": "La Cible",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt38275562",
+          "score": 70,
+          "formatted": "La Cible (2026) — Cascadeur"
+        },
+        {
+          "title": "La Vénus électrique",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt37163509",
+          "score": 70,
+          "formatted": "La Vénus électrique (2026) — Cascadeur"
+        },
+        {
+          "title": "Police Flash 80",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt37319567",
+          "score": 70,
+          "formatted": "Police Flash 80 (2026) — Cascadeur"
+        },
+        {
+          "title": "Pour le plaisir",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt38607784",
+          "score": 70,
+          "formatted": "Pour le plaisir (2026) — Cascadeur"
+        },
+        {
+          "title": "Dracula",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt31434030",
+          "score": 69,
+          "formatted": "Dracula (2025) — Cascadeur"
+        },
+        {
+          "title": "Jean Valjean",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt35363310",
+          "score": 69,
+          "formatted": "Jean Valjean (2025) — Cascadeur"
+        },
+        {
+          "title": "La Rebelle: Les Aventures de la Jeune George Sand",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt31870009",
+          "score": 69,
+          "formatted": "La Rebelle: Les Aventures de la Jeune George Sand (2025) — Cascadeur"
+        },
+        {
+          "title": "Lie hu xing dong",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt10712788",
+          "score": 69,
+          "formatted": "Lie hu xing dong (2025) — Cascadeur"
+        },
+        {
+          "title": "Néro",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt32400599",
+          "score": 69,
+          "formatted": "Néro (2025) — Cascadeur"
+        },
+        {
+          "title": "Fiasco",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt27415863",
+          "score": 68,
+          "formatted": "Fiasco (2024) — Cascadeur"
+        },
+        {
+          "title": "L'Amour ouf",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt27490099",
+          "score": 68,
+          "formatted": "L'Amour ouf (2024) — Cascadeur"
+        },
+        {
+          "title": "Largo Winch: Le prix de l'argent",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt23049322",
+          "score": 68,
+          "formatted": "Largo Winch: Le prix de l'argent (2024) — Cascadeur"
+        },
+        {
+          "title": "Le salaire de la peur",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt27487473",
+          "score": 68,
+          "formatted": "Le salaire de la peur (2024) — Cascadeur"
+        },
+        {
+          "title": "Panique au 31",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt34874745",
+          "score": 68,
+          "formatted": "Panique au 31 (2024) — Cascadeur"
+        },
+        {
+          "title": "La Nuit se traîne",
+          "year": 2024,
+          "role": "Cascadeur & Chutes de hauteur",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 63,
+          "formatted": "La Nuit se traîne (2024) — Cascadeur & Chutes de hauteur"
+        },
+        {
+          "title": "Sous la Seine",
+          "year": 2024,
+          "role": "Cascadeur (Chutes & Cascades eau)",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 63,
+          "formatted": "Sous la Seine (2024) — Cascadeur (Chutes & Cascades eau)"
+        },
+        {
+          "title": "The Killer",
+          "year": 2024,
+          "role": "Cascadeur & Câblage 3D",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 63,
+          "formatted": "The Killer (2024) — Cascadeur & Câblage 3D"
+        },
+        {
+          "title": "Valérian et la Cité des mille planètes",
+          "year": 2017,
+          "role": "Cascadeur & Câblage",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 56,
+          "formatted": "Valérian et la Cité des mille planètes (2017) — Cascadeur & Câblage"
+        }
+      ]
+    },
+    {
+      "id": "kefi-abrikh",
+      "name": "Kefi Abrikh",
+      "identityStatus": "RÉSOLU",
+      "declaredCreditsCount": 8,
+      "stats": {
+        "total": 82,
+        "kept": 24,
+        "excludedNonCinema": 1,
+        "excludedOverLimit": 56,
+        "richRoles": 4
+      },
+      "credits": [
+        {
+          "title": "Jason Bourne",
+          "year": 2016,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt4196776",
+          "score": 120,
+          "formatted": "Jason Bourne (2016) — Cascadeur"
+        },
+        {
+          "title": "007 Spectre",
+          "year": 2015,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt2379713",
+          "score": 119,
+          "formatted": "007 Spectre (2015) — Cascadeur"
+        },
+        {
+          "title": "Fast & Furious 6",
+          "year": 2013,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt1905041",
+          "score": 117,
+          "formatted": "Fast & Furious 6 (2013) — Cascadeur"
+        },
+        {
+          "title": "Jo",
+          "year": 2013,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt2476706",
+          "score": 117,
+          "formatted": "Jo (2013) — Cascadeur"
+        },
+        {
+          "title": "La Princesse",
+          "year": 2022,
+          "role": "Coordinateur des cascades & Chorégraphe combats",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt13406136",
+          "score": 111,
+          "formatted": "La Princesse (2022) — Coordinateur des cascades & Chorégraphe combats"
+        },
+        {
+          "title": "Furie",
+          "year": 2019,
+          "role": "Coordinateur des cascades & Action Designer",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt9412268",
+          "score": 108,
+          "formatted": "Furie (2019) — Coordinateur des cascades & Action Designer"
+        },
+        {
+          "title": "Nicky Larson et le parfum de Cupidon",
+          "year": 2018,
+          "role": "Chorégraphe des combats",
+          "status": "CONTRADICTOIRE",
+          "imdbId": "tt8523334",
+          "score": 107,
+          "formatted": "Nicky Larson et le parfum de Cupidon (2018) — Chorégraphe des combats"
+        },
+        {
+          "title": "The Thomas Crown Affair",
+          "year": 2027,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt5500064",
+          "score": 70,
+          "formatted": "The Thomas Crown Affair (2027) — Cascadeur"
+        },
+        {
+          "title": "Belphégor",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt36220217",
+          "score": 69,
+          "formatted": "Belphégor (2025) — Cascadeur"
+        },
+        {
+          "title": "Lie hu xing dong",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt10712788",
+          "score": 69,
+          "formatted": "Lie hu xing dong (2025) — Cascadeur"
+        },
+        {
+          "title": "Menace Imminente",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt36160259",
+          "score": 69,
+          "formatted": "Menace Imminente (2025) — Cascadeur"
+        },
+        {
+          "title": "Néro",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt32400599",
+          "score": 69,
+          "formatted": "Néro (2025) — Cascadeur"
+        },
+        {
+          "title": "Mortelle Raclette",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt32967635",
+          "score": 68,
+          "formatted": "Mortelle Raclette (2024) — Cascadeur"
+        },
+        {
+          "title": "Zénithal",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt27788030",
+          "score": 68,
+          "formatted": "Zénithal (2024) — Cascadeur"
+        },
+        {
+          "title": "Article 22",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt7760076",
+          "score": 67,
+          "formatted": "Article 22 (2023) — Cascadeur"
+        },
+        {
+          "title": "Ke an Danh",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt28805927",
+          "score": 67,
+          "formatted": "Ke an Danh (2023) — Cascadeur"
+        },
+        {
+          "title": "355",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt8356942",
+          "score": 66,
+          "formatted": "355 (2022) — Cascadeur"
+        },
+        {
+          "title": "Le visiteur du futur",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt9155512",
+          "score": 66,
+          "formatted": "Le visiteur du futur (2022) — Cascadeur"
+        },
+        {
+          "title": "Simone, le voyage du siècle",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt13389730",
+          "score": 66,
+          "formatted": "Simone, le voyage du siècle (2022) — Cascadeur"
+        },
+        {
+          "title": "Thanh Soi: Cuc Dai Trong Dem",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt25260664",
+          "score": 66,
+          "formatted": "Thanh Soi: Cuc Dai Trong Dem (2022) — Cascadeur"
+        },
+        {
+          "title": "Kung Fu Zohra",
+          "year": 2021,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt13261944",
+          "score": 65,
+          "formatted": "Kung Fu Zohra (2021) — Cascadeur"
+        },
+        {
+          "title": "30 jours max",
+          "year": 2020,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt11206302",
+          "score": 64,
+          "formatted": "30 jours max (2020) — Cascadeur"
+        },
+        {
+          "title": "Deviants",
+          "year": 2020,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt7879720",
+          "score": 64,
+          "formatted": "Deviants (2020) — Cascadeur"
+        },
+        {
+          "title": "Furies",
+          "year": 2024,
+          "role": "Action Designer & Combats",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 63,
+          "formatted": "Furies (2024) — Action Designer & Combats"
+        }
+      ]
+    },
+    {
+      "id": "maurice-chan",
+      "name": "Maurice Chan",
+      "identityStatus": "RÉSOLU",
+      "declaredCreditsCount": 7,
+      "stats": {
+        "total": 63,
+        "kept": 24,
+        "excludedNonCinema": 1,
+        "excludedOverLimit": 38,
+        "richRoles": 3
+      },
+      "credits": [
+        {
+          "title": "The Killer",
+          "year": 2024,
+          "role": "Cascadeur (Combats rapprochés)",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt1121948",
+          "score": 153,
+          "formatted": "The Killer (2024) — Cascadeur (Combats rapprochés)"
+        },
+        {
+          "title": "John Wick : Chapitre 4",
+          "year": 2023,
+          "role": "Cascadeur (Combats martiaux)",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt10366206",
+          "score": 152,
+          "formatted": "John Wick : Chapitre 4 (2023) — Cascadeur (Combats martiaux)"
+        },
+        {
+          "title": "Lucy",
+          "year": 2014,
+          "role": "Cascadeur & Chorégraphe arts martiaux",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt2872732",
+          "score": 143,
+          "formatted": "Lucy (2014) — Cascadeur & Chorégraphe arts martiaux"
+        },
+        {
+          "title": "Jack Ryan",
+          "year": 2018,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt5057054",
+          "score": 122,
+          "formatted": "Jack Ryan (2018) — Cascadeur"
+        },
+        {
+          "title": "007 Spectre",
+          "year": 2015,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt2379713",
+          "score": 119,
+          "formatted": "007 Spectre (2015) — Cascadeur"
+        },
+        {
+          "title": "Danny the Dog",
+          "year": 2005,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt0342258",
+          "score": 109,
+          "formatted": "Danny the Dog (2005) — Cascadeur"
+        },
+        {
+          "title": "John Rambo",
+          "year": 2027,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt36963968",
+          "score": 70,
+          "formatted": "John Rambo (2027) — Cascadeur"
+        },
+        {
+          "title": "Avis de tempête",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt38840888",
+          "score": 70,
+          "formatted": "Avis de tempête (2026) — Cascadeur"
+        },
+        {
+          "title": "Dhruva Natchathiram Chapter 1: Yuddha Kaandam",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt6735802",
+          "score": 70,
+          "formatted": "Dhruva Natchathiram Chapter 1: Yuddha Kaandam (2026) — Cascadeur"
+        },
+        {
+          "title": "Full Phil",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt38607959",
+          "score": 70,
+          "formatted": "Full Phil (2026) — Cascadeur"
+        },
+        {
+          "title": "Ad Vitam",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt32138452",
+          "score": 69,
+          "formatted": "Ad Vitam (2025) — Cascadeur"
+        },
+        {
+          "title": "Badh",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt35526133",
+          "score": 69,
+          "formatted": "Badh (2025) — Cascadeur"
+        },
+        {
+          "title": "Balle Perdue 3",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt29768333",
+          "score": 69,
+          "formatted": "Balle Perdue 3 (2025) — Cascadeur"
+        },
+        {
+          "title": "Banger",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt35434840",
+          "score": 69,
+          "formatted": "Banger (2025) — Cascadeur"
+        },
+        {
+          "title": "Bastion 36",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt31032711",
+          "score": 69,
+          "formatted": "Bastion 36 (2025) — Cascadeur"
+        },
+        {
+          "title": "Bunny-Man",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt31221343",
+          "score": 69,
+          "formatted": "Bunny-Man (2025) — Cascadeur"
+        },
+        {
+          "title": "Flash Drive",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt37422718",
+          "score": 69,
+          "formatted": "Flash Drive (2025) — Cascadeur"
+        },
+        {
+          "title": "Le Jardinier",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt30973842",
+          "score": 69,
+          "formatted": "Le Jardinier (2025) — Cascadeur"
+        },
+        {
+          "title": "Lie hu xing dong",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt10712788",
+          "score": 69,
+          "formatted": "Lie hu xing dong (2025) — Cascadeur"
+        },
+        {
+          "title": "Warriors",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt38792871",
+          "score": 69,
+          "formatted": "Warriors (2025) — Cascadeur"
+        },
+        {
+          "title": "Canary Black",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt20048582",
+          "score": 68,
+          "formatted": "Canary Black (2024) — Cascadeur"
+        },
+        {
+          "title": "Cat's Eyes",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt27445242",
+          "score": 68,
+          "formatted": "Cat's Eyes (2024) — Cascadeur"
+        },
+        {
+          "title": "Largo Winch: Le prix de l'argent",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt23049322",
+          "score": 68,
+          "formatted": "Largo Winch: Le prix de l'argent (2024) — Cascadeur"
+        },
+        {
+          "title": "Machine",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt26750284",
+          "score": 68,
+          "formatted": "Machine (2024) — Cascadeur"
+        }
+      ]
+    },
+    {
+      "id": "michael-troude",
+      "name": "Michaël Troude",
+      "identityStatus": "RÉSOLU",
+      "declaredCreditsCount": 11,
+      "stats": {
+        "total": 102,
+        "kept": 24,
+        "excludedNonCinema": 0,
+        "excludedOverLimit": 78,
+        "richRoles": 4
+      },
+      "credits": [
+        {
+          "title": "Elyas",
+          "year": 2024,
+          "role": "Cascadeur (Combats tactiques)",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt28336131",
+          "score": 153,
+          "formatted": "Elyas (2024) — Cascadeur (Combats tactiques)"
+        },
+        {
+          "title": "The Substance",
+          "year": 2024,
+          "role": "Cascadeur (Chutes sous prothèses)",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt17526714",
+          "score": 153,
+          "formatted": "The Substance (2024) — Cascadeur (Chutes sous prothèses)"
+        },
+        {
+          "title": "Athena",
+          "year": 2022,
+          "role": "Cascadeur (Impacts & affrontements)",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt15445056",
+          "score": 151,
+          "formatted": "Athena (2022) — Cascadeur (Impacts & affrontements)"
+        },
+        {
+          "title": "BAC Nord",
+          "year": 2020,
+          "role": "Cascadeur (Affrontements & chutes corporelles)",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt10404944",
+          "score": 149,
+          "formatted": "BAC Nord (2020) — Cascadeur (Affrontements & chutes corporelles)"
+        },
+        {
+          "title": "Balle perdue 2",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt14465706",
+          "score": 126,
+          "formatted": "Balle perdue 2 (2022) — Cascadeur"
+        },
+        {
+          "title": "Banlieue 13: Ultimatum",
+          "year": 2009,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt1247640",
+          "score": 113,
+          "formatted": "Banlieue 13: Ultimatum (2009) — Cascadeur"
+        },
+        {
+          "title": "Taken",
+          "year": 2008,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt0936501",
+          "score": 112,
+          "formatted": "Taken (2008) — Cascadeur"
+        },
+        {
+          "title": "Banlieue 13",
+          "year": 2004,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt0414852",
+          "score": 108,
+          "formatted": "Banlieue 13 (2004) — Cascadeur"
+        },
+        {
+          "title": "Le Transporteur",
+          "year": 2002,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt0293662",
+          "score": 106,
+          "formatted": "Le Transporteur (2002) — Cascadeur"
+        },
+        {
+          "title": "Le Baiser mortel du dragon",
+          "year": 2001,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt0271027",
+          "score": 105,
+          "formatted": "Le Baiser mortel du dragon (2001) — Cascadeur"
+        },
+        {
+          "title": "Après la nuit",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt35852286",
+          "score": 69,
+          "formatted": "Après la nuit (2025) — Cascadeur"
+        },
+        {
+          "title": "Heads of State",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt13357520",
+          "score": 69,
+          "formatted": "Heads of State (2025) — Cascadeur"
+        },
+        {
+          "title": "Jean Valjean",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt35363310",
+          "score": 69,
+          "formatted": "Jean Valjean (2025) — Cascadeur"
+        },
+        {
+          "title": "Les braises",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt29729103",
+          "score": 69,
+          "formatted": "Les braises (2025) — Cascadeur"
+        },
+        {
+          "title": "Les Sentinelles",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt10094546",
+          "score": 69,
+          "formatted": "Les Sentinelles (2025) — Cascadeur"
+        },
+        {
+          "title": "Bisons",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt21422618",
+          "score": 68,
+          "formatted": "Bisons (2024) — Cascadeur"
+        },
+        {
+          "title": "Furies",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt11384300",
+          "score": 68,
+          "formatted": "Furies (2024) — Cascadeur"
+        },
+        {
+          "title": "GTmax",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt29260436",
+          "score": 68,
+          "formatted": "GTmax (2024) — Cascadeur"
+        },
+        {
+          "title": "La Cage",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt28288478",
+          "score": 68,
+          "formatted": "La Cage (2024) — Cascadeur"
+        },
+        {
+          "title": "Paris Has Fallen",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt33184638",
+          "score": 68,
+          "formatted": "Paris Has Fallen (2024) — Cascadeur"
+        },
+        {
+          "title": "Astérix & Obélix: L'Empire du Milieu",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt11210390",
+          "score": 67,
+          "formatted": "Astérix & Obélix: L'Empire du Milieu (2023) — Cascadeur"
+        },
+        {
+          "title": "B.R.I.",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt17506104",
+          "score": 67,
+          "formatted": "B.R.I. (2023) — Cascadeur"
+        },
+        {
+          "title": "Les Siffleurs",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt26932544",
+          "score": 67,
+          "formatted": "Les Siffleurs (2023) — Cascadeur"
+        },
+        {
+          "title": "La Maison d'en face",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt22180340",
+          "score": 66,
+          "formatted": "La Maison d'en face (2022) — Cascadeur"
+        }
+      ]
+    },
+    {
+      "id": "amedeo-cazzella",
+      "name": "Amédéo Cazzella",
+      "identityStatus": "RÉSOLU",
+      "declaredCreditsCount": 11,
+      "stats": {
+        "total": 114,
+        "kept": 24,
+        "excludedNonCinema": 2,
+        "excludedOverLimit": 88,
+        "richRoles": 4
+      },
+      "credits": [
+        {
+          "title": "Astérix & Obélix: L'Empire du Milieu",
+          "year": 2023,
+          "role": "Cascadeur & Maniement d'armes",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt11210390",
+          "score": 152,
+          "formatted": "Astérix & Obélix: L'Empire du Milieu (2023) — Cascadeur & Maniement d'armes"
+        },
+        {
+          "title": "Valérian et la Cité des mille planètes",
+          "year": 2017,
+          "role": "Cascadeur & Câblage",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt2239822",
+          "score": 146,
+          "formatted": "Valérian et la Cité des mille planètes (2017) — Cascadeur & Câblage"
+        },
+        {
+          "title": "Le Pacte des loups",
+          "year": 2001,
+          "role": "Cascadeur & Escrime scénique",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt0237534",
+          "score": 130,
+          "formatted": "Le Pacte des loups (2001) — Cascadeur & Escrime scénique"
+        },
+        {
+          "title": "The Killer",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt1121948",
+          "score": 128,
+          "formatted": "The Killer (2024) — Cascadeur"
+        },
+        {
+          "title": "John Wick : Chapitre 4",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt10366206",
+          "score": 127,
+          "formatted": "John Wick : Chapitre 4 (2023) — Cascadeur"
+        },
+        {
+          "title": "Anna",
+          "year": 2019,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt7456310",
+          "score": 123,
+          "formatted": "Anna (2019) — Cascadeur"
+        },
+        {
+          "title": "RAID Dingue",
+          "year": 2016,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt5736696",
+          "score": 120,
+          "formatted": "RAID Dingue (2016) — Cascadeur"
+        },
+        {
+          "title": "Le Transporteur: Héritage",
+          "year": 2015,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt2938956",
+          "score": 119,
+          "formatted": "Le Transporteur: Héritage (2015) — Cascadeur"
+        },
+        {
+          "title": "Lucy",
+          "year": 2014,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt2872732",
+          "score": 118,
+          "formatted": "Lucy (2014) — Cascadeur"
+        },
+        {
+          "title": "Taken 2",
+          "year": 2012,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt1397280",
+          "score": 116,
+          "formatted": "Taken 2 (2012) — Cascadeur"
+        },
+        {
+          "title": "Father Joe",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt38677100",
+          "score": 70,
+          "formatted": "Father Joe (2026) — Cascadeur"
+        },
+        {
+          "title": "La bataille de Gaulle: L'âge de fer",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt28553375",
+          "score": 70,
+          "formatted": "La bataille de Gaulle: L'âge de fer (2026) — Cascadeur"
+        },
+        {
+          "title": "Une Famille De Bâtards",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt36963493",
+          "score": 70,
+          "formatted": "Une Famille De Bâtards (2026) — Cascadeur"
+        },
+        {
+          "title": "Bastion 36",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt31032711",
+          "score": 69,
+          "formatted": "Bastion 36 (2025) — Cascadeur"
+        },
+        {
+          "title": "Chien 51",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt33255286",
+          "score": 69,
+          "formatted": "Chien 51 (2025) — Cascadeur"
+        },
+        {
+          "title": "Chroniques d'un Indic",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt33086904",
+          "score": 69,
+          "formatted": "Chroniques d'un Indic (2025) — Cascadeur"
+        },
+        {
+          "title": "Coka Chicas",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt33270077",
+          "score": 69,
+          "formatted": "Coka Chicas (2025) — Cascadeur"
+        },
+        {
+          "title": "Dracula",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt31434030",
+          "score": 69,
+          "formatted": "Dracula (2025) — Cascadeur"
+        },
+        {
+          "title": "Jean Valjean",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt35363310",
+          "score": 69,
+          "formatted": "Jean Valjean (2025) — Cascadeur"
+        },
+        {
+          "title": "La Colo",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt36435910",
+          "score": 69,
+          "formatted": "La Colo (2025) — Cascadeur"
+        },
+        {
+          "title": "Lie hu xing dong",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt10712788",
+          "score": 69,
+          "formatted": "Lie hu xing dong (2025) — Cascadeur"
+        },
+        {
+          "title": "Néro",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt32400599",
+          "score": 69,
+          "formatted": "Néro (2025) — Cascadeur"
+        },
+        {
+          "title": "Panique au Grand Magasin",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt38048816",
+          "score": 69,
+          "formatted": "Panique au Grand Magasin (2025) — Cascadeur"
+        },
+        {
+          "title": "Le Comte de Monte-Cristo",
+          "year": 2024,
+          "role": "Cascadeur & Combats d'époque",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 63,
+          "formatted": "Le Comte de Monte-Cristo (2024) — Cascadeur & Combats d'époque"
+        }
+      ]
+    },
+    {
+      "id": "niels-dalery",
+      "name": "Niels Dalery",
+      "identityStatus": "INTROUVABLE",
+      "declaredCreditsCount": 4,
+      "stats": {
+        "total": 4,
+        "kept": 4,
+        "excludedNonCinema": 0,
+        "excludedOverLimit": 0,
+        "richRoles": 4
+      },
+      "credits": [
+        {
+          "title": "Sous la Seine",
+          "year": 2024,
+          "role": "Cascadeur (Acrobaties & cascades subaquatiques)",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 63,
+          "formatted": "Sous la Seine (2024) — Cascadeur (Acrobaties & cascades subaquatiques)"
+        },
+        {
+          "title": "Champion de France Speed Running",
+          "year": 2013,
+          "role": "Titre National",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 52,
+          "formatted": "Champion de France Speed Running (2013) — Titre National"
+        },
+        {
+          "title": "Trigger",
+          "year": 0,
+          "role": "Cascadeur & Freerunner",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 35,
+          "formatted": "Trigger — Cascadeur & Freerunner"
+        },
+        {
+          "title": "XTreme Gravity",
+          "year": 0,
+          "role": "Performer acrobaties & tricks",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 35,
+          "formatted": "XTreme Gravity — Performer acrobaties & tricks"
+        }
+      ]
+    },
+    {
+      "id": "bastien-trouve",
+      "name": "Bastien Trouvé",
+      "identityStatus": "RÉSOLU",
+      "declaredCreditsCount": 4,
+      "stats": {
+        "total": 37,
+        "kept": 24,
+        "excludedNonCinema": 1,
+        "excludedOverLimit": 12,
+        "richRoles": 1
+      },
+      "credits": [
+        {
+          "title": "L'Amour ouf",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt27490099",
+          "score": 128,
+          "formatted": "L'Amour ouf (2024) — Cascadeur"
+        },
+        {
+          "title": "Largo Winch: Le prix de l'argent",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt23049322",
+          "score": 128,
+          "formatted": "Largo Winch: Le prix de l'argent (2024) — Cascadeur"
+        },
+        {
+          "title": "Anna",
+          "year": 2019,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt7456310",
+          "score": 123,
+          "formatted": "Anna (2019) — Cascadeur"
+        },
+        {
+          "title": "Fantômas - Le nouveau monde",
+          "year": 2027,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt38857102",
+          "score": 70,
+          "formatted": "Fantômas - Le nouveau monde (2027) — Cascadeur"
+        },
+        {
+          "title": "Bagarre",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt34724686",
+          "score": 70,
+          "formatted": "Bagarre (2026) — Cascadeur"
+        },
+        {
+          "title": "GIGN",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt35495063",
+          "score": 70,
+          "formatted": "GIGN (2026) — Cascadeur"
+        },
+        {
+          "title": "Ad Vitam",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt32138452",
+          "score": 69,
+          "formatted": "Ad Vitam (2025) — Cascadeur"
+        },
+        {
+          "title": "Coka Chicas",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt33270077",
+          "score": 69,
+          "formatted": "Coka Chicas (2025) — Cascadeur"
+        },
+        {
+          "title": "K.O.",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt36240772",
+          "score": 69,
+          "formatted": "K.O. (2025) — Cascadeur"
+        },
+        {
+          "title": "Néro",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt32400599",
+          "score": 69,
+          "formatted": "Néro (2025) — Cascadeur"
+        },
+        {
+          "title": "Rivages",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt29427695",
+          "score": 69,
+          "formatted": "Rivages (2025) — Cascadeur"
+        },
+        {
+          "title": "The Family Plan 2",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt34276058",
+          "score": 69,
+          "formatted": "The Family Plan 2 (2025) — Cascadeur"
+        },
+        {
+          "title": "Fiasco",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt27415863",
+          "score": 68,
+          "formatted": "Fiasco (2024) — Cascadeur"
+        },
+        {
+          "title": "Furies",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt11384300",
+          "score": 68,
+          "formatted": "Furies (2024) — Cascadeur"
+        },
+        {
+          "title": "Sous écrous",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt33396612",
+          "score": 68,
+          "formatted": "Sous écrous (2024) — Cascadeur"
+        },
+        {
+          "title": "Eon's Echo",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt29920663",
+          "score": 67,
+          "formatted": "Eon's Echo (2023) — Cascadeur"
+        },
+        {
+          "title": "Nouveaux riches",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt27921620",
+          "score": 67,
+          "formatted": "Nouveaux riches (2023) — Cascadeur"
+        },
+        {
+          "title": "Pax Massilia",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt28129282",
+          "score": 67,
+          "formatted": "Pax Massilia (2023) — Cascadeur"
+        },
+        {
+          "title": "Une zone à défendre",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt21276064",
+          "score": 67,
+          "formatted": "Une zone à défendre (2023) — Cascadeur"
+        },
+        {
+          "title": "Vermines",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt26744289",
+          "score": 67,
+          "formatted": "Vermines (2023) — Cascadeur"
+        },
+        {
+          "title": "Balle perdue 2",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt14465706",
+          "score": 66,
+          "formatted": "Balle perdue 2 (2022) — Cascadeur"
+        },
+        {
+          "title": "Détox",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt21448608",
+          "score": 66,
+          "formatted": "Détox (2022) — Cascadeur"
+        },
+        {
+          "title": "Loin du périph",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt13822738",
+          "score": 66,
+          "formatted": "Loin du périph (2022) — Cascadeur"
+        },
+        {
+          "title": "Fight concepts cinéma",
+          "year": 0,
+          "role": "Performer & Chorégraphe",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 35,
+          "formatted": "Fight concepts cinéma — Performer & Chorégraphe"
+        }
+      ]
+    },
+    {
+      "id": "alan-cueff",
+      "name": "Alan Cueff",
+      "identityStatus": "RÉSOLU",
+      "declaredCreditsCount": 4,
+      "stats": {
+        "total": 20,
+        "kept": 20,
+        "excludedNonCinema": 0,
+        "excludedOverLimit": 0,
+        "richRoles": 3
+      },
+      "credits": [
+        {
+          "title": "Quasimodo",
+          "year": 0,
+          "role": "Cascadeur & Acrobaties",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt37267166",
+          "score": 125,
+          "formatted": "Quasimodo — Cascadeur & Acrobaties"
+        },
+        {
+          "title": "Anna",
+          "year": 2019,
+          "role": "Cascadeur",
+          "status": "CONFIRMÉ",
+          "imdbId": "tt7456310",
+          "score": 123,
+          "formatted": "Anna (2019) — Cascadeur"
+        },
+        {
+          "title": "Furies",
+          "year": 2024,
+          "role": "Cascadeur Parkour & Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt11384300",
+          "score": 93,
+          "formatted": "Furies (2024) — Cascadeur Parkour & Cascadeur"
+        },
+        {
+          "title": "Bagarre",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt34724686",
+          "score": 70,
+          "formatted": "Bagarre (2026) — Cascadeur"
+        },
+        {
+          "title": "Jupiter",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt37424290",
+          "score": 70,
+          "formatted": "Jupiter (2026) — Cascadeur"
+        },
+        {
+          "title": "Ad Vitam",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt32138452",
+          "score": 69,
+          "formatted": "Ad Vitam (2025) — Cascadeur"
+        },
+        {
+          "title": "Chien 51",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt33255286",
+          "score": 69,
+          "formatted": "Chien 51 (2025) — Cascadeur"
+        },
+        {
+          "title": "Les Sentinelles",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt10094546",
+          "score": 69,
+          "formatted": "Les Sentinelles (2025) — Cascadeur"
+        },
+        {
+          "title": "Néro",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt32400599",
+          "score": 69,
+          "formatted": "Néro (2025) — Cascadeur"
+        },
+        {
+          "title": "Privilèges",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt35677100",
+          "score": 69,
+          "formatted": "Privilèges (2025) — Cascadeur"
+        },
+        {
+          "title": "L'Amour ouf",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt27490099",
+          "score": 68,
+          "formatted": "L'Amour ouf (2024) — Cascadeur"
+        },
+        {
+          "title": "The Killer",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt1121948",
+          "score": 68,
+          "formatted": "The Killer (2024) — Cascadeur"
+        },
+        {
+          "title": "Loin du périph",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt13822738",
+          "score": 66,
+          "formatted": "Loin du périph (2022) — Cascadeur"
+        },
+        {
+          "title": "Oussekine",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt14066198",
+          "score": 66,
+          "formatted": "Oussekine (2022) — Cascadeur"
+        },
+        {
+          "title": "Level one",
+          "year": 2021,
+          "role": "Cascadeur Parkour",
+          "status": "NOUVEAU",
+          "imdbId": "tt15656328",
+          "score": 65,
+          "formatted": "Level one (2021) — Cascadeur Parkour"
+        },
+        {
+          "title": "Caro",
+          "year": 2020,
+          "role": "Cascadeur Parkour",
+          "status": "NOUVEAU",
+          "imdbId": "tt10941172",
+          "score": 64,
+          "formatted": "Caro (2020) — Cascadeur Parkour"
+        },
+        {
+          "title": "Police de Caractères",
+          "year": 2020,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt13963648",
+          "score": 64,
+          "formatted": "Police de Caractères (2020) — Cascadeur"
+        },
+        {
+          "title": "Elyas",
+          "year": 2024,
+          "role": "Cascadeur (Cascades physiques & tactique)",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 63,
+          "formatted": "Elyas (2024) — Cascadeur (Cascades physiques & tactique)"
+        },
+        {
+          "title": "Junga",
+          "year": 2018,
+          "role": "Cascadeur",
+          "status": "NOUVEAU",
+          "imdbId": "tt7483340",
+          "score": 62,
+          "formatted": "Junga (2018) — Cascadeur"
+        },
+        {
+          "title": "The Sentinels",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "NON VÉRIFIABLE",
+          "imdbId": null,
+          "score": 38,
+          "formatted": "The Sentinels (2024) — Cascadeur"
+        }
+      ]
+    }
+  ]
+}

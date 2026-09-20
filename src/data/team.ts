@@ -221,10 +221,7 @@ export const CUC_TEAM: Instructor[] = [
     specialties: ['Acrobatie au sol', 'Freerunning urbain', 'Tricks de scène', 'Trampoline'],
     bio: 'Cascadeur, freerunner professionnel et champion de France de Speed Running (2013). Niels Dalery enseigne au CUC la maîtrise des acrobaties au sol, des rotations aériennes et du freerunning appliqués aux cascades cinéma.',
     notableCredits: [
-      'Sous la Seine (2024) — Cascadeur (Acrobaties & cascades subaquatiques)',
-      'Champion de France Speed Running (2013) — Titre National',
-      'Trigger — Cascadeur & Freerunner',
-      'XTreme Gravity — Performer acrobaties & tricks'
+      'Sous la Seine (2024) — Cascadeur (Acrobaties & cascades subaquatiques)'
     ],
     avatarUrl: 'https://www.campus-universcascades.com/wp-content/uploads/2017/11/6-niels.png',
     imdb: 'https://www.imdb.com/name/nm9102434/',

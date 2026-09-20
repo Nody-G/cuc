@@ -12,7 +12,18 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "audit": "node scripts/audit.mjs",
-    "audit:strict": "node scripts/audit.mjs --strict"
+    "audit:strict": "node scripts/audit.mjs --strict",
+    "coaches:resolve": "node scripts/resolve_tmdb_person_ids.mjs",
+    "coaches:scrape": "node scripts/scrape_coach_credits.mjs",
+    "coaches:scrape:fresh": "node scripts/scrape_coach_credits.mjs --no-cache",
+    "coaches:scrape:imdb": "node scripts/scrape_coach_credits_imdb.mjs",
+    "coaches:scrape:imdb:fresh": "node scripts/scrape_coach_credits_imdb.mjs --no-cache",
+    "coaches:curate": "node scripts/curate_coach_credits.mjs",
+    "coaches:curate:excluded": "node scripts/curate_coach_credits.mjs --show-excluded",
+    "coaches:apply": "node scripts/apply_verified_coach_credits.mjs --write",
+    "coaches:apply:preview": "node scripts/apply_verified_coach_credits.mjs",
+    "coaches:sync": "node scripts/sync_coach_credits_supabase.mjs --write",
+    "coaches:sync:preview": "node scripts/sync_coach_credits_supabase.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

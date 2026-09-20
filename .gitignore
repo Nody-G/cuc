@@ -39,3 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# scraper TMDB (cache disque + artefacts de revue)
+/.cache/tmdb/
+scripts/tmdb_person_resolution.json
+scripts/coach_credits_review.json
+src/data/team.ts.bak
+
+# scraper IMDb (cache disque + artefacts de revue)
+/.cache/imdb/
+scripts/imdb_person_resolution.json
+scripts/coach_credits_review_imdb.json
