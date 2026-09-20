@@ -632,11 +632,6 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) =>
                             {film.title}
                           </h3>
 
-                          {film.stuntRoles && (
-                            <p className="text-xs font-tech text-zinc-400 line-clamp-2 leading-relaxed">
-                              {film.stuntRoles}
-                            </p>
-                          )}
                         </div>
                       </div>
 

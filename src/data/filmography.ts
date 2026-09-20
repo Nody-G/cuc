@@ -217,7 +217,6 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "trailerUrl": "https://www.youtube.com/watch?v=HPfkQ9gMLMY",
     "cuc_team_involved": [
       "franck-blanc",
-      "niels-dalery",
       "lucas-dollfus"
     ]
   },

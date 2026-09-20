@@ -114,9 +114,11 @@ export const FilmGridCard: React.FC<FilmGridCardProps> = ({
           <h4 className="text-xl font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors leading-tight mb-2">
             {movie.title}
           </h4>
-          <p className="text-xs text-zinc-400 font-tech leading-relaxed mb-4 line-clamp-3">
-            {movie.description || movie.stuntRoles}
-          </p>
+          {movie.description && (
+            <p className="text-xs text-zinc-400 font-tech leading-relaxed mb-4 line-clamp-3">
+              {movie.description}
+            </p>
+          )}
         </div>
 
         <div>

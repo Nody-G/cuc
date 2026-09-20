@@ -102,21 +102,11 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                 </p>
               )}
 
-              {/* Cascades / Intervention */}
-              <div className="space-y-1">
-                <span className="text-[11px] font-mono-tech text-[#FFE500] uppercase font-bold block">
-                  Cascades &amp; rôle :
-                </span>
-                <p className="text-xs text-zinc-300 font-tech leading-relaxed">
-                  {movie.stuntRoles}
-                </p>
-              </div>
-
               {/* Doublures */}
               {movie.doubledActors && movie.doubledActors.length > 0 && (
                 <div className="space-y-1">
                   <span className="text-[11px] font-mono-tech text-zinc-500 uppercase font-bold block">
-                    Doublures &amp; comédiens :
+                    Doublures & comédiens :
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     {movie.doubledActors.map((actor, idx) => (
@@ -253,7 +243,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
             Fermer
           </button>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
