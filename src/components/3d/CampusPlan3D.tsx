@@ -20,6 +20,7 @@ import {
 import { useCampusScene } from './engine/useCampusScene';
 import { CampusViewerHUD } from './ui/CampusViewerHUD';
 import { CampusEditorPanel } from './ui/CampusEditorPanel';
+import { CampusStudioToolbar } from './ui/CampusStudioToolbar';
 import { CampusJsonStudioModal } from './ui/CampusJsonStudioModal';
 import { getCampusPlacements3D } from '@/lib/data/site-service';
 import { upsertCampusPlacements3D } from '@/app/admin/actions';
@@ -285,6 +286,7 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
     mode,
     onUpdateFacility: updateFacility,
     onSelectObjectId: handleSelectObjectId,
+    onGizmoModeChange: setGizmoMode,
   });
 
   // Toggle fullscreen
@@ -502,6 +504,19 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
       <div className="relative flex-grow w-full h-full bg-black flex overflow-hidden">
         <div className="relative flex-grow w-full h-full cursor-grab active:cursor-grabbing">
           <canvas ref={canvasRef} className="w-full h-full block" />
+
+          {/* Outil de manipulation accessible dans le viewport : la rotation
+              reste trouvable même si le panneau latéral est hors champ. */}
+          {isEditorOpen && (
+            <CampusStudioToolbar
+              gizmoMode={gizmoMode}
+              onSetGizmoMode={setGizmoMode}
+              canUndo={historyFlags.canUndo}
+              canRedo={historyFlags.canRedo}
+              onUndo={undo}
+              onRedo={redo}
+            />
+          )}
         </div>
 
         {/* Studio de placement — techniciens uniquement (?studio=1) */}

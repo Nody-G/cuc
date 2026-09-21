@@ -136,6 +136,34 @@ directement à `rotationY`, sans correction de signe ad hoc. Le passage ±180° 
 - **Verrou lié** : le rapport appliqué à l'axe piloté est reporté **proportionnellement** sur les
   deux autres, ce qui préserve un jeu déséquilibré (1 : 2 : 3 → 2 : 4 : 6) au lieu de l'écraser.
 
+### 4.6 Accessibilité de la rotation (correctif de découvrabilité)
+
+Premier retour d'usage : « j'arrive pas à trouver comment rotationner les éléments ». Cause réelle :
+l'anneau de lacet n'était monté que dans le groupe du mode **Tourner**, donc **invisible** tant que
+l'outil n'avait pas été changé — et le sélecteur d'outil vivait uniquement dans le panneau latéral,
+qui peut être hors champ (fenêtre étroite, défilement).
+
+Trois corrections :
+
+1. **L'anneau de lacet est affiché dans tous les outils** (estompé hors mode Tourner). C'est
+   l'affordance de rotation : elle ne doit jamais disparaître.
+2. **Le saisir bascule automatiquement l'outil sur « Tourner »** : la manipulation aboutit toujours,
+   et le panneau reflète ensuite l'outil réellement utilisé. Un clic sur l'anneau n'est jamais mort.
+3. **Barre d'outils superposée au viewport** ([`CampusStudioToolbar.tsx`](src/components/3d/ui/CampusStudioToolbar.tsx)),
+   avec les trois outils étiquetés et leur raccourci. L'outil est visible là où le regard se trouve,
+   indépendamment de l'état du panneau latéral.
+
+Pour éviter que l'anneau permanent ne capte un clic destiné à une flèche ou à un axe, la détection
+donne **la priorité aux poignées de l'outil courant**, l'anneau ne servant que de repli.
+
+Deux garanties supplémentaires :
+
+- **Pivot figé à la saisie** : les mesures d'angle et de mise à l'échelle se rapportent à
+  `dragPivot`, capturé au clic, et non à la position vivante du gizmo. Changer d'outil ou suivre
+  l'objet pendant le glisser ne peut donc pas décaler le centre de rotation sous le pointeur.
+- **Ancre stable pendant le glisser** : `anchorGizmo` conserve l'ancrage de l'outil saisi
+  (`dragGizmoMode`), donc le gizmo ne saute pas lorsqu'un changement d'outil survient en plein geste.
+
 ---
 
 ## 5. Saisie numérique, annulation, persistance
@@ -204,6 +232,8 @@ comportement ([`facilityTransform.test.ts`](src/components/3d/data/facilityTrans
 | [`useCampusScene.ts`](src/components/3d/engine/useCampusScene.ts) | Mode de gizmo, snapshot de glisser, échelle adaptative dans la boucle de rendu |
 | [`EditorCoordinateInputs.tsx`](src/components/3d/ui/EditorCoordinateInputs.tsx) | Position, orientation, dimensions, verrou, référence OSM |
 | [`CampusEditorPanel.tsx`](src/components/3d/ui/CampusEditorPanel.tsx) | Sélecteur d'outil, annuler / rétablir, aide des raccourcis |
+| [`CampusStudioToolbar.tsx`](src/components/3d/ui/CampusStudioToolbar.tsx) *(nouveau)* | Barre d'outils superposée au viewport : outils étiquetés + annuler / rétablir |
+| [`useCampusGizmo.test.ts`](src/components/3d/engine/useCampusGizmo.test.ts) *(nouveau)* | Contrat des poignées, visibilité par outil, exclusion des groupes masqués |
 | [`CampusPlan3D.tsx`](src/components/3d/CampusPlan3D.tsx) | État du mode, historique fusionné, chargements normalisés, raccourcis |
 | `defaultFacilities.test.ts`, `facilityTransform.test.ts` | Couverture de la migration, des bornes et du verrou d'échelle |
 

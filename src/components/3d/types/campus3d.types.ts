@@ -120,6 +120,15 @@ export interface ThreeSceneContext {
   dragStartTransform: FacilityTransform;
   /** Paramètre le long de l'axe manipulé au moment du clic (échelle / rotation). */
   dragStartAxisParam: number;
+  /**
+   * Pivot figé au moment de la saisie : les mesures d'angle et de mise à
+   * l'échelle se font autour de ce point, jamais autour de la position
+   * vivante du gizmo. Sans ce gel, un changement d'outil ou le suivi de
+   * l'objet pendant le glisser décaleraient le centre de rotation.
+   */
+  dragPivot: THREE.Vector3;
+  /** Outil actif au moment de la saisie (l'ancre ne doit pas bouger ensuite). */
+  dragGizmoMode: GizmoMode;
   /** Position écran du pointeur au moment du clic (échelle uniforme). */
   dragStartPointer: { x: number; y: number };
   /** Rayon englobant de l'objet sélectionné, figé pour la durée du glisser. */

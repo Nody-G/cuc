@@ -60,24 +60,59 @@ export function handleToDragType(handle: GizmoHandleName): GizmoDragType {
   }
 }
 
-const GIZMO_MODE_GROUP = {
+const ROTATE_GROUP_NAME = 'gizmo-rotate-group';
+
+/**
+ * Groupes **exclusifs** : une seule famille d'axes affichée à la fois.
+ * Les flèches de translation et les axes d'échelle occupent la même place ;
+ * les afficher simultanément rendrait la moindre poignée ambiguë.
+ */
+const GIZMO_EXCLUSIVE_GROUP = {
   translate: 'gizmo-translate-group',
-  rotate: 'gizmo-rotate-group',
   scale: 'gizmo-scale-group',
 } as const;
 
+/** Opacité de l'anneau de lacet selon qu'il est l'outil courant ou non. */
+const ROTATE_RING_OPACITY = { active: 0.9, idle: 0.28 } as const;
+
 /**
- * Affiche le jeu de poignées du mode courant et masque les autres.
- * Masquer un groupe **retire** ses poignées du raycast : aucune ambiguïté
- * possible entre une flèche de translation et un axe d'échelle superposés.
+ * Sélectionne l'outil de manipulation.
+ *
+ * L'anneau de lacet **reste affiché dans tous les modes** : c'est
+ * l'affordance de rotation, et sa disparition rendait la rotation
+ * introuvable. Hors mode « Tourner », il est simplement estompé, et la
+ * détection lui donne la priorité la plus basse (voir `findFirstGizmoHandle`)
+ * pour qu'il ne vole jamais le clic destiné à un axe du mode courant.
  */
 export function setGizmoMode(gizmoGroup: THREE.Group | undefined, mode: GizmoMode): void {
   if (!gizmoGroup) return;
   gizmoGroup.userData.gizmoMode = mode;
 
-  (Object.keys(GIZMO_MODE_GROUP) as GizmoMode[]).forEach((key) => {
-    const group = gizmoGroup.getObjectByName(GIZMO_MODE_GROUP[key]);
-    if (group) group.visible = key === mode;
+  (Object.keys(GIZMO_EXCLUSIVE_GROUP) as Array<keyof typeof GIZMO_EXCLUSIVE_GROUP>).forEach(
+    (key) => {
+      const group = gizmoGroup.getObjectByName(GIZMO_EXCLUSIVE_GROUP[key]);
+      if (group) group.visible = key === mode;
+    }
+  );
+
+  setRotateRingEmphasis(gizmoGroup, mode === 'rotate');
+}
+
+/** Estompe ou met en avant l'anneau de lacet selon qu'il est l'outil courant. */
+export function setRotateRingEmphasis(gizmoGroup: THREE.Group | undefined, active: boolean): void {
+  const group = gizmoGroup?.getObjectByName(ROTATE_GROUP_NAME);
+  if (!group) return;
+
+  group.visible = true;
+  group.traverse((child) => {
+    if (!(child instanceof THREE.Mesh)) return;
+    const materials = Array.isArray(child.material) ? child.material : [child.material];
+    materials.forEach((material) => {
+      if (material instanceof THREE.MeshBasicMaterial) {
+        material.transparent = true;
+        material.opacity = active ? ROTATE_RING_OPACITY.active : ROTATE_RING_OPACITY.idle;
+      }
+    });
   });
 }
 
@@ -207,9 +242,9 @@ export function createCampusGizmo(): THREE.Group {
   gizmoGroup.userData.gizmoMode = 'translate' as GizmoMode;
   gizmoGroup.userData.gizmoScale = 1;
 
-  // --- Mode « Déplacer » : flèches X / Y / Z + disque de glissement libre ---
+  // --- Mode « Déplacer » : flèches X / Z + disque de glissement libre ---
   const translateGroup = new THREE.Group();
-  translateGroup.name = GIZMO_MODE_GROUP.translate;
+  translateGroup.name = GIZMO_EXCLUSIVE_GROUP.translate;
 
   const discMat = new THREE.MeshBasicMaterial({
     color: 0x00e5ff,
@@ -236,17 +271,17 @@ export function createCampusGizmo(): THREE.Group {
   translateGroup.add(buildArrow('z', 'gizmo-translate-z'));
   gizmoGroup.add(translateGroup);
 
-  // --- Mode « Tourner » : anneau de lacet (rotation autour de l'axe vertical).
+  // --- Anneau de lacet (rotation autour de l'axe vertical), affiché dans
+  // --- tous les modes : c'est l'affordance de rotation du studio.
   // Le bâtiment reste d'aplomb : aucune inclinaison n'est exposée.
   const rotateGroup = new THREE.Group();
-  rotateGroup.name = GIZMO_MODE_GROUP.rotate;
+  rotateGroup.name = ROTATE_GROUP_NAME;
   rotateGroup.add(buildRotationRing('y', 'gizmo-rotate-y'));
-  rotateGroup.visible = false;
   gizmoGroup.add(rotateGroup);
 
   // --- Mode « Redimensionner » : axes + cube central d'échelle uniforme ---
   const scaleGroup = new THREE.Group();
-  scaleGroup.name = GIZMO_MODE_GROUP.scale;
+  scaleGroup.name = GIZMO_EXCLUSIVE_GROUP.scale;
   scaleGroup.add(buildScaleHandle('x', 'gizmo-scale-x'));
   scaleGroup.add(buildScaleHandle('y', 'gizmo-scale-y'));
   scaleGroup.add(buildScaleHandle('z', 'gizmo-scale-z'));
@@ -268,6 +303,8 @@ export function createCampusGizmo(): THREE.Group {
   scaleGroup.visible = false;
   gizmoGroup.add(scaleGroup);
 
+  setGizmoMode(gizmoGroup, 'translate');
+
   gizmoGroup.visible = false;
   return gizmoGroup;
 }
@@ -285,30 +322,53 @@ export function findGizmoHandle(
   obj: THREE.Object3D | null,
   gizmoRoot: THREE.Group
 ): GizmoHandleName | null {
+  let handle: GizmoHandleName | null = null;
   let cur = obj;
+
   while (cur && cur !== gizmoRoot) {
+    // La chaîne complète est contrôlée **avant** de conclure : un maillage peut
+    // être visible alors que son groupe porteur est masqué (jeu de poignées
+    // d'un autre outil), et il ne doit alors jamais répondre au clic.
     if (!cur.visible) return null;
-    if (cur.name && GIZMO_HANDLE_SET.has(cur.name)) {
-      return cur.name as GizmoHandleName;
+    if (!handle && cur.name && GIZMO_HANDLE_SET.has(cur.name)) {
+      handle = cur.name as GizmoHandleName;
     }
     cur = cur.parent;
   }
-  return null;
+
+  return handle;
 }
+
+/** Outil auquel appartient une poignée. */
+export function handleToMode(handle: GizmoHandleName): GizmoMode {
+  if (handle === 'gizmo-rotate-y') return 'rotate';
+  if (handle === 'gizmo-scale-x' || handle === 'gizmo-scale-y' || handle === 'gizmo-scale-z' || handle === 'gizmo-scale-uniform') {
+    return 'scale';
+  }
+  return 'translate';
+}
+
+/** Filtre appliqué aux intersections retenues (priorité à un outil). */
+export type GizmoHandleFilter = (handle: GizmoHandleName) => boolean;
 
 /**
  * Première poignée **active** (visible) parmi les intersections du rayon.
- * Le tri par proximité ne suffit pas : la première intersection peut
- * appartenir à un jeu de poignées masqué, tandis qu'une poignée visible du
- * mode courant se trouve juste derrière.
+ *
+ * Le tri par proximité ne suffit pas : l'anneau de lacet est affiché en
+ * permanence et peut se trouver devant une poignée du mode courant. Le filtre
+ * permet de donner la priorité aux poignées de l'outil sélectionné, afin que
+ * l'anneau ne vole jamais le clic destiné à un axe de translation ou d'échelle.
  */
-export function findFirstActiveGizmoHandle(
+export function findFirstGizmoHandle(
   intersections: THREE.Intersection[],
-  gizmoRoot: THREE.Group
+  gizmoRoot: THREE.Group,
+  filter?: GizmoHandleFilter
 ): GizmoHandleName | null {
   for (const hit of intersections) {
     const handle = findGizmoHandle(hit.object, gizmoRoot);
-    if (handle) return handle;
+    if (!handle) continue;
+    if (filter && !filter(handle)) continue;
+    return handle;
   }
   return null;
 }

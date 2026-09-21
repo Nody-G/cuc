@@ -6,6 +6,7 @@ import {
   EditableFacilityItem,
   FacilityTransform,
   GizmoDragType,
+  GizmoMode,
   ThreeSceneContext,
 } from '../types/campus3d.types';
 import {
@@ -28,8 +29,10 @@ import {
 } from './gizmoMath';
 import {
   findBuildingGroup,
-  findFirstActiveGizmoHandle,
+  findFirstGizmoHandle,
   handleToDragType,
+  handleToMode,
+  setGizmoMode,
   setHighlightRadius,
 } from './useCampusGizmo';
 import { anchorGizmo, applyTransformToObject } from './campusSync';
@@ -46,6 +49,8 @@ interface PointerEventsSetupOptions {
   onSelectObjectId: (id: string) => void;
   focusFacility: (id: string) => void;
   setCameraDistance: (dist: number) => void;
+  /** Synchronise l'état React de l'outil quand une poignée impose de changer. */
+  onGizmoModeChange: (mode: GizmoMode) => void;
 }
 
 type Axis = 'x' | 'y' | 'z';
@@ -62,6 +67,7 @@ export function setupCampusPointerEvents({
   onSelectObjectId,
   focusFacility,
   setCameraDistance,
+  onGizmoModeChange,
 }: PointerEventsSetupOptions) {
   let pointerDownClientPos = { x: 0, y: 0 };
   let pendingTransform: { id: string; transform: FacilityTransform } | null = null;
@@ -121,7 +127,11 @@ export function setupCampusPointerEvents({
       three.dragStartIntersection.set(three.dragStartTransform.x, 0, three.dragStartTransform.z);
     }
 
-    const center = three.gizmoGroup.position.clone();
+    // Pivot figé à la saisie : toutes les mesures du glisser se rapportent à
+    // ce point. Le gizmo, lui, continue de suivre l'objet visuellement.
+    three.dragPivot.copy(three.gizmoGroup.position);
+    three.dragGizmoMode = three.gizmoMode;
+    const center = three.dragPivot;
     three.dragStartAxisParam = 0;
 
     if (dragType === 'scale-x' || dragType === 'scale-y' || dragType === 'scale-z') {
@@ -148,13 +158,27 @@ export function setupCampusPointerEvents({
     if (isEditorOpenRef.current && e.button === 0) {
       // 1. Poignée de gizmo : noms exacts **et** poignée réellement visible
       //    (`Raycaster` ignore `Object3D.visible`, donc les jeux de poignées
-      //    masqués des autres modes doivent être écartés explicitement).
+      //    masqués doivent être écartés explicitement).
+      //    Priorité aux poignées de l'outil courant : l'anneau de lacet, affiché
+      //    en permanence, ne doit pas voler le clic destiné à une flèche ou à un
+      //    axe d'échelle placés devant lui.
       const currentItem = facilitiesRef.current[selectedObjectIdRef.current];
       const gizmoHits = three.raycaster.intersectObjects(three.gizmoGroup.children, true);
       if (currentItem && gizmoHits.length > 0) {
-        const handle = findFirstActiveGizmoHandle(gizmoHits, three.gizmoGroup);
+        const handle =
+          findFirstGizmoHandle(gizmoHits, three.gizmoGroup, (name) => handleToMode(name) === three.gizmoMode) ??
+          findFirstGizmoHandle(gizmoHits, three.gizmoGroup);
+
         const dragType = handle ? handleToDragType(handle) : null;
         if (dragType) {
+          // Glisser l'anneau de lacet depuis un autre outil bascule sur
+          // « Tourner » : la manipulation aboutit toujours, et le panneau
+          // reflète ensuite l'outil réellement utilisé.
+          if (dragType === 'rotate-y' && three.gizmoMode !== 'rotate') {
+            three.gizmoMode = 'rotate';
+            setGizmoMode(three.gizmoGroup, 'rotate');
+            onGizmoModeChange('rotate');
+          }
           beginGizmoDrag(three, e, currentItem, dragType);
           return;
         }
@@ -203,7 +227,7 @@ export function setupCampusPointerEvents({
       const next: FacilityTransform = { ...start };
       const fine = e.shiftKey;
       const snap = snapGridRef.current;
-      const center = three.gizmoGroup.position.clone();
+      const center = three.dragPivot;
 
       switch (active) {
         case 'translate-x':

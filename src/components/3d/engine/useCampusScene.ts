@@ -33,6 +33,8 @@ interface UseCampusSceneProps {
   mode: PlanMode;
   onUpdateFacility: (id: string, updates: Partial<EditableFacilityItem>) => void;
   onSelectObjectId: (id: string) => void;
+  /** Remonte un changement d'outil décidé dans la scène (anneau de lacet saisi). */
+  onGizmoModeChange: (mode: GizmoMode) => void;
 }
 
 export function useCampusScene({
@@ -47,6 +49,7 @@ export function useCampusScene({
   mode,
   onUpdateFacility,
   onSelectObjectId,
+  onGizmoModeChange,
 }: UseCampusSceneProps) {
   const [bearing, setBearing] = useState<number>(315);
   const [cameraDistance, setCameraDistance] = useState<number>(75);
@@ -63,6 +66,7 @@ export function useCampusScene({
   const gizmoModeRef = useRef(gizmoMode);
   const updateFacilityRef = useRef(onUpdateFacility);
   const onSelectObjectIdRef = useRef(onSelectObjectId);
+  const onGizmoModeChangeRef = useRef(onGizmoModeChange);
   const modeRef = useRef(mode);
 
   const lastTelemetryUpdateRef = useRef<number>(0);
@@ -125,6 +129,7 @@ export function useCampusScene({
     gizmoModeRef.current = gizmoMode;
     updateFacilityRef.current = onUpdateFacility;
     onSelectObjectIdRef.current = onSelectObjectId;
+    onGizmoModeChangeRef.current = onGizmoModeChange;
     focusFacilityRef.current = focusFacility;
     modeRef.current = mode;
   });
@@ -199,6 +204,8 @@ export function useCampusScene({
         scaleZ: 1,
       },
       dragStartAxisParam: 0,
+      dragPivot: new THREE.Vector3(),
+      dragGizmoMode: 'translate',
       dragStartPointer: { x: 0, y: 0 },
       dragObjectRadius: 9,
       gizmoMode: gizmoModeRef.current,
@@ -241,6 +248,7 @@ export function useCampusScene({
       onSelectObjectId: (id) => onSelectObjectIdRef.current(id),
       focusFacility: (id) => focusFacilityRef.current?.(id),
       setCameraDistance,
+      onGizmoModeChange: (nextMode) => onGizmoModeChangeRef.current?.(nextMode),
     });
 
     const handleResize = () => {

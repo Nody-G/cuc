@@ -101,9 +101,10 @@ export const CampusPlan3DView: React.FC = () => {
               <span className="text-xs font-bold uppercase tracking-wider">Tourner</span>
             </div>
             <p className="text-xs text-zinc-400 leading-relaxed">
-              Touche <kbd>2</kbd> (ou le bouton « Tourner ») puis glissez l’anneau de lacet. Les
-              touches <kbd>[</kbd> / <kbd>]</kbd> pivotent de 15°, le curseur règle la rotation au
-              degré près. Le bâtiment reste d’aplomb : aucune inclinaison n’est appliquée.
+              L’anneau jaune autour de l’objet le fait pivoter : il est affiché en permanence, quel
+              que soit l’outil sélectionné. Le saisir bascule l’outil sur « Tourner » (touche{' '}
+              <kbd>2</kbd>). Les touches <kbd>[</kbd> / <kbd>]</kbd> pivotent de 15°, le curseur
+              règle la rotation au degré près. Le bâtiment reste d’aplomb : aucune inclinaison.
             </p>
           </div>
 

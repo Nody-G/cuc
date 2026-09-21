@@ -70,7 +70,12 @@ export function anchorGizmo(
   const frame = getObjectFrame(three.buildingsGroup.getObjectByName(id));
   three.gizmoObjectRadius = frame?.radius ?? 9;
 
-  const anchorY = gizmoMode === 'translate' ? 0.15 : frame?.center.y ?? 0.15;
+  // Pendant un glisser, l'ancre reste celle de l'outil saisi : changer
+  // d'outil en cours de manipulation ne doit pas faire sauter le gizmo, sinon
+  // le centre de rotation se déplace sous le pointeur.
+  const effectiveMode = three.isDraggingGizmo ? three.dragGizmoMode : gizmoMode;
+  const anchorY = effectiveMode === 'translate' ? 0.15 : frame?.center.y ?? 0.15;
+
   gizmo.position.set(transform.x, anchorY, transform.z);
   gizmo.rotation.y = 0;
 
