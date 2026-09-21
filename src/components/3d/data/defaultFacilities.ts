@@ -1,108 +1,27 @@
 import { CameraPreset, CameraPresetConfig, EditableFacilityItem } from '../types/campus3d.types';
+import { REAL_FACILITIES, REAL_FACILITY_ORDER } from './realFacilities';
 
-// Initial placements calibrated to the real 1400x1400 IGN orthophoto
-// (Le Cateau-Cambrésis, 70 Rue Faidherbe — 50.0909° N, 3.5374° E)
-export const DEFAULT_FACILITIES: Record<string, EditableFacilityItem> = {
-  'cuc-tower': {
-    id: 'cuc-tower',
-    name: 'CUC Tower 21m (Inaugurée 2024)',
-    code: '01',
-    x: 7.0,
-    z: 14.0,
-    rotationY: 0,
-    scale: 1.0,
-    heightScale: 1.0,
-    visible: true,
-  },
-  'zoe-bell-hall': {
-    id: 'zoe-bell-hall',
-    name: 'Zoé Bell Hall (700m²)',
-    code: '02',
-    x: 25.0,
-    z: 40.0,
-    rotationY: 0,
-    scale: 1.0,
-    heightScale: 1.0,
-    visible: true,
-  },
-  'hangar-wirework': {
-    id: 'hangar-wirework',
-    name: 'Hall Câblage & Cascades',
-    code: '03',
-    x: 14.0,
-    z: 38.0,
-    rotationY: 0,
-    scale: 1.0,
-    heightScale: 1.0,
-    visible: true,
-  },
-  'dojos-sceniques': {
-    id: 'dojos-sceniques',
-    name: 'Dojos Scéniques (Salle 3)',
-    code: '04',
-    x: 38.0,
-    z: 36.0,
-    rotationY: 0,
-    scale: 1.0,
-    heightScale: 1.0,
-    visible: true,
-  },
-  'city-stade-exterieur': {
-    id: 'city-stade-exterieur',
-    name: 'City Stade & Espace Sportif',
-    code: '09',
-    x: -55.0,
-    z: -24.0,
-    rotationY: 0,
-    scale: 1.0,
-    heightScale: 1.0,
-    visible: true,
-  },
-  'espace-mecanique': {
-    id: 'espace-mecanique',
-    name: 'Atelier Mécanique & Stunt',
-    code: '06',
-    x: -32.0,
-    z: 43.0,
-    rotationY: 0,
-    scale: 1.0,
-    heightScale: 1.0,
-    visible: true,
-  },
-  'site-tournage': {
-    id: 'site-tournage',
-    name: 'Site Extérieur (6 Hectares)',
-    code: '07',
-    x: 11.0,
-    z: -39.0,
-    rotationY: 0,
-    scale: 1.0,
-    heightScale: 1.0,
-    visible: true,
-  },
-  'qg-staff-hebergement': {
-    id: 'qg-staff-hebergement',
-    name: 'Hébergement & Accueil (90 Lits)',
-    code: '08',
-    x: 28.0,
-    z: 24.0,
-    rotationY: 0,
-    scale: 1.0,
-    heightScale: 1.0,
-    visible: true,
-  },
-  'manege-equestre': {
-    id: 'manege-equestre',
-    name: 'Manège Équestre & Paddock',
-    code: '05',
-    x: 62.0,
-    z: -48.0,
-    rotationY: 0,
-    scale: 1.0,
-    heightScale: 1.0,
-    visible: true,
-  },
-};
+// Placements dérivés des empreintes OpenStreetMap réelles du domaine CUC
+// (Le Cateau-Cambrésis, 70 Rue Faidherbe — origine : centroïde du domaine).
+// Voir `realFacilities.ts` et `scripts/generate_real_facilities.mjs`.
+export const DEFAULT_FACILITIES: Record<string, EditableFacilityItem> =
+  Object.fromEntries(
+    REAL_FACILITY_ORDER.map((id) => {
+      const real = REAL_FACILITIES[id];
+      const item: EditableFacilityItem = {
+        id: real.id,
+        name: real.name,
+        code: real.code,
+        x: real.x,
+        z: real.z,
+        rotationY: real.rotationY,
+        scale: 1.0,
+        heightScale: 1.0,
+        visible: true,
+      };
+      return [id, item];
+    }),
+  );
 
 // Vues caméra publiques : vue globale du domaine et plan zénithal 2D.
 // Le cadrage par bâtiment est assuré par `focusFacility` (sélecteur
@@ -110,14 +29,14 @@ export const DEFAULT_FACILITIES: Record<string, EditableFacilityItem> = {
 export const PRESET_CONFIGS: Record<CameraPreset, CameraPresetConfig> = {
   overview: {
     label: 'Vue globale',
-    radius: 95,
+    radius: 150,
     theta: Math.PI * 0.25,
     phi: Math.PI * 0.32,
-    center: [5, 2, 8],
+    center: [0, 2, 10],
   },
   zenith: {
     label: 'Plan 2D',
-    radius: 120,
+    radius: 190,
     theta: 0,
     phi: 0.05,
     center: [0, 0, 0],

@@ -99,7 +99,8 @@ export function useCampusScene({
     const three = threeRef.current;
     if (!three) return;
     const delta = direction === 'in' ? -15 : 15;
-    three.targetSpherical.radius = Math.max(20, Math.min(130, three.targetSpherical.radius + delta));
+    // Plafond relevé à 220 pour couvrir le domaine réel (248 m) en vue zénithale.
+    three.targetSpherical.radius = Math.max(20, Math.min(220, three.targetSpherical.radius + delta));
     setCameraDistance(Math.round(three.targetSpherical.radius));
   }, []);
 

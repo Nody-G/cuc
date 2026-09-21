@@ -12,6 +12,7 @@ import {
   buildQgMesh,
   buildManegeMesh,
   buildOutdoorMesh,
+  type MaterialRole,
 } from './campusBuildingMeshes';
 
 export {
@@ -71,7 +72,11 @@ export function initCampusScene(
     // Graceful fallback
   }
 
-  const groundGeo = new THREE.PlaneGeometry(160, 160);
+  // Plan de fond calibré sur l'emprise réelle du domaine CUC
+  // (way OSM 1007277364 : 201 m Nord-Sud × 225 m Est-Ouest).
+  // Marge de 10 % pour englober les abords immédiats.
+  const GROUND_SIZE = 248;
+  const groundGeo = new THREE.PlaneGeometry(GROUND_SIZE, GROUND_SIZE);
   const groundMat = new THREE.MeshStandardMaterial({
     map: aerialTexture,
     roughness: 0.85,
@@ -82,7 +87,8 @@ export function initCampusScene(
   groundMesh.receiveShadow = true;
   scene.add(groundMesh);
 
-  const groundGrid = new THREE.GridHelper(160, 32, 0xffe500, 0x333b4d);
+  // Grille : 1 division ≈ 7,75 m (248 / 32), alignée sur l'emprise réelle.
+  const groundGrid = new THREE.GridHelper(GROUND_SIZE, 32, 0xffe500, 0x333b4d);
   groundGrid.position.y = 0.08;
   scene.add(groundGrid);
 
@@ -95,11 +101,12 @@ export function initCampusScene(
   sunLight.shadow.mapSize.width = 2048;
   sunLight.shadow.mapSize.height = 2048;
   sunLight.shadow.camera.near = 10;
-  sunLight.shadow.camera.far = 250;
-  sunLight.shadow.camera.left = -90;
-  sunLight.shadow.camera.right = 90;
-  sunLight.shadow.camera.top = 90;
-  sunLight.shadow.camera.bottom = -90;
+  sunLight.shadow.camera.far = 320;
+  // Emprise élargie pour couvrir le domaine réel (248 m) sans couper les ombres.
+  sunLight.shadow.camera.left = -140;
+  sunLight.shadow.camera.right = 140;
+  sunLight.shadow.camera.top = 140;
+  sunLight.shadow.camera.bottom = -140;
   scene.add(sunLight);
 
   return {
@@ -178,6 +185,67 @@ export function setupCampusBuildings(
   });
 }
 
+/**
+ * Palette de matériaux par rôle, déclinée pour chaque mode d'affichage.
+ * Permet à `applyPlanMode` de préserver la différenciation des volumes
+ * (murs / toitures / vitrages / béton / bois / acier / accent) au lieu
+ * d'aplatir tous les bâtiments sur une couleur unique.
+ */
+type RolePalette = Record<
+  MaterialRole,
+  { color: number; roughness: number; metalness: number; emissive?: number; emissiveIntensity?: number }
+>;
+
+const DAYLIGHT_PALETTE: RolePalette = {
+  wall: { color: 0xd8d2c6, roughness: 0.72, metalness: 0.05 },
+  roof: { color: 0x8f8a80, roughness: 0.85, metalness: 0.08 },
+  glass: { color: 0x9fc6e0, roughness: 0.12, metalness: 0.35 },
+  concrete: { color: 0xb9b6ae, roughness: 0.9, metalness: 0.02 },
+  timber: { color: 0xb08a5c, roughness: 0.8, metalness: 0.03 },
+  steel: { color: 0x9aa2ad, roughness: 0.35, metalness: 0.75 },
+  accent: { color: 0xffe500, roughness: 0.4, metalness: 0.4 },
+  ground: { color: 0xffffff, roughness: 0.95, metalness: 0.0 },
+};
+
+const SATELLITE_PALETTE: RolePalette = {
+  wall: { color: 0x4a4d57, roughness: 0.7, metalness: 0.15 },
+  roof: { color: 0x2f323b, roughness: 0.8, metalness: 0.2 },
+  glass: { color: 0x2b4a63, roughness: 0.15, metalness: 0.5, emissive: 0x0a1a2a, emissiveIntensity: 0.3 },
+  concrete: { color: 0x3c3f47, roughness: 0.9, metalness: 0.05 },
+  timber: { color: 0x5a4630, roughness: 0.85, metalness: 0.05 },
+  steel: { color: 0x6b7280, roughness: 0.4, metalness: 0.7 },
+  accent: { color: 0xffe500, roughness: 0.45, metalness: 0.6, emissive: 0x443b00, emissiveIntensity: 0.4 },
+  ground: { color: 0xd5d5d5, roughness: 0.95, metalness: 0.0 },
+};
+
+function resolveMaterialRole(child: THREE.Mesh): MaterialRole {
+  const tagged = child.userData?.materialRole as MaterialRole | undefined;
+  if (tagged) return tagged;
+  // Repli sur l'ancien contrat par nom pour les meshes non taggés.
+  if (child.name === 'accent' || child.name === 'cuc-tower') return 'accent';
+  return 'wall';
+}
+
+function applyRolePalette(
+  buildingsGroup: THREE.Group,
+  palette: RolePalette,
+  options: { emissive?: boolean } = {}
+): void {
+  buildingsGroup.traverse((child) => {
+    if (child instanceof THREE.Mesh && !child.name.startsWith('gizmo-')) {
+      const role = resolveMaterialRole(child);
+      const spec = palette[role];
+      child.material = new THREE.MeshStandardMaterial({
+        color: spec.color,
+        roughness: spec.roughness,
+        metalness: spec.metalness,
+        emissive: options.emissive ? (spec.emissive ?? 0x000000) : 0x000000,
+        emissiveIntensity: options.emissive ? (spec.emissiveIntensity ?? 0) : 0,
+      });
+    }
+  });
+}
+
 export function applyPlanMode(
   mode: PlanMode,
   scene: THREE.Scene,
@@ -244,16 +312,7 @@ export function applyPlanMode(
       (groundMesh.material as THREE.MeshStandardMaterial).map = aerialTexture;
     }
 
-    buildingsGroup.traverse((child) => {
-      if (child instanceof THREE.Mesh && !child.name.startsWith('gizmo-')) {
-        const isAccent = child.name === 'accent' || child.name === 'cuc-tower';
-        child.material = new THREE.MeshStandardMaterial({
-          color: isAccent ? 0xffe500 : 0x2b2e3b,
-          roughness: 0.4,
-          metalness: 0.4,
-        });
-      }
-    });
+    applyRolePalette(buildingsGroup, DAYLIGHT_PALETTE);
   } else {
     scene.background = new THREE.Color(0x050608);
     scene.fog = new THREE.FogExp2(0x050608, 0.006);
@@ -278,17 +337,6 @@ export function applyPlanMode(
       (groundMesh.material as THREE.MeshStandardMaterial).map = aerialTexture;
     }
 
-    buildingsGroup.traverse((child) => {
-      if (child instanceof THREE.Mesh && !child.name.startsWith('gizmo-')) {
-        const isYellow = child.name === 'accent';
-        child.material = new THREE.MeshStandardMaterial({
-          color: isYellow ? 0xffe500 : 0x181a24,
-          roughness: 0.45,
-          metalness: 0.6,
-          emissive: isYellow ? 0x443b00 : 0x080910,
-          emissiveIntensity: 0.4,
-        });
-      }
-    });
+    applyRolePalette(buildingsGroup, SATELLITE_PALETTE, { emissive: true });
   }
 }
