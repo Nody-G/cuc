@@ -1,9 +1,9 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T17:29:49.248Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T17:31:59.999Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **23** — occurrences : **149**
+Pages contrôlées : **27** — pages avec français résiduel : **23** — occurrences : **130**
 
 ## /en/formation-de-cascadeur — 11 occurrence(s)
 
@@ -88,7 +88,7 @@ Pages contrôlées : **27** — pages avec français résiduel : **23** — occu
 | texte visible | Vous êtes équipementier, fabricant de matériel, société d'effets spéciaux ou marque souhaitant associer son image au campus ? |
 | texte visible | Nous contacter |
 
-## /en/visite-guidee — 41 occurrence(s)
+## /en/visite-guidee — 36 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
@@ -116,11 +116,6 @@ Pages contrôlées : **27** — pages avec français résiduel : **23** — occu
 | texte visible | Conformité & Normes : Structure acier haute résistance, plateformes de saut étagées, réception airbag professionnel cinéma |
 | texte visible | EXPÉRIENCE 360° |
 | texte visible | VISITE VIRTUELLE 360° DU CAMPUS |
-| texte visible | Réinitialiser |
-| texte visible | Ouvrir dans un onglet |
-| texte visible | PLEIN ÉCRAN |
-| texte visible | Navigation 360° : Cliquez et faites glisser votre curseur (ou votre doigt sur mobile) pour regarder autour de vous. Cliquez sur les flèches clignotantes au sol |
-| texte visible | pour avancer d'une pièce à l'autre. |
 | texte visible | PLAN 3D INTERACTIF DU CAMPUS |
 | texte visible | Faites pivoter la vue aérienne, explorez les 9 infrastructures en trois dimensions, et sélectionnez une zone pour découvrir ses installations spécialisées. |
 | texte visible | Chargement du plan 3D… |
@@ -134,25 +129,11 @@ Pages contrôlées : **27** — pages avec français résiduel : **23** — occu
 | texte visible | Pôle Île-de-France (Studio Paris) : Studio de Répétition & Comédiens |
 | texte visible | Planifier une Visite ou Réserver un Stage |
 
-## /en/visite-virtuelle — 15 occurrence(s)
+## /en/visite-virtuelle — 1 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | LE CAMPUS |
-| texte visible | VISITE DU DOMAINE |
-| texte visible | DÉCOUVRIR LE CAMPUS EN 360° |
-| texte visible | Explorez les infrastructures du centre de formation de cascadeurs au Cateau-Cambrésis. Basculez librement entre les panoramas 360° et le plan 3D interactif du domaine. |
-| texte visible | Prendre Rendez-vous |
-| texte visible | Réinitialiser |
-| texte visible | Ouvrir dans un onglet |
-| texte visible | PLEIN ÉCRAN |
-| texte visible | Navigation 360° : Cliquez et faites glisser votre curseur (ou votre doigt sur mobile) pour regarder autour de vous. Cliquez sur les flèches clignotantes au sol |
-| texte visible | pour avancer d'une pièce à l'autre. |
-| texte visible | Tour de saut de 21 mètres, salle d'entraînement Zoé Bell, dojos, manège équestre et hangars de cascades mécaniques réunis sur un même domaine privé. |
-| texte visible | Sécurité & Équipements |
-| texte visible | Matériel professionnel de cascade aux normes en vigueur : matelas de réception certifiés, airbags de saut, trampolines et fosse de travail. |
-| texte visible | Accès & Hébergement |
-| texte visible | Situé au Cateau-Cambrésis (à 2h de Paris, 1h de Lille). Possibilité d'hébergement sur site en pension complète pour les élèves en formation et stages. |
+| texte visible | A 21-metre jump tower, the Zoé Bell training hall, dojos, an equestrian ring and mechanical stunt hangars gathered on one private estate. |
 
 ## /en/videos-cascadeur — 1 occurrence(s)
 

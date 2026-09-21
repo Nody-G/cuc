@@ -9,6 +9,7 @@ import { Footer } from '@/components/layout/Footer';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { VirtualTourViewer } from '@/components/ui/VirtualTourViewer';
 import { soundFX } from '@/lib/soundFx';
+import { useTranslations } from 'next-intl';
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 import {
   ChevronRight,
@@ -20,23 +21,34 @@ import {
   Eye,
 } from 'lucide-react';
 
+/**
+ * Attente du plan 3D : composant dédié, car `dynamic()` est évalué au niveau du
+ * module, hors du composant de page — le hook de traduction n'y est pas
+ * disponible.
+ */
+const Plan3DLoading: React.FC = () => {
+  const t = useTranslations('visiteVirtuelle');
+  return (
+    <div className="w-full h-[520px] sm:h-[620px] lg:h-[720px] flex items-center justify-center bg-[#0c0c12] border border-zinc-800">
+      <span className="text-xs font-mono-tech text-zinc-500 uppercase tracking-widest animate-pulse">
+        {t('loading3d')}
+      </span>
+    </div>
+  );
+};
+
 // Three.js (~600 ko) chargé à la demande, uniquement côté client, quand
 // l'utilisateur ouvre l'onglet « Plan 3D ». Évite de pénaliser le LCP initial.
 const CampusPlan3D = dynamic(
   () => import('@/components/3d/CampusPlan3D').then((m) => m.CampusPlan3D),
   {
     ssr: false,
-    loading: () => (
-      <div className="w-full h-[520px] sm:h-[620px] lg:h-[720px] flex items-center justify-center bg-[#0c0c12] border border-zinc-800">
-        <span className="text-xs font-mono-tech text-zinc-500 uppercase tracking-widest animate-pulse">
-          Chargement du plan 3D…
-        </span>
-      </div>
-    ),
+    loading: () => <Plan3DLoading />,
   }
 );
 
 export default function VisiteVirtuellePage() {
+  const t = useTranslations('visiteVirtuelle');
   const [activeTab, setActiveTab] = useState<'360' | '3d'>('360');
   const { content } = usePageDynamicContent('visite-virtuelle');
 
@@ -73,15 +85,15 @@ export default function VisiteVirtuellePage() {
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">
-              ACCUEIL
+              {t('breadcrumbHome')}
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
             <Link href="/visite-guidee" className="hover:text-[#FFE500] transition-colors">
-              LE CAMPUS
+              {t('breadcrumbCampus')}
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
             <span className="text-[#FFE500]">
-              {activeTab === '360' ? 'VISITE VIRTUELLE 360°' : 'PLAN 3D DU DOMAINE'}
+              {activeTab === '360' ? t('breadcrumb360') : t('breadcrumb3d')}
             </span>
           </div>
 
@@ -90,7 +102,7 @@ export default function VisiteVirtuellePage() {
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
-                  VISITE DU DOMAINE
+                  {t('pageTag')}
                 </span>
                 <span className="text-xs font-mono-tech text-zinc-500">•</span>
                 <span className="text-xs font-mono-tech text-zinc-400">
@@ -99,12 +111,11 @@ export default function VisiteVirtuellePage() {
               </div>
 
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display uppercase tracking-tight text-white leading-none">
-                DÉCOUVRIR LE CAMPUS <span className="text-[#FFE500]">{activeTab === '360' ? 'EN 360°' : 'EN 3D'}</span>
+                {t('pageTitle')} <span className="text-[#FFE500]">{activeTab === '360' ? t('suffix360') : t('suffix3d')}</span>
               </h1>
 
               <p className="text-sm sm:text-base text-zinc-300 font-tech mt-3 max-w-3xl leading-relaxed">
-                Explorez les infrastructures du centre de formation de cascadeurs au Cateau-Cambrésis.
-                Basculez librement entre les panoramas 360° et le plan 3D interactif du domaine.
+                {t('pageSubtitle')}
               </p>
             </div>
 
@@ -121,7 +132,7 @@ export default function VisiteVirtuellePage() {
                     }`}
                 >
                   <Eye className="w-3.5 h-3.5" />
-                  <span>Vue 360° VR</span>
+                  <span>{t('tab360Label')}</span>
                 </button>
 
                 <button
@@ -135,13 +146,13 @@ export default function VisiteVirtuellePage() {
                     }`}
                 >
                   <Layers className="w-3.5 h-3.5" />
-                  <span>Plan 3D</span>
+                  <span>{t('tab3dLabel')}</span>
                 </button>
               </div>
 
               <Link href="/contact-cuc?demande=stage-decouverte">
                 <TacticalButton variant="primary" size="md" icon={<PhoneCall className="w-4 h-4" />}>
-                  Prendre Rendez-vous
+                  {t('ctaRendezVous')}
                 </TacticalButton>
               </Link>
             </div>
@@ -165,12 +176,11 @@ export default function VisiteVirtuellePage() {
                 <div className="flex items-center gap-3 mb-3">
                   <Building className="w-5 h-5 text-[#FFE500]" />
                   <h2 className="font-display uppercase text-lg text-white">
-                    11 000 m² d'Infrastructures
+                    {t('factsTitle1')}
                   </h2>
                 </div>
                 <p className="text-xs text-zinc-400 leading-relaxed">
-                  Tour de saut de 21 mètres, salle d'entraînement Zoé Bell, dojos,
-                  manège équestre et hangars de cascades mécaniques réunis sur un même domaine privé.
+                  {t('factsBody1')}
                 </p>
               </div>
 
@@ -178,12 +188,11 @@ export default function VisiteVirtuellePage() {
                 <div className="flex items-center gap-3 mb-3">
                   <ShieldCheck className="w-5 h-5 text-[#FFE500]" />
                   <h2 className="font-display uppercase text-lg text-white">
-                    Sécurité & Équipements
+                    {t('factsTitle2')}
                   </h2>
                 </div>
                 <p className="text-xs text-zinc-400 leading-relaxed">
-                  Matériel professionnel de cascade aux normes en vigueur : matelas de réception certifiés,
-                  airbags de saut, trampolines et fosse de travail.
+                  {t('factsBody2')}
                 </p>
               </div>
 
@@ -191,12 +200,11 @@ export default function VisiteVirtuellePage() {
                 <div className="flex items-center gap-3 mb-3">
                   <MapPin className="w-5 h-5 text-[#FFE500]" />
                   <h2 className="font-display uppercase text-lg text-white">
-                    Accès & Hébergement
+                    {t('factsTitle3')}
                   </h2>
                 </div>
                 <p className="text-xs text-zinc-400 leading-relaxed">
-                  Situé au Cateau-Cambrésis (à 2h de Paris, 1h de Lille). Possibilité d'hébergement
-                  sur site en pension complète pour les élèves en formation et stages.
+                  {t('factsBody3')}
                 </p>
               </div>
             </div>

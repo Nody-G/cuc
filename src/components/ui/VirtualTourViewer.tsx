@@ -9,6 +9,7 @@ import {
   ExternalLink,
   Info,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface VirtualTourViewerProps {
   className?: string;
@@ -18,6 +19,7 @@ interface VirtualTourViewerProps {
 export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
   className = '',
 }) => {
+  const t = useTranslations('visiteVirtuelle');
   const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -62,7 +64,7 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </div>
           <span className="font-display uppercase tracking-wider text-sm text-white font-bold flex items-center gap-2">
-            VISITE VIRTUELLE 360° INTERACTIVE
+            {t('viewerTitle')}
           </span>
           <span className="hidden sm:inline-block px-2 py-0.5 bg-[#14141c] border border-zinc-800 text-[10px] font-mono-tech text-zinc-400">
             LE CATEAU-CAMBRÉSIS
@@ -74,19 +76,19 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
           <button
             onClick={() => setInfoOpen(!infoOpen)}
             className="px-2.5 py-1 text-[11px] font-mono-tech border border-zinc-800 bg-[#121218] text-zinc-300 hover:text-[#FFE500] hover:border-zinc-700 transition-colors flex items-center gap-1.5 cursor-pointer"
-            title="Aide de navigation"
+            title={t('helpTitle')}
           >
             <Info className="w-3.5 h-3.5 text-[#FFE500]" />
-            <span className="hidden md:inline">Mode d'emploi</span>
+            <span className="hidden md:inline">{t('helpLabel')}</span>
           </button>
 
           <button
             onClick={handleResetTour}
             className="px-2.5 py-1 text-[11px] font-mono-tech border border-zinc-800 bg-[#121218] text-zinc-300 hover:text-[#FFE500] hover:border-zinc-700 transition-colors flex items-center gap-1.5 cursor-pointer"
-            title="Réinitialiser la visite à l'entrée"
+            title={t('resetTitle')}
           >
             <RotateCcw className="w-3.5 h-3.5 text-[#FFE500]" />
-            <span className="hidden sm:inline">Réinitialiser</span>
+            <span className="hidden sm:inline">{t('resetLabel')}</span>
           </button>
 
           <a
@@ -94,26 +96,26 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
             target="_blank"
             rel="noopener noreferrer"
             className="px-2.5 py-1 text-[11px] font-mono-tech border border-zinc-800 bg-[#121218] text-zinc-300 hover:text-[#FFE500] hover:border-zinc-700 transition-colors flex items-center gap-1.5"
-            title="Ouvrir en plein écran dans un nouvel onglet / Casque VR"
+            title={t('openTabTitle')}
           >
             <ExternalLink className="w-3.5 h-3.5 text-[#FFE500]" />
-            <span className="hidden lg:inline">Ouvrir dans un onglet</span>
+            <span className="hidden lg:inline">{t('openTabLabel')}</span>
           </a>
 
           <button
             onClick={toggleFullscreen}
             className="px-3 py-1 text-[11px] font-mono-tech border border-[#FFE500] bg-[#FFE500] text-black font-bold hover:bg-white transition-colors flex items-center gap-1.5 cursor-pointer shadow-md"
-            title={isFullscreen ? "Quitter le plein écran" : "Plein écran immersif"}
+            title={isFullscreen ? t('exitFullscreenTitle') : t('fullscreenTitle')}
           >
             {isFullscreen ? (
               <>
                 <Minimize className="w-3.5 h-3.5" />
-                <span>RÉDUIRE</span>
+                <span>{t('collapseLabel')}</span>
               </>
             ) : (
               <>
                 <Maximize className="w-3.5 h-3.5" />
-                <span>PLEIN ÉCRAN</span>
+                <span>{t('fullscreenLabel')}</span>
               </>
             )}
           </button>
@@ -126,14 +128,16 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
           <div className="flex items-center gap-2">
             <Compass className="w-4 h-4 text-[#FFE500] shrink-0 animate-spin-slow" />
             <span>
-              <strong className="text-white">Navigation 360° :</strong> Cliquez et faites glisser votre curseur (ou votre doigt sur mobile) pour regarder autour de vous. Cliquez sur les <span className="text-[#FFE500] font-semibold">flèches clignotantes au sol</span> pour avancer d'une pièce à l'autre.
+              <strong className="text-white">{t('navHelpTitle')}</strong> {t('navHelpBody1')}{' '}
+              <span className="text-[#FFE500] font-semibold">{t('navHelpHighlight')}</span>{' '}
+              {t('navHelpBody2')}
             </span>
           </div>
           <button
             onClick={() => setInfoOpen(false)}
             className="text-zinc-500 hover:text-white text-xs font-mono-tech shrink-0 cursor-pointer"
           >
-            [MASQUER]
+            {t('hideLabel')}
           </button>
         </div>
       )}
@@ -144,7 +148,7 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
           key={iframeKey}
           ref={iframeRef}
           src={TOUR_URL}
-          title="Visite Virtuelle 360° Campus Univers Cascades"
+          title={t('iframeTitle')}
           className="w-full h-full border-0"
           scrolling="no"
           allowFullScreen

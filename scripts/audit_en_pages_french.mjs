@@ -276,7 +276,12 @@ console.log('');
 console.log(`=== Français résiduel sur les pages EN — ${BASE} ===`);
 await loadFilmTitles();
 for (const noun of [...coachProperNouns(), ...dataProperNouns()]) {
-    if (noun.trim().length > 3) PROPER_NOUNS.add(normalizeTitle(noun));
+    // Un champ de données peut contenir PLUSIEURS noms (« Matthieu Delaporte &
+    // Alexandre de La Patellière ») : on les enregistre un par un, sinon la ligne
+    // « Dir. Matthieu Delaporte & Alexandre de La Patellière » reste signalée.
+    for (const part of String(noun).split(/[&,;/]|\set\s/i)) {
+        if (part.trim().length > 3) PROPER_NOUNS.add(normalizeTitle(part));
+    }
 }
 console.log(
     `Titres de films en allowlist (données du catalogue) : ${FILM_TITLES.size}${FILM_TITLES.size === 0 ? ' — base injoignable, titres non neutralisés' : ''}`
