@@ -20,6 +20,7 @@
     "audit:doctrine": "node scripts/verify_doctrine_in_db.mjs",
     "audit:featured": "node scripts/verify_featured_matching.mjs",
     "i18n:audit:integrity": "node scripts/audit_text_integrity.mjs",
+    "i18n:audit:integrity:repo": "node scripts/audit_repo_text_integrity.mjs",
     "i18n:fix:apostrophes": "node scripts/fix_missing_apostrophes.mjs",
     "i18n:fix:apostrophes:write": "node scripts/fix_missing_apostrophes.mjs --write",
     "i18n:fix:typos-editoriales": "node scripts/fix_editorial_typos.mjs",

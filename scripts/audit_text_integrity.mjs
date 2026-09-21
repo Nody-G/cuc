@@ -37,6 +37,14 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import dotenv from 'dotenv';
 
+/**
+ * Règles de détection : SOURCE UNIQUE, partagée avec l'audit des catalogues du
+ * dépôt (`audit_repo_text_integrity.mjs`). Une règle dupliquée d'un côté et pas
+ * de l'autre produirait un site « propre » en base et sale dans l'interface —
+ * et l'incident du 2026-09-21 a montré le coût d'une règle écrite deux fois.
+ */
+import { inspectText } from './lib/text-integrity-rules.mjs';
+
 dotenv.config({ path: '.env.local' });
 
 const URL_BASE = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, '');
@@ -49,77 +57,12 @@ if (!URL_BASE || !KEY) {
 
 const HEADERS = { apikey: KEY, Authorization: `Bearer ${KEY}` };
 
-/** Séquences de double-encodage (mêmes paires que `fix_mojibake.mjs`). */
-const MOJIBAKE = [
-    'Ã©', 'Ã¨', 'Ãª', 'Ã«', 'Ã ', 'Ã¢', 'Ã®', 'Ã¯', 'Ã´', 'Ã¶', 'Ã¹', 'Ã»', 'Ã¼',
-    'Ã§', 'Ã‰', 'Ã€', 'Ã”', 'ÃŽ', 'Ã‡', 'Ã™', 'â€™', 'â€œ', 'â€\u009d', 'â€“',
-    'â€”', 'â€¦', 'Â°', 'Â«', 'Â»', 'Å“', 'Å’', 'ðŸ',
-];
-
-/** « et commercial » — jamais écrit littéralement (le canal d'écriture décode). */
-const AMP = String.fromCharCode(38);
-const ESCAPED_ENTITIES = {
-    amp: `${AMP}amp;`,
-    apos: `${AMP}apos;`,
-    dec39: `${AMP}#39;`,
-    quot: `${AMP}quot;`,
-    nbsp: `${AMP}nbsp;`,
-};
-
 /**
- * Élisions dont l'apostrophe a pu être supprimée à l'import (français).
- *
- * Cette liste ne contient QUE des formes cassées : les mots français légitimes
- * (`dans`, `lorsque`, `lors`, `dès`…) n'y figurent pas — ils n'ont pas
- * d'apostrophe et gonflaient la revue de faux positifs.
+ * Familles de défauts inspectées, dans l'ordre d'affichage. Les règles
+ * elles-mêmes vivent dans `scripts/lib/text-integrity-rules.mjs` : ce fichier ne
+ * fait que les appliquer aux colonnes de la base.
  */
-const ELISIONS = [
-    'dune', 'dun', 'quil', 'quils', 'quune', 'quun', 'quon', 'cest', 'cetait',
-    'javais', 'jai', 'jaime', 'jadore', 'letait', 'lhomme', 'lautre',
-    'nayant', 'netaient', 'nimporte', 'senivre', 'sentend', 'sechappe',
-    'laidera', 'lattirent', 'dinitiation', 'davoir', 'detre', 'jusqua',
-    'lorsquil', 'presquil', 'dabord', 'dailleurs', 'quau', 'quaux',
-];
-const ELISION_RE = new RegExp(`\\b(${ELISIONS.join('|')})\\b`, 'i');
-
-/** Deux espaces consécutifs entre deux caractères visibles. */
-const DOUBLE_SPACE = /\S {2,}\S/;
-
-/** Espace avant `,` ou `.` : fautif dans les deux langues. */
-const PUNCT_BOTH = / [,.]/g;
-
-/**
- * Guillemets français `« »` dans un texte ANGLAIS.
- *
- * Signal sans ambiguïté : en anglais la citation utilise `"` ou `‘ ’`. Un
- * guillemet français dans un overlay EN est donc toujours un reste du texte
- * source — contrairement à ` : ` ou ` ; `, qui sont requis en français et
- * fautifs en anglais. Signalé, jamais corrigé automatiquement : le passage aux
- * guillemets anglais relève d'une décision de rédaction.
- */
-const FRENCH_QUOTES = /[«»]/g;
-/** Espace avant `:` `;` `!` `?` : fautif en ANGLAIS, requis en FRANÇAIS. */
-const PUNCT_EN_ONLY = / [;:!?]/g;
-
-/**
- * Repère un espace avant ponctuation, en tenant compte de la locale ET de
- * l'ellipse.
- *
- * L'ELLIPSE EST EXCLUE : « mot ... » est une convention d'écriture admise (et
- * attendue en français) — l'inclure produisait deux faux positifs réels sur les
- * overlays EN (`indifferent ...`, `such a ball ...`), qui n'ont jamais été des
- * fautes.
- */
-function findBadPunctuation(text, locale) {
-    const pattern = locale === 'en' ? / [,.!?;:]/g : PUNCT_BOTH;
-    for (const match of text.matchAll(pattern)) {
-        const at = match.index ?? 0;
-        const char = match[0].slice(1);
-        if (char === '.' && text.slice(at + 1, at + 4) === '...') continue;
-        return { at, char };
-    }
-    return null;
-}
+const FAMILIES = ['mojibake', 'apostrophes', 'entities', 'doubleSpace', 'punctuation', 'frenchQuotes'];
 
 /**
  * Cibles inspectées.
@@ -127,6 +70,17 @@ function findBadPunctuation(text, locale) {
  *   fields : colonnes lues ; les objets JSON sont parcourus récursivement
  *   idFields : colonnes d'identification pour la revue
  */
+/**
+ * Dérogations DOCUMENTÉES : ligne → familles tolérées.
+ *
+ * `film/le-jardinier` — le synopsis anglais de ce film contient `« slugs »`, une
+ * **paire équilibrée de guillemets français** issue du texte source (IMDb). Le
+ * style de citation relève de la rédaction, pas de l'intégrité : le signalerait
+ * à chaque exécution sans rien apprendre. À retirer si la rédaction normalise la
+ * citation en anglais.
+ */
+const ALLOWED = new Map([['film/le-jardinier', new Set(['frenchQuotes'])]]);
+
 const TARGETS = [
     { label: 'Films', locale: 'fr', path: 'site_films?select=id,description', fields: ['description'] },
     { label: 'Coachs', locale: 'fr', path: 'site_team?select=id,bio', fields: ['bio'] },
@@ -195,17 +149,6 @@ function rowId(row, idFields) {
     return row.id ?? row.slug ?? '—';
 }
 
-/**
- * Rend un extrait **vérifiable** : les suites d'espaces sont remplacées par un
- * marqueur visible, sinon la revue masquerait l'artefact qu'elle signale.
- */
-function show(text, at, before = 40, after = 50) {
-    return text
-        .slice(Math.max(0, at - before), at + after)
-        .replace(/\r?\n/g, '⏎')
-        .replace(/ {2,}/g, (run) => `⟦${run.length} espaces⟧`);
-}
-
 const review = [];
 review.push('# Revue — Intégrité des textes en base (mojibake, apostrophes, artefacts)');
 review.push('');
@@ -238,50 +181,14 @@ for (const target of TARGETS) {
 
         for (const text of texts) {
             const id = rowId(row, target.idFields);
+            const tolerated = ALLOWED.get(id);
 
-            const mojibakeHits = MOJIBAKE.filter((sequence) => text.includes(sequence));
-            if (mojibakeHits.length) {
-                found.mojibake.push({ id, detail: mojibakeHits.join(' '), sample: text.slice(0, 140) });
-            }
-
-            // Heuristique « aucune apostrophe » : FRANÇAIS uniquement.
-            if (target.locale === 'fr' && text.length > 60 && !/['’]/.test(text) && ELISION_RE.test(text)) {
-                found.apostrophes.push({
-                    id,
-                    detail: text.match(ELISION_RE)?.[0] ?? '—',
-                    sample: text.slice(0, 140),
-                });
-            }
-
-            for (const [name, sequence] of Object.entries(ESCAPED_ENTITIES)) {
-                if (text.includes(sequence)) {
-                    found.entities.push({ id, detail: name, sample: show(text, text.indexOf(sequence)) });
-                    break;
-                }
-            }
-
-            const double = DOUBLE_SPACE.exec(text);
-            if (double) {
-                found.doubleSpace.push({ id, detail: '␣␣', sample: show(text, double.index + 1) });
-            }
-
-            const punctuation = findBadPunctuation(text, target.locale);
-            if (punctuation) {
-                found.punctuation.push({
-                    id,
-                    detail: `«${punctuation.char}»`,
-                    sample: show(text, punctuation.at),
-                });
-            }
-
-            // Guillemets français : signalés uniquement dans les textes anglais.
-            const quote = target.locale === 'en' ? FRENCH_QUOTES.exec(text) : null;
-            if (quote) {
-                found.frenchQuotes.push({
-                    id,
-                    detail: quote[0],
-                    sample: show(text, quote.index, 30, 30),
-                });
+            // Détection déléguée au module partagé : ce sont exactement les règles
+            // qui jugent aussi les catalogues `messages/*.json`.
+            const defects = inspectText(text, target.locale);
+            for (const family of FAMILIES) {
+                if (tolerated?.has(family)) continue;
+                for (const item of defects[family]) found[family].push({ id, ...item });
             }
         }
     }

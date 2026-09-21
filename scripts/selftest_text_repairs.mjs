@@ -22,6 +22,7 @@ import {
     fixEnglishPunctuation,
     preservesSubstance,
 } from './lib/text-repairs.mjs';
+import { inspectText } from './lib/text-integrity-rules.mjs';
 
 let checks = 0;
 let failures = 0;
@@ -95,6 +96,38 @@ expectTrue(
         'Gloria  needs an orgasm .',
         fixEnglishPunctuation(collapseSpaceRuns('Gloria  needs an orgasm .'))
     )
+);
+
+console.log('');
+console.log('Règle 6 — détection partagée (les deux audits ne peuvent pas diverger)');
+const count = (text, locale, family) => inspectText(text, locale)[family].length;
+
+expect('double espace détecté', count('Gloria  needs', 'en', 'doubleSpace'), 1);
+expect('espace avant « : » détecté en ANGLAIS', count('unit : Police', 'en', 'punctuation'), 1);
+expect('espace avant « : » TOLÉRÉ en FRANÇAIS', count('destins croisés : France', 'fr', 'punctuation'), 0);
+expect('espace avant « . » détecté en FRANÇAIS', count('une phrase .', 'fr', 'punctuation'), 1);
+expect('ellipse non signalée', count('indifferent ...', 'en', 'punctuation'), 0);
+expect('guillemets français détectés en ANGLAIS', count('« Master the risk »', 'en', 'frenchQuotes'), 1);
+expect('guillemets français TOLÉRÉS en FRANÇAIS', count('« Maîtriser le risque »', 'fr', 'frenchQuotes'), 0);
+expect('entité résiduelle détectée', count(`a ${ESCAPED_AMP} b`, 'en', 'entities'), 1);
+expect('mojibake détecté', count('cafÃ© noir', 'fr', 'mojibake'), 1);
+expect(
+    'apostrophe manquante détectée en FRANÇAIS',
+    count(
+        'la suite dun recit qui ne contient aucune apostrophe et qui depasse largement la limite de longueur',
+        'fr',
+        'apostrophes'
+    ),
+    1
+);
+expect(
+    'même texte NON signalé en anglais (heuristique française)',
+    count(
+        'la suite dun recit qui ne contient aucune apostrophe et qui depasse largement la limite de longueur',
+        'en',
+        'apostrophes'
+    ),
+    0
 );
 
 console.log('');
