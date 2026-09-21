@@ -28,6 +28,7 @@ import {
   History,
   CornerDownLeft,
   BarChart3,
+  Boxes,
 } from 'lucide-react';
 import { TabType } from '../CockpitApp';
 import { useFocusTrap } from './ui/useFocusTrap';
@@ -266,6 +267,14 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
         icon: Globe,
         action: () => selectTab('campus'),
         keywords: ['lieux', 'installations', 'poi', 'carte', 'zones'],
+      },
+      {
+        id: 'nav-campus-3d',
+        label: 'Plan 3D du Campus (Studio)',
+        category: 'Navigation',
+        icon: Boxes,
+        action: () => selectTab('campus-3d'),
+        keywords: ['3d', 'plan', 'batiment', 'modele', 'placement', 'studio', 'three'],
       },
       {
         id: 'nav-announcements',

@@ -32,6 +32,20 @@ export type GizmoDragType = 'x' | 'z' | 'center' | 'rot' | null;
 export interface CampusPlan3DProps {
   initialMode?: PlanMode;
   className?: string;
+  /**
+   * Force l'ouverture du studio de placement (édition des positions,
+   * rotations, échelles et hauteurs des modèles 3D).
+   *
+   * - `true`  : studio ouvert d'emblée (usage Cockpit).
+   * - `false` : studio fermé (usage public).
+   * - `undefined` : comportement historique, piloté par `?studio=1`.
+   */
+  studio?: boolean;
+  /**
+   * Active la persistance Supabase (`site_settings` key='campus_placements_3d')
+   * au lieu du seul `localStorage`. Utilisé par le Cockpit.
+   */
+  persistToDatabase?: boolean;
 }
 
 export interface ThreeSceneContext {

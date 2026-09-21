@@ -930,6 +930,44 @@ export async function deleteCampusPOI(id: string) {
 }
 
 /**
+ * Enregistre les placements 3D du plan campus (studio de placement).
+ *
+ * Persiste l'intégralité du dictionnaire `EditableFacilityItem` dans
+ * `site_settings` (key='campus_placements_3d'). C'est la source de vérité
+ * partagée entre le Cockpit et la page publique : le studio n'écrit plus
+ * uniquement dans le `localStorage` du navigateur (doctrine « Zéro Texte
+ * Orphelin »).
+ */
+export async function upsertCampusPlacements3D(
+  placements: Record<string, unknown>
+) {
+  try {
+    const adminClient = createAdminClient();
+
+    const { error } = await adminClient
+      .from('site_settings')
+      .upsert({
+        key: 'campus_placements_3d',
+        value: { placements },
+        updated_at: new Date().toISOString(),
+      });
+
+    if (error) {
+      console.error(
+        `[upsertCampusPlacements3D] Écriture site_settings impossible : ${error.message}`
+      );
+      return { success: false, error: error.message };
+    }
+
+    await revalidateSite(['/', '/visite-guidee', '/visite-virtuelle']);
+    return { success: true };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return { success: false, error: message };
+  }
+}
+
+/**
  * Enregistre une action d'audit dans site_audit_logs et site_settings.
  */
 export async function logAuditEvent(action: string, target: string, details?: string) {

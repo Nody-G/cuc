@@ -31,6 +31,7 @@ import {
   Moon,
   Stethoscope,
   BarChart3,
+  Boxes,
 } from 'lucide-react';
 import { CockpitThemeProvider, useCockpitTheme } from './components/ui/CockpitThemeProvider';
 import {
@@ -74,6 +75,7 @@ import { TeamView } from './components/TeamView';
 import { FilmsView } from './components/FilmsView';
 import { DisciplinesView } from './components/DisciplinesView';
 import { CampusZonesView } from './components/CampusZonesView';
+import { CampusPlan3DView } from './components/CampusPlan3DView';
 import { AnnouncementsView } from './components/AnnouncementsView';
 import { PagesEditorView } from './components/PagesEditorView';
 import { MediaLibraryView } from './components/MediaLibraryView';
@@ -102,6 +104,7 @@ export type TabType =
   | 'social'
   | 'disciplines'
   | 'campus'
+  | 'campus-3d'
   | 'sessions'
   | 'team'
   | 'films'
@@ -132,6 +135,7 @@ const TAB_ROUTES: ReadonlyArray<{ tab: TabType; segment: string }> = [
   { tab: 'social', segment: 'social' },
   { tab: 'disciplines', segment: 'disciplines' },
   { tab: 'campus', segment: 'campus' },
+  { tab: 'campus-3d', segment: 'campus-3d' },
   { tab: 'sessions', segment: 'sessions' },
   { tab: 'team', segment: 'team' },
   { tab: 'films', segment: 'films' },
@@ -596,6 +600,12 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
           icon: Compass,
           badge: 'Radar',
         },
+        {
+          id: 'campus-3d' as TabType,
+          label: 'Plan 3D du Campus',
+          icon: Boxes,
+          badge: 'Studio',
+        },
       ],
     },
     {
@@ -804,6 +814,11 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
               disciplines={disciplines}
               showToast={showToast}
             />
+          )}
+
+          {/* 3bis. PLAN 3D DU CAMPUS (STUDIO DE PLACEMENT) */}
+          {activeTab === 'campus-3d' && (
+            <CampusPlan3DView />
           )}
 
           {/* 4. SESSIONS & STAGES */}

@@ -13,6 +13,8 @@ import { useCampusScene } from './engine/useCampusScene';
 import { CampusViewerHUD } from './ui/CampusViewerHUD';
 import { CampusEditorPanel } from './ui/CampusEditorPanel';
 import { CampusJsonStudioModal } from './ui/CampusJsonStudioModal';
+import { getCampusPlacements3D } from '@/lib/data/site-service';
+import { upsertCampusPlacements3D } from '@/app/admin/actions';
 
 export type { PlanMode, CameraPreset, EditableFacilityItem, CampusPlan3DProps };
 
@@ -22,12 +24,20 @@ export type { PlanMode, CameraPreset, EditableFacilityItem, CampusPlan3DProps };
  * Version publique épurée : l'utilisateur explore le campus (vues caméra,
  * ambiances, sélection d'installations, fiche d'information). L'outil
  * d'édition de placement (« studio ») reste disponible uniquement pour
- * l'équipe technique, via le paramètre d'URL `?studio=1` — il n'est jamais
- * exposé dans l'interface grand public.
+ * l'équipe technique, via le paramètre d'URL `?studio=1` ou la prop `studio`
+ * (Cockpit) — il n'est jamais exposé dans l'interface grand public.
+ *
+ * Persistance : par défaut le studio écrit dans le `localStorage` du
+ * navigateur. Lorsque `persistToDatabase` est activé (Cockpit), les
+ * placements sont enregistrés dans Supabase (`site_settings`
+ * key='campus_placements_3d') et rechargés au montage, ce qui garantit une
+ * source de vérité partagée entre le Cockpit et la page publique.
  */
 export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
   initialMode = 'satellite',
   className = '',
+  studio,
+  persistToDatabase = false,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -48,13 +58,14 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
   });
 
   const [selectedObjectId, setSelectedObjectId] = useState<string>('cuc-tower');
-  // Le studio d'édition n'est accessible qu'aux techniciens via `?studio=1`.
-  // Il n'apparaît jamais dans l'interface publique.
-  const [isEditorOpen, setIsEditorOpen] = useState<boolean>(() =>
-    typeof window === 'undefined'
-      ? false
-      : new URLSearchParams(window.location.search).get('studio') === '1'
-  );
+  // Le studio d'édition n'est accessible qu'aux techniciens via `?studio=1`
+  // ou via la prop `studio` (Cockpit). Il n'apparaît jamais dans l'interface
+  // publique.
+  const [isEditorOpen, setIsEditorOpen] = useState<boolean>(() => {
+    if (typeof studio === 'boolean') return studio;
+    if (typeof window === 'undefined') return false;
+    return new URLSearchParams(window.location.search).get('studio') === '1';
+  });
   const [snapGrid, setSnapGrid] = useState<number>(0.5);
   const [dragMode, setDragMode] = useState<'gizmo' | 'orbit'>('gizmo');
   const [isCardVisible, setIsCardVisible] = useState<boolean>(true);
@@ -71,25 +82,64 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
     };
   }, []);
 
-  // Mutation helper for facility modifications with debounced localStorage save
-  const updateFacility = useCallback((id: string, updates: Partial<EditableFacilityItem>) => {
-    setFacilities((prev) => {
-      const current = prev[id] || DEFAULT_FACILITIES[id];
-      if (!current) return prev;
-      const next = { ...prev, [id]: { ...current, ...updates } };
+  // Chargement initial depuis Supabase (Cockpit uniquement).
+  // Priorité : placements enregistrés en base > placements locaux > défauts
+  // calibrés sur les empreintes OSM réelles.
+  useEffect(() => {
+    if (!persistToDatabase) return;
+    let cancelled = false;
 
-      if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
-      saveTimeoutRef.current = setTimeout(() => {
-        try {
-          localStorage.setItem('cuc_campus_placements_v2', JSON.stringify(next));
-        } catch {
-          // LocalStorage quota or privacy mode
-        }
-      }, 300);
+    getCampusPlacements3D()
+      .then((placements) => {
+        if (cancelled || !placements) return;
+        const merged: Record<string, EditableFacilityItem> = { ...DEFAULT_FACILITIES };
+        Object.entries(placements).forEach(([id, raw]) => {
+          const item = raw as Partial<EditableFacilityItem>;
+          const base = merged[id] || DEFAULT_FACILITIES[id];
+          if (!base) return;
+          merged[id] = { ...base, ...item, id };
+        });
+        setFacilities(merged);
+      })
+      .catch(() => {
+        // Silencieux : on conserve les placements locaux/défauts.
+      });
 
-      return next;
-    });
-  }, []);
+    return () => {
+      cancelled = true;
+    };
+  }, [persistToDatabase]);
+
+  // Mutation helper for facility modifications with debounced persistence.
+  // En mode Cockpit (`persistToDatabase`), l'écriture cible Supabase ; sinon
+  // on retombe sur le `localStorage` du navigateur.
+  const updateFacility = useCallback(
+    (id: string, updates: Partial<EditableFacilityItem>) => {
+      setFacilities((prev) => {
+        const current = prev[id] || DEFAULT_FACILITIES[id];
+        if (!current) return prev;
+        const next = { ...prev, [id]: { ...current, ...updates } };
+
+        if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
+        saveTimeoutRef.current = setTimeout(() => {
+          if (persistToDatabase) {
+            upsertCampusPlacements3D(next).catch(() => {
+              // Silencieux : l'état local reste la source immédiate.
+            });
+          } else {
+            try {
+              localStorage.setItem('cuc_campus_placements_v2', JSON.stringify(next));
+            } catch {
+              // LocalStorage quota or privacy mode
+            }
+          }
+        }, 400);
+
+        return next;
+      });
+    },
+    [persistToDatabase]
+  );
 
   const handleSelectObjectId = useCallback((id: string) => {
     setSelectedObjectId(id);
@@ -151,29 +201,40 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
   }, [facilities]);
 
   // Apply imported JSON text
-  const applyImportedJson = useCallback((jsonString: string): string | null => {
-    try {
-      const parsed = JSON.parse(jsonString);
-      if (typeof parsed !== 'object' || parsed === null) {
-        return 'Format JSON invalide : un objet clé/valeur est attendu.';
+  const applyImportedJson = useCallback(
+    (jsonString: string): string | null => {
+      try {
+        const parsed = JSON.parse(jsonString);
+        if (typeof parsed !== 'object' || parsed === null) {
+          return 'Format JSON invalide : un objet clé/valeur est attendu.';
+        }
+        setFacilities(parsed);
+        if (persistToDatabase) {
+          upsertCampusPlacements3D(parsed).catch(() => { });
+        } else {
+          localStorage.setItem('cuc_campus_placements_v2', JSON.stringify(parsed));
+        }
+        soundFX.playTacticalClick();
+        return null;
+      } catch {
+        return 'Erreur de syntaxe JSON. Veuillez vérifier le format de votre code.';
       }
-      setFacilities(parsed);
-      localStorage.setItem('cuc_campus_placements_v2', JSON.stringify(parsed));
-      soundFX.playTacticalClick();
-      return null;
-    } catch {
-      return 'Erreur de syntaxe JSON. Veuillez vérifier le format de votre code.';
-    }
-  }, []);
+    },
+    [persistToDatabase]
+  );
 
   // Reset all facilities to calibrated default
   const resetToDefault = useCallback(() => {
     if (confirm('Voulez-vous réinitialiser tous les emplacements par défaut ?')) {
       setFacilities(DEFAULT_FACILITIES);
-      localStorage.removeItem('cuc_campus_placements_v2');
+      if (persistToDatabase) {
+        upsertCampusPlacements3D(DEFAULT_FACILITIES).catch(() => { });
+      } else {
+        localStorage.removeItem('cuc_campus_placements_v2');
+      }
       soundFX.playTacticalClick();
     }
-  }, []);
+  }, [persistToDatabase]);
 
   // Add custom marker
   const addCustomMarker = useCallback(() => {
@@ -189,11 +250,17 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
       heightScale: 1,
       visible: true,
     };
-    setFacilities((prev) => ({ ...prev, [customId]: newFacility }));
+    setFacilities((prev) => {
+      const next = { ...prev, [customId]: newFacility };
+      if (persistToDatabase) {
+        upsertCampusPlacements3D(next).catch(() => { });
+      }
+      return next;
+    });
     setSelectedObjectId(customId);
     focusFacility(customId);
     soundFX.playTacticalClick();
-  }, [facilities, focusFacility]);
+  }, [facilities, focusFacility, persistToDatabase]);
 
   // Keyboard Navigation & Shortcuts (studio uniquement)
   useEffect(() => {
