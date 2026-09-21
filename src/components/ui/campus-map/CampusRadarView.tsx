@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Sparkles, Layers, Crosshair, MapPin, CheckCircle2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { Sparkles, Layers, Crosshair } from 'lucide-react';
 import { POI } from './campusMap.data';
 
 interface CampusRadarViewProps {
@@ -11,23 +12,12 @@ interface CampusRadarViewProps {
   onSelectPoi: (poi: POI) => void;
 }
 
-const CUC_SIGN_LOCATION_NAMES: Record<string, string> = {
-  '732aad62-6c56-4329-85da-debb88be9fad': 'Tour Jérome Gaspard (Outdoor)',
-  '0fc475db-34ae-47ce-95f2-b20b402c2859': 'Dojo Malik (Indoor)',
-  'a195f7db-e934-4605-befa-df47b35c2049': 'Salle Zoé Bell (Indoor)',
-  '84b68801-d21e-4f97-8d3a-a8dd6d966fea': 'Dojo Maurice (Indoor)',
-  '7a64268f-54ec-4650-b364-1cb78ebb0e38': 'Salle Escalade (Indoor)',
-  'c5e00d0e-16c0-468b-ac13-431a6ce75c1f': 'Salle Tabata (Indoor)',
-  '85190227-31ee-4ee8-945a-5dbd22ad38f0': 'Amphithéâtre & Débrief (Indoor)',
-  '42d2da33-de57-4069-ab32-0467c8b3fb1d': 'Escaliers Cascades (Outdoor)',
-  '1f87ca78-ca18-459a-b8ec-0895ce699660': 'City Stade (Outdoor)',
-};
-
 export const CampusRadarView: React.FC<CampusRadarViewProps> = ({
   pois,
   selectedPoi,
   onSelectPoi,
 }) => {
+  const t = useTranslations('contact.map');
   const [showAerialPhoto, setShowAerialPhoto] = useState(true);
 
   return (
@@ -37,7 +27,7 @@ export const CampusRadarView: React.FC<CampusRadarViewProps> = ({
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/cuc_campus_aerial_real_z19.jpg"
-            alt="Campus Univers Cascades Orthophoto HD"
+            alt={t('orthophotoAlt')}
             fill
             className="object-cover opacity-60 contrast-125 brightness-90 filter"
             sizes="(max-width: 1024px) 100vw, 800px"
@@ -72,20 +62,20 @@ export const CampusRadarView: React.FC<CampusRadarViewProps> = ({
       <div className="relative z-10 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 bg-black/80 backdrop-blur-md px-2.5 py-1 border border-zinc-800 text-[10px] font-mono-tech text-zinc-300">
           <Crosshair className="w-3.5 h-3.5 text-[#FFE500]" />
-          <span>CARTOGRAPHIE DU CAMPUS</span>
+          <span>{t('cartography')}</span>
         </div>
 
         <button
           type="button"
           onClick={() => setShowAerialPhoto(!showAerialPhoto)}
           className={`px-2.5 py-1 rounded text-[10px] font-mono-tech flex items-center gap-1.5 transition border cursor-pointer ${showAerialPhoto
-              ? 'bg-[#FFE500]/20 text-[#FFE500] border-[#FFE500]/40 font-bold'
-              : 'bg-black/80 text-zinc-400 border-zinc-800 hover:text-white'
+            ? 'bg-[#FFE500]/20 text-[#FFE500] border-[#FFE500]/40 font-bold'
+            : 'bg-black/80 text-zinc-400 border-zinc-800 hover:text-white'
             }`}
-          title="Basculer entre la vue satellite réelle et la grille radar"
+          title={t('toggleLayer')}
         >
           <Layers className="w-3 h-3" />
-          <span>{showAerialPhoto ? 'Vue Aérienne HD' : 'Mode Grille'}</span>
+          <span>{showAerialPhoto ? t('aerial') : t('grid')}</span>
         </button>
       </div>
 
@@ -111,8 +101,8 @@ export const CampusRadarView: React.FC<CampusRadarViewProps> = ({
                 />
                 <span
                   className={`relative inline-flex rounded-full h-6 w-6 items-center justify-center text-[10px] font-mono-tech font-bold border ${isSelected
-                      ? 'bg-[#FFE500] text-black border-[#FFE500] shadow-[0_0_16px_#FFE500]'
-                      : 'bg-black/90 text-white border-zinc-600 group-hover/marker:border-[#FFE500]'
+                    ? 'bg-[#FFE500] text-black border-[#FFE500] shadow-[0_0_16px_#FFE500]'
+                    : 'bg-black/90 text-white border-zinc-600 group-hover/marker:border-[#FFE500]'
                     }`}
                 >
                   {poi.id === 'tower-21m' ? '21m' : poi.name.charAt(0)}
@@ -122,8 +112,8 @@ export const CampusRadarView: React.FC<CampusRadarViewProps> = ({
               {/* Marker Tooltip */}
               <span
                 className={`absolute top-9 left-1/2 -translate-x-1/2 px-2 py-0.5 text-[9px] font-mono-tech whitespace-nowrap uppercase tracking-wider transition-all pointer-events-none rounded ${isSelected
-                    ? 'bg-[#FFE500] text-black font-bold shadow-lg block'
-                    : 'bg-black/90 text-zinc-300 border border-zinc-800 opacity-0 group-hover/marker:opacity-100'
+                  ? 'bg-[#FFE500] text-black font-bold shadow-lg block'
+                  : 'bg-black/90 text-zinc-300 border border-zinc-800 opacity-0 group-hover/marker:opacity-100'
                   }`}
               >
                 {poi.name}

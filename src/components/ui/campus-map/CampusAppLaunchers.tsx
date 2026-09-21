@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { ExternalLink } from 'lucide-react';
 
 interface CampusAppLaunchersProps {
@@ -10,10 +11,11 @@ interface CampusAppLaunchersProps {
 export const CampusAppLaunchers: React.FC<CampusAppLaunchersProps> = ({
   coordinates = '50.0909,3.5374',
 }) => {
+  const t = useTranslations('contact.map');
   return (
     <div className="mt-4 pt-4 border-t border-zinc-800">
       <div className="text-xs font-mono-tech text-zinc-400 mb-2">
-        <span>LANCER L'ITINÉRAIRE DANS VOTRE APPLICATION :</span>
+        <span>{t('appLaunchTitle')}</span>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {/* Google Maps */}

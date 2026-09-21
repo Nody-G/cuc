@@ -229,6 +229,16 @@
         "backToTeam": "Retour à toute l'équipe pédagogique"
     },
     "contact": {
+        "hero": {
+            "breadcrumbHome": "ACCUEIL",
+            "breadcrumbCurrent": "CONTACT & PROJETS",
+            "badge": "CONTACT & ADMISSIONS",
+            "locationLabel": "CAMPUS CUC • LE CATEAU-CAMBRÉSIS & GENNEVILLIERS",
+            "titleLine": "CONTACT &",
+            "titleAccent": "PROJETS",
+            "subtitle": "Productions cinématographiques, action design, formations professionnelles de cascadeurs, stages ou événements d'entreprise : échangez directement avec les équipes du CUC.",
+            "imageAlt": "Contact et inscriptions au Campus Univers Cascades"
+        },
         "form": {
             "title": "DÉMARRER UN PROJET OU ÉCHANGER",
             "intro": "Transmettez-nous les détails de votre demande. Notre équipe opérationnelle vous répondra sous 24 à 48 heures ouvrées.",
@@ -293,7 +303,61 @@
             "copyGps": "COPIER GPS",
             "copied": "GPS COPIÉ !",
             "copyGpsTitle": "Copier les coordonnées GPS",
-            "domain": "DOMAINE CUC"
+            "domain": "DOMAINE CUC",
+            "cartography": "CARTOGRAPHIE DU CAMPUS",
+            "aerial": "Vue Aérienne HD",
+            "grid": "Mode Grille",
+            "toggleLayer": "Basculer entre la vue satellite réelle et la grille radar",
+            "orthophotoAlt": "Orthophoto HD du Campus Univers Cascades",
+            "travelTitle": "TEMPS DE TRAJET & ACCÈS",
+            "travelBadge": "CAMPUS CUC",
+            "trainTitle": "EN TRAIN DIRECT",
+            "arrival": "Arrivée : {station}",
+            "carTitle": "EN VOITURE",
+            "accessInfoTitle": "INFO ACCÈS & STATIONNEMENT :",
+            "accessInfoParking": "• <b>Parking gratuit 50 places</b> à l'intérieur du Domaine CUC sécurisé.",
+            "accessInfoShuttle": "• <b>Navette CUC gratuite</b> entre la Gare du Cateau et le Campus pour les stagiaires en formation.",
+            "addressCopied": "ADRESSE COPIÉE DANS LE PRESSE-PAPIER !",
+            "copyAddress": "COPIER L'ADRESSE COMPLÈTE",
+            "sectionBadge": "GÉOLOCALISATION & ASSISTANT DE NAVIGATION",
+            "sectionTitle": "PLAN DU DOMAINE &",
+            "sectionTitleAccent": "ITINÉRAIRES",
+            "sectionIntro": "Retrouvez les coordonnées GPS exactes, les temps de trajet en train ou voiture depuis Paris, Lille ou Bruxelles, et lancez instantanément votre navigation dans Google Maps, Apple Maps, Waze ou SNCF Connect.",
+            "appLaunchTitle": "LANCER L'ITINÉRAIRE DANS VOTRE APPLICATION :",
+            "routes": [
+                {
+                    "id": "paris",
+                    "origin": "Paris",
+                    "tag": "Accès Rapide",
+                    "trainDetails": "Gare du Nord direct TER / Intercités vers Gare du Cateau. Navette campus sur demande.",
+                    "trainStation": "Gare du Cateau-Cambrésis (à 3 min du campus)",
+                    "carDetails": "Autoroute A1 puis A2 (sortie Cambrai ou Valenciennes), direction Le Cateau-Cambrésis."
+                },
+                {
+                    "id": "lille",
+                    "origin": "Lille & Région Nord",
+                    "tag": "Proximité",
+                    "trainDetails": "Lille Flandres direct vers Le Cateau via Valenciennes.",
+                    "trainStation": "Gare du Cateau-Cambrésis",
+                    "carDetails": "Autoroute A23 direction Valenciennes, puis D932 jusqu'au Cateau."
+                },
+                {
+                    "id": "bruxelles",
+                    "origin": "Bruxelles & Belgique",
+                    "tag": "International",
+                    "trainDetails": "Bruxelles-Midi vers Mons puis correspondance Aulnoye-Aymeries / Le Cateau.",
+                    "trainStation": "Gare du Cateau",
+                    "carDetails": "Autoroute E19 / E42 via Mons, direction Maubeuge puis Le Cateau."
+                },
+                {
+                    "id": "airports",
+                    "origin": "Aéroports Internationaux",
+                    "tag": "Monde & DOM-TOM",
+                    "trainDetails": "Depuis Roissy-CDG : TGV Haute-Picardie ou liaison Gare du Nord.",
+                    "trainStation": "Roissy-CDG ou Charleroi Bruxelles-Sud",
+                    "carDetails": "Idéal pour les élèves arrivant de l'étranger : Canada, Réunion, Guadeloupe ou Suisse."
+                }
+            ]
         }
     },
     "visite": {

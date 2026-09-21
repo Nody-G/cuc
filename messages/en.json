@@ -229,6 +229,16 @@
         "backToTeam": "Back to the teaching team"
     },
     "contact": {
+        "hero": {
+            "breadcrumbHome": "HOME",
+            "breadcrumbCurrent": "CONTACT & PROJECTS",
+            "badge": "CONTACT & ADMISSIONS",
+            "locationLabel": "CUC CAMPUS • LE CATEAU-CAMBRÉSIS & GENNEVILLIERS",
+            "titleLine": "CONTACT &",
+            "titleAccent": "PROJECTS",
+            "subtitle": "Feature films, action design, professional stunt training, workshops or corporate events: talk directly with the CUC teams.",
+            "imageAlt": "Contact and admissions at Campus Univers Cascades"
+        },
         "form": {
             "title": "START A PROJECT OR GET IN TOUCH",
             "intro": "Send us the details of your request. Our operations team replies within 24 to 48 working hours.",
@@ -293,7 +303,61 @@
             "copyGps": "COPY GPS",
             "copied": "GPS COPIED!",
             "copyGpsTitle": "Copy GPS coordinates",
-            "domain": "CUC GROUNDS"
+            "domain": "CUC GROUNDS",
+            "cartography": "CAMPUS CARTOGRAPHY",
+            "aerial": "HD Aerial View",
+            "grid": "Grid Mode",
+            "toggleLayer": "Switch between the real satellite view and the radar grid",
+            "orthophotoAlt": "HD orthophoto of Campus Univers Cascades",
+            "travelTitle": "TRAVEL TIMES & ACCESS",
+            "travelBadge": "CUC CAMPUS",
+            "trainTitle": "DIRECT TRAIN",
+            "arrival": "Arrival: {station}",
+            "carTitle": "BY CAR",
+            "accessInfoTitle": "ACCESS & PARKING INFO:",
+            "accessInfoParking": "• <b>Free parking, 50 spaces</b> inside the secured CUC grounds.",
+            "accessInfoShuttle": "• <b>Free CUC shuttle</b> between Le Cateau-Cambrésis station and the campus for trainees enrolled in a course.",
+            "addressCopied": "ADDRESS COPIED TO CLIPBOARD!",
+            "copyAddress": "COPY FULL ADDRESS",
+            "sectionBadge": "GEOLOCATION & NAVIGATION ASSISTANT",
+            "sectionTitle": "CAMPUS MAP &",
+            "sectionTitleAccent": "DIRECTIONS",
+            "sectionIntro": "Find the exact GPS coordinates and travel times by train or car from Paris, Lille or Brussels, then launch your navigation instantly in Google Maps, Apple Maps, Waze or SNCF Connect.",
+            "appLaunchTitle": "OPEN DIRECTIONS IN YOUR APP:",
+            "routes": [
+                {
+                    "id": "paris",
+                    "origin": "Paris",
+                    "tag": "Express Access",
+                    "trainDetails": "Direct TER / intercity service from Paris Gare du Nord to Le Cateau-Cambrésis station. Campus shuttle on request.",
+                    "trainStation": "Le Cateau-Cambrésis station (3 min from the campus)",
+                    "carDetails": "A1 then A2 motorway (Cambrai or Valenciennes exit), towards Le Cateau-Cambrésis."
+                },
+                {
+                    "id": "lille",
+                    "origin": "Lille & Northern France",
+                    "tag": "Nearby",
+                    "trainDetails": "Direct service from Lille Flandres to Le Cateau via Valenciennes.",
+                    "trainStation": "Le Cateau-Cambrésis station",
+                    "carDetails": "A23 motorway towards Valenciennes, then D932 to Le Cateau-Cambrésis."
+                },
+                {
+                    "id": "bruxelles",
+                    "origin": "Brussels & Belgium",
+                    "tag": "International",
+                    "trainDetails": "Brussels-Midi to Mons, then a connection via Aulnoye-Aymeries to Le Cateau-Cambrésis.",
+                    "trainStation": "Le Cateau-Cambrésis station",
+                    "carDetails": "E19 / E42 motorway via Mons, towards Maubeuge then Le Cateau-Cambrésis."
+                },
+                {
+                    "id": "airports",
+                    "origin": "International Airports",
+                    "tag": "Worldwide & Overseas",
+                    "trainDetails": "From Roissy-CDG: TGV Haute-Picardie or a connection via Gare du Nord.",
+                    "trainStation": "Roissy-CDG or Brussels South Charleroi",
+                    "carDetails": "Ideal for trainees arriving from abroad: Canada, Réunion, Guadeloupe or Switzerland."
+                }
+            ]
         }
     },
     "visite": {

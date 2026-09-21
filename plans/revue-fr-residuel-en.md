@@ -1,9 +1,9 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T16:27:24.739Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T17:01:50.367Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **26** — occurrences : **314**
+Pages contrôlées : **27** — pages avec français résiduel : **26** — occurrences : **294**
 
 ## /en/formation-de-cascadeur — 14 occurrence(s)
 
@@ -233,31 +233,11 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | Grand Format à l'École des Cascadeurs |
 | texte visible | Voir les cascades sur Instagram |
 
-## /en/contact-cuc — 21 occurrence(s)
+## /en/contact-cuc — 1 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
 | texte visible | Productions cinématographiques, action design, formations professionnelles, stages ou événements d'entreprise : échangez directement avec les équipes du CUC. |
-| texte visible | GÉOLOCALISATION & ASSISTANT DE NAVIGATION |
-| texte visible | PLAN DU DOMAINE & ITINÉRAIRES |
-| texte visible | Retrouvez les coordonnées GPS exactes, les temps de trajet en train ou voiture depuis Paris, Lille, Bruxelles, et lancez instantanément votre navigation dans Google Maps, Apple Maps, Waze ou SNCF Connect. |
-| texte visible | CARTOGRAPHIE DU CAMPUS |
-| texte visible | Vue Aérienne HD |
-| texte visible | INAUGURÉE OCT. 2024 |
-| texte visible | Hauteur 21m • Paliers 5/8/12/16/21m • Poutre de largage • Certifiée APAVE |
-| texte visible | LANCER L'ITINÉRAIRE DANS VOTRE APPLICATION : |
-| texte visible | TEMPS DE TRAJET & ACCÈS |
-| texte visible | Accès Rapide |
-| texte visible | Lille & Région Nord |
-| texte visible | Proximité |
-| texte visible | Aéroports Internationaux |
-| texte visible | Gare du Nord direct TER / Intercités vers Gare du Cateau. Navette campus sur demande. |
-| texte visible | Arrivée : |
-| texte visible | Gare du Cateau-Cambrésis (à 3 min du campus) |
-| texte visible | INFO ACCÈS & STATIONNEMENT : |
-| texte visible | • Parking gratuit 50 places à l'intérieur du Domaine CUC sécurisé. |
-| texte visible | • Navette CUC gratuite entre la Gare du Cateau et le Campus pour les stagiaires en formation. |
-| texte visible | COPIER L'ADRESSE COMPLÈTE |
 
 ## /en/team-building-cascades — 26 occurrence(s)
 

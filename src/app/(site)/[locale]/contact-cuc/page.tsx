@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { StuntBadge } from '@/components/ui/StuntBadge';
@@ -14,6 +15,7 @@ import {
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 
 export default function ContactCucPage() {
+  const t = useTranslations('contact.map');
   const { content } = usePageDynamicContent('contact-cuc');
 
   return (
@@ -48,15 +50,14 @@ export default function ContactCucPage() {
                 variant="yellow"
                 icon={<Compass className="w-3.5 h-3.5" />}
               >
-                GÉOLOCALISATION &amp; ASSISTANT DE NAVIGATION
+                {t('sectionBadge')}
               </StuntBadge>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-wide text-white mt-3 mb-3">
-                PLAN DU DOMAINE &amp; <span className="text-[#FFE500]">ITINÉRAIRES</span>
+                {t('sectionTitle')}{' '}
+                <span className="text-[#FFE500]">{t('sectionTitleAccent')}</span>
               </h2>
               <p className="text-xs sm:text-sm font-tech text-zinc-400">
-                Retrouvez les coordonnées GPS exactes, les temps de trajet en train ou
-                voiture depuis Paris, Lille, Bruxelles, et lancez instantanément votre
-                navigation dans Google Maps, Apple Maps, Waze ou SNCF Connect.
+                {t('sectionIntro')}
               </p>
             </div>
 

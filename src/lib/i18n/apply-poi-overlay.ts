@@ -28,6 +28,8 @@ export function applyPoiOverlay(
         name: pickString(overlay.name, poi.name) as string,
         category: pickString(overlay.category, poi.category) as string,
         description: pickString(overlay.description, poi.description) as string,
+        badge: pickString(overlay.badge, poi.badge) as string,
+        specs: pickString(overlay.specs, poi.specs) as string,
     };
 }
 
