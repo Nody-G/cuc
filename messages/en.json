@@ -930,7 +930,7 @@
         "breadcrumbHome": "HOME",
         "breadcrumbEvents": "CUC EVENTS",
         "breadcrumbCurrent": "GIANT AIRBAG & PARKOUR ANIMATIONS",
-        "heroMeta": "+20,000 SUPERVISED JUMPS • SINCE 2009",
+        "heroMeta": "SINCE 2009",
         "stat1Label": "Jumps Performed in Europe",
         "stat2Value": "20 METRES",
         "stat2Label": "Maximum Airbag Capacity",
@@ -1036,7 +1036,7 @@
         }
     },
     "stuntWorkshop": {
-        "heroMeta": "IN ENGLISH & FRENCH • 2 RESIDENTIAL WEEKS",
+        "heroMeta": "IN ENGLISH & FRENCH",
         "briAlt": "CUC BRI — riot police stunt training (Brigade de Recherche et d'Intervention)"
     },
     "visiteGuidee": {

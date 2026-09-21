@@ -545,7 +545,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     meta_description: "Formation professionnelle longue durée de 2 ans. 720h à 800h d'entraînement intensif aux combats, chutes, câblerie, feu et torche humaine.",
     og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg',
     hero: {
-      badge: 'FORMATION PROFESSIONNELLE • 2 ANS',
+      badge: '2 ANS • 720H À 800H',
       title: 'FORMATION PROFESSIONNELLE DE CASCADEUR',
       subtitle: "Un cursus d'excellence de 720h à 800h sur 2 ans pour maîtriser l'ensemble des disciplines de la cascade physique et cinématographique.",
       cta_primary_text: 'Candidater à la sélection',
@@ -611,7 +611,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     meta_description: 'Découvrez nos stages de cascade physique, parkour et cascades cinéma ouverts dès 16 ans. Initiations débutants et perfectionnements intensifs.',
     og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
     hero: {
-      badge: 'STAGES INTENSIFS TOUS NIVEAUX • DÈS 16 ANS',
+      badge: 'TOUS NIVEAUX • DÈS 16 ANS',
       title: 'STAGES DE CASCADE & PARKOUR',
       subtitle: "Du stage découverte immersion 12 jours aux week-ends intensifs, vivez l'entraînement des cascadeurs du cinéma dans des conditions de sécurité absolue.",
       cta_primary_text: 'Voir les prochaines dates',
@@ -677,7 +677,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     meta_description: "Stage international de cascade en anglais et français. 2 semaines résidentielles d'immersion au Cateau-Cambrésis.",
     og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg',
     hero: {
-      badge: 'STAGE INTERNATIONAL • EN ANGLAIS & FRANÇAIS',
+      badge: 'STAGE INTERNATIONAL',
       title: 'INTERNATIONAL STUNT WORKSHOP',
       subtitle: "Rejoignez des cascadeurs et performeurs venus du monde entier (USA, UK, Europe, Australie) pour 2 semaines d'immersion totale au CUC.",
       cta_primary_text: 'Apply for Next Session',
@@ -783,7 +783,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     meta_description: "Séminaires d'entreprise et cohésion d'équipe dans les coulisses du cinéma : combat chorégraphié, doublage voix et dépassement de soi.",
     og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg',
     hero: {
-      badge: 'SÉMINAIRES & ENTREPRISES • COHÉSION D’ÉQUIPE',
+      badge: 'SÉMINAIRES & ENTREPRISES',
       title: 'TEAM BUILDING D’EXCEPTION',
       subtitle: "Offrez à vos équipes une expérience fédératrice hors du commun : cascades de cinéma, doublage vocal et cascade physique encadrées par des pros.",
       cta_primary_text: 'Demander un Devis Séminaire',
@@ -855,7 +855,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     meta_description: "Spectacles vivants d'action, combats chorégraphiés et acrobaties urbaines Yamakasi pour vos événements, festivals et parcs.",
     og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg',
     hero: {
-      badge: 'LE CINÉMA S’INVITE SUR SCÈNE • SHOWS CLÉ EN MAIN',
+      badge: 'LE CINÉMA S’INVITE SUR SCÈNE',
       title: 'SPECTACLES CASCADEURS & YAMAKASI',
       subtitle: "Des performances scéniques explosives alliant voltige urbaine Yamakasi, combats chorégraphiés, pyrotechnie et cascades de haute précision.",
       cta_primary_text: 'Réserver un Spectacle',
@@ -960,7 +960,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     meta_description: "Retrouvez les reportages diffusés aux JT de TF1 et France 2 sur le CUC ainsi que les showreels des cascadeurs du campus.",
     og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg',
     hero: {
-      badge: 'REPORTAGES TÉLÉVISION • TF1 JT 20H • FRANCE 2',
+      badge: 'REPORTAGES TÉLÉVISION',
       title: 'LES REPORTAGES & VIDÉOS DU CUC',
       subtitle: "Découvrez les coulisses de l'entraînement des cascadeurs avec les reportages de TF1, France 2 et les showreels du Campus Univers Cascades.",
       cta_primary_text: 'Reportage TF1 (JT 20H)',
@@ -985,7 +985,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     meta_description: "Le Campus Univers Cascades collabore avec les plus grandes marques de protection, studios de cinéma et institutions certifiées.",
     og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-6-scaled.jpg',
     hero: {
-      badge: 'ILS NOUS ACCOMPAGNENT • MARQUES & INSTITUTIONS',
+      badge: 'ILS NOUS ACCOMPAGNENT',
       title: 'NOS PARTENAIRES',
       subtitle: "Le Campus Univers Cascades travaille avec des marques, fabricants et institutions reconnus dans leurs domaines : équipement, protection et formation.",
       cta_primary_text: 'Devenir Partenaire',
@@ -1010,7 +1010,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     meta_description: "Productions cinéma, action design, formations professionnelles de cascadeurs, stages et événements : contactez l'équipe du Campus Univers Cascades.",
     og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
     hero: {
-      badge: 'CONTACT & ADMISSIONS',
+      badge: 'ADMISSIONS & PROJETS',
       title: 'CONTACT & PROJETS',
       subtitle: "Productions cinématographiques, action design, formations professionnelles, stages ou événements d'entreprise : échangez directement avec les équipes du CUC.",
       cta_primary_text: 'Démarrer un projet',
