@@ -189,13 +189,13 @@ export const EventsPillarsSection: React.FC = () => {
                     Offrez à votre public des sensations uniques grâce à nos animations interactives encadrées par des professionnels : le <strong className="text-white">FreeJump Airbag</strong> (sauts sécurisés de 4 à 8 mètres de haut), simulateur de câblage cinéma, ou ateliers d&apos;initiation au parkour avec les membres des Yamakasi.
                   </p>
                   <p className="text-xs font-tech text-zinc-400 leading-relaxed">
-                    Installations entièrement conformes aux normes de sécurité les plus strictes avec assurance professionnelle et encadrement qualifié.
+                    {pillars[1].paragraph2}
                   </p>
 
                   <div className="pt-4">
                     <Link href="/contact-cuc?demande=cuc-events">
                       <TacticalButton variant="primary" size="md" icon={<ArrowRight className="w-4 h-4" />}>
-                        En savoir plus sur nos Animations
+                        {pillars[1].cta}
                       </TacticalButton>
                     </Link>
                   </div>

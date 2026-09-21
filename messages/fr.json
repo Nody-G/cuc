@@ -793,7 +793,11 @@
                 "description": "Déplacement de nos structures mobiles et équipes de cascadeurs sur votre site d'événement."
             }
         ],
-        "guaranteeLogoAlt": "Cascadeurs Professionnels CUC"
+        "guaranteeLogoAlt": "Cascadeurs Professionnels CUC",
+        "partnersBadge": "PARTENAIRES & MARQUES",
+        "partnersTitle": "ILS NOUS ONT FAIT CONFIANCE",
+        "cinemaBadge": "RÉFÉRENCES CINÉMA",
+        "cinemaTitle": "LES PRODUCTIONS CINÉMA & TÉLÉVISION"
     },
     "spectacles": {
         "heroBadge": "LE CINÉMA S'INVITE SUR SCÈNE",
@@ -941,5 +945,8 @@
                 "imageAlt": "Affiche Stage Cascadeur Pro CUC Provence Studios"
             }
         ]
+    },
+    "stuntWorkshop": {
+        "heroMeta": "EN ANGLAIS & FRANÇAIS • 2 SEMAINES RÉSIDENTIELLES"
     }
 }

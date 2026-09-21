@@ -1,9 +1,9 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T17:31:59.999Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T17:34:42.257Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **23** — occurrences : **130**
+Pages contrôlées : **27** — pages avec français résiduel : **20** — occurrences : **123**
 
 ## /en/formation-de-cascadeur — 11 occurrence(s)
 
@@ -140,28 +140,6 @@ Pages contrôlées : **27** — pages avec français résiduel : **23** — occu
 | Source | Texte détecté |
 |---|---|
 | texte visible | ZOË BELL AT THE CAMPUS |
-
-## /en/animations-airbag-parkour — 1 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | XTREM JUMP AIRBAG CINÉMA & PARKOUR |
-
-## /en/stunt-workshop-cuc — 1 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | EN ANGLAIS & FRANÇAIS • 2 SEMAINES RÉSIDENTIELLES |
-
-## /en/cuc-events-agence — 5 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | Installations entièrement conformes aux normes de sécurité les plus strictes avec assurance professionnelle et encadrement qualifié. |
-| texte visible | En savoir plus sur nos Animations |
-| texte visible | ILS NOUS ONT FAIT CONFIANCE |
-| texte visible | RÉFÉRENCES CINÉMA |
-| texte visible | LES PRODUCTIONS CINÉMA & TÉLÉVISION |
 
 ## /en/equipe-cascadeurs-pro/lucas-dollfus — 2 occurrence(s)
 

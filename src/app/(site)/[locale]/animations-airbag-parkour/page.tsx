@@ -150,7 +150,7 @@ export default function AnimationsAirbagParkourPage() {
                         CUC EVENTS ANIMATIONS
                       </span>
                       <span className="text-[10px] font-mono-tech text-zinc-500 uppercase">
-                        XTREM JUMP AIRBAG CINÉMA &amp; PARKOUR
+                        {t('panelSub')}
                       </span>
                     </div>
                   </div>

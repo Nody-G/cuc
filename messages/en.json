@@ -793,7 +793,11 @@
                 "description": "We bring our mobile structures and stunt teams to your event site."
             }
         ],
-        "guaranteeLogoAlt": "CUC professional stunt performers"
+        "guaranteeLogoAlt": "CUC professional stunt performers",
+        "partnersBadge": "PARTNERS & BRANDS",
+        "partnersTitle": "THEY TRUSTED US",
+        "cinemaBadge": "FILM REFERENCES",
+        "cinemaTitle": "FILM & TELEVISION PRODUCTIONS"
     },
     "spectacles": {
         "heroBadge": "CINEMA TAKES TO THE STAGE",
@@ -941,5 +945,8 @@
                 "imageAlt": "CUC pro stunt performer course poster, Provence Studios"
             }
         ]
+    },
+    "stuntWorkshop": {
+        "heroMeta": "IN ENGLISH & FRENCH • 2 RESIDENTIAL WEEKS"
     }
 }

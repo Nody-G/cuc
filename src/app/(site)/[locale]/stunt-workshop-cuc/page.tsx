@@ -2,6 +2,7 @@
 import { Link } from '@/i18n/navigation';
 
 import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
@@ -22,6 +23,7 @@ import {
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 
 export default function StuntWorkshopCucPage() {
+  const t = useTranslations('stuntWorkshop');
   const [isApplicationOpen, setIsApplicationOpen] = useState(false);
   const { content } = usePageDynamicContent('stunt-workshop-cuc');
 
@@ -70,7 +72,7 @@ export default function StuntWorkshopCucPage() {
                 {heroBadge}
               </StuntBadge>
               <span className="text-xs font-mono-tech text-zinc-400">
-                EN ANGLAIS &amp; FRANÇAIS • 2 SEMAINES RÉSIDENTIELLES
+                {t('heroMeta')}
               </span>
             </div>
 

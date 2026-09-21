@@ -1,10 +1,12 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 
 export const EventsPartnersBanners: React.FC = () => {
+  const t = useTranslations('eventsAgence');
   return (
     <>
       {/* ILS NOUS ONT FAIT CONFIANCE (BANDES LOGOS) */}
@@ -12,10 +14,10 @@ export const EventsPartnersBanners: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-10">
             <div className="inline-flex items-center gap-2 mb-2">
-              <StuntBadge variant="yellow">PARTENAIRES & MARQUES</StuntBadge>
+              <StuntBadge variant="yellow">{t('partnersBadge')}</StuntBadge>
             </div>
             <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-              ILS NOUS ONT FAIT CONFIANCE
+              {t('partnersTitle')}
             </h2>
           </div>
 
@@ -57,10 +59,10 @@ export const EventsPartnersBanners: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-10">
             <div className="inline-flex items-center gap-2 mb-2">
-              <StuntBadge variant="yellow">RÉFÉRENCES CINÉMA</StuntBadge>
+              <StuntBadge variant="yellow">{t('cinemaBadge')}</StuntBadge>
             </div>
             <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-              LES PRODUCTIONS CINÉMA & TÉLÉVISION
+              {t('cinemaTitle')}
             </h2>
           </div>
 
