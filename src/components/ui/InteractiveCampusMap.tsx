@@ -65,7 +65,7 @@ export const InteractiveCampusMap: React.FC = () => {
         {/* Domain info */}
         <div className="flex items-center gap-4 text-[11px]">
           <div className="flex items-center gap-1.5 text-zinc-400">
-            <span>Le Cateau-Cambrésis • Domaine 6 Ha</span>
+            <span>Le Cateau-Cambrésis • Domaine CUC</span>
           </div>
         </div>
       </div>
@@ -88,7 +88,7 @@ export const InteractiveCampusMap: React.FC = () => {
                   }`}
                 >
                   <Crosshair className="w-3.5 h-3.5" />
-                  <span>Radar Satellite 6 Ha</span>
+                  <span>Radar Satellite</span>
                 </button>
                 <button
                   type="button"
@@ -142,7 +142,7 @@ export const InteractiveCampusMap: React.FC = () => {
                   <div className="absolute top-4 left-4 bg-black/85 backdrop-blur-md border border-[#FFE500]/60 p-3 pointer-events-none max-w-xs">
                     <div className="flex items-center gap-2 text-[#FFE500] text-xs font-mono-tech font-bold mb-1">
                       <Crosshair className="w-4 h-4 animate-spin-slow" />
-                      <span>DOMAINE CUC — 6 HECTARES</span>
+                      <span>DOMAINE CUC</span>
                     </div>
                     <p className="text-[11px] font-tech text-zinc-300 leading-snug">
                       70 Rue Faidherbe, 59360 Le Cateau-Cambrésis
@@ -159,7 +159,7 @@ export const InteractiveCampusMap: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                /* Tactical Radar Layout for 6 Hectares Domain */
+                /* Tactical Radar Layout for the Campus Domain */
                 <CampusRadarView
                   pois={pois}
                   selectedPoi={selectedPoi}

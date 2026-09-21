@@ -2,67 +2,34 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
-import { getFilms } from '@/lib/data/site-service';
-import { createClient } from '@/lib/supabase/client';
-import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
-import { FilmCredit, DoubledCelebrity } from '@/types';
+import { DoubledCelebrity } from '@/types';
 import { StuntBadge } from '../ui/StuntBadge';
-import { Clapperboard, Film } from 'lucide-react';
+import { Clapperboard } from 'lucide-react';
 import { CelebrityDoublesGallery } from './hall-of-fame/CelebrityDoublesGallery';
-import { FilmGridCard } from './hall-of-fame/FilmGridCard';
-import { FilmDetailsModal } from './hall-of-fame/FilmDetailsModal';
 import { CelebrityDetailsModal } from './hall-of-fame/CelebrityDetailsModal';
+import { CucFilmsShowcase } from './films/CucFilmsShowcase';
 
-const CATEGORIES = [
-  { id: 'all', label: 'Toutes les Productions' },
-  { id: 'Blockbuster', label: 'Productions Internationales' },
-  { id: 'Cinéma Français', label: 'Cinéma Français & Auteurs' },
-  { id: 'Show & Événement', label: 'Shows & Parcs à Thème' },
-];
-
+/**
+ * Bloc « Hall of Fame » de la page TOURNAGE (`/cuc-team-cascadeur`).
+ *
+ * La grille « FILMOGRAPHIE / FILMS & SÉRIES » a été remplacée par le composant
+ * partagé [`CucFilmsShowcase`](src/components/sections/films/CucFilmsShowcase.tsx:1)
+ * (« LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC »), tandis que la section
+ * « Acteurs & comédiens doublés » est conservée à l'identique.
+ */
 export const HallOfFame: React.FC = () => {
-  const [filter, setFilter] = useState<string>('all');
-  const [selectedMovie, setSelectedMovie] = useState<FilmCredit | null>(null);
   const [selectedCelebrity, setSelectedCelebrity] = useState<DoubledCelebrity | null>(null);
 
-  // Close modals on ESC key
+  // Fermeture des modales au clavier (Échap)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setSelectedMovie(null);
         setSelectedCelebrity(null);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
-
-  const [movies, setMovies] = useState<FilmCredit[]>(FILMOGRAPHY_CREDITS);
-
-  useEffect(() => {
-    getFilms().then(setMovies);
-
-    const supabase = createClient();
-    const channel = createSafeChannel(supabase, 'realtime:site_films', (ch) =>
-      ch.on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'site_films' },
-        () => {
-          getFilms().then(setMovies);
-        }
-      )
-    );
-
-    return () => {
-      removeSafeChannel(supabase, channel);
-    };
-  }, []);
-
-  const filteredMovies =
-    filter === 'all'
-      ? movies
-      : movies.filter((m) => m.category === filter);
 
   return (
     <section id="filmographie" className="py-24 bg-[#08080a] relative border-t border-zinc-800 overflow-hidden">
@@ -85,12 +52,12 @@ export const HallOfFame: React.FC = () => {
           </div>
           <div className="inline-flex items-center gap-2 mb-3">
             <StuntBadge variant="yellow" icon={<Clapperboard className="w-3.5 h-3.5" />}>
-              CRÉDITS &amp; TOURNAGES
+              CRÉDITS & TOURNAGES
             </StuntBadge>
-            <span className="text-xs font-mono-tech text-zinc-500">PRODUCTIONS CUC &amp; ANCIENS ÉLÈVES</span>
+            <span className="text-xs font-mono-tech text-zinc-500">PRODUCTIONS CUC & ANCIENS ÉLÈVES</span>
           </div>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-display uppercase tracking-tight text-white">
-            HALL OF FAME DU CINÉMA D&apos;ACTION
+            HALL OF FAME DU CINÉMA D'ACTION
           </h2>
           <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-[#FFE500] to-transparent mx-auto my-3" />
           <p className="text-sm sm:text-base text-zinc-400 font-tech mt-2">
@@ -101,64 +68,14 @@ export const HallOfFame: React.FC = () => {
         {/* SECTION VEDETTE : LES ACTEURS ET COMÉDIENS DOUBLÉS */}
         <CelebrityDoublesGallery onSelectCelebrity={setSelectedCelebrity} />
 
-        {/* SECTION DES FILMS DU HALL OF FAME */}
-        <div className="mb-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <Film className="w-4 h-4 text-[#FFE500]" />
-                <span className="text-xs font-mono-tech text-zinc-400 uppercase font-bold tracking-wider">
-                  FILMOGRAPHIE
-                </span>
-              </div>
-              <h3 className="text-3xl sm:text-4xl font-display uppercase tracking-tight text-white">
-                FILMS &amp; SÉRIES
-              </h3>
-            </div>
-
-            <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400">
-              <span>Cliquez sur un film pour afficher les détails</span>
-            </div>
-          </div>
-
-          {/* Filter Categories */}
-          <div className="flex flex-wrap gap-2 mb-10 pb-3 border-b border-zinc-800">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setFilter(cat.id)}
-                className={`px-4 py-2 text-xs font-display tracking-wider uppercase border transition-all cursor-pointer ${filter === cat.id
-                  ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-[0_0_12px_rgba(255,229,0,0.3)]'
-                  : 'bg-[#121216] text-zinc-300 border-zinc-800 hover:border-zinc-600'
-                  }`}
-              >
-                {cat.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Film Credits Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filteredMovies.map((movie) => (
-            <FilmGridCard
-              key={movie.id}
-              movie={movie}
-              onSelectMovie={setSelectedMovie}
-            />
-          ))}
-        </div>
+        {/* SECTION FILMS : LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC */}
+        <CucFilmsShowcase className="mt-16" />
       </div>
 
-      {/* Modales Interactives */}
+      {/* Modale Acteurs doublés */}
       <CelebrityDetailsModal
         celebrity={selectedCelebrity}
         onClose={() => setSelectedCelebrity(null)}
-      />
-
-      <FilmDetailsModal
-        movie={selectedMovie}
-        onClose={() => setSelectedMovie(null)}
       />
     </section>
   );

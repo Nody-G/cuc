@@ -1,8 +1,9 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+
 import { ChevronRight, X } from 'lucide-react';
 import { CAMPUS_FACILITIES } from '@/data/campus';
 import { EditableFacilityItem } from '../types/campus3d.types';

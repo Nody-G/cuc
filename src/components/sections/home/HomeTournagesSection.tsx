@@ -1,8 +1,9 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+
 import { Film, Clapperboard, ShieldCheck, ChevronRight, Sparkles } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import {
@@ -170,7 +171,7 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
                   </div>
                   <p className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed">
                     Régleurs de cascades chevronnés, matériel de pointe (airbags certifiés, rigging 3D, crash-pads)
-                    et domaine privé de 6 hectares privatisable pour répétitions de scènes complexes.
+                    et domaine privé privatisable pour répétitions de scènes complexes.
                   </p>
                 </div>
 

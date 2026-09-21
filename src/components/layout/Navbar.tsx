@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { Link, usePathname } from '@/i18n/navigation';
 import { Menu, X, ExternalLink } from 'lucide-react';
 import { TacticalButton } from '../ui/TacticalButton';
 import { NavDropdownItem } from './navbar/NavDropdowns';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import { NavActionsBar } from './navbar/NavActionsBar';
 import { NavMobileDrawer } from './navbar/NavMobileDrawer';
 import { AnnouncementBanner } from './AnnouncementBanner';
@@ -156,6 +156,7 @@ export const Navbar: React.FC = () => {
 
           {/* Mobile Menu Toggle Button */}
           <div className="flex items-center gap-2 xl:hidden">
+            <LanguageSwitcher />
             <Link href={cta.href}>
               <TacticalButton
                 variant="primary"

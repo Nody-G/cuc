@@ -1,7 +1,8 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React from 'react';
-import Link from 'next/link';
+
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';

@@ -12,7 +12,7 @@ export const SITE_NAME = "Campus Univers Cascades";
 export const SITE_SHORT_NAME = "CUC";
 
 export const SITE_DESCRIPTION =
-    "Centre de formation professionnelle pour cascadeurs de cinéma et spectacle : domaine de 6 hectares, CUC Tower 21m, chutes de hauteur, câblage. Certification QUALIOPI et prise en charge AFDAS.";
+    "Centre de formation professionnelle pour cascadeurs de cinéma et spectacle : CUC Tower 21m, chutes de hauteur, câblage. Certification QUALIOPI et prise en charge AFDAS.";
 
 export const SITE_LOCALE = "fr_FR";
 
@@ -37,7 +37,7 @@ export const CAMPUS_GEO = {
 };
 
 export const CAMPUS_ADDRESS = {
-    streetAddress: "6 hectares — Domaine du Campus Univers Cascades",
+    streetAddress: "Domaine du Campus Univers Cascades",
     addressLocality: "Le Cateau-Cambrésis",
     postalCode: "59360",
     addressRegion: "Hauts-de-France",

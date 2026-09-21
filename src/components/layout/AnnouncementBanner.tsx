@@ -1,7 +1,8 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
+
 import { getActiveAnnouncement, getSiteSettings, SiteAnnouncement } from '@/lib/data/site-service';
 import { createClient } from '@/lib/supabase/client';
 import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';

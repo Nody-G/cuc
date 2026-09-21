@@ -1,7 +1,8 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React from 'react';
-import Link from 'next/link';
+
 import Image from 'next/image';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { TacticalButton } from '@/components/ui/TacticalButton';

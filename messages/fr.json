@@ -1,0 +1,28 @@
+{
+    "common": {
+        "skipToContent": "Aller au contenu principal",
+        "language": "Langue",
+        "currentLanguage": "Français",
+        "switchToEnglish": "English",
+        "switchToFrench": "Français",
+        "languageMenuLabel": "Choisir la langue",
+        "openMenu": "Ouvrir le menu",
+        "closeMenu": "Fermer le menu"
+    },
+    "films": {
+        "badge": "TOURNAGES & AFFICHES",
+        "title": "LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC",
+        "subtitle": "Découvrez l'ensemble des productions cinématographiques et télévisuelles sur lesquelles nos cascadeurs et formateurs sont intervenus.",
+        "sortLabel": "Trier :",
+        "sortYearDesc": "Année (récent → ancien)",
+        "sortYearAsc": "Année (ancien → récent)",
+        "sortTitleAsc": "Nom (A → Z)",
+        "sortTitleDesc": "Nom (Z → A)"
+    },
+    "campus": {
+        "title": "LE CAMPUS",
+        "ctaInfrastructures": "Infrastructures",
+        "ctaVisite360": "Visite 360°",
+        "ctaPlan3d": "Plan 3D"
+    }
+}

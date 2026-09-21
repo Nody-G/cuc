@@ -286,7 +286,7 @@ export const DEFAULT_FOOTER: SiteFooter = {
             name: 'CAMPUS UNIVERS CASCADES',
             tagline: 'Fondé en 2008 • Plus grande école au monde',
             description:
-                "Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. 6 hectares d'installations de pointe.",
+                "Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. Des installations de pointe.",
         },
         columns: [
             {
@@ -339,8 +339,8 @@ export const DEFAULT_FOOTER: SiteFooter = {
                 is_visible: true,
                 links: [
                     {
-                        id: 'visite-guidee-6ha',
-                        label: 'Visite Guidée des 6 Ha',
+                        id: 'visite-guidee-campus',
+                        label: 'Visite Guidée du Campus',
                         href: '/visite-guidee',
                         order: 1,
                         is_visible: true,

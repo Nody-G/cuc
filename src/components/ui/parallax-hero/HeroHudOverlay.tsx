@@ -15,7 +15,7 @@ export const HeroHudOverlay: React.FC<HeroHudOverlayProps> = ({ className = '' }
         <span className="w-1.5 h-1.5 rounded-full bg-[#FFE500]" />
         <span className="text-zinc-300 font-medium">Hauts-de-France</span>
         <span className="text-zinc-600">•</span>
-        <span className="text-zinc-400">Domaine de 6 Hectares</span>
+        <span className="text-zinc-400">Domaine privé</span>
       </div>
 
       {/* Google Maps Quick Access Pill */}

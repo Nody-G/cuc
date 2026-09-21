@@ -1,7 +1,8 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+
 import { Phone, Mail, ExternalLink } from 'lucide-react';
 import { SocialIcon } from '@/components/ui/logos/SocialLogos';
 import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data/site-service';

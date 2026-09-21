@@ -1,8 +1,9 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+
 import { FilmCredit, Instructor } from '@/types';
 import { CUC_TEAM } from '@/data/team';
 import { getTeam } from '@/lib/data/site-service';

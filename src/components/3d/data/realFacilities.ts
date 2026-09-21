@@ -186,7 +186,7 @@ export const REAL_FACILITIES: Record<string, RealFacility> = {
     // 312 m² — petit bâtiment au Nord-Ouest : annexe technique.
     'site-tournage': {
         id: 'site-tournage',
-        name: 'Site Extérieur (6 Hectares)',
+        name: 'Site Extérieur',
         code: '07',
         x: -41.01,
         z: 106.63,

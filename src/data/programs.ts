@@ -124,7 +124,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
       'Bagarre de cinéma et bruitages corporels',
       'Acrobaties et franchissement d\'obstacles',
       'Chutes contrôlées sur praticables',
-      'Immersion nocturne sur le campus de 6 hectares'
+      'Immersion nocturne sur le campus'
     ],
     certification: 'Certificat de stage Immersion CUC',
     ctaText: 'Réserver mon Week-end (250€)',
@@ -197,7 +197,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
       'Perfectionner sa technique de Parkour et de Freerunning sur Parkour Park pro',
       'Dompter la peur du vide grâce aux sauts répétés sur Airbag géant',
       'Chorégraphier des combats de cinéma en binôme',
-      'Vivre une semaine de cohésion inoubliable sur 6 hectares d\'infrastructures'
+      'Vivre une semaine de cohésion inoubliable sur nos infrastructures'
     ],
     keyModules: [
       'Parkour & Freerun encadré par des professionnels',

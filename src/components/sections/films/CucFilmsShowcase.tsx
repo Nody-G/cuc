@@ -1,0 +1,163 @@
+'use client';
+
+import React from 'react';
+import Image from 'next/image';
+import { Film, ArrowUpDown } from 'lucide-react';
+import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
+import { getFilms } from '@/lib/data/site-service';
+import { createClient } from '@/lib/supabase/client';
+import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
+import { FilmCredit } from '@/types';
+import { StuntBadge } from '@/components/ui/StuntBadge';
+import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
+
+type FilmSort = 'year-desc' | 'year-asc' | 'title-asc' | 'title-desc';
+
+export interface CucFilmsShowcaseProps {
+    /** Ancre éventuelle (ex. `filmographie`). */
+    id?: string;
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+    /** Classes additionnelles appliquées au conteneur racine (marges…). */
+    className?: string;
+    /** Affiche le liseré supérieur séparateur (défaut : true). */
+    divider?: boolean;
+}
+
+/**
+ * Vitrine « LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC ».
+ *
+ * Composant partagé extrait de `/equipe-cascadeurs-pro` et réutilisé sur la page
+ * TOURNAGE (`/cuc-team-cascadeur`) à la place de l'ancien bloc « FILMS & SÉRIES ».
+ * Source live : Supabase `site_films` (+ Realtime), repli sur `FILMOGRAPHY_CREDITS`.
+ */
+export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
+    id,
+    badge = 'TOURNAGES & AFFICHES',
+    title = 'LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC',
+    subtitle = "Découvrez l'ensemble des productions cinématographiques et télévisuelles sur lesquelles nos cascadeurs et formateurs sont intervenus.",
+    className = '',
+    divider = true,
+}) => {
+    const [films, setFilms] = React.useState<FilmCredit[]>(FILMOGRAPHY_CREDITS);
+    const [filmSort, setFilmSort] = React.useState<FilmSort>('year-desc');
+    const [selectedFilm, setSelectedFilm] = React.useState<FilmCredit | null>(null);
+
+    React.useEffect(() => {
+        getFilms().then(setFilms);
+
+        const supabase = createClient();
+        const channel = createSafeChannel(supabase, 'realtime:site_films_showcase', (ch) =>
+            ch.on(
+                'postgres_changes',
+                { event: '*', schema: 'public', table: 'site_films' },
+                () => {
+                    getFilms().then(setFilms);
+                }
+            )
+        );
+
+        return () => {
+            removeSafeChannel(supabase, channel);
+        };
+    }, []);
+
+    // Tri du catalogue (date ou nom, croissant/décroissant)
+    const sortedFilms = React.useMemo(() => {
+        const list = [...films];
+        const yearOf = (f: FilmCredit) => {
+            const parsed = parseInt(String(f.year ?? '').replace(/\D/g, ''), 10);
+            return Number.isFinite(parsed) ? parsed : 0;
+        };
+        switch (filmSort) {
+            case 'year-asc':
+                return list.sort((a, b) => yearOf(a) - yearOf(b));
+            case 'title-asc':
+                return list.sort((a, b) => a.title.localeCompare(b.title, 'fr', { sensitivity: 'base' }));
+            case 'title-desc':
+                return list.sort((a, b) => b.title.localeCompare(a.title, 'fr', { sensitivity: 'base' }));
+            case 'year-desc':
+            default:
+                return list.sort((a, b) => yearOf(b) - yearOf(a));
+        }
+    }, [films, filmSort]);
+
+    return (
+        <div id={id} className={`${divider ? 'border-t border-zinc-800 pt-16' : ''} ${className}`.trim()}>
+            <div className="text-center max-w-3xl mx-auto mb-10">
+                <div className="inline-flex items-center gap-2 mb-3">
+                    <StuntBadge variant="yellow" icon={<Film className="w-3.5 h-3.5" />}>
+                        {badge}
+                    </StuntBadge>
+                    <span className="text-xs font-mono-tech text-zinc-400">
+                        CINÉMA D'ACTION INTERNATIONAL
+                    </span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mb-3">
+                    {title}
+                </h2>
+                <p className="text-xs sm:text-sm font-tech text-zinc-400">{subtitle}</p>
+                <label className="mt-5 inline-flex items-center gap-2 text-[11px] font-mono-tech text-zinc-400">
+                    <ArrowUpDown className="w-3.5 h-3.5 text-[#FFE500]" />
+                    <span className="uppercase tracking-wider">Trier :</span>
+                    <select
+                        value={filmSort}
+                        onChange={(e) => setFilmSort(e.target.value as FilmSort)}
+                        className="bg-black/60 border border-zinc-700 text-zinc-200 text-[11px] font-mono-tech px-2 py-1 focus:outline-none focus:border-[#FFE500]"
+                        aria-label="Trier les films"
+                    >
+                        <option value="year-desc">Année (récent → ancien)</option>
+                        <option value="year-asc">Année (ancien → récent)</option>
+                        <option value="title-asc">Nom (A → Z)</option>
+                        <option value="title-desc">Nom (Z → A)</option>
+                    </select>
+                </label>
+            </div>
+
+            {/* Grille des affiches (chargées dynamiquement depuis Supabase) */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                {sortedFilms.map((film) => (
+                    <button
+                        key={film.id}
+                        type="button"
+                        onClick={() => setSelectedFilm(film)}
+                        className="bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/60 transition-all p-2 group flex flex-col justify-between cursor-pointer text-left"
+                        title={`${film.title} (${film.year}) - Cliquez pour voir la fiche`}
+                    >
+                        <div className="relative aspect-[2/3] w-full overflow-hidden bg-black mb-2">
+                            {film.image ? (
+                                <Image
+                                    src={film.image}
+                                    alt={film.title}
+                                    fill
+                                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
+                                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
+                            ) : (
+                                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-zinc-900 to-black">
+                                    <Film className="w-8 h-8 text-zinc-700" />
+                                    <span className="text-[9px] font-mono-tech uppercase tracking-wider text-zinc-600 px-2 text-center">
+                                        {film.title}
+                                    </span>
+                                </div>
+                            )}
+                            {film.year && (
+                                <span className="absolute top-1 left-1 px-1.5 py-0.2 bg-black/80 text-[#FFE500] font-mono-tech text-[9px] font-bold">
+                                    {film.year}
+                                </span>
+                            )}
+                        </div>
+                        <p className="text-[11px] font-mono-tech uppercase text-zinc-300 group-hover:text-[#FFE500] truncate text-center">
+                            {film.title}
+                        </p>
+                    </button>
+                ))}
+            </div>
+
+            <FilmDetailsModal movie={selectedFilm} onClose={() => setSelectedFilm(null)} />
+        </div>
+    );
+};
+
+export default CucFilmsShowcase;

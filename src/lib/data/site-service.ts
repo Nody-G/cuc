@@ -474,7 +474,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
         tag: 'PRÉSENTATION',
         subtag: '• CINÉMA, SÉRIES & SPECTACLE',
         title: 'LE CENTRE DE FORMATION DE RÉFÉRENCE EN CASCADE DE CINÉMA',
-        description: "Créé en 2008 par Lucas Dollfus, le Campus Univers Cascades (CUC) est un centre de formation professionnelle dédié aux techniques de cascade physique et mécanique, établi sur un domaine privé de 6 hectares au Cateau-Cambrésis (59).",
+        description: "Créé en 2008 par Lucas Dollfus, le Campus Univers Cascades (CUC) est un centre de formation professionnelle dédié aux techniques de cascade physique et mécanique, établi au Cateau-Cambrésis (59).",
         founder_quote: "« Maîtriser le risque, créer l'inédit, repousser les limites de la vérité physique au service de la vision des plus grands réalisateurs. »",
         founder_name: 'LUCAS DOLLFUS',
         founder_role: 'FONDATEUR & RÉGLEUR',
@@ -795,7 +795,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
         title: 'DES ATELIERS SUR MESURE POUR VOTRE ÉQUIPE',
         description: "Offrez à vos collaborateurs une expérience fédératrice hors du commun : cascades de cinéma, doublage vocal et cascade physique encadrées par des professionnels certifiés.",
         capacity: '10 à 300 personnes',
-        location: 'Sur notre domaine de 6 hectares ou sur le lieu de votre séminaire',
+        location: 'Sur notre domaine ou sur le lieu de votre séminaire',
         duration: 'Demi-journée, journée ou nocturne',
       },
       workshops: [
@@ -898,7 +898,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     meta_description: "Explorez les 11 000 m² du Campus Univers Cascades en immersion 360° ou via le plan topographique 3D interactif.",
     og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.jpg',
     hero: {
-      badge: 'IMMERSION 360° & PLAN 3D • 6 HECTARES',
+      badge: 'IMMERSION 360° & PLAN 3D',
       title: 'DÉCOUVRIR LE CAMPUS',
       subtitle: "Explorez nos 11 000 m² d'infrastructures de pointe : fosse de chute, dojos, hangars de câblerie et tour de saut 21 mètres.",
       cta_primary_text: 'Visite Virtuelle 360°',
@@ -923,13 +923,13 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     meta_description: "Découvrez en détail les installations du CUC : tour de saut 21m, 1300 m² de hangars, dojo de combat, fosse de réception et hébergement.",
     og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.jpg',
     hero: {
-      badge: 'INFRASTRUCTURES DE FORMATION • 6 HECTARES',
-      title: 'VISITE GUIDÉE DU CAMPUS',
-      subtitle: "Découvrez les 6 hectares d'infrastructures du CUC : tour de saut 21m, 1300 m² de hangars, dojos, hébergement et studio parisien.",
-      cta_primary_text: 'Plan 3D du Domaine (6 Ha)',
-      cta_primary_link: '#plan-3d-domaine',
-      cta_secondary_text: 'Galerie Photos HD',
-      cta_secondary_link: '#photos',
+      badge: 'INFRASTRUCTURES DE FORMATION',
+      title: 'LE CAMPUS',
+      subtitle: "Découvrez les infrastructures du CUC : tour de saut 21m, 1300 m² de hangars, dojos, hébergement et studio parisien.",
+      cta_primary_text: 'Infrastructures',
+      cta_primary_link: '#installations-detail',
+      cta_secondary_text: 'Visite 360°',
+      cta_secondary_link: '#visite-virtuelle-360',
       bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.jpg',
     },
     layout_sections: [
@@ -1020,7 +1020,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       access_info: {
         badge: 'ACCÈS & TRANSPORTS',
         title: 'COMMENT VENIR AU DOMAINE CUC',
-        description: 'Le Domaine CUC de 6 hectares est situé au Cateau-Cambrésis (59360), au carrefour des grandes métropoles européennes.',
+        description: 'Le Domaine CUC est situé au Cateau-Cambrésis (59360), au carrefour des grandes métropoles européennes.',
         train_info: 'Gare du Cateau (10 min) ou Valenciennes / Cambrai (30 min). Liaisons directes en 1h30 depuis Paris Nord.',
         car_info: 'Autoroutes A2 et A26. À 1h15 de Lille, 1h45 de Bruxelles et 2h de Paris.',
         parking_info: 'Grand parking privé gratuit pour autocars, camions régie et véhicules individuels.',
@@ -1313,14 +1313,14 @@ export const DEFAULT_EVENTS: SiteEvent[] = [
   {
     id: 'team-building-cinema',
     title: 'Team Building Cinéma d’Action',
-    subtitle: 'Immersion entreprise sur le domaine de 6 hectares du CUC',
+    subtitle: 'Immersion entreprise sur le domaine du CUC',
     badge: 'SÉMINAIRES & IMMERSION ENTREPRISE',
     description: 'Fédérez vos équipes lors d’un séminaire d’action inoubliable : tournage de faux trailer d’action, combat cinéma, doublage vocal et saut airbag. Accueil jusqu’à 90 personnes avec hébergement et restauration.',
     features: [
       'Ateliers cinéma indoor et cascades physiques',
       'Initiation combat cinéma et axes caméra',
       'Atelier doublage de voix & effets spéciaux (SFX)',
-      'Hébergement et restauration sur site (domaine 6 Ha)',
+      'Hébergement et restauration sur site',
     ],
     price_indicator: 'Sur devis',
     cta_text: 'Organiser un Team Building',
@@ -1334,7 +1334,7 @@ export const DEFAULT_EVENTS: SiteEvent[] = [
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   school_name: "Campus Univers Cascades",
   tagline: "Le Plus Grand Centre de Formation de Cascadeurs au Monde",
-  campus_surface: "11 000 m² (Domaine de 6 hectares)",
+  campus_surface: "11 000 m²",
   founding_year: "2008",
   founder_name: "Lucas Dollfus",
 
@@ -1732,7 +1732,7 @@ export async function getDisciplines(): Promise<Discipline[]> {
 }
 
 /**
- * Récupère les points d'intérêt et infrastructures du campus (6 hectares).
+ * Récupère les points d'intérêt et infrastructures du campus.
  * Priorité : 1. table dédiée site_campus_pois (avec liaison CUC Sign), 2. miroir Supabase site_settings, 3. statique.
  */
 export async function getCampusPOIs(): Promise<POI[]> {

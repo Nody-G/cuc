@@ -36,10 +36,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
             { path: "/contact-cuc", priority: 0.6, changeFrequency: "yearly" },
         ];
 
-    return routes.map(({ path, priority, changeFrequency }) => ({
-        url: path === "/" ? SITE_URL : `${SITE_URL}${path}`,
-        lastModified: now,
-        changeFrequency,
-        priority,
-    }));
+    const frUrl = (p: string) => (p === "/" ? SITE_URL : `${SITE_URL}${p}`);
+    const enUrl = (p: string) => (p === "/" ? `${SITE_URL}/en` : `${SITE_URL}/en${p}`);
+
+    // Chaque page est déclarée en FR ET en EN, avec les alternances `hreflang`.
+    return routes.flatMap(({ path, priority, changeFrequency }) => {
+        const languages = { fr: frUrl(path), en: enUrl(path) };
+        return [
+            {
+                url: frUrl(path),
+                lastModified: now,
+                changeFrequency,
+                priority,
+                alternates: { languages },
+            },
+            {
+                url: enUrl(path),
+                lastModified: now,
+                changeFrequency,
+                priority: Math.max(0.1, Number((priority - 0.1).toFixed(2))),
+                alternates: { languages },
+            },
+        ];
+    });
 }

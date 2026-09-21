@@ -1,7 +1,8 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React from 'react';
-import Link from 'next/link';
+
 import Image from 'next/image';
 import { Calendar, ShieldCheck, Award, CheckCircle2 } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';

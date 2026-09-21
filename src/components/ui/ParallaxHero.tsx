@@ -1,9 +1,10 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useScroll, useSpring, useTransform, useMotionValue, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
+
 import { TacticalButton } from './TacticalButton';
 import {
   ChevronRight,

@@ -26,7 +26,7 @@ export function renderOgImage({
     eyebrow,
     title,
     subtitle,
-    metrics = ["6 HECTARES", "CUC TOWER 21 M", "AGRÉMENT QUALIOPI", "DEPUIS 2008"],
+    metrics = ["11 000 M²", "CUC TOWER 21 M", "AGRÉMENT QUALIOPI", "DEPUIS 2008"],
 }: OgImageOptions): ImageResponse {
     return new ImageResponse(
         (

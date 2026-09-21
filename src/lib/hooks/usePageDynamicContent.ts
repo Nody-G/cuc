@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { usePathname } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
 import { SitePageContent, DEFAULT_PAGE_CONTENTS, normalizeSlug } from '@/lib/data/site-service';
@@ -81,6 +82,13 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
   const [content, setContent] = useState<SitePageContent>(initialContent);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Locale dérivée de l'URL (les pages publiques vivent sous `/[locale]`).
+  const rawPathname = usePathname();
+  const locale = rawPathname?.startsWith('/en') ? 'en' : 'fr';
+
+  // Overlay de traduction (table `site_translations`) fusionné par-dessus la base FR.
+  const [translation, setTranslation] = useState<Record<string, any> | null>(null);
+
   useEffect(() => {
     let isMounted = true;
     const supabase = createClient();
@@ -125,7 +133,30 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
       }
     }
 
+    async function fetchTranslation() {
+      if (locale === 'fr') {
+        setTranslation(null);
+        return;
+      }
+      try {
+        const { data, error } = await supabase
+          .from('site_translations')
+          .select('payload')
+          .eq('entity', 'page')
+          .eq('entity_id', cleanSlug)
+          .eq('locale', locale)
+          .eq('is_published', true)
+          .maybeSingle();
+        if (!error && isMounted) {
+          setTranslation((data?.payload as Record<string, any>) || null);
+        }
+      } catch (err) {
+        console.warn(`[usePageDynamicContent] Traduction ${locale} indisponible pour ${cleanSlug}:`, err);
+      }
+    }
+
     fetchFreshContent();
+    fetchTranslation();
 
     // Abonnement Supabase Realtime instantané
     const channel = createSafeChannel(
@@ -168,11 +199,31 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
         )
     );
 
+    const translationChannel =
+      locale === 'fr'
+        ? null
+        : createSafeChannel(
+          supabase,
+          `realtime_translations_${cleanSlug.replace(/[^a-zA-Z0-9_-]/g, '_')}`,
+          (ch) =>
+            ch.on(
+              'postgres_changes',
+              {
+                event: '*',
+                schema: 'public',
+                table: 'site_translations',
+                filter: `entity_id=eq.${cleanSlug}`,
+              },
+              () => fetchTranslation()
+            )
+        );
+
     return () => {
       isMounted = false;
       removeSafeChannel(supabase, channel);
+      if (translationChannel) removeSafeChannel(supabase, translationChannel);
     };
-  }, [cleanSlug]);
+  }, [cleanSlug, locale]);
 
   // Aperçu live du Cockpit : si un brouillon est poussé via `postMessage`,
   // il prend le pas sur le contenu Supabase sans rechargement ni écriture.
@@ -203,5 +254,21 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
     return subscribePreviewDraft(applyDraft);
   }, [cleanSlug]);
 
-  return { content, isLoading };
+  const mergedContent = useMemo<SitePageContent>(() => {
+    if (!translation) return content;
+    return {
+      ...content,
+      title: translation.title || content.title,
+      meta_title: translation.meta_title || content.meta_title,
+      meta_description: translation.meta_description || content.meta_description,
+      hero: { ...content.hero, ...(translation.hero || {}) },
+      sections_data: deepMergeSectionsData(content.sections_data, translation.sections_data),
+      sections:
+        translation.sections && translation.sections.length > 0
+          ? translation.sections
+          : content.sections,
+    };
+  }, [content, translation]);
+
+  return { content: mergedContent, isLoading };
 }

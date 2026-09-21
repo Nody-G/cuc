@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { PhoneCall, ChevronRight } from 'lucide-react';
+import { Link } from '@/i18n/navigation';
 import { TacticalButton } from '@/components/ui/TacticalButton';
+import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { SocialIcon } from '@/components/ui/logos/SocialLogos';
 import { useSocialLinks } from '@/lib/hooks/useNavigation';
 import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data/site-service';
@@ -61,6 +62,8 @@ export const NavActionsBar: React.FC = () => {
         <PhoneCall className="w-3.5 h-3.5 text-[#FFE500] shrink-0" />
         <span className="whitespace-nowrap font-mono-tech">{settings.phone || '06 72 84 94 92'}</span>
       </a>
+
+      <LanguageSwitcher />
 
       <Link href={settings.hero_primary_cta_url || '/contact-cuc'} className="shrink-0">
         <TacticalButton

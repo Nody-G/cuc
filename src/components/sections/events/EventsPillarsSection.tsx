@@ -1,7 +1,8 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+
 import Image from 'next/image';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
@@ -203,7 +204,7 @@ export const EventsPillarsSection: React.FC = () => {
                   </div>
 
                   <p className="text-sm font-tech text-zinc-300 leading-relaxed">
-                    Fédérez vos équipes lors d&apos;un séminaire d&apos;action inoubliable au cœur du domaine de 6 hectares du CUC au Cateau-Cambrésis.
+                    Fédérez vos équipes lors d&apos;un séminaire d&apos;action inoubliable au cœur du domaine du CUC au Cateau-Cambrésis.
                   </p>
                   <p className="text-xs font-tech text-zinc-400 leading-relaxed">
                     Atelier cinéma indoor, cascades physiques, cascades de feu sécurisées, tournage d&apos;une fausse bande-annonce d&apos;action : vos collaborateurs dépassent leurs limites dans un esprit de camaraderie et de bienveillance totale. Capacité d&apos;accueil jusqu&apos;à 90 personnes avec hébergement et restauration sur site.

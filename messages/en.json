@@ -1,0 +1,28 @@
+{
+    "common": {
+        "skipToContent": "Skip to main content",
+        "language": "Language",
+        "currentLanguage": "English",
+        "switchToEnglish": "English",
+        "switchToFrench": "Français",
+        "languageMenuLabel": "Choose language",
+        "openMenu": "Open menu",
+        "closeMenu": "Close menu"
+    },
+    "films": {
+        "badge": "PRODUCTIONS & POSTERS",
+        "title": "FILMS DOUBLED & COORDINATED BY CUC",
+        "subtitle": "Explore the film and television productions on which our stunt performers and instructors have worked.",
+        "sortLabel": "Sort:",
+        "sortYearDesc": "Year (newest → oldest)",
+        "sortYearAsc": "Year (oldest → newest)",
+        "sortTitleAsc": "Title (A → Z)",
+        "sortTitleDesc": "Title (Z → A)"
+    },
+    "campus": {
+        "title": "THE CAMPUS",
+        "ctaInfrastructures": "Facilities",
+        "ctaVisite360": "360° Tour",
+        "ctaPlan3d": "3D Map"
+    }
+}

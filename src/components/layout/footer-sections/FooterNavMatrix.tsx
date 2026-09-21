@@ -1,7 +1,8 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React from 'react';
-import Link from 'next/link';
+
 import { ExternalLink } from 'lucide-react';
 import { useFooter } from '@/lib/hooks/useNavigation';
 

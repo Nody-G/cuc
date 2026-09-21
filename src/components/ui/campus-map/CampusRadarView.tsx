@@ -72,7 +72,7 @@ export const CampusRadarView: React.FC<CampusRadarViewProps> = ({
       <div className="relative z-10 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 bg-black/80 backdrop-blur-md px-2.5 py-1 border border-zinc-800 text-[10px] font-mono-tech text-zinc-300">
           <Crosshair className="w-3.5 h-3.5 text-[#FFE500]" />
-          <span>CARTOGRAPHIE DU CAMPUS — 6 HA</span>
+          <span>CARTOGRAPHIE DU CAMPUS</span>
         </div>
 
         <button

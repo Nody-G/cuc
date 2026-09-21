@@ -96,10 +96,10 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
     id: 'site-tournage',
     code: '07',
     name: 'Site Extérieur & Décors Naturels de Tournage',
-    size: 'Domaine de 6 hectares',
+    size: 'Domaine privé clos',
     description: 'Grand parc extérieur arboré et sécurisé offrant de multiples perspectives de tournage : poursuites, explosions, décors urbains et naturels.',
     features: [
-      'Domaine arboré clos de 6 hectares',
+      'Domaine arboré clos',
       'City Stade et installations sportives extérieures',
       'Zones dégagées pour cascades pyrotechniques',
       'Plateaux modulables pour équipes de tournage'
@@ -111,7 +111,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
     id: 'qg-staff-hebergement',
     code: '08',
     name: 'Hébergement & Base de Vie (90 Places)',
-    size: 'Domaine de 6 hectares',
+    size: '90 lits sur site',
     description: 'Un campus clos permettant d\'héberger et de restaurer jusqu\'à 90 stagiaires et formateurs sur place pour une immersion complète.',
     features: [
       'Chambres avec sanitaires et connexion internet',

@@ -25,7 +25,7 @@ import { CampusEditorPanel } from './ui/CampusEditorPanel';
 import { CampusStudioToolbar } from './ui/CampusStudioToolbar';
 import { CampusJsonStudioModal } from './ui/CampusJsonStudioModal';
 import { getCampusPlacements3D } from '@/lib/data/site-service';
-import { probeCampusPlacements3D, upsertCampusPlacements3D } from '@/app/admin/actions';
+import { probeCampusPlacements3D, upsertCampusPlacements3D } from '@/app/(admin)/admin/actions';
 
 export type { PlanMode, CameraPreset, EditableFacilityItem, GizmoMode, CampusPlan3DProps };
 

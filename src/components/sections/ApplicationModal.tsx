@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { X, CheckCircle2, Shield, Phone, Mail, MapPin, Send } from 'lucide-react';
 import { TacticalButton } from '../ui/TacticalButton';
 import { StuntBadge } from '../ui/StuntBadge';
-import { submitInquiry } from '@/app/admin/actions';
+import { submitInquiry } from '@/app/(admin)/admin/actions';
 
 type ProfileType = 'pro' | 'discovery' | 'weekend' | 'afdas' | 'prod';
 

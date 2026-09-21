@@ -118,7 +118,7 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
 
         <div className="p-3 bg-[#12121a] border border-zinc-800/80 hover:border-[#FFE500]/50 transition-colors">
           <strong className="text-[#FFE500] font-mono-tech block mb-0.5">
-            CAMPUS PRINCIPAL (6 HECTARES) :
+            CAMPUS PRINCIPAL :
           </strong>
           <p className="text-zinc-300">
             Domaine CUC, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis

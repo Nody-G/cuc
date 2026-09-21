@@ -70,13 +70,31 @@ src/
 | `/animations-airbag-parkour` | Xtrem Jump — airbag géant |
 | `/team-building-cascades` | Team building & séminaires |
 | `/cuc-events-agence` | Agence CUC Events |
-| `/visite-guidee` | Visite guidée du domaine (6 ha) |
+| `/visite-guidee` | Le Campus — visite guidée des installations |
 | `/visite-virtuelle` | Visite virtuelle 360° & plan 3D |
 | `/partenaires` | Partenaires officiels |
 | `/contact-cuc` | Contact, inscriptions & règlement |
 
 Les anciennes URL du site historique sont redirigées de façon permanente
 (voir [`next.config.ts`](next.config.ts)).
+
+## Internationalisation (FR / EN)
+
+Vitrine bilingue via **next-intl** (segment `[locale]`) :
+
+- `fr` (défaut) : URLs **sans préfixe** — aucune régression sur les URLs existantes ;
+- `en` : URLs préfixées `/en/...` ; détection automatique dans [`src/proxy.ts`](src/proxy.ts) ;
+- contenu éditorial traduit via la table Supabase `site_translations` (overlay `payload`
+  fusionné par-dessus la base FR, **repli FR automatique**) ;
+- sélecteur de langue dans la navbar (desktop + mobile).
+
+| Script | Rôle |
+| --- | --- |
+| `node scripts/apply_site_translations_migration.mjs` | Crée `site_translations` (RLS + Realtime) |
+| `node scripts/seed_site_translations_en.mjs` | Sème les traductions EN (pages + nav + footer) |
+| `node scripts/audit_i18n_parity.mjs` | Vérifie la parité FR↔EN → `plans/revue-i18n-parite.md` |
+
+Cockpit : onglet **« Traductions EN »** (route `/admin/translations`) pour éditer l'overlay.
 
 ## Conventions de code
 

@@ -1,8 +1,9 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
@@ -34,7 +35,7 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
   const title = aboutData?.title || 'LE CENTRE DE FORMATION DE RÉFÉRENCE EN CASCADE DE CINÉMA';
   const tag = aboutData?.tag || 'PRÉSENTATION';
   const subtag = aboutData?.subtag || '• CINÉMA, SÉRIES & SPECTACLE';
-  const description = aboutData?.description || "Créé en 2008 par Lucas Dollfus, le Campus Univers Cascades (CUC) est un centre de formation professionnelle dédié aux techniques de cascade physique et mécanique, établi sur un domaine privé de 6 hectares au Cateau-Cambrésis (59).";
+  const description = aboutData?.description || "Créé en 2008 par Lucas Dollfus, le Campus Univers Cascades (CUC) est un centre de formation professionnelle dédié aux techniques de cascade physique et mécanique, établi au Cateau-Cambrésis (59).";
   const founderQuote = aboutData?.founder_quote || "« Maîtriser le risque, créer l'inédit, repousser les limites de la vérité physique au service de la vision des plus grands réalisateurs. »";
   const founderName = aboutData?.founder_name || 'LUCAS DOLLFUS';
   const founderRole = aboutData?.founder_role || 'FONDATEUR & RÉGLEUR';
@@ -47,8 +48,8 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
   const pillars = [
     {
       title: 'INFRASTRUCTURES DÉDIÉES',
-      desc: 'Plateaux techniques complets : fosse de réception, dojos de combat chorégraphié, hangars de cascades mécaniques et manège équestre sur 6 hectares.',
-      tag: '6 HECTARES',
+      desc: 'Plateaux techniques complets : fosse de réception, dojos de combat chorégraphié, hangars de cascades mécaniques et manège équestre.',
+      tag: 'DOMAINE PRIVÉ',
       speed: -0.05,
     },
     {

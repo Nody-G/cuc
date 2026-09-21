@@ -1,8 +1,9 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+
 import { Phone, ChevronRight } from 'lucide-react';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 

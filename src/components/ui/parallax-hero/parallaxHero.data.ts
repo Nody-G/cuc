@@ -11,7 +11,7 @@ export const HERO_SLIDES: HeroSlide[] = [
     url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-6-scaled.jpg',
     caption: 'CAMPUS UNIVERS CASCADES',
     sub: 'Centre de formation professionnelle de cascadeurs',
-    badge: 'DOMAINE DE 6 HECTARES • LE CATEAU-CAMBRÉSIS',
+    badge: 'DOMAINE PRIVÉ • LE CATEAU-CAMBRÉSIS',
     tag: 'Domaine & Campus',
   },
   {

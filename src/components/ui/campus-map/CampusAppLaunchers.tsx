@@ -12,9 +12,8 @@ export const CampusAppLaunchers: React.FC<CampusAppLaunchersProps> = ({
 }) => {
   return (
     <div className="mt-4 pt-4 border-t border-zinc-800">
-      <div className="text-xs font-mono-tech text-zinc-400 mb-2 flex items-center justify-between">
-        <span>LANCER L&apos;ITINÉRAIRE DANS VOTRE APPLICATION :</span>
-        <span className="text-[10px] text-zinc-500">NAVIGATION INSTANTANÉE</span>
+      <div className="text-xs font-mono-tech text-zinc-400 mb-2">
+        <span>LANCER L'ITINÉRAIRE DANS VOTRE APPLICATION :</span>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {/* Google Maps */}

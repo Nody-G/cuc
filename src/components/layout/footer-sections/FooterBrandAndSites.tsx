@@ -1,7 +1,8 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React from 'react';
-import Link from 'next/link';
+
 import Image from 'next/image';
 import { ExternalLink, Compass, Navigation, MapPin } from 'lucide-react';
 import { useFooter } from '@/lib/hooks/useNavigation';
@@ -97,7 +98,7 @@ export const FooterBrandAndSites: React.FC = () => {
           <div className="p-2.5 bg-[#101016] border border-zinc-800/80 hover:border-[#FFE500]/50 transition-colors">
             <div>
               <strong className="text-[#FFE500] font-mono-tech block">
-                CAMPUS PRINCIPAL (6 HA) :
+                CAMPUS PRINCIPAL :
               </strong>
             </div>
             <p className="text-zinc-300 mt-0.5">

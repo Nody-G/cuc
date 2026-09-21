@@ -87,7 +87,7 @@ const NAVIGATION_STRUCTURE = {
                 {
                     id: 'visite-guidee',
                     label: 'VISITE GUIDÉE',
-                    description: 'Découvrez les 6 hectares',
+                    description: 'Découvrez le campus',
                     href: '/visite-guidee',
                     order: 1,
                     is_visible: true,
@@ -156,7 +156,7 @@ const FOOTER_STRUCTURE = {
         name: 'CAMPUS UNIVERS CASCADES',
         tagline: 'Fondé en 2008 • Plus grande école au monde',
         description:
-            "Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. 6 hectares d'installations de pointe.",
+            "Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. Des installations de pointe.",
     },
     columns: [
         {
@@ -178,7 +178,7 @@ const FOOTER_STRUCTURE = {
             order: 2,
             is_visible: true,
             links: [
-                { id: 'visite-guidee-6ha', label: 'Visite Guidée des 6 Ha', href: '/visite-guidee', order: 1, is_visible: true },
+                { id: 'visite-guidee-campus', label: 'Visite Guidée du Campus', href: '/visite-guidee', order: 1, is_visible: true },
                 { id: 'visite-virtuelle-360', label: 'Visite Virtuelle 360°', href: '/visite-virtuelle', order: 2, is_visible: true },
                 { id: 'videos-cascadeur', label: 'Vidéos & Démos', href: '/videos-cascadeur', order: 3, is_visible: true },
             ],

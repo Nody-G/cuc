@@ -1,7 +1,8 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React from 'react';
-import Link from 'next/link';
+
 import { TacticalButton } from '@/components/ui/TacticalButton';
 
 export const TeamProductionServices: React.FC = () => {
@@ -40,7 +41,7 @@ export const TeamProductionServices: React.FC = () => {
                 <strong className="text-[#FFE500] font-mono-tech block mb-1">
                   3. MATÉRIEL DE TOURNAGE &amp; DOMAINE :
                 </strong>
-                Airbags certifiés, systèmes de câblage (rigging), harnais de cascade et mise à disposition du domaine de 6 hectares comme décor naturel.
+                Airbags certifiés, systèmes de câblage (rigging), harnais de cascade et mise à disposition du domaine comme décor naturel.
               </div>
             </div>
           </div>

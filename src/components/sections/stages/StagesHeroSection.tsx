@@ -1,7 +1,8 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React from 'react';
-import Link from 'next/link';
+
 import Image from 'next/image';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { Sparkles, ChevronRight } from 'lucide-react';
@@ -56,7 +57,7 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-            {heroData?.subtitle || "Pour vivre l'expérience cascadeur le temps d'un week-end en immersion totale à 250€, profiter d'une prise en charge intégrale AFDAS en tant qu'artiste interprète, ou rejoindre notre grand Summer Camp estival sur 6 hectares d'installations."}
+            {heroData?.subtitle || "Pour vivre l'expérience cascadeur le temps d'un week-end en immersion totale à 250€, profiter d'une prise en charge intégrale AFDAS en tant qu'artiste interprète, ou rejoindre notre grand Summer Camp estival sur nos installations."}
           </p>
         </div>
       </section>

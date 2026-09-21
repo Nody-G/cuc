@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Send, CheckCircle2 } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
-import { submitInquiry } from '@/app/admin/actions';
+import { submitInquiry } from '@/app/(admin)/admin/actions';
 
 /** Identifiants valides du sélecteur « Votre Demande Concerne ». */
 const VALID_PROGRAMS = [

@@ -1,8 +1,9 @@
 'use client';
+import { Link } from '@/i18n/navigation';
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+
 import { ChevronRight, Layers, Compass } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 
@@ -14,7 +15,7 @@ export const VisiteHeroSection: React.FC = () => {
         <div className="absolute inset-0 z-0">
           <Image
             src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.jpg"
-            alt="Domaine de 6 hectares du Campus Univers Cascades"
+            alt="Domaine du Campus Univers Cascades"
             fill
             priority
             sizes="100vw"
@@ -29,33 +30,33 @@ export const VisiteHeroSection: React.FC = () => {
               ACCUEIL
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-            <span className="text-[#FFE500]">VISITE GUIDÉE DU CAMPUS</span>
+            <span className="text-[#FFE500]">LE CAMPUS</span>
           </div>
 
           <div className="flex items-center gap-2 mb-4 text-xs font-mono-tech uppercase font-bold tracking-wider text-[#FFE500]">
             <span>INFRASTRUCTURES DE FORMATION</span>
             <span className="text-zinc-600">•</span>
-            <span className="text-zinc-400">LE CATEAU-CAMBRÉSIS (59) • 6 HECTARES</span>
+            <span className="text-zinc-400">LE CATEAU-CAMBRÉSIS (59)</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
-            VISITE GUIDÉE <span className="text-[#FFE500]">DU CAMPUS</span>
+            LE <span className="text-[#FFE500]">CAMPUS</span>
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-            Découvrez les 6 hectares d'infrastructures du Campus Univers Cascades :
+            Découvrez les infrastructures du Campus Univers Cascades :
             la tour de saut de 21 mètres, 1300 m² de hangars couverts, fosse de réception,
             dojos, manège équestre, hébergement 90 lits et studio de répétition en région parisienne.
           </p>
 
           <div className="flex flex-wrap gap-4 mt-8">
-            <a href="#plan-3d-domaine">
+            <a href="#installations-detail">
               <TacticalButton
                 variant="primary"
                 size="lg"
                 icon={<Layers className="w-4 h-4 text-black" />}
               >
-                Plan 3D du Domaine (6 Ha)
+                Infrastructures
               </TacticalButton>
             </a>
             <a href="#visite-virtuelle-360">
@@ -64,12 +65,12 @@ export const VisiteHeroSection: React.FC = () => {
                 size="lg"
                 icon={<Compass className="w-4 h-4 text-[#FFE500]" />}
               >
-                Visite 360° HD Media
+                Visite 360°
               </TacticalButton>
             </a>
-            <a href="#installations-detail">
+            <a href="#plan-3d-domaine">
               <TacticalButton variant="outline" size="lg">
-                Les 9 Espaces Clés
+                Plan 3D
               </TacticalButton>
             </a>
           </div>
@@ -82,9 +83,9 @@ export const VisiteHeroSection: React.FC = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 font-mono-tech text-xs">
             <div className="border-l-2 border-[#FFE500] pl-4">
               <div className="text-3xl sm:text-4xl font-display text-white">
-                6 HECTARES
+                11 000 M²
               </div>
-              <div className="text-zinc-400 uppercase">Domaine Privé Clos</div>
+              <div className="text-zinc-400 uppercase">Surface d'Infrastructures</div>
             </div>
             <div className="border-l-2 border-[#FFE500] pl-4">
               <div className="text-3xl sm:text-4xl font-display text-[#FFE500]">
@@ -102,7 +103,7 @@ export const VisiteHeroSection: React.FC = () => {
               <div className="text-3xl sm:text-4xl font-display text-[#FFE500]">
                 2 SITES
               </div>
-              <div className="text-zinc-400 uppercase">Nord (59) &amp; Paris (92)</div>
+              <div className="text-zinc-400 uppercase">Nord (59) & Paris (92)</div>
             </div>
           </div>
         </div>

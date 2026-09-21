@@ -96,8 +96,8 @@ export const CAMPUS_POIS: POI[] = [
     name: 'Résidence Stagiaires & Réfectoire',
     category: 'Hébergement & Logistique',
     description:
-      'Chambres collectives, internat, réfectoire pour la pension complète et salles de debriefing vidéo sur le parc arboré de 6 hectares.',
-    specs: 'Capacité 60 lits • Cuisine pro • Foyer stagiaires • Parc 6 ha',
+      'Chambres collectives, internat, réfectoire pour la pension complète et salles de debriefing vidéo sur le parc arboré.',
+    specs: 'Capacité 60 lits • Cuisine pro • Foyer stagiaires',
     coordinates: '50.0902° N, 3.5360° E',
     badge: 'PENSION COMPLÈTE',
     xPercent: 25,

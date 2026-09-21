@@ -65,7 +65,7 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
             VISITE VIRTUELLE 360° INTERACTIVE
           </span>
           <span className="hidden sm:inline-block px-2 py-0.5 bg-[#14141c] border border-zinc-800 text-[10px] font-mono-tech text-zinc-400">
-            6 HECTARES • LE CATEAU-CAMBRÉSIS
+            LE CATEAU-CAMBRÉSIS
           </span>
         </div>
 
