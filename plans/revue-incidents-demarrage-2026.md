@@ -152,9 +152,79 @@ Ce dernier point aurait détecté la régression immédiatement.
 
 ---
 
+## Incident 3 — `Error` sans message dès le premier défilement (BLOQUANT)
+
+### Symptôme
+
+Page d'accueil : au premier défilement, la page entière est remplacée par une
+frontière d'erreur. Console :
+
+```
+[CUC] Erreur racine interceptée : Error
+    at en (…/0dddzqrxwpgh2.js:3:4248)
+    at e.s.! (…/0dddzqrxwpgh2.js:3:7154)
+```
+
+Deux indices décisifs : le message est **vide** (`Error` seul, sans texte) et la
+ligne dit **« Erreur racine »** — donc émise par
+[`global-error.tsx`](../src/app/global-error.tsx:25), pas par l'`error.tsx` de
+route. L'exception ne vient donc pas de la page mais de la **coquille**.
+
+### Cause racine
+
+`MobileStickyCTA` est rendu par `RootShell`, donc **hors** du
+`NextIntlClientProvider` que les layouts racines déclaraient autour de
+`{children}`. Or ce composant ne monte son `<Link>` localisé qu'au premier
+défilement (`scrollY > 200`) — et le `Link` de `@/i18n/navigation` appelle
+`useLocale()` à chaque rendu :
+
+```js
+// next-intl — navigation/shared/BaseLink.js
+import { useLocale } from 'use-intl';
+function LocalizedLink({ locale, ...rest }, ref) {
+    const curLocale = useLocale();
+    ...
+}
+```
+
+`use-intl` lève alors une exception dont le message n'existe **qu'en
+développement** :
+
+```js
+// use-intl — development
+throw new Error('No intl context found. Have you configured the provider?');
+// use-intl — production (message retiré du bundle)
+throw new Error();
+```
+
+D'où un `Error` muet en production. Comme `MobileStickyCTA` vit dans la coquille
+et non dans la page, l'`error.tsx` de route ne l'interceptait pas : l'exception
+remontait à `global-error.tsx`, qui remplace tout le document.
+
+### Correctif
+
+Le provider est porté par [`RootShell`](../src/components/layout/RootShell.tsx:1),
+à la racine. Tout ce que la coquille rend — page, lien d'évitement,
+`MobileStickyCTA`, pont d'aperçu — partage désormais le même contexte i18n.
+Les deux layouts ne déclarent plus de provider : ils passent leurs `messages`.
+L'invariant ne dépend donc plus de l'ordre de composition des layouts.
+
+### Garde-fou
+
+[`shell-providers.test.ts`](../src/lib/shell-providers.test.ts:1) — échoue si
+`MobileStickyCTA` ou `PreviewBridgeClient` sortent du périmètre de
+`<NextIntlClientProvider>` dans la coquille.
+
+### Vérification
+
+`npm run typecheck` ✅ · `npm test` (**129 tests**) ✅ · `npm run lint` (0 erreur)
+✅ · `npm run build` ✅ (94 routes).
+
+---
+
 ## Leçon retenue
 
-Les deux incidents partagent la même mécanique : **un état global implicite**
+Les trois incidents partagent la même mécanique : **un état global implicite**
 (registre statique de `GoTrueClient` indexé par `storageKey` ; feuille de style
 globale chargée par un import qu'aucun outil ne vérifie). Dans les deux cas, la
 correction durable n'est pas de supprimer le symptôme mais de rendre l'invariant
