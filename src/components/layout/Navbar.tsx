@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ExternalLink } from 'lucide-react';
 import { TacticalButton } from '../ui/TacticalButton';
-import { NavDropdowns } from './navbar/NavDropdowns';
+import { NavDropdownItem } from './navbar/NavDropdowns';
 import { NavActionsBar } from './navbar/NavActionsBar';
 import { NavMobileDrawer } from './navbar/NavMobileDrawer';
 import { AnnouncementBanner } from './AnnouncementBanner';
@@ -55,13 +55,15 @@ export const Navbar: React.FC = () => {
     return false;
   };
 
-  const dropdownItems = useMemo(
-    () => navigation.items.filter((item) => item.type === 'dropdown' && item.children?.length),
-    [navigation.items]
-  );
-
-  const linkItems = useMemo(
-    () => navigation.items.filter((item) => item.type !== 'dropdown'),
+  // Ordre global unique : on ne sépare PAS dropdowns et liens en deux blocs,
+  // sinon « Accueil » (lien, order 1) se retrouverait après les dropdowns.
+  // Chaque item est rendu à sa place selon `order`.
+  const orderedItems = useMemo(
+    () =>
+      navigation.items
+        .filter((item) => item.is_visible !== false)
+        .slice()
+        .sort((a, b) => (a.order ?? 0) - (b.order ?? 0)),
     [navigation.items]
   );
 
@@ -103,18 +105,22 @@ export const Navbar: React.FC = () => {
             </div>
           </Link>
 
-          {/* Desktop Navigation Links */}
+          {/* Desktop Navigation Links — séquence unique ordonnée par `order` */}
           <div className="hidden xl:flex items-center gap-3.5 2xl:gap-5 text-xs font-mono-tech uppercase tracking-wider shrink-0">
-            {/* Dropdowns (Formation, Campus, Events) — pilotés par site_navigation */}
-            <NavDropdowns
-              dropdownItems={dropdownItems}
-              openDropdownId={openDropdownId}
-              setOpenDropdownId={setOpenDropdownId}
-              isItemActive={isItemActive}
-            />
+            {orderedItems.map((item) => {
+              // Dropdown (Formation & Stages, Events) — piloté par site_navigation
+              if (item.type === 'dropdown' && item.children?.length) {
+                return (
+                  <NavDropdownItem
+                    key={item.id}
+                    item={item}
+                    openDropdownId={openDropdownId}
+                    setOpenDropdownId={setOpenDropdownId}
+                    isItemActive={isItemActive}
+                  />
+                );
+              }
 
-            {/* Liens simples — pilotés par site_navigation */}
-            {linkItems.map((item) => {
               const active = isItemActive(item);
               const baseClass = `py-1 transition-colors ${active
                 ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
