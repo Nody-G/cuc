@@ -82,7 +82,7 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
   const title = tournagesData?.title || 'COORDINATION DE CASCADES & TOURNAGES';
   const subtitle =
     tournagesData?.subtitle ||
-    "Partenaire des productions de cinéma, des séries et des diffuseurs, le Campus Univers Cascades met à disposition son expertise en action design, direction de combats et sécurité sur plateau, avec plus de 63 longs-métrages coordonnés.";
+    "Partenaire des productions de cinéma, des séries et des diffuseurs, le Campus Univers Cascades met à disposition son expertise en action design, direction de combats et sécurité sur plateau, avec plus de 570 productions référencées au catalogue.";
   const ctaText = tournagesData?.cta_text || 'Découvrir la CUC Stunt Team';
   const ctaLink = tournagesData?.cta_link || '/cuc-team-cascadeur';
 
@@ -182,7 +182,7 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
                   </Link>
                   <Link href="/cuc-team-cascadeur#filmographie">
                     <span className="text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] transition-colors flex items-center gap-1">
-                      Voir les 63 affiches de films
+                      Voir le catalogue de films
                       <ChevronRight className="w-3 h-3" />
                     </span>
                   </Link>
@@ -195,7 +195,7 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
                   {FEATURED_PRODUCTIONS.map((prod, idx) => (
                     <Link
                       key={idx}
-                      href="/equipe-cascadeurs-pro#filmographie"
+                      href="/cuc-team-cascadeur#filmographie"
                       className="group relative aspect-[2/3] overflow-hidden bg-black border border-zinc-800 hover:border-[#FFE500] transition-all"
                     >
                       <Image
