@@ -85,7 +85,7 @@ export default function TeamBuildingCascadesPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/80 to-transparent" />
           </div>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative z-10 page-shell">
             <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
               <Link href="/" className="hover:text-[#FFE500] transition-colors">
                 ACCUEIL
@@ -167,7 +167,7 @@ export default function TeamBuildingCascadesPage() {
 
         {/* Ateliers Dynamiques & Adaptatifs */}
         <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="page-shell">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
               {((content.sections_data?.workshops && content.sections_data.workshops.length > 0)
                 ? content.sections_data.workshops

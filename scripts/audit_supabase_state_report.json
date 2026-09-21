@@ -1,0 +1,334 @@
+{
+  "generatedAt": "2026-09-21T21:45:46.060Z",
+  "tables": {
+    "site_pages": 15,
+    "site_page_revisions": 0,
+    "site_team": 12,
+    "site_films": 570,
+    "site_partners": 21,
+    "site_events": 3,
+    "site_disciplines": 10,
+    "site_sessions": 18,
+    "site_programs": 6,
+    "site_inquiries": 0,
+    "site_audit_logs": 0,
+    "site_announcements": 1,
+    "site_settings": 11,
+    "site_navigation": 1,
+    "site_footer": 1,
+    "site_social_links": 5,
+    "site_translations": 579,
+    "site_campus_pois": 5,
+    "site_campus_facilities": null,
+    "site_media": null,
+    "site_videos": null
+  },
+  "realtimePublication": [
+    "evaluation_disciplines",
+    "evaluation_grades",
+    "evaluation_sessions",
+    "evaluation_student_groups",
+    "group_memberships",
+    "reports",
+    "site_announcements",
+    "site_audit_logs",
+    "site_campus_pois",
+    "site_disciplines",
+    "site_events",
+    "site_films",
+    "site_footer",
+    "site_inquiries",
+    "site_navigation",
+    "site_page_revisions",
+    "site_pages",
+    "site_partners",
+    "site_programs",
+    "site_sessions",
+    "site_settings",
+    "site_social_links",
+    "site_team",
+    "site_translations"
+  ],
+  "realtimeMissing": [],
+  "rls": {
+    "site_announcements": true,
+    "site_audit_logs": true,
+    "site_campus_pois": true,
+    "site_disciplines": true,
+    "site_events": true,
+    "site_films": true,
+    "site_footer": true,
+    "site_inquiries": true,
+    "site_navigation": true,
+    "site_page_revisions": true,
+    "site_pages": true,
+    "site_partners": true,
+    "site_programs": true,
+    "site_sessions": true,
+    "site_settings": true,
+    "site_social_links": true,
+    "site_team": true,
+    "site_translations": true
+  },
+  "foreignKeys": [
+    {
+      "name": "site_audit_logs_user_id_fkey",
+      "from": "site_audit_logs",
+      "to": "profiles",
+      "onDelete": "SET NULL"
+    },
+    {
+      "name": "site_campus_pois_location_id_fkey",
+      "from": "site_campus_pois",
+      "to": "locations",
+      "onDelete": "SET NULL"
+    },
+    {
+      "name": "site_page_revisions_author_id_fkey",
+      "from": "site_page_revisions",
+      "to": "profiles",
+      "onDelete": "SET NULL"
+    },
+    {
+      "name": "site_sessions_cuc_sign_formation_id_fkey",
+      "from": "site_sessions",
+      "to": "formations",
+      "onDelete": "SET NULL"
+    },
+    {
+      "name": "site_sessions_program_id_fkey",
+      "from": "site_sessions",
+      "to": "site_programs",
+      "onDelete": "CASCADE"
+    },
+    {
+      "name": "site_team_profile_id_fkey",
+      "from": "site_team",
+      "to": "profiles",
+      "onDelete": "SET NULL"
+    }
+  ],
+  "sessions": {
+    "total": 18,
+    "linked": 10,
+    "unlinked": [
+      {
+        "id": "d3c74574-f31d-4b10-891a-55936124d54c",
+        "date_display": "08 au 13 août 2027",
+        "program_id": "stunt-summer-camp",
+        "status": "ouvert"
+      },
+      {
+        "id": "339dcb40-b101-455a-8231-f2dae6d9fe25",
+        "date_display": "09 au 20 novembre 2026",
+        "program_id": "afdas-artistes-interpretes",
+        "status": "ouvert"
+      },
+      {
+        "id": "39df8014-22d2-4293-a56f-a69dc64024db",
+        "date_display": "11 au 16 juillet 2027",
+        "program_id": "stunt-summer-camp",
+        "status": "ouvert"
+      },
+      {
+        "id": "1f36f1e2-2104-460b-ae71-e1000614c0f6",
+        "date_display": "15 au 26 mars 2027",
+        "program_id": "afdas-artistes-interpretes",
+        "status": "bientôt"
+      },
+      {
+        "id": "a96b6fac-a25c-4a6b-bdb9-954f6fa40c74",
+        "date_display": "18 au 29 janvier 2027",
+        "program_id": "afdas-artistes-interpretes",
+        "status": "ouvert"
+      },
+      {
+        "id": "887384c0-66f7-4f91-9410-57ac45454e17",
+        "date_display": "20 et 21 mars 2027",
+        "program_id": "weekend-immersion",
+        "status": "bientôt"
+      },
+      {
+        "id": "88f3b721-f96a-4883-a2ae-4ef9f34b2281",
+        "date_display": "27 juin au 09 juillet 2027",
+        "program_id": "pro-longue-duree",
+        "status": "dernières places"
+      },
+      {
+        "id": "d5249254-516d-4c5d-a47a-5dd1d5306ab1",
+        "date_display": "Session 2026/2027 annoncée prochainement",
+        "program_id": "afdas-cascadeurs-pro",
+        "status": "bientôt"
+      }
+    ],
+    "duplicates": []
+  },
+  "team": {
+    "total": 12,
+    "linked": 5,
+    "withoutProfile": [
+      {
+        "id": "jerome-gaspard",
+        "name": "Jérôme Gaspard",
+        "role": "Responsable Pédagogique"
+      },
+      {
+        "id": "vincent-bouillon",
+        "name": "Vincent Bouillon",
+        "role": "Spécialiste Combats & Chutes"
+      },
+      {
+        "id": "kefi-abrikh",
+        "name": "Kefi Abrikh",
+        "role": "Action Designer & Chorégraphe"
+      },
+      {
+        "id": "maurice-chan",
+        "name": "Maurice Chan",
+        "role": "Instructeur Référent"
+      },
+      {
+        "id": "michel-bouis",
+        "name": "Michel Bouis",
+        "role": "Formateur Chutes & Armes"
+      },
+      {
+        "id": "amedeo-cazzella",
+        "name": "Amédéo Cazzella",
+        "role": "Formateur Armes & Combats"
+      },
+      {
+        "id": "alan-cueff",
+        "name": "Alan Cueff",
+        "role": "Instructeur & Cascadeur"
+      }
+    ]
+  },
+  "campusPois": [
+    {
+      "id": "tower-21m",
+      "name": "Tour de Saut 21m",
+      "location_id": "732aad62-6c56-4329-85da-debb88be9fad",
+      "locationValid": true
+    },
+    {
+      "id": "grand-dojo",
+      "name": "Grand Dojo & Tatamis 600m²",
+      "location_id": "0fc475db-34ae-47ce-95f2-b20b402c2859",
+      "locationValid": true
+    },
+    {
+      "id": "airbag-zone",
+      "name": "Fosse de Chute & Airbag Géant",
+      "location_id": "732aad62-6c56-4329-85da-debb88be9fad",
+      "locationValid": true
+    },
+    {
+      "id": "rigging-cables",
+      "name": "Structure Câblage 3D & Rigging",
+      "location_id": "a195f7db-e934-4605-befa-df47b35c2049",
+      "locationValid": true
+    },
+    {
+      "id": "mfr-residence",
+      "name": "Résidence Stagiaires & Réfectoire",
+      "location_id": null,
+      "locationValid": false
+    }
+  ],
+  "disciplines": {
+    "table": 10,
+    "settingMirror": 10
+  },
+  "settingsMirrors": {
+    "campus_pois": {
+      "shape": "list",
+      "length": 5
+    },
+    "campus_placements_3d": {
+      "shape": "object",
+      "keys": [
+        "placements"
+      ]
+    },
+    "disciplines": {
+      "shape": "array",
+      "length": 10
+    },
+    "films": {
+      "shape": "array",
+      "length": 63
+    },
+    "film_banners": {
+      "shape": "list",
+      "length": 0
+    },
+    "team": {
+      "shape": "array",
+      "length": 12
+    },
+    "celebrities": {
+      "shape": "list",
+      "length": 11
+    },
+    "videos": {
+      "shape": "list",
+      "length": 6
+    },
+    "programs": {
+      "shape": "array",
+      "length": 6
+    },
+    "campus_facilities": {
+      "shape": "list",
+      "length": 9
+    },
+    "general": {
+      "shape": "object",
+      "keys": [
+        "phone",
+        "tiktok",
+        "address",
+        "tagline",
+        "youtube",
+        "facebook",
+        "linkedin",
+        "instagram",
+        "school_name",
+        "accent_color",
+        "afdas_status",
+        "email_events",
+        "founder_name",
+        "qualiopi_url",
+        "email_general",
+        "founding_year",
+        "opening_hours",
+        "campus_surface",
+        "emergency_badge",
+        "emergency_phone",
+        "emergency_style",
+        "qualiopi_number",
+        "email_admissions",
+        "emergency_active",
+        "footer_copyright",
+        "emergency_message",
+        "campus_access_info",
+        "emergency_link_url",
+        "emergency_link_text",
+        "france_travail_code",
+        "hero_primary_cta_url",
+        "hero_primary_cta_text",
+        "hero_secondary_cta_url",
+        "hero_secondary_cta_text"
+      ]
+    }
+  },
+  "mirrorsDrift": [],
+  "inquiries": 0,
+  "auditLogs": 0,
+  "cucSign": {
+    "formations": 12,
+    "profiles": 13,
+    "locations": 9
+  }
+}

@@ -81,7 +81,7 @@ export default function VisiteVirtuellePage() {
       <Navbar />
 
       <main id="contenu-principal" className="flex-grow pt-28 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="page-shell">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">

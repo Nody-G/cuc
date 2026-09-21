@@ -33,7 +33,7 @@ export const VisiteHeroSection: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/80 to-transparent" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 page-shell">
           <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">
               {t('hero.breadcrumbHome')}
@@ -86,7 +86,7 @@ export const VisiteHeroSection: React.FC = () => {
 
       {/* Chiffres Clés du Site */}
       <section className="py-8 bg-[#0c0c10] border-b border-zinc-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="page-shell">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 font-mono-tech text-xs">
             {stats.map((stat, idx) => (
               <div key={idx} className="border-l-2 border-[#FFE500] pl-4">

@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { ExternalLink, Film, Award } from 'lucide-react';
-import { CUC_PARTNERS, Partner } from './partenaires.data';
+import { CUC_PARTNERS } from './partenaires.data';
 import { getPartners, SitePartner } from '@/lib/data/site-service';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 
 /**
  * Copie éditoriale d'un partenaire, appariée par NOM (les logos, sites et
@@ -63,13 +64,21 @@ export const PartenairesGridSection: React.FC = () => {
     };
   };
 
-  useEffect(() => {
+  /** Recharge les partenaires du CMS (état initial + synchronisation Realtime). */
+  const loadPartners = React.useCallback(() => {
     getPartners().then((parts) => {
       if (parts && parts.length > 0) {
         setDbPartners(parts);
       }
     });
   }, []);
+
+  useEffect(() => {
+    loadPartners();
+  }, [loadPartners]);
+
+  // Synchronisation Realtime Cockpit → Vitrine (partenaires additionnels).
+  useRealtimeRefresh(['site_partners'], loadPartners);
 
   // Dédupliquer les partenaires du CMS par rapport à CUC_PARTNERS (base certifiée)
   const staticPartnerNames = new Set(
@@ -85,7 +94,7 @@ export const PartenairesGridSection: React.FC = () => {
 
   return (
     <section className="py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      <div className="page-shell space-y-16">
         {/* Section Partenaires Cinéma additionnels configurés dans le Cockpit */}
         {additionalCinemaPartners.length > 0 && (
           <div className="space-y-6">

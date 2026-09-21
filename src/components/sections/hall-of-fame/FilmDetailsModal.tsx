@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { FilmCredit, Instructor } from '@/types';
 import { CUC_TEAM } from '@/data/team';
 import { getTeam } from '@/lib/data/site-service';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { normalizeRole } from '@/lib/credit-role';
 import { ImdbLogo, AllocineLogo, YouTubeLogo } from '@/components/ui/BrandLogos';
 import { X, Clapperboard, ExternalLink, ChevronRight, Film } from 'lucide-react';
@@ -24,9 +25,16 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
   const t = useTranslations('teamProduction');
   const [teamMembers, setTeamMembers] = React.useState<Instructor[]>(CUC_TEAM);
 
-  React.useEffect(() => {
+  const loadTeam = React.useCallback(() => {
     getTeam().then(setTeamMembers);
   }, []);
+
+  React.useEffect(() => {
+    loadTeam();
+  }, [loadTeam]);
+
+  // Synchronisation Realtime Cockpit → Vitrine (coachs référencés par le film).
+  useRealtimeRefresh(['site_team'], loadTeam);
 
   if (!movie) return null;
 

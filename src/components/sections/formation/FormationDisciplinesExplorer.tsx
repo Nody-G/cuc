@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Zap, ChevronRight } from 'lucide-react';
@@ -8,6 +8,7 @@ import { StuntBadge } from '@/components/ui/StuntBadge';
 import { CUC_DISCIPLINES } from '@/data/disciplines';
 import { Discipline } from '@/types';
 import { getDisciplines } from '@/lib/data/site-service';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { applyDisciplineOverlays } from '@/lib/i18n/apply-discipline-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 
@@ -30,11 +31,19 @@ export const FormationDisciplinesExplorer: React.FC = () => {
     [rawDisciplines, disciplineOverlays]
   );
 
-  useEffect(() => {
+  /** Recharge le référentiel des disciplines (état initial + Realtime). */
+  const loadDisciplines = useCallback(() => {
     getDisciplines().then((data) => {
       if (data && data.length > 0) setRawDisciplines(data);
     });
   }, []);
+
+  useEffect(() => {
+    loadDisciplines();
+  }, [loadDisciplines]);
+
+  // Synchronisation Realtime Cockpit → Vitrine (table dédiée + miroir).
+  useRealtimeRefresh(['site_disciplines', 'site_settings'], loadDisciplines);
 
   const activeDiscipline = disciplines[activeDisciplineIndex] || disciplines[0];
 
@@ -42,7 +51,7 @@ export const FormationDisciplinesExplorer: React.FC = () => {
 
   return (
     <section className="py-16 bg-[#09090d] border-t border-zinc-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="page-shell">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
           <div>
             <StuntBadge variant="yellow" icon={<Zap className="w-3.5 h-3.5" />}>
@@ -65,8 +74,8 @@ export const FormationDisciplinesExplorer: React.FC = () => {
                   key={d.id}
                   onClick={() => setActiveDisciplineIndex(index)}
                   className={`w-full text-left p-3.5 border transition-all cursor-pointer flex items-center justify-between ${isSelected
-                      ? 'bg-[#14141c] border-[#FFE500] text-white shadow-lg'
-                      : 'bg-[#0b0b0f] border-zinc-800/80 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
+                    ? 'bg-[#14141c] border-[#FFE500] text-white shadow-lg'
+                    : 'bg-[#0b0b0f] border-zinc-800/80 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
                     }`}
                 >
                   <div className="flex items-center gap-3 truncate">
@@ -82,8 +91,8 @@ export const FormationDisciplinesExplorer: React.FC = () => {
                   </div>
                   <ChevronRight
                     className={`w-4 h-4 shrink-0 transition-transform ${isSelected
-                        ? 'text-[#FFE500] translate-x-1'
-                        : 'text-zinc-600'
+                      ? 'text-[#FFE500] translate-x-1'
+                      : 'text-zinc-600'
                       }`}
                   />
                 </button>

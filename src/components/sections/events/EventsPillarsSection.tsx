@@ -1,13 +1,14 @@
 'use client';
 import { Link } from '@/i18n/navigation';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 
 import Image from 'next/image';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { getEvents, SiteEvent } from '@/lib/data/site-service';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { applyEventOverlays } from '@/lib/i18n/apply-event-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 
@@ -37,7 +38,8 @@ export const EventsPillarsSection: React.FC = () => {
   const eventOverlays = useEntityOverlays('event');
   const localizedEvents = applyEventOverlays(dbEvents, eventOverlays);
 
-  useEffect(() => {
+  /** Recharge les événements (état initial + synchronisation Realtime). */
+  const loadEvents = useCallback(() => {
     getEvents().then((evts) => {
       if (evts && evts.length > 0) {
         setDbEvents(evts);
@@ -45,9 +47,16 @@ export const EventsPillarsSection: React.FC = () => {
     });
   }, []);
 
+  useEffect(() => {
+    loadEvents();
+  }, [loadEvents]);
+
+  // Synchronisation Realtime Cockpit → Vitrine (événements d'agence).
+  useRealtimeRefresh(['site_events'], loadEvents);
+
   return (
     <section className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      <div className="page-shell space-y-16">
         {localizedEvents.length > 0 ? (
           localizedEvents.map((evt, idx) => {
             const isReversed = idx % 2 === 1;

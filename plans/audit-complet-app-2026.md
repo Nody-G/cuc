@@ -1,6 +1,6 @@
 # Audit complet de l'application CUC
 
-**Généré le :** 2026-09-21T09:12:01.976Z
+**Généré le :** 2026-09-21T21:33:29.344Z
 
 > État des lieux factuel. Aucune correction appliquée.
 
@@ -8,14 +8,14 @@
 
 | Contrôle | Anomalies |
 |---|---|
-| Routes détectées | 29 |
-| Fichiers source scannés | 241 |
+| Routes détectées | 30 |
+| Fichiers source scannés | 275 |
 | Liens internes cassés | 0 |
 | Ancres orphelines | 0 |
 | Doublons de liens | 0 |
-| Composants orphelins | 0 |
+| Composants orphelins | 1 |
 | URLs legacy WordPress | 35 |
-| Occurrences AI Slop | 183 |
+| Occurrences AI Slop | 187 |
 | Conflits de handles sociaux | 0 |
 
 ## Liens internes cassés
@@ -32,7 +32,7 @@ Aucune anomalie détectée.
 
 ## Composants orphelins
 
-Aucune anomalie détectée.
+- `src/components/sections/hall-of-fame/FilmGridCard.tsx`
 
 ## URLs legacy WordPress
 
@@ -74,21 +74,20 @@ Aucune anomalie détectée.
 
 ## Occurrences AI Slop
 
-- **badge: TACTIQUE** — src/app/admin/components/DisciplinesView.tsx:180 — `', 'Fondamental', 'Avancé', 'Extrême', 'Tactique'] as const).map((lvl) => (`
-- **badge: TACTIQUE** — src/app/admin/components/DisciplinesView.tsx:243 — `: d.level === 'Tactique' ? 'bg-purple`
-- **badge: TACTIQUE** — src/app/admin/components/DisciplinesView.tsx:465 — `ion> <option value="Tactique">Tactique</option> </`
-- **badge: TACTIQUE** — src/app/admin/components/DisciplinesView.tsx:465 — `<option value="Tactique">Tactique</option> </select>`
-- **badge: EXTRÊME** — src/app/admin/components/DisciplinesView.tsx:180 — `{(['all', 'Fondamental', 'Avancé', 'Extrême', 'Tactique'] as const).map((lvl) => (`
-- **badge: EXTRÊME** — src/app/admin/components/DisciplinesView.tsx:241 — `uppercase tracking-wider ${d.level === 'Extrême' ? 'bg-rose-500`
-- **badge: EXTRÊME** — src/app/admin/components/DisciplinesView.tsx:464 — `ion> <option value="Extrême">Extrême</option> <`
-- **badge: EXTRÊME** — src/app/admin/components/DisciplinesView.tsx:464 — `<option value="Extrême">Extrême</option> <option va`
-- **badge: TACTIQUE** — src/app/equipe-cascadeurs-pro/[slug]/CoachDetailClient.tsx:350 — `{/* Domaines d'Expertise Tactique */} <div>`
-- **badge: TACTIQUE** — src/components/sections/formation/FormationFormulesSection.tsx:202 — `rces spéciales, armes à blanc et rappel tactique</span> </li>`
-- **badge: EXTRÊME** — src/data/disciplines.ts:23 — `iconName: 'TrendingDown', level: 'Extrême', equipment: ['Tour de saut CUC 21m`
-- **badge: EXTRÊME** — src/data/disciplines.ts:35 — `s.', iconName: 'Flame', level: 'Extrême', equipment: ['Combinaisons Nomex m`
+- **badge: TACTIQUE** — src/app/(admin)/admin/components/DisciplinesView.tsx:180 — `', 'Fondamental', 'Avancé', 'Extrême', 'Tactique'] as const).map((lvl) => (`
+- **badge: TACTIQUE** — src/app/(admin)/admin/components/DisciplinesView.tsx:243 — `: d.level === 'Tactique' ? 'bg-purple`
+- **badge: TACTIQUE** — src/app/(admin)/admin/components/DisciplinesView.tsx:465 — `ion> <option value="Tactique">Tactique</option> </`
+- **badge: TACTIQUE** — src/app/(admin)/admin/components/DisciplinesView.tsx:465 — `<option value="Tactique">Tactique</option> </select>`
+- **badge: EXTRÊME** — src/app/(admin)/admin/components/DisciplinesView.tsx:180 — `{(['all', 'Fondamental', 'Avancé', 'Extrême', 'Tactique'] as const).map((lvl) => (`
+- **badge: EXTRÊME** — src/app/(admin)/admin/components/DisciplinesView.tsx:241 — `uppercase tracking-wider ${d.level === 'Extrême' ? 'bg-rose-500`
+- **badge: EXTRÊME** — src/app/(admin)/admin/components/DisciplinesView.tsx:464 — `ion> <option value="Extrême">Extrême</option> <`
+- **badge: EXTRÊME** — src/app/(admin)/admin/components/DisciplinesView.tsx:464 — `<option value="Extrême">Extrême</option> <option va`
+- **badge: TACTIQUE** — src/app/(site)/[locale]/equipe-cascadeurs-pro/[slug]/CoachDetailClient.tsx:395 — `{/* Domaines d'Expertise Tactique */} <div>`
+- **badge: EXTRÊME** — src/data/disciplines.ts:23 — `iconName: 'TrendingDown', level: 'Extrême', equipment: ['Tour de saut CUC 21`
+- **badge: EXTRÊME** — src/data/disciplines.ts:35 — `', iconName: 'Flame', level: 'Extrême', equipment: ['Combinaisons Nomex`
 - **badge: TACTIQUE** — src/lib/credit-role.ts:62 — `approches', 'rapprochés', 'tactiques', 'tactique', 'scene', 'scène', 'generale'`
-- **badge: TACTIQUE** — src/types/index.ts:38 — `'Fondamental' | 'Avancé' | 'Extrême' | 'Tactique'; equipment: string[]; cinemaContex`
-- **badge: EXTRÊME** — src/types/index.ts:38 — `g; level: 'Fondamental' | 'Avancé' | 'Extrême' | 'Tactique'; equipment: string[];`
+- **badge: TACTIQUE** — src/types/index.ts:40 — `'Fondamental' | 'Avancé' | 'Extrême' | 'Tactique'; equipment: string[]; cinemaContex`
+- **badge: EXTRÊME** — src/types/index.ts:40 — `g; level: 'Fondamental' | 'Avancé' | 'Extrême' | 'Tactique'; equipment: string[];`
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/apply_campus_pois_audit_logs_migration.mjs:14 — `OTENT : `CREATE TABLE IF NOT EXISTS` + `ADD COLUMN IF NOT EXISTS`. * * Prérequi`
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/apply_navigation_footer_migration.mjs:17 — `OTENT : `CREATE TABLE IF NOT EXISTS` + `ADD COLUMN IF NOT EXISTS`. * * Prérequi`
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/apply_site_disciplines_migration.mjs:94 — `ALTER PUBLICATION supabase_realtime ADD TABLE public.site_disciplines; END`
@@ -187,6 +186,10 @@ Aucune anomalie détectée.
 - **cliché: fleuron** — scripts/inspect_all_llm_copy.mjs:10 — `e: 'LLM buzzwords', re: /\b(à la pointe|fleuron|inégalé|à couper le souffle|alliance su`
 - **cliché: classe mondiale** — scripts/inspect_all_llm_copy.mjs:10 — `et passion|choc tactique|ultra-sécurisé|classe mondiale|surpuissant|déconnexion de l'instinct)\`
 - **cliché: cursus élite** — scripts/inspect_all_llm_copy.mjs:8 — `NNEL|MISSION CASCADES|RÔLE OPÉRATIONNEL|CURSUS ÉLITE|CERTIFIÉ CUC|CERTIFIÉ CAMPUS)\b/gi },`
+- **superlatif: légendaire** — scripts/inspect_film_descriptions.mjs:38 — `cadeurs|worldwide|hollywood|élite|elite|légendaire|legendaire|gun-?fu|référence\s*suprême|`
+- **badge: WORLDWIDE** — scripts/inspect_film_descriptions.mjs:38 — `univers|notre\s*équipe|nos\s*cascadeurs|worldwide|hollywood|élite|elite|légendaire|legend`
+- **superlatif: légendaire** — scripts/inspect_film_tags.mjs:41 — `scadeur|worldwide|hollywood|élite|elite|légendaire|legendaire|pro\s*staff|référence/i; fo`
+- **badge: WORLDWIDE** — scripts/inspect_film_tags.mjs:41 — `T = /CUC|campus|équipe|equipe|cascadeur|worldwide|hollywood|élite|elite|légendaire|legend`
 - **superlatif: chutes massives** — scripts/lib/credit-curator.mjs:244 — `nce supr[êe]me/gi, 'référence'], [/chutes massives/gi, 'chutes'], [/dossier pro compl`
 - **superlatif: dossier pro complet** — scripts/lib/credit-curator.mjs:245 — `[/chutes massives/gi, 'chutes'], [/dossier pro complet/gi, 'parcours'], [/\b[ée]lite\b/gi`
 - **doctrine: Art du Déplacement (utiliser Parkour)** — scripts/lib/credit-curator.mjs:18 — `minologie Parkour : jamais « ADD » ni « Art du Déplacement ». * * Le module est PUR (aucune I/`
@@ -207,6 +210,7 @@ Aucune anomalie détectée.
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/migration_apply_campus_pois_audit_logs.sql:43 — `T; ALTER TABLE public.site_campus_pois ADD COLUMN IF NOT EXISTS order_index INTEGE`
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/migration_apply_campus_pois_audit_logs.sql:120 — `ALTER PUBLICATION supabase_realtime ADD TABLE public.site_campus_pois; END`
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/migration_apply_campus_pois_audit_logs.sql:129 — `ALTER PUBLICATION supabase_realtime ADD TABLE public.site_audit_logs; END`
+- **doctrine: acronyme ADD (utiliser Parkour)** — scripts/migration_site_translations.sql:57 — `ALTER PUBLICATION supabase_realtime ADD TABLE site_translations; END IF;`
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/migration_sync_cuc_cockpit.sql:202 — `ALTER PUBLICATION supabase_realtime ADD TABLE public.site_inquiries; END IF`
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/migration_sync_cuc_cockpit.sql:205 — `ALTER PUBLICATION supabase_realtime ADD TABLE public.site_disciplines; END`
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/migration_sync_cuc_cockpit.sql:208 — `ALTER PUBLICATION supabase_realtime ADD TABLE public.site_campus_pois; END`
@@ -264,9 +268,25 @@ Aucune anomalie détectée.
 
 ## Routes détectées
 
-- `/`
+- `/[locale]`
+- `/[locale]/animations-airbag-parkour`
+- `/[locale]/contact-cuc`
+- `/[locale]/cuc-events-agence`
+- `/[locale]/cuc-team-cascadeur`
+- `/[locale]/equipe-cascadeurs-pro`
+- `/[locale]/equipe-cascadeurs-pro/[slug]`
+- `/[locale]/formation-de-cascadeur`
+- `/[locale]/partenaires`
+- `/[locale]/spectacles-cascadeurs-yamakasi`
+- `/[locale]/stages-cascades-parkour-2`
+- `/[locale]/stunt-workshop-cuc`
+- `/[locale]/team-building-cascades`
+- `/[locale]/videos-cascadeur`
+- `/[locale]/visite-guidee`
+- `/[locale]/visite-virtuelle`
 - `/admin`
 - `/admin/announcements`
+- `/admin/campus-3d`
 - `/admin/events`
 - `/admin/films`
 - `/admin/inquiries`
@@ -274,22 +294,7 @@ Aucune anomalie détectée.
 - `/admin/media`
 - `/admin/pages`
 - `/admin/partners`
-- `/admin/preview`
 - `/admin/sessions`
 - `/admin/settings`
 - `/admin/team`
-- `/animations-airbag-parkour`
-- `/contact-cuc`
-- `/cuc-events-agence`
-- `/cuc-team-cascadeur`
-- `/equipe-cascadeurs-pro`
-- `/equipe-cascadeurs-pro/[slug]`
-- `/formation-de-cascadeur`
-- `/partenaires`
-- `/spectacles-cascadeurs-yamakasi`
-- `/stages-cascades-parkour-2`
-- `/stunt-workshop-cuc`
-- `/team-building-cascades`
-- `/videos-cascadeur`
-- `/visite-guidee`
-- `/visite-virtuelle`
+- `/admin/translations`

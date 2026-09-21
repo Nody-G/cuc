@@ -49,7 +49,7 @@ export const HomeQualiopiSection: React.FC<HomeQualiopiSectionProps> = ({
         className="absolute -top-24 right-1/4 w-80 h-80 rounded-full bg-[#FFE500]/[0.025] blur-3xl pointer-events-none"
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="page-shell relative z-10">
         <StudioParallaxCard maxTilt={3}>
           <div className="bg-[#121218]/95 backdrop-blur-md border border-[#FFE500]/50 p-6 sm:p-8 relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[0_0_35px_rgba(255,229,0,0.06)]">
             <div className="flex items-start gap-4 sm:gap-6">

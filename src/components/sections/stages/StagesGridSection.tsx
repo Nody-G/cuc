@@ -166,7 +166,7 @@ export const StagesGridSection: React.FC<StagesGridSectionProps> = ({
 
   return (
     <section className="py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <div className="page-shell space-y-12">
         {localizedList.map((stage) => {
           const isHighlight = stage.isPopular;
           return (

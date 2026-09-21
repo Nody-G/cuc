@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { ChevronRight, CheckCircle2 } from 'lucide-react';
 import { CAMPUS_FACILITIES } from '@/data/campus';
 import { getCampusFacilities } from '@/lib/data/site-service';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 import { applyFacilityOverlays } from '@/lib/i18n/apply-facility-overlay';
 import { InfrastructureSpot } from '@/types';
@@ -52,13 +53,21 @@ export const VisiteFacilitiesDetail: React.FC = () => {
     [rawFacilities, facilityOverlays],
   );
 
-  useEffect(() => {
+  /** Recharge les installations (état initial + synchronisation Realtime). */
+  const loadFacilities = useCallback(() => {
     getCampusFacilities().then((data) => {
       if (data && data.length > 0) {
         setRawFacilities(data);
       }
     });
   }, []);
+
+  useEffect(() => {
+    loadFacilities();
+  }, [loadFacilities]);
+
+  // Synchronisation Realtime Cockpit → Vitrine (installations, miroir site_settings).
+  useRealtimeRefresh(['site_settings'], loadFacilities);
 
   // Synchronise la sélection si l'utilisateur arrive avec un autre paramètre
   useEffect(() => {
@@ -87,7 +96,7 @@ export const VisiteFacilitiesDetail: React.FC = () => {
 
   return (
     <section id="installations-detail" className="py-16 scroll-mt-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="page-shell">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-2">
             {t('facilitiesTag')}

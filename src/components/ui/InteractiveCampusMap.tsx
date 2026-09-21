@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import {
   Navigation,
@@ -15,6 +15,7 @@ import {
   POI,
 } from './campus-map/campusMap.data';
 import { getCampusPOIs } from '@/lib/data/site-service';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 import { applyPoiOverlay, applyPoiOverlays } from '@/lib/i18n/apply-poi-overlay';
 import { CampusRadarView } from './campus-map/CampusRadarView';
@@ -30,7 +31,8 @@ export const InteractiveCampusMap: React.FC = () => {
   const [activeRoute, setActiveRoute] = useState<string>('paris');
   const [copied, setCopied] = useState<boolean>(false);
 
-  useEffect(() => {
+  /** Recharge les zones du campus (état initial + synchronisation Realtime). */
+  const loadPois = useCallback(() => {
     getCampusPOIs().then((data) => {
       if (data && data.length > 0) {
         setPois(data);
@@ -38,6 +40,13 @@ export const InteractiveCampusMap: React.FC = () => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    loadPois();
+  }, [loadPois]);
+
+  // Synchronisation Realtime Cockpit → Vitrine (zones du campus + miroir).
+  useRealtimeRefresh(['site_campus_pois', 'site_settings'], loadPois);
 
   /**
    * Noms, catégories et descriptions des zones du campus : DONNÉES de
@@ -99,8 +108,8 @@ export const InteractiveCampusMap: React.FC = () => {
                   type="button"
                   onClick={() => setActiveTab('radar')}
                   className={`px-3 py-1.5 text-xs font-mono-tech uppercase transition-all flex items-center gap-2 cursor-pointer ${activeTab === 'radar'
-                      ? 'bg-[#FFE500] text-black font-bold shadow-[0_0_15px_rgba(255,229,0,0.3)]'
-                      : 'bg-[#15151e] text-zinc-400 hover:text-white border border-zinc-800'
+                    ? 'bg-[#FFE500] text-black font-bold shadow-[0_0_15px_rgba(255,229,0,0.3)]'
+                    : 'bg-[#15151e] text-zinc-400 hover:text-white border border-zinc-800'
                     }`}
                 >
                   <Crosshair className="w-3.5 h-3.5" />
@@ -110,8 +119,8 @@ export const InteractiveCampusMap: React.FC = () => {
                   type="button"
                   onClick={() => setActiveTab('map')}
                   className={`px-3 py-1.5 text-xs font-mono-tech uppercase transition-all flex items-center gap-2 cursor-pointer ${activeTab === 'map'
-                      ? 'bg-[#FFE500] text-black font-bold shadow-[0_0_15px_rgba(255,229,0,0.3)]'
-                      : 'bg-[#15151e] text-zinc-400 hover:text-white border border-zinc-800'
+                    ? 'bg-[#FFE500] text-black font-bold shadow-[0_0_15px_rgba(255,229,0,0.3)]'
+                    : 'bg-[#15151e] text-zinc-400 hover:text-white border border-zinc-800'
                     }`}
                 >
                   <Navigation className="w-3.5 h-3.5" />

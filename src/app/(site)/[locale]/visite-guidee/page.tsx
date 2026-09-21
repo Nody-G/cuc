@@ -78,7 +78,7 @@ export default function VisiteGuideePage() {
             id="plan-3d-domaine"
             className="py-16 bg-[#060608] border-b border-zinc-800 scroll-mt-24"
           >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="page-shell">
               <div className="text-center max-w-3xl mx-auto mb-10">
                 <div className="inline-flex items-center gap-2 mb-2">
                   <StuntBadge
@@ -110,7 +110,7 @@ export default function VisiteGuideePage() {
             id="visite-virtuelle-360"
             className="py-16 bg-[#07070a] border-b border-zinc-800 scroll-mt-24"
           >
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="page-shell">
               <div className="text-center max-w-3xl mx-auto mb-10">
                 <StuntBadge
                   variant="yellow"

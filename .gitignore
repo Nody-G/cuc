@@ -13,6 +13,9 @@
 # testing
 /coverage
 
+# caches locaux d'outillage (rapports de tests JSON, etc.)
+/.cache/
+
 # next.js
 /.next/
 /out/

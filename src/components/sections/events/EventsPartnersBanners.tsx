@@ -11,7 +11,7 @@ export const EventsPartnersBanners: React.FC = () => {
     <>
       {/* ILS NOUS ONT FAIT CONFIANCE (BANDES LOGOS) */}
       <section className="py-16 bg-[#09090d] border-t border-zinc-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="page-shell">
           <div className="text-center max-w-3xl mx-auto mb-10">
             <div className="inline-flex items-center gap-2 mb-2">
               <StuntBadge variant="yellow">{t('partnersBadge')}</StuntBadge>
@@ -56,7 +56,7 @@ export const EventsPartnersBanners: React.FC = () => {
 
       {/* BANDES AFFICHES DE FILMS */}
       <section className="py-16 bg-black border-t border-zinc-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="page-shell">
           <div className="text-center max-w-3xl mx-auto mb-10">
             <div className="inline-flex items-center gap-2 mb-2">
               <StuntBadge variant="yellow">{t('cinemaBadge')}</StuntBadge>

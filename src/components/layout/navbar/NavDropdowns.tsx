@@ -46,6 +46,20 @@ export const NavDropdownItem: React.FC<NavDropdownItemProps> = ({
       className="relative"
       onMouseEnter={() => setOpenDropdownId(item.id)}
       onMouseLeave={() => setOpenDropdownId(null)}
+      /**
+       * Accessibilité clavier (WCAG 2.2) :
+       * - `Échap` referme le méga-menu, y compris depuis un lien enfant ;
+       * - la sortie du focus (Tab au-delà du panneau) le referme aussi, sans
+       *   jamais interrompre une navigation au clavier à l'intérieur.
+       */
+      onKeyDown={(e) => {
+        if (e.key === 'Escape') setOpenDropdownId(null);
+      }}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+          setOpenDropdownId(null);
+        }
+      }}
     >
       <button
         type="button"

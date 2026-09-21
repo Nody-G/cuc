@@ -28,7 +28,7 @@ export default function ContactCucPage() {
 
         {/* 2. Contact Form & Coordinates Hub */}
         <section id="contact-form" className="py-16 scroll-mt-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="page-shell">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
               {/* Formulaire de Contact */}
               <ContactForm />
@@ -44,7 +44,7 @@ export default function ContactCucPage() {
           id="campus-map-hub"
           className="py-16 bg-[#08080c] border-t border-zinc-800"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="page-shell">
             <div className="text-center max-w-3xl mx-auto mb-10">
               <StuntBadge
                 variant="yellow"

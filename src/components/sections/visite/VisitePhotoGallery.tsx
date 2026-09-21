@@ -20,7 +20,7 @@ export const VisitePhotoGallery: React.FC<VisitePhotoGalleryProps> = ({
 
   return (
     <section className="py-16 bg-[#09090d] border-t border-zinc-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="page-shell">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <StuntBadge variant="yellow" icon={<Building className="w-3.5 h-3.5" />}>
             {t('galleryBadge')}

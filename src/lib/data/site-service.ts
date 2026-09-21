@@ -224,10 +224,16 @@ export async function getFilms(): Promise<FilmCredit[]> {
       .order('order_index', { ascending: true });
 
     if (error || !data || data.length === 0) {
+      /**
+       * Repli miroir : la clé réelle est `films` (tableau JSON des 63 crédits
+       * éditoriaux). L'ancienne clé `filmography_credits` n'existe dans AUCUNE
+       * configuration de `site_settings` : ce chemin de repli était mort et
+       * retombait systématiquement sur la constante du dépôt.
+       */
       const { data: settingRow } = await supabase
         .from('site_settings')
         .select('value')
-        .eq('key', 'filmography_credits')
+        .eq('key', 'films')
         .maybeSingle();
 
       if (settingRow && Array.isArray(settingRow.value) && settingRow.value.length > 0) {

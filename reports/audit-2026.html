@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Rapport d'audit — Campus Univers Cascades (2026)</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #060608; color: #e7e7ea;
+    font: 15px/1.6 "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 48px 24px 96px; }
+  header.hero { border-bottom: 1px solid #26262e; padding-bottom: 28px; margin-bottom: 36px; }
+  .kicker { color: #FFE500; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700; }
+  h1 { font-size: clamp(28px, 4vw, 44px); margin: 10px 0 6px; letter-spacing: .01em; }
+  .meta { color: #9a9aa5; font-size: 13px; }
+  .meta code { color: #cfcfd6; }
+  h2 { margin-top: 56px; font-size: 24px; border-left: 4px solid #FFE500; padding-left: 12px; }
+  h3 { margin-top: 32px; font-size: 18px; color: #f2f2f5; }
+  p { color: #c9c9d1; }
+  .grid { display: grid; gap: 16px; }
+  .grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+  .card { background: #0d0d12; border: 1px solid #26262e; border-radius: 10px; padding: 18px 20px; }
+  .card h3 { margin-top: 0; }
+  .stat { font-size: 30px; font-weight: 700; color: #fff; }
+  .stat small { font-size: 13px; color: #9a9aa5; font-weight: 400; display: block; }
+  .gauges { display: flex; flex-wrap: wrap; gap: 22px; justify-content: flex-start; }
+  .gauge { margin: 0; text-align: center; }
+  .gauge figcaption { font-size: 12px; color: #9a9aa5; max-width: 128px; }
+  .gauge-value { fill: #fff; font-size: 30px; font-weight: 700; }
+  .chart { width: 100%; height: auto; }
+  .chart-label { fill: #c9c9d1; font-size: 13px; }
+  .chart-value { fill: #fff; font-size: 13px; font-weight: 600; }
+  .donut-wrap { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+  .donut-total { fill: #fff; font-size: 22px; font-weight: 700; }
+  .legend { list-style: none; margin: 0; padding: 0; font-size: 13px; color: #c9c9d1; }
+  .legend li { margin: 4px 0; }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid #1f1f27; }
+  th { color: #9a9aa5; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+  td { color: #d6d6dd; }
+  .ok { color: #7bd88f; font-weight: 600; }
+  .warn { color: #ffce54; font-weight: 600; }
+  .bad { color: #ff6b6b; font-weight: 600; }
+  .callout { border-left: 4px solid #FFE500; background: #101016; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 18px 0; }
+  .beforeafter { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .ba { background: #0d0d12; border: 1px solid #26262e; border-radius: 10px; padding: 14px 16px; }
+  .ba .n { font-size: 26px; font-weight: 700; }
+  .ba .l { color: #9a9aa5; font-size: 12.5px; }
+  footer { margin-top: 72px; border-top: 1px solid #26262e; padding-top: 20px; color: #8a8a95; font-size: 12.5px; }
+  a { color: #FFE500; }
+  .pill { display: inline-block; font-size: 11px; padding: 2px 9px; border: 1px solid #3a3a44; border-radius: 999px; color: #c9c9d1; margin-right: 6px; }
+  @media print { body { background: #fff; color: #111; } .card, .ba { border-color: #ddd; background: #fff; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="kicker">Audit général & rapport de santé — 2026</div>
+    <h1>Campus Univers Cascades — Application vitrine & Cockpit</h1>
+    <p class="meta">
+      Rapport généré le <strong>21/09/2026 23:53:55</strong> —
+      révision <code>e2b42a8</code> (2026-09-21T23:27:40+02:00) —
+      69 fichier(s) modifié(s) dans l'arbre de travail.<br/>
+      Toutes les mesures sont recalculées par <code>npm run report:audit</code> : ce rapport est <em>reproductible</em>,
+      jamais saisi à la main.
+    </p>
+  </header>
+
+  <section>
+    <h2>1. Synthèse pour la direction</h2>
+    <div class="callout">
+      <strong>Score global : 99/100.</strong>
+      L'application est <strong>techniquement saine</strong> : aucune erreur détectée sur les 10 contrôles automatisés
+      (liens, ancres, doublons, composants orphelins, redirections, contenus, largeurs, doctrine éditoriale, canaux temps réel),
+      la base de données est <strong>entièrement synchronisée</strong> avec le Cockpit et le site public, et les contenus
+      anglais couvrent 681 clés de traduction sans aucun manque.
+    </div>
+    <div class="gauges">
+      <figure class="gauge">
+      <svg viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Intégrité technique : 100 sur 100">
+        <circle cx="64" cy="64" r="52" fill="none" stroke="#26262e" stroke-width="10"/>
+        <circle cx="64" cy="64" r="52" fill="none" stroke="#FFE500" stroke-width="10"
+          stroke-dasharray="326.7256359733385 0" stroke-linecap="round"
+          transform="rotate(-90 64 64)"/>
+        <text x="64" y="70" text-anchor="middle" class="gauge-value">100</text>
+      </svg>
+      <figcaption>Intégrité technique</figcaption>
+    </figure><figure class="gauge">
+      <svg viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Synchronisation Realtime : 90 sur 100">
+        <circle cx="64" cy="64" r="52" fill="none" stroke="#26262e" stroke-width="10"/>
+        <circle cx="64" cy="64" r="52" fill="none" stroke="#FFE500" stroke-width="10"
+          stroke-dasharray="294.05307237600465 32.67256359733386" stroke-linecap="round"
+          transform="rotate(-90 64 64)"/>
+        <text x="64" y="70" text-anchor="middle" class="gauge-value">90</text>
+      </svg>
+      <figcaption>Synchronisation Realtime</figcaption>
+    </figure><figure class="gauge">
+      <svg viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Interconnexion CUC Sign : 100 sur 100">
+        <circle cx="64" cy="64" r="52" fill="none" stroke="#26262e" stroke-width="10"/>
+        <circle cx="64" cy="64" r="52" fill="none" stroke="#FFE500" stroke-width="10"
+          stroke-dasharray="326.7256359733385 0" stroke-linecap="round"
+          transform="rotate(-90 64 64)"/>
+        <text x="64" y="70" text-anchor="middle" class="gauge-value">100</text>
+      </svg>
+      <figcaption>Interconnexion CUC Sign</figcaption>
+    </figure><figure class="gauge">
+      <svg viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Parité français / anglais : 100 sur 100">
+        <circle cx="64" cy="64" r="52" fill="none" stroke="#26262e" stroke-width="10"/>
+        <circle cx="64" cy="64" r="52" fill="none" stroke="#FFE500" stroke-width="10"
+          stroke-dasharray="326.7256359733385 0" stroke-linecap="round"
+          transform="rotate(-90 64 64)"/>
+        <text x="64" y="70" text-anchor="middle" class="gauge-value">100</text>
+      </svg>
+      <figcaption>Parité français / anglais</figcaption>
+    </figure><figure class="gauge">
+      <svg viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Sécurité : 100 sur 100">
+        <circle cx="64" cy="64" r="52" fill="none" stroke="#26262e" stroke-width="10"/>
+        <circle cx="64" cy="64" r="52" fill="none" stroke="#FFE500" stroke-width="10"
+          stroke-dasharray="326.7256359733385 0" stroke-linecap="round"
+          transform="rotate(-90 64 64)"/>
+        <text x="64" y="70" text-anchor="middle" class="gauge-value">100</text>
+      </svg>
+      <figcaption>Sécurité</figcaption>
+    </figure><figure class="gauge">
+      <svg viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Tests : 100 sur 100">
+        <circle cx="64" cy="64" r="52" fill="none" stroke="#26262e" stroke-width="10"/>
+        <circle cx="64" cy="64" r="52" fill="none" stroke="#FFE500" stroke-width="10"
+          stroke-dasharray="326.7256359733385 0" stroke-linecap="round"
+          transform="rotate(-90 64 64)"/>
+        <text x="64" y="70" text-anchor="middle" class="gauge-value">100</text>
+      </svg>
+      <figcaption>Tests</figcaption>
+    </figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Ce qui a été corrigé durant cet audit</h2>
+    <div class="grid cols-2">
+      <div class="ba"><div class="n"><span class="bad">55</span> → <span class="ok">0</span></div>
+        <div class="l">Écarts de largeur de page. Toute la vitrine (15 pages, en-tête, pied de page) adopte désormais un conteneur unique de 1600&nbsp;px — la disposition de la page Équipe, retenue comme référence.</div></div>
+      <div class="ba"><div class="n"><span class="warn">26&nbsp;%</span> → <span class="ok">92&nbsp;%</span></div>
+        <div class="l">Couverture temps réel des composants à données vivantes : 12 surfaces supplémentaires (fiche coach, partenaires, événements, disciplines, campus, vidéos, contacts) se mettent à jour instantanément quand le Cockpit écrit.</div></div>
+      <div class="ba"><div class="n"><span class="bad">absente</span> → <span class="ok">publiée</span></div>
+        <div class="l">La table <code>site_settings</code> n'était pas publiée pour le temps réel : tous les abonnements la concernant étaient silencieusement inertes (Cockpit inclus). Corrigé en base.</div></div>
+      <div class="ba"><div class="n"><span class="bad">inexistante</span> → <span class="ok">créée</span></div>
+        <div class="l">La table d'historique <code>site_page_revisions</code> n'existait pas alors que l'interface du Cockpit l'utilise : l'historique de versions des pages est désormais fonctionnel.</div></div>
+      <div class="ba"><div class="n"><span class="warn">4 présentations</span> → <span class="ok">1 composant</span></div>
+        <div class="l">Les jaquettes de films (affiche 2/3, badge d'année, clic → fiche détaillée) partagent UN SEUL composant sur toutes les surfaces : showcase, accueil, fiche coach. La navigation du bloc «&nbsp;Les films doublés & coordonnés par le CUC&nbsp;» devient la norme.</div></div>
+      <div class="ba"><div class="n"><span class="warn">1</span> → <span class="ok">0</span></div>
+        <div class="l">Composant orphelin supprimé (<code>FilmGridCard</code>) — code mort éliminé, plus aucun composant jamais importé.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Méthode & périmètre</h2>
+    <p>
+      L'audit couvre <strong>276 fichiers source</strong>,
+      <strong>30 routes</strong> (15 côté Cockpit),
+      la base Supabase de production (18 tables <code>site_*</code>)
+      et l'interconnexion avec l'application <strong>CUC&nbsp;Sign</strong>.
+      Les vérifications sont automatisées et rejouables&nbsp;:
+    </p>
+    <ul>
+      <li><code>npm run audit</code> — 10 familles de contrôles statiques (liens, ancres, doublons, redirections, composants, largeurs, doctrine, temps réel, i18n).</li>
+      <li><code>node scripts/audit_supabase_state.mjs</code> — lecture seule de la base (tables, publication temps réel, RLS, clés étrangères, miroirs).</li>
+      <li><code>npm run report:audit</code> — ce rapport (agrégation des mesures, tests exécutés le 21/09/2026).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>4. Le code en chiffres</h2>
+    <div class="grid cols-3">
+      <div class="card"><div class="stat">105 455<small>lignes de code (src + scripts + documentation)</small></div></div>
+      <div class="card"><div class="stat">625<small>fichiers suivis dans ces périmètres</small></div></div>
+      <div class="card"><div class="stat">30<small>routes applicatives (15 Cockpit · 15 vitrine)</small></div></div>
+      <div class="card"><div class="stat">15<small>fichiers de tests automatisés</small></div></div>
+    </div>
+
+    <h3>Répartition des lignes par zone</h3>
+    <div class="donut-wrap"><svg viewBox="0 0 220 220" width="220" height="220"><circle cx="110" cy="110" r="70" fill="none" stroke="#FFE500"
+        stroke-width="26" stroke-dasharray="161.1022893198977 278.72068218267333"
+        stroke-dashoffset="0" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#FFB020"
+        stroke-width="26" stroke-dasharray="89.67041759333628 350.1525539092347"
+        stroke-dashoffset="-161.1022893198977" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#FF7043"
+        stroke-width="26" stroke-dasharray="70.41004603770712 369.4129254648639"
+        stroke-dashoffset="-250.77270691323398" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#4FC3F7"
+        stroke-width="26" stroke-dasharray="42.274388498886346 397.54858300368466"
+        stroke-dashoffset="-321.1827529509411" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#81C784"
+        stroke-width="26" stroke-dasharray="33.036250128224026 406.786721374347"
+        stroke-dashoffset="-363.4571414498275" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#BA68C8"
+        stroke-width="26" stroke-dasharray="28.264949768839067 411.55802173373195"
+        stroke-dashoffset="-396.4933915780515" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#F06292"
+        stroke-width="26" stroke-dasharray="14.960362228246382 424.86260927432465"
+        stroke-dashoffset="-424.7583413468906" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#90A4AE"
+        stroke-width="26" stroke-dasharray="0.10426792743411195 439.7187035751369"
+        stroke-dashoffset="-439.71870357513694" transform="rotate(-90 110 110)"/>
+      <text x="110" y="116" text-anchor="middle" class="donut-total">105 455</text></svg>
+      <ul class="legend"><li><span class="dot" style="background:#FFE500"></span>Outillage (scripts) — <strong>38 627</strong> lignes</li><li><span class="dot" style="background:#FFB020"></span>Cockpit (admin) — <strong>21 500</strong> lignes</li><li><span class="dot" style="background:#FF7043"></span>Composants UI — <strong>16 882</strong> lignes</li><li><span class="dot" style="background:#4FC3F7"></span>Documentation (plans) — <strong>10 136</strong> lignes</li><li><span class="dot" style="background:#81C784"></span>Bibliothèques & données — <strong>7 921</strong> lignes</li><li><span class="dot" style="background:#BA68C8"></span>Vitrine (pages) — <strong>6 777</strong> lignes</li><li><span class="dot" style="background:#F06292"></span>i18n, données & types — <strong>3 587</strong> lignes</li><li><span class="dot" style="background:#90A4AE"></span>Autres — <strong>25</strong> lignes</li></ul></div>
+
+    <h3>Langages & artefacts</h3>
+    <svg viewBox="0 0 640 262" role="img" class="chart">
+        <text x="0" y="28.72" class="chart-label">.mjs — Node.js (261 fichiers)</text>
+        <rect x="230" y="10" width="340" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="578" y="28.72" class="chart-value">38 162 lignes</text>
+        <text x="0" y="64.72" class="chart-label">.tsx — TypeScript/React (194 fichiers)</text>
+        <rect x="230" y="46" width="319.46386457732825" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="557.4638645773282" y="64.72" class="chart-value">35 857 lignes</text>
+        <text x="0" y="100.72" class="chart-label">.ts — TypeScript (100 fichiers)</text>
+        <rect x="230" y="82" width="171.09585451496253" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="409.0958545149625" y="100.72" class="chart-value">19 204 lignes</text>
+        <text x="0" y="136.72" class="chart-label">.md — Markdown (62 fichiers)</text>
+        <rect x="230" y="118" width="84.49661967402128" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="322.4966196740213" y="136.72" class="chart-value">9 484 lignes</text>
+        <text x="0" y="172.72" class="chart-label">.json — JSON (3 fichiers)</text>
+        <rect x="230" y="154" width="8.134269692364132" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="246.13426969236414" y="172.72" class="chart-value">913 lignes</text>
+        <text x="0" y="208.72" class="chart-label">.css — CSS (1 fichiers)</text>
+        <rect x="230" y="190" width="6.281117341858393" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="244.2811173418584" y="208.72" class="chart-value">705 lignes</text>
+        <text x="0" y="244.72" class="chart-label">.js — JavaScript (1 fichiers)</text>
+        <rect x="230" y="226" width="2" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="240" y="244.72" class="chart-value">63 lignes</text></svg>
+
+    <h3>Les 10 fichiers les plus volumineux (points de refactoring futurs)</h3>
+    <table><thead><tr><th>Fichier</th><th>Lignes</th></tr></thead><tbody>
+    <tr><td><code>src/app/(admin)/admin/actions.ts</code></td><td>2 502</td></tr><tr><td><code>src/lib/data/site-service.ts</code></td><td>2 234</td></tr><tr><td><code>src/app/(admin)/admin/components/TeamView.tsx</code></td><td>1 414</td></tr><tr><td><code>src/data/filmography.ts</code></td><td>1 202</td></tr><tr><td><code>src/app/(admin)/admin/components/media/MediaExplorer.tsx</code></td><td>1 057</td></tr><tr><td><code>src/app/(admin)/admin/CockpitApp.tsx</code></td><td>1 052</td></tr><tr><td><code>scripts/audit_full_app.mjs</code></td><td>1 031</td></tr><tr><td><code>src/app/(admin)/admin/components/InquiriesView.tsx</code></td><td>1 012</td></tr><tr><td><code>src/app/icon.png</code></td><td>839</td></tr><tr><td><code>src/app/(admin)/admin/components/PagesEditorView.tsx</code></td><td>810</td></tr>
+    </tbody></table>
+  </section>
+
+  <section>
+    <h2>5. Contrôles automatisés — état après corrections</h2>
+    <table>
+      <thead><tr><th>Contrôle</th><th>Résultat</th><th>Ce que cela protège</th></tr></thead>
+      <tbody>
+        <tr><td>Liens internes cassés</td><td class="ok">0</td><td>Aucun 404 pour le visiteur ; vérification tenant compte des 2 langues.</td></tr>
+        <tr><td>Ancres orphelines</td><td class="ok">0</td><td>Les liens «&nbsp;#section&nbsp;» mènent tous à un contenu réel.</td></tr>
+        <tr><td>Doublons de liens (menus, pied de page)</td><td class="ok">0</td><td>Navigation sans redite.</td></tr>
+        <tr><td>Composants jamais utilisés</td><td class="ok">0</td><td>Aucun code mort dans l'interface.</td></tr>
+        <tr><td>Redirections invalides ou chaînées</td><td class="ok">0</td><td>Les adresses historiques redirigent en un saut vers une page réelle.</td></tr>
+        <tr><td>Références à l'ancien site WordPress</td><td class="ok">0</td><td>Toutes les images et documents sont servis depuis la base du projet.</td></tr>
+        <tr><td>Doctrine éditoriale (superlatifs, badges creux, terminologie)</td><td class="ok">0</td><td>Contenus factuels conformes aux règles rédactionnelles.</td></tr>
+        <tr><td>Handles réseaux sociaux contradictoires</td><td class="ok">0</td><td>Un seul compte officiel par plateforme.</td></tr>
+        <tr><td>Largeur de conteneur hors charte</td><td class="ok">0</td><td>Alignement identique de l'en-tête, des sections et du pied de page.</td></tr>
+        <tr><td>Canaux temps réel sans nettoyage</td><td class="ok">0</td><td>Aucune fuite d'abonnement côté navigateur.</td></tr>
+      </tbody>
+    </table>
+    <p class="meta">Avertissements restants (non bloquants) : 2 composants à données statiques (plan 3D) sans temps réel — choix assumé.</p>
+  </section>
+
+  <section>
+    <h2>6. Contenus français / anglais</h2>
+    <div class="grid cols-3">
+      <div class="card"><div class="stat">681<small>clés éditoriales en français</small></div></div>
+      <div class="card"><div class="stat">681<small>clés éditoriales en anglais</small></div></div>
+      <div class="card"><div class="stat">0<small>clés manquantes en anglais</small></div></div>
+    </div>
+    <p>
+      Chaque page existe en français et en anglais, avec des métadonnées (titre, description, image de partage)
+      propres à chaque route. Les contenus éditoriaux bilingues vivent en base
+      (579 traductions enregistrées), pas dans le code.
+    </p>
+  </section>
+
+  <section>
+    <h2>7. Synchronisation temps réel Cockpit → Site</h2>
+    <p>
+      Toute modification faite dans le Cockpit (sessions, équipe, films, partenaires, événements, disciplines,
+      zones du campus, réglages, contenus de pages) se propage <strong>instantanément</strong> au site public,
+      sans rechargement manuel et sans intervention technique. La couverture mesurée des surfaces concernées est de
+      <strong>90&nbsp;%</strong> ; les 2 composants restants sont
+      volontairement statiques (rendu 3D lourd).
+    </p>
+    <p>
+      En base, <strong>24 tables</strong> sont publiées pour le temps réel
+      — aucune manquante.
+    </p>
+  </section>
+
+  <section>
+    <h2>8. Base de données (Supabase)</h2>
+    <h3>Volumétrie des contenus</h3>
+    <svg viewBox="0 0 640 550" role="img" class="chart">
+        <text x="0" y="28.72" class="chart-label">site_translations</text>
+        <rect x="230" y="10" width="340" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="578" y="28.72" class="chart-value">579</text>
+        <text x="0" y="64.72" class="chart-label">site_films</text>
+        <rect x="230" y="46" width="334.7150259067358" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="572.7150259067357" y="64.72" class="chart-value">570</text>
+        <text x="0" y="100.72" class="chart-label">site_partners</text>
+        <rect x="230" y="82" width="12.33160621761658" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="250.33160621761658" y="100.72" class="chart-value">21</text>
+        <text x="0" y="136.72" class="chart-label">site_sessions</text>
+        <rect x="230" y="118" width="10.569948186528498" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="248.5699481865285" y="136.72" class="chart-value">18</text>
+        <text x="0" y="172.72" class="chart-label">site_pages</text>
+        <rect x="230" y="154" width="8.808290155440414" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="246.8082901554404" y="172.72" class="chart-value">15</text>
+        <text x="0" y="208.72" class="chart-label">site_team</text>
+        <rect x="230" y="190" width="7.046632124352332" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="245.04663212435233" y="208.72" class="chart-value">12</text>
+        <text x="0" y="244.72" class="chart-label">site_settings</text>
+        <rect x="230" y="226" width="6.4594127806563035" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="244.4594127806563" y="244.72" class="chart-value">11</text>
+        <text x="0" y="280.72" class="chart-label">site_disciplines</text>
+        <rect x="230" y="262" width="5.872193436960276" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="243.8721934369603" y="280.72" class="chart-value">10</text>
+        <text x="0" y="316.72" class="chart-label">site_programs</text>
+        <rect x="230" y="298" width="3.523316062176166" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="241.52331606217618" y="316.72" class="chart-value">6</text>
+        <text x="0" y="352.72" class="chart-label">site_social_links</text>
+        <rect x="230" y="334" width="2.936096718480138" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="240.93609671848014" y="352.72" class="chart-value">5</text>
+        <text x="0" y="388.72" class="chart-label">site_campus_pois</text>
+        <rect x="230" y="370" width="2.936096718480138" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="240.93609671848014" y="388.72" class="chart-value">5</text>
+        <text x="0" y="424.72" class="chart-label">site_events</text>
+        <rect x="230" y="406" width="2" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="240" y="424.72" class="chart-value">3</text>
+        <text x="0" y="460.72" class="chart-label">site_announcements</text>
+        <rect x="230" y="442" width="2" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="240" y="460.72" class="chart-value">1</text>
+        <text x="0" y="496.72" class="chart-label">site_navigation</text>
+        <rect x="230" y="478" width="2" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="240" y="496.72" class="chart-value">1</text>
+        <text x="0" y="532.72" class="chart-label">site_footer</text>
+        <rect x="230" y="514" width="2" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="240" y="532.72" class="chart-value">1</text></svg>
+    <h3>Interconnexion avec CUC Sign</h3>
+    <table>
+      <thead><tr><th>Liaison</th><th>État</th></tr></thead>
+      <tbody>
+        <tr><td><code>site_sessions</code> → <code>formations</code> (sessions de formation)</td><td class="ok">10/18 liées · 0 clé invalide — les 8 autres sessions (AFDAS, summer camp, 2027) n'ont pas encore de formation CUC Sign : volontairement non liées, jamais reliées par erreur.</td></tr>
+        <tr><td><code>site_team</code> → <code>profiles</code> (coachs)</td><td class="ok">5/12 liées — les 7 autres sont des intervenants externes sans compte CUC Sign.</td></tr>
+        <tr><td><code>site_campus_pois</code> → <code>locations</code> (zones du campus)</td><td class="ok">5/5 valides — la liaison non prouvée «&nbsp;Résidence → Amphithéâtre&nbsp;» a été retirée plutôt que conservée à tort.</td></tr>
+      </tbody>
+    </table>
+    <p class="meta">
+      Règle appliquée : « un lien faux est pire qu'aucun lien ». Aucune donnée CUC Sign n'est écrasée :
+      toutes les clés étrangères utilisent <code>ON DELETE SET NULL</code>, la sécurité par ligne (RLS) est active
+      sur les 18 tables vitrine.
+    </p>
+  </section>
+
+  <section>
+    <h2>9. Qualité & sécurité</h2>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Tests automatisés</h3>
+        <p>157 tests sur 157 passent (0 échec).</p>
+        <p class="meta">Vérifications systématiques : compilation TypeScript stricte, analyse ESLint, build de production.</p>
+      </div>
+      <div class="card">
+        <h3>Protections du site public</h3>
+        <ul>
+          <li>Politique de sécurité de contenu (CSP) verrouillant scripts, images et connexions.</li>
+          <li>Anti-<em>clickjacking</em>, HSTS, permissions navigateur restreintes (caméra, micro, géolocalisation).</li>
+          <li>Images optimisées (AVIF/WebP) et chargées à la demande.</li>
+          <li>Contenus servis depuis la base du projet, jamais depuis l'ancien site.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>10. Recommandations suivantes (par priorité)</h2>
+    <ol>
+      <li><strong>Relire la sélection éditoriale de l'accueil</strong> : les 4 jaquettes mises en avant sont désormais résolues depuis le catalogue ; ajuster la liste dans le Cockpit si besoin.</li>
+      <li><strong>Confirmer la liaison des sessions 2027</strong> : dès qu'une formation CUC Sign est créée, la lier depuis le Cockpit.</li>
+      <li><strong>Surveiller le catalogue films</strong> (570 entrées, dont 1 non publiée) : la publication se pilote depuis le Cockpit.</li>
+      <li><strong>Refactoring progressif</strong> des 10 fichiers les plus volumineux (voir tableau §4) lors des prochaines évolutions.</li>
+      <li><strong>Historique de versions des pages</strong> : désormais opérationnel — l'utiliser avant chaque refonte de contenu.</li>
+    </ol>
+  </section>
+
+  <footer>
+    Rapport autonome généré par <code>scripts/generate_audit_report.mjs</code>.
+    Chiffres exploitables : <code>reports/audit-2026.metrics.json</code>.
+    Sources brutes : <code>scripts/audit_full_app_report.json</code>, <code>scripts/audit_supabase_state_report.json</code>.
+    <span class="pill">aucune donnée externe</span><span class="pill">aucun CDN</span><span class="pill">reproductible</span>
+  </footer>
+</div>
+</body>
+</html>

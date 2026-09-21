@@ -21,7 +21,7 @@ export const EventsGuaranteesSection: React.FC = () => {
 
   return (
     <section className="py-16 bg-[#0c0c10] border-t border-zinc-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="page-shell">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div className="p-6 bg-[#121218] border border-zinc-800">
             <ShieldCheck className="w-8 h-8 text-[#FFE500] mx-auto mb-3" />

@@ -33,7 +33,7 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
 
   return (
     <section className="py-16 bg-[#07070a] border-t border-zinc-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="page-shell">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Calendrier Prochaines Sessions */}
           <div className="bg-[#0e0e14] border border-zinc-800 p-6">

@@ -37,7 +37,7 @@ export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[48rem] h-[48rem] rounded-full bg-[radial-gradient(circle,_rgba(255,229,0,0.04)_0%,_transparent_70%)] blur-3xl pointer-events-none"
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="page-shell relative z-10">
         <StudioParallaxCard maxTilt={3}>
           <div className="bg-[#0e0e14]/95 backdrop-blur-md border border-[#FFE500]/70 p-8 sm:p-12 relative shadow-[0_0_50px_rgba(255,229,0,0.12)]">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">

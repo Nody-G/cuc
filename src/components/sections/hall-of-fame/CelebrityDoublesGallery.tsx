@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { DOUBLED_CELEBRITIES } from '@/data/filmography';
 import { getCelebrities } from '@/lib/data/site-service';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { DoubledCelebrity } from '@/types';
 import { ImdbLogo } from '@/components/ui/BrandLogos';
 import { UserCheck, ExternalLink, Info } from 'lucide-react';
@@ -55,9 +56,17 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
     [celebrities, copyById]
   );
 
-  useEffect(() => {
+  /** Recharge les comédiens doublés (état initial + synchronisation Realtime). */
+  const loadCelebrities = useCallback(() => {
     getCelebrities().then(setCelebrities);
   }, []);
+
+  useEffect(() => {
+    loadCelebrities();
+  }, [loadCelebrities]);
+
+  // Synchronisation Realtime Cockpit → Vitrine (clé `celebrities` de site_settings).
+  useRealtimeRefresh(['site_settings'], loadCelebrities);
 
   return (
     <div className="mb-20 bg-[#0c0c10] border-2 border-zinc-800 p-6 sm:p-8 relative shadow-2xl">

@@ -8,6 +8,7 @@ import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { SocialIcon } from '@/components/ui/logos/SocialLogos';
 import { useSocialLinks } from '@/lib/hooks/useNavigation';
 import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data/site-service';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 
 /**
  * Barre d'actions de la Navbar (réseaux sociaux, téléphone, CTA).
@@ -21,11 +22,19 @@ export const NavActionsBar: React.FC = () => {
   const [settings, setSettings] = useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
   const socialLinks = useSocialLinks();
 
-  useEffect(() => {
+  /** Recharge les réglages du site (état initial + synchronisation Realtime). */
+  const loadSettings = React.useCallback(() => {
     getSiteSettings().then((s) => {
       if (s) setSettings(s);
     });
   }, []);
+
+  useEffect(() => {
+    loadSettings();
+  }, [loadSettings]);
+
+  // Synchronisation Realtime Cockpit → Vitrine (coordonnées et libellés).
+  useRealtimeRefresh(['site_settings'], loadSettings);
 
   const navbarSocials = socialLinks.filter((s) => s.show_in_navbar);
 

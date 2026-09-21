@@ -64,7 +64,7 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
       {/* Background Soft Glow Layer */}
       <StudioParallaxLayer speed={-0.18} className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-[#FFE500]/[0.025] blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="page-shell relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Visual Side: 2.5D Multi-Plane Portrait Composition */}
           <div className="lg:col-span-5 relative">

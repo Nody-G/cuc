@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { Phone, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data/site-service';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 
 /**
  * Barre d'action collante mobile — libellés et liens pilotés par `site_settings`
@@ -18,11 +19,19 @@ export const MobileStickyCTA: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [settings, setSettings] = useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
 
-  useEffect(() => {
+  /** Recharge les réglages du site (état initial + synchronisation Realtime). */
+  const loadSettings = React.useCallback(() => {
     getSiteSettings().then((s) => {
       if (s) setSettings(s);
     });
   }, []);
+
+  useEffect(() => {
+    loadSettings();
+  }, [loadSettings]);
+
+  // Synchronisation Realtime Cockpit → Vitrine (téléphone et libellés du CTA).
+  useRealtimeRefresh(['site_settings'], loadSettings);
 
   useEffect(() => {
     const handleScroll = () => {

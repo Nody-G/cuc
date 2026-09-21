@@ -20,6 +20,7 @@ import { getVideos } from '@/lib/data/site-service';
 import { videoObjectJsonLd } from '@/lib/seo';
 
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { useTranslations } from 'next-intl';
 
 /** Titre et sous-titre localisés d'un programme, appariés par `dmId`. */
@@ -43,9 +44,17 @@ export default function VideosCascadeurPage() {
   const videoCopy = t.raw('programs') as VideoCopy[];
   const mediaItems = t.raw('mediaItems') as MediaItem[];
 
-  React.useEffect(() => {
+  /** Recharge les programmes TV (état initial + synchronisation Realtime). */
+  const loadVideos = React.useCallback(() => {
     getVideos().then(setTvPrograms);
   }, []);
+
+  React.useEffect(() => {
+    loadVideos();
+  }, [loadVideos]);
+
+  // Synchronisation Realtime Cockpit → Vitrine (clé `videos` de site_settings).
+  useRealtimeRefresh(['site_settings'], loadVideos);
 
   /**
    * Titres et sous-titres des programmes : les DONNÉES (`site_videos` /
@@ -104,7 +113,7 @@ export default function VideosCascadeurPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/80 to-transparent" />
           </div>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative z-10 page-shell">
             <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
               <Link href="/" className="hover:text-[#FFE500] transition-colors">
                 {t('breadcrumbHome')}
@@ -141,7 +150,7 @@ export default function VideosCascadeurPage() {
 
         {/* Video Player Box */}
         <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="page-shell">
             {/* Video Selector Tabs */}
             <div className="flex flex-wrap gap-3 mb-8">
               <button
@@ -229,7 +238,7 @@ export default function VideosCascadeurPage() {
 
         {/* Real CUC Videos & Documentaries Grid */}
         <section className="py-16 bg-[#09090d] border-t border-zinc-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="page-shell">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <StuntBadge variant="yellow" icon={<Video className="w-3.5 h-3.5" />}>
                 {t('docusBadge')}
@@ -311,7 +320,7 @@ export default function VideosCascadeurPage() {
 
         {/* Médias & Réseaux Sociaux */}
         <section className="py-16 bg-[#0c0c10] border-t border-zinc-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="page-shell">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-2">
                 {t('mediaTag')}

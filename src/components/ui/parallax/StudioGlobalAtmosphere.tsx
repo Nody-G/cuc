@@ -38,7 +38,7 @@ export const StudioGlobalAtmosphere: React.FC = () => {
       className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none"
     >
       {/* 1. Subtle Global Vertical Telemetry Guide Lines (Studio Film Margins) */}
-      <div className="absolute inset-x-0 inset-y-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between opacity-25">
+      <div className="absolute inset-x-0 inset-y-0 page-shell flex justify-between opacity-25">
         <div className="w-[1px] h-full bg-gradient-to-b from-transparent via-white/[0.05] to-transparent" />
         <div className="hidden sm:block w-[1px] h-full bg-gradient-to-b from-transparent via-white/[0.03] to-transparent" />
         <div className="w-[1px] h-full bg-gradient-to-b from-transparent via-white/[0.05] to-transparent" />

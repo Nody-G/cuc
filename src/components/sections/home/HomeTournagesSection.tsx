@@ -2,7 +2,6 @@
 import { Link } from '@/i18n/navigation';
 
 import React from 'react';
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import { Film, Clapperboard, ShieldCheck, ChevronRight, Sparkles } from 'lucide-react';
@@ -12,6 +11,12 @@ import {
   StudioParallaxLayer,
   StudioParallaxCard,
 } from '@/components/ui/parallax';
+import { getFilms } from '@/lib/data/site-service';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
+import { creditTitleKey } from '@/lib/credit-title';
+import { FilmPosterCard } from '@/components/sections/films/FilmPosterCard';
+import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
+import { FilmCredit } from '@/types';
 
 interface HighlightProject {
   title: string;
@@ -48,6 +53,11 @@ interface HomeTournagesSectionProps {
  * Sélection éditoriale de longs métrages — vérifiés comme tels (typologie
  * IMDb `movie`, cf. `metadata.title_type` en base). La seule distinction
  * autorisée est reprise ici : aucune étiquette marketing.
+ *
+ * Source de vérité des affiches : `site_films` (résolution par titre
+ * normalisé `creditTitleKey`). La jaquette IMDb ci-dessous n'est qu'un
+ * dernier recours d'AFFICHAGE pour une sélection éditoriale pas encore
+ * cataloguée — la navigation de repli reste le catalogue complet.
  *
  * Doctrine i18n : titres et années sont des données (noms propres, aucune
  * traduction) ; les rôles d'intervention par production vivent dans
@@ -88,6 +98,31 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
   const ctaText = tournagesData?.cta_text || t('cta');
   const ctaLink = tournagesData?.cta_link || '/cuc-team-cascadeur';
 
+  /**
+   * Catalogue live des films (`site_films`) : les affiches éditoriales de la
+   * section sont résolues par titre normalisé dans le catalogue — mêmes
+   * données, même modale et même navigation que « LES FILMS DOUBLÉS &
+   * COORDONNÉS PAR LE CUC ».
+   */
+  const [films, setFilms] = React.useState<FilmCredit[]>([]);
+  const [selectedFilm, setSelectedFilm] = React.useState<FilmCredit | null>(null);
+
+  const loadFilms = React.useCallback(() => {
+    getFilms().then(setFilms);
+  }, []);
+
+  React.useEffect(() => {
+    loadFilms();
+  }, [loadFilms]);
+
+  // Synchronisation Realtime Cockpit → Vitrine (catalogue des films).
+  useRealtimeRefresh(['site_films'], loadFilms);
+
+  const filmsByTitle = React.useMemo(
+    () => new Map(films.map((f) => [creditTitleKey(f.title), f])),
+    [films]
+  );
+
   return (
     <StudioParallaxScene className="py-24 sm:py-28 bg-[#08080c] border-b border-zinc-800/80 relative overflow-hidden">
       {/* Cinematic Golden Ambience Beam */}
@@ -96,7 +131,7 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[52rem] h-[52rem] rounded-full bg-[radial-gradient(circle,_rgba(255,229,0,0.05)_0%,_transparent_70%)] blur-3xl pointer-events-none"
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="page-shell relative z-10">
         {/* Top Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div className="space-y-3">
@@ -188,43 +223,45 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
                 </div>
               </div>
 
-              {/* Right Column: Mini Showcase of Featured Production Posters */}
+              {/*
+                * Right Column: Mini Showcase of Featured Production Posters.
+                * Jaquettes canoniques `FilmPosterCard` : présentation et
+                * navigation IDENTIQUES au showcase « LES FILMS DOUBLÉS &
+                * COORDONNÉS PAR LE CUC » (affiche 2/3, badge d'année, clic →
+                * fiche détaillée). Repli vers le catalogue si la production
+                * n'a pas encore de fiche.
+                */}
               <div className="lg:col-span-5">
                 <div className="grid grid-cols-2 gap-3">
-                  {FEATURED_PRODUCTIONS.map((prod, idx) => (
-                    <Link
-                      key={idx}
-                      href="/cuc-team-cascadeur#filmographie"
-                      className="group relative aspect-[2/3] overflow-hidden bg-black border border-zinc-800 hover:border-[#FFE500] transition-all"
-                    >
-                      <Image
-                        src={prod.poster}
-                        alt={t('posterAlt', { title: prod.title })}
-                        fill
+                  {FEATURED_PRODUCTIONS.map((prod, idx) => {
+                    const match = filmsByTitle.get(creditTitleKey(prod.title));
+                    return (
+                      <FilmPosterCard
+                        key={match?.id ?? `home-${prod.title}`}
+                        film={
+                          match ?? {
+                            id: `home-${idx}`,
+                            title: prod.title,
+                            year: prod.year,
+                            image: prod.poster,
+                          }
+                        }
                         sizes="(max-width: 1024px) 50vw, 20vw"
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        caption={actorRoles[idx]}
+                        onOpen={match ? () => setSelectedFilm(match) : undefined}
+                        href={match ? undefined : '/cuc-team-cascadeur#filmographie'}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
-
-                      <div className="absolute bottom-0 left-0 right-0 p-2.5 space-y-0.5 z-10">
-                        <span className="text-[9px] font-mono-tech text-[#FFE500] font-bold block uppercase">
-                          {prod.year} • {t('category')}
-                        </span>
-                        <h4 className="font-display uppercase text-xs sm:text-sm text-white font-bold leading-tight truncate">
-                          {prod.title}
-                        </h4>
-                        <span className="text-[10px] font-tech text-zinc-300 block truncate">
-                          {actorRoles[idx] ?? ''}
-                        </span>
-                      </div>
-                    </Link>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>
           </div>
         </StudioParallaxCard>
       </div>
+
+      {/* Fiche détaillée — même modale que le showcase des films. */}
+      <FilmDetailsModal movie={selectedFilm} onClose={() => setSelectedFilm(null)} />
     </StudioParallaxScene>
   );
 };

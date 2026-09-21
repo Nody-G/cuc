@@ -23,7 +23,7 @@ export const TeamBannersSection: React.FC<TeamBannersSectionProps> = ({
 
   return (
     <section id="affiches" className="py-16 bg-[#0c0c10] border-b border-zinc-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="page-shell">
         <div className="text-center max-w-3xl mx-auto mb-10">
           <StuntBadge variant="yellow" icon={<Film className="w-3.5 h-3.5" />}>
             {t('teamBannersBadge')}

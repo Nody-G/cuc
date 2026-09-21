@@ -20,6 +20,7 @@ import { Instructor, FilmCredit, parseCredit, ParsedCredit } from '@/types';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
 import { applyFilmOverlays } from '@/lib/i18n/apply-film-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import {
   ChevronRight,
   ShieldCheck,
@@ -76,7 +77,8 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
   const filmOverlays = useEntityOverlays('film');
   const films = useMemo(() => applyFilmOverlays(allFilms, filmOverlays), [allFilms, filmOverlays]);
 
-  useEffect(() => {
+  /** Recharge équipe + films (état initial + synchronisation Realtime). */
+  const loadTeamAndFilms = React.useCallback(() => {
     getTeam().then((t) => {
       if (t && t.length > 0) {
         setAllTeam(t.map((m) => applyTeamOverlay(m, teamOverlays?.[m.id])));
@@ -86,6 +88,13 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
       if (f && f.length > 0) setAllFilms(f);
     });
   }, [teamOverlays]);
+
+  useEffect(() => {
+    loadTeamAndFilms();
+  }, [loadTeamAndFilms]);
+
+  // Synchronisation Realtime Cockpit → Vitrine (fiche coach = équipe + films).
+  useRealtimeRefresh(['site_team', 'site_films'], loadTeamAndFilms);
 
   const member = allTeam.find((m) => m.id === slug) || CUC_TEAM.find((m) => m.id === slug);
 
@@ -247,7 +256,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
       <Navbar />
 
       <main id="contenu-principal" className="flex-grow pt-28 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="page-shell">
           {/* Fil d'Ariane */}
           <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-8 flex-wrap">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">
@@ -512,14 +521,18 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
                           )}
                           <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e14] via-transparent to-transparent opacity-90" />
 
-                          {/* Année */}
-                          <span className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-black/85 backdrop-blur-xs text-[10px] font-mono-tech text-[#FFE500] border border-zinc-800 font-bold shadow-md">
+                          {/*
+                            * Badge d'année en haut à GAUCHE : position canonique
+                            * de la vitrine (`FilmPosterCard`) — la fiche coach
+                            * aligne sa jaquette sur le showcase des films.
+                            */}
+                          <span className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-black/85 backdrop-blur-xs text-[10px] font-mono-tech text-[#FFE500] border border-zinc-800 font-bold shadow-md">
                             {film.year}
                           </span>
 
                           {/* Mise en avant (définie dans le cockpit) */}
                           {isFeatured && (
-                            <span className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-[#FFE500] text-black text-[9px] font-mono-tech font-bold uppercase tracking-wider shadow-md">
+                            <span className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-[#FFE500] text-black text-[9px] font-mono-tech font-bold uppercase tracking-wider shadow-md">
                               {tt('featuredBadge')}
                             </span>
                           )}

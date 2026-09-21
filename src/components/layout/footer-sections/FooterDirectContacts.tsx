@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { Phone, Mail, ExternalLink } from 'lucide-react';
 import { SocialIcon } from '@/components/ui/logos/SocialLogos';
 import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data/site-service';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { useSocialLinks } from '@/lib/hooks/useNavigation';
 
 /**
@@ -19,11 +20,19 @@ export const FooterDirectContacts: React.FC = () => {
   const [settings, setSettings] = useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
   const socialLinks = useSocialLinks();
 
-  useEffect(() => {
+  /** Recharge les coordonnées (état initial + synchronisation Realtime). */
+  const loadSettings = React.useCallback(() => {
     getSiteSettings().then((s) => {
       if (s) setSettings(s);
     });
   }, []);
+
+  useEffect(() => {
+    loadSettings();
+  }, [loadSettings]);
+
+  // Synchronisation Realtime Cockpit → Vitrine (lignes directes du footer).
+  useRealtimeRefresh(['site_settings'], loadSettings);
 
   const footerSocials = [...socialLinks]
     .filter((social) => social.is_active && social.show_in_footer)

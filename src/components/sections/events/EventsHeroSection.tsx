@@ -42,7 +42,7 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
         <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/80 to-transparent" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 page-shell">
         <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
           <Link href="/" className="hover:text-[#FFE500] transition-colors">
             ACCUEIL

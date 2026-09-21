@@ -1,0 +1,244 @@
+{
+  "generatedAt": "2026-09-21T21:53:55.583Z",
+  "git": {
+    "head": "e2b42a8",
+    "date": "2026-09-21T23:27:40+02:00",
+    "changed": 69
+  },
+  "globalScore": 99,
+  "scores": {
+    "Intégrité technique": 100,
+    "Synchronisation Realtime": 90,
+    "Interconnexion CUC Sign": 100,
+    "Parité français / anglais": 100,
+    "Sécurité": 100,
+    "Tests": 100
+  },
+  "code": {
+    "totalLines": 105455,
+    "totalFiles": 625,
+    "zones": {
+      "Cockpit (admin)": {
+        "files": 64,
+        "lines": 21500
+      },
+      "Vitrine (pages)": {
+        "files": 56,
+        "lines": 6777
+      },
+      "Composants UI": {
+        "files": 118,
+        "lines": 16882
+      },
+      "i18n, données & types": {
+        "files": 15,
+        "lines": 3587
+      },
+      "Bibliothèques & données": {
+        "files": 42,
+        "lines": 7921
+      },
+      "Autres": {
+        "files": 1,
+        "lines": 25
+      },
+      "Outillage (scripts)": {
+        "files": 265,
+        "lines": 38627
+      },
+      "Documentation (plans)": {
+        "files": 64,
+        "lines": 10136
+      }
+    },
+    "byExt": {
+      ".ts": {
+        "files": 100,
+        "lines": 19204
+      },
+      ".tsx": {
+        "files": 194,
+        "lines": 35857
+      },
+      ".css": {
+        "files": 1,
+        "lines": 705
+      },
+      ".json": {
+        "files": 3,
+        "lines": 913
+      },
+      ".mjs": {
+        "files": 261,
+        "lines": 38162
+      },
+      ".js": {
+        "files": 1,
+        "lines": 63
+      },
+      ".md": {
+        "files": 62,
+        "lines": 9484
+      }
+    },
+    "largest": [
+      {
+        "file": "src/app/(admin)/admin/actions.ts",
+        "lines": 2502
+      },
+      {
+        "file": "src/lib/data/site-service.ts",
+        "lines": 2234
+      },
+      {
+        "file": "src/app/(admin)/admin/components/TeamView.tsx",
+        "lines": 1414
+      },
+      {
+        "file": "src/data/filmography.ts",
+        "lines": 1202
+      },
+      {
+        "file": "src/app/(admin)/admin/components/media/MediaExplorer.tsx",
+        "lines": 1057
+      },
+      {
+        "file": "src/app/(admin)/admin/CockpitApp.tsx",
+        "lines": 1052
+      },
+      {
+        "file": "scripts/audit_full_app.mjs",
+        "lines": 1031
+      },
+      {
+        "file": "src/app/(admin)/admin/components/InquiriesView.tsx",
+        "lines": 1012
+      },
+      {
+        "file": "src/app/icon.png",
+        "lines": 839
+      },
+      {
+        "file": "src/app/(admin)/admin/components/PagesEditorView.tsx",
+        "lines": 810
+      }
+    ],
+    "routes": 30,
+    "sourceFilesScanned": 276
+  },
+  "tests": {
+    "available": true,
+    "total": 157,
+    "passed": 157,
+    "failed": 0,
+    "testFiles": 15
+  },
+  "i18n": {
+    "fr": 681,
+    "en": 681,
+    "missingInEn": 0
+  },
+  "realtime": {
+    "coverageRatio": 90,
+    "covered": 19,
+    "gaps": 2
+  },
+  "database": {
+    "tables": {
+      "site_pages": 15,
+      "site_page_revisions": 0,
+      "site_team": 12,
+      "site_films": 570,
+      "site_partners": 21,
+      "site_events": 3,
+      "site_disciplines": 10,
+      "site_sessions": 18,
+      "site_programs": 6,
+      "site_inquiries": 0,
+      "site_audit_logs": 0,
+      "site_announcements": 1,
+      "site_settings": 11,
+      "site_navigation": 1,
+      "site_footer": 1,
+      "site_social_links": 5,
+      "site_translations": 579,
+      "site_campus_pois": 5,
+      "site_campus_facilities": null,
+      "site_media": null,
+      "site_videos": null
+    },
+    "realtimePublished": 24,
+    "realtimeMissing": [],
+    "translations": 579,
+    "films": 570,
+    "fk": [
+      {
+        "name": "site_audit_logs_user_id_fkey",
+        "from": "site_audit_logs",
+        "to": "profiles",
+        "onDelete": "SET NULL"
+      },
+      {
+        "name": "site_campus_pois_location_id_fkey",
+        "from": "site_campus_pois",
+        "to": "locations",
+        "onDelete": "SET NULL"
+      },
+      {
+        "name": "site_page_revisions_author_id_fkey",
+        "from": "site_page_revisions",
+        "to": "profiles",
+        "onDelete": "SET NULL"
+      },
+      {
+        "name": "site_sessions_cuc_sign_formation_id_fkey",
+        "from": "site_sessions",
+        "to": "formations",
+        "onDelete": "SET NULL"
+      },
+      {
+        "name": "site_sessions_program_id_fkey",
+        "from": "site_sessions",
+        "to": "site_programs",
+        "onDelete": "CASCADE"
+      },
+      {
+        "name": "site_team_profile_id_fkey",
+        "from": "site_team",
+        "to": "profiles",
+        "onDelete": "SET NULL"
+      }
+    ],
+    "cucSign": {
+      "formations": 12,
+      "profiles": 13,
+      "locations": 9
+    }
+  },
+  "auditErrors": {
+    "brokenLinks": 0,
+    "orphanAnchors": 0,
+    "duplicateLinks": 0,
+    "orphanComponents": 0,
+    "legacyUrls": 0,
+    "slopHits": 0,
+    "socialConflicts": 0,
+    "redirectIssues": 0,
+    "widthViolations": 0,
+    "realtimeLeaks": 0
+  },
+  "stack": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.116.0",
+    "@types/three": "^0.186.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^13.3.0",
+    "lucide-react": "^1.46.0",
+    "next": "16.3.5",
+    "next-intl": "^4.14.5",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "tailwind-merge": "^3.7.0",
+    "three": "^0.186.0"
+  }
+}

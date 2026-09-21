@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Film, ArrowUpDown } from 'lucide-react';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
@@ -11,6 +10,7 @@ import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
 import { FilmCredit } from '@/types';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
+import { FilmPosterCard } from '@/components/sections/films/FilmPosterCard';
 import { applyFilmOverlays } from '@/lib/i18n/apply-film-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 
@@ -143,43 +143,19 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
                 </label>
             </div>
 
-            {/* Grille des affiches (chargées dynamiquement depuis Supabase) */}
+            {/*
+              * Grille des affiches — cartes partagées `FilmPosterCard`.
+              * Source unique de la présentation et de la navigation des
+              * jaquettes sur toute la vitrine (décision 2026-09-21).
+              */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
                 {sortedFilms.map((film) => (
-                    <button
+                    <FilmPosterCard
                         key={film.id}
-                        type="button"
-                        onClick={() => setSelectedFilm(film)}
-                        className="bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/60 transition-all p-2 group flex flex-col justify-between cursor-pointer text-left"
-                        title={`${film.title} (${film.year}) - ${tProduction('filmModal.openHint')}`}
-                    >
-                        <div className="relative aspect-[2/3] w-full overflow-hidden bg-black mb-2">
-                            {film.image ? (
-                                <Image
-                                    src={film.image}
-                                    alt={film.title}
-                                    fill
-                                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
-                                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                                />
-                            ) : (
-                                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-zinc-900 to-black">
-                                    <Film className="w-8 h-8 text-zinc-700" />
-                                    <span className="text-[9px] font-mono-tech uppercase tracking-wider text-zinc-600 px-2 text-center">
-                                        {film.title}
-                                    </span>
-                                </div>
-                            )}
-                            {film.year && (
-                                <span className="absolute top-1 left-1 px-1.5 py-0.2 bg-black/80 text-[#FFE500] font-mono-tech text-[9px] font-bold">
-                                    {film.year}
-                                </span>
-                            )}
-                        </div>
-                        <p className="text-[11px] font-mono-tech uppercase text-zinc-300 group-hover:text-[#FFE500] truncate text-center">
-                            {film.title}
-                        </p>
-                    </button>
+                        film={film}
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
+                        onOpen={() => setSelectedFilm(film)}
+                    />
                 ))}
             </div>
 
