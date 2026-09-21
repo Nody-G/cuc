@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-21T21:53:55.583Z",
+  "generatedAt": "2026-09-21T22:39:08.231Z",
   "git": {
-    "head": "e2b42a8",
-    "date": "2026-09-21T23:27:40+02:00",
-    "changed": 69
+    "head": "03c81c4",
+    "date": "2026-09-22T00:34:30+02:00",
+    "changed": 3
   },
   "globalScore": 99,
   "scores": {
@@ -15,8 +15,8 @@
     "Tests": 100
   },
   "code": {
-    "totalLines": 105455,
-    "totalFiles": 625,
+    "totalLines": 107342,
+    "totalFiles": 630,
     "zones": {
       "Cockpit (admin)": {
         "files": 64,
@@ -43,12 +43,12 @@
         "lines": 25
       },
       "Outillage (scripts)": {
-        "files": 265,
-        "lines": 38627
+        "files": 268,
+        "lines": 40312
       },
       "Documentation (plans)": {
-        "files": 64,
-        "lines": 10136
+        "files": 66,
+        "lines": 10338
       }
     },
     "byExt": {
@@ -69,16 +69,16 @@
         "lines": 913
       },
       ".mjs": {
-        "files": 261,
-        "lines": 38162
+        "files": 264,
+        "lines": 39847
       },
       ".js": {
         "files": 1,
         "lines": 63
       },
       ".md": {
-        "files": 62,
-        "lines": 9484
+        "files": 64,
+        "lines": 9686
       }
     },
     "largest": [
@@ -115,12 +115,12 @@
         "lines": 1012
       },
       {
-        "file": "src/app/icon.png",
-        "lines": 839
+        "file": "scripts/generate_metrics_report.mjs",
+        "lines": 956
       },
       {
-        "file": "src/app/(admin)/admin/components/PagesEditorView.tsx",
-        "lines": 810
+        "file": "scripts/generate_audit_report.mjs",
+        "lines": 841
       }
     ],
     "routes": 30,
