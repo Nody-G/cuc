@@ -8,6 +8,8 @@ import {
 } from '@/lib/supabase/admin';
 import { revalidatePath } from 'next/cache';
 import { SiteInquiry } from '@/lib/data/site-service';
+import { mediaKind } from './media-shared';
+import type { MediaFolderStat, MediaObject } from './media-shared';
 
 /**
  * Vérifie si l'utilisateur actuellement connecté a accès au Cockpit (admin, directeur, secretaire, coach).
@@ -1126,13 +1128,74 @@ export async function logAuditEvent(action: string, target: string, details?: st
   }
 }
 
+/* ------------------------------------------------------------------ *
+ * MÉDIATHÈQUE — Supabase Storage
+ *
+ * Supabase Storage ne connaît pas les dossiers : un « dossier » est un
+ * préfixe d'objet. On le matérialise par un objet sentinelle
+ * (`FOLDER_PLACEHOLDER`) créé à la demande, jamais affiché. L'ancien
+ * explorateur ne listait que `uploads/` (100 objets, non récursif) : le
+ * catalogue réel vit sous `media/**`, d'où la refonte ci-dessous.
+ * ------------------------------------------------------------------ */
+
+/** Bucket public unique du site vitrine. */
+const MEDIA_BUCKET = 'cuc-vitrine-assets';
+/** Objet sentinelle qui matérialise un dossier (vide aux yeux de l'UI). */
+const FOLDER_PLACEHOLDER = '.emptyFolderPlaceholder';
+/** Racine de la corbeille logique : suppression réversible par défaut. */
+const TRASH_ROOT = '_trash';
+/** Taille de page du parcours récursif. */
+const MEDIA_PAGE_SIZE = 100;
+/** Profondeur maximale explorée (garde-fou anti-boucle). */
+const MEDIA_MAX_DEPTH = 6;
+
+interface StorageEntry {
+  id: string | null;
+  name: string;
+  metadata: { size?: number; mimetype?: string } | null;
+  created_at?: string | null;
+}
+
+/** Supabase renvoie `id: null` ET `metadata: null` pour un dossier. */
+function isFolderEntry(entry: StorageEntry): boolean {
+  return entry.id === null && entry.metadata === null;
+}
+
+function joinPath(prefix: string, name: string): string {
+  return prefix ? `${prefix}/${name}` : name;
+}
+
+function publicUrlFor(path: string): string {
+  const adminClient = createAdminClient();
+  return adminClient.storage.from(MEDIA_BUCKET).getPublicUrl(path).data.publicUrl;
+}
+
+function toMediaObject(prefix: string, entry: StorageEntry): MediaObject {
+  const path = joinPath(prefix, entry.name);
+  return {
+    name: entry.name,
+    path,
+    folder: prefix,
+    url: publicUrlFor(path),
+    size: entry.metadata?.size ?? 0,
+    mimetype: entry.metadata?.mimetype ?? '',
+    createdAt: entry.created_at ?? null,
+    kind: mediaKind(entry.name),
+  };
+}
+
 /**
- * Téléverse un fichier média vers Supabase Storage (cuc-vitrine-assets).
+ * Téléverse un fichier média vers Supabase Storage (`cuc-vitrine-assets`).
+ * Le dossier de destination est optionnel (`folder` dans le FormData), il
+ * vaut `uploads` par défaut — contrat historique conservé.
  */
 export async function uploadMediaFile(formData: FormData) {
   try {
     const file = formData.get('file') as File;
     if (!file) throw new Error('Aucun fichier fourni');
+
+    const rawFolder = String(formData.get('folder') || 'uploads').trim();
+    const folder = rawFolder.replace(/^\/+|\/+$/g, '').replace(/\.\./g, '');
 
     const adminClient = createAdminClient();
     const bytes = await file.arrayBuffer();
@@ -1142,10 +1205,10 @@ export async function uploadMediaFile(formData: FormData) {
     const cleanName = file.name
       .toLowerCase()
       .replace(/[^a-z0-9.-]/g, '_');
-    const filePath = `uploads/${timestamp}_${cleanName}`;
+    const filePath = joinPath(folder, `${timestamp}_${cleanName}`);
 
     const { data, error } = await adminClient.storage
-      .from('cuc-vitrine-assets')
+      .from(MEDIA_BUCKET)
       .upload(filePath, buffer, {
         contentType: file.type || 'image/jpeg',
         upsert: true,
@@ -1154,7 +1217,7 @@ export async function uploadMediaFile(formData: FormData) {
     if (error) throw error;
 
     const { data: publicUrlData } = adminClient.storage
-      .from('cuc-vitrine-assets')
+      .from(MEDIA_BUCKET)
       .getPublicUrl(filePath);
 
     return {
@@ -1163,6 +1226,7 @@ export async function uploadMediaFile(formData: FormData) {
       path: data.path,
       name: file.name,
       size: file.size,
+      folder,
     };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Erreur upload';
@@ -1171,36 +1235,309 @@ export async function uploadMediaFile(formData: FormData) {
 }
 
 /**
- * Liste les fichiers de la médiathèque Supabase Storage.
+ * Liste UN dossier (non récursif) : sous-dossiers + fichiers, avec tri et
+ * recherche côté serveur. C'est la brique de navigation de l'explorateur.
+ */
+export async function listMediaFolder(options: {
+  prefix?: string;
+  search?: string;
+  sortBy?: 'name' | 'created_at' | 'size';
+  order?: 'asc' | 'desc';
+  limit?: number;
+  offset?: number;
+} = {}) {
+  const prefix = (options.prefix || '').replace(/^\/+|\/+$/g, '');
+  const limit = options.limit ?? 60;
+  const offset = options.offset ?? 0;
+
+  try {
+    const adminClient = createAdminClient();
+    const { data, error } = await adminClient.storage.from(MEDIA_BUCKET).list(prefix, {
+      limit,
+      offset,
+      sortBy: { column: options.sortBy ?? 'name', order: options.order ?? 'asc' },
+      ...(options.search ? { search: options.search } : {}),
+    });
+    if (error) throw error;
+
+    const entries = ((data || []) as unknown as StorageEntry[]).filter(
+      (entry) => entry.name !== FOLDER_PLACEHOLDER
+    );
+
+    const folders = entries
+      .filter(isFolderEntry)
+      .map((entry) => ({ name: entry.name, path: joinPath(prefix, entry.name) }));
+
+    const files = entries.filter((entry) => !isFolderEntry(entry)).map((entry) => toMediaObject(prefix, entry));
+
+    return {
+      success: true,
+      prefix,
+      folders,
+      files,
+      hasMore: entries.length >= limit,
+      nextOffset: offset + entries.length,
+    };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur de listage';
+    return { success: false, error: message, prefix, folders: [], files: [], hasMore: false, nextOffset: offset };
+  }
+}
+
+/**
+ * Parcours RÉCURSIF complet du bucket avec agrégats par dossier : ce que la
+ * médiathèque affiche à l'ouverture (objets et poids réels, pas d'estimation).
+ */
+export async function listMediaTree() {
+  try {
+    const adminClient = createAdminClient();
+    const stats = new Map<string, MediaFolderStat>();
+    let totalFiles = 0;
+    let totalBytes = 0;
+
+    async function walk(prefix: string, depth: number): Promise<void> {
+      if (depth > MEDIA_MAX_DEPTH) return;
+      let offset = 0;
+
+      for (; ;) {
+        const { data, error } = await adminClient.storage.from(MEDIA_BUCKET).list(prefix, {
+          limit: MEDIA_PAGE_SIZE,
+          offset,
+          sortBy: { column: 'name', order: 'asc' },
+        });
+        if (error) throw error;
+
+        const entries = ((data || []) as unknown as StorageEntry[]).filter(
+          (entry) => entry.name !== FOLDER_PLACEHOLDER
+        );
+        if (entries.length === 0) break;
+
+        for (const entry of entries) {
+          if (isFolderEntry(entry)) {
+            await walk(joinPath(prefix, entry.name), depth + 1);
+            continue;
+          }
+          const size = entry.metadata?.size ?? 0;
+          totalFiles += 1;
+          totalBytes += size;
+
+          // On agrège à chaque niveau pour permettre un filtre par sous-arbre.
+          let acc = stats.get(prefix);
+          if (!acc) {
+            acc = {
+              path: prefix,
+              name: prefix ? prefix.split('/').pop() || prefix : 'Racine',
+              files: 0,
+              bytes: 0,
+            };
+            stats.set(prefix, acc);
+          }
+          acc.files += 1;
+          acc.bytes += size;
+        }
+
+        if (entries.length < MEDIA_PAGE_SIZE) break;
+        offset += MEDIA_PAGE_SIZE;
+      }
+    }
+
+    await walk('', 0);
+
+    return {
+      success: true,
+      tree: [...stats.values()].sort((a, b) => b.bytes - a.bytes),
+      totalFiles,
+      totalBytes,
+    };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur de parcours du stockage';
+    return { success: false, error: message, tree: [] as MediaFolderStat[], totalFiles: 0, totalBytes: 0 };
+  }
+}
+
+/**
+ * Index d'usage : quelles ressources du site référencent chaque média.
+ * On lit les tables éditoriales et on cherche l'URL publique du bucket —
+ * même logique que `scripts/audit_storage_usage.mjs`, côté serveur.
+ */
+export async function getMediaReferences() {
+  const TABLES = [
+    'site_pages',
+    'site_translations',
+    'site_films',
+    'site_team',
+    'site_events',
+    'site_settings',
+    'site_campus_pois',
+    'site_partners',
+    'site_sessions',
+  ] as const;
+
+  try {
+    const base = (process.env.NEXT_PUBLIC_SUPABASE_URL || '').replace(/\/$/, '');
+    if (!base) return { success: false, error: 'URL Supabase absente', references: {}, total: 0 };
+
+    const marker = `/storage/v1/object/public/${MEDIA_BUCKET}/`;
+    const adminClient = createAdminClient();
+    const references: Record<string, string[]> = {};
+
+    for (const table of TABLES) {
+      const { data, error } = await adminClient.from(table).select('*');
+      if (error || !data) continue;
+      const blob = JSON.stringify(data);
+
+      // Extraction par balayage : évite une regex dynamique (et un ReDoS).
+      let cursor = 0;
+      for (; ;) {
+        const hit = blob.indexOf(marker, cursor);
+        if (hit === -1) break;
+        let end = hit + marker.length;
+        while (end < blob.length && !/["'\\\s)]/.test(blob[end])) end += 1;
+        const raw = blob.slice(hit + marker.length, end);
+        cursor = end;
+        if (!raw) continue;
+        let path = raw;
+        try {
+          path = decodeURIComponent(raw);
+        } catch {
+          /* chemin déjà décodé */
+        }
+        references[path] = references[path] ?? [];
+        if (!references[path].includes(table)) references[path].push(table);
+      }
+    }
+
+    return { success: true, references, total: Object.keys(references).length };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur de lecture des références';
+    return { success: false, error: message, references: {} as Record<string, string[]>, total: 0 };
+  }
+}
+
+/** Crée un dossier en déposant l'objet sentinelle associé. */
+export async function createMediaFolder(path: string) {
+  try {
+    const clean = path.trim().replace(/^\/+|\/+$/g, '');
+    if (!clean) throw new Error('Chemin de dossier invalide');
+
+    const adminClient = createAdminClient();
+    const { error } = await adminClient.storage
+      .from(MEDIA_BUCKET)
+      .upload(`${clean}/${FOLDER_PLACEHOLDER}`, Buffer.alloc(0), {
+        contentType: 'application/octet-stream',
+        upsert: true,
+      });
+    if (error) throw error;
+
+    await logAuditEvent('media.folder.create', clean);
+    return { success: true, path: clean };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur de création du dossier';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Déplace un ou plusieurs objets (renommage, rangement, corbeille).
+ * Les collisions sont évitées par un suffixe d'horodatage.
+ */
+export async function moveMediaObjects(paths: string[], targetFolder: string) {
+  try {
+    const folder = targetFolder.replace(/^\/+|\/+$/g, '');
+    if (!folder) throw new Error('Dossier de destination invalide');
+    if (paths.length === 0) return { success: true, moved: 0 };
+
+    const adminClient = createAdminClient();
+    let moved = 0;
+
+    for (const from of paths) {
+      const basename = from.split('/').pop() || from;
+      let to = `${folder}/${basename}`;
+
+      const { error } = await adminClient.storage.from(MEDIA_BUCKET).move(from, to);
+      if (error) {
+        // Cible déjà occupée : on horodate pour ne rien écraser.
+        to = `${folder}/${Date.now()}_${basename}`;
+        const retry = await adminClient.storage.from(MEDIA_BUCKET).move(from, to);
+        if (retry.error) throw retry.error;
+      }
+      moved += 1;
+    }
+
+    await logAuditEvent('media.move', folder, `${moved} fichier(s)`);
+    return { success: true, moved };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur de déplacement';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Supprime des objets. Par défaut ils partent dans `_trash/<date>/`
+ * (réversible) ; `permanent: true` efface réellement.
+ */
+export async function deleteMediaObjects(
+  paths: string[],
+  options: { permanent?: boolean } = {}
+) {
+  try {
+    if (paths.length === 0) return { success: true, deleted: 0, trashed: 0 };
+
+    const adminClient = createAdminClient();
+
+    if (options.permanent) {
+      const { error } = await adminClient.storage.from(MEDIA_BUCKET).remove(paths);
+      if (error) throw error;
+      await logAuditEvent('media.delete', paths[0], `${paths.length} fichier(s) supprimé(s) définitivement`);
+      return { success: true, deleted: paths.length, trashed: 0 };
+    }
+
+    const stamp = new Date().toISOString().slice(0, 10);
+    const result = await moveMediaObjects(paths, `${TRASH_ROOT}/${stamp}`);
+    if (!result.success) throw new Error(result.error);
+    await logAuditEvent('media.trash', `${TRASH_ROOT}/${stamp}`, `${paths.length} fichier(s)`);
+    return { success: true, deleted: 0, trashed: result.moved ?? 0, trashFolder: `${TRASH_ROOT}/${stamp}` };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur de suppression';
+    return { success: false, error: message };
+  }
+}
+
+/**
+ * Compatibilité — ancien contrat « liste plate » consommé par les sélecteurs
+ * d'image (`MediaPickerModal`) : renvoie désormais TOUT le catalogue du
+ * bucket (et non plus le seul dossier `uploads/`), plafonné pour rester léger.
  */
 export async function listMediaFiles() {
   try {
-    const adminClient = createAdminClient();
-    const { data, error } = await adminClient.storage
-      .from('cuc-vitrine-assets')
-      .list('uploads', {
-        limit: 100,
-        offset: 0,
-        sortBy: { column: 'created_at', order: 'desc' },
-      });
+    const flat: MediaObject[] = [];
 
-    if (error) throw error;
+    async function walk(prefix: string, depth: number): Promise<void> {
+      if (depth > MEDIA_MAX_DEPTH || flat.length >= 400) return;
+      const { folders, files, hasMore } = await listMediaFolder({ prefix, limit: MEDIA_PAGE_SIZE });
+      flat.push(...files);
+      for (const folder of folders) await walk(folder.path, depth + 1);
+      if (hasMore && flat.length < 400) {
+        const next = await listMediaFolder({ prefix, limit: MEDIA_PAGE_SIZE, offset: flat.length });
+        flat.push(...next.files);
+      }
+    }
 
-    const files = (data || [])
-      .filter((f) => f.name !== '.emptyFolderPlaceholder')
-      .map((f) => {
-        const { data: publicUrlData } = adminClient.storage
-          .from('cuc-vitrine-assets')
-          .getPublicUrl(`uploads/${f.name}`);
-        return {
-          name: f.name,
-          size: f.metadata?.size || 0,
-          createdAt: f.created_at,
-          url: publicUrlData.publicUrl,
-        };
-      });
+    await walk('', 0);
 
-    return { success: true, files };
+    return {
+      success: true,
+      files: flat
+        .sort((a, b) => (a.path < b.path ? -1 : 1))
+        .map((file) => ({
+          name: file.name,
+          path: file.path,
+          size: file.size,
+          createdAt: file.createdAt,
+          url: file.url,
+          kind: file.kind,
+        })),
+    };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Erreur liste médias';
     return { success: false, error: message, files: [] };
@@ -1208,13 +1545,14 @@ export async function listMediaFiles() {
 }
 
 /**
- * Supprime un fichier média du stockage Supabase.
+ * Compatibilité — suppression d'un fichier du dossier historique `uploads/`
+ * (les nouveaux écrans passent par `deleteMediaObjects`).
  */
 export async function deleteMediaFile(filename: string) {
   try {
     const adminClient = createAdminClient();
     const { error } = await adminClient.storage
-      .from('cuc-vitrine-assets')
+      .from(MEDIA_BUCKET)
       .remove([`uploads/${filename}`]);
 
     if (error) throw error;
