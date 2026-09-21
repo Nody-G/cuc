@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
+import { buildRouteMetadata } from '@/lib/i18n/route-metadata';
 
-export const metadata: Metadata = {
-  title: "Reportages TV & Vidéos de Cascades",
-  description: "Regardez les reportages TF1, France 2 et showreels d'entraînement des cascadeurs du CUC.",
-  alternates: {
-    canonical: '/videos-cascadeur', languages: { fr: '/videos-cascadeur', en: '/en/videos-cascadeur' },
-  },
-  openGraph: {
-    title: "Reportages TV & Vidéos de Cascades",
-    description: "Regardez les reportages TF1, France 2 et showreels d'entraînement des cascadeurs du CUC.",
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildRouteMetadata({
+    slug: 'videos-cascadeur',
+    locale,
+    fallback: {
+      title: "Reportages TV & Vidéos de Cascades",
+      description: "Regardez les reportages TF1, France 2 et showreels d'entraînement des cascadeurs du CUC.",
+    },
+  });
+}
 
 export default function RouteLayout({
   children,

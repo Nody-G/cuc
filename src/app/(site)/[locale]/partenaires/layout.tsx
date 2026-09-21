@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
+import { buildRouteMetadata } from '@/lib/i18n/route-metadata';
 
-export const metadata: Metadata = {
-  title: "Partenaires du Campus Univers Cascades",
-  description: "Les marques, fabricants et institutions qui accompagnent le Campus Univers Cascades (Nike, RXR, C17, Kiloutou...).",
-  alternates: {
-    canonical: '/partenaires', languages: { fr: '/partenaires', en: '/en/partenaires' },
-  },
-  openGraph: {
-    title: "Partenaires du Campus Univers Cascades",
-    description: "Les marques, fabricants et institutions qui accompagnent le Campus Univers Cascades (Nike, RXR, C17, Kiloutou...).",
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildRouteMetadata({
+    slug: 'partenaires',
+    locale,
+    fallback: {
+      title: "Partenaires du Campus Univers Cascades",
+      description: "Les marques, fabricants et institutions qui accompagnent le Campus Univers Cascades (Nike, RXR, C17, Kiloutou...).",
+    },
+  });
+}
 
 export default function RouteLayout({
   children,

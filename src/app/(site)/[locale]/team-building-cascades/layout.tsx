@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
+import { buildRouteMetadata } from '@/lib/i18n/route-metadata';
 
-export const metadata: Metadata = {
-  title: "Team Building & Séminaires d'Action",
-  description: "Ateliers immersifs de cascades et cohésion d'équipe pour entreprises sur notre campus.",
-  alternates: {
-    canonical: '/team-building-cascades', languages: { fr: '/team-building-cascades', en: '/en/team-building-cascades' },
-  },
-  openGraph: {
-    title: "Team Building & Séminaires d'Action",
-    description: "Ateliers immersifs de cascades et cohésion d'équipe pour entreprises sur notre campus.",
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildRouteMetadata({
+    slug: 'team-building-cascades',
+    locale,
+    fallback: {
+      title: "Team Building & Séminaires d'Action",
+      description: "Ateliers immersifs de cascades et cohésion d'équipe pour entreprises sur notre campus.",
+    },
+  });
+}
 
 export default function RouteLayout({
   children,

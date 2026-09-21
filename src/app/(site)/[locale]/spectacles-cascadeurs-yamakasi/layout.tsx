@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
+import { buildRouteMetadata } from '@/lib/i18n/route-metadata';
 
-export const metadata: Metadata = {
-  title: "Spectacles Cascadeurs & Yamakasi • Shows Live",
-  description: "Création et coordination de spectacles vivants d'action, parkour et cascades urbaines pour festivals et événements.",
-  alternates: {
-    canonical: '/spectacles-cascadeurs-yamakasi', languages: { fr: '/spectacles-cascadeurs-yamakasi', en: '/en/spectacles-cascadeurs-yamakasi' },
-  },
-  openGraph: {
-    title: "Spectacles Cascadeurs & Yamakasi • Shows Live",
-    description: "Création et coordination de spectacles vivants d'action, parkour et cascades urbaines pour festivals et événements.",
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildRouteMetadata({
+    slug: 'spectacles-cascadeurs-yamakasi',
+    locale,
+    fallback: {
+      title: "Spectacles Cascadeurs & Yamakasi • Shows Live",
+      description: "Création et coordination de spectacles vivants d'action, parkour et cascades urbaines pour festivals et événements.",
+    },
+  });
+}
 
 export default function RouteLayout({
   children,

@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
+import { buildRouteMetadata } from '@/lib/i18n/route-metadata';
 
-export const metadata: Metadata = {
-  title: "L'équipe — Coachs & Professionnels du Cinéma",
-  description: "Découvrez les coordinateurs de cascades, action designers, membres des Yamakasi et formateurs professionnels du Campus Univers Cascades.",
-  alternates: {
-    canonical: '/equipe-cascadeurs-pro', languages: { fr: '/equipe-cascadeurs-pro', en: '/en/equipe-cascadeurs-pro' },
-  },
-  openGraph: {
-    title: "L'équipe — Coachs & Professionnels du Cinéma",
-    description: "Découvrez les coordinateurs de cascades, action designers, membres des Yamakasi et formateurs professionnels du Campus Univers Cascades.",
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildRouteMetadata({
+    slug: 'equipe-cascadeurs-pro',
+    locale,
+    fallback: {
+      title: "L'équipe — Coachs & Professionnels du Cinéma",
+      description: "Découvrez les coordinateurs de cascades, action designers, membres des Yamakasi et formateurs professionnels du Campus Univers Cascades.",
+    },
+  });
+}
 
 export default function RouteLayout({
   children,

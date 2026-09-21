@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
+import { buildRouteMetadata } from '@/lib/i18n/route-metadata';
 
-export const metadata: Metadata = {
-  title: "Visite Virtuelle 360° du Campus",
-  description: "Explorez le Zoé Bell Hall, la CUC Tower 21m, la fosse olympique et les dojos de combat en immersion 360° interactive HD Media.",
-  alternates: {
-    canonical: '/visite-virtuelle', languages: { fr: '/visite-virtuelle', en: '/en/visite-virtuelle' },
-  },
-  openGraph: {
-    title: "Visite Virtuelle 360° du Campus",
-    description: "Explorez le Zoé Bell Hall, la CUC Tower 21m, la fosse olympique et les dojos de combat en immersion 360° interactive HD Media.",
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildRouteMetadata({
+    slug: 'visite-virtuelle',
+    locale,
+    fallback: {
+      title: "Visite Virtuelle 360° du Campus",
+      description: "Explorez le Zoé Bell Hall, la CUC Tower 21m, la fosse olympique et les dojos de combat en immersion 360° interactive HD Media.",
+    },
+  });
+}
 
 export default function RouteLayout({
   children,

@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
+import { buildRouteMetadata } from '@/lib/i18n/route-metadata';
 
-export const metadata: Metadata = {
-  title: "Tournage — CUC Stunt Team & Prestations",
-  description: "Les affiches et longs-métrages doublés et coordonnés par le Campus Univers Cascades et Lucas Dollfus pour le cinéma international.",
-  alternates: {
-    canonical: '/cuc-team-cascadeur', languages: { fr: '/cuc-team-cascadeur', en: '/en/cuc-team-cascadeur' },
-  },
-  openGraph: {
-    title: "Tournage — CUC Stunt Team & Prestations",
-    description: "Les affiches et longs-métrages doublés et coordonnés par le Campus Univers Cascades et Lucas Dollfus pour le cinéma international.",
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildRouteMetadata({
+    slug: 'cuc-team-cascadeur',
+    locale,
+    fallback: {
+      title: "Tournage — CUC Stunt Team & Prestations",
+      description: "Les affiches et longs-métrages doublés et coordonnés par le Campus Univers Cascades et Lucas Dollfus pour le cinéma international.",
+    },
+  });
+}
 
 export default function RouteLayout({
   children,

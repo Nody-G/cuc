@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
+import { buildRouteMetadata } from '@/lib/i18n/route-metadata';
 
-export const metadata: Metadata = {
-  title: "Formation Professionnelle de Cascadeur (2 ans / 720h)",
-  description: "Formation professionnelle en 2 ans et Stage Découverte 12 jours. Combat chorégraphié, chutes, torche humaine, parkour et préparation cinéma au Cateau-Cambrésis.",
-  alternates: {
-    canonical: '/formation-de-cascadeur', languages: { fr: '/formation-de-cascadeur', en: '/en/formation-de-cascadeur' },
-  },
-  openGraph: {
-    title: "Formation Professionnelle de Cascadeur (2 ans / 720h)",
-    description: "Formation professionnelle en 2 ans et Stage Découverte 12 jours. Combat chorégraphié, chutes, torche humaine, parkour et préparation cinéma au Cateau-Cambrésis.",
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildRouteMetadata({
+    slug: 'formation-de-cascadeur',
+    locale,
+    fallback: {
+      title: "Formation Professionnelle de Cascadeur (2 ans / 720h)",
+      description: "Formation professionnelle en 2 ans et Stage Découverte 12 jours. Combat chorégraphié, chutes, torche humaine, parkour et préparation cinéma au Cateau-Cambrésis.",
+    },
+  });
+}
 
 export default function RouteLayout({
   children,

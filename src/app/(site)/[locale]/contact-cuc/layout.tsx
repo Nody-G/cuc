@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
+import { buildRouteMetadata } from '@/lib/i18n/route-metadata';
 
-export const metadata: Metadata = {
-  title: "Contact & Projets | Campus Univers Cascades",
-  description: "Productions cinéma, action design, formations professionnelles de cascadeurs, stages et événements : échangez directement avec les équipes du Campus Univers Cascades.",
-  alternates: {
-    canonical: '/contact-cuc', languages: { fr: '/contact-cuc', en: '/en/contact-cuc' },
-  },
-  openGraph: {
-    title: "Contact & Projets | Campus Univers Cascades",
-    description: "Productions cinéma, action design, formations professionnelles de cascadeurs, stages et événements : échangez directement avec les équipes du Campus Univers Cascades.",
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildRouteMetadata({
+    slug: 'contact-cuc',
+    locale,
+    fallback: {
+      title: "Contact & Projets | Campus Univers Cascades",
+      description: "Productions cinéma, action design, formations professionnelles de cascadeurs, stages et événements : échangez directement avec les équipes du Campus Univers Cascades.",
+    },
+  });
+}
 
 export default function RouteLayout({
   children,

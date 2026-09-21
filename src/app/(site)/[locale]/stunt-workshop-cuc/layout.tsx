@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
+import { buildRouteMetadata } from '@/lib/i18n/route-metadata';
 
-export const metadata: Metadata = {
-  title: "International Stunt Workshop • Stages Intensifs",
-  description: "Workshops internationaux de cascades avec des invités et coordinateurs d'action du monde entier.",
-  alternates: {
-    canonical: '/stunt-workshop-cuc', languages: { fr: '/stunt-workshop-cuc', en: '/en/stunt-workshop-cuc' },
-  },
-  openGraph: {
-    title: "International Stunt Workshop • Stages Intensifs",
-    description: "Workshops internationaux de cascades avec des invités et coordinateurs d'action du monde entier.",
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildRouteMetadata({
+    slug: 'stunt-workshop-cuc',
+    locale,
+    fallback: {
+      title: "International Stunt Workshop • Stages Intensifs",
+      description: "Workshops internationaux de cascades avec des invités et coordinateurs d'action du monde entier.",
+    },
+  });
+}
 
 export default function RouteLayout({
   children,

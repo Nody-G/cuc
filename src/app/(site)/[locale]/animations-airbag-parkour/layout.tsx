@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
+import { buildRouteMetadata } from '@/lib/i18n/route-metadata';
 
-export const metadata: Metadata = {
-  title: "Animation Airbag Géant & Xtrem Jump",
-  description: "Dispositif d'animation mobile grand public avec saut dans airbag géant et parcours parkour encadré par des professionnels.",
-  alternates: {
-    canonical: '/animations-airbag-parkour', languages: { fr: '/animations-airbag-parkour', en: '/en/animations-airbag-parkour' },
-  },
-  openGraph: {
-    title: "Animation Airbag Géant & Xtrem Jump",
-    description: "Dispositif d'animation mobile grand public avec saut dans airbag géant et parcours parkour encadré par des professionnels.",
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return buildRouteMetadata({
+    slug: 'animations-airbag-parkour',
+    locale,
+    fallback: {
+      title: "Animation Airbag Géant & Xtrem Jump",
+      description: "Dispositif d'animation mobile grand public avec saut dans airbag géant et parcours parkour encadré par des professionnels.",
+    },
+  });
+}
 
 export default function RouteLayout({
   children,
