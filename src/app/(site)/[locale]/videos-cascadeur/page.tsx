@@ -20,22 +20,49 @@ import { getVideos } from '@/lib/data/site-service';
 import { videoObjectJsonLd } from '@/lib/seo';
 
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+import { useTranslations } from 'next-intl';
+
+/** Titre et sous-titre localisés d'un programme, appariés par `dmId`. */
+interface VideoCopy {
+  dmId: string;
+  title: string;
+  sub: string;
+}
+
+interface MediaItem {
+  channel: string;
+  label: string;
+}
 
 export default function VideosCascadeurPage() {
+  const t = useTranslations('videos');
   const [activeVideo, setActiveVideo] = useState<'tf1' | 'france2'>('tf1');
   const [selectedDmVideo, setSelectedDmVideo] = useState<{ id: string; title: string } | null>(null);
   const [tvPrograms, setTvPrograms] = useState(PROGRAMMES_TV);
   const { content } = usePageDynamicContent('videos-cascadeur');
+  const videoCopy = t.raw('programs') as VideoCopy[];
+  const mediaItems = t.raw('mediaItems') as MediaItem[];
 
   React.useEffect(() => {
     getVideos().then(setTvPrograms);
   }, []);
 
-  const heroBadge = content.hero?.badge || 'REPORTAGES TÉLÉVISION';
-  const heroTitle = content.hero?.title || 'LES REPORTAGES & VIDÉOS DU CUC';
-  const heroSubtitle =
-    content.hero?.subtitle ||
-    "Découvrez les coulisses de l'entraînement des cascadeurs avec les reportages diffusés sur TF1 et France 2, ainsi que les vidéos officielles du Campus Univers Cascades.";
+  /**
+   * Titres et sous-titres des programmes : les DONNÉES (`site_videos` /
+   * `PROGRAMMES_TV`) fournissent `dmId` et l'image, la copie éditoriale vient du
+   * catalogue (`videos.programs`). Un `dmId` sans copie retombe sur la donnée.
+   */
+  const localizedPrograms = React.useMemo(() => {
+    const byId = new Map(videoCopy.map((copy) => [copy.dmId, copy]));
+    return tvPrograms.map((program) => {
+      const copy = byId.get(program.dmId);
+      return copy ? { ...program, title: copy.title, sub: copy.sub } : program;
+    });
+  }, [tvPrograms, videoCopy]);
+
+  const heroBadge = content.hero?.badge || t('heroBadge');
+  const heroTitle = content.hero?.title || t('heroTitle');
+  const heroSubtitle = content.hero?.subtitle || t('heroSubtitle');
   const heroBg =
     content.hero?.bg_image ||
     'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg';
@@ -43,7 +70,7 @@ export default function VideosCascadeurPage() {
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
       {/* JSON-LD : un VideoObject par programme TV (rich results Google Vidéo) */}
-      {tvPrograms.map((v) => (
+      {localizedPrograms.map((v) => (
         <script
           key={v.dmId}
           type="application/ld+json"
@@ -68,7 +95,7 @@ export default function VideosCascadeurPage() {
           <div className="absolute inset-0 z-0">
             <Image
               src={heroBg}
-              alt="Vidéos et reportages du Campus Univers Cascades"
+              alt={t('heroImageAlt')}
               fill
               priority
               sizes="100vw"
@@ -80,10 +107,10 @@ export default function VideosCascadeurPage() {
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
               <Link href="/" className="hover:text-[#FFE500] transition-colors">
-                ACCUEIL
+                {t('breadcrumbHome')}
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-              <span className="text-[#FFE500]">NOS VIDÉOS &amp; REPORTAGES</span>
+              <span className="text-[#FFE500]">{t('breadcrumbCurrent')}</span>
             </div>
 
             <div className="inline-flex items-center gap-2 mb-4">
@@ -91,7 +118,7 @@ export default function VideosCascadeurPage() {
                 {heroBadge}
               </StuntBadge>
               <span className="text-xs font-mono-tech text-zinc-400">
-                TF1 JT 20H • FRANCE 2 • BFM TV
+                {t('heroMeta')}
               </span>
             </div>
 
@@ -125,7 +152,7 @@ export default function VideosCascadeurPage() {
                   }`}
               >
                 <Tv className="w-4 h-4" />
-                <span>REPORTAGE TF1 (JT 20H)</span>
+                <span>{t('tabTf1')}</span>
               </button>
 
               <button
@@ -136,7 +163,7 @@ export default function VideosCascadeurPage() {
                   }`}
               >
                 <Tv className="w-4 h-4" />
-                <span>REPORTAGE FRANCE 2 (20H30 LE MAG)</span>
+                <span>{t('tabFrance2')}</span>
               </button>
             </div>
 
@@ -156,7 +183,7 @@ export default function VideosCascadeurPage() {
                       src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/reportages/TF1-JT-20h-CUC-reportage-1.mp4"
                       type="video/mp4"
                     />
-                    Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
+                    {t('videoFallback')}
                   </video>
                 ) : (
                   <video
@@ -174,7 +201,7 @@ export default function VideosCascadeurPage() {
                       src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/reportages/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1-part2.mp4"
                       type="video/mp4"
                     />
-                    Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
+                    {t('videoFallback')}
                   </video>
                 )}
               </div>
@@ -183,20 +210,16 @@ export default function VideosCascadeurPage() {
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                   <h2 className="text-2xl sm:text-3xl font-display uppercase text-white">
-                    {activeVideo === 'tf1'
-                      ? 'REPORTAGE TF1 — LE JT DE 20H AU CUC'
-                      : "FRANCE 2 — 20H30 LE MAG : « À L'ÉCOLE DES CASCADEURS »"}
+                    {activeVideo === 'tf1' ? t('tf1Title') : t('france2Title')}
                   </h2>
                   <p className="text-xs sm:text-sm font-tech text-zinc-400 mt-1 max-w-3xl">
-                    {activeVideo === 'tf1'
-                      ? "Immersion des caméras du journal télévisé de TF1 au Campus Univers Cascades : entraînements aux chutes de hauteur, cascades en feu et formation des futures doublures du cinéma d'action."
-                      : "Grand format de 20h30 Le Mag sur France 2 présenté par Laurent Delahousse. Les coulisses de la formation professionnelle au Cateau-Cambrésis et le quotidien des élèves."}
+                    {activeVideo === 'tf1' ? t('tf1Desc') : t('france2Desc')}
                   </p>
                 </div>
 
                 <div className="flex items-center gap-3 shrink-0">
                   <span className="px-3 py-1.5 bg-[#14141c] border border-zinc-800 text-xs font-mono-tech text-[#FFE500]">
-                    DIFFUSION NATIONALE
+                    {t('broadcastBadge')}
                   </span>
                 </div>
               </div>
@@ -209,18 +232,18 @@ export default function VideosCascadeurPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <StuntBadge variant="yellow" icon={<Video className="w-3.5 h-3.5" />}>
-                DOCUS & SÉRIES TV
+                {t('docusBadge')}
               </StuntBadge>
               <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mt-3 mb-2">
-                LES PROGRAMMES TV & REPORTAGES DU SITE
+                {t('docusTitle')}
               </h2>
               <p className="text-xs sm:text-sm font-tech text-zinc-400">
-                Cliquez sur une vignette pour lancer la vidéo dans le lecteur immersif.
+                {t('docusHint')}
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {tvPrograms.map((v, i) => (
+              {localizedPrograms.map((v, i) => (
                 <button
                   key={i}
                   type="button"
@@ -269,7 +292,7 @@ export default function VideosCascadeurPage() {
                   type="button"
                   onClick={() => setSelectedDmVideo(null)}
                   className="p-1.5 text-zinc-400 hover:text-white border border-zinc-800 hover:border-[#FFE500] transition-colors cursor-pointer"
-                  title="Fermer"
+                  title={t('closeTitle')}
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -291,32 +314,30 @@ export default function VideosCascadeurPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-2">
-                COUVERTURE MÉDIATIQUE
+                {t('mediaTag')}
               </span>
               <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mb-3">
-                LE CUC DANS LES MÉDIAS
+                {t('mediaTitle')}
               </h2>
               <p className="text-sm font-tech text-zinc-400">
-                Découvrez les reportages consacrés aux coulisses du campus et à l'entraînement des cascadeurs
-                sur les grandes chaînes nationales et nos réseaux.
+                {t('mediaIntro')}
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-[#121218] border border-zinc-800 p-6 text-center">
-                <div className="text-3xl sm:text-4xl font-display text-[#FFE500] mb-1">TF1</div>
-                <div className="text-xs font-mono-tech text-zinc-400 uppercase">Le Journal de 20H au Campus</div>
-              </div>
-
-              <div className="bg-[#121218] border border-zinc-800 p-6 text-center">
-                <div className="text-3xl sm:text-4xl font-display text-white mb-1">FRANCE 2</div>
-                <div className="text-xs font-mono-tech text-zinc-400 uppercase">20h30 Le Mag avec Laurent Delahousse</div>
-              </div>
-
-              <div className="bg-[#121218] border border-zinc-800 p-6 text-center">
-                <div className="text-3xl sm:text-4xl font-display text-[#FFE500] mb-1">BFM TV</div>
-                <div className="text-xs font-mono-tech text-zinc-400 uppercase">Grand Format à l'École des Cascadeurs</div>
-              </div>
+              {mediaItems.map((item, index) => (
+                <div
+                  key={item.channel}
+                  className="bg-[#121218] border border-zinc-800 p-6 text-center"
+                >
+                  <div
+                    className={`text-3xl sm:text-4xl font-display mb-1 ${index % 2 === 0 ? 'text-[#FFE500]' : 'text-white'}`}
+                  >
+                    {item.channel}
+                  </div>
+                  <div className="text-xs font-mono-tech text-zinc-400 uppercase">{item.label}</div>
+                </div>
+              ))}
             </div>
 
             <div className="mt-12 flex flex-wrap justify-center gap-4">
@@ -326,7 +347,7 @@ export default function VideosCascadeurPage() {
                 rel="noopener noreferrer"
                 className="px-5 py-3 bg-[#121218] border border-zinc-800 hover:border-[#FFE500] text-xs font-mono-tech text-zinc-300 hover:text-white flex items-center gap-2 transition-colors"
               >
-                <span>Voir les cascades sur Instagram</span>
+                <span>{t('socialInstagram')}</span>
                 <ExternalLink className="w-3.5 h-3.5 text-[#FFE500]" />
               </a>
 
@@ -336,7 +357,7 @@ export default function VideosCascadeurPage() {
                 rel="noopener noreferrer"
                 className="px-5 py-3 bg-[#121218] border border-zinc-800 hover:border-[#FFE500] text-xs font-mono-tech text-zinc-300 hover:text-white flex items-center gap-2 transition-colors"
               >
-                <span>Suivre la Stunt Team sur TikTok</span>
+                <span>{t('socialTiktok')}</span>
                 <ExternalLink className="w-3.5 h-3.5 text-[#FFE500]" />
               </a>
             </div>

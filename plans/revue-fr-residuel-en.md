@@ -1,17 +1,14 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T17:01:50.367Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T17:10:09.348Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **26** — occurrences : **294**
+Pages contrôlées : **27** — pages avec français résiduel : **25** — occurrences : **230**
 
-## /en/formation-de-cascadeur — 14 occurrence(s)
+## /en/formation-de-cascadeur — 11 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Un cursus d'excellence de 720h à 800h sur 2 ans pour maîtriser l'ensemble des disciplines de la cascade physique et cinématographique. |
-| texte visible | DU STAGE DÉCOUVERTE AU DIPLÔME PRO |
-| texte visible | L'accès à la formation longue durée est conditionné par la validation du stage découverte. Ce protocole sélectif garantit la sécurité de tous et le niveau d'excellence de la promotion. |
 | texte visible | RÉPERTOIRE TECHNIQUE |
 | texte visible | LES 10 DISCIPLINES DE LA CASCADE PHYSIQUE |
 | texte visible | Combat Chorégraphié & Action Design |
@@ -24,13 +21,11 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | Sacs de frappe et paos |
 | texte visible | Caméras de contrôle d'axe |
 
-## /en/stages-cascades-parkour-2 — 26 occurrence(s)
+## /en/stages-cascades-parkour-2 — 24 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
 | texte visible | STAGES & SÉJOURS DE CASCADES |
-| texte visible | STAGES INTENSIFS TOUS NIVEAUX • DÈS 16 ANS |
-| texte visible | Du stage découverte immersion 12 jours aux week-ends intensifs, vivez l'entraînement des cascadeurs du cinéma dans des conditions de sécurité absolue. |
 | texte visible | ACCESSIBLE DÈS 16 ANS |
 | texte visible | PENSION COMPLÈTE INCLUSE |
 | texte visible | Vivez la vie d'un cascadeur de cinéma pendant deux jours complets. Dormez sur le campus, partagez les repas avec l'équipe et sautez sur l'airbag géant en toute sécurité. Idéal pour découvrir ses capacités physiques et fa |
@@ -55,12 +50,11 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | Provence Studios, Martigues (Bouches-du-Rhône) |
 | texte visible | Contacter pour les Sessions Pro |
 
-## /en/equipe-cascadeurs-pro — 8 occurrence(s)
+## /en/equipe-cascadeurs-pro — 7 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
 | texte visible | L'ÉQUIPE |
-| texte visible | COACHS & PROFESSIONNELS DU CINÉMA |
 | texte visible | Jérôme Gaspard |
 | texte visible | La nuit se traîne (2024) |
 | texte visible | Amédéo Cazzella |
@@ -68,12 +62,10 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | FORMEZ-VOUS AVEC LES MEILLEURS PROFESSIONNELS DU SECTEUR |
 | texte visible | Découvrir les Formations du CUC |
 
-## /en/cuc-team-cascadeur — 33 occurrence(s)
+## /en/cuc-team-cascadeur — 31 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | COORDINATION DE CASCADES • CINÉMA |
-| texte visible | Contacter l'Équipe de Production |
 | texte visible | Voir les affiches |
 | texte visible | LE STUDIO & LA SALLE D'ACTION |
 | texte visible | DOUBLURES & CHORÉGRAPHES |
@@ -106,11 +98,10 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | COORDINATEUR RÉFÉRENT : |
 | texte visible | TÉLÉPHONE DIRECT : |
 
-## /en/partenaires — 28 occurrence(s)
+## /en/partenaires — 27 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | ILS NOUS ACCOMPAGNENT • MARQUES & INSTITUTIONS |
 | texte visible | ÉQUIPEMENTIERS • CINÉMA • INSTITUTIONNELS • ÉTAT |
 | texte visible | Équipementier |
 | texte visible | Équipementier sportif (textiles et chaussures de sport). |
@@ -205,80 +196,29 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | Accès & Hébergement |
 | texte visible | Situé au Cateau-Cambrésis (à 2h de Paris, 1h de Lille). Possibilité d'hébergement sur site en pension complète pour les élèves en formation et stages. |
 
-## /en/videos-cascadeur — 23 occurrence(s)
+## /en/videos-cascadeur — 1 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| <meta description> | Behind the scenes of stunt training in TF1 and France 2 reports, plus CUC showreels. |
-| texte visible | NOS VIDÉOS & REPORTAGES |
-| texte visible | REPORTAGES TÉLÉVISION • TF1 JT 20H • FRANCE 2 |
-| texte visible | LES REPORTAGES |
-| texte visible | VIDÉOS DU CUC |
-| texte visible | REPORTAGE FRANCE 2 (20H30 LE MAG) |
-| texte visible | Votre navigateur ne prend pas en charge la lecture de vidéos HTML5. |
-| texte visible | REPORTAGE TF1 — LE JT DE 20H AU CUC |
-| texte visible | DOCUS & SÉRIES TV |
-| texte visible | LES PROGRAMMES TV & REPORTAGES DU SITE |
-| texte visible | Cliquez sur une vignette pour lancer la vidéo dans le lecteur immersif. |
-| texte visible | Série TV France 2 & CUC |
-| texte visible | « À l'école des cascadeurs » |
-| texte visible | SESSION D'AOÛT 2017 |
-| texte visible | ZOË BELL AU CAMPUS |
-| texte visible | La vie au CUC au quotidien |
-| texte visible | COUVERTURE MÉDIATIQUE |
-| texte visible | LE CUC DANS LES MÉDIAS |
-| texte visible | Découvrez les reportages consacrés aux coulisses du campus et à l'entraînement des cascadeurs sur les grandes chaînes nationales et nos réseaux. |
-| texte visible | Le Journal de 20H au Campus |
-| texte visible | 20h30 Le Mag avec Laurent Delahousse |
-| texte visible | Grand Format à l'École des Cascadeurs |
-| texte visible | Voir les cascades sur Instagram |
+| texte visible | ZOË BELL AT THE CAMPUS |
 
-## /en/contact-cuc — 1 occurrence(s)
+## /en/team-building-cascades — 6 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Productions cinématographiques, action design, formations professionnelles, stages ou événements d'entreprise : échangez directement avec les équipes du CUC. |
-
-## /en/team-building-cascades — 26 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | SÉMINAIRES & ENTREPRISES • COHÉSION D’ÉQUIPE |
 | texte visible | COHÉSION D'ÉQUIPE • COULISSES DU CINÉMA |
-| texte visible | Offrez à vos équipes une expérience fédératrice hors du commun : cascades de cinéma, doublage vocal et cascade physique encadrées par des pros. |
-| texte visible | Demander un Devis Séminaire |
-| texte visible | Toutes les Offres CUC Events |
-| texte visible | SÉMINAIRES & ENTREPRISES |
-| texte visible | DES ATELIERS SUR MESURE POUR VOTRE ÉQUIPE |
-| texte visible | Offrez à vos collaborateurs une expérience fédératrice hors du commun : cascades de cinéma, doublage vocal et cascade physique encadrées par des professionnels certifiés. |
-| texte visible | Adrénaline & Confiance |
-| texte visible | Chute de Hauteur sur Airbag |
-| texte visible | En intérieur comme en extérieur, faites goûter à vos collaborateurs les sensations de la chute libre sur coussin d'air géant de cinéma. Dépassement de soi et cohésion collective garantie. |
 | texte visible | Atelier au choix |
-| texte visible | Chorégraphie & Précision |
-| texte visible | Combats au Cinéma |
-| texte visible | Initiation aux techniques de combats de films : esquives, feintes, coups scéniques et synchronisation avec les axes caméra. |
-| texte visible | Agilité & Mouvement |
-| texte visible | Initiation encadrée par des cascadeurs professionnels et spécialistes du déplacement urbain : franchissements d'obstacles, sauts de précision et motricité. |
-| texte visible | Coulisses & Cinéma |
-| texte visible | Maquillage Effets Spéciaux (SFX) |
-| texte visible | Découvrez les secrets des maquilleurs de cinéma : création de blessures ultra-réalistes, fausses cicatrices, impacts de balles et prothèses d'action. |
-| texte visible | Créativité & Voix |
-| texte visible | Mettez-vous dans la peau d'un comédien de doublage ! Enregistrez en équipe les répliques et bruitages de séquences cultes du cinéma d'action. |
 | texte visible | SUR MESURE |
 | texte visible | COMBINEZ PLUSIEURS ATELIERS POUR VOTRE JOURNÉE |
 | texte visible | Nous adaptons le déroulement, le nombre d'animateurs cascadeurs et le matériel selon vos objectifs, vos contraintes de planning et la taille de votre groupe. |
 | texte visible | Recevoir une Proposition Détaillée & Devis |
 
-## /en/animations-airbag-parkour — 16 occurrence(s)
+## /en/animations-airbag-parkour — 13 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
 | texte visible | ANIMATIONS AIRBAG GÉANT & PARKOUR |
-| texte visible | AIRBAG DE CINÉMA • ENCADREMENT PROFESSIONNEL |
 | texte visible | +20 000 CHUTES ENCADRÉES • DEPUIS 2009 |
-| texte visible | Faites vivre au grand public les sensations uniques de la chute libre sur coussin d'air géant de cinéma dans un cadre sécurisé. |
-| texte visible | Toutes les Offres CUC Events |
 | texte visible | Sauts Réalisés en Europe |
 | texte visible | 20 MÈTRES |
 | texte visible | Capacité Maximale Airbag |
@@ -291,14 +231,11 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | Encadrement par 2 à 4 cascadeurs pros |
 | texte visible | Démonstrations de sauts acrobatiques incluses |
 
-## /en/spectacles-cascadeurs-yamakasi — 13 occurrence(s)
+## /en/spectacles-cascadeurs-yamakasi — 10 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | LE CINÉMA S’INVITE SUR SCÈNE • SHOWS CLÉ EN MAIN |
 | texte visible | CASCADEURS • COMÉDIENS • SHOWS CLÉ EN MAIN |
-| texte visible | Réserver un Spectacle |
-| texte visible | Voir les vidéos de shows |
 | texte visible | CASCADEURS & DOUBLURES CINÉMA |
 | texte visible | DES SHOWS CLÉ EN MAIN ADAPTÉS À VOTRE LIEU |
 | texte visible | Spécifications de la formule Spectacle : |
@@ -309,22 +246,16 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | CUC EVENTS À L’ACCOR ARENA (BERCY) |
 | texte visible | Organiser un Show dans votre Salle |
 
-## /en/stunt-workshop-cuc — 3 occurrence(s)
+## /en/stunt-workshop-cuc — 1 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | STAGE INTERNATIONAL • EN ANGLAIS & FRANÇAIS |
 | texte visible | EN ANGLAIS & FRANÇAIS • 2 SEMAINES RÉSIDENTIELLES |
-| texte visible | Rejoignez des cascadeurs et performeurs venus du monde entier (USA, UK, Europe, Australie) pour 2 semaines d'immersion totale au CUC. |
 
-## /en/cuc-events-agence — 20 occurrence(s)
+## /en/cuc-events-agence — 16 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | AGENCE ÉVÉNEMENTIELLE D’ACTION • SHOWS CLÉ EN MAIN |
-| texte visible | Marquez les esprits lors de vos festivals, lancements de marque, parcs à thème ou séminaires avec des shows d'action spectaculaires. |
-| texte visible | Demander un Devis Événementiel |
-| texte visible | Toutes nos vidéos de shows |
 | texte visible | Combats chorégraphiés médiévaux, contemporains ou fantastiques, chutes de hauteur spectaculaires, cascades pyrotechniques (torches humaines), nos créations s'adaptent à toutes les contraintes techniques et scéniques. |
 | texte visible | En savoir plus sur nos Spectacles |
 | texte visible | Installations entièrement conformes aux normes de sécurité les plus strictes avec assurance professionnelle et encadrement qualifié. |

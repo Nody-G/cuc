@@ -545,5 +545,77 @@
             "hudHint": "Click to explore the campus",
             "launchLabel": "Launch the 360° virtual tour"
         }
+    },
+    "videos": {
+        "breadcrumbHome": "HOME",
+        "breadcrumbCurrent": "OUR VIDEOS & TV REPORTS",
+        "heroBadge": "TELEVISION REPORTS",
+        "heroTitle": "CUC REPORTS & VIDEOS",
+        "heroSubtitle": "Go behind the scenes of stunt training with the reports broadcast on TF1 and France 2, along with the official videos of Campus Univers Cascades.",
+        "heroMeta": "TF1 8PM NEWS • FRANCE 2 • BFM TV",
+        "heroImageAlt": "Videos and reports from Campus Univers Cascades",
+        "tabTf1": "TF1 REPORT (8PM NEWS)",
+        "tabFrance2": "FRANCE 2 REPORT (20H30 LE MAG)",
+        "videoFallback": "Your browser does not support HTML5 video playback.",
+        "tf1Title": "TF1 REPORT — THE 8PM NEWS AT THE CUC",
+        "tf1Desc": "TF1 evening news cameras inside Campus Univers Cascades: high-fall training, fire stunts and the training of tomorrow's action film doubles.",
+        "france2Title": "FRANCE 2 — 20H30 LE MAG: “À L'ÉCOLE DES CASCADEURS”",
+        "france2Desc": "20h30 Le Mag feature on France 2 presented by Laurent Delahousse. Behind the scenes of professional training in Le Cateau-Cambrésis and the daily life of the trainees.",
+        "broadcastBadge": "NATIONWIDE BROADCAST",
+        "docusBadge": "DOCUMENTARIES & TV SERIES",
+        "docusTitle": "TV PROGRAMMES & REPORTS FROM THE SITE",
+        "docusHint": "Click a thumbnail to play the video in the immersive player.",
+        "mediaTag": "MEDIA COVERAGE",
+        "mediaTitle": "THE CUC IN THE MEDIA",
+        "mediaIntro": "Watch the reports on the campus behind the scenes and the stunt training on the main national channels and our social networks.",
+        "mediaItems": [
+            {
+                "channel": "TF1",
+                "label": "8PM News at the Campus"
+            },
+            {
+                "channel": "FRANCE 2",
+                "label": "20h30 Le Mag with Laurent Delahousse"
+            },
+            {
+                "channel": "BFM TV",
+                "label": "Feature on the stunt school"
+            }
+        ],
+        "socialInstagram": "See the stunts on Instagram",
+        "socialTiktok": "Follow the Stunt Team on TikTok",
+        "closeTitle": "Close",
+        "programs": [
+            {
+                "dmId": "x9uewe0",
+                "title": "COEUR DE CASCADEURS",
+                "sub": "France 2 TV series & CUC"
+            },
+            {
+                "dmId": "x8581s9",
+                "title": "BFM TV REPORT",
+                "sub": "Feature on the stunt school"
+            },
+            {
+                "dmId": "x858323",
+                "title": "HAPPY BIRTHDAY CUC",
+                "sub": "10 years of stunts (2009 - 2019)"
+            },
+            {
+                "dmId": "x8583in",
+                "title": "AUGUST 2017 SESSION",
+                "sub": "CUC class in training"
+            },
+            {
+                "dmId": "k2LHEg1AIHtIfYxkvcz",
+                "title": "ZOË BELL AT THE CAMPUS",
+                "sub": "Campus Univers Cascades patron"
+            },
+            {
+                "dmId": "x8583u3",
+                "title": "STUNT RIDER — CAMPUS LIFE",
+                "sub": "Daily life at the CUC"
+            }
+        ]
     }
 }

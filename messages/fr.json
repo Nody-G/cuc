@@ -545,5 +545,77 @@
             "hudHint": "Cliquer pour explorer le campus",
             "launchLabel": "Lancer la visite virtuelle 360"
         }
+    },
+    "videos": {
+        "breadcrumbHome": "ACCUEIL",
+        "breadcrumbCurrent": "NOS VIDÉOS & REPORTAGES",
+        "heroBadge": "REPORTAGES TÉLÉVISION",
+        "heroTitle": "LES REPORTAGES & VIDÉOS DU CUC",
+        "heroSubtitle": "Découvrez les coulisses de l'entraînement des cascadeurs avec les reportages diffusés sur TF1 et France 2, ainsi que les vidéos officielles du Campus Univers Cascades.",
+        "heroMeta": "TF1 JT 20H • FRANCE 2 • BFM TV",
+        "heroImageAlt": "Vidéos et reportages du Campus Univers Cascades",
+        "tabTf1": "REPORTAGE TF1 (JT 20H)",
+        "tabFrance2": "REPORTAGE FRANCE 2 (20H30 LE MAG)",
+        "videoFallback": "Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.",
+        "tf1Title": "REPORTAGE TF1 — LE JT DE 20H AU CUC",
+        "tf1Desc": "Immersion des caméras du journal télévisé de TF1 au Campus Univers Cascades : entraînements aux chutes de hauteur, cascades en feu et formation des futures doublures du cinéma d'action.",
+        "france2Title": "FRANCE 2 — 20H30 LE MAG : « À L'ÉCOLE DES CASCADEURS »",
+        "france2Desc": "Grand format de 20h30 Le Mag sur France 2 présenté par Laurent Delahousse. Les coulisses de la formation professionnelle au Cateau-Cambrésis et le quotidien des élèves.",
+        "broadcastBadge": "DIFFUSION NATIONALE",
+        "docusBadge": "DOCUS & SÉRIES TV",
+        "docusTitle": "LES PROGRAMMES TV & REPORTAGES DU SITE",
+        "docusHint": "Cliquez sur une vignette pour lancer la vidéo dans le lecteur immersif.",
+        "mediaTag": "COUVERTURE MÉDIATIQUE",
+        "mediaTitle": "LE CUC DANS LES MÉDIAS",
+        "mediaIntro": "Découvrez les reportages consacrés aux coulisses du campus et à l'entraînement des cascadeurs sur les grandes chaînes nationales et nos réseaux.",
+        "mediaItems": [
+            {
+                "channel": "TF1",
+                "label": "Le Journal de 20H au Campus"
+            },
+            {
+                "channel": "FRANCE 2",
+                "label": "20h30 Le Mag avec Laurent Delahousse"
+            },
+            {
+                "channel": "BFM TV",
+                "label": "Grand Format à l'École des Cascadeurs"
+            }
+        ],
+        "socialInstagram": "Voir les cascades sur Instagram",
+        "socialTiktok": "Suivre la Stunt Team sur TikTok",
+        "closeTitle": "Fermer",
+        "programs": [
+            {
+                "dmId": "x9uewe0",
+                "title": "COEUR DE CASCADEURS",
+                "sub": "Série TV France 2 & CUC"
+            },
+            {
+                "dmId": "x8581s9",
+                "title": "REPORTAGE BFM TV",
+                "sub": "« À l'école des cascadeurs »"
+            },
+            {
+                "dmId": "x858323",
+                "title": "HAPPY BIRTHDAY CUC",
+                "sub": "10 ans de cascade (2009 - 2019)"
+            },
+            {
+                "dmId": "x8583in",
+                "title": "SESSION D'AOÛT 2017",
+                "sub": "Promotion CUC en formation"
+            },
+            {
+                "dmId": "k2LHEg1AIHtIfYxkvcz",
+                "title": "ZOË BELL AU CAMPUS",
+                "sub": "Marraine du Campus Univers Cascades"
+            },
+            {
+                "dmId": "x8583u3",
+                "title": "STUNT RIDER — CAMPUS LIFE",
+                "sub": "La vie au CUC au quotidien"
+            }
+        ]
     }
 }

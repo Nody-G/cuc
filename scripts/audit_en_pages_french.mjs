@@ -157,6 +157,10 @@ const ALLOWLIST = [
     /Stunt Academy & Team\b/i,
     /Zo[eé] Bell Hall/i,
     /Op[eé]ra\b/i,
+    // Titres d'émissions et de séries diffusées : noms propres, non traduits.
+    /20H30 Le Mag/i,
+    /À L'ÉCOLE DES CASCADEURS/i,
+    /C[OŒ]EUR DE CASCADEURS/i,
 ];
 
 const isFrench = (s) => {
