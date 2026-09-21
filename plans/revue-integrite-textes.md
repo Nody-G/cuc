@@ -1,6 +1,9 @@
 
-# Revue — Intégrité des textes en base (mojibake & apostrophes)
+# Revue — Intégrité des textes en base (mojibake, apostrophes, artefacts)
 
-Généré le 2026-09-21T20:08:31.034Z par `scripts/audit_text_integrity.mjs`.
+Généré le 2026-09-21T20:12:35.499Z par `scripts/audit_text_integrity.mjs`.
 - Double-encodage UTF-8 : **0** texte(s)
-- Textes longs sans aucune apostrophe : **0** texte(s)
+- Textes longs sans aucune apostrophe (FR) : **0** texte(s)
+- Entités HTML résiduelles : **0** texte(s)
+- Doubles espaces : **0** texte(s)
+- Espace avant ponctuation : **0** texte(s)
