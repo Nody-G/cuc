@@ -194,6 +194,22 @@
             ]
         },
         {
+            "entity": "social_link",
+            "label": "Réseaux sociaux",
+            "table": "site_social_links",
+            "idField": "id",
+            "fields": [
+                {
+                    "name": "label",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "display_hint",
+                    "kind": "scalar"
+                }
+            ]
+        },
+        {
             "entity": "session",
             "label": "Sessions de formation",
             "table": "site_sessions",

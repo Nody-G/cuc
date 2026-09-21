@@ -7,7 +7,15 @@
         "switchToFrench": "Français",
         "languageMenuLabel": "Choisir la langue",
         "openMenu": "Ouvrir le menu",
-        "closeMenu": "Fermer le menu"
+        "closeMenu": "Fermer le menu",
+        "call": "Appel",
+        "callTitle": "Appeler le CUC",
+        "stickyCta": "Contact & Projets",
+        "errorTitle": "Une erreur est survenue",
+        "errorText": "Le contenu n'a pas pu être affiché. Vous pouvez réessayer immédiatement ou revenir à l'accueil.",
+        "retry": "Réessayer",
+        "backHome": "Retour à l'accueil",
+        "errorReference": "Référence : {digest}"
     },
     "films": {
         "badge": "TOURNAGES & AFFICHES",
@@ -51,6 +59,32 @@
             "referenceLabel": "Formation Référente en France",
             "since": "DEPUIS 2011"
         }
+    },
+    "footer": {
+        "certificateTitle": "Voir le certificat Qualiopi",
+        "certified": "Organisme Certifié Qualiopi",
+        "funding": "Prise en charge AFDAS & CPF 100%",
+        "virtualTour": "Visite Virtuelle 360° du Campus",
+        "sitesTitle": "Nos Implantations",
+        "mainCampus": "CAMPUS PRINCIPAL :",
+        "mainCampusAddress": "Domaine CUC, 59360 Le Cateau-Cambrésis",
+        "region": "Hauts-de-France (1h40 de Paris / 1h de Lille)",
+        "mapAccess": "Carte & Accès",
+        "gpsRoute": "Itinéraire GPS",
+        "idfHub": "PÔLE ÎLE-DE-FRANCE :",
+        "idfStudio": "Studio de Répétition & Préparation Comédiens",
+        "idfAddress": "92230 Gennevilliers (Région Parisienne)",
+        "locateMaps": "Localiser sur Maps",
+        "productionAgency": "AGENCE DE PRODUCTION :",
+        "productionDesc": "CUC PROD • Société de production cinéma & spectacle vivant",
+        "directLines": "Lignes Directes",
+        "admissionFile": "Dossier d'Admission 2026/2027",
+        "networksTitle": "Réseaux & Médias",
+        "networksText": "Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages :",
+        "backToTop": "Haut de page",
+        "backToTopLabel": "Remonter en haut de la page",
+        "backToTopTitle": "Remonter en haut",
+        "qualiopiBadge": "Agrément QUALIOPI"
     },
     "partenaires": {
         "cinemaHeading": "Studios & Productions Partenaires",

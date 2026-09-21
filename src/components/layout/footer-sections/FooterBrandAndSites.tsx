@@ -1,5 +1,6 @@
 'use client';
 import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 import React from 'react';
 
@@ -10,10 +11,12 @@ import { useFooter } from '@/lib/hooks/useNavigation';
 /**
  * Bloc marque + implantations du pied de page.
  * Le nom, la signature et la description proviennent de `site_footer`
- * (fallback `DEFAULT_FOOTER`, zéro régression).
+ * (fallback `DEFAULT_FOOTER`, zéro régression) ; la copie d'interface vit
+ * dans `messages/*.json` (namespace `footer`).
  */
 export const FooterBrandAndSites: React.FC = () => {
   const { brand } = useFooter();
+  const t = useTranslations('footer');
 
   return (
     <>
@@ -49,7 +52,7 @@ export const FooterBrandAndSites: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-between p-2.5 bg-[#101017] hover:bg-[#161622] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors group"
-            title="Voir le certificat Qualiopi"
+            title={t('certificateTitle')}
           >
             <div className="flex items-center gap-2.5">
               <div className="relative w-16 h-8 shrink-0">
@@ -63,10 +66,10 @@ export const FooterBrandAndSites: React.FC = () => {
               </div>
               <div>
                 <span className="text-[11px] font-mono-tech text-white group-hover:text-[#FFE500] font-bold block">
-                  Organisme Certifié Qualiopi
+                  {t('certified')}
                 </span>
                 <span className="text-[10px] text-zinc-500 font-tech">
-                  Prise en charge AFDAS &amp; CPF 100%
+                  {t('funding')}
                 </span>
               </div>
             </div>
@@ -79,7 +82,7 @@ export const FooterBrandAndSites: React.FC = () => {
           >
             <div className="flex items-center gap-2">
               <Compass className="w-4 h-4 text-[#FFE500]" />
-              <span>Visite Virtuelle 360° du Campus</span>
+              <span>{t('virtualTour')}</span>
             </div>
             <span className="text-[10px] bg-[#FFE500] text-black px-1.5 font-bold">
               360°
@@ -91,21 +94,21 @@ export const FooterBrandAndSites: React.FC = () => {
       {/* Adresses & Implantations */}
       <div className="space-y-3">
         <h4 className="text-base font-display uppercase tracking-wider text-white border-b border-zinc-800 pb-2">
-          Nos Implantations
+          {t('sitesTitle')}
         </h4>
 
         <div className="space-y-3 text-xs font-tech">
           <div className="p-2.5 bg-[#101016] border border-zinc-800/80 hover:border-[#FFE500]/50 transition-colors">
             <div>
               <strong className="text-[#FFE500] font-mono-tech block">
-                CAMPUS PRINCIPAL :
+                {t('mainCampus')}
               </strong>
             </div>
             <p className="text-zinc-300 mt-0.5">
-              Domaine CUC, 59360 Le Cateau-Cambrésis
+              {t('mainCampusAddress')}
               <br />
               <span className="text-zinc-500">
-                Hauts-de-France (1h40 de Paris / 1h de Lille)
+                {t('region')}
               </span>
             </p>
             <div className="mt-2 flex items-center gap-2">
@@ -114,7 +117,7 @@ export const FooterBrandAndSites: React.FC = () => {
                 className="text-[10px] font-mono-tech text-[#FFE500] hover:underline flex items-center gap-1"
               >
                 <Compass className="w-3 h-3" />
-                <span>Carte &amp; Accès</span>
+                <span>{t('mapAccess')}</span>
               </Link>
               <span className="text-zinc-600">•</span>
               <a
@@ -124,20 +127,20 @@ export const FooterBrandAndSites: React.FC = () => {
                 className="text-[10px] font-mono-tech text-zinc-400 hover:text-white flex items-center gap-1"
               >
                 <Navigation className="w-3 h-3 text-[#FFE500]" />
-                <span>Itinéraire GPS</span>
+                <span>{t('gpsRoute')}</span>
               </a>
             </div>
           </div>
 
           <div className="p-2.5 bg-[#101016] border border-zinc-800/80 hover:border-zinc-700 transition-colors">
             <strong className="text-[#FFE500] font-mono-tech block">
-              PÔLE ÎLE-DE-FRANCE :
+              {t('idfHub')}
             </strong>
             <p className="text-zinc-300 mt-0.5">
-              Studio de Répétition &amp; Préparation Comédiens
+              {t('idfStudio')}
               <br />
               <span className="text-zinc-500">
-                92230 Gennevilliers (Région Parisienne)
+                {t('idfAddress')}
               </span>
             </p>
             <div className="mt-1.5">
@@ -148,17 +151,17 @@ export const FooterBrandAndSites: React.FC = () => {
                 className="text-[10px] font-mono-tech text-zinc-400 hover:text-[#FFE500] flex items-center gap-1"
               >
                 <MapPin className="w-3 h-3 text-[#FFE500]" />
-                <span>Localiser sur Maps</span>
+                <span>{t('locateMaps')}</span>
               </a>
             </div>
           </div>
 
           <div className="pt-1 text-zinc-400">
             <strong className="text-zinc-400 font-mono-tech block text-[11px]">
-              AGENCE DE PRODUCTION :
+              {t('productionAgency')}
             </strong>
             <p className="text-zinc-500 mt-0.5 text-[11px]">
-              CUC PROD • Société de production cinéma &amp; spectacle vivant
+              {t('productionDesc')}
             </p>
           </div>
         </div>

@@ -25,8 +25,30 @@ export default function GlobalError({
         console.error('[CUC] Erreur racine interceptée :', error);
     }, [error]);
 
+    // `global-error` REMPLACE le layout racine : aucun provider next-intl n'est
+    // disponible ici. On dérive donc la langue du chemin réel (`/en/...`) et on
+    // sert une copie bilingue minimale — c'est la seule surface qui ne peut pas
+    // lire les catalogues.
+    const isEn =
+        typeof window !== 'undefined' && window.location.pathname.startsWith('/en');
+    const copy = isEn
+        ? {
+            title: 'An error occurred',
+            text: 'The content could not be displayed. You can try again immediately or return to the home page.',
+            retry: 'Try again',
+            backHome: 'Back to home',
+            reference: 'Reference',
+        }
+        : {
+            title: 'Une erreur est survenue',
+            text: "Le contenu n'a pas pu être affiché. Vous pouvez réessayer immédiatement ou revenir à l'accueil.",
+            retry: 'Réessayer',
+            backHome: "Retour à l'accueil",
+            reference: 'Référence',
+        };
+
     return (
-        <html lang="fr">
+        <html lang={isEn ? 'en' : 'fr'}>
             <body
                 style={{
                     margin: 0,
@@ -62,7 +84,7 @@ export default function GlobalError({
                             lineHeight: 1.1,
                         }}
                     >
-                        Une erreur est survenue
+                        {copy.title}
                     </h1>
                     <p
                         style={{
@@ -72,8 +94,7 @@ export default function GlobalError({
                             marginBottom: '32px',
                         }}
                     >
-                        Le contenu n'a pas pu être affiché. Vous pouvez réessayer
-                        immédiatement ou revenir à l'accueil.
+                        {copy.text}
                     </p>
 
                     <div
@@ -100,7 +121,7 @@ export default function GlobalError({
                                 cursor: 'pointer',
                             }}
                         >
-                            Réessayer
+                            {copy.retry}
                         </button>
                         <Link
                             href="/"
@@ -116,7 +137,7 @@ export default function GlobalError({
                                 textDecoration: 'none',
                             }}
                         >
-                            Retour à l'accueil
+                            {copy.backHome}
                         </Link>
                     </div>
 
@@ -129,7 +150,7 @@ export default function GlobalError({
                                 fontFamily: 'monospace',
                             }}
                         >
-                            Référence : {error.digest}
+                            {copy.reference} : {error.digest}
                         </p>
                     )}
                 </div>

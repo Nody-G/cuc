@@ -1,5 +1,6 @@
 'use client';
 import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 import React, { useState, useEffect } from 'react';
 
@@ -12,6 +13,7 @@ import { useFooter } from '@/lib/hooks/useNavigation';
  * (fallback `DEFAULT_FOOTER`, zéro régression).
  */
 export const FooterCreditsBar: React.FC = () => {
+  const t = useTranslations('footer');
   const { legal } = useFooter();
   const [showFloatingTop, setShowFloatingTop] = useState(false);
   // Année calculée côté client uniquement : évite le gel de la valeur au
@@ -65,14 +67,14 @@ export const FooterCreditsBar: React.FC = () => {
             </React.Fragment>
           ))}
           <span>•</span>
-          <span className="text-[#FFE500]/80">Agrément QUALIOPI</span>
+          <span className="text-[#FFE500]/80">{t('qualiopiBadge')}</span>
         </div>
 
         <button
           onClick={scrollToTop}
           className="flex items-center gap-1.5 text-zinc-400 hover:text-[#FFE500] uppercase transition-colors cursor-pointer"
         >
-          <span>Haut de page</span>
+          <span>{t('backToTop')}</span>
           <ArrowUp className="w-3.5 h-3.5" />
         </button>
       </div>
@@ -88,8 +90,8 @@ export const FooterCreditsBar: React.FC = () => {
             transition={{ duration: 0.2 }}
             /* `bottom` mobile = au-dessus de la barre collante + encoche iOS. */
             className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] sm:bottom-8 right-5 sm:right-8 z-40 p-3 bg-[#0a0a0e]/90 hover:bg-[#FFE500] text-zinc-300 hover:text-black border border-zinc-700 hover:border-[#FFE500] backdrop-blur-md shadow-2xl transition-colors cursor-pointer active:scale-95"
-            aria-label="Remonter en haut de la page"
-            title="Remonter en haut"
+            aria-label={t('backToTopLabel')}
+            title={t('backToTopTitle')}
           >
             <ArrowUp className="w-5 h-5" />
           </motion.button>

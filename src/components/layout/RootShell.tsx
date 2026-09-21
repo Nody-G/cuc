@@ -18,6 +18,7 @@ import type { ComponentProps, ReactNode } from 'react';
 import { Bebas_Neue, Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { MobileStickyCTA } from '@/components/layout/MobileStickyCTA';
+import { SkipLink } from '@/components/layout/SkipLink';
 import { PreviewBridgeClient } from '@/components/preview/PreviewBridgeClient';
 import { SpeculationRules } from '@/components/preview/SpeculationRules';
 import { educationalOrganizationJsonLd, websiteJsonLd } from '@/lib/seo';
@@ -83,12 +84,10 @@ type IntlMessages = NonNullable<
 export function RootShell({
     locale,
     messages,
-    skipLabel = 'Aller au contenu principal',
     children,
 }: {
     locale: string;
     messages?: IntlMessages;
-    skipLabel?: string;
     children: ReactNode;
 }) {
     return (
@@ -99,13 +98,8 @@ export function RootShell({
                 {/* Provider next-intl à la RACINE de la coquille : il englobe la
                     page ET les composants de coquille (MobileStickyCTA…). */}
                 <NextIntlClientProvider locale={locale} messages={messages}>
-                    {/* Lien d'évitement — accessibilité clavier (WCAG 2.4.1) */}
-                    <a
-                        href="#contenu-principal"
-                        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:px-4 focus:py-2 focus:bg-[#FFE500] focus:text-black focus:font-bold focus:text-sm focus:border-2 focus:border-black"
-                    >
-                        {skipLabel}
-                    </a>
+                    {/* Lien d'évitement — libellé localisé (client, catalogue `common`) */}
+                    <SkipLink />
                     {children}
                     <MobileStickyCTA />
                     {/* Pont d'aperçu live du Cockpit — inerte hors iframe. */}

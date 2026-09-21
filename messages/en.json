@@ -7,7 +7,15 @@
         "switchToFrench": "Français",
         "languageMenuLabel": "Choose language",
         "openMenu": "Open menu",
-        "closeMenu": "Close menu"
+        "closeMenu": "Close menu",
+        "call": "Call",
+        "callTitle": "Call the CUC",
+        "stickyCta": "Contact & Projects",
+        "errorTitle": "An error occurred",
+        "errorText": "The content could not be displayed. You can try again immediately or return to the home page.",
+        "retry": "Try again",
+        "backHome": "Back to home",
+        "errorReference": "Reference: {digest}"
     },
     "films": {
         "badge": "PRODUCTIONS & POSTERS",
@@ -51,6 +59,32 @@
             "referenceLabel": "Reference Programme in France",
             "since": "SINCE 2011"
         }
+    },
+    "footer": {
+        "certificateTitle": "View the Qualiopi certificate",
+        "certified": "Qualiopi Certified Body",
+        "funding": "AFDAS & CPF funding (100%)",
+        "virtualTour": "360° Virtual Tour of the Campus",
+        "sitesTitle": "Our Locations",
+        "mainCampus": "MAIN CAMPUS:",
+        "mainCampusAddress": "Domaine CUC, 59360 Le Cateau-Cambrésis",
+        "region": "Hauts-de-France (1h40 from Paris / 1h from Lille)",
+        "mapAccess": "Map & Access",
+        "gpsRoute": "GPS Directions",
+        "idfHub": "PARIS REGION HUB:",
+        "idfStudio": "Rehearsal Studio & Actor Preparation",
+        "idfAddress": "92230 Gennevilliers (Paris Region)",
+        "locateMaps": "Locate on Maps",
+        "productionAgency": "PRODUCTION COMPANY:",
+        "productionDesc": "CUC PROD • Film & live show production company",
+        "directLines": "Direct Lines",
+        "admissionFile": "Admission File 2026/2027",
+        "networksTitle": "Networks & Media",
+        "networksText": "Follow daily training, exclusive stunts and behind-the-scenes footage:",
+        "backToTop": "Back to top",
+        "backToTopLabel": "Back to top of page",
+        "backToTopTitle": "Back to top",
+        "qualiopiBadge": "QUALIOPI approval"
     },
     "partenaires": {
         "cinemaHeading": "Partner Studios & Productions",

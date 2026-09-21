@@ -1,5 +1,6 @@
 'use client';
 import { Link } from '@/i18n/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 
 import React, { useState, useEffect } from 'react';
 
@@ -12,6 +13,8 @@ import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data
  * (fallback `DEFAULT_SITE_SETTINGS`, zéro régression).
  */
 export const MobileStickyCTA: React.FC = () => {
+  const t = useTranslations('common');
+  const locale = useLocale();
   const [isVisible, setIsVisible] = useState(false);
   const [settings, setSettings] = useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
 
@@ -31,9 +34,13 @@ export const MobileStickyCTA: React.FC = () => {
   }, []);
 
   const phone = settings.phone || '(+33) 06 72 84 94 92';
-  const callLabel = settings.mobile_sticky_call_label || 'Appel';
-  const ctaLabel =
-    settings.mobile_sticky_cta_text ||
+  // Les libellés de `site_settings` sont en français (données FR) : en mode
+  // anglais, on sert le catalogue `common`, sinon les réglages du Cockpit.
+  const isEn = locale === 'en';
+  const callLabel = isEn ? t('call') : settings.mobile_sticky_call_label || 'Appel';
+  const ctaLabel = isEn
+    ? t('stickyCta')
+    : settings.mobile_sticky_cta_text ||
     settings.hero_primary_cta_text ||
     'Contact & Projets';
   const ctaUrl =
@@ -55,7 +62,7 @@ export const MobileStickyCTA: React.FC = () => {
           <a
             href={`tel:${phone.replace(/\s+/g, '')}`}
             className="flex items-center justify-center gap-1.5 px-3 py-2 bg-[#121218] border border-zinc-700 text-[#FFE500] font-mono-tech text-xs uppercase tracking-wider active:bg-zinc-800 shrink-0"
-            title="Appeler le CUC"
+            title={t('callTitle')}
           >
             <Phone className="w-3.5 h-3.5" />
             <span className="font-bold">{callLabel}</span>

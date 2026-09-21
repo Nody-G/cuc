@@ -1,15 +1,14 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T15:41:35.434Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T15:47:14.505Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **27** — occurrences : **1168**
+Pages contrôlées : **27** — pages avec français résiduel : **27** — occurrences : **791**
 
-## /en — 52 occurrence(s)
+## /en — 37 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | Domaine privé |
 | texte visible | Depuis 2008 |
 | texte visible | DEPUIS 2008 |
@@ -46,27 +45,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Coordination chirurgicale des frappes et esquives sur tatamis d'impact avec l'équipe de chorégraphes du campus. |
 | texte visible | Risk Zone & Défenestration |
 | texte visible | Exercices de chutes de hauteur et simulation de défenestration sur le domaine du Cateau-Cambrésis. |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/formation-de-cascadeur — 60 occurrence(s)
+## /en/formation-de-cascadeur — 51 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | Un cursus d'excellence de 720h à 800h sur 2 ans pour maîtriser l'ensemble des disciplines de la cascade physique et cinématographique. |
 | texte visible | DU STAGE DÉCOUVERTE AU DIPLÔME PRO |
 | texte visible | L'accès à la formation longue durée est conditionné par la validation du stage découverte. Ce protocole sélectif garantit la sécurité de tous et le niveau d'excellence de la promotion. |
@@ -117,21 +101,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Les formations peuvent faire l'objet d'une prise en charge intégrale ou partielle par : |
 | texte visible | • OPCO & Entreprises du spectacle |
 | texte visible | • Échéanciers sans frais (fonds propres) |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
+| texte visible | Réponse rapide |
 
-## /en/stages-cascades-parkour-2 — 42 occurrence(s)
+## /en/stages-cascades-parkour-2 — 27 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | STAGES & SÉJOURS DE CASCADES |
 | texte visible | STAGES INTENSIFS TOUS NIVEAUX • DÈS 16 ANS |
 | texte visible | Du stage découverte immersion 12 jours aux week-ends intensifs, vivez l'entraînement des cascadeurs du cinéma dans des conditions de sécurité absolue. |
@@ -158,27 +133,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Session de perfectionnement technique organisée au sein des studios de tournage à Provence Studios. Câblage multi-axes, catapultes pneumatiques (ratchets), torches humaines et protocoles de sécurité pour tournages profes |
 | texte visible | Provence Studios, Martigues (Bouches-du-Rhône) |
 | texte visible | Contacter pour les Sessions Pro |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
 ## /en/equipe-cascadeurs-pro — 60 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | L'ÉQUIPE |
 | texte visible | COACHS & PROFESSIONNELS DU CINÉMA |
 | texte visible | CASCADEURS DU CINÉMA D'ACTION INTERNATIONAL |
@@ -238,12 +198,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Astérix & Obélix: L'Empire du Milieu (2023) |
 | texte visible | Valérian et la Cité des mille planètes (2017) |
 | texte visible | Le Comte de Monte-Cristo |
+| texte visible | Spécialiste Acrobaties & Freerunning |
 
-## /en/cuc-team-cascadeur — 60 occurrence(s)
+## /en/cuc-team-cascadeur — 49 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | COORDINATION DE CASCADES • CINÉMA |
 | texte visible | Contacter l'Équipe de Production |
 | texte visible | Voir les affiches |
@@ -292,23 +252,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Vous préparez un long-métrage, une série, un clip ou un spectacle ? Contactez directement notre bureau de coordination. |
 | texte visible | COORDINATEUR RÉFÉRENT : |
 | texte visible | TÉLÉPHONE DIRECT : |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
+| texte visible | Réponse rapide |
 
-## /en/partenaires — 44 occurrence(s)
+## /en/partenaires — 29 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | ILS NOUS ACCOMPAGNENT • MARQUES & INSTITUTIONS |
 | texte visible | ÉQUIPEMENTIERS • CINÉMA • INSTITUTIONNELS • ÉTAT |
 | texte visible | Équipementier |
@@ -337,27 +286,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Nutrition sportive et compléments alimentaires pour athlètes. |
 | texte visible | Vous êtes équipementier, fabricant de matériel, société d'effets spéciaux ou marque souhaitant associer son image au campus ? |
 | texte visible | Nous contacter |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/visite-guidee — 60 occurrence(s)
+## /en/visite-guidee — 47 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | LE CAMPUS |
 | texte visible | 21 MÈTRES |
 | texte visible | Hauteur de la Tour CUC |
@@ -404,25 +338,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Standard Admissions : Téléphone : |
 | texte visible | Pôle Île-de-France (Studio Paris) : Studio de Répétition & Comédiens |
 | texte visible | Planifier une Visite ou Réserver un Stage |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
 
-## /en/visite-virtuelle — 31 occurrence(s)
+## /en/visite-virtuelle — 16 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | LE CAMPUS |
 | texte visible | VISITE DU DOMAINE |
 | texte visible | DÉCOUVRIR LE CAMPUS EN 360° |
@@ -438,28 +359,13 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Matériel professionnel de cascade aux normes en vigueur : matelas de réception certifiés, airbags de saut, trampolines et fosse de travail. |
 | texte visible | Accès & Hébergement |
 | texte visible | Situé au Cateau-Cambrésis (à 2h de Paris, 1h de Lille). Possibilité d'hébergement sur site en pension complète pour les élèves en formation et stages. |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/videos-cascadeur — 39 occurrence(s)
+## /en/videos-cascadeur — 24 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
 | <meta description> | Behind the scenes of stunt training in TF1 and France 2 reports, plus CUC showreels. |
-| texte visible | Aller au contenu principal |
 | texte visible | NOS VIDÉOS & REPORTAGES |
 | texte visible | REPORTAGES TÉLÉVISION • TF1 JT 20H • FRANCE 2 |
 | texte visible | LES REPORTAGES |
@@ -482,27 +388,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | 20h30 Le Mag avec Laurent Delahousse |
 | texte visible | Grand Format à l'École des Cascadeurs |
 | texte visible | Voir les cascades sur Instagram |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/contact-cuc — 57 occurrence(s)
+## /en/contact-cuc — 43 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | Productions cinématographiques, action design, formations professionnelles, stages ou événements d'entreprise : échangez directement avec les équipes du CUC. |
 | texte visible | DÉMARRER UN PROJET OU ÉCHANGER |
 | texte visible | Transmettez-nous les détails de votre demande. Notre équipe opérationnelle vous répondra sous 24 à 48 heures ouvrées. |
@@ -545,26 +436,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | • Parking gratuit 50 places à l'intérieur du Domaine CUC sécurisé. |
 | texte visible | • Navette CUC gratuite entre la Gare du Cateau et le Campus pour les stagiaires en formation. |
 | texte visible | COPIER L'ADRESSE COMPLÈTE |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/team-building-cascades — 42 occurrence(s)
+## /en/team-building-cascades — 27 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | SÉMINAIRES & ENTREPRISES • COHÉSION D’ÉQUIPE |
 | texte visible | COHÉSION D'ÉQUIPE • COULISSES DU CINÉMA |
 | texte visible | Offrez à vos équipes une expérience fédératrice hors du commun : cascades de cinéma, doublage vocal et cascade physique encadrées par des pros. |
@@ -591,27 +468,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | COMBINEZ PLUSIEURS ATELIERS POUR VOTRE JOURNÉE |
 | texte visible | Nous adaptons le déroulement, le nombre d'animateurs cascadeurs et le matériel selon vos objectifs, vos contraintes de planning et la taille de votre groupe. |
 | texte visible | Recevoir une Proposition Détaillée & Devis |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/animations-airbag-parkour — 32 occurrence(s)
+## /en/animations-airbag-parkour — 17 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | ANIMATIONS AIRBAG GÉANT & PARKOUR |
 | texte visible | AIRBAG DE CINÉMA • ENCADREMENT PROFESSIONNEL |
 | texte visible | +20 000 CHUTES ENCADRÉES • DEPUIS 2009 |
@@ -628,27 +490,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Plateforme ou échafaudage de saut adapté |
 | texte visible | Encadrement par 2 à 4 cascadeurs pros |
 | texte visible | Démonstrations de sauts acrobatiques incluses |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/spectacles-cascadeurs-yamakasi — 29 occurrence(s)
+## /en/spectacles-cascadeurs-yamakasi — 14 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | LE CINÉMA S’INVITE SUR SCÈNE • SHOWS CLÉ EN MAIN |
 | texte visible | CASCADEURS • COMÉDIENS • SHOWS CLÉ EN MAIN |
 | texte visible | Réserver un Spectacle |
@@ -662,51 +509,21 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | ÉVÉNEMENT |
 | texte visible | CUC EVENTS À L’ACCOR ARENA (BERCY) |
 | texte visible | Organiser un Show dans votre Salle |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/stunt-workshop-cuc — 19 occurrence(s)
+## /en/stunt-workshop-cuc — 4 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | STAGE INTERNATIONAL • EN ANGLAIS & FRANÇAIS |
 | texte visible | EN ANGLAIS & FRANÇAIS • 2 SEMAINES RÉSIDENTIELLES |
 | texte visible | Rejoignez des cascadeurs et performeurs venus du monde entier (USA, UK, Europe, Australie) pour 2 semaines d'immersion totale au CUC. |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/cuc-events-agence — 36 occurrence(s)
+## /en/cuc-events-agence — 21 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | AGENCE ÉVÉNEMENTIELLE D’ACTION • SHOWS CLÉ EN MAIN |
 | texte visible | Marquez les esprits lors de vos festivals, lancements de marque, parcs à thème ou séminaires avec des shows d'action spectaculaires. |
 | texte visible | Demander un Devis Événementiel |
@@ -727,27 +544,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Assurance professionnelle spectacle, matériel homologué et protocoles stricts. |
 | texte visible | Performeurs formés au CUC, actifs sur des productions cinéma et parcs à thème majeurs. |
 | texte visible | Déplacement de nos structures mobiles et équipes de cascadeurs sur votre site d'événement. |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/equipe-cascadeurs-pro/lucas-dollfus — 45 occurrence(s)
+## /en/equipe-cascadeurs-pro/lucas-dollfus — 30 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | ÉQUIPE PRO |
 | texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
 | texte visible | Domaines d'expertise & Disciplines enseignées : |
@@ -777,27 +579,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Jérôme Gaspard |
 | texte visible | Fiche complète |
 | texte visible | Retour à toute l'équipe pédagogique |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/equipe-cascadeurs-pro/jerome-gaspard — 53 occurrence(s)
+## /en/equipe-cascadeurs-pro/jerome-gaspard — 38 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | ÉQUIPE PRO |
 | texte visible | Jérôme Gaspard |
 | texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
@@ -835,27 +622,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Voir toute l'équipe |
 | texte visible | Fiche complète |
 | texte visible | Retour à toute l'équipe pédagogique |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/equipe-cascadeurs-pro/vincent-bouillon — 49 occurrence(s)
+## /en/equipe-cascadeurs-pro/vincent-bouillon — 34 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | ÉQUIPE PRO |
 | texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
 | texte visible | Domaines d'expertise & Disciplines enseignées : |
@@ -889,27 +661,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Fiche complète |
 | texte visible | Jérôme Gaspard |
 | texte visible | Retour à toute l'équipe pédagogique |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/equipe-cascadeurs-pro/malik-diouf — 41 occurrence(s)
+## /en/equipe-cascadeurs-pro/malik-diouf — 26 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | ÉQUIPE PRO |
 | texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
 | texte visible | Domaines d'expertise & Disciplines enseignées : |
@@ -935,27 +692,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Fiche complète |
 | texte visible | Jérôme Gaspard |
 | texte visible | Retour à toute l'équipe pédagogique |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/equipe-cascadeurs-pro/franck-blanc — 44 occurrence(s)
+## /en/equipe-cascadeurs-pro/franck-blanc — 29 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | ÉQUIPE PRO |
 | texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
 | texte visible | Domaines d'expertise & Disciplines enseignées : |
@@ -984,27 +726,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Fiche complète |
 | texte visible | Jérôme Gaspard |
 | texte visible | Retour à toute l'équipe pédagogique |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/equipe-cascadeurs-pro/kefi-abrikh — 40 occurrence(s)
+## /en/equipe-cascadeurs-pro/kefi-abrikh — 25 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | ÉQUIPE PRO |
 | texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
 | texte visible | Domaines d'expertise & Disciplines enseignées : |
@@ -1029,27 +756,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Fiche complète |
 | texte visible | Jérôme Gaspard |
 | texte visible | Retour à toute l'équipe pédagogique |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/equipe-cascadeurs-pro/maurice-chan — 40 occurrence(s)
+## /en/equipe-cascadeurs-pro/maurice-chan — 25 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | ÉQUIPE PRO |
 | texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
 | texte visible | Domaines d'expertise & Disciplines enseignées : |
@@ -1074,27 +786,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Fiche complète |
 | texte visible | Jérôme Gaspard |
 | texte visible | Retour à toute l'équipe pédagogique |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/equipe-cascadeurs-pro/michel-bouis — 45 occurrence(s)
+## /en/equipe-cascadeurs-pro/michel-bouis — 30 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | ÉQUIPE PRO |
 | texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
 | texte visible | Domaines d'expertise & Disciplines enseignées : |
@@ -1124,27 +821,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Fiche complète |
 | texte visible | Jérôme Gaspard |
 | texte visible | Retour à toute l'équipe pédagogique |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/equipe-cascadeurs-pro/amedeo-cazzella — 46 occurrence(s)
+## /en/equipe-cascadeurs-pro/amedeo-cazzella — 31 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | ÉQUIPE PRO |
 | texte visible | Amédéo Cazzella |
 | texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
@@ -1175,27 +857,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Fiche complète |
 | texte visible | Jérôme Gaspard |
 | texte visible | Retour à toute l'équipe pédagogique |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/equipe-cascadeurs-pro/niels-dalery — 26 occurrence(s)
+## /en/equipe-cascadeurs-pro/niels-dalery — 11 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | ÉQUIPE PRO |
 | texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
 | texte visible | Domaines d'expertise & Disciplines enseignées : |
@@ -1206,27 +873,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Fiche complète |
 | texte visible | Jérôme Gaspard |
 | texte visible | Retour à toute l'équipe pédagogique |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/equipe-cascadeurs-pro/bastien-trouve — 39 occurrence(s)
+## /en/equipe-cascadeurs-pro/bastien-trouve — 24 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | ÉQUIPE PRO |
 | texte visible | Bastien Trouvé |
 | texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
@@ -1250,27 +902,12 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Fiche complète |
 | texte visible | Jérôme Gaspard |
 | texte visible | Retour à toute l'équipe pédagogique |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 
-## /en/equipe-cascadeurs-pro/alan-cueff — 37 occurrence(s)
+## /en/equipe-cascadeurs-pro/alan-cueff — 22 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Aller au contenu principal |
 | texte visible | ÉQUIPE PRO |
 | texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
 | texte visible | Domaines d'expertise & Disciplines enseignées : |
@@ -1292,19 +929,5 @@ Pages contrôlées : **27** — pages avec français résiduel : **27** — occu
 | texte visible | Fiche complète |
 | texte visible | Jérôme Gaspard |
 | texte visible | Retour à toute l'équipe pédagogique |
-| texte visible | Fondé en 2008• Plus grande école au monde |
-| texte visible | Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. des installations de pointe. |
-| texte visible | Visite Virtuelle 360° du Campus |
-| texte visible | Nos Implantations |
-| texte visible | Carte & Accès |
-| texte visible | Itinéraire GPS |
-| texte visible | PÔLE ÎLE-DE-FRANCE : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | Localiser sur Maps |
-| texte visible | AGENCE DE PRODUCTION : CUC PROD • Société de production cinéma & spectacle vivant |
-| texte visible | Réseaux & Médias |
-| texte visible | Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages : |
 | texte visible | Réponse rapide |
-| texte visible | Mentions Légales |
-| texte visible | Règlement & Inscriptions |
 

@@ -1,5 +1,6 @@
 'use client';
 import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 import { useEffect } from 'react';
 
@@ -24,6 +25,8 @@ export default function Error({
     error: Error & { digest?: string };
     reset: () => void;
 }) {
+    const t = useTranslations('common');
+
     useEffect(() => {
         // Journalisation exploitable pour le diagnostic (console navigateur + Vercel).
         console.error('[CUC] Erreur applicative interceptée :', error);
@@ -36,11 +39,10 @@ export default function Error({
                     Campus Univers Cascades
                 </p>
                 <h1 className="font-display text-4xl sm:text-5xl uppercase tracking-wide mb-4">
-                    Une erreur est survenue
+                    {t('errorTitle')}
                 </h1>
                 <p className="text-zinc-400 text-sm leading-relaxed mb-8">
-                    Le contenu n'a pas pu être affiché. Vous pouvez réessayer
-                    immédiatement ou revenir à l'accueil.
+                    {t('errorText')}
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -49,19 +51,19 @@ export default function Error({
                         onClick={() => reset()}
                         className="w-full sm:w-auto px-6 py-3 bg-[#FFE500] hover:bg-[#ffe600e6] text-black text-xs font-black uppercase tracking-wider rounded-lg transition-transform active:scale-95"
                     >
-                        Réessayer
+                        {t('retry')}
                     </button>
                     <Link
                         href="/"
                         className="w-full sm:w-auto px-6 py-3 border border-zinc-700 hover:border-zinc-500 text-zinc-200 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors text-center"
                     >
-                        Retour à l'accueil
+                        {t('backHome')}
                     </Link>
                 </div>
 
                 {error.digest && (
                     <p className="mt-8 font-mono-tech text-[10px] text-zinc-600">
-                        Référence : {error.digest}
+                        {t('errorReference', { digest: error.digest })}
                     </p>
                 )}
             </div>

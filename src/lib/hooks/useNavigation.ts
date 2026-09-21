@@ -59,6 +59,57 @@ function applyItemLabels(items: any[], labels: Record<string, string> | null): a
 }
 
 /**
+ * Applique les libellés traduits à la structure du pied de page.
+ *
+ * Conventions de clés (payload `labels` de `site_translations`) :
+ *   - `[col.id]` / `[link.id]` : titres de colonnes et libellés de liens ;
+ *   - `brand.tagline` / `brand.description` : signature et description de marque ;
+ *   - `legal.copyright` / `legal.[link.id]` : barre légale.
+ *
+ * Une clé absente laisse le français : l'anglais ne remplace jamais par du vide.
+ */
+function applyFooterLabels(
+    structure: FooterStructure,
+    labels: Record<string, string> | null
+): FooterStructure {
+    const brand = structure.brand || DEFAULT_FOOTER.structure.brand;
+    const legal = structure.legal || DEFAULT_FOOTER.structure.legal;
+
+    const columns = labels
+        ? (structure.columns ?? []).map((col) => ({
+            ...col,
+            title: labels[col.id] || col.title,
+            links: Array.isArray(col.links)
+                ? col.links.map((link) => ({ ...link, label: labels[link.id] || link.label }))
+                : col.links,
+        }))
+        : structure.columns;
+
+    return {
+        columns,
+        brand: labels
+            ? {
+                ...brand,
+                tagline: labels['brand.tagline'] || brand.tagline,
+                description: labels['brand.description'] || brand.description,
+            }
+            : brand,
+        legal: labels
+            ? {
+                ...legal,
+                copyright: labels['legal.copyright'] || legal.copyright,
+                links: Array.isArray(legal.links)
+                    ? legal.links.map((link) => ({
+                        ...link,
+                        label: labels[`legal.${link.id}`] || labels[link.id] || link.label,
+                    }))
+                    : legal.links,
+            }
+            : legal,
+    };
+}
+
+/**
  * Hook de lecture de la navigation principale.
  *
  * Doctrine « zéro régression » : l'état initial est TOUJOURS la constante
@@ -173,23 +224,7 @@ export function useFooter(id: string = 'main'): FooterStructure {
 
     const [structure, setStructure] = useState<FooterStructure>(() => {
         if (!serverFooter) return DEFAULT_FOOTER.structure;
-        const labels = serverFooter.labels;
-        return {
-            columns: labels
-                ? (serverFooter.structure.columns ?? []).map((col) => ({
-                    ...col,
-                    title: labels[col.id] || col.title,
-                    links: Array.isArray(col.links)
-                        ? col.links.map((link) => ({
-                            ...link,
-                            label: labels[link.id] || link.label,
-                        }))
-                        : col.links,
-                }))
-                : serverFooter.structure.columns,
-            brand: serverFooter.structure.brand || DEFAULT_FOOTER.structure.brand,
-            legal: serverFooter.structure.legal || DEFAULT_FOOTER.structure.legal,
-        };
+        return applyFooterLabels(serverFooter.structure, serverFooter.labels);
     });
 
     useEffect(() => {
@@ -212,21 +247,7 @@ export function useFooter(id: string = 'main'): FooterStructure {
                 if (!incoming.columns || !Array.isArray(incoming.columns)) return;
 
                 const labels = await fetchLabelOverlay(supabase, 'footer', id, currentLocale());
-                const columns = labels
-                    ? incoming.columns.map((col: any) => ({
-                        ...col,
-                        title: labels[col.id] || col.title,
-                        links: Array.isArray(col.links)
-                            ? col.links.map((l: any) => ({ ...l, label: labels[l.id] || l.label }))
-                            : col.links,
-                    }))
-                    : incoming.columns;
-
-                setStructure({
-                    columns,
-                    brand: incoming.brand || DEFAULT_FOOTER.structure.brand,
-                    legal: incoming.legal || DEFAULT_FOOTER.structure.legal,
-                });
+                setStructure(applyFooterLabels(incoming, labels));
             } catch {
                 /* fallback silencieux */
             }
@@ -288,14 +309,30 @@ export function useSocialLinks(): SiteSocialLink[] {
 
                 if (cancelled || error || !data || data.length === 0) return;
 
+                // Overlays EN des réseaux (entité `social_link`) : les indices
+                // d'affichage (« Réponse rapide »…) vivent en base, sans table
+                // dédiée — on les surcharge ici, en anglais uniquement.
+                let overlays: Record<string, { label?: string; display_hint?: string }> = {};
+                if (currentLocale() === 'en') {
+                    const { data: rows } = await supabase
+                        .from('site_translations')
+                        .select('entity_id, payload')
+                        .eq('entity', 'social_link')
+                        .eq('locale', 'en')
+                        .eq('is_published', true);
+                    overlays = Object.fromEntries(
+                        (rows || []).map((row: any) => [row.entity_id, row.payload || {}])
+                    );
+                }
+
                 setLinks(
                     data.map((s) => ({
                         id: s.id,
                         platform: s.platform,
-                        label: s.label,
+                        label: overlays[s.id]?.label || s.label,
                         handle: s.handle || undefined,
                         url: s.url,
-                        display_hint: s.display_hint || undefined,
+                        display_hint: overlays[s.id]?.display_hint || s.display_hint || undefined,
                         brand_color: s.brand_color || undefined,
                         order_index: s.order_index ?? 0,
                         is_active: s.is_active ?? true,
