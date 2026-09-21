@@ -713,6 +713,48 @@
         "customDescription": "Nous adaptons le déroulement, le nombre d'animateurs cascadeurs et le matériel selon vos objectifs, vos contraintes de planning et la taille de votre groupe.",
         "customCta": "Recevoir une Proposition Détaillée & Devis"
     },
+    "spectacles": {
+        "heroBadge": "LE CINÉMA S'INVITE SUR SCÈNE",
+        "heroTitle": "SPECTACLES CASCADEURS & YAMAKASI",
+        "heroSubtitle": "Revivez les séquences d'action mythiques de vos films préférés avec les cascadeurs professionnels et doublures cinéma du Campus Univers Cascades. Combats, chutes, Parkour, humour et effets scéniques pour tous vos événements.",
+        "ctaPrimaryText": "Demander un Devis Spectacle",
+        "ctaSecondaryText": "Voir nos Vidéos en Direct",
+        "heroImageAlt": "Spectacles de cascadeurs professionnels CUC Events",
+        "logoAlt": "CUC Events Spectacles",
+        "breadcrumbHome": "ACCUEIL",
+        "breadcrumbEvents": "CUC EVENTS",
+        "breadcrumbCurrent": "SPECTACLES CASCADEURS & YAMAKASI",
+        "heroMeta": "CASCADEURS • COMÉDIENS • SHOWS CLÉ EN MAIN",
+        "panelTag": "CUC EVENTS SPECTACLES",
+        "panelSub": "CASCADEURS & DOUBLURES CINÉMA",
+        "panelTitle": "DES SHOWS CLÉ EN MAIN ADAPTÉS À VOTRE LIEU",
+        "panelParagraph": "Nos artistes font partie du milieu très restreint des doublures-cascadeurs pour les films d'action au cinéma. Formés au sein du Campus Univers Cascades et travaillant en exclusivité avec notre agence, ils s'adaptent à n'importe quel environnement pour satisfaire vos envies.",
+        "specsTitle": "Spécifications de la formule Spectacle :",
+        "specsItems": [
+            {
+                "label": "Équipe :",
+                "value": "5 artistes professionnels polyvalents (cascadeurs, comédiens, traceurs)"
+            },
+            {
+                "label": "Format :",
+                "value": "De 8 à 20 minutes d'action ininterrompue et réglée au millimètre"
+            },
+            {
+                "label": "Thèmes au choix :",
+                "value": "James Bond 007, Univers Super-Héros (Marvel/DC), John Wick, Post-apocalyptique"
+            },
+            {
+                "label": "Disciplines intégrées :",
+                "value": "Combats scéniques, chutes de hauteur, comédie, acrobaties, Parkour Yamakasi"
+            }
+        ],
+        "showImageAlt": "Spectacles cascadeurs CUC sur scène",
+        "arenaImageAlt": "CUC Events spectacle et performance live cascadeurs",
+        "arenaBadge": "ÉVÉNEMENT",
+        "arenaTitle": "CUC EVENTS À L'ACCOR ARENA (BERCY)",
+        "arenaParagraph": "Devant plus de 15 000 spectateurs, la CUC Stunt Team a assuré le show d'ouverture avec des cascades synchronisées, des sauts depuis les structures aériennes et des combats retransmis sur écrans géants.",
+        "arenaCta": "Organiser un Show dans votre Salle"
+    },
     "animations": {
         "heroBadge": "AIRBAG DE CINÉMA • ENCADREMENT PROFESSIONNEL",
         "heroTitle": "ANIMATIONS AIRBAG & PARKOUR",

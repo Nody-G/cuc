@@ -713,6 +713,48 @@
         "customDescription": "We adapt the programme, the number of stunt instructors and the equipment to your goals, your schedule constraints and the size of your group.",
         "customCta": "Get a Detailed Proposal & Quote"
     },
+    "spectacles": {
+        "heroBadge": "CINEMA TAKES TO THE STAGE",
+        "heroTitle": "STUNT & YAMAKASI SHOWS",
+        "heroSubtitle": "Relive the iconic action sequences from your favourite films with the professional stunt performers and film doubles of Campus Univers Cascades. Fights, falls, parkour, humour and stage effects for all your events.",
+        "ctaPrimaryText": "Request a Show Quote",
+        "ctaSecondaryText": "Watch our Live Videos",
+        "heroImageAlt": "Professional stunt shows, CUC Events",
+        "logoAlt": "CUC Events shows",
+        "breadcrumbHome": "HOME",
+        "breadcrumbEvents": "CUC EVENTS",
+        "breadcrumbCurrent": "STUNT & YAMAKASI SHOWS",
+        "heroMeta": "STUNT PERFORMERS • ACTORS • TURNKEY SHOWS",
+        "panelTag": "CUC EVENTS SHOWS",
+        "panelSub": "STUNT PERFORMERS & FILM DOUBLES",
+        "panelTitle": "TURNKEY SHOWS ADAPTED TO YOUR VENUE",
+        "panelParagraph": "Our artists belong to the very small circle of stunt doubles working on action films. Trained at Campus Univers Cascades and working exclusively with our agency, they adapt to any environment to match your expectations.",
+        "specsTitle": "Show package specifications:",
+        "specsItems": [
+            {
+                "label": "Team:",
+                "value": "5 versatile professional artists (stunt performers, actors, traceurs)"
+            },
+            {
+                "label": "Format:",
+                "value": "8 to 20 minutes of uninterrupted action, timed to the millimetre"
+            },
+            {
+                "label": "Themes:",
+                "value": "James Bond 007, superhero universes (Marvel/DC), John Wick, post-apocalyptic"
+            },
+            {
+                "label": "Disciplines included:",
+                "value": "Screen fights, high falls, comedy, acrobatics, Yamakasi parkour"
+            }
+        ],
+        "showImageAlt": "CUC stunt performers on stage",
+        "arenaImageAlt": "CUC Events live stunt show and performance",
+        "arenaBadge": "EVENT",
+        "arenaTitle": "CUC EVENTS AT ACCOR ARENA (BERCY)",
+        "arenaParagraph": "In front of more than 15,000 spectators, the CUC Stunt Team performed the opening show with synchronised stunts, jumps from the aerial structures and fights broadcast on giant screens.",
+        "arenaCta": "Organise a Show in your Venue"
+    },
     "animations": {
         "heroBadge": "CINEMA AIRBAG • PROFESSIONAL SUPERVISION",
         "heroTitle": "AIRBAG & PARKOUR ANIMATIONS",

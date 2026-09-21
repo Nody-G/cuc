@@ -2,6 +2,7 @@
 import { Link } from '@/i18n/navigation';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
@@ -17,19 +18,19 @@ import {
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 
 export default function SpectaclesCascadeursYamakasiPage() {
+  const t = useTranslations('spectacles');
   const { content } = usePageDynamicContent('spectacles-cascadeurs-yamakasi');
+  const specsItems = t.raw('specsItems') as { label: string; value: string }[];
 
-  const heroBadge = content.hero?.badge || "LE CINÉMA S'INVITE SUR SCÈNE";
-  const heroTitle = content.hero?.title || 'SPECTACLES CASCADEURS & YAMAKASI';
-  const heroSubtitle =
-    content.hero?.subtitle ||
-    "Revivez les séquences d'action mythiques de vos films préférés avec les cascadeurs professionnels et doublures cinéma du Campus Univers Cascades. Combats, chutes, Parkour, humour et effets scéniques pour tous vos événements.";
+  const heroBadge = content.hero?.badge || t('heroBadge');
+  const heroTitle = content.hero?.title || t('heroTitle');
+  const heroSubtitle = content.hero?.subtitle || t('heroSubtitle');
   const heroBg =
     content.hero?.bg_image ||
     'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg';
-  const ctaPrimaryText = content.hero?.cta_primary_text || 'Demander un Devis Spectacle';
+  const ctaPrimaryText = content.hero?.cta_primary_text || t('ctaPrimaryText');
   const ctaPrimaryLink = content.hero?.cta_primary_link || '/contact-cuc';
-  const ctaSecondaryText = content.hero?.cta_secondary_text || 'Voir nos Vidéos en Direct';
+  const ctaSecondaryText = content.hero?.cta_secondary_text || t('ctaSecondaryText');
   const ctaSecondaryLink = content.hero?.cta_secondary_link || '/videos-cascadeur';
 
   return (
@@ -42,7 +43,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
           <div className="absolute inset-0 z-0">
             <Image
               src={heroBg}
-              alt="Spectacles de cascadeurs professionnels CUC Events"
+              alt={t('heroImageAlt')}
               fill
               priority
               sizes="100vw"
@@ -54,14 +55,14 @@ export default function SpectaclesCascadeursYamakasiPage() {
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
               <Link href="/" className="hover:text-[#FFE500] transition-colors">
-                ACCUEIL
+                {t('breadcrumbHome')}
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
               <Link href="/cuc-events-agence" className="hover:text-[#FFE500] transition-colors">
-                CUC EVENTS
+                {t('breadcrumbEvents')}
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-              <span className="text-[#FFE500]">SPECTACLES CASCADEURS & YAMAKASI</span>
+              <span className="text-[#FFE500]">{t('breadcrumbCurrent')}</span>
             </div>
 
             <div className="inline-flex items-center gap-2 mb-4">
@@ -69,7 +70,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
                 {heroBadge}
               </StuntBadge>
               <span className="text-xs font-mono-tech text-zinc-400">
-                CASCADEURS • COMÉDIENS • SHOWS CLÉ EN MAIN
+                {t('heroMeta')}
               </span>
             </div>
 
@@ -116,7 +117,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
                   <div className="flex items-center gap-3 mb-2">
                     <Image
                       src="/images/logos/cuc-logo-yellow.png"
-                      alt="CUC Events Spectacles"
+                      alt={t('logoAlt')}
                       width={44}
                       height={44}
                       className="w-11 h-11 object-contain drop-shadow-[0_0_10px_rgba(255,229,0,0.3)]"
@@ -126,30 +127,29 @@ export default function SpectaclesCascadeursYamakasiPage() {
                         CUC EVENTS SPECTACLES
                       </span>
                       <span className="text-[10px] font-mono-tech text-zinc-500 uppercase">
-                        CASCADEURS &amp; DOUBLURES CINÉMA
+                        {t('panelSub')}
                       </span>
                     </div>
                   </div>
 
                   <h2 className="text-2xl sm:text-3xl font-display uppercase text-white">
-                    DES SHOWS CLÉ EN MAIN ADAPTÉS À VOTRE LIEU
+                    {t('panelTitle')}
                   </h2>
 
                   <p className="text-sm font-tech text-zinc-300 leading-relaxed">
-                    Nos artistes font partie du milieu très restreint des doublures-cascadeurs pour les films
-                    d’action au cinéma. Formés au sein du Campus Univers Cascades et travaillant en exclusivité
-                    avec notre agence, ils s’adaptent à n’importe quel environnement pour satisfaire vos envies.
+                    {t('panelParagraph')}
                   </p>
 
                   <div className="p-4 bg-[#14141c] border border-zinc-800 space-y-2 text-xs font-tech">
                     <div className="text-[#FFE500] font-mono-tech font-bold uppercase">
-                      Spécifications de la formule Spectacle :
+                      {t('specsTitle')}
                     </div>
                     <ul className="space-y-1.5 text-zinc-300">
-                      <li>• <strong>Équipe :</strong> 5 artistes professionnels polyvalents (cascadeurs, comédiens, traceurs)</li>
-                      <li>• <strong>Format :</strong> De 8 à 20 minutes d'action ininterrompue et réglée au millimètre</li>
-                      <li>• <strong>Thèmes au choix :</strong> James Bond 007, Univers Super-Héros (Marvel/DC), John Wick, Post-apocalyptique</li>
-                      <li>• <strong>Disciplines intégrées :</strong> Combats scéniques, chutes de hauteur, comédie, acrobaties, Parkour Yamakasi</li>
+                      {specsItems.map((item) => (
+                        <li key={item.label}>
+                          • <strong>{item.label}</strong> {item.value}
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>
@@ -158,7 +158,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
                   <div className="relative h-72 sm:h-96 w-full border border-zinc-800 overflow-hidden bg-black shadow-xl">
                     <Image
                       src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-7-scaled.jpg"
-                      alt="Spectacles cascadeurs CUC sur scène"
+                      alt={t('showImageAlt')}
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"
                       className="object-cover object-center"
@@ -176,7 +176,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
                   <div className="relative h-72 w-full border border-zinc-700 overflow-hidden bg-black">
                     <Image
                       src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg"
-                      alt="CUC Events spectacle et performance live cascadeurs"
+                      alt={t('arenaImageAlt')}
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"
                       className="object-cover object-center"
@@ -187,13 +187,13 @@ export default function SpectaclesCascadeursYamakasiPage() {
                 <div className="lg:col-span-7 space-y-4">
                   <div className="flex items-center gap-2">
                     <StuntBadge variant="yellow" icon={<Award className="w-3.5 h-3.5" />}>
-                      ÉVÉNEMENT
+                      {t('arenaBadge')}
                     </StuntBadge>
                     <span className="text-xs font-mono-tech text-zinc-400">ACCOR ARENA • PARIS</span>
                   </div>
 
                   <h3 className="text-3xl font-display uppercase text-white">
-                    CUC EVENTS À L’ACCOR ARENA (BERCY)
+                    {t('arenaTitle')}
                   </h3>
 
                   <p className="text-sm font-tech text-zinc-300 leading-relaxed">
@@ -205,7 +205,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
                   <div className="pt-2">
                     <Link href="/contact-cuc?demande=cuc-events">
                       <TacticalButton variant="primary" size="md">
-                        Organiser un Show dans votre Salle
+                        {t('arenaCta')}
                       </TacticalButton>
                     </Link>
                   </div>
