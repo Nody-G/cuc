@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { hasLocale } from 'next-intl';
@@ -58,6 +58,17 @@ export const metadata: Metadata = {
         icon: [{ url: '/images/logos/cuc-logo-yellow.png', type: 'image/png' }],
         apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
     },
+};
+
+/**
+ * Viewport / `themeColor` — parité avec l'ancien `src/app/layout.tsx`.
+ * `maximumScale: 5` préserve l'accessibilité (zoom utilisateur autorisé).
+ */
+export const viewport: Viewport = {
+    themeColor: '#FFE500',
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
 };
 
 export default async function LocaleLayout({

@@ -1,3 +1,19 @@
+/*
+ * Feuille de style globale de l'application (Tailwind v4 + thème CUC).
+ *
+ * ATTENTION — cet import est CRITIQUE et doit rester ici :
+ * `RootShell` est le seul composant qui rend `<html>`/`<body>` ; il est partagé
+ * par les DEUX layouts racines (`(site)/[locale]/layout.tsx` et
+ * `(admin)/layout.tsx`). C'est donc le point unique qui garantit que Tailwind
+ * et les règles `body { background-color: #060608 }` sont chargés.
+ *
+ * Régression historique : lors du passage à `[locale]`, l'import qui vivait
+ * dans l'ancien `src/app/layout.tsx` avait disparu. Aucun CSS n'était plus
+ * émis (hors polices) : logos affichés en taille intrinsèque et page blanche.
+ * Un garde-fou automatisé couvre désormais ce point — voir
+ * `src/lib/global-styles.test.ts`.
+ */
+import '@/app/globals.css';
 import type { ReactNode } from 'react';
 import { Bebas_Neue, Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import { MobileStickyCTA } from '@/components/layout/MobileStickyCTA';
