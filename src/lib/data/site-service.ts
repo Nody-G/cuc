@@ -699,15 +699,16 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_text: "Contacter l'Équipe de Production",
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Voir les affiches',
-      cta_secondary_link: '#affiches',
+      cta_secondary_link: '#filmographie',
       bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Tournages & Régie', order: 1, is_visible: true },
       { id: 'galleries', name: 'Galeries Photos des Tournages HD', order: 2, is_visible: true },
-      { id: 'banners', name: 'Compétences & Atouts Techniques', order: 3, is_visible: true },
-      { id: 'hall_of_fame', name: 'Affiches & Blockbusters Cinéma', order: 4, is_visible: true },
-      { id: 'services', name: 'Prestations de Coordination & Devis', order: 5, is_visible: true },
+      // La section `banners` (6 affiches statiques) a été retirée : elle faisait
+      // doublon avec `hall_of_fame` (catalogue complet site_films, 570 films).
+      { id: 'hall_of_fame', name: 'Affiches & Blockbusters Cinéma', order: 3, is_visible: true },
+      { id: 'services', name: 'Prestations de Coordination & Devis', order: 4, is_visible: true },
     ],
     sections_data: {},
     sections: [],

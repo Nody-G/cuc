@@ -8,7 +8,6 @@ import { HallOfFame } from '@/components/sections/HallOfFame';
 import {
   TeamHeroSection,
   TeamProductionGalleries,
-  TeamBannersSection,
   TeamProductionServices,
 } from '@/components/sections/team';
 
@@ -34,8 +33,6 @@ export default function CucTeamCascadeurPage() {
         return <TeamHeroSection key="hero" hero={content.hero} />;
       case 'galleries':
         return <TeamProductionGalleries key="galleries" onOpenLightbox={openLightbox} />;
-      case 'banners':
-        return <TeamBannersSection key="banners" onOpenLightbox={openLightbox} />;
       case 'hall_of_fame':
         return <HallOfFame key="hall_of_fame" />;
       case 'services':
@@ -56,7 +53,6 @@ export default function CucTeamCascadeurPage() {
           <>
             <TeamHeroSection hero={content.hero} />
             <TeamProductionGalleries onOpenLightbox={openLightbox} />
-            <TeamBannersSection onOpenLightbox={openLightbox} />
             <HallOfFame />
             <TeamProductionServices />
           </>

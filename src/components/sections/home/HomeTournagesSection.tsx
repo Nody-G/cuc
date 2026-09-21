@@ -180,7 +180,7 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
                       Échanger sur votre Production
                     </TacticalButton>
                   </Link>
-                  <Link href="/cuc-team-cascadeur#affiches">
+                  <Link href="/cuc-team-cascadeur#filmographie">
                     <span className="text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] transition-colors flex items-center gap-1">
                       Voir les 63 affiches de films
                       <ChevronRight className="w-3 h-3" />

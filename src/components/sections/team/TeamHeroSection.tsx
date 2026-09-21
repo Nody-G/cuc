@@ -74,7 +74,7 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
                 </TacticalButton>
               </Link>
               <a
-                href="#affiches"
+                href="#filmographie"
                 className="inline-flex items-center gap-2 px-5 py-3 border border-zinc-700 bg-zinc-900/80 hover:bg-zinc-800 text-xs font-mono-tech uppercase tracking-wider text-zinc-300 hover:text-white transition-colors"
               >
                 <Film className="w-4 h-4 text-[#FFE500]" />

@@ -1,6 +1,6 @@
 # Audit complet de l'application CUC
 
-**Généré le :** 2026-09-21T08:48:48.263Z
+**Généré le :** 2026-09-21T09:06:35.351Z
 
 > État des lieux factuel. Aucune correction appliquée.
 
