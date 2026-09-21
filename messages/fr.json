@@ -146,6 +146,12 @@
             "satisfactionLabel": "Taux de Satisfaction",
             "referenceLabel": "Formation Référente en France",
             "since": "DEPUIS 2011"
+        },
+        "disciplines": {
+            "badge": "RÉPERTOIRE TECHNIQUE",
+            "title": "LES 10 DISCIPLINES DE LA CASCADE PHYSIQUE",
+            "cinemaContextLabel": "Contexte Cinéma & Tournage :",
+            "equipmentLabel": "Équipements & Installations :"
         }
     },
     "footer": {
@@ -270,8 +276,24 @@
                 "category": "Production Audiovisuelle",
                 "role": "Réalisation & Captation",
                 "description": "Studio de réalisation vidéo, clips et captations de spectacles."
+            },
+            {
+                "name": "MFR Le Cateau-Cambrésis",
+                "role": "Hébergement & Restauration",
+                "category": "Hébergement & Accueil",
+                "description": "Hébergement et restauration des stagiaires au Cateau-Cambrésis."
+            },
+            {
+                "name": "BSN Nutrition",
+                "role": "Nutrition Sportive",
+                "category": "Nutrition Sportive",
+                "description": "Nutrition sportive et compléments alimentaires pour athlètes."
             }
-        ]
+        ],
+        "ctaBadge": "SPONSORING",
+        "ctaTitle": "DEVENIR PARTENAIRE",
+        "ctaBody": "Vous êtes équipementier, fabricant de matériel, société d'effets spéciaux ou marque souhaitant associer son image au campus ?",
+        "ctaButton": "Nous contacter"
     },
     "team": {
         "badge": "COACHS & PROFESSIONNELS DU CINÉMA",
@@ -307,7 +329,12 @@
         "campusFacultyTag": "FACULTÉ DU CAMPUS",
         "seeWholeTeam": "Voir toute l'équipe",
         "cardCta": "Fiche complète",
-        "backToTeam": "Retour à toute l'équipe pédagogique"
+        "backToTeam": "Retour à toute l'équipe pédagogique",
+        "breadcrumbHome": "ACCUEIL",
+        "breadcrumbCurrent": "L'ÉQUIPE",
+        "ctaBlockTitle": "FORMEZ-VOUS AVEC LES MEILLEURS PROFESSIONNELS DU SECTEUR",
+        "ctaBlockBody": "Chaque instructeur du Campus Univers Cascades est actif sur les plateaux de tournage et transmet les exigences actuelles du cinéma mondial.",
+        "ctaBlockButton": "Découvrir les Formations du CUC"
     },
     "contact": {
         "hero": {
@@ -977,7 +1004,18 @@
                 "pdfLabel": "",
                 "imageAlt": "Affiche Stage Cascadeur Pro CUC Provence Studios"
             }
-        ]
+        ],
+        "hero": {
+            "breadcrumbHome": "ACCUEIL",
+            "breadcrumbCurrent": "STAGES & SÉJOURS DE CASCADES",
+            "badge": "IMMERSION & PERFECTIONNEMENT",
+            "meta": "WEEK-ENDS DÈS 250€ • STAGES AFDAS 100% • SUMMER CAMP",
+            "titleLead": "STAGES DE CASCADE, ",
+            "titleAccent": "PARKOUR & ACTION",
+            "subtitle": "Pour vivre l'expérience cascadeur le temps d'un week-end en immersion totale à 250€, profiter d'une prise en charge intégrale AFDAS en tant qu'artiste interprète, ou rejoindre notre grand Summer Camp estival sur nos installations.",
+            "bgAlt": "Stages et séjours de cascades au Campus Univers Cascades",
+            "logosAlt": "Logos des stages CUC"
+        }
     },
     "stuntWorkshop": {
         "heroMeta": "EN ANGLAIS & FRANÇAIS • 2 SEMAINES RÉSIDENTIELLES"

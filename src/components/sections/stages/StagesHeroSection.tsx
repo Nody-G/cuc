@@ -4,6 +4,7 @@ import { Link } from '@/i18n/navigation';
 import React from 'react';
 
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { Sparkles, ChevronRight } from 'lucide-react';
 
@@ -14,6 +15,8 @@ interface StagesHeroSectionProps {
 }
 
 export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }) => {
+  const t = useTranslations('stages');
+
   return (
     <>
       {/* Hero Header */}
@@ -21,7 +24,7 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
         <div className="absolute inset-0 z-0">
           <Image
             src={heroData?.bg_image || "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg"}
-            alt="Stages et séjours de cascades au Campus Univers Cascades"
+            alt={t('hero.bgAlt')}
             fill
             priority
             sizes="100vw"
@@ -33,18 +36,18 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">
-              ACCUEIL
+              {t('hero.breadcrumbHome')}
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-            <span className="text-[#FFE500]">STAGES & SÉJOURS DE CASCADES</span>
+            <span className="text-[#FFE500]">{t('hero.breadcrumbCurrent')}</span>
           </div>
 
           <div className="inline-flex items-center gap-2 mb-4">
             <StuntBadge variant="yellow" icon={<Sparkles className="w-3.5 h-3.5" />}>
-              {heroData?.badge || 'IMMERSION & PERFECTIONNEMENT'}
+              {heroData?.badge || t('hero.badge')}
             </StuntBadge>
             <span className="text-xs font-mono-tech text-zinc-400">
-              WEEK-ENDS DÈS 250€ • STAGES AFDAS 100% • SUMMER CAMP
+              {t('hero.meta')}
             </span>
           </div>
 
@@ -52,12 +55,12 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
             {heroData?.title ? (
               <span>{heroData.title}</span>
             ) : (
-              <>STAGES DE CASCADE, <span className="text-[#FFE500]">PARKOUR & ACTION</span></>
+              <>{t('hero.titleLead')}<span className="text-[#FFE500]">{t('hero.titleAccent')}</span></>
             )}
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-            {heroData?.subtitle || "Pour vivre l'expérience cascadeur le temps d'un week-end en immersion totale à 250€, profiter d'une prise en charge intégrale AFDAS en tant qu'artiste interprète, ou rejoindre notre grand Summer Camp estival sur nos installations."}
+            {heroData?.subtitle || t('hero.subtitle')}
           </p>
         </div>
       </section>
@@ -67,7 +70,7 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
         <div className="max-w-4xl mx-auto px-4 flex justify-center">
           <Image
             src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/Logos-stages-3-768x139.png"
-            alt="Logos des stages CUC"
+            alt={t('hero.logosAlt')}
             width={768}
             height={139}
             className="object-contain"

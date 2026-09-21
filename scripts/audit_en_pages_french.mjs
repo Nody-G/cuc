@@ -135,6 +135,15 @@ const normalizeTitle = (s) =>
         .replace(/[^a-z0-9]+/g, ' ')
         .trim();
 
+/**
+ * Clé de titre SANS suffixe d'année : `Lupin (2021)` → `lupin`.
+ * `isFilmTitleLine` retire déjà l'année de la ligne testée : les titres
+ * enregistrés doivent donc l'être sans année, sinon la comparaison échoue
+ * systématiquement (crédits de coachs : « La nuit se traîne (2024) »).
+ */
+const bareTitle = (value) =>
+    normalizeTitle(String(value).replace(/\(\d{4}(?:-\d{4})?\)/g, ' '));
+
 const FILM_TITLES = new Set();
 const PROPER_NOUNS = new Set();
 
@@ -173,7 +182,7 @@ async function loadFilmTitles() {
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     if (!url || !key) return;
     try {
-        const res = await fetch(`${url}/rest/v1/site_films?select=title`, {
+        const res = await fetch(`${url}/rest/v1/site_films?select=title,doubled_actors,director`, {
             headers: { apikey: key, Authorization: `Bearer ${key}` },
         });
         if (!res.ok) {
@@ -184,7 +193,39 @@ async function loadFilmTitles() {
         for (const row of rows || []) {
             const value = row?.title;
             if (typeof value === 'string' && value.trim().length > 3) {
-                FILM_TITLES.add(normalizeTitle(value));
+                FILM_TITLES.add(bareTitle(value));
+            }
+            // Réalisateurs et comédiens doublés : IDENTITÉS (personnes), jamais
+            // traduisibles. On les charge depuis la base pour qu'aucun nom réel
+            // ne soit compté comme du français résiduel (« Samuel Le Bihan »).
+            const people = [
+                row?.director,
+                ...(Array.isArray(row?.doubled_actors)
+                    ? row.doubled_actors
+                    : String(row?.doubled_actors || '').split(/\s*[,;]\s*/)),
+            ];
+            for (const person of people) {
+                if (typeof person === 'string' && person.trim().length > 2) {
+                    // « Samuel Le Bihan (OSS 117) » → « samuel le bihan »
+                    PROPER_NOUNS.add(normalizeTitle(person.replace(/\([^)]*\)/g, ' ')));
+                }
+            }
+        }
+
+        // Crédits des coachs (`site_team.notable_credits`) : « Titre (année) — Rôle ».
+        // Le titre est une œuvre, donc neutralisé au même titre que le catalogue.
+        const teamRes = await fetch(`${url}/rest/v1/site_team?select=notable_credits`, {
+            headers: { apikey: key, Authorization: `Bearer ${key}` },
+        });
+        if (teamRes.ok) {
+            const teamRows = await teamRes.json();
+            for (const row of teamRows || []) {
+                const credits = Array.isArray(row?.notable_credits) ? row.notable_credits : [];
+                for (const credit of credits) {
+                    if (typeof credit !== 'string') continue;
+                    const title = credit.split('—')[0];
+                    if (title.trim().length > 3) FILM_TITLES.add(bareTitle(title));
+                }
             }
         }
     } catch {
@@ -215,7 +256,7 @@ const ALLOWLIST = [
     /@campusuniverscascades|@campus\.univers\.cascades/i,
     // Faux positifs assumés : sigle égal en FR et EN, et lieux/décors du site.
     /Stunt Academy & Team\b/i,
-    /Zo[eé] Bell/i,
+    /Zo[eéë] Bell/i,
     /Op[eé]ra\b/i,
     // Titres d'émissions et de séries diffusées : noms propres, non traduits.
     /20H30 Le Mag/i,

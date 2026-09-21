@@ -146,6 +146,12 @@
             "satisfactionLabel": "Satisfaction Rate",
             "referenceLabel": "Reference Programme in France",
             "since": "SINCE 2011"
+        },
+        "disciplines": {
+            "badge": "TECHNICAL REPERTOIRE",
+            "title": "THE 10 PHYSICAL STUNT DISCIPLINES",
+            "cinemaContextLabel": "Film & Shoot Context:",
+            "equipmentLabel": "Equipment & Facilities:"
         }
     },
     "footer": {
@@ -270,8 +276,24 @@
                 "category": "Audiovisual Production",
                 "role": "Directing & Filming",
                 "description": "Video production studio, music videos and live show filming."
+            },
+            {
+                "name": "MFR Le Cateau-Cambrésis",
+                "role": "Accommodation & Catering",
+                "category": "Accommodation & Reception",
+                "description": "Accommodation and meals for trainees in Le Cateau-Cambrésis."
+            },
+            {
+                "name": "BSN Nutrition",
+                "role": "Sports Nutrition",
+                "category": "Sports Nutrition",
+                "description": "Sports nutrition and food supplements for athletes."
             }
-        ]
+        ],
+        "ctaBadge": "SPONSORING",
+        "ctaTitle": "BECOME A PARTNER",
+        "ctaBody": "Are you an equipment maker, a gear manufacturer, a special effects company or a brand looking to associate its image with the campus?",
+        "ctaButton": "Contact us"
     },
     "team": {
         "badge": "COACHES & FILM PROFESSIONALS",
@@ -307,7 +329,12 @@
         "campusFacultyTag": "CAMPUS FACULTY",
         "seeWholeTeam": "See the whole team",
         "cardCta": "Full profile",
-        "backToTeam": "Back to the teaching team"
+        "backToTeam": "Back to the teaching team",
+        "breadcrumbHome": "HOME",
+        "breadcrumbCurrent": "THE TEAM",
+        "ctaBlockTitle": "TRAIN WITH THE BEST PROFESSIONALS IN THE INDUSTRY",
+        "ctaBlockBody": "Every Campus Univers Cascades instructor works on film sets and passes on the current demands of international cinema.",
+        "ctaBlockButton": "Explore CUC Courses"
     },
     "contact": {
         "hero": {
@@ -937,7 +964,7 @@
                 "description": "Give your roles total credibility in action scenes. A 70-hour AFDAS-funded course delivered in our Paris studio in Gennevilliers. Learn to take impacts, handle blank-firing weapons, fall down stairs and shoot your own action demo reel.",
                 "details": [
                     "2 weeks (10 working days / 70 hours)",
-                    "CUC Île-de-France centre, 92230 Gennevilliers",
+                    "CUC Paris region centre, 92230 Gennevilliers",
                     "AFDAS-funded (no cost left for the artist)",
                     "Shooting of an individual action demo reel"
                 ],
@@ -970,14 +997,25 @@
                 "title": "AFDAS COURSE — PRO STUNT PERFORMERS (PROVENCE STUDIOS)",
                 "description": "Technical refresher session held inside the Provence Studios film stages. Multi-axis wire work, pneumatic ratchets, full-body burns and safety protocols for professional shoots.",
                 "details": [
-                    "Provence Studios, Martigues (Bouches-du-Rhône)",
+                    "Provence Studios, Martigues, France",
                     "AFDAS funding for freelance stunt performers"
                 ],
                 "buttonLabel": "Contact us about the pro sessions",
                 "pdfLabel": "",
                 "imageAlt": "CUC pro stunt performer course poster, Provence Studios"
             }
-        ]
+        ],
+        "hero": {
+            "breadcrumbHome": "HOME",
+            "breadcrumbCurrent": "STUNT COURSES & STAYS",
+            "badge": "IMMERSION & SKILL DEVELOPMENT",
+            "meta": "WEEKENDS FROM €250 • 100% AFDAS-FUNDED COURSES • SUMMER CAMP",
+            "titleLead": "STUNT, ",
+            "titleAccent": "PARKOUR & ACTION COURSES",
+            "subtitle": "Live the stunt performer experience over a full-immersion weekend for €250, benefit from full AFDAS funding as a performing artist, or join our big summer camp on our facilities.",
+            "bgAlt": "Stunt courses and stays at Campus Univers Cascades",
+            "logosAlt": "CUC course logos"
+        }
     },
     "stuntWorkshop": {
         "heroMeta": "IN ENGLISH & FRENCH • 2 RESIDENTIAL WEEKS"

@@ -1,14 +1,44 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { Zap, ChevronRight } from 'lucide-react';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { CUC_DISCIPLINES } from '@/data/disciplines';
+import { Discipline } from '@/types';
+import { getDisciplines } from '@/lib/data/site-service';
+import { applyDisciplineOverlays } from '@/lib/i18n/apply-discipline-overlay';
+import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 
+/**
+ * Référentiel des 10 disciplines de la cascade physique.
+ *
+ * Les fiches sont des DONNÉES (`site_disciplines`, repli `CUC_DISCIPLINES`) :
+ * elles sont chargées depuis la base, puis l'anglais se pose par-dessus via
+ * l'overlay `discipline` (`site_translations`). Aucun intitulé n'est dupliqué
+ * dans les catalogues : seul le chrome de la section y vit.
+ */
 export const FormationDisciplinesExplorer: React.FC = () => {
+  const t = useTranslations('formation');
   const [activeDisciplineIndex, setActiveDisciplineIndex] = useState(0);
-  const activeDiscipline = CUC_DISCIPLINES[activeDisciplineIndex];
+  const [rawDisciplines, setRawDisciplines] = useState<Discipline[]>(CUC_DISCIPLINES);
+
+  const disciplineOverlays = useEntityOverlays('discipline');
+  const disciplines = useMemo(
+    () => applyDisciplineOverlays(rawDisciplines, disciplineOverlays),
+    [rawDisciplines, disciplineOverlays]
+  );
+
+  useEffect(() => {
+    getDisciplines().then((data) => {
+      if (data && data.length > 0) setRawDisciplines(data);
+    });
+  }, []);
+
+  const activeDiscipline = disciplines[activeDisciplineIndex] || disciplines[0];
+
+  if (!activeDiscipline) return null;
 
   return (
     <section className="py-16 bg-[#09090d] border-t border-zinc-800">
@@ -16,10 +46,10 @@ export const FormationDisciplinesExplorer: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
           <div>
             <StuntBadge variant="yellow" icon={<Zap className="w-3.5 h-3.5" />}>
-              RÉPERTOIRE TECHNIQUE
+              {t('disciplines.badge')}
             </StuntBadge>
             <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mt-3">
-              LES 10 DISCIPLINES DE LA CASCADE PHYSIQUE
+              {t('disciplines.title')}
             </h2>
           </div>
         </div>
@@ -28,23 +58,21 @@ export const FormationDisciplinesExplorer: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Navigation List on Left */}
           <div className="lg:col-span-5 space-y-2 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
-            {CUC_DISCIPLINES.map((d, index) => {
+            {disciplines.map((d, index) => {
               const isSelected = index === activeDisciplineIndex;
               return (
                 <button
                   key={d.id}
                   onClick={() => setActiveDisciplineIndex(index)}
-                  className={`w-full text-left p-3.5 border transition-all cursor-pointer flex items-center justify-between ${
-                    isSelected
+                  className={`w-full text-left p-3.5 border transition-all cursor-pointer flex items-center justify-between ${isSelected
                       ? 'bg-[#14141c] border-[#FFE500] text-white shadow-lg'
                       : 'bg-[#0b0b0f] border-zinc-800/80 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200'
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center gap-3 truncate">
                     <span
-                      className={`font-mono-tech text-xs font-bold ${
-                        isSelected ? 'text-[#FFE500]' : 'text-zinc-500'
-                      }`}
+                      className={`font-mono-tech text-xs font-bold ${isSelected ? 'text-[#FFE500]' : 'text-zinc-500'
+                        }`}
                     >
                       {d.number}
                     </span>
@@ -53,11 +81,10 @@ export const FormationDisciplinesExplorer: React.FC = () => {
                     </span>
                   </div>
                   <ChevronRight
-                    className={`w-4 h-4 shrink-0 transition-transform ${
-                      isSelected
+                    className={`w-4 h-4 shrink-0 transition-transform ${isSelected
                         ? 'text-[#FFE500] translate-x-1'
                         : 'text-zinc-600'
-                    }`}
+                      }`}
                   />
                 </button>
               );
@@ -91,14 +118,14 @@ export const FormationDisciplinesExplorer: React.FC = () => {
             <div className="space-y-4 pt-4 border-t border-zinc-800 text-xs font-tech">
               <div>
                 <strong className="text-[#FFE500] font-mono-tech block mb-1 uppercase">
-                  Contexte Cinéma &amp; Tournage :
+                  {t('disciplines.cinemaContextLabel')}
                 </strong>
                 <p className="text-zinc-400">{activeDiscipline.cinemaContext}</p>
               </div>
 
               <div>
                 <strong className="text-[#FFE500] font-mono-tech block mb-1 uppercase">
-                  Équipements &amp; Installations :
+                  {t('disciplines.equipmentLabel')}
                 </strong>
                 <div className="flex flex-wrap gap-1.5 mt-1">
                   {activeDiscipline.equipment.map((item, idx) => (

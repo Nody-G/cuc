@@ -104,10 +104,10 @@ export default function EquipeCascadeursProPage() {
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
               <Link href="/" className="hover:text-[#FFE500] transition-colors">
-                ACCUEIL
+                {t('breadcrumbHome')}
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-              <span className="text-[#FFE500]">L'ÉQUIPE</span>
+              <span className="text-[#FFE500]">{t('breadcrumbCurrent')}</span>
             </div>
 
             <div className="inline-flex items-center gap-2 mb-4">
@@ -371,15 +371,14 @@ export default function EquipeCascadeursProPage() {
             <div className="mt-16 bg-[#121218] border-2 border-zinc-800 p-8 text-center relative">
 
               <h3 className="text-2xl sm:text-3xl font-display uppercase text-white mb-2">
-                FORMEZ-VOUS AVEC LES MEILLEURS PROFESSIONNELS DU SECTEUR
+                {t('ctaBlockTitle')}
               </h3>
               <p className="text-xs font-tech text-zinc-400 max-w-xl mx-auto mb-6">
-                Chaque instructeur du Campus Univers Cascades est actif sur les plateaux de tournage
-                et transmet les exigences actuelles du cinéma mondial.
+                {t('ctaBlockBody')}
               </p>
               <Link href="/formation-de-cascadeur">
                 <TacticalButton variant="primary" size="md">
-                  Découvrir les Formations du CUC
+                  {t('ctaBlockButton')}
                 </TacticalButton>
               </Link>
             </div>

@@ -44,8 +44,17 @@ export const PartenairesGridSection: React.FC = () => {
     [partnerCopy]
   );
 
-  /** Rôle, catégorie et description localisés d'un partenaire (donnée en repli). */
-  const localized = (partner: Partner) => {
+  /**
+   * Rôle, catégorie et description localisés d'un partenaire (donnée en repli).
+   * Le type reste structurel : les fiches statiques (`Partner`) et celles du
+   * Cockpit (`SitePartner`) partagent ces champs sans héritage commun.
+   */
+  const localized = (partner: {
+    name: string;
+    role?: string;
+    category?: string;
+    description?: string;
+  }) => {
     const copy = copyByName.get(partner.name.toLowerCase().trim());
     return {
       role: copy?.role || partner.role,
@@ -121,9 +130,9 @@ export const PartenairesGridSection: React.FC = () => {
                       {partner.name}
                     </h3>
 
-                    {partner.description && (
+                    {localized(partner).description && (
                       <p className="text-xs font-tech text-zinc-300 leading-relaxed">
-                        {partner.description}
+                        {localized(partner).description}
                       </p>
                     )}
                   </div>
@@ -195,9 +204,9 @@ export const PartenairesGridSection: React.FC = () => {
                       {partner.name}
                     </h3>
 
-                    {partner.description && (
+                    {localized(partner).description && (
                       <p className="text-xs font-tech text-zinc-300 leading-relaxed">
-                        {partner.description}
+                        {localized(partner).description}
                       </p>
                     )}
                   </div>
