@@ -152,7 +152,7 @@ export default function VideosCascadeurPage() {
                     poster="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/ReportageBFMTV-Alecoledescascadeurs.jpeg"
                   >
                     <source
-                      src="https://www.campus-universcascades.com/wp-content/uploads/2021/07/TF1-JT-20h-CUC-reportage-1.mp4"
+                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/reportages/TF1-JT-20h-CUC-reportage-1.mp4"
                       type="video/mp4"
                     />
                     Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
@@ -166,7 +166,11 @@ export default function VideosCascadeurPage() {
                     poster="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/coeur-de-cascadeurs.jpeg"
                   >
                     <source
-                      src="https://www.campus-universcascades.com/wp-content/uploads/2021/07/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4"
+                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/reportages/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1-part1.mp4"
+                      type="video/mp4"
+                    />
+                    <source
+                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/reportages/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1-part2.mp4"
                       type="video/mp4"
                     />
                     Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.
@@ -326,7 +330,7 @@ export default function VideosCascadeurPage() {
               </a>
 
               <a
-                href="https://www.tiktok.com/@campus.univers.cascades"
+                href="https://www.tiktok.com/@campusuniverscascades"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-5 py-3 bg-[#121218] border border-zinc-800 hover:border-[#FFE500] text-xs font-mono-tech text-zinc-300 hover:text-white flex items-center gap-2 transition-colors"

@@ -16,7 +16,7 @@ import { CelebrityDetailsModal } from './hall-of-fame/CelebrityDetailsModal';
 
 const CATEGORIES = [
   { id: 'all', label: 'Toutes les Productions' },
-  { id: 'Blockbuster', label: 'Blockbusters Hollywood' },
+  { id: 'Blockbuster', label: 'Productions Internationales' },
   { id: 'Cinéma Français', label: 'Cinéma Français & Auteurs' },
   { id: 'Show & Événement', label: 'Shows & Parcs à Thème' },
 ];

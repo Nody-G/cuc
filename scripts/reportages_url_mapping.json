@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-09-20T23:43:13.227Z",
+  "bucket": "cuc-vitrine-assets",
+  "prefix": "media/reportages",
+  "mapping": [
+    {
+      "source": "TF1-JT-20h-CUC-reportage-1.mp4",
+      "legacyUrl": "https://www.campus-universcascades.com/wp-content/uploads/2023/02/TF1-JT-20h-CUC-reportage-1.mp4",
+      "height": 720,
+      "videoKbps": 1241,
+      "segments": [
+        {
+          "file": "TF1-JT-20h-CUC-reportage-1.mp4",
+          "bytes": 50024422,
+          "objectPath": "media/reportages/TF1-JT-20h-CUC-reportage-1.mp4",
+          "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/reportages/TF1-JT-20h-CUC-reportage-1.mp4"
+        }
+      ]
+    },
+    {
+      "source": "20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4",
+      "legacyUrl": "https://www.campus-universcascades.com/wp-content/uploads/2023/02/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4",
+      "height": 480,
+      "videoKbps": 421,
+      "segments": [
+        {
+          "file": "20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1-part1.mp4",
+          "bytes": 41435630,
+          "objectPath": "media/reportages/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1-part1.mp4",
+          "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/reportages/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1-part1.mp4"
+        },
+        {
+          "file": "20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1-part2.mp4",
+          "bytes": 41762490,
+          "objectPath": "media/reportages/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1-part2.mp4",
+          "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/reportages/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1-part2.mp4"
+        }
+      ]
+    }
+  ]
+}

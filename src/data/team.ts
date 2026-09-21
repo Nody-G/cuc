@@ -139,7 +139,7 @@ export const CUC_TEAM: Instructor[] = [
     role: 'Spécialiste Combats & Chutes',
     title: 'Cascadeur Professionnel & Doublure',
     specialties: ['Combats chorégraphiés', 'Tricking & Arts martiaux', 'Chutes physiques', 'Doublure cinéma'],
-    bio: 'Cascadeur professionnel, membre de Cascade Demo Team et Hitz International. Lauréat d\'un Taurus World Stunt Award pour John Wick 4 et nommé meilleur coordinateur pour The Killer (John Woo). Il est notamment la doublure exclusive de Keanu Reeves et Tomer Sisley.',
+    bio: 'Cascadeur professionnel, membre de Cascade Demo Team et Hitz International. Lauréat d\'un Taurus World Stunt Award pour John Wick 4 et nommé meilleur coordinateur pour The Killer (John Woo). Il est notamment la doublure de Keanu Reeves et Tomer Sisley.',
     doubledActors: ['Keanu Reeves', 'Tomer Sisley', 'Adam Sandler', 'Scott Adkins', 'Jean Dujardin'],
     notableCredits: [
       'The Killer (2024) — Stunt Coordinator (Nomination Taurus Award) & Cascadeur',
@@ -718,8 +718,8 @@ export const CUC_TEAM: Instructor[] = [
     name: 'Alan Cueff',
     role: 'Instructeur & Cascadeur',
     title: 'Cascadeur Professionnel & Formateur CUC',
-    specialties: ['Acrobaties', 'Chutes physiques', 'Stunt automobile', 'Déplacement tactique'],
-    bio: 'Formateur au CUC et cascadeur professionnel diplômé BPJEPS AGA. Il intervient sur les cascades physiques, acrobaties et déplacements tactiques pour des productions télévisuelles et cinématographiques.',
+    specialties: ['Acrobaties', 'Chutes physiques', 'Stunt automobile', 'Déplacements'],
+    bio: 'Formateur au CUC et cascadeur professionnel diplômé BPJEPS AGA. Il intervient sur les cascades physiques, acrobaties et déplacements pour des productions télévisuelles et cinématographiques.',
     notableCredits: [
       'Quasimodo — Cascadeur & Acrobaties',
       'Anna (2019) — Cascadeur',

@@ -1539,8 +1539,6 @@ export const SAMPLE_AUDIT_LOGS: AuditLogEntry[] = [
   },
 ];
 
-const LOCAL_STORAGE_INQUIRIES_KEY = 'cuc_site_inquiries_cache';
-
 /**
  * Récupère la liste des candidatures et demandes de contact.
  * Se synchronise en direct avec Supabase (table dédiée site_inquiries + miroir site_settings).
@@ -1554,13 +1552,6 @@ export async function getInquiries(): Promise<SiteInquiry[]> {
       .order('created_at', { ascending: false });
 
     if (!error && Array.isArray(data)) {
-      if (typeof window !== 'undefined') {
-        try {
-          localStorage.setItem(LOCAL_STORAGE_INQUIRIES_KEY, JSON.stringify(data));
-        } catch {
-          // ignore
-        }
-      }
       return data as SiteInquiry[];
     }
 
@@ -1578,18 +1569,10 @@ export async function getInquiries(): Promise<SiteInquiry[]> {
     // Ignore error
   }
 
-  // Fallback localStorage
-  if (typeof window !== 'undefined') {
-    try {
-      const cached = localStorage.getItem(LOCAL_STORAGE_INQUIRIES_KEY);
-      if (cached) {
-        return JSON.parse(cached);
-      }
-    } catch {
-      // Ignore parse error
-    }
-  }
-
+  // Doctrine « Zéro Valeur Orpheline » : aucun repli sur localStorage.
+  // Un cache navigateur non synchronisé pouvait masquer la base et afficher des
+  // candidatures obsolètes. Le dernier recours est l'échantillon versionné du
+  // dépôt, identique pour le Cockpit comme pour la vitrine.
   return SAMPLE_INQUIRIES;
 }
 
@@ -1713,16 +1696,10 @@ export async function getDisciplines(): Promise<Discipline[]> {
     // Fallback
   }
 
-  // Fallback localStorage
-  if (typeof window !== 'undefined') {
-    try {
-      const cached = localStorage.getItem('cuc_disciplines');
-      if (cached) return JSON.parse(cached);
-    } catch {
-      // Ignore
-    }
-  }
-
+  // Doctrine « Zéro Valeur Orpheline » : aucun repli sur localStorage.
+  // Un cache navigateur non synchronisé pouvait masquer la base et figer des
+  // disciplines obsolètes. Le dernier recours est la constante versionnée du
+  // dépôt, traçable et identique pour le Cockpit comme pour la vitrine.
   return CUC_DISCIPLINES;
 }
 

@@ -1,0 +1,819 @@
+{
+  "generatedAt": "2026-09-21T00:01:36.560Z",
+  "scannedFiles": 417,
+  "total": 99,
+  "byGroup": {
+    "badge": 61,
+    "jargon": 10,
+    "chiffre": 2,
+    "superlatif": 15,
+    "terminologie": 11
+  },
+  "byRule": [
+    {
+      "id": "badge-hollywood",
+      "group": "badge",
+      "count": 4
+    },
+    {
+      "id": "badge-pro-staff",
+      "group": "badge",
+      "count": 1
+    },
+    {
+      "id": "badge-worldwide",
+      "group": "badge",
+      "count": 14
+    },
+    {
+      "id": "badge-box-office",
+      "group": "badge",
+      "count": 7
+    },
+    {
+      "id": "badge-tactique",
+      "group": "badge",
+      "count": 26
+    },
+    {
+      "id": "badge-elite",
+      "group": "badge",
+      "count": 8
+    },
+    {
+      "id": "badge-exclusif",
+      "group": "badge",
+      "count": 1
+    },
+    {
+      "id": "superl-à-couper-le-souffle",
+      "group": "superlatif",
+      "count": 1
+    },
+    {
+      "id": "superl-chutes-massives",
+      "group": "superlatif",
+      "count": 1
+    },
+    {
+      "id": "superl-dossier-pro-complet",
+      "group": "superlatif",
+      "count": 1
+    },
+    {
+      "id": "superl-gun-fu",
+      "group": "superlatif",
+      "count": 8
+    },
+    {
+      "id": "superl-expérience-immersive",
+      "group": "superlatif",
+      "count": 1
+    },
+    {
+      "id": "superl-succès-mondial",
+      "group": "superlatif",
+      "count": 3
+    },
+    {
+      "id": "termino-add",
+      "group": "terminologie",
+      "count": 6
+    },
+    {
+      "id": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "count": 5
+    },
+    {
+      "id": "jargon-radar-tactique",
+      "group": "jargon",
+      "count": 2
+    },
+    {
+      "id": "jargon-hub-opérationnel",
+      "group": "jargon",
+      "count": 1
+    },
+    {
+      "id": "jargon-cursus-élite",
+      "group": "jargon",
+      "count": 1
+    },
+    {
+      "id": "jargon-gps-actif",
+      "group": "jargon",
+      "count": 1
+    },
+    {
+      "id": "jargon-5-paliers",
+      "group": "jargon",
+      "count": 3
+    },
+    {
+      "id": "jargon-tactical",
+      "group": "jargon",
+      "count": 2
+    },
+    {
+      "id": "chiffre-tour-de-saut-extreme",
+      "group": "chiffre",
+      "count": 2
+    }
+  ],
+  "findings": [
+    {
+      "file": "src\\app\\admin\\components\\CampusZonesView.tsx",
+      "line": 98,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "Configurez les points d’intérêt tactiques du parc de 6 hectares, coordonnées radar et modules associés."
+    },
+    {
+      "file": "src\\app\\admin\\components\\CampusZonesView.tsx",
+      "line": 140,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "Radar Tactique Campus • Le Cateau-Cambrésis (Nord)"
+    },
+    {
+      "file": "src\\app\\admin\\components\\CampusZonesView.tsx",
+      "line": 140,
+      "rule": "jargon-radar-tactique",
+      "group": "jargon",
+      "text": "Radar Tactique Campus • Le Cateau-Cambrésis (Nord)"
+    },
+    {
+      "file": "src\\app\\admin\\components\\CampusZonesView.tsx",
+      "line": 337,
+      "rule": "chiffre-tour-de-saut-extreme",
+      "group": "chiffre",
+      "text": "placeholder=\"ex: Tour de Saut Extrême 21m\""
+    },
+    {
+      "file": "src\\app\\admin\\components\\CampusZonesView.tsx",
+      "line": 428,
+      "rule": "jargon-5-paliers",
+      "group": "jargon",
+      "text": "placeholder=\"ex: Hauteur 21m • 5 paliers • Poutre de largage\""
+    },
+    {
+      "file": "src\\app\\admin\\components\\DisciplinesView.tsx",
+      "line": 481,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "<option value=\"Tactique\">Tactique</option>"
+    },
+    {
+      "file": "src\\app\\admin\\components\\InquiriesView.tsx",
+      "line": 99,
+      "rule": "superl-expérience-immersive",
+      "group": "superlatif",
+      "text": "Nous avons le plaisir de vous soumettre notre proposition d'expérience immersive cascade cinéma adaptée à votre équipe :"
+    },
+    {
+      "file": "src\\app\\admin\\components\\SettingsView.tsx",
+      "line": 434,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "<option value=\"dark\">⚫ Sombre Tactique</option>"
+    },
+    {
+      "file": "src\\app\\stunt-workshop-cuc\\page.tsx",
+      "line": 227,
+      "rule": "jargon-tactical",
+      "group": "jargon",
+      "text": "alt=\"CUC BRI Tactical Stunt Training\""
+    },
+    {
+      "file": "src\\components\\sections\\contact\\ContactForm.tsx",
+      "line": 214,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "International Stunt Workshop (Worldwide)"
+    },
+    {
+      "file": "src\\components\\sections\\formation\\FormationFormulesSection.tsx",
+      "line": 196,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "<span>Forces spéciales, armes à blanc et rappel tactique</span>"
+    },
+    {
+      "file": "src\\components\\sections\\HallOfFame.tsx",
+      "line": 19,
+      "rule": "badge-hollywood",
+      "group": "badge",
+      "text": "{ id: 'Blockbuster', label: 'Blockbusters Hollywood' },"
+    },
+    {
+      "file": "src\\components\\sections\\home\\HomeTournagesSection.tsx",
+      "line": 85,
+      "rule": "badge-box-office",
+      "group": "badge",
+      "text": "\"Partenaire privilégié des productions de cinéma, des séries et des diffuseurs mondiaux, le Campus Univers Cascades met à disposition son expertise en action design, direction de combats et sécurité s"
+    },
+    {
+      "file": "src\\components\\ui\\campus-map\\campusMap.data.ts",
+      "line": 9,
+      "rule": "jargon-tactical",
+      "group": "jargon",
+      "text": "xPercent: number; // For tactical radar layout"
+    },
+    {
+      "file": "src\\components\\ui\\campus-map\\campusMap.data.ts",
+      "line": 44,
+      "rule": "chiffre-tour-de-saut-extreme",
+      "group": "chiffre",
+      "text": "name: 'Tour de Saut Extrême 21m',"
+    },
+    {
+      "file": "src\\components\\ui\\campus-map\\campusMap.data.ts",
+      "line": 48,
+      "rule": "jargon-5-paliers",
+      "group": "jargon",
+      "text": "specs: 'Hauteur 21m • 5 paliers • Poutre de largage • Certifiée APAVE',"
+    },
+    {
+      "file": "src\\components\\ui\\campus-map\\campusMap.data.ts",
+      "line": 86,
+      "rule": "badge-hollywood",
+      "group": "badge",
+      "text": "'Portiques et treuils de vol à haute vitesse pour simuler les propulsions explosives, envolées super-héros et cascades câblées Hollywood.',"
+    },
+    {
+      "file": "src\\data\\celebrities.ts",
+      "line": 65,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "stuntSpecialty: 'Combats rapprochés et fusillades tactiques.',"
+    },
+    {
+      "file": "src\\data\\disciplines.ts",
+      "line": 60,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "equipment: ['Répliques d\\'armes factices et à blanc', 'Holsters d\\'action', 'Cordes de rappel et descendeurs', 'Gilets tactiques de cinéma'],"
+    },
+    {
+      "file": "src\\data\\programs.ts",
+      "line": 166,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "'Maniement d\\'armes à feu et déplacements tactiques',"
+    },
+    {
+      "file": "src\\data\\team.ts",
+      "line": 142,
+      "rule": "badge-exclusif",
+      "group": "badge",
+      "text": "bio: 'Cascadeur professionnel, membre de Cascade Demo Team et Hitz International. Lauréat d\\'un Taurus World Stunt Award pour John Wick 4 et nommé meilleur coordinateur pour The Killer (John Woo). Il "
+    },
+    {
+      "file": "src\\data\\team.ts",
+      "line": 721,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "specialties: ['Acrobaties', 'Chutes physiques', 'Stunt automobile', 'Déplacement tactique'],"
+    },
+    {
+      "file": "src\\data\\team.ts",
+      "line": 722,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "bio: 'Formateur au CUC et cascadeur professionnel diplômé BPJEPS AGA. Il intervient sur les cascades physiques, acrobaties et déplacements tactiques pour des productions télévisuelles et cinématograph"
+    },
+    {
+      "file": "src\\data\\team.ts",
+      "line": 741,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "'Elyas (2024) — Cascadeur (Cascades physiques & tactique)',"
+    },
+    {
+      "file": "src\\data\\team.ts",
+      "line": 765,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "'elyas': 'Cascadeur (Cascades physiques & tactique)',"
+    },
+    {
+      "file": "src\\lib\\credit-role.ts",
+      "line": 62,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "'rapproches', 'rapprochés', 'tactiques', 'tactique', 'scene', 'scène',"
+    },
+    {
+      "file": "scripts\\coach_credits_review.json",
+      "line": 239,
+      "rule": "badge-elite",
+      "group": "badge",
+      "text": "\"title\": \"Elite Force\","
+    },
+    {
+      "file": "scripts\\coach_credits_review.json",
+      "line": 1716,
+      "rule": "superl-gun-fu",
+      "group": "superlatif",
+      "text": "\"declaredRole\": \"Cascadeur (Gun-fu & Combats)\","
+    },
+    {
+      "file": "scripts\\coach_credits_review.json",
+      "line": 1877,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "\"declaredRole\": \"Cascadeur (Combats tactiques)\","
+    },
+    {
+      "file": "scripts\\coach_credits_review.json",
+      "line": 2349,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "\"declaredRole\": \"Cascadeur (Cascades physiques & tactique)\","
+    },
+    {
+      "file": "scripts\\coach_credits_review.json",
+      "line": 2590,
+      "rule": "badge-elite",
+      "group": "badge",
+      "text": "\"title\": \"Elite Force\","
+    },
+    {
+      "file": "scripts\\coach_credits_review.json",
+      "line": 2602,
+      "rule": "badge-elite",
+      "group": "badge",
+      "text": "\"formatted\": \"Elite Force (2026) — Coordinateur des cascades\""
+    },
+    {
+      "file": "scripts\\coach_credits_review_imdb.json",
+      "line": 5909,
+      "rule": "superl-gun-fu",
+      "group": "superlatif",
+      "text": "\"declaredRole\": \"Cascadeur (Gun-fu & Combats)\","
+    },
+    {
+      "file": "scripts\\coach_credits_review_imdb.json",
+      "line": 6492,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "\"declaredRole\": \"Cascadeur (Combats tactiques)\","
+    },
+    {
+      "file": "scripts\\coach_credits_review_imdb.json",
+      "line": 9250,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "\"declaredRole\": \"Cascadeur (Cascades physiques & tactique)\","
+    },
+    {
+      "file": "scripts\\enrich_films_and_roles.mjs",
+      "line": 51,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "'rapproches', 'tactiques', 'scene', 'generale', 'partielle',"
+    },
+    {
+      "file": "scripts\\enrich_films_and_roles.mjs",
+      "line": 116,
+      "rule": "termino-add",
+      "group": "terminologie",
+      "text": ".replace(/l['’]?Art du Déplacement\\s*\\(ADD\\)/gi, 'Parkour')"
+    },
+    {
+      "file": "scripts\\enrich_films_and_roles.mjs",
+      "line": 116,
+      "rule": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "text": ".replace(/l['’]?Art du Déplacement\\s*\\(ADD\\)/gi, 'Parkour')"
+    },
+    {
+      "file": "scripts\\enrich_films_and_roles.mjs",
+      "line": 117,
+      "rule": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "text": ".replace(/Art du Déplacement/gi, 'Parkour')"
+    },
+    {
+      "file": "scripts\\films_real_data.json",
+      "line": 2178,
+      "rule": "badge-elite",
+      "group": "badge",
+      "text": "\"description\": \"Join an elite team of highly trained soldiers. Armed to the teeth with unrivaled combat technology and cutting-edge military hardware, Ghost Recon takes you to the globe's most deadly "
+    },
+    {
+      "file": "scripts\\films_real_data.json",
+      "line": 2577,
+      "rule": "badge-elite",
+      "group": "badge",
+      "text": "\"description\": \"Léa Parker, from Special Operation Division, a secret cell of the French police, is an elite agent. So, she cannot reveal her true job to anyone close to her and is an archivist as a c"
+    },
+    {
+      "file": "scripts\\films_real_data.json",
+      "line": 4619,
+      "rule": "badge-elite",
+      "group": "badge",
+      "text": "\"description\": \"Joachim Jo Saint-Clair is a veteran detective in Paris elite Criminal Brigade tackling the city's most challenging murder cases.\","
+    },
+    {
+      "file": "scripts\\films_real_data.json",
+      "line": 6835,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "\"description\": \"Mistaken for a dangerous Islamist, Saadi - a regular guy who happens to be an illegal Arab immigrant - sets out on the most dangerous day of his life. A satirical and thrilling comedy "
+    },
+    {
+      "file": "scripts\\fix_doctrine_in_db.mjs",
+      "line": 87,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "{ re: /\\bRADAR\\s+TACTIQUE\\b/gi, to: 'Cartographie du campus' },"
+    },
+    {
+      "file": "scripts\\lib\\credit-curator.mjs",
+      "line": 244,
+      "rule": "superl-chutes-massives",
+      "group": "superlatif",
+      "text": "[/chutes massives/gi, 'chutes'],"
+    },
+    {
+      "file": "scripts\\lib\\credit-curator.mjs",
+      "line": 245,
+      "rule": "superl-dossier-pro-complet",
+      "group": "superlatif",
+      "text": "[/dossier pro complet/gi, 'parcours'],"
+    },
+    {
+      "file": "scripts\\media_classification.json",
+      "line": 7468,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "\"key\": \"www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf\","
+    },
+    {
+      "file": "scripts\\media_classification.json",
+      "line": 7469,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "\"url\": \"https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf\","
+    },
+    {
+      "file": "scripts\\media_classification.json",
+      "line": 7480,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "\"https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf\""
+    },
+    {
+      "file": "scripts\\media_inventory.json",
+      "line": 50,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "\"key\": \"www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf\","
+    },
+    {
+      "file": "scripts\\media_inventory.json",
+      "line": 51,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "\"url\": \"https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf\","
+    },
+    {
+      "file": "scripts\\media_inventory.json",
+      "line": 62,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "\"https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf\""
+    },
+    {
+      "file": "scripts\\media_url_mapping.json",
+      "line": 1735,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "\"originalUrl\": \"https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf\","
+    },
+    {
+      "file": "scripts\\media_url_mapping.json",
+      "line": 1737,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "\"objectPath\": \"media/document/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf\","
+    },
+    {
+      "file": "scripts\\media_url_mapping.json",
+      "line": 1738,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "\"publicUrl\": \"https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf\","
+    },
+    {
+      "file": "scripts\\migrate_all_data_to_supabase.mjs",
+      "line": 34,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "'murder-mystery-2': { year: '2023', category: 'Blockbuster', director: 'Jeremy Garelick', tag: 'NETFLIX WORLDWIDE' },"
+    },
+    {
+      "file": "scripts\\migrate_all_data_to_supabase.mjs",
+      "line": 46,
+      "rule": "superl-succès-mondial",
+      "group": "superlatif",
+      "text": "'lupin': { year: '2021', category: 'Série / Plateforme', director: 'Louis Leterrier', tag: 'SUCCÈS MONDIAL NETFLIX' },"
+    },
+    {
+      "file": "scripts\\migrate_all_data_to_supabase.mjs",
+      "line": 57,
+      "rule": "badge-box-office",
+      "group": "badge",
+      "text": "'alibi-com': { year: '2017', category: 'Cinéma Français', director: 'Philippe Lacheau', tag: 'BOX-OFFICE' },"
+    },
+    {
+      "file": "scripts\\migrate_all_data_to_supabase.mjs",
+      "line": 60,
+      "rule": "badge-box-office",
+      "group": "badge",
+      "text": "'raid-dingue': { year: '2017', category: 'Cinéma Français', director: 'Dany Boon', tag: 'BOX-OFFICE' },"
+    },
+    {
+      "file": "scripts\\migrate_all_data_to_supabase.mjs",
+      "line": 61,
+      "rule": "badge-box-office",
+      "group": "badge",
+      "text": "'lucy': { year: '2014', category: 'Blockbuster', director: 'Luc Besson', tag: 'BOX-OFFICE MONDIAL' },"
+    },
+    {
+      "file": "scripts\\normalize_film_tags_in_db.mjs",
+      "line": 37,
+      "rule": "badge-hollywood",
+      "group": "badge",
+      "text": "['HOLLYWOOD', 'BLOCKBUSTER'],"
+    },
+    {
+      "file": "scripts\\normalize_film_tags_in_db.mjs",
+      "line": 38,
+      "rule": "badge-box-office",
+      "group": "badge",
+      "text": "['BOX-OFFICE', 'BLOCKBUSTER'],"
+    },
+    {
+      "file": "scripts\\normalize_film_tags_in_db.mjs",
+      "line": 39,
+      "rule": "badge-box-office",
+      "group": "badge",
+      "text": "['BOX OFFICE', 'BLOCKBUSTER'],"
+    },
+    {
+      "file": "scripts\\normalize_film_tags_in_db.mjs",
+      "line": 42,
+      "rule": "superl-succès-mondial",
+      "group": "superlatif",
+      "text": "['SUCCÈS MONDIAL NETFLIX', 'SÉRIE NETFLIX'],"
+    },
+    {
+      "file": "scripts\\normalize_film_tags_in_db.mjs",
+      "line": 43,
+      "rule": "superl-succès-mondial",
+      "group": "superlatif",
+      "text": "['SUCCES MONDIAL NETFLIX', 'SÉRIE NETFLIX'],"
+    },
+    {
+      "file": "scripts\\normalize_film_tags_in_db.mjs",
+      "line": 44,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "['WORLDWIDE', 'CINÉMA INTERNATIONAL'],"
+    },
+    {
+      "file": "scripts\\normalize_film_tags_in_db.mjs",
+      "line": 45,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "['POLAR TACTIQUE', 'POLAR'],"
+    },
+    {
+      "file": "scripts\\normalize_film_tags_in_db.mjs",
+      "line": 47,
+      "rule": "badge-elite",
+      "group": "badge",
+      "text": "['ELITE', 'CURSUS DIPLÔMANT'],"
+    },
+    {
+      "file": "scripts\\README-coach-scraper.md",
+      "line": 100,
+      "rule": "superl-gun-fu",
+      "group": "superlatif",
+      "text": "sensationnalistes (« ADD » → « Parkour », « gun-fu » → « Combats rapprochés »,"
+    },
+    {
+      "file": "scripts\\README-coach-scraper.md",
+      "line": 100,
+      "rule": "termino-add",
+      "group": "terminologie",
+      "text": "sensationnalistes (« ADD » → « Parkour », « gun-fu » → « Combats rapprochés »,"
+    },
+    {
+      "file": "scripts\\README-coach-scraper.md",
+      "line": 191,
+      "rule": "termino-add",
+      "group": "terminologie",
+      "text": "- **Terminologie Parkour** : le normaliseur bannit `ADD` et"
+    },
+    {
+      "file": "scripts\\README-coach-scraper.md",
+      "line": 192,
+      "rule": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "text": "`Art du Déplacement`, remplacés systématiquement par **Parkour**."
+    },
+    {
+      "file": "scripts\\README-coach-scraper.md",
+      "line": 202,
+      "rule": "superl-gun-fu",
+      "group": "superlatif",
+      "text": "règles que le normaliseur (`ADD` → Parkour, `gun-fu` → Combats rapprochés,"
+    },
+    {
+      "file": "scripts\\README-coach-scraper.md",
+      "line": 202,
+      "rule": "termino-add",
+      "group": "terminologie",
+      "text": "règles que le normaliseur (`ADD` → Parkour, `gun-fu` → Combats rapprochés,"
+    },
+    {
+      "file": "scripts\\seed_pages_content.sql",
+      "line": 178,
+      "rule": "superl-à-couper-le-souffle",
+      "group": "superlatif",
+      "text": "\"subtitle\": \"Des chorégraphies physiques à couper le souffle, adaptées à vos scènes indoor ou outdoor, avec les meilleurs talents de la discipline.\","
+    },
+    {
+      "file": "scripts\\sync_all_coach_credits_supabase.mjs",
+      "line": 219,
+      "rule": "superl-gun-fu",
+      "group": "superlatif",
+      "text": "'The Killer (2024, John Woo) — Cascadeur (Gun-fu & Combats)',"
+    },
+    {
+      "file": "scripts\\sync_all_coach_credits_supabase.mjs",
+      "line": 228,
+      "rule": "superl-gun-fu",
+      "group": "superlatif",
+      "text": "'the-killer': 'Cascadeur (Gun-fu & Combats)',"
+    },
+    {
+      "file": "scripts\\sync_all_coach_credits_supabase.mjs",
+      "line": 242,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "'Elyas (2024) — Cascadeur (Combats tactiques)',"
+    },
+    {
+      "file": "scripts\\sync_all_coach_credits_supabase.mjs",
+      "line": 255,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "'elyas': 'Cascadeur (Combats tactiques)',"
+    },
+    {
+      "file": "scripts\\sync_all_coach_credits_supabase.mjs",
+      "line": 331,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "'Elyas (2024) — Cascadeur (Cascades physiques & tactique)',"
+    },
+    {
+      "file": "scripts\\sync_all_coach_credits_supabase.mjs",
+      "line": 337,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "'elyas': 'Cascadeur (Cascades physiques & tactique)',"
+    },
+    {
+      "file": "scripts\\sync_all_coach_credits_supabase.mjs",
+      "line": 470,
+      "rule": "superl-gun-fu",
+      "group": "superlatif",
+      "text": "'maurice-chan': 'Cascadeur (Gun-fu & Combats)',"
+    },
+    {
+      "file": "scripts\\sync_all_coach_credits_supabase.mjs",
+      "line": 492,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "'michael-troude': 'Cascadeur (Combats tactiques)',"
+    },
+    {
+      "file": "scripts\\verify_doctrine_in_db.mjs",
+      "line": 71,
+      "rule": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "text": "label: 'Art du Déplacement (banni — utiliser « Parkour »)',"
+    },
+    {
+      "file": "scripts\\verify_doctrine_in_db.mjs",
+      "line": 76,
+      "rule": "termino-add",
+      "group": "terminologie",
+      "text": "label: 'Acronyme ADD (banni — utiliser « Parkour »)',"
+    },
+    {
+      "file": "scripts\\verify_doctrine_in_db.mjs",
+      "line": 81,
+      "rule": "badge-hollywood",
+      "group": "badge",
+      "text": "{ id: 'badge-hollywood-action', label: 'Badge creux HOLLYWOOD ACTION', re: /hollywood\\s+action/i },"
+    },
+    {
+      "file": "scripts\\verify_doctrine_in_db.mjs",
+      "line": 82,
+      "rule": "badge-pro-staff",
+      "group": "badge",
+      "text": "{ id: 'badge-pro-staff', label: 'Badge creux PRO STAFF', re: /\\bpro\\s*staff\\b/i },"
+    },
+    {
+      "file": "scripts\\verify_doctrine_in_db.mjs",
+      "line": 83,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "{ id: 'badge-worldwide', label: 'Badge creux WORLDWIDE', re: /\\bworldwide\\b/i },"
+    },
+    {
+      "file": "scripts\\verify_doctrine_in_db.mjs",
+      "line": 84,
+      "rule": "badge-box-office",
+      "group": "badge",
+      "text": "{ id: 'badge-box-office', label: 'Badge creux BOX-OFFICE', re: /\\bbox[\\s-]?office\\b/i },"
+    },
+    {
+      "file": "scripts\\verify_doctrine_in_db.mjs",
+      "line": 85,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "{ id: 'jargon-radar-tactique', label: 'Jargon RADAR TACTIQUE', re: /radar\\s+tactique/i },"
+    },
+    {
+      "file": "scripts\\verify_doctrine_in_db.mjs",
+      "line": 85,
+      "rule": "jargon-radar-tactique",
+      "group": "jargon",
+      "text": "{ id: 'jargon-radar-tactique', label: 'Jargon RADAR TACTIQUE', re: /radar\\s+tactique/i },"
+    },
+    {
+      "file": "scripts\\verify_doctrine_in_db.mjs",
+      "line": 86,
+      "rule": "jargon-hub-opérationnel",
+      "group": "jargon",
+      "text": "{ id: 'jargon-hub-operationnel', label: 'Jargon HUB OPÉRATIONNEL', re: /hub\\s+op[ée]rationnel/i },"
+    },
+    {
+      "file": "scripts\\verify_doctrine_in_db.mjs",
+      "line": 87,
+      "rule": "badge-elite",
+      "group": "badge",
+      "text": "{ id: 'jargon-cursus-elite', label: 'Jargon CURSUS ÉLITE', re: /cursus\\s+[ée]lite/i },"
+    },
+    {
+      "file": "scripts\\verify_doctrine_in_db.mjs",
+      "line": 87,
+      "rule": "jargon-cursus-élite",
+      "group": "jargon",
+      "text": "{ id: 'jargon-cursus-elite', label: 'Jargon CURSUS ÉLITE', re: /cursus\\s+[ée]lite/i },"
+    },
+    {
+      "file": "scripts\\verify_doctrine_in_db.mjs",
+      "line": 88,
+      "rule": "jargon-gps-actif",
+      "group": "jargon",
+      "text": "{ id: 'jargon-gps-actif', label: 'Jargon GPS ACTIF', re: /gps\\s+actif/i },"
+    },
+    {
+      "file": "scripts\\verify_doctrine_in_db.mjs",
+      "line": 89,
+      "rule": "jargon-5-paliers",
+      "group": "jargon",
+      "text": "{ id: 'jargon-5-paliers', label: 'Jargon 5 PALIERS', re: /5\\s+paliers/i },"
+    },
+    {
+      "file": "scripts\\verify_films_enrichment.mjs",
+      "line": 49,
+      "rule": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "text": "const banned = /gun-?fu|Art du Déplacement|\\bADD\\b/i;"
+    },
+    {
+      "file": "scripts\\verify_films_enrichment.mjs",
+      "line": 51,
+      "rule": "superl-gun-fu",
+      "group": "superlatif",
+      "text": "console.log(`\\nViolations doctrine (gun-fu / ADD) : ${violations.length}`);"
+    },
+    {
+      "file": "scripts\\verify_films_enrichment.mjs",
+      "line": 51,
+      "rule": "termino-add",
+      "group": "terminologie",
+      "text": "console.log(`\\nViolations doctrine (gun-fu / ADD) : ${violations.length}`);"
+    }
+  ]
+}

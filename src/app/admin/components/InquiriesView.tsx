@@ -96,7 +96,7 @@ Le Secrétariat Administratif CUC`,
 
 Merci pour votre prise de contact avec le Campus Univers Cascades.
 
-Nous avons le plaisir de vous soumettre notre proposition d'expérience immersive cascade cinéma adaptée à votre équipe :
+Nous vous soumettons notre proposition de stage cascade cinéma adaptée à votre équipe :
 - Initiation aux chorégraphies de combats scéniques et maniement d'armes sous la direction de cascadeurs professionnels.
 - Ateliers chutes, câblage cinéma (wirework) et sécurité des plateaux.
 - Restitution et tournage d'une scène d'action montée en direct.
@@ -530,8 +530,8 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
               type="button"
               onClick={() => setStatusFilter(tab.id)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors flex items-center gap-1.5 cursor-pointer ${statusFilter === tab.id
-                  ? 'bg-[#FFE500] text-black font-bold'
-                  : 'text-gray-400 hover:text-white hover:bg-white/5'
+                ? 'bg-[#FFE500] text-black font-bold'
+                : 'text-gray-400 hover:text-white hover:bg-white/5'
                 }`}
             >
               <span>{tab.label}</span>
@@ -793,8 +793,8 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
                       type="button"
                       onClick={() => handleToggleChecklist(step.id)}
                       className={`flex items-center gap-2 p-2.5 rounded-lg text-left text-xs font-medium border transition-colors cursor-pointer ${isChecked
-                          ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
-                          : 'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:bg-white/10'
+                        ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
+                        : 'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:bg-white/10'
                         }`}
                     >
                       {isChecked ? (
@@ -828,8 +828,8 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
                       setCopiedTemplate(false);
                     }}
                     className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors flex items-center gap-1.5 cursor-pointer ${selectedTemplateId === tmpl.id
-                        ? 'bg-white text-black font-bold'
-                        : 'bg-white/5 text-gray-400 hover:text-white border border-white/5'
+                      ? 'bg-white text-black font-bold'
+                      : 'bg-white/5 text-gray-400 hover:text-white border border-white/5'
                       }`}
                   >
                     <span>{tmpl.name}</span>

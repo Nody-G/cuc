@@ -145,7 +145,7 @@ export default function StuntWorkshopCucPage() {
                 </div>
 
                 <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white">
-                  TRAIN LIKE A HOLLYWOOD STUNT PERFORMER
+                  INTERNATIONAL STUNT PERFORMER TRAINING
                 </h2>
 
                 <p className="text-sm font-tech text-zinc-300 leading-relaxed">

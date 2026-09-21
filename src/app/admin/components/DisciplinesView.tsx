@@ -93,14 +93,6 @@ export const DisciplinesView: React.FC<DisciplinesViewProps> = ({
       return nextList;
     });
 
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem('cuc_disciplines', JSON.stringify(nextList));
-      } catch {
-        // ignore
-      }
-    }
-
     setEditingDiscipline(null);
     showToast(`Discipline ${updated.number} enregistrée !`);
 
@@ -115,14 +107,6 @@ export const DisciplinesView: React.FC<DisciplinesViewProps> = ({
 
     const nextList = disciplines.filter((d) => d.id !== id);
     setDisciplines(nextList);
-
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem('cuc_disciplines', JSON.stringify(nextList));
-      } catch {
-        // ignore
-      }
-    }
 
     showToast('Module supprimé.');
 

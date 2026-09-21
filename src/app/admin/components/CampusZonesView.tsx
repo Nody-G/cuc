@@ -95,7 +95,7 @@ export const CampusZonesView: React.FC<CampusZonesViewProps> = ({
                 </span>
               </h1>
               <p className="text-sm text-zinc-400 mt-1">
-                Configurez les points d’intérêt tactiques du parc de 6 hectares, coordonnées radar et modules associés.
+                Configurez les points d’intérêt du parc de 6 hectares, leurs coordonnées et les modules associés.
               </p>
             </div>
           </div>
@@ -125,7 +125,7 @@ export const CampusZonesView: React.FC<CampusZonesViewProps> = ({
         </button>
       </div>
 
-      {/* Visualisation Radar Tactique Mini */}
+      {/* Aperçu cartographique du domaine */}
       <div className="relative w-full h-56 bg-zinc-950 rounded-2xl border border-zinc-800/80 overflow-hidden shadow-2xl p-4 flex flex-col justify-between">
         {/* Grille Radar */}
         <div className="absolute inset-0 bg-[radial-gradient(#27272a_1px,transparent_1px)] [background-size:16px_16px] opacity-40" />
@@ -137,7 +137,7 @@ export const CampusZonesView: React.FC<CampusZonesViewProps> = ({
         <div className="relative z-10 flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs font-mono text-zinc-400 uppercase tracking-widest">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-            Radar Tactique Campus • Le Cateau-Cambrésis (Nord)
+            Plan du campus • Le Cateau-Cambrésis (Nord)
           </div>
           <span className="text-[11px] font-mono text-zinc-500">60 000 m² Domaine Privé</span>
         </div>
@@ -542,8 +542,8 @@ export const CampusZonesView: React.FC<CampusZonesViewProps> = ({
                     setEditingPOI({ ...editingPOI, is_active: editingPOI.is_active === false })
                   }
                   className={`inline-flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-semibold transition shrink-0 ${editingPOI.is_active === false
-                      ? 'bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20'
-                      : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20'
+                    ? 'bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20'
+                    : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20'
                     }`}
                 >
                   {editingPOI.is_active === false ? (

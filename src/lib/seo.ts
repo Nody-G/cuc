@@ -16,9 +16,15 @@ export const SITE_DESCRIPTION =
 
 export const SITE_LOCALE = "fr_FR";
 
-/** Image Open Graph par défaut. */
+/**
+ * Image Open Graph par défaut.
+ *
+ * Hébergée sur Supabase Storage (`cuc-vitrine-assets`) et non plus sur
+ * l'ancien site WordPress : toute dépendance à `wp-content` est proscrite
+ * (doctrine « Zéro Texte ni Valeur Orpheline »).
+ */
 export const DEFAULT_OG_IMAGE = {
-    url: `${SITE_URL}/wp-content/uploads/2023/02/slider-8-scaled.jpg`,
+    url: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg",
     width: 1200,
     height: 630,
     alt: "Campus Univers Cascades — Cascadeurs professionnels",
@@ -42,7 +48,7 @@ export const CAMPUS_ADDRESS = {
 export const SOCIAL_PROFILES = [
     "https://www.instagram.com/campus.univers.cascades",
     "https://www.youtube.com/@campusuniverscascades",
-    "https://www.tiktok.com/@campus.univers.cascades",
+    "https://www.tiktok.com/@campusuniverscascades",
     "https://www.facebook.com/campus.univers.cascades",
 ];
 

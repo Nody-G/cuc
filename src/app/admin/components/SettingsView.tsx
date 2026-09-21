@@ -431,7 +431,7 @@ export function SettingsView({ initialSettings, onNavigateToTab }: SettingsViewP
                     <option value="gold">🟡 Gold Prestige</option>
                     <option value="alert">🔴 Alerte Rouge</option>
                     <option value="info">🔵 Information Bleue</option>
-                    <option value="dark">⚫ Sombre Tactique</option>
+                    <option value="dark">⚫ Sombre</option>
                   </select>
                 </div>
               </div>

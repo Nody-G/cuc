@@ -1,0 +1,2049 @@
+{
+  "generatedAt": "2026-09-21T00:01:36.287Z",
+  "summary": {
+    "routes": 29,
+    "sourceFiles": 241,
+    "brokenLinks": 0,
+    "orphanAnchors": 0,
+    "duplicateLinks": 5,
+    "orphanComponents": 0,
+    "legacyUrls": 40,
+    "legacyLedgerFiles": 11,
+    "slopHits": 170,
+    "socialConflicts": 0
+  },
+  "routes": [
+    "/",
+    "/admin",
+    "/admin/announcements",
+    "/admin/events",
+    "/admin/films",
+    "/admin/inquiries",
+    "/admin/login",
+    "/admin/media",
+    "/admin/pages",
+    "/admin/partners",
+    "/admin/preview",
+    "/admin/sessions",
+    "/admin/settings",
+    "/admin/team",
+    "/animations-airbag-parkour",
+    "/contact-cuc",
+    "/cuc-events-agence",
+    "/cuc-team-cascadeur",
+    "/equipe-cascadeurs-pro",
+    "/equipe-cascadeurs-pro/[slug]",
+    "/formation-de-cascadeur",
+    "/partenaires",
+    "/spectacles-cascadeurs-yamakasi",
+    "/stages-cascades-parkour-2",
+    "/stunt-workshop-cuc",
+    "/team-building-cascades",
+    "/videos-cascadeur",
+    "/visite-guidee",
+    "/visite-virtuelle"
+  ],
+  "brokenLinks": [],
+  "orphanAnchors": [],
+  "duplicateLinks": [
+    {
+      "file": "src/data/navigation.ts",
+      "href": "/contact-cuc",
+      "count": 2
+    },
+    {
+      "file": "src/data/navigation.ts",
+      "href": "/formation-de-cascadeur",
+      "count": 2
+    },
+    {
+      "file": "src/data/navigation.ts",
+      "href": "/stages-cascades-parkour-2",
+      "count": 2
+    },
+    {
+      "file": "src/data/navigation.ts",
+      "href": "/visite-guidee#installations-detail",
+      "count": 3
+    },
+    {
+      "file": "src/data/navigation.ts",
+      "href": "/contact-cuc",
+      "count": 3
+    }
+  ],
+  "orphanComponents": [],
+  "legacyUrls": [
+    {
+      "file": "scripts/download_real_logos.mjs",
+      "line": 5,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-nike.jpg"
+    },
+    {
+      "file": "scripts/download_real_logos.mjs",
+      "line": 6,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2020/07/TaffCoeur-Q-page-001.jpg"
+    },
+    {
+      "file": "scripts/download_real_logos.mjs",
+      "line": 7,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-bsn.jpg"
+    },
+    {
+      "file": "scripts/download_real_logos.mjs",
+      "line": 8,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-c17.jpg"
+    },
+    {
+      "file": "scripts/download_real_logos.mjs",
+      "line": 9,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-kiloutou.jpg"
+    },
+    {
+      "file": "scripts/download_real_logos.mjs",
+      "line": 10,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-rxr-protect.jpg"
+    },
+    {
+      "file": "scripts/download_real_logos.mjs",
+      "line": 11,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-otm-incendie.jpg"
+    },
+    {
+      "file": "scripts/download_real_logos.mjs",
+      "line": 12,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-action-cascade.jpg"
+    },
+    {
+      "file": "scripts/download_real_logos.mjs",
+      "line": 13,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-aya-catch.jpg"
+    },
+    {
+      "file": "scripts/download_real_logos.mjs",
+      "line": 14,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-gravity.jpg"
+    },
+    {
+      "file": "scripts/download_real_logos.mjs",
+      "line": 15,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-cascade-demo-team.jpg"
+    },
+    {
+      "file": "scripts/download_real_logos.mjs",
+      "line": 16,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-xtrem-video.jpg"
+    },
+    {
+      "file": "scripts/download_real_logos.mjs",
+      "line": 17,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-mfr-le-cateau.jpg"
+    },
+    {
+      "file": "scripts/download_real_logos.mjs",
+      "line": 18,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/05/Bandes-logos-1.png"
+    },
+    {
+      "file": "scripts/download_real_logos.mjs",
+      "line": 19,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/05/Bandes-logos-2.png"
+    },
+    {
+      "file": "scripts/download_real_logos.mjs",
+      "line": 20,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/05/Bandes-logos-3.png"
+    },
+    {
+      "file": "scripts/fetch_missing_media.mjs",
+      "line": 65,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/TF1-JT-20h-CUC-reportage-1.mp4"
+    },
+    {
+      "file": "scripts/fetch_missing_media.mjs",
+      "line": 66,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4"
+    },
+    {
+      "file": "scripts/fetch_missing_media.mjs",
+      "line": 68,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/sb-instagram-feed-images/campus.univers.cascades.webp"
+    },
+    {
+      "file": "scripts/fetch_missing_media.mjs",
+      "line": 70,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Bagarre.jpg"
+    },
+    {
+      "file": "scripts/fetch_missing_media.mjs",
+      "line": 71,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Nouveaux-riches.jpg"
+    },
+    {
+      "file": "scripts/fetch_missing_media.mjs",
+      "line": 72,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Athena.jpg"
+    },
+    {
+      "file": "scripts/fetch_missing_media.mjs",
+      "line": 73,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Le-Pacte-des-Loups.jpg"
+    },
+    {
+      "file": "scripts/fetch_missing_media.mjs",
+      "line": 75,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-campus.jpg"
+    },
+    {
+      "file": "scripts/fetch_missing_media.mjs",
+      "line": 76,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Animation-airbag-chute-libre.jpg"
+    },
+    {
+      "file": "scripts/purge_legacy_urls_from_seeds.mjs",
+      "line": 9,
+      "url": "https://www.campus-universcascades.com/wp-content/..."
+    },
+    {
+      "file": "scripts/reportages_url_mapping.json",
+      "line": 8,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/02/TF1-JT-20h-CUC-reportage-1.mp4"
+    },
+    {
+      "file": "scripts/reportages_url_mapping.json",
+      "line": 22,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/02/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4"
+    },
+    {
+      "file": "scripts/rewrite_legacy_urls_in_db.mjs",
+      "line": 83,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/Animation-airbag-chute-libre.jpg"
+    },
+    {
+      "file": "scripts/slop_report.json",
+      "line": 523,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf"
+    },
+    {
+      "file": "scripts/slop_report.json",
+      "line": 530,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf"
+    },
+    {
+      "file": "scripts/slop_report.json",
+      "line": 544,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf"
+    },
+    {
+      "file": "scripts/slop_report.json",
+      "line": 551,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf"
+    },
+    {
+      "file": "scripts/slop_report.json",
+      "line": 558,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf"
+    },
+    {
+      "file": "scripts/sync_all_coach_credits_supabase.mjs",
+      "line": 354,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Bagarre.jpg"
+    },
+    {
+      "file": "scripts/sync_all_coach_credits_supabase.mjs",
+      "line": 377,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Nouveaux-riches.jpg"
+    },
+    {
+      "file": "scripts/sync_all_coach_credits_supabase.mjs",
+      "line": 400,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Athena.jpg"
+    },
+    {
+      "file": "scripts/sync_all_coach_credits_supabase.mjs",
+      "line": 425,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2024/12/Le-Pacte-des-Loups.jpg"
+    },
+    {
+      "file": "scripts/upload_reportages_to_supabase.mjs",
+      "line": 43,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/02/TF1-JT-20h-CUC-reportage-1.mp4"
+    },
+    {
+      "file": "scripts/upload_reportages_to_supabase.mjs",
+      "line": 45,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2023/02/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4"
+    }
+  ],
+  "legacyLedger": [
+    {
+      "file": "scripts/audit_full_app_report.json",
+      "count": 130
+    },
+    {
+      "file": "scripts/live_cuc_images.json",
+      "count": 201
+    },
+    {
+      "file": "scripts/media_classification.json",
+      "count": 1518
+    },
+    {
+      "file": "scripts/media_classification.md",
+      "count": 226
+    },
+    {
+      "file": "scripts/media_download_manifest.json",
+      "count": 219
+    },
+    {
+      "file": "scripts/media_inventory.json",
+      "count": 1518
+    },
+    {
+      "file": "scripts/media_inventory.md",
+      "count": 226
+    },
+    {
+      "file": "scripts/media_url_mapping.json",
+      "count": 224
+    },
+    {
+      "file": "scripts/media_url_mapping.md",
+      "count": 219
+    },
+    {
+      "file": "scripts/rewrite_media_urls.mjs",
+      "count": 2
+    },
+    {
+      "file": "scripts/verify_media_url_coverage.mjs",
+      "count": 1
+    }
+  ],
+  "slopHits": [
+    {
+      "file": "src/app/admin/components/CampusZonesView.tsx",
+      "line": 128,
+      "label": "badge: TACTIQUE",
+      "excerpt": "</div> {/* Visualisation Radar Tactique Mini */} <div className=\"relative"
+    },
+    {
+      "file": "src/app/admin/components/CampusZonesView.tsx",
+      "line": 140,
+      "label": "badge: TACTIQUE",
+      "excerpt": "-500 animate-ping\" /> Radar Tactique Campus • Le Cateau-Cambrésis (Nord)"
+    },
+    {
+      "file": "src/app/admin/components/CampusZonesView.tsx",
+      "line": 337,
+      "label": "badge: EXTRÊME",
+      "excerpt": "placeholder=\"ex: Tour de Saut Extrême 21m\" className=\"w-ful"
+    },
+    {
+      "file": "src/app/admin/components/DisciplinesView.tsx",
+      "line": 196,
+      "label": "badge: TACTIQUE",
+      "excerpt": "', 'Fondamental', 'Avancé', 'Extrême', 'Tactique'] as const).map((lvl) => ("
+    },
+    {
+      "file": "src/app/admin/components/DisciplinesView.tsx",
+      "line": 259,
+      "label": "badge: TACTIQUE",
+      "excerpt": ": d.level === 'Tactique' ? 'bg-purple"
+    },
+    {
+      "file": "src/app/admin/components/DisciplinesView.tsx",
+      "line": 481,
+      "label": "badge: TACTIQUE",
+      "excerpt": "ion> <option value=\"Tactique\">Tactique</option> </"
+    },
+    {
+      "file": "src/app/admin/components/DisciplinesView.tsx",
+      "line": 481,
+      "label": "badge: TACTIQUE",
+      "excerpt": "<option value=\"Tactique\">Tactique</option> </select>"
+    },
+    {
+      "file": "src/app/admin/components/DisciplinesView.tsx",
+      "line": 196,
+      "label": "badge: EXTRÊME",
+      "excerpt": "{(['all', 'Fondamental', 'Avancé', 'Extrême', 'Tactique'] as const).map((lvl) => ("
+    },
+    {
+      "file": "src/app/admin/components/DisciplinesView.tsx",
+      "line": 257,
+      "label": "badge: EXTRÊME",
+      "excerpt": "uppercase tracking-wider ${d.level === 'Extrême' ? 'bg-rose-500"
+    },
+    {
+      "file": "src/app/admin/components/DisciplinesView.tsx",
+      "line": 480,
+      "label": "badge: EXTRÊME",
+      "excerpt": "ion> <option value=\"Extrême\">Extrême</option> <"
+    },
+    {
+      "file": "src/app/admin/components/DisciplinesView.tsx",
+      "line": 480,
+      "label": "badge: EXTRÊME",
+      "excerpt": "<option value=\"Extrême\">Extrême</option> <option va"
+    },
+    {
+      "file": "src/app/admin/components/SettingsView.tsx",
+      "line": 434,
+      "label": "badge: TACTIQUE",
+      "excerpt": "<option value=\"dark\">⚫ Sombre Tactique</option> </select>"
+    },
+    {
+      "file": "src/app/equipe-cascadeurs-pro/[slug]/CoachDetailClient.tsx",
+      "line": 350,
+      "label": "badge: TACTIQUE",
+      "excerpt": "{/* Domaines d'Expertise Tactique */} <div>"
+    },
+    {
+      "file": "src/components/sections/contact/ContactForm.tsx",
+      "line": 214,
+      "label": "badge: WORLDWIDE",
+      "excerpt": "International Stunt Workshop (Worldwide) </option>"
+    },
+    {
+      "file": "src/components/sections/formation/FormationFormulesSection.tsx",
+      "line": 196,
+      "label": "badge: TACTIQUE",
+      "excerpt": "rces spéciales, armes à blanc et rappel tactique</span> </li>"
+    },
+    {
+      "file": "src/components/sections/home/HomeTournagesSection.tsx",
+      "line": 85,
+      "label": "badge: BOX-OFFICE",
+      "excerpt": "plus de 63 longs-métrages coordonnés au box-office.\"; const ctaText = tournagesData?.cta"
+    },
+    {
+      "file": "src/components/ui/campus-map/campusMap.data.ts",
+      "line": 44,
+      "label": "badge: EXTRÊME",
+      "excerpt": "d: 'tower-21m', name: 'Tour de Saut Extrême 21m', category: 'Hauteur & Chutes L"
+    },
+    {
+      "file": "src/data/disciplines.ts",
+      "line": 23,
+      "label": "badge: EXTRÊME",
+      "excerpt": "iconName: 'TrendingDown', level: 'Extrême', equipment: ['Tour de saut CUC 21m"
+    },
+    {
+      "file": "src/data/disciplines.ts",
+      "line": 35,
+      "label": "badge: EXTRÊME",
+      "excerpt": "s.', iconName: 'Flame', level: 'Extrême', equipment: ['Combinaisons Nomex m"
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 721,
+      "label": "badge: TACTIQUE",
+      "excerpt": "ques', 'Stunt automobile', 'Déplacement tactique'], bio: 'Formateur au CUC et cascad"
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 741,
+      "label": "badge: TACTIQUE",
+      "excerpt": "2024) — Cascadeur (Cascades physiques & tactique)', 'Junga (2018) — Cascadeur',"
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 765,
+      "label": "badge: TACTIQUE",
+      "excerpt": "lyas': 'Cascadeur (Cascades physiques & tactique)', 'junga': 'Cascadeur',"
+    },
+    {
+      "file": "src/lib/credit-role.ts",
+      "line": 62,
+      "label": "badge: TACTIQUE",
+      "excerpt": "approches', 'rapprochés', 'tactiques', 'tactique', 'scene', 'scène', 'generale'"
+    },
+    {
+      "file": "src/types/index.ts",
+      "line": 38,
+      "label": "badge: TACTIQUE",
+      "excerpt": "'Fondamental' | 'Avancé' | 'Extrême' | 'Tactique'; equipment: string[]; cinemaContex"
+    },
+    {
+      "file": "src/types/index.ts",
+      "line": 38,
+      "label": "badge: EXTRÊME",
+      "excerpt": "g; level: 'Fondamental' | 'Avancé' | 'Extrême' | 'Tactique'; equipment: string[];"
+    },
+    {
+      "file": "scripts/apply_campus_pois_audit_logs_migration.mjs",
+      "line": 14,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "OTENT : `CREATE TABLE IF NOT EXISTS` + `ADD COLUMN IF NOT EXISTS`. * * Prérequi"
+    },
+    {
+      "file": "scripts/apply_navigation_footer_migration.mjs",
+      "line": 17,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "OTENT : `CREATE TABLE IF NOT EXISTS` + `ADD COLUMN IF NOT EXISTS`. * * Prérequi"
+    },
+    {
+      "file": "scripts/apply_team_migration.mjs",
+      "line": 39,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "TEMENTS = [ `ALTER TABLE site_team ADD COLUMN IF NOT EXISTS featured_credits T"
+    },
+    {
+      "file": "scripts/apply_team_migration.mjs",
+      "line": 40,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "'::TEXT[]`, `ALTER TABLE site_team ADD COLUMN IF NOT EXISTS credits_display_li"
+    },
+    {
+      "file": "scripts/apply_team_migration.mjs",
+      "line": 42,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "mit_check`, `ALTER TABLE site_team ADD CONSTRAINT site_team_credits_display_li"
+    },
+    {
+      "file": "scripts/audit_and_sync_supabase_clean.mjs",
+      "line": 15,
+      "label": "cliché: cursus élite",
+      "excerpt": "tches = str.match(/\\b(MOD-\\d+|INFRA-\\d+|CURSUS ÉLITE|HUB OPÉRATIONNEL|GPS ACTIF|100%|déconne"
+    },
+    {
+      "file": "scripts/audit_and_sync_supabase_clean.mjs",
+      "line": 25,
+      "label": "cliché: cursus élite",
+      "excerpt": "tches = str.match(/\\b(MOD-\\d+|INFRA-\\d+|CURSUS ÉLITE|HUB OPÉRATIONNEL|GPS ACTIF|100%|déconne"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 464,
+      "label": "superlatif: légendaire",
+      "excerpt": "/\\blégendaire\\b/gi, label: 'superlatif: légendaire' }, { re: /\\bréférence suprême\\b/g"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 465,
+      "label": "superlatif: référence suprême",
+      "excerpt": "rence suprême\\b/gi, label: 'superlatif: référence suprême' }, { re: /\\bgun-?fu cinématique\\b"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 466,
+      "label": "superlatif: gun-fu cinématique",
+      "excerpt": "u cinématique\\b/gi, label: 'superlatif: gun-fu cinématique' }, { re: /\\bchutes massives\\b/gi,"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 467,
+      "label": "superlatif: chutes massives",
+      "excerpt": "utes massives\\b/gi, label: 'superlatif: chutes massives' }, { re: /\\bdossier pro complet\\b"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 468,
+      "label": "superlatif: dossier pro complet",
+      "excerpt": "r pro complet\\b/gi, label: 'superlatif: dossier pro complet' }, { re: /\\bélite\\b/gi, label: 's"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 469,
+      "label": "superlatif: élite",
+      "excerpt": ": dossier pro complet' }, { re: /\\bélite\\b/gi, label: 'superlatif: élite' },"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 471,
+      "label": "badge: HOLLYWOOD ACTION",
+      "excerpt": "\\bHOLLYWOOD ACTION\\b/gi, label: 'badge: HOLLYWOOD ACTION' }, { re: /\\bPRO STAFF\\b/gi, label"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 472,
+      "label": "badge: PRO STAFF",
+      "excerpt": "{ re: /\\bPRO STAFF\\b/gi, label: 'badge: PRO STAFF' }, { re: /\\bWORLDWIDE\\b/gi, label"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 473,
+      "label": "badge: WORLDWIDE",
+      "excerpt": "{ re: /\\bWORLDWIDE\\b/gi, label: 'badge: WORLDWIDE' }, { re: /\\bBOX-OFFICE\\b/gi, labe"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 474,
+      "label": "badge: BOX-OFFICE",
+      "excerpt": "re: /\\bBOX-OFFICE\\b/gi, label: 'badge: BOX-OFFICE' }, { re: /\\bTACTIQUE\\b/gi, label:"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 475,
+      "label": "badge: TACTIQUE",
+      "excerpt": "{ re: /\\bTACTIQUE\\b/gi, label: 'badge: TACTIQUE' }, { re: /\\bSUCCÈS MONDIAL\\b/gi,"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 476,
+      "label": "badge: SUCCÈS MONDIAL",
+      "excerpt": "/\\bSUCCÈS MONDIAL\\b/gi, label: 'badge: SUCCÈS MONDIAL' }, { re: /\\bEXTRÊME\\b/gi, label:"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 477,
+      "label": "badge: EXTRÊME",
+      "excerpt": "{ re: /\\bEXTRÊME\\b/gi, label: 'badge: EXTRÊME' }, // Terminologie Parkour (doctr"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 479,
+      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
+      "excerpt": "du Déplacement\\b/gi, label: 'doctrine: Art du Déplacement (utiliser Parkour)' }, { re: /\\bAr"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 480,
+      "label": "doctrine: Art du Deplacement (utiliser Parkour)",
+      "excerpt": "du Deplacement\\b/gi, label: 'doctrine: Art du Deplacement (utiliser Parkour)' }, { re: /\\bAD"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 481,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "/\\bADD\\b/g, label: 'doctrine: acronyme ADD (utiliser Parkour)' }, // Clichés"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 483,
+      "label": "cliché: plongez au cœur",
+      "excerpt": "/plongez au c[œo]ur/gi, label: 'cliché: plongez au cœur' }, { re: /\\bfleuron\\b/gi, label:"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 484,
+      "label": "cliché: fleuron",
+      "excerpt": "{ re: /\\bfleuron\\b/gi, label: 'cliché: fleuron' }, { re: /\\binégalé\\b/gi, label:"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 486,
+      "label": "cliché: machine de guerre",
+      "excerpt": "machine de guerre\\b/gi, label: 'cliché: machine de guerre' }, { re: /\\bclasse mondiale\\b/gi,"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 487,
+      "label": "cliché: classe mondiale",
+      "excerpt": "\\bclasse mondiale\\b/gi, label: 'cliché: classe mondiale' }, { re: /\\bcursus élite\\b/gi, la"
+    },
+    {
+      "file": "scripts/audit_full_app.mjs",
+      "line": 488,
+      "label": "cliché: cursus élite",
+      "excerpt": ": /\\bcursus élite\\b/gi, label: 'cliché: cursus élite' }, ]; const slopHits = []; // { fi"
+    },
+    {
+      "file": "scripts/curate_authentic_stunt_roles.mjs",
+      "line": 20,
+      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
+      "excerpt": "\"Pionniers mondiaux du parkour et de l'Art du Déplacement (ADD), cascades urbaines sur les toitur"
+    },
+    {
+      "file": "scripts/curate_authentic_stunt_roles.mjs",
+      "line": 20,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "du parkour et de l'Art du Déplacement (ADD), cascades urbaines sur les toitures.\","
+    },
+    {
+      "file": "scripts/enrich_films_and_roles.mjs",
+      "line": 110,
+      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
+      "excerpt": "-fu » → « combats rapprochés » * - « Art du Déplacement (ADD) » → « Parkour » * - « ADD » →"
+    },
+    {
+      "file": "scripts/enrich_films_and_roles.mjs",
+      "line": 116,
+      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
+      "excerpt": "s rapprochés') .replace(/l['’]?Art du Déplacement\\s*\\(ADD\\)/gi, 'Parkour') .repl"
+    },
+    {
+      "file": "scripts/enrich_films_and_roles.mjs",
+      "line": 117,
+      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
+      "excerpt": "ADD\\)/gi, 'Parkour') .replace(/Art du Déplacement/gi, 'Parkour') .replace(/\\bADD"
+    },
+    {
+      "file": "scripts/enrich_films_and_roles.mjs",
+      "line": 110,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "pprochés » * - « Art du Déplacement (ADD) » → « Parkour » * - « ADD » → « Par"
+    },
+    {
+      "file": "scripts/enrich_films_and_roles.mjs",
+      "line": 111,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "lacement (ADD) » → « Parkour » * - « ADD » → « Parkour » */ function sanitize"
+    },
+    {
+      "file": "scripts/enrich_films_and_roles.mjs",
+      "line": 116,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": ".replace(/l['’]?Art du Déplacement\\s*\\(ADD\\)/gi, 'Parkour') .replace(/Art"
+    },
+    {
+      "file": "scripts/fix_doctrine_in_db.mjs",
+      "line": 16,
+      "label": "badge: HOLLYWOOD ACTION",
+      "excerpt": "E → « Blockbuster » * • HOLLYWOOD ACTION → « Blockbuster » * * 3. JARGON"
+    },
+    {
+      "file": "scripts/fix_doctrine_in_db.mjs",
+      "line": 12,
+      "label": "badge: WORLDWIDE",
+      "excerpt": "EUX (doctrine §3) — les tags marketing (WORLDWIDE, BOX-OFFICE) * sont remplacés par"
+    },
+    {
+      "file": "scripts/fix_doctrine_in_db.mjs",
+      "line": 14,
+      "label": "badge: WORLDWIDE",
+      "excerpt": "r une taxonomie factuelle : * • WORLDWIDE → « Cinéma International » *"
+    },
+    {
+      "file": "scripts/fix_doctrine_in_db.mjs",
+      "line": 12,
+      "label": "badge: BOX-OFFICE",
+      "excerpt": "ne §3) — les tags marketing (WORLDWIDE, BOX-OFFICE) * sont remplacés par une taxonom"
+    },
+    {
+      "file": "scripts/fix_doctrine_in_db.mjs",
+      "line": 15,
+      "label": "badge: BOX-OFFICE",
+      "excerpt": "→ « Cinéma International » * • BOX-OFFICE → « Blockbuster » * • H"
+    },
+    {
+      "file": "scripts/fix_doctrine_in_db.mjs",
+      "line": 87,
+      "label": "badge: TACTIQUE",
+      "excerpt": "o: '5 niveaux' }, { re: /\\bRADAR\\s+TACTIQUE\\b/gi, to: 'Cartographie du campus' },"
+    },
+    {
+      "file": "scripts/fix_doctrine_in_db.mjs",
+      "line": 8,
+      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
+      "excerpt": "IE PARKOUR (doctrine §4) — « ADD » et « Art du Déplacement » * sont remplacés par « Parkour"
+    },
+    {
+      "file": "scripts/fix_doctrine_in_db.mjs",
+      "line": 8,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "TERMINOLOGIE PARKOUR (doctrine §4) — « ADD » et « Art du Déplacement » * son"
+    },
+    {
+      "file": "scripts/fix_doctrine_in_db.mjs",
+      "line": 71,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "s l'ordre. * * ATTENTION : la règle ADD utilise une assertion négative pour ne"
+    },
+    {
+      "file": "scripts/fix_doctrine_in_db.mjs",
+      "line": 72,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "pour ne pas toucher * le verbe SQL « ADD » (DDL) qui peut apparaître dans des ch"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 40,
+      "label": "superlatif: légendaire",
+      "excerpt": "─────────────────────── { id: 'superl-légendaire', group: 'superlatif', re: /\\bl[ée]gend"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 30,
+      "label": "badge: WORLDWIDE",
+      "excerpt": "e: /\\bpro\\s*staff\\b/i }, { id: 'badge-worldwide', group: 'badge', re: /\\bworldwide\\b/i"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 102,
+      "label": "badge: WORLDWIDE",
+      "excerpt": "noms de fichiers sources contiennent « WORLDWIDE ». 'scripts/media_download_manifest"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 31,
+      "label": "badge: BOX-OFFICE",
+      "excerpt": "re: /\\bworldwide\\b/i }, { id: 'badge-box-office', group: 'badge', re: /\\bbox[\\s-]?offic"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 32,
+      "label": "badge: TACTIQUE",
+      "excerpt": "\\bbox[\\s-]?office\\b/i }, { id: 'badge-tactique', group: 'badge', re: /\\btactique?s?\\b/"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 64,
+      "label": "badge: TACTIQUE",
+      "excerpt": "───────────────── { id: 'jargon-radar-tactique', group: 'jargon', re: /radar\\s+tactiqu"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 64,
+      "label": "badge: TACTIQUE",
+      "excerpt": "actique', group: 'jargon', re: /radar\\s+tactique/i }, { id: 'jargon-hub-opérationnel',"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 72,
+      "label": "badge: TACTIQUE",
+      "excerpt": "?|tactiques?)/i }, { id: 'jargon-choc-tactique', group: 'jargon', re: /choc\\s+tactique"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 72,
+      "label": "badge: TACTIQUE",
+      "excerpt": "tactique', group: 'jargon', re: /choc\\s+tactique/i }, { id: 'jargon-code-interne', gro"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 119,
+      "label": "badge: TACTIQUE",
+      "excerpt": "'énumération de niveau de discipline (« Tactique », « Extrême ») : * ce sont des pal"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 127,
+      "label": "badge: TACTIQUE",
+      "excerpt": "sateur. */ const NEUTRALIZE = [ /'(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédi"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 128,
+      "label": "badge: TACTIQUE",
+      "excerpt": "rmediaire|Débutant|Debutant)'/g, /\"(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédi"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 129,
+      "label": "badge: TACTIQUE",
+      "excerpt": "|Débutant|Debutant)\"/g, /level:\\s*'(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédi"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 119,
+      "label": "badge: EXTRÊME",
+      "excerpt": "e niveau de discipline (« Tactique », « Extrême ») : * ce sont des paliers pédagogi"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 127,
+      "label": "badge: EXTRÊME",
+      "excerpt": "*/ const NEUTRALIZE = [ /'(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Int"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 128,
+      "label": "badge: EXTRÊME",
+      "excerpt": "|Débutant|Debutant)'/g, /\"(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Int"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 129,
+      "label": "badge: EXTRÊME",
+      "excerpt": "|Debutant)\"/g, /level:\\s*'(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Int"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 8,
+      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
+      "excerpt": "minologie Parkour — JAMAIS « ADD » ni « Art du Déplacement ». * * Usage : * node scripts/hunt"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 122,
+      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
+      "excerpt": "n à voir avec l'acronyme banni « ADD » (Art du Déplacement). * 3. Commentaires de code (`//`, `/*"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 8,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "* 4. Terminologie Parkour — JAMAIS « ADD » ni « Art du Déplacement ». * * Usag"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 121,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "es marketing. * 2. Mots-clés SQL DDL (`ADD CONSTRAINT`, `ADD COLUMN`) : le verbe S"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 121,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": ". Mots-clés SQL DDL (`ADD CONSTRAINT`, `ADD COLUMN`) : le verbe SQL « ADD » * n"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 121,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "TRAINT`, `ADD COLUMN`) : le verbe SQL « ADD » * n'a rien à voir avec l'acronyme"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 122,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "n'a rien à voir avec l'acronyme banni « ADD » (Art du Déplacement). * 3. Commentai"
+    },
+    {
+      "file": "scripts/hunt_llm_cliches.mjs",
+      "line": 43,
+      "label": "cliché: fleuron",
+      "excerpt": "/\\bin[ée]gal[ée]\\b/i }, { id: 'superl-fleuron', group: 'superlatif', re: /\\bfleuron\\b"
+    },
+    {
+      "file": "scripts/inspect_all_llm_copy.mjs",
+      "line": 10,
+      "label": "badge: TACTIQUE",
+      "excerpt": "lliance subtile|rigueur et passion|choc tactique|ultra-sécurisé|classe mondiale|surpuiss"
+    },
+    {
+      "file": "scripts/inspect_all_llm_copy.mjs",
+      "line": 10,
+      "label": "cliché: fleuron",
+      "excerpt": "e: 'LLM buzzwords', re: /\\b(à la pointe|fleuron|inégalé|à couper le souffle|alliance su"
+    },
+    {
+      "file": "scripts/inspect_all_llm_copy.mjs",
+      "line": 10,
+      "label": "cliché: classe mondiale",
+      "excerpt": "et passion|choc tactique|ultra-sécurisé|classe mondiale|surpuissant|déconnexion de l'instinct)\\"
+    },
+    {
+      "file": "scripts/inspect_all_llm_copy.mjs",
+      "line": 8,
+      "label": "cliché: cursus élite",
+      "excerpt": "NNEL|MISSION CASCADES|RÔLE OPÉRATIONNEL|CURSUS ÉLITE|CERTIFIÉ CUC|CERTIFIÉ CAMPUS)\\b/gi },"
+    },
+    {
+      "file": "scripts/lib/credit-curator.mjs",
+      "line": 244,
+      "label": "superlatif: chutes massives",
+      "excerpt": "nce supr[êe]me/gi, 'référence'], [/chutes massives/gi, 'chutes'], [/dossier pro compl"
+    },
+    {
+      "file": "scripts/lib/credit-curator.mjs",
+      "line": 245,
+      "label": "superlatif: dossier pro complet",
+      "excerpt": "[/chutes massives/gi, 'chutes'], [/dossier pro complet/gi, 'parcours'], [/\\b[ée]lite\\b/gi"
+    },
+    {
+      "file": "scripts/lib/credit-curator.mjs",
+      "line": 18,
+      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
+      "excerpt": "minologie Parkour : jamais « ADD » ni « Art du Déplacement ». * * Le module est PUR (aucune I/"
+    },
+    {
+      "file": "scripts/lib/credit-curator.mjs",
+      "line": 236,
+      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
+      "excerpt": "minologie Parkour : jamais « ADD » ni « Art du Déplacement ». [/\\bADD\\b/g, 'Parkour'], ["
+    },
+    {
+      "file": "scripts/lib/credit-curator.mjs",
+      "line": 18,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "* - Terminologie Parkour : jamais « ADD » ni « Art du Déplacement ». * * Le"
+    },
+    {
+      "file": "scripts/lib/credit-curator.mjs",
+      "line": 236,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "// Terminologie Parkour : jamais « ADD » ni « Art du Déplacement ». [/\\bA"
+    },
+    {
+      "file": "scripts/lib/credit-normalizer.mjs",
+      "line": 11,
+      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
+      "excerpt": "CLUSIVEMENT (jamais « ADD » ni * « Art du Déplacement ») * - Aucune invention : le rôle pr"
+    },
+    {
+      "file": "scripts/lib/credit-normalizer.mjs",
+      "line": 138,
+      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
+      "excerpt": "ctrine éditoriale : bannit « ADD » et « Art du Déplacement ». * * @param {string} text * @re"
+    },
+    {
+      "file": "scripts/lib/credit-normalizer.mjs",
+      "line": 10,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "r » est utilisé EXCLUSIVEMENT (jamais « ADD » ni * « Art du Déplacement ») *"
+    },
+    {
+      "file": "scripts/lib/credit-normalizer.mjs",
+      "line": 138,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "lique la doctrine éditoriale : bannit « ADD » et « Art du Déplacement ». * * @p"
+    },
+    {
+      "file": "scripts/migrate_all_data_to_supabase.mjs",
+      "line": 34,
+      "label": "badge: WORLDWIDE",
+      "excerpt": "ector: 'Jeremy Garelick', tag: 'NETFLIX WORLDWIDE' }, 'wednesday-mercredi': { year: '20"
+    },
+    {
+      "file": "scripts/migrate_all_data_to_supabase.mjs",
+      "line": 57,
+      "label": "badge: BOX-OFFICE",
+      "excerpt": "s', director: 'Philippe Lacheau', tag: 'BOX-OFFICE' }, 'dunkerque-dunkirk': { year: '201"
+    },
+    {
+      "file": "scripts/migrate_all_data_to_supabase.mjs",
+      "line": 60,
+      "label": "badge: BOX-OFFICE",
+      "excerpt": "Français', director: 'Dany Boon', tag: 'BOX-OFFICE' }, 'lucy': { year: '2014', category:"
+    },
+    {
+      "file": "scripts/migrate_all_data_to_supabase.mjs",
+      "line": 61,
+      "label": "badge: BOX-OFFICE",
+      "excerpt": "kbuster', director: 'Luc Besson', tag: 'BOX-OFFICE MONDIAL' }, 'fast-furious-6': { year:"
+    },
+    {
+      "file": "scripts/migrate_all_data_to_supabase.mjs",
+      "line": 46,
+      "label": "badge: SUCCÈS MONDIAL",
+      "excerpt": "me', director: 'Louis Leterrier', tag: 'SUCCÈS MONDIAL NETFLIX' }, 'balle-perdue': { year: '"
+    },
+    {
+      "file": "scripts/migrate_all_data_to_supabase.mjs",
+      "line": 49,
+      "label": "badge: EXTRÊME",
+      "excerpt": "director: 'Michael Bay', tag: 'NETFLIX EXTRÊME' }, 'black-widow': { year: '2021', ca"
+    },
+    {
+      "file": "scripts/migration_apply_campus_pois_audit_logs.sql",
+      "line": 42,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "e. ALTER TABLE public.site_campus_pois ADD COLUMN IF NOT EXISTS image_url TEXT; A"
+    },
+    {
+      "file": "scripts/migration_apply_campus_pois_audit_logs.sql",
+      "line": 43,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "T; ALTER TABLE public.site_campus_pois ADD COLUMN IF NOT EXISTS order_index INTEGE"
+    },
+    {
+      "file": "scripts/migration_apply_campus_pois_audit_logs.sql",
+      "line": 120,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "ALTER PUBLICATION supabase_realtime ADD TABLE public.site_campus_pois; END"
+    },
+    {
+      "file": "scripts/migration_apply_campus_pois_audit_logs.sql",
+      "line": 129,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "ALTER PUBLICATION supabase_realtime ADD TABLE public.site_audit_logs; END"
+    },
+    {
+      "file": "scripts/migration_sync_cuc_cockpit.sql",
+      "line": 202,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "ALTER PUBLICATION supabase_realtime ADD TABLE public.site_inquiries; END IF"
+    },
+    {
+      "file": "scripts/migration_sync_cuc_cockpit.sql",
+      "line": 205,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "ALTER PUBLICATION supabase_realtime ADD TABLE public.site_disciplines; END"
+    },
+    {
+      "file": "scripts/migration_sync_cuc_cockpit.sql",
+      "line": 208,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "ALTER PUBLICATION supabase_realtime ADD TABLE public.site_campus_pois; END"
+    },
+    {
+      "file": "scripts/migration_sync_cuc_cockpit.sql",
+      "line": 211,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "ALTER PUBLICATION supabase_realtime ADD TABLE public.site_audit_logs; END I"
+    },
+    {
+      "file": "scripts/normalize_film_tags_in_db.mjs",
+      "line": 6,
+      "label": "badge: WORLDWIDE",
+      "excerpt": "IX EXTRÊME, * SUCCÈS MONDIAL NETFLIX, WORLDWIDE, ÉLITE…) par une taxonomie factuelle"
+    },
+    {
+      "file": "scripts/normalize_film_tags_in_db.mjs",
+      "line": 44,
+      "label": "badge: WORLDWIDE",
+      "excerpt": "ONDIAL NETFLIX', 'SÉRIE NETFLIX'], ['WORLDWIDE', 'CINÉMA INTERNATIONAL'], ['POLAR T"
+    },
+    {
+      "file": "scripts/normalize_film_tags_in_db.mjs",
+      "line": 5,
+      "label": "badge: BOX-OFFICE",
+      "excerpt": "ce les tags marketing creux (HOLLYWOOD, BOX-OFFICE, NETFLIX EXTRÊME, * SUCCÈS MONDIAL NE"
+    },
+    {
+      "file": "scripts/normalize_film_tags_in_db.mjs",
+      "line": 38,
+      "label": "badge: BOX-OFFICE",
+      "excerpt": "[ ['HOLLYWOOD', 'BLOCKBUSTER'], ['BOX-OFFICE', 'BLOCKBUSTER'], ['BOX OFFICE', 'BL"
+    },
+    {
+      "file": "scripts/normalize_film_tags_in_db.mjs",
+      "line": 45,
+      "label": "badge: TACTIQUE",
+      "excerpt": "E', 'CINÉMA INTERNATIONAL'], ['POLAR TACTIQUE', 'POLAR'], ['ÉLITE', 'CURSUS DIPLÔM"
+    },
+    {
+      "file": "scripts/normalize_film_tags_in_db.mjs",
+      "line": 6,
+      "label": "badge: SUCCÈS MONDIAL",
+      "excerpt": "YWOOD, BOX-OFFICE, NETFLIX EXTRÊME, * SUCCÈS MONDIAL NETFLIX, WORLDWIDE, ÉLITE…) par une tax"
+    },
+    {
+      "file": "scripts/normalize_film_tags_in_db.mjs",
+      "line": 42,
+      "label": "badge: SUCCÈS MONDIAL",
+      "excerpt": "TFLIX EXTREME', 'NETFLIX ACTION'], ['SUCCÈS MONDIAL NETFLIX', 'SÉRIE NETFLIX'], ['SUCCES"
+    },
+    {
+      "file": "scripts/normalize_film_tags_in_db.mjs",
+      "line": 5,
+      "label": "badge: EXTRÊME",
+      "excerpt": "g creux (HOLLYWOOD, BOX-OFFICE, NETFLIX EXTRÊME, * SUCCÈS MONDIAL NETFLIX, WORLDWIDE,"
+    },
+    {
+      "file": "scripts/normalize_film_tags_in_db.mjs",
+      "line": 40,
+      "label": "badge: EXTRÊME",
+      "excerpt": "X OFFICE', 'BLOCKBUSTER'], ['NETFLIX EXTRÊME', 'NETFLIX ACTION'], ['NETFLIX EXTRE"
+    },
+    {
+      "file": "scripts/schema_navigation_footer.sql",
+      "line": 195,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "ALTER PUBLICATION supabase_realtime ADD TABLE site_navigation; END IF;"
+    },
+    {
+      "file": "scripts/schema_navigation_footer.sql",
+      "line": 202,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "ALTER PUBLICATION supabase_realtime ADD TABLE site_footer; END IF;"
+    },
+    {
+      "file": "scripts/schema_navigation_footer.sql",
+      "line": 209,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "ALTER PUBLICATION supabase_realtime ADD TABLE site_social_links; END IF;"
+    },
+    {
+      "file": "scripts/schema_pages_extension.sql",
+      "line": 118,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "ALTER PUBLICATION supabase_realtime ADD TABLE site_pages; END IF; IF N"
+    },
+    {
+      "file": "scripts/schema_pages_extension.sql",
+      "line": 125,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "ALTER PUBLICATION supabase_realtime ADD TABLE site_partners; END IF; I"
+    },
+    {
+      "file": "scripts/schema_pages_extension.sql",
+      "line": 132,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "ALTER PUBLICATION supabase_realtime ADD TABLE site_events; END IF; END $$;"
+    },
+    {
+      "file": "scripts/schema_page_revisions.sql",
+      "line": 51,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "public.site_page_revisions ADD CONSTRAINT site_page_revisions_slug_num"
+    },
+    {
+      "file": "scripts/schema_page_revisions.sql",
+      "line": 88,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "ALTER PUBLICATION supabase_realtime ADD TABLE site_page_revisions; END IF;"
+    },
+    {
+      "file": "scripts/schema_team_featured_credits.sql",
+      "line": 16,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "=========== ALTER TABLE site_team ADD COLUMN IF NOT EXISTS featured_credits T"
+    },
+    {
+      "file": "scripts/schema_team_featured_credits.sql",
+      "line": 19,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "}'::TEXT[]; ALTER TABLE site_team ADD COLUMN IF NOT EXISTS credits_display_li"
+    },
+    {
+      "file": "scripts/schema_team_featured_credits.sql",
+      "line": 28,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "THEN ALTER TABLE site_team ADD CONSTRAINT site_team_credits_display_li"
+    },
+    {
+      "file": "scripts/sync_all_coach_credits_supabase.mjs",
+      "line": 331,
+      "label": "badge: TACTIQUE",
+      "excerpt": "2024) — Cascadeur (Cascades physiques & tactique)', 'The Sentinels (2024) — Cascad"
+    },
+    {
+      "file": "scripts/sync_all_coach_credits_supabase.mjs",
+      "line": 337,
+      "label": "badge: TACTIQUE",
+      "excerpt": "lyas': 'Cascadeur (Cascades physiques & tactique)', 'anna': 'Cascadeur' } }"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 12,
+      "label": "badge: HOLLYWOOD ACTION",
+      "excerpt": "tion des faux badges marketing * (HOLLYWOOD ACTION, PRO STAFF, WORLDWIDE, BOX-OFFICE) et d"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 81,
+      "label": "badge: HOLLYWOOD ACTION",
+      "excerpt": "-hollywood-action', label: 'Badge creux HOLLYWOOD ACTION', re: /hollywood\\s+action/i }, { i"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 12,
+      "label": "badge: PRO STAFF",
+      "excerpt": "es marketing * (HOLLYWOOD ACTION, PRO STAFF, WORLDWIDE, BOX-OFFICE) et du jargon"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 82,
+      "label": "badge: PRO STAFF",
+      "excerpt": "'badge-pro-staff', label: 'Badge creux PRO STAFF', re: /\\bpro\\s*staff\\b/i }, { id:"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 12,
+      "label": "badge: WORLDWIDE",
+      "excerpt": "g * (HOLLYWOOD ACTION, PRO STAFF, WORLDWIDE, BOX-OFFICE) et du jargon * pseud"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 83,
+      "label": "badge: WORLDWIDE",
+      "excerpt": "/\\bpro\\s*staff\\b/i }, { id: 'badge-worldwide', label: 'Badge creux WORLDWIDE', re: /"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 83,
+      "label": "badge: WORLDWIDE",
+      "excerpt": "'badge-worldwide', label: 'Badge creux WORLDWIDE', re: /\\bworldwide\\b/i }, { id: 'b"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 12,
+      "label": "badge: BOX-OFFICE",
+      "excerpt": "HOLLYWOOD ACTION, PRO STAFF, WORLDWIDE, BOX-OFFICE) et du jargon * pseudo-opérationn"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 84,
+      "label": "badge: BOX-OFFICE",
+      "excerpt": ": /\\bworldwide\\b/i }, { id: 'badge-box-office', label: 'Badge creux BOX-OFFICE', re:"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 84,
+      "label": "badge: BOX-OFFICE",
+      "excerpt": "'badge-box-office', label: 'Badge creux BOX-OFFICE', re: /\\bbox[\\s-]?office\\b/i }, {"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 13,
+      "label": "badge: TACTIQUE",
+      "excerpt": "rgon * pseudo-opérationnel (RADAR TACTIQUE, HUB OPÉRATIONNEL, CURSUS ÉLITE). *"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 85,
+      "label": "badge: TACTIQUE",
+      "excerpt": "?office\\b/i }, { id: 'jargon-radar-tactique', label: 'Jargon RADAR TACTIQUE', re: /"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 85,
+      "label": "badge: TACTIQUE",
+      "excerpt": "n-radar-tactique', label: 'Jargon RADAR TACTIQUE', re: /radar\\s+tactique/i }, { id:"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 85,
+      "label": "badge: TACTIQUE",
+      "excerpt": ": 'Jargon RADAR TACTIQUE', re: /radar\\s+tactique/i }, { id: 'jargon-hub-operationne"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 8,
+      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
+      "excerpt": "diction absolue de « ADD » et * « Art du Déplacement » pour Malik Diouf et les modules d'ent"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 71,
+      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
+      "excerpt": "o-art-du-deplacement', label: 'Art du Déplacement (banni — utiliser « Parkour »)',"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 7,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "octrine §4) — interdiction absolue de « ADD » et * « Art du Déplacement » pou"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 64,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "ne pas * confondre l'acronyme banni « ADD » avec le verbe SQL « ADD » (DDL) qui p"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 64,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "onyme banni « ADD » avec le verbe SQL « ADD » (DDL) qui peut * apparaître dans de"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 76,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "termino-add', label: 'Acronyme ADD (banni — utiliser « Parkour »)',"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 13,
+      "label": "cliché: cursus élite",
+      "excerpt": "nnel (RADAR TACTIQUE, HUB OPÉRATIONNEL, CURSUS ÉLITE). * * Le scan est RÉCURSIF : il par"
+    },
+    {
+      "file": "scripts/verify_doctrine_in_db.mjs",
+      "line": 87,
+      "label": "cliché: cursus élite",
+      "excerpt": ": 'jargon-cursus-elite', label: 'Jargon CURSUS ÉLITE', re: /cursus\\s+[ée]lite/i }, { id"
+    },
+    {
+      "file": "scripts/verify_films_enrichment.mjs",
+      "line": 49,
+      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
+      "excerpt": "un terme banni const banned = /gun-?fu|Art du Déplacement|\\bADD\\b/i; const violations = films.fi"
+    },
+    {
+      "file": "scripts/verify_films_enrichment.mjs",
+      "line": 51,
+      "label": "doctrine: acronyme ADD (utiliser Parkour)",
+      "excerpt": "le.log(`\\nViolations doctrine (gun-fu / ADD) : ${violations.length}`); violations."
+    }
+  ],
+  "socialConflicts": [],
+  "socialOccurrences": [
+    {
+      "file": "src/app/admin/components/FilmsView.tsx",
+      "line": 544,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://youtube.com/watch"
+    },
+    {
+      "file": "src/app/admin/components/TeamView.tsx",
+      "line": 853,
+      "platform": "instagram",
+      "handle": "...",
+      "url": "https://instagram.com/..."
+    },
+    {
+      "file": "src/app/videos-cascadeur/page.tsx",
+      "line": 323,
+      "platform": "instagram",
+      "handle": "campus.univers.cascades",
+      "url": "https://www.instagram.com/campus.univers.cascades/"
+    },
+    {
+      "file": "src/app/videos-cascadeur/page.tsx",
+      "line": 333,
+      "platform": "tiktok",
+      "handle": "@campusuniverscascades",
+      "url": "https://www.tiktok.com/@campusuniverscascades"
+    },
+    {
+      "file": "src/components/sections/home/HomeSocialSection.tsx",
+      "line": 42,
+      "platform": "instagram",
+      "handle": "reel/DJW5wq0MIzt",
+      "url": "https://www.instagram.com/reel/DJW5wq0MIzt/"
+    },
+    {
+      "file": "src/components/sections/home/HomeSocialSection.tsx",
+      "line": 51,
+      "platform": "instagram",
+      "handle": "reel/DKAFa9dsRVa",
+      "url": "https://www.instagram.com/reel/DKAFa9dsRVa/"
+    },
+    {
+      "file": "src/components/sections/home/HomeSocialSection.tsx",
+      "line": 60,
+      "platform": "instagram",
+      "handle": "reel/DJmOS2tMQpk",
+      "url": "https://www.instagram.com/reel/DJmOS2tMQpk/"
+    },
+    {
+      "file": "src/components/sections/home/HomeSocialSection.tsx",
+      "line": 118,
+      "platform": "instagram",
+      "handle": "campus.univers.cascades",
+      "url": "https://www.instagram.com/campus.univers.cascades/"
+    },
+    {
+      "file": "src/components/sections/home/HomeSocialSection.tsx",
+      "line": 135,
+      "platform": "instagram",
+      "handle": "campus.univers.cascades",
+      "url": "https://www.instagram.com/campus.univers.cascades/"
+    },
+    {
+      "file": "src/components/sections/home/HomeSocialSection.tsx",
+      "line": 157,
+      "platform": "youtube",
+      "handle": "@campusuniverscascades",
+      "url": "https://www.youtube.com/@campusuniverscascades"
+    },
+    {
+      "file": "src/components/sections/home/HomeSocialSection.tsx",
+      "line": 179,
+      "platform": "tiktok",
+      "handle": "@campusuniverscascades",
+      "url": "https://www.tiktok.com/@campusuniverscascades"
+    },
+    {
+      "file": "src/components/sections/home/HomeSocialSection.tsx",
+      "line": 201,
+      "platform": "facebook",
+      "handle": "campus.univers.cascades",
+      "url": "https://www.facebook.com/campus.univers.cascades"
+    },
+    {
+      "file": "src/components/sections/partenaires/partenaires.data.tsx",
+      "line": 120,
+      "platform": "instagram",
+      "handle": "actioncascade",
+      "url": "https://www.instagram.com/actioncascade/"
+    },
+    {
+      "file": "src/components/sections/partenaires/partenaires.data.tsx",
+      "line": 129,
+      "platform": "youtube",
+      "handle": "@ayacatch",
+      "url": "https://www.youtube.com/@ayacatch"
+    },
+    {
+      "file": "src/components/sections/partenaires/partenaires.data.tsx",
+      "line": 138,
+      "platform": "instagram",
+      "handle": "cascadedemoteam",
+      "url": "https://www.instagram.com/cascadedemoteam/"
+    },
+    {
+      "file": "src/components/sections/partenaires/partenaires.data.tsx",
+      "line": 153,
+      "platform": "youtube",
+      "handle": "@xtremvideo",
+      "url": "https://www.youtube.com/@XtremVideo"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 21,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 40,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 59,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 80,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 100,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 118,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 136,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 154,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 172,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 195,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 217,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 236,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 254,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 276,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 299,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 321,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 340,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 356,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 376,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 400,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 416,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 432,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 448,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 464,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 480,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 498,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 514,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 530,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 548,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 564,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 580,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 596,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 612,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 630,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 646,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 662,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 680,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 698,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 716,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 734,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 750,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 768,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 784,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 804,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 823,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 839,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 857,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 873,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 894,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 910,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 928,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 946,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 962,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 978,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 998,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 1017,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 1033,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 1051,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 1067,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 1083,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 1099,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 1115,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 1134,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 1150,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 1166,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 1182,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 1204,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/navigation.ts",
+      "line": 521,
+      "platform": "instagram",
+      "handle": "campus.univers.cascades",
+      "url": "https://www.instagram.com/campus.univers.cascades/"
+    },
+    {
+      "file": "src/data/navigation.ts",
+      "line": 535,
+      "platform": "youtube",
+      "handle": "@campusuniverscascades",
+      "url": "https://www.youtube.com/@campusuniverscascades"
+    },
+    {
+      "file": "src/data/navigation.ts",
+      "line": 549,
+      "platform": "tiktok",
+      "handle": "@campusuniverscascades",
+      "url": "https://www.tiktok.com/@campusuniverscascades"
+    },
+    {
+      "file": "src/data/navigation.ts",
+      "line": 563,
+      "platform": "facebook",
+      "handle": "campus.univers.cascades",
+      "url": "https://www.facebook.com/campus.univers.cascades"
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 37,
+      "platform": "instagram",
+      "handle": "lucas.dollfus",
+      "url": "https://www.instagram.com/lucas.dollfus/"
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 39,
+      "platform": "instagram",
+      "handle": "lucas.dollfus",
+      "url": "https://www.instagram.com/lucas.dollfus/"
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 172,
+      "platform": "instagram",
+      "handle": "vincentbouillon",
+      "url": "https://www.instagram.com/vincentbouillon/"
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 238,
+      "platform": "instagram",
+      "handle": "malikdiouf_yamakasi",
+      "url": "https://www.instagram.com/malikdiouf_yamakasi/"
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 651,
+      "platform": "instagram",
+      "handle": "nielsdalery",
+      "url": "https://www.instagram.com/nielsdalery"
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 1180,
+      "platform": "instagram",
+      "handle": "actioncascade",
+      "url": "https://www.instagram.com/actioncascade/"
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 1190,
+      "platform": "youtube",
+      "handle": "@ayacatch",
+      "url": "https://www.youtube.com/@ayacatch"
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 1200,
+      "platform": "instagram",
+      "handle": "cascadedemoteam",
+      "url": "https://www.instagram.com/cascadedemoteam/"
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 1210,
+      "platform": "youtube",
+      "handle": "@xtremvideo",
+      "url": "https://www.youtube.com/@XtremVideo"
+    },
+    {
+      "file": "src/lib/seo.ts",
+      "line": 49,
+      "platform": "instagram",
+      "handle": "campus.univers.cascades",
+      "url": "https://www.instagram.com/campus.univers.cascades"
+    },
+    {
+      "file": "src/lib/seo.ts",
+      "line": 50,
+      "platform": "youtube",
+      "handle": "@campusuniverscascades",
+      "url": "https://www.youtube.com/@campusuniverscascades"
+    },
+    {
+      "file": "src/lib/seo.ts",
+      "line": 51,
+      "platform": "tiktok",
+      "handle": "@campusuniverscascades",
+      "url": "https://www.tiktok.com/@campusuniverscascades"
+    },
+    {
+      "file": "src/lib/seo.ts",
+      "line": 52,
+      "platform": "facebook",
+      "handle": "campus.univers.cascades",
+      "url": "https://www.facebook.com/campus.univers.cascades"
+    }
+  ]
+}

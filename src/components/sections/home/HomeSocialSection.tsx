@@ -176,7 +176,7 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
           </a>
 
           <a
-            href="https://www.tiktok.com/@campus.univers.cascades"
+            href="https://www.tiktok.com/@campusuniverscascades"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-[#0e0e14]/90 backdrop-blur-xs border border-zinc-800 hover:border-[#25F4EE] p-3.5 flex items-center gap-3 transition-all duration-300 group hover:shadow-[0_0_20px_rgba(37,244,238,0.2)]"

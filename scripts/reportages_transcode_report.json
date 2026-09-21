@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-09-20T23:41:37.196Z",
+  "maxMo": 49,
+  "audioKbps": 96,
+  "results": [
+    {
+      "name": "TF1-JT-20h-CUC-reportage-1.mp4",
+      "status": "ok",
+      "inputBytes": 86082399,
+      "videoKbps": 1241,
+      "height": 720,
+      "segments": 1,
+      "duration": 298.368,
+      "outputs": [
+        {
+          "file": "TF1-JT-20h-CUC-reportage-1.mp4",
+          "bytes": 50024422,
+          "start": 0,
+          "duration": 298.368
+        }
+      ]
+    },
+    {
+      "name": "20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4",
+      "status": "ok",
+      "inputBytes": 125434026,
+      "videoKbps": 421,
+      "height": 480,
+      "segments": 2,
+      "duration": 1264.96,
+      "outputs": [
+        {
+          "file": "20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1-part1.mp4",
+          "bytes": 41435630,
+          "start": 0,
+          "duration": 632.48
+        },
+        {
+          "file": "20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1-part2.mp4",
+          "bytes": 41762490,
+          "start": 632.48,
+          "duration": 632.48
+        }
+      ]
+    }
+  ]
+}

@@ -211,7 +211,7 @@ export const ContactForm: React.FC = () => {
                 Stunt Summer Camp (Séjour d'été)
               </option>
               <option value="workshop-international">
-                International Stunt Workshop (Worldwide)
+                International Stunt Workshop
               </option>
               <option value="tournage-production">
                 Production de Cinéma / Tournage / Coordination

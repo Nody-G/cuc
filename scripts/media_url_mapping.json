@@ -4,8 +4,8 @@
   "prefix": "media",
   "supabaseUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co",
   "totals": {
-    "total": 221,
-    "uploaded": 221,
+    "total": 223,
+    "uploaded": 223,
     "failed": 0,
     "totalBytes": 157423573,
     "totalHuman": "150.13 Mo"
@@ -1780,6 +1780,33 @@
       "bytes": 428291,
       "sha256": "c126444ecf21ba7129dbb17e37343852d405ee286e85b7ba7783620543b640c9",
       "status": "uploaded"
+    },
+    {
+      "originalUrl": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/TF1-JT-20h-CUC-reportage-1.mp4",
+      "category": "reportages",
+      "objectPath": "media/reportages/TF1-JT-20h-CUC-reportage-1.mp4",
+      "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/reportages/TF1-JT-20h-CUC-reportage-1.mp4",
+      "bytes": 50024422,
+      "status": "uploaded",
+      "note": "Réencodé 720p @ 1241 kbps (source 82.09 Mo) — limite dure Supabase Storage 50 Mo/objet"
+    },
+    {
+      "originalUrl": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4",
+      "category": "reportages",
+      "objectPath": "media/reportages/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1-part1.mp4",
+      "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/reportages/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1-part1.mp4",
+      "bytes": 41435630,
+      "status": "uploaded",
+      "note": "Segment 1/2 — réencodé 480p @ 421 kbps (source 119.62 Mo)"
+    },
+    {
+      "originalUrl": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4#part2",
+      "category": "reportages",
+      "objectPath": "media/reportages/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1-part2.mp4",
+      "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/reportages/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1-part2.mp4",
+      "bytes": 41762490,
+      "status": "uploaded",
+      "note": "Segment 2/2 — réencodé 480p @ 421 kbps"
     }
   ]
 }

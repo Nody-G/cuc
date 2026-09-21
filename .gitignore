@@ -53,3 +53,6 @@ scripts/coach_credits_review_imdb.json
 
 # rapatriement des médias WordPress (zone de travail locale, non versionnée)
 /.staging/
+
+# artefacts shell accidentels (redirection malformée : `console.log('`)
+console.log('

@@ -82,7 +82,7 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
   const title = tournagesData?.title || 'COORDINATION DE CASCADES & TOURNAGES';
   const subtitle =
     tournagesData?.subtitle ||
-    "Partenaire privilégié des productions de cinéma, des séries et des diffuseurs mondiaux, le Campus Univers Cascades met à disposition son expertise en action design, direction de combats et sécurité sur plateau avec plus de 63 longs-métrages coordonnés au box-office.";
+    "Partenaire des productions de cinéma, des séries et des diffuseurs, le Campus Univers Cascades met à disposition son expertise en action design, direction de combats et sécurité sur plateau, avec plus de 63 longs-métrages coordonnés.";
   const ctaText = tournagesData?.cta_text || 'Découvrir la CUC Stunt Team';
   const ctaLink = tournagesData?.cta_link || '/cuc-team-cascadeur';
 

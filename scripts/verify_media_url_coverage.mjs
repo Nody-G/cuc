@@ -36,8 +36,70 @@ const SITE_TABLES = [
     'site_settings',
 ];
 
-const SOURCE_EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs', '.json', '.css']);
-const SOURCE_EXCLUDE_DIRS = new Set(['node_modules', '.next', '.git', '.staging', '.cache']);
+const SOURCE_EXTENSIONS = new Set([
+    '.ts',
+    '.tsx',
+    '.js',
+    '.jsx',
+    '.mjs',
+    '.json',
+    '.css',
+    // Les seeds SQL sont exécutés par `scripts/execute_setup.mjs` : une URL
+    // `wp-content` qui y subsiste peut être réinjectée en base à tout moment.
+    '.sql',
+    '.md',
+]);
+const SOURCE_EXCLUDE_DIRS = new Set([
+    'node_modules',
+    '.next',
+    '.git',
+    '.staging',
+    '.cache',
+    // Rapports d'audit : ils CITENT volontairement les URLs legacy pour les
+    // documenter. Les scanner produirait des faux positifs permanents.
+    'plans',
+]);
+
+/**
+ * Fichiers exclus du scan, par chemin normalisé.
+ *
+ * Ces fichiers CITENT volontairement des URLs `wp-content` : ce sont soit des
+ * rapports/inventaires produits par l'audit, soit les scripts qui DÉFINISSENT la
+ * table de correspondance legacy → Supabase. Les scanner produirait des faux
+ * positifs permanents et masquerait les vraies régressions (seeds SQL).
+ *
+ * Les seeds SQL (`*.sql`) ne sont JAMAIS exclus : ils sont exécutés par
+ * `scripts/execute_setup.mjs` et peuvent réinjecter une URL legacy en base.
+ */
+const SOURCE_EXCLUDE_FILES = new Set(
+    [
+        // Rapports et inventaires d'audit (citent les URLs legacy pour les documenter).
+        'scripts/audit_full_app_report.json',
+        'scripts/live_cuc_images.json',
+        'scripts/media_classification.json',
+        'scripts/media_classification.md',
+        'scripts/media_inventory.json',
+        'scripts/media_inventory.md',
+        'scripts/media_rewrite_report.json',
+        'scripts/media_rewrite_report.md',
+        'scripts/media_url_mapping.json',
+        'scripts/media_url_mapping.md',
+        'scripts/reportages_url_mapping.json',
+        'scripts/reportages_transcode_report.json',
+        // Scripts qui DÉFINISSENT la correspondance legacy → Supabase (regex,
+        // tables `LEGACY_URLS`, listes de téléchargement). Ils doivent citer les
+        // URLs d'origine par construction.
+        'scripts/download_real_logos.mjs',
+        'scripts/fetch_missing_media.mjs',
+        'scripts/purge_legacy_urls_from_seeds.mjs',
+        'scripts/rewrite_media_urls.mjs',
+        'scripts/sync_all_coach_credits_supabase.mjs',
+        'scripts/upload_reportages_to_supabase.mjs',
+        // Helpers temporaires d'extraction (regex littérale).
+        'scripts/_tmp_extract_wp.mjs',
+        'scripts/_tmp_map_wp.mjs',
+    ].map((p) => path.normalize(p)),
+);
 
 const WP_MEDIA_RE = /https?:\/\/(?:www\.)?campus-universcascades\.com\/wp-content\/[^\s"'`)\\]*/gi;
 
@@ -60,14 +122,16 @@ const DEAD_URL_REMAP = new Set([
 ]);
 
 /**
- * URLs volontairement NON rapatriées : vidéos de reportage dépassant la taille
- * maximale autorisée par Supabase Storage. Elles restent servies par le site
- * d'origine et sont donc exclues du contrôle de couverture.
+ * URLs volontairement NON rapatriées.
+ *
+ * Historiquement, les deux reportages TV figuraient ici car ils dépassaient la
+ * limite dure de 50 Mo par objet de Supabase Storage. Ils ont depuis été
+ * réencodés et découpés par `scripts/transcode_reportages.mjs`, puis
+ * téléversés sous `media/reportages/` par
+ * `scripts/upload_reportages_to_supabase.mjs`. Ils sont désormais couverts et
+ * ne doivent plus être exclus.
  */
-const INTENTIONALLY_EXTERNAL = new Set([
-    'https://www.campus-universcascades.com/wp-content/uploads/2021/07/TF1-JT-20h-CUC-reportage-1.mp4',
-    'https://www.campus-universcascades.com/wp-content/uploads/2021/07/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4',
-]);
+const INTENTIONALLY_EXTERNAL = new Set([]);
 
 /** Une URL est couverte si elle est connue, remappée, externe assumée, ou sans suffixe -WxH. */
 function isCovered(url) {
@@ -94,14 +158,25 @@ function walk(dir, files = []) {
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
         if (SOURCE_EXCLUDE_DIRS.has(entry.name)) continue;
         const full = path.join(dir, entry.name);
-        if (entry.isDirectory()) walk(full, files);
-        else if (SOURCE_EXTENSIONS.has(path.extname(entry.name))) files.push(full);
+        if (entry.isDirectory()) {
+            walk(full, files);
+            continue;
+        }
+        if (!SOURCE_EXTENSIONS.has(path.extname(entry.name))) continue;
+        if (SOURCE_EXCLUDE_FILES.has(path.normalize(full))) continue;
+        files.push(full);
     }
     return files;
 }
 
-for (const file of walk('src')) {
-    scan(fs.readFileSync(file, 'utf8'), path.normalize(file));
+// `src` : le code applicatif. `scripts` : les seeds SQL et les scripts de
+// migration, qui peuvent réinjecter des URLs legacy en base. `public` : les
+// fichiers statiques servis tels quels.
+for (const root of ['src', 'scripts', 'public']) {
+    if (!fs.existsSync(root)) continue;
+    for (const file of walk(root)) {
+        scan(fs.readFileSync(file, 'utf8'), path.normalize(file));
+    }
 }
 
 // --- Base de données ---

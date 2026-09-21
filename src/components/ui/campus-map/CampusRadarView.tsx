@@ -62,7 +62,7 @@ export const CampusRadarView: React.FC<CampusRadarViewProps> = ({
         <div className="w-[90%] h-[90%] rounded-full border border-[#FFE500]" />
         <div className="absolute w-[60%] h-[60%] rounded-full border border-dashed border-[#FFE500]" />
         <div className="absolute w-[30%] h-[30%] rounded-full border border-[#FFE500]" />
-        
+
         {/* Radar Crosshairs */}
         <div className="absolute w-full h-[1px] bg-[#FFE500]/30" />
         <div className="absolute h-full w-[1px] bg-[#FFE500]/30" />
@@ -72,17 +72,16 @@ export const CampusRadarView: React.FC<CampusRadarViewProps> = ({
       <div className="relative z-10 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 bg-black/80 backdrop-blur-md px-2.5 py-1 border border-zinc-800 text-[10px] font-mono-tech text-zinc-300">
           <Crosshair className="w-3.5 h-3.5 text-[#FFE500]" />
-          <span>RADAR TACTIQUE DOMAINE 6 HA</span>
+          <span>CARTOGRAPHIE DU CAMPUS — 6 HA</span>
         </div>
 
         <button
           type="button"
           onClick={() => setShowAerialPhoto(!showAerialPhoto)}
-          className={`px-2.5 py-1 rounded text-[10px] font-mono-tech flex items-center gap-1.5 transition border cursor-pointer ${
-            showAerialPhoto
+          className={`px-2.5 py-1 rounded text-[10px] font-mono-tech flex items-center gap-1.5 transition border cursor-pointer ${showAerialPhoto
               ? 'bg-[#FFE500]/20 text-[#FFE500] border-[#FFE500]/40 font-bold'
               : 'bg-black/80 text-zinc-400 border-zinc-800 hover:text-white'
-          }`}
+            }`}
           title="Basculer entre la vue satellite réelle et la grille radar"
         >
           <Layers className="w-3 h-3" />
@@ -103,21 +102,18 @@ export const CampusRadarView: React.FC<CampusRadarViewProps> = ({
               className="absolute -translate-x-1/2 -translate-y-1/2 group/marker focus:outline-hidden pointer-events-auto cursor-pointer"
             >
               <span
-                className={`relative flex h-8 w-8 items-center justify-center rounded-full transition-transform ${
-                  isSelected ? 'scale-125' : 'hover:scale-115'
-                }`}
+                className={`relative flex h-8 w-8 items-center justify-center rounded-full transition-transform ${isSelected ? 'scale-125' : 'hover:scale-115'
+                  }`}
               >
                 <span
-                  className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                    isSelected ? 'bg-[#FFE500]' : 'bg-zinc-600'
-                  }`}
+                  className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isSelected ? 'bg-[#FFE500]' : 'bg-zinc-600'
+                    }`}
                 />
                 <span
-                  className={`relative inline-flex rounded-full h-6 w-6 items-center justify-center text-[10px] font-mono-tech font-bold border ${
-                    isSelected
+                  className={`relative inline-flex rounded-full h-6 w-6 items-center justify-center text-[10px] font-mono-tech font-bold border ${isSelected
                       ? 'bg-[#FFE500] text-black border-[#FFE500] shadow-[0_0_16px_#FFE500]'
                       : 'bg-black/90 text-white border-zinc-600 group-hover/marker:border-[#FFE500]'
-                  }`}
+                    }`}
                 >
                   {poi.id === 'tower-21m' ? '21m' : poi.name.charAt(0)}
                 </span>
@@ -125,11 +121,10 @@ export const CampusRadarView: React.FC<CampusRadarViewProps> = ({
 
               {/* Marker Tooltip */}
               <span
-                className={`absolute top-9 left-1/2 -translate-x-1/2 px-2 py-0.5 text-[9px] font-mono-tech whitespace-nowrap uppercase tracking-wider transition-all pointer-events-none rounded ${
-                  isSelected
+                className={`absolute top-9 left-1/2 -translate-x-1/2 px-2 py-0.5 text-[9px] font-mono-tech whitespace-nowrap uppercase tracking-wider transition-all pointer-events-none rounded ${isSelected
                     ? 'bg-[#FFE500] text-black font-bold shadow-lg block'
                     : 'bg-black/90 text-zinc-300 border border-zinc-800 opacity-0 group-hover/marker:opacity-100'
-                }`}
+                  }`}
               >
                 {poi.name}
               </span>
