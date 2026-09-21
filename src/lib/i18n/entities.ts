@@ -21,8 +21,19 @@ export interface EntityField {
 export interface EntityDefinition {
     entity: string;
     label: string;
-    table: string;
-    idField: string;
+    /**
+     * Table source des lignes traduisibles. **Absente** pour les entités
+     * « overlay seul » (`overlayOnly`) : ces lignes vivent dans un miroir JSON
+     * (`site_settings`) et n'ont aucune table dédiée. Ne jamais inventer un nom
+     * de table — un lien faux serait pire qu'aucun lien.
+     */
+    table?: string;
+    /** Colonne identifiant dans la table source. */
+    idField?: string;
+    /** Entité sans table source : seuls des overlays sont écrits. */
+    overlayOnly?: boolean;
+    /** Description lisible de la source réelle (documentation de registre). */
+    source?: string;
     fields: EntityField[];
 }
 

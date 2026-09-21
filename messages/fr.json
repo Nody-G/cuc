@@ -450,7 +450,38 @@
         "facilitiesTitle": "NOS INFRASTRUCTURES",
         "facilitiesSubtitle": "Chaque espace est conçu pour le travail des cascades physiques et mécaniques, avec les équipements de réception nécessaires.",
         "facilitiesSpecsLabel": "Spécifications & Équipements Clés :",
-        "facilitiesComplianceLabel": "Conformité & Normes :"
+        "facilitiesComplianceLabel": "Conformité & Normes :",
+        "hero": {
+            "breadcrumbHome": "ACCUEIL",
+            "breadcrumbCurrent": "LE CAMPUS",
+            "badge": "INFRASTRUCTURES DE FORMATION",
+            "location": "LE CATEAU-CAMBRÉSIS (59)",
+            "titleLead": "LE",
+            "titleAccent": "CAMPUS",
+            "subtitle": "Découvrez les infrastructures du Campus Univers Cascades : la tour de saut de 21 mètres, 1300 m² de hangars couverts, fosse de réception, dojos, manège équestre, hébergement 90 lits et studio de répétition en région parisienne.",
+            "ctaFacilities": "Infrastructures",
+            "ctaTour360": "Visite 360°",
+            "ctaPlan3D": "Plan 3D",
+            "bgAlt": "Domaine du Campus Univers Cascades",
+            "stats": [
+                {
+                    "value": "11 000 M²",
+                    "label": "Surface d'Infrastructures"
+                },
+                {
+                    "value": "21 MÈTRES",
+                    "label": "Hauteur de la Tour CUC"
+                },
+                {
+                    "value": "90 LITS",
+                    "label": "Hébergement Sur Site"
+                },
+                {
+                    "value": "2 SITES",
+                    "label": "Nord (59) & Paris (92)"
+                }
+            ]
+        }
     },
     "home": {
         "hero": {

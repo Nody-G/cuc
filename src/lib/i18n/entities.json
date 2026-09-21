@@ -166,6 +166,34 @@
             ]
         },
         {
+            "entity": "campus_facility",
+            "label": "Installations du campus",
+            "overlayOnly": true,
+            "source": "site_settings.value.list (clé « campus_facilities ») — aucune table dédiée",
+            "fields": [
+                {
+                    "name": "name",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "size",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "description",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "features",
+                    "kind": "array"
+                },
+                {
+                    "name": "specifications",
+                    "kind": "scalar"
+                }
+            ]
+        },
+        {
             "entity": "film",
             "label": "Films",
             "table": "site_films",

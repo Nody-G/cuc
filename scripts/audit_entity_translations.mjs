@@ -78,6 +78,21 @@ let grandCovered = 0;
 for (const def of REGISTRY.entities) {
     if (onlyEntity && def.entity !== onlyEntity) continue;
 
+    // Entité « overlay seul » (aucune table source : miroir JSON `site_settings`).
+    // Aucun lien de table n'est inventé : elle est signalée et ignorée ici, sa
+    // résolution EN passant par `site_translations` uniquement.
+    if (!def.table) {
+        results.push({
+            entity: def.entity,
+            label: def.label,
+            total: 0,
+            covered: 0,
+            missing: [],
+            overlayOnly: true,
+        });
+        continue;
+    }
+
     const rows = await rest(`${def.table}?select=*`);
     if (!rows) {
         console.warn(`  ⚠️  ${def.label} : table « ${def.table} » absente du schéma — entité ignorée.`);

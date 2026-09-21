@@ -3,11 +3,20 @@ import { Link } from '@/i18n/navigation';
 
 import React from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 import { ChevronRight, Layers, Compass } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 
+interface HeroStatCopy {
+  value: string;
+  label: string;
+}
+
 export const VisiteHeroSection: React.FC = () => {
+  const t = useTranslations('visite');
+  const stats = t.raw('hero.stats') as HeroStatCopy[];
+
   return (
     <>
       {/* Hero Header */}
@@ -15,7 +24,7 @@ export const VisiteHeroSection: React.FC = () => {
         <div className="absolute inset-0 z-0">
           <Image
             src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.jpg"
-            alt="Domaine du Campus Univers Cascades"
+            alt={t('hero.bgAlt')}
             fill
             priority
             sizes="100vw"
@@ -27,26 +36,24 @@ export const VisiteHeroSection: React.FC = () => {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">
-              ACCUEIL
+              {t('hero.breadcrumbHome')}
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-            <span className="text-[#FFE500]">LE CAMPUS</span>
+            <span className="text-[#FFE500]">{t('hero.breadcrumbCurrent')}</span>
           </div>
 
           <div className="flex items-center gap-2 mb-4 text-xs font-mono-tech uppercase font-bold tracking-wider text-[#FFE500]">
-            <span>INFRASTRUCTURES DE FORMATION</span>
+            <span>{t('hero.badge')}</span>
             <span className="text-zinc-600">•</span>
-            <span className="text-zinc-400">LE CATEAU-CAMBRÉSIS (59)</span>
+            <span className="text-zinc-400">{t('hero.location')}</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
-            LE <span className="text-[#FFE500]">CAMPUS</span>
+            {t('hero.titleLead')} <span className="text-[#FFE500]">{t('hero.titleAccent')}</span>
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-            Découvrez les infrastructures du Campus Univers Cascades :
-            la tour de saut de 21 mètres, 1300 m² de hangars couverts, fosse de réception,
-            dojos, manège équestre, hébergement 90 lits et studio de répétition en région parisienne.
+            {t('hero.subtitle')}
           </p>
 
           <div className="flex flex-wrap gap-4 mt-8">
@@ -56,7 +63,7 @@ export const VisiteHeroSection: React.FC = () => {
                 size="lg"
                 icon={<Layers className="w-4 h-4 text-black" />}
               >
-                Infrastructures
+                {t('hero.ctaFacilities')}
               </TacticalButton>
             </a>
             <a href="#visite-virtuelle-360">
@@ -65,12 +72,12 @@ export const VisiteHeroSection: React.FC = () => {
                 size="lg"
                 icon={<Compass className="w-4 h-4 text-[#FFE500]" />}
               >
-                Visite 360°
+                {t('hero.ctaTour360')}
               </TacticalButton>
             </a>
             <a href="#plan-3d-domaine">
               <TacticalButton variant="outline" size="lg">
-                Plan 3D
+                {t('hero.ctaPlan3D')}
               </TacticalButton>
             </a>
           </div>
@@ -81,30 +88,17 @@ export const VisiteHeroSection: React.FC = () => {
       <section className="py-8 bg-[#0c0c10] border-b border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 font-mono-tech text-xs">
-            <div className="border-l-2 border-[#FFE500] pl-4">
-              <div className="text-3xl sm:text-4xl font-display text-white">
-                11 000 M²
+            {stats.map((stat, idx) => (
+              <div key={idx} className="border-l-2 border-[#FFE500] pl-4">
+                <div
+                  className={`text-3xl sm:text-4xl font-display ${idx % 2 === 1 ? 'text-[#FFE500]' : 'text-white'
+                    }`}
+                >
+                  {stat.value}
+                </div>
+                <div className="text-zinc-400 uppercase">{stat.label}</div>
               </div>
-              <div className="text-zinc-400 uppercase">Surface d'Infrastructures</div>
-            </div>
-            <div className="border-l-2 border-[#FFE500] pl-4">
-              <div className="text-3xl sm:text-4xl font-display text-[#FFE500]">
-                21 MÈTRES
-              </div>
-              <div className="text-zinc-400 uppercase">Hauteur de la Tour CUC</div>
-            </div>
-            <div className="border-l-2 border-[#FFE500] pl-4">
-              <div className="text-3xl sm:text-4xl font-display text-white">
-                90 LITS
-              </div>
-              <div className="text-zinc-400 uppercase">Hébergement Sur Site</div>
-            </div>
-            <div className="border-l-2 border-[#FFE500] pl-4">
-              <div className="text-3xl sm:text-4xl font-display text-[#FFE500]">
-                2 SITES
-              </div>
-              <div className="text-zinc-400 uppercase">Nord (59) & Paris (92)</div>
-            </div>
+            ))}
           </div>
         </div>
       </section>

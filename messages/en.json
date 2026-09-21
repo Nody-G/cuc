@@ -450,7 +450,38 @@
         "facilitiesTitle": "OUR FACILITIES",
         "facilitiesSubtitle": "Every space is designed for physical and mechanical stunt work, with the landing equipment it requires.",
         "facilitiesSpecsLabel": "Key Specifications & Equipment:",
-        "facilitiesComplianceLabel": "Compliance & Standards:"
+        "facilitiesComplianceLabel": "Compliance & Standards:",
+        "hero": {
+            "breadcrumbHome": "HOME",
+            "breadcrumbCurrent": "THE CAMPUS",
+            "badge": "TRAINING FACILITIES",
+            "location": "LE CATEAU-CAMBRÉSIS (59)",
+            "titleLead": "THE",
+            "titleAccent": "CAMPUS",
+            "subtitle": "Discover the Campus Univers Cascades facilities: the 21-metre jump tower, 1300 m² of covered hangars, landing pit, dojos, indoor riding arena, 90-bed accommodation and a rehearsal studio in the Paris region.",
+            "ctaFacilities": "Facilities",
+            "ctaTour360": "360° tour",
+            "ctaPlan3D": "3D plan",
+            "bgAlt": "Campus Univers Cascades estate",
+            "stats": [
+                {
+                    "value": "11 000 M²",
+                    "label": "Facility area"
+                },
+                {
+                    "value": "21 METRES",
+                    "label": "CUC Tower height"
+                },
+                {
+                    "value": "90 BEDS",
+                    "label": "On-site accommodation"
+                },
+                {
+                    "value": "2 SITES",
+                    "label": "North (59) & Paris (92)"
+                }
+            ]
+        }
     },
     "home": {
         "hero": {
@@ -967,7 +998,7 @@
         "standardLabel": "Admissions office:",
         "phoneLabel": "Phone:",
         "emailLabel": "Email:",
-        "idfLabel": "Île-de-France centre (Paris studio):",
+        "idfLabel": "Paris studio:",
         "idfValue": "Rehearsal studio & actors",
         "accessCta": "Plan a visit or book a course",
         "tour3dBadge": "3D SPATIAL TOPOGRAPHY",

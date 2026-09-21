@@ -75,6 +75,9 @@ uiFiles.sort((a, b) => b.count - a.count);
 const entityRows = [];
 let entityTotal = 0;
 for (const def of REGISTRY.entities) {
+    // Entité « overlay seul » : aucune table source (miroir JSON `site_settings`).
+    if (!def.table) continue;
+
     const rows = await rest(`${def.table}?select=*`);
     if (!rows) {
         entityRows.push({ ...def, table: def.table, rows: 0, total: 0, perField: [], missing: true });

@@ -35,13 +35,17 @@ export function useEntityOverlays(entity: string) {
     const key = `${entity}|${locale}`;
 
     // Overlays déjà résolus par le serveur (premier rendu correct, sans flash) :
-    // ils court-circuitent la requête navigateur.
+    // ils court-circuitent la requête navigateur. Un objet VIDE n'est pas une
+    // réponse : l'entité peut être absente du registre côté serveur (ou ses
+    // overlays pas encore publiés) — on laisse alors la requête navigateur jouer
+    // son rôle de repli au lieu de figer un résultat vide.
     const serverOverlays = useSiteData()?.overlays?.[entity] ?? null;
+    const hasServerOverlays = !!serverOverlays && Object.keys(serverOverlays).length > 0;
 
     const [state, setState] = useState<OverlayState>({ key: '', overlays: EMPTY_OVERLAYS });
 
     useEffect(() => {
-        if (locale === 'fr' || !entity || serverOverlays) return;
+        if (locale === 'fr' || !entity || hasServerOverlays) return;
 
         let isMounted = true;
         const supabase = createClient();
@@ -67,9 +71,9 @@ export function useEntityOverlays(entity: string) {
         return () => {
             isMounted = false;
         };
-    }, [entity, locale, key, serverOverlays]);
+    }, [entity, locale, key, hasServerOverlays]);
 
-    if (serverOverlays) return serverOverlays;
+    if (hasServerOverlays) return serverOverlays as Record<string, Record<string, unknown>>;
 
     // Seules les données de la clé courante sont servies.
     return state.key === key ? state.overlays : EMPTY_OVERLAYS;
