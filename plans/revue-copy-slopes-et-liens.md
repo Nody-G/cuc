@@ -243,3 +243,84 @@ Un seul texte reste modifié, et il est assumé : l'**aide du studio 3D**
 ([`CampusPlan3DView.tsx`](src/app/admin/components/CampusPlan3DView.tsx:89)), qui documente des
 commandes qui n'existaient pas avant (anneau de rotation permanent, `Ctrl` + `Z`, clic droit pour se
 déplacer). Revenir au texte d'origine y décrirait un outil qui n'existe plus.
+
+---
+
+## 9. Contrôle d'intégrité du contenu — code, base et vitrine servie
+
+Le contenu vit à deux endroits : dans le code (replis) et dans Supabase, édité depuis le Cockpit.
+Vérifier « je n'ai pas modifié les textes d'origine » suppose donc de contrôler les trois couches,
+y compris ce qui est réellement envoyé au visiteur. Outil :
+[`scripts/verify_content_untouched.mjs`](scripts/verify_content_untouched.mjs:1) — **lecture seule**,
+uniquement des `select`, sûr à lancer en production.
+
+```
+npm run content:verify          # chronologie des écritures, table par table
+npm run content:verify:window   # assertion : rien d'éditorial depuis le commit précédent
+npm run content:verify:live     # vitrine : quelle version du texte est servie ?
+node scripts/verify_content_untouched.mjs --dump=/stunt-workshop-cuc --grep=internat
+```
+
+### 9.1 Résultat — base de données
+
+```
+node scripts/verify_content_untouched.mjs --baseline=8a40f78
+# → 15 tables lisibles, 1 écriture attendue (campus_placements_3d à 11:40:53Z),
+#   0 écriture de texte dans la fenêtre.
+```
+
+Sur les 16 tables `site_*`, la seule écriture postérieure au commit de référence est
+`site_settings.campus_placements_3d` — le plan 3D, qui n'est pas du texte. **Aucune ligne éditoriale
+n'a été touchée.**
+
+### 9.2 Leçon de méthode : une fenêtre de contrôle mal ancrée
+
+Le premier passage utilisait `--since=00:00Z` et a signalé **23 écritures « inattendues »**. Toutes
+étaient antérieures au commit de référence `8a40f78` (10:02:09Z) : migrations de disciplines, de
+séances, de points d'intérêt, de navigation, de pied de page et de films, issues des chantiers
+précédents. Aucune n'appartenait à cette revue.
+
+C'est la même erreur que celle des liens (§ 3.1), transposée au temps : **une mesure mal bornée
+produit une conclusion fausse, et une conclusion fausse coûte plus cher qu'un doute assumé.** L'outil
+accepte désormais `--baseline=<commit>` et résout la date avec git, pour ne plus recopier un
+horodatage à la main — donc pour ne plus se tromper.
+
+### 9.3 Vitrine servie
+
+`--live` interroge les 7 pages publiques et cherche, pour chaque texte, la version d'origine **et** la
+version condensée. Les textes des programmes, des disciplines, du team building et de l'hébergement
+sont retrouvés **dans la base** : c'est cette copie qui alimente la vitrine. Aucune version condensée
+n'est servie.
+
+Trois sondes (`stages.data.ts`, l'accroche anglaise du workshop, la visite virtuelle de l'accueil) ne
+sont trouvées ni dans le HTML ni en base. Ce ne sont pas des textes perdus : les blocs correspondants
+sont publiés depuis le CMS avec une autre formulation. Pour ces blocs, le texte du code est un
+**repli** qui ne s'affiche pas — le retoucher ou le restaurer ne change rien à l'écran.
+
+### 9.4 Réserve importante sur la référence « site original »
+
+`https://www.campus-universcascades.com` est **l'ancien site WordPress**, pas cette application. Ses
+pages servent un pied de page `CUC Translate »` et une entrée `BOUTIQUE`, et leur contenu (atelier
+anglais, formules de stages) ne correspond pas au HTML produit ici.
+
+Conséquence pratique : une comparaison « texte par texte » entre ce dépôt et ce domaine comparerait
+deux sites différents. La référence utilisable est le **contenu migré dans Supabase**, ce que le mode
+`--live` contrôle en second recours. Si une mise en correspondance stricte avec WordPress est
+souhaitée, elle doit être cadrée comme un chantier à part.
+
+### 9.5 Anomalie détectée : table `site_page_revisions` absente
+
+```
+node scripts/verify_content_untouched.mjs
+# → WARN site_page_revisions : TABLE ABSENTE de la base (PGRST205)
+```
+
+Le Cockpit lit et écrit `site_page_revisions` ([`site-service.ts`](src/lib/data/site-service.ts:2057),
+[`PageRevisionsPanel.tsx`](src/app/admin/components/PageRevisionsPanel.tsx:216)) mais la table n'existe
+pas dans le projet Supabase : le schéma est écrit et n'a jamais été appliqué
+([`scripts/schema_page_revisions.sql`](scripts/schema_page_revisions.sql:14)).
+
+Effet visible : l'historique de versions des pages est **inopérant** — panneau vide, aucun instantané
+créé avant publication, restauration impossible. Aucun correctif n'est appliqué ici : une migration de
+schéma sur la production ne se déclenche pas au détour d'une revue éditoriale. Elle est signalée avec
+le fichier exact à exécuter.
