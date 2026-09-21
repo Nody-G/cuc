@@ -14,8 +14,9 @@
  * `src/lib/global-styles.test.ts`.
  */
 import '@/app/globals.css';
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { Bebas_Neue, Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
+import { NextIntlClientProvider } from 'next-intl';
 import { MobileStickyCTA } from '@/components/layout/MobileStickyCTA';
 import { PreviewBridgeClient } from '@/components/preview/PreviewBridgeClient';
 import { SpeculationRules } from '@/components/preview/SpeculationRules';
@@ -26,6 +27,21 @@ import { educationalOrganizationJsonLd, websiteJsonLd } from '@/lib/seo';
  * layouts racines du site :
  *   - `src/app/(site)/[locale]/layout.tsx` — vitrine bilingue (fr/en) ;
  *   - `src/app/(admin)/layout.tsx` — cockpit (FR).
+ *
+ * Elle porte aussi le **provider de traduction** : tout ce que la coquille rend
+ * (page, lien d'évitement, `MobileStickyCTA`, pont d'aperçu…) est ainsi dans le
+ * contexte next-intl. C'est indispensable, car le `Link` de
+ * `@/i18n/navigation` appelle `useLocale()` à chaque rendu et lève une
+ * exception — au message vide en production — hors provider :
+ *
+ *   "No intl context found. Have you configured the provider?"
+ *
+ * Panne réelle : `MobileStickyCTA` (rendu par cette coquille, donc hors du
+ * `NextIntlClientProvider` des layouts) ne monte son `<Link>` localisé qu'au
+ * premier défilement (`scrollY > 200`). L'exception partait donc au scroll et
+ * remontait à `global-error` — la page entière était remplacée.
+ * Le provider est désormais placé ici, à la racine, pour ne plus dépendre de
+ * l'ordre de composition des layouts.
  *
  * Polices auto-hébergées par next/font (aucune requête vers Google au runtime).
  */
@@ -59,12 +75,19 @@ const jetbrainsMono = JetBrains_Mono({
     preload: false,
 });
 
+/** Messages attendus par le provider, dérivés de sa signature. */
+type IntlMessages = NonNullable<
+    ComponentProps<typeof NextIntlClientProvider>['messages']
+>;
+
 export function RootShell({
     locale,
+    messages,
     skipLabel = 'Aller au contenu principal',
     children,
 }: {
     locale: string;
+    messages?: IntlMessages;
     skipLabel?: string;
     children: ReactNode;
 }) {
@@ -73,19 +96,23 @@ export function RootShell({
             <body
                 className={`${bebasNeue.variable} ${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased min-h-screen bg-[#060608] text-white flex flex-col`}
             >
-                {/* Lien d'évitement — accessibilité clavier (WCAG 2.4.1) */}
-                <a
-                    href="#contenu-principal"
-                    className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:px-4 focus:py-2 focus:bg-[#FFE500] focus:text-black focus:font-bold focus:text-sm focus:border-2 focus:border-black"
-                >
-                    {skipLabel}
-                </a>
-                {children}
-                <MobileStickyCTA />
-                {/* Pont d'aperçu live du Cockpit — inerte hors iframe. */}
-                <PreviewBridgeClient />
-                {/* Speculation Rules API — préchargement/prérendu instantané. */}
-                <SpeculationRules />
+                {/* Provider next-intl à la RACINE de la coquille : il englobe la
+                    page ET les composants de coquille (MobileStickyCTA…). */}
+                <NextIntlClientProvider locale={locale} messages={messages}>
+                    {/* Lien d'évitement — accessibilité clavier (WCAG 2.4.1) */}
+                    <a
+                        href="#contenu-principal"
+                        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:px-4 focus:py-2 focus:bg-[#FFE500] focus:text-black focus:font-bold focus:text-sm focus:border-2 focus:border-black"
+                    >
+                        {skipLabel}
+                    </a>
+                    {children}
+                    <MobileStickyCTA />
+                    {/* Pont d'aperçu live du Cockpit — inerte hors iframe. */}
+                    <PreviewBridgeClient />
+                    {/* Speculation Rules API — préchargement/prérendu instantané. */}
+                    <SpeculationRules />
+                </NextIntlClientProvider>
                 {/* Données structurées schema.org */}
                 <script
                     type="application/ld+json"

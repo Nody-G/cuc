@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { NextIntlClientProvider } from 'next-intl';
 import { RootShell } from '@/components/layout/RootShell';
 import frMessages from '../../../messages/fr.json';
 
@@ -20,10 +19,8 @@ export const instant = false;
 
 export default function AdminGroupLayout({ children }: { children: React.ReactNode }) {
     return (
-        <RootShell locale="fr">
-            <NextIntlClientProvider locale="fr" messages={frMessages}>
-                {children}
-            </NextIntlClientProvider>
+        <RootShell locale="fr" messages={frMessages}>
+            {children}
         </RootShell>
     );
 }

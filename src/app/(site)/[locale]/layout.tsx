@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next';
-import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
@@ -89,9 +88,11 @@ export default async function LocaleLayout({
 
     const messages = await getMessages();
 
+    // Le provider next-intl est porté par RootShell : la page ET les composants
+    // de coquille (MobileStickyCTA…) partagent désormais le même contexte i18n.
     return (
-        <RootShell locale={locale}>
-            <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        <RootShell locale={locale} messages={messages}>
+            {children}
         </RootShell>
     );
 }
