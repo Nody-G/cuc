@@ -91,7 +91,9 @@ export const CampusPlan3DView: React.FC = () => {
               Sélectionnez un bâtiment dans le panneau latéral puis glissez-le directement dans la
               scène (ou utilisez les flèches du gizmo). Les flèches du clavier déplacent l’objet sur le
               plan du sol (pas de 0,5 m ; <kbd>Maj</kbd> = 2,5 m ; <kbd>Alt</kbd> = 0,1 m).{' '}
-              <kbd>F</kbd> cadre la caméra sur l’objet sélectionné.
+              <kbd>F</kbd> cadre la caméra sur l’objet sélectionné. Pour vous déplacer dans la scène
+              sans pivoter : <span className="text-zinc-300">clic droit</span> ou{' '}
+              <kbd>Maj</kbd> + glisser (la molette zoome).
             </p>
           </div>
 

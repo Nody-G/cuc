@@ -146,6 +146,8 @@ export interface ThreeSceneContext {
   sunLight: THREE.DirectionalLight;
   aerialTexture: THREE.Texture | null;
   isDragging: boolean;
+  /** Déplacement latéral de la caméra (clic droit, molette, ou Maj + glisser). */
+  isPanning: boolean;
   isDraggingGizmo: boolean;
   activeDragType: GizmoDragType;
   dragStartIntersection: THREE.Vector3;

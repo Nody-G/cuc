@@ -53,7 +53,6 @@ export function useCampusScene({
 }: UseCampusSceneProps) {
   const [bearing, setBearing] = useState<number>(315);
   const [cameraDistance, setCameraDistance] = useState<number>(75);
-  const [activePreset, setActivePreset] = useState<CameraPreset | null>('overview');
 
   // Mutable state references for 60fps interaction loop
   const threeRef = useRef<ThreeSceneContext | null>(null);
@@ -86,7 +85,6 @@ export function useCampusScene({
     three.targetSpherical.radius = facId === 'cuc-tower' ? 52 : 62;
     three.targetSpherical.phi = Math.PI * 0.32;
     three.targetSpherical.theta = (fac.rotationY * Math.PI) / 180 + Math.PI * 0.75;
-    setActivePreset(null);
   }, []);
 
   // Apply Camera Preset
@@ -94,7 +92,6 @@ export function useCampusScene({
     const config = PRESET_CONFIGS[presetKey];
     if (!config || !threeRef.current) return;
 
-    setActivePreset(presetKey);
     soundFX.playTacticalClick();
 
     threeRef.current.targetCenter.set(config.center[0], config.center[1], config.center[2]);
@@ -103,22 +100,10 @@ export function useCampusScene({
     threeRef.current.targetSpherical.phi = config.phi;
   }, []);
 
-  // Zoom controls
-  const handleZoom = useCallback((direction: 'in' | 'out') => {
-    const three = threeRef.current;
-    if (!three) return;
-    const delta = direction === 'in' ? -15 : 15;
-    // Plafond relevé à 220 pour couvrir le domaine réel (248 m) en vue zénithale.
-    three.targetSpherical.radius = Math.max(20, Math.min(220, three.targetSpherical.radius + delta));
-    setCameraDistance(Math.round(three.targetSpherical.radius));
-  }, []);
-
   // Reset view
   const handleReset = useCallback(() => {
     applyPreset('overview');
   }, [applyPreset]);
-
-  const focusFacilityRef = useRef(focusFacility);
 
   useEffect(() => {
     facilitiesRef.current = facilities;
@@ -130,7 +115,6 @@ export function useCampusScene({
     updateFacilityRef.current = onUpdateFacility;
     onSelectObjectIdRef.current = onSelectObjectId;
     onGizmoModeChangeRef.current = onGizmoModeChange;
-    focusFacilityRef.current = focusFacility;
     modeRef.current = mode;
   });
 
@@ -192,6 +176,7 @@ export function useCampusScene({
       sunLight,
       aerialTexture,
       isDragging: false,
+      isPanning: false,
       isDraggingGizmo: false,
       activeDragType: null,
       dragStartIntersection: new THREE.Vector3(),
@@ -246,7 +231,6 @@ export function useCampusScene({
       dragModeRef,
       updateFacilityRef,
       onSelectObjectId: (id) => onSelectObjectIdRef.current(id),
-      focusFacility: (id) => focusFacilityRef.current?.(id),
       setCameraDistance,
       onGizmoModeChange: (nextMode) => onGizmoModeChangeRef.current?.(nextMode),
     });
@@ -375,10 +359,7 @@ export function useCampusScene({
   return {
     bearing,
     cameraDistance,
-    activePreset,
     focusFacility,
-    applyPreset,
-    handleZoom,
     handleReset,
   };
 }

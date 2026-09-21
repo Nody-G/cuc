@@ -47,11 +47,13 @@ interface PointerEventsSetupOptions {
   dragModeRef: React.RefObject<'gizmo' | 'orbit'>;
   updateFacilityRef: React.RefObject<(id: string, updates: Partial<EditableFacilityItem>) => void>;
   onSelectObjectId: (id: string) => void;
-  focusFacility: (id: string) => void;
   setCameraDistance: (dist: number) => void;
   /** Synchronise l'état React de l'outil quand une poignée impose de changer. */
   onGizmoModeChange: (mode: GizmoMode) => void;
 }
+
+/** Amplitudes de déplacement latéral de la caméra, en mètres. */
+const PAN_BOUNDS = 260;
 
 type Axis = 'x' | 'y' | 'z';
 
@@ -65,7 +67,6 @@ export function setupCampusPointerEvents({
   dragModeRef,
   updateFacilityRef,
   onSelectObjectId,
-  focusFacility,
   setCameraDistance,
   onGizmoModeChange,
 }: PointerEventsSetupOptions) {
@@ -80,6 +81,46 @@ export function setupCampusPointerEvents({
   };
 
   const applySnap = (value: number): number => snapToStep(value, snapGridRef.current);
+
+  /**
+   * Démarre un déplacement latéral de la caméra (pan).
+   *
+   * Le plan ne permettait que pivoter et zoomer : impossible de se décaler
+   * vers un bâtiment hors champ. Le pan complète l'orbite en translatant le
+   * point visé, sans changer l'angle ni la distance.
+   */
+  const beginPan = (three: ThreeSceneContext, e: PointerEvent) => {
+    three.isPanning = true;
+    three.isDragging = false;
+    three.isDraggingGizmo = false;
+    three.prevMousePos = { x: e.clientX, y: e.clientY };
+    canvas.setPointerCapture(e.pointerId);
+  };
+
+  /**
+   * Translatte le point visé en proportion de l'écran.
+   *
+   * L'échelle est dérivée du champ de vision à la distance courante : le
+   * décalage suit exactement le curseur (1 pixel écran = 1 pixel monde à
+   * l'endroit visé), quel que soit le niveau de zoom.
+   */
+  const applyPan = (three: ThreeSceneContext, dx: number, dy: number) => {
+    const height = Math.max(canvas.clientHeight, 1);
+    const width = Math.max(canvas.clientWidth, 1);
+
+    const distance = three.spherical.radius;
+    const worldHeight = 2 * distance * Math.tan(THREE.MathUtils.degToRad(three.camera.fov / 2));
+    const worldWidth = worldHeight * (width / height);
+
+    const right = new THREE.Vector3().setFromMatrixColumn(three.camera.matrixWorld, 0);
+    const up = new THREE.Vector3().setFromMatrixColumn(three.camera.matrixWorld, 1);
+
+    three.targetCenter.addScaledVector(right, (-dx / width) * worldWidth);
+    three.targetCenter.addScaledVector(up, (dy / height) * worldHeight);
+
+    three.targetCenter.x = Math.max(-PAN_BOUNDS, Math.min(PAN_BOUNDS, three.targetCenter.x));
+    three.targetCenter.z = Math.max(-PAN_BOUNDS, Math.min(PAN_BOUNDS, three.targetCenter.z));
+  };
 
   /**
    * Angle courant du pointeur autour de l'axe vertical, mesuré dans le plan
@@ -155,6 +196,13 @@ export function setupCampusPointerEvents({
     pendingTransform = null;
     updateMouseVector(three, e);
 
+    // Bouton droit ou molette : déplacement latéral, dans tous les contextes
+    // (y compris hors studio, où le bouton gauche est réservé à l'orbite).
+    if (e.button === 1 || e.button === 2) {
+      beginPan(three, e);
+      return;
+    }
+
     if (isEditorOpenRef.current && e.button === 0) {
       // 1. Poignée de gizmo : noms exacts **et** poignée réellement visible
       //    (`Raycaster` ignore `Object3D.visible`, donc les jeux de poignées
@@ -204,7 +252,14 @@ export function setupCampusPointerEvents({
       }
     }
 
+    // Maj + glisser au sol : déplacement latéral plutôt que rotation.
+    if (e.button === 0 && e.shiftKey) {
+      beginPan(three, e);
+      return;
+    }
+
     three.isDragging = true;
+    three.isPanning = false;
     three.isDraggingGizmo = false;
     canvas.setPointerCapture(e.pointerId);
   };
@@ -310,6 +365,15 @@ export function setupCampusPointerEvents({
       return;
     }
 
+    // --- Déplacement latéral (pan) ---
+    if (three.isPanning) {
+      const deltaX = e.clientX - three.prevMousePos.x;
+      const deltaY = e.clientY - three.prevMousePos.y;
+      three.prevMousePos = { x: e.clientX, y: e.clientY };
+      applyPan(three, deltaX, deltaY);
+      return;
+    }
+
     // --- Orbite caméra ---
     if (three.isDragging) {
       const deltaX = e.clientX - three.prevMousePos.x;
@@ -332,12 +396,19 @@ export function setupCampusPointerEvents({
       canvas.releasePointerCapture(e.pointerId);
     }
 
+    if (three.isPanning) {
+      three.isPanning = false;
+      return;
+    }
+
     const totalDragDist = Math.hypot(
       e.clientX - pointerDownClientPos.x,
       e.clientY - pointerDownClientPos.y
     );
 
-    // Hors studio, un clic net (sans glisser) cadre le bâtiment pointé.
+    // Hors studio, un clic net (sans glisser) **sélectionne** le bâtiment
+    // pointé, sans recadrer la caméra : la vue publique ne doit pas sauter
+    // d'un bâtiment à l'autre, l'orientation restant à l'utilisateur.
     if (!isEditorOpenRef.current && !three.isDraggingGizmo) {
       if (totalDragDist < 6) {
         updateMouseVector(three, e);
@@ -345,7 +416,6 @@ export function setupCampusPointerEvents({
         if (intersects.length > 0) {
           const topObj = findBuildingGroup(intersects[0].object, three.buildingsGroup);
           if (topObj && topObj.name) {
-            focusFacility(topObj.name);
             onSelectObjectId(topObj.name);
           }
         }
@@ -381,11 +451,17 @@ export function setupCampusPointerEvents({
     setCameraDistance(Math.round(three.targetSpherical.radius));
   };
 
+  /** Le clic droit sert au déplacement : pas de menu contextuel du navigateur. */
+  const onContextMenu = (e: MouseEvent) => {
+    e.preventDefault();
+  };
+
   canvas.addEventListener('pointerdown', onPointerDown);
   canvas.addEventListener('pointermove', onPointerMove);
   canvas.addEventListener('pointerup', onPointerUp);
   canvas.addEventListener('pointercancel', onPointerUp);
   canvas.addEventListener('wheel', onWheel, { passive: false });
+  canvas.addEventListener('contextmenu', onContextMenu);
 
   return () => {
     canvas.removeEventListener('pointerdown', onPointerDown);
@@ -393,5 +469,6 @@ export function setupCampusPointerEvents({
     canvas.removeEventListener('pointerup', onPointerUp);
     canvas.removeEventListener('pointercancel', onPointerUp);
     canvas.removeEventListener('wheel', onWheel);
+    canvas.removeEventListener('contextmenu', onContextMenu);
   };
 }

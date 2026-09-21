@@ -427,6 +427,46 @@ l'état de l'écriture, y compris quand elle échoue.
 
 ---
 
+## 9 ter. Interface publique allégée et déplacement latéral (pan)
+
+Cinquième retour d'usage : « enlève tous les raccourcis pour aller sur tel ou tel bâtiment, enlève
+aussi vue globale, 2D, nocturne, solaire et les boutons de zoom — permet aussi le déplacement sur
+le plan 3D, car actuellement on peut seulement pivoter ou zoomer ».
+
+### Ce qui a été retiré du HUD public
+
+| Élément retiré | Raison |
+| --- | --- |
+| Carrousel d'installations (un bouton par bâtiment) | Faisait sauter la vue d'un bâtiment à l'autre : l'orientation doit rester à l'utilisateur |
+| Boutons « Vue globale » et « Plan 2D » | Vues caméra imposées, redondantes avec la navigation libre |
+| Sélecteur d'ambiance « Nocturne / Solaire » | L'ambiance est désormais fixe (`initialMode`) |
+| Boutons de zoom avant / arrière | Redondants avec la molette et le pincement, et trompeurs sur écran tactile |
+| Recadrage automatique au clic sur un bâtiment | Cliquer pour lire la fiche ne doit plus téléporter la caméra ; la sélection reste, le cadrage est réservé au studio |
+
+Seuls subsistent l'identité du plan, le cap et la distance (télémesure factuelle), le **recentrage**,
+le plein écran et la fiche du bâtiment sélectionné.
+
+Le sélecteur d'installations **du studio** est conservé : c'est un outil de travail, pas un
+raccourci de visite.
+
+### Déplacement latéral (pan) : le geste manquant
+
+Le plan ne savait que pivoter et zoomer : impossible de se décaler vers un bâtiment hors champ
+sans tourner autour du domaine. Trois gestes l'ajoutent,
+[`beginPan()` / `applyPan()`](src/components/3d/engine/useCampusPointerDrag.ts:74) :
+
+- **clic droit** ou **molette** (bouton central), dans tous les contextes ;
+- **Maj + glisser** au sol, ce qui laisse le bouton gauche à l'orbite (hors studio) et au gizmo
+  (dans le studio).
+
+L'échelle du déplacement est dérivée du champ de vision à la distance courante : **1 pixel écran
+= 1 pixel monde** à l'endroit visé, quel que soit le niveau de zoom. Le point visé est borné à
+±260 m pour qu'on ne puisse pas se perdre hors du domaine, et le menu contextuel du navigateur est
+neutralisé sur le canvas (sans quoi le clic droit ouvrirait le menu du navigateur au lieu de
+déplacer la vue).
+
+---
+
 ## 10. Vérifications
 
 ```

@@ -106,7 +106,12 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
   /** Destination réelle des écritures : Supabase (Cockpit) ou navigateur. */
   const saveBackend: CampusSaveBackend = persistToDatabase ? 'database' : 'local';
 
-  const [mode, setMode] = useState<PlanMode>(initialMode);
+  /**
+   * Ambiance du plan. Fixe : le sélecteur d'ambiance (nocturne / solaire) a
+   * été retiré de l'interface, `initialMode` ne sert donc plus qu'à choisir le
+   * rendu par défaut d'un intégrateur.
+   */
+  const mode: PlanMode = initialMode;
   const [facilities, setFacilities] = useState<Record<string, EditableFacilityItem>>(
     () => readLocalPlacements() ?? DEFAULT_FACILITIES
   );
@@ -489,15 +494,7 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
   }, []);
 
   // Use Scene Hook
-  const {
-    bearing,
-    cameraDistance,
-    activePreset,
-    focusFacility,
-    applyPreset,
-    handleZoom,
-    handleReset,
-  } = useCampusScene({
+  const { bearing, cameraDistance, focusFacility, handleReset } = useCampusScene({
     canvasRef,
     containerRef,
     facilities,
@@ -699,25 +696,13 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
       className={`relative w-full h-[650px] lg:h-[750px] bg-[#050608] border border-zinc-800 overflow-hidden flex flex-col ${isFullscreen ? 'fixed inset-0 z-50 h-screen! w-screen! border-0' : ''
         } ${className}`}
     >
-      {/* Barre de contrôle, aide contextuelle et sélecteur d'installations */}
+      {/* Barre de contrôle et fiche du bâtiment sélectionné */}
       <CampusViewerHUD
-        mode={mode}
-        onModeChange={setMode}
-        activePreset={activePreset}
-        onApplyPreset={applyPreset}
-        onZoom={handleZoom}
         onReset={handleReset}
         isFullscreen={isFullscreen}
         onToggleFullscreen={toggleFullscreen}
         bearing={bearing}
         cameraDistance={cameraDistance}
-        facilities={facilities}
-        selectedObjectId={selectedObjectId}
-        onFocusFacility={(id) => {
-          setSelectedObjectId(id);
-          focusFacility(id);
-          setIsCardVisible(true);
-        }}
         activeFacility={activeFacility}
         isCardVisible={isCardVisible}
         onCloseCard={() => setIsCardVisible(false)}
