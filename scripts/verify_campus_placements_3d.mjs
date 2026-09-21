@@ -49,15 +49,63 @@ function report(status, message) {
     console.log(`${icon} ${message}`);
 }
 
+/**
+ * Famille d'une clé Supabase, sans exposer le jeton.
+ *
+ * Deux générations coexistent et les confondre mène à un faux diagnostic :
+ *  - JWT historiques `eyJ…` → rôle dans la revendication `role` ;
+ *  - clés récentes `sb_secret_…` (secrète) et `sb_publishable_…` (publique),
+ *    qui ne sont pas des JWT.
+ *
+ * Une clé publique collée dans la variable de service produit exactement le
+ * même échec RLS que l'absence de clé : d'où cette distinction.
+ */
+function readKeyFamily(token) {
+    if (!token) return 'absente';
+    const normalized = token.trim().replace(/^["']|["']$/g, '');
+    if (normalized.startsWith('sb_secret_')) return 'secret (récente)';
+    if (normalized.startsWith('sb_publishable_')) return 'publishable (publique)';
+
+    const parts = normalized.split('.');
+    if (parts.length === 3) {
+        try {
+            const role = JSON.parse(Buffer.from(parts[1], 'base64url').toString('utf8')).role;
+            if (role === 'service_role') return 'jwt service_role';
+            if (role === 'anon') return 'jwt anon (publique)';
+            return `jwt role=${role ?? 'inconnu'}`;
+        } catch {
+            return 'jwt illisible';
+        }
+    }
+    return 'format inconnu';
+}
+
+/** Une clé de service est-elle réellement capable d'écrire ? */
+function canWriteFile(family) {
+    return family === 'secret (récente)' || family === 'jwt service_role';
+}
+
 async function main() {
     console.log('=== Diagnostic persistance — site_settings/campus_placements_3d ===\n');
 
     report(supabaseUrl ? 'ok' : 'fail', `NEXT_PUBLIC_SUPABASE_URL : ${supabaseUrl || '(absente)'}`);
     report(anonKey ? 'ok' : 'warn', `NEXT_PUBLIC_SUPABASE_ANON_KEY : ${anonKey ? 'présente' : '(absente)'}`);
+    const serviceFamily = readKeyFamily(serviceKey);
     report(
         serviceKey ? 'ok' : 'fail',
-        `SUPABASE_SERVICE_ROLE_KEY : ${serviceKey ? 'présente' : '(absente)'}`
+        `SUPABASE_SERVICE_ROLE_KEY : ${serviceKey ? 'présente' : '(absente)'} — famille « ${serviceFamily} »`
     );
+    if (serviceKey && !canWriteFile(serviceFamily)) {
+        report(
+            'fail',
+            `Cette clé ne peut PAS écrire : famille « ${serviceFamily} ». ` +
+            'Dans Supabase → Project Settings → API keys, copier la clé secrète (service_role ou sb_secret_…), ' +
+            'jamais la clé publique (anon ou sb_publishable_…).'
+        );
+    }
+    if (serviceKey && serviceKey !== serviceKey.trim()) {
+        report('warn', 'La clé de service est entourée d’espaces ou de guillemets : à supprimer.');
+    }
 
     if (!supabaseUrl || !serviceKey) {
         console.log(

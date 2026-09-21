@@ -1,7 +1,11 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
-import { createAdminClient, hasServiceRoleKey } from '@/lib/supabase/admin';
+import {
+  createAdminClient,
+  describeServiceRoleKey,
+  isServiceKeyFamily,
+} from '@/lib/supabase/admin';
 import { revalidatePath } from 'next/cache';
 import { SiteInquiry } from '@/lib/data/site-service';
 
@@ -989,7 +993,9 @@ export async function upsertCampusPlacements3D(
  *  - la lecture elle-même échoue (droits, schéma, réseau).
  */
 export async function probeCampusPlacements3D() {
-  const serviceRoleConfigured = hasServiceRoleKey();
+  const serviceRole = describeServiceRoleKey();
+  const serviceRoleConfigured = serviceRole.configured;
+  const serviceKeyUsable = isServiceKeyFamily(serviceRole.family);
   try {
     const adminClient = createAdminClient();
     const { data, error } = await adminClient
@@ -1003,6 +1009,9 @@ export async function probeCampusPlacements3D() {
         success: false,
         stage: 'read' as const,
         serviceRoleConfigured,
+        serviceRoleFamily: serviceRole.family,
+        serviceKeyUsable,
+        serviceRoleHasWhitespace: serviceRole.hasSurroundingWhitespace,
         error: `${error.message}${error.code ? ` (code ${error.code})` : ''}`,
       };
     }
@@ -1015,6 +1024,9 @@ export async function probeCampusPlacements3D() {
       success: true,
       stage: 'read' as const,
       serviceRoleConfigured,
+      serviceRoleFamily: serviceRole.family,
+      serviceKeyUsable,
+      serviceRoleHasWhitespace: serviceRole.hasSurroundingWhitespace,
       hasRow: Boolean(data),
       count,
       updatedAt: data?.updated_at ?? null,
@@ -1024,6 +1036,9 @@ export async function probeCampusPlacements3D() {
       success: false,
       stage: 'read' as const,
       serviceRoleConfigured,
+      serviceRoleFamily: serviceRole.family,
+      serviceKeyUsable,
+      serviceRoleHasWhitespace: serviceRole.hasSurroundingWhitespace,
       error: err instanceof Error ? err.message : 'Erreur inconnue',
     };
   }

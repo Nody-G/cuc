@@ -157,9 +157,19 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
 
       if (probe && 'success' in probe && probe.success) {
         if (probe.serviceRoleConfigured === false) {
-          return `${message} — sonde : lecture OK (${probe.count} installation(s) en base) mais SUPABASE_SERVICE_ROLE_KEY absente sur ce serveur. L'écriture retombe donc sur la clé publique, que les politiques RLS refusent. Renseigner la clé de service dans l'environnement (Vercel → Settings → Environment Variables) puis redéployer.`;
+          return `${message} — sonde : lecture OK (${probe.count} installation(s) en base) mais SUPABASE_SERVICE_ROLE_KEY est absente côté serveur. L'écriture retombe sur la clé publique, refusée par RLS. Si tu viens de la renseigner : redémarre le serveur (npm run dev) ou redéploie (Vercel) — les variables ne sont lues qu'au démarrage.`;
         }
-        return `${message} — sonde : lecture OK (${probe.count} installation(s) en base) avec clé de service configurée, donc la lecture passe et c'est l'écriture qui est refusée (droits ou contrainte sur site_settings).`;
+        if (probe.serviceKeyUsable === false) {
+          const nature =
+            probe.serviceRoleFamily === 'publishable' || probe.serviceRoleFamily === 'jwt-anon'
+              ? 'une clé publique'
+              : 'une clé de format non reconnu';
+          return `${message} — sonde : SUPABASE_SERVICE_ROLE_KEY contient ${nature} (famille « ${probe.serviceRoleFamily} »), qui ne peut pas écrire. Dans Supabase → Project Settings → API keys, copier la clé secrète (service_role ou sb_secret_…), pas la clé publique (anon ou sb_publishable_…).`;
+        }
+        if (probe.serviceRoleHasWhitespace) {
+          return `${message} — sonde : la clé de service est entourée d'espaces ou de guillemets. Supprime-les dans la variable d'environnement puis redémarre ou redéploie.`;
+        }
+        return `${message} — sonde : lecture OK (${probe.count} installation(s) en base), clé de service valide : la lecture passe et l'écriture est refusée (droits ou contrainte sur site_settings).`;
       }
 
       if (probe && 'error' in probe && probe.error) {
