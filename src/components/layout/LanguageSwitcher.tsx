@@ -3,13 +3,20 @@
 import React, { useTransition } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { usePathname, useRouter } from '@/i18n/navigation';
-import { Languages } from 'lucide-react';
+import { LocaleFlag } from '@/components/ui/logos/FlagLogos';
 
 /**
  * Sélecteur de langue FR ⇄ EN.
  *
  * Bascule la locale via les wrappers next-intl (le chemin courant est conservé).
  * `localePrefix: 'as-needed'` ⇒ FR sans préfixe, EN sous `/en/...`.
+ *
+ * L'affordance visuelle est le **drapeau officiel de la langue de destination**
+ * (tricolore / Union Jack), dans le même esprit que le libellé précédent qui
+ * nommait la langue cible. Le texte n'est pas perdu : il reste porté par
+ * `aria-label` et `title`, car un drapeau ne désigne pas une langue de façon
+ * fiable pour les lecteurs d'écran (et les emoji drapeaux ne s'affichent pas
+ * sous Windows — d'où le SVG, voir `FlagLogos`).
  */
 export const LanguageSwitcher: React.FC<{ className?: string }> = ({ className = '' }) => {
     const locale = useLocale();
@@ -32,12 +39,11 @@ export const LanguageSwitcher: React.FC<{ className?: string }> = ({ className =
             type="button"
             onClick={switchLocale}
             disabled={isPending}
-            aria-label={t('languageMenuLabel')}
+            aria-label={label}
             title={label}
-            className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 border border-zinc-800 hover:border-[#FFE500] text-xs font-mono-tech uppercase text-zinc-400 hover:text-[#FFE500] transition-colors disabled:opacity-50 cursor-pointer shrink-0 ${className}`}
+            className={`inline-flex items-center justify-center p-2 border border-zinc-800 hover:border-[#FFE500] transition-colors disabled:opacity-50 cursor-pointer shrink-0 ${className}`}
         >
-            <Languages className="w-3.5 h-3.5" />
-            <span>{label}</span>
+            <LocaleFlag locale={next} className="border border-white/20" />
         </button>
     );
 };

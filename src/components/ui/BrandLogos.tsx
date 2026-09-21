@@ -15,3 +15,4 @@
 export * from './logos/types';
 export * from './logos/SocialLogos';
 export * from './logos/MediaLogos';
+export * from './logos/FlagLogos';
