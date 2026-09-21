@@ -1,9 +1,9 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T17:10:09.348Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T17:16:30.075Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **25** — occurrences : **230**
+Pages contrôlées : **27** — pages avec français résiduel : **25** — occurrences : **209**
 
 ## /en/formation-de-cascadeur — 11 occurrence(s)
 
@@ -21,34 +21,13 @@ Pages contrôlées : **27** — pages avec français résiduel : **25** — occu
 | texte visible | Sacs de frappe et paos |
 | texte visible | Caméras de contrôle d'axe |
 
-## /en/stages-cascades-parkour-2 — 24 occurrence(s)
+## /en/stages-cascades-parkour-2 — 3 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
 | texte visible | STAGES & SÉJOURS DE CASCADES |
-| texte visible | ACCESSIBLE DÈS 16 ANS |
-| texte visible | PENSION COMPLÈTE INCLUSE |
-| texte visible | Vivez la vie d'un cascadeur de cinéma pendant deux jours complets. Dormez sur le campus, partagez les repas avec l'équipe et sautez sur l'airbag géant en toute sécurité. Idéal pour découvrir ses capacités physiques et fa |
-| texte visible | Vendredi 17h au Dimanche 17h30 (16h de pratique) |
-| texte visible | Hébergement sur place (chambres campus) |
-| texte visible | Tous les repas compris (du vendredi soir au dimanche midi) |
-| texte visible | Réserver mon Week-end (250,00 €) |
-| texte visible | Télécharger la Plaquette Week-end (PDF) |
-| texte visible | COMÉDIENS • DANSEURS • CIRCASSIENS |
-| texte visible | 2 Semaines (10 jours ouvrés / 70 heures) |
-| texte visible | Pôle CUC Île-de-France, 92230 Gennevilliers |
-| texte visible | Tournage d'une bande-démo action individuelle |
-| texte visible | STAGE D'ÉTÉ INTENSIF |
-| texte visible | DÈS 15 ANS • PARKOUR & AIRBAG |
-| texte visible | Une semaine d'entraînement estival au CUC : Parkour, sauts sur airbag, acrobaties sur fosse à cubes et combats de cinéma. Formule internat avec hébergement et pension complète. |
-| texte visible | 1 Semaine (Du dimanche au vendredi soir / 35h) |
-| texte visible | Formule internat avec hébergement et pension complète |
-| texte visible | Encadré par les cascadeurs et formateurs CUC |
-| texte visible | Pré-inscriptions Summer Camp |
-| texte visible | Télécharger la Plaquette Summer Camp (PDF) |
-| texte visible | Session de perfectionnement technique organisée au sein des studios de tournage à Provence Studios. Câblage multi-axes, catapultes pneumatiques (ratchets), torches humaines et protocoles de sécurité pour tournages profes |
+| texte visible | CUC Île-de-France centre, 92230 Gennevilliers |
 | texte visible | Provence Studios, Martigues (Bouches-du-Rhône) |
-| texte visible | Contacter pour les Sessions Pro |
 
 ## /en/equipe-cascadeurs-pro — 7 occurrence(s)
 

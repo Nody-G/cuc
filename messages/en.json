@@ -617,5 +617,79 @@
                 "sub": "Daily life at the CUC"
             }
         ]
+    },
+    "stages": {
+        "fallbackBadge": "CUC COURSE",
+        "fallbackCta": "Book my course",
+        "bookWithPrice": "Book ({price})",
+        "fallbackLocation": "CUC campus, Le Cateau-Cambrésis (59)",
+        "cards": [
+            {
+                "id": "weekend-immersion",
+                "badgeText": "POPULAR PACKAGE",
+                "subBadge": "FROM 16 YEARS OLD",
+                "highlightText": "FULL BOARD INCLUDED",
+                "title": "CUC WEEKEND IMMERSION PACKAGE",
+                "description": "Live the life of a film stunt performer for two full days. Sleep on campus, share meals with the team and jump onto the giant airbag in complete safety. Ideal to discover your physical abilities and get your fill of adrenaline.",
+                "details": [
+                    "Friday 5pm to Sunday 5:30pm (16 hours of practice)",
+                    "On-site accommodation (campus rooms)",
+                    "All meals included (Friday evening to Sunday lunch)",
+                    "CUC grounds, Le Cateau-Cambrésis (59)"
+                ],
+                "buttonLabel": "Book my weekend (€250.00)",
+                "pdfLabel": "Download the weekend brochure (PDF)",
+                "imageAlt": "CUC weekend immersion course poster"
+            },
+            {
+                "id": "afdas-artistes-interpretes",
+                "badgeText": "100% AFDAS FUNDING",
+                "subBadge": "ACTORS • DANCERS • CIRCUS PERFORMERS",
+                "highlightText": "",
+                "title": "AFDAS COURSE — PERFORMING ARTISTS",
+                "description": "Give your roles total credibility in action scenes. A 70-hour AFDAS-funded course delivered in our Paris studio in Gennevilliers. Learn to take impacts, handle blank-firing weapons, fall down stairs and shoot your own action demo reel.",
+                "details": [
+                    "2 weeks (10 working days / 70 hours)",
+                    "CUC Île-de-France centre, 92230 Gennevilliers",
+                    "AFDAS-funded (no cost left for the artist)",
+                    "Shooting of an individual action demo reel"
+                ],
+                "buttonLabel": "Request my AFDAS funding",
+                "pdfLabel": "",
+                "imageAlt": "CUC AFDAS performing artists course poster"
+            },
+            {
+                "id": "stunt-summer-camp",
+                "badgeText": "INTENSIVE SUMMER COURSE",
+                "subBadge": "FROM 15 YEARS OLD • PARKOUR & AIRBAG",
+                "highlightText": "",
+                "title": "CUC STUNT SUMMER CAMP",
+                "description": "A summer week of training at the CUC: parkour, airbag jumps, cube-pit acrobatics and film fights. Residential package with accommodation and full board.",
+                "details": [
+                    "1 week (Sunday to Friday evening / 35h)",
+                    "Residential package with accommodation and full board",
+                    "Supervised by CUC stunt performers and instructors",
+                    "CUC campus, 59360 Le Cateau-Cambrésis"
+                ],
+                "buttonLabel": "Summer Camp pre-registration",
+                "pdfLabel": "Download the Summer Camp brochure (PDF)",
+                "imageAlt": "CUC Stunt Summer Camp poster"
+            },
+            {
+                "id": "afdas-cascadeurs-pro",
+                "badgeText": "WORKING PROFESSIONAL STUNT PERFORMERS",
+                "subBadge": "PROVENCE STUDIOS (MARTIGUES)",
+                "highlightText": "",
+                "title": "AFDAS COURSE — PRO STUNT PERFORMERS (PROVENCE STUDIOS)",
+                "description": "Technical refresher session held inside the Provence Studios film stages. Multi-axis wire work, pneumatic ratchets, full-body burns and safety protocols for professional shoots.",
+                "details": [
+                    "Provence Studios, Martigues (Bouches-du-Rhône)",
+                    "AFDAS funding for freelance stunt performers"
+                ],
+                "buttonLabel": "Contact us about the pro sessions",
+                "pdfLabel": "",
+                "imageAlt": "CUC pro stunt performer course poster, Provence Studios"
+            }
+        ]
     }
 }

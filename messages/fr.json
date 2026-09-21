@@ -617,5 +617,79 @@
                 "sub": "La vie au CUC au quotidien"
             }
         ]
+    },
+    "stages": {
+        "fallbackBadge": "STAGE CUC",
+        "fallbackCta": "Réserver mon stage",
+        "bookWithPrice": "Réserver ({price})",
+        "fallbackLocation": "Campus CUC, Le Cateau-Cambrésis (59)",
+        "cards": [
+            {
+                "id": "weekend-immersion",
+                "badgeText": "OFFRE POPULAIRE",
+                "subBadge": "ACCESSIBLE DÈS 16 ANS",
+                "highlightText": "PENSION COMPLÈTE INCLUSE",
+                "title": "FORMULE WEEK-END IMMERSION CUC",
+                "description": "Vivez la vie d'un cascadeur de cinéma pendant deux jours complets. Dormez sur le campus, partagez les repas avec l'équipe et sautez sur l'airbag géant en toute sécurité. Idéal pour découvrir ses capacités physiques et faire le plein de sensations fortes.",
+                "details": [
+                    "Vendredi 17h au Dimanche 17h30 (16h de pratique)",
+                    "Hébergement sur place (chambres campus)",
+                    "Tous les repas compris (du vendredi soir au dimanche midi)",
+                    "Domaine CUC, Le Cateau-Cambrésis (59)"
+                ],
+                "buttonLabel": "Réserver mon Week-end (250,00 €)",
+                "pdfLabel": "Télécharger la Plaquette Week-end (PDF)",
+                "imageAlt": "Affiche Stage Week-end Immersion CUC"
+            },
+            {
+                "id": "afdas-artistes-interpretes",
+                "badgeText": "PRISE EN CHARGE AFDAS 100%",
+                "subBadge": "COMÉDIENS • DANSEURS • CIRCASSIENS",
+                "highlightText": "",
+                "title": "STAGE AFDAS — ARTISTES INTERPRÈTES",
+                "description": "Donnez à vos rôles une crédibilité totale dans les scènes d'action. Formation de 70 heures conventionnée AFDAS dispensée au sein de notre studio parisien à Gennevilliers. Apprenez à encaisser les impacts, manipuler des armes à blanc, chuter dans les escaliers et tournez votre bande-démo d'action.",
+                "details": [
+                    "2 Semaines (10 jours ouvrés / 70 heures)",
+                    "Pôle CUC Île-de-France, 92230 Gennevilliers",
+                    "Conventionné AFDAS (0€ de reste à charge pour l'artiste)",
+                    "Tournage d'une bande-démo action individuelle"
+                ],
+                "buttonLabel": "Demander ma Prise en Charge AFDAS",
+                "pdfLabel": "",
+                "imageAlt": "Affiche Stage AFDAS Artistes Interprètes CUC"
+            },
+            {
+                "id": "stunt-summer-camp",
+                "badgeText": "STAGE D'ÉTÉ INTENSIF",
+                "subBadge": "DÈS 15 ANS • PARKOUR & AIRBAG",
+                "highlightText": "",
+                "title": "STUNT SUMMER CAMP CUC",
+                "description": "Une semaine d'entraînement estival au CUC : Parkour, sauts sur airbag, acrobaties sur fosse à cubes et combats de cinéma. Formule internat avec hébergement et pension complète.",
+                "details": [
+                    "1 Semaine (Du dimanche au vendredi soir / 35h)",
+                    "Formule internat avec hébergement et pension complète",
+                    "Encadré par les cascadeurs et formateurs CUC",
+                    "Campus CUC, 59360 Le Cateau-Cambrésis"
+                ],
+                "buttonLabel": "Pré-inscriptions Summer Camp",
+                "pdfLabel": "Télécharger la Plaquette Summer Camp (PDF)",
+                "imageAlt": "Affiche Stunt Summer Camp CUC"
+            },
+            {
+                "id": "afdas-cascadeurs-pro",
+                "badgeText": "CASCADEURS PROS EN EXERCICE",
+                "subBadge": "PROVENCE STUDIOS (MARTIGUES)",
+                "highlightText": "",
+                "title": "STAGE AFDAS — CASCADEURS PRO (PROVENCE STUDIOS)",
+                "description": "Session de perfectionnement technique organisée au sein des studios de tournage à Provence Studios. Câblage multi-axes, catapultes pneumatiques (ratchets), torches humaines et protocoles de sécurité pour tournages professionnels.",
+                "details": [
+                    "Provence Studios, Martigues (Bouches-du-Rhône)",
+                    "Prise en charge AFDAS Intermittents Cascadeurs"
+                ],
+                "buttonLabel": "Contacter pour les Sessions Pro",
+                "pdfLabel": "",
+                "imageAlt": "Affiche Stage Cascadeur Pro CUC Provence Studios"
+            }
+        ]
     }
 }
