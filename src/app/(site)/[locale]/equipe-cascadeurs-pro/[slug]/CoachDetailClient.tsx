@@ -11,6 +11,7 @@ import { TacticalButton } from '@/components/ui/TacticalButton';
 import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getTeam, getFilms } from '@/lib/data/site-service';
+import { useTranslations } from 'next-intl';
 import { applyTeamOverlay } from '@/lib/i18n/apply-team-overlay';
 import { normalizeRole } from '@/lib/credit-role';
 import { creditTitleKey } from '@/lib/credit-title';
@@ -80,6 +81,25 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
 
   // Parsing des crédits de tournage du coach
   const notableCredits = member?.notableCredits;
+  const tt = useTranslations('team');
+  const tf = useTranslations('films');
+
+  /**
+   * Le normaliseur de rôles (`credit-role.ts`) renvoie des libellés canoniques
+   * FRANÇAIS (« Coordinateur des cascades », « Doublure », « Cascadeur ») : on les
+   * traduit ici, à l'affichage, sans toucher à la logique métier.
+   */
+  const roleLabels: Record<string, string> = {
+    'Coordinateur des cascades': tt('roleCoordination'),
+    Doublure: tt('roleDouble'),
+    Cascadeur: tt('roleStunt'),
+  };
+  const translateRole = (role: string) =>
+    role
+      .split('·')
+      .map((part) => roleLabels[part.trim()] ?? part.trim())
+      .join(' · ');
+
   const parsedCredits: ParsedCredit[] = useMemo(() => {
     if (!notableCredits) return [];
     return notableCredits.map(parseCredit);
@@ -225,7 +245,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
             <Link href="/equipe-cascadeurs-pro" className="hover:text-[#FFE500] transition-colors">
-              ÉQUIPE PRO
+              {tt('breadcrumb')}
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
             <span className="text-[#FFE500] uppercase font-bold">{member.name}</span>
@@ -337,7 +357,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
                     {member.role}
                   </StuntBadge>
                   <span className="text-xs font-mono-tech text-zinc-400">
-                    FACULTÉ PÉDAGOGIQUE DU CUC
+                    {tt('facultyTag')}
                   </span>
                 </div>
 
@@ -366,7 +386,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
               <div>
                 <h2 className="text-sm font-mono-tech uppercase tracking-wider text-zinc-400 mb-3 flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-[#FFE500]" />
-                  <span>Domaines d'expertise & Disciplines enseignées :</span>
+                  <span>{tt('expertiseLabel')}</span>
                 </h2>
                 <div className="flex flex-wrap gap-2">
                   {member.specialties.map((spec, idx) => (
@@ -385,7 +405,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
                 <div className="bg-[#14141e] border border-zinc-800 p-5">
                   <h2 className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider mb-2 flex items-center gap-2">
                     <Users className="w-4 h-4" />
-                    <span>Acteurs doublés à l'écran :</span>
+                    <span>{tt('doubledLabel')}</span>
                   </h2>
                   <p className="text-sm font-tech text-zinc-300">
                     {member.doubledActors.join(' • ')}
@@ -397,13 +417,13 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
               <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
                 <Link href="/contact-cuc?demande=tournage-production" className="w-full sm:w-auto flex-1">
                   <TacticalButton variant="primary" size="lg" className="w-full justify-center">
-                    Solliciter ce régleur pour une production
+                    {tt('ctaContact')}
                   </TacticalButton>
                 </Link>
 
                 <Link href="/formation-de-cascadeur" className="w-full sm:w-auto flex-1">
                   <TacticalButton variant="secondary" size="lg" className="w-full justify-center">
-                    S'entraîner au Campus avec l'équipe
+                    {tt('ctaTrain')}
                   </TacticalButton>
                 </Link>
               </div>
@@ -417,18 +437,20 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
                 <div>
                   <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] uppercase font-bold mb-1">
                     <Film className="w-4 h-4" />
-                    <span>FILMOGRAPHIE & PRODUCTIONS CINÉMA</span>
+                    <span>{tt('filmographyTag')}</span>
                   </div>
                   <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
                     Cascades & Tournages de {member.name}
                   </h2>
                   <p className="text-xs font-tech text-zinc-400 mt-1">
-                    Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués.
+                    {tt('filmographyHint')}
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="text-xs font-mono-tech text-zinc-400">
-                    {relatedFilms.length} production{relatedFilms.length > 1 ? 's' : ''} répertoriée{relatedFilms.length > 1 ? 's' : ''}
+                    {relatedFilms.length > 1
+                      ? tt('listedMany', { count: relatedFilms.length })
+                      : tt('listedOne', { count: relatedFilms.length })}
                   </span>
                   <label className="flex items-center gap-1.5 text-[11px] font-mono-tech text-zinc-400">
                     <ArrowUpDown className="w-3.5 h-3.5 text-[#FFE500]" />
@@ -438,10 +460,10 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
                       className="bg-black/60 border border-zinc-700 text-zinc-200 text-[11px] font-mono-tech px-2 py-1 focus:outline-none focus:border-[#FFE500]"
                       aria-label="Trier la filmographie"
                     >
-                      <option value="year-desc">Année (récent → ancien)</option>
-                      <option value="year-asc">Année (ancien → récent)</option>
-                      <option value="title-asc">Nom (A → Z)</option>
-                      <option value="title-desc">Nom (Z → A)</option>
+                      <option value="year-desc">{tf('sortYearDesc')}</option>
+                      <option value="year-asc">{tf('sortYearAsc')}</option>
+                      <option value="title-asc">{tf('sortTitleAsc')}</option>
+                      <option value="title-desc">{tf('sortTitleDesc')}</option>
                     </select>
                   </label>
                 </div>
@@ -488,7 +510,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
                           {/* Mise en avant (définie dans le cockpit) */}
                           {isFeatured && (
                             <span className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-[#FFE500] text-black text-[9px] font-mono-tech font-bold uppercase tracking-wider shadow-md">
-                              Mis en avant
+                              {tt('featuredBadge')}
                             </span>
                           )}
 
@@ -496,7 +518,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
                           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
                             <span className="px-3 py-1.5 bg-[#FFE500] text-black font-mono-tech text-xs uppercase font-bold flex items-center gap-1.5 shadow-xl">
                               <Maximize2 className="w-3.5 h-3.5" />
-                              <span>Fiche film</span>
+                              <span>{tt('filmCardHover')}</span>
                             </span>
                           </div>
                         </div>
@@ -506,22 +528,22 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
                           {/* RÔLE DU COACH SUR CE FILM */}
                           <div>
                             <span className="text-[9px] font-mono-tech text-zinc-500 uppercase block mb-1">
-                              Rôle sur cette production :
+                              {tt('roleOnProduction')}
                             </span>
                             {isCoord ? (
                               <div className="px-2.5 py-1 bg-[#FFE500]/15 border border-[#FFE500]/50 text-[#FFE500] text-[11px] font-mono-tech font-bold uppercase flex items-center gap-1.5 rounded-xs">
                                 <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
-                                <span className="truncate">{role}</span>
+                                <span className="truncate">{translateRole(role)}</span>
                               </div>
                             ) : isDoublure ? (
                               <div className="px-2.5 py-1 bg-sky-500/15 border border-sky-500/40 text-sky-300 text-[11px] font-mono-tech font-bold uppercase flex items-center gap-1.5 rounded-xs">
                                 <Users className="w-3.5 h-3.5 shrink-0" />
-                                <span className="truncate">{role}</span>
+                                <span className="truncate">{translateRole(role)}</span>
                               </div>
                             ) : (
                               <div className="px-2.5 py-1 bg-zinc-900 border border-zinc-700 text-zinc-200 text-[11px] font-mono-tech font-semibold uppercase flex items-center gap-1.5 rounded-xs">
                                 <Award className="w-3.5 h-3.5 shrink-0 text-zinc-400" />
-                                <span className="truncate">{role}</span>
+                                <span className="truncate">{translateRole(role)}</span>
                               </div>
                             )}
                           </div>
@@ -534,8 +556,12 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
                       </div>
 
                       <div className="p-4 pt-0 border-t border-zinc-800/80 mt-2 flex items-center justify-between text-[10px] font-mono-tech text-zinc-500">
-                        <span>{film.director ? `Réal. ${film.director}` : 'Production'}</span>
-                        <span className="text-[#FFE500] group-hover:underline">Détails →</span>
+                        <span>
+                          {film.director
+                            ? tt('directorShort', { name: film.director })
+                            : tt('productionFallback')}
+                        </span>
+                        <span className="text-[#FFE500] group-hover:underline">{tt('detailsCta')}</span>
                       </div>
                     </div>
                   );
@@ -549,7 +575,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
             <div className="flex items-center justify-between gap-4 mb-8">
               <div>
                 <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold block mb-1">
-                  FACULTÉ DU CAMPUS
+                  {tt('campusFacultyTag')}
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
                   Autres Coordinateurs & Instructeurs
@@ -560,7 +586,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
                 href="/equipe-cascadeurs-pro"
                 className="text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] flex items-center gap-1.5 transition-colors group"
               >
-                <span>Voir toute l'équipe</span>
+                <span>{tt('seeWholeTeam')}</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
@@ -596,7 +622,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
                   </div>
 
                   <div className="pt-3 mt-3 border-t border-zinc-800/80 flex items-center justify-between text-[11px] font-mono-tech text-zinc-500">
-                    <span>Fiche complète</span>
+                    <span>{tt('cardCta')}</span>
                     <ArrowRight className="w-3 h-3 text-[#FFE500] group-hover:translate-x-0.5 transition-transform" />
                   </div>
                 </Link>
@@ -611,7 +637,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
               className="inline-flex items-center gap-2 px-6 py-3 bg-[#121218] hover:bg-[#FFE500] hover:text-black border border-zinc-800 hover:border-[#FFE500] text-xs font-mono-tech uppercase font-bold transition-all"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Retour à toute l'équipe pédagogique</span>
+              <span>{tt('backToTeam')}</span>
             </Link>
           </div>
         </div>

@@ -206,7 +206,27 @@
         "roleCoordination": "Coordination",
         "roleDouble": "Doublure",
         "roleStunt": "Cascade",
-        "filmCardTitle": "{title} ({year}) — ouvrir la fiche de production"
+        "filmCardTitle": "{title} ({year}) — ouvrir la fiche de production",
+        "breadcrumb": "ÉQUIPE PRO",
+        "facultyTag": "FACULTÉ PÉDAGOGIQUE DU CUC",
+        "expertiseLabel": "Domaines d'expertise & Disciplines enseignées :",
+        "doubledLabel": "Acteurs doublés à l'écran :",
+        "ctaContact": "Solliciter ce régleur pour une production",
+        "ctaTrain": "S'entraîner au Campus avec l'équipe",
+        "filmographyTag": "FILMOGRAPHIE & PRODUCTIONS CINÉMA",
+        "filmographyHint": "Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués.",
+        "listedOne": "{count} production répertoriée",
+        "listedMany": "{count} productions répertoriées",
+        "roleOnProduction": "Rôle sur cette production :",
+        "directorShort": "Réal. {name}",
+        "productionFallback": "Production",
+        "featuredBadge": "Mis en avant",
+        "filmCardHover": "Fiche film",
+        "detailsCta": "Détails →",
+        "campusFacultyTag": "FACULTÉ DU CAMPUS",
+        "seeWholeTeam": "Voir toute l'équipe",
+        "cardCta": "Fiche complète",
+        "backToTeam": "Retour à toute l'équipe pédagogique"
     },
     "home": {
         "hero": {

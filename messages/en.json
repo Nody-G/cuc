@@ -206,7 +206,27 @@
         "roleCoordination": "Coordination",
         "roleDouble": "Stunt double",
         "roleStunt": "Stunt",
-        "filmCardTitle": "{title} ({year}) — open the production file"
+        "filmCardTitle": "{title} ({year}) — open the production file",
+        "breadcrumb": "STUNT TEAM",
+        "facultyTag": "CUC TEACHING FACULTY",
+        "expertiseLabel": "Areas of expertise & disciplines taught:",
+        "doubledLabel": "Actors doubled on screen:",
+        "ctaContact": "Request this coordinator for a production",
+        "ctaTrain": "Train at the Campus with the team",
+        "filmographyTag": "FILMOGRAPHY & FILM PRODUCTIONS",
+        "filmographyHint": "Click a production to open the full file, videos and stunt performers involved.",
+        "listedOne": "{count} production listed",
+        "listedMany": "{count} productions listed",
+        "roleOnProduction": "Role on this production:",
+        "directorShort": "Dir. {name}",
+        "productionFallback": "Production",
+        "featuredBadge": "Featured",
+        "filmCardHover": "Film file",
+        "detailsCta": "Details →",
+        "campusFacultyTag": "CAMPUS FACULTY",
+        "seeWholeTeam": "See the whole team",
+        "cardCta": "Full profile",
+        "backToTeam": "Back to the teaching team"
     },
     "home": {
         "hero": {

@@ -1,9 +1,9 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T16:16:04.027Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T16:17:25.795Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **26** — occurrences : **605**
+Pages contrôlées : **27** — pages avec français résiduel : **26** — occurrences : **340**
 
 ## /en/formation-de-cascadeur — 14 occurrence(s)
 
@@ -388,355 +388,90 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | Performeurs formés au CUC, actifs sur des productions cinéma et parcs à thème majeurs. |
 | texte visible | Déplacement de nos structures mobiles et équipes de cascadeurs sur votre site d'événement. |
 
-## /en/equipe-cascadeurs-pro/lucas-dollfus — 26 occurrence(s)
+## /en/equipe-cascadeurs-pro/lucas-dollfus — 2 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | ÉQUIPE PRO |
-| texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
-| texte visible | Domaines d'expertise & Disciplines enseignées : |
-| texte visible | Solliciter ce régleur pour une production |
-| texte visible | S'entraîner au Campus avec l'équipe |
-| texte visible | FILMOGRAPHIE & PRODUCTIONS CINÉMA |
-| texte visible | Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués. |
-| texte visible | répertoriée |
-| texte visible | Année (récent → ancien) Année (ancien → récent) Nom (A → Z) Nom (Z → A) |
-| texte visible | Rôle sur cette production : |
-| texte visible | Coordinateur des cascades · Cascadeur |
-| texte visible | Réal. Julien Royal |
-| texte visible | Détails → |
-| texte visible | Réal. Olivier Masset-Depasse |
-| texte visible | Réal. Xavier Gens |
-| texte visible | Réal. Gilles Lellouche |
-| texte visible | Réal. Chad Stahelski |
-| texte visible | Réal. Frédéric Tellier |
-| texte visible | Réal. Louis Leterrier |
-| texte visible | Réal. Julien Leclercq |
-| texte visible | Réal. Simon Astier |
-| texte visible | FACULTÉ DU CAMPUS |
-| texte visible | Voir toute l'équipe |
+| texte visible | Dir. Frédéric Tellier |
 | texte visible | Jérôme Gaspard |
-| texte visible | Fiche complète |
-| texte visible | Retour à toute l'équipe pédagogique |
 
-## /en/equipe-cascadeurs-pro/jerome-gaspard — 32 occurrence(s)
+## /en/equipe-cascadeurs-pro/jerome-gaspard — 4 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | ÉQUIPE PRO |
 | texte visible | Jérôme Gaspard |
-| texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
-| texte visible | Domaines d'expertise & Disciplines enseignées : |
-| texte visible | Acteurs doublés à l'écran : |
 | texte visible | Samuel Le Bihan |
-| texte visible | Solliciter ce régleur pour une production |
-| texte visible | S'entraîner au Campus avec l'équipe |
-| texte visible | FILMOGRAPHIE & PRODUCTIONS CINÉMA |
-| texte visible | Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués. |
-| texte visible | répertoriée |
-| texte visible | Année (récent → ancien) Année (ancien → récent) Nom (A → Z) Nom (Z → A) |
-| texte visible | Rôle sur cette production : |
-| texte visible | Coordinateur des cascades · Cascadeur |
-| texte visible | Réal. Julien Leclercq |
-| texte visible | Détails → |
-| texte visible | Réal. Olivier Masset-Depasse |
-| texte visible | Réal. Matthieu Delaporte & Alexandre de La Patellière |
-| texte visible | Réal. Coralie Fargeat |
-| texte visible | Réal. Chad Stahelski |
-| texte visible | Réal. Romain Gavras |
-| texte visible | Réal. Luc Besson |
-| texte visible | Réal. Christopher Nolan |
-| texte visible | Réal. James Watkins |
-| texte visible | Réal. Sam Mendes |
-| texte visible | Réal. Justin Lin |
-| texte visible | Réal. Jérôme Salle |
-| texte visible | Réal. Christophe Gans |
-| texte visible | FACULTÉ DU CAMPUS |
-| texte visible | Voir toute l'équipe |
-| texte visible | Fiche complète |
-| texte visible | Retour à toute l'équipe pédagogique |
+| texte visible | Dir. Matthieu Delaporte & Alexandre de La Patellière |
+| texte visible | Dir. Jérôme Salle |
 
-## /en/equipe-cascadeurs-pro/vincent-bouillon — 31 occurrence(s)
+## /en/equipe-cascadeurs-pro/vincent-bouillon — 3 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | ÉQUIPE PRO |
-| texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
-| texte visible | Domaines d'expertise & Disciplines enseignées : |
-| texte visible | Acteurs doublés à l'écran : |
-| texte visible | Solliciter ce régleur pour une production |
-| texte visible | S'entraîner au Campus avec l'équipe |
-| texte visible | FILMOGRAPHIE & PRODUCTIONS CINÉMA |
-| texte visible | Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués. |
-| texte visible | répertoriée |
-| texte visible | Année (récent → ancien) Année (ancien → récent) Nom (A → Z) Nom (Z → A) |
-| texte visible | Rôle sur cette production : |
-| texte visible | Réal. Fred Grivois |
-| texte visible | Détails → |
-| texte visible | Coordinateur des cascades · Cascadeur |
-| texte visible | Réal. John Woo |
-| texte visible | Réal. Olivier Masset-Depasse |
-| texte visible | Réal. Florent-Emilio Siri |
-| texte visible | Réal. Matthieu Delaporte & Alexandre de La Patellière |
-| texte visible | Réal. Gilles Lellouche |
-| texte visible | Réal. Coralie Fargeat |
-| texte visible | Réal. Jeremy Garelick |
-| texte visible | Réal. Chad Stahelski |
-| texte visible | Réal. Michael Bay |
-| texte visible | Réal. Sam Mendes |
-| texte visible | Réal. Francis Lawrence |
-| texte visible | Réal. Jérôme Salle |
-| texte visible | FACULTÉ DU CAMPUS |
-| texte visible | Voir toute l'équipe |
-| texte visible | Fiche complète |
+| texte visible | Dir. Matthieu Delaporte & Alexandre de La Patellière |
+| texte visible | Dir. Jérôme Salle |
 | texte visible | Jérôme Gaspard |
-| texte visible | Retour à toute l'équipe pédagogique |
 
-## /en/equipe-cascadeurs-pro/malik-diouf — 24 occurrence(s)
+## /en/equipe-cascadeurs-pro/malik-diouf — 2 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | ÉQUIPE PRO |
-| texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
-| texte visible | Domaines d'expertise & Disciplines enseignées : |
-| texte visible | Solliciter ce régleur pour une production |
-| texte visible | S'entraîner au Campus avec l'équipe |
-| texte visible | FILMOGRAPHIE & PRODUCTIONS CINÉMA |
-| texte visible | Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués. |
-| texte visible | répertoriée |
-| texte visible | Année (récent → ancien) Année (ancien → récent) Nom (A → Z) Nom (Z → A) |
-| texte visible | Rôle sur cette production : |
-| texte visible | Réal. Julien Royal |
-| texte visible | Détails → |
-| texte visible | Coordinateur des cascades · Cascadeur |
-| texte visible | Réal. Fred Grivois |
-| texte visible | Réal. Igor Gotesman |
-| texte visible | Réal. Romain Gavras |
-| texte visible | Réal. Cédric Jimenez |
-| texte visible | Réal. Ladj Ly |
-| texte visible | Réal. Ariel Zeitoun & Julien Seri |
-| texte visible | FACULTÉ DU CAMPUS |
-| texte visible | Voir toute l'équipe |
-| texte visible | Fiche complète |
+| texte visible | Dir. Cédric Jimenez |
 | texte visible | Jérôme Gaspard |
-| texte visible | Retour à toute l'équipe pédagogique |
 
-## /en/equipe-cascadeurs-pro/franck-blanc — 24 occurrence(s)
+## /en/equipe-cascadeurs-pro/franck-blanc — 1 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | ÉQUIPE PRO |
-| texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
-| texte visible | Domaines d'expertise & Disciplines enseignées : |
-| texte visible | Solliciter ce régleur pour une production |
-| texte visible | S'entraîner au Campus avec l'équipe |
-| texte visible | FILMOGRAPHIE & PRODUCTIONS CINÉMA |
-| texte visible | Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués. |
-| texte visible | répertoriée |
-| texte visible | Année (récent → ancien) Année (ancien → récent) Nom (A → Z) Nom (Z → A) |
-| texte visible | Rôle sur cette production : |
-| texte visible | Réal. Julien Leclercq |
-| texte visible | Détails → |
-| texte visible | Réal. Igor Gotesman |
-| texte visible | Réal. John Woo |
-| texte visible | Réal. Olivier Masset-Depasse |
-| texte visible | Réal. Xavier Gens |
-| texte visible | Réal. Gilles Lellouche |
-| texte visible | Réal. Chad Stahelski |
-| texte visible | Réal. Luc Besson |
-| texte visible | FACULTÉ DU CAMPUS |
-| texte visible | Voir toute l'équipe |
-| texte visible | Fiche complète |
 | texte visible | Jérôme Gaspard |
-| texte visible | Retour à toute l'équipe pédagogique |
 
-## /en/equipe-cascadeurs-pro/kefi-abrikh — 24 occurrence(s)
+## /en/equipe-cascadeurs-pro/kefi-abrikh — 2 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | ÉQUIPE PRO |
-| texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
-| texte visible | Domaines d'expertise & Disciplines enseignées : |
-| texte visible | Solliciter ce régleur pour une production |
-| texte visible | S'entraîner au Campus avec l'équipe |
-| texte visible | FILMOGRAPHIE & PRODUCTIONS CINÉMA |
-| texte visible | Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués. |
-| texte visible | répertoriée |
-| texte visible | Année (récent → ancien) Année (ancien → récent) Nom (A → Z) Nom (Z → A) |
-| texte visible | Rôle sur cette production : |
-| texte visible | Coordinateur des cascades · Cascadeur |
-| texte visible | Réal. Cédric Nicolas-Troyan |
-| texte visible | Détails → |
-| texte visible | Réal. Chad Stahelski |
-| texte visible | Réal. Tarek Boudali |
-| texte visible | Réal. Philippe Lacheau |
-| texte visible | Réal. Paul Greengrass |
-| texte visible | Réal. Sam Mendes |
-| texte visible | Réal. Justin Lin |
-| texte visible | FACULTÉ DU CAMPUS |
-| texte visible | Voir toute l'équipe |
-| texte visible | Fiche complète |
+| texte visible | Dir. Cédric Nicolas-Troyan |
 | texte visible | Jérôme Gaspard |
-| texte visible | Retour à toute l'équipe pédagogique |
 
-## /en/equipe-cascadeurs-pro/maurice-chan — 23 occurrence(s)
+## /en/equipe-cascadeurs-pro/maurice-chan — 1 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | ÉQUIPE PRO |
-| texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
-| texte visible | Domaines d'expertise & Disciplines enseignées : |
-| texte visible | Solliciter ce régleur pour une production |
-| texte visible | S'entraîner au Campus avec l'équipe |
-| texte visible | FILMOGRAPHIE & PRODUCTIONS CINÉMA |
-| texte visible | Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués. |
-| texte visible | répertoriée |
-| texte visible | Année (récent → ancien) Année (ancien → récent) Nom (A → Z) Nom (Z → A) |
-| texte visible | Rôle sur cette production : |
-| texte visible | Réal. Fred Grivois |
-| texte visible | Détails → |
-| texte visible | Réal. John Woo |
-| texte visible | Réal. Olivier Masset-Depasse |
-| texte visible | Réal. Chad Stahelski |
-| texte visible | Réal. Sam Mendes |
-| texte visible | Réal. Luc Besson |
-| texte visible | Réal. Louis Leterrier |
-| texte visible | FACULTÉ DU CAMPUS |
-| texte visible | Voir toute l'équipe |
-| texte visible | Fiche complète |
 | texte visible | Jérôme Gaspard |
-| texte visible | Retour à toute l'équipe pédagogique |
 
-## /en/equipe-cascadeurs-pro/michel-bouis — 29 occurrence(s)
+## /en/equipe-cascadeurs-pro/michel-bouis — 3 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | ÉQUIPE PRO |
-| texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
-| texte visible | Domaines d'expertise & Disciplines enseignées : |
-| texte visible | Solliciter ce régleur pour une production |
-| texte visible | S'entraîner au Campus avec l'équipe |
-| texte visible | FILMOGRAPHIE & PRODUCTIONS CINÉMA |
-| texte visible | Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués. |
-| texte visible | répertoriée |
-| texte visible | Année (récent → ancien) Année (ancien → récent) Nom (A → Z) Nom (Z → A) |
-| texte visible | Rôle sur cette production : |
-| texte visible | Réal. Florent-Emilio Siri |
-| texte visible | Détails → |
-| texte visible | Réal. Gilles Lellouche |
-| texte visible | Réal. Coralie Fargeat |
-| texte visible | Réal. Romain Gavras |
-| texte visible | Réal. Louis Leterrier |
-| texte visible | Réal. Cédric Jimenez |
-| texte visible | Réal. Guillaume Pierret |
-| texte visible | Réal. Simon Astier |
-| texte visible | Réal. Antonio Negret |
-| texte visible | Réal. Christopher Nolan |
-| texte visible | Réal. McG |
-| texte visible | Réal. Patrick Alessandrin |
-| texte visible | Réal. Gérard Krawczyk |
-| texte visible | FACULTÉ DU CAMPUS |
-| texte visible | Voir toute l'équipe |
-| texte visible | Fiche complète |
+| texte visible | Dir. Cédric Jimenez |
+| texte visible | Dir. Gérard Krawczyk |
 | texte visible | Jérôme Gaspard |
-| texte visible | Retour à toute l'équipe pédagogique |
 
-## /en/equipe-cascadeurs-pro/amedeo-cazzella — 26 occurrence(s)
+## /en/equipe-cascadeurs-pro/amedeo-cazzella — 3 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | ÉQUIPE PRO |
 | texte visible | Amédéo Cazzella |
-| texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
-| texte visible | Domaines d'expertise & Disciplines enseignées : |
-| texte visible | Solliciter ce régleur pour une production |
-| texte visible | S'entraîner au Campus avec l'équipe |
-| texte visible | FILMOGRAPHIE & PRODUCTIONS CINÉMA |
-| texte visible | Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués. |
-| texte visible | répertoriée |
-| texte visible | Année (récent → ancien) Année (ancien → récent) Nom (A → Z) Nom (Z → A) |
-| texte visible | Rôle sur cette production : |
-| texte visible | Réal. John Woo |
-| texte visible | Détails → |
-| texte visible | Réal. Matthieu Delaporte & Alexandre de La Patellière |
-| texte visible | Réal. Chad Stahelski |
-| texte visible | Réal. Dany Boon |
-| texte visible | Réal. Luc Besson |
-| texte visible | Réal. Camille Delamarre |
-| texte visible | Réal. Olivier Megaton |
-| texte visible | Réal. Louis Leterrier |
-| texte visible | Réal. Christophe Gans |
-| texte visible | FACULTÉ DU CAMPUS |
-| texte visible | Voir toute l'équipe |
-| texte visible | Fiche complète |
+| texte visible | Dir. Matthieu Delaporte & Alexandre de La Patellière |
 | texte visible | Jérôme Gaspard |
-| texte visible | Retour à toute l'équipe pédagogique |
 
-## /en/equipe-cascadeurs-pro/niels-dalery — 10 occurrence(s)
+## /en/equipe-cascadeurs-pro/niels-dalery — 1 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | ÉQUIPE PRO |
-| texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
-| texte visible | Domaines d'expertise & Disciplines enseignées : |
-| texte visible | Solliciter ce régleur pour une production |
-| texte visible | S'entraîner au Campus avec l'équipe |
-| texte visible | FACULTÉ DU CAMPUS |
-| texte visible | Voir toute l'équipe |
-| texte visible | Fiche complète |
 | texte visible | Jérôme Gaspard |
-| texte visible | Retour à toute l'équipe pédagogique |
 
-## /en/equipe-cascadeurs-pro/bastien-trouve — 22 occurrence(s)
+## /en/equipe-cascadeurs-pro/bastien-trouve — 3 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | ÉQUIPE PRO |
 | texte visible | Bastien Trouvé |
-| texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
-| texte visible | Domaines d'expertise & Disciplines enseignées : |
-| texte visible | Solliciter ce régleur pour une production |
-| texte visible | S'entraîner au Campus avec l'équipe |
-| texte visible | FILMOGRAPHIE & PRODUCTIONS CINÉMA |
-| texte visible | Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués. |
-| texte visible | répertoriée |
-| texte visible | Année (récent → ancien) Année (ancien → récent) Nom (A → Z) Nom (Z → A) |
-| texte visible | Rôle sur cette production : |
-| texte visible | Réal. Julien Royal |
-| texte visible | Détails → |
-| texte visible | Réal. Igor Gotesman |
-| texte visible | Réal. Olivier Masset-Depasse |
-| texte visible | Réal. Cédric Nicolas-Troyan |
-| texte visible | Réal. Gilles Lellouche |
-| texte visible | FACULTÉ DU CAMPUS |
-| texte visible | Voir toute l'équipe |
-| texte visible | Fiche complète |
+| texte visible | Dir. Cédric Nicolas-Troyan |
 | texte visible | Jérôme Gaspard |
-| texte visible | Retour à toute l'équipe pédagogique |
 
-## /en/equipe-cascadeurs-pro/alan-cueff — 21 occurrence(s)
+## /en/equipe-cascadeurs-pro/alan-cueff — 2 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | ÉQUIPE PRO |
-| texte visible | FACULTÉ PÉDAGOGIQUE DU CUC |
-| texte visible | Domaines d'expertise & Disciplines enseignées : |
-| texte visible | Solliciter ce régleur pour une production |
-| texte visible | S'entraîner au Campus avec l'équipe |
-| texte visible | FILMOGRAPHIE & PRODUCTIONS CINÉMA |
-| texte visible | Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués. |
-| texte visible | répertoriée |
-| texte visible | Année (récent → ancien) Année (ancien → récent) Nom (A → Z) Nom (Z → A) |
-| texte visible | Rôle sur cette production : |
-| texte visible | Réal. Julien Royal |
-| texte visible | Détails → |
-| texte visible | Réal. John Woo |
-| texte visible | Réal. Cédric Nicolas-Troyan |
-| texte visible | Réal. Florent-Emilio Siri |
-| texte visible | Réal. Gilles Lellouche |
-| texte visible | FACULTÉ DU CAMPUS |
-| texte visible | Voir toute l'équipe |
-| texte visible | Fiche complète |
+| texte visible | Dir. Cédric Nicolas-Troyan |
 | texte visible | Jérôme Gaspard |
-| texte visible | Retour à toute l'équipe pédagogique |
 
