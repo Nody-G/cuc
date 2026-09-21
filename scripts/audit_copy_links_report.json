@@ -1,11 +1,25 @@
 {
   "longTexts": [
     {
+      "file": "src/app/admin/components/AuditLogView.tsx",
+      "line": 311,
+      "zone": "cockpit",
+      "length": 127,
+      "text": "Historique horodaté des modifications effectuées dans le Cockpit : création, édition, publication, suppression et restauration."
+    },
+    {
       "file": "src/app/admin/components/BackupRestoreModal.tsx",
       "line": 101,
       "zone": "cockpit",
       "length": 114,
       "text": "ATTENTION : La restauration écrasera les données actuelles par celles de la sauvegarde. Souhaitez-vous continuer ?"
+    },
+    {
+      "file": "src/app/admin/components/ContentHealthView.tsx",
+      "line": 168,
+      "zone": "cockpit",
+      "length": 147,
+      "text": "Détection automatique des liens internes cassés, images manquantes, contenus orphelins et métadonnées SEO incomplètes sur l’ensemble de la vitrine."
     },
     {
       "file": "src/app/admin/components/MediaLibraryView.tsx",
@@ -116,8 +130,8 @@
       "file": "src/app/equipe-cascadeurs-pro/page.tsx",
       "line": 63,
       "zone": "vitrine",
-      "length": 126,
-      "text": "Coordinateurs de cascades, pionniers des Yamakasi et cascadeurs en exercice sur des productions françaises et internationales."
+      "length": 261,
+      "text": "Une faculté d'action unique au monde. Des coordinateurs de cascades renommés, des pionniers des Yamakasi, et des cascadeurs en exercice sur les plus grandes productions hollywoodiennes et françaises qui transmettent chaq…"
     },
     {
       "file": "src/app/equipe-cascadeurs-pro/[slug]/page.tsx",
@@ -207,8 +221,8 @@
       "file": "src/app/stunt-workshop-cuc/page.tsx",
       "line": 31,
       "zone": "vitrine",
-      "length": 168,
-      "text": "Two weeks of full immersion with performers from the USA, UK, Europe, Australia and Asia. Ten physical disciplines, full board, on a 6-hectare private estate in France."
+      "length": 239,
+      "text": "Join performers and stuntmen from across the globe (USA, UK, Europe, Australia, Asia) at the world's premier stunt training facility. 2 weeks of full immersion, 10 physical disciplines, full board on our 6-hectare privat…"
     },
     {
       "file": "src/app/team-building-cascades/page.tsx",
@@ -249,15 +263,15 @@
       "file": "src/app/team-building-cascades/page.tsx",
       "line": 57,
       "zone": "vitrine",
-      "length": 111,
-      "text": "Ateliers de cascade et de cinéma d'action, de 10 à 300 personnes, sur le campus ou sur votre lieu de séminaire."
+      "length": 208,
+      "text": "Offrez à vos équipes une immersion inoubliable dans l'univers du cinéma d'action et des cascadeurs professionnels. Ateliers modulables de 10 à 300 personnes sur notre campus ou sur le lieu de votre séminaire."
     },
     {
       "file": "src/app/team-building-cascades/page.tsx",
       "line": 161,
       "zone": "vitrine",
-      "length": 117,
-      "text": "Ateliers au choix, encadrés par des cascadeurs professionnels, avec le matériel et l'encadrement de sécurité fournis."
+      "length": 281,
+      "text": "Nous vous proposons des animations et initiations autour du métier de cascadeur, du cinéma et de ses coulisses. Team building, séminaires, collectivités... Notre équipe de professionnels vous propose des ateliers au choi…"
     },
     {
       "file": "src/app/videos-cascadeur/page.tsx",
@@ -466,22 +480,29 @@
       "file": "src/components/sections/home/HomeVirtualTourSection.tsx",
       "line": 26,
       "zone": "vitrine",
-      "length": 132,
-      "text": "Visite interactive des 6 hectares : plateaux de tournage, fosse de mousse, dojos, hangars de cascades mécaniques et manège équestre."
+      "length": 248,
+      "text": "Découvrez nos 6 hectares comme si vous y étiez ! Arpentez les plateaux de tournage, la fosse olympique de mousse, les dojos de combat chorégraphié, les hangars de cascades mécaniques et le manège équestre grâce à notre v…"
     },
     {
       "file": "src/components/sections/stages/stages.data.ts",
       "line": 38,
       "zone": "vitrine",
-      "length": 136,
-      "text": "Deux jours en internat sur le campus : chutes sur airbag géant, combats scéniques et découverte du métier, repas et hébergement compris."
+      "length": 254,
+      "text": "Vivez la vie d'un cascadeur de cinéma pendant deux jours complets. Dormez sur le campus, partagez les repas avec l'équipe et sautez sur l'airbag géant en toute sécurité. Idéal pour découvrir ses capacités physiques et fa…"
     },
     {
       "file": "src/components/sections/stages/stages.data.ts",
       "line": 63,
       "zone": "vitrine",
-      "length": 155,
-      "text": "70 heures conventionnées AFDAS à Gennevilliers : encaisser les impacts, manipuler des armes à blanc, chuter en escalier et tourner une bande-démo d'action."
+      "length": 229,
+      "text": "action. Formation de 70 heures conventionnée AFDAS dispensée au sein de notre studio parisien à Gennevilliers. Apprenez à encaisser les impacts, manipuler des armes à blanc, chuter dans les escaliers et tournez votre ban…"
+    },
+    {
+      "file": "src/components/sections/stages/stages.data.ts",
+      "line": 63,
+      "zone": "vitrine",
+      "length": 297,
+      "text": "Donnez à vos rôles une crédibilité totale dans les scènes d'action. Formation de 70 heures conventionnée AFDAS dispensée au sein de notre studio parisien à Gennevilliers. Apprenez à encaisser les impacts, manipuler des a…"
     },
     {
       "file": "src/components/sections/stages/stages.data.ts",
@@ -550,8 +571,8 @@
       "file": "src/data/campus.ts",
       "line": 9,
       "zone": "vitrine",
-      "length": 138,
-      "text": "Tour de saut inaugurée en octobre 2024 : plateformes étagées de 6 à 21 mètres, escalier extérieur galvanisé et réception sur airbag géant."
+      "length": 283,
+      "text": "Structure emblématique inaugurée en octobre 2024 au Cateau-Cambrésis. Haute de plus de 20 mètres avec plusieurs plateformes de saut sécurisées, escalier extérieur galvanisé et coussin airbag géant pour chutes libres de 6…"
     },
     {
       "file": "src/data/campus.ts",
@@ -716,31 +737,45 @@
     },
     {
       "file": "src/data/programs.ts",
+      "line": 30,
+      "zone": "vitrine",
+      "length": 231,
+      "text": "Le cursus de référence pour intégrer l\\'industrie du cinéma d\\'action. 9 à 10 stages immersifs de 12 jours échelonnés sur deux ans. Évaluation continue, travail pluridisciplinaire et mise en situation réelle de plateau d…"
+    },
+    {
+      "file": "src/data/programs.ts",
       "line": 75,
       "zone": "vitrine",
-      "length": 134,
-      "text": "12 jours pour éprouver le rythme du métier, sans engagement sur le cursus long. L\\'équipe pédagogique statue ensuite sur l\\'admission."
+      "length": 266,
+      "text": "Le point d\\'entrée incontournable. Il permet de découvrir le rythme et l\\'exigence du métier de cascadeur sans engagement préalable sur le cursus long. À l\\'issue de ces 12 jours, l\\'équipe pédagogique délivre son verdic…"
+    },
+    {
+      "file": "src/data/programs.ts",
+      "line": 115,
+      "zone": "vitrine",
+      "length": 212,
+      "text": "Une immersion dans l\\'univers des cascades de cinéma. Dormez sur le campus, partagez le quotidien des cascadeurs professionnels et apprenez les bases des chutes, des combats scéniques et du saut sur airbag géant."
     },
     {
       "file": "src/data/programs.ts",
       "line": 156,
       "zone": "vitrine",
-      "length": 114,
-      "text": "Recevoir des coups, chuter sans danger, manier des armes factices et dialoguer avec les coordinateurs de cascades."
+      "length": 261,
+      "text": "Une formation conçue sur-mesure pour donner aux comédiens et performeurs une crédibilité totale dans les scènes d\\'action. Apprenez à recevoir des coups, chuter sans danger, manier des armes factices et dialoguer efficac…"
     },
     {
       "file": "src/data/programs.ts",
       "line": 195,
       "zone": "vitrine",
-      "length": 123,
-      "text": "Une semaine d\\'été sur le campus : Parkour, Freerun, airbag et combats chorégraphiés, encadrés par les instructeurs du CUC."
+      "length": 267,
+      "text": "Le rendez-vous annuel de la communauté de l\\'action. Une semaine estivale vibrante combinant entraînements rigoureux, dépassement de soi et ambiance de festival. Progressez à pas de géant sur nos installations de pointe …"
     },
     {
       "file": "src/data/programs.ts",
       "line": 234,
       "zone": "vitrine",
-      "length": 152,
-      "text": "Perfectionnement en plateau à Provence Studios (Martigues) : câblage complexe, chutes et sécurité pyrotechnique. Réservé aux professionnels en activité."
+      "length": 243,
+      "text": "Formation de perfectionnement organisée au sein des studios de cinéma à Provence Studios (Martigues). Destinée aux professionnels pour approfondir les techniques de câblage, les chutes et la sécurité pyrotechnique sur le…"
     },
     {
       "file": "src/data/team.ts",

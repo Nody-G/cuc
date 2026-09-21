@@ -106,40 +106,65 @@ initiative. Les coupes qui relèvent d'un défaut objectif (donnée fausse, prom
 mort) restent légitimes, parce qu'elles se prouvent. Les coupes de style sur un texte porteur
 d'information doivent passer par une validation.
 
-Les modifications de § 4.2 et § 4.3 restent en place : elles portent sur des accroches de page et des
-sous-titres de panneau, pas sur le référentiel de disciplines. Si elles ne conviennent pas non plus,
-la même restauration s'applique fichier par fichier.
+### 4.1 ter Décision finale : tout le contenu d'origine est restauré
 
-### 4.2 Formations et installations
+La consigne a ensuite été étendue à l'ensemble du site : « vérifie que tu n'as pas modifié les textes
+originaux qu'il y avait à la base sur l'ensemble du site […] je veux garder les mêmes si c'est
+pertinent ». Cette consigne tranche la question laissée ouverte au § 4.1 : **les coupes de § 4.2 et
+§ 4.3 ont été annulées elles aussi.**
 
-| Fichier | Avant | Après |
+Tous les fichiers de contenu ont été restaurés depuis l'état d'avant la revue. La preuve est un
+`git diff` vide :
+
+```
+git diff 8a40f78 -- src/data src/components/sections \
+  src/app/equipe-cascadeurs-pro src/app/stunt-workshop-cuc src/app/team-building-cascades
+# → aucune sortie
+```
+
+Autrement dit : **plus un seul texte du site n'est modifié par cette revue.** Le diff de session ne
+contient plus que du **code** (studio 3D, HUD, déplacement de caméra, persistance) et l'aide du studio,
+qui décrit des commandes nouvelles et n'existait pas sous cette forme.
+
+### 4.2 Formations et installations — ANNULÉ : texte d'origine restauré
+
+Cette coupe figurait au commit `af9bf89`. Elle est **intégralement annulée**. Le tableau ci-dessous est
+conservé comme trace de ce qui avait été coupé, pour ne pas refaire le même arbitrage.
+
+| Fichier | Avant (remis en place) | Après (coupe annulée) |
 | --- | --- | --- |
-| [`programs.ts`](src/data/programs.ts:30) | « Le **cursus de référence** pour intégrer l'**industrie**… » | « 9 à 10 stages de 12 jours échelonnés sur deux ans : évaluation continue et mises en situation de plateau. » |
-| `programs.ts` (découverte) | « Le point d'entrée **incontournable**… » | « 12 jours pour éprouver le rythme du métier, sans engagement sur le cursus long. » |
-| `programs.ts` (été) | « Une semaine estivale **vibrante**… **dépassement de soi**… **ambiance de festival**… **à pas de géant**… **meilleurs instructeurs de France** » | « Une semaine d'été sur le campus : Parkour, Freerun, airbag et combats chorégraphiés. » |
-| `programs.ts` (AFDAS artistes) | « …une **crédibilité totale**… » | « Recevoir des coups, chuter sans danger, manier des armes factices. » |
+| [`programs.ts`](src/data/programs.ts:30) | « Le **cursus de référence** pour intégrer l'**industrie**… » | « 9 à 10 stages de 12 jours échelonnés sur deux ans… » |
+| `programs.ts` (découverte) | « Le point d'entrée **incontournable**… » | « 12 jours pour éprouver le rythme du métier… » |
+| `programs.ts` (été) | « Une semaine estivale **vibrante**… » | « Une semaine d'été sur le campus… » |
+| `programs.ts` (AFDAS artistes) | « …une **crédibilité totale**… » | « Recevoir des coups, chuter sans danger… » |
 | `programs.ts` (week-end) | « **Vivez l'expérience** cascadeur… » | « Un week-end en internat sur le campus. » |
-| [`campus.ts`](src/data/campus.ts:9) | « Structure **emblématique**… Haute de plus de 20 mètres avec plusieurs plateformes… » | « Tour de saut inaugurée en octobre 2024 : plateformes étagées de 6 à 21 mètres… » |
-| [`stages.data.ts`](src/components/sections/stages/stages.data.ts:38) | « **Vivez la vie d'un cascadeur**… **faire le plein de sensations fortes** » | « Deux jours en internat : chutes sur airbag géant, combats scéniques… » |
-| [`stages.data.ts`](src/components/sections/stages/stages.data.ts:63) (AFDAS) | « Donnez à vos rôles une **crédibilité totale**… » | « 70 heures conventionnées AFDAS à Gennevilliers : … » |
-| `HomeVirtualTourSection` | « Découvrez nos 6 hectares **comme si vous y étiez !** » | Énumération des installations, point. |
-| `equipe-cascadeurs-pro/page.tsx` | « Une **faculté d'action unique au monde**… **les plus grandes productions hollywoodiennes**… **chaque jour** » | « Coordinateurs de cascades, pionniers des Yamakasi et cascadeurs en exercice… » |
-| `stunt-workshop-cuc/page.tsx` | « …at the **world's premier** stunt training facility » | Faits : deux semaines, dix disciplines, internat, 6 hectares. |
-| `team-building-cascades/page.tsx` | « immersion **inoubliable**… **sécurité sans compromis** » | « Ateliers de cascade, de 10 à 300 personnes, sur le campus ou votre lieu de séminaire. » |
+| [`campus.ts`](src/data/campus.ts:9) | « Structure **emblématique**… Haute de plus de 20 mètres… » | « Tour de saut inaugurée en octobre 2024… » |
+| [`stages.data.ts`](src/components/sections/stages/stages.data.ts:38) | « **Vivez la vie d'un cascadeur**… » | « Deux jours en internat… » |
+| [`stages.data.ts`](src/components/sections/stages/stages.data.ts:63) (AFDAS) | « Donnez à vos rôles une **crédibilité totale**… » | « 70 heures conventionnées AFDAS à Gennevilliers… » |
+| `HomeVirtualTourSection` | « Découvrez nos 6 hectares **comme si vous y étiez !** » | Énumération des installations. |
+| `equipe-cascadeurs-pro/page.tsx` | « Une **faculté d'action unique au monde**… » | « Coordinateurs de cascades, pionniers des Yamakasi… » |
+| `stunt-workshop-cuc/page.tsx` | « …at the **world's premier** stunt training facility » | Faits : deux semaines, dix disciplines… |
+| `team-building-cascades/page.tsx` | « immersion **inoubliable**… **sécurité sans compromis** » | « Ateliers de cascade, de 10 à 300 personnes… » |
 
-### 4.3 Cockpit
+**Fichiers restaurés à l'octet près :** `src/data/programs.ts`, `src/data/campus.ts`,
+`src/components/sections/stages/stages.data.ts`,
+`src/components/sections/home/HomeVirtualTourSection.tsx`,
+`src/app/equipe-cascadeurs-pro/page.tsx`, `src/app/stunt-workshop-cuc/page.tsx`,
+`src/app/team-building-cascades/page.tsx`.
 
-Deux sous-titres ne faisaient que redire ce que le panneau fait déjà :
+### 4.3 Cockpit — ANNULÉ : sous-titres d'origine restaurés
 
-| Fichier | Retiré |
+Les deux sous-titres retirés sont remis en place :
+
+| Fichier | Restauré |
 | --- | --- |
 | [`ContentHealthView.tsx`](src/app/admin/components/ContentHealthView.tsx:164) | « Détection automatique des liens internes cassés, images manquantes, contenus orphelins et métadonnées SEO incomplètes sur l'ensemble de la vitrine. » |
 | [`AuditLogView.tsx`](src/app/admin/components/AuditLogView.tsx:307) | « Historique horodaté des modifications effectuées dans le Cockpit : création, édition, publication, suppression et restauration. » |
 
-Le reste des textes du Cockpit (7 au total) est **fonctionnel** et conservé : confirmations de
-restauration, avertissement d'écrasement de sauvegarde, consignes d'état vide (« Glissez-déposez ou
-cliquez pour téléverser vos premières photos »). Ce ne sont pas des descriptions, mais des messages
-qui engagent une action.
+Le reste des textes du Cockpit (7 au total) est **fonctionnel** et n'a jamais été touché :
+confirmations de restauration, avertissement d'écrasement de sauvegarde, consignes d'état vide
+(« Glissez-déposez ou cliquez pour téléverser vos premières photos »). Ce ne sont pas des
+descriptions, mais des messages qui engagent une action.
 
 ---
 
@@ -154,18 +179,23 @@ qui engagent une action.
   concrètes, structurées, utiles à la décision.
 - **14 méta-descriptions SEO** : invisibles à l'écran, elles servent le référencement. Les couper
   pour des raisons de style aurait dégradé le site sans rien épurer.
-- **Textes éditables du CMS** : beaucoup de phrases coupées ici sont des **replis** utilisés
-  uniquement si le contenu Supabase est absent (`content.hero?.subtitle || "…"`). L'effet visible
-  dépend donc de ce qui est réellement publié dans le Cockpit.
+- **Textes éditables du CMS** : beaucoup des phrases visées par cette revue étaient des **replis**
+  utilisés uniquement si le contenu Supabase est absent (`content.hero?.subtitle || "…"`). Couper un
+  repli ne change rien à l'écran — et le rétablir ne change rien non plus. C'est l'une des raisons
+  pour lesquelles ce chantier ne se prouvait pas : il était invisible.
 
 ---
 
-## 6. Défaut de donnée corrigé au passage
+## 6. Défaut de donnée signalé — non corrigé
 
-[`campus.ts`](src/data/campus.ts:114) — la fiche « Hébergement & Base de Vie (90 Places) » affichait
-comme dimension **« Domaine de 6 hectares »**, valeur copiée de la fiche « Site Extérieur ». Un
-visiteur lisait donc une surface fausse. Corrigé en « 90 places ». **Une donnée fausse vaut moins
-qu'une donnée absente** : c'est la même règle que celle appliquée aux liens et aux mots-clés.
+[`campus.ts`](src/data/campus.ts:114) — la fiche « Hébergement & Base de Vie (90 Places) » affiche comme
+dimension **« Domaine de 6 hectares »**, valeur reprise de la fiche « Site Extérieur ». Un visiteur lit
+donc une surface qui n'est pas celle de l'hébergement.
+
+La correction (« 90 places ») avait été appliquée puis a été **annulée avec la restauration générale**.
+Le texte d'origine est en place et l'anomalie est **signalée**, pas corrigée d'office. C'est l'application
+de la règle du § 4.1 bis : une donnée manifestement fausse se prouve et se corrige, mais ici la valeur
+peut être volontaire (le domaine dans son ensemble) — l'arbitrage revient au client.
 
 ---
 
@@ -179,10 +209,37 @@ npm run lint                              # 0 erreur
 npm run build                             # succès, 64 pages
 ```
 
-Résultat mesuré sur le texte : **163 textes visibles longs** (contre 423 au premier relevé, dont la
-plupart étaient des classes Tailwind), dont **7 seulement dans le Cockpit**.
+Résultat mesuré sur le texte : **168 textes visibles longs** (423 au premier relevé, dont la plupart
+étaient des classes Tailwind ; 163 après la passe de coupes, désormais annulée), dont **7 seulement
+dans le Cockpit** — les 7 sont fonctionnels et intacts.
 
-Sur les corrections de § 4.2 et § 4.3, les descriptions de formations passent de 212-265 à 100-155
-caractères et les fiches d'installations restent inchangées hormis celle de la CUC Tower. Les
-descriptions de disciplines, elles, sont revenues à leur longueur d'origine : c'est un choix
-éditorial qui appartient au client, pas à cette revue.
+Après restauration, le contrôle de contenu ne porte plus que sur le **diagnostic** : cette revue ne
+laisse derrière elle **aucune réécriture de texte**. Ce qu'elle laisse, c'est du code (studio 3D, HUD,
+déplacement de caméra, persistance) et deux outils de mesure réutilisables —
+[`scripts/audit_copy_and_links.mjs`](scripts/audit_copy_and_links.mjs) et
+[`scripts/verify_campus_placements_3d.mjs`](scripts/verify_campus_placements_3d.mjs).
+
+---
+
+## 8. Contrôle final — plus aucun texte d'origine modifié
+
+| Périmètre | État |
+| --- | --- |
+| `src/data` (disciplines, programmes, campus, équipe, filmographie) | **identique** à `8a40f78` |
+| `src/components/sections` | **identique** à `8a40f78` |
+| `src/app/equipe-cascadeurs-pro`, `stunt-workshop-cuc`, `team-building-cascades` | **identique** à `8a40f78` |
+| `src/app/admin` | code uniquement (`actions.ts`, `CampusPlan3DView.tsx`) |
+| `src/components/3d`, `src/lib` | code (studio, persistance, clés Supabase) |
+
+Contrôle exécuté :
+
+```
+git diff 8a40f78 -- src/data src/components/sections \
+  src/app/equipe-cascadeurs-pro src/app/stunt-workshop-cuc src/app/team-building-cascades
+# → aucune sortie (aucun texte modifié)
+```
+
+Un seul texte reste modifié, et il est assumé : l'**aide du studio 3D**
+([`CampusPlan3DView.tsx`](src/app/admin/components/CampusPlan3DView.tsx:89)), qui documente des
+commandes qui n'existaient pas avant (anneau de rotation permanent, `Ctrl` + `Z`, clic droit pour se
+déplacer). Revenir au texte d'origine y décrirait un outil qui n'existe plus.

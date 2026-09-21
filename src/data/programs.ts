@@ -27,7 +27,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
       { date: '18 au 30 avril 2027', status: 'complet' },
       { date: '27 juin au 09 juillet 2027', status: 'dernières places' }
     ],
-    description: '9 à 10 stages de 12 jours échelonnés sur deux ans : évaluation continue et mises en situation de plateau.',
+    description: 'Le cursus de référence pour intégrer l\'industrie du cinéma d\'action. 9 à 10 stages immersifs de 12 jours échelonnés sur deux ans. Évaluation continue, travail pluridisciplinaire et mise en situation réelle de plateau de tournage.',
     objectives: [
       'Maîtriser l\'intégralité des 10 disciplines de la cascade physique',
       'Anticiper les risques et appliquer les protocoles de sécurité sur plateau',
@@ -72,7 +72,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
       { date: '21 février au 05 mars 2027', status: 'complet' },
       { date: '18 au 30 avril 2027', status: 'dernières places' }
     ],
-    description: '12 jours pour éprouver le rythme du métier, sans engagement sur le cursus long. L\'équipe pédagogique statue ensuite sur l\'admission.',
+    description: 'Le point d\'entrée incontournable. Il permet de découvrir le rythme et l\'exigence du métier de cascadeur sans engagement préalable sur le cursus long. À l\'issue de ces 12 jours, l\'équipe pédagogique délivre son verdict d\'admission pour la formation longue durée.',
     objectives: [
       'Découvrir l\'atmosphère réelle d\'un centre d\'entraînement de cascadeurs',
       'S\'initier aux chutes de hauteur, combats cinéma, acrobaties et parkour',
@@ -95,7 +95,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
     title: 'Formule Week-end Immersion',
     badge: 'ACCESSIBLE À TOUS',
     highlight: false,
-    tagline: 'Un week-end en internat sur le campus.',
+    tagline: 'Vivez l\'expérience cascadeur le temps d\'un week-end en pension complète.',
     duration: '2 Jours (Vendredi 17h au Dimanche 17h30)',
     hours: '16 heures d\'entraînement intensif',
     location: 'Campus CUC — Le Cateau-Cambrésis (59)',
@@ -112,7 +112,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
       { date: '21 et 22 novembre 2026', status: 'ouvert' },
       { date: '20 et 21 mars 2027', status: 'bientôt' }
     ],
-    description: 'Bases des chutes, combats scéniques et saut sur airbag, au contact des cascadeurs professionnels.',
+    description: 'Une immersion dans l\'univers des cascades de cinéma. Dormez sur le campus, partagez le quotidien des cascadeurs professionnels et apprenez les bases des chutes, des combats scéniques et du saut sur airbag géant.',
     objectives: [
       'Repousser ses peurs en toute sécurité sur nos installations professionnelles',
       'Apprendre les rudiments de la bagarre de cinéma crédible',
@@ -153,7 +153,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
       { date: '18 au 29 janvier 2027', status: 'ouvert' },
       { date: '15 au 26 mars 2027', status: 'bientôt' }
     ],
-    description: 'Recevoir des coups, chuter sans danger, manier des armes factices et dialoguer avec les coordinateurs de cascades.',
+    description: 'Une formation conçue sur-mesure pour donner aux comédiens et performeurs une crédibilité totale dans les scènes d\'action. Apprenez à recevoir des coups, chuter sans danger, manier des armes factices et dialoguer efficacement avec les coordinateurs de cascades.',
     objectives: [
       'Acquérir l\'autonomie physique sur les scènes d\'action simples à moyennes',
       'Comprendre les axes caméra, la gestion du regard et le rythme cinématique',
@@ -176,7 +176,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
     title: 'Stunt Summer Camp (Loisirs & Perfectionnement)',
     badge: 'STAGE D\'ÉTÉ INTENSIF',
     highlight: false,
-    tagline: '1 semaine : Parkour, Freerun, airbag et combats cinéma.',
+    tagline: '1 semaine estivale d\'adrénaline pure : Parkour, Freerun, Airbag et Combats cinéma.',
     duration: '1 Semaine (Du dimanche après-midi au vendredi soir)',
     hours: '35 heures d\'entraînement',
     location: 'Campus CUC — Le Cateau-Cambrésis (59)',
@@ -192,7 +192,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
       { date: '11 au 16 juillet 2027', status: 'ouvert' },
       { date: '08 au 13 août 2027', status: 'ouvert' }
     ],
-    description: 'Une semaine d\'été sur le campus : Parkour, Freerun, airbag et combats chorégraphiés, encadrés par les instructeurs du CUC.',
+    description: 'Le rendez-vous annuel de la communauté de l\'action. Une semaine estivale vibrante combinant entraînements rigoureux, dépassement de soi et ambiance de festival. Progressez à pas de géant sur nos installations de pointe aux côtés des meilleurs instructeurs de France.',
     objectives: [
       'Perfectionner sa technique de Parkour et de Freerunning sur Parkour Park pro',
       'Dompter la peur du vide grâce aux sauts répétés sur Airbag géant',
@@ -231,7 +231,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
     nextSessions: [
       { date: 'Session 2026/2027 annoncée prochainement', status: 'bientôt' }
     ],
-    description: 'Perfectionnement en plateau à Provence Studios (Martigues) : câblage complexe, chutes et sécurité pyrotechnique. Réservé aux professionnels en activité.',
+    description: 'Formation de perfectionnement organisée au sein des studios de cinéma à Provence Studios (Martigues). Destinée aux professionnels pour approfondir les techniques de câblage, les chutes et la sécurité pyrotechnique sur les plateaux de tournage.',
     objectives: [
       'Affiner les réactions biomécaniques sur impacts lourds et projections',
       'Expérimenter les rigs de câblage complexes et déclencheurs pneumatiques',
