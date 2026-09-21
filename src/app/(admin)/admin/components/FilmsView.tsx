@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { ImdbLogo, AllocineLogo, YouTubeLogo } from '@/components/ui/BrandLogos';
 import { FilmCredit, Instructor, Discipline } from '@/types';
+import { FILM_CATEGORIES } from '@/lib/film-category';
 import { upsertFilm, deleteFilm } from '@/app/(admin)/admin/actions';
 import { MediaPickerModal } from './MediaPickerModal';
 import { CockpitLoadMore, useProgressiveList } from './ui';
@@ -159,7 +160,7 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
               id: `film-${Date.now()}`,
               title: '',
               year: '2025',
-              category: 'Cinéma International',
+              category: 'Film',
               stuntRoles: 'Cascades physiques, combats, chutes',
               highlight: false,
               image: '',
@@ -178,7 +179,7 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
 
       {/* Catégories rapides */}
       <div className="flex flex-wrap gap-1.5 pb-2">
-        {['all', 'Blockbuster', 'Cinéma Français', 'Cinéma International', 'Série / Plateforme', 'Film Culte', 'Streaming Global'].map((cat) => (
+        {(['all', ...FILM_CATEGORIES] as const).map((cat) => (
           <button
             key={cat}
             type="button"
@@ -423,20 +424,18 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
                     }
                     className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500]"
                   >
-                    <option value="Blockbuster">Blockbuster</option>
-                    <option value="Cinéma Français">Cinéma Français</option>
-                    <option value="Cinéma International">Cinéma International</option>
-                    <option value="Série / Plateforme">Série / Plateforme</option>
-                    <option value="Show & Événement">Show &amp; Événement</option>
-                    <option value="Film Culte">Film Culte</option>
-                    <option value="Streaming Global">Streaming Global</option>
+                    {FILM_CATEGORIES.map((c) => (
+                      <option key={c} value={c}>
+                        {c}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div>
                   <label className="block text-xs font-mono text-gray-400 mb-1">Badge / Tag</label>
                   <input
                     type="text"
-                    placeholder="ex: BLOCKBUSTER, NETFLIX, NOUVEAU"
+                    placeholder="ex: COMBATS, POURSUITES, NOUVEAU"
                     value={editingFilm.tag || ''}
                     onChange={(e) => setEditingFilm({ ...editingFilm, tag: e.target.value })}
                     className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500]"

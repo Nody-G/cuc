@@ -12,36 +12,28 @@ interface CelebrityDoublesGalleryProps {
   onSelectCelebrity: (celebrity: DoubledCelebrity) => void;
 }
 
+/**
+ * Galerie des comédiens doublés.
+ *
+ * Les filtres de segmentation marketing ont été retirés : cette lecture
+ * (français / international) ne reposait sur aucune preuve éditoriale. Les
+ * fiches restent factuelles : comédien, productions, doublure éventuellement
+ * renseignée, profil IMDb.
+ */
 export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = ({
   onSelectCelebrity,
 }) => {
   const [celebrities, setCelebrities] = useState<DoubledCelebrity[]>(DOUBLED_CELEBRITIES);
-  const [celebrityFilter, setCelebrityFilter] = useState<'all' | 'fr' | 'intl'>('all');
 
   useEffect(() => {
     getCelebrities().then(setCelebrities);
   }, []);
 
-  // Acteurs doublés relevant du cinéma international / hollywoodien.
-  const INTERNATIONAL_CELEBRITY_IDS = ['keanu-reeves', 'kevin-costner', 'omar-sy', 'demi-moore'];
-
-  const isInternational = (id: string) => INTERNATIONAL_CELEBRITY_IDS.includes(id);
-
-  const filteredCelebrities = celebrities.filter((c) => {
-    if (celebrityFilter === 'all') return true;
-    if (celebrityFilter === 'intl') return isInternational(c.id);
-    if (celebrityFilter === 'fr') return !isInternational(c.id);
-    return true;
-  });
-
-  const internationalCount = celebrities.filter((c) => isInternational(c.id)).length;
-  const frenchCount = celebrities.length - internationalCount;
-
   return (
     <div className="mb-20 bg-[#0c0c10] border-2 border-zinc-800 p-6 sm:p-8 relative shadow-2xl">
 
-      {/* Section Header & Filters */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-zinc-800">
+      {/* Section Header */}
+      <div className="pb-6 border-b border-zinc-800">
         <div>
           <div className="flex items-center gap-2 mb-2">
             <UserCheck className="w-5 h-5 text-[#FFE500]" />
@@ -57,41 +49,11 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
           </p>
         </div>
 
-        {/* Celebrity Filters */}
-        <div className="flex flex-wrap items-center gap-2 self-start lg:self-center">
-          <button
-            onClick={() => setCelebrityFilter('all')}
-            className={`px-3 py-1.5 text-xs font-mono-tech uppercase border transition-all cursor-pointer ${celebrityFilter === 'all'
-              ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-[0_0_10px_rgba(255,229,0,0.3)]'
-              : 'bg-[#141419] text-zinc-300 border-zinc-800 hover:border-zinc-600'
-              }`}
-          >
-            Tous les acteurs ({DOUBLED_CELEBRITIES.length})
-          </button>
-          <button
-            onClick={() => setCelebrityFilter('fr')}
-            className={`px-3 py-1.5 text-xs font-mono-tech uppercase border transition-all cursor-pointer ${celebrityFilter === 'fr'
-              ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-[0_0_10px_rgba(255,229,0,0.3)]'
-              : 'bg-[#141419] text-zinc-300 border-zinc-800 hover:border-zinc-600'
-              }`}
-          >
-            Cinéma Français ({frenchCount})
-          </button>
-          <button
-            onClick={() => setCelebrityFilter('intl')}
-            className={`px-3 py-1.5 text-xs font-mono-tech uppercase border transition-all cursor-pointer ${celebrityFilter === 'intl'
-              ? 'bg-[#FFE500] text-black border-[#FFE500] font-bold shadow-[0_0_10px_rgba(255,229,0,0.3)]'
-              : 'bg-[#141419] text-zinc-300 border-zinc-800 hover:border-zinc-600'
-              }`}
-          >
-            Cinéma International ({internationalCount})
-          </button>
-        </div>
       </div>
 
       {/* Celebrities Grid with Real Portraits & Clean Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-8">
-        {filteredCelebrities.map((actor) => (
+        {celebrities.map((actor) => (
           <div
             key={actor.id}
             onClick={() => onSelectCelebrity(actor)}

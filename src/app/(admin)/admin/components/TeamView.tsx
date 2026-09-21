@@ -24,6 +24,7 @@ import {
 import { InstagramLogo, ImdbLogo } from '@/components/ui/BrandLogos';
 import { Instructor, FilmCredit, Discipline, parseCredit } from '@/types';
 import { creditTitleKey } from '@/lib/credit-title';
+import { FILM_CATEGORIES } from '@/lib/film-category';
 import { upsertTeamMember, deleteTeamMember, upsertFilm } from '@/app/(admin)/admin/actions';
 import { MediaPickerModal } from './MediaPickerModal';
 import { CockpitLoadMore, useProgressiveList } from './ui';
@@ -1070,7 +1071,7 @@ export const TeamView: React.FC<TeamViewProps> = ({
                                     setNewFilmDraft({
                                       title: creditSearch.trim(),
                                       year: '',
-                                      category: 'Cinéma Français',
+                                      category: 'Film',
                                     })
                                   }
                                   className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#FFE500]/15 border border-[#FFE500]/40 text-[11px] font-semibold text-[#FFE500] hover:bg-[#FFE500]/25 transition"
@@ -1117,14 +1118,7 @@ export const TeamView: React.FC<TeamViewProps> = ({
                                 }
                                 className="w-full bg-black/60 border border-white/15 rounded-lg px-2 py-1.5 text-[11px] text-white focus:outline-none focus:border-[#FFE500]"
                               >
-                                {[
-                                  'Blockbuster',
-                                  'Cinéma Français',
-                                  'Cinéma International',
-                                  'Série / Plateforme',
-                                  'Film Culte',
-                                  'Streaming Global',
-                                ].map((c) => (
+                                {FILM_CATEGORIES.map((c) => (
                                   <option key={c} value={c}>
                                     {c}
                                   </option>

@@ -10,8 +10,8 @@ export default function robots(): MetadataRoute.Robots {
             {
                 userAgent: "*",
                 allow: "/",
-                // `/admin/` couvre tout le Cockpit (dont la route d'aperçu
-                // `/admin/preview`) : espace interne, jamais destiné à l'indexation.
+                // `/admin/` couvre tout le Cockpit (éditeur de pages, médias,
+                // sauvegardes) : espace interne, jamais destiné à l'indexation.
                 disallow: ["/api/", "/_next/", "/admin/"],
             },
         ],

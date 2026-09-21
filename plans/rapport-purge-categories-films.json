@@ -1,0 +1,105 @@
+{
+  "applied": false,
+  "generatedAt": "2026-09-21T14:55:25.398Z",
+  "totalFilms": 570,
+  "emptyCategoryBefore": 12,
+  "proofDistribution": [
+    [
+      "imdb:movie",
+      334
+    ],
+    [
+      "imdb:tvSeries",
+      117
+    ],
+    [
+      "imdb:short",
+      46
+    ],
+    [
+      "imdb:tvMiniSeries",
+      30
+    ],
+    [
+      "imdb:tvMovie",
+      22
+    ],
+    [
+      "aucune",
+      12
+    ],
+    [
+      "allocine",
+      8
+    ],
+    [
+      "imdb:video",
+      1
+    ]
+  ],
+  "imdbTitleTypesSeen": [
+    [
+      "movie",
+      334
+    ],
+    [
+      "tvSeries",
+      117
+    ],
+    [
+      "short",
+      46
+    ],
+    [
+      "tvMiniSeries",
+      30
+    ],
+    [
+      "tvMovie",
+      22
+    ],
+    [
+      "musicVideo",
+      8
+    ],
+    [
+      "videoGame",
+      2
+    ],
+    [
+      "podcastSeries",
+      2
+    ],
+    [
+      "video",
+      1
+    ]
+  ],
+  "unknownTitleTypes": [
+    "videoGame",
+    "musicVideo",
+    "podcastSeries"
+  ],
+  "filmUpdates": 0,
+  "filmUpdateSamples": [],
+  "mirrorReports": [
+    {
+      "key": "films",
+      "updated": 0,
+      "total": 63
+    }
+  ],
+  "roleTypeRemoved": 0,
+  "tagUpdates": 0,
+  "tagUpdateSamples": [],
+  "mirrorTagCleared": [],
+  "sectionFixes": [],
+  "copyHits": [],
+  "sourceUpdates": 0,
+  "sourceUpdateSamples": [],
+  "allowedVocabulary": [
+    "Film",
+    "Série",
+    "Court métrage"
+  ]
+}

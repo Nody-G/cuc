@@ -74,7 +74,10 @@
     "media:verify:coverage": "node scripts/verify_media_url_coverage.mjs",
     "media:verify:reachable": "node scripts/verify_supabase_media_reachable.mjs",
     "probe:prod:bundle": "node scripts/verify_prod_bundle_fix.mjs",
-    "probe:prod:images": "node scripts/verify_prod_image_optimizer.mjs"
+    "probe:prod:images": "node scripts/verify_prod_image_optimizer.mjs",
+    "cms:audit:film-categories": "node scripts/audit_film_categories.mjs",
+    "cms:purge:film-categories": "node scripts/purge_marketing_film_categories.mjs --apply",
+    "cms:purge:film-categories:dry": "node scripts/purge_marketing_film_categories.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

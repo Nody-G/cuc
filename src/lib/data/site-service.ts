@@ -19,6 +19,7 @@ import {
   type SiteSocialLink,
 } from '@/data/navigation';
 import { StuntProgram, Instructor, FilmCredit, Discipline, DoubledCelebrity, InfrastructureSpot } from '@/types';
+import { normalizeFilmCategory } from '@/lib/film-category';
 
 /**
  * Fabrique Supabase isomorphe pour les lectures publiques du site vitrine.
@@ -239,7 +240,9 @@ export async function getFilms(): Promise<FilmCredit[]> {
       id: f.id,
       title: f.title,
       year: f.year || '',
-      category: f.category || 'Cinéma',
+      // Garde-fou de lecture : tout reliquat de l'ancien vocabulaire marketing
+      // en base est converti (ou vidé) — il ne peut donc jamais atteindre l'UI.
+      category: normalizeFilmCategory(f.category),
       director: f.director,
       stuntRoles: f.stunt_roles || '',
       description: f.description || '',
@@ -734,7 +737,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       { id: 'galleries', name: 'Galeries Photos des Tournages HD', order: 2, is_visible: true },
       // La section `banners` (6 affiches statiques) a été retirée : elle faisait
       // doublon avec `hall_of_fame` (catalogue complet site_films, 570 films).
-      { id: 'hall_of_fame', name: 'Affiches & Blockbusters Cinéma', order: 3, is_visible: true },
+      { id: 'hall_of_fame', name: 'Affiches de films', order: 3, is_visible: true },
       { id: 'services', name: 'Prestations de Coordination & Devis', order: 4, is_visible: true },
     ],
     sections_data: {},

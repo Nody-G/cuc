@@ -1,3 +1,5 @@
+import type { FilmCategoryOrEmpty } from '@/lib/film-category';
+
 export interface StuntProgram {
   id: string;
   category: 'pro' | 'discovery' | 'weekend' | 'afdas' | 'summer';
@@ -49,7 +51,13 @@ export interface FilmCredit {
   id: string;
   title: string;
   year: string;
-  category: 'Blockbuster' | 'Cinéma Français' | 'Cinéma International' | 'Série / Plateforme' | 'Show & Événement' | 'Film Culte' | 'Streaming Global';
+  /**
+   * Seule distinction éditoriale autorisée : `Film` · `Série` ·
+   * `Court métrage` (cf. `@/lib/film-category`). Chaîne vide = aucune
+   * catégorie factuelle disponible (ex. clip musical, jeu vidéo, podcast) :
+   * aucun badge n'est alors affiché — une valeur fausse serait pire.
+   */
+  category: FilmCategoryOrEmpty;
   director?: string;
   stuntRoles: string;
   /** Description factuelle de la fiche film (générée depuis les données vérifiées). */
@@ -135,12 +143,10 @@ export interface DoubledCelebrity {
   id: string;
   name: string;
   photo: string;
-  roleType: string;
   productions: string[];
   stuntSpecialty: string;
   stuntDoubles: string;
   imdbUrl: string;
-  highlightTag: string;
 }
 
 export interface Instructor {

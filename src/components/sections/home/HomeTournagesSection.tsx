@@ -45,32 +45,37 @@ interface HomeTournagesSectionProps {
   tournagesData?: HomeTournagesData;
 }
 
+/**
+ * Sélection éditoriale de longs métrages — vérifiés comme tels (typologie
+ * IMDb `movie`, cf. `metadata.title_type` en base). La seule distinction
+ * autorisée est reprise ici : aucune étiquette marketing.
+ */
 const FEATURED_PRODUCTIONS: HighlightProject[] = [
   {
     title: 'Le Comte de Monte-Cristo',
     year: '2024',
-    category: 'Cinéma Français',
+    category: 'Film',
     actors: 'Cascades & combats',
     poster: 'https://m.media-amazon.com/images/M/MV5BZWI4NTlhM2UtZmMxZS00ZTg0LThmNTEtYjM3MTEyYTU4NGRmXkEyXkFqcGc@._V1_.jpg',
   },
   {
     title: 'John Wick : Chapitre 4',
     year: '2023',
-    category: 'Blockbuster US',
+    category: 'Film',
     actors: 'Cascadeurs CUC (tournage Paris)',
     poster: 'https://m.media-amazon.com/images/M/MV5BNDI3OWNiMGItZmVkMS00Mjg3LWJhNzUtNDViMWU3OTJiODAyXkEyXkFqcGc@._V1_.jpg',
   },
   {
     title: 'The Substance',
     year: '2024',
-    category: 'Cinéma',
+    category: 'Film',
     actors: 'Demi Moore & M. Qualley',
     poster: 'https://m.media-amazon.com/images/M/MV5BZDQ1NGE5MGMtYzdlZC00ODExLWJlMDMtNWU4NjA5OWYwMDEwXkEyXkFqcGc@._V1_.jpg',
   },
   {
     title: "L'Amour Ouf",
     year: '2024',
-    category: 'Cinéma Français',
+    category: 'Film',
     actors: 'Équipe cascades CUC',
     poster: 'https://m.media-amazon.com/images/M/MV5BNjY0NGU4NDMtYWI2ZS00NDE2LWE5MzUtM2UyODUyNmFmN2ZhXkEyXkFqcGc@._V1_.jpg',
   },

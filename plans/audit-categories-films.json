@@ -1,0 +1,547 @@
+{
+  "generatedAt": "2026-09-21T14:49:14.085Z",
+  "database": {
+    "totalRows": 570,
+    "columnsSample": [
+      "id",
+      "title",
+      "year",
+      "category",
+      "is_published",
+      "allocine_url",
+      "imdb_url",
+      "metadata"
+    ],
+    "categoryDistribution": [
+      [
+        "(vide)",
+        530
+      ],
+      [
+        "Blockbuster",
+        18
+      ],
+      [
+        "Cinéma Français",
+        10
+      ],
+      [
+        "Film Culte",
+        3
+      ],
+      [
+        "Cinéma International",
+        3
+      ],
+      [
+        "Série / Plateforme",
+        3
+      ],
+      [
+        "Streaming Global",
+        2
+      ],
+      [
+        "Série / Plateforme [non publié]",
+        1
+      ]
+    ],
+    "proofDistribution": [
+      [
+        "(preuve absente)",
+        530
+      ],
+      [
+        "Film",
+        36
+      ],
+      [
+        "Série",
+        4
+      ]
+    ],
+    "reclassifications": 40,
+    "reclassificationSamples": [
+      {
+        "id": "james-bond-spectre",
+        "title": "007 Spectre",
+        "year": "2015",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "3-days-to-kill",
+        "title": "3 Days to Kill",
+        "year": "2014",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "the-355",
+        "title": "355",
+        "year": "2022",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "6-underground",
+        "title": "6 Underground",
+        "year": "2019",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "athena",
+        "title": "Athena",
+        "year": "2022",
+        "from": "Streaming Global",
+        "to": "Film"
+      },
+      {
+        "id": "babylon-a-d",
+        "title": "Babylon A.D.",
+        "year": "2008",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "bac-nord",
+        "title": "BAC Nord",
+        "year": "2020",
+        "from": "Cinéma Français",
+        "to": "Film"
+      },
+      {
+        "id": "banlieue-13-ultimatum",
+        "title": "Banlieue 13: Ultimatum",
+        "year": "2009",
+        "from": "Film Culte",
+        "to": "Film"
+      },
+      {
+        "id": "bastille-day",
+        "title": "Bastille Day",
+        "year": "2016",
+        "from": "Cinéma International",
+        "to": "Film"
+      },
+      {
+        "id": "black-widow",
+        "title": "Black Widow",
+        "year": "2021",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "braqueurs",
+        "title": "Braqueurs",
+        "year": "2021",
+        "from": "Série / Plateforme",
+        "to": "Série"
+      },
+      {
+        "id": "braqueurs-la-serie",
+        "title": "Braqueurs: La série",
+        "year": "2021",
+        "from": "Série / Plateforme",
+        "to": "Série"
+      },
+      {
+        "id": "danny-the-dog",
+        "title": "Danny the Dog",
+        "year": "2005",
+        "from": "Film Culte",
+        "to": "Film"
+      },
+      {
+        "id": "dune",
+        "title": "Dune",
+        "year": "2021",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "dunkirk",
+        "title": "Dunkerque",
+        "year": "2017",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "elyas",
+        "title": "Elyas",
+        "year": "2024",
+        "from": "Cinéma Français",
+        "to": "Film"
+      },
+      {
+        "id": "fast-furious-6",
+        "title": "Fast & Furious 6",
+        "year": "2013",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "the-hunger-games",
+        "title": "Hunger Games : La Révolte, partie 1",
+        "year": "2014",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "jason-bourne",
+        "title": "Jason Bourne",
+        "year": "2016",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "john-wick-4",
+        "title": "John Wick : Chapitre 4",
+        "year": "2023",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "lamour-ouf",
+        "title": "L'Amour ouf",
+        "year": "2024",
+        "from": "Cinéma Français",
+        "to": "Film"
+      },
+      {
+        "id": "mesrine-l-ennemi-public-n-1",
+        "title": "L'Ennemi public n° 1",
+        "year": "2008",
+        "from": "Cinéma Français",
+        "to": "Film"
+      },
+      {
+        "id": "largo-winch",
+        "title": "Largo Winch",
+        "year": "2008",
+        "from": "Cinéma Français",
+        "to": "Film"
+      },
+      {
+        "id": "largo-winch-3",
+        "title": "Largo Winch: Le prix de l'argent",
+        "year": "2024",
+        "from": "Cinéma Français",
+        "to": "Film"
+      },
+      {
+        "id": "monte-cristo",
+        "title": "Le Comte de Monte-Cristo",
+        "year": "2024",
+        "from": "Cinéma Français",
+        "to": "Film"
+      },
+      {
+        "id": "le-transporteur-heritage",
+        "title": "Le Transporteur: Héritage",
+        "year": "2015",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "les-miserables",
+        "title": "Les Misérables",
+        "year": "2019",
+        "from": "Cinéma Français",
+        "to": "Film"
+      },
+      {
+        "id": "lucy",
+        "title": "Lucy",
+        "year": "2014",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "lupin",
+        "title": "Lupin",
+        "year": "2021",
+        "from": "Série / Plateforme",
+        "to": "Série"
+      },
+      {
+        "id": "malavita",
+        "title": "Malavita",
+        "year": "2013",
+        "from": "Cinéma International",
+        "to": "Film"
+      },
+      {
+        "id": "nicky-larson",
+        "title": "Nicky Larson",
+        "year": "2019",
+        "from": "Cinéma Français",
+        "to": "Film"
+      },
+      {
+        "id": "sous-la-seine",
+        "title": "Sous la Seine",
+        "year": "2024",
+        "from": "Streaming Global",
+        "to": "Film"
+      },
+      {
+        "id": "taken-2",
+        "title": "Taken 2",
+        "year": "2012",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "taken-3",
+        "title": "Taken 3",
+        "year": "2014",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "taxi-4",
+        "title": "Taxi 4",
+        "year": "2007",
+        "from": "Cinéma Français",
+        "to": "Film"
+      },
+      {
+        "id": "the-substance",
+        "title": "The Substance",
+        "year": "2024",
+        "from": "Cinéma International",
+        "to": "Film"
+      },
+      {
+        "id": "uncharted",
+        "title": "Uncharted",
+        "year": "2022",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "valerian",
+        "title": "Valérian et la Cité des mille planètes",
+        "year": "2017",
+        "from": "Blockbuster",
+        "to": "Film"
+      },
+      {
+        "id": "wednesday-mercredi",
+        "title": "Wednesday (Mercredi)",
+        "year": "2022",
+        "from": "Série / Plateforme",
+        "to": "Série"
+      },
+      {
+        "id": "yamakasi",
+        "title": "Yamakasi : Les Samouraïs des temps modernes",
+        "year": "2001",
+        "from": "Film Culte",
+        "to": "Film"
+      }
+    ],
+    "unresolvedCount": 0,
+    "unresolvedSamples": [],
+    "settingsMirrors": {
+      "celebrities": {
+        "categoryDistribution": [],
+        "roleTypeDistribution": [
+          [
+            "Cinéma Français",
+            7
+          ],
+          [
+            "Cinéma International",
+            2
+          ],
+          [
+            "Cinéma Français & International",
+            2
+          ]
+        ]
+      },
+      "films": {
+        "categoryDistribution": [
+          [
+            "Blockbuster",
+            22
+          ],
+          [
+            "Cinéma Français",
+            19
+          ],
+          [
+            "Série / Plateforme",
+            8
+          ],
+          [
+            "Streaming Global",
+            6
+          ],
+          [
+            "Cinéma International",
+            5
+          ],
+          [
+            "Film Culte",
+            3
+          ]
+        ],
+        "roleTypeDistribution": []
+      }
+    },
+    "metadataKeys": [
+      [
+        "cuc_team_roles",
+        565
+      ],
+      [
+        "imdb_id",
+        562
+      ],
+      [
+        "synced_at",
+        562
+      ],
+      [
+        "title_type",
+        562
+      ],
+      [
+        "synced_from",
+        562
+      ],
+      [
+        "cuc_team_roles_detail",
+        12
+      ]
+    ],
+    "emptyCategoryCount": 530,
+    "emptyCategoryMetaKeys": [
+      [
+        "imdb_id",
+        530
+      ],
+      [
+        "synced_at",
+        530
+      ],
+      [
+        "title_type",
+        530
+      ],
+      [
+        "synced_from",
+        530
+      ],
+      [
+        "cuc_team_roles",
+        530
+      ]
+    ],
+    "emptyCategoryProbe": [
+      {
+        "id": "16-ans",
+        "title": "16 ans",
+        "imdb_url": "https://www.imdb.com/title/tt12478488/",
+        "allocine_url": null,
+        "metadata": {
+          "imdb_id": "tt12478488",
+          "synced_at": "2026-09-20T16:31:07.996Z",
+          "title_type": "movie",
+          "synced_from": "imdb",
+          "cuc_team_roles": {
+            "vincent-bouillon": "Cascadeur"
+          }
+        }
+      },
+      {
+        "id": "3-jours-max",
+        "title": "3 jours max",
+        "imdb_url": "https://www.imdb.com/title/tt27712015/",
+        "allocine_url": null,
+        "metadata": {
+          "imdb_id": "tt27712015",
+          "synced_at": "2026-09-20T16:31:07.996Z",
+          "title_type": "movie",
+          "synced_from": "imdb",
+          "cuc_team_roles": {
+            "maurice-chan": "Cascadeur"
+          }
+        }
+      },
+      {
+        "id": "30-jours-max",
+        "title": "30 jours max",
+        "imdb_url": "https://www.imdb.com/title/tt11206302/",
+        "allocine_url": null,
+        "metadata": {
+          "imdb_id": "tt11206302",
+          "synced_at": "2026-09-20T16:31:07.996Z",
+          "title_type": "movie",
+          "synced_from": "imdb",
+          "cuc_team_roles": {
+            "kefi-abrikh": "Cascadeur",
+            "maurice-chan": "Cascadeur",
+            "amedeo-cazzella": "Cascadeur"
+          }
+        }
+      }
+    ]
+  },
+  "local": {
+    "src/data/filmography.ts": {
+      "categoryDistribution": [
+        [
+          "Blockbuster",
+          22
+        ],
+        [
+          "Cinéma Français",
+          20
+        ],
+        [
+          "Streaming Global",
+          8
+        ],
+        [
+          "Série / Plateforme",
+          8
+        ],
+        [
+          "Cinéma International",
+          5
+        ],
+        [
+          "Film Culte",
+          4
+        ]
+      ],
+      "roleTypeDistribution": []
+    },
+    "src/data/celebrities.ts": {
+      "categoryDistribution": [],
+      "roleTypeDistribution": [
+        [
+          "Cinéma Français",
+          7
+        ],
+        [
+          "Cinéma International",
+          2
+        ],
+        [
+          "Cinéma Français & International",
+          2
+        ]
+      ]
+    },
+    "src/data/all_official_films.ts": {
+      "categoryDistribution": [],
+      "roleTypeDistribution": []
+    }
+  }
+}

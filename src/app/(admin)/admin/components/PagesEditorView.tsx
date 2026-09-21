@@ -26,6 +26,7 @@ import { ContactPageEditor } from './pages-editor/ContactPageEditor';
 import { KeyStatsEditor } from './pages-editor/KeyStatsEditor';
 import { PageRevisionsPanel } from './PageRevisionsPanel';
 import { LivePreviewPane } from './pages-editor/LivePreviewPane';
+import { buildPreviewUrl } from '@/lib/preview/preview-url';
 
 interface PagesEditorViewProps {
   pages: SitePageContent[];
@@ -337,14 +338,13 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   // produit pas d'URL : l'iframe n'est pas montée, ce qui évite un `src=""`
   // qui chargerait la page courante dans l'iframe (« This page couldn't load »).
   //
-  // On encadre la route dédiée `/admin/preview` (même origine que le Cockpit)
-  // plutôt que la page vitrine réelle : l'encadrement est ainsi toujours
-  // autorisé, quel que soit le domaine d'accès (déploiement de prévisualisation
-  // Vercel, `www` vs apex, domaine personnalisé). Encadrer l'URL publique
-  // échouait dès que les origines différaient (« This page couldn't load »).
-  const previewUrl = previewOrigin
-    ? `${previewOrigin}/admin/preview?slug=${encodeURIComponent(formData.slug)}`
-    : '';
+  // On encadre la VRAIE page publique, sur la même origine que le Cockpit :
+  //  - la page consomme le brouillon via `postMessage` et expose l'édition
+  //    inline, l'aperçu est donc fidèle par construction ;
+  //  - l'encadrement reste toujours autorisé (`X-Frame-Options: SAMEORIGIN`,
+  //    `frame-ancestors 'self'`), quel que soit le domaine d'accès ;
+  //  - le préfixe de locale est respecté (`fr` sans préfixe, `en` sous `/en`).
+  const previewUrl = buildPreviewUrl(previewOrigin, formData.slug);
 
   /**
    * Édition inline : lorsqu'un champ est cliqué dans l'aperçu, on retrouve
