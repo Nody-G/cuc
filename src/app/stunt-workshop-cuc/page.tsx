@@ -224,7 +224,7 @@ export default function StuntWorkshopCucPage() {
                   <div className="relative h-40 border border-zinc-800 overflow-hidden">
                     <Image
                       src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/CUC-BRI.jpg"
-                      alt="CUC BRI Tactical Stunt Training"
+                      alt="CUC BRI — Formation cascade Brigade de Recherche et d'Intervention"
                       fill
                       sizes="25vw"
                       className="object-cover object-center"

@@ -1,4 +1,13 @@
 /**
+ * ==============================================================================
+ * ⚠️  SCRIPT HISTORIQUE — NE PAS RELANCER TEL QUEL
+ * ==============================================================================
+ * Ce script purge les URLs `wp-content` des seeds SQL. La purge a été appliquée
+ * et la base vérifiée propre (`node scripts/verify_no_legacy_urls_in_db.mjs`
+ * → 0 URL legacy). Conservé pour traçabilité (doctrine : marquer plutôt que
+ * supprimer).
+ * ==============================================================================
+ *
  * Purge des URLs legacy `wp-content` des seeds SQL.
  *
  * Contexte

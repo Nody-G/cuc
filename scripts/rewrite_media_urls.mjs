@@ -1,4 +1,12 @@
 /**
+ * ⚠️ SCRIPT HISTORIQUE — NE PAS RELANCER TEL QUEL
+ * ================================================
+ * Ce script a servi à la réécriture initiale des URLs WordPress vers Supabase
+ * Storage (37 fichiers source, 310 remplacements ; 15 lignes en base, 161
+ * remplacements — cf. `scripts/media_rewrite_report.md`). La réécriture est
+ * TERMINÉE : la base ne contient plus aucune URL `wp-content` (vérifié par
+ * `scripts/verify_no_legacy_urls_in_db.mjs`). Conservé pour traçabilité.
+ *
  * RÉÉCRITURE DES URLs MÉDIAS DISTANTES → SUPABASE STORAGE
  * ======================================================
  *

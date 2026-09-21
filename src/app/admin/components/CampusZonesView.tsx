@@ -334,7 +334,7 @@ export const CampusZonesView: React.FC<CampusZonesViewProps> = ({
                   required
                   value={editingPOI.name}
                   onChange={(e) => setEditingPOI({ ...editingPOI, name: e.target.value })}
-                  placeholder="ex: Tour de Saut Extrême 21m"
+                  placeholder="ex: Tour de Saut 21m"
                   className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-cuc-gold"
                 />
               </div>
@@ -425,7 +425,7 @@ export const CampusZonesView: React.FC<CampusZonesViewProps> = ({
                   required
                   value={editingPOI.specs}
                   onChange={(e) => setEditingPOI({ ...editingPOI, specs: e.target.value })}
-                  placeholder="ex: Hauteur 21m • 5 paliers • Poutre de largage"
+                  placeholder="ex: Hauteur 21m • Paliers 5/8/12/16/21m • Poutre de largage"
                   className="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-cuc-gold"
                 />
               </div>

@@ -99,11 +99,36 @@ const EXCLUDE_FILES = new Set(
     'scripts/clean_stunt_roles_and_fix_niels.mjs',
     'scripts/curate_authentic_stunt_roles.mjs',
     'scripts/sync_all_to_supabase.mjs',
+    // Scripts de VÉRIFICATION DE DOCTRINE : ils définissent les motifs bannis
+    // (regex, labels) pour les interdire en base. Les détecter serait un
+    // artefact de détection, pas une violation éditoriale.
+    'scripts/verify_doctrine_in_db.mjs',
+    'scripts/verify_films_enrichment.mjs',
+    // Scripts de NORMALISATION : ils portent les règles de remplacement
+    // (`ADD` → `Parkour`, `gun-fu` → `Combats rapprochés`). Le motif source
+    // est cité par construction.
+    'scripts/enrich_films_and_roles.mjs',
+    'scripts/lib/credit-curator.mjs',
+    'scripts/fix_doctrine_in_db.mjs',
+    'scripts/normalize_film_tags_in_db.mjs',
+    'scripts/migrate_all_data_to_supabase.mjs',
+    'scripts/sync_all_coach_credits_supabase.mjs',
+    // Documentation du scraper : cite les termes bannis pour expliquer le
+    // normaliseur.
+    'scripts/README-coach-scraper.md',
+    // Artefacts de revue / données brutes IMDb : contiennent les titres et
+    // synopsis d'origine (anglais), jamais publiés tels quels sur la vitrine.
+    'scripts/coach_credits_review.json',
+    'scripts/coach_credits_review_imdb.json',
+    'scripts/films_real_data.json',
     // Inventaires média : les noms de fichiers sources contiennent « WORLDWIDE ».
     'scripts/media_download_manifest.json',
     'scripts/media_classification.md',
+    'scripts/media_classification.json',
     'scripts/media_inventory.md',
+    'scripts/media_inventory.json',
     'scripts/media_url_mapping.md',
+    'scripts/media_url_mapping.json',
     // Doctrine : cite les termes bannis pour les interdire.
     'AGENTS.md',
   ].map((p) => path.normalize(p)),
@@ -124,10 +149,33 @@ const SCAN_EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs', '.sql', '
  *    (« Tactical Grid ») ne sont jamais affichés à l'utilisateur.
  */
 const NEUTRALIZE = [
+  // Valeur d'énumération de niveau dans un `<option>` JSX :
+  // `<option value="Tactique">Tactique</option>` — le texte affiché est le
+  // palier pédagogique, pas un badge marketing. DOIT précéder les règles
+  // génériques sur les guillemets, sinon `"Tactique"` est neutralisé avant
+  // que le motif `<option>` complet ne puisse correspondre.
+  /<option\s+value="(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Intermediaire|Débutant|Debutant)">\s*(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Intermediaire|Débutant|Debutant)\s*<\/option>/g,
   /'(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Intermediaire|Débutant|Debutant)'/g,
   /"(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Intermediaire|Débutant|Debutant)"/g,
   /level:\s*'(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Intermediaire|Débutant|Debutant)'/g,
   /\bADD\s+(?:CONSTRAINT|COLUMN|TABLE|INDEX|PRIMARY|FOREIGN|UNIQUE|CHECK|PUBLICATION|IF)\b/gi,
+  // Vocabulaire technique légitime des cascades : « déplacement tactique »,
+  // « combats tactiques », « rappel tactique », « gilets tactiques » désignent
+  // des techniques de plateau, pas des badges marketing. On neutralise
+  // l'adjectif « tactique » uniquement lorsqu'il qualifie ces noms techniques.
+  /\b(?:d[ée]placements?|combats?|rappel|gilets?|fusillades?|armes?)\s+tactiques?\b/gi,
+  // Nom de thème du Cockpit (« Sombre Tactique ») : design-token, pas vitrine.
+  /Sombre\s+Tactique/gi,
+  // Libellés de catégories de films : « Blockbusters Hollywood » est un
+  // classement éditorial factuel (origine des productions), pas un badge creux.
+  /Blockbusters?\s+Hollywood/gi,
+  // Valeur d'énumération de niveau dans un `<option>` JSX :
+  // `<option value="Tactique">Tactique</option>` — le texte affiché est le
+  // palier pédagogique, pas un badge marketing.
+  /<option\s+value="(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Intermediaire|Débutant|Debutant)">\s*(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Intermediaire|Débutant|Debutant)\s*<\/option>/g,
+  // Liste de mots-clés de rôles (stop-words) : « tactiques », « tactique »
+  // sont des jetons techniques de parsing, jamais affichés.
+  /'(?:rapproches|rapprochés|tactiques|tactique|scene|scène|generale|générale|partielle)'/g,
 ];
 
 /** Détecte une ligne qui n'est QUE du commentaire de code (jamais rendue à l'écran). */
@@ -142,8 +190,39 @@ function isCodeComment(line) {
   );
 }
 
+/**
+ * Retire un commentaire de fin de ligne (`code; // commentaire`) avant analyse.
+ * Un nom de design-token dans un commentaire (`// For tactical radar layout`)
+ * n'est jamais rendu à l'utilisateur. On ne coupe qu'à partir d'un `//` précédé
+ * d'un espace (ou en début de ligne) et jamais à l'intérieur d'une chaîne
+ * entre guillemets — pour ne pas casser les URLs (`https://…`).
+ */
+function stripTrailingComment(line) {
+  let inSingle = false;
+  let inDouble = false;
+  let inBacktick = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    const prev = line[i - 1];
+    if (c === "'" && !inDouble && !inBacktick && prev !== '\\') inSingle = !inSingle;
+    else if (c === '"' && !inSingle && !inBacktick && prev !== '\\') inDouble = !inDouble;
+    else if (c === '`' && !inSingle && !inDouble && prev !== '\\') inBacktick = !inBacktick;
+    else if (
+      c === '/' &&
+      line[i + 1] === '/' &&
+      !inSingle &&
+      !inDouble &&
+      !inBacktick &&
+      (i === 0 || /\s/.test(prev))
+    ) {
+      return line.slice(0, i);
+    }
+  }
+  return line;
+}
+
 function neutralize(line) {
-  let out = line;
+  let out = stripTrailingComment(line);
   for (const re of NEUTRALIZE) out = out.replace(re, '«NEUTRALISE»');
   return out;
 }

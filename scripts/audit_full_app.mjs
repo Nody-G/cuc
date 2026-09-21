@@ -251,8 +251,12 @@ for (const file of NAV_FILES) {
     const content = fs.readFileSync(file, 'utf8');
     const relFile = rel(file);
 
-    // Regroupe par colonne/section : on segmente sur les marqueurs de colonne
-    const segments = content.split(/(?=\b(?:column|section|group|columnTitle|title)\s*:)/i);
+    // Regroupe par colonne/section : on segmente sur les marqueurs de colonne.
+    // `cta` est inclus : un bouton d'appel à l'action (« Contact & Projets »)
+    // est un élément d'interface distinct d'un lien de navigation, même s'il
+    // partage la même destination. Sans ce marqueur, le CTA serait compté comme
+    // doublon du lien « Contact » du menu — faux positif.
+    const segments = content.split(/(?=\b(?:column|section|group|columnTitle|title|cta)\s*:)/i);
     for (const seg of segments) {
         const hrefs = [];
         const re = /(?:href|url)\s*:\s*['"`]([^'"`]+)['"`]/g;

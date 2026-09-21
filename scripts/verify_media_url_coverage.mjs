@@ -1,4 +1,10 @@
 /**
+ * ⚠️ SCRIPT HISTORIQUE — NE PAS RELANCER TEL QUEL
+ * ================================================
+ * Ce vérificateur date de la phase de migration WordPress → Supabase. Il est
+ * conservé pour traçabilité ; le contrôle de non-régression de référence est
+ * désormais `scripts/verify_no_legacy_urls_in_db.mjs` (0 URL legacy attendue).
+ *
  * VÉRIFICATION DE COUVERTURE DES URLs MÉDIAS
  * ==========================================
  *

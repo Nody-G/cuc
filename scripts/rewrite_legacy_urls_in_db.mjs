@@ -1,4 +1,13 @@
 /**
+ * ==============================================================================
+ * ⚠️  SCRIPT HISTORIQUE — NE PAS RELANCER TEL QUEL
+ * ==============================================================================
+ * Ce script réécrit les URLs `wp-content` en base. La réécriture a été appliquée
+ * (15 lignes, 161 remplacements) et la base vérifiée propre
+ * (`node scripts/verify_no_legacy_urls_in_db.mjs` → 0 URL legacy).
+ * Conservé pour traçabilité (doctrine : marquer plutôt que supprimer).
+ * ==============================================================================
+ *
  * RÉÉCRITURE DES URLs LEGACY EN BASE SUPABASE
  * ===========================================
  *

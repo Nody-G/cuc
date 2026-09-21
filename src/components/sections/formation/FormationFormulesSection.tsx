@@ -54,7 +54,10 @@ export const FormationFormulesSection: React.FC<FormationFormulesSectionProps> =
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Carte 1 : Formule Découverte & Sélection */}
-          <div className="bg-[#0e0e14] border-2 border-zinc-800 hover:border-[#FFE500]/50 transition-colors p-6 sm:p-8 relative flex flex-col justify-between">
+          <div
+            id="formule-decouverte"
+            className="bg-[#0e0e14] border-2 border-zinc-800 hover:border-[#FFE500]/50 transition-colors p-6 sm:p-8 relative flex flex-col justify-between scroll-mt-24"
+          >
             <div>
               <div className="flex items-center justify-between gap-2 mb-4">
                 <span className="px-2.5 py-1 bg-zinc-800 text-zinc-300 font-mono-tech text-[10px] uppercase tracking-wider">
@@ -134,7 +137,10 @@ export const FormationFormulesSection: React.FC<FormationFormulesSectionProps> =
           </div>
 
           {/* Carte 2 : Cursus Pro Longue Durée */}
-          <div className="bg-[#0e0e14] border-2 border-[#FFE500] p-6 sm:p-8 relative flex flex-col justify-between shadow-[0_0_30px_rgba(255,229,0,0.1)]">
+          <div
+            id="formation-pro"
+            className="bg-[#0e0e14] border-2 border-[#FFE500] p-6 sm:p-8 relative flex flex-col justify-between shadow-[0_0_30px_rgba(255,229,0,0.1)] scroll-mt-24"
+          >
 
             <div>
               <div className="flex items-center justify-between gap-2 mb-4">

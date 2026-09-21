@@ -45,7 +45,7 @@ const POIS = [
     {
         id: 'tower-21m',
         location_id: '732aad62-6c56-4329-85da-debb88be9fad', // Tour Jérome Gaspard
-        name: 'Tour de Saut Extrême 21m',
+        name: 'Tour de Saut 21m',
         type: 'outdoor',
         category: 'Hauteur & Chutes Libres',
         coords: { x: 52, y: 32 },
@@ -53,7 +53,7 @@ const POIS = [
         surface: '21m',
         capacity: null,
         equipment: ['Poutre de largage', 'Matelas d\'air géant'],
-        features: ['5 paliers (5m, 8m, 12m, 16m, 21m)', 'Certifiée APAVE'],
+        features: ['Paliers 5/8/12/16/21m', 'Certifiée APAVE'],
         disciplines: [],
         coaches: [],
         description:
@@ -114,7 +114,7 @@ const POIS = [
         disciplines: [],
         coaches: [],
         description:
-            'Portiques et treuils de vol à haute vitesse pour simuler les propulsions explosives, envolées super-héros et cascades câblées Hollywood.',
+            'Portiques et treuils de vol à haute vitesse pour simuler les propulsions explosives, les envolées et les cascades câblées en studio.',
         order_index: 4,
         is_active: true,
     },

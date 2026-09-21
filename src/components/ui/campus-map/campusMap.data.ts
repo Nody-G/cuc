@@ -41,11 +41,11 @@ export interface TravelRoute {
 export const CAMPUS_POIS: POI[] = [
   {
     id: 'tower-21m',
-    name: 'Tour de Saut Extrême 21m',
+    name: 'Tour de Saut 21m',
     category: 'Hauteur & Chutes Libres',
     description:
       "Inaugurée fin 2024, c'est la plus haute tour de saut d'entraînement d'Europe. Paliers à 5m, 8m, 12m, 16m et 21m pour sauts sur matelas d'air géant.",
-    specs: 'Hauteur 21m • 5 paliers • Poutre de largage • Certifiée APAVE',
+    specs: 'Hauteur 21m • Paliers 5/8/12/16/21m • Poutre de largage • Certifiée APAVE',
     coordinates: '50.0912° N, 3.5380° E',
     badge: 'INAUGURÉE OCT. 2024',
     xPercent: 52,
@@ -83,7 +83,7 @@ export const CAMPUS_POIS: POI[] = [
     name: 'Structure Câblage 3D & Rigging',
     category: 'Effets Spéciaux Câbles',
     description:
-      'Portiques et treuils de vol à haute vitesse pour simuler les propulsions explosives, envolées super-héros et cascades câblées Hollywood.',
+      'Portiques et treuils de vol à haute vitesse pour simuler les propulsions explosives, les envolées et les cascades câblées en studio.',
     specs: 'Treuils motorisés • Harnais Jerk vest • Lignes de vol 35m',
     coordinates: '50.0908° N, 3.5385° E',
     badge: 'RIGGING 3D',

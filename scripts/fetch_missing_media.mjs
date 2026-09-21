@@ -1,4 +1,16 @@
 /**
+ * ==============================================================================
+ * ⚠️  SCRIPT HISTORIQUE — NE PAS RELANCER TEL QUEL
+ * ==============================================================================
+ * Ce script télécharge des médias depuis l'ANCIEN site WordPress
+ * (`campus-universcascades.com/wp-content/...`). Les médias ont depuis été
+ * rapatriés dans Supabase Storage et les URLs réécrites en base
+ * (`scripts/media_url_mapping.json`).
+ *
+ * Vérification : `node scripts/verify_no_legacy_urls_in_db.mjs` → 0 URL legacy.
+ * Conservé pour traçabilité (doctrine : marquer plutôt que supprimer).
+ * ==============================================================================
+ *
  * RATTRAPAGE DES MÉDIAS MANQUANTS
  * ===============================
  *

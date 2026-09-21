@@ -1,6 +1,6 @@
 # Audit complet de l'application CUC
 
-**Généré le :** 2026-09-21T00:01:36.288Z
+**Généré le :** 2026-09-21T00:34:06.833Z
 
 > État des lieux factuel. Aucune correction appliquée.
 
@@ -12,10 +12,10 @@
 | Fichiers source scannés | 241 |
 | Liens internes cassés | 0 |
 | Ancres orphelines | 0 |
-| Doublons de liens | 5 |
+| Doublons de liens | 0 |
 | Composants orphelins | 0 |
-| URLs legacy WordPress | 40 |
-| Occurrences AI Slop | 170 |
+| URLs legacy WordPress | 35 |
+| Occurrences AI Slop | 183 |
 | Conflits de handles sociaux | 0 |
 
 ## Liens internes cassés
@@ -28,11 +28,7 @@ Aucune anomalie détectée.
 
 ## Doublons de liens
 
-- `/contact-cuc` ×2 — src/data/navigation.ts
-- `/formation-de-cascadeur` ×2 — src/data/navigation.ts
-- `/stages-cascades-parkour-2` ×2 — src/data/navigation.ts
-- `/visite-guidee#installations-detail` ×3 — src/data/navigation.ts
-- `/contact-cuc` ×3 — src/data/navigation.ts
+Aucune anomalie détectée.
 
 ## Composants orphelins
 
@@ -40,102 +36,89 @@ Aucune anomalie détectée.
 
 ## URLs legacy WordPress
 
-- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-nike.jpg` — scripts/download_real_logos.mjs:5
-- `https://www.campus-universcascades.com/wp-content/uploads/2020/07/TaffCoeur-Q-page-001.jpg` — scripts/download_real_logos.mjs:6
-- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-bsn.jpg` — scripts/download_real_logos.mjs:7
-- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-c17.jpg` — scripts/download_real_logos.mjs:8
-- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-kiloutou.jpg` — scripts/download_real_logos.mjs:9
-- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-rxr-protect.jpg` — scripts/download_real_logos.mjs:10
-- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-otm-incendie.jpg` — scripts/download_real_logos.mjs:11
-- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-action-cascade.jpg` — scripts/download_real_logos.mjs:12
-- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-aya-catch.jpg` — scripts/download_real_logos.mjs:13
-- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-gravity.jpg` — scripts/download_real_logos.mjs:14
-- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-cascade-demo-team.jpg` — scripts/download_real_logos.mjs:15
-- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-xtrem-video.jpg` — scripts/download_real_logos.mjs:16
-- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-mfr-le-cateau.jpg` — scripts/download_real_logos.mjs:17
-- `https://www.campus-universcascades.com/wp-content/uploads/2021/05/Bandes-logos-1.png` — scripts/download_real_logos.mjs:18
-- `https://www.campus-universcascades.com/wp-content/uploads/2021/05/Bandes-logos-2.png` — scripts/download_real_logos.mjs:19
-- `https://www.campus-universcascades.com/wp-content/uploads/2021/05/Bandes-logos-3.png` — scripts/download_real_logos.mjs:20
-- `https://www.campus-universcascades.com/wp-content/uploads/2021/07/TF1-JT-20h-CUC-reportage-1.mp4` — scripts/fetch_missing_media.mjs:65
-- `https://www.campus-universcascades.com/wp-content/uploads/2021/07/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4` — scripts/fetch_missing_media.mjs:66
-- `https://www.campus-universcascades.com/wp-content/uploads/sb-instagram-feed-images/campus.univers.cascades.webp` — scripts/fetch_missing_media.mjs:68
-- `https://www.campus-universcascades.com/wp-content/uploads/2024/12/Bagarre.jpg` — scripts/fetch_missing_media.mjs:70
-- `https://www.campus-universcascades.com/wp-content/uploads/2024/12/Nouveaux-riches.jpg` — scripts/fetch_missing_media.mjs:71
-- `https://www.campus-universcascades.com/wp-content/uploads/2024/12/Athena.jpg` — scripts/fetch_missing_media.mjs:72
-- `https://www.campus-universcascades.com/wp-content/uploads/2024/12/Le-Pacte-des-Loups.jpg` — scripts/fetch_missing_media.mjs:73
-- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-campus.jpg` — scripts/fetch_missing_media.mjs:75
-- `https://www.campus-universcascades.com/wp-content/uploads/2021/07/Animation-airbag-chute-libre.jpg` — scripts/fetch_missing_media.mjs:76
-- `https://www.campus-universcascades.com/wp-content/...` — scripts/purge_legacy_urls_from_seeds.mjs:9
+- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-nike.jpg` — scripts/download_real_logos.mjs:18
+- `https://www.campus-universcascades.com/wp-content/uploads/2020/07/TaffCoeur-Q-page-001.jpg` — scripts/download_real_logos.mjs:19
+- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-bsn.jpg` — scripts/download_real_logos.mjs:20
+- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-c17.jpg` — scripts/download_real_logos.mjs:21
+- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-kiloutou.jpg` — scripts/download_real_logos.mjs:22
+- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-rxr-protect.jpg` — scripts/download_real_logos.mjs:23
+- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-otm-incendie.jpg` — scripts/download_real_logos.mjs:24
+- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-action-cascade.jpg` — scripts/download_real_logos.mjs:25
+- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-aya-catch.jpg` — scripts/download_real_logos.mjs:26
+- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-gravity.jpg` — scripts/download_real_logos.mjs:27
+- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-cascade-demo-team.jpg` — scripts/download_real_logos.mjs:28
+- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-xtrem-video.jpg` — scripts/download_real_logos.mjs:29
+- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/logo-mfr-le-cateau.jpg` — scripts/download_real_logos.mjs:30
+- `https://www.campus-universcascades.com/wp-content/uploads/2021/05/Bandes-logos-1.png` — scripts/download_real_logos.mjs:31
+- `https://www.campus-universcascades.com/wp-content/uploads/2021/05/Bandes-logos-2.png` — scripts/download_real_logos.mjs:32
+- `https://www.campus-universcascades.com/wp-content/uploads/2021/05/Bandes-logos-3.png` — scripts/download_real_logos.mjs:33
+- `https://www.campus-universcascades.com/wp-content/uploads/2021/07/TF1-JT-20h-CUC-reportage-1.mp4` — scripts/fetch_missing_media.mjs:77
+- `https://www.campus-universcascades.com/wp-content/uploads/2021/07/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4` — scripts/fetch_missing_media.mjs:78
+- `https://www.campus-universcascades.com/wp-content/uploads/sb-instagram-feed-images/campus.univers.cascades.webp` — scripts/fetch_missing_media.mjs:80
+- `https://www.campus-universcascades.com/wp-content/uploads/2024/12/Bagarre.jpg` — scripts/fetch_missing_media.mjs:82
+- `https://www.campus-universcascades.com/wp-content/uploads/2024/12/Nouveaux-riches.jpg` — scripts/fetch_missing_media.mjs:83
+- `https://www.campus-universcascades.com/wp-content/uploads/2024/12/Athena.jpg` — scripts/fetch_missing_media.mjs:84
+- `https://www.campus-universcascades.com/wp-content/uploads/2024/12/Le-Pacte-des-Loups.jpg` — scripts/fetch_missing_media.mjs:85
+- `https://www.campus-universcascades.com/wp-content/uploads/2017/11/img-campus.jpg` — scripts/fetch_missing_media.mjs:87
+- `https://www.campus-universcascades.com/wp-content/uploads/2021/07/Animation-airbag-chute-libre.jpg` — scripts/fetch_missing_media.mjs:88
+- `https://www.campus-universcascades.com/wp-content/...` — scripts/purge_legacy_urls_from_seeds.mjs:18
 - `https://www.campus-universcascades.com/wp-content/uploads/2023/02/TF1-JT-20h-CUC-reportage-1.mp4` — scripts/reportages_url_mapping.json:8
 - `https://www.campus-universcascades.com/wp-content/uploads/2023/02/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4` — scripts/reportages_url_mapping.json:22
-- `https://www.campus-universcascades.com/wp-content/uploads/2021/07/Animation-airbag-chute-libre.jpg` — scripts/rewrite_legacy_urls_in_db.mjs:83
-- `https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf` — scripts/slop_report.json:523
-- `https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf` — scripts/slop_report.json:530
-- `https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf` — scripts/slop_report.json:544
-- `https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf` — scripts/slop_report.json:551
-- `https://www.campus-universcascades.com/wp-content/uploads/2026/08/Plaquette-STUNT-WORLDWIDE-WORKSHOP.pdf` — scripts/slop_report.json:558
+- `https://www.campus-universcascades.com/wp-content/uploads/2021/07/Animation-airbag-chute-libre.jpg` — scripts/rewrite_legacy_urls_in_db.mjs:92
 - `https://www.campus-universcascades.com/wp-content/uploads/2024/12/Bagarre.jpg` — scripts/sync_all_coach_credits_supabase.mjs:354
 - `https://www.campus-universcascades.com/wp-content/uploads/2024/12/Nouveaux-riches.jpg` — scripts/sync_all_coach_credits_supabase.mjs:377
 - `https://www.campus-universcascades.com/wp-content/uploads/2024/12/Athena.jpg` — scripts/sync_all_coach_credits_supabase.mjs:400
 - `https://www.campus-universcascades.com/wp-content/uploads/2024/12/Le-Pacte-des-Loups.jpg` — scripts/sync_all_coach_credits_supabase.mjs:425
-- `https://www.campus-universcascades.com/wp-content/uploads/2023/02/TF1-JT-20h-CUC-reportage-1.mp4` — scripts/upload_reportages_to_supabase.mjs:43
-- `https://www.campus-universcascades.com/wp-content/uploads/2023/02/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4` — scripts/upload_reportages_to_supabase.mjs:45
+- `https://www.campus-universcascades.com/wp-content/uploads/2023/02/TF1-JT-20h-CUC-reportage-1.mp4` — scripts/upload_reportages_to_supabase.mjs:52
+- `https://www.campus-universcascades.com/wp-content/uploads/2023/02/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4` — scripts/upload_reportages_to_supabase.mjs:54
 
 ## Occurrences AI Slop
 
-- **badge: TACTIQUE** — src/app/admin/components/CampusZonesView.tsx:128 — `</div> {/* Visualisation Radar Tactique Mini */} <div className="relative`
-- **badge: TACTIQUE** — src/app/admin/components/CampusZonesView.tsx:140 — `-500 animate-ping" /> Radar Tactique Campus • Le Cateau-Cambrésis (Nord)`
-- **badge: EXTRÊME** — src/app/admin/components/CampusZonesView.tsx:337 — `placeholder="ex: Tour de Saut Extrême 21m" className="w-ful`
-- **badge: TACTIQUE** — src/app/admin/components/DisciplinesView.tsx:196 — `', 'Fondamental', 'Avancé', 'Extrême', 'Tactique'] as const).map((lvl) => (`
-- **badge: TACTIQUE** — src/app/admin/components/DisciplinesView.tsx:259 — `: d.level === 'Tactique' ? 'bg-purple`
-- **badge: TACTIQUE** — src/app/admin/components/DisciplinesView.tsx:481 — `ion> <option value="Tactique">Tactique</option> </`
-- **badge: TACTIQUE** — src/app/admin/components/DisciplinesView.tsx:481 — `<option value="Tactique">Tactique</option> </select>`
-- **badge: EXTRÊME** — src/app/admin/components/DisciplinesView.tsx:196 — `{(['all', 'Fondamental', 'Avancé', 'Extrême', 'Tactique'] as const).map((lvl) => (`
-- **badge: EXTRÊME** — src/app/admin/components/DisciplinesView.tsx:257 — `uppercase tracking-wider ${d.level === 'Extrême' ? 'bg-rose-500`
-- **badge: EXTRÊME** — src/app/admin/components/DisciplinesView.tsx:480 — `ion> <option value="Extrême">Extrême</option> <`
-- **badge: EXTRÊME** — src/app/admin/components/DisciplinesView.tsx:480 — `<option value="Extrême">Extrême</option> <option va`
-- **badge: TACTIQUE** — src/app/admin/components/SettingsView.tsx:434 — `<option value="dark">⚫ Sombre Tactique</option> </select>`
+- **badge: TACTIQUE** — src/app/admin/components/DisciplinesView.tsx:180 — `', 'Fondamental', 'Avancé', 'Extrême', 'Tactique'] as const).map((lvl) => (`
+- **badge: TACTIQUE** — src/app/admin/components/DisciplinesView.tsx:243 — `: d.level === 'Tactique' ? 'bg-purple`
+- **badge: TACTIQUE** — src/app/admin/components/DisciplinesView.tsx:465 — `ion> <option value="Tactique">Tactique</option> </`
+- **badge: TACTIQUE** — src/app/admin/components/DisciplinesView.tsx:465 — `<option value="Tactique">Tactique</option> </select>`
+- **badge: EXTRÊME** — src/app/admin/components/DisciplinesView.tsx:180 — `{(['all', 'Fondamental', 'Avancé', 'Extrême', 'Tactique'] as const).map((lvl) => (`
+- **badge: EXTRÊME** — src/app/admin/components/DisciplinesView.tsx:241 — `uppercase tracking-wider ${d.level === 'Extrême' ? 'bg-rose-500`
+- **badge: EXTRÊME** — src/app/admin/components/DisciplinesView.tsx:464 — `ion> <option value="Extrême">Extrême</option> <`
+- **badge: EXTRÊME** — src/app/admin/components/DisciplinesView.tsx:464 — `<option value="Extrême">Extrême</option> <option va`
 - **badge: TACTIQUE** — src/app/equipe-cascadeurs-pro/[slug]/CoachDetailClient.tsx:350 — `{/* Domaines d'Expertise Tactique */} <div>`
-- **badge: WORLDWIDE** — src/components/sections/contact/ContactForm.tsx:214 — `International Stunt Workshop (Worldwide) </option>`
-- **badge: TACTIQUE** — src/components/sections/formation/FormationFormulesSection.tsx:196 — `rces spéciales, armes à blanc et rappel tactique</span> </li>`
-- **badge: BOX-OFFICE** — src/components/sections/home/HomeTournagesSection.tsx:85 — `plus de 63 longs-métrages coordonnés au box-office."; const ctaText = tournagesData?.cta`
-- **badge: EXTRÊME** — src/components/ui/campus-map/campusMap.data.ts:44 — `d: 'tower-21m', name: 'Tour de Saut Extrême 21m', category: 'Hauteur & Chutes L`
+- **badge: TACTIQUE** — src/components/sections/formation/FormationFormulesSection.tsx:202 — `rces spéciales, armes à blanc et rappel tactique</span> </li>`
 - **badge: EXTRÊME** — src/data/disciplines.ts:23 — `iconName: 'TrendingDown', level: 'Extrême', equipment: ['Tour de saut CUC 21m`
 - **badge: EXTRÊME** — src/data/disciplines.ts:35 — `s.', iconName: 'Flame', level: 'Extrême', equipment: ['Combinaisons Nomex m`
-- **badge: TACTIQUE** — src/data/team.ts:721 — `ques', 'Stunt automobile', 'Déplacement tactique'], bio: 'Formateur au CUC et cascad`
-- **badge: TACTIQUE** — src/data/team.ts:741 — `2024) — Cascadeur (Cascades physiques & tactique)', 'Junga (2018) — Cascadeur',`
-- **badge: TACTIQUE** — src/data/team.ts:765 — `lyas': 'Cascadeur (Cascades physiques & tactique)', 'junga': 'Cascadeur',`
 - **badge: TACTIQUE** — src/lib/credit-role.ts:62 — `approches', 'rapprochés', 'tactiques', 'tactique', 'scene', 'scène', 'generale'`
 - **badge: TACTIQUE** — src/types/index.ts:38 — `'Fondamental' | 'Avancé' | 'Extrême' | 'Tactique'; equipment: string[]; cinemaContex`
 - **badge: EXTRÊME** — src/types/index.ts:38 — `g; level: 'Fondamental' | 'Avancé' | 'Extrême' | 'Tactique'; equipment: string[];`
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/apply_campus_pois_audit_logs_migration.mjs:14 — `OTENT : `CREATE TABLE IF NOT EXISTS` + `ADD COLUMN IF NOT EXISTS`. * * Prérequi`
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/apply_navigation_footer_migration.mjs:17 — `OTENT : `CREATE TABLE IF NOT EXISTS` + `ADD COLUMN IF NOT EXISTS`. * * Prérequi`
+- **doctrine: acronyme ADD (utiliser Parkour)** — scripts/apply_site_disciplines_migration.mjs:94 — `ALTER PUBLICATION supabase_realtime ADD TABLE public.site_disciplines; END`
+- **doctrine: acronyme ADD (utiliser Parkour)** — scripts/apply_site_inquiries_migration.mjs:96 — `ALTER PUBLICATION supabase_realtime ADD TABLE public.site_inquiries; END I`
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/apply_team_migration.mjs:39 — `TEMENTS = [ `ALTER TABLE site_team ADD COLUMN IF NOT EXISTS featured_credits T`
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/apply_team_migration.mjs:40 — `'::TEXT[]`, `ALTER TABLE site_team ADD COLUMN IF NOT EXISTS credits_display_li`
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/apply_team_migration.mjs:42 — `mit_check`, `ALTER TABLE site_team ADD CONSTRAINT site_team_credits_display_li`
 - **cliché: cursus élite** — scripts/audit_and_sync_supabase_clean.mjs:15 — `tches = str.match(/\b(MOD-\d+|INFRA-\d+|CURSUS ÉLITE|HUB OPÉRATIONNEL|GPS ACTIF|100%|déconne`
 - **cliché: cursus élite** — scripts/audit_and_sync_supabase_clean.mjs:25 — `tches = str.match(/\b(MOD-\d+|INFRA-\d+|CURSUS ÉLITE|HUB OPÉRATIONNEL|GPS ACTIF|100%|déconne`
-- **superlatif: légendaire** — scripts/audit_full_app.mjs:464 — `/\blégendaire\b/gi, label: 'superlatif: légendaire' }, { re: /\bréférence suprême\b/g`
-- **superlatif: référence suprême** — scripts/audit_full_app.mjs:465 — `rence suprême\b/gi, label: 'superlatif: référence suprême' }, { re: /\bgun-?fu cinématique\b`
-- **superlatif: gun-fu cinématique** — scripts/audit_full_app.mjs:466 — `u cinématique\b/gi, label: 'superlatif: gun-fu cinématique' }, { re: /\bchutes massives\b/gi,`
-- **superlatif: chutes massives** — scripts/audit_full_app.mjs:467 — `utes massives\b/gi, label: 'superlatif: chutes massives' }, { re: /\bdossier pro complet\b`
-- **superlatif: dossier pro complet** — scripts/audit_full_app.mjs:468 — `r pro complet\b/gi, label: 'superlatif: dossier pro complet' }, { re: /\bélite\b/gi, label: 's`
-- **superlatif: élite** — scripts/audit_full_app.mjs:469 — `: dossier pro complet' }, { re: /\bélite\b/gi, label: 'superlatif: élite' },`
-- **badge: HOLLYWOOD ACTION** — scripts/audit_full_app.mjs:471 — `\bHOLLYWOOD ACTION\b/gi, label: 'badge: HOLLYWOOD ACTION' }, { re: /\bPRO STAFF\b/gi, label`
-- **badge: PRO STAFF** — scripts/audit_full_app.mjs:472 — `{ re: /\bPRO STAFF\b/gi, label: 'badge: PRO STAFF' }, { re: /\bWORLDWIDE\b/gi, label`
-- **badge: WORLDWIDE** — scripts/audit_full_app.mjs:473 — `{ re: /\bWORLDWIDE\b/gi, label: 'badge: WORLDWIDE' }, { re: /\bBOX-OFFICE\b/gi, labe`
-- **badge: BOX-OFFICE** — scripts/audit_full_app.mjs:474 — `re: /\bBOX-OFFICE\b/gi, label: 'badge: BOX-OFFICE' }, { re: /\bTACTIQUE\b/gi, label:`
-- **badge: TACTIQUE** — scripts/audit_full_app.mjs:475 — `{ re: /\bTACTIQUE\b/gi, label: 'badge: TACTIQUE' }, { re: /\bSUCCÈS MONDIAL\b/gi,`
-- **badge: SUCCÈS MONDIAL** — scripts/audit_full_app.mjs:476 — `/\bSUCCÈS MONDIAL\b/gi, label: 'badge: SUCCÈS MONDIAL' }, { re: /\bEXTRÊME\b/gi, label:`
-- **badge: EXTRÊME** — scripts/audit_full_app.mjs:477 — `{ re: /\bEXTRÊME\b/gi, label: 'badge: EXTRÊME' }, // Terminologie Parkour (doctr`
-- **doctrine: Art du Déplacement (utiliser Parkour)** — scripts/audit_full_app.mjs:479 — `du Déplacement\b/gi, label: 'doctrine: Art du Déplacement (utiliser Parkour)' }, { re: /\bAr`
-- **doctrine: Art du Deplacement (utiliser Parkour)** — scripts/audit_full_app.mjs:480 — `du Deplacement\b/gi, label: 'doctrine: Art du Deplacement (utiliser Parkour)' }, { re: /\bAD`
-- **doctrine: acronyme ADD (utiliser Parkour)** — scripts/audit_full_app.mjs:481 — `/\bADD\b/g, label: 'doctrine: acronyme ADD (utiliser Parkour)' }, // Clichés`
-- **cliché: plongez au cœur** — scripts/audit_full_app.mjs:483 — `/plongez au c[œo]ur/gi, label: 'cliché: plongez au cœur' }, { re: /\bfleuron\b/gi, label:`
-- **cliché: fleuron** — scripts/audit_full_app.mjs:484 — `{ re: /\bfleuron\b/gi, label: 'cliché: fleuron' }, { re: /\binégalé\b/gi, label:`
-- **cliché: machine de guerre** — scripts/audit_full_app.mjs:486 — `machine de guerre\b/gi, label: 'cliché: machine de guerre' }, { re: /\bclasse mondiale\b/gi,`
-- **cliché: classe mondiale** — scripts/audit_full_app.mjs:487 — `\bclasse mondiale\b/gi, label: 'cliché: classe mondiale' }, { re: /\bcursus élite\b/gi, la`
-- **cliché: cursus élite** — scripts/audit_full_app.mjs:488 — `: /\bcursus élite\b/gi, label: 'cliché: cursus élite' }, ]; const slopHits = []; // { fi`
+- **superlatif: légendaire** — scripts/audit_full_app.mjs:468 — `/\blégendaire\b/gi, label: 'superlatif: légendaire' }, { re: /\bréférence suprême\b/g`
+- **superlatif: référence suprême** — scripts/audit_full_app.mjs:469 — `rence suprême\b/gi, label: 'superlatif: référence suprême' }, { re: /\bgun-?fu cinématique\b`
+- **superlatif: gun-fu cinématique** — scripts/audit_full_app.mjs:470 — `u cinématique\b/gi, label: 'superlatif: gun-fu cinématique' }, { re: /\bchutes massives\b/gi,`
+- **superlatif: chutes massives** — scripts/audit_full_app.mjs:471 — `utes massives\b/gi, label: 'superlatif: chutes massives' }, { re: /\bdossier pro complet\b`
+- **superlatif: dossier pro complet** — scripts/audit_full_app.mjs:472 — `r pro complet\b/gi, label: 'superlatif: dossier pro complet' }, { re: /\bélite\b/gi, label: 's`
+- **superlatif: élite** — scripts/audit_full_app.mjs:473 — `: dossier pro complet' }, { re: /\bélite\b/gi, label: 'superlatif: élite' },`
+- **badge: HOLLYWOOD ACTION** — scripts/audit_full_app.mjs:475 — `\bHOLLYWOOD ACTION\b/gi, label: 'badge: HOLLYWOOD ACTION' }, { re: /\bPRO STAFF\b/gi, label`
+- **badge: PRO STAFF** — scripts/audit_full_app.mjs:476 — `{ re: /\bPRO STAFF\b/gi, label: 'badge: PRO STAFF' }, { re: /\bWORLDWIDE\b/gi, label`
+- **badge: WORLDWIDE** — scripts/audit_full_app.mjs:477 — `{ re: /\bWORLDWIDE\b/gi, label: 'badge: WORLDWIDE' }, { re: /\bBOX-OFFICE\b/gi, labe`
+- **badge: BOX-OFFICE** — scripts/audit_full_app.mjs:478 — `re: /\bBOX-OFFICE\b/gi, label: 'badge: BOX-OFFICE' }, { re: /\bTACTIQUE\b/gi, label:`
+- **badge: TACTIQUE** — scripts/audit_full_app.mjs:479 — `{ re: /\bTACTIQUE\b/gi, label: 'badge: TACTIQUE' }, { re: /\bSUCCÈS MONDIAL\b/gi,`
+- **badge: SUCCÈS MONDIAL** — scripts/audit_full_app.mjs:480 — `/\bSUCCÈS MONDIAL\b/gi, label: 'badge: SUCCÈS MONDIAL' }, { re: /\bEXTRÊME\b/gi, label:`
+- **badge: EXTRÊME** — scripts/audit_full_app.mjs:481 — `{ re: /\bEXTRÊME\b/gi, label: 'badge: EXTRÊME' }, // Terminologie Parkour (doctr`
+- **doctrine: Art du Déplacement (utiliser Parkour)** — scripts/audit_full_app.mjs:483 — `du Déplacement\b/gi, label: 'doctrine: Art du Déplacement (utiliser Parkour)' }, { re: /\bAr`
+- **doctrine: Art du Deplacement (utiliser Parkour)** — scripts/audit_full_app.mjs:484 — `du Deplacement\b/gi, label: 'doctrine: Art du Deplacement (utiliser Parkour)' }, { re: /\bAD`
+- **doctrine: acronyme ADD (utiliser Parkour)** — scripts/audit_full_app.mjs:485 — `/\bADD\b/g, label: 'doctrine: acronyme ADD (utiliser Parkour)' }, // Clichés`
+- **cliché: plongez au cœur** — scripts/audit_full_app.mjs:487 — `/plongez au c[œo]ur/gi, label: 'cliché: plongez au cœur' }, { re: /\bfleuron\b/gi, label:`
+- **cliché: fleuron** — scripts/audit_full_app.mjs:488 — `{ re: /\bfleuron\b/gi, label: 'cliché: fleuron' }, { re: /\binégalé\b/gi, label:`
+- **cliché: machine de guerre** — scripts/audit_full_app.mjs:490 — `machine de guerre\b/gi, label: 'cliché: machine de guerre' }, { re: /\bclasse mondiale\b/gi,`
+- **cliché: classe mondiale** — scripts/audit_full_app.mjs:491 — `\bclasse mondiale\b/gi, label: 'cliché: classe mondiale' }, { re: /\bcursus élite\b/gi, la`
+- **cliché: cursus élite** — scripts/audit_full_app.mjs:492 — `: /\bcursus élite\b/gi, label: 'cliché: cursus élite' }, ]; const slopHits = []; // { fi`
 - **doctrine: Art du Déplacement (utiliser Parkour)** — scripts/curate_authentic_stunt_roles.mjs:20 — `"Pionniers mondiaux du parkour et de l'Art du Déplacement (ADD), cascades urbaines sur les toitur`
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/curate_authentic_stunt_roles.mjs:20 — `du parkour et de l'Art du Déplacement (ADD), cascades urbaines sur les toitures.",`
 - **doctrine: Art du Déplacement (utiliser Parkour)** — scripts/enrich_films_and_roles.mjs:110 — `-fu » → « combats rapprochés » * - « Art du Déplacement (ADD) » → « Parkour » * - « ADD » →`
@@ -156,28 +139,49 @@ Aucune anomalie détectée.
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/fix_doctrine_in_db.mjs:72 — `pour ne pas toucher * le verbe SQL « ADD » (DDL) qui peut apparaître dans des ch`
 - **superlatif: légendaire** — scripts/hunt_llm_cliches.mjs:40 — `─────────────────────── { id: 'superl-légendaire', group: 'superlatif', re: /\bl[ée]gend`
 - **badge: WORLDWIDE** — scripts/hunt_llm_cliches.mjs:30 — `e: /\bpro\s*staff\b/i }, { id: 'badge-worldwide', group: 'badge', re: /\bworldwide\b/i`
-- **badge: WORLDWIDE** — scripts/hunt_llm_cliches.mjs:102 — `noms de fichiers sources contiennent « WORLDWIDE ». 'scripts/media_download_manifest`
+- **badge: WORLDWIDE** — scripts/hunt_llm_cliches.mjs:124 — `noms de fichiers sources contiennent « WORLDWIDE ». 'scripts/media_download_manifest`
 - **badge: BOX-OFFICE** — scripts/hunt_llm_cliches.mjs:31 — `re: /\bworldwide\b/i }, { id: 'badge-box-office', group: 'badge', re: /\bbox[\s-]?offic`
 - **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:32 — `\bbox[\s-]?office\b/i }, { id: 'badge-tactique', group: 'badge', re: /\btactique?s?\b/`
 - **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:64 — `───────────────── { id: 'jargon-radar-tactique', group: 'jargon', re: /radar\s+tactiqu`
 - **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:64 — `actique', group: 'jargon', re: /radar\s+tactique/i }, { id: 'jargon-hub-opérationnel',`
 - **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:72 — `?|tactiques?)/i }, { id: 'jargon-choc-tactique', group: 'jargon', re: /choc\s+tactique`
 - **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:72 — `tactique', group: 'jargon', re: /choc\s+tactique/i }, { id: 'jargon-code-interne', gro`
-- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:119 — `'énumération de niveau de discipline (« Tactique », « Extrême ») : * ce sont des pal`
-- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:127 — `sateur. */ const NEUTRALIZE = [ /'(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédi`
-- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:128 — `rmediaire|Débutant|Debutant)'/g, /"(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédi`
-- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:129 — `|Débutant|Debutant)"/g, /level:\s*'(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédi`
-- **badge: EXTRÊME** — scripts/hunt_llm_cliches.mjs:119 — `e niveau de discipline (« Tactique », « Extrême ») : * ce sont des paliers pédagogi`
-- **badge: EXTRÊME** — scripts/hunt_llm_cliches.mjs:127 — `*/ const NEUTRALIZE = [ /'(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Int`
-- **badge: EXTRÊME** — scripts/hunt_llm_cliches.mjs:128 — `|Débutant|Debutant)'/g, /"(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Int`
-- **badge: EXTRÊME** — scripts/hunt_llm_cliches.mjs:129 — `|Debutant)"/g, /level:\s*'(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Int`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:144 — `'énumération de niveau de discipline (« Tactique », « Extrême ») : * ce sont des pal`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:153 — `n `<option>` JSX : // `<option value="Tactique">Tactique</option>` — le texte affiché`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:153 — `>` JSX : // `<option value="Tactique">Tactique</option>` — le texte affiché est le /`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:155 — `génériques sur les guillemets, sinon `"Tactique"` est neutralisé avant // que le moti`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:157 — `se correspondre. /<option\s+value="(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédi`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:157 — `Intermediaire|Débutant|Debutant)">\s*(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédi`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:158 — `butant|Debutant)\s*<\/option>/g, /'(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédi`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:159 — `rmediaire|Débutant|Debutant)'/g, /"(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédi`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:160 — `|Débutant|Debutant)"/g, /level:\s*'(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédi`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:162 — `e légitime des cascades : « déplacement tactique », // « combats tactiques », « rappel`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:163 — `», // « combats tactiques », « rappel tactique », « gilets tactiques » désignent //`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:165 — `keting. On neutralise // l'adjectif « tactique » uniquement lorsqu'il qualifie ces nom`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:167 — `// Nom de thème du Cockpit (« Sombre Tactique ») : design-token, pas vitrine. /Somb`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:168 — `design-token, pas vitrine. /Sombre\s+Tactique/gi, // Libellés de catégories de film`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:173 — `n `<option>` JSX : // `<option value="Tactique">Tactique</option>` — le texte affiché`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:173 — `>` JSX : // `<option value="Tactique">Tactique</option>` — le texte affiché est le /`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:175 — `badge marketing. /<option\s+value="(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédi`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:175 — `Intermediaire|Débutant|Debutant)">\s*(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédi`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:176 — `e rôles (stop-words) : « tactiques », « tactique » // sont des jetons techniques de pa`
+- **badge: TACTIQUE** — scripts/hunt_llm_cliches.mjs:178 — `/'(?:rapproches|rapprochés|tactiques|tactique|scene|scène|generale|générale|partielle`
+- **badge: EXTRÊME** — scripts/hunt_llm_cliches.mjs:144 — `e niveau de discipline (« Tactique », « Extrême ») : * ce sont des paliers pédagogi`
+- **badge: EXTRÊME** — scripts/hunt_llm_cliches.mjs:157 — `pondre. /<option\s+value="(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Int`
+- **badge: EXTRÊME** — scripts/hunt_llm_cliches.mjs:157 — `aire|Débutant|Debutant)">\s*(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Int`
+- **badge: EXTRÊME** — scripts/hunt_llm_cliches.mjs:158 — `butant)\s*<\/option>/g, /'(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Int`
+- **badge: EXTRÊME** — scripts/hunt_llm_cliches.mjs:159 — `|Débutant|Debutant)'/g, /"(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Int`
+- **badge: EXTRÊME** — scripts/hunt_llm_cliches.mjs:160 — `|Debutant)"/g, /level:\s*'(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Int`
+- **badge: EXTRÊME** — scripts/hunt_llm_cliches.mjs:175 — `keting. /<option\s+value="(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Int`
+- **badge: EXTRÊME** — scripts/hunt_llm_cliches.mjs:175 — `aire|Débutant|Debutant)">\s*(?:Tactique|Extrême|Extreme|Avancé|Avance|Intermédiaire|Int`
 - **doctrine: Art du Déplacement (utiliser Parkour)** — scripts/hunt_llm_cliches.mjs:8 — `minologie Parkour — JAMAIS « ADD » ni « Art du Déplacement ». * * Usage : * node scripts/hunt`
-- **doctrine: Art du Déplacement (utiliser Parkour)** — scripts/hunt_llm_cliches.mjs:122 — `n à voir avec l'acronyme banni « ADD » (Art du Déplacement). * 3. Commentaires de code (`//`, `/*`
+- **doctrine: Art du Déplacement (utiliser Parkour)** — scripts/hunt_llm_cliches.mjs:147 — `n à voir avec l'acronyme banni « ADD » (Art du Déplacement). * 3. Commentaires de code (`//`, `/*`
 - **doctrine: acronyme ADD (utiliser Parkour)** — scripts/hunt_llm_cliches.mjs:8 — `* 4. Terminologie Parkour — JAMAIS « ADD » ni « Art du Déplacement ». * * Usag`
-- **doctrine: acronyme ADD (utiliser Parkour)** — scripts/hunt_llm_cliches.mjs:121 — `es marketing. * 2. Mots-clés SQL DDL (`ADD CONSTRAINT`, `ADD COLUMN`) : le verbe S`
-- **doctrine: acronyme ADD (utiliser Parkour)** — scripts/hunt_llm_cliches.mjs:121 — `. Mots-clés SQL DDL (`ADD CONSTRAINT`, `ADD COLUMN`) : le verbe SQL « ADD » * n`
-- **doctrine: acronyme ADD (utiliser Parkour)** — scripts/hunt_llm_cliches.mjs:121 — `TRAINT`, `ADD COLUMN`) : le verbe SQL « ADD » * n'a rien à voir avec l'acronyme`
-- **doctrine: acronyme ADD (utiliser Parkour)** — scripts/hunt_llm_cliches.mjs:122 — `n'a rien à voir avec l'acronyme banni « ADD » (Art du Déplacement). * 3. Commentai`
+- **doctrine: acronyme ADD (utiliser Parkour)** — scripts/hunt_llm_cliches.mjs:108 — `ent les règles de remplacement // (`ADD` → `Parkour`, `gun-fu` → `Combats rappr`
+- **doctrine: acronyme ADD (utiliser Parkour)** — scripts/hunt_llm_cliches.mjs:146 — `es marketing. * 2. Mots-clés SQL DDL (`ADD CONSTRAINT`, `ADD COLUMN`) : le verbe S`
+- **doctrine: acronyme ADD (utiliser Parkour)** — scripts/hunt_llm_cliches.mjs:146 — `. Mots-clés SQL DDL (`ADD CONSTRAINT`, `ADD COLUMN`) : le verbe SQL « ADD » * n`
+- **doctrine: acronyme ADD (utiliser Parkour)** — scripts/hunt_llm_cliches.mjs:146 — `TRAINT`, `ADD COLUMN`) : le verbe SQL « ADD » * n'a rien à voir avec l'acronyme`
+- **doctrine: acronyme ADD (utiliser Parkour)** — scripts/hunt_llm_cliches.mjs:147 — `n'a rien à voir avec l'acronyme banni « ADD » (Art du Déplacement). * 3. Commentai`
 - **cliché: fleuron** — scripts/hunt_llm_cliches.mjs:43 — `/\bin[ée]gal[ée]\b/i }, { id: 'superl-fleuron', group: 'superlatif', re: /\bfleuron\b`
 - **badge: TACTIQUE** — scripts/inspect_all_llm_copy.mjs:10 — `lliance subtile|rigueur et passion|choc tactique|ultra-sécurisé|classe mondiale|surpuiss`
 - **cliché: fleuron** — scripts/inspect_all_llm_copy.mjs:10 — `e: 'LLM buzzwords', re: /\b(à la pointe|fleuron|inégalé|à couper le souffle|alliance su`

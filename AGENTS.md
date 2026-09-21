@@ -17,8 +17,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
    - `site_team.profile_id` ↔ `profiles.id` (CUC Sign - coachs et directeurs)
    - `site_campus_pois.location_id` ↔ `locations.id` (CUC Sign - lieux et installations d'entraînement)
    - `site_inquiries` (candidatures et leads) ↔ admissions et futurs comptes élèves (`students` / `profiles`)
-   - `site_disciplines` ↔ `evaluation_disciplines` (CUC Sign)
+   - `site_disciplines` ↔ **aucune table CUC Sign** : `evaluation_disciplines` est une table d'**instance** (`session_id NOT NULL` → `evaluation_sessions.id`, `ON DELETE CASCADE`) portant 4 étiquettes courtes, alors que `site_disciplines` est un **référentiel éditorial** de 10 entrées spécialisées. Aucun appariement 1:1 n'existe et CUC Sign ne possède **aucune table de référentiel de disciplines**. Ne JAMAIS créer de FK ici — un lien faux serait pire qu'aucun lien. Cf. `plans/revue-interconnexion-disciplines.md`.
 3. **Isolation et Sécurité** : Les tables du site vitrine et du cockpit sont strictement préfixées par `site_` et les clés étrangères vers CUC Sign utilisent `ON DELETE SET NULL` pour préserver l'intégrité absolue de CUC Sign.
+4. **Un lien FAUX est pire qu'aucun lien** : Avant de créer une clé étrangère, prouver que la cardinalité et la granularité des deux tables sont compatibles. Une FK remplie de correspondances arbitraires propage de la fausse donnée dans toute l'application — c'est plus grave qu'une FK NULL.
 
 # DOCTRINE ÉDITORIALE & RÉDACTIONNELLE : ZÉRO "AI SLOP", SOBRIÉTÉ & VÉRITÉ STRICTE
 

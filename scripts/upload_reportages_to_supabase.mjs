@@ -1,4 +1,13 @@
 /**
+ * ⚠️ SCRIPT HISTORIQUE — NE PAS RELANCER TEL QUEL
+ * ================================================
+ * Ce script a servi à la migration initiale des médias WordPress vers Supabase
+ * Storage. La migration est TERMINÉE : la base ne contient plus aucune URL
+ * `wp-content` (vérifié par `scripts/verify_no_legacy_urls_in_db.mjs`).
+ * Conservé pour traçabilité. Toute réexécution doit d'abord repasser par
+ * `scripts/verify_media_url_coverage.mjs` pour confirmer qu'il reste des
+ * ressources non rapatriées.
+ *
  * TÉLÉVERSEMENT DES REPORTAGES TV VERS SUPABASE STORAGE
  * =====================================================
  *
