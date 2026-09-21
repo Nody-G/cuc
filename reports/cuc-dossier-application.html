@@ -10,19 +10,21 @@
   body { margin: 0; background: #060608; color: #e7e7ea; font: 15px/1.65 "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
   :focus-visible { outline: 2px solid #FFE500; outline-offset: 2px; border-radius: 4px; }
   .wrap { max-width: 1180px; margin: 0 auto; padding: 52px 24px 96px; }
-  header.hero { padding: 34px 0 30px; border-bottom: 1px solid #26262e; margin-bottom: 34px; }
+  header.hero { padding: 34px 0 30px; border-bottom: 1px solid #26262e; margin-bottom: 34px; position: relative; }
   .kicker { color: #FFE500; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; }
   h1 { font-size: clamp(30px, 4.4vw, 48px); margin: 12px 0 8px; line-height: 1.12; }
-  h1 em { color: #FFE500; font-style: normal; }
+  h1 em { font-style: normal; background: linear-gradient(100deg, #FFE500, #fff6c4, #FFE500); background-size: 220% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent; animation: sheen 7s linear infinite; }
+  @keyframes sheen { to { background-position: -220% 0; } }
   .meta { color: #9a9aa5; font-size: 13.5px; max-width: 860px; }
   .hero-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
-  .btn { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #111; background: #FFE500; border: 0; border-radius: 999px; padding: 9px 18px; cursor: pointer; text-decoration: none; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #111; background: #FFE500; border: 0; border-radius: 999px; padding: 9px 18px; cursor: pointer; text-decoration: none; transition: transform .15s ease; }
+  .btn:hover { transform: translateY(-1px); }
   .btn.ghost { background: transparent; color: #e7e7ea; border: 1px solid #3a3a44; }
-  .btn:hover { filter: brightness(1.06); }
   nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 0; position: sticky; top: 10px; z-index: 20; padding: 8px 0; background: linear-gradient(#060608, #060608e6); backdrop-filter: blur(6px); }
-  nav.toc a { font-size: 12px; color: #cfcfd6; border: 1px solid #2c2c36; border-radius: 999px; padding: 5px 12px; text-decoration: none; background: #0b0b10; }
+  nav.toc a { font-size: 12px; color: #cfcfd6; border: 1px solid #2c2c36; border-radius: 999px; padding: 5px 12px; text-decoration: none; background: #0b0b10; transition: border-color .15s ease, color .15s ease; }
   nav.toc a:hover { border-color: #FFE500; color: #FFE500; }
-  section { scroll-margin-top: 86px; }
+  section { scroll-margin-top: 92px; }
   h2 { margin-top: 64px; font-size: 25px; border-left: 4px solid #FFE500; padding-left: 12px; }
   h3 { margin-top: 34px; font-size: 18px; color: #f2f2f5; }
   h3 .meta { font-size: 12.5px; }
@@ -30,12 +32,14 @@
   a { color: #FFE500; }
   .lead { font-size: 16.5px; color: #d8d8de; max-width: 860px; }
   .kpis { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin-top: 22px; }
-  .kpi { background: linear-gradient(180deg, #101017 0%, #0c0c11 100%); border: 1px solid #26262e; border-radius: 14px; padding: 16px 18px; }
+  .kpi { background: linear-gradient(180deg, #101017 0%, #0c0c11 100%); border: 1px solid #26262e; border-radius: 14px; padding: 16px 18px; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+  .kpi:hover { transform: translateY(-3px); border-color: #3a3a44; box-shadow: 0 14px 34px rgba(0,0,0,.45); }
   .kpi .n { font-size: 30px; font-weight: 700; color: #fff; letter-spacing: .01em; }
   .kpi .l { font-size: 13px; color: #e2e2e8; margin-top: 2px; }
   .kpi .s { font-size: 11.5px; color: #8a8a95; margin-top: 2px; }
   .feat-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-  .feat { background: linear-gradient(180deg, #101017 0%, #0c0c11 100%); border: 1px solid #26262e; border-radius: 14px; padding: 20px; position: relative; overflow: hidden; }
+  .feat { background: linear-gradient(180deg, #101017 0%, #0c0c11 100%); border: 1px solid #26262e; border-radius: 14px; padding: 20px; position: relative; overflow: hidden; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+  .feat:hover { transform: translateY(-3px); border-color: #3a3a44; box-shadow: 0 14px 34px rgba(0,0,0,.45); }
   .feat::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: linear-gradient(90deg, #FFE500, transparent 72%); opacity: .85; }
   .feat .fi { width: 38px; height: 38px; border-radius: 10px; background: rgba(255,229,0,.08); border: 1px solid rgba(255,229,0,.35); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
   .feat h3 { margin: 0 0 6px; font-size: 16.5px; }
@@ -52,10 +56,13 @@
   details.acc[open] summary .chev { transform: rotate(90deg); }
   details.acc .acc-body { padding: 12px 18px 16px 18px; color: #bfc0c9; font-size: 13.8px; border-top: 1px solid #1d1d25; }
   .steps { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); margin-top: 14px; }
-  .step { background: #0d0d12; border: 1px solid #26262e; border-radius: 12px; padding: 14px; }
+  .step { background: #0d0d12; border: 1px solid #26262e; border-radius: 12px; padding: 14px; position: relative; }
   .step .num { display: inline-flex; width: 24px; height: 24px; border-radius: 50%; background: #FFE500; color: #111; font-weight: 700; font-size: 12.5px; align-items: center; justify-content: center; margin-bottom: 8px; }
   .step h4 { margin: 0 0 4px; font-size: 14px; color: #fff; }
   .step p { margin: 0; font-size: 12.5px; color: #a9aab4; }
+  @media (min-width: 1000px) {
+    .step:not(:last-child)::after { content: ""; position: absolute; top: 26px; right: -13px; width: 14px; border-top: 2px dashed #3a3a44; }
+  }
   .flow { background: radial-gradient(620px 260px at 18% 0%, rgba(255,229,0,.05), transparent), #0b0b10; border: 1px solid #26262e; border-radius: 16px; padding: 10px 12px; }
   .chart { width: 100%; height: auto; }
   .chart-label { fill: #c9c9d1; font-size: 13px; }
@@ -76,10 +83,15 @@
   .flowdot { offset-rotate: 0deg; animation-name: flowRun; animation-timing-function: linear; animation-iteration-count: infinite; }
   @keyframes flowRun { from { offset-distance: 0%; } to { offset-distance: 100%; } }
   .callout { border-left: 4px solid #FFE500; background: #101016; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 20px 0; color: #d6d6dd; }
+  .map-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 14px; }
+  .map-card { background: #0d0d12; border: 1px solid #26262e; border-radius: 14px; padding: 16px 18px; }
+  .map-card h4 { margin: 8px 0 8px; font-size: 14.5px; color: #fff; }
+  .map-card ul { margin: 0; padding-left: 18px; color: #b9b9c2; font-size: 12.8px; }
+  .map-card li { margin: 3px 0; }
   footer { margin-top: 76px; border-top: 1px solid #26262e; padding-top: 20px; color: #8a8a95; font-size: 12.5px; }
   .pill { display: inline-block; font-size: 11px; padding: 2px 9px; border: 1px solid #3a3a44; border-radius: 999px; color: #c9c9d1; margin-right: 6px; }
   code { color: #ffe9a8; }
-  /* --- Confort de lecture (CSS moderne, sans JavaScript) --- */
+  /* --- Confort de lecture (CSS moderne, sans dépendance) --- */
   @supports (animation-timeline: scroll()) {
     .progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; z-index: 60;
       background: linear-gradient(90deg, #FFE500, #ffb020); transform-origin: 0 50%; transform: scaleX(0);
@@ -94,10 +106,10 @@
     display: flex; align-items: center; justify-content: center; background: #0e0e14; border: 1px solid #3a3a44;
     color: #FFE500; text-decoration: none; font-size: 18px; box-shadow: 0 10px 24px rgba(0,0,0,.45); }
   .totop:hover { border-color: #FFE500; }
-  @media (prefers-reduced-motion: reduce) { .flowdot, .reveal, .progress { animation: none !important; } }
+  @media (prefers-reduced-motion: reduce) { .flowdot, .reveal, .progress, h1 em { animation: none !important; } }
   @media print {
     body { background: #fff; color: #111; }
-    .feat, .kpi, .step { border-color: #ddd; background: #fff; }
+    .feat, .kpi, .step, .map-card { border-color: #ddd; background: #fff; }
     nav.toc, .totop, .progress, .hero-actions { display: none; }
     details.acc { break-inside: avoid; }
     details.acc .acc-body { display: block; }
@@ -110,20 +122,21 @@
 <div class="wrap" id="top">
 
   <header class="hero">
-    <div class="kicker">Dossier de présentation — 2026</div>
+    <div class="kicker">Dossier de présentation — 22 septembre 2026</div>
     <h1>L'application du <em>Campus Univers Cascades</em></h1>
     <p class="meta">
-      Tout ce qu'il faut savoir pour comprendre et utiliser votre site : ce qu'il montre,
-      ce que vous pouvez piloter vous-même, et comment l'ensemble fonctionne au quotidien.
+      Tout ce qu'il faut savoir pour comprendre et utiliser votre site : ce qu'il montre, ce que vous pouvez
+      piloter vous-même, comment les choses fonctionnent — et les chiffres réels de votre activité en ligne.
     </p>
     <div class="hero-actions">
       <button class="btn" onclick="window.print()">Imprimer / PDF</button>
       <a class="btn ghost" href="#faq">Aller aux questions fréquentes</a>
     </div>
     <nav class="toc">
-      <a href="#vue">Vue d'ensemble</a><a href="#ecosysteme">Comment ça marche</a><a href="#site">Le site public</a>
-      <a href="#cockpit">Le Cockpit</a><a href="#quotidien">Au quotidien</a><a href="#chiffres">Chiffres</a>
-      <a href="#contenus">Les contenus</a><a href="#capot">Sous le capot</a><a href="#faq">FAQ</a>
+      <a href="#vue">Vue d'ensemble</a><a href="#ecosysteme">Comment ça marche</a><a href="#carte">La carte du site</a>
+      <a href="#site">Le site public</a><a href="#cockpit">Le Cockpit</a><a href="#quotidien">Au quotidien</a>
+      <a href="#chiffres">Chiffres clés</a><a href="#contenus">Les contenus</a><a href="#capot">Sous le capot</a>
+      <a href="#pratiques">Bonnes pratiques</a><a href="#faq">FAQ</a>
     </nav>
   </header>
 
@@ -137,7 +150,12 @@
     <p>
       Les contenus sont centralisés : une modification faite dans le Cockpit est immédiatement reflétée sur le site. Les images,
       textes, films, dates de stages et traductions vivent dans la base de données du projet — jamais « en dur » dans le code.
+      Résultat : votre site reste vivant, à jour, sans dépendre de personne à l'extérieur.
     </p>
+    <div class="callout">
+      <strong>Le principe en une phrase :</strong> vous écrivez une fois dans le Cockpit, le site s'occupe de tout —
+      affichage public, version anglaise, cohérence avec la plateforme élèves CUC Sign.
+    </div>
   </section>
 
   <section id="ecosysteme">
@@ -198,8 +216,43 @@
   <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><h3>Du formulaire à l’élève</h3><p>Une demande envoyée depuis le site arrive dans le Cockpit : l’équipe la qualifie, l’annote et peut la convertir en compte CUC Sign.</p><div class="tags"><span class="tag">Parcours</span></div></article></div>
   </section>
 
+  <section id="carte">
+    <h2>3. La carte du site</h2>
+    <p>Les 15 pages publiques, organisées comme vos visiteurs les découvrent — et sous elles, les films qui font la réputation du campus.</p>
+    <div class="map-grid">
+  <article class="map-card reveal">
+    <span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span>
+    <h4>Découvrir</h4>
+    <ul><li>Accueil</li><li>Le campus</li><li>Visite virtuelle</li></ul>
+  </article>
+  <article class="map-card reveal">
+    <span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h14v18H6a2 2 0 0 0-2 2V5z"/><path d="M8 7h8M8 11h8"/></svg></span>
+    <h4>Se former</h4>
+    <ul><li>Formation professionnelle</li><li>Stages de cascade & parkour</li><li>Stunt Workshop international</li></ul>
+  </article>
+  <article class="map-card reveal">
+    <span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></span>
+    <h4>Activités d’action</h4>
+    <ul><li>CUC Events</li><li>Spectacles Yamakasi</li><li>Animations airbag</li><li>Team building</li></ul>
+  </article>
+  <article class="map-card reveal">
+    <span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.3.9-4.5 4.4 1 6.1-5.5-3-5.5 3 1-6.1L3 9.5l6.3-.9L12 3z"/></svg></span>
+    <h4>L’équipe & les films</h4>
+    <ul><li>L’équipe (12 fiches)</li><li>Tournage — CUC Stunt Team</li><li>Catalogue des films</li></ul>
+  </article>
+  <article class="map-card reveal">
+    <span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span>
+    <h4>Confiance & contact</h4>
+    <ul><li>Partenaires</li><li>Vidéos & reportages</li><li>Contact</li></ul>
+  </article></div>
+    <div class="callout">
+      <strong>Un catalogue, pas une vitrine figée :</strong> chaque film du catalogue ouvre sa fiche — équipe impliquée,
+      rôles exacts, affiche authentique — et la même présentation est utilisée de l'accueil à la fiche de chaque coach.
+    </div>
+  </section>
+
   <section id="site">
-    <h2>3. Le site public — les 15 pages (+ le catalogue films)</h2>
+    <h2>4. Le site public — page par page</h2>
     <p>Dépliez chaque entrée pour voir son rôle exact. Toutes les pages existent en français et en anglais.</p>
     
   <details class="acc reveal">
@@ -301,10 +354,9 @@
   </section>
 
   <section id="cockpit">
-    <h2>4. Le Cockpit d'administration — les 15 écrans</h2>
+    <h2>5. Le Cockpit d'administration — les 15 écrans</h2>
     <p>
       Accessible avec un compte nominatif, le Cockpit se pilote entièrement à la souris. Chaque écran se déplie ci-dessous.
-      L'accès est sécurisé par rôle : direction, secrétariat, coachs — chacun ses permissions.
     </p>
     
   <details class="acc reveal">
@@ -397,10 +449,38 @@
     </summary>
     <div class="acc-body">Journal des actions (qui a modifié quoi) et export / restauration complète du contenu.</div>
   </details>
+
+    <h3>Ce qui est modifiable, et où</h3>
+    <p>Sur chaque page du site, tout le contenu éditorial est piloté depuis le Cockpit — rien n'est figé dans le code.</p>
+    <div class="flow reveal">
+<svg viewBox="0 0 900 420" class="chart" role="img" aria-label="Anatomie d'une page : en-tête, héros, contenu, pied de page">
+  <rect x="60" y="18" width="780" height="384" rx="16" fill="#0b0b10" stroke="#2a2a33"/>
+  <rect x="60" y="18" width="780" height="46" rx="16" fill="#101017"/>
+  <rect x="60" y="50" width="780" height="14" fill="#101017"/>
+  <text x="88" y="47" fill="#fff" font-size="13" font-weight="700">Menu du site</text>
+  <text x="330" y="47" fill="#7c7c88" font-size="11">navigation générée depuis le Cockpit</text>
+  <rect x="88" y="88" width="724" height="104" rx="10" fill="#12121a" stroke="#26262e"/>
+  <text x="108" y="118" fill="#FFE500" font-size="11" font-weight="700">BADGE</text>
+  <text x="108" y="146" fill="#fff" font-size="17" font-weight="700">Titre principal de la page</text>
+  <text x="108" y="170" fill="#9a9aa5" font-size="11.5">Sous-titre explicatif — textes pilotés depuis le Cockpit (FR & EN)</text>
+  <rect x="640" y="126" width="150" height="34" rx="17" fill="#FFE500"/>
+  <text x="715" y="148" text-anchor="middle" fill="#111" font-size="12" font-weight="700">Bouton d’action</text>
+  <rect x="88" y="206" width="352" height="146" rx="10" fill="#12121a" stroke="#26262e"/>
+  <text x="108" y="234" fill="#fff" font-size="13.5" font-weight="700">Contenu éditorial</text>
+  <text x="108" y="256" fill="#9a9aa5" font-size="11.5">sections, chiffres clés, galeries</text>
+  <rect x="460" y="206" width="352" height="146" rx="10" fill="#12121a" stroke="#26262e"/>
+  <text x="480" y="234" fill="#fff" font-size="13.5" font-weight="700">Contenus dynamiques</text>
+  <text x="480" y="256" fill="#9a9aa5" font-size="11.5">films, coachs, sessions, partenaires…</text>
+  <rect x="60" y="366" width="780" height="36" rx="0" fill="#101017"/>
+  <text x="88" y="389" fill="#9a9aa5" font-size="11.5">Pied de page — coordonnées et réseaux sociaux (pilotés depuis le Cockpit)</text>
+  <circle cx="86" cy="110" r="6" fill="#FFE500"/><circle cx="86" cy="228" r="6" fill="#FFE500"/>
+  <circle cx="86" cy="352" r="6" fill="#FFE500"/><circle cx="86" cy="389" r="6" fill="#FFE500"/>
+  <text x="120" y="352" fill="#ffef9e" font-size="11">● pastilles jaunes : contenus modifiables par votre équipe, sans code</text>
+</svg></div>
   </section>
 
   <section id="quotidien">
-    <h2>5. Au quotidien — comment je fais…</h2>
+    <h2>6. Au quotidien — comment je fais…</h2>
     <p>Les gestes les plus courants, en une ligne chacun :</p>
     <div class="feat-grid">
   <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L20 8l-4-4L4 16v4z"/><path d="M14 6l4 4"/></svg></span><h3>Modifier un texte du site</h3><p>Cockpit → Pages & héros → choisir la page → modifier → Aperçu → Enregistrer.</p></article>
@@ -409,6 +489,35 @@
   <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></span><h3>Publier une information urgente</h3><p>Cockpit → Annonces → activer le message : le bandeau s’affiche en haut de tout le site.</p></article>
   <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></span><h3>Compléter une traduction anglaise</h3><p>Cockpit → Traductions → entité concernée → compléter → enregistrer.</p></article>
   <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg></span><h3>Revenir en arrière sur une erreur</h3><p>Cockpit → Pages & héros → Historique des versions → restaurer la version précédente.</p></article></div>
+
+    <h3>Le cycle d'une demande, de bout en bout</h3>
+    <div class="flow reveal">
+<svg viewBox="0 0 940 170" class="chart" role="img" aria-label="Cycle d'une demande : formulaire, réception, qualification, échange, conversion">
+  <path d="M120 62 H 820" stroke="#2a2a33" stroke-width="2" stroke-dasharray="6 7"/>
+  
+    <circle cx="120" cy="62" r="24" fill="#FFE500" stroke="#FFE500" stroke-width="2"/>
+    <text x="120" y="68" text-anchor="middle" fill="#111" font-size="14" font-weight="700">1</text>
+    <text x="120" y="112" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">Le visiteur écrit</text>
+    <text x="120" y="130" text-anchor="middle" fill="#9a9aa5" font-size="11">formulaire guidé</text>
+    <circle cx="295" cy="62" r="24" fill="#12121a" stroke="#3a3a44" stroke-width="2"/>
+    <text x="295" y="68" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">2</text>
+    <text x="295" y="112" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">La demande arrive</text>
+    <text x="295" y="130" text-anchor="middle" fill="#9a9aa5" font-size="11">Cockpit · Candidatures</text>
+    <circle cx="470" cy="62" r="24" fill="#12121a" stroke="#3a3a44" stroke-width="2"/>
+    <text x="470" y="68" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">3</text>
+    <text x="470" y="112" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">Votre équipe qualifie</text>
+    <text x="470" y="130" text-anchor="middle" fill="#9a9aa5" font-size="11">statut + notes internes</text>
+    <circle cx="645" cy="62" r="24" fill="#12121a" stroke="#3a3a44" stroke-width="2"/>
+    <text x="645" y="68" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">4</text>
+    <text x="645" y="112" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">Vous répondez</text>
+    <text x="645" y="130" text-anchor="middle" fill="#9a9aa5" font-size="11">email / téléphone</text>
+    <circle cx="820" cy="62" r="24" fill="#12121a" stroke="#3a3a44" stroke-width="2"/>
+    <text x="820" y="68" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">5</text>
+    <text x="820" y="112" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">Conversion possible</text>
+    <text x="820" y="130" text-anchor="middle" fill="#9a9aa5" font-size="11">compte élève CUC Sign</text>
+  <circle class="flowdot" r="4" fill="#FFE500" style="offset-path: path('M120 62 H 820'); animation-duration: 6s"/>
+</svg></div>
+
     <div class="callout">
       <strong>En cas de doute :</strong> rien n'est fragile. Chaque page possède un historique de versions restaurable,
       et le journal d'audit conserve la trace de toutes les actions.
@@ -416,14 +525,14 @@
   </section>
 
   <section id="chiffres">
-    <h2>6. L'application en un coup d'œil</h2>
-    <div class="kpis"><div class="kpi reveal"><div class="n">15</div><div class="l">pages publiques</div><div class="s">chacune en français et en anglais</div></div><div class="kpi reveal"><div class="n">570</div><div class="l">films au catalogue</div><div class="s">affiches et fiches détaillées</div></div><div class="kpi reveal"><div class="n">12</div><div class="l">coachs</div><div class="s">filmographies vérifiées</div></div><div class="kpi reveal"><div class="n">579</div><div class="l">traductions</div><div class="s">contenus bilingues en base</div></div><div class="kpi reveal"><div class="n">18</div><div class="l">sessions de formation</div><div class="s">dates et statuts en direct</div></div><div class="kpi reveal"><div class="n">10</div><div class="l">disciplines enseignées</div><div class="s">référentiel complet</div></div><div class="kpi reveal"><div class="n">21</div><div class="l">partenaires</div><div class="s">marques & institutions</div></div><div class="kpi reveal"><div class="n">182</div><div class="l">images & documents</div><div class="s">centralisés et optimisés</div></div></div>
-    <p class="meta" style="margin-top:14px">Chiffres relevés automatiquement depuis la base de données du projet.</p>
+    <h2>7. L'application en un coup d'œil</h2>
+    <div class="kpis"><div class="kpi reveal"><div class="n"><span data-count="15">15</span></div><div class="l">pages publiques</div><div class="s">chacune en français et en anglais</div></div><div class="kpi reveal"><div class="n"><span data-count="570">570</span></div><div class="l">films au catalogue</div><div class="s">affiches et fiches détaillées</div></div><div class="kpi reveal"><div class="n"><span data-count="12">12</span></div><div class="l">coachs</div><div class="s">filmographies vérifiées</div></div><div class="kpi reveal"><div class="n"><span data-count="579">579</span></div><div class="l">traductions</div><div class="s">contenus bilingues en base</div></div><div class="kpi reveal"><div class="n"><span data-count="18">18</span></div><div class="l">sessions de formation</div><div class="s">dates et statuts en direct</div></div><div class="kpi reveal"><div class="n"><span data-count="10">10</span></div><div class="l">disciplines enseignées</div><div class="s">référentiel complet</div></div><div class="kpi reveal"><div class="n"><span data-count="21">21</span></div><div class="l">partenaires</div><div class="s">marques & institutions</div></div><div class="kpi reveal"><div class="n"><span data-count="182">182</span></div><div class="l">images & documents</div><div class="s">centralisés et optimisés</div></div></div>
+    <p class="meta" style="margin-top:14px">Chiffres relevés automatiquement depuis la base de données du projet, au moment de la génération de ce dossier.</p>
   </section>
 
   <section id="contenus">
-    <h2>7. Tout ce que contient votre application</h2>
-    <p>La vie du site, en volumes réels — mis à jour automatiquement à chaque régénération de ce dossier.</p>
+    <h2>8. Tout ce que contient votre application</h2>
+    <p>La vie du site, en volumes réels — le dossier se met à jour à chaque régénération.</p>
 
     <h3>Les contenus publiés</h3>
     <svg viewBox="0 0 760 520" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Traductions éditoriales</text>
@@ -472,7 +581,7 @@
         <text x="286.72727272727275" y="129.28" class="chart-value">12</text></svg>
       </div>
       <div>
-        <h3>Les sessions de formation par statut</h3>
+        <h3>Les sessions par statut</h3>
         <svg viewBox="0 0 760 146" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Complètes</text>
         <rect x="265" y="10" width="385" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
         <text x="659" y="27.28" class="chart-value">7</text><text x="0" y="61.28" class="chart-label">Ouvertes aux inscriptions</text>
@@ -484,6 +593,45 @@
         <text x="384" y="129.28" class="chart-value">2</text></svg>
       </div>
     </div>
+
+    <h3>Le catalogue films, décennie par décennie <span class="meta">(année de production des œuvres)</span></h3>
+    <svg viewBox="0 0 760 214" class="chart" role="img"><text x="0" y="27.28" class="chart-label">1970s</text>
+        <rect x="265" y="10" width="3" height="24" rx="4" fill="#FF7043" opacity="0.92"/>
+        <text x="277" y="27.28" class="chart-value">1</text><text x="0" y="61.28" class="chart-label">1980s</text>
+        <rect x="265" y="44" width="3.0078125" height="24" rx="4" fill="#FF7043" opacity="0.92"/>
+        <text x="277.0078125" y="61.28" class="chart-value">2</text><text x="0" y="95.28" class="chart-label">1990s</text>
+        <rect x="265" y="78" width="15.0390625" height="24" rx="4" fill="#FF7043" opacity="0.92"/>
+        <text x="289.0390625" y="95.28" class="chart-value">10</text><text x="0" y="129.28" class="chart-label">2000s</text>
+        <rect x="265" y="112" width="141.3671875" height="24" rx="4" fill="#FF7043" opacity="0.92"/>
+        <text x="415.3671875" y="129.28" class="chart-value">94</text><text x="0" y="163.28" class="chart-label">2010s</text>
+        <rect x="265" y="146" width="297.7734375" height="24" rx="4" fill="#FF7043" opacity="0.92"/>
+        <text x="571.7734375" y="163.28" class="chart-value">198</text><text x="0" y="197.28" class="chart-label">2020s</text>
+        <rect x="265" y="180" width="385" height="24" rx="4" fill="#FF7043" opacity="0.92"/>
+        <text x="659" y="197.28" class="chart-value">256</text></svg>
+    <p class="meta">Votre catalogue couvre toutes les époques du cinéma et des séries — une profondeur rare qui parle aux productions.</p>
+
+    <h3>Les coachs les plus présents au catalogue <span class="meta">(nombre de films publiés où ils apparaissent)</span></h3>
+    <svg viewBox="0 0 760 350" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Jérôme Gaspard</text>
+        <rect x="265" y="10" width="385" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
+        <text x="659" y="27.28" class="chart-value">200</text><text x="0" y="61.28" class="chart-label">Amédéo Cazzella</text>
+        <rect x="265" y="44" width="215.6" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
+        <text x="489.6" y="61.28" class="chart-value">112</text><text x="0" y="95.28" class="chart-label">Michel Bouis</text>
+        <rect x="265" y="78" width="192.5" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
+        <text x="466.5" y="95.28" class="chart-value">100</text><text x="0" y="129.28" class="chart-label">Kefi Abrikh</text>
+        <rect x="265" y="112" width="154" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
+        <text x="428" y="129.28" class="chart-value">80</text><text x="0" y="163.28" class="chart-label">Vincent Bouillon</text>
+        <rect x="265" y="146" width="152.075" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
+        <text x="426.075" y="163.28" class="chart-value">79</text><text x="0" y="197.28" class="chart-label">Malik Diouf</text>
+        <rect x="265" y="180" width="148.225" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
+        <text x="422.225" y="197.28" class="chart-value">77</text><text x="0" y="231.28" class="chart-label">Franck Blanc</text>
+        <rect x="265" y="214" width="130.9" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
+        <text x="404.9" y="231.28" class="chart-value">68</text><text x="0" y="265.28" class="chart-label">Maurice Chan</text>
+        <rect x="265" y="248" width="119.35" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
+        <text x="393.35" y="265.28" class="chart-value">62</text><text x="0" y="299.28" class="chart-label">Bastien Trouvé</text>
+        <rect x="265" y="282" width="67.375" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
+        <text x="341.375" y="299.28" class="chart-value">35</text><text x="0" y="333.28" class="chart-label">Lucas Dollfus</text>
+        <rect x="265" y="316" width="55.825" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
+        <text x="329.825" y="333.28" class="chart-value">29</text></svg>
 
     <h3>Les traductions, entité par entité</h3>
     <svg viewBox="0 0 760 350" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Films</text>
@@ -509,12 +657,12 @@
         <text x="277" y="333.28" class="chart-value">2</text></svg>
 
     <h3>Les médias hébergés par le projet</h3>
-    <svg viewBox="0 0 760 112" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Bibliothèque d'images</text>
-        <rect x="265" y="10" width="385" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
-        <text x="659" y="27.28" class="chart-value">175 fichiers · 217,4 Mo</text><text x="0" y="61.28" class="chart-label">Bibliothèque d'images</text>
-        <rect x="265" y="44" width="3" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
-        <text x="277" y="61.28" class="chart-value">6 fichiers · 0,4 Mo</text><text x="0" y="95.28" class="chart-label">Bibliothèque d'images</text>
-        <rect x="265" y="78" width="3" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
+    <svg viewBox="0 0 760 112" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Bibliothèque d’images & documents</text>
+        <rect x="265" y="10" width="385" height="24" rx="4" fill="#90A4AE" opacity="0.92"/>
+        <text x="659" y="27.28" class="chart-value">175 fichiers · 217,4 Mo</text><text x="0" y="61.28" class="chart-label">Bibliothèque d’images & documents</text>
+        <rect x="265" y="44" width="3" height="24" rx="4" fill="#90A4AE" opacity="0.92"/>
+        <text x="277" y="61.28" class="chart-value">6 fichiers · 0,4 Mo</text><text x="0" y="95.28" class="chart-label">Bibliothèque d’images & documents</text>
+        <rect x="265" y="78" width="3" height="24" rx="4" fill="#90A4AE" opacity="0.92"/>
         <text x="277" y="95.28" class="chart-value">1 fichiers · 0,0 Mo</text></svg>
 
     <h3>Le pont avec CUC Sign (application élèves)</h3>
@@ -522,24 +670,24 @@
       Le site s'appuie sur CUC Sign pour rester cohérent : dates des formations, noms des coachs et lieux du campus.
       Il lit ces informations — il ne les modifie jamais.
     </p>
-    
     <div class="kpis">
-      <div class="kpi reveal"><div class="n">12</div><div class="l">formations CUC Sign</div><div class="s">référencées côté site</div></div>
-      <div class="kpi reveal"><div class="n">13</div><div class="l">profils CUC Sign</div><div class="s">coachs & direction</div></div>
-      <div class="kpi reveal"><div class="n">9</div><div class="l">lieux CUC Sign</div><div class="s">installations du campus</div></div>
-      <div class="kpi reveal"><div class="n">10/18</div><div class="l">sessions reliées</div><div class="s">les autres attendent leur formation CUC Sign</div></div>
-      <div class="kpi reveal"><div class="n">5/12</div><div class="l">coachs reliés</div><div class="s">les intervenants externes n'ont pas de compte</div></div>
-      <div class="kpi reveal"><div class="n">4/5</div><div class="l">zones du campus reliées</div><div class="s">liaisons vérifiées, jamais approximatives</div></div>
-    </div>
+    <div class="kpi reveal"><div class="n"><span data-count="12">12</span></div><div class="l">formations CUC Sign</div><div class="s">référencées côté site</div></div>
+    <div class="kpi reveal"><div class="n"><span data-count="13">13</span></div><div class="l">profils CUC Sign</div><div class="s">coachs & direction</div></div>
+    <div class="kpi reveal"><div class="n"><span data-count="9">9</span></div><div class="l">lieux CUC Sign</div><div class="s">installations du campus</div></div>
+    <div class="kpi reveal"><div class="n">10/18</div><div class="l">sessions reliées</div><div class="s">les autres attendent leur formation CUC Sign</div></div>
+    <div class="kpi reveal"><div class="n">5/12</div><div class="l">coachs reliés</div><div class="s">les intervenants externes n’ont pas de compte</div></div>
+    <div class="kpi reveal"><div class="n">4/5</div><div class="l">zones du campus reliées</div><div class="s">liaisons vérifiées, jamais approximatives</div></div>
+  </div>
   </section>
 
   <section id="capot">
-    <h2>8. Sous le capot — en toute transparence</h2>
+    <h2>9. Sous le capot — en toute transparence</h2>
     <p>
       Cette partie s'adresse aux curieux : ce que votre site « pèse », la vitesse à laquelle il répond,
       et les garanties qui l'entourent. Aucune connaissance technique n'est nécessaire pour la lire.
     </p>
-    <h3>Chaque page, son poids et son temps de réponse <span class="meta">(mesurés en direct)</span></h3>
+
+    <h3>Chaque page, son poids et son temps de réponse <span class="meta">(mesurés sur la version de production)</span></h3>
     <svg viewBox="0 0 760 520" class="chart" role="img"><text x="0" y="27.28" class="chart-label">/equipe-cascadeurs-pro</text>
         <rect x="265" y="10" width="385" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
         <text x="659" y="27.28" class="chart-value">579 Ko · 11 ms</text><text x="0" y="61.28" class="chart-label">/cuc-team-cascadeur</text>
@@ -571,16 +719,20 @@
         <text x="368.92344026401304" y="469.28" class="chart-value">143 Ko · 5 ms</text><text x="0" y="503.28" class="chart-label">/visite-virtuelle</text>
         <rect x="265" y="486" width="92.54527395400682" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
         <text x="366.5452739540068" y="503.28" class="chart-value">139 Ko · 5 ms</text></svg>
-    <p class="meta">Mesure effectuée sur la version de production du site. Les deux pages les plus « lourdes » sont les galeries de films — logique, elles affichent le catalogue complet.</p>
+    <p class="meta">Les deux pages les plus « lourdes » sont les galeries de films — logique : elles affichent le catalogue complet. Les autres tiennent dans un dixième de seconde.</p>
 
-    <h3>Ce que ce dossier mesure et pourquoi</h3>
+    <h3>Les garanties qui entourent votre site</h3>
     <div class="feat-grid">
-      
-  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg></span><h3>Sécurité par ligne</h3><p>18 tables protégées par des règles d'accès par rôle : chaque utilisateur du Cockpit ne peut agir que dans son périmètre.</p><div class="tags"><span class="tag">Données</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg></span><h3>Sécurité par ligne</h3><p>18 espaces de données protégés par des règles d'accès par rôle : chaque utilisateur du Cockpit ne peut agir que dans son périmètre.</p><div class="tags"><span class="tag">Données</span></div></article>
   <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14a8 8 0 1 1 16 0"/><path d="M12 14l4-4"/></svg></span><h3>En-têtes de sécurité</h3><p>Protections navigateur actives (8 en-têtes : anti-détournement, contenu sécurisé, connexions chiffrées).</p><div class="tags"><span class="tag">Web</span></div></article>
   <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 6.3"/><path d="M20 5v6h-6"/></svg></span><h3>Contrôles automatiques</h3><p>Des contrôles automatiques vérifient liens, traductions et contenus avant chaque mise à jour.</p><div class="tags"><span class="tag">Qualité</span></div></article>
-  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><h3>Sauvegarde du contenu</h3><p>Export complet du contenu depuis le Cockpit, et historique de versions sur chaque page : rien ne peut être perdu.</p><div class="tags"><span class="tag">Continuité</span></div></article>
-    </div>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><h3>Sauvegarde du contenu</h3><p>Export complet du contenu depuis le Cockpit, et historique de versions sur chaque page : rien ne peut être perdu.</p><div class="tags"><span class="tag">Continuité</span></div></article></div>
+
+    <h3>Qui peut faire quoi</h3>
+    <div class="feat-grid">
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></span><h3>Direction</h3><p>Accès complet : toutes les pages, tous les contenus, les réglages du site, la gestion des accès et les sauvegardes.</p></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><h3>Secrétariat</h3><p>Suivi des candidatures et du calendrier des sessions, mise à jour des pages courantes, consultation des traductions.</p></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><path d="M16 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-1.8-4.4-4.5-4.8"/></svg></span><h3>Encadrement & coachs</h3><p>Consultation de l’espace d’administration ; chaque accès est nominatif et limité à ce qui est utile au rôle.</p></article></div>
 
     <details class="acc reveal">
       <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></span><span>Les technologies utilisées <span class="role">— et leur rôle, sans jargon</span></span>
@@ -589,17 +741,28 @@
       <div class="acc-body">
   <table>
     <thead><tr><th>Technologie</th><th>Son rôle dans votre application</th></tr></thead>
-    <tbody>
-      <tr><td><code>Next.js 16</code></td><td>moteur du site : affichage ultra-rapide, pages optimisées pour Google</td></tr><tr><td><code>React 19</code></td><td>bibliothèque d'interface utilisée par le site et le Cockpit</td></tr><tr><td><code>Supabase</code></td><td>base de données, stockage des médias et synchronisation temps réel</td></tr><tr><td><code>Tailwind CSS 4</code></td><td>système de design garantissant la cohérence visuelle</td></tr><tr><td><code>Three.js</code></td><td>moteur 3D du plan interactif du campus (chargé uniquement quand utile)</td></tr><tr><td><code>Framer Motion</code></td><td>animations fluides et sobres du site public</td></tr>
-    </tbody>
+    <tbody><tr><td><code>Next.js 16</code></td><td>moteur du site : affichage ultra-rapide, pages optimisées pour Google</td></tr><tr><td><code>React 19</code></td><td>bibliothèque d'interface utilisée par le site et le Cockpit</td></tr><tr><td><code>Supabase</code></td><td>base de données, stockage des médias et synchronisation temps réel</td></tr><tr><td><code>Tailwind CSS 4</code></td><td>système de design garantissant la cohérence visuelle</td></tr><tr><td><code>Three.js</code></td><td>moteur 3D du plan interactif du campus (chargé uniquement quand utile)</td></tr><tr><td><code>Framer Motion</code></td><td>animations fluides et sobres du site public</td></tr></tbody>
   </table></div>
     </details>
 
-    <p class="meta">Pour afficher le site, le navigateur télécharge environ 3,2 Mo de code, mis en cache après la première visite.</p>
+    <p class="meta">Pour afficher le site, le navigateur télécharge environ 3,2 Mo de code, mis en cache après la première visite. La visite suivante est quasi instantanée.</p>
+    <p class="meta">Langues : 681 clés éditoriales en français, 681 en anglais — parité contrôlée automatiquement à chaque mise à jour.</p>
+  </section>
+
+  <section id="pratiques">
+    <h2>10. Les bonnes pratiques de votre équipe</h2>
+    <p>Six réflexes simples qui gardent le site impeccable :</p>
+    <div class="feat-grid">
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span><h3>Relisez l’aperçu avant d’enregistrer</h3><p>Le Cockpit affiche un aperçu fidèle de la page : dix secondes de relecture évitent 90 % des coquilles.</p></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></span><h3>Complétez l’anglais au fil de l’eau</h3><p>Traduire une fiche au moment où on la crée coûte moins cher que de rattraper un retard. La parité est mesurée par un contrôle automatique.</p></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg></span><h3>Tenez à jour les statuts de sessions</h3><p>« Ouvert », « dernières places », « complet » : ces trois mots sont la première information que cherche un candidat.</p></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></span><h3>Réservez les annonces à l’exceptionnel</h3><p>Le bandeau d’alerte doit rester rare pour garder sa force — activer, puis désactiver dès que l’information est passée.</p></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span><h3>Étoilez les tournages marquants</h3><p>La mise en avant des crédits remonte les productions phares en tête des filmographies, sur la page équipe et les fiches coachs.</p></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg></span><h3>En cas de doute : l’historique</h3><p>Chaque page garde ses versions. Restaurer une version précédente est plus rapide que de reconstruire un contenu.</p></article></div>
   </section>
 
   <section id="faq">
-    <h2>9. Questions fréquentes</h2>
+    <h2>11. Questions fréquentes</h2>
     
   <details class="acc reveal">
     <summary><span>Le site est-il vraiment disponible en anglais ?</span>
@@ -637,13 +800,51 @@
     </summary>
     <div class="acc-body">Dans la base du projet, pas sur l'ancien site : une bibliothèque centralisée (écran Médias) sert automatiquement des formats optimisés pour le web.</div>
   </details>
+  <details class="acc reveal">
+    <summary><span>Le site est-il optimisé pour être trouvé sur Google ?</span>
+      <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+    </summary>
+    <div class="acc-body">Oui : chaque page possède son propre titre, sa description et son image de partage, un plan du site est publié automatiquement, et les fiches (films, coachs) utilisent des données structurées que les moteurs de recherche lisent nativement.</div>
+  </details>
+  <details class="acc reveal">
+    <summary><span>Que se passe-t-il sur un téléphone ?</span>
+      <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+    </summary>
+    <div class="acc-body">Tout le site est conçu d'abord pour le mobile : les jaquettes de films passent en grille compacte, les menus se replient, un bouton d'appel direct apparaît en bas d'écran. Le plan 3D et la visite 360° fonctionnent aussi au doigt.</div>
+  </details>
   </section>
 
   <footer>
-    Dossier de présentation généré le 22/09/2026 00:50:08 pour le Campus Univers Cascades.
+    Dossier de présentation généré le 22/09/2026 00:54:08 pour le Campus Univers Cascades.
     Document autonome (aucun accès internet requis) · régénérable à tout moment via <code>npm run report:dossier</code>.
     <span class="pill">FR / EN</span><span class="pill">sans connexion</span><span class="pill">imprimable</span>
   </footer>
 </div>
+<script>
+  /* Compteurs animés — effet discret, désactivé si mouvement réduit ou sans observer. */
+  (function () {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+    var els = document.querySelectorAll('[data-count]');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        io.unobserve(el);
+        var target = parseInt(el.getAttribute('data-count'), 10);
+        if (!isFinite(target)) return;
+        var start = performance.now();
+        function step(now) {
+          var p = Math.min(1, (now - start) / 900);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(target * eased).toLocaleString('fr-FR');
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.35 });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
 </body>
 </html>

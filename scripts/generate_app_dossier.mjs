@@ -3,22 +3,26 @@
  * DOSSIER DE PRÉSENTATION CLIENT — L'APPLICATION DU CAMPUS UNIVERS CASCADES
  * =========================================================================
  *
- * Document autonome destiné au client : à quoi sert l'application, ce que
- * chaque page montre, ce que le Cockpit permet de piloter, comment les choses
- * fonctionnent — en langage simple, avec des visuels. Inclut les chiffres du
- * tableau de bord (`cuc-metriques-2026`) : contenus, trafics de pages, poids,
- * garanties techniques — vulgarisés, jamais d'audit.
+ * Version enrichie : explications, schémas et graphiques en nombre, chiffres
+ * mesurés en direct (base de données de production), effets discrets mais
+ * modernes — le tout autonome et imprimable.
  *
  * Régénération : `npm run report:dossier`
  * Sortie : reports/cuc-dossier-application.html
  *
- * Sources de chiffres (lues si présentes, repli prudent sinon) :
- *   - scripts/audit_supabase_state_report.json (contenus, interconnexion)
- *   - reports/cuc-metriques-2026.metrics.json   (poids de pages, bundle, zones)
+ * Sources :
+ *   - Supabase de production (lecture seule : films par décennie, coachs au
+ *     catalogue, contenus, stockage) — via DATABASE_URL, repli silencieux ;
+ *   - scripts/audit_supabase_state_report.json (volumétrie) ;
+ *   - reports/cuc-metriques-2026.metrics.json (poids de pages, garanties).
  */
 
 import fs from 'node:fs';
 import path from 'node:path';
+import * as dotenv from 'dotenv';
+import pg from 'pg';
+
+dotenv.config({ path: '.env.local' });
 
 const ROOT = process.cwd();
 const OUT = path.join(ROOT, 'reports', 'cuc-dossier-application.html');
@@ -31,19 +35,67 @@ const readJson = (p) => {
   }
 };
 
-const db = readJson(path.join(ROOT, 'scripts', 'audit_supabase_state_report.json'));
+const dbState = readJson(path.join(ROOT, 'scripts', 'audit_supabase_state_report.json'));
 const metrics = readJson(path.join(ROOT, 'reports', 'cuc-metriques-2026.metrics.json'));
 
-/**
- * Le relevé métriques (`metrics.database`) est la source la plus riche (tableaux
- * par catégorie/statut/entité, stockage, interconnexion) ; le rapport Supabase
- * sert de repli. `tables` peut être un objet (rapport) ou un tableau (métriques).
- */
 const t = Array.isArray(metrics?.database?.tables)
   ? Object.fromEntries(metrics.database.tables.map((r) => [r.name, r.rows]))
-  : db?.tables ?? {};
-const storage = metrics?.database?.storage ?? [];
-const storageFiles = storage.reduce((a, s) => a + (s.files ?? 0), 0);
+  : dbState?.tables ?? {};
+
+/* ------------------------------------------------------------------ */
+/* Mesures complémentaires en direct (lecture seule, repli silencieux) */
+/* ------------------------------------------------------------------ */
+
+const live = { filmsByDecade: [], topCoaches: [], storage: metrics?.database?.storage ?? [] };
+
+async function collectLive() {
+  const databaseUrl = process.env.DATABASE_URL;
+  if (!databaseUrl || /\[YOUR-PASSWORD\]|\[MOT_DE_PASSE\]/.test(databaseUrl)) return;
+  const client = new pg.Client({ connectionString: databaseUrl, ssl: { rejectUnauthorized: false } });
+  await client.connect();
+  try {
+    const decades = await client.query(
+      `SELECT (left(year, 4)::int / 10 * 10)::text AS decade, COUNT(*)::int AS n
+             FROM site_films
+             WHERE is_published = true AND year ~ '^[0-9]{4}'
+             GROUP BY 1 ORDER BY 1`
+    );
+    live.filmsByDecade = decades.rows.map((r) => ({ decade: r.decade, n: r.n }));
+  } catch { }
+  try {
+    const coaches = await client.query(
+      `SELECT unnest(cuc_team_involved) AS coach_id, COUNT(*)::int AS n
+             FROM site_films WHERE is_published = true AND cuc_team_involved IS NOT NULL
+             GROUP BY 1 ORDER BY n DESC LIMIT 10`
+    );
+    const names = await client.query(`SELECT id, name FROM site_team`);
+    const nameById = new Map(names.rows.map((r) => [r.id, r.name]));
+    live.topCoaches = coaches.rows.map((r) => ({
+      id: r.coach_id,
+      name: nameById.get(r.coach_id) ?? r.coach_id,
+      n: r.n,
+    }));
+  } catch { }
+  try {
+    const storage = await client.query(
+      `SELECT bucket_id, COUNT(*)::int AS files,
+                    COALESCE(SUM(CASE WHEN (metadata->>'size') ~ '^[0-9]+$' THEN (metadata->>'size')::bigint ELSE 0 END), 0)::bigint AS bytes
+             FROM storage.objects GROUP BY bucket_id ORDER BY bytes DESC`
+    );
+    if (storage.rows.length) {
+      live.storage = storage.rows.map((r) => ({
+        bucket: r.bucket_id,
+        files: r.files,
+        bytes: Number(r.bytes),
+      }));
+    }
+  } catch { }
+  await client.end();
+}
+await collectLive().catch(() => { });
+
+const storageFiles = live.storage.reduce((a, s) => a + (s.files ?? 0), 0);
+const storageBytes = live.storage.reduce((a, s) => a + (s.bytes ?? 0), 0);
 
 /* ================================================================== */
 /* Boîte à outils visuelle (identité CUC)                              */
@@ -79,6 +131,8 @@ const FEAT_ICONS = {
   search: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
   bell: '<path d="M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/>',
   gauge: '<path d="M4 14a8 8 0 1 1 16 0"/><path d="M12 14l4-4"/>',
+  check: '<path d="M4 12l5 5L20 6"/>',
+  layout: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/>',
 };
 
 const icon = (name) => `<span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true">${FEAT_ICONS[name] ?? FEAT_ICONS.star}</svg></span>`;
@@ -96,9 +150,17 @@ const accordionRow = ({ iconName, title, role, desc, tags }) => `
     <div class="acc-body">${esc(desc)}${tagsHtml(tags)}</div>
   </details>`;
 
-/** Barres horizontales (SVG maison, style dashboard). */
+/** KPI avec compteur animé lorsque la valeur est purement numérique. */
+const kpiHtml = (value, label, sub = '') => {
+  const raw = String(value);
+  const numeric = /^\d+$/.test(raw) ? Number(raw) : null;
+  const inner = numeric !== null ? `<span data-count="${numeric}">${nf(numeric)}</span>` : esc(raw);
+  return `<div class="kpi reveal"><div class="n">${inner}</div><div class="l">${esc(label)}</div>${sub ? `<div class="s">${esc(sub)}</div>` : ''}</div>`;
+};
+
+/** Barres horizontales (SVG maison). */
 function barChart(rows, { color = '#FFE500' } = {}) {
-  if (!rows.length) return '<p class="meta">Données indisponibles.</p>';
+  if (!rows.length) return '<p class="meta">Données indisponibles pour le moment.</p>';
   const width = 760;
   const barH = 24;
   const gap = 10;
@@ -117,9 +179,9 @@ function barChart(rows, { color = '#FFE500' } = {}) {
   return `<svg viewBox="0 0 ${width} ${height}" class="chart" role="img">${bars}</svg>`;
 }
 
-/** Camembert + légende (composition). */
-function donut(entries, { size = 224 } = {}) {
-  if (!entries.length) return '<p class="meta">Données indisponibles.</p>';
+/** Camembert + légende. */
+function donut(entries, { size = 224, unit = 'lignes' } = {}) {
+  if (!entries.length) return '<p class="meta">Données indisponibles pour le moment.</p>';
   const palette = ['#FFE500', '#FFB020', '#FF7043', '#4FC3F7', '#81C784', '#BA68C8', '#F06292', '#90A4AE'];
   const total = Math.max(1, entries.reduce((a, e) => a + e.value, 0));
   const r = 72;
@@ -139,7 +201,7 @@ function donut(entries, { size = 224 } = {}) {
   const legend = entries
     .map(
       (e, i) =>
-        `<li><span class="dot" style="background:${palette[i % palette.length]}"></span>${esc(e.label)} — <strong>${nf(e.value)}</strong> lignes</li>`
+        `<li><span class="dot" style="background:${palette[i % palette.length]}"></span>${esc(e.label)} — <strong>${nf(e.value)}</strong> ${esc(unit)}</li>`
     )
     .join('');
   return `<div class="donut-wrap"><svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">${arcs}
@@ -148,7 +210,7 @@ function donut(entries, { size = 224 } = {}) {
 }
 
 /* ================================================================== */
-/* Contenus                                                            */
+/* Contenus rédactionnels                                              */
 /* ================================================================== */
 
 const PUBLIC_PAGES = [
@@ -223,10 +285,35 @@ const FAQ = [
   { q: 'Le site peut-il modifier l’application CUC Sign ?', a: "Jamais. La liaison est en lecture seule : le site affiche les formations, coachs et lieux de CUC Sign, mais n'y écrit aucune donnée. Les données pédagogiques sont protégées par des règles strictes côté base." },
   { q: 'Comment les demandes (candidatures, projets) arrivent-elles ?', a: "Le visiteur remplit un formulaire guidé sur le site. La demande apparaît dans le Cockpit (écran Candidatures) avec un statut, des notes internes, et peut être convertie en compte élève CUC Sign." },
   { q: 'Où sont hébergées les images et vidéos du site ?', a: "Dans la base du projet, pas sur l'ancien site : une bibliothèque centralisée (écran Médias) sert automatiquement des formats optimisés pour le web." },
+  { q: 'Le site est-il optimisé pour être trouvé sur Google ?', a: "Oui : chaque page possède son propre titre, sa description et son image de partage, un plan du site est publié automatiquement, et les fiches (films, coachs) utilisent des données structurées que les moteurs de recherche lisent nativement." },
+  { q: 'Que se passe-t-il sur un téléphone ?', a: "Tout le site est conçu d'abord pour le mobile : les jaquettes de films passent en grille compacte, les menus se replient, un bouton d'appel direct apparaît en bas d'écran. Le plan 3D et la visite 360° fonctionnent aussi au doigt." },
+];
+
+const PRACTICES = [
+  { iconName: 'check', title: 'Relisez l’aperçu avant d’enregistrer', desc: "Le Cockpit affiche un aperçu fidèle de la page : dix secondes de relecture évitent 90 % des coquilles." },
+  { iconName: 'globe', title: 'Complétez l’anglais au fil de l’eau', desc: 'Traduire une fiche au moment où on la crée coûte moins cher que de rattraper un retard. La parité est mesurée par un contrôle automatique.' },
+  { iconName: 'calendar', title: 'Tenez à jour les statuts de sessions', desc: '« Ouvert », « dernières places », « complet » : ces trois mots sont la première information que cherche un candidat.' },
+  { iconName: 'bell', title: 'Réservez les annonces à l’exceptionnel', desc: 'Le bandeau d’alerte doit rester rare pour garder sa force — activer, puis désactiver dès que l’information est passée.' },
+  { iconName: 'film', title: 'Étoilez les tournages marquants', desc: 'La mise en avant des crédits remonte les productions phares en tête des filmographies, sur la page équipe et les fiches coachs.' },
+  { iconName: 'shield', title: 'En cas de doute : l’historique', desc: 'Chaque page garde ses versions. Restaurer une version précédente est plus rapide que de reconstruire un contenu.' },
+];
+
+const ROLES = [
+  { iconName: 'sliders', title: 'Direction', desc: 'Accès complet : toutes les pages, tous les contenus, les réglages du site, la gestion des accès et les sauvegardes.' },
+  { iconName: 'phone', title: 'Secrétariat', desc: 'Suivi des candidatures et du calendrier des sessions, mise à jour des pages courantes, consultation des traductions.' },
+  { iconName: 'users', title: 'Encadrement & coachs', desc: 'Consultation de l’espace d’administration ; chaque accès est nominatif et limité à ce qui est utile au rôle.' },
+];
+
+const SITE_MAP = [
+  { theme: 'Découvrir', pages: ['Accueil', 'Le campus', 'Visite virtuelle'], iconName: 'film' },
+  { theme: 'Se former', pages: ['Formation professionnelle', 'Stages de cascade & parkour', 'Stunt Workshop international'], iconName: 'book' },
+  { theme: 'Activités d’action', pages: ['CUC Events', 'Spectacles Yamakasi', 'Animations airbag', 'Team building'], iconName: 'layers' },
+  { theme: 'L’équipe & les films', pages: ['L’équipe (12 fiches)', 'Tournage — CUC Stunt Team', 'Catalogue des films'], iconName: 'star' },
+  { theme: 'Confiance & contact', pages: ['Partenaires', 'Vidéos & reportages', 'Contact'], iconName: 'phone' },
 ];
 
 /* ================================================================== */
-/* Chiffres « contenus » (vulgarisés depuis les relevés)               */
+/* Chiffres « contenus » (vulgarisés)                                  */
 /* ================================================================== */
 
 const TABLE_LABELS = {
@@ -254,59 +341,37 @@ const contentRows = Object.entries(t)
   .map(([k, v]) => ({ label: TABLE_LABELS[k] ?? k, value: v }))
   .sort((a, b) => b.value - a.value);
 
-const CATEGORY_LABELS = {
-  Film: 'Films',
-  film: 'Films',
-  Serie: 'Séries',
-  Série: 'Séries',
-  serie: 'Séries',
-  'Court métrage': 'Courts métrages',
-};
-
-const filmsByCategory = (metrics?.database?.filmsByCategory ?? db?.filmsByCategory ?? []).map((r) => ({
+const CATEGORY_LABELS = { Film: 'Films', film: 'Films', Serie: 'Séries', Série: 'Séries', serie: 'Séries', 'Court métrage': 'Courts métrages' };
+const filmsByCategory = (metrics?.database?.filmsByCategory ?? dbState?.filmsByCategory ?? []).map((r) => ({
   label: CATEGORY_LABELS[r.category] ?? r.category ?? 'Non classé',
   value: r.n,
 }));
 
-const SESSION_LABELS = {
-  ouvert: 'Ouvertes aux inscriptions',
-  complet: 'Complètes',
-  'dernières places': 'Dernières places',
-  bientôt: 'Annoncées prochainement',
-};
-
-const sessionsByStatus = (metrics?.database?.sessionsByStatus ?? db?.sessionsByStatus ?? []).map((r) => ({
+const SESSION_LABELS = { ouvert: 'Ouvertes aux inscriptions', complet: 'Complètes', 'dernières places': 'Dernières places', bientôt: 'Annoncées prochainement' };
+const sessionsByStatus = (metrics?.database?.sessionsByStatus ?? dbState?.sessionsByStatus ?? []).map((r) => ({
   label: SESSION_LABELS[r.status] ?? r.status,
   value: r.n,
 }));
 
-const ENTITY_LABELS = {
-  film: 'Films',
-  team: 'Coachs',
-  event: 'Événements',
-  discipline: 'Disciplines',
-  campus_poi: 'Zones du campus',
-  campus_facility: 'Installations',
-  page: 'Pages',
-  partner: 'Partenaires',
-  video: 'Vidéos',
-  celebrity: 'Comédiens doublés',
-};
-
-const translationsByEntity = (metrics?.database?.translationsByEntity ?? db?.translationsByEntity ?? [])
+const ENTITY_LABELS = { film: 'Films', team: 'Coachs', event: 'Événements', discipline: 'Disciplines', campus_poi: 'Zones du campus', campus_facility: 'Installations', page: 'Pages', partner: 'Partenaires', video: 'Vidéos', celebrity: 'Comédiens doublés' };
+const translationsByEntity = (metrics?.database?.translationsByEntity ?? dbState?.translationsByEntity ?? [])
   .slice(0, 10)
   .map((r) => ({ label: ENTITY_LABELS[r.entity] ?? r.entity ?? 'Autre', value: r.n }));
 
-const cucSign = metrics?.database?.cucSign ?? db?.cucSign;
-const rlsOn = metrics?.database?.rlsOn ?? db?.rlsOn ?? 0;
+const cucSign = metrics?.database?.cucSign ?? dbState?.cucSign;
+const rlsOn = metrics?.database?.rlsOn ?? dbState?.rlsOn ?? 0;
+const realtimeTables = metrics?.database?.realtimeTables ?? dbState?.realtimePublication?.length ?? 0;
 const pageWeights = metrics?.routes?.pageWeights ?? null;
-const zones = metrics?.code?.zones ?? null;
 const bundleBytes = metrics?.bundle?.staticChunks ?? null;
 const tests = metrics?.tests ?? null;
 const securityHeaders = metrics?.security?.headers ?? [];
+const i18n = metrics?.i18n ?? null;
+
+const decadeRows = live.filmsByDecade.map((r) => ({ label: `${r.decade}s`, value: r.n }));
+const coachRows = live.topCoaches.map((r) => ({ label: r.name, value: r.n }));
 
 /* ================================================================== */
-/* Visuels                                                             */
+/* Schémas SVG                                                         */
 /* ================================================================== */
 
 const svgTile = (x, y, w, h, label, sub) => `
@@ -334,33 +399,85 @@ const ecosystemSvg = `
   <text x="500" y="300" text-anchor="middle" fill="#7c7c88" font-size="11">Le Cockpit écrit dans la base ; le site la lit — rien ne transite par la machine du visiteur.</text>
 </svg>`;
 
-const figuresHtml = [
-  { value: '15', label: 'pages publiques', sub: 'chacune en français et en anglais' },
-  { value: t['site_films'] != null ? nf(t['site_films']) : '570', label: 'films au catalogue', sub: 'affiches et fiches détaillées' },
-  { value: t['site_team'] != null ? nf(t['site_team']) : '12', label: 'coachs', sub: 'filmographies vérifiées' },
-  { value: t['site_translations'] != null ? nf(t['site_translations']) : '—', label: 'traductions', sub: 'contenus bilingues en base' },
-  { value: t['site_sessions'] != null ? nf(t['site_sessions']) : '—', label: 'sessions de formation', sub: 'dates et statuts en direct' },
-  { value: t['site_disciplines'] != null ? nf(t['site_disciplines']) : '10', label: 'disciplines enseignées', sub: 'référentiel complet' },
-  { value: t['site_partners'] != null ? nf(t['site_partners']) : '—', label: 'partenaires', sub: 'marques & institutions' },
-  { value: storageFiles > 0 ? nf(storageFiles) : '—', label: 'images & documents', sub: 'centralisés et optimisés' },
-]
-  .map((f) => `<div class="kpi reveal"><div class="n">${esc(f.value)}</div><div class="l">${esc(f.label)}</div><div class="s">${esc(f.sub)}</div></div>`)
-  .join('');
+/** Anatomie d'une page : ce qui est modifiable (pastilles jaunes). */
+const pageAnatomySvg = `
+<svg viewBox="0 0 900 420" class="chart" role="img" aria-label="Anatomie d'une page : en-tête, héros, contenu, pied de page">
+  <rect x="60" y="18" width="780" height="384" rx="16" fill="#0b0b10" stroke="#2a2a33"/>
+  <rect x="60" y="18" width="780" height="46" rx="16" fill="#101017"/>
+  <rect x="60" y="50" width="780" height="14" fill="#101017"/>
+  <text x="88" y="47" fill="#fff" font-size="13" font-weight="700">Menu du site</text>
+  <text x="330" y="47" fill="#7c7c88" font-size="11">navigation générée depuis le Cockpit</text>
+  <rect x="88" y="88" width="724" height="104" rx="10" fill="#12121a" stroke="#26262e"/>
+  <text x="108" y="118" fill="#FFE500" font-size="11" font-weight="700">BADGE</text>
+  <text x="108" y="146" fill="#fff" font-size="17" font-weight="700">Titre principal de la page</text>
+  <text x="108" y="170" fill="#9a9aa5" font-size="11.5">Sous-titre explicatif — textes pilotés depuis le Cockpit (FR & EN)</text>
+  <rect x="640" y="126" width="150" height="34" rx="17" fill="#FFE500"/>
+  <text x="715" y="148" text-anchor="middle" fill="#111" font-size="12" font-weight="700">Bouton d’action</text>
+  <rect x="88" y="206" width="352" height="146" rx="10" fill="#12121a" stroke="#26262e"/>
+  <text x="108" y="234" fill="#fff" font-size="13.5" font-weight="700">Contenu éditorial</text>
+  <text x="108" y="256" fill="#9a9aa5" font-size="11.5">sections, chiffres clés, galeries</text>
+  <rect x="460" y="206" width="352" height="146" rx="10" fill="#12121a" stroke="#26262e"/>
+  <text x="480" y="234" fill="#fff" font-size="13.5" font-weight="700">Contenus dynamiques</text>
+  <text x="480" y="256" fill="#9a9aa5" font-size="11.5">films, coachs, sessions, partenaires…</text>
+  <rect x="60" y="366" width="780" height="36" rx="0" fill="#101017"/>
+  <text x="88" y="389" fill="#9a9aa5" font-size="11.5">Pied de page — coordonnées et réseaux sociaux (pilotés depuis le Cockpit)</text>
+  <circle cx="86" cy="110" r="6" fill="#FFE500"/><circle cx="86" cy="228" r="6" fill="#FFE500"/>
+  <circle cx="86" cy="352" r="6" fill="#FFE500"/><circle cx="86" cy="389" r="6" fill="#FFE500"/>
+  <text x="120" y="352" fill="#ffef9e" font-size="11">● pastilles jaunes : contenus modifiables par votre équipe, sans code</text>
+</svg>`;
+
+/** Le cycle d'une demande : 5 étapes reliées. */
+const requestCycleSvg = `
+<svg viewBox="0 0 940 170" class="chart" role="img" aria-label="Cycle d'une demande : formulaire, réception, qualification, échange, conversion">
+  <path d="M120 62 H 820" stroke="#2a2a33" stroke-width="2" stroke-dasharray="6 7"/>
+  ${[
+    { x: 120, n: '1', t: 'Le visiteur écrit', s: 'formulaire guidé' },
+    { x: 295, n: '2', t: 'La demande arrive', s: 'Cockpit · Candidatures' },
+    { x: 470, n: '3', t: 'Votre équipe qualifie', s: 'statut + notes internes' },
+    { x: 645, n: '4', t: 'Vous répondez', s: 'email / téléphone' },
+    { x: 820, n: '5', t: 'Conversion possible', s: 'compte élève CUC Sign' },
+  ]
+    .map(
+      (p, i) => `
+    <circle cx="${p.x}" cy="62" r="24" fill="${i === 0 ? '#FFE500' : '#12121a'}" stroke="${i === 0 ? '#FFE500' : '#3a3a44'}" stroke-width="2"/>
+    <text x="${p.x}" y="68" text-anchor="middle" fill="${i === 0 ? '#111' : '#fff'}" font-size="14" font-weight="700">${p.n}</text>
+    <text x="${p.x}" y="112" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">${p.t}</text>
+    <text x="${p.x}" y="130" text-anchor="middle" fill="#9a9aa5" font-size="11">${p.s}</text>`
+    )
+    .join('')}
+  <circle class="flowdot" r="4" fill="#FFE500" style="offset-path: path('M120 62 H 820'); animation-duration: 6s"/>
+</svg>`;
+
+/* ================================================================== */
+/* Assemblages HTML                                                    */
+/* ================================================================== */
+
+const FIGURE_DATA = [
+  [t['site_pages'] ?? 15, 'pages publiques', 'chacune en français et en anglais'],
+  [t['site_films'] ?? 570, 'films au catalogue', 'affiches et fiches détaillées'],
+  [t['site_team'] ?? 12, 'coachs', 'filmographies vérifiées'],
+  [t['site_translations'], 'traductions', 'contenus bilingues en base'],
+  [t['site_sessions'], 'sessions de formation', 'dates et statuts en direct'],
+  [t['site_disciplines'] ?? 10, 'disciplines enseignées', 'référentiel complet'],
+  [t['site_partners'], 'partenaires', 'marques & institutions'],
+  [storageFiles || null, 'images & documents', 'centralisés et optimisés'],
+];
+
+const figuresHtml = FIGURE_DATA.map(([v, l, s]) => (v != null ? kpiHtml(v, l, s) : '')).join('');
 
 const connectionHtml = cucSign
-  ? `
-    <div class="kpis">
-      <div class="kpi reveal"><div class="n">${nf(cucSign.formations)}</div><div class="l">formations CUC Sign</div><div class="s">référencées côté site</div></div>
-      <div class="kpi reveal"><div class="n">${nf(cucSign.profiles)}</div><div class="l">profils CUC Sign</div><div class="s">coachs & direction</div></div>
-      <div class="kpi reveal"><div class="n">${nf(cucSign.locations)}</div><div class="l">lieux CUC Sign</div><div class="s">installations du campus</div></div>
-      <div class="kpi reveal"><div class="n">${cucSign.linkedSessions}/${cucSign.totalSessions}</div><div class="l">sessions reliées</div><div class="s">les autres attendent leur formation CUC Sign</div></div>
-      <div class="kpi reveal"><div class="n">${cucSign.linkedTeam}/${cucSign.totalTeam}</div><div class="l">coachs reliés</div><div class="s">les intervenants externes n'ont pas de compte</div></div>
-      <div class="kpi reveal"><div class="n">${cucSign.linkedPois}/${cucSign.totalPois}</div><div class="l">zones du campus reliées</div><div class="s">liaisons vérifiées, jamais approximatives</div></div>
-    </div>`
+  ? `<div class="kpis">
+    ${kpiHtml(cucSign.formations, 'formations CUC Sign', 'référencées côté site')}
+    ${kpiHtml(cucSign.profiles, 'profils CUC Sign', 'coachs & direction')}
+    ${kpiHtml(cucSign.locations, 'lieux CUC Sign', 'installations du campus')}
+    ${kpiHtml(`${cucSign.linkedSessions}/${cucSign.totalSessions}`, 'sessions reliées', 'les autres attendent leur formation CUC Sign')}
+    ${kpiHtml(`${cucSign.linkedTeam}/${cucSign.totalTeam}`, 'coachs reliés', 'les intervenants externes n’ont pas de compte')}
+    ${kpiHtml(`${cucSign.linkedPois}/${cucSign.totalPois}`, 'zones du campus reliées', 'liaisons vérifiées, jamais approximatives')}
+  </div>`
   : '<p class="meta">Données d’interconnexion indisponibles pour le moment.</p>';
 
 const guaranteesHtml = [
-  { iconName: 'shield', title: 'Sécurité par ligne', desc: `${rlsOn} tables protégées par des règles d'accès par rôle : chaque utilisateur du Cockpit ne peut agir que dans son périmètre.`, tags: ['Données'] },
+  { iconName: 'shield', title: 'Sécurité par ligne', desc: `${rlsOn} espaces de données protégés par des règles d'accès par rôle : chaque utilisateur du Cockpit ne peut agir que dans son périmètre.`, tags: ['Données'] },
   { iconName: 'gauge', title: 'En-têtes de sécurité', desc: `Protections navigateur actives (${securityHeaders.length} en-têtes : anti-détournement, contenu sécurisé, connexions chiffrées).`, tags: ['Web'] },
   {
     iconName: 'refresh', title: 'Contrôles automatiques', desc: tests?.available
@@ -372,6 +489,17 @@ const guaranteesHtml = [
 ]
   .map(featCard)
   .join('');
+
+const rolesHtml = ROLES.map(featCard).join('');
+const practicesHtml = PRACTICES.map(featCard).join('');
+const siteMapHtml = SITE_MAP.map(
+  (g) => `
+  <article class="map-card reveal">
+    ${icon(g.iconName)}
+    <h4>${esc(g.theme)}</h4>
+    <ul>${g.pages.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
+  </article>`
+).join('');
 
 const TECH = [
   { name: 'Next.js 16', role: 'moteur du site : affichage ultra-rapide, pages optimisées pour Google' },
@@ -385,9 +513,7 @@ const TECH = [
 const techTable = `
   <table>
     <thead><tr><th>Technologie</th><th>Son rôle dans votre application</th></tr></thead>
-    <tbody>
-      ${TECH.map((x) => `<tr><td><code>${esc(x.name)}</code></td><td>${esc(x.role)}</td></tr>`).join('')}
-    </tbody>
+    <tbody>${TECH.map((x) => `<tr><td><code>${esc(x.name)}</code></td><td>${esc(x.role)}</td></tr>`).join('')}</tbody>
   </table>`;
 
 const mechCardsHtml = MECHANISMS.map(featCard).join('');
@@ -408,6 +534,7 @@ const journeyHtml = JOURNEY.map(
 ).join('');
 
 const generated = new Date();
+const today = generated.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 
 const html = `<!DOCTYPE html>
 <html lang="fr">
@@ -421,19 +548,21 @@ const html = `<!DOCTYPE html>
   body { margin: 0; background: #060608; color: #e7e7ea; font: 15px/1.65 "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
   :focus-visible { outline: 2px solid #FFE500; outline-offset: 2px; border-radius: 4px; }
   .wrap { max-width: 1180px; margin: 0 auto; padding: 52px 24px 96px; }
-  header.hero { padding: 34px 0 30px; border-bottom: 1px solid #26262e; margin-bottom: 34px; }
+  header.hero { padding: 34px 0 30px; border-bottom: 1px solid #26262e; margin-bottom: 34px; position: relative; }
   .kicker { color: #FFE500; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; }
   h1 { font-size: clamp(30px, 4.4vw, 48px); margin: 12px 0 8px; line-height: 1.12; }
-  h1 em { color: #FFE500; font-style: normal; }
+  h1 em { font-style: normal; background: linear-gradient(100deg, #FFE500, #fff6c4, #FFE500); background-size: 220% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent; animation: sheen 7s linear infinite; }
+  @keyframes sheen { to { background-position: -220% 0; } }
   .meta { color: #9a9aa5; font-size: 13.5px; max-width: 860px; }
   .hero-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
-  .btn { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #111; background: #FFE500; border: 0; border-radius: 999px; padding: 9px 18px; cursor: pointer; text-decoration: none; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #111; background: #FFE500; border: 0; border-radius: 999px; padding: 9px 18px; cursor: pointer; text-decoration: none; transition: transform .15s ease; }
+  .btn:hover { transform: translateY(-1px); }
   .btn.ghost { background: transparent; color: #e7e7ea; border: 1px solid #3a3a44; }
-  .btn:hover { filter: brightness(1.06); }
   nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 0; position: sticky; top: 10px; z-index: 20; padding: 8px 0; background: linear-gradient(#060608, #060608e6); backdrop-filter: blur(6px); }
-  nav.toc a { font-size: 12px; color: #cfcfd6; border: 1px solid #2c2c36; border-radius: 999px; padding: 5px 12px; text-decoration: none; background: #0b0b10; }
+  nav.toc a { font-size: 12px; color: #cfcfd6; border: 1px solid #2c2c36; border-radius: 999px; padding: 5px 12px; text-decoration: none; background: #0b0b10; transition: border-color .15s ease, color .15s ease; }
   nav.toc a:hover { border-color: #FFE500; color: #FFE500; }
-  section { scroll-margin-top: 86px; }
+  section { scroll-margin-top: 92px; }
   h2 { margin-top: 64px; font-size: 25px; border-left: 4px solid #FFE500; padding-left: 12px; }
   h3 { margin-top: 34px; font-size: 18px; color: #f2f2f5; }
   h3 .meta { font-size: 12.5px; }
@@ -441,12 +570,14 @@ const html = `<!DOCTYPE html>
   a { color: #FFE500; }
   .lead { font-size: 16.5px; color: #d8d8de; max-width: 860px; }
   .kpis { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin-top: 22px; }
-  .kpi { background: linear-gradient(180deg, #101017 0%, #0c0c11 100%); border: 1px solid #26262e; border-radius: 14px; padding: 16px 18px; }
+  .kpi { background: linear-gradient(180deg, #101017 0%, #0c0c11 100%); border: 1px solid #26262e; border-radius: 14px; padding: 16px 18px; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+  .kpi:hover { transform: translateY(-3px); border-color: #3a3a44; box-shadow: 0 14px 34px rgba(0,0,0,.45); }
   .kpi .n { font-size: 30px; font-weight: 700; color: #fff; letter-spacing: .01em; }
   .kpi .l { font-size: 13px; color: #e2e2e8; margin-top: 2px; }
   .kpi .s { font-size: 11.5px; color: #8a8a95; margin-top: 2px; }
   .feat-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-  .feat { background: linear-gradient(180deg, #101017 0%, #0c0c11 100%); border: 1px solid #26262e; border-radius: 14px; padding: 20px; position: relative; overflow: hidden; }
+  .feat { background: linear-gradient(180deg, #101017 0%, #0c0c11 100%); border: 1px solid #26262e; border-radius: 14px; padding: 20px; position: relative; overflow: hidden; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+  .feat:hover { transform: translateY(-3px); border-color: #3a3a44; box-shadow: 0 14px 34px rgba(0,0,0,.45); }
   .feat::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: linear-gradient(90deg, #FFE500, transparent 72%); opacity: .85; }
   .feat .fi { width: 38px; height: 38px; border-radius: 10px; background: rgba(255,229,0,.08); border: 1px solid rgba(255,229,0,.35); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
   .feat h3 { margin: 0 0 6px; font-size: 16.5px; }
@@ -463,10 +594,13 @@ const html = `<!DOCTYPE html>
   details.acc[open] summary .chev { transform: rotate(90deg); }
   details.acc .acc-body { padding: 12px 18px 16px 18px; color: #bfc0c9; font-size: 13.8px; border-top: 1px solid #1d1d25; }
   .steps { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); margin-top: 14px; }
-  .step { background: #0d0d12; border: 1px solid #26262e; border-radius: 12px; padding: 14px; }
+  .step { background: #0d0d12; border: 1px solid #26262e; border-radius: 12px; padding: 14px; position: relative; }
   .step .num { display: inline-flex; width: 24px; height: 24px; border-radius: 50%; background: #FFE500; color: #111; font-weight: 700; font-size: 12.5px; align-items: center; justify-content: center; margin-bottom: 8px; }
   .step h4 { margin: 0 0 4px; font-size: 14px; color: #fff; }
   .step p { margin: 0; font-size: 12.5px; color: #a9aab4; }
+  @media (min-width: 1000px) {
+    .step:not(:last-child)::after { content: ""; position: absolute; top: 26px; right: -13px; width: 14px; border-top: 2px dashed #3a3a44; }
+  }
   .flow { background: radial-gradient(620px 260px at 18% 0%, rgba(255,229,0,.05), transparent), #0b0b10; border: 1px solid #26262e; border-radius: 16px; padding: 10px 12px; }
   .chart { width: 100%; height: auto; }
   .chart-label { fill: #c9c9d1; font-size: 13px; }
@@ -487,10 +621,15 @@ const html = `<!DOCTYPE html>
   .flowdot { offset-rotate: 0deg; animation-name: flowRun; animation-timing-function: linear; animation-iteration-count: infinite; }
   @keyframes flowRun { from { offset-distance: 0%; } to { offset-distance: 100%; } }
   .callout { border-left: 4px solid #FFE500; background: #101016; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 20px 0; color: #d6d6dd; }
+  .map-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 14px; }
+  .map-card { background: #0d0d12; border: 1px solid #26262e; border-radius: 14px; padding: 16px 18px; }
+  .map-card h4 { margin: 8px 0 8px; font-size: 14.5px; color: #fff; }
+  .map-card ul { margin: 0; padding-left: 18px; color: #b9b9c2; font-size: 12.8px; }
+  .map-card li { margin: 3px 0; }
   footer { margin-top: 76px; border-top: 1px solid #26262e; padding-top: 20px; color: #8a8a95; font-size: 12.5px; }
   .pill { display: inline-block; font-size: 11px; padding: 2px 9px; border: 1px solid #3a3a44; border-radius: 999px; color: #c9c9d1; margin-right: 6px; }
   code { color: #ffe9a8; }
-  /* --- Confort de lecture (CSS moderne, sans JavaScript) --- */
+  /* --- Confort de lecture (CSS moderne, sans dépendance) --- */
   @supports (animation-timeline: scroll()) {
     .progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; z-index: 60;
       background: linear-gradient(90deg, #FFE500, #ffb020); transform-origin: 0 50%; transform: scaleX(0);
@@ -505,10 +644,10 @@ const html = `<!DOCTYPE html>
     display: flex; align-items: center; justify-content: center; background: #0e0e14; border: 1px solid #3a3a44;
     color: #FFE500; text-decoration: none; font-size: 18px; box-shadow: 0 10px 24px rgba(0,0,0,.45); }
   .totop:hover { border-color: #FFE500; }
-  @media (prefers-reduced-motion: reduce) { .flowdot, .reveal, .progress { animation: none !important; } }
+  @media (prefers-reduced-motion: reduce) { .flowdot, .reveal, .progress, h1 em { animation: none !important; } }
   @media print {
     body { background: #fff; color: #111; }
-    .feat, .kpi, .step { border-color: #ddd; background: #fff; }
+    .feat, .kpi, .step, .map-card { border-color: #ddd; background: #fff; }
     nav.toc, .totop, .progress, .hero-actions { display: none; }
     details.acc { break-inside: avoid; }
     details.acc .acc-body { display: block; }
@@ -521,20 +660,21 @@ const html = `<!DOCTYPE html>
 <div class="wrap" id="top">
 
   <header class="hero">
-    <div class="kicker">Dossier de présentation — 2026</div>
+    <div class="kicker">Dossier de présentation — ${esc(today)}</div>
     <h1>L'application du <em>Campus Univers Cascades</em></h1>
     <p class="meta">
-      Tout ce qu'il faut savoir pour comprendre et utiliser votre site : ce qu'il montre,
-      ce que vous pouvez piloter vous-même, et comment l'ensemble fonctionne au quotidien.
+      Tout ce qu'il faut savoir pour comprendre et utiliser votre site : ce qu'il montre, ce que vous pouvez
+      piloter vous-même, comment les choses fonctionnent — et les chiffres réels de votre activité en ligne.
     </p>
     <div class="hero-actions">
       <button class="btn" onclick="window.print()">Imprimer / PDF</button>
       <a class="btn ghost" href="#faq">Aller aux questions fréquentes</a>
     </div>
     <nav class="toc">
-      <a href="#vue">Vue d'ensemble</a><a href="#ecosysteme">Comment ça marche</a><a href="#site">Le site public</a>
-      <a href="#cockpit">Le Cockpit</a><a href="#quotidien">Au quotidien</a><a href="#chiffres">Chiffres</a>
-      <a href="#contenus">Les contenus</a><a href="#capot">Sous le capot</a><a href="#faq">FAQ</a>
+      <a href="#vue">Vue d'ensemble</a><a href="#ecosysteme">Comment ça marche</a><a href="#carte">La carte du site</a>
+      <a href="#site">Le site public</a><a href="#cockpit">Le Cockpit</a><a href="#quotidien">Au quotidien</a>
+      <a href="#chiffres">Chiffres clés</a><a href="#contenus">Les contenus</a><a href="#capot">Sous le capot</a>
+      <a href="#pratiques">Bonnes pratiques</a><a href="#faq">FAQ</a>
     </nav>
   </header>
 
@@ -548,7 +688,12 @@ const html = `<!DOCTYPE html>
     <p>
       Les contenus sont centralisés : une modification faite dans le Cockpit est immédiatement reflétée sur le site. Les images,
       textes, films, dates de stages et traductions vivent dans la base de données du projet — jamais « en dur » dans le code.
+      Résultat : votre site reste vivant, à jour, sans dépendre de personne à l'extérieur.
     </p>
+    <div class="callout">
+      <strong>Le principe en une phrase :</strong> vous écrivez une fois dans le Cockpit, le site s'occupe de tout —
+      affichage public, version anglaise, cohérence avec la plateforme élèves CUC Sign.
+    </div>
   </section>
 
   <section id="ecosysteme">
@@ -568,25 +713,42 @@ const html = `<!DOCTYPE html>
     <div class="feat-grid">${mechCardsHtml}</div>
   </section>
 
+  <section id="carte">
+    <h2>3. La carte du site</h2>
+    <p>Les 15 pages publiques, organisées comme vos visiteurs les découvrent — et sous elles, les films qui font la réputation du campus.</p>
+    <div class="map-grid">${siteMapHtml}</div>
+    <div class="callout">
+      <strong>Un catalogue, pas une vitrine figée :</strong> chaque film du catalogue ouvre sa fiche — équipe impliquée,
+      rôles exacts, affiche authentique — et la même présentation est utilisée de l'accueil à la fiche de chaque coach.
+    </div>
+  </section>
+
   <section id="site">
-    <h2>3. Le site public — les 15 pages (+ le catalogue films)</h2>
+    <h2>4. Le site public — page par page</h2>
     <p>Dépliez chaque entrée pour voir son rôle exact. Toutes les pages existent en français et en anglais.</p>
     ${publicAccordions}
   </section>
 
   <section id="cockpit">
-    <h2>4. Le Cockpit d'administration — les 15 écrans</h2>
+    <h2>5. Le Cockpit d'administration — les 15 écrans</h2>
     <p>
       Accessible avec un compte nominatif, le Cockpit se pilote entièrement à la souris. Chaque écran se déplie ci-dessous.
-      L'accès est sécurisé par rôle : direction, secrétariat, coachs — chacun ses permissions.
     </p>
     ${cockpitAccordions}
+
+    <h3>Ce qui est modifiable, et où</h3>
+    <p>Sur chaque page du site, tout le contenu éditorial est piloté depuis le Cockpit — rien n'est figé dans le code.</p>
+    <div class="flow reveal">${pageAnatomySvg}</div>
   </section>
 
   <section id="quotidien">
-    <h2>5. Au quotidien — comment je fais…</h2>
+    <h2>6. Au quotidien — comment je fais…</h2>
     <p>Les gestes les plus courants, en une ligne chacun :</p>
     <div class="feat-grid">${workflowHtml}</div>
+
+    <h3>Le cycle d'une demande, de bout en bout</h3>
+    <div class="flow reveal">${requestCycleSvg}</div>
+
     <div class="callout">
       <strong>En cas de doute :</strong> rien n'est fragile. Chaque page possède un historique de versions restaurable,
       et le journal d'audit conserve la trace de toutes les actions.
@@ -594,14 +756,14 @@ const html = `<!DOCTYPE html>
   </section>
 
   <section id="chiffres">
-    <h2>6. L'application en un coup d'œil</h2>
+    <h2>7. L'application en un coup d'œil</h2>
     <div class="kpis">${figuresHtml}</div>
-    <p class="meta" style="margin-top:14px">Chiffres relevés automatiquement depuis la base de données du projet.</p>
+    <p class="meta" style="margin-top:14px">Chiffres relevés automatiquement depuis la base de données du projet, au moment de la génération de ce dossier.</p>
   </section>
 
   <section id="contenus">
-    <h2>7. Tout ce que contient votre application</h2>
-    <p>La vie du site, en volumes réels — mis à jour automatiquement à chaque régénération de ce dossier.</p>
+    <h2>8. Tout ce que contient votre application</h2>
+    <p>La vie du site, en volumes réels — le dossier se met à jour à chaque régénération.</p>
 
     <h3>Les contenus publiés</h3>
     ${barChart(contentRows)}
@@ -612,23 +774,36 @@ const html = `<!DOCTYPE html>
         ${filmsByCategory.length ? barChart(filmsByCategory, { color: '#FFB020' }) : '<p class="meta">Données indisponibles.</p>'}
       </div>
       <div>
-        <h3>Les sessions de formation par statut</h3>
+        <h3>Les sessions par statut</h3>
         ${sessionsByStatus.length ? barChart(sessionsByStatus, { color: '#4FC3F7' }) : '<p class="meta">Données indisponibles.</p>'}
       </div>
     </div>
 
+    ${decadeRows.length
+    ? `<h3>Le catalogue films, décennie par décennie <span class="meta">(année de production des œuvres)</span></h3>
+    ${barChart(decadeRows, { color: '#FF7043' })}
+    <p class="meta">Votre catalogue couvre toutes les époques du cinéma et des séries — une profondeur rare qui parle aux productions.</p>`
+    : ''
+  }
+
+    ${coachRows.length
+    ? `<h3>Les coachs les plus présents au catalogue <span class="meta">(nombre de films publiés où ils apparaissent)</span></h3>
+    ${barChart(coachRows, { color: '#BA68C8' })}`
+    : ''
+  }
+
     <h3>Les traductions, entité par entité</h3>
     ${translationsByEntity.length ? barChart(translationsByEntity, { color: '#81C784' }) : '<p class="meta">Données indisponibles.</p>'}
 
-    ${storage.length
+    ${live.storage.length
     ? `<h3>Les médias hébergés par le projet</h3>
     ${barChart(
-      storage.map((s) => ({
-        label: `Bibliothèque d'images`,
+      live.storage.map((s) => ({
+        label: 'Bibliothèque d’images & documents',
         value: s.bytes,
         display: `${nf(s.files)} fichiers · ${mo(s.bytes)}`,
       })),
-      { color: '#BA68C8' }
+      { color: '#90A4AE' }
     )}`
     : ''
   }
@@ -642,32 +817,30 @@ const html = `<!DOCTYPE html>
   </section>
 
   <section id="capot">
-    <h2>8. Sous le capot — en toute transparence</h2>
+    <h2>9. Sous le capot — en toute transparence</h2>
     <p>
       Cette partie s'adresse aux curieux : ce que votre site « pèse », la vitesse à laquelle il répond,
       et les garanties qui l'entourent. Aucune connaissance technique n'est nécessaire pour la lire.
     </p>
+
     ${pageWeights
-    ? `<h3>Chaque page, son poids et son temps de réponse <span class="meta">(mesurés en direct)</span></h3>
+    ? `<h3>Chaque page, son poids et son temps de réponse <span class="meta">(mesurés sur la version de production)</span></h3>
     ${barChart(
       [...pageWeights]
         .filter((p) => p.status === 200)
         .sort((a, b) => b.bytes - a.bytes)
-        .map((p) => ({
-          label: p.route,
-          value: p.bytes,
-          display: `${kb(p.bytes)} · ${p.ms} ms`,
-        })),
+        .map((p) => ({ label: p.route, value: p.bytes, display: `${kb(p.bytes)} · ${p.ms} ms` })),
       { color: '#4FC3F7' }
     )}
-    <p class="meta">Mesure effectuée sur la version de production du site. Les deux pages les plus « lourdes » sont les galeries de films — logique, elles affichent le catalogue complet.</p>`
+    <p class="meta">Les deux pages les plus « lourdes » sont les galeries de films — logique : elles affichent le catalogue complet. Les autres tiennent dans un dixième de seconde.</p>`
     : ''
   }
 
-    <h3>Ce que ce dossier mesure et pourquoi</h3>
-    <div class="feat-grid">
-      ${guaranteesHtml}
-    </div>
+    <h3>Les garanties qui entourent votre site</h3>
+    <div class="feat-grid">${guaranteesHtml}</div>
+
+    <h3>Qui peut faire quoi</h3>
+    <div class="feat-grid">${rolesHtml}</div>
 
     <details class="acc reveal">
       <summary>${icon('cpu')}<span>Les technologies utilisées <span class="role">— et leur rôle, sans jargon</span></span>
@@ -676,11 +849,18 @@ const html = `<!DOCTYPE html>
       <div class="acc-body">${techTable}</div>
     </details>
 
-    ${bundleBytes ? `<p class="meta">Pour afficher le site, le navigateur télécharge environ ${mo(bundleBytes)} de code, mis en cache après la première visite.</p>` : ''}
+    ${bundleBytes ? `<p class="meta">Pour afficher le site, le navigateur télécharge environ ${mo(bundleBytes)} de code, mis en cache après la première visite. La visite suivante est quasi instantanée.</p>` : ''}
+    ${i18n ? `<p class="meta">Langues : ${nf(i18n.fr)} clés éditoriales en français, ${nf(i18n.en)} en anglais — parité contrôlée automatiquement à chaque mise à jour.</p>` : ''}
+  </section>
+
+  <section id="pratiques">
+    <h2>10. Les bonnes pratiques de votre équipe</h2>
+    <p>Six réflexes simples qui gardent le site impeccable :</p>
+    <div class="feat-grid">${practicesHtml}</div>
   </section>
 
   <section id="faq">
-    <h2>9. Questions fréquentes</h2>
+    <h2>11. Questions fréquentes</h2>
     ${faqAccordions}
   </section>
 
@@ -690,6 +870,32 @@ const html = `<!DOCTYPE html>
     <span class="pill">FR / EN</span><span class="pill">sans connexion</span><span class="pill">imprimable</span>
   </footer>
 </div>
+<script>
+  /* Compteurs animés — effet discret, désactivé si mouvement réduit ou sans observer. */
+  (function () {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+    var els = document.querySelectorAll('[data-count]');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        io.unobserve(el);
+        var target = parseInt(el.getAttribute('data-count'), 10);
+        if (!isFinite(target)) return;
+        var start = performance.now();
+        function step(now) {
+          var p = Math.min(1, (now - start) / 900);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(target * eased).toLocaleString('fr-FR');
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.35 });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
 </body>
 </html>`;
 
@@ -697,9 +903,8 @@ fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, html, 'utf8');
 
 console.log('=== Dossier de présentation client généré ===');
-console.log(`Pages publiques présentées : ${PUBLIC_PAGES.length}`);
-console.log(`Écrans du Cockpit présentés : ${COCKPIT_APPS.length}`);
-console.log(`Graphiques de contenus : ${contentRows.length} lignes · films ${filmsByCategory.length} catégories · sessions ${sessionsByStatus.length} statuts · traductions ${translationsByEntity.length} entités`);
-console.log(`Poids de pages mesurés : ${pageWeights ? pageWeights.filter((p) => p.status === 200).length : 0}`);
+console.log(`Sections : 11 · accordéons : ${PUBLIC_PAGES.length + COCKPIT_APPS.length + FAQ.length + 1}`);
+console.log(`Graphiques : contenus(${contentRows.length}) · films par catégorie(${filmsByCategory.length}) · sessions(${sessionsByStatus.length}) · décennies(${decadeRows.length}) · coachs(${coachRows.length}) · traductions(${translationsByEntity.length}) · médias(${live.storage.length}) · pages(${pageWeights ? pageWeights.length : 0})`);
+console.log(`Schémas : écosystème · carte du site(${SITE_MAP.length} thèmes) · anatomie de page · cycle de demande`);
 console.log('Sortie :');
 console.log('  - reports/cuc-dossier-application.html');
