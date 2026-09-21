@@ -2,6 +2,7 @@
 import { Link } from '@/i18n/navigation';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 
 import Image from 'next/image';
 import { StuntBadge } from '@/components/ui/StuntBadge';
@@ -13,11 +14,10 @@ interface PartenairesHeroSectionProps {
 }
 
 export const PartenairesHeroSection: React.FC<PartenairesHeroSectionProps> = ({ hero }) => {
-  const badge = hero?.badge || 'ILS NOUS ACCOMPAGNENT';
-  const title = hero?.title || 'NOS PARTENAIRES';
-  const subtitle =
-    hero?.subtitle ||
-    'Équipementiers, effets spéciaux, protections et structures partenaires du Campus Univers Cascades.';
+  const t = useTranslations('partenaires');
+  const badge = hero?.badge || t('heroBadge');
+  const title = hero?.title || t('heroTitle');
+  const subtitle = hero?.subtitle || t('heroSubtitle');
   const bgImage =
     hero?.bg_image ||
     'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-6-scaled.jpg';
@@ -27,7 +27,7 @@ export const PartenairesHeroSection: React.FC<PartenairesHeroSectionProps> = ({ 
       <div className="absolute inset-0 z-0">
         <Image
           src={bgImage}
-          alt="Partenaires du Campus Univers Cascades"
+          alt={t('heroImageAlt')}
           fill
           priority
           sizes="100vw"
@@ -39,10 +39,10 @@ export const PartenairesHeroSection: React.FC<PartenairesHeroSectionProps> = ({ 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
           <Link href="/" className="hover:text-[#FFE500] transition-colors">
-            ACCUEIL
+            {t('breadcrumbHome')}
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-          <span className="text-[#FFE500]">PARTENAIRES</span>
+          <span className="text-[#FFE500]">{t('breadcrumbCurrent')}</span>
         </div>
 
         <div className="inline-flex items-center gap-2 mb-4">
@@ -50,7 +50,7 @@ export const PartenairesHeroSection: React.FC<PartenairesHeroSectionProps> = ({ 
             {badge}
           </StuntBadge>
           <span className="text-xs font-mono-tech text-zinc-400">
-            ÉQUIPEMENTIERS • CINÉMA • INSTITUTIONNELS • ÉTAT
+            {t('heroMeta')}
           </span>
         </div>
 

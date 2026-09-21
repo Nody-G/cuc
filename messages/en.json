@@ -183,6 +183,13 @@
         "roleMateriel": "Equipment Supplier",
         "roleMedia": "Media",
         "roleInstitutionnel": "Institutional",
+        "breadcrumbHome": "HOME",
+        "breadcrumbCurrent": "PARTNERS",
+        "heroBadge": "SUPPORTING US",
+        "heroTitle": "OUR PARTNERS",
+        "heroSubtitle": "Equipment suppliers, special effects, protective gear and partner organisations of Campus Univers Cascades.",
+        "heroImageAlt": "Campus Univers Cascades partners",
+        "heroMeta": "EQUIPMENT • FILM • INSTITUTIONS • STATE",
         "categories": {
             "agrement": "State Approval & Certification",
             "equipementiers": "Equipment & Protective Gear",
@@ -190,7 +197,81 @@
             "pedagogie": "Teaching & Professional Stunts",
             "multimedia": "Multimedia & Production",
             "etablissement": "Accommodation & Nutrition"
-        }
+        },
+        "partners": [
+            {
+                "name": "Qualiopi",
+                "category": "Certification",
+                "role": "Qualiopi certification",
+                "description": "Quality certification for training courses (eligible for AFDAS and France Travail funding)."
+            },
+            {
+                "name": "Nike",
+                "category": "Equipment supplier",
+                "role": "Apparel & Footwear",
+                "description": "Sports equipment supplier (apparel and sports footwear)."
+            },
+            {
+                "name": "RXR Protect",
+                "category": "Protective gear",
+                "role": "Body Protection",
+                "description": "Inflatable body protection vests and equipment (Air Shock Absorber technology)."
+            },
+            {
+                "name": "Gravity",
+                "category": "Sportswear",
+                "role": "Parkour Apparel",
+                "description": "Clothing and streetwear for parkour and freerunning."
+            },
+            {
+                "name": "C17 Special Effects",
+                "category": "Special Effects",
+                "role": "SFX & Pyrotechnics",
+                "description": "Physical special effects, pyrotechnics and film armoury."
+            },
+            {
+                "name": "Kiloutou",
+                "category": "Equipment Rental",
+                "role": "Lifting & Platforms",
+                "description": "Rental of aerial platforms, lifting gear and construction equipment."
+            },
+            {
+                "name": "TM Incendie",
+                "category": "Fire Safety",
+                "role": "Fire Protection",
+                "description": "Sales and maintenance of fire safety equipment and extinguishers."
+            },
+            {
+                "name": "Action Cascade",
+                "category": "Stunts & Filming",
+                "role": "Stunt Coordination",
+                "description": "Stunt team and stunt coordination for film, TV and live shows."
+            },
+            {
+                "name": "AYA Catch",
+                "category": "Wrestling",
+                "role": "Professional Wrestling",
+                "description": "French school and association for professional wrestling and scripted fighting."
+            },
+            {
+                "name": "Cascade Demo Team",
+                "category": "Martial Arts & Acrobatics",
+                "role": "Demonstration & XMA",
+                "description": "Extreme martial arts (XMA) demonstration team and martial acrobatics."
+            },
+            {
+                "name": "Xtrem Video",
+                "category": "Media & Video",
+                "role": "Extreme Sports Media",
+                "description": "Production and distribution of action and extreme sports video content."
+            },
+            {
+                "name": "TaffCoeur",
+                "category": "Audiovisual Production",
+                "role": "Directing & Filming",
+                "description": "Video production studio, music videos and live show filming."
+            }
+        ]
     },
     "team": {
         "badge": "COACHES & FILM PROFESSIONALS",

@@ -1,9 +1,9 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T17:16:30.075Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T17:19:37.161Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **25** — occurrences : **209**
+Pages contrôlées : **27** — pages avec français résiduel : **25** — occurrences : **188**
 
 ## /en/formation-de-cascadeur — 11 occurrence(s)
 
@@ -77,31 +77,10 @@ Pages contrôlées : **27** — pages avec français résiduel : **25** — occu
 | texte visible | COORDINATEUR RÉFÉRENT : |
 | texte visible | TÉLÉPHONE DIRECT : |
 
-## /en/partenaires — 27 occurrence(s)
+## /en/partenaires — 6 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | ÉQUIPEMENTIERS • CINÉMA • INSTITUTIONNELS • ÉTAT |
-| texte visible | Équipementier |
-| texte visible | Équipementier sportif (textiles et chaussures de sport). |
-| texte visible | Gilets et équipements de protection corporelle gonflables (technologie Air Shock Absorber). |
-| texte visible | Vêtements de sport |
-| texte visible | Vêtements et streetwear pour le parkour et le freerunning. |
-| texte visible | Effets Spéciaux |
-| texte visible | Effets spéciaux physiques, pyrotechnie et armurerie pour le cinéma. |
-| texte visible | Location de Matériel |
-| texte visible | Location de nacelles élévatrices, engins de levage et matériel de chantier. |
-| texte visible | Sécurité Incendie |
-| texte visible | Vente et maintenance de matériel de sécurité incendie et extincteurs. |
-| texte visible | Équipe de cascadeurs et coordination de cascades pour les tournages et spectacles. |
-| texte visible | École et association française de catch professionnel et lutte scénarisée. |
-| texte visible | Démonstration & XMA |
-| texte visible | Troupe de démonstration d'arts martiaux artistiques (XMA) et acrobaties martiales. |
-| texte visible | Média Sports Extrêmes |
-| texte visible | Média & Vidéo |
-| texte visible | Production et distribution de contenus vidéo de sports d'action et extrêmes. |
-| texte visible | Réalisation & Captation |
-| texte visible | Studio de réalisation vidéo, clips et captations de spectacles. |
 | texte visible | Hébergement & Restauration |
 | texte visible | Hébergement & Accueil |
 | texte visible | Hébergement et restauration des stagiaires au Cateau-Cambrésis. |

@@ -183,6 +183,13 @@
         "roleMateriel": "Équipementier",
         "roleMedia": "Média",
         "roleInstitutionnel": "Institutionnel",
+        "breadcrumbHome": "ACCUEIL",
+        "breadcrumbCurrent": "PARTENAIRES",
+        "heroBadge": "ILS NOUS ACCOMPAGNENT",
+        "heroTitle": "NOS PARTENAIRES",
+        "heroSubtitle": "Équipementiers, effets spéciaux, protections et structures partenaires du Campus Univers Cascades.",
+        "heroImageAlt": "Partenaires du Campus Univers Cascades",
+        "heroMeta": "ÉQUIPEMENTIERS • CINÉMA • INSTITUTIONNELS • ÉTAT",
         "categories": {
             "agrement": "Agrément & Certification d'État",
             "equipementiers": "Équipementiers & Protections",
@@ -190,7 +197,81 @@
             "pedagogie": "Pédagogie & Cascades Professionnelles",
             "multimedia": "Multimédia & Production",
             "etablissement": "Établissement & Nutrition"
-        }
+        },
+        "partners": [
+            {
+                "name": "Qualiopi",
+                "category": "Certification",
+                "role": "Certification Qualiopi",
+                "description": "Certification qualité des actions de formation (éligible AFDAS, France Travail)."
+            },
+            {
+                "name": "Nike",
+                "category": "Équipementier",
+                "role": "Textiles & Chaussures",
+                "description": "Équipementier sportif (textiles et chaussures de sport)."
+            },
+            {
+                "name": "RXR Protect",
+                "category": "Protections",
+                "role": "Protections Corporelles",
+                "description": "Gilets et équipements de protection corporelle gonflables (technologie Air Shock Absorber)."
+            },
+            {
+                "name": "Gravity",
+                "category": "Vêtements de sport",
+                "role": "Textiles Parkour",
+                "description": "Vêtements et streetwear pour le parkour et le freerunning."
+            },
+            {
+                "name": "C17 Special Effects",
+                "category": "Effets Spéciaux",
+                "role": "SFX & Pyrotechnie",
+                "description": "Effets spéciaux physiques, pyrotechnie et armurerie pour le cinéma."
+            },
+            {
+                "name": "Kiloutou",
+                "category": "Location de Matériel",
+                "role": "Levage & Nacelles",
+                "description": "Location de nacelles élévatrices, engins de levage et matériel de chantier."
+            },
+            {
+                "name": "TM Incendie",
+                "category": "Sécurité Incendie",
+                "role": "Protection Incendie",
+                "description": "Vente et maintenance de matériel de sécurité incendie et extincteurs."
+            },
+            {
+                "name": "Action Cascade",
+                "category": "Cascades & Tournage",
+                "role": "Coordination de Cascades",
+                "description": "Équipe de cascadeurs et coordination de cascades pour les tournages et spectacles."
+            },
+            {
+                "name": "AYA Catch",
+                "category": "Catch & Lutte",
+                "role": "Catch Professionnel",
+                "description": "École et association française de catch professionnel et lutte scénarisée."
+            },
+            {
+                "name": "Cascade Demo Team",
+                "category": "Arts Martiaux & Acrobaties",
+                "role": "Démonstration & XMA",
+                "description": "Troupe de démonstration d'arts martiaux artistiques (XMA) et acrobaties martiales."
+            },
+            {
+                "name": "Xtrem Video",
+                "category": "Média & Vidéo",
+                "role": "Média Sports Extrêmes",
+                "description": "Production et distribution de contenus vidéo de sports d'action et extrêmes."
+            },
+            {
+                "name": "TaffCoeur",
+                "category": "Production Audiovisuelle",
+                "role": "Réalisation & Captation",
+                "description": "Studio de réalisation vidéo, clips et captations de spectacles."
+            }
+        ]
     },
     "team": {
         "badge": "COACHS & PROFESSIONNELS DU CINÉMA",

@@ -4,8 +4,20 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { ExternalLink, Film, Award } from 'lucide-react';
-import { CUC_PARTNERS } from './partenaires.data';
+import { CUC_PARTNERS, Partner } from './partenaires.data';
 import { getPartners, SitePartner } from '@/lib/data/site-service';
+
+/**
+ * Copie éditoriale d'un partenaire, appariée par NOM (les logos, sites et
+ * certificats restent dans les données). Un nom absent du catalogue retombe sur
+ * la donnée : jamais de champ vide.
+ */
+interface PartnerCopy {
+  name: string;
+  category?: string;
+  role?: string;
+  description?: string;
+}
 
 /**
  * Clés i18n des intitulés de groupes de `partenaires.data` (FR = source).
@@ -25,6 +37,22 @@ export const PartenairesGridSection: React.FC = () => {
   const t = useTranslations('partenaires');
   const [dbPartners, setDbPartners] = useState<SitePartner[]>([]);
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
+  const partnerCopy = t.raw('partners') as PartnerCopy[];
+
+  const copyByName = React.useMemo(
+    () => new Map(partnerCopy.map((copy) => [copy.name.toLowerCase().trim(), copy])),
+    [partnerCopy]
+  );
+
+  /** Rôle, catégorie et description localisés d'un partenaire (donnée en repli). */
+  const localized = (partner: Partner) => {
+    const copy = copyByName.get(partner.name.toLowerCase().trim());
+    return {
+      role: copy?.role || partner.role,
+      category: copy?.category || partner.category,
+      description: copy?.description || partner.description,
+    };
+  };
 
   useEffect(() => {
     getPartners().then((parts) => {
@@ -182,7 +210,7 @@ export const PartenairesGridSection: React.FC = () => {
                         rel="noopener noreferrer"
                         className="text-[#FFE500] hover:underline flex items-center gap-1 font-bold"
                       >
-                        <span>Site officiel</span>
+                        <span>{t('officialSite')}</span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     </div>
@@ -233,10 +261,10 @@ export const PartenairesGridSection: React.FC = () => {
 
                     <div className="flex items-center justify-between gap-2 mb-2">
                       <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold">
-                        {partner.role}
+                        {localized(partner).role}
                       </span>
                       <span className="text-[10px] font-mono-tech text-zinc-500 uppercase">
-                        {partner.category}
+                        {localized(partner).category}
                       </span>
                     </div>
 
@@ -245,7 +273,7 @@ export const PartenairesGridSection: React.FC = () => {
                     </h3>
 
                     <p className="text-xs font-tech text-zinc-300 leading-relaxed">
-                      {partner.description}
+                      {localized(partner).description}
                     </p>
                   </div>
 
