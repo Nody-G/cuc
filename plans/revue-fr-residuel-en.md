@@ -1,9 +1,9 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T17:35:40.655Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T17:36:26.450Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **9** — occurrences : **92**
+Pages contrôlées : **27** — pages avec français résiduel : **8** — occurrences : **91**
 
 ## /en/formation-de-cascadeur — 11 occurrence(s)
 
@@ -123,12 +123,6 @@ Pages contrôlées : **27** — pages avec français résiduel : **9** — occur
 | texte visible | Standard Admissions : Téléphone : |
 | texte visible | Pôle Île-de-France (Studio Paris) : Studio de Répétition & Comédiens |
 | texte visible | Planifier une Visite ou Réserver un Stage |
-
-## /en/visite-virtuelle — 1 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | A 21-metre jump tower, the Zoé Bell training hall, dojos, an equestrian ring and mechanical stunt hangars gathered on one private estate. |
 
 ## /en/videos-cascadeur — 1 occurrence(s)
 

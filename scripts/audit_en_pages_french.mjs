@@ -215,7 +215,7 @@ const ALLOWLIST = [
     /@campusuniverscascades|@campus\.univers\.cascades/i,
     // Faux positifs assumés : sigle égal en FR et EN, et lieux/décors du site.
     /Stunt Academy & Team\b/i,
-    /Zo[eé] Bell Hall/i,
+    /Zo[eé] Bell/i,
     /Op[eé]ra\b/i,
     // Titres d'émissions et de séries diffusées : noms propres, non traduits.
     /20H30 Le Mag/i,
