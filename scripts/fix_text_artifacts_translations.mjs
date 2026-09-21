@@ -31,6 +31,23 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import dotenv from 'dotenv';
 
+/**
+ * Règles de réparation : SOURCE UNIQUE, partagée avec l'auto-test. Aucune règle
+ * typographique ne doit être réimplémentée localement — l'incident du
+ * 2026-09-21 (9 caractères perdus) est né d'un motif de correction qui
+ * consommait les caractères de bord de la suite d'espaces.
+ * Voir `scripts/lib/text-repairs.mjs` et `scripts/selftest_text_repairs.mjs`.
+ */
+import {
+    DOUBLE_SPACE_DETECT,
+    ESCAPED_AMP,
+    PUNCT_EN,
+    collapseSpaceRuns,
+    decodeEscapedAmp,
+    fixEnglishPunctuation,
+    preservesSubstance,
+} from './lib/text-repairs.mjs';
+
 dotenv.config({ path: '.env.local' });
 
 const URL_BASE = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, '');
@@ -48,26 +65,6 @@ const HEADERS = {
     'Content-Type': 'application/json',
 };
 
-/** « et commercial » — composé à l'exécution : le canal d'écriture décode les entités. */
-const AMP = String.fromCharCode(38);
-const ESCAPED_AMP = `${AMP}amp;`;
-
-const DOUBLE_SPACE = /\S {2,}\S/g;
-
-/** Espace avant ponctuation en anglais — l'ellipse sera préservée. */
-const PUNCT_EN = / [,.!?;:]/g;
-
-/**
- * Colle la ponctuation au mot précédent (anglais), sans toucher à l'ellipse :
- * `unit : Police` → `unit: Police`, mais `indifferent ...` reste inchangé.
- */
-function fixEnglishPunctuation(text) {
-    return text.replace(PUNCT_EN, (match, offset, whole) => {
-        const char = match.slice(1);
-        if (char === '.' && whole.slice(offset + 1, offset + 4) === '...') return match;
-        return char;
-    });
-}
 
 /** Parcourt une valeur JSON et transforme chaque chaîne rencontrée. */
 function mapStrings(value, transform) {
@@ -99,7 +96,7 @@ function inspect(text) {
         const at = text.indexOf(ESCAPED_AMP);
         defects.push({ kind: 'entité échappée', token: ESCAPED_AMP, context: show(text, at) });
     }
-    for (const match of text.matchAll(DOUBLE_SPACE)) {
+    for (const match of text.matchAll(DOUBLE_SPACE_DETECT)) {
         const at = match.index ?? 0;
         defects.push({ kind: 'double espace', token: '␣␣', context: show(text, at + 1) });
     }
@@ -157,14 +154,29 @@ for (const row of rows) {
     if (!defects.length) continue;
 
     const repaired = mapStrings(row.payload, (text) =>
-        fixEnglishPunctuation(text.split(ESCAPED_AMP).join(AMP).replace(DOUBLE_SPACE, ' '))
+        fixEnglishPunctuation(collapseSpaceRuns(decodeEscapedAmp(text)))
     );
 
     // Un signal en bordure (non corrigé) ne doit pas déclencher d'écriture :
     // on n'enregistre que les lignes dont le payload change réellement.
     const changed = JSON.stringify(repaired) !== JSON.stringify(row.payload);
 
-    repairs.push({ row, defects, repaired, changed });
+    /**
+     * GARDE-FOU « AUCUN CARACTÈRE PERDU ».
+     *
+     * Le 2026-09-21, le motif `/\S {2,}\S/g` (qui inclut les caractères de bord)
+     * associé à `.replace(motif, ' ')` a supprimé 9 caractères réels
+     * (`Gloria  needs` → `Glori eeds`). L'audit ne pouvait pas le voir : le
+     * défaut signalé avait bel et bien disparu.
+     *
+     * Invariant désormais vérifié : après retrait de TOUS les espaces et
+     * décodage des entités, le texte réparé doit être **strictement identique**
+     * à l'original. Toute perte de caractère invalide la ligne, qui n'est pas
+     * écrite et est signalée comme refusée.
+     */
+    const safe = preservesSubstance(row.payload, repaired);
+
+    repairs.push({ row, defects, repaired, changed, safe });
 }
 
 let totalDefects = 0;
@@ -213,7 +225,11 @@ if (!WRITE) {
     process.exit(0);
 }
 
-const writable = repairs.filter((item) => item.changed);
+const writable = repairs.filter((item) => item.changed && item.safe);
+const refused = repairs.filter((item) => !item.safe);
+for (const item of refused) {
+    console.error(`REFUSÉ   ${item.row.entity}/${item.row.entity_id} — le garde-fou a détecté une perte de caractères`);
+}
 let applied = 0;
 for (const { row, repaired } of writable) {
     const url = `${URL_BASE}/rest/v1/site_translations?entity=eq.${encodeURIComponent(row.entity)}&entity_id=eq.${encodeURIComponent(row.entity_id)}&locale=eq.en`;

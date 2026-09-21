@@ -26,6 +26,7 @@
     "i18n:fix:typos-editoriales:write": "node scripts/fix_editorial_typos.mjs --write",
     "i18n:fix:artefacts": "node scripts/fix_text_artifacts_translations.mjs",
     "i18n:fix:artefacts:write": "node scripts/fix_text_artifacts_translations.mjs --write",
+    "i18n:selftest:repairs": "node scripts/selftest_text_repairs.mjs",
     "i18n:audit:completeness": "node scripts/audit_i18n_completeness.mjs",
     "i18n:audit:surface": "node scripts/audit_translation_surface.mjs",
     "i18n:audit:ui": "node scripts/audit_ui_i18n.mjs",
