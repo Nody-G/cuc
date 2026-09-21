@@ -29,6 +29,8 @@
     "i18n:fix:artefacts:write": "node scripts/fix_text_artifacts_translations.mjs --write",
     "i18n:selftest:repairs": "node scripts/selftest_text_repairs.mjs",
     "i18n:verify:texts": "npm run i18n:selftest:repairs && npm run i18n:audit:integrity && npm run i18n:audit:integrity:repo",
+    "i18n:verify:no-leak": "node scripts/verify_overlay_locale_leak.mjs",
+    "probe:dev": "node scripts/probe_public_routes.mjs http://localhost:3000",
     "i18n:audit:completeness": "node scripts/audit_i18n_completeness.mjs",
     "i18n:audit:surface": "node scripts/audit_translation_surface.mjs",
     "i18n:audit:ui": "node scripts/audit_ui_i18n.mjs",
