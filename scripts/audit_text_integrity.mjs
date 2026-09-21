@@ -87,6 +87,17 @@ const DOUBLE_SPACE = /\S {2,}\S/;
 
 /** Espace avant `,` ou `.` : fautif dans les deux langues. */
 const PUNCT_BOTH = / [,.]/g;
+
+/**
+ * Guillemets français `« »` dans un texte ANGLAIS.
+ *
+ * Signal sans ambiguïté : en anglais la citation utilise `"` ou `‘ ’`. Un
+ * guillemet français dans un overlay EN est donc toujours un reste du texte
+ * source — contrairement à ` : ` ou ` ; `, qui sont requis en français et
+ * fautifs en anglais. Signalé, jamais corrigé automatiquement : le passage aux
+ * guillemets anglais relève d'une décision de rédaction.
+ */
+const FRENCH_QUOTES = /[«»]/g;
 /** Espace avant `:` `;` `!` `?` : fautif en ANGLAIS, requis en FRANÇAIS. */
 const PUNCT_EN_ONLY = / [;:!?]/g;
 
@@ -201,11 +212,25 @@ review.push('');
 review.push(`Généré le ${new Date().toISOString()} par \`scripts/audit_text_integrity.mjs\`.`);
 review.push('');
 
-const totals = { mojibake: 0, apostrophes: 0, entities: 0, doubleSpace: 0, punctuation: 0 };
+const totals = {
+    mojibake: 0,
+    apostrophes: 0,
+    entities: 0,
+    doubleSpace: 0,
+    punctuation: 0,
+    frenchQuotes: 0,
+};
 
 for (const target of TARGETS) {
     const list = await rows(target.path);
-    const found = { mojibake: [], apostrophes: [], entities: [], doubleSpace: [], punctuation: [] };
+    const found = {
+        mojibake: [],
+        apostrophes: [],
+        entities: [],
+        doubleSpace: [],
+        punctuation: [],
+        frenchQuotes: [],
+    };
 
     for (const row of list) {
         const texts = [];
@@ -248,6 +273,16 @@ for (const target of TARGETS) {
                     sample: show(text, punctuation.at),
                 });
             }
+
+            // Guillemets français : signalés uniquement dans les textes anglais.
+            const quote = target.locale === 'en' ? FRENCH_QUOTES.exec(text) : null;
+            if (quote) {
+                found.frenchQuotes.push({
+                    id,
+                    detail: quote[0],
+                    sample: show(text, quote.index, 30, 30),
+                });
+            }
         }
     }
 
@@ -264,6 +299,7 @@ for (const target of TARGETS) {
         entities: 'entités HTML résiduelles',
         doubleSpace: 'doubles espaces',
         punctuation: 'espace avant ponctuation',
+        frenchQuotes: 'textes anglais contenant des guillemets français',
     };
     for (const [key, items] of Object.entries(found)) {
         if (!items.length) continue;
@@ -288,7 +324,8 @@ review.splice(
     `- Textes longs sans aucune apostrophe (FR) : **${totals.apostrophes}** texte(s)`,
     `- Entités HTML résiduelles : **${totals.entities}** texte(s)`,
     `- Doubles espaces : **${totals.doubleSpace}** texte(s)`,
-    `- Espace avant ponctuation : **${totals.punctuation}** texte(s)`
+    `- Espace avant ponctuation : **${totals.punctuation}** texte(s)`,
+    `- Guillemets français dans un texte anglais : **${totals.frenchQuotes}** texte(s) (signalés, non corrigés)`
 );
 
 mkdirSync('plans', { recursive: true });
@@ -296,6 +333,6 @@ writeFileSync('plans/revue-integrite-textes.md', review.join('\n'), 'utf8');
 
 console.log('');
 console.log(
-    `Mojibake : ${totals.mojibake} · Apostrophes : ${totals.apostrophes} · Entités : ${totals.entities} · Doubles espaces : ${totals.doubleSpace} · Ponctuation : ${totals.punctuation}`
+    `Mojibake : ${totals.mojibake} · Apostrophes : ${totals.apostrophes} · Entités : ${totals.entities} · Doubles espaces : ${totals.doubleSpace} · Ponctuation : ${totals.punctuation} · Guillemets FR : ${totals.frenchQuotes}`
 );
 console.log('Revue : plans/revue-integrite-textes.md\n');
