@@ -1,0 +1,582 @@
+{
+  "generatedAt": "2026-09-21T14:28:23.944Z",
+  "resolved": [
+    {
+      "legacyTitle": "Le Salaire de la Peur",
+      "legacyYear": "2024",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Le-salaire-de-la-peur.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BODM2MGM3ZDUtYThkOS00OTY1LThkNGMtMWRhNzM0NGQzZWVhXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Le salaire de la peur",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Machine",
+      "legacyYear": "2024",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Machine.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BMjQ3ODQzNDktYTdjYy00OTdmLTk1ODgtOWY5MWUwNWNkMWUwXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Machine",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Fiasco",
+      "legacyYear": "2024",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Fiasco.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNTZlMmUzMmUtZDY2MS00NjIxLTg3YTAtNjdmMDM4YmYxZmMzXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Fiasco",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "GTMAX",
+      "legacyYear": "2024",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/GTMAX.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BYzU0YmM3M2MtNjdiOS00ZjhhLWIyNWItMTcwODM5ZmM3ODAzXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "GTmax",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "The Killer",
+      "legacyYear": "2024",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/The-Killer.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BYjQ1MWNkNGQtMzI2ZC00OTJiLTljZDMtZTUxNDljNTI1MTk0XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "The Killer",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Largo Winch: Le Prix de l'argent",
+      "legacyYear": "2024",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Largo-Winch.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BOGI1M2ViODMtNmY0MS00NWVmLTg4MTAtMTIyNGE1OWViNjVkXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Largo Winch: Le prix de l'argent",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Sous la Seine",
+      "legacyYear": "2024",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Sous-la-seine.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BMDAxNDkzMzYtZTA4ZS00MWE0LTg1YWItNTU1ZTdjZDZmZGU1XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Sous la Seine",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Furies",
+      "legacyYear": "2024",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Furies.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNGQ5NTg0ZDMtMDdjNC00ZTM3LThkNjQtYjZkMjFlNzcyYTJlXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Furies",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Elyas",
+      "legacyYear": "2024",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/ELYAS.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNmI1MTBjMDItZGI4Ni00ZjYxLThlNzMtNDE4MThiYjY2MGIzXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Elyas",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Le Comte de Monte-Cristo",
+      "legacyYear": "2024",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/LE-COMTE-DE-MONTECRISTO-1.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BZWI4NTlhM2UtZmMxZS00ZTg0LThmNTEtYjM3MTEyYTU4NGRmXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Le Comte de Monte-Cristo",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "L'Amour Ouf",
+      "legacyYear": "2024",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Lamour-ouf.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNjY0NGU4NDMtYWI2ZS00NDE2LWE5MzUtM2UyODUyNmFmN2ZhXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "L'Amour ouf",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "The Substance",
+      "legacyYear": "2024",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/The-substance.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BZDQ1NGE5MGMtYzdlZC00ODExLWJlMDMtNWU4NjA5OWYwMDEwXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "The Substance",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Alibi.com 2",
+      "legacyYear": "2023",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Alibi2.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BYTUxMTI4ZWEtYzdjMS00ODA1LThiODQtYzNiOTM5ZDVhM2ZhXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Alibi.com 2",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Murder Mystery 2",
+      "legacyYear": "2023",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/murder-mystery-2.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BMDYxMjRjMjYtMjQ3MC00NWM0LWJkMzItYTVmZmJkOTM0OWRmXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Murder Mystery 2",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "John Wick: Chapitre 4",
+      "legacyYear": "2023",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/John-Wick-4.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNDI3OWNiMGItZmVkMS00Mjg3LWJhNzUtNDViMWU3OTJiODAyXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "John Wick : Chapitre 4",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Wednesday (Mercredi)",
+      "legacyYear": "2022",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Wednesday.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNmFjOGVlYzctMzVjMi00ZDkyLWE2NTAtODY4ZjUyYTFmZGY5XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Wednesday (Mercredi)",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Goliath",
+      "legacyYear": "2022",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/goliath.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNTE4N2QzMjgtYzM3OS00NzRkLWFhMGUtNmU3MTg3ZDk4M2IzXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Goliath",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Uncharted",
+      "legacyYear": "2022",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/uncharted.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNWQ4YWM2NjMtMjU3OC00MzA1LTg3ZGItODQ5ZjgyZWExZGU4XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Uncharted",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "The 355",
+      "legacyYear": "2022",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/355.jpg",
+      "realImage": "https://image.tmdb.org/t/p/w500/k26FYPVrLRHYnv5ZbMsIHFsjdIM.jpg",
+      "realTitle": "355",
+      "how": "TMDB (2022-01-05)"
+    },
+    {
+      "legacyTitle": "Lupin",
+      "legacyYear": "2021",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Lupin.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BZmRjZDJiZDktMmY5NS00ZWM3LTljYzUtNjFkZTRjMDk5NmZkXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Lupin",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Sentinelle",
+      "legacyYear": "2021",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Sentinelle.jpg",
+      "realImage": "https://image.tmdb.org/t/p/w500/l1beTFaB9b0fQ8swOyVsxSfOorB.jpg",
+      "realTitle": "Sentinelle",
+      "how": "TMDB (2021-03-05)"
+    },
+    {
+      "legacyTitle": "Black Widow",
+      "legacyYear": "2021",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/black-widow.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BZTMyZTA0ZTItYjY3Yi00ODNjLWExYTgtYzgxZTk0NTg0Y2FlXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Black Widow",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Braqueurs",
+      "legacyYear": "2021",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/braqueurs.jpg",
+      "realImage": "https://image.tmdb.org/t/p/w500/sxwMPWL627OnIBCBlKyMhER7DCO.jpg",
+      "realTitle": "Braqueurs",
+      "how": "surcharge (copie stockée retirée)"
+    },
+    {
+      "legacyTitle": "Bac Nord",
+      "legacyYear": "2021",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/bac-nord.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BOTA5Mzc5YmItYmY5YS00YzhlLTg4MGYtMzUwYWVlZTRmYjI2XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "BAC Nord",
+      "how": "titre (année 2021 → 2020)"
+    },
+    {
+      "legacyTitle": "Stillwater",
+      "legacyYear": "2021",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/stillwater.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNzMzNzEzZmYtYWI2NC00NTNjLWExNjEtMDJkYWJlNGRlZjA2XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Stillwater",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Dune",
+      "legacyYear": "2021",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/dune-1.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BMjAyMjBkN2QtMWZiOS00OWY1LTkzNjctNGRiYjg0ZTVlYjY0XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Dune",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Family Business",
+      "legacyYear": "2021",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/family-business.jpg",
+      "realImage": "https://image.tmdb.org/t/p/w500/iqEninKSpIyADR7hYt0ha4mlsa0.jpg",
+      "realTitle": "Baby Boss 2 : Une affaire de famille",
+      "how": "TMDB (2021-07-01)"
+    },
+    {
+      "legacyTitle": "Police",
+      "legacyYear": "2020",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Police.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNGQ0YzYyMzQtZTkwZi00YjZhLTk4ZjEtNzgwMDYxZTAyNDg1XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Police",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Balle Perdue",
+      "legacyYear": "2020",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Balle-perdue.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BY2M0MDA2MDAtYTUyNC00NGFlLTllYTEtMDE3NTlkMWM4ZTQ0XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Balle Perdue",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Bronx",
+      "legacyYear": "2020",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Bronx.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNmRmNDdkZDEtYTEyNy00ZmRkLTgyYjUtYTM5MzBiZWVmZjgxXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Bronx",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "30 Jours Max",
+      "legacyYear": "2020",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/30-Jours-max.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BYTM0MDlkMjktMGI5YS00N2RmLWFlYjctMzYzMGE4NmY5OWNkXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "30 jours max",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Nicky Larson",
+      "legacyYear": "2019",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Nikki-Larson.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNWRhYzcxMzktNzhmMC00ZWFjLWE1NmItMjMxZDBmOWIyNDRiXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Nicky Larson",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "6 Underground",
+      "legacyYear": "2019",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/6Underground.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNTNmZDgzMmMtMzJhMy00NGI3LWI5YTktYjg5MTllZmYyYTMxXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "6 Underground",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Les Misérables",
+      "legacyYear": "2019",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Les-Miderables.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BODQ1NGI4YzEtNGIyNy00M2QwLWFiOTYtYTU2MDE3YjU4MmMxXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Les Misérables",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Mortel",
+      "legacyYear": "2019",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Mortel.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BOWZiMmIyYjMtMTgzYi00ZGUyLWEzMTAtOTgyZmYwZWEyMWQ5XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Mortel",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Mission: Impossible - Fallout",
+      "legacyYear": "2018",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Mission-Impossible-Fallout.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BYWM0OWZlMzYtZWRjOS00OWZmLWJiMmItMmY1MDg3Mzk5ZWIzXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Mission: Impossible - Fallout",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Raid Dingue",
+      "legacyYear": "2017",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/5-Raid-dingue.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BMGM3NGZkMTktYzYyNS00NzRmLTlhMDEtNmQyNTIyMmY3YjFiXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "RAID Dingue",
+      "how": "titre (année 2017 → 2016)"
+    },
+    {
+      "legacyTitle": "Overdrive",
+      "legacyYear": "2017",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/32-Overdrive.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BYmRiMzU1MTAtNjAwMy00MjU3LTgzMmQtZjk4OTRlMzFhNDgzXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Overdrive",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Valérian et la Cité des mille planètes",
+      "legacyYear": "2017",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/1-Valerian.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BMjA3NzJhZjMtNTE2NC00MzNhLWE2ZTQtM2EyZWVkN2RlNDk5XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Valérian et la Cité des mille planètes",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Dunkerque (Dunkirk)",
+      "legacyYear": "2017",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/25-Dunkirk.jpg",
+      "realImage": "https://image.tmdb.org/t/p/w500/1VOKlC35yrwVKlfBSN52NY4zoF2.jpg",
+      "realTitle": "Dunkerque",
+      "how": "TMDB (2017-07-19)"
+    },
+    {
+      "legacyTitle": "Alibi.com",
+      "legacyYear": "2017",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/3-Alibi-com.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BMzQwYWRmMzgtOWViOS00ZTI4LWFhNDUtZTc0Y2RlZWNiMDhlXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Alibi.com",
+      "how": "titre (année 2017 → 2016)"
+    },
+    {
+      "legacyTitle": "Jason Bourne",
+      "legacyYear": "2016",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/26-Jason-Bourne-5.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BOWU4YzUxZjItZjMwYS00NDdjLTkwOWYtYTM5MTMzMzg2NWM2XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Jason Bourne",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Bastille Day",
+      "legacyYear": "2016",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/20-Bastille-day.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BZTNiZjQyOTUtYWE1YS00OTUwLTk2N2QtMjUxZjE2M2ZiZTBjXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Bastille Day",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "007 Spectre",
+      "legacyYear": "2015",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/4-James-Bond-spectre.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNjkyYmM4MzItYzM5OC00ZmY4LWFjZGUtODUwNWQxNTVkMTY0XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "007 Spectre",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Taken 3",
+      "legacyYear": "2015",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/7-Taken-3.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BMTllYTg2YTUtMzgzNi00MDg0LWJhZmItODhjNjA1Yzk3MzczXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Taken 3",
+      "how": "titre (année 2015 → 2014)"
+    },
+    {
+      "legacyTitle": "Le Transporteur Héritage",
+      "legacyYear": "2015",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/11-Le-Transporteur-HCritage.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BZjRmOTY1NTUtMTYxMC00YzZhLWFhYTgtZmE0NzMyOTU3YjE3XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Le Transporteur: Héritage",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "The Hunger Games",
+      "legacyYear": "2014",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/8-The-Hunger-Games-Mockingjay-Part-1.jpg",
+      "realImage": "https://image.tmdb.org/t/p/w500/4LzjVMUit99buiiuhqW4pe0OhmA.jpg",
+      "realTitle": "Hunger Games : La Révolte - Partie 1",
+      "how": "TMDB (2014-11-19)"
+    },
+    {
+      "legacyTitle": "L'Affaire SK1",
+      "legacyYear": "2014",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/33-SK1.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNGY2YjExYjMtYWE3OS00MmZjLWEwYzktYTBlMzdkOGZhYTNlXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "L'affaire SK1",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "3 Days to Kill",
+      "legacyYear": "2014",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/10-3-Day-to-kill.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNzE1M2UyZTEtMmQxNi00MDQ2LWI2NWItNzNjNjRkOGQzOTI0XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "3 Days to Kill",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Lucy",
+      "legacyYear": "2014",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/6-Lucy.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BZDIxYzM5ZGUtYzczMy00Yzc4LWFhNGEtMzJhZGI2ZTg0ZmRiXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Lucy",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Fast & Furious 6",
+      "legacyYear": "2013",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/9-Fast-Furious-6.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BN2RhYjk1YjUtZjc2NS00YjUxLWE1YTctNWI3NjY1ZWVmZDQ1XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Fast & Furious 6",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Malavita",
+      "legacyYear": "2013",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/30-Malavita.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BMzk2ZmUyMmQtNGU2YS00MGExLWFiMDctNGM1NDY1NmE0N2I0XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Malavita",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Taken 2",
+      "legacyYear": "2012",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/34-Taken-2.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BODhhMDQ3OGUtZjc0Yy00NWU5LTkxZTUtYTBiYTc3Mzg5MmM0XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Taken 2",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "De l'autre côté du périph",
+      "legacyYear": "2012",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/12-De-lautre-cotC-du-periph.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BOGY4OTMyOTItOWJjMy00Njk0LWEyMjktZmZiMGQ1MjM3NzlhXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "De l'autre côté du périph",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "From Paris with Love",
+      "legacyYear": "2010",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/13-From-Paris-with-Love.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BOGY4OWQ1ZTAtOGRlYi00YWM1LWI4ODItOWQwZDgwNmY5ZmZhXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "From Paris with Love",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Un Prophète",
+      "legacyYear": "2009",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/36-Un-prophete.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNGMwY2RlMDMtNTJmZC00ZTczLWE5MzEtNjFiYzVhNDY5NDQ5XkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Un prophète",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Banlieue 13: Ultimatum",
+      "legacyYear": "2009",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/14-D13-U-District13-ultimatum.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BOTBiMTUyNmMtYWU1NS00MDdmLThhZmUtNGM1MWJiMGM4NDYwXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Banlieue 13: Ultimatum",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Largo Winch",
+      "legacyYear": "2008",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/28-Largo-Winch.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BMjI2MTY4OTkwOV5BMl5BanBnXkFtZTcwNzg2NjM5Ng@@._V1_.jpg",
+      "realTitle": "Largo Winch",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Mesrine: L'Ennemi public n°1",
+      "legacyYear": "2008",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/16-Mesrine-Part-2-Public-Enemy-1.jpg",
+      "realImage": "https://image.tmdb.org/t/p/w500/grGCEm89Mu1iSgF3e2ZGpizQCMH.jpg",
+      "realTitle": "Mesrine : L'Ennemi public n°1",
+      "how": "TMDB (2008-11-19)"
+    },
+    {
+      "legacyTitle": "Babylon A.D.",
+      "legacyYear": "2008",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/19-Babylone-AD.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BMTk5MzQxMzk0Nl5BMl5BanBnXkFtZTcwOTM3NDA3MQ@@._V1_.jpg",
+      "realTitle": "Babylon A.D.",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Taxi 4",
+      "legacyYear": "2007",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/17-Taxi-4.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BYTJhY2RmNzUtMDk3ZS00ZDI4LWI3M2YtOTVmOGE5MDg5YjIxXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Taxi 4",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Danny the Dog",
+      "legacyYear": "2005",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/24-Danny-the-dog.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BMTgwNjIyNTczMF5BMl5BanBnXkFtZTcwODI5MDkyMQ@@._V1_.jpg",
+      "realTitle": "Danny the Dog",
+      "how": "titre+année"
+    },
+    {
+      "legacyTitle": "Yamakasi: Les samouraïs des temps modernes",
+      "legacyYear": "2001",
+      "legacyImage": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/18-Yamakasi.jpg",
+      "realImage": "https://m.media-amazon.com/images/M/MV5BNGU4ZTg1M2QtZDNkOS00ZThmLTg5NDQtMWMwYzBkMzhjYzAyXkEyXkFqcGc@._V1_.jpg",
+      "realTitle": "Yamakasi : Les Samouraïs des temps modernes",
+      "how": "titre+année"
+    }
+  ],
+  "unresolved": [],
+  "toDelete": [
+    "media/film-poster/1-Valerian.jpg",
+    "media/film-poster/10-3-Day-to-kill.jpg",
+    "media/film-poster/11-Le-Transporteur-HCritage.jpg",
+    "media/film-poster/12-De-lautre-cotC-du-periph.jpg",
+    "media/film-poster/13-From-Paris-with-Love.jpg",
+    "media/film-poster/14-D13-U-District13-ultimatum.jpg",
+    "media/film-poster/16-Mesrine-Part-2-Public-Enemy-1.jpg",
+    "media/film-poster/17-Taxi-4.jpg",
+    "media/film-poster/18-Yamakasi.jpg",
+    "media/film-poster/19-Babylone-AD.jpg",
+    "media/film-poster/20-Bastille-day.jpg",
+    "media/film-poster/24-Danny-the-dog.jpg",
+    "media/film-poster/25-Dunkirk.jpg",
+    "media/film-poster/26-Jason-Bourne-5.jpg",
+    "media/film-poster/28-Largo-Winch.jpg",
+    "media/film-poster/3-Alibi-com.jpg",
+    "media/film-poster/3-Le-site-photos-du-bas-2.jpg",
+    "media/film-poster/30-Jours-max.jpg",
+    "media/film-poster/30-Malavita.jpg",
+    "media/film-poster/32-Overdrive.jpg",
+    "media/film-poster/33-SK1.jpg",
+    "media/film-poster/34-Taken-2.jpg",
+    "media/film-poster/355.jpg",
+    "media/film-poster/36-Un-prophete.jpg",
+    "media/film-poster/4-James-Bond-spectre.jpg",
+    "media/film-poster/5-Raid-dingue.jpg",
+    "media/film-poster/6-Lucy.jpg",
+    "media/film-poster/6Underground.jpg",
+    "media/film-poster/7-Taken-3.jpg",
+    "media/film-poster/8-The-Hunger-Games-Mockingjay-Part-1.jpg",
+    "media/film-poster/9-Fast-Furious-6.jpg",
+    "media/film-poster/Alibi2.jpg",
+    "media/film-poster/bac-nord.jpg",
+    "media/film-poster/Balle-perdue.jpg",
+    "media/film-poster/black-widow.jpg",
+    "media/film-poster/braqueurs.jpg",
+    "media/film-poster/Bronx.jpg",
+    "media/film-poster/dune-1.jpg",
+    "media/film-poster/ELYAS.jpg",
+    "media/film-poster/family-business.jpg",
+    "media/film-poster/Fiasco.jpg",
+    "media/film-poster/Furies.jpg",
+    "media/film-poster/goliath.jpg",
+    "media/film-poster/GTMAX.jpg",
+    "media/film-poster/John-Wick-4.jpg",
+    "media/film-poster/Lamour-ouf.jpg",
+    "media/film-poster/Largo-Winch.jpg",
+    "media/film-poster/LE-COMTE-DE-MONTECRISTO-1.jpg",
+    "media/film-poster/Le-salaire-de-la-peur.jpg",
+    "media/film-poster/Les-Miderables.jpg",
+    "media/film-poster/Lupin.jpg",
+    "media/film-poster/Machine.jpg",
+    "media/film-poster/Mission-Impossible-Fallout.jpg",
+    "media/film-poster/Mortel.jpg",
+    "media/film-poster/murder-mystery-2.jpg",
+    "media/film-poster/Nikki-Larson.jpg",
+    "media/film-poster/Police.jpg",
+    "media/film-poster/Sentinelle.jpg",
+    "media/film-poster/Sous-la-seine.jpg",
+    "media/film-poster/stillwater.jpg",
+    "media/film-poster/The-Killer.jpg",
+    "media/film-poster/The-substance.jpg",
+    "media/film-poster/uncharted.jpg",
+    "media/film-poster/Wednesday.jpg",
+    "media/cuc-visual/Bandeau-Films-Lucas-CUC-bis-scaled.jpg",
+    "media/cuc-visual/Bandeau-2023-scaled.jpg",
+    "media/cuc-visual/Bandeau-images-films.png",
+    "media/cuc-visual/Bandes-affiches-film-1-1.png",
+    "media/cuc-visual/Bandes-affiches-film-3.png",
+    "media/cuc-visual/Bandes-affiches-film-4.png"
+  ]
+}

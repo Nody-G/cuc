@@ -14,6 +14,11 @@ interface TeamBannersSectionProps {
 export const TeamBannersSection: React.FC<TeamBannersSectionProps> = ({
   onOpenLightbox,
 }) => {
+  // Les frises d'affiches héritées de l'ancien site ont été supprimées au profit
+  // des vraies affiches servies par le catalogue : sans bandeau, la section n'a
+  // plus aucun contenu, on ne rend donc rien du tout.
+  if (BANNER_GALLERY.length === 0) return null;
+
   return (
     <section id="affiches" className="py-16 bg-[#0c0c10] border-b border-zinc-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

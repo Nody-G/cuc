@@ -63,6 +63,12 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "media-amazon.com",
       },
+      // Affiches officielles TMDB : source retenue pour les films dont le
+      // visuel historique (ancien site) a été supprimé — aucune copie stockée.
+      {
+        protocol: "https",
+        hostname: "image.tmdb.org",
+      },
       {
         protocol: "https",
         hostname: "ia.media-imdb.com",

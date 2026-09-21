@@ -51,28 +51,28 @@ const FEATURED_PRODUCTIONS: HighlightProject[] = [
     year: '2024',
     category: 'Cinéma Français',
     actors: 'Cascades & combats',
-    poster: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/LE-COMTE-DE-MONTECRISTO-1.jpg',
+    poster: 'https://m.media-amazon.com/images/M/MV5BZWI4NTlhM2UtZmMxZS00ZTg0LThmNTEtYjM3MTEyYTU4NGRmXkEyXkFqcGc@._V1_.jpg',
   },
   {
     title: 'John Wick : Chapitre 4',
     year: '2023',
     category: 'Blockbuster US',
     actors: 'Cascadeurs CUC (tournage Paris)',
-    poster: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/John-Wick-4.jpg',
+    poster: 'https://m.media-amazon.com/images/M/MV5BNDI3OWNiMGItZmVkMS00Mjg3LWJhNzUtNDViMWU3OTJiODAyXkEyXkFqcGc@._V1_.jpg',
   },
   {
     title: 'The Substance',
     year: '2024',
     category: 'Cinéma',
     actors: 'Demi Moore & M. Qualley',
-    poster: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/The-substance.jpg',
+    poster: 'https://m.media-amazon.com/images/M/MV5BZDQ1NGE5MGMtYzdlZC00ODExLWJlMDMtNWU4NjA5OWYwMDEwXkEyXkFqcGc@._V1_.jpg',
   },
   {
     title: "L'Amour Ouf",
     year: '2024',
     category: 'Cinéma Français',
     actors: 'Équipe cascades CUC',
-    poster: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Lamour-ouf.jpg',
+    poster: 'https://m.media-amazon.com/images/M/MV5BNjY0NGU4NDMtYWI2ZS00NDE2LWE5MzUtM2UyODUyNmFmN2ZhXkEyXkFqcGc@._V1_.jpg',
   },
 ];
 

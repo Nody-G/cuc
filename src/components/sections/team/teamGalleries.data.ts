@@ -26,8 +26,9 @@ export const CASCADEUR_GALLERY: LightboxImage[] = [
 ];
 
 export const EQUIPMENT_GALLERY: LightboxImage[] = [
+  // Visuel hérité retiré : une photo du site stockée dans le dossier des
+  // affiches de films (`media/film-poster`), dossier intégralement supprimé.
   { src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/CUC-5.0-320-e1671701864164.jpg', title: 'Équipements CUC', category: 'Les Équipements' },
-  { src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/3-Le-site-photos-du-bas-2.jpg', title: 'Équipements CUC', category: 'Les Équipements' },
   { src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Airbag-vert.jpg', title: 'Équipements CUC', category: 'Les Équipements' },
   { src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/CUC-5.0-462-e1671701953374.jpg', title: 'Équipements CUC', category: 'Les Équipements' },
   { src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Matelas.png', title: 'Équipements CUC', category: 'Les Équipements' },
