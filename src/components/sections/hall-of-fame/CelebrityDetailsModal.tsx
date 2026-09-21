@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { DoubledCelebrity } from '@/types';
 import { X, Clapperboard, ExternalLink } from 'lucide-react';
 import { ImdbLogo } from '@/components/ui/BrandLogos';
@@ -15,6 +16,8 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
   celebrity,
   onClose,
 }) => {
+  const t = useTranslations('teamProduction');
+
   if (!celebrity) return null;
 
   return (
@@ -31,13 +34,13 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
           <div className="flex items-center gap-2">
             <Clapperboard className="w-4 h-4 text-[#FFE500]" />
             <span className="text-xs font-mono-tech text-zinc-300 font-bold uppercase tracking-wider">
-              Fiche Tournage &amp; Cascades
+                            {t('celebrityModal.title')}
             </span>
           </div>
           <button
             onClick={onClose}
             className="text-zinc-400 hover:text-white p-1 hover:bg-zinc-800 rounded-xs transition-colors cursor-pointer"
-            aria-label="Fermer"
+            aria-label={t('celebrityModal.closeAria')}
           >
             <X className="w-4 h-4" />
           </button>
@@ -69,7 +72,7 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
               {celebrity.stuntDoubles ? (
                 <div className="space-y-1">
                   <span className="text-[11px] font-mono-tech text-[#FFE500] uppercase font-bold block">
-                    Doublure cascades :
+                    {t('celebrityModal.doublesLabel')}
                   </span>
                   <span className="text-xs text-white font-mono-tech font-bold">
                     {celebrity.stuntDoubles}
@@ -81,7 +84,7 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
               {celebrity.stuntSpecialty ? (
                 <div className="space-y-1">
                   <span className="text-[11px] font-mono-tech text-zinc-400 uppercase font-bold block">
-                    Cascades &amp; scènes d&apos;action :
+                    {t('celebrityModal.scenesLabel')}
                   </span>
                   <p className="text-xs text-zinc-300 font-tech leading-relaxed">
                     {celebrity.stuntSpecialty}
@@ -92,7 +95,7 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
               {/* Films */}
               <div className="space-y-1.5">
                 <span className="text-[11px] font-mono-tech text-zinc-500 uppercase font-bold block">
-                  Films :
+                  {t('celebrityModal.filmsLabel')}
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {celebrity.productions.map((p, idx) => (
@@ -116,7 +119,7 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                     className="inline-flex items-center gap-2 px-3 py-2 bg-[#f5c518] hover:bg-[#ffe500] text-black font-bold font-mono-tech text-xs transition-colors"
                   >
                     <ImdbLogo className="h-3.5 w-auto" />
-                    <span>Fiche IMDb</span>
+                    <span>{t('celebrityModal.imdbCta')}</span>
                     <ExternalLink className="w-3 h-3 ml-0.5" />
                   </a>
                 </div>
@@ -131,7 +134,7 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
             onClick={onClose}
             className="text-zinc-400 hover:text-white uppercase font-bold cursor-pointer transition-colors"
           >
-            Fermer
+            {t('celebrityModal.close')}
           </button>
         </div>
       </div>

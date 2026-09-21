@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { DOUBLED_CELEBRITIES } from '@/data/filmography';
 import { getCelebrities } from '@/lib/data/site-service';
 import { DoubledCelebrity } from '@/types';
@@ -12,6 +13,12 @@ interface CelebrityDoublesGalleryProps {
   onSelectCelebrity: (celebrity: DoubledCelebrity) => void;
 }
 
+interface CelebrityCopy {
+  id: string;
+  specialty?: string;
+  doubles?: string;
+}
+
 /**
  * Galerie des comédiens doublés.
  *
@@ -19,11 +26,34 @@ interface CelebrityDoublesGalleryProps {
  * (français / international) ne reposait sur aucune preuve éditoriale. Les
  * fiches restent factuelles : comédien, productions, doublure éventuellement
  * renseignée, profil IMDb.
+ *
+ * Les libellés descriptifs (« cascades & scènes d'action », doublure) sont
+ * traduits par le catalogue (`teamProduction.celebrities`, appariement par `id`).
  */
 export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = ({
   onSelectCelebrity,
 }) => {
+  const t = useTranslations('teamProduction');
   const [celebrities, setCelebrities] = useState<DoubledCelebrity[]>(DOUBLED_CELEBRITIES);
+
+  const copyById = useMemo(() => {
+    const copies = t.raw('celebrities') as CelebrityCopy[];
+    return new Map(copies.map((copy) => [copy.id, copy]));
+  }, [t]);
+
+  const localizedCelebrities = useMemo(
+    () =>
+      celebrities.map((actor) => {
+        const copy = copyById.get(actor.id);
+        if (!copy) return actor;
+        return {
+          ...actor,
+          stuntSpecialty: copy.specialty || actor.stuntSpecialty,
+          stuntDoubles: copy.doubles || actor.stuntDoubles,
+        };
+      }),
+    [celebrities, copyById]
+  );
 
   useEffect(() => {
     getCelebrities().then(setCelebrities);
@@ -38,14 +68,14 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
           <div className="flex items-center gap-2 mb-2">
             <UserCheck className="w-5 h-5 text-[#FFE500]" />
             <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
-              ACTEURS &amp; TOURNAGES
+              {t('hallOfFame.actorsBadge')}
             </span>
           </div>
           <h3 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-tight text-white">
-            LES ACTEURS DOUBLÉS &amp; PRODUCTIONS
+            {t('hallOfFame.actorsTitle')}
           </h3>
           <p className="text-xs sm:text-sm text-zinc-400 font-tech mt-1 max-w-2xl">
-            Les formateurs et cascadeurs du Campus Univers Cascades interviennent sur les scènes d&apos;action des tournages français et internationaux.
+            {t('hallOfFame.actorsIntro')}
           </p>
         </div>
 
@@ -53,7 +83,7 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
 
       {/* Celebrities Grid with Real Portraits & Clean Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-8">
-        {celebrities.map((actor) => (
+        {localizedCelebrities.map((actor) => (
           <div
             key={actor.id}
             onClick={() => onSelectCelebrity(actor)}
@@ -63,7 +93,7 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
             <div className="relative h-60 w-full overflow-hidden bg-black">
               <Image
                 src={actor.photo}
-                alt={`Comédien doublé ${actor.name}`}
+                alt={t('hallOfFame.photoAlt', { name: actor.name })}
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 className="object-cover object-top brightness-90 contrast-105 group-hover:scale-105 group-hover:brightness-100 transition-all duration-500"
@@ -77,7 +107,7 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
                 className="absolute top-3 right-3 z-10 px-2 py-1 bg-[#f5c518] hover:bg-[#ffe500] text-black font-black text-[10px] font-mono-tech rounded-xs shadow-md flex items-center transition-colors"
-                title={`Voir la filmographie IMDb de ${actor.name}`}
+                title={t('hallOfFame.imdbTitle', { name: actor.name })}
               >
                 <ImdbLogo className="h-3 w-auto" />
               </a>
@@ -109,7 +139,7 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
               {/* Key Productions Badges */}
               <div>
                 <div className="text-[9px] font-mono-tech text-zinc-500 uppercase tracking-wider mb-1.5 font-bold">
-                  Films :
+                  {t('hallOfFame.filmsLabel')}
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {actor.productions.slice(0, 3).map((prod, pIdx) => (
@@ -127,7 +157,7 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
                 <div className="pt-3 mt-3 border-t border-zinc-800/80 flex items-center justify-between text-xs">
                   <span className="text-[10px] font-mono-tech text-[#FFE500] group-hover:underline flex items-center gap-1">
                     <Info className="w-3 h-3" />
-                    <span>Fiche détaillée</span>
+                    <span>{t('hallOfFame.detailLabel')}</span>
                   </span>
 
                   <a

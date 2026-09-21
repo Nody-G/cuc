@@ -43,6 +43,7 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
 }) => {
     const tFilms = useTranslations('films');
     const tTeam = useTranslations('team');
+  const tProduction = useTranslations('teamProduction');
 
     /**
      * Copie par défaut servie par le catalogue (`films.*`) : plus aucune chaîne
@@ -113,12 +114,12 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
                 <p className="text-xs sm:text-sm font-tech text-zinc-400">{resolvedSubtitle}</p>
                 <label className="mt-5 inline-flex items-center gap-2 text-[11px] font-mono-tech text-zinc-400">
                     <ArrowUpDown className="w-3.5 h-3.5 text-[#FFE500]" />
-                    <span className="uppercase tracking-wider">Trier :</span>
+                    <span className="uppercase tracking-wider">{tProduction('showcase.sortLabel')}</span>
                     <select
                         value={filmSort}
                         onChange={(e) => setFilmSort(e.target.value as FilmSort)}
                         className="bg-black/60 border border-zinc-700 text-zinc-200 text-[11px] font-mono-tech px-2 py-1 focus:outline-none focus:border-[#FFE500]"
-                        aria-label="Trier les films"
+                        aria-label={tProduction('showcase.sortAria')}
                     >
                         <option value="year-desc">{tFilms('sortYearDesc')}</option>
                         <option value="year-asc">{tFilms('sortYearAsc')}</option>
@@ -136,7 +137,7 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
                         type="button"
                         onClick={() => setSelectedFilm(film)}
                         className="bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/60 transition-all p-2 group flex flex-col justify-between cursor-pointer text-left"
-                        title={`${film.title} (${film.year}) - Cliquez pour voir la fiche`}
+                        title={`${film.title} (${film.year}) - ${tProduction('filmModal.openHint')}`}
                     >
                         <div className="relative aspect-[2/3] w-full overflow-hidden bg-black mb-2">
                             {film.image ? (

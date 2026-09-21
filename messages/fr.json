@@ -979,5 +979,151 @@
         "tour360TitleAccent": "360° DU CAMPUS",
         "tour360Paragraph": "Explorez le domaine en immersion totale : naviguez librement dans le Zoé Bell Hall, observez la fosse olympique à cubes, la Tour CUC de 21m et l'ensemble des plateaux techniques.",
         "loading3d": "Chargement du plan 3D…"
+    },
+    "teamProduction": {
+        "hero": {
+            "breadcrumbHome": "ACCUEIL",
+            "breadcrumbCurrent": "TOURNAGE",
+            "badge": "COORDINATION DE CASCADES • CINÉMA",
+            "title": "TOURNAGE",
+            "subtitle": "Le Campus Univers Cascades et la CUC Stunt Team accompagnent les productions cinématographiques et audiovisuelles, de la conception des chorégraphies d'action jusqu'au tournage en plateau.",
+            "ctaPrimary": "Contacter l'Équipe de Production",
+            "posters": "Voir les affiches",
+            "bgAlt": "CUC Stunt Team tournages cinéma et films d'action",
+            "emblemAlt": "Blason CUC Stunt Team",
+            "emblemLabel": "CAMPUS UNIVERS CASCADES"
+        },
+        "galleries": {
+            "studioBadge": "INFRASTRUCTURES DE TOURNAGE",
+            "studioTitle": "LE STUDIO & LA SALLE D'ACTION",
+            "doublesBadge": "DOUBLURES & CHORÉGRAPHES",
+            "doublesTitle": "LES CASCADEURS EN ACTION",
+            "equipmentBadge": "MATÉRIEL TECHNIQUE CINÉMA",
+            "equipmentTitle": "LES ÉQUIPEMENTS DE TOURNAGE",
+            "zoomStudio": "Cliquer pour voir en plein écran",
+            "zoomStunt": "Cliquer pour agrandir la photo de cascade",
+            "zoomEquipment": "Cliquer pour voir l'équipement en détail",
+            "expand": "Agrandir"
+        },
+        "hallOfFame": {
+            "emblemAlt": "Blason CUC",
+            "badge": "CRÉDITS & TOURNAGES",
+            "tag": "PRODUCTIONS CUC & ANCIENS ÉLÈVES",
+            "title": "HALL OF FAME DU CINÉMA D'ACTION",
+            "subtitle": "Retrouvez une sélection de productions audiovisuelles et cinématographiques sur lesquelles sont intervenus les cascadeurs et formateurs du CUC.",
+            "actorsBadge": "ACTEURS & TOURNAGES",
+            "actorsTitle": "LES ACTEURS DOUBLÉS & PRODUCTIONS",
+            "actorsIntro": "Les formateurs et cascadeurs du Campus Univers Cascades interviennent sur les scènes d'action des tournages français et internationaux.",
+            "photoAlt": "Comédien doublé {name}",
+            "imdbTitle": "Voir la filmographie IMDb de {name}",
+            "filmsLabel": "Films :",
+            "detailLabel": "Fiche détaillée"
+        },
+        "celebrityModal": {
+            "title": "Fiche Tournage & Cascades",
+            "doublesLabel": "Doublure cascades :",
+            "scenesLabel": "Cascades & scènes d'action :",
+            "filmsLabel": "Films :",
+            "imdbCta": "Fiche IMDb",
+            "close": "Fermer",
+            "closeAria": "Fermer"
+        },
+        "filmModal": {
+            "title": "Détails du Film",
+            "directedBy": "Réalisé par {name}",
+            "doublesLabel": "Doublures & comédiens :",
+            "teamLabel": "Équipe CUC :",
+            "trailer": "Bande-annonce",
+            "close": "Fermer",
+            "closeAria": "Fermer",
+            "openHint": "Cliquez pour voir la fiche"
+        },
+        "showcase": {
+            "sortLabel": "Trier :",
+            "sortAria": "Trier les films"
+        },
+        "services": {
+            "badge": "SERVICES AUX PRODUCTIONS",
+            "title": "TOURNER VOS SCÈNES D'ACTION AVEC LE CUC",
+            "intro": "De la pré-production à l'exécution sur le plateau, le Campus Univers Cascades met à votre disposition ses ressources techniques et humaines :",
+            "items": [
+                {
+                    "label": "1. COORDINATION & CHORÉGRAPHIE :",
+                    "body": "Analyse du scénario, chiffrage budgétaire, découpage technique de l'action et chorégraphies sur-mesure adaptées au jeu des comédiens."
+                },
+                {
+                    "label": "2. PRÉPARATION DES COMÉDIENS (STUDIO PARIS / GENNEVILLIERS) :",
+                    "body": "Sessions de répétition en amont du tournage pour habituer les acteurs aux armes factices, aux mouvements de combat et aux réactions de tir."
+                },
+                {
+                    "label": "3. MATÉRIEL DE TOURNAGE & DOMAINE :",
+                    "body": "Airbags certifiés, systèmes de câblage (rigging), harnais de cascade et mise à disposition du domaine comme décor naturel."
+                }
+            ],
+            "contactTitle": "CONTACT PRODUCTION & CASTING",
+            "contactIntro": "Vous préparez un long-métrage, une série, un clip ou un spectacle ? Contactez directement notre bureau de coordination.",
+            "coordinatorLabel": "COORDINATEUR RÉFÉRENT :",
+            "coordinatorValue": "Lucas Dollfus — CUC PROD",
+            "phoneLabel": "TÉLÉPHONE DIRECT :",
+            "emailLabel": "EMAIL PRO :",
+            "cta": "Demande de Devis & Collaboration"
+        },
+        "celebrities": [
+            {
+                "id": "tomer-sisley",
+                "specialty": "Combats chorégraphiés, cascades physiques et poursuites.",
+                "doubles": "Doublé par Vincent Bouillon"
+            },
+            {
+                "id": "keanu-reeves",
+                "specialty": "Chute des 222 marches du Sacré-Cœur à Paris (Taurus World Stunt Award 2024).",
+                "doubles": "Doublé par Vincent Bouillon"
+            },
+            {
+                "id": "jean-dujardin",
+                "specialty": "Cascades physiques et combats chorégraphiés.",
+                "doubles": "Doublé par Vincent Bouillon"
+            },
+            {
+                "id": "pierre-niney",
+                "specialty": "Duels à l'épée et cascades physiques réglés avec les régleurs CUC.",
+                "doubles": ""
+            },
+            {
+                "id": "francois-civil",
+                "specialty": "Combats rapprochés et cascades physiques.",
+                "doubles": ""
+            },
+            {
+                "id": "roschdy-zem",
+                "specialty": "Combats rapprochés et fusillades tactiques.",
+                "doubles": ""
+            },
+            {
+                "id": "omar-sy",
+                "specialty": "Cascades physiques et affrontements armés.",
+                "doubles": ""
+            },
+            {
+                "id": "gilles-lellouche",
+                "specialty": "Cascades physiques et poursuites urbaines.",
+                "doubles": ""
+            },
+            {
+                "id": "kevin-costner",
+                "specialty": "Cascades physiques et poursuites lors du tournage parisien.",
+                "doubles": ""
+            },
+            {
+                "id": "vincent-cassel",
+                "specialty": "Combats et cascades physiques.",
+                "doubles": ""
+            },
+            {
+                "id": "jean-reno",
+                "specialty": "Cascades physiques et affrontements armés.",
+                "doubles": ""
+            }
+        ]
     }
 }

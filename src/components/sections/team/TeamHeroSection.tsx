@@ -2,6 +2,7 @@
 import { Link } from '@/i18n/navigation';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 
 import Image from 'next/image';
 import { TacticalButton } from '@/components/ui/TacticalButton';
@@ -13,15 +14,14 @@ interface TeamHeroSectionProps {
 }
 
 export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
-  const badge = hero?.badge || 'COORDINATION DE CASCADES • CINÉMA';
-  const title = hero?.title || 'TOURNAGE';
-  const subtitle =
-    hero?.subtitle ||
-    "Le Campus Univers Cascades et la CUC Stunt Team accompagnent les productions cinématographiques et audiovisuelles, de la conception des chorégraphies d'action jusqu'au tournage en plateau.";
+  const t = useTranslations('teamProduction');
+  const badge = hero?.badge || t('hero.badge');
+  const title = hero?.title || t('hero.title');
+  const subtitle = hero?.subtitle || t('hero.subtitle');
   const bgImage =
     hero?.bg_image ||
     'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg';
-  const ctaPrimaryText = hero?.cta_primary_text || "Contacter l'Équipe de Production";
+  const ctaPrimaryText = hero?.cta_primary_text || t('hero.ctaPrimary');
   const ctaPrimaryLink = hero?.cta_primary_link || '/contact-cuc';
 
   return (
@@ -29,7 +29,7 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
       <div className="absolute inset-0 z-0">
         <Image
           src={bgImage}
-          alt="CUC Stunt Team tournages cinéma et films d'action"
+          alt={t('hero.bgAlt')}
           fill
           priority
           sizes="100vw"
@@ -43,10 +43,10 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
           <div className="lg:col-span-8">
             <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
               <Link href="/" className="hover:text-[#FFE500] transition-colors">
-                ACCUEIL
+                {t('hero.breadcrumbHome')}
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-              <span className="text-[#FFE500]">TOURNAGE</span>
+              <span className="text-[#FFE500]">{t('hero.breadcrumbCurrent')}</span>
             </div>
 
             <div className="flex items-center gap-2 mb-4 text-xs font-mono-tech uppercase font-bold tracking-wider text-[#FFE500]">
@@ -56,7 +56,8 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
               {title.includes('&') ? (
                 <>
-                  {title.split('&')[0]} &amp;{' '}
+                  {title.split('&')[0]}
+                  {' & '}
                   <span className="text-[#FFE500]">{title.split('&')[1]}</span>
                 </>
               ) : (
@@ -79,7 +80,7 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
                 className="inline-flex items-center gap-2 px-5 py-3 border border-zinc-700 bg-zinc-900/80 hover:bg-zinc-800 text-xs font-mono-tech uppercase tracking-wider text-zinc-300 hover:text-white transition-colors"
               >
                 <Film className="w-4 h-4 text-[#FFE500]" />
-                <span>Voir les affiches</span>
+                <span>{t('hero.posters')}</span>
               </a>
             </div>
           </div>
@@ -90,7 +91,7 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
               <div className="relative w-full h-full overflow-hidden border border-zinc-800/80">
                 <Image
                   src="/images/logos/cuc-logo-cinematic.jpg"
-                  alt="Blason CUC Stunt Team"
+                  alt={t('hero.emblemAlt')}
                   fill
                   priority
                   sizes="256px"
@@ -98,7 +99,7 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
                 />
               </div>
               <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-black px-3 py-0.5 border border-zinc-800 text-[10px] font-mono-tech text-[#FFE500] uppercase tracking-wider whitespace-nowrap shadow-md">
-                CAMPUS UNIVERS CASCADES
+                {t('hero.emblemLabel')}
               </div>
             </div>
           </div>

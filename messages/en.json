@@ -979,5 +979,151 @@
         "tour360TitleAccent": "360° OF THE CAMPUS",
         "tour360Paragraph": "Explore the grounds in full immersion: move freely through the Zoé Bell Hall, look at the Olympic foam pit, the 21m CUC Tower and all the technical stages.",
         "loading3d": "Loading the 3D map…"
+    },
+    "teamProduction": {
+        "hero": {
+            "breadcrumbHome": "HOME",
+            "breadcrumbCurrent": "FILMING",
+            "badge": "STUNT COORDINATION • FILM",
+            "title": "FILMING",
+            "subtitle": "Campus Univers Cascades and the CUC Stunt Team support film and audiovisual productions, from designing action choreography through to shooting on set.",
+            "ctaPrimary": "Contact the Production Team",
+            "posters": "View the posters",
+            "bgAlt": "CUC Stunt Team film and action shoots",
+            "emblemAlt": "CUC Stunt Team emblem",
+            "emblemLabel": "CAMPUS UNIVERS CASCADES"
+        },
+        "galleries": {
+            "studioBadge": "FILMING FACILITIES",
+            "studioTitle": "THE STUDIO & THE ACTION STAGE",
+            "doublesBadge": "DOUBLES & FIGHT CHOREOGRAPHERS",
+            "doublesTitle": "STUNT PERFORMERS IN ACTION",
+            "equipmentBadge": "FILM TECHNICAL EQUIPMENT",
+            "equipmentTitle": "FILMING EQUIPMENT",
+            "zoomStudio": "Click to view full screen",
+            "zoomStunt": "Click to enlarge the stunt photo",
+            "zoomEquipment": "Click to view the equipment in detail",
+            "expand": "Enlarge"
+        },
+        "hallOfFame": {
+            "emblemAlt": "CUC emblem",
+            "badge": "CREDITS & SHOOTS",
+            "tag": "CUC PRODUCTIONS & ALUMNI",
+            "title": "ACTION CINEMA HALL OF FAME",
+            "subtitle": "A selection of audiovisual and film productions the CUC stunt performers and instructors have worked on.",
+            "actorsBadge": "ACTORS & SHOOTS",
+            "actorsTitle": "DOUBLED ACTORS & PRODUCTIONS",
+            "actorsIntro": "Campus Univers Cascades instructors and stunt performers work on the action scenes of French and international productions.",
+            "photoAlt": "Doubled actor {name}",
+            "imdbTitle": "View {name}'s IMDb filmography",
+            "filmsLabel": "Films:",
+            "detailLabel": "Full details"
+        },
+        "celebrityModal": {
+            "title": "Shoot & Stunt Details",
+            "doublesLabel": "Stunt double:",
+            "scenesLabel": "Stunts & action scenes:",
+            "filmsLabel": "Films:",
+            "imdbCta": "IMDb page",
+            "close": "Close",
+            "closeAria": "Close"
+        },
+        "filmModal": {
+            "title": "Film Details",
+            "directedBy": "Directed by {name}",
+            "doublesLabel": "Doubles & actors:",
+            "teamLabel": "CUC Team:",
+            "trailer": "Trailer",
+            "close": "Close",
+            "closeAria": "Close",
+            "openHint": "Click to view the details"
+        },
+        "showcase": {
+            "sortLabel": "Sort:",
+            "sortAria": "Sort films"
+        },
+        "services": {
+            "badge": "SERVICES TO PRODUCTIONS",
+            "title": "SHOOT YOUR ACTION SCENES WITH THE CUC",
+            "intro": "From pre-production to delivery on set, Campus Univers Cascades makes its technical and human resources available to you:",
+            "items": [
+                {
+                    "label": "1. COORDINATION & CHOREOGRAPHY:",
+                    "body": "Script analysis, budget costing, technical breakdown of the action and choreography tailored to the actors' performance."
+                },
+                {
+                    "label": "2. ACTOR PREPARATION (PARIS STUDIO / GENNEVILLIERS):",
+                    "body": "Rehearsal sessions ahead of the shoot to familiarise the actors with prop weapons, fight movements and gunfire reactions."
+                },
+                {
+                    "label": "3. FILM EQUIPMENT & ESTATE:",
+                    "body": "Certified airbags, rigging systems, stunt harnesses and use of the estate as a natural set."
+                }
+            ],
+            "contactTitle": "PRODUCTION & CASTING CONTACT",
+            "contactIntro": "Preparing a feature film, a series, a music video or a live show? Contact our coordination office directly.",
+            "coordinatorLabel": "LEAD COORDINATOR:",
+            "coordinatorValue": "Lucas Dollfus — CUC PROD",
+            "phoneLabel": "DIRECT PHONE:",
+            "emailLabel": "PRO EMAIL:",
+            "cta": "Quote & Collaboration Request"
+        },
+        "celebrities": [
+            {
+                "id": "tomer-sisley",
+                "specialty": "Choreographed fights, physical stunts and chases.",
+                "doubles": "Doubled by Vincent Bouillon"
+            },
+            {
+                "id": "keanu-reeves",
+                "specialty": "222-step fall down the Sacré-Cœur in Paris (Taurus World Stunt Award 2024).",
+                "doubles": "Doubled by Vincent Bouillon"
+            },
+            {
+                "id": "jean-dujardin",
+                "specialty": "Physical stunts and choreographed fights.",
+                "doubles": "Doubled by Vincent Bouillon"
+            },
+            {
+                "id": "pierre-niney",
+                "specialty": "Sword duels and physical stunts choreographed with the CUC fight coordinators.",
+                "doubles": ""
+            },
+            {
+                "id": "francois-civil",
+                "specialty": "Close-quarters fights and physical stunts.",
+                "doubles": ""
+            },
+            {
+                "id": "roschdy-zem",
+                "specialty": "Close-quarters fights and tactical gunfire.",
+                "doubles": ""
+            },
+            {
+                "id": "omar-sy",
+                "specialty": "Physical stunts and armed confrontations.",
+                "doubles": ""
+            },
+            {
+                "id": "gilles-lellouche",
+                "specialty": "Physical stunts and urban chases.",
+                "doubles": ""
+            },
+            {
+                "id": "kevin-costner",
+                "specialty": "Physical stunts and chases during the Paris shoot.",
+                "doubles": ""
+            },
+            {
+                "id": "vincent-cassel",
+                "specialty": "Fights and physical stunts.",
+                "doubles": ""
+            },
+            {
+                "id": "jean-reno",
+                "specialty": "Physical stunts and armed confrontations.",
+                "doubles": ""
+            }
+        ]
     }
 }

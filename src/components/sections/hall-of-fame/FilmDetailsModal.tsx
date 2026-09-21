@@ -4,6 +4,7 @@ import { Link } from '@/i18n/navigation';
 import React from 'react';
 import Image from 'next/image';
 
+import { useTranslations } from 'next-intl';
 import { FilmCredit, Instructor } from '@/types';
 import { CUC_TEAM } from '@/data/team';
 import { getTeam } from '@/lib/data/site-service';
@@ -20,6 +21,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
   movie,
   onClose,
 }) => {
+  const t = useTranslations('teamProduction');
   const [teamMembers, setTeamMembers] = React.useState<Instructor[]>(CUC_TEAM);
 
   React.useEffect(() => {
@@ -45,13 +47,13 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
           <div className="flex items-center gap-2">
             <Clapperboard className="w-4 h-4 text-[#FFE500]" />
             <span className="text-xs font-mono-tech text-zinc-300 font-bold uppercase tracking-wider">
-              Détails du Film
+              {t('filmModal.title')}
             </span>
           </div>
           <button
             onClick={onClose}
             className="text-zinc-400 hover:text-white p-1 hover:bg-zinc-800 rounded-xs transition-colors cursor-pointer"
-            aria-label="Fermer"
+            aria-label={t('filmModal.closeAria')}
           >
             <X className="w-4 h-4" />
           </button>
@@ -89,7 +91,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
             <div className="sm:col-span-7 space-y-4">
               <div>
                 <div className="text-[11px] font-mono-tech text-zinc-500 uppercase">
-                  {movie.year}{movie.director ? ` • Réalisé par ${movie.director}` : ''}
+                  {movie.year}{movie.director ? ` • ${t('filmModal.directedBy', { name: movie.director })}` : ''}
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white mt-0.5">
                   {movie.title}
@@ -107,7 +109,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
               {movie.doubledActors && movie.doubledActors.length > 0 && (
                 <div className="space-y-1">
                   <span className="text-[11px] font-mono-tech text-zinc-500 uppercase font-bold block">
-                    Doublures & comédiens :
+                    {t('filmModal.doublesLabel')}
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     {movie.doubledActors.map((actor, idx) => (
@@ -126,7 +128,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
               {involvedTeamMembers.length > 0 && (
                 <div className="space-y-1.5">
                   <span className="text-[11px] font-mono-tech text-zinc-500 uppercase font-bold block">
-                    Équipe CUC :
+                    {t('filmModal.teamLabel')}
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {involvedTeamMembers.map((member) => (
@@ -226,7 +228,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#141419] hover:bg-zinc-800 text-red-400 border border-zinc-700 font-mono-tech text-xs transition-colors"
                   >
                     <YouTubeLogo className="w-3.5 h-3.5" variant="color" />
-                    <span>Bande-annonce</span>
+                    <span>{t('filmModal.trailer')}</span>
                     <ExternalLink className="w-3 h-3 ml-0.5" />
                   </a>
                 )}
@@ -241,7 +243,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
             onClick={onClose}
             className="text-zinc-400 hover:text-white uppercase font-bold cursor-pointer transition-colors"
           >
-            Fermer
+            {t('filmModal.close')}
           </button>
         </div>
       </div >

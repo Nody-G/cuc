@@ -1,9 +1,9 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T18:09:10.354Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T18:14:02.832Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **8** — occurrences : **78**
+Pages contrôlées : **27** — pages avec français résiduel : **7** — occurrences : **49**
 
 ## /en/formation-de-cascadeur — 11 occurrence(s)
 
@@ -37,40 +37,6 @@ Pages contrôlées : **27** — pages avec français résiduel : **8** — occur
 | texte visible | La nuit se traîne (2024) |
 | texte visible | FORMEZ-VOUS AVEC LES MEILLEURS PROFESSIONNELS DU SECTEUR |
 | texte visible | Découvrir les Formations du CUC |
-
-## /en/cuc-team-cascadeur — 29 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | Voir les affiches |
-| texte visible | LE STUDIO & LA SALLE D'ACTION |
-| texte visible | DOUBLURES & CHORÉGRAPHES |
-| texte visible | LES CASCADEURS EN ACTION |
-| texte visible | MATÉRIEL TECHNIQUE CINÉMA |
-| texte visible | LES ÉQUIPEMENTS DE TOURNAGE |
-| texte visible | CRÉDITS & TOURNAGES |
-| texte visible | PRODUCTIONS CUC & ANCIENS ÉLÈVES |
-| texte visible | HALL OF FAME DU CINÉMA D'ACTION |
-| texte visible | Retrouvez une sélection de productions audiovisuelles et cinématographiques sur lesquelles sont intervenus les cascadeurs et formateurs du CUC. |
-| texte visible | LES ACTEURS DOUBLÉS & PRODUCTIONS |
-| texte visible | Combats chorégraphiés, cascades physiques et poursuites. |
-| texte visible | Fiche détaillée |
-| texte visible | Cascades physiques et combats chorégraphiés. |
-| texte visible | Duels à l'épée et cascades physiques réglés avec les régleurs CUC. |
-| texte visible | Combats rapprochés et cascades physiques. |
-| texte visible | Combats rapprochés et fusillades tactiques. |
-| texte visible | Cascades physiques et affrontements armés. |
-| texte visible | Cascades physiques et poursuites urbaines. |
-| texte visible | Cascades physiques et poursuites lors du tournage parisien. |
-| texte visible | Combats et cascades physiques. |
-| texte visible | SERVICES AUX PRODUCTIONS |
-| texte visible | TOURNER VOS SCÈNES D'ACTION AVEC LE CUC |
-| texte visible | 1. COORDINATION & CHORÉGRAPHIE : Analyse du scénario, chiffrage budgétaire, découpage technique de l'action et chorégraphies sur-mesure adaptées au jeu des comédiens. |
-| texte visible | 2. PRÉPARATION DES COMÉDIENS (STUDIO PARIS / GENNEVILLIERS) : Sessions de répétition en amont du tournage pour habituer les acteurs aux armes factices, aux mouvements de combat et aux réactions de tir. |
-| texte visible | 3. MATÉRIEL DE TOURNAGE & DOMAINE : Airbags certifiés, systèmes de câblage (rigging), harnais de cascade et mise à disposition du domaine comme décor naturel. |
-| texte visible | Vous préparez un long-métrage, une série, un clip ou un spectacle ? Contactez directement notre bureau de coordination. |
-| texte visible | COORDINATEUR RÉFÉRENT : |
-| texte visible | TÉLÉPHONE DIRECT : |
 
 ## /en/partenaires — 6 occurrence(s)
 

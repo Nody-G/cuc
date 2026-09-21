@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { DoubledCelebrity } from '@/types';
 import { StuntBadge } from '../ui/StuntBadge';
 import { Clapperboard } from 'lucide-react';
@@ -18,6 +19,7 @@ import { CucFilmsShowcase } from './films/CucFilmsShowcase';
  * « Acteurs & comédiens doublés » est conservée à l'identique.
  */
 export const HallOfFame: React.FC = () => {
+  const t = useTranslations('teamProduction');
   const [selectedCelebrity, setSelectedCelebrity] = useState<DoubledCelebrity | null>(null);
 
   // Fermeture des modales au clavier (Échap)
@@ -43,7 +45,7 @@ export const HallOfFame: React.FC = () => {
             <div className="relative w-14 h-14 drop-shadow-[0_0_20px_rgba(255,229,0,0.4)]">
               <Image
                 src="/images/logos/cuc-logo-yellow.png"
-                alt="Blason CUC"
+                alt={t('hallOfFame.emblemAlt')}
                 fill
                 sizes="56px"
                 className="object-contain"
@@ -52,16 +54,16 @@ export const HallOfFame: React.FC = () => {
           </div>
           <div className="inline-flex items-center gap-2 mb-3">
             <StuntBadge variant="yellow" icon={<Clapperboard className="w-3.5 h-3.5" />}>
-              CRÉDITS & TOURNAGES
+              {t('hallOfFame.badge')}
             </StuntBadge>
-            <span className="text-xs font-mono-tech text-zinc-500">PRODUCTIONS CUC & ANCIENS ÉLÈVES</span>
+            <span className="text-xs font-mono-tech text-zinc-500">{t('hallOfFame.tag')}</span>
           </div>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-display uppercase tracking-tight text-white">
-            HALL OF FAME DU CINÉMA D'ACTION
+            {t('hallOfFame.title')}
           </h2>
           <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-[#FFE500] to-transparent mx-auto my-3" />
           <p className="text-sm sm:text-base text-zinc-400 font-tech mt-2">
-            Retrouvez une sélection de productions audiovisuelles et cinématographiques sur lesquelles sont intervenus les cascadeurs et formateurs du CUC.
+            {t('hallOfFame.subtitle')}
           </p>
         </div>
 
