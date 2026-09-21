@@ -13,6 +13,7 @@ import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getTeam, getFilms } from '@/lib/data/site-service';
 import { applyTeamOverlay } from '@/lib/i18n/apply-team-overlay';
+import { applyFilmOverlays } from '@/lib/i18n/apply-film-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 import { createClient } from '@/lib/supabase/client';
 import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
@@ -40,6 +41,16 @@ export default function EquipeCascadeursProPage() {
   // Overlays EN des coachs (`site_translations`, entité `team`) : la base FR
   // reste la référence, l'anglais se pose par-dessus dès qu'il est disponible.
   const teamOverlays = useEntityOverlays('team');
+
+  /**
+   * Overlays EN des films (entité `film`).
+   *
+   * Sans eux, le synopsis affiché dans `FilmDetailsModal` restait en français sur
+   * les pages anglaises : les 501 traductions de `site_translations` étaient
+   * semées mais **jamais appliquées**. Le défaut échappait au crawler parce que
+   * le synopsis n'apparaît que dans une modale cliente, hors du HTML initial.
+   */
+  const filmOverlays = useEntityOverlays('film');
 
   const heroBadge = content.hero?.badge || t('badge');
   const heroTitle = content.hero?.title || t('title');
@@ -80,6 +91,12 @@ export default function EquipeCascadeursProPage() {
   const displayTeam = React.useMemo(
     () => team.map((m) => applyTeamOverlay(m, teamOverlays?.[m.id])),
     [team, teamOverlays]
+  );
+
+  /** Catalogue localisé : la version FR reste la référence, l'EN se pose dessus. */
+  const displayFilms = React.useMemo(
+    () => applyFilmOverlays(films, filmOverlays),
+    [films, filmOverlays]
   );
 
   return (
@@ -143,7 +160,7 @@ export default function EquipeCascadeursProPage() {
           <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
               {displayTeam.map((member) => {
-                const coachFilms = films.filter(
+                const coachFilms = displayFilms.filter(
                   (f) =>
                     (member.film_ids && member.film_ids.includes(f.id)) ||
                     (f.cuc_team_involved && f.cuc_team_involved.includes(member.id))

@@ -11,6 +11,8 @@ import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
 import { FilmCredit } from '@/types';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
+import { applyFilmOverlays } from '@/lib/i18n/apply-film-overlay';
+import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 
 type FilmSort = 'year-desc' | 'year-asc' | 'title-asc' | 'title-desc';
 
@@ -43,7 +45,7 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
 }) => {
     const tFilms = useTranslations('films');
     const tTeam = useTranslations('team');
-  const tProduction = useTranslations('teamProduction');
+    const tProduction = useTranslations('teamProduction');
 
     /**
      * Copie par défaut servie par le catalogue (`films.*`) : plus aucune chaîne
@@ -57,6 +59,18 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
     const [films, setFilms] = React.useState<FilmCredit[]>(FILMOGRAPHY_CREDITS);
     const [filmSort, setFilmSort] = React.useState<FilmSort>('year-desc');
     const [selectedFilm, setSelectedFilm] = React.useState<FilmCredit | null>(null);
+
+    /**
+     * Overlays EN du catalogue films (entité `film`) : le synopsis de la modale
+     * était servi en français sur les pages anglaises, faute d'application de
+     * l'overlay — défaut hors de portée du crawler, la modale étant rendue côté
+     * navigateur et non dans le HTML initial.
+     */
+    const filmOverlays = useEntityOverlays('film');
+    const localizedFilms = React.useMemo(
+        () => applyFilmOverlays(films, filmOverlays),
+        [films, filmOverlays]
+    );
 
     React.useEffect(() => {
         getFilms().then(setFilms);
@@ -79,7 +93,7 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
 
     // Tri du catalogue (date ou nom, croissant/décroissant)
     const sortedFilms = React.useMemo(() => {
-        const list = [...films];
+        const list = [...localizedFilms];
         const yearOf = (f: FilmCredit) => {
             const parsed = parseInt(String(f.year ?? '').replace(/\D/g, ''), 10);
             return Number.isFinite(parsed) ? parsed : 0;
@@ -95,7 +109,7 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
             default:
                 return list.sort((a, b) => yearOf(b) - yearOf(a));
         }
-    }, [films, filmSort]);
+    }, [localizedFilms, filmSort]);
 
     return (
         <div id={id} className={`${divider ? 'border-t border-zinc-800 pt-16' : ''} ${className}`.trim()}>

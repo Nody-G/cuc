@@ -18,6 +18,8 @@ import { creditTitleKey } from '@/lib/credit-title';
 import { ImdbLogo } from '@/components/ui/BrandLogos';
 import { Instructor, FilmCredit, parseCredit, ParsedCredit } from '@/types';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
+import { applyFilmOverlays } from '@/lib/i18n/apply-film-overlay';
+import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 import {
   ChevronRight,
   ShieldCheck,
@@ -66,6 +68,14 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
   const [selectedFilmModal, setSelectedFilmModal] = useState<FilmCredit | null>(null);
   const [filmSort, setFilmSort] = useState<FilmSort>('year-desc');
 
+  /**
+   * Overlays EN du catalogue films (entité `film`) : le synopsis de la modale
+   * était affiché en français faute d'application de l'overlay (défaut invisible
+   * pour le crawler, la modale étant rendue côté navigateur).
+   */
+  const filmOverlays = useEntityOverlays('film');
+  const films = useMemo(() => applyFilmOverlays(allFilms, filmOverlays), [allFilms, filmOverlays]);
+
   useEffect(() => {
     getTeam().then((t) => {
       if (t && t.length > 0) {
@@ -111,7 +121,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
   // correspond désormais au film « Lupin » du catalogue.
   const relatedFilms = useMemo(() => {
     if (!member) return [];
-    return allFilms.filter((f) => {
+    return films.filter((f) => {
       if (member.film_ids && member.film_ids.includes(f.id)) return true;
       if (f.cuc_team_involved && f.cuc_team_involved.includes(member.id)) return true;
       if (!member.notableCredits) return false;
@@ -121,7 +131,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
         return creditKey && creditKey === filmKey;
       });
     });
-  }, [allFilms, member]);
+  }, [films, member]);
 
   // Crédits mis en avant depuis le cockpit (ordre d'affichage prioritaire).
   // Le libellé stocké peut être « Titre — Rôle » : on ne compare que le titre,

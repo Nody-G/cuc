@@ -8,6 +8,8 @@ import Image from 'next/image';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { getEvents, SiteEvent } from '@/lib/data/site-service';
+import { applyEventOverlays } from '@/lib/i18n/apply-event-overlay';
+import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 
 /** Copie éditoriale d'un pilier d'agence (repli quand la base est vide). */
 interface PillarCopy {
@@ -24,6 +26,17 @@ export const EventsPillarsSection: React.FC = () => {
   const pillars = t.raw('pillars') as PillarCopy[];
   const [dbEvents, setDbEvents] = useState<SiteEvent[]>([]);
 
+  /**
+   * Overlays EN des événements (entité `event`).
+   *
+   * Sans eux, les trois événements de `site_events` s'affichaient en français
+   * sur les pages anglaises : la traduction existait en base mais aucun écran ne
+   * la lisait. Défaut hors de portée du crawler, ces lignes étant chargées côté
+   * navigateur (hors HTML initial).
+   */
+  const eventOverlays = useEntityOverlays('event');
+  const localizedEvents = applyEventOverlays(dbEvents, eventOverlays);
+
   useEffect(() => {
     getEvents().then((evts) => {
       if (evts && evts.length > 0) {
@@ -35,8 +48,8 @@ export const EventsPillarsSection: React.FC = () => {
   return (
     <section className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-        {dbEvents.length > 0 ? (
-          dbEvents.map((evt, idx) => {
+        {localizedEvents.length > 0 ? (
+          localizedEvents.map((evt, idx) => {
             const isReversed = idx % 2 === 1;
             return (
               <div
