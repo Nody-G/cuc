@@ -7,6 +7,8 @@ import {
   CameraPreset,
   EditableFacilityItem,
   GizmoMode,
+  CampusSaveBackend,
+  CampusSaveStatus,
   CampusPlan3DProps,
 } from './types/campus3d.types';
 import { DEFAULT_FACILITIES } from './data/defaultFacilities';
@@ -40,6 +42,9 @@ const HISTORY_COALESCE_MS = 700;
 
 /** Profondeur maximale de l'historique (au-delà, les plus anciennes sont perdues). */
 const HISTORY_LIMIT = 60;
+
+/** Délai avant la reprise unique d'une écriture en échec. */
+const RETRY_DELAY_MS = 2500;
 
 interface HistoryStore {
   past: Array<Record<string, EditableFacilityItem>>;
@@ -77,6 +82,9 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  /** Destination réelle des écritures : Supabase (Cockpit) ou navigateur. */
+  const saveBackend: CampusSaveBackend = persistToDatabase ? 'database' : 'local';
+
   const [mode, setMode] = useState<PlanMode>(initialMode);
   const [facilities, setFacilities] = useState<Record<string, EditableFacilityItem>>(() => {
     if (typeof window !== 'undefined') {
@@ -111,7 +119,14 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
   const [showExportModal, setShowExportModal] = useState<boolean>(false);
   const [exportModalTab, setExportModalTab] = useState<'export' | 'import'>('export');
   const [historyFlags, setHistoryFlags] = useState({ canUndo: false, canRedo: false });
+  const [saveStatus, setSaveStatus] = useState<CampusSaveStatus>({
+    state: 'idle',
+    backend: saveBackend,
+  });
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const retryTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  /** Dernier état non encore écrit : sert au vidage différé et à la reprise. */
+  const pendingPayloadRef = useRef<Record<string, EditableFacilityItem> | null>(null);
 
   // Source de vérité synchrone pour les mutations et l'historique : évite
   // toute écriture d'effet de bord à l'intérieur d'un updater React (double
@@ -123,41 +138,134 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
     facilitiesRef.current = facilities;
   }, [facilities]);
 
-  // Clean up pending save timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
-    };
-  }, []);
-
   const syncHistoryFlags = useCallback(() => {
     const history = historyRef.current;
     setHistoryFlags({ canUndo: history.past.length > 0, canRedo: history.future.length > 0 });
   }, []);
 
   /**
-   * Écriture différée : `localStorage` en mode public, Supabase en mode
-   * Cockpit (`site_settings` key='campus_placements_3d').
+   * Une tentative d'écriture : Supabase en mode Cockpit (`site_settings`
+   * key='campus_placements_3d'), `localStorage` en mode public.
+   *
+   * L'action serveur renvoie `{ success, error }` : ce retour est **contrôlé**.
+   * Une erreur d'écriture silencieuse est indiscernable d'un succès — la
+   * documentation de la revue le détaille (`plans/revue-transformations-3d-flexibles.md`).
+   * Retourne `true` en cas de succès, `false` sinon (l'erreur réelle est
+   * publiée dans l'état affiché à l'opérateur).
    */
+  const attemptPersist = useCallback(
+    async (payload: Record<string, EditableFacilityItem>): Promise<boolean> => {
+      if (!persistToDatabase) {
+        try {
+          localStorage.setItem('cuc_campus_placements_v2', JSON.stringify(payload));
+          pendingPayloadRef.current = null;
+          setSaveStatus({ state: 'saved', backend: saveBackend, savedAt: Date.now() });
+          return true;
+        } catch {
+          setSaveStatus({
+            state: 'error',
+            backend: saveBackend,
+            error: 'Stockage local indisponible (navigation privée ou quota atteint).',
+          });
+          return false;
+        }
+      }
+
+      try {
+        const result = await upsertCampusPlacements3D(payload);
+        if (result && 'success' in result && result.success === false) {
+          throw new Error(result.error ?? 'Erreur inconnue côté Supabase');
+        }
+        pendingPayloadRef.current = null;
+        setSaveStatus({ state: 'saved', backend: saveBackend, savedAt: Date.now() });
+        return true;
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : 'Erreur inconnue';
+        console.error('[CampusPlan3D] Enregistrement des placements impossible :', message);
+        setSaveStatus({ state: 'error', backend: saveBackend, error: message });
+        return false;
+      }
+    },
+    [persistToDatabase, saveBackend]
+  );
+
+  /**
+   * Écriture avec **une seule** reprise, pour absorber un incident réseau
+   * ponctuel sans jamais boucler.
+   */
+  const persistNow = useCallback(
+    async (payload: Record<string, EditableFacilityItem>) => {
+      setSaveStatus({ state: 'saving', backend: saveBackend });
+
+      const succeeded = await attemptPersist(payload);
+      if (succeeded) return;
+
+      if (retryTimeoutRef.current) clearTimeout(retryTimeoutRef.current);
+      retryTimeoutRef.current = setTimeout(() => {
+        retryTimeoutRef.current = null;
+        const pending = pendingPayloadRef.current;
+        if (pending) void attemptPersist(pending);
+      }, RETRY_DELAY_MS);
+    },
+    [attemptPersist, saveBackend]
+  );
+
+  /** Écriture différée : absorbe les saisies et glissers successifs. */
   const schedulePersist = useCallback(
     (next: Record<string, EditableFacilityItem>) => {
+      pendingPayloadRef.current = next;
+      setSaveStatus((prev) =>
+        prev.state === 'error' ? prev : { state: 'saving', backend: saveBackend }
+      );
+
       if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
       saveTimeoutRef.current = setTimeout(() => {
-        if (persistToDatabase) {
-          upsertCampusPlacements3D(next).catch(() => {
-            // Silencieux : l'état local reste la source immédiate.
-          });
-        } else {
-          try {
-            localStorage.setItem('cuc_campus_placements_v2', JSON.stringify(next));
-          } catch {
-            // LocalStorage quota or privacy mode
-          }
-        }
+        saveTimeoutRef.current = null;
+        void persistNow(next);
       }, SAVE_DEBOUNCE_MS);
     },
-    [persistToDatabase]
+    [persistNow, saveBackend]
   );
+
+  /** Enregistre immédiatement l'état courant (bouton du studio). */
+  const saveNow = useCallback(() => {
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+      saveTimeoutRef.current = null;
+    }
+    if (retryTimeoutRef.current) {
+      clearTimeout(retryTimeoutRef.current);
+      retryTimeoutRef.current = null;
+    }
+    void persistNow(facilitiesRef.current);
+  }, [persistNow]);
+
+  /**
+   * Pousse une écriture en attente avant de disparaître.
+   *
+   * Le démontage du composant (changement d'onglet du Cockpit) et la fermeture
+   * de l'onglet annulaient auparavant l'écriture différée : le dernier
+   * déplacement était **perdu sans trace**. On écrit désormais au lieu
+   * d'abandonner.
+   */
+  const flushPendingSave = useCallback(() => {
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+      saveTimeoutRef.current = null;
+    }
+    const pending = pendingPayloadRef.current;
+    if (pending) void persistNow(pending);
+  }, [persistNow]);
+
+  useEffect(() => {
+    const onPageHide = () => flushPendingSave();
+    window.addEventListener('pagehide', onPageHide);
+    return () => {
+      window.removeEventListener('pagehide', onPageHide);
+      // Démontage : la dernière modification doit partir, pas être jetée.
+      flushPendingSave();
+    };
+  }, [flushPendingSave]);
 
   const pushHistory = useCallback(
     (snapshot: Record<string, EditableFacilityItem>, key: string) => {
@@ -515,6 +623,8 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
               canRedo={historyFlags.canRedo}
               onUndo={undo}
               onRedo={redo}
+              saveStatus={saveStatus}
+              onSaveNow={saveNow}
             />
           )}
         </div>
@@ -537,6 +647,8 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
           canRedo={historyFlags.canRedo}
           onUndo={undo}
           onRedo={redo}
+          saveStatus={saveStatus}
+          onSaveNow={saveNow}
           onUpdateFacility={updateFacility}
           onAddCustomMarker={addCustomMarker}
           onCopyConfiguration={copyConfiguration}

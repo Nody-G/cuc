@@ -18,9 +18,13 @@ import {
   Maximize2,
   Undo2,
   Redo2,
+  Save,
+  AlertTriangle,
+  Loader2,
 } from 'lucide-react';
-import { EditableFacilityItem, GizmoMode } from '../types/campus3d.types';
+import { CampusSaveStatus, EditableFacilityItem, GizmoMode } from '../types/campus3d.types';
 import { GIZMO_MODE_LABELS } from '../data/facilityTransform';
+import { SAVE_TONE_CLASSES, describeSaveStatus } from '../data/persistenceStatus';
 import { EditorCoordinateInputs } from './EditorCoordinateInputs';
 
 const GIZMO_MODE_ICONS: Record<GizmoMode, React.ReactNode> = {
@@ -46,6 +50,8 @@ interface CampusEditorPanelProps {
   canRedo: boolean;
   onUndo: () => void;
   onRedo: () => void;
+  saveStatus: CampusSaveStatus;
+  onSaveNow: () => void;
   onUpdateFacility: (id: string, updates: Partial<EditableFacilityItem>) => void;
   onAddCustomMarker: () => void;
   onCopyConfiguration: () => void;
@@ -72,6 +78,8 @@ export const CampusEditorPanel: React.FC<CampusEditorPanelProps> = ({
   canRedo,
   onUndo,
   onRedo,
+  saveStatus,
+  onSaveNow,
   onUpdateFacility,
   onAddCustomMarker,
   onCopyConfiguration,
@@ -84,6 +92,10 @@ export const CampusEditorPanel: React.FC<CampusEditorPanelProps> = ({
 
   const selectedItem = facilities[selectedObjectId];
   if (!selectedItem) return null;
+
+  const save = describeSaveStatus(saveStatus);
+  const SaveIcon =
+    save.tone === 'error' ? AlertTriangle : save.tone === 'progress' ? Loader2 : Save;
 
   return (
     <aside className="w-full sm:w-92 md:w-96 bg-[#0a0b10]/95 backdrop-blur-md border-l border-zinc-800 flex flex-col z-30 shadow-2xl overflow-y-auto shrink-0">
@@ -153,6 +165,24 @@ export const CampusEditorPanel: React.FC<CampusEditorPanelProps> = ({
               <span>Rétablir</span>
             </button>
           </div>
+        </div>
+
+        {/* Persistance : état réel de l'écriture, message d'erreur compris */}
+        <div className={`border p-2.5 space-y-1.5 ${SAVE_TONE_CLASSES[save.tone]}`}>
+          <div className="flex items-center justify-between gap-2">
+            <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider">
+              <SaveIcon className={`w-3.5 h-3.5 ${save.tone === 'progress' ? 'animate-spin' : ''}`} />
+              {save.label}
+            </span>
+            <button
+              onClick={onSaveNow}
+              className="px-2 py-0.5 border border-current text-[9px] uppercase cursor-pointer hover:bg-white/5"
+              title="Écrire immédiatement l'état courant dans Supabase"
+            >
+              Enregistrer
+            </button>
+          </div>
+          {save.detail && <div className="text-[9px] text-zinc-400 break-words">{save.detail}</div>}
         </div>
 
         {/* Object Selector & Quick Focus */}

@@ -266,6 +266,81 @@ comportement ([`facilityTransform.test.ts`](src/components/3d/data/facilityTrans
 
 ---
 
+## 9 bis. Persistance : rendre l'échec visible (correctif)
+
+Second retour d'usage : « ça se sauvegarde pas automatiquement quand je déplace des bâtiments ».
+
+### Ce qui rendait le diagnostic impossible
+
+1. **Retour d'action ignoré.** [`upsertCampusPlacements3D()`](src/app/admin/actions.ts:941) renvoie
+   `{ success, error }`, mais l'appelant faisait `upsertCampusPlacements3D(next).catch(() => {})`.
+   Une écriture refusée (droits, RLS, réseau) était donc **strictement indiscernable** d'un succès :
+   l'opérateur croyait avoir sauvegardé. Le seul témoin était un `console.error` côté serveur.
+2. **Écriture en attente jetée au démontage.** L'effet de nettoyage se contentait de
+   `clearTimeout(saveTimeoutRef.current)`. Changer d'onglet du Cockpit (`CampusPlan3DView` est monté
+   conditionnellement) ou fermer l'onglet dans la fenêtre de 400 ms **annulait purement et simplement**
+   le dernier déplacement.
+3. **Aucun état affiché.** Aucun indicateur ne distinguait « enregistré » de « en attente » ou
+   « échoué ».
+
+### Correctifs
+
+| Correctif | Détail |
+| --- | --- |
+| Retour d'action contrôlé | `persistNow()` lit `result.success` et lève l'erreur réelle si l'écriture est refusée |
+| Reprise unique | Une seconde tentative après 2,5 s absorbe un incident réseau ponctuel, sans boucle |
+| Écriture au lieu d'abandon | `flushPendingSave()` est appelé au démontage **et** sur `pagehide` : la dernière modification part, elle n'est plus jetée |
+| Échec rendu visible | État `idle / saving / saved / error` affiché dans la barre d'outils et dans le panneau, **message d'erreur réel inclus** ([`persistenceStatus.ts`](src/components/3d/data/persistenceStatus.ts)) |
+| Enregistrement forcé | Bouton « Enregistrer » (barre d'outils et panneau) qui annule le différé et écrit l'état courant |
+
+### Constat de terrain (preuve, pas supposition)
+
+Diagnostic exécuté contre la base réelle :
+
+```
+node scripts/verify_campus_placements_3d.mjs
+```
+
+```
+OK    NEXT_PUBLIC_SUPABASE_URL : https://xkbkcsypftvspmkfnrfm.supabase.co
+OK    SUPABASE_SERVICE_ROLE_KEY : présente
+WARN  Aucune ligne « campus_placements_3d » en base
+WARN  Installations enregistrées : 0
+OK    Écriture de contrôle réussie (valeur réécrite à l'identique)
+```
+
+Deux faits, et une conclusion :
+
+1. **Le chemin d'écriture fonctionne** : l'upsert de contrôle a réussi depuis cet environnement.
+2. **La ligne n'existait pas** : le studio n'avait donc **jamais** réussi à faire persister un
+   placement dans Supabase — autrement dit, l'opérateur éditait un studio qui n'écrivait pas là
+   où il le croyait.
+
+3. **Cause la plus probable** : édition depuis le site public avec `?studio=1`. Dans ce cas
+   `persistToDatabase` reste `false` (le Cockpit est le seul à le passer à `true`) et les écritures
+   vont dans le `localStorage` du navigateur courant. Rien n'est partagé, rien n'arrive en base —
+   ce qui correspond exactement au symptôme observé.
+
+D'où la mention explicite de la **destination** dans l'état affiché : « Enregistré localement
+(non partagé) » contre « Enregistré dans Supabase (plan partagé) ». Le studio ne peut plus laisser
+croire qu'il modifie le plan partagé.
+
+**Pour éditer le plan partagé : `Cockpit → Plan 3D` (`/admin/campus-3d`), et non `?studio=1` sur
+le site public.**
+
+Point de sécurité relevé au passage : l'action
+[`upsertCampusPlacements3D()`](src/app/admin/actions.ts:941) ne vérifie **aucun droit** — elle crée
+un client administrateur (clé de service) et écrit. Si l'on rendait un jour le studio public
+persistant en base, n'importe quel visiteur pourrait réécrire le plan du campus via `?studio=1`.
+La séparation actuelle (public = local, Cockpit = base) doit donc être conservée, ou une
+vérification d'authentification doit être ajoutée à l'action avant tout élargissement.
+
+L'observation clé : un enregistrement qui échoue **en silence** est pire qu'un enregistrement
+refusé bruyamment — le premier fait croire au succès. L'interface doit donc dire la vérité sur
+l'état de l'écriture, y compris quand elle échoue.
+
+---
+
 ## 10. Vérifications
 
 ```

@@ -1,8 +1,19 @@
 'use client';
 
 import React from 'react';
-import { Move3d, Maximize2, Redo2, RotateCw, Undo2 } from 'lucide-react';
-import { GizmoMode } from '../types/campus3d.types';
+import {
+    AlertTriangle,
+    Check,
+    Loader2,
+    Maximize2,
+    Move3d,
+    Redo2,
+    RotateCw,
+    Save,
+    Undo2,
+} from 'lucide-react';
+import { CampusSaveStatus, GizmoMode } from '../types/campus3d.types';
+import { SAVE_TONE_CLASSES, describeSaveStatus } from '../data/persistenceStatus';
 
 interface CampusStudioToolbarProps {
     gizmoMode: GizmoMode;
@@ -11,6 +22,8 @@ interface CampusStudioToolbarProps {
     canRedo: boolean;
     onUndo: () => void;
     onRedo: () => void;
+    saveStatus: CampusSaveStatus;
+    onSaveNow: () => void;
 }
 
 /** Raccourci clavier affiché sur chaque outil (voir `CampusPlan3D`). */
@@ -44,6 +57,10 @@ const TOOL_HINT: Record<GizmoMode, string> = {
  * Elle existe parce que l'outil de manipulation doit être visible **là où le
  * regard se trouve** : le panneau latéral peut être hors champ (fenêtre
  * étroite, défilement), ce qui rendait la rotation introuvable.
+ *
+ * Elle porte aussi l'état de persistance : un enregistrement qui échoue en
+ * silence est indiscernable d'un succès, l'opérateur croit alors avoir
+ * sauvegardé.
  */
 export const CampusStudioToolbar: React.FC<CampusStudioToolbarProps> = ({
     gizmoMode,
@@ -52,9 +69,21 @@ export const CampusStudioToolbar: React.FC<CampusStudioToolbarProps> = ({
     canRedo,
     onUndo,
     onRedo,
+    saveStatus,
+    onSaveNow,
 }) => {
+    const status = describeSaveStatus(saveStatus);
+    const StatusIcon =
+        status.tone === 'error'
+            ? AlertTriangle
+            : status.tone === 'progress'
+                ? Loader2
+                : status.tone === 'success'
+                    ? Check
+                    : Save;
+
     return (
-        <div className="absolute top-2.5 left-2.5 z-20 flex items-center gap-1.5 p-1.5 bg-[#0a0b10]/90 backdrop-blur-sm border border-zinc-700/80 shadow-lg">
+        <div className="absolute top-2.5 left-2.5 z-20 flex flex-wrap items-center gap-1.5 p-1.5 bg-[#0a0b10]/90 backdrop-blur-sm border border-zinc-700/80 shadow-lg">
             <span className="px-1 text-[9px] uppercase tracking-widest text-zinc-500 font-bold">
                 Outil
             </span>
@@ -97,6 +126,21 @@ export const CampusStudioToolbar: React.FC<CampusStudioToolbarProps> = ({
                     }`}
             >
                 <Redo2 className="w-3.5 h-3.5" />
+            </button>
+
+            <span className="w-px h-5 bg-zinc-700" />
+
+            <button
+                onClick={onSaveNow}
+                title={
+                    status.detail
+                        ? `${status.label} — ${status.detail}. Cliquer pour enregistrer immédiatement.`
+                        : `${status.label}. Cliquer pour enregistrer immédiatement.`
+                }
+                className={`flex items-center gap-1.5 px-2 py-1.5 border bg-transparent text-[10px] cursor-pointer hover:bg-white/5 ${SAVE_TONE_CLASSES[status.tone]}`}
+            >
+                <StatusIcon className={`w-3.5 h-3.5 ${status.tone === 'progress' ? 'animate-spin' : ''}`} />
+                <span className="max-w-44 truncate">{status.label}</span>
             </button>
         </div>
     );

@@ -79,6 +79,33 @@ export type GizmoDragType =
   | 'scale-uniform'
   | null;
 
+/**
+ * État de persistance des placements.
+ *
+ * Un enregistrement qui échoue en silence est indiscernable d'un
+ * enregistrement réussi : l'opérateur croit avoir sauvegardé. Cet état est
+ * donc rendu visible, message d'erreur réel inclus.
+ */
+export type CampusSaveState = 'idle' | 'saving' | 'saved' | 'error';
+
+/** Destination réelle des écritures — déterminante pour l'opérateur. */
+export type CampusSaveBackend = 'database' | 'local';
+
+export interface CampusSaveStatus {
+  state: CampusSaveState;
+  /**
+   * `database` : Cockpit, écriture partagée dans Supabase.
+   * `local`    : studio ouvert depuis le site public (`?studio=1`), écriture
+   *              dans le seul navigateur courant — ces positions ne sont ni
+   *              partagées, ni visibles depuis le Cockpit.
+   */
+  backend: CampusSaveBackend;
+  /** Message remonté par Supabase (ou par le stockage local), le cas échéant. */
+  error?: string;
+  /** Horodatage de la dernière écriture réussie. */
+  savedAt?: number;
+}
+
 export interface CampusPlan3DProps {
   initialMode?: PlanMode;
   className?: string;

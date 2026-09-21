@@ -142,7 +142,9 @@ export const CampusPlan3DView: React.FC = () => {
           <span className="font-semibold">Persistance Supabase active.</span> Chaque modification est
           enregistrée automatiquement dans <code className="text-emerald-300">site_settings</code> (clé{' '}
           <code className="text-emerald-300">campus_placements_3d</code>) et rechargée à l’ouverture du
-          Cockpit comme de la page publique.
+          Cockpit comme de la page publique. L’état réel de l’écriture — y compris un éventuel échec —
+          est affiché dans la barre d’outils du studio, en haut à gauche du viewport, avec un bouton
+          « Enregistrer » pour forcer l’écriture immédiate.
         </p>
       </div>
 
