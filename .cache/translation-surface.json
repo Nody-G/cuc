@@ -1,0 +1,497 @@
+{
+  "generatedAt": "2026-09-21T14:35:57.861Z",
+  "uiTotal": 421,
+  "uiFiles": [
+    {
+      "file": "src\\components\\sections\\formation\\FormationFormulesSection.tsx",
+      "count": 27
+    },
+    {
+      "file": "src\\components\\sections\\formation\\FormationPedagogyModalities.tsx",
+      "count": 24
+    },
+    {
+      "file": "src\\components\\3d\\ui\\CampusEditorPanel.tsx",
+      "count": 22
+    },
+    {
+      "file": "src\\app\\(site)\\[locale]\\equipe-cascadeurs-pro\\[slug]\\CoachDetailClient.tsx",
+      "count": 21
+    },
+    {
+      "file": "src\\app\\(site)\\[locale]\\spectacles-cascadeurs-yamakasi\\page.tsx",
+      "count": 16
+    },
+    {
+      "file": "src\\app\\(site)\\[locale]\\videos-cascadeur\\page.tsx",
+      "count": 15
+    },
+    {
+      "file": "src\\components\\sections\\ApplicationModal.tsx",
+      "count": 15
+    },
+    {
+      "file": "src\\components\\sections\\contact\\ContactForm.tsx",
+      "count": 15
+    },
+    {
+      "file": "src\\app\\(site)\\[locale]\\animations-airbag-parkour\\page.tsx",
+      "count": 14
+    },
+    {
+      "file": "src\\components\\sections\\contact\\ContactCoordinatesSidebar.tsx",
+      "count": 14
+    },
+    {
+      "file": "src\\components\\layout\\footer-sections\\FooterBrandAndSites.tsx",
+      "count": 12
+    },
+    {
+      "file": "src\\components\\sections\\events\\EventsPillarsSection.tsx",
+      "count": 10
+    },
+    {
+      "file": "src\\components\\sections\\team\\TeamProductionServices.tsx",
+      "count": 10
+    },
+    {
+      "file": "src\\components\\ui\\VirtualTourViewer.tsx",
+      "count": 10
+    },
+    {
+      "file": "src\\components\\sections\\visite\\VisiteAccessTransport.tsx",
+      "count": 9
+    },
+    {
+      "file": "src\\app\\(site)\\[locale]\\visite-virtuelle\\page.tsx",
+      "count": 8
+    },
+    {
+      "file": "src\\components\\sections\\formation\\FormationHeroSection.tsx",
+      "count": 8
+    },
+    {
+      "file": "src\\components\\sections\\team\\TeamProductionGalleries.tsx",
+      "count": 8
+    },
+    {
+      "file": "src\\app\\(site)\\[locale]\\equipe-cascadeurs-pro\\page.tsx",
+      "count": 7
+    },
+    {
+      "file": "src\\components\\sections\\events\\EventsPartnersBanners.tsx",
+      "count": 7
+    },
+    {
+      "file": "src\\app\\(site)\\[locale]\\team-building-cascades\\page.tsx",
+      "count": 6
+    },
+    {
+      "file": "src\\components\\sections\\visite\\VisiteHeroSection.tsx",
+      "count": 6
+    },
+    {
+      "file": "src\\components\\ui\\InteractiveCampusMap.tsx",
+      "count": 6
+    },
+    {
+      "file": "src\\components\\ui\\LightboxModal.tsx",
+      "count": 6
+    },
+    {
+      "file": "src\\app\\(site)\\[locale]\\opengraph-image.tsx",
+      "count": 5
+    },
+    {
+      "file": "src\\app\\(site)\\[locale]\\visite-guidee\\page.tsx",
+      "count": 5
+    },
+    {
+      "file": "src\\components\\3d\\ui\\EditorCoordinateInputs.tsx",
+      "count": 5
+    },
+    {
+      "file": "src\\app\\global-error.tsx",
+      "count": 4
+    },
+    {
+      "file": "src\\components\\3d\\ui\\CampusViewerHUD.tsx",
+      "count": 4
+    },
+    {
+      "file": "src\\components\\sections\\events\\EventsGuaranteesSection.tsx",
+      "count": 4
+    },
+    {
+      "file": "src\\components\\sections\\films\\CucFilmsShowcase.tsx",
+      "count": 4
+    },
+    {
+      "file": "src\\components\\sections\\formation\\FormationDisciplinesExplorer.tsx",
+      "count": 4
+    },
+    {
+      "file": "src\\components\\sections\\hall-of-fame\\FilmDetailsModal.tsx",
+      "count": 4
+    },
+    {
+      "file": "src\\components\\sections\\HallOfFame.tsx",
+      "count": 4
+    },
+    {
+      "file": "src\\components\\sections\\home\\HomeSocialSection.tsx",
+      "count": 4
+    },
+    {
+      "file": "src\\components\\sections\\home\\HomeTournagesSection.tsx",
+      "count": 4
+    },
+    {
+      "file": "src\\components\\sections\\home\\HomeVirtualTourSection.tsx",
+      "count": 4
+    },
+    {
+      "file": "src\\components\\sections\\stages\\StagesHeroSection.tsx",
+      "count": 4
+    },
+    {
+      "file": "src\\app\\(site)\\[locale]\\contact-cuc\\page.tsx",
+      "count": 3
+    },
+    {
+      "file": "src\\app\\(site)\\[locale]\\error.tsx",
+      "count": 3
+    },
+    {
+      "file": "src\\app\\(site)\\[locale]\\stunt-workshop-cuc\\page.tsx",
+      "count": 3
+    },
+    {
+      "file": "src\\components\\3d\\ui\\CampusJsonStudioModal.tsx",
+      "count": 3
+    },
+    {
+      "file": "src\\components\\sections\\hall-of-fame\\CelebrityDoublesGallery.tsx",
+      "count": 3
+    },
+    {
+      "file": "src\\components\\sections\\hall-of-fame\\FilmGridCard.tsx",
+      "count": 3
+    },
+    {
+      "file": "src\\components\\sections\\team\\TeamBannersSection.tsx",
+      "count": 3
+    },
+    {
+      "file": "src\\components\\sections\\visite\\VisiteFacilitiesDetail.tsx",
+      "count": 3
+    },
+    {
+      "file": "src\\components\\sections\\visite\\VisitePhotoGallery.tsx",
+      "count": 3
+    },
+    {
+      "file": "src\\components\\ui\\parallax-hero\\HeroHudOverlay.tsx",
+      "count": 3
+    },
+    {
+      "file": "src\\components\\3d\\ui\\CampusStudioToolbar.tsx",
+      "count": 2
+    },
+    {
+      "file": "src\\components\\3d\\ui\\FacilitySpotlightCard.tsx",
+      "count": 2
+    },
+    {
+      "file": "src\\components\\layout\\footer-sections\\FooterCreditsBar.tsx",
+      "count": 2
+    },
+    {
+      "file": "src\\components\\layout\\MobileStickyCTA.tsx",
+      "count": 2
+    },
+    {
+      "file": "src\\components\\sections\\contact\\ContactHeroSection.tsx",
+      "count": 2
+    },
+    {
+      "file": "src\\components\\sections\\home\\HomeAboutSection.tsx",
+      "count": 2
+    },
+    {
+      "file": "src\\components\\sections\\partenaires\\PartenairesGridSection.tsx",
+      "count": 2
+    },
+    {
+      "file": "src\\components\\sections\\partenaires\\PartenairesHeroSection.tsx",
+      "count": 2
+    },
+    {
+      "file": "src\\components\\sections\\team\\TeamHeroSection.tsx",
+      "count": 2
+    },
+    {
+      "file": "src\\components\\ui\\campus-map\\CampusRadarView.tsx",
+      "count": 2
+    },
+    {
+      "file": "src\\components\\ui\\campus-map\\CampusTravelPlanner.tsx",
+      "count": 2
+    },
+    {
+      "file": "src\\components\\layout\\footer-sections\\FooterDirectContacts.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\layout\\navbar\\NavMobileDrawer.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\layout\\Navbar.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\sections\\events\\EventsHeroSection.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\sections\\hall-of-fame\\CelebrityDetailsModal.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\sections\\home\\HomePartnersSection.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\sections\\home\\HomeQualiopiSection.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\sections\\partenaires\\PartenairesCtaSection.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\ui\\campus-map\\CampusAppLaunchers.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\ui\\logos\\MediaLogos.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\ui\\parallax-hero\\HeroBottomControls.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\ui\\ParallaxHero.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\ui\\TacticalButton.test.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\lib\\og-image.tsx",
+      "count": 1
+    }
+  ],
+  "entityTotal": 551,
+  "entityRows": [
+    {
+      "entity": "page",
+      "label": "Pages vitrine",
+      "table": "site_pages",
+      "rows": 15,
+      "total": 46,
+      "perField": [
+        {
+          "field": "title",
+          "count": 3
+        },
+        {
+          "field": "meta_title",
+          "count": 8
+        },
+        {
+          "field": "meta_description",
+          "count": 15
+        },
+        {
+          "field": "hero",
+          "count": 15
+        },
+        {
+          "field": "sections_data",
+          "count": 5
+        }
+      ]
+    },
+    {
+      "entity": "navigation",
+      "label": "Navigation",
+      "table": "site_navigation",
+      "rows": 1,
+      "total": 0,
+      "perField": []
+    },
+    {
+      "entity": "footer",
+      "label": "Pied de page",
+      "table": "site_footer",
+      "rows": 1,
+      "total": 0,
+      "perField": []
+    },
+    {
+      "entity": "team",
+      "label": "Coachs",
+      "table": "site_team",
+      "rows": 12,
+      "total": 39,
+      "perField": [
+        {
+          "field": "role",
+          "count": 6
+        },
+        {
+          "field": "title",
+          "count": 9
+        },
+        {
+          "field": "bio",
+          "count": 12
+        },
+        {
+          "field": "specialties",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "entity": "program",
+      "label": "Programmes",
+      "table": "site_programs",
+      "rows": 6,
+      "total": 15,
+      "perField": [
+        {
+          "field": "title",
+          "count": 3
+        },
+        {
+          "field": "description",
+          "count": 6
+        },
+        {
+          "field": "duration",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "entity": "discipline",
+      "label": "Disciplines",
+      "table": "site_disciplines",
+      "rows": 10,
+      "total": 4,
+      "perField": [
+        {
+          "field": "name",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "entity": "event",
+      "label": "Événements",
+      "table": "site_events",
+      "rows": 3,
+      "total": 4,
+      "perField": [
+        {
+          "field": "title",
+          "count": 1
+        },
+        {
+          "field": "description",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "entity": "campus_poi",
+      "label": "Lieux du campus",
+      "table": "site_campus_pois",
+      "rows": 5,
+      "total": 11,
+      "perField": [
+        {
+          "field": "name",
+          "count": 3
+        },
+        {
+          "field": "description",
+          "count": 5
+        },
+        {
+          "field": "category",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "entity": "film",
+      "label": "Films",
+      "table": "site_films",
+      "rows": 570,
+      "total": 418,
+      "perField": [
+        {
+          "field": "description",
+          "count": 418
+        }
+      ]
+    },
+    {
+      "entity": "partner",
+      "label": "Partenaires",
+      "table": "site_partners",
+      "rows": 21,
+      "total": 14,
+      "perField": [
+        {
+          "field": "description",
+          "count": 14
+        }
+      ]
+    },
+    {
+      "entity": "session",
+      "label": "Sessions de formation",
+      "table": "site_sessions",
+      "rows": 18,
+      "total": 0,
+      "perField": []
+    },
+    {
+      "entity": "video",
+      "label": "Vidéos",
+      "table": "site_videos",
+      "idField": "id",
+      "fields": [
+        {
+          "name": "title",
+          "kind": "scalar"
+        },
+        {
+          "name": "description",
+          "kind": "scalar"
+        }
+      ],
+      "rows": 0,
+      "total": 0,
+      "perField": [],
+      "missing": true
+    }
+  ]
+}

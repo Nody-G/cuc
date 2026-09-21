@@ -1,0 +1,217 @@
+{
+    "$comment": "SOURCE DE VÉRITÉ UNIQUE des entités traduisibles. Consommée par l'application (src/lib/i18n/entities.ts) ET par les scripts d'audit (.mjs, via fs) afin qu'aucune liste ne diverge. Ajouter une entité traduisible = ajouter une entrée ici.",
+    "entities": [
+        {
+            "entity": "page",
+            "label": "Pages vitrine",
+            "table": "site_pages",
+            "idField": "slug",
+            "fields": [
+                {
+                    "name": "title",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "meta_title",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "meta_description",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "hero",
+                    "kind": "object"
+                },
+                {
+                    "name": "sections_data",
+                    "kind": "object"
+                }
+            ]
+        },
+        {
+            "entity": "navigation",
+            "label": "Navigation",
+            "table": "site_navigation",
+            "idField": "id",
+            "fields": [
+                {
+                    "name": "labels",
+                    "kind": "object"
+                }
+            ]
+        },
+        {
+            "entity": "footer",
+            "label": "Pied de page",
+            "table": "site_footer",
+            "idField": "id",
+            "fields": [
+                {
+                    "name": "labels",
+                    "kind": "object"
+                }
+            ]
+        },
+        {
+            "entity": "team",
+            "label": "Coachs",
+            "table": "site_team",
+            "idField": "id",
+            "fields": [
+                {
+                    "name": "role",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "title",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "bio",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "specialties",
+                    "kind": "array"
+                }
+            ]
+        },
+        {
+            "entity": "program",
+            "label": "Programmes",
+            "table": "site_programs",
+            "idField": "id",
+            "fields": [
+                {
+                    "name": "title",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "description",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "duration",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "highlights",
+                    "kind": "array"
+                },
+                {
+                    "name": "modules",
+                    "kind": "array"
+                }
+            ]
+        },
+        {
+            "entity": "discipline",
+            "label": "Disciplines",
+            "table": "site_disciplines",
+            "idField": "id",
+            "fields": [
+                {
+                    "name": "name",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "description",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "objectives",
+                    "kind": "array"
+                }
+            ]
+        },
+        {
+            "entity": "event",
+            "label": "Événements",
+            "table": "site_events",
+            "idField": "id",
+            "fields": [
+                {
+                    "name": "title",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "description",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "location",
+                    "kind": "scalar"
+                }
+            ]
+        },
+        {
+            "entity": "campus_poi",
+            "label": "Lieux du campus",
+            "table": "site_campus_pois",
+            "idField": "id",
+            "fields": [
+                {
+                    "name": "name",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "description",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "category",
+                    "kind": "scalar"
+                }
+            ]
+        },
+        {
+            "entity": "film",
+            "label": "Films",
+            "table": "site_films",
+            "idField": "id",
+            "fields": [
+                {
+                    "name": "description",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "stunt_roles",
+                    "kind": "scalar"
+                }
+            ]
+        },
+        {
+            "entity": "partner",
+            "label": "Partenaires",
+            "table": "site_partners",
+            "idField": "id",
+            "fields": [
+                {
+                    "name": "description",
+                    "kind": "scalar"
+                }
+            ]
+        },
+        {
+            "entity": "session",
+            "label": "Sessions de formation",
+            "table": "site_sessions",
+            "idField": "id",
+            "fields": [
+                {
+                    "name": "title",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "description",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "location",
+                    "kind": "scalar"
+                }
+            ]
+        }
+    ]
+}
