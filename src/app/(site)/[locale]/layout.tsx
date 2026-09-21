@@ -100,16 +100,19 @@ export default async function LocaleLayout({
     // pour TOUTES les pages : sans cela, seules quelques pages fournissaient le
     // provider et les libellés FR (menu, footer) restaient affichés en mode EN —
     // y compris définitivement sur les vues purement clientes.
-    const [navigation, footer, social, teamOverlays, campusPoiOverlays] = await Promise.all([
-        getLocalizedNavigation('main', locale as Locale),
-        getLocalizedFooterChrome('main', locale as Locale),
-        getLocalizedSocialLinks(locale as Locale),
-        // Données éditoriales EN attendues dès le premier rendu (sinon le HTML
-        // servi reste en français jusqu'à l'hydratation — défaut mesuré par le
-        // crawler i18n) : coachs de l'annuaire et points du campus.
-        getEntityOverlays('team', locale as Locale),
-        getEntityOverlays('campus_poi', locale as Locale),
-    ]);
+    const [navigation, footer, social, teamOverlays, campusPoiOverlays, facilityOverlays] =
+        await Promise.all([
+            getLocalizedNavigation('main', locale as Locale),
+            getLocalizedFooterChrome('main', locale as Locale),
+            getLocalizedSocialLinks(locale as Locale),
+            // Données éditoriales EN attendues dès le premier rendu (sinon le HTML
+            // servi reste en français jusqu'à l'hydratation — défaut mesuré par le
+            // crawler i18n) : coachs de l'annuaire, points du campus et
+            // installations du domaine (fiches de la visite guidée).
+            getEntityOverlays('team', locale as Locale),
+            getEntityOverlays('campus_poi', locale as Locale),
+            getEntityOverlays('campus_facility', locale as Locale),
+        ]);
 
     // Le provider next-intl est porté par RootShell : la page ET les composants
     // de coquille (MobileStickyCTA…) partagent désormais le même contexte i18n.
@@ -121,7 +124,11 @@ export default async function LocaleLayout({
                     navigation,
                     footer,
                     social,
-                    overlays: { team: teamOverlays, campus_poi: campusPoiOverlays },
+                    overlays: {
+                        team: teamOverlays,
+                        campus_poi: campusPoiOverlays,
+                        campus_facility: facilityOverlays,
+                    },
                 }}
             >
                 {children}

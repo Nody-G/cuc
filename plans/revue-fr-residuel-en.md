@@ -1,9 +1,9 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T17:36:26.450Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T18:09:10.354Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **8** — occurrences : **91**
+Pages contrôlées : **27** — pages avec français résiduel : **8** — occurrences : **78**
 
 ## /en/formation-de-cascadeur — 11 occurrence(s)
 
@@ -83,7 +83,7 @@ Pages contrôlées : **27** — pages avec français résiduel : **8** — occur
 | texte visible | Vous êtes équipementier, fabricant de matériel, société d'effets spéciaux ou marque souhaitant associer son image au campus ? |
 | texte visible | Nous contacter |
 
-## /en/visite-guidee — 36 occurrence(s)
+## /en/visite-guidee — 23 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
@@ -103,26 +103,13 @@ Pages contrôlées : **27** — pages avec français résiduel : **8** — occur
 | texte visible | Hébergement & Base de Vie (90 Places) |
 | texte visible | 90 lits sur site |
 | texte visible | Structure emblématique inaugurée en octobre 2024 au Cateau-Cambrésis. Haute de plus de 20 mètres avec plusieurs plateformes de saut sécurisées, escalier extérieur galvanisé et coussin airbag géant pour chutes libres de 6 |
-| texte visible | Spécifications & Équipements Clés : Plateformes de saut étagées (6m, 9m, 12m, 15m, 21m) |
+| texte visible | Key Specifications & Equipment: Plateformes de saut étagées (6m, 9m, 12m, 15m, 21m) |
 | texte visible | Escalier industriel galvanisé à volées multiples |
 | texte visible | Plateforme de défenestration avec baies ouvertes pour prises de vues |
 | texte visible | Ancrages de rappel pour scènes d'action verticales |
 | texte visible | Zone de réception XXL pour airbag de cascade professionnel |
-| texte visible | Conformité & Normes : Structure acier haute résistance, plateformes de saut étagées, réception airbag professionnel cinéma |
-| texte visible | EXPÉRIENCE 360° |
-| texte visible | VISITE VIRTUELLE 360° DU CAMPUS |
-| texte visible | PLAN 3D INTERACTIF DU CAMPUS |
-| texte visible | Faites pivoter la vue aérienne, explorez les 9 infrastructures en trois dimensions, et sélectionnez une zone pour découvrir ses installations spécialisées. |
-| texte visible | Chargement du plan 3D… |
-| texte visible | ACCÈS & TRANSPORT |
-| texte visible | COMMENT REJOINDRE LE CAMPUS ? |
-| texte visible | Situé au cœur de la région Hauts-de-France, le campus est facilement accessible depuis Paris, Lille, Bruxelles ou Londres. |
-| texte visible | EN VOITURE : À 2h de Paris par les autoroutes A1 et A26. À 1h de Lille et Valenciennes. Parking privé sécurisé gratuit sur place pour les stagiaires. |
-| texte visible | EN AVION : Aéroports internationaux de Paris CDG (1h45 de route), Lille Lesquin (1h) ou Charleroi Bruxelles-Sud (1h15). |
-| texte visible | COORDONNÉES DU DOMAINE |
-| texte visible | Standard Admissions : Téléphone : |
-| texte visible | Pôle Île-de-France (Studio Paris) : Studio de Répétition & Comédiens |
-| texte visible | Planifier une Visite ou Réserver un Stage |
+| texte visible | Compliance & Standards: Structure acier haute résistance, plateformes de saut étagées, réception airbag professionnel cinéma |
+| texte visible | Île-de-France centre (Paris studio): Rehearsal studio & actors |
 
 ## /en/videos-cascadeur — 1 occurrence(s)
 

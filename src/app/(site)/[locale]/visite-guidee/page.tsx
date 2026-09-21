@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -17,22 +18,33 @@ import {
   VisiteAccessTransport,
 } from '@/components/sections/visite';
 
+/**
+ * Attente du plan 3D : composant dédié, car `dynamic()` est évalué au niveau du
+ * module, hors du composant de page — le hook de traduction n'y est pas
+ * disponible.
+ */
+const Plan3DLoading: React.FC = () => {
+  const t = useTranslations('visiteGuidee');
+  return (
+    <div className="w-full h-[520px] sm:h-[620px] lg:h-[720px] flex items-center justify-center bg-[#0c0c12] border border-zinc-800">
+      <span className="text-xs font-mono-tech text-zinc-500 uppercase tracking-widest animate-pulse">
+        {t('loading3d')}
+      </span>
+    </div>
+  );
+};
+
 // Three.js (~600 ko) chargé à la demande, uniquement côté client.
 const CampusPlan3D = dynamic(
   () => import('@/components/3d/CampusPlan3D').then((m) => m.CampusPlan3D),
   {
     ssr: false,
-    loading: () => (
-      <div className="w-full h-[520px] sm:h-[620px] lg:h-[720px] flex items-center justify-center bg-[#0c0c12] border border-zinc-800">
-        <span className="text-xs font-mono-tech text-zinc-500 uppercase tracking-widest animate-pulse">
-          Chargement du plan 3D…
-        </span>
-      </div>
-    ),
+    loading: () => <Plan3DLoading />,
   }
 );
 
 export default function VisiteGuideePage() {
+  const t = useTranslations('visiteGuidee');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const { content } = usePageDynamicContent('visite-guidee');
 
@@ -73,19 +85,17 @@ export default function VisiteGuideePage() {
                     variant="yellow"
                     icon={<Layers className="w-3.5 h-3.5" />}
                   >
-                    TOPOGRAPHIE SPATIALE 3D
+                    {t('tour3dBadge')}
                   </StuntBadge>
                   <span className="text-xs font-mono-tech text-zinc-400">
                     DOMAINE CLOS • LE CATEAU-CAMBRÉSIS
                   </span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-wide text-white mb-3">
-                  PLAN 3D INTERACTIF <span className="text-[#FFE500]">DU CAMPUS</span>
+                  {t('tour3dTitle')} <span className="text-[#FFE500]">{t('tour3dTitleAccent')}</span>
                 </h2>
                 <p className="text-sm font-tech text-zinc-400">
-                  Faites pivoter la vue aérienne, explorez les 9 infrastructures en
-                  trois dimensions, et sélectionnez une zone pour découvrir ses
-                  installations spécialisées.
+                  {t('tour3dParagraph')}
                 </p>
               </div>
               <CampusPlan3D />
@@ -106,15 +116,13 @@ export default function VisiteGuideePage() {
                   variant="yellow"
                   icon={<Compass className="w-3.5 h-3.5" />}
                 >
-                  EXPÉRIENCE 360°
+                  {t('tour360Badge')}
                 </StuntBadge>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-wide text-white mt-3 mb-3">
-                  VISITE VIRTUELLE <span className="text-[#FFE500]">360° DU CAMPUS</span>
+                  {t('tour360Title')} <span className="text-[#FFE500]">{t('tour360TitleAccent')}</span>
                 </h2>
                 <p className="text-sm font-tech text-zinc-400">
-                  Explorez le domaine en immersion totale : naviguez librement
-                  dans le Zoé Bell Hall, observez la fosse olympique à cubes, la
-                  Tour CUC de 21m et l'ensemble des plateaux techniques.
+                  {t('tour360Paragraph')}
                 </p>
               </div>
               <VirtualTourViewer />

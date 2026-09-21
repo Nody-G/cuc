@@ -448,7 +448,9 @@
         "zoom": "Enlarge",
         "facilitiesTag": "FACILITIES",
         "facilitiesTitle": "OUR FACILITIES",
-        "facilitiesSubtitle": "Every space is designed for physical and mechanical stunt work, with the landing equipment it requires."
+        "facilitiesSubtitle": "Every space is designed for physical and mechanical stunt work, with the landing equipment it requires.",
+        "facilitiesSpecsLabel": "Key Specifications & Equipment:",
+        "facilitiesComplianceLabel": "Compliance & Standards:"
     },
     "home": {
         "hero": {
@@ -948,5 +950,34 @@
     },
     "stuntWorkshop": {
         "heroMeta": "IN ENGLISH & FRENCH • 2 RESIDENTIAL WEEKS"
+    },
+    "visiteGuidee": {
+        "accessBadge": "ACCESS & TRANSPORT",
+        "accessTitle": "HOW TO REACH THE CAMPUS",
+        "accessIntro": "Located in the heart of the Hauts-de-France region, the campus is easily reachable from Paris, Lille, Brussels or London.",
+        "accessCarLabel": "BY CAR:",
+        "accessCarBody": "2 hours from Paris via the A1 and A26 motorways. 1 hour from Lille and Valenciennes. Free secured private parking on site for trainees.",
+        "accessTrainLabel": "BY TRAIN (SNCF):",
+        "accessTrainBody": "Le Cateau-Cambrésis station (5 minutes from the campus). Direct services from Paris Gare du Nord (via Saint-Quentin or Cambrai). CUC shuttle available on request.",
+        "accessPlaneLabel": "BY PLANE:",
+        "accessPlaneBody": "International airports: Paris CDG (1h45 by road), Lille Lesquin (1h) or Brussels South Charleroi (1h15).",
+        "coordinatesTitle": "GETTING HERE",
+        "addressLabel": "Postal address & access:",
+        "mapRadarLabel": "Radar & directions",
+        "standardLabel": "Admissions office:",
+        "phoneLabel": "Phone:",
+        "emailLabel": "Email:",
+        "idfLabel": "Île-de-France centre (Paris studio):",
+        "idfValue": "Rehearsal studio & actors",
+        "accessCta": "Plan a visit or book a course",
+        "tour3dBadge": "3D SPATIAL TOPOGRAPHY",
+        "tour3dTitle": "INTERACTIVE 3D MAP",
+        "tour3dTitleAccent": "OF THE CAMPUS",
+        "tour3dParagraph": "Rotate the aerial view, explore the nine facilities in three dimensions, and select an area to discover its specialised installations.",
+        "tour360Badge": "360° EXPERIENCE",
+        "tour360Title": "VIRTUAL TOUR",
+        "tour360TitleAccent": "360° OF THE CAMPUS",
+        "tour360Paragraph": "Explore the grounds in full immersion: move freely through the Zoé Bell Hall, look at the Olympic foam pit, the 21m CUC Tower and all the technical stages.",
+        "loading3d": "Loading the 3D map…"
     }
 }

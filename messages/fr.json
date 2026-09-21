@@ -448,7 +448,9 @@
         "zoom": "Agrandir",
         "facilitiesTag": "INFRASTRUCTURES",
         "facilitiesTitle": "NOS INFRASTRUCTURES",
-        "facilitiesSubtitle": "Chaque espace est conçu pour le travail des cascades physiques et mécaniques, avec les équipements de réception nécessaires."
+        "facilitiesSubtitle": "Chaque espace est conçu pour le travail des cascades physiques et mécaniques, avec les équipements de réception nécessaires.",
+        "facilitiesSpecsLabel": "Spécifications & Équipements Clés :",
+        "facilitiesComplianceLabel": "Conformité & Normes :"
     },
     "home": {
         "hero": {
@@ -948,5 +950,34 @@
     },
     "stuntWorkshop": {
         "heroMeta": "EN ANGLAIS & FRANÇAIS • 2 SEMAINES RÉSIDENTIELLES"
+    },
+    "visiteGuidee": {
+        "accessBadge": "ACCÈS & TRANSPORT",
+        "accessTitle": "COMMENT REJOINDRE LE CAMPUS ?",
+        "accessIntro": "Situé au cœur de la région Hauts-de-France, le campus est facilement accessible depuis Paris, Lille, Bruxelles ou Londres.",
+        "accessCarLabel": "EN VOITURE :",
+        "accessCarBody": "À 2h de Paris par les autoroutes A1 et A26. À 1h de Lille et Valenciennes. Parking privé sécurisé gratuit sur place pour les stagiaires.",
+        "accessTrainLabel": "EN TRAIN (SNCF) :",
+        "accessTrainBody": "Gare de Le Cateau-Cambrésis (à 5 minutes du campus). Lignes directes depuis Paris Gare du Nord (via Saint-Quentin ou Cambrai). Navette CUC disponible sur demande.",
+        "accessPlaneLabel": "EN AVION :",
+        "accessPlaneBody": "Aéroports internationaux de Paris CDG (1h45 de route), Lille Lesquin (1h) ou Charleroi Bruxelles-Sud (1h15).",
+        "coordinatesTitle": "COORDONNÉES DU DOMAINE",
+        "addressLabel": "Adresse postale & Accès :",
+        "mapRadarLabel": "Radar & Itinéraires",
+        "standardLabel": "Standard Admissions :",
+        "phoneLabel": "Téléphone :",
+        "emailLabel": "Email :",
+        "idfLabel": "Pôle Île-de-France (Studio Paris) :",
+        "idfValue": "Studio de Répétition & Comédiens",
+        "accessCta": "Planifier une Visite ou Réserver un Stage",
+        "tour3dBadge": "TOPOGRAPHIE SPATIALE 3D",
+        "tour3dTitle": "PLAN 3D INTERACTIF",
+        "tour3dTitleAccent": "DU CAMPUS",
+        "tour3dParagraph": "Faites pivoter la vue aérienne, explorez les 9 infrastructures en trois dimensions, et sélectionnez une zone pour découvrir ses installations spécialisées.",
+        "tour360Badge": "EXPÉRIENCE 360°",
+        "tour360Title": "VISITE VIRTUELLE",
+        "tour360TitleAccent": "360° DU CAMPUS",
+        "tour360Paragraph": "Explorez le domaine en immersion totale : naviguez librement dans le Zoé Bell Hall, observez la fosse olympique à cubes, la Tour CUC de 21m et l'ensemble des plateaux techniques.",
+        "loading3d": "Chargement du plan 3D…"
     }
 }

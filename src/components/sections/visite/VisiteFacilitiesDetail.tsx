@@ -6,6 +6,8 @@ import { useTranslations } from 'next-intl';
 import { ChevronRight, CheckCircle2 } from 'lucide-react';
 import { CAMPUS_FACILITIES } from '@/data/campus';
 import { getCampusFacilities } from '@/lib/data/site-service';
+import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
+import { applyFacilityOverlays } from '@/lib/i18n/apply-facility-overlay';
 import { InfrastructureSpot } from '@/types';
 
 /**
@@ -37,13 +39,23 @@ const resolveInitialFacilityId = (list: InfrastructureSpot[] = CAMPUS_FACILITIES
 
 export const VisiteFacilitiesDetail: React.FC = () => {
   const t = useTranslations('visite');
-  const [facilities, setFacilities] = useState<InfrastructureSpot[]>(CAMPUS_FACILITIES);
+  const [rawFacilities, setRawFacilities] = useState<InfrastructureSpot[]>(CAMPUS_FACILITIES);
   const [activeFacilityId, setActiveFacilityId] = useState(() => resolveInitialFacilityId(CAMPUS_FACILITIES));
+
+  /**
+   * Noms, gabarits, descriptions, équipements et normes des installations sont
+   * des DONNÉES : l'anglais arrive par l'overlay `campus_facility`, appliqué ici.
+   */
+  const facilityOverlays = useEntityOverlays('campus_facility');
+  const facilities = useMemo(
+    () => applyFacilityOverlays(rawFacilities, facilityOverlays),
+    [rawFacilities, facilityOverlays],
+  );
 
   useEffect(() => {
     getCampusFacilities().then((data) => {
       if (data && data.length > 0) {
-        setFacilities(data);
+        setRawFacilities(data);
       }
     });
   }, []);
@@ -159,7 +171,7 @@ export const VisiteFacilitiesDetail: React.FC = () => {
             <div className="space-y-4 pt-4 border-t border-zinc-800 text-xs font-tech">
               <div>
                 <strong className="text-[#FFE500] font-mono-tech block mb-2 uppercase">
-                  Spécifications &amp; Équipements Clés :
+                  {t('facilitiesSpecsLabel')}
                 </strong>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {selectedFacility.features.map((feature, idx) => (
@@ -176,7 +188,7 @@ export const VisiteFacilitiesDetail: React.FC = () => {
 
               <div className="p-3 bg-black/50 border border-zinc-800 text-zinc-400">
                 <strong className="text-zinc-300 font-mono-tech text-[11px] block uppercase mb-0.5">
-                  Conformité &amp; Normes :
+                  {t('facilitiesComplianceLabel')}
                 </strong>
                 {selectedFacility.specifications}
               </div>
