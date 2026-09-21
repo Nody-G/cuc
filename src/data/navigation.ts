@@ -108,30 +108,15 @@ export const DEFAULT_NAVIGATION: SiteNavigation = {
                 ],
             },
             {
+                // Onglet unique : la page campus regroupe les infrastructures,
+                // la visite 360°, le plan 3D et les photos. Plus de sous-menu.
                 id: 'campus',
                 label: 'Le Campus',
-                type: 'dropdown',
+                href: '/visite-guidee',
+                type: 'link',
                 order: 3,
                 is_visible: true,
                 activeMatchPrefixes: ['/visite-guidee', '/visite-virtuelle'],
-                children: [
-                    {
-                        id: 'visite-guidee',
-                        label: 'VISITE GUIDÉE',
-                        description: 'Découvrir les 6 hectares & installations',
-                        href: '/visite-guidee',
-                        order: 1,
-                        is_visible: true,
-                    },
-                    {
-                        id: 'visite-virtuelle',
-                        label: 'VISITE VIRTUELLE 360°',
-                        description: 'Immersion 3D interactive du campus',
-                        href: '/visite-virtuelle',
-                        order: 2,
-                        is_visible: true,
-                    },
-                ],
             },
             {
                 id: 'events',
@@ -197,17 +182,17 @@ export const DEFAULT_NAVIGATION: SiteNavigation = {
                 is_visible: true,
             },
             {
-                id: 'videos',
-                label: 'Nos Vidéos',
-                href: '/videos-cascadeur',
+                id: 'tournages',
+                label: 'Tournage',
+                href: '/cuc-team-cascadeur',
                 type: 'link',
                 order: 7,
                 is_visible: true,
             },
             {
-                id: 'tournages',
-                label: 'Tournages',
-                href: '/cuc-team-cascadeur',
+                id: 'videos',
+                label: 'Nos Vidéos',
+                href: '/videos-cascadeur',
                 type: 'link',
                 order: 8,
                 is_visible: true,
@@ -392,7 +377,7 @@ export const DEFAULT_FOOTER: SiteFooter = {
             },
             {
                 id: 'equipe',
-                title: 'Équipe & Tournages',
+                title: 'L’équipe',
                 order: 3,
                 is_visible: true,
                 links: [
@@ -404,24 +389,32 @@ export const DEFAULT_FOOTER: SiteFooter = {
                         is_visible: true,
                     },
                     {
-                        id: 'cuc-team',
-                        label: 'CUC Team & Action Design',
-                        href: '/cuc-team-cascadeur',
-                        order: 2,
-                        is_visible: true,
-                    },
-                    {
                         id: 'videos',
                         label: 'Vidéos & Démos',
                         href: '/videos-cascadeur',
-                        order: 3,
+                        order: 2,
+                        is_visible: true,
+                    },
+                ],
+            },
+            {
+                id: 'tournages',
+                title: 'Tournage',
+                order: 4,
+                is_visible: true,
+                links: [
+                    {
+                        id: 'cuc-team',
+                        label: 'CUC Team & Action Design',
+                        href: '/cuc-team-cascadeur',
+                        order: 1,
                         is_visible: true,
                     },
                     {
                         id: 'partenaires',
                         label: 'Partenaires & Studios',
                         href: '/partenaires',
-                        order: 4,
+                        order: 2,
                         is_visible: true,
                     },
                 ],
@@ -429,7 +422,7 @@ export const DEFAULT_FOOTER: SiteFooter = {
             {
                 id: 'contact',
                 title: 'Contact & Accès',
-                order: 4,
+                order: 5,
                 is_visible: true,
                 links: [
                     {

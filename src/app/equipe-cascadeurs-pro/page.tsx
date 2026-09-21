@@ -56,8 +56,8 @@ export default function EquipeCascadeursProPage() {
     }
   }, [films, filmSort]);
 
-  const heroBadge = content.hero?.badge || 'COORDINATEURS & FORMATEURS';
-  const heroTitle = content.hero?.title || "L'ÉQUIPE PÉDAGOGIQUE DU CUC";
+  const heroBadge = content.hero?.badge || 'COACHS & PROFESSIONNELS DU CINÉMA';
+  const heroTitle = content.hero?.title || "L'ÉQUIPE";
   const heroSubtitle =
     content.hero?.subtitle ||
     "Une faculté d'action unique au monde. Des coordinateurs de cascades renommés, des pionniers des Yamakasi, et des cascadeurs en exercice sur les plus grandes productions hollywoodiennes et françaises qui transmettent chaque jour leur savoir-faire sur le terrain.";

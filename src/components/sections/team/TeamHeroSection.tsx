@@ -12,8 +12,8 @@ interface TeamHeroSectionProps {
 }
 
 export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
-  const badge = hero?.badge || 'COORDINATION DE CASCADES • TOURNAGES & CINÉMA';
-  const title = hero?.title || 'TOURNAGES & CUC STUNT TEAM';
+  const badge = hero?.badge || 'COORDINATION DE CASCADES • CINÉMA';
+  const title = hero?.title || 'TOURNAGE';
   const subtitle =
     hero?.subtitle ||
     "Le Campus Univers Cascades et la CUC Stunt Team accompagnent les productions cinématographiques et audiovisuelles, de la conception des chorégraphies d'action jusqu'au tournage en plateau.";
@@ -45,7 +45,7 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
                 ACCUEIL
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-              <span className="text-[#FFE500]">TOURNAGES &amp; CUC STUNT TEAM</span>
+              <span className="text-[#FFE500]">TOURNAGE</span>
             </div>
 
             <div className="flex items-center gap-2 mb-4 text-xs font-mono-tech uppercase font-bold tracking-wider text-[#FFE500]">

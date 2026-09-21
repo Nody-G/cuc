@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T00:34:06.832Z",
+  "generatedAt": "2026-09-21T08:48:48.262Z",
   "summary": {
     "routes": 29,
     "sourceFiles": 241,
@@ -1955,28 +1955,28 @@
     },
     {
       "file": "src/data/navigation.ts",
-      "line": 521,
+      "line": 514,
       "platform": "instagram",
       "handle": "campus.univers.cascades",
       "url": "https://www.instagram.com/campus.univers.cascades/"
     },
     {
       "file": "src/data/navigation.ts",
-      "line": 535,
+      "line": 528,
       "platform": "youtube",
       "handle": "@campusuniverscascades",
       "url": "https://www.youtube.com/@campusuniverscascades"
     },
     {
       "file": "src/data/navigation.ts",
-      "line": 549,
+      "line": 542,
       "platform": "tiktok",
       "handle": "@campusuniverscascades",
       "url": "https://www.tiktok.com/@campusuniverscascades"
     },
     {
       "file": "src/data/navigation.ts",
-      "line": 563,
+      "line": 556,
       "platform": "facebook",
       "handle": "campus.univers.cascades",
       "url": "https://www.facebook.com/campus.univers.cascades"
