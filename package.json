@@ -23,6 +23,7 @@
     "i18n:audit:surface": "node scripts/audit_translation_surface.mjs",
     "i18n:audit:ui": "node scripts/audit_ui_i18n.mjs",
     "i18n:audit:entities": "node scripts/audit_entity_translations.mjs",
+    "i18n:verify:no-flash": "node scripts/verify_i18n_no_flash.mjs",
     "i18n:seed:sections": "node scripts/seed_site_translations_en_sections.mjs",
     "i18n:seed:sections:dry": "node scripts/seed_site_translations_en_sections.mjs --dry",
     "audit:6ha": "node scripts/check_6ha_mentions.mjs",

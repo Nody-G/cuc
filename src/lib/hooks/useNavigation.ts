@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useSiteData } from '@/components/i18n/SiteDataProvider';
 import { createClient } from '@/lib/supabase/client';
 import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
 import {
@@ -69,13 +70,34 @@ function applyItemLabels(items: any[], labels: Record<string, string> | null): a
  * toute modification faite depuis le Cockpit.
  */
 export function useNavigation(id: string = 'main'): NavigationStructure {
-    const [structure, setStructure] = useState<NavigationStructure>(DEFAULT_NAVIGATION.structure);
+    // Données RÉSOLUES SUR LE SERVEUR (FR + EN fusionnés) : quand elles sont
+    // présentes, le premier rendu est déjà dans la bonne langue et aucune requête
+    // n'est rejouée côté navigateur — c'est ce qui supprime le flash.
+    const server = useSiteData()?.navigation ?? null;
+    const hasServerData = !!server;
+
+    const [structure, setStructure] = useState<NavigationStructure>(() =>
+        server
+            ? {
+                items: applyItemLabels(server.structure.items ?? [], server.labels),
+                cta: server.labels?.cta
+                    ? {
+                        ...(server.structure.cta || DEFAULT_NAVIGATION.structure.cta),
+                        label: server.labels.cta,
+                    }
+                    : server.structure.cta || DEFAULT_NAVIGATION.structure.cta,
+            }
+            : DEFAULT_NAVIGATION.structure
+    );
 
     useEffect(() => {
         let cancelled = false;
         const supabase = createClient();
 
         async function fetchNavigation() {
+            // Le serveur a déjà fourni la navigation localisée : on ne rejoue pas
+            // la requête (Realtime reste actif pour la fraîcheur).
+            if (hasServerData) return;
             try {
                 const { data, error } = await supabase
                     .from('site_navigation')
@@ -134,7 +156,7 @@ export function useNavigation(id: string = 'main'): NavigationStructure {
             cancelled = true;
             removeSafeChannel(supabase, channel);
         };
-    }, [id]);
+    }, [id, hasServerData]);
 
     return structure;
 }
@@ -144,13 +166,38 @@ export function useNavigation(id: string = 'main'): NavigationStructure {
  * Même doctrine de fallback que `useNavigation`.
  */
 export function useFooter(id: string = 'main'): FooterStructure {
-    const [structure, setStructure] = useState<FooterStructure>(DEFAULT_FOOTER.structure);
+    // Même doctrine que la navigation : le serveur fournit la structure ET les
+    // libellés traduits, donc le premier rendu est déjà en anglais.
+    const serverFooter = useSiteData()?.footer ?? null;
+    const hasServerFooter = !!serverFooter;
+
+    const [structure, setStructure] = useState<FooterStructure>(() => {
+        if (!serverFooter) return DEFAULT_FOOTER.structure;
+        const labels = serverFooter.labels;
+        return {
+            columns: labels
+                ? (serverFooter.structure.columns ?? []).map((col) => ({
+                    ...col,
+                    title: labels[col.id] || col.title,
+                    links: Array.isArray(col.links)
+                        ? col.links.map((link) => ({
+                            ...link,
+                            label: labels[link.id] || link.label,
+                        }))
+                        : col.links,
+                }))
+                : serverFooter.structure.columns,
+            brand: serverFooter.structure.brand || DEFAULT_FOOTER.structure.brand,
+            legal: serverFooter.structure.legal || DEFAULT_FOOTER.structure.legal,
+        };
+    });
 
     useEffect(() => {
         let cancelled = false;
         const supabase = createClient();
 
         async function fetchFooter() {
+            if (hasServerFooter) return;
             try {
                 const { data, error } = await supabase
                     .from('site_footer')
@@ -215,7 +262,7 @@ export function useFooter(id: string = 'main'): FooterStructure {
             cancelled = true;
             removeSafeChannel(supabase, channel);
         };
-    }, [id]);
+    }, [id, hasServerFooter]);
 
     return structure;
 }

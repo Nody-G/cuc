@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import { useSiteData } from '@/components/i18n/SiteDataProvider';
 import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
 import { SitePageContent, DEFAULT_PAGE_CONTENTS, normalizeSlug } from '@/lib/data/site-service';
 import { getPreviewDraft, subscribePreviewDraft } from '@/lib/preview/preview-store';
@@ -49,6 +50,15 @@ function deepMergeSectionsData(
 
 export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageContent>) {
   const cleanSlug = normalizeSlug(slug);
+
+  // Contenu DÉJÀ localisé fourni par le serveur (FR + overlay EN fusionnés) : il
+  // remplace le fallback statique comme base, ce qui rend le premier rendu client
+  // correct en anglais — c'est la fin du français affiché « un bref instant ».
+  const serverPage = useSiteData()?.page ?? null;
+  const hasServerPage = !!serverPage && normalizeSlug(String(serverPage.slug)) === cleanSlug;
+  const effectiveFallback: Partial<SitePageContent> | undefined = hasServerPage
+    ? (serverPage as Partial<SitePageContent>)
+    : fallback;
   const defaultData: SitePageContent = DEFAULT_PAGE_CONTENTS[cleanSlug] || {
     slug: cleanSlug,
     title: 'Campus Univers Cascades',
@@ -64,18 +74,18 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
 
   const initialContent: SitePageContent = {
     ...defaultData,
-    ...(fallback || {}),
+    ...(effectiveFallback || {}),
     hero: {
       ...defaultData.hero,
-      ...(fallback?.hero || {}),
+      ...(effectiveFallback?.hero || {}),
     },
     layout_sections:
-      fallback?.layout_sections && fallback.layout_sections.length > 0
-        ? fallback.layout_sections
+      effectiveFallback?.layout_sections && effectiveFallback.layout_sections.length > 0
+        ? effectiveFallback.layout_sections
         : defaultData.layout_sections,
     sections_data: deepMergeSectionsData(
       defaultData.sections_data,
-      fallback?.sections_data
+      effectiveFallback?.sections_data
     ),
   };
 
@@ -155,8 +165,13 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
       }
     }
 
-    fetchFreshContent();
-    fetchTranslation();
+    // Le serveur a déjà fusionné FR + EN : rejouer ces requêtes ne ferait que
+    // réafficher du français le temps de la réponse (le Realtime, plus bas, reste
+    // actif pour la fraîcheur).
+    if (!hasServerPage) {
+      fetchFreshContent();
+      fetchTranslation();
+    }
 
     // Abonnement Supabase Realtime instantané
     const channel = createSafeChannel(
@@ -223,7 +238,7 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
       removeSafeChannel(supabase, channel);
       if (translationChannel) removeSafeChannel(supabase, translationChannel);
     };
-  }, [cleanSlug, locale]);
+  }, [cleanSlug, locale, hasServerPage]);
 
   // Aperçu live du Cockpit : si un brouillon est poussé via `postMessage`,
   // il prend le pas sur le contenu Supabase sans rechargement ni écriture.

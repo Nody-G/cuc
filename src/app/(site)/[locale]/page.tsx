@@ -1,99 +1,47 @@
-'use client';
-
-import React from 'react';
-import { Navbar } from '@/components/layout/Navbar';
-import { Footer } from '@/components/layout/Footer';
-import { ParallaxHero } from '@/components/ui/ParallaxHero';
-import { StudioGlobalAtmosphere } from '@/components/ui/parallax';
+import { hasLocale } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
 import {
-  HomeAboutSection,
-  HomeTournagesSection,
-  HomeVirtualTourSection,
-  HomeQualiopiSection,
-  HomePartnersSection,
-  HomeSocialSection,
-} from '@/components/sections/home';
-import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+  getLocalizedFooterChrome,
+  getLocalizedNavigation,
+  getLocalizedPageContent,
+} from '@/lib/i18n/server';
+import { SiteDataProvider } from '@/components/i18n/SiteDataProvider';
+import type { Locale } from '@/lib/i18n/entities';
+import { HomeView } from './HomeView';
 
-export default function Home() {
-  const { content } = usePageDynamicContent('/');
+/**
+ * Route d'accueil — **Server Component**.
+ *
+ * Elle résout la localisation AVANT le rendu : contenu de page FR + overlay EN
+ * fusionnés, navigation et pied de page traduits inclus. La vue cliente reçoit
+ * donc des données déjà dans la bonne langue et son premier rendu est correct —
+ * c'est ce qui supprime le français affiché « un bref instant » en mode anglais.
+ * L'enveloppe HTML part aussi complète côté serveur (meilleur SEO).
+ */
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
 
-  // Tri et filtrage des sections selon l'agencement configuré dans le Cockpit
-  const sortedSections = [...(content.layout_sections || [])]
-    .filter((s) => s.is_visible !== false)
-    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
 
-  // Rendu modulaire de chaque bloc dynamique
-  const renderSection = (id: string) => {
-    switch (id) {
-      case 'hero':
-        return <ParallaxHero key="hero" heroData={content.hero} />;
-      case 'about':
-        return <HomeAboutSection key="about" aboutData={content.sections_data?.about} />;
-      case 'tournages':
-        return (
-          <HomeTournagesSection
-            key="tournages"
-            tournagesData={content.sections_data?.tournages}
-          />
-        );
-      case 'virtual_tour':
-        return (
-          <HomeVirtualTourSection
-            key="virtual_tour"
-            virtualTourData={content.sections_data?.virtual_tour}
-          />
-        );
-      case 'qualiopi':
-        return (
-          <HomeQualiopiSection
-            key="qualiopi"
-            qualiopiData={content.sections_data?.qualiopi}
-          />
-        );
-      case 'partners':
-        return (
-          <HomePartnersSection
-            key="partners"
-            partnersData={content.sections_data?.partners}
-          />
-        );
-      case 'social':
-        return (
-          <HomeSocialSection key="social" socialData={content.sections_data?.social} />
-        );
-      default:
-        return null;
-    }
-  };
+  setRequestLocale(locale);
+
+  const [page, navigation, footer] = await Promise.all([
+    getLocalizedPageContent('/', locale as Locale),
+    getLocalizedNavigation('main', locale as Locale),
+    getLocalizedFooterChrome('main', locale as Locale),
+  ]);
 
   return (
-    <div className="relative min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
-      {/* Studio Animation Continuous Global Depth Atmosphere */}
-      <StudioGlobalAtmosphere />
-
-      <Navbar />
-
-      <main id="contenu-principal" className="flex-grow pt-28 relative z-10">
-        {sortedSections.length > 0 ? (
-          sortedSections.map((sec) => renderSection(sec.id))
-        ) : (
-          /* Fallback résilient officiel si aucune section n'est configurée */
-          <>
-            <ParallaxHero heroData={content.hero} />
-            <HomeAboutSection aboutData={content.sections_data?.about} />
-            <HomeTournagesSection tournagesData={content.sections_data?.tournages} />
-            <HomeVirtualTourSection
-              virtualTourData={content.sections_data?.virtual_tour}
-            />
-            <HomeQualiopiSection qualiopiData={content.sections_data?.qualiopi} />
-            <HomePartnersSection partnersData={content.sections_data?.partners} />
-            <HomeSocialSection socialData={content.sections_data?.social} />
-          </>
-        )}
-      </main>
-
-      <Footer />
-    </div>
+    <SiteDataProvider value={{ locale, page, navigation, footer }}>
+      <HomeView />
+    </SiteDataProvider>
   );
 }
