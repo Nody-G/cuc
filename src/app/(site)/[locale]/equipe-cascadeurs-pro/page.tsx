@@ -339,7 +339,7 @@ export default function EquipeCascadeursProPage() {
                               target="_blank"
                               rel="noopener noreferrer"
                               className="p-2 text-zinc-400 hover:text-[#FFE500] hover:bg-white/5 border border-zinc-800 transition-colors"
-                              title="Fiche & Références externes"
+                              title={t('externalLinkAria')}
                             >
                               <ExternalLink className="w-3.5 h-3.5" />
                             </a>

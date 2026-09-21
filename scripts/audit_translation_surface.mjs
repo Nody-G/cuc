@@ -29,7 +29,33 @@ const REGISTRY = JSON.parse(readFileSync('src/lib/i18n/entities.json', 'utf8'));
 const ACCENTS = /[àâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ]/;
 const FR_HINT =
     /\b(le|la|les|des|une|un|et|pour|avec|sur|dans|notre|nos|vos|est|sont|vous|nous|du|au|aux|par|plus|tout|tous|depuis|entre|ce|cette|ces|qui|que)\b/i;
-const isFrench = (s) => typeof s === 'string' && s.trim().length > 3 && (ACCENTS.test(s) || FR_HINT.test(s));
+
+/**
+ * Noms propres, marques, institutions et adresses postales : identiques dans les
+ * deux langues, donc jamais « à externaliser ». Cette liste reste courte et
+ * motivée — tout ce qui n'y figure pas est bien de la copie à traduire.
+ */
+const PROPER_NOUN_ALLOWLIST = [
+    /AlloCin[ée]/i,
+    /Le Cateau-?Cambr[eé]sis/i,
+    /Stunt Academy & Team/i,
+    /Rue Faidherbe/i,
+    /Campus Univers Cascades/i,
+    /Yamakasi/i,
+    /Qualiopi/i,
+    /AFDAS/i,
+    /CUC Tower/i,
+];
+
+const isFrench = (s) => {
+    if (typeof s !== 'string') return false;
+    const text = s.trim();
+    if (text.length < 4) return false;
+    // Fragment de code (gabarit JS, interpolation) : ce n'est pas de la copie.
+    if (/[`$]/.test(text)) return false;
+    if (PROPER_NOUN_ALLOWLIST.some((re) => re.test(text))) return false;
+    return ACCENTS.test(text) || FR_HINT.test(text);
+};
 
 async function rest(pathname) {
     try {
@@ -56,7 +82,14 @@ const uiFiles = [];
 let uiTotal = 0;
 for (const file of walk('src')) {
     if (!file.endsWith('.tsx')) continue;
-    if (relative('src', file).includes('(admin)')) continue;
+    // Le cockpit d'administration et l'éditeur 3D sont des OUTILS INTERNES :
+    // leur langue de travail est le français et ils ne sont jamais servis au
+    // visiteur anglophone. Les exclure garde la mesure centrée sur le site.
+    const relativePath = relative('src', file);
+    if (relativePath.includes('(admin)')) continue;
+    const isThreeDEditor =
+        relativePath.includes('3d/ui/') || relativePath.includes('3d\\ui\\');
+    if (isThreeDEditor) continue;
     const src = readFileSync(file, 'utf8');
     let count = 0;
     for (const m of src.matchAll(/>\s*([^<>{}\n]{4,160})\s*</g)) if (isFrench(m[1])) count += 1;

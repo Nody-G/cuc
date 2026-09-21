@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export interface LightboxImage {
@@ -23,6 +24,8 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
   onClose,
   onNavigate,
 }) => {
+  const t = useTranslations('lightbox');
+
   useEffect(() => {
     if (currentIndex === null) return;
 
@@ -91,8 +94,8 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
           <button
             onClick={onClose}
             className="p-2 text-zinc-400 hover:text-[#FFE500] hover:bg-[#181820] border border-zinc-800 transition-colors cursor-pointer"
-            aria-label="Fermer la visionneuse"
-            title="Fermer (Échap)"
+            aria-label={t('closeAria')}
+            title={t('closeTitle')}
           >
             <X className="w-5 h-5" />
           </button>
@@ -108,8 +111,8 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
         <button
           onClick={handlePrev}
           className="absolute left-2 sm:left-4 z-20 p-3 bg-black/80 hover:bg-[#FFE500] text-white hover:text-black border border-zinc-700 transition-all cursor-pointer shadow-2xl"
-          aria-label="Photo précédente"
-          title="Précédente (Flèche gauche)"
+          aria-label={t('prevAria')}
+          title={t('prevTitle')}
         >
           <ChevronLeft className="w-6 h-6" />
         </button>
@@ -130,8 +133,8 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
         <button
           onClick={handleNext}
           className="absolute right-2 sm:right-4 z-20 p-3 bg-black/80 hover:bg-[#FFE500] text-white hover:text-black border border-zinc-700 transition-all cursor-pointer shadow-2xl"
-          aria-label="Photo suivante"
-          title="Suivante (Flèche droite)"
+          aria-label={t('nextAria')}
+          title={t('nextTitle')}
         >
           <ChevronRight className="w-6 h-6" />
         </button>
@@ -146,7 +149,7 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
           {currentImage.title}
         </div>
         <div className="text-[11px] font-mono-tech text-zinc-500">
-          Navigation : Touches ← / → pour parcourir • Échap pour fermer
+          {t('navHint')}
         </div>
       </div>
     </div>

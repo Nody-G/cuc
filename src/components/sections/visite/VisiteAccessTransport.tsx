@@ -72,7 +72,7 @@ export const VisiteAccessTransport: React.FC = () => {
                 </strong>
                 CAMPUS UNIVERS CASCADES
                 <br />
-                Domaine CUC, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis (France)
+                {t('accessAddress')}
                 <div className="mt-2.5 flex flex-wrap gap-2">
                   <Link
                     href="/contact-cuc#campus-map-hub"

@@ -88,7 +88,7 @@ export default function VisiteGuideePage() {
                     {t('tour3dBadge')}
                   </StuntBadge>
                   <span className="text-xs font-mono-tech text-zinc-400">
-                    DOMAINE CLOS • LE CATEAU-CAMBRÉSIS
+                    {t('domainClosed')}
                   </span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-wide text-white mb-3">

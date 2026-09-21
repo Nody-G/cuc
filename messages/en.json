@@ -25,7 +25,8 @@
         "sortYearDesc": "Year (newest → oldest)",
         "sortYearAsc": "Year (oldest → newest)",
         "sortTitleAsc": "Title (A → Z)",
-        "sortTitleDesc": "Title (Z → A)"
+        "sortTitleDesc": "Title (Z → A)",
+        "filmCardDetails": "Click for details"
     },
     "campus": {
         "title": "THE CAMPUS",
@@ -334,7 +335,12 @@
         "breadcrumbCurrent": "THE TEAM",
         "ctaBlockTitle": "TRAIN WITH THE BEST PROFESSIONALS IN THE INDUSTRY",
         "ctaBlockBody": "Every Campus Univers Cascades instructor works on film sets and passes on the current demands of international cinema.",
-        "ctaBlockButton": "Explore CUC Courses"
+        "ctaBlockButton": "Explore CUC Courses",
+        "coachNotFound": "This member of the teaching team does not exist or has been moved.",
+        "coachBackToTeam": "Back to the team",
+        "coachAllocineTitle": "AlloCiné page",
+        "coachSortFilmographyAria": "Sort the filmography",
+        "externalLinkAria": "Profile & external references"
     },
     "contact": {
         "hero": {
@@ -465,7 +471,8 @@
                     "trainStation": "Roissy-CDG or Brussels South Charleroi",
                     "carDetails": "Ideal for trainees arriving from abroad: Canada, Réunion, Guadeloupe or Switzerland."
                 }
-            ]
+            ],
+            "mapAddressLabel": "Le Cateau-Cambrésis • CUC Campus"
         }
     },
     "visite": {
@@ -857,7 +864,18 @@
         "partnersBadge": "PARTNERS & BRANDS",
         "partnersTitle": "THEY TRUSTED US",
         "cinemaBadge": "FILM REFERENCES",
-        "cinemaTitle": "FILM & TELEVISION PRODUCTIONS"
+        "cinemaTitle": "FILM & TELEVISION PRODUCTIONS",
+        "bannerAlt1": "Film & series poster strip 1",
+        "bannerAlt2": "Film & series poster strip 2",
+        "bannerAlt3": "Film & series poster strip 3",
+        "bannerAlt4": "Film & series poster strip 4",
+        "heroBadge": "ACTION EVENT AGENCY",
+        "heroTitle": "CUC EVENTS: SHOWS & ANIMATIONS",
+        "heroSubtitle": "Make a lasting impression at your festivals, brand launches, theme parks or corporate seminars with spectacular action shows staged by the professional stunt performers of Campus Univers Cascades.",
+        "heroCtaPrimary": "Request an Event Quote",
+        "heroCtaSecondary": "Watch our Live Videos",
+        "heroImageAlt": "CUC Events live stunt shows and animations",
+        "animationsBody": "Give your audience unique thrills with our interactive animations supervised by professionals: the <strong>FreeJump Airbag</strong> (secured jumps from 4 to 8 metres high), a film rigging simulator, or parkour initiation workshops with members of the Yamakasi."
     },
     "spectacles": {
         "heroBadge": "CINEMA TAKES TO THE STAGE",
@@ -1018,7 +1036,8 @@
         }
     },
     "stuntWorkshop": {
-        "heroMeta": "IN ENGLISH & FRENCH • 2 RESIDENTIAL WEEKS"
+        "heroMeta": "IN ENGLISH & FRENCH • 2 RESIDENTIAL WEEKS",
+        "briAlt": "CUC BRI — riot police stunt training (Brigade de Recherche et d'Intervention)"
     },
     "visiteGuidee": {
         "accessBadge": "ACCESS & TRANSPORT",
@@ -1047,7 +1066,9 @@
         "tour360Title": "VIRTUAL TOUR",
         "tour360TitleAccent": "360° OF THE CAMPUS",
         "tour360Paragraph": "Explore the grounds in full immersion: move freely through the Zoé Bell Hall, look at the Olympic foam pit, the 21m CUC Tower and all the technical stages.",
-        "loading3d": "Loading the 3D map…"
+        "loading3d": "Loading the 3D map…",
+        "accessAddress": "CUC grounds, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis (France)",
+        "domainClosed": "PRIVATE ESTATE • LE CATEAU-CAMBRÉSIS"
     },
     "teamProduction": {
         "hero": {
@@ -1193,6 +1214,66 @@
                 "specialty": "Physical stunts and armed confrontations.",
                 "doubles": ""
             }
-        ]
+        ],
+        "teamBannersBadge": "FILM CREDITS",
+        "teamBannersTitle": "FILMS COORDINATED BY THE CUC & LUCAS DOLLFUS",
+        "teamBannersPosterTitle": "Click to open the poster full screen"
+    },
+    "applicationModal": {
+        "closeAria": "Close",
+        "badge": "APPLICATION & ADMISSIONS",
+        "session": "SESSION 2026-2027",
+        "logoAlt": "CUC logo",
+        "titleLead": "Apply to ",
+        "titleAccent": "Campus Univers Cascades",
+        "intro": "Fill in the details below to apply for the professional course, book a course or request AFDAS funding.",
+        "tabs": {
+            "pro": "Pro Course (Long)",
+            "discovery": "Discovery Course",
+            "weekend": "Weekend (€250)",
+            "afdas": "AFDAS Funding"
+        },
+        "labels": {
+            "fullName": "Full name *",
+            "age": "Age * (from 16 or 18)",
+            "email": "Email address *",
+            "phone": "Phone *",
+            "afdasStatus": "AFDAS / professional status",
+            "sport": "Sporting / artistic background & disciplines practised",
+            "session": "Preferred session / goals"
+        },
+        "placeholders": {
+            "fullName": "e.g. Alexandre Dubois",
+            "age": "e.g. 22",
+            "email": "alexandre@example.com",
+            "phone": "06 00 00 00 00",
+            "sport": "e.g. Martial arts (5 years), Parkour, Gymnastics, Theatre...",
+            "message": "Tell us the session date you are aiming for or any specific questions..."
+        },
+        "afdasOptions": [
+            "Performing arts worker (actor, dancer, artist)",
+            "Professional stunt performer in activity",
+            "Other AFDAS beneficiary"
+        ],
+        "safetyTitle": "Safety notice & selection:",
+        "safetyBody": "Because of the physical demands and safety requirements, every application is reviewed by the CUC teaching committee.",
+        "submitError": "Error while submitting your application.",
+        "cancel": "Cancel",
+        "submit": "Submit my application",
+        "submitting": "Submitting...",
+        "successTitle": "Application submitted successfully!",
+        "successBody": "Your request has been recorded for <strong>{name}</strong>. A CUC course officer will contact you within 24 to 48 hours to confirm your application and session availability.",
+        "contactAddress": "CUC Campus, 59360 Le Cateau-Cambrésis (Hauts-de-France)",
+        "contactPhone": "Course office: (+33) 06 72 84 94 92",
+        "closeCase": "Close the application"
+    },
+    "lightbox": {
+        "closeAria": "Close the viewer",
+        "closeTitle": "Close (Esc)",
+        "prevAria": "Previous photo",
+        "prevTitle": "Previous (Left arrow)",
+        "nextAria": "Next photo",
+        "nextTitle": "Next (Right arrow)",
+        "navHint": "Navigation: ← / → to browse • Esc to close"
     }
 }

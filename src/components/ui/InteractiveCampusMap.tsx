@@ -82,7 +82,7 @@ export const InteractiveCampusMap: React.FC = () => {
         {/* Domain info */}
         <div className="flex items-center gap-4 text-[11px]">
           <div className="flex items-center gap-1.5 text-zinc-400">
-            <span>Le Cateau-Cambrésis • Domaine CUC</span>
+            <span>{t('mapAddressLabel')}</span>
           </div>
         </div>
       </div>

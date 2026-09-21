@@ -80,7 +80,7 @@ export const EventsPartnersBanners: React.FC = () => {
             <div className="border border-zinc-800 p-2 bg-[#0e0e14]">
               <Image
                 src="/images/events/bandes-affiches-film-1.png"
-                alt="Bandes affiches film série 1"
+                alt={t('bannerAlt1')}
                 width={1000}
                 height={200}
                 className="w-full object-contain"
@@ -89,7 +89,7 @@ export const EventsPartnersBanners: React.FC = () => {
             <div className="border border-zinc-800 p-2 bg-[#0e0e14]">
               <Image
                 src="/images/events/bandes-affiches-film-2.png"
-                alt="Bandes affiches film série 2"
+                alt={t('bannerAlt2')}
                 width={1000}
                 height={200}
                 className="w-full object-contain"
@@ -98,7 +98,7 @@ export const EventsPartnersBanners: React.FC = () => {
             <div className="border border-zinc-800 p-2 bg-[#0e0e14]">
               <Image
                 src="/images/events/bandes-affiches-film-3.png"
-                alt="Bandes affiches film série 3"
+                alt={t('bannerAlt3')}
                 width={1000}
                 height={200}
                 className="w-full object-contain"
@@ -107,7 +107,7 @@ export const EventsPartnersBanners: React.FC = () => {
             <div className="border border-zinc-800 p-2 bg-[#0e0e14]">
               <Image
                 src="/images/events/bandes-affiches-film-4.png"
-                alt="Bandes affiches film série 4"
+                alt={t('bannerAlt4')}
                 width={1000}
                 height={200}
                 className="w-full object-contain"

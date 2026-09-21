@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { FilmCredit } from '@/types';
 import { ImdbLogo, AllocineLogo, YouTubeLogo } from '@/components/ui/BrandLogos';
+import { useTranslations } from 'next-intl';
 import { ExternalLink, Film, Info } from 'lucide-react';
 
 interface FilmGridCardProps {
@@ -15,6 +16,8 @@ export const FilmGridCard: React.FC<FilmGridCardProps> = ({
   movie,
   onSelectMovie,
 }) => {
+  const t = useTranslations('films');
+
   return (
     <div
       onClick={() => onSelectMovie(movie)}
@@ -100,7 +103,7 @@ export const FilmGridCard: React.FC<FilmGridCardProps> = ({
 
           <span className="text-[10px] text-zinc-400 font-tech mt-3 flex items-center gap-1">
             <Info className="w-3 h-3 text-zinc-400" />
-            <span>Cliquer pour les détails</span>
+            <span>{t('filmCardDetails')}</span>
           </span>
         </div>
       </div>

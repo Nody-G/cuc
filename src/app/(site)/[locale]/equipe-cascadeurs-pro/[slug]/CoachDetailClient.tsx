@@ -177,14 +177,14 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
         <div className="text-center max-w-md my-auto">
           <h1 className="text-4xl font-display uppercase text-white mb-4">Coach Introuvable</h1>
           <p className="text-sm font-tech text-zinc-400 mb-6">
-            Ce membre de l'équipe pédagogique n'existe pas ou a été déplacé.
+            {tt('coachNotFound')}
           </p>
           <Link
             href="/equipe-cascadeurs-pro"
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FFE500] text-black font-mono-tech text-xs uppercase font-bold"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Retour à l'équipe</span>
+            <span>{tt('coachBackToTeam')}</span>
           </Link>
         </div>
         <Footer />
@@ -314,7 +314,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
                         target="_blank"
                         rel="noopener noreferrer"
                         className="px-3 py-1.5 bg-[#14141e] hover:bg-[#FECC00] hover:text-black border border-zinc-800 hover:border-[#FECC00] text-xs font-mono-tech font-bold uppercase transition-colors"
-                        title="Fiche Allociné"
+                        title={tt('coachAllocineTitle')}
                       >
                         Allociné
                       </a>
@@ -458,7 +458,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
                       value={filmSort}
                       onChange={(e) => setFilmSort(e.target.value as FilmSort)}
                       className="bg-black/60 border border-zinc-700 text-zinc-200 text-[11px] font-mono-tech px-2 py-1 focus:outline-none focus:border-[#FFE500]"
-                      aria-label="Trier la filmographie"
+                      aria-label={tt('coachSortFilmographyAria')}
                     >
                       <option value="year-desc">{tf('sortYearDesc')}</option>
                       <option value="year-asc">{tf('sortYearAsc')}</option>

@@ -25,7 +25,8 @@
         "sortYearDesc": "Année (récent → ancien)",
         "sortYearAsc": "Année (ancien → récent)",
         "sortTitleAsc": "Nom (A → Z)",
-        "sortTitleDesc": "Nom (Z → A)"
+        "sortTitleDesc": "Nom (Z → A)",
+        "filmCardDetails": "Cliquer pour les détails"
     },
     "campus": {
         "title": "LE CAMPUS",
@@ -334,7 +335,12 @@
         "breadcrumbCurrent": "L'ÉQUIPE",
         "ctaBlockTitle": "FORMEZ-VOUS AVEC LES MEILLEURS PROFESSIONNELS DU SECTEUR",
         "ctaBlockBody": "Chaque instructeur du Campus Univers Cascades est actif sur les plateaux de tournage et transmet les exigences actuelles du cinéma mondial.",
-        "ctaBlockButton": "Découvrir les Formations du CUC"
+        "ctaBlockButton": "Découvrir les Formations du CUC",
+        "coachNotFound": "Ce membre de l'équipe pédagogique n'existe pas ou a été déplacé.",
+        "coachBackToTeam": "Retour à l'équipe",
+        "coachAllocineTitle": "Fiche Allociné",
+        "coachSortFilmographyAria": "Trier la filmographie",
+        "externalLinkAria": "Fiche & Références externes"
     },
     "contact": {
         "hero": {
@@ -465,7 +471,8 @@
                     "trainStation": "Roissy-CDG ou Charleroi Bruxelles-Sud",
                     "carDetails": "Idéal pour les élèves arrivant de l'étranger : Canada, Réunion, Guadeloupe ou Suisse."
                 }
-            ]
+            ],
+            "mapAddressLabel": "Le Cateau-Cambrésis • Domaine CUC"
         }
     },
     "visite": {
@@ -857,7 +864,18 @@
         "partnersBadge": "PARTENAIRES & MARQUES",
         "partnersTitle": "ILS NOUS ONT FAIT CONFIANCE",
         "cinemaBadge": "RÉFÉRENCES CINÉMA",
-        "cinemaTitle": "LES PRODUCTIONS CINÉMA & TÉLÉVISION"
+        "cinemaTitle": "LES PRODUCTIONS CINÉMA & TÉLÉVISION",
+        "bannerAlt1": "Bandes affiches film série 1",
+        "bannerAlt2": "Bandes affiches film série 2",
+        "bannerAlt3": "Bandes affiches film série 3",
+        "bannerAlt4": "Bandes affiches film série 4",
+        "heroBadge": "AGENCE ÉVÉNEMENTIELLE D'ACTION",
+        "heroTitle": "CUC EVENTS : SPECTACLES & ANIMATIONS",
+        "heroSubtitle": "Marquez les esprits lors de vos festivals, lancements de marque, parcs à thème ou séminaires d'entreprise grâce à des shows d'action spectaculaires orchestrés par les cascadeurs professionnels du Campus Univers Cascades.",
+        "heroCtaPrimary": "Demander un Devis Événementiel",
+        "heroCtaSecondary": "Voir nos Vidéos en Direct",
+        "heroImageAlt": "CUC Events spectacles de cascades et animations en direct",
+        "animationsBody": "Offrez à votre public des sensations uniques grâce à nos animations interactives encadrées par des professionnels : le <strong>FreeJump Airbag</strong> (sauts sécurisés de 4 à 8 mètres de haut), simulateur de câblage cinéma, ou ateliers d'initiation au parkour avec les membres des Yamakasi."
     },
     "spectacles": {
         "heroBadge": "LE CINÉMA S'INVITE SUR SCÈNE",
@@ -1018,7 +1036,8 @@
         }
     },
     "stuntWorkshop": {
-        "heroMeta": "EN ANGLAIS & FRANÇAIS • 2 SEMAINES RÉSIDENTIELLES"
+        "heroMeta": "EN ANGLAIS & FRANÇAIS • 2 SEMAINES RÉSIDENTIELLES",
+        "briAlt": "CUC BRI — Formation cascade Brigade de Recherche et d'Intervention"
     },
     "visiteGuidee": {
         "accessBadge": "ACCÈS & TRANSPORT",
@@ -1047,7 +1066,9 @@
         "tour360Title": "VISITE VIRTUELLE",
         "tour360TitleAccent": "360° DU CAMPUS",
         "tour360Paragraph": "Explorez le domaine en immersion totale : naviguez librement dans le Zoé Bell Hall, observez la fosse olympique à cubes, la Tour CUC de 21m et l'ensemble des plateaux techniques.",
-        "loading3d": "Chargement du plan 3D…"
+        "loading3d": "Chargement du plan 3D…",
+        "accessAddress": "Domaine CUC, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis (France)",
+        "domainClosed": "DOMAINE CLOS • LE CATEAU-CAMBRÉSIS"
     },
     "teamProduction": {
         "hero": {
@@ -1193,6 +1214,66 @@
                 "specialty": "Cascades physiques et affrontements armés.",
                 "doubles": ""
             }
-        ]
+        ],
+        "teamBannersBadge": "CRÉDITS CINÉMATOGRAPHIQUES",
+        "teamBannersTitle": "LES FILMS COORDONNÉS PAR LE CUC & LUCAS DOLLFUS",
+        "teamBannersPosterTitle": "Cliquer pour ouvrir l'affiche en plein écran"
+    },
+    "applicationModal": {
+        "closeAria": "Fermer",
+        "badge": "CANDIDATURE & ADMISSIONS",
+        "session": "SESSION 2026-2027",
+        "logoAlt": "Logo CUC",
+        "titleLead": "Candidater au ",
+        "titleAccent": "Campus Univers Cascades",
+        "intro": "Remplissez les informations ci-dessous pour postuler au cursus professionnel, réserver un stage ou solliciter une prise en charge AFDAS.",
+        "tabs": {
+            "pro": "Cursus Pro (Long)",
+            "discovery": "Stage Découverte",
+            "weekend": "Week-end (250€)",
+            "afdas": "Prise en charge AFDAS"
+        },
+        "labels": {
+            "fullName": "Nom & Prénom *",
+            "age": "Âge * (Dès 16 ou 18 ans)",
+            "email": "Adresse Email *",
+            "phone": "Téléphone *",
+            "afdasStatus": "Statut AFDAS / Professionnel",
+            "sport": "Parcours Sportif / Artistique & Disciplines pratiquées",
+            "session": "Session souhaitée / Objectifs"
+        },
+        "placeholders": {
+            "fullName": "Ex: Alexandre Dubois",
+            "age": "Ex: 22",
+            "email": "alexandre@exemple.com",
+            "phone": "06 00 00 00 00",
+            "sport": "Ex: Arts martiaux (5 ans), Parkour, Gymnastique, Théâtre...",
+            "message": "Précisez la date de session visée ou vos questions particulières..."
+        },
+        "afdasOptions": [
+            "Intermittent du spectacle (Comédien, danseur, artiste)",
+            "Cascadeur professionnel en activité",
+            "Autre ayant-droit AFDAS"
+        ],
+        "safetyTitle": "Avis de sécurité & sélection :",
+        "safetyBody": "En raison de l'exigence physique et des contraintes de sécurité, chaque candidature est soumise à l'examen de la commission pédagogique du CUC.",
+        "submitError": "Erreur lors de la transmission du dossier.",
+        "cancel": "Annuler",
+        "submit": "Transmettre ma Candidature",
+        "submitting": "Transmission...",
+        "successTitle": "Dossier Transmis avec Succès !",
+        "successBody": "Votre demande a bien été enregistrée pour le compte de <strong>{name}</strong>. Un responsable pédagogique du CUC vous contactera sous 24 à 48 heures pour valider votre dossier et les disponibilités de session.",
+        "contactAddress": "Campus CUC, 59360 Le Cateau-Cambrésis (Hauts-de-France)",
+        "contactPhone": "Standard pédagogique : (+33) 06 72 84 94 92",
+        "closeCase": "Fermer le Dossier"
+    },
+    "lightbox": {
+        "closeAria": "Fermer la visionneuse",
+        "closeTitle": "Fermer (Échap)",
+        "prevAria": "Photo précédente",
+        "prevTitle": "Précédente (Flèche gauche)",
+        "nextAria": "Photo suivante",
+        "nextTitle": "Suivante (Flèche droite)",
+        "navHint": "Navigation : Touches ← / → pour parcourir • Échap pour fermer"
     }
 }

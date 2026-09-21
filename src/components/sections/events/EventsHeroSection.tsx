@@ -4,6 +4,7 @@ import { Link } from '@/i18n/navigation';
 import React from 'react';
 
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { Sparkles, ChevronRight } from 'lucide-react';
@@ -15,17 +16,16 @@ interface EventsHeroSectionProps {
 }
 
 export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) => {
-  const badge = hero?.badge || "AGENCE ÉVÉNEMENTIELLE D'ACTION";
-  const title = hero?.title || 'CUC EVENTS : SPECTACLES & ANIMATIONS';
-  const subtitle =
-    hero?.subtitle ||
-    "Marquez les esprits lors de vos festivals, lancements de marque, parcs à thème ou séminaires d'entreprise grâce à des shows d'action spectaculaires orchestrés par les cascadeurs professionnels du Campus Univers Cascades.";
+  const t = useTranslations('eventsAgence');
+  const badge = hero?.badge || t('heroBadge');
+  const title = hero?.title || t('heroTitle');
+  const subtitle = hero?.subtitle || t('heroSubtitle');
   const bgImage =
     hero?.bg_image ||
     'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Image1-scaled.jpg';
-  const ctaPrimaryText = hero?.cta_primary_text || 'Demander un Devis Événementiel';
+  const ctaPrimaryText = hero?.cta_primary_text || t('heroCtaPrimary');
   const ctaPrimaryLink = hero?.cta_primary_link || '/contact-cuc';
-  const ctaSecondaryText = hero?.cta_secondary_text || 'Voir nos Vidéos en Direct';
+  const ctaSecondaryText = hero?.cta_secondary_text || t('heroCtaSecondary');
   const ctaSecondaryLink = hero?.cta_secondary_link || '/videos-cascadeur';
 
   return (
@@ -33,7 +33,7 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
       <div className="absolute inset-0 z-0">
         <Image
           src={bgImage}
-          alt="CUC Events spectacles de cascades et animations en direct"
+          alt={t('heroImageAlt')}
           fill
           priority
           sizes="100vw"

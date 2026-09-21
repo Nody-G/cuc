@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { LightboxImage } from '@/components/ui/LightboxModal';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { BANNER_GALLERY } from './teamGalleries.data';
+import { useTranslations } from 'next-intl';
 import { Film, Maximize2 } from 'lucide-react';
 
 interface TeamBannersSectionProps {
@@ -14,6 +15,7 @@ interface TeamBannersSectionProps {
 export const TeamBannersSection: React.FC<TeamBannersSectionProps> = ({
   onOpenLightbox,
 }) => {
+  const t = useTranslations('teamProduction');
   // Les frises d'affiches héritées de l'ancien site ont été supprimées au profit
   // des vraies affiches servies par le catalogue : sans bandeau, la section n'a
   // plus aucun contenu, on ne rend donc rien du tout.
@@ -24,10 +26,10 @@ export const TeamBannersSection: React.FC<TeamBannersSectionProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10">
           <StuntBadge variant="yellow" icon={<Film className="w-3.5 h-3.5" />}>
-            CRÉDITS CINÉMATOGRAPHIQUES
+            {t('teamBannersBadge')}
           </StuntBadge>
           <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mt-3 mb-2">
-            LES FILMS COORDONNÉS PAR LE CUC & LUCAS DOLLFUS
+            {t('teamBannersTitle')}
           </h2>
           <p className="text-xs sm:text-sm font-tech text-zinc-400">
             Retrouvez les affiches des productions françaises et internationales
@@ -42,7 +44,7 @@ export const TeamBannersSection: React.FC<TeamBannersSectionProps> = ({
               key={index}
               onClick={() => onOpenLightbox(BANNER_GALLERY, index)}
               className="bg-[#121218] border-2 border-zinc-800 hover:border-[#FFE500] transition-colors p-3 relative group cursor-pointer"
-              title="Cliquer pour ouvrir l'affiche en plein écran"
+              title={t('teamBannersPosterTitle')}
             >
               <div className="relative w-full h-32 sm:h-44 md:h-56 overflow-hidden">
                 <Image

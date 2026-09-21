@@ -4,11 +4,20 @@ import { ImageResponse } from "next/og";
  * Image Open Graph générée dynamiquement pour la page d'accueil.
  * Rendu 1200×630 conforme aux spécifications des réseaux sociaux.
  */
-export const alt = "Campus Univers Cascades — École Professionnelle de Cascadeurs";
+export const alt = "Campus Univers Cascades";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpengraphImage() {
+export default async function OpengraphImage({
+    params,
+}: {
+    params: Promise<{ locale: string }>;
+}) {
+    // Les aperçus de partage suivent la langue de la page : une page anglaise
+    // partageait jusqu'ici une vignette en français.
+    const { locale } = await params;
+    const isEn = locale === "en";
+
     return new ImageResponse(
         (
             <div
@@ -44,7 +53,7 @@ export default function OpengraphImage() {
                     >
                         <span>CAMPUS UNIVERS CASCADES</span>
                         <span style={{ color: "#a1a1aa", fontSize: 18, letterSpacing: 4 }}>
-                            LE CATEAU-CAMBRÉSIS • 59
+                            {isEn ? "LE CATEAU-CAMBRÉSIS • FRANCE" : "LE CATEAU-CAMBRÉSIS • 59"}
                         </span>
                     </div>
                 </div>
@@ -60,7 +69,7 @@ export default function OpengraphImage() {
                             letterSpacing: -1,
                         }}
                     >
-                        LA PLUS GRANDE ÉCOLE
+                        {isEn ? "THE WORLD'S LARGEST" : "LA PLUS GRANDE ÉCOLE"}
                     </div>
                     <div
                         style={{
@@ -71,7 +80,7 @@ export default function OpengraphImage() {
                             letterSpacing: -1,
                         }}
                     >
-                        DE CASCADEURS AU MONDE
+                        {isEn ? "STUNT PERFORMER SCHOOL" : "DE CASCADEURS AU MONDE"}
                     </div>
                 </div>
 
@@ -90,9 +99,9 @@ export default function OpengraphImage() {
                     <span style={{ color: "#FFE500" }}>•</span>
                     <span>CUC TOWER 21 M</span>
                     <span style={{ color: "#FFE500" }}>•</span>
-                    <span>AGRÉMENT QUALIOPI</span>
+                    <span>{isEn ? "QUALIOPI CERTIFIED" : "AGRÉMENT QUALIOPI"}</span>
                     <span style={{ color: "#FFE500" }}>•</span>
-                    <span>DEPUIS 2008</span>
+                    <span>{isEn ? "SINCE 2008" : "DEPUIS 2008"}</span>
                 </div>
             </div>
         ),

@@ -186,7 +186,9 @@ export const EventsPillarsSection: React.FC = () => {
                   </div>
 
                   <p className="text-sm font-tech text-zinc-300 leading-relaxed">
-                    Offrez à votre public des sensations uniques grâce à nos animations interactives encadrées par des professionnels : le <strong className="text-white">FreeJump Airbag</strong> (sauts sécurisés de 4 à 8 mètres de haut), simulateur de câblage cinéma, ou ateliers d&apos;initiation au parkour avec les membres des Yamakasi.
+                    {t.rich('animationsBody', {
+                      strong: (chunks) => <strong className="text-white">{chunks}</strong>,
+                    })}
                   </p>
                   <p className="text-xs font-tech text-zinc-400 leading-relaxed">
                     {pillars[1].paragraph2}
