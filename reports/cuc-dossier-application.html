@@ -8,15 +8,21 @@
   :root { color-scheme: dark; }
   * { box-sizing: border-box; }
   body { margin: 0; background: #060608; color: #e7e7ea; font: 15px/1.65 "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  :focus-visible { outline: 2px solid #FFE500; outline-offset: 2px; border-radius: 4px; }
   .wrap { max-width: 1180px; margin: 0 auto; padding: 52px 24px 96px; }
   header.hero { padding: 34px 0 30px; border-bottom: 1px solid #26262e; margin-bottom: 34px; }
   .kicker { color: #FFE500; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; }
   h1 { font-size: clamp(30px, 4.4vw, 48px); margin: 12px 0 8px; line-height: 1.12; }
   h1 em { color: #FFE500; font-style: normal; }
   .meta { color: #9a9aa5; font-size: 13.5px; max-width: 860px; }
-  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 0; }
-  nav.toc a { font-size: 12px; color: #cfcfd6; border: 1px solid #2c2c36; border-radius: 999px; padding: 5px 12px; text-decoration: none; }
+  .hero-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #111; background: #FFE500; border: 0; border-radius: 999px; padding: 9px 18px; cursor: pointer; text-decoration: none; }
+  .btn.ghost { background: transparent; color: #e7e7ea; border: 1px solid #3a3a44; }
+  .btn:hover { filter: brightness(1.06); }
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 0; position: sticky; top: 10px; z-index: 20; padding: 8px 0; background: linear-gradient(#060608, #060608e6); backdrop-filter: blur(6px); }
+  nav.toc a { font-size: 12px; color: #cfcfd6; border: 1px solid #2c2c36; border-radius: 999px; padding: 5px 12px; text-decoration: none; background: #0b0b10; }
   nav.toc a:hover { border-color: #FFE500; color: #FFE500; }
+  section { scroll-margin-top: 86px; }
   h2 { margin-top: 64px; font-size: 25px; border-left: 4px solid #FFE500; padding-left: 12px; }
   h3 { margin-top: 34px; font-size: 18px; color: #f2f2f5; }
   h3 .meta { font-size: 12.5px; }
@@ -37,7 +43,8 @@
   .feat .tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
   .tag { font-size: 10.5px; letter-spacing: .04em; text-transform: uppercase; color: #ffef9e; border: 1px solid #3d3a1e; background: rgba(255,229,0,.06); border-radius: 999px; padding: 2px 9px; }
   .fi svg { width: 20px; height: 20px; stroke: #FFE500; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-  details.acc { border: 1px solid #26262e; border-radius: 12px; background: #0d0d12; margin: 8px 0; overflow: hidden; }
+  details.acc { border: 1px solid #26262e; border-radius: 12px; background: #0d0d12; margin: 8px 0; overflow: hidden; transition: border-color .2s ease; }
+  details.acc:hover { border-color: #3a3a44; }
   details.acc summary { cursor: pointer; list-style: none; padding: 13px 18px; display: flex; align-items: center; gap: 12px; font-weight: 600; color: #eef0f4; }
   details.acc summary::-webkit-details-marker { display: none; }
   details.acc summary .role { color: #9a9aa5; font-weight: 400; font-size: 12.5px; }
@@ -51,20 +58,56 @@
   .step p { margin: 0; font-size: 12.5px; color: #a9aab4; }
   .flow { background: radial-gradient(620px 260px at 18% 0%, rgba(255,229,0,.05), transparent), #0b0b10; border: 1px solid #26262e; border-radius: 16px; padding: 10px 12px; }
   .chart { width: 100%; height: auto; }
+  .chart-label { fill: #c9c9d1; font-size: 13px; }
+  .chart-value { fill: #fff; font-size: 12.5px; font-weight: 600; }
+  .donut-wrap { display: flex; gap: 26px; align-items: center; flex-wrap: wrap; }
+  .donut-total { fill: #fff; font-size: 22px; font-weight: 700; }
+  .legend { list-style: none; margin: 0; padding: 0; font-size: 13px; color: #c9c9d1; }
+  .legend li { margin: 4px 0; }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 10px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid #1f1f27; }
+  th { color: #9a9aa5; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+  td { color: #d6d6dd; }
   .legend-row { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 10px; font-size: 12px; color: #9a9aa5; }
   .key { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  @media (max-width: 920px) { .two-col { grid-template-columns: 1fr; } }
   .flowdot { offset-rotate: 0deg; animation-name: flowRun; animation-timing-function: linear; animation-iteration-count: infinite; }
   @keyframes flowRun { from { offset-distance: 0%; } to { offset-distance: 100%; } }
-  @media (prefers-reduced-motion: reduce) { .flowdot { animation: none; } }
   .callout { border-left: 4px solid #FFE500; background: #101016; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 20px 0; color: #d6d6dd; }
   footer { margin-top: 76px; border-top: 1px solid #26262e; padding-top: 20px; color: #8a8a95; font-size: 12.5px; }
   .pill { display: inline-block; font-size: 11px; padding: 2px 9px; border: 1px solid #3a3a44; border-radius: 999px; color: #c9c9d1; margin-right: 6px; }
   code { color: #ffe9a8; }
-  @media print { body { background: #fff; color: #111; } .feat, .kpi, .step { border-color: #ddd; background: #fff; } details.acc { break-inside: avoid; } }
+  /* --- Confort de lecture (CSS moderne, sans JavaScript) --- */
+  @supports (animation-timeline: scroll()) {
+    .progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; z-index: 60;
+      background: linear-gradient(90deg, #FFE500, #ffb020); transform-origin: 0 50%; transform: scaleX(0);
+      animation: growX linear; animation-timeline: scroll(); }
+    @keyframes growX { to { transform: scaleX(1); } }
+  }
+  @supports (animation-timeline: view()) {
+    .reveal { animation: riseIn both; animation-timeline: view(); animation-range: entry 0% entry 55%; }
+    @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  }
+  .totop { position: fixed; right: 18px; bottom: 18px; z-index: 40; width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; background: #0e0e14; border: 1px solid #3a3a44;
+    color: #FFE500; text-decoration: none; font-size: 18px; box-shadow: 0 10px 24px rgba(0,0,0,.45); }
+  .totop:hover { border-color: #FFE500; }
+  @media (prefers-reduced-motion: reduce) { .flowdot, .reveal, .progress { animation: none !important; } }
+  @media print {
+    body { background: #fff; color: #111; }
+    .feat, .kpi, .step { border-color: #ddd; background: #fff; }
+    nav.toc, .totop, .progress, .hero-actions { display: none; }
+    details.acc { break-inside: avoid; }
+    details.acc .acc-body { display: block; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
+<span class="progress" aria-hidden="true"></span>
+<a class="totop" href="#top" title="Revenir en haut" aria-label="Revenir en haut">↑</a>
+<div class="wrap" id="top">
 
   <header class="hero">
     <div class="kicker">Dossier de présentation — 2026</div>
@@ -73,10 +116,14 @@
       Tout ce qu'il faut savoir pour comprendre et utiliser votre site : ce qu'il montre,
       ce que vous pouvez piloter vous-même, et comment l'ensemble fonctionne au quotidien.
     </p>
+    <div class="hero-actions">
+      <button class="btn" onclick="window.print()">Imprimer / PDF</button>
+      <a class="btn ghost" href="#faq">Aller aux questions fréquentes</a>
+    </div>
     <nav class="toc">
       <a href="#vue">Vue d'ensemble</a><a href="#ecosysteme">Comment ça marche</a><a href="#site">Le site public</a>
-      <a href="#cockpit">Le Cockpit d'administration</a><a href="#quotidien">Au quotidien</a>
-      <a href="#chiffres">En un coup d'œil</a><a href="#faq">Questions fréquentes</a>
+      <a href="#cockpit">Le Cockpit</a><a href="#quotidien">Au quotidien</a><a href="#chiffres">Chiffres</a>
+      <a href="#contenus">Les contenus</a><a href="#capot">Sous le capot</a><a href="#faq">FAQ</a>
     </nav>
   </header>
 
@@ -96,7 +143,7 @@
   <section id="ecosysteme">
     <h2>2. Comment ça marche, en un schéma</h2>
     <p>Le visiteur consulte le site ; votre équipe modifie le contenu depuis le Cockpit ; la base fait le pont — en temps réel.</p>
-    <div class="flow">
+    <div class="flow reveal">
 <svg viewBox="0 0 940 360" class="chart" role="img" aria-label="Schéma : visiteur, site vitrine, Supabase, Cockpit d'administration et plateforme CUC Sign">
   <path d="M150 167 C 180 167, 186 120, 208 108" fill="none" stroke="#3a3a44" stroke-width="2"/>
   <path d="M540 165 C 492 165, 484 112, 434 102" fill="none" stroke="#3a3a44" stroke-width="2"/>
@@ -137,115 +184,115 @@
     </div>
 
     <h3>Le parcours d'un visiteur</h3>
-    <div class="steps"><div class="step"><span class="num">1</span><h4>Découvrir</h4><p>Accueil, formation, campus : comprendre l'offre en 30 secondes.</p></div><div class="step"><span class="num">2</span><h4>Explorer</h4><p>Équipe, filmographie, reportages : la preuve par les faits.</p></div><div class="step"><span class="num">3</span><h4>Se projeter</h4><p>Stages, sessions datées, statut des places : passer à l’acte.</p></div><div class="step"><span class="num">4</span><h4>Écrire</h4><p>Formulaire guidé, contextuel selon la page d’origine.</p></div><div class="step"><span class="num">5</span><h4>Être suivi</h4><p>La demande vit dans le Cockpit jusqu’à la réponse.</p></div></div>
+    <div class="steps"><div class="step reveal"><span class="num">1</span><h4>Découvrir</h4><p>Accueil, formation, campus : comprendre l'offre en 30 secondes.</p></div><div class="step reveal"><span class="num">2</span><h4>Explorer</h4><p>Équipe, filmographie, reportages : la preuve par les faits.</p></div><div class="step reveal"><span class="num">3</span><h4>Se projeter</h4><p>Stages, sessions datées, statut des places : passer à l’acte.</p></div><div class="step reveal"><span class="num">4</span><h4>Écrire</h4><p>Formulaire guidé, contextuel selon la page d’origine.</p></div><div class="step reveal"><span class="num">5</span><h4>Être suivi</h4><p>La demande vit dans le Cockpit jusqu’à la réponse.</p></div></div>
 
     <h3>Les mécanismes qui font tourner l'ensemble</h3>
     <div class="feat-grid">
-  <article class="feat"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 6.3"/><path d="M20 5v6h-6"/></svg></span><h3>Synchronisation en temps réel</h3><p>Une modification dans le Cockpit apparaît sur le site en moins d'une seconde, sans rechargement — sessions, films, équipe, partenaires, réglages, annonces.</p><div class="tags"><span class="tag">Temps réel</span></div></article>
-  <article class="feat"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></span><h3>Bilingue français / anglais</h3><p>Chaque page existe dans les deux langues, avec des textes adaptés (pas de traduction automatique). La parité est vérifiée automatiquement à chaque contrôle.</p><div class="tags"><span class="tag">FR / EN</span></div></article>
-  <article class="feat"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span><h3>Catalogue films unifié</h3><p>Affiches au format affiche de cinéma, fiche détaillée au clic avec les rôles du CUC — la même présentation partout, de l’accueil à la fiche coach.</p><div class="tags"><span class="tag">570 films</span></div></article>
-  <article class="feat"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><h3>Médias centralisés & optimisés</h3><p>Images et documents servis par la base du projet (aucune dépendance à l'ancien site), convertis automatiquement en formats légers.</p><div class="tags"><span class="tag">Optimisé</span></div></article>
-  <article class="feat"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg></span><h3>Interconnexion CUC Sign</h3><p>Sessions de formation, coachs et lieux du site reflètent la plateforme élèves — en lecture seule : le site ne peut jamais altérer les données pédagogiques.</p><div class="tags"><span class="tag">CUC Sign</span></div></article>
-  <article class="feat"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><path d="M16 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-1.8-4.4-4.5-4.8"/></svg></span><h3>Sécurité & rôles</h3><p>Accès administrateur nominatif, permissions par rôle (direction, secrétariat, coachs) et sécurité par ligne en base de données.</p><div class="tags"><span class="tag">RLS</span></div></article>
-  <article class="feat"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span><h3>Recherche instantanée (Cockpit)</h3><p>Palette de commandes au clavier (Ctrl/⌘ + K) : accès direct à n’importe quel écran ou contenu en quelques lettres.</p><div class="tags"><span class="tag">Productivité</span></div></article>
-  <article class="feat"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><h3>Du formulaire à l’élève</h3><p>Une demande envoyée depuis le site arrive dans le Cockpit : l’équipe la qualifie, l’annote et peut la convertir en compte CUC Sign.</p><div class="tags"><span class="tag">Parcours</span></div></article></div>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 6.3"/><path d="M20 5v6h-6"/></svg></span><h3>Synchronisation en temps réel</h3><p>Une modification dans le Cockpit apparaît sur le site en moins d'une seconde, sans rechargement — sessions, films, équipe, partenaires, réglages, annonces.</p><div class="tags"><span class="tag">Temps réel</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></span><h3>Bilingue français / anglais</h3><p>Chaque page existe dans les deux langues, avec des textes adaptés (pas de traduction automatique). La parité est vérifiée automatiquement à chaque contrôle.</p><div class="tags"><span class="tag">FR / EN</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span><h3>Catalogue films unifié</h3><p>Affiches au format affiche de cinéma, fiche détaillée au clic avec les rôles du CUC — la même présentation partout, de l’accueil à la fiche coach.</p><div class="tags"><span class="tag">570 films</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><h3>Médias centralisés & optimisés</h3><p>Images et documents servis par la base du projet (aucune dépendance à l'ancien site), convertis automatiquement en formats légers.</p><div class="tags"><span class="tag">Optimisé</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg></span><h3>Interconnexion CUC Sign</h3><p>Sessions de formation, coachs et lieux du site reflètent la plateforme élèves — en lecture seule : le site ne peut jamais altérer les données pédagogiques.</p><div class="tags"><span class="tag">CUC Sign</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><path d="M16 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-1.8-4.4-4.5-4.8"/></svg></span><h3>Sécurité & rôles</h3><p>Accès administrateur nominatif, permissions par rôle (direction, secrétariat, coachs) et sécurité par ligne en base de données.</p><div class="tags"><span class="tag">Rôles</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span><h3>Recherche instantanée (Cockpit)</h3><p>Palette de commandes au clavier (Ctrl/⌘ + K) : accès direct à n’importe quel écran ou contenu en quelques lettres.</p><div class="tags"><span class="tag">Productivité</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><h3>Du formulaire à l’élève</h3><p>Une demande envoyée depuis le site arrive dans le Cockpit : l’équipe la qualifie, l’annote et peut la convertir en compte CUC Sign.</p><div class="tags"><span class="tag">Parcours</span></div></article></div>
   </section>
 
   <section id="site">
     <h2>3. Le site public — les 15 pages (+ le catalogue films)</h2>
     <p>Dépliez chaque entrée pour voir son rôle exact. Toutes les pages existent en français et en anglais.</p>
     
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span><span>Accueil <span class="role">— la vitrine du campus</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Positionnement du campus, tournages, partenaires, réseaux sociaux, visite virtuelle et certification Qualiopi.<div class="tags"><span class="tag">Point d’entrée</span></div></div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h14v18H6a2 2 0 0 0-2 2V5z"/><path d="M8 7h8M8 11h8"/></svg></span><span>Formation professionnelle de cascadeur <span class="role">— le cursus complet</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Le programme de deux ans (720 à 800 heures) : disciplines enseignées, formules, rythme et parcours d'admission.<div class="tags"><span class="tag">Cursus 2 ans</span></div></div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg></span><span>Stages de cascade & parkour <span class="role">— les sessions datées</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Stages intensifs tous niveaux dès 16 ans : découverte de 12 jours, week-ends thématiques — chaque session affiche ses dates et son statut.<div class="tags"><span class="tag">Tous niveaux</span></div></div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><path d="M16 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-1.8-4.4-4.5-4.8"/></svg></span><span>L'équipe <span class="role">— les 12 coachs</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Chaque coach possède sa fiche : rôle au campus, biographie et filmographie vérifiée crédit par crédit sur IMDb.<div class="tags"><span class="tag">12 fiches</span></div></div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span><span>Tournage — CUC Stunt Team <span class="role">— pour les productions</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Coordination de cascades et mise en relation avec un vivier de cascadeurs professionnels pour tournages et séries.<div class="tags"><span class="tag">Production</span></div></div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.3.9-4.5 4.4 1 6.1-5.5-3-5.5 3 1-6.1L3 9.5l6.3-.9L12 3z"/></svg></span><span>Catalogue des films <span class="role">— le cœur cinéma</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Plus de 570 films référencés avec affiches : fiche détaillée au clic (équipe impliquée, rôle de chacun), même présentation sur tout le site.<div class="tags"><span class="tag">570 films</span></div></div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><path d="M16 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-1.8-4.4-4.5-4.8"/></svg></span><span>Partenaires <span class="role">— qui nous accompagne</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Équipementiers, marques et institutions affichés et pilotés depuis le Cockpit.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg></span><span>Vidéos & reportages <span class="role">— TF1, France 2, BFM TV</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Reportages télévisés et showreels du campus, avec lecture directe sur le site.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3 4 5v16l5-2 6 2 5-2V3l-5 2-6-2z"/><path d="M9 3v16M15 5v16"/></svg></span><span>Le campus <span class="role">— installations & accès</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Visite guidée des installations réelles : tour de saut 21 m, dojos, fosse de chute, hébergement — et comment venir.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></span><span>Visite virtuelle <span class="role">— 360° et plan 3D</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Immersion 360° et plan 3D interactif du campus, chargé à la demande pour rester rapide.<div class="tags"><span class="tag">3D</span></div></div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><span>CUC Events — agence événementielle <span class="role">— festivals & lancements</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Shows d'action clé en main pour festivals, lancements de marque, parcs à thème et séminaires.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.3.9-4.5 4.4 1 6.1-5.5-3-5.5 3 1-6.1L3 9.5l6.3-.9L12 3z"/></svg></span><span>Spectacles cascadeurs & Yamakasi <span class="role">— la scène</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Performances scéniques : voltige urbaine, combats chorégraphiés, pyrotechnie.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 6.3"/><path d="M20 5v6h-6"/></svg></span><span>Animations airbag & parkour <span class="role">— grand public</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Faire vivre au public la chute libre sur airbag de cinéma, en cadre encadré et sécurisé.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><path d="M16 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-1.8-4.4-4.5-4.8"/></svg></span><span>Team building <span class="role">— entreprises</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Séminaires d'entreprise : cohésion d'équipe par les cascades et les coulisses du cinéma.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></span><span>Stunt Workshop international <span class="role">— en anglais & français</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Stage international de 2 semaines : participants du monde entier, encadrement professionnel du campus.<div class="tags"><span class="tag">International</span></div></div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><span>Contact <span class="role">— formulaire & carte</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
@@ -260,91 +307,91 @@
       L'accès est sécurisé par rôle : direction, secrétariat, coachs — chacun ses permissions.
     </p>
     
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><span>Tableau de bord <span class="role">— vue d’ensemble</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Synthèse des contenus, dernière activité et état général du site.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L20 8l-4-4L4 16v4z"/><path d="M14 6l4 4"/></svg></span><span>Pages & héros <span class="role">— édition directe</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Chaque page se modifie sans code : titres, badges, textes, référencement — avec aperçu en direct et historique de versions (restauration en un clic).<div class="tags"><span class="tag">Révisions</span></div></div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span><span>Films <span class="role">— catalogue</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Gérer les films : affiches, catégories, rôles de l’équipe, publication ou retrait.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><path d="M16 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-1.8-4.4-4.5-4.8"/></svg></span><span>Équipe <span class="role">— coachs</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Rôle, biographie, crédits, mise en avant, ordre d'affichage — et liaison vers le compte CUC Sign du coach.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg></span><span>Sessions de formation <span class="role">— calendrier</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Dates, statut (ouvert, complet, dernières places), liaison vers la formation correspondante dans CUC Sign.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><path d="M16 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-1.8-4.4-4.5-4.8"/></svg></span><span>Partenaires <span class="role">— logos & liens</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Ajouter, retirer ou réordonner les partenaires affichés sur le site.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.3.9-4.5 4.4 1 6.1-5.5-3-5.5 3 1-6.1L3 9.5l6.3-.9L12 3z"/></svg></span><span>Événements <span class="role">— agence</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Événements d'agence présentés sur les pages d'activité.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h14v18H6a2 2 0 0 0-2 2V5z"/><path d="M8 7h8M8 11h8"/></svg></span><span>Disciplines <span class="role">— référentiel</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Les 10 disciplines enseignées : niveaux, équipements, contexte cinéma.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></span><span>Campus 3D <span class="role">— studio du plan</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Placer et ajuster les bâtiments du plan 3D visible en visite virtuelle.<div class="tags"><span class="tag">3D</span></div></div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><span>Médias <span class="role">— bibliothèque</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Toutes les images et documents centralisés et servis par la base du projet.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></span><span>Traductions <span class="role">— FR → EN</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Les traductions éditoriales (films, équipe, événements, disciplines, campus) consultables et éditables.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></span><span>Annonces <span class="role">— bandeau d’alerte</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Message exceptionnel affiché en haut du site public (fermeture, information urgente).</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><span>Candidatures <span class="role">— boîte de réception</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Demandes reçues via le site : statut, notes internes, réponse — puis conversion en compte élève CUC Sign.<div class="tags"><span class="tag">Suivi</span></div></div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></span><span>Réglages & navigation <span class="role">— identité du site</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Coordonnées, boutons d’appel à l’action, réseaux sociaux, structure du menu et du pied de page.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><span>Traçabilité & sauvegarde <span class="role">— sécurité éditoriale</span></span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
@@ -356,12 +403,12 @@
     <h2>5. Au quotidien — comment je fais…</h2>
     <p>Les gestes les plus courants, en une ligne chacun :</p>
     <div class="feat-grid">
-  <article class="feat"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L20 8l-4-4L4 16v4z"/><path d="M14 6l4 4"/></svg></span><h3>Modifier un texte du site</h3><p>undefined</p></article>
-  <article class="feat"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg></span><h3>Ajouter une session de stage</h3><p>undefined</p></article>
-  <article class="feat"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span><h3>Mettre un film en avant</h3><p>undefined</p></article>
-  <article class="feat"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></span><h3>Publier une information urgente</h3><p>undefined</p></article>
-  <article class="feat"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></span><h3>Compléter une traduction anglaise</h3><p>undefined</p></article>
-  <article class="feat"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg></span><h3>Revenir en arrière sur une erreur</h3><p>undefined</p></article></div>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L20 8l-4-4L4 16v4z"/><path d="M14 6l4 4"/></svg></span><h3>Modifier un texte du site</h3><p>Cockpit → Pages & héros → choisir la page → modifier → Aperçu → Enregistrer.</p></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg></span><h3>Ajouter une session de stage</h3><p>Cockpit → Sessions → créer (dates, statut) → relier la formation CUC Sign correspondante.</p></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span><h3>Mettre un film en avant</h3><p>Cockpit → Films (ou fiche coach) → étoiler le crédit → il monte en tête de la filmographie.</p></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></span><h3>Publier une information urgente</h3><p>Cockpit → Annonces → activer le message : le bandeau s’affiche en haut de tout le site.</p></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></span><h3>Compléter une traduction anglaise</h3><p>Cockpit → Traductions → entité concernée → compléter → enregistrer.</p></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg></span><h3>Revenir en arrière sur une erreur</h3><p>Cockpit → Pages & héros → Historique des versions → restaurer la version précédente.</p></article></div>
     <div class="callout">
       <strong>En cas de doute :</strong> rien n'est fragile. Chaque page possède un historique de versions restaurable,
       et le journal d'audit conserve la trace de toutes les actions.
@@ -370,46 +417,221 @@
 
   <section id="chiffres">
     <h2>6. L'application en un coup d'œil</h2>
-    <div class="kpis"><div class="kpi"><div class="n">15</div><div class="l">pages publiques</div><div class="s">chacune en français ET en anglais</div></div><div class="kpi"><div class="n">570</div><div class="l">films au catalogue</div><div class="s">affiches et fiches détaillées</div></div><div class="kpi"><div class="n">12</div><div class="l">coachs</div><div class="s">filmographies vérifiées</div></div><div class="kpi"><div class="n">579</div><div class="l">traductions</div><div class="s">contenus bilingues en base</div></div><div class="kpi"><div class="n">18</div><div class="l">sessions de formation</div><div class="s">dates et statuts en direct</div></div><div class="kpi"><div class="n">10</div><div class="l">disciplines enseignées</div><div class="s">référentiel complet</div></div><div class="kpi"><div class="n">21</div><div class="l">partenaires</div><div class="s">marques & institutions</div></div><div class="kpi"><div class="n">182</div><div class="l">images & documents</div><div class="s">centralisés et optimisés</div></div></div>
-    <p class="meta" style="margin-top:14px">
-      Chiffres issus de la base de données du projet, relevés automatiquement.
+    <div class="kpis"><div class="kpi reveal"><div class="n">15</div><div class="l">pages publiques</div><div class="s">chacune en français et en anglais</div></div><div class="kpi reveal"><div class="n">570</div><div class="l">films au catalogue</div><div class="s">affiches et fiches détaillées</div></div><div class="kpi reveal"><div class="n">12</div><div class="l">coachs</div><div class="s">filmographies vérifiées</div></div><div class="kpi reveal"><div class="n">579</div><div class="l">traductions</div><div class="s">contenus bilingues en base</div></div><div class="kpi reveal"><div class="n">18</div><div class="l">sessions de formation</div><div class="s">dates et statuts en direct</div></div><div class="kpi reveal"><div class="n">10</div><div class="l">disciplines enseignées</div><div class="s">référentiel complet</div></div><div class="kpi reveal"><div class="n">21</div><div class="l">partenaires</div><div class="s">marques & institutions</div></div><div class="kpi reveal"><div class="n">182</div><div class="l">images & documents</div><div class="s">centralisés et optimisés</div></div></div>
+    <p class="meta" style="margin-top:14px">Chiffres relevés automatiquement depuis la base de données du projet.</p>
+  </section>
+
+  <section id="contenus">
+    <h2>7. Tout ce que contient votre application</h2>
+    <p>La vie du site, en volumes réels — mis à jour automatiquement à chaque régénération de ce dossier.</p>
+
+    <h3>Les contenus publiés</h3>
+    <svg viewBox="0 0 760 520" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Traductions éditoriales</text>
+        <rect x="265" y="10" width="385" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
+        <text x="659" y="27.28" class="chart-value">579</text><text x="0" y="61.28" class="chart-label">Films au catalogue</text>
+        <rect x="265" y="44" width="379.01554404145077" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
+        <text x="653.0155440414508" y="61.28" class="chart-value">570</text><text x="0" y="95.28" class="chart-label">Partenaires</text>
+        <rect x="265" y="78" width="13.963730569948186" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
+        <text x="287.9637305699482" y="95.28" class="chart-value">21</text><text x="0" y="129.28" class="chart-label">Sessions de formation</text>
+        <rect x="265" y="112" width="11.968911917098445" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
+        <text x="285.96891191709847" y="129.28" class="chart-value">18</text><text x="0" y="163.28" class="chart-label">Pages du site</text>
+        <rect x="265" y="146" width="9.974093264248705" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
+        <text x="283.9740932642487" y="163.28" class="chart-value">15</text><text x="0" y="197.28" class="chart-label">Coachs & direction</text>
+        <rect x="265" y="180" width="7.979274611398964" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
+        <text x="281.979274611399" y="197.28" class="chart-value">12</text><text x="0" y="231.28" class="chart-label">Réglages du site</text>
+        <rect x="265" y="214" width="7.31433506044905" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
+        <text x="281.314335060449" y="231.28" class="chart-value">11</text><text x="0" y="265.28" class="chart-label">Disciplines</text>
+        <rect x="265" y="248" width="6.649395509499136" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
+        <text x="280.64939550949913" y="265.28" class="chart-value">10</text><text x="0" y="299.28" class="chart-label">Programmes de formation</text>
+        <rect x="265" y="282" width="3.989637305699482" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
+        <text x="277.9896373056995" y="299.28" class="chart-value">6</text><text x="0" y="333.28" class="chart-label">Zones du campus</text>
+        <rect x="265" y="316" width="3.324697754749568" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
+        <text x="277.3246977547496" y="333.28" class="chart-value">5</text><text x="0" y="367.28" class="chart-label">Réseaux sociaux</text>
+        <rect x="265" y="350" width="3.324697754749568" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
+        <text x="277.3246977547496" y="367.28" class="chart-value">5</text><text x="0" y="401.28" class="chart-label">Événements</text>
+        <rect x="265" y="384" width="3" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
+        <text x="277" y="401.28" class="chart-value">3</text><text x="0" y="435.28" class="chart-label">Annonces</text>
+        <rect x="265" y="418" width="3" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
+        <text x="277" y="435.28" class="chart-value">1</text><text x="0" y="469.28" class="chart-label">Pied de page</text>
+        <rect x="265" y="452" width="3" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
+        <text x="277" y="469.28" class="chart-value">1</text><text x="0" y="503.28" class="chart-label">Menu de navigation</text>
+        <rect x="265" y="486" width="3" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
+        <text x="277" y="503.28" class="chart-value">1</text></svg>
+
+    <div class="two-col">
+      <div>
+        <h3>Les films par catégorie</h3>
+        <svg viewBox="0 0 760 146" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Films</text>
+        <rect x="265" y="10" width="385" height="24" rx="4" fill="#FFB020" opacity="0.92"/>
+        <text x="659" y="27.28" class="chart-value">363</text><text x="0" y="61.28" class="chart-label">Séries</text>
+        <rect x="265" y="44" width="156.96969696969697" height="24" rx="4" fill="#FFB020" opacity="0.92"/>
+        <text x="430.969696969697" y="61.28" class="chart-value">148</text><text x="0" y="95.28" class="chart-label">Courts métrages</text>
+        <rect x="265" y="78" width="48.78787878787879" height="24" rx="4" fill="#FFB020" opacity="0.92"/>
+        <text x="322.7878787878788" y="95.28" class="chart-value">46</text><text x="0" y="129.28" class="chart-label">Non classé</text>
+        <rect x="265" y="112" width="12.727272727272727" height="24" rx="4" fill="#FFB020" opacity="0.92"/>
+        <text x="286.72727272727275" y="129.28" class="chart-value">12</text></svg>
+      </div>
+      <div>
+        <h3>Les sessions de formation par statut</h3>
+        <svg viewBox="0 0 760 146" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Complètes</text>
+        <rect x="265" y="10" width="385" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="659" y="27.28" class="chart-value">7</text><text x="0" y="61.28" class="chart-label">Ouvertes aux inscriptions</text>
+        <rect x="265" y="44" width="330" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="604" y="61.28" class="chart-value">6</text><text x="0" y="95.28" class="chart-label">Annoncées prochainement</text>
+        <rect x="265" y="78" width="165" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="439" y="95.28" class="chart-value">3</text><text x="0" y="129.28" class="chart-label">Dernières places</text>
+        <rect x="265" y="112" width="110" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="384" y="129.28" class="chart-value">2</text></svg>
+      </div>
+    </div>
+
+    <h3>Les traductions, entité par entité</h3>
+    <svg viewBox="0 0 760 350" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Films</text>
+        <rect x="265" y="10" width="385" height="24" rx="4" fill="#81C784" opacity="0.92"/>
+        <text x="659" y="27.28" class="chart-value">501</text><text x="0" y="61.28" class="chart-label">Pages</text>
+        <rect x="265" y="44" width="11.52694610778443" height="24" rx="4" fill="#81C784" opacity="0.92"/>
+        <text x="285.52694610778445" y="61.28" class="chart-value">15</text><text x="0" y="95.28" class="chart-label">Partenaires</text>
+        <rect x="265" y="78" width="10.758483033932135" height="24" rx="4" fill="#81C784" opacity="0.92"/>
+        <text x="284.7584830339321" y="95.28" class="chart-value">14</text><text x="0" y="129.28" class="chart-label">Coachs</text>
+        <rect x="265" y="112" width="9.221556886227544" height="24" rx="4" fill="#81C784" opacity="0.92"/>
+        <text x="283.2215568862275" y="129.28" class="chart-value">12</text><text x="0" y="163.28" class="chart-label">Disciplines</text>
+        <rect x="265" y="146" width="7.684630738522954" height="24" rx="4" fill="#81C784" opacity="0.92"/>
+        <text x="281.68463073852297" y="163.28" class="chart-value">10</text><text x="0" y="197.28" class="chart-label">Installations</text>
+        <rect x="265" y="180" width="6.916167664670659" height="24" rx="4" fill="#81C784" opacity="0.92"/>
+        <text x="280.91616766467064" y="197.28" class="chart-value">9</text><text x="0" y="231.28" class="chart-label">program</text>
+        <rect x="265" y="214" width="4.610778443113772" height="24" rx="4" fill="#81C784" opacity="0.92"/>
+        <text x="278.61077844311376" y="231.28" class="chart-value">6</text><text x="0" y="265.28" class="chart-label">Zones du campus</text>
+        <rect x="265" y="248" width="3.842315369261477" height="24" rx="4" fill="#81C784" opacity="0.92"/>
+        <text x="277.8423153692615" y="265.28" class="chart-value">5</text><text x="0" y="299.28" class="chart-label">Événements</text>
+        <rect x="265" y="282" width="3" height="24" rx="4" fill="#81C784" opacity="0.92"/>
+        <text x="277" y="299.28" class="chart-value">3</text><text x="0" y="333.28" class="chart-label">social_link</text>
+        <rect x="265" y="316" width="3" height="24" rx="4" fill="#81C784" opacity="0.92"/>
+        <text x="277" y="333.28" class="chart-value">2</text></svg>
+
+    <h3>Les médias hébergés par le projet</h3>
+    <svg viewBox="0 0 760 112" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Bibliothèque d'images</text>
+        <rect x="265" y="10" width="385" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
+        <text x="659" y="27.28" class="chart-value">175 fichiers · 217,4 Mo</text><text x="0" y="61.28" class="chart-label">Bibliothèque d'images</text>
+        <rect x="265" y="44" width="3" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
+        <text x="277" y="61.28" class="chart-value">6 fichiers · 0,4 Mo</text><text x="0" y="95.28" class="chart-label">Bibliothèque d'images</text>
+        <rect x="265" y="78" width="3" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
+        <text x="277" y="95.28" class="chart-value">1 fichiers · 0,0 Mo</text></svg>
+
+    <h3>Le pont avec CUC Sign (application élèves)</h3>
+    <p>
+      Le site s'appuie sur CUC Sign pour rester cohérent : dates des formations, noms des coachs et lieux du campus.
+      Il lit ces informations — il ne les modifie jamais.
     </p>
+    
+    <div class="kpis">
+      <div class="kpi reveal"><div class="n">12</div><div class="l">formations CUC Sign</div><div class="s">référencées côté site</div></div>
+      <div class="kpi reveal"><div class="n">13</div><div class="l">profils CUC Sign</div><div class="s">coachs & direction</div></div>
+      <div class="kpi reveal"><div class="n">9</div><div class="l">lieux CUC Sign</div><div class="s">installations du campus</div></div>
+      <div class="kpi reveal"><div class="n">10/18</div><div class="l">sessions reliées</div><div class="s">les autres attendent leur formation CUC Sign</div></div>
+      <div class="kpi reveal"><div class="n">5/12</div><div class="l">coachs reliés</div><div class="s">les intervenants externes n'ont pas de compte</div></div>
+      <div class="kpi reveal"><div class="n">4/5</div><div class="l">zones du campus reliées</div><div class="s">liaisons vérifiées, jamais approximatives</div></div>
+    </div>
+  </section>
+
+  <section id="capot">
+    <h2>8. Sous le capot — en toute transparence</h2>
+    <p>
+      Cette partie s'adresse aux curieux : ce que votre site « pèse », la vitesse à laquelle il répond,
+      et les garanties qui l'entourent. Aucune connaissance technique n'est nécessaire pour la lire.
+    </p>
+    <h3>Chaque page, son poids et son temps de réponse <span class="meta">(mesurés en direct)</span></h3>
+    <svg viewBox="0 0 760 520" class="chart" role="img"><text x="0" y="27.28" class="chart-label">/equipe-cascadeurs-pro</text>
+        <rect x="265" y="10" width="385" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="659" y="27.28" class="chart-value">579 Ko · 11 ms</text><text x="0" y="61.28" class="chart-label">/cuc-team-cascadeur</text>
+        <rect x="265" y="44" width="325.8990288380627" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="599.8990288380627" y="61.28" class="chart-value">490 Ko · 24 ms</text><text x="0" y="95.28" class="chart-label">/</text>
+        <rect x="265" y="78" width="158.7742516454441" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="432.7742516454441" y="95.28" class="chart-value">239 Ko · 8 ms</text><text x="0" y="129.28" class="chart-label">/visite-guidee</text>
+        <rect x="265" y="112" width="153.18624251898396" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="427.18624251898393" y="129.28" class="chart-value">230 Ko · 6 ms</text><text x="0" y="163.28" class="chart-label">/partenaires</text>
+        <rect x="265" y="146" width="118.99596290731381" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="392.9959629073138" y="163.28" class="chart-value">179 Ko · 12 ms</text><text x="0" y="197.28" class="chart-label">/formation-de-cascadeur</text>
+        <rect x="265" y="180" width="115.2569894485844" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="389.2569894485844" y="197.28" class="chart-value">173 Ko · 5 ms</text><text x="0" y="231.28" class="chart-label">/contact-cuc</text>
+        <rect x="265" y="214" width="113.51118294910127" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="387.5111829491013" y="231.28" class="chart-value">171 Ko · 5 ms</text><text x="0" y="265.28" class="chart-label">/videos-cascadeur</text>
+        <rect x="265" y="248" width="110.13513467936816" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="384.13513467936815" y="265.28" class="chart-value">166 Ko · 5 ms</text><text x="0" y="299.28" class="chart-label">/stages-cascades-parkour-2</text>
+        <rect x="265" y="282" width="107.63815743986942" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="381.6381574398694" y="299.28" class="chart-value">162 Ko · 6 ms</text><text x="0" y="333.28" class="chart-label">/team-building-cascades</text>
+        <rect x="265" y="316" width="106.56561287417728" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="380.5656128741773" y="333.28" class="chart-value">160 Ko · 5 ms</text><text x="0" y="367.28" class="chart-label">/cuc-events-agence</text>
+        <rect x="265" y="350" width="104.16017848199245" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="378.16017848199243" y="367.28" class="chart-value">157 Ko · 5 ms</text><text x="0" y="401.28" class="chart-label">/stunt-workshop-cuc</text>
+        <rect x="265" y="384" width="103.60507823764209" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="377.6050782376421" y="401.28" class="chart-value">156 Ko · 4 ms</text><text x="0" y="435.28" class="chart-label">/admin</text>
+        <rect x="265" y="418" width="97.17305704374866" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="371.17305704374866" y="435.28" class="chart-value">146 Ko · 36 ms</text><text x="0" y="469.28" class="chart-label">/animations-airbag-parkour</text>
+        <rect x="265" y="452" width="94.92344026401305" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="368.92344026401304" y="469.28" class="chart-value">143 Ko · 5 ms</text><text x="0" y="503.28" class="chart-label">/visite-virtuelle</text>
+        <rect x="265" y="486" width="92.54527395400682" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
+        <text x="366.5452739540068" y="503.28" class="chart-value">139 Ko · 5 ms</text></svg>
+    <p class="meta">Mesure effectuée sur la version de production du site. Les deux pages les plus « lourdes » sont les galeries de films — logique, elles affichent le catalogue complet.</p>
+
+    <h3>Ce que ce dossier mesure et pourquoi</h3>
+    <div class="feat-grid">
+      
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg></span><h3>Sécurité par ligne</h3><p>18 tables protégées par des règles d'accès par rôle : chaque utilisateur du Cockpit ne peut agir que dans son périmètre.</p><div class="tags"><span class="tag">Données</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14a8 8 0 1 1 16 0"/><path d="M12 14l4-4"/></svg></span><h3>En-têtes de sécurité</h3><p>Protections navigateur actives (8 en-têtes : anti-détournement, contenu sécurisé, connexions chiffrées).</p><div class="tags"><span class="tag">Web</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 6.3"/><path d="M20 5v6h-6"/></svg></span><h3>Contrôles automatiques</h3><p>Des contrôles automatiques vérifient liens, traductions et contenus avant chaque mise à jour.</p><div class="tags"><span class="tag">Qualité</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><h3>Sauvegarde du contenu</h3><p>Export complet du contenu depuis le Cockpit, et historique de versions sur chaque page : rien ne peut être perdu.</p><div class="tags"><span class="tag">Continuité</span></div></article>
+    </div>
+
+    <details class="acc reveal">
+      <summary><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></span><span>Les technologies utilisées <span class="role">— et leur rôle, sans jargon</span></span>
+        <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </summary>
+      <div class="acc-body">
+  <table>
+    <thead><tr><th>Technologie</th><th>Son rôle dans votre application</th></tr></thead>
+    <tbody>
+      <tr><td><code>Next.js 16</code></td><td>moteur du site : affichage ultra-rapide, pages optimisées pour Google</td></tr><tr><td><code>React 19</code></td><td>bibliothèque d'interface utilisée par le site et le Cockpit</td></tr><tr><td><code>Supabase</code></td><td>base de données, stockage des médias et synchronisation temps réel</td></tr><tr><td><code>Tailwind CSS 4</code></td><td>système de design garantissant la cohérence visuelle</td></tr><tr><td><code>Three.js</code></td><td>moteur 3D du plan interactif du campus (chargé uniquement quand utile)</td></tr><tr><td><code>Framer Motion</code></td><td>animations fluides et sobres du site public</td></tr>
+    </tbody>
+  </table></div>
+    </details>
+
+    <p class="meta">Pour afficher le site, le navigateur télécharge environ 3,2 Mo de code, mis en cache après la première visite.</p>
   </section>
 
   <section id="faq">
-    <h2>7. Questions fréquentes</h2>
+    <h2>9. Questions fréquentes</h2>
     
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span>Le site est-il vraiment disponible en anglais ?</span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Oui : les 15 pages existent en français et en anglais, avec des textes rédigés (et non traduits automatiquement). La galerie de films, les fiches coachs, les événements, les disciplines et le campus disposent de traductions éditoriales stockées en base.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span>Faut-il des compétences techniques pour mettre le site à jour ?</span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Non. Tout se pilote depuis le Cockpit d'administration, avec un aperçu avant publication. Aucune ligne de code n'est nécessaire.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span>Que se passe-t-il si une modification est une erreur ?</span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Rien n'est définitif : chaque page conserve un historique de versions, restaurable en un clic. Le journal d'audit garde aussi trace des actions réalisées.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span>Le site peut-il modifier l’application CUC Sign ?</span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Jamais. La liaison est en lecture seule : le site affiche les formations, coachs et lieux de CUC Sign, mais n'y écrit aucune donnée. Les données pédagogiques sont protégées par des règles strictes côté base.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span>Comment les demandes (candidatures, projets) arrivent-elles ?</span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">Le visiteur remplit un formulaire guidé sur le site. La demande apparaît dans le Cockpit (écran Candidatures) avec un statut, des notes internes, et peut être convertie en compte élève CUC Sign.</div>
   </details>
-  <details class="acc">
+  <details class="acc reveal">
     <summary><span>Où sont hébergées les images et vidéos du site ?</span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
@@ -418,7 +640,7 @@
   </section>
 
   <footer>
-    Dossier de présentation généré le 22/09/2026 00:43:49 pour le Campus Univers Cascades.
+    Dossier de présentation généré le 22/09/2026 00:50:08 pour le Campus Univers Cascades.
     Document autonome (aucun accès internet requis) · régénérable à tout moment via <code>npm run report:dossier</code>.
     <span class="pill">FR / EN</span><span class="pill">sans connexion</span><span class="pill">imprimable</span>
   </footer>
