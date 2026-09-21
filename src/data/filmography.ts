@@ -491,17 +491,17 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "cuc_team_involved": []
   },
   {
-    "id": "braqueurs",
-    "title": "Braqueurs",
+    "id": "braqueurs-la-serie",
+    "title": "Braqueurs: La série",
     "year": "2021",
     "category": "Série / Plateforme",
     "director": "Julien Leclercq",
     "stuntRoles": "Fusillades, cascades de véhicules et combats.",
     "doubledActors": [],
     "highlight": false,
-    "image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/braqueurs.jpg",
+    "image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/braqueurs.jpg?v=20260921",
     "tag": "NETFLIX",
-    "imdbUrl": "https://www.imdb.com/title/tt13300584/",
+    "imdbUrl": "https://www.imdb.com/title/tt13278100/",
     "allocineUrl": "https://www.allocine.fr/series/ficheserie_gen_cserie=27473.html",
     "trailerUrl": "https://www.youtube.com/watch?v=3-M9o1N2d5E",
     "cuc_team_involved": []

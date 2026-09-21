@@ -26,7 +26,7 @@ export const ALL_OFFICIAL_FILM_POSTERS: OfficialPoster[] = [
   { title: "Stillwater", img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/stillwater.jpg" },
   { title: "Dune", img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/dune-1.jpg" },
   { title: "Bac Nord", img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/bac-nord.jpg" },
-  { title: "Braqueurs", img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/braqueurs.jpg" },
+  { title: "Braqueurs: La série", img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/braqueurs.jpg?v=20260921" },
   { title: "Family Business", img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/family-business.jpg" },
   { title: "Sentinelle", img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Sentinelle.jpg" },
   { title: "30 Jours Max", img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/30-Jours-max.jpg" },
