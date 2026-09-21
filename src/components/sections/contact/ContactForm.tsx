@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Send, CheckCircle2 } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { submitInquiry } from '@/app/(admin)/admin/actions';
@@ -32,6 +33,8 @@ const resolveInitialProgram = (): string => {
 };
 
 export const ContactForm: React.FC = () => {
+  const t = useTranslations('contact.form');
+
   // Préremplissage depuis le paramètre d'URL `?demande=...` : résolu une seule
   // fois via l'initialiseur paresseux (côté client), sans effet ni rendu en
   // cascade. Le rendu serveur retombe sur la valeur par défaut.
@@ -53,24 +56,16 @@ export const ContactForm: React.FC = () => {
     setIsSubmitting(true);
     setErrorMessage(null);
 
-    const programLabels: Record<string, string> = {
-      'pro-longue-duree': 'Formation Pro Longue Durée (2 ans)',
-      'stage-decouverte': 'Stage Découverte & Sélection (12j / 80h)',
-      'weekend-immersion': 'Formule Week-end Immersion',
-      'afdas-artistes-interpretes': 'Stage AFDAS Artistes Interprètes',
-      'stunt-summer-camp': 'Stunt Summer Camp',
-      'workshop-international': 'International Stunt Workshop',
-      'tournage-production': 'Production & Tournage Cinéma',
-      'cuc-events': 'CUC Events & Prestations',
-      'autre': 'Question Générale',
-    };
+    // Libellé de la demande : une seule source (catalogue), donc la même
+    // formulation à l'affichage et dans la fiche reçue par le Cockpit.
+    const programTitle = t(`options.${formData.program}`);
 
     const res = await submitInquiry({
       full_name: formData.name,
       email: formData.email,
       phone: formData.phone,
       program_id: formData.program,
-      program_title: programLabels[formData.program] || formData.program,
+      program_title: programTitle,
       sport_background: formData.sportExperience,
       message: formData.message,
     });
@@ -79,7 +74,7 @@ export const ContactForm: React.FC = () => {
     if (res.success) {
       setSubmitted(true);
     } else {
-      setErrorMessage(res.error || 'Une erreur est survenue lors de l’envoi. Veuillez réessayer.');
+      setErrorMessage(res.error || t('errorFallback'));
     }
   };
 
@@ -87,11 +82,10 @@ export const ContactForm: React.FC = () => {
     <div className="lg:col-span-7 bg-[#0e0e14] border-2 border-zinc-800 p-6 sm:p-8 relative">
 
       <h2 className="text-2xl sm:text-3xl font-display uppercase text-white mb-2">
-        DÉMARRER UN PROJET OU ÉCHANGER
+        {t('title')}
       </h2>
       <p className="text-xs font-tech text-zinc-400 mb-6">
-        Transmettez-nous les détails de votre demande. Notre équipe opérationnelle vous répondra sous 24 à
-        48 heures ouvrées.
+        {t('intro')}
       </p>
 
       {submitted ? (
@@ -100,17 +94,16 @@ export const ContactForm: React.FC = () => {
             <CheckCircle2 className="w-6 h-6" />
           </div>
           <h3 className="text-2xl font-display uppercase text-white">
-            MESSAGE TRANSMIS AVEC SUCCÈS
+            {t('successTitle')}
           </h3>
           <p className="text-xs font-tech text-zinc-300 max-w-md mx-auto">
-            Merci pour votre prise de contact avec le Campus Univers Cascades. Notre équipe
-            examinera votre projet et reviendra vers vous avec réactivité.
+            {t('successText')}
           </p>
           <button
             onClick={() => setSubmitted(false)}
             className="px-4 py-2 bg-zinc-800 text-xs font-mono-tech uppercase text-zinc-300 hover:text-white cursor-pointer"
           >
-            Envoyer un autre message
+            {t('sendAnother')}
           </button>
         </div>
       ) : (
@@ -121,7 +114,7 @@ export const ContactForm: React.FC = () => {
                 htmlFor="contact-name"
                 className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
               >
-                Nom &amp; Prénom *
+                {t('labelName')}
               </label>
               <input
                 id="contact-name"
@@ -132,7 +125,7 @@ export const ContactForm: React.FC = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, name: e.target.value })
                 }
-                placeholder="Ex: Alexandre Dubois"
+                placeholder={t('placeholderName')}
                 className="w-full bg-[#14141c] border border-zinc-800 p-3 text-white focus:border-[#FFE500] focus:outline-hidden"
               />
             </div>
@@ -142,7 +135,7 @@ export const ContactForm: React.FC = () => {
                 htmlFor="contact-phone"
                 className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
               >
-                Téléphone *
+                {t('labelPhone')}
               </label>
               <input
                 id="contact-phone"
@@ -153,7 +146,7 @@ export const ContactForm: React.FC = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, phone: e.target.value })
                 }
-                placeholder="Ex: 06 12 34 56 78"
+                placeholder={t('placeholderPhone')}
                 className="w-full bg-[#14141c] border border-zinc-800 p-3 text-white focus:border-[#FFE500] focus:outline-hidden"
               />
             </div>
@@ -164,7 +157,7 @@ export const ContactForm: React.FC = () => {
               htmlFor="contact-email"
               className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
             >
-              Adresse Email *
+              {t('labelEmail')}
             </label>
             <input
               id="contact-email"
@@ -175,7 +168,7 @@ export const ContactForm: React.FC = () => {
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
-              placeholder="Ex: alexandre@exemple.com"
+              placeholder={t('placeholderEmail')}
               className="w-full bg-[#14141c] border border-zinc-800 p-3 text-white focus:border-[#FFE500] focus:outline-hidden"
             />
           </div>
@@ -185,7 +178,7 @@ export const ContactForm: React.FC = () => {
               htmlFor="contact-program"
               className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
             >
-              Votre Demande Concerne *
+              {t('labelProgram')}
             </label>
             <select
               id="contact-program"
@@ -195,31 +188,11 @@ export const ContactForm: React.FC = () => {
               }
               className="w-full bg-[#14141c] border border-zinc-800 p-3 text-white focus:border-[#FFE500] focus:outline-hidden"
             >
-              <option value="pro-longue-duree">
-                Formation Professionnelle Longue Durée (2 ans / 720h)
-              </option>
-              <option value="stage-decouverte">
-                Stage Découverte &amp; Sélection (12 jours / 80h)
-              </option>
-              <option value="weekend-immersion">
-                Formule Week-end Immersion (250€ pension complète)
-              </option>
-              <option value="afdas-artistes-interpretes">
-                Stage AFDAS Artistes Interprètes (Gennevilliers)
-              </option>
-              <option value="stunt-summer-camp">
-                Stunt Summer Camp (Séjour d'été)
-              </option>
-              <option value="workshop-international">
-                International Stunt Workshop
-              </option>
-              <option value="tournage-production">
-                Production de Cinéma / Tournage / Coordination
-              </option>
-              <option value="cuc-events">
-                CUC Events / Spectacles &amp; Animations Live
-              </option>
-              <option value="autre">Autre question générale</option>
+              {VALID_PROGRAMS.map((programId) => (
+                <option key={programId} value={programId}>
+                  {t(`options.${programId}`)}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -228,8 +201,7 @@ export const ContactForm: React.FC = () => {
               htmlFor="contact-sportExperience"
               className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
             >
-              Expérience Sportive / Artistique (Arts martiaux, gymnastique,
-              parkour...)
+              {t('labelExperience')}
             </label>
             <input
               id="contact-sportExperience"
@@ -238,7 +210,7 @@ export const ContactForm: React.FC = () => {
               onChange={(e) =>
                 setFormData({ ...formData, sportExperience: e.target.value })
               }
-              placeholder="Ex: 5 ans de judo, pratique du parkour..."
+              placeholder={t('placeholderExperience')}
               className="w-full bg-[#14141c] border border-zinc-800 p-3 text-white focus:border-[#FFE500] focus:outline-hidden"
             />
           </div>
@@ -248,7 +220,7 @@ export const ContactForm: React.FC = () => {
               htmlFor="contact-message"
               className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
             >
-              Votre Message / Précisions *
+              {t('labelMessage')}
             </label>
             <textarea
               id="contact-message"
@@ -258,7 +230,7 @@ export const ContactForm: React.FC = () => {
               onChange={(e) =>
                 setFormData({ ...formData, message: e.target.value })
               }
-              placeholder="Indiquez vos objectifs, questions ou financements envisagés (AFDAS, etc.)..."
+              placeholder={t('placeholderMessage')}
               className="w-full bg-[#14141c] border border-zinc-800 p-3 text-white focus:border-[#FFE500] focus:outline-hidden"
             />
           </div>
@@ -278,16 +250,12 @@ export const ContactForm: React.FC = () => {
               disabled={isSubmitting}
               icon={<Send className="w-4 h-4" />}
             >
-              {isSubmitting
-                ? 'Transmission en cours...'
-                : 'Envoyer ma Candidature / Message'}
+              {isSubmitting ? t('submitting') : t('submit')}
             </TacticalButton>
           </div>
 
           <div className="text-[10px] font-mono-tech text-zinc-500 pt-1 text-center">
-            En soumettant ce formulaire, vous acceptez que les informations saisies
-            soient exploitées dans le cadre strict de votre demande d'admission ou
-            de contact CUC.
+            {t('consent')}
           </div>
         </form>
       )}

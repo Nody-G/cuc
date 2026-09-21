@@ -1,9 +1,9 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T16:19:32.446Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T16:23:17.263Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **26** — occurrences : **335**
+Pages contrôlées : **27** — pages avec français résiduel : **26** — occurrences : **319**
 
 ## /en/formation-de-cascadeur — 14 occurrence(s)
 
@@ -233,27 +233,11 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | Grand Format à l'École des Cascadeurs |
 | texte visible | Voir les cascades sur Instagram |
 
-## /en/contact-cuc — 42 occurrence(s)
+## /en/contact-cuc — 26 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
 | texte visible | Productions cinématographiques, action design, formations professionnelles, stages ou événements d'entreprise : échangez directement avec les équipes du CUC. |
-| texte visible | DÉMARRER UN PROJET OU ÉCHANGER |
-| texte visible | Transmettez-nous les détails de votre demande. Notre équipe opérationnelle vous répondra sous 24 à 48 heures ouvrées. |
-| texte visible | Nom & Prénom * |
-| texte visible | Téléphone * |
-| texte visible | Expérience Sportive / Artistique (Arts martiaux, gymnastique, parkour...) |
-| texte visible | Votre Message / Précisions * |
-| texte visible | En soumettant ce formulaire, vous acceptez que les informations saisies soient exploitées dans le cadre strict de votre demande d'admission ou de contact CUC. |
-| texte visible | TÉLÉPHONE DIRECT : 06 72 84 94 92 |
-| texte visible | HORAIRES DU STANDARD : Du Lundi au Vendredi : 09h00 - 18h30 |
-| texte visible | NOS DEUX SITES |
-| texte visible | Hauts-de-France (À 1h40 de Paris en train / 1h de Lille) |
-| texte visible | Voir la Carte & Accès |
-| texte visible | PÔLE ÎLE-DE-FRANCE (STUDIO PARIS) : Studio de Répétition & Préparation Comédiens |
-| texte visible | 92230 Gennevilliers (Région Parisienne) |
-| texte visible | SOCIÉTÉ DE PRODUCTION : CUC PROD — Société de production cinéma et spectacle |
-| texte visible | ENTITÉS & DÉPARTEMENTS DU CAMPUS |
 | texte visible | GÉOLOCALISATION & ASSISTANT DE NAVIGATION |
 | texte visible | PLAN DU DOMAINE & ITINÉRAIRES |
 | texte visible | Retrouvez les coordonnées GPS exactes, les temps de trajet en train ou voiture depuis Paris, Lille, Bruxelles, et lancez instantanément votre navigation dans Google Maps, Apple Maps, Waze ou SNCF Connect. |
