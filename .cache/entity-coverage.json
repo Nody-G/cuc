@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-21T18:40:03.609Z",
-  "globalPct": 99.2,
+  "generatedAt": "2026-09-21T19:45:18.888Z",
+  "globalPct": 100,
   "results": [
     {
       "entity": "navigation",
@@ -30,39 +30,6 @@
       "total": 0,
       "covered": 0,
       "missing": []
-    },
-    {
-      "entity": "film",
-      "label": "Films",
-      "total": 400,
-      "covered": 395,
-      "missing": [
-        {
-          "id": "6-x-confine-e-s",
-          "path": "description",
-          "frText": "6 histoires qui ont en commun de se dérouler durant le premier confinement. 6 fables qui explorent dans des registres différents la façon dont le pire, et parfois le meilleur de chacun, s'expriment dans cette situation inédite."
-        },
-        {
-          "id": "mon-frere-yves",
-          "path": "description",
-          "frText": "À travers le récit dune fraternité presque amoureuse, ou dun amour fraternel, orageux et passionnés, Julien VIAUD (alias Pierre LOTI), officier de marine, se donne un frère de substitution : le matelot Yves KERMADEC\n\nDun côté, le naturel, le côté fruste et primaire dYves qui sait à peine lire et écrire, et de lautre lambiguité, lextravagance, le raffinement, la supériorité hiérarchique et sociale, le prestige de la culture et de la connaissance, qui sont la marque de Pierre.\n\nLes pires dangers qui menacent Yves sont moins les périls inhérents à la mer en général et à son métier de gabier en particulier, que les risques liés à la terre, et surtout à ces bouges à matelots qui lattirent irrésistiblement, et où il senivre au point de devenir un autre homme, un être pétri de fureur et de violence.\n\nSa chance, cest davoir croisé la route de LOTI qui a juré à la mère dYves quil veillerait toujours sur ce dernier comme sur un frère : il va non seulement éviter à son « frère » Yves de se perdre tout à fait, mais il laidera à se construire en tant quhomme, à fonder une famille, à bâtir sa maison. Il va laimer mais ce terme peut revêtir tant de sens différents, quil faudra à LOTI toute une vie pour faire la part des choses entre aimer et aimer\n\nMon frère Yves insistera sur une notion universelle contenue dans le roman : celui-ci est avant tout un formidable récit dinitiation.\n\nQuand elles sont aussi consolantes, les histoires de la vie, conclut Pierre LOTI dans son roman, devraient pouvoir être arrêtées à volonté comme celles des livres.\n\nOu celles des films, ajouterons-nous."
-        },
-        {
-          "id": "commissaire-moulin",
-          "path": "description",
-          "frText": "Le commissaire Moulin met tout son talent d'enquêteur au service de la justice."
-        },
-        {
-          "id": "sauveur-giordano",
-          "path": "description",
-          "frText": "Un ancien agent de la brigade des mineurs se met au service d'une association d'aide aux victimes."
-        },
-        {
-          "id": "panique-au-grand-magasin",
-          "path": "description",
-          "frText": "Un an après avoir sauvé le Passo Club, Arnaud enchaîne les succès et devient la référence pour redresser des entreprises en difficulté. Il est alors appelé à sauver un grand magasin avant le 31 décembre."
-        }
-      ]
     },
     {
       "entity": "page",
@@ -104,6 +71,13 @@
       "label": "Lieux du campus",
       "total": 11,
       "covered": 11,
+      "missing": []
+    },
+    {
+      "entity": "film",
+      "label": "Films",
+      "total": 400,
+      "covered": 400,
       "missing": []
     },
     {
