@@ -228,6 +228,15 @@
         "cardCta": "Fiche complète",
         "backToTeam": "Retour à toute l'équipe pédagogique"
     },
+    "visite": {
+        "galleryBadge": "GALERIE DU CAMPUS",
+        "galleryTitle": "LE DOMAINE EN IMAGES",
+        "gallerySubtitle": "Photographies du campus au Cateau-Cambrésis.",
+        "zoom": "Agrandir",
+        "facilitiesTag": "INFRASTRUCTURES",
+        "facilitiesTitle": "NOS INFRASTRUCTURES",
+        "facilitiesSubtitle": "Chaque espace est conçu pour le travail des cascades physiques et mécaniques, avec les équipements de réception nécessaires."
+    },
     "home": {
         "hero": {
             "badge": "Centre International de Formation de Cascadeurs",

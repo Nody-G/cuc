@@ -1,9 +1,9 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T16:17:25.795Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T16:19:32.446Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **26** — occurrences : **340**
+Pages contrôlées : **27** — pages avec français résiduel : **26** — occurrences : **335**
 
 ## /en/formation-de-cascadeur — 14 occurrence(s)
 
@@ -139,7 +139,7 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | Vous êtes équipementier, fabricant de matériel, société d'effets spéciaux ou marque souhaitant associer son image au campus ? |
 | texte visible | Nous contacter |
 
-## /en/visite-guidee — 46 occurrence(s)
+## /en/visite-guidee — 41 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
@@ -147,8 +147,6 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | 21 MÈTRES |
 | texte visible | Hauteur de la Tour CUC |
 | texte visible | Hébergement Sur Site |
-| texte visible | NOS INFRASTRUCTURES |
-| texte visible | Chaque espace est conçu pour le travail des cascades physiques et mécaniques, avec les équipements de réception nécessaires. |
 | texte visible | Hauteur : 21 mètres |
 | texte visible | Hall Câblage & Cascades Physiques |
 | texte visible | Dojos Scéniques & Salle d'Armes |
@@ -177,9 +175,6 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | PLAN 3D INTERACTIF DU CAMPUS |
 | texte visible | Faites pivoter la vue aérienne, explorez les 9 infrastructures en trois dimensions, et sélectionnez une zone pour découvrir ses installations spécialisées. |
 | texte visible | Chargement du plan 3D… |
-| texte visible | GALERIE DU CAMPUS |
-| texte visible | LE DOMAINE EN IMAGES |
-| texte visible | Photographies du campus au Cateau-Cambrésis. |
 | texte visible | ACCÈS & TRANSPORT |
 | texte visible | COMMENT REJOINDRE LE CAMPUS ? |
 | texte visible | Situé au cœur de la région Hauts-de-France, le campus est facilement accessible depuis Paris, Lille, Bruxelles ou Londres. |

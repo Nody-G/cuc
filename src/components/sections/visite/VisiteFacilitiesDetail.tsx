@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { ChevronRight, CheckCircle2 } from 'lucide-react';
 import { CAMPUS_FACILITIES } from '@/data/campus';
 import { getCampusFacilities } from '@/lib/data/site-service';
@@ -35,6 +36,7 @@ const resolveInitialFacilityId = (list: InfrastructureSpot[] = CAMPUS_FACILITIES
 };
 
 export const VisiteFacilitiesDetail: React.FC = () => {
+  const t = useTranslations('visite');
   const [facilities, setFacilities] = useState<InfrastructureSpot[]>(CAMPUS_FACILITIES);
   const [activeFacilityId, setActiveFacilityId] = useState(() => resolveInitialFacilityId(CAMPUS_FACILITIES));
 
@@ -76,14 +78,13 @@ export const VisiteFacilitiesDetail: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-2">
-            INFRASTRUCTURES
+            {t('facilitiesTag')}
           </span>
           <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mb-3">
-            NOS INFRASTRUCTURES
+            {t('facilitiesTitle')}
           </h2>
           <p className="text-sm font-tech text-zinc-400">
-            Chaque espace est conçu pour le travail des cascades physiques et mécaniques,
-            avec les équipements de réception nécessaires.
+            {t('facilitiesSubtitle')}
           </p>
         </div>
 

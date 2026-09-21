@@ -228,6 +228,15 @@
         "cardCta": "Full profile",
         "backToTeam": "Back to the teaching team"
     },
+    "visite": {
+        "galleryBadge": "CAMPUS GALLERY",
+        "galleryTitle": "THE GROUNDS IN PICTURES",
+        "gallerySubtitle": "Photographs of the campus in Le Cateau-Cambrésis.",
+        "zoom": "Enlarge",
+        "facilitiesTag": "FACILITIES",
+        "facilitiesTitle": "OUR FACILITIES",
+        "facilitiesSubtitle": "Every space is designed for physical and mechanical stunt work, with the landing equipment it requires."
+    },
     "home": {
         "hero": {
             "badge": "International Stunt Performer Training Centre",
