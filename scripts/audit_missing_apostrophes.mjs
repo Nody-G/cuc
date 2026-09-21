@@ -1,6 +1,15 @@
 #!/usr/bin/env node
 /**
  * ==============================================================================
+ * ⚠️ OBSOLÈTE — remplacé par le couple :
+ *    • `scripts/audit_text_integrity.mjs`   (mojibake + apostrophes, signal sûr)
+ *    • `scripts/fix_missing_apostrophes.mjs` (réparation revue-d'abord)
+ *
+ * Conservé pour traçabilité : sa liste d'élisions était trop large et sa règle
+ * « mot commençant par une lettre d'élision » produisait 541 faux positifs
+ * (`dans`, `tranquille`, `formation`…). Le successeur exige un texte long
+ * SANS AUCUNE apostrophe, ce qui réduit le périmètre à 1 fiche réelle.
+ * ==============================================================================
  * CUC — Audit des APOSTROPHES PERDUES dans les textes éditoriaux français
  * ==============================================================================
  * Les imports de synopsis et de fiches ont parfois supprimé l'apostrophe des

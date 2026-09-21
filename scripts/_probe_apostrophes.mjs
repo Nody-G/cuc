@@ -1,4 +1,8 @@
 /**
+ * ⚠️ OBSOLÈTE — sonde intermédiaire, remplacée par `scripts/audit_text_integrity.mjs`.
+ * Son détecteur (lettre d'élision + voyelle) matchait des mots légitimes
+ * (« tranquille », « formation ») : 501 films signalés pour 1 réellement touché.
+ *
  * Sonde : mesure les apostrophes perdues à l'import dans les textes FR éditoriaux.
  * Motif typique : « dune », « dun », « laidera », « dinitiation », « quil », « cest ».
  */
