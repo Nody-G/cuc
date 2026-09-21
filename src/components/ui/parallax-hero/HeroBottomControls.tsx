@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { soundFX } from '@/lib/soundFx';
 import { HeroSlide } from './parallaxHero.data';
 
@@ -25,6 +26,8 @@ export const HeroBottomControls: React.FC<HeroBottomControlsProps> = ({
   currentSlide,
   onSelectSlide,
 }) => {
+  const t = useTranslations('home.hero');
+
   const handlePrev = () => {
     soundFX.playTacticalClick();
     onSelectSlide((currentSlide - 1 + slides.length) % slides.length);
@@ -39,7 +42,7 @@ export const HeroBottomControls: React.FC<HeroBottomControlsProps> = ({
     <div className="relative z-30 w-full max-w-5xl mx-auto px-4 sm:px-6 pb-6 pt-2 flex items-center justify-center gap-3">
       <button
         onClick={handlePrev}
-        aria-label="Slide précédent"
+        aria-label={t('prevSlide')}
         className="shrink-0 p-2 sm:p-2.5 rounded-full bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 hover:border-[#FFE500]/50 text-zinc-300 hover:text-[#FFE500] transition-all backdrop-blur-md cursor-pointer group"
       >
         <ChevronLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
@@ -47,7 +50,7 @@ export const HeroBottomControls: React.FC<HeroBottomControlsProps> = ({
 
       <button
         onClick={handleNext}
-        aria-label="Slide suivant"
+        aria-label={t('nextSlide')}
         className="shrink-0 p-2 sm:p-2.5 rounded-full bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 hover:border-[#FFE500]/50 text-zinc-300 hover:text-[#FFE500] transition-all backdrop-blur-md cursor-pointer group"
       >
         <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />

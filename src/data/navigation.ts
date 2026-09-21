@@ -526,7 +526,9 @@ export const DEFAULT_SOCIAL_LINKS: SiteSocialLink[] = [
         label: 'YouTube',
         handle: '@campusuniverscascades',
         url: 'https://www.youtube.com/@campusuniverscascades',
-        display_hint: 'Chaîne Stunt Team',
+        // Indice d'affichage : DONNÉE de `site_social_links`, jamais une copie FR
+        // en dur — sinon il fuite en anglais (repli SSR, segment caché).
+        display_hint: '',
         brand_color: '#FF0000',
         order_index: 2,
         is_active: true,
@@ -568,7 +570,8 @@ export const DEFAULT_SOCIAL_LINKS: SiteSocialLink[] = [
         label: 'WhatsApp',
         handle: 'CUC Admissions',
         url: 'https://wa.me/33672849492',
-        display_hint: 'Réponse rapide',
+        // Idem : « Réponse rapide » vit en base (avec overlay EN `social_link`).
+        display_hint: '',
         brand_color: '#25D366',
         order_index: 5,
         is_active: true,

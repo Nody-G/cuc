@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { ExternalLink } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import {
@@ -28,35 +29,33 @@ interface HomeSocialSectionProps {
 }
 
 export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData }) => {
-  const badge = socialData?.badge || 'RÉSEAUX SOCIAUX & ACTUALITÉS';
-  const title = socialData?.title || 'COMMUNAUTÉ & RÉSEAUX SOCIAUX';
-  const subtitle =
-    socialData?.subtitle ||
-    '🇲🇫 French Stunt Team • Stuntmen | Fighters | Performers • 🔥 Break the limits • 🌍 Biggest Stunt School in the World';
+  const t = useTranslations('home.social');
+  const channels = (t.raw('channels') as Record<string, string>) ?? {};
+  const postCopy =
+    (t.raw('posts') as { title: string; tag: string; desc: string }[]) ?? [];
 
+  const badge = socialData?.badge || t('badge');
+  const title = socialData?.title || t('title');
+  const subtitle = socialData?.subtitle || t('subtitle');
+
+  /**
+   * Seuls le lien, l'image et l'amplitude de parallaxe restent locaux : la copie
+   * est dans `home.social.posts` (alignée par index).
+   */
   const instagramPosts = [
     {
-      title: 'COKA CHICAS au cinéma',
-      tag: 'SORTIE EN SALLES',
-      desc: 'Cascades coordonnées et doublées par la CUC Stunt Team pour le long-métrage de Roxine Helberg avec Fadily Camara, Zoé Marchal, Eva Huault.',
       link: 'https://www.instagram.com/reel/DJW5wq0MIzt/',
       image:
         'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/001.jpg',
       speed: -0.05,
     },
     {
-      title: 'Training Combat & Martial Arts',
-      tag: 'PLATEAU TECHNIQUE',
-      desc: "Coordination chirurgicale des frappes et esquives sur tatamis d'impact avec l'équipe de chorégraphes du campus.",
       link: 'https://www.instagram.com/reel/DKAFa9dsRVa/',
       image:
         'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/002.jpg',
       speed: 0.05,
     },
     {
-      title: 'Risk Zone & Défenestration',
-      tag: 'CHUTES DE HAUTEUR',
-      desc: 'Exercices de chutes de hauteur et simulation de défenestration sur le domaine du Cateau-Cambrésis.',
       link: 'https://www.instagram.com/reel/DJmOS2tMQpk/',
       image:
         'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/defenestration.jpg',
@@ -79,7 +78,7 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
               <div className="relative w-16 h-16 rounded-full border-2 border-[#FFE500] overflow-hidden bg-black shrink-0 shadow-[0_0_20px_rgba(255,229,0,0.35)]">
                 <Image
                   src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus.univers.cascades.webp"
-                  alt="Campus Univers Cascades Instagram"
+                  alt={t('avatarAlt')}
                   fill
                   sizes="64px"
                   className="object-cover"
@@ -96,7 +95,7 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
                   {badge}
                 </span>
                 <span className="text-xs font-mono-tech text-zinc-500">
-                  • @CAMPUS.UNIVERS.CASCADES
+                  {t('handle')}
                 </span>
               </div>
               <h2
@@ -124,7 +123,7 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
               size="md"
               icon={<ExternalLink className="w-4 h-4" />}
             >
-              Rejoindre le compte
+              {t('join')}
             </TacticalButton>
           </a>
         </div>
@@ -170,7 +169,7 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
                 YouTube
               </span>
               <span className="text-[10px] font-tech text-zinc-400 truncate block">
-                Chaîne CUC
+                {channels.youtube ?? ''}
               </span>
             </div>
           </a>
@@ -192,7 +191,7 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
                 TikTok
               </span>
               <span className="text-[10px] font-tech text-zinc-400 truncate block">
-                Cascades & Backstage
+                {channels.tiktok ?? ''}
               </span>
             </div>
           </a>
@@ -214,7 +213,7 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
                 Facebook
               </span>
               <span className="text-[10px] font-tech text-zinc-400 truncate block">
-                Actualités & Stages
+                {channels.facebook ?? ''}
               </span>
             </div>
           </a>
@@ -236,7 +235,7 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
                 WhatsApp
               </span>
               <span className="text-[10px] font-tech text-zinc-400 truncate block">
-                Admissions Directes
+                {channels.whatsapp ?? ''}
               </span>
             </div>
           </a>
@@ -257,26 +256,26 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
                     <div className="relative h-56 w-full mb-4 overflow-hidden border border-zinc-800 bg-black">
                       <Image
                         src={post.image}
-                        alt={post.title}
+                        alt={postCopy[idx]?.title ?? ''}
                         fill
                         sizes="(max-width: 768px) 100vw, 33vw"
                         className="object-cover object-center group-hover:scale-105 transition-transform duration-500 brightness-85"
                       />
                       <div className="absolute top-3 left-3 bg-black/80 px-2 py-0.5 text-[10px] font-mono-tech text-[#FFE500] font-bold border border-white/20">
-                        {post.tag}
+                        {postCopy[idx]?.tag ?? ''}
                       </div>
                     </div>
 
                     <h3 className="text-xl font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors mb-2">
-                      {post.title}
+                      {postCopy[idx]?.title ?? ''}
                     </h3>
                     <p className="text-xs font-tech text-zinc-400 leading-relaxed mb-4">
-                      {post.desc}
+                      {postCopy[idx]?.desc ?? ''}
                     </p>
                   </div>
 
                   <div className="pt-3 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono-tech text-zinc-500">
-                    <span>Voir sur Instagram</span>
+                    <span>{t('seeInstagram')}</span>
                     <ExternalLink className="w-3.5 h-3.5 text-[#FFE500] group-hover:translate-x-0.5 transition-transform" />
                   </div>
                 </a>

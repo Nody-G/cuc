@@ -5,7 +5,11 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { RootShell } from '@/components/layout/RootShell';
 import { SiteDataProvider } from '@/components/i18n/SiteDataProvider';
-import { getLocalizedFooterChrome, getLocalizedNavigation } from '@/lib/i18n/server';
+import {
+    getLocalizedFooterChrome,
+    getLocalizedNavigation,
+    getLocalizedSocialLinks,
+} from '@/lib/i18n/server';
 import type { Locale } from '@/lib/i18n/entities';
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, DEFAULT_OG_IMAGE } from '@/lib/seo';
 
@@ -95,16 +99,17 @@ export default async function LocaleLayout({
     // pour TOUTES les pages : sans cela, seules quelques pages fournissaient le
     // provider et les libellés FR (menu, footer) restaient affichés en mode EN —
     // y compris définitivement sur les vues purement clientes.
-    const [navigation, footer] = await Promise.all([
+    const [navigation, footer, social] = await Promise.all([
         getLocalizedNavigation('main', locale as Locale),
         getLocalizedFooterChrome('main', locale as Locale),
+        getLocalizedSocialLinks(locale as Locale),
     ]);
 
     // Le provider next-intl est porté par RootShell : la page ET les composants
     // de coquille (MobileStickyCTA…) partagent désormais le même contexte i18n.
     return (
         <RootShell locale={locale} messages={messages}>
-            <SiteDataProvider value={{ locale, navigation, footer }}>
+            <SiteDataProvider value={{ locale, navigation, footer, social }}>
                 {children}
             </SiteDataProvider>
         </RootShell>

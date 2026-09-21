@@ -3,6 +3,7 @@ import { Link } from '@/i18n/navigation';
 
 import React from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
@@ -32,45 +33,31 @@ interface HomeAboutSectionProps {
 }
 
 export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData }) => {
-  const title = aboutData?.title || 'LE CENTRE DE FORMATION DE RÉFÉRENCE EN CASCADE DE CINÉMA';
-  const tag = aboutData?.tag || 'PRÉSENTATION';
-  const subtag = aboutData?.subtag || '• CINÉMA, SÉRIES & SPECTACLE';
-  const description = aboutData?.description || "Créé en 2008 par Lucas Dollfus, le Campus Univers Cascades (CUC) est un centre de formation professionnelle dédié aux techniques de cascade physique et mécanique, établi au Cateau-Cambrésis (59).";
-  const founderQuote = aboutData?.founder_quote || "« Maîtriser le risque, créer l'inédit, repousser les limites de la vérité physique au service de la vision des plus grands réalisateurs. »";
-  const founderName = aboutData?.founder_name || 'LUCAS DOLLFUS';
-  const founderRole = aboutData?.founder_role || 'FONDATEUR & RÉGLEUR';
-  const badgeYear = aboutData?.badge_year || 'DEPUIS 2008';
+  const t = useTranslations('home.about');
+
+  /**
+   * Piliers : toute la copie est dans les catalogues (`home.about.pillars`),
+   * seules les amplitudes de parallaxe restent locales — ce sont des valeurs de
+   * mise en page, pas du texte.
+   */
+  const pillarSpeeds = [-0.05, 0.05, -0.04, 0.06];
+  const pillars = (
+    (t.raw('pillars') as { title: string; desc: string; tag: string }[]) ?? []
+  ).map((pillar, idx) => ({ ...pillar, speed: pillarSpeeds[idx] ?? 0 }));
+
+  const title = aboutData?.title || t('title');
+  const tag = aboutData?.tag || t('tag');
+  const subtag = aboutData?.subtag || t('subtag');
+  const description = aboutData?.description || t('description');
+  const founderQuote = aboutData?.founder_quote || t('founderQuote');
+  const founderName = aboutData?.founder_name || t('founderName');
+  const founderRole = aboutData?.founder_role || t('founderRole');
+  const badgeYear = aboutData?.badge_year || t('badgeYear');
   const imageUrl = aboutData?.image_url || 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg';
-  const ctaPrimaryText = aboutData?.cta_primary_text || 'Découvrir la Formation Pro';
+  const ctaPrimaryText = aboutData?.cta_primary_text || t('ctaPrimary');
   const ctaPrimaryLink = aboutData?.cta_primary_link || '/formation-de-cascadeur';
-  const ctaSecondaryText = aboutData?.cta_secondary_text || "L'Équipe des Cascadeurs";
+  const ctaSecondaryText = aboutData?.cta_secondary_text || t('ctaSecondary');
   const ctaSecondaryLink = aboutData?.cta_secondary_link || '/equipe-cascadeurs-pro';
-  const pillars = [
-    {
-      title: 'INFRASTRUCTURES DÉDIÉES',
-      desc: 'Plateaux techniques complets : fosse de réception, dojos de combat chorégraphié, hangars de cascades mécaniques et manège équestre.',
-      tag: 'DOMAINE PRIVÉ',
-      speed: -0.05,
-    },
-    {
-      title: 'ÉQUIPE & INSTRUCTEURS',
-      desc: "Encadrement par des régleurs et coordinateurs en activité, maîtres d'armes et spécialistes du combat scénique et du parkour.",
-      tag: 'PÉDAGOGIE',
-      speed: 0.05,
-    },
-    {
-      title: 'INSERTION PROFESSIONNELLE',
-      desc: 'Des diplômés actifs sur les longs-métrages, séries télévisées, spectacles vivants et productions internationales.',
-      tag: 'CINÉMA & TV',
-      speed: -0.04,
-    },
-    {
-      title: 'AGENCE CUC EVENTS',
-      desc: "Spectacles d'action sur mesure, cascades en direct, animations et démonstrations événementielles.",
-      tag: 'ÉVÉNEMENTS',
-      speed: 0.06,
-    },
-  ];
 
   return (
     <StudioParallaxScene className="py-28 bg-[#08080a]/90 border-b border-zinc-800/80 relative overflow-hidden">
@@ -86,7 +73,7 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
               <div className="relative h-[460px] sm:h-[540px] w-full border border-zinc-800 bg-[#0c0c12] overflow-hidden shadow-2xl group">
                 <Image
                   src={imageUrl}
-                  alt="Campus Univers Cascades - Cascadeurs professionnels et formation"
+                  alt={t('imageAlt')}
                   fill
                   sizes="(max-width: 1024px) 100vw, 42vw"
                   className="object-cover object-center brightness-90 contrast-110 group-hover:scale-103 transition-transform duration-700"
@@ -102,7 +89,7 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
                   <div className="flex items-center gap-2 mb-2">
                     <span className="w-2 h-2 rounded-full bg-[#FFE500]" />
                     <span className="text-[10px] font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
-                      LE MOT DU FONDATEUR
+                      {t('founderLabel')}
                     </span>
                   </div>
                   <p

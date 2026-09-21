@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { FileCheck } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import {
@@ -34,11 +35,11 @@ interface HomeQualiopiSectionProps {
 export const HomeQualiopiSection: React.FC<HomeQualiopiSectionProps> = ({
   qualiopiData,
 }) => {
-  const badge = qualiopiData?.badge || 'CERTIFICATION QUALIOPI';
-  const title = qualiopiData?.title || 'FORMATIONS CERTIFIÉES';
-  const subtitle =
-    qualiopiData?.subtitle ||
-    'Certification délivrée au titre des ACTIONS DE FORMATION. Nos formations sont éligibles aux financements professionnels (AFDAS, France Travail).';
+  const t = useTranslations('home.qualiopi');
+
+  const badge = qualiopiData?.badge || t('badge');
+  const title = qualiopiData?.title || t('title');
+  const subtitle = qualiopiData?.subtitle || t('subtitle');
 
   return (
     <StudioParallaxScene className="py-16 bg-[#0e0e14]/90 border-b border-zinc-800/80 relative overflow-hidden">
@@ -57,7 +58,7 @@ export const HomeQualiopiSection: React.FC<HomeQualiopiSectionProps> = ({
                 <div className="relative w-36 sm:w-44 h-20 sm:h-22 p-2 bg-white border border-[#FFE500] shadow-lg flex items-center justify-center">
                   <Image
                     src="/images/partenaires/qualiopi.png"
-                    alt="Logo Qualiopi"
+                    alt={t('logoAlt')}
                     fill
                     className="object-contain p-1.5"
                     sizes="180px"
@@ -100,7 +101,7 @@ export const HomeQualiopiSection: React.FC<HomeQualiopiSectionProps> = ({
                 size="sm"
                 icon={<FileCheck className="w-4 h-4" />}
               >
-                Voir le certificat (PDF)
+                {t('cta')}
               </TacticalButton>
             </a>
           </div>

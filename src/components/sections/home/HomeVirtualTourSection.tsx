@@ -3,6 +3,7 @@ import { Link } from '@/i18n/navigation';
 
 import React from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 import { Compass } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
@@ -20,12 +21,12 @@ interface HomeVirtualTourSectionProps {
 export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
   virtualTourData,
 }) => {
-  const badge = virtualTourData?.badge || 'IMMERSION INTERACTIVE';
-  const title = virtualTourData?.title || 'VISITE VIRTUELLE EN IMMERSION 360°';
-  const subtitle =
-    virtualTourData?.subtitle ||
-    "Découvrez notre domaine comme si vous y étiez ! Arpentez les plateaux de tournage, la fosse olympique de mousse, les dojos de combat chorégraphié, les hangars de cascades mécaniques et le manège équestre grâce à notre visite virtuelle interactive.";
-  const ctaText = virtualTourData?.cta_text || 'Ouvrir la Visite Virtuelle 360°';
+  const t = useTranslations('home.virtualTour');
+
+  const badge = virtualTourData?.badge || t('badge');
+  const title = virtualTourData?.title || t('title');
+  const subtitle = virtualTourData?.subtitle || t('subtitle');
+  const ctaText = virtualTourData?.cta_text || t('cta');
   const ctaLink = virtualTourData?.cta_link || '/visite-virtuelle';
 
   return (
@@ -50,7 +51,7 @@ export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
                     {badge}
                   </span>
                   <span className="text-xs font-mono-tech text-zinc-400">
-                    • VISITE 360° VR HD MEDIA
+                    {t('tag')}
                   </span>
                 </div>
 
@@ -80,7 +81,7 @@ export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
                   </Link>
                   <Link href="/visite-guidee">
                     <TacticalButton variant="secondary" size="lg">
-                      Détail des 9 Installations
+                      {t('installationsCta')}
                     </TacticalButton>
                   </Link>
                 </div>
@@ -93,7 +94,7 @@ export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
                   <StudioParallaxLayer speed={-0.12} className="relative w-full h-[120%] -top-[10%]">
                     <Image
                       src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Zoe-Bell-Hall.jpg"
-                      alt="Aperçu 360 d'un plateau technique du Campus Univers Cascades"
+                      alt={t('previewAlt')}
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"
                       className="object-cover brightness-85 group-hover:scale-105 transition-transform duration-700"
@@ -108,17 +109,17 @@ export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
                       </div>
                     </StudioParallaxLayer>
                     <span className="font-display uppercase text-lg text-white font-bold tracking-wider">
-                      Visite 360° Interactive
+                      {t('hudTitle')}
                     </span>
                     <span className="text-xs font-mono-tech text-[#FFE500] mt-1">
-                      Cliquer pour explorer le campus
+                      {t('hudHint')}
                     </span>
                   </div>
 
                   <Link
                     href={ctaLink}
                     className="absolute inset-0 z-20"
-                    aria-label="Lancer la visite virtuelle 360"
+                    aria-label={t('launchLabel')}
                   />
                 </div>
               </div>

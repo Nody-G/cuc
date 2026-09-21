@@ -4,6 +4,7 @@ import { Link } from '@/i18n/navigation';
 import React from 'react';
 
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { ChevronRight } from 'lucide-react';
 import {
   StudioParallaxScene,
@@ -13,7 +14,8 @@ import {
 
 interface HomePartner {
   name: string;
-  role: string;
+  /** Clé de rôle sous `home.partners.roles` — jamais de libellé en dur. */
+  roleKey: string;
   logo: string;
   bgVariant?: 'light' | 'dark';
   speed: number;
@@ -37,49 +39,52 @@ interface HomePartnersSectionProps {
 export const HomePartnersSection: React.FC<HomePartnersSectionProps> = ({
   partnersData,
 }) => {
-  const badge = partnersData?.badge || 'COLLABORATION INDUSTRIE & CINÉMA';
-  const title = partnersData?.title || 'NOS PARTENAIRES';
+  const t = useTranslations('home.partners');
+  const roles = (t.raw('roles') as Record<string, string>) ?? {};
+
+  const badge = partnersData?.badge || t('badge');
+  const title = partnersData?.title || t('title');
   const subtitle = partnersData?.subtitle || '';
 
   const partners: HomePartner[] = [
     {
       name: 'Nike',
-      role: 'Équipementier',
+      roleKey: 'equipementier',
       logo: '/images/partenaires/nike.jpg',
       bgVariant: 'dark',
       speed: -0.06,
     },
     {
       name: 'Kiloutou',
-      role: 'Nacelles & Levage',
+      roleKey: 'nacelles',
       logo: '/images/partenaires/kiloutou.jpg',
       bgVariant: 'light',
       speed: 0.06,
     },
     {
       name: 'Qualiopi',
-      role: 'Certification Qualiopi',
+      roleKey: 'certification',
       logo: '/images/partenaires/qualiopi.png',
       bgVariant: 'light',
       speed: -0.05,
     },
     {
       name: 'RXR Protect',
-      role: 'Protections Corporelles',
+      roleKey: 'protections',
       logo: '/images/partenaires/rxr-protect.jpg',
       bgVariant: 'dark',
       speed: 0.05,
     },
     {
       name: 'C17 Special Effects',
-      role: 'Pyrotechnie & SFX',
+      roleKey: 'pyrotechnie',
       logo: '/images/partenaires/c17.jpg',
       bgVariant: 'light',
       speed: -0.06,
     },
     {
       name: 'Action Cascade',
-      role: 'Cascade Professionnelle',
+      roleKey: 'cascadePro',
       logo: '/images/partenaires/action-cascade.jpg',
       bgVariant: 'dark',
       speed: 0.06,
@@ -122,7 +127,7 @@ export const HomePartnersSection: React.FC<HomePartnersSectionProps> = ({
             href="/partenaires"
             className="text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] flex items-center gap-1.5 transition-colors group"
           >
-            <span>Voir tous les partenaires</span>
+            <span>{t('viewAll')}</span>
             <ChevronRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
@@ -144,7 +149,7 @@ export const HomePartnersSection: React.FC<HomePartnersSectionProps> = ({
                   >
                     <Image
                       src={partner.logo}
-                      alt={`Logo ${partner.name}`}
+                      alt={t('logoAlt', { name: partner.name })}
                       fill
                       sizes="140px"
                       className="object-contain p-1"
@@ -156,7 +161,7 @@ export const HomePartnersSection: React.FC<HomePartnersSectionProps> = ({
                       {partner.name}
                     </span>
                     <span className="block text-[9px] font-mono-tech text-zinc-500 uppercase tracking-tight truncate">
-                      {partner.role}
+                      {roles[partner.roleKey] ?? ''}
                     </span>
                   </div>
                 </Link>

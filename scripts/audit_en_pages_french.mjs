@@ -20,6 +20,9 @@
  * ==============================================================================
  */
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '.env.local' });
 
 const BASE = (process.env.PROBE_BASE_URL || 'http://localhost:3000').replace(/\/$/, '');
 
@@ -57,6 +60,58 @@ const FR_HINT =
     /\b(le|la|les|des|une|un|et|pour|avec|sur|dans|notre|nos|vos|est|sont|vous|nous|du|au|aux|par|plus|tout|tous|depuis|entre|ce|cette|ces|qui|que|au|à)\b/i;
 
 /**
+ * Titres de films du catalogue — DONNÉES, pas de la copie d'interface.
+ *
+ * Un titre de film reste dans sa langue d'origine (pratique standard :
+ * « Le Comte de Monte-Cristo », « Le Pacte des loups »). On les charge depuis
+ * `site_films` pour ne rien inventer et pour que l'allowlist reste exacte :
+ * seules les lignes qui SONT un titre (éventuellement suivi de `(année)`)
+ * sont neutralisées — une phrase française contenant un titre reste signalée.
+ */
+const normalizeTitle = (s) =>
+    s
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, ' ')
+        .trim();
+
+const FILM_TITLES = new Set();
+
+async function loadFilmTitles() {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, '');
+    const key =
+        process.env.SUPABASE_SERVICE_ROLE_KEY ||
+        process.env.SUPABASE_SERVICE_KEY ||
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!url || !key) return;
+    try {
+        const res = await fetch(`${url}/rest/v1/site_films?select=title`, {
+            headers: { apikey: key, Authorization: `Bearer ${key}` },
+        });
+        if (!res.ok) {
+            console.warn(`⚠️  site_films inaccessible (HTTP ${res.status}) — titres non neutralisés.`);
+            return;
+        }
+        const rows = await res.json();
+        for (const row of rows || []) {
+            const value = row?.title;
+            if (typeof value === 'string' && value.trim().length > 3) {
+                FILM_TITLES.add(normalizeTitle(value));
+            }
+        }
+    } catch {
+        /* allowlist facultative */
+    }
+}
+
+const isFilmTitleLine = (text) => {
+    if (FILM_TITLES.size === 0) return false;
+    const base = text.split('—')[0].replace(/\(\d{4}(?:-\d{4})?\)/g, ' ');
+    return FILM_TITLES.has(normalizeTitle(base));
+};
+
+/**
  * Termes identiques en FR et EN (noms propres, marques, institutions) : jamais
  * signalés. Toute entrée ajoutée ici DOIT être légitime dans les deux langues.
  */
@@ -82,6 +137,7 @@ const isFrench = (s) => {
     const text = s.trim();
     if (text.length < 4) return false;
     if (ALLOWLIST.some((re) => re.test(text))) return false;
+    if (isFilmTitleLine(text)) return false;
     return ACCENTS.test(text) || FR_HINT.test(text);
 };
 
@@ -127,6 +183,10 @@ const targets = [
 
 console.log('');
 console.log(`=== Français résiduel sur les pages EN — ${BASE} ===`);
+await loadFilmTitles();
+console.log(
+    `Titres de films en allowlist (données du catalogue) : ${FILM_TITLES.size}${FILM_TITLES.size === 0 ? ' — base injoignable, titres non neutralisés' : ''}`
+);
 console.log('');
 
 const report = [];

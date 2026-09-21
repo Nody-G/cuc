@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext } from 'react';
 import type { SitePageContent } from '@/lib/data/site-service';
-import type { FooterStructure, NavigationStructure } from '@/data/navigation';
+import type { FooterStructure, NavigationStructure, SiteSocialLink } from '@/data/navigation';
 
 /**
  * ==============================================================================
@@ -33,6 +33,8 @@ export interface SiteDataValue {
     page?: SitePageContent | null;
     navigation?: LocalizedChromeData<NavigationStructure> | null;
     footer?: LocalizedChromeData<FooterStructure> | null;
+    /** Réseaux sociaux déjà localisés (overlay `social_link` appliqué). */
+    social?: SiteSocialLink[] | null;
 }
 
 const SiteDataContext = createContext<SiteDataValue | null>(null);

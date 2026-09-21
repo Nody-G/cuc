@@ -103,5 +103,188 @@
             "multimedia": "Multimedia & Production",
             "etablissement": "Accommodation & Nutrition"
         }
+    },
+    "home": {
+        "hero": {
+            "badge": "International Stunt Performer Training Centre",
+            "since": "Since 2008",
+            "ctaFormation": "Professional Programme",
+            "ctaVisit": "Visit the Campus",
+            "ctaStuntTeam": "Stunt Team Pro",
+            "prevSlide": "Previous slide",
+            "nextSlide": "Next slide",
+            "hudLocation": "Hauts-de-France",
+            "hudPrivateDomain": "Private grounds",
+            "hudMapTitle": "Open Campus Univers Cascades on Google Maps",
+            "hudMapLabel": "Le Cateau-Cambrésis (59)",
+            "slides": {
+                "campus": {
+                    "caption": "CAMPUS UNIVERS CASCADES",
+                    "sub": "Professional stunt performer training centre",
+                    "badge": "PRIVATE GROUNDS • LE CATEAU-CAMBRÉSIS",
+                    "tag": "Grounds & Campus"
+                },
+                "combat": {
+                    "caption": "FILM STUNTS & FIGHTS",
+                    "sub": "Choreographed fights, martial arts and physical stunts",
+                    "badge": "ACTION DESIGN & CHOREOGRAPHY",
+                    "tag": "Fights & Action"
+                },
+                "facilities": {
+                    "caption": "FACILITIES & TECHNICAL STAGES",
+                    "sub": "Jump platforms, airbag and rigging workshops",
+                    "badge": "SAFETY & FILM RIGGING",
+                    "tag": "Stages & Rigging"
+                },
+                "team": {
+                    "caption": "PROFESSIONAL STUNT PERFORMERS",
+                    "sub": "Founded in 2008 by Lucas Dollfus • Film, TV series and live show work",
+                    "badge": "QUALIOPI CERTIFIED • AFDAS ELIGIBLE",
+                    "tag": "Stunt Team"
+                }
+            },
+            "metrics": [
+                {
+                    "val": "SINCE 2008",
+                    "label": "CUC EXPERTISE"
+                },
+                {
+                    "val": "IMMERSION",
+                    "label": "HANDS-ON TRAINING"
+                },
+                {
+                    "val": "FILM & TV",
+                    "label": "CAREER PLACEMENT"
+                },
+                {
+                    "val": "QUALIOPI",
+                    "label": "CERTIFIED PROGRAMME"
+                }
+            ]
+        },
+        "about": {
+            "tag": "OVERVIEW",
+            "subtag": "• FILM, TV SERIES & LIVE SHOWS",
+            "title": "THE LEADING FILM STUNT TRAINING CENTRE",
+            "description": "Founded in 2008 by Lucas Dollfus, Campus Univers Cascades (CUC) is a professional training centre dedicated to physical and mechanical stunt techniques, based in Le Cateau-Cambrésis (59).",
+            "founderQuote": "« Master the risk, create the unprecedented, push the limits of physical truth in the service of the vision of the greatest directors. »",
+            "founderLabel": "WORD FROM THE FOUNDER",
+            "founderName": "LUCAS DOLLFUS",
+            "founderRole": "FOUNDER & STUNT RIGGER",
+            "badgeYear": "SINCE 2008",
+            "imageAlt": "Training stage and professional stunt performers at Campus Univers Cascades",
+            "ctaPrimary": "Explore the Pro Programme",
+            "ctaSecondary": "The Stunt Team",
+            "pillars": [
+                {
+                    "title": "DEDICATED FACILITIES",
+                    "desc": "Complete technical stages: landing pit, choreographed fight dojos, mechanical stunt hangars and an equestrian ring.",
+                    "tag": "PRIVATE GROUNDS"
+                },
+                {
+                    "title": "TEAM & INSTRUCTORS",
+                    "desc": "Supervised by working stunt riggers and coordinators, fight masters and specialists in stage combat and parkour.",
+                    "tag": "TEACHING"
+                },
+                {
+                    "title": "PROFESSIONAL PLACEMENT",
+                    "desc": "Graduates working on feature films, TV series, live shows and international productions.",
+                    "tag": "FILM & TV"
+                },
+                {
+                    "title": "CUC EVENTS AGENCY",
+                    "desc": "Bespoke action shows, live stunts, entertainment and event demonstrations.",
+                    "tag": "EVENTS"
+                }
+            ]
+        },
+        "tournages": {
+            "badge": "FILM PRODUCTION & SHOOTING",
+            "title": "STUNT COORDINATION & FILM WORK",
+            "subtitle": "A partner to film productions, TV series and broadcasters, Campus Univers Cascades provides its expertise in action design, fight direction and on-set safety, with more than 570 productions listed in its catalogue.",
+            "cta": "Discover the CUC Stunt Team",
+            "teamTag": "• CUC STUNT TEAM",
+            "pillar1Title": "1. Action Design & Fight Choreography",
+            "pillar1Desc": "Shot planning, video previsualisation, bespoke choreography for shoot-outs and fights, and intensive preparation of the cast before the shoot in our Paris studio.",
+            "pillar2Title": "2. A Pool of 200+ Stunt Performers & Doubles",
+            "pillar2Desc": "Stunt doubles and professional stunt performers on the largest film and streaming productions, multi-disciplinary performers (high falls, full-body burns, wire work, parkour, weapons).",
+            "pillar3Title": "3. Stunt Department & CNC-Approved Safety",
+            "pillar3Desc": "Experienced stunt riggers, advanced equipment (certified airbags, 3D rigging, crash pads) and private grounds available for rehearsing complex scenes.",
+            "ctaProduction": "Discuss Your Production",
+            "ctaCatalog": "See the film catalogue",
+            "posterAlt": "{title} poster",
+            "category": "Film",
+            "actorRoles": [
+                "Stunts & fights",
+                "CUC stunt performers (Paris shoot)",
+                "Demi Moore & M. Qualley",
+                "CUC stunt team"
+            ]
+        },
+        "qualiopi": {
+            "badge": "QUALIOPI CERTIFICATION",
+            "title": "CERTIFIED PROGRAMMES",
+            "subtitle": "Certification issued for TRAINING ACTIONS. Our programmes are eligible for professional funding (AFDAS, France Travail).",
+            "cta": "View the certificate (PDF)",
+            "logoAlt": "Qualiopi logo"
+        },
+        "partners": {
+            "badge": "INDUSTRY & FILM COLLABORATION",
+            "title": "OUR PARTNERS",
+            "viewAll": "See all partners",
+            "logoAlt": "{name} logo",
+            "roles": {
+                "equipementier": "Equipment Supplier",
+                "nacelles": "Lifting & Access Platforms",
+                "certification": "Qualiopi Certification",
+                "protections": "Body Protection",
+                "pyrotechnie": "Pyrotechnics & SFX",
+                "cascadePro": "Professional Stunts"
+            }
+        },
+        "social": {
+            "badge": "SOCIAL MEDIA & NEWS",
+            "title": "COMMUNITY & SOCIAL MEDIA",
+            "subtitle": "🇲🇫 French Stunt Team • Stuntmen | Fighters | Performers • 🔥 Break the limits • 🌍 Biggest Stunt School in the World",
+            "avatarAlt": "Campus Univers Cascades Instagram",
+            "handle": "• @CAMPUS.UNIVERS.CASCADES",
+            "join": "Follow the account",
+            "seeInstagram": "View on Instagram",
+            "channels": {
+                "youtube": "CUC channel",
+                "tiktok": "Stunts & behind the scenes",
+                "facebook": "News & Courses",
+                "whatsapp": "Direct Admissions"
+            },
+            "posts": [
+                {
+                    "title": "COKA CHICAS in cinemas",
+                    "tag": "IN CINEMAS",
+                    "desc": "Stunts coordinated and doubled by the CUC Stunt Team for Roxine Helberg's feature film starring Fadily Camara, Zoé Marchal and Eva Huault."
+                },
+                {
+                    "title": "Training Combat & Martial Arts",
+                    "tag": "TRAINING STAGE",
+                    "desc": "Precise coordination of strikes and evasions on impact mats with the campus choreography team."
+                },
+                {
+                    "title": "Risk Zone & Defenestration",
+                    "tag": "HIGH FALLS",
+                    "desc": "High-fall drills and defenestration simulation work on the Le Cateau-Cambrésis grounds."
+                }
+            ]
+        },
+        "virtualTour": {
+            "badge": "INTERACTIVE IMMERSION",
+            "title": "360° VIRTUAL IMMERSION TOUR",
+            "subtitle": "Explore our grounds as if you were there! Walk the shooting stages, the Olympic foam pit, the choreographed fight dojos, the mechanical stunt hangars and the equestrian ring through our interactive virtual tour.",
+            "cta": "Open the 360° Virtual Tour",
+            "installationsCta": "Details of the 9 Facilities",
+            "tag": "• 360° VR TOUR HD MEDIA",
+            "previewAlt": "360 overview of a technical stage at Campus Univers Cascades",
+            "hudTitle": "Interactive 360° Tour",
+            "hudHint": "Click to explore the campus",
+            "launchLabel": "Launch the 360° virtual tour"
+        }
     }
 }

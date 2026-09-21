@@ -3,6 +3,7 @@ import { Link } from '@/i18n/navigation';
 
 import React from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 import { Film, Clapperboard, ShieldCheck, ChevronRight, Sparkles } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
@@ -15,8 +16,6 @@ import {
 interface HighlightProject {
   title: string;
   year: string;
-  category: string;
-  actors: string;
   poster: string;
 }
 
@@ -49,34 +48,30 @@ interface HomeTournagesSectionProps {
  * Sélection éditoriale de longs métrages — vérifiés comme tels (typologie
  * IMDb `movie`, cf. `metadata.title_type` en base). La seule distinction
  * autorisée est reprise ici : aucune étiquette marketing.
+ *
+ * Doctrine i18n : titres et années sont des données (noms propres, aucune
+ * traduction) ; les rôles d'intervention par production vivent dans
+ * `home.tournages.actorRoles` (alignés par index, cf. `FEATURED_PRODUCTIONS`).
  */
 const FEATURED_PRODUCTIONS: HighlightProject[] = [
   {
     title: 'Le Comte de Monte-Cristo',
     year: '2024',
-    category: 'Film',
-    actors: 'Cascades & combats',
     poster: 'https://m.media-amazon.com/images/M/MV5BZWI4NTlhM2UtZmMxZS00ZTg0LThmNTEtYjM3MTEyYTU4NGRmXkEyXkFqcGc@._V1_.jpg',
   },
   {
     title: 'John Wick : Chapitre 4',
     year: '2023',
-    category: 'Film',
-    actors: 'Cascadeurs CUC (tournage Paris)',
     poster: 'https://m.media-amazon.com/images/M/MV5BNDI3OWNiMGItZmVkMS00Mjg3LWJhNzUtNDViMWU3OTJiODAyXkEyXkFqcGc@._V1_.jpg',
   },
   {
     title: 'The Substance',
     year: '2024',
-    category: 'Film',
-    actors: 'Demi Moore & M. Qualley',
     poster: 'https://m.media-amazon.com/images/M/MV5BZDQ1NGE5MGMtYzdlZC00ODExLWJlMDMtNWU4NjA5OWYwMDEwXkEyXkFqcGc@._V1_.jpg',
   },
   {
     title: "L'Amour Ouf",
     year: '2024',
-    category: 'Film',
-    actors: 'Équipe cascades CUC',
     poster: 'https://m.media-amazon.com/images/M/MV5BNjY0NGU4NDMtYWI2ZS00NDE2LWE5MzUtM2UyODUyNmFmN2ZhXkEyXkFqcGc@._V1_.jpg',
   },
 ];
@@ -84,12 +79,13 @@ const FEATURED_PRODUCTIONS: HighlightProject[] = [
 export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
   tournagesData,
 }) => {
-  const badge = tournagesData?.badge || 'SECTEUR PRODUCTION CINÉMA & TOURNAGES';
-  const title = tournagesData?.title || 'COORDINATION DE CASCADES & TOURNAGES';
-  const subtitle =
-    tournagesData?.subtitle ||
-    "Partenaire des productions de cinéma, des séries et des diffuseurs, le Campus Univers Cascades met à disposition son expertise en action design, direction de combats et sécurité sur plateau, avec plus de 570 productions référencées au catalogue.";
-  const ctaText = tournagesData?.cta_text || 'Découvrir la CUC Stunt Team';
+  const t = useTranslations('home.tournages');
+  const actorRoles = (t.raw('actorRoles') as string[]) ?? [];
+
+  const badge = tournagesData?.badge || t('badge');
+  const title = tournagesData?.title || t('title');
+  const subtitle = tournagesData?.subtitle || t('subtitle');
+  const ctaText = tournagesData?.cta_text || t('cta');
   const ctaLink = tournagesData?.cta_link || '/cuc-team-cascadeur';
 
   return (
@@ -113,7 +109,7 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
                 {badge}
               </span>
               <span className="text-xs font-mono-tech text-zinc-500 hidden sm:inline">
-                • CUC STUNT TEAM
+                {t('teamTag')}
               </span>
             </div>
 
@@ -150,45 +146,42 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
                 <div className="p-4 bg-[#14141c] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors">
                   <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] uppercase font-bold mb-1">
                     <Film className="w-3.5 h-3.5" />
-                    <span>1. Action Design & Chorégraphie d'Action</span>
+                    <span>{t('pillar1Title')}</span>
                   </div>
                   <p className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed">
-                    Découpage technique, prévisualisation vidéo, chorégraphie sur-mesure des fusillades et combats,
-                    et préparation intensive des comédiens en amont du tournage dans notre studio parisien.
+                    {t('pillar1Desc')}
                   </p>
                 </div>
 
                 <div className="p-4 bg-[#14141c] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors">
                   <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] uppercase font-bold mb-1">
                     <Sparkles className="w-3.5 h-3.5" />
-                    <span>2. Vivier de 200+ Cascadeurs & Doublures</span>
+                    <span>{t('pillar2Title')}</span>
                   </div>
                   <p className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed">
-                    Doublures cascades et cascadeurs professionnels sur les plus grandes productions de cinéma et de streaming,
-                    performers multi-disciplinaires (chutes de hauteur, torche humaine, câblerie, parkour, armes).
+                    {t('pillar2Desc')}
                   </p>
                 </div>
 
                 <div className="p-4 bg-[#14141c] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors">
                   <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] uppercase font-bold mb-1">
                     <ShieldCheck className="w-3.5 h-3.5" />
-                    <span>3. Régie Cascade & Sécurité Homologuée CNC</span>
+                    <span>{t('pillar3Title')}</span>
                   </div>
                   <p className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed">
-                    Régleurs de cascades chevronnés, matériel de pointe (airbags certifiés, rigging 3D, crash-pads)
-                    et domaine privé privatisable pour répétitions de scènes complexes.
+                    {t('pillar3Desc')}
                   </p>
                 </div>
 
                 <div className="pt-2 flex flex-wrap items-center gap-4">
                   <Link href="/contact-cuc?demande=tournage-production">
                     <TacticalButton variant="primary" size="md">
-                      Échanger sur votre Production
+                      {t('ctaProduction')}
                     </TacticalButton>
                   </Link>
                   <Link href="/cuc-team-cascadeur#filmographie">
                     <span className="text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] transition-colors flex items-center gap-1">
-                      Voir le catalogue de films
+                      {t('ctaCatalog')}
                       <ChevronRight className="w-3 h-3" />
                     </span>
                   </Link>
@@ -206,7 +199,7 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
                     >
                       <Image
                         src={prod.poster}
-                        alt={`Affiche de ${prod.title}`}
+                        alt={t('posterAlt', { title: prod.title })}
                         fill
                         sizes="(max-width: 1024px) 50vw, 20vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -215,13 +208,13 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
 
                       <div className="absolute bottom-0 left-0 right-0 p-2.5 space-y-0.5 z-10">
                         <span className="text-[9px] font-mono-tech text-[#FFE500] font-bold block uppercase">
-                          {prod.year} • {prod.category}
+                          {prod.year} • {t('category')}
                         </span>
                         <h4 className="font-display uppercase text-xs sm:text-sm text-white font-bold leading-tight truncate">
                           {prod.title}
                         </h4>
                         <span className="text-[10px] font-tech text-zinc-300 block truncate">
-                          {prod.actors}
+                          {actorRoles[idx] ?? ''}
                         </span>
                       </div>
                     </Link>

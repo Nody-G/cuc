@@ -13,13 +13,14 @@ import {
 } from 'lucide-react';
 import {
   HERO_SLIDES,
-  HERO_QUICK_METRICS,
   HeroHudOverlay,
   HeroBottomControls,
   HeroTechDepth,
+  type HeroSlide,
 } from './parallax-hero';
 
 import { SitePageHero } from '@/lib/data/site-service';
+import { useTranslations } from 'next-intl';
 
 const SLIDE_DURATION_SEC = 6.5;
 
@@ -31,6 +32,19 @@ interface ParallaxHeroProps {
 export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
   const heroRef = useRef<HTMLElement>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const tHero = useTranslations('home.hero');
+  /**
+   * Copies localisées par clé de visuel (`home.hero.slides.<key>`) et métriques
+   * (`home.hero.metrics`) : plus aucune chaîne rédactionnelle dans ce fichier,
+   * donc plus de français résiduel en anglais.
+   */
+  const slideCopy = tHero.raw('slides') as Record<
+    HeroSlide['key'],
+    { caption: string; sub: string; badge: string; tag: string }
+  >;
+  const quickMetrics = tHero.raw('metrics') as { val: string; label: string }[];
+  const activeCopy = slideCopy[HERO_SLIDES[currentSlide].key];
 
   /**
    * Mode calme — tactile (pointer grossier) ou `prefers-reduced-motion`.
@@ -158,7 +172,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
               <Image
                 key={currentSlide}
                 src={HERO_SLIDES[currentSlide].url}
-                alt={HERO_SLIDES[currentSlide].caption}
+                alt={activeCopy?.caption ?? ''}
                 fill
                 priority={currentSlide === 0}
                 sizes="100vw"
@@ -198,7 +212,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
                 >
                   <Image
                     src={slide.url}
-                    alt={slide.caption}
+                    alt={slideCopy[slide.key]?.caption ?? ''}
                     fill
                     priority={idx === 0}
                     sizes="100vw"
@@ -241,9 +255,9 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 backdrop-blur-md text-[11px] font-mono-tech tracking-widest text-zinc-300 uppercase shadow-xs mb-5"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#FFE500]" />
-            <span>{heroData?.badge || 'Centre International de Formation de Cascadeurs'}</span>
+            <span>{heroData?.badge || tHero('badge')}</span>
             <span className="text-zinc-600">•</span>
-            <span className="text-[#FFE500] font-semibold">Depuis 2008</span>
+            <span className="text-[#FFE500] font-semibold">{tHero('since')}</span>
           </motion.div>
 
           {/* Clean Editorial Title */}
@@ -276,7 +290,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="text-sm sm:text-base md:text-lg text-zinc-300 max-w-2xl font-normal leading-relaxed text-balance"
               >
-                {heroData?.subtitle || HERO_SLIDES[currentSlide].sub}
+                {heroData?.subtitle || activeCopy?.sub || ''}
               </motion.p>
             </AnimatePresence>
           </div>
@@ -288,7 +302,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="my-4 flex flex-wrap items-center justify-center gap-3"
           >
-            {HERO_QUICK_METRICS.map((stat, i) => (
+            {quickMetrics.map((stat, i) => (
               <div
                 key={i}
                 className="flex items-center gap-3 pl-3 pr-4 py-2.5 bg-black/50 backdrop-blur-md border border-white/[0.08] border-l-2 border-l-[#FFE500]"
@@ -314,7 +328,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
           >
             <Link href={heroData?.cta_primary_link || '/formation-de-cascadeur'}>
               <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
-                {heroData?.cta_primary_text || 'Formation Professionnelle'}
+                {heroData?.cta_primary_text || tHero('ctaFormation')}
               </TacticalButton>
             </Link>
 
@@ -324,7 +338,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
                 size="lg"
                 icon={<Building className="w-4 h-4 text-[#FFE500]" />}
               >
-                {heroData?.cta_secondary_text || 'Visiter le Campus'}
+                {heroData?.cta_secondary_text || tHero('ctaVisit')}
               </TacticalButton>
             </Link>
 
@@ -334,7 +348,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
                 size="lg"
                 icon={<Compass className="w-4 h-4 text-[#FFE500]" />}
               >
-                Stunt Team Pro
+                {tHero('ctaStuntTeam')}
               </TacticalButton>
             </Link>
           </motion.div>

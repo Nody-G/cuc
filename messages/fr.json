@@ -103,5 +103,188 @@
             "multimedia": "Multimédia & Production",
             "etablissement": "Établissement & Nutrition"
         }
+    },
+    "home": {
+        "hero": {
+            "badge": "Centre International de Formation de Cascadeurs",
+            "since": "Depuis 2008",
+            "ctaFormation": "Formation Professionnelle",
+            "ctaVisit": "Visiter le Campus",
+            "ctaStuntTeam": "Stunt Team Pro",
+            "prevSlide": "Diapositive précédente",
+            "nextSlide": "Diapositive suivante",
+            "hudLocation": "Hauts-de-France",
+            "hudPrivateDomain": "Domaine privé",
+            "hudMapTitle": "Ouvrir le Campus Univers Cascades sur Google Maps",
+            "hudMapLabel": "Le Cateau-Cambrésis (59)",
+            "slides": {
+                "campus": {
+                    "caption": "CAMPUS UNIVERS CASCADES",
+                    "sub": "Centre de formation professionnelle de cascadeurs",
+                    "badge": "DOMAINE PRIVÉ • LE CATEAU-CAMBRÉSIS",
+                    "tag": "Domaine & Campus"
+                },
+                "combat": {
+                    "caption": "CASCADES & COMBATS DE CINÉMA",
+                    "sub": "Combats chorégraphiés, arts martiaux et cascades physiques",
+                    "badge": "ACTION DESIGN & CHORÉGRAPHIE",
+                    "tag": "Combat & Action"
+                },
+                "facilities": {
+                    "caption": "INSTALLATIONS & PLATEAUX TECHNIQUES",
+                    "sub": "Plateformes de saut, airbag et ateliers câblage",
+                    "badge": "SÉCURITÉ & RIGGING CINÉMA",
+                    "tag": "Plateaux & Rigging"
+                },
+                "team": {
+                    "caption": "ÉQUIPE DE CASCADEURS PROFESSIONNELS",
+                    "sub": "Fondé en 2008 par Lucas Dollfus • Tournages cinéma, séries et spectacle",
+                    "badge": "CERTIFIÉ QUALIOPI • ÉLIGIBLE AFDAS",
+                    "tag": "Équipe Cascades"
+                }
+            },
+            "metrics": [
+                {
+                    "val": "DEPUIS 2008",
+                    "label": "SAVOIR-FAIRE CUC"
+                },
+                {
+                    "val": "IMMERSION",
+                    "label": "PÉDAGOGIE ACTIVE"
+                },
+                {
+                    "val": "CINÉMA & TV",
+                    "label": "INSERTION PRO"
+                },
+                {
+                    "val": "QUALIOPI",
+                    "label": "FORMATION CERTIFIÉE"
+                }
+            ]
+        },
+        "about": {
+            "tag": "PRÉSENTATION",
+            "subtag": "• CINÉMA, SÉRIES & SPECTACLE",
+            "title": "LE CENTRE DE FORMATION DE RÉFÉRENCE EN CASCADE DE CINÉMA",
+            "description": "Créé en 2008 par Lucas Dollfus, le Campus Univers Cascades (CUC) est un centre de formation professionnelle dédié aux techniques de cascade physique et mécanique, établi au Cateau-Cambrésis (59).",
+            "founderQuote": "« Maîtriser le risque, créer l'inédit, repousser les limites de la vérité physique au service de la vision des plus grands réalisateurs. »",
+            "founderLabel": "LE MOT DU FONDATEUR",
+            "founderName": "LUCAS DOLLFUS",
+            "founderRole": "FONDATEUR & RÉGLEUR",
+            "badgeYear": "DEPUIS 2008",
+            "imageAlt": "Plateau d'entraînement et cascadeurs professionnels du Campus Univers Cascades",
+            "ctaPrimary": "Découvrir la Formation Pro",
+            "ctaSecondary": "L'Équipe des Cascadeurs",
+            "pillars": [
+                {
+                    "title": "INFRASTRUCTURES DÉDIÉES",
+                    "desc": "Plateaux techniques complets : fosse de réception, dojos de combat chorégraphié, hangars de cascades mécaniques et manège équestre.",
+                    "tag": "DOMAINE PRIVÉ"
+                },
+                {
+                    "title": "ÉQUIPE & INSTRUCTEURS",
+                    "desc": "Encadrement par des régleurs et coordinateurs en activité, maîtres d'armes et spécialistes du combat scénique et du parkour.",
+                    "tag": "PÉDAGOGIE"
+                },
+                {
+                    "title": "INSERTION PROFESSIONNELLE",
+                    "desc": "Des diplômés actifs sur les longs-métrages, séries télévisées, spectacles vivants et productions internationales.",
+                    "tag": "CINÉMA & TV"
+                },
+                {
+                    "title": "AGENCE CUC EVENTS",
+                    "desc": "Spectacles d'action sur mesure, cascades en direct, animations et démonstrations événementielles.",
+                    "tag": "ÉVÉNEMENTS"
+                }
+            ]
+        },
+        "tournages": {
+            "badge": "SECTEUR PRODUCTION CINÉMA & TOURNAGES",
+            "title": "COORDINATION DE CASCADES & TOURNAGES",
+            "subtitle": "Partenaire des productions de cinéma, des séries et des diffuseurs, le Campus Univers Cascades met à disposition son expertise en action design, direction de combats et sécurité sur plateau, avec plus de 570 productions référencées au catalogue.",
+            "cta": "Découvrir la CUC Stunt Team",
+            "teamTag": "• CUC STUNT TEAM",
+            "pillar1Title": "1. Action Design & Chorégraphie d'Action",
+            "pillar1Desc": "Découpage technique, prévisualisation vidéo, chorégraphie sur-mesure des fusillades et combats, et préparation intensive des comédiens en amont du tournage dans notre studio parisien.",
+            "pillar2Title": "2. Vivier de 200+ Cascadeurs & Doublures",
+            "pillar2Desc": "Doublures cascades et cascadeurs professionnels sur les plus grandes productions de cinéma et de streaming, performers multi-disciplinaires (chutes de hauteur, torche humaine, câblerie, parkour, armes).",
+            "pillar3Title": "3. Régie Cascade & Sécurité Homologuée CNC",
+            "pillar3Desc": "Régleurs de cascades chevronnés, matériel de pointe (airbags certifiés, rigging 3D, crash-pads) et domaine privé privatisable pour répétitions de scènes complexes.",
+            "ctaProduction": "Échanger sur votre Production",
+            "ctaCatalog": "Voir le catalogue de films",
+            "posterAlt": "Affiche de {title}",
+            "category": "Film",
+            "actorRoles": [
+                "Cascades & combats",
+                "Cascadeurs CUC (tournage Paris)",
+                "Demi Moore & M. Qualley",
+                "Équipe cascades CUC"
+            ]
+        },
+        "qualiopi": {
+            "badge": "CERTIFICATION QUALIOPI",
+            "title": "FORMATIONS CERTIFIÉES",
+            "subtitle": "Certification délivrée au titre des ACTIONS DE FORMATION. Nos formations sont éligibles aux financements professionnels (AFDAS, France Travail).",
+            "cta": "Voir le certificat (PDF)",
+            "logoAlt": "Logo Qualiopi"
+        },
+        "partners": {
+            "badge": "COLLABORATION INDUSTRIE & CINÉMA",
+            "title": "NOS PARTENAIRES",
+            "viewAll": "Voir tous les partenaires",
+            "logoAlt": "Logo {name}",
+            "roles": {
+                "equipementier": "Équipementier",
+                "nacelles": "Nacelles & Levage",
+                "certification": "Certification Qualiopi",
+                "protections": "Protections Corporelles",
+                "pyrotechnie": "Pyrotechnie & SFX",
+                "cascadePro": "Cascade Professionnelle"
+            }
+        },
+        "social": {
+            "badge": "RÉSEAUX SOCIAUX & ACTUALITÉS",
+            "title": "COMMUNAUTÉ & RÉSEAUX SOCIAUX",
+            "subtitle": "🇲🇫 French Stunt Team • Stuntmen | Fighters | Performers • 🔥 Break the limits • 🌍 Biggest Stunt School in the World",
+            "avatarAlt": "Instagram du Campus Univers Cascades",
+            "handle": "• @CAMPUS.UNIVERS.CASCADES",
+            "join": "Rejoindre le compte",
+            "seeInstagram": "Voir sur Instagram",
+            "channels": {
+                "youtube": "Chaîne CUC",
+                "tiktok": "Cascades & Backstage",
+                "facebook": "Actualités & Stages",
+                "whatsapp": "Admissions Directes"
+            },
+            "posts": [
+                {
+                    "title": "COKA CHICAS au cinéma",
+                    "tag": "SORTIE EN SALLES",
+                    "desc": "Cascades coordonnées et doublées par la CUC Stunt Team pour le long-métrage de Roxine Helberg avec Fadily Camara, Zoé Marchal, Eva Huault."
+                },
+                {
+                    "title": "Training Combat & Martial Arts",
+                    "tag": "PLATEAU TECHNIQUE",
+                    "desc": "Coordination chirurgicale des frappes et esquives sur tatamis d'impact avec l'équipe de chorégraphes du campus."
+                },
+                {
+                    "title": "Risk Zone & Défenestration",
+                    "tag": "CHUTES DE HAUTEUR",
+                    "desc": "Exercices de chutes de hauteur et simulation de défenestration sur le domaine du Cateau-Cambrésis."
+                }
+            ]
+        },
+        "virtualTour": {
+            "badge": "IMMERSION INTERACTIVE",
+            "title": "VISITE VIRTUELLE EN IMMERSION 360°",
+            "subtitle": "Découvrez notre domaine comme si vous y étiez ! Arpentez les plateaux de tournage, la fosse olympique de mousse, les dojos de combat chorégraphié, les hangars de cascades mécaniques et le manège équestre grâce à notre visite virtuelle interactive.",
+            "cta": "Ouvrir la Visite Virtuelle 360°",
+            "installationsCta": "Détail des 9 Installations",
+            "tag": "• VISITE 360° VR HD MEDIA",
+            "previewAlt": "Aperçu 360 d'un plateau technique du Campus Univers Cascades",
+            "hudTitle": "Visite 360° Interactive",
+            "hudHint": "Cliquer pour explorer le campus",
+            "launchLabel": "Lancer la visite virtuelle 360"
+        }
     }
 }

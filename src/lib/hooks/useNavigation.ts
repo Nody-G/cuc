@@ -293,9 +293,15 @@ export function useFooter(id: string = 'main'): FooterStructure {
  * Source unique de vérité partagée par la Navbar, le drawer mobile et le Footer.
  */
 export function useSocialLinks(): SiteSocialLink[] {
-    const [links, setLinks] = useState<SiteSocialLink[]>(DEFAULT_SOCIAL_LINKS);
+    // Mêmes garanties que la navigation : quand le serveur fournit les réseaux
+    // DÉJÀ localisés, ils sont l'état initial (premier rendu correct) et aucune
+    // requête n'est rejouée côté navigateur.
+    const serverSocial = useSiteData()?.social ?? null;
+    const hasServerSocial = !!serverSocial && serverSocial.length > 0;
+    const [links, setLinks] = useState<SiteSocialLink[]>(serverSocial ?? DEFAULT_SOCIAL_LINKS);
 
     useEffect(() => {
+        if (hasServerSocial) return;
         let cancelled = false;
         const supabase = createClient();
 
@@ -365,7 +371,7 @@ export function useSocialLinks(): SiteSocialLink[] {
             cancelled = true;
             removeSafeChannel(supabase, channel);
         };
-    }, []);
+    }, [hasServerSocial]);
 
     return links;
 }

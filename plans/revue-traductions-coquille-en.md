@@ -1,6 +1,6 @@
 # Revue — Traductions EN de la coquille (footer + réseaux sociaux)
 
-Généré le 2026-09-21T15:45:59.489Z par `scripts/seed_entity_translations_en.mjs`.
+Généré le 2026-09-21T15:52:34.711Z par `scripts/seed_entity_translations_en.mjs`.
 
 Mode : **application en base**
 
