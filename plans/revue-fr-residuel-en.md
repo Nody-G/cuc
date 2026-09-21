@@ -1,9 +1,9 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T17:26:11.441Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T17:29:49.248Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **24** — occurrences : **170**
+Pages contrôlées : **27** — pages avec français résiduel : **23** — occurrences : **149**
 
 ## /en/formation-de-cascadeur — 11 occurrence(s)
 
@@ -166,47 +166,21 @@ Pages contrôlées : **27** — pages avec français résiduel : **24** — occu
 |---|---|
 | texte visible | XTREM JUMP AIRBAG CINÉMA & PARKOUR |
 
-## /en/spectacles-cascadeurs-yamakasi — 10 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | CASCADEURS • COMÉDIENS • SHOWS CLÉ EN MAIN |
-| texte visible | CASCADEURS & DOUBLURES CINÉMA |
-| texte visible | DES SHOWS CLÉ EN MAIN ADAPTÉS À VOTRE LIEU |
-| texte visible | Spécifications de la formule Spectacle : |
-| texte visible | • Équipe : 5 artistes professionnels polyvalents (cascadeurs, comédiens, traceurs) |
-| texte visible | • Format : De 8 à 20 minutes d'action ininterrompue et réglée au millimètre |
-| texte visible | • Thèmes au choix : James Bond 007, Univers Super-Héros (Marvel/DC), John Wick, Post-apocalyptique |
-| texte visible | ÉVÉNEMENT |
-| texte visible | CUC EVENTS À L’ACCOR ARENA (BERCY) |
-| texte visible | Organiser un Show dans votre Salle |
-
 ## /en/stunt-workshop-cuc — 1 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
 | texte visible | EN ANGLAIS & FRANÇAIS • 2 SEMAINES RÉSIDENTIELLES |
 
-## /en/cuc-events-agence — 16 occurrence(s)
+## /en/cuc-events-agence — 5 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Combats chorégraphiés médiévaux, contemporains ou fantastiques, chutes de hauteur spectaculaires, cascades pyrotechniques (torches humaines), nos créations s'adaptent à toutes les contraintes techniques et scéniques. |
-| texte visible | En savoir plus sur nos Spectacles |
 | texte visible | Installations entièrement conformes aux normes de sécurité les plus strictes avec assurance professionnelle et encadrement qualifié. |
 | texte visible | En savoir plus sur nos Animations |
-| texte visible | SÉMINAIRES & IMMERSION ENTREPRISE |
-| texte visible | TEAM BUILDING CINÉMA D'ACTION |
-| texte visible | Fédérez vos équipes lors d'un séminaire d'action inoubliable au cœur du domaine du CUC au Cateau-Cambrésis. |
-| texte visible | Atelier cinéma indoor, cascades physiques, cascades de feu sécurisées, tournage d'une fausse bande-annonce d'action : vos collaborateurs dépassent leurs limites dans un esprit de camaraderie et de bienveillance totale. C |
-| texte visible | Organiser un Team Building |
 | texte visible | ILS NOUS ONT FAIT CONFIANCE |
 | texte visible | RÉFÉRENCES CINÉMA |
 | texte visible | LES PRODUCTIONS CINÉMA & TÉLÉVISION |
-| texte visible | SÉCURITÉ & HOMOLOGATION |
-| texte visible | Assurance professionnelle spectacle, matériel homologué et protocoles stricts. |
-| texte visible | Performeurs formés au CUC, actifs sur des productions cinéma et parcs à thème majeurs. |
-| texte visible | Déplacement de nos structures mobiles et équipes de cascadeurs sur votre site d'événement. |
 
 ## /en/equipe-cascadeurs-pro/lucas-dollfus — 2 occurrence(s)
 

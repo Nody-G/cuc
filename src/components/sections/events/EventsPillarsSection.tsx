@@ -2,13 +2,26 @@
 import { Link } from '@/i18n/navigation';
 
 import React, { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 
 import Image from 'next/image';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { getEvents, SiteEvent } from '@/lib/data/site-service';
 
+/** Copie éditoriale d'un pilier d'agence (repli quand la base est vide). */
+interface PillarCopy {
+  tag: string;
+  title: string;
+  paragraph1: string;
+  paragraph2: string;
+  cta: string;
+  imageAlt: string;
+}
+
 export const EventsPillarsSection: React.FC = () => {
+  const t = useTranslations('eventsAgence');
+  const pillars = t.raw('pillars') as PillarCopy[];
   const [dbEvents, setDbEvents] = useState<SiteEvent[]>([]);
 
   useEffect(() => {
@@ -78,7 +91,7 @@ export const EventsPillarsSection: React.FC = () => {
                           size="md"
                           icon={<ArrowRight className="w-4 h-4" />}
                         >
-                          {evt.cta_text || 'En savoir plus'}
+                          {evt.cta_text || t('learnMore')}
                         </TacticalButton>
                       </Link>
                     </div>
@@ -114,24 +127,24 @@ export const EventsPillarsSection: React.FC = () => {
                 <div className="lg:col-span-7 space-y-4">
                   <div className="mb-4">
                     <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1">
-                      PRESTATIONS &amp; SHOWS EN DIRECT
+                      {pillars[0].tag}
                     </span>
                     <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                      SPECTACLES DE CASCADES
+                      {pillars[0].title}
                     </h3>
                   </div>
 
                   <p className="text-sm font-tech text-zinc-300 leading-relaxed">
-                    Vous souhaitez dynamiser votre événement avec un spectacle percutant ? Le Campus Univers Cascades met à votre disposition son savoir-faire et ses équipes de cascadeurs professionnels pour créer des shows vivants sur-mesure.
+                    {pillars[0].paragraph1}
                   </p>
                   <p className="text-xs font-tech text-zinc-400 leading-relaxed">
-                    Combats chorégraphiés médiévaux, contemporains ou fantastiques, chutes de hauteur spectaculaires, cascades pyrotechniques (torches humaines), nos créations s&apos;adaptent à toutes les contraintes techniques et scéniques.
+                    {pillars[0].paragraph2}
                   </p>
 
                   <div className="pt-4">
                     <Link href="/contact-cuc?demande=cuc-events">
                       <TacticalButton variant="primary" size="md" icon={<ArrowRight className="w-4 h-4" />}>
-                        En savoir plus sur nos Spectacles
+                        {pillars[0].cta}
                       </TacticalButton>
                     </Link>
                   </div>
@@ -140,7 +153,7 @@ export const EventsPillarsSection: React.FC = () => {
                 <div className="lg:col-span-5 relative h-64 sm:h-72 border border-zinc-800 overflow-hidden bg-black">
                   <Image
                     src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Photos-Spectacle-300x200.jpg"
-                    alt="Photo Spectacle CUC Events"
+                    alt={pillars[0].imageAlt}
                     fill
                     sizes="(max-width: 1024px) 100vw, 40vw"
                     className="object-cover"
@@ -155,7 +168,7 @@ export const EventsPillarsSection: React.FC = () => {
                 <div className="lg:col-span-5 relative h-64 sm:h-72 border border-zinc-800 overflow-hidden bg-black order-2 lg:order-1">
                   <Image
                     src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/FreeJump-CCJ-Puteaux-03-300x200.jpg"
-                    alt="Animation FreeJump Airbag CUC Events"
+                    alt={pillars[1].imageAlt}
                     fill
                     sizes="(max-width: 1024px) 100vw, 40vw"
                     className="object-cover"
@@ -196,24 +209,24 @@ export const EventsPillarsSection: React.FC = () => {
                 <div className="lg:col-span-7 space-y-4">
                   <div className="mb-4">
                     <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1">
-                      SÉMINAIRES &amp; IMMERSION ENTREPRISE
+                      {pillars[2].tag}
                     </span>
                     <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                      TEAM BUILDING CINÉMA D&apos;ACTION
+                      {pillars[2].title}
                     </h3>
                   </div>
 
                   <p className="text-sm font-tech text-zinc-300 leading-relaxed">
-                    Fédérez vos équipes lors d&apos;un séminaire d&apos;action inoubliable au cœur du domaine du CUC au Cateau-Cambrésis.
+                    {pillars[2].paragraph1}
                   </p>
                   <p className="text-xs font-tech text-zinc-400 leading-relaxed">
-                    Atelier cinéma indoor, cascades physiques, cascades de feu sécurisées, tournage d&apos;une fausse bande-annonce d&apos;action : vos collaborateurs dépassent leurs limites dans un esprit de camaraderie et de bienveillance totale. Capacité d&apos;accueil jusqu&apos;à 90 personnes avec hébergement et restauration sur site.
+                    {pillars[2].paragraph2}
                   </p>
 
                   <div className="pt-4">
                     <Link href="/contact-cuc?demande=cuc-events">
                       <TacticalButton variant="primary" size="md" icon={<ArrowRight className="w-4 h-4" />}>
-                        Organiser un Team Building
+                        {pillars[2].cta}
                       </TacticalButton>
                     </Link>
                   </div>
@@ -222,7 +235,7 @@ export const EventsPillarsSection: React.FC = () => {
                 <div className="lg:col-span-5 relative h-64 sm:h-72 border border-zinc-800 overflow-hidden bg-black">
                   <Image
                     src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/A-atelier-cinema-indoor-300x200.jpg"
-                    alt="Atelier Cinéma Indoor Team Building"
+                    alt={pillars[2].imageAlt}
                     fill
                     sizes="(max-width: 1024px) 100vw, 40vw"
                     className="object-cover"

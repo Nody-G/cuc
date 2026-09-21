@@ -713,6 +713,50 @@
         "customDescription": "Nous adaptons le déroulement, le nombre d'animateurs cascadeurs et le matériel selon vos objectifs, vos contraintes de planning et la taille de votre groupe.",
         "customCta": "Recevoir une Proposition Détaillée & Devis"
     },
+    "eventsAgence": {
+        "learnMore": "En savoir plus",
+        "pillars": [
+            {
+                "tag": "PRESTATIONS & SHOWS EN DIRECT",
+                "title": "SPECTACLES DE CASCADES",
+                "paragraph1": "Vous souhaitez dynamiser votre événement avec un spectacle percutant ? Le Campus Univers Cascades met à votre disposition son savoir-faire et ses équipes de cascadeurs professionnels pour créer des shows vivants sur-mesure.",
+                "paragraph2": "Combats chorégraphiés médiévaux, contemporains ou fantastiques, chutes de hauteur spectaculaires, cascades pyrotechniques (torches humaines), nos créations s'adaptent à toutes les contraintes techniques et scéniques.",
+                "cta": "En savoir plus sur nos Spectacles",
+                "imageAlt": "Photo Spectacle CUC Events"
+            },
+            {
+                "tag": "SENSATIONS FORTES GRAND PUBLIC",
+                "title": "ANIMATIONS & FREEJUMP AIRBAG",
+                "paragraph1": "Offrez à votre public des sensations uniques grâce à nos animations interactives encadrées par des professionnels : le FreeJump Airbag (sauts sécurisés de 4 à 8 mètres de haut), simulateur de câblage cinéma, ou ateliers d'initiation au parkour avec les membres des Yamakasi.",
+                "paragraph2": "Installations entièrement conformes aux normes de sécurité les plus strictes avec assurance professionnelle et encadrement qualifié.",
+                "cta": "En savoir plus sur nos Animations",
+                "imageAlt": "Animation FreeJump Airbag CUC Events"
+            },
+            {
+                "tag": "SÉMINAIRES & IMMERSION ENTREPRISE",
+                "title": "TEAM BUILDING CINÉMA D'ACTION",
+                "paragraph1": "Fédérez vos équipes lors d'un séminaire d'action inoubliable au cœur du domaine du CUC au Cateau-Cambrésis.",
+                "paragraph2": "Atelier cinéma indoor, cascades physiques, cascades de feu sécurisées, tournage d'une fausse bande-annonce d'action : vos collaborateurs dépassent leurs limites dans un esprit de camaraderie et de bienveillance totale. Capacité d'accueil jusqu'à 90 personnes avec hébergement et restauration sur site.",
+                "cta": "Organiser un Team Building",
+                "imageAlt": "Atelier Cinéma Indoor Team Building"
+            }
+        ],
+        "guarantees": [
+            {
+                "title": "SÉCURITÉ & HOMOLOGATION",
+                "description": "Assurance professionnelle spectacle, matériel homologué et protocoles stricts."
+            },
+            {
+                "title": "CASCADEURS PROFESSIONNELS",
+                "description": "Performeurs formés au CUC, actifs sur des productions cinéma et parcs à thème majeurs."
+            },
+            {
+                "title": "PARTOUT EN FRANCE & EUROPE",
+                "description": "Déplacement de nos structures mobiles et équipes de cascadeurs sur votre site d'événement."
+            }
+        ],
+        "guaranteeLogoAlt": "Cascadeurs Professionnels CUC"
+    },
     "spectacles": {
         "heroBadge": "LE CINÉMA S'INVITE SUR SCÈNE",
         "heroTitle": "SPECTACLES CASCADEURS & YAMAKASI",

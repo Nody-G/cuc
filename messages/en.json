@@ -713,6 +713,50 @@
         "customDescription": "We adapt the programme, the number of stunt instructors and the equipment to your goals, your schedule constraints and the size of your group.",
         "customCta": "Get a Detailed Proposal & Quote"
     },
+    "eventsAgence": {
+        "learnMore": "Learn more",
+        "pillars": [
+            {
+                "tag": "LIVE SHOWS & PERFORMANCES",
+                "title": "STUNT SHOWS",
+                "paragraph1": "Want to energise your event with a striking show? Campus Univers Cascades places its expertise and its professional stunt teams at your service to create tailor-made live shows.",
+                "paragraph2": "Medieval, contemporary or fantasy choreographed fights, spectacular high falls, pyrotechnic stunts (full-body burns): our creations adapt to every technical and staging constraint.",
+                "cta": "Learn more about our Shows",
+                "imageAlt": "CUC Events show photo"
+            },
+            {
+                "tag": "THRILLS FOR THE GENERAL PUBLIC",
+                "title": "ANIMATIONS & FREEJUMP AIRBAG",
+                "paragraph1": "Give your audience a unique thrill with our interactive activities supervised by professionals: the FreeJump Airbag (safe jumps from 4 to 8 metres high), a cinema wire-work simulator, or parkour introduction workshops with members of the Yamakasi.",
+                "paragraph2": "Facilities fully compliant with the strictest safety standards, with professional insurance and qualified supervision.",
+                "cta": "Learn more about our Animations",
+                "imageAlt": "CUC Events FreeJump airbag animation"
+            },
+            {
+                "tag": "SEMINARS & CORPORATE IMMERSION",
+                "title": "ACTION CINEMA TEAM BUILDING",
+                "paragraph1": "Bring your teams together for an unforgettable action seminar in the heart of the CUC grounds at Le Cateau-Cambrésis.",
+                "paragraph2": "Indoor cinema workshop, physical stunts, secured fire stunts, shooting a fake action trailer: your colleagues push their limits in a spirit of camaraderie and genuine goodwill. Capacity up to 90 people with on-site accommodation and catering.",
+                "cta": "Organise a Team Building",
+                "imageAlt": "Indoor cinema workshop team building"
+            }
+        ],
+        "guarantees": [
+            {
+                "title": "SAFETY & CERTIFICATION",
+                "description": "Professional show insurance, certified equipment and strict protocols."
+            },
+            {
+                "title": "PROFESSIONAL STUNT PERFORMERS",
+                "description": "Performers trained at the CUC, working on major film productions and theme parks."
+            },
+            {
+                "title": "ANYWHERE IN FRANCE & EUROPE",
+                "description": "We bring our mobile structures and stunt teams to your event site."
+            }
+        ],
+        "guaranteeLogoAlt": "CUC professional stunt performers"
+    },
     "spectacles": {
         "heroBadge": "CINEMA TAKES TO THE STAGE",
         "heroTitle": "STUNT & YAMAKASI SHOWS",
