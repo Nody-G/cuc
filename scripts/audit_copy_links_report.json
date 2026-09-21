@@ -611,101 +611,101 @@
     },
     {
       "file": "src/data/disciplines.ts",
-      "line": 15,
+      "line": 8,
       "zone": "vitrine",
       "length": 115,
       "text": "Reproduction martiale millimétrée, gestion des axes caméra, synchronisation des frappes et crédibilité des impacts."
     },
     {
       "file": "src/data/disciplines.ts",
-      "line": 16,
+      "line": 9,
       "zone": "vitrine",
-      "length": 201,
-      "text": "Le combat scénique ne consiste pas à frapper réellement, mais à restituer la puissance d\\'un affrontement. Répertoires martiaux, distances de sécurité et valorisation du coup selon l\\'axe de la caméra."
+      "length": 421,
+      "text": "La maîtrise du combat scénique ne consiste pas à frapper réellement, mais à restituer la puissance d\\'un affrontement avec une précision technique. Les cascadeurs apprennent les répertoires martiaux d\\'Orient et d\\'Occid…"
     },
     {
       "file": "src/data/disciplines.ts",
-      "line": 27,
+      "line": 20,
       "zone": "vitrine",
       "length": 119,
       "text": "Défenestration, sauts dans le vide de 6 à 21 mètres, maîtrise aérienne et réceptions sécurisées sur airbags et cartons."
     },
     {
       "file": "src/data/disciplines.ts",
-      "line": 28,
+      "line": 21,
       "zone": "vitrine",
-      "length": 232,
-      "text": "La CUC Tower offre plusieurs plateformes de saut jusqu\\'à 21 mètres. Défenestration, décrochage arrière et vrillé, avec un travail sur les repères dans l\\'espace, la posture jusqu\\'à la réception et les dispositifs d\\'am…"
+      "length": 457,
+      "text": "Unique en Europe, la CUC Tower dresse ses 21 mètres au-dessus du campus avec plusieurs plateformes progressives de saut. Les élèves y apprennent la défenestration, le décrochage arrière, le vrillé et la chute libre. L\\'e…"
     },
     {
       "file": "src/data/disciplines.ts",
-      "line": 39,
+      "line": 32,
       "zone": "vitrine",
       "length": 112,
       "text": "Embrasement partiel ou intégral du cascadeur avec gel thermique de protection et tenues ignifugées multicouches."
     },
     {
       "file": "src/data/disciplines.ts",
-      "line": 40,
+      "line": 33,
       "zone": "vitrine",
-      "length": 180,
-      "text": "Application du gel thermique isolant, combinaisons en fibres d\\'aramide (Nomex), gestion du souffle et coordination de l\\'extinction d\\'urgence avec les techniciens pyrotechniques."
+      "length": 321,
+      "text": "La torche humaine exige une préparation technique rigoureuse et une sécurité sans compromis. Les stagiaires étudient l\\'application du gel thermique isolant, l\\'ajustement des combinaisons en fibres d\\'aramide (Nomex), l…"
     },
     {
       "file": "src/data/disciplines.ts",
-      "line": 52,
+      "line": 45,
       "zone": "vitrine",
-      "length": 186,
-      "text": "Câbles aéronautiques, poulies de renvoi et harnais ergonomiques portés sous les vêtements. Le module forme à la propulsion par contrepoids humain ou pneumatique (deadman drop, ratchets)."
+      "length": 369,
+      "text": "Grâce à des systèmes de câbles aéronautiques, poulies de renvoi et harnais ergonomiques sous vêtements, le cascadeur travaille les scènes en suspension. Ce module forme à la propulsion par contrepoids humain ou pneumatiq…"
     },
     {
       "file": "src/data/disciplines.ts",
-      "line": 63,
+      "line": 56,
       "zone": "vitrine",
       "length": 119,
       "text": "Déplacements synchronisés d\\'unités d\\'intervention, maniement réaliste d\\'armes factices et à blanc, rappel sur paroi."
     },
     {
       "file": "src/data/disciplines.ts",
-      "line": 64,
+      "line": 57,
       "zone": "vitrine",
-      "length": 184,
-      "text": "Gestuelle des unités d\\'intervention au cinéma : manipulation d\\'armes à blanc, progression coordonnée en couloir et escalier, communication gestuelle et descentes en rappel sur paroi."
+      "length": 314,
+      "text": "Ce module enseigne la gestuelle précise des unités d\\'intervention au cinéma : manipulation d\\'armes à blanc, progression coordonnée en couloir et escalier, communication gestuelle et descentes en rappel sur paroi. Les é…"
     },
     {
       "file": "src/data/disciplines.ts",
-      "line": 76,
+      "line": 69,
       "zone": "vitrine",
-      "length": 208,
-      "text": "Enseigné avec Malik Diouf, co-fondateur du groupe Yamakasi. Sur un Parkour Park modulable : saut de bras, saut de chat, passe-muraille, réceptions roulées sur sol dur et enchaînements sans rupture de vitesse."
+      "length": 371,
+      "text": "Le Parkour enseigné au CUC bénéficie de l\\'expertise directe de Malik Diouf, co-fondateur du groupe Yamakasi. Sur un Parkour Park modulable de plusieurs centaines de mètres carrés, les cascadeurs apprennent le saut de br…"
     },
     {
       "file": "src/data/disciplines.ts",
-      "line": 88,
+      "line": 81,
       "zone": "vitrine",
-      "length": 200,
-      "text": "Absorption des chocs sur les zones amortissantes du corps, pour préserver la tête, les articulations et la colonne vertébrale. Inclut les passages à travers le verre en résine et le mobilier cassable."
+      "length": 260,
+      "text": "Ce module enseigne l\\'absorption des chocs sur les zones amortissantes du corps afin de préserver la tête, les articulations et la colonne vertébrale. L\\'entraînement inclut également les passages à travers le verre en r…"
     },
     {
       "file": "src/data/disciplines.ts",
-      "line": 100,
+      "line": 93,
       "zone": "vitrine",
-      "length": 209,
-      "text": "Sécurité des lames, distance d\\'estoc, parades et intentions de frappe. Le travail commence avec des armes de répétition en aluminium et mousse, puis aborde les armes scéniques, d\\'époque comme contemporaines."
+      "length": 336,
+      "text": "Le combat à l\\'arme blanche exige une rigueur géométrique : sécurité des lames, distance d\\'estoc, parades et intentions de frappe. Les cascadeurs manient des armes de répétition en aluminium et mousse avant d\\'aborder l…"
     },
     {
       "file": "src/data/disciplines.ts",
-      "line": 112,
+      "line": 105,
       "zone": "vitrine",
-      "length": 171,
-      "text": "Roulement précis pour contrôler la trajectoire et éviter les traumatismes : contacts amortis sur les marches, gainage corporel et sortie de chute dans l\\'axe de la caméra."
+      "length": 304,
+      "text": "Exercice spectaculaire, la chute d\\'escalier exige une technique de roulement précise pour contrôler la trajectoire et éviter les traumatismes. Les cascadeurs apprennent à enchaîner les contacts amortis sur les marches, …"
     },
     {
       "file": "src/data/disciplines.ts",
-      "line": 124,
+      "line": 117,
       "zone": "vitrine",
-      "length": 198,
-      "text": "Fosse à cubes de mousse et trampolines : les élèves développent leur repérage dans l\\'espace avant d\\'adapter leurs figures aux contraintes de tournage (sols durs, costumes, angles de prise de vue)."
+      "length": 354,
+      "text": "L\\'acrobatie au CUC prépare le corps aux sollicitations des cascades physiques et des scènes d\\'action. Dans les halles d\\'entraînement équipées d\\'une fosse à cubes de mousse et de trampolines, les élèves développent le…"
     },
     {
       "file": "src/data/navigation.ts",

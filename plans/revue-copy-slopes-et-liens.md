@@ -77,19 +77,38 @@ désormais lui-même l'apparence du bouton.
 
 ## 4. Textes coupés
 
-### 4.1 Disciplines (le plus gros volume de prose)
+### 4.1 Disciplines — ANNULÉ : descriptions d'origine restaurées
 
-[`disciplines.ts`](src/data/disciplines.ts:3) — les 10 `fullDesc` faisaient 300 à 460 caractères
-chacune, avec des appréciations que la doctrine interdit. Maximum ramené de **457 à 180 caractères**,
-sans perdre un fait : chaque phrase porte désormais un équipement, un geste technique ou un contexte
-de tournage.
+Premier passage : les 10 `fullDesc` de [`disciplines.ts`](src/data/disciplines.ts:3) ont été
+condensées de 457 à 180 caractères, en retirant les appréciations (« Unique en Europe », « Exercice
+spectaculaire »).
 
-| Discipline | Retiré | Conservé |
-| --- | --- | --- |
-| Chute de grande hauteur | « **Unique en Europe**, la CUC Tower dresse ses 21 mètres… » | Plateformes jusqu'à 21 m, défenestration, décrochage, dispositifs d'amortissement |
-| Chutes d'escalier | « **Exercice spectaculaire**, … » | Roulement, contacts amortis, gainage, sortie dans l'axe caméra |
-| Combat chorégraphié | Reformulation complète | « ne consiste pas à frapper réellement », répertoires, distances, axe caméra |
-| 7 autres | Superlatifs et envolées | Gestes, matériel, contexte |
+**Retour client : « remets les mêmes descriptions qu'il y avait avant sur cette page, car là ça ne
+me plaît pas ».** Les descriptions d'origine ont donc été **intégralement restaurées**, à l'octet
+près — `git diff` contre l'état d'avant la revue ne renvoie rien.
+
+### 4.1 bis Ce que cet aller-retour enseigne
+
+J'ai traité ces fiches comme du remplissage à nettoyer. C'était une **erreur de jugement**, et elle a
+une cause identifiable.
+
+- **Confondre « long » et « creux ».** Une description de 400 caractères n'est pas du remplissage si
+  elle décrit le contenu réel d'un enseignement. Ces textes **sont le produit** : c'est ce que le
+  prospect vient lire pour choisir une formation. Les raccourcir appauvrit l'offre au lieu de
+  l'épurer.
+- **Décider à la place du client sur son propre contenu.** Distinguer un superlatif creux d'un détail
+  technique jugé utile n'est pas un arbitrage de développeur. Retirer une tournure manifestement
+  creuse (« unique au monde », « à couper le souffle ») se défend ; réécrire un argumentaire
+  commercial ne se fait **que sur demande**.
+
+**Règle retenue :** sur du contenu éditorial, on *signale* — on ne réécrit pas de sa propre
+initiative. Les coupes qui relèvent d'un défaut objectif (donnée fausse, promesse invérifiable, lien
+mort) restent légitimes, parce qu'elles se prouvent. Les coupes de style sur un texte porteur
+d'information doivent passer par une validation.
+
+Les modifications de § 4.2 et § 4.3 restent en place : elles portent sur des accroches de page et des
+sous-titres de panneau, pas sur le référentiel de disciplines. Si elles ne conviennent pas non plus,
+la même restauration s'applique fichier par fichier.
 
 ### 4.2 Formations et installations
 
@@ -161,5 +180,9 @@ npm run build                             # succès, 64 pages
 ```
 
 Résultat mesuré sur le texte : **163 textes visibles longs** (contre 423 au premier relevé, dont la
-plupart étaient des classes Tailwind), dont **7 seulement dans le Cockpit**, et un maximum ramené de
-**457 à 286 caractères** pour la plus longue description du site.
+plupart étaient des classes Tailwind), dont **7 seulement dans le Cockpit**.
+
+Sur les corrections de § 4.2 et § 4.3, les descriptions de formations passent de 212-265 à 100-155
+caractères et les fiches d'installations restent inchangées hormis celle de la CUC Tower. Les
+descriptions de disciplines, elles, sont revenues à leur longueur d'origine : c'est un choix
+éditorial qui appartient au client, pas à cette revue.
