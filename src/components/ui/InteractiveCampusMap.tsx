@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useTranslations } from 'next-intl';
 import {
   Navigation,
   Crosshair,
@@ -14,11 +15,15 @@ import {
   POI,
 } from './campus-map/campusMap.data';
 import { getCampusPOIs } from '@/lib/data/site-service';
+import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
+import { applyPoiOverlay, applyPoiOverlays } from '@/lib/i18n/apply-poi-overlay';
 import { CampusRadarView } from './campus-map/CampusRadarView';
 import { CampusAppLaunchers } from './campus-map/CampusAppLaunchers';
 import { CampusTravelPlanner } from './campus-map/CampusTravelPlanner';
 
 export const InteractiveCampusMap: React.FC = () => {
+  const t = useTranslations('contact.map');
+
   const [activeTab, setActiveTab] = useState<'radar' | 'map'>('radar');
   const [pois, setPois] = useState<POI[]>(CAMPUS_POIS);
   const [selectedPoi, setSelectedPoi] = useState<POI>(CAMPUS_POIS[0]);
@@ -33,6 +38,18 @@ export const InteractiveCampusMap: React.FC = () => {
       }
     });
   }, []);
+
+  /**
+   * Noms, catégories et descriptions des zones du campus : DONNÉES de
+   * `site_campus_pois`, traduites par l'overlay `campus_poi` (semé par
+   * `scripts/seed_campus_pois_translations_en.mjs`), appliquées à l'affichage.
+   */
+  const poiOverlays = useEntityOverlays('campus_poi');
+  const localizedPois = useMemo(() => applyPoiOverlays(pois, poiOverlays), [pois, poiOverlays]);
+  const localizedSelectedPoi = useMemo(
+    () => applyPoiOverlay(selectedPoi, poiOverlays[selectedPoi.id]),
+    [selectedPoi, poiOverlays]
+  );
 
   const coordinates = '50.0909, 3.5374';
   const fullAddress =
@@ -81,26 +98,24 @@ export const InteractiveCampusMap: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setActiveTab('radar')}
-                  className={`px-3 py-1.5 text-xs font-mono-tech uppercase transition-all flex items-center gap-2 cursor-pointer ${
-                    activeTab === 'radar'
+                  className={`px-3 py-1.5 text-xs font-mono-tech uppercase transition-all flex items-center gap-2 cursor-pointer ${activeTab === 'radar'
                       ? 'bg-[#FFE500] text-black font-bold shadow-[0_0_15px_rgba(255,229,0,0.3)]'
                       : 'bg-[#15151e] text-zinc-400 hover:text-white border border-zinc-800'
-                  }`}
+                    }`}
                 >
                   <Crosshair className="w-3.5 h-3.5" />
-                  <span>Radar Satellite</span>
+                  <span>{t('radar')}</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setActiveTab('map')}
-                  className={`px-3 py-1.5 text-xs font-mono-tech uppercase transition-all flex items-center gap-2 cursor-pointer ${
-                    activeTab === 'map'
+                  className={`px-3 py-1.5 text-xs font-mono-tech uppercase transition-all flex items-center gap-2 cursor-pointer ${activeTab === 'map'
                       ? 'bg-[#FFE500] text-black font-bold shadow-[0_0_15px_rgba(255,229,0,0.3)]'
                       : 'bg-[#15151e] text-zinc-400 hover:text-white border border-zinc-800'
-                  }`}
+                    }`}
                 >
                   <Navigation className="w-3.5 h-3.5" />
-                  <span>Carte Routière</span>
+                  <span>{t('roadMap')}</span>
                 </button>
               </div>
 
@@ -109,19 +124,19 @@ export const InteractiveCampusMap: React.FC = () => {
                 type="button"
                 onClick={() => copyToClipboard(coordinates)}
                 className="px-2.5 py-1.5 bg-[#14141c] hover:bg-[#1a1a24] border border-zinc-800 text-[11px] font-mono-tech text-zinc-300 hover:text-[#FFE500] flex items-center gap-1.5 transition-colors cursor-pointer"
-                title="Copier les coordonnées GPS"
+                title={t('copyGpsTitle')}
               >
                 {copied ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-emerald-400" />
                     <span className="text-emerald-400 font-bold">
-                      GPS COPIÉ !
+                      {t('copied')}
                     </span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-3.5 h-3.5" />
-                    <span>COPIER GPS</span>
+                    <span>{t('copyGps')}</span>
                   </>
                 )}
               </button>
@@ -142,7 +157,7 @@ export const InteractiveCampusMap: React.FC = () => {
                   <div className="absolute top-4 left-4 bg-black/85 backdrop-blur-md border border-[#FFE500]/60 p-3 pointer-events-none max-w-xs">
                     <div className="flex items-center gap-2 text-[#FFE500] text-xs font-mono-tech font-bold mb-1">
                       <Crosshair className="w-4 h-4 animate-spin-slow" />
-                      <span>DOMAINE CUC</span>
+                      <span>{t('domain')}</span>
                     </div>
                     <p className="text-[11px] font-tech text-zinc-300 leading-snug">
                       70 Rue Faidherbe, 59360 Le Cateau-Cambrésis
@@ -161,8 +176,8 @@ export const InteractiveCampusMap: React.FC = () => {
               ) : (
                 /* Tactical Radar Layout for the Campus Domain */
                 <CampusRadarView
-                  pois={pois}
-                  selectedPoi={selectedPoi}
+                  pois={localizedPois}
+                  selectedPoi={localizedSelectedPoi}
                   onSelectPoi={setSelectedPoi}
                 />
               )}

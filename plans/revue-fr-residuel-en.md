@@ -1,9 +1,9 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T16:23:17.263Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T16:27:24.739Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **26** — occurrences : **319**
+Pages contrôlées : **27** — pages avec français résiduel : **26** — occurrences : **314**
 
 ## /en/formation-de-cascadeur — 14 occurrence(s)
 
@@ -233,7 +233,7 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | Grand Format à l'École des Cascadeurs |
 | texte visible | Voir les cascades sur Instagram |
 
-## /en/contact-cuc — 26 occurrence(s)
+## /en/contact-cuc — 21 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
@@ -241,14 +241,9 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | GÉOLOCALISATION & ASSISTANT DE NAVIGATION |
 | texte visible | PLAN DU DOMAINE & ITINÉRAIRES |
 | texte visible | Retrouvez les coordonnées GPS exactes, les temps de trajet en train ou voiture depuis Paris, Lille, Bruxelles, et lancez instantanément votre navigation dans Google Maps, Apple Maps, Waze ou SNCF Connect. |
-| texte visible | Carte Routière |
 | texte visible | CARTOGRAPHIE DU CAMPUS |
 | texte visible | Vue Aérienne HD |
-| texte visible | Fosse de Chute & Airbag Géant |
-| texte visible | Structure Câblage 3D & Rigging |
-| texte visible | Résidence Stagiaires & Réfectoire |
 | texte visible | INAUGURÉE OCT. 2024 |
-| texte visible | Inaugurée fin 2024, c'est la plus haute tour de saut d'entraînement d'Europe. Paliers à 5m, 8m, 12m, 16m et 21m pour sauts sur matelas d'air géant. |
 | texte visible | Hauteur 21m • Paliers 5/8/12/16/21m • Poutre de largage • Certifiée APAVE |
 | texte visible | LANCER L'ITINÉRAIRE DANS VOTRE APPLICATION : |
 | texte visible | TEMPS DE TRAJET & ACCÈS |

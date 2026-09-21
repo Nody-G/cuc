@@ -286,6 +286,14 @@
             "logoAltCuc": "Campus Univers Cascades CUC",
             "logoAltEvents": "CUC Events",
             "logoAltTeam": "CUC Team"
+        },
+        "map": {
+            "radar": "Radar Satellite",
+            "roadMap": "Carte Routière",
+            "copyGps": "COPIER GPS",
+            "copied": "GPS COPIÉ !",
+            "copyGpsTitle": "Copier les coordonnées GPS",
+            "domain": "DOMAINE CUC"
         }
     },
     "visite": {

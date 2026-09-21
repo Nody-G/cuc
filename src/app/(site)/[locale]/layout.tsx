@@ -100,14 +100,15 @@ export default async function LocaleLayout({
     // pour TOUTES les pages : sans cela, seules quelques pages fournissaient le
     // provider et les libellés FR (menu, footer) restaient affichés en mode EN —
     // y compris définitivement sur les vues purement clientes.
-    const [navigation, footer, social, teamOverlays] = await Promise.all([
+    const [navigation, footer, social, teamOverlays, campusPoiOverlays] = await Promise.all([
         getLocalizedNavigation('main', locale as Locale),
         getLocalizedFooterChrome('main', locale as Locale),
         getLocalizedSocialLinks(locale as Locale),
-        // Annuaire équipe : les bios/rôles/spécialités EN doivent être là dès le
-        // premier rendu (sinon le HTML servi reste en français jusqu'à
-        // l'hydratation — défaut mesuré par le crawler i18n).
+        // Données éditoriales EN attendues dès le premier rendu (sinon le HTML
+        // servi reste en français jusqu'à l'hydratation — défaut mesuré par le
+        // crawler i18n) : coachs de l'annuaire et points du campus.
         getEntityOverlays('team', locale as Locale),
+        getEntityOverlays('campus_poi', locale as Locale),
     ]);
 
     // Le provider next-intl est porté par RootShell : la page ET les composants
@@ -115,7 +116,13 @@ export default async function LocaleLayout({
     return (
         <RootShell locale={locale} messages={messages}>
             <SiteDataProvider
-                value={{ locale, navigation, footer, social, overlays: { team: teamOverlays } }}
+                value={{
+                    locale,
+                    navigation,
+                    footer,
+                    social,
+                    overlays: { team: teamOverlays, campus_poi: campusPoiOverlays },
+                }}
             >
                 {children}
             </SiteDataProvider>
