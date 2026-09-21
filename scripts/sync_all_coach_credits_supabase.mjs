@@ -395,7 +395,7 @@ const NEW_FILMS = [
     category: 'Streaming Global',
     director: 'Romain Gavras',
     stunt_roles: 'Coordination générale des cascades, plans-séquences d\'émeutes, pyrotechnie et franchissements Parkour.',
-    doubled_actors: ['Équipe cascades CUC'],
+    doubled_actors: [],
     highlight: true,
     image: 'https://www.campus-universcascades.com/wp-content/uploads/2024/12/Athena.jpg',
     tag: 'PLAN-SÉQUENCE ACTION',

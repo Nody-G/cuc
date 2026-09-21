@@ -50,7 +50,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "category": "Streaming Global",
     "director": "Romain Gavras",
     "stuntRoles": "Coordination générale des cascades, plans-séquences d'émeutes, pyrotechnie et franchissements Parkour.",
-    "doubledActors": ["Équipe cascades CUC"],
+    "doubledActors": [],
     "highlight": true,
     "image": "https://m.media-amazon.com/images/M/MV5BZWI5YjU4M2MtMzJiYS00NWNkLWE0YjgtZmFlOTVkZTcxNjA1XkEyXkFqcGc@._V1_.jpg",
     "tag": "PLAN-SÉQUENCE ACTION",
@@ -161,9 +161,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "category": "Blockbuster",
     "director": "John Woo",
     "stuntRoles": "Combats chorégraphiés, câblage et cascades physiques.",
-    "doubledActors": [
-      "Doublures cascades CUC"
-    ],
+    "doubledActors": [],
     "highlight": true,
     "image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/The-Killer.jpg",
     "tag": "PEACOCK / UNIVERSAL",
@@ -206,9 +204,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "category": "Streaming Global",
     "director": "Xavier Gens",
     "stuntRoles": "Cascades subaquatiques et physiques.",
-    "doubledActors": [
-      "Équipe cascades CUC"
-    ],
+    "doubledActors": [],
     "highlight": true,
     "image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/Sous-la-seine.jpg",
     "tag": "NETFLIX",
@@ -310,9 +306,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "category": "Cinéma International",
     "director": "Coralie Fargeat",
     "stuntRoles": "Cascades physiques.",
-    "doubledActors": [
-      "Équipe cascades CUC"
-    ],
+    "doubledActors": [],
     "highlight": true,
     "image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/The-substance.jpg",
     "tag": "CINÉMA",
@@ -365,9 +359,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "category": "Blockbuster",
     "director": "Chad Stahelski",
     "stuntRoles": "Combats et cascades physiques (séquences parisiennes).",
-    "doubledActors": [
-      "Cascadeurs CUC"
-    ],
+    "doubledActors": [],
     "highlight": true,
     "image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/John-Wick-4.jpg",
     "tag": "BLOCKBUSTER",
@@ -1194,7 +1186,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "director": "Ariel Zeitoun & Julien Seri",
     "stuntRoles": "Parkour et cascades urbaines.",
     "doubledActors": [
-      "Malik Diouf (co-fondateur CUC)"
+      "Malik Diouf"
     ],
     "highlight": true,
     "image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/film-poster/18-Yamakasi.jpg",
