@@ -1,0 +1,893 @@
+{
+  "generatedAt": "2026-09-21T22:14:46.846Z",
+  "git": {
+    "branch": "master",
+    "head": "605ac55",
+    "remote": "https://github.com/Nody-G/cuc.git",
+    "totalCommits": 168,
+    "firstCommit": "2026-09-16",
+    "lastCommit": "2026-09-21",
+    "commits30d": 168,
+    "contributors": [
+      {
+        "commits": 168,
+        "name": "Nody-G"
+      }
+    ]
+  },
+  "weekly": [
+    {
+      "week": "03-30",
+      "count": 0
+    },
+    {
+      "week": "04-06",
+      "count": 0
+    },
+    {
+      "week": "04-13",
+      "count": 0
+    },
+    {
+      "week": "04-20",
+      "count": 0
+    },
+    {
+      "week": "04-27",
+      "count": 0
+    },
+    {
+      "week": "05-04",
+      "count": 0
+    },
+    {
+      "week": "05-11",
+      "count": 0
+    },
+    {
+      "week": "05-18",
+      "count": 0
+    },
+    {
+      "week": "05-25",
+      "count": 0
+    },
+    {
+      "week": "06-01",
+      "count": 0
+    },
+    {
+      "week": "06-08",
+      "count": 0
+    },
+    {
+      "week": "06-15",
+      "count": 0
+    },
+    {
+      "week": "06-22",
+      "count": 0
+    },
+    {
+      "week": "06-29",
+      "count": 0
+    },
+    {
+      "week": "07-06",
+      "count": 0
+    },
+    {
+      "week": "07-13",
+      "count": 0
+    },
+    {
+      "week": "07-20",
+      "count": 0
+    },
+    {
+      "week": "07-27",
+      "count": 0
+    },
+    {
+      "week": "08-03",
+      "count": 0
+    },
+    {
+      "week": "08-10",
+      "count": 0
+    },
+    {
+      "week": "08-17",
+      "count": 0
+    },
+    {
+      "week": "08-24",
+      "count": 0
+    },
+    {
+      "week": "08-31",
+      "count": 0
+    },
+    {
+      "week": "09-07",
+      "count": 0
+    },
+    {
+      "week": "09-14",
+      "count": 87
+    },
+    {
+      "week": "09-21",
+      "count": 81
+    }
+  ],
+  "code": {
+    "totals": {
+      "lines": 110462,
+      "blank": 10955,
+      "comment": 10176,
+      "files": 637
+    },
+    "zones": {
+      "Cockpit": {
+        "lines": 21500,
+        "files": 64,
+        "blank": 1613,
+        "comment": 820
+      },
+      "Vitrine (pages)": {
+        "lines": 6777,
+        "files": 56,
+        "blank": 626,
+        "comment": 321
+      },
+      "Composants UI": {
+        "lines": 16882,
+        "files": 118,
+        "blank": 1630,
+        "comment": 1386
+      },
+      "i18n, données & types": {
+        "lines": 3587,
+        "files": 15,
+        "blank": 65,
+        "comment": 119
+      },
+      "Bibliothèques & données": {
+        "lines": 7921,
+        "files": 42,
+        "blank": 779,
+        "comment": 1206
+      },
+      "Autres": {
+        "lines": 25,
+        "files": 1,
+        "blank": 5,
+        "comment": 9
+      },
+      "Outillage (scripts)": {
+        "lines": 43634,
+        "files": 277,
+        "blank": 4537,
+        "comment": 6023
+      },
+      "Documentation": {
+        "lines": 10136,
+        "files": 64,
+        "blank": 1700,
+        "comment": 292
+      }
+    },
+    "byExt": {
+      ".ts": {
+        "lines": 19204,
+        "files": 100
+      },
+      ".tsx": {
+        "lines": 35857,
+        "files": 194
+      },
+      ".css": {
+        "lines": 705,
+        "files": 1
+      },
+      ".json": {
+        "lines": 913,
+        "files": 3
+      },
+      ".mjs": {
+        "lines": 39118,
+        "files": 262
+      },
+      ".sql": {
+        "lines": 4051,
+        "files": 11
+      },
+      ".js": {
+        "lines": 63,
+        "files": 1
+      },
+      ".md": {
+        "lines": 9484,
+        "files": 62
+      }
+    },
+    "largest": [
+      {
+        "file": "src/app/(admin)/admin/actions.ts",
+        "lines": 2502
+      },
+      {
+        "file": "src/lib/data/site-service.ts",
+        "lines": 2234
+      },
+      {
+        "file": "src/app/(admin)/admin/components/TeamView.tsx",
+        "lines": 1414
+      },
+      {
+        "file": "scripts/setup_complete_vitrine.sql",
+        "lines": 1292
+      },
+      {
+        "file": "src/data/filmography.ts",
+        "lines": 1202
+      },
+      {
+        "file": "plans/revue-credits-coachs-curated.md",
+        "lines": 1090
+      },
+      {
+        "file": "src/app/(admin)/admin/components/media/MediaExplorer.tsx",
+        "lines": 1057
+      },
+      {
+        "file": "src/app/(admin)/admin/CockpitApp.tsx",
+        "lines": 1052
+      },
+      {
+        "file": "plans/revue-credits-coachs-imdb.md",
+        "lines": 1052
+      },
+      {
+        "file": "scripts/seed_site_vitrine.sql",
+        "lines": 1044
+      },
+      {
+        "file": "scripts/audit_full_app.mjs",
+        "lines": 1031
+      },
+      {
+        "file": "src/app/(admin)/admin/components/InquiriesView.tsx",
+        "lines": 1012
+      },
+      {
+        "file": "scripts/generate_metrics_report.mjs",
+        "lines": 956
+      },
+      {
+        "file": "src/app/icon.png",
+        "lines": 839
+      },
+      {
+        "file": "src/app/(admin)/admin/components/PagesEditorView.tsx",
+        "lines": 810
+      },
+      {
+        "file": "src/components/3d/CampusPlan3D.tsx",
+        "lines": 782
+      },
+      {
+        "file": "src/data/team.ts",
+        "lines": 772
+      },
+      {
+        "file": "src/app/(admin)/admin/components/DisciplinesView.tsx",
+        "lines": 730
+      },
+      {
+        "file": "src/app/globals.css",
+        "lines": 705
+      },
+      {
+        "file": "src/app/(admin)/admin/components/FilmsView.tsx",
+        "lines": 697
+      },
+      {
+        "file": "src/components/3d/engine/campusBuildingMeshes.ts",
+        "lines": 695
+      },
+      {
+        "file": "src/app/(admin)/admin/components/CommandPalette.tsx",
+        "lines": 694
+      },
+      {
+        "file": "plans/revue-affiches-films.md",
+        "lines": 692
+      },
+      {
+        "file": "src/app/(site)/[locale]/equipe-cascadeurs-pro/[slug]/CoachDetailClient.tsx",
+        "lines": 681
+      },
+      {
+        "file": "src/app/(admin)/admin/components/SettingsView.tsx",
+        "lines": 674
+      },
+      {
+        "file": "scripts/generate_audit_report.mjs",
+        "lines": 637
+      },
+      {
+        "file": "scripts/sync_all_coach_credits_supabase.mjs",
+        "lines": 611
+      },
+      {
+        "file": "src/app/(admin)/admin/components/CampusZonesView.tsx",
+        "lines": 590
+      },
+      {
+        "file": "src/app/(admin)/admin/components/FooterView.tsx",
+        "lines": 584
+      },
+      {
+        "file": "src/data/navigation.ts",
+        "lines": 583
+      }
+    ],
+    "tsx": {
+      "files": 194,
+      "clientComponents": 141,
+      "componentExports": 155
+    },
+    "hooks": 10,
+    "dynamicImports": 3,
+    "tests": {
+      "available": true,
+      "total": 157,
+      "passed": 157,
+      "failed": 0,
+      "files": 15
+    },
+    "plans": 64
+  },
+  "routes": {
+    "total": 30,
+    "public": 15,
+    "admin": 15,
+    "pageWeights": [
+      {
+        "route": "/",
+        "status": 200,
+        "bytes": 244554,
+        "ms": 8
+      },
+      {
+        "route": "/formation-de-cascadeur",
+        "status": 200,
+        "bytes": 177526,
+        "ms": 5
+      },
+      {
+        "route": "/stages-cascades-parkour-2",
+        "status": 200,
+        "bytes": 165791,
+        "ms": 6
+      },
+      {
+        "route": "/equipe-cascadeurs-pro",
+        "status": 200,
+        "bytes": 593001,
+        "ms": 11
+      },
+      {
+        "route": "/cuc-team-cascadeur",
+        "status": 200,
+        "bytes": 501970,
+        "ms": 24
+      },
+      {
+        "route": "/partenaires",
+        "status": 200,
+        "bytes": 183285,
+        "ms": 12
+      },
+      {
+        "route": "/visite-guidee",
+        "status": 200,
+        "bytes": 235947,
+        "ms": 6
+      },
+      {
+        "route": "/visite-virtuelle",
+        "status": 200,
+        "bytes": 142544,
+        "ms": 5
+      },
+      {
+        "route": "/videos-cascadeur",
+        "status": 200,
+        "bytes": 169637,
+        "ms": 5
+      },
+      {
+        "route": "/contact-cuc",
+        "status": 200,
+        "bytes": 174837,
+        "ms": 5
+      },
+      {
+        "route": "/team-building-cascades",
+        "status": 200,
+        "bytes": 164139,
+        "ms": 5
+      },
+      {
+        "route": "/animations-airbag-parkour",
+        "status": 200,
+        "bytes": 146207,
+        "ms": 5
+      },
+      {
+        "route": "/spectacles-cascadeurs-yakamasi",
+        "status": 404,
+        "bytes": 8208,
+        "ms": 6
+      },
+      {
+        "route": "/stunt-workshop-cuc",
+        "status": 200,
+        "bytes": 159579,
+        "ms": 4
+      },
+      {
+        "route": "/cuc-events-agence",
+        "status": 200,
+        "bytes": 160434,
+        "ms": 5
+      },
+      {
+        "route": "/admin",
+        "status": 200,
+        "bytes": 149672,
+        "ms": 36
+      }
+    ]
+  },
+  "bundle": {
+    "staticChunks": 3400652,
+    "server": 56935811,
+    "publicAssets": {
+      "bytes": 61042879,
+      "files": 129
+    },
+    "topChunks": [
+      {
+        "file": ".next/static/chunks/1bb_keeygvtvo.js",
+        "bytes": 644832
+      },
+      {
+        "file": ".next/static/chunks/1qm95vy3v39b6.js",
+        "bytes": 563755
+      },
+      {
+        "file": ".next/static/chunks/0jk3f8vqzkrpw.js",
+        "bytes": 246318
+      },
+      {
+        "file": ".next/static/chunks/0vssptn6r_8zu.js",
+        "bytes": 234202
+      },
+      {
+        "file": ".next/static/chunks/0dqz_567nlx_m.js",
+        "bytes": 166838
+      },
+      {
+        "file": ".next/static/chunks/3ojfhzprlu08t.js",
+        "bytes": 163893
+      },
+      {
+        "file": ".next/static/chunks/150rwy2m33f_g.css",
+        "bytes": 145612
+      },
+      {
+        "file": ".next/static/chunks/0c3h99_om8hef.js",
+        "bytes": 142016
+      },
+      {
+        "file": ".next/static/chunks/0cz1d0mv5g_q7.js",
+        "bytes": 112594
+      },
+      {
+        "file": ".next/static/chunks/094cszwuuj-79.js",
+        "bytes": 79994
+      }
+    ]
+  },
+  "database": {
+    "available": true,
+    "tables": [
+      {
+        "name": "site_films",
+        "rows": 570,
+        "bytes": 671744
+      },
+      {
+        "name": "site_translations",
+        "rows": 579,
+        "bytes": 409600
+      },
+      {
+        "name": "site_settings",
+        "rows": 11,
+        "bytes": 253952
+      },
+      {
+        "name": "site_team",
+        "rows": 12,
+        "bytes": 221184
+      },
+      {
+        "name": "site_pages",
+        "rows": 15,
+        "bytes": 188416
+      },
+      {
+        "name": "site_programs",
+        "rows": 6,
+        "bytes": 106496
+      },
+      {
+        "name": "site_campus_pois",
+        "rows": 5,
+        "bytes": 81920
+      },
+      {
+        "name": "site_disciplines",
+        "rows": 10,
+        "bytes": 81920
+      },
+      {
+        "name": "site_partners",
+        "rows": 21,
+        "bytes": 65536
+      },
+      {
+        "name": "site_sessions",
+        "rows": 18,
+        "bytes": 65536
+      },
+      {
+        "name": "site_announcements",
+        "rows": 1,
+        "bytes": 49152
+      },
+      {
+        "name": "site_footer",
+        "rows": 1,
+        "bytes": 49152
+      },
+      {
+        "name": "site_navigation",
+        "rows": 1,
+        "bytes": 49152
+      },
+      {
+        "name": "site_social_links",
+        "rows": 5,
+        "bytes": 49152
+      },
+      {
+        "name": "site_events",
+        "rows": 3,
+        "bytes": 32768
+      },
+      {
+        "name": "site_inquiries",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "site_page_revisions",
+        "rows": 0,
+        "bytes": 32768
+      },
+      {
+        "name": "site_audit_logs",
+        "rows": 0,
+        "bytes": 24576
+      }
+    ],
+    "storage": [
+      {
+        "bucket": "cuc-vitrine-assets",
+        "files": 175,
+        "bytes": 228009052
+      },
+      {
+        "bucket": "reports",
+        "files": 6,
+        "bytes": 417405
+      },
+      {
+        "bucket": "avatars",
+        "files": 1,
+        "bytes": 13577
+      }
+    ],
+    "filmsByCategory": [
+      {
+        "category": "Film",
+        "n": 363
+      },
+      {
+        "category": "Série",
+        "n": 148
+      },
+      {
+        "category": "Court métrage",
+        "n": 46
+      },
+      {
+        "category": null,
+        "n": 12
+      }
+    ],
+    "filmsPublished": 569,
+    "filmsUnpublished": 1,
+    "sessionsByStatus": [
+      {
+        "status": "complet",
+        "n": 7
+      },
+      {
+        "status": "ouvert",
+        "n": 6
+      },
+      {
+        "status": "bientôt",
+        "n": 3
+      },
+      {
+        "status": "dernières places",
+        "n": 2
+      }
+    ],
+    "translationsByEntity": [
+      {
+        "entity": "film",
+        "n": 501
+      },
+      {
+        "entity": "page",
+        "n": 15
+      },
+      {
+        "entity": "partner",
+        "n": 14
+      },
+      {
+        "entity": "team",
+        "n": 12
+      },
+      {
+        "entity": "discipline",
+        "n": 10
+      },
+      {
+        "entity": "campus_facility",
+        "n": 9
+      },
+      {
+        "entity": "program",
+        "n": 6
+      },
+      {
+        "entity": "campus_poi",
+        "n": 5
+      },
+      {
+        "entity": "event",
+        "n": 3
+      },
+      {
+        "entity": "social_link",
+        "n": 2
+      },
+      {
+        "entity": "footer",
+        "n": 1
+      },
+      {
+        "entity": "navigation",
+        "n": 1
+      }
+    ],
+    "realtimeTables": 24,
+    "rlsOn": 18,
+    "cucSign": {
+      "formations": 12,
+      "profiles": 13,
+      "locations": 9,
+      "linkedSessions": 10,
+      "totalSessions": 18,
+      "linkedTeam": 5,
+      "totalTeam": 12,
+      "linkedPois": 4,
+      "totalPois": 5
+    }
+  },
+  "i18n": {
+    "fr": 681,
+    "en": 681,
+    "namespaces": 22
+  },
+  "security": {
+    "headers": [
+      "X-Content-Type-Options",
+      "X-Frame-Options",
+      "Referrer-Policy",
+      "Permissions-Policy",
+      "Strict-Transport-Security",
+      "X-DNS-Prefetch-Control",
+      "Cross-Origin-Opener-Policy",
+      "Content-Security-Policy"
+    ],
+    "redirects": 19
+  },
+  "deps": {
+    "production": [
+      {
+        "name": "@supabase/ssr",
+        "version": "^0.12.7",
+        "kind": "production"
+      },
+      {
+        "name": "@supabase/supabase-js",
+        "version": "^2.116.0",
+        "kind": "production"
+      },
+      {
+        "name": "@types/three",
+        "version": "^0.186.0",
+        "kind": "production"
+      },
+      {
+        "name": "clsx",
+        "version": "^2.1.1",
+        "kind": "production"
+      },
+      {
+        "name": "framer-motion",
+        "version": "^13.3.0",
+        "kind": "production"
+      },
+      {
+        "name": "lucide-react",
+        "version": "^1.46.0",
+        "kind": "production"
+      },
+      {
+        "name": "next",
+        "version": "16.3.5",
+        "kind": "production"
+      },
+      {
+        "name": "next-intl",
+        "version": "^4.14.5",
+        "kind": "production"
+      },
+      {
+        "name": "react",
+        "version": "19.2.8",
+        "kind": "production"
+      },
+      {
+        "name": "react-dom",
+        "version": "19.2.8",
+        "kind": "production"
+      },
+      {
+        "name": "tailwind-merge",
+        "version": "^3.7.0",
+        "kind": "production"
+      },
+      {
+        "name": "three",
+        "version": "^0.186.0",
+        "kind": "production"
+      }
+    ],
+    "development": [
+      {
+        "name": "@tailwindcss/postcss",
+        "version": "^4",
+        "kind": "développement"
+      },
+      {
+        "name": "@testing-library/jest-dom",
+        "version": "^7.0.1",
+        "kind": "développement"
+      },
+      {
+        "name": "@testing-library/react",
+        "version": "^16.3.3",
+        "kind": "développement"
+      },
+      {
+        "name": "@testing-library/user-event",
+        "version": "^14.6.7",
+        "kind": "développement"
+      },
+      {
+        "name": "@types/node",
+        "version": "^22.20.3",
+        "kind": "développement"
+      },
+      {
+        "name": "@types/react",
+        "version": "^19",
+        "kind": "développement"
+      },
+      {
+        "name": "@types/react-dom",
+        "version": "^19",
+        "kind": "développement"
+      },
+      {
+        "name": "@vitejs/plugin-react",
+        "version": "^6.1.1",
+        "kind": "développement"
+      },
+      {
+        "name": "@vitest/coverage-v8",
+        "version": "^5.0.1",
+        "kind": "développement"
+      },
+      {
+        "name": "babel-plugin-react-compiler",
+        "version": "^1.0.0",
+        "kind": "développement"
+      },
+      {
+        "name": "eslint",
+        "version": "^9",
+        "kind": "développement"
+      },
+      {
+        "name": "eslint-config-next",
+        "version": "16.3.5",
+        "kind": "développement"
+      },
+      {
+        "name": "jsdom",
+        "version": "^29.1.1",
+        "kind": "développement"
+      },
+      {
+        "name": "pg",
+        "version": "^8.23.0",
+        "kind": "développement"
+      },
+      {
+        "name": "tailwindcss",
+        "version": "^4",
+        "kind": "développement"
+      },
+      {
+        "name": "tsx",
+        "version": "^4.23.13",
+        "kind": "développement"
+      },
+      {
+        "name": "typescript",
+        "version": "^5",
+        "kind": "développement"
+      },
+      {
+        "name": "vitest",
+        "version": "^5.0.1",
+        "kind": "développement"
+      }
+    ]
+  }
+}

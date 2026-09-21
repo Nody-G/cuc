@@ -25,6 +25,7 @@
     "db:migrate:settings-revisions": "node scripts/apply_settings_realtime_and_revisions_migration.mjs",
     "db:migrate:settings-revisions:write": "node scripts/apply_settings_realtime_and_revisions_migration.mjs --write",
     "report:audit": "node scripts/generate_audit_report.mjs",
+    "report:metrics": "node scripts/generate_metrics_report.mjs",
     "i18n:audit:integrity": "node scripts/audit_text_integrity.mjs",
     "i18n:audit:integrity:repo": "node scripts/audit_repo_text_integrity.mjs",
     "i18n:fix:apostrophes": "node scripts/fix_missing_apostrophes.mjs",

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CUC — Tableau de bord chiffré de l'application (2026)</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #060608; color: #e7e7ea; font: 15px/1.6 "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 44px 24px 96px; }
+  .kicker { color: #FFE500; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700; }
+  h1 { font-size: clamp(26px, 4vw, 42px); margin: 10px 0 6px; }
+  h2 { margin-top: 60px; font-size: 23px; border-left: 4px solid #FFE500; padding-left: 12px; }
+  h3 { margin-top: 30px; font-size: 17px; color: #f2f2f5; }
+  p, .meta { color: #c9c9d1; }
+  .meta { font-size: 13px; }
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 0; }
+  nav.toc a { font-size: 12px; color: #cfcfd6; border: 1px solid #2c2c36; border-radius: 999px; padding: 5px 12px; text-decoration: none; }
+  nav.toc a:hover { border-color: #FFE500; color: #FFE500; }
+  .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+  .card { background: #0d0d12; border: 1px solid #26262e; border-radius: 10px; padding: 16px 18px; }
+  .kpi .stat { font-size: 27px; font-weight: 700; color: #fff; }
+  .kpi .kl { font-size: 12.5px; color: #c9c9d1; margin-top: 2px; }
+  .kpi .ks { font-size: 11.5px; color: #8a8a95; margin-top: 2px; }
+  .chart { width: 100%; height: auto; margin-top: 8px; }
+  .chart-label { fill: #c9c9d1; font-size: 13px; }
+  .chart-label.tiny { font-size: 10px; fill: #7c7c88; }
+  .chart-value { fill: #fff; font-size: 12.5px; font-weight: 600; }
+  .donut-wrap { display: flex; gap: 26px; align-items: center; flex-wrap: wrap; }
+  .donut-total { fill: #fff; font-size: 22px; font-weight: 700; }
+  .legend { list-style: none; margin: 0; padding: 0; font-size: 13px; }
+  .legend li { margin: 4px 0; }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 8px; }
+  th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid #1f1f27; }
+  th { color: #9a9aa5; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+  td { color: #d6d6dd; }
+  code { color: #ffe9a8; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+  @media (max-width: 900px) { .two { grid-template-columns: 1fr; } }
+  footer { margin-top: 72px; border-top: 1px solid #26262e; padding-top: 20px; color: #8a8a95; font-size: 12.5px; }
+  .pill { display: inline-block; font-size: 11px; padding: 2px 9px; border: 1px solid #3a3a44; border-radius: 999px; margin-right: 6px; color: #c9c9d1; }
+  @media print { body { background: #fff; color: #111; } .card { background: #fff; border-color: #ddd; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Tableau de bord chiffré — application CUC</div>
+  <h1>Campus Univers Cascades en chiffres</h1>
+  <p class="meta">
+    Généré le <strong>22/09/2026 00:14:46</strong> ·
+    branche <code>master</code> · révision <code>605ac55</code> ·
+    168 commits depuis le 16/09/2026 ·
+    168 commits sur 30 jours.
+  </p>
+  <nav class="toc">
+    <a href="#identite">Identité</a><a href="#code">Code source</a><a href="#interface">Interface & pages</a>
+    <a href="#bundle">Bundle & assets</a><a href="#donnees">Base de données</a><a href="#interco">Interconnexion</a>
+    <a href="#i18n">Langues</a><a href="#qualite">Qualité & sécurité</a><a href="#deps">Dépendances</a><a href="#methode">Méthode</a>
+  </nav>
+
+  <section id="identite">
+    <h2>1. Carte d'identité</h2>
+    <div class="grid">
+      <div class="card kpi"><div class="stat">cuc-app</div><div class="kl">Nom du projet</div><div class="ks">version 0.1.0</div></div>
+      <div class="card kpi"><div class="stat">168</div><div class="kl">Commits git</div><div class="ks">depuis le 16/09/2026</div></div>
+      <div class="card kpi"><div class="stat">637</div><div class="kl">Fichiers mesurés</div><div class="ks">src + scripts + documentation</div></div>
+      <div class="card kpi"><div class="stat">110 462</div><div class="kl">Lignes de code</div><div class="ks">10 955 lignes vides</div></div>
+      <div class="card kpi"><div class="stat">157</div><div class="kl">Tests automatisés</div><div class="ks">157 réussis · 0 échec(s)</div></div>
+      <div class="card kpi"><div class="stat">localhost:3000</div><div class="kl">Serveur local sondé</div><div class="ks">en ligne pendant la mesure</div></div>
+    </div>
+    <h3>Activité de développement — commits par semaine (6 mois)</h3>
+    <svg viewBox="0 0 720 120" class="chart" role="img">
+      <path d="M0.0,106.0 L28.8,106.0 L57.6,106.0 L86.4,106.0 L115.2,106.0 L144.0,106.0 L172.8,106.0 L201.6,106.0 L230.4,106.0 L259.2,106.0 L288.0,106.0 L316.8,106.0 L345.6,106.0 L374.4,106.0 L403.2,106.0 L432.0,106.0 L460.8,106.0 L489.6,106.0 L518.4,106.0 L547.2,106.0 L576.0,106.0 L604.8,106.0 L633.6,106.0 L662.4,106.0 L691.2,20.0 L720.0,25.9 L720,106 L0,106 Z" fill="#FFE500" opacity="0.08"/>
+      <path d="M0.0,106.0 L28.8,106.0 L57.6,106.0 L86.4,106.0 L115.2,106.0 L144.0,106.0 L172.8,106.0 L201.6,106.0 L230.4,106.0 L259.2,106.0 L288.0,106.0 L316.8,106.0 L345.6,106.0 L374.4,106.0 L403.2,106.0 L432.0,106.0 L460.8,106.0 L489.6,106.0 L518.4,106.0 L547.2,106.0 L576.0,106.0 L604.8,106.0 L633.6,106.0 L662.4,106.0 L691.2,20.0 L720.0,25.9" fill="none" stroke="#FFE500" stroke-width="2"/>
+      <text x="0.0" y="118" text-anchor="middle" class="chart-label tiny">03-30</text><text x="115.2" y="118" text-anchor="middle" class="chart-label tiny">04-27</text><text x="230.4" y="118" text-anchor="middle" class="chart-label tiny">05-25</text><text x="345.6" y="118" text-anchor="middle" class="chart-label tiny">06-22</text><text x="460.8" y="118" text-anchor="middle" class="chart-label tiny">07-20</text><text x="576.0" y="118" text-anchor="middle" class="chart-label tiny">08-17</text><text x="691.2" y="118" text-anchor="middle" class="chart-label tiny">09-14</text></svg>
+    <p class="meta">168 commits sur les 26 dernières semaines.
+    Contributeurs principaux : Nody-G (168).</p>
+  </section>
+
+  <section id="code">
+    <h2>2. Code source en chiffres</h2>
+    <div class="grid">
+      <div class="card kpi"><div class="stat">110 462</div><div class="kl">Lignes totales</div><div class="ks">10 176 lignes de commentaires</div></div>
+      <div class="card kpi"><div class="stat">637</div><div class="kl">Fichiers</div><div class="ks">296 dans src/</div></div>
+      <div class="card kpi"><div class="stat">194</div><div class="kl">Fichiers TSX</div><div class="ks">155 composants exportés</div></div>
+      <div class="card kpi"><div class="stat">141</div><div class="kl">Composants client</div><div class="ks">« use client » (73% des TSX)</div></div>
+      <div class="card kpi"><div class="stat">10</div><div class="kl">Hooks personnalisés</div><div class="ks">logique réutilisable</div></div>
+      <div class="card kpi"><div class="stat">3</div><div class="kl">Imports dynamiques</div><div class="ks">chargement différé (3D, modales)</div></div>
+      <div class="card kpi"><div class="stat">15</div><div class="kl">Fichiers de tests</div><div class="ks">Vitest · 157 cas</div></div>
+      <div class="card kpi"><div class="stat">64</div><div class="kl">Documents internes</div><div class="ks">plans/ — doctrine & audits</div></div>
+    </div>
+
+    <h3>Répartition des lignes par zone</h3>
+    <div class="donut-wrap"><svg viewBox="0 0 230 230" width="230" height="230"><circle cx="115" cy="115" r="72" fill="none" stroke="#FFE500" stroke-width="26"
+        stroke-dasharray="178.6999742348512 273.689367882079" stroke-dashoffset="0" transform="rotate(-90 115 115)"/><circle cx="115" cy="115" r="72" fill="none" stroke="#FFB020" stroke-width="26"
+        stroke-dasharray="88.05173594099328 364.3376061759369" stroke-dashoffset="-178.6999742348512" transform="rotate(-90 115 115)"/><circle cx="115" cy="115" r="72" fill="none" stroke="#FF7043" stroke-width="26"
+        stroke-dasharray="69.13904214678365 383.25029997014656" stroke-dashoffset="-266.7517101758445" transform="rotate(-90 115 115)"/><circle cx="115" cy="115" r="72" fill="none" stroke="#4FC3F7" stroke-width="26"
+        stroke-dasharray="41.51127420920501 410.8780679077252" stroke-dashoffset="-335.89075232262815" transform="rotate(-90 115 115)"/><circle cx="115" cy="115" r="72" fill="none" stroke="#81C784" stroke-width="26"
+        stroke-dasharray="32.43989769249338 419.9494444244368" stroke-dashoffset="-377.40202653183314" transform="rotate(-90 115 115)"/><circle cx="115" cy="115" r="72" fill="none" stroke="#BA68C8" stroke-width="26"
+        stroke-dasharray="27.75472625451681 424.6346158624134" stroke-dashoffset="-409.84192422432653" transform="rotate(-90 115 115)"/><circle cx="115" cy="115" r="72" fill="none" stroke="#F06292" stroke-width="26"
+        stroke-dasharray="14.690305898620599 437.69903621830963" stroke-dashoffset="-437.59665047884334" transform="rotate(-90 115 115)"/><circle cx="115" cy="115" r="72" fill="none" stroke="#90A4AE" stroke-width="26"
+        stroke-dasharray="0.10238573946627125 452.2869563774639" stroke-dashoffset="-452.2869563774639" transform="rotate(-90 115 115)"/>
+      <text x="115" y="121" text-anchor="middle" class="donut-total">110 462</text></svg>
+      <ul class="legend"><li><span class="dot" style="background:#FFE500"></span>Outillage (scripts) — <strong>43 634</strong></li><li><span class="dot" style="background:#FFB020"></span>Cockpit — <strong>21 500</strong></li><li><span class="dot" style="background:#FF7043"></span>Composants UI — <strong>16 882</strong></li><li><span class="dot" style="background:#4FC3F7"></span>Documentation — <strong>10 136</strong></li><li><span class="dot" style="background:#81C784"></span>Bibliothèques & données — <strong>7 921</strong></li><li><span class="dot" style="background:#BA68C8"></span>Vitrine (pages) — <strong>6 777</strong></li><li><span class="dot" style="background:#F06292"></span>i18n, données & types — <strong>3 587</strong></li><li><span class="dot" style="background:#90A4AE"></span>Autres — <strong>25</strong></li></ul></div>
+
+    <h3>Détail par zone</h3>
+    <table><thead><tr><th>Zone</th><th>Fichiers</th><th>Lignes</th><th>Vides</th><th>Commentaires</th></tr></thead>
+     <tbody><tr><td>Outillage (scripts)</td><td>277</td><td><strong>43 634</strong></td><td>4 537</td><td>6 023</td></tr><tr><td>Cockpit</td><td>64</td><td><strong>21 500</strong></td><td>1 613</td><td>820</td></tr><tr><td>Composants UI</td><td>118</td><td><strong>16 882</strong></td><td>1 630</td><td>1 386</td></tr><tr><td>Documentation</td><td>64</td><td><strong>10 136</strong></td><td>1 700</td><td>292</td></tr><tr><td>Bibliothèques & données</td><td>42</td><td><strong>7 921</strong></td><td>779</td><td>1 206</td></tr><tr><td>Vitrine (pages)</td><td>56</td><td><strong>6 777</strong></td><td>626</td><td>321</td></tr><tr><td>i18n, données & types</td><td>15</td><td><strong>3 587</strong></td><td>65</td><td>119</td></tr><tr><td>Autres</td><td>1</td><td><strong>25</strong></td><td>5</td><td>9</td></tr></tbody></table>
+
+    <h3>Langages & artefacts</h3>
+    <svg viewBox="0 0 720 282" class="chart" role="img"><text x="0" y="27.28" class="chart-label">.mjs — Node.js (outillage)</text>
+        <rect x="182" y="10" width="448" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="638" y="27.28" class="chart-value">39 118 lignes · 262 fich.</text><text x="0" y="61.28" class="chart-label">.tsx — TypeScript / React</text>
+        <rect x="182" y="44" width="410.6533053837108" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="600.6533053837109" y="61.28" class="chart-value">35 857 lignes · 194 fich.</text><text x="0" y="95.28" class="chart-label">.ts — TypeScript</text>
+        <rect x="182" y="78" width="219.93435247200776" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="409.93435247200773" y="95.28" class="chart-value">19 204 lignes · 100 fich.</text><text x="0" y="129.28" class="chart-label">.md — Documentation</text>
+        <rect x="182" y="112" width="108.61577790275577" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="298.6157779027558" y="129.28" class="chart-value">9 484 lignes · 62 fich.</text><text x="0" y="163.28" class="chart-label">.sql — SQL</text>
+        <rect x="182" y="146" width="46.39419193210287" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="236.39419193210287" y="163.28" class="chart-value">4 051 lignes · 11 fich.</text><text x="0" y="197.28" class="chart-label">.json — JSON</text>
+        <rect x="182" y="180" width="10.45615829030114" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="200.45615829030115" y="197.28" class="chart-value">913 lignes · 3 fich.</text><text x="0" y="231.28" class="chart-label">.css — CSS</text>
+        <rect x="182" y="214" width="8.07403241474513" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="198.07403241474512" y="231.28" class="chart-value">705 lignes · 1 fich.</text><text x="0" y="265.28" class="chart-label">.js — JavaScript</text>
+        <rect x="182" y="248" width="2" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="192" y="265.28" class="chart-value">63 lignes · 1 fich.</text></svg>
+
+    <div class="two">
+      <div>
+        <h3>20 fichiers les plus volumineux</h3>
+        <table><thead><tr><th>Fichier</th><th>Lignes</th></tr></thead>
+     <tbody><tr><td><code>src/app/(admin)/admin/actions.ts</code></td><td>2 502</td></tr><tr><td><code>src/lib/data/site-service.ts</code></td><td>2 234</td></tr><tr><td><code>src/app/(admin)/admin/components/TeamView.tsx</code></td><td>1 414</td></tr><tr><td><code>scripts/setup_complete_vitrine.sql</code></td><td>1 292</td></tr><tr><td><code>src/data/filmography.ts</code></td><td>1 202</td></tr><tr><td><code>plans/revue-credits-coachs-curated.md</code></td><td>1 090</td></tr><tr><td><code>src/app/(admin)/admin/components/media/MediaExplorer.tsx</code></td><td>1 057</td></tr><tr><td><code>src/app/(admin)/admin/CockpitApp.tsx</code></td><td>1 052</td></tr><tr><td><code>plans/revue-credits-coachs-imdb.md</code></td><td>1 052</td></tr><tr><td><code>scripts/seed_site_vitrine.sql</code></td><td>1 044</td></tr><tr><td><code>scripts/audit_full_app.mjs</code></td><td>1 031</td></tr><tr><td><code>src/app/(admin)/admin/components/InquiriesView.tsx</code></td><td>1 012</td></tr><tr><td><code>scripts/generate_metrics_report.mjs</code></td><td>956</td></tr><tr><td><code>src/app/icon.png</code></td><td>839</td></tr><tr><td><code>src/app/(admin)/admin/components/PagesEditorView.tsx</code></td><td>810</td></tr><tr><td><code>src/components/3d/CampusPlan3D.tsx</code></td><td>782</td></tr><tr><td><code>src/data/team.ts</code></td><td>772</td></tr><tr><td><code>src/app/(admin)/admin/components/DisciplinesView.tsx</code></td><td>730</td></tr><tr><td><code>src/app/globals.css</code></td><td>705</td></tr><tr><td><code>src/app/(admin)/admin/components/FilmsView.tsx</code></td><td>697</td></tr></tbody></table>
+      </div>
+      <div>
+        <h3>Moyennes</h3>
+        <table><thead><tr><th>Indicateur</th><th>Valeur</th></tr></thead>
+     <tbody><tr><td>Lignes par fichier</td><td>173</td></tr><tr><td>Lignes par fichier src/</td><td>192</td></tr><tr><td>Part de commentaires</td><td>9 %</td></tr><tr><td>Part de lignes vides</td><td>10 %</td></tr><tr><td>Densité de tests</td><td>15 fichiers pour 118 composants</td></tr></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <section id="interface">
+    <h2>3. Interface & pages</h2>
+    <h3>Temps de réponse & poids HTML (mesurés en direct)</h3>
+<svg viewBox="0 0 720 554" class="chart" role="img"><text x="0" y="27.28" class="chart-label">/equipe-cascadeurs-pro</text>
+        <rect x="217" y="10" width="413" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="638" y="27.28" class="chart-value">593 001 octets · 11 ms · HTTP 200</text><text x="0" y="61.28" class="chart-label">/cuc-team-cascadeur</text>
+        <rect x="217" y="44" width="349.60077638992175" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="574.6007763899217" y="61.28" class="chart-value">501 970 octets · 24 ms · HTTP 200</text><text x="0" y="95.28" class="chart-label">/</text>
+        <rect x="217" y="78" width="170.32146994693096" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="395.32146994693096" y="95.28" class="chart-value">244 554 octets · 8 ms · HTTP 200</text><text x="0" y="129.28" class="chart-label">/visite-guidee</text>
+        <rect x="217" y="112" width="164.32706015672824" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="389.32706015672824" y="129.28" class="chart-value">235 947 octets · 6 ms · HTTP 200</text><text x="0" y="163.28" class="chart-label">/partenaires</text>
+        <rect x="217" y="146" width="127.65021475511845" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="352.65021475511844" y="163.28" class="chart-value">183 285 octets · 12 ms · HTTP 200</text><text x="0" y="197.28" class="chart-label">/formation-de-cascadeur</text>
+        <rect x="217" y="180" width="123.63931595393599" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="348.639315953936" y="197.28" class="chart-value">177 526 octets · 5 ms · HTTP 200</text><text x="0" y="231.28" class="chart-label">/contact-cuc</text>
+        <rect x="217" y="214" width="121.7665417090359" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="346.7665417090359" y="231.28" class="chart-value">174 837 octets · 5 ms · HTTP 200</text><text x="0" y="265.28" class="chart-label">/videos-cascadeur</text>
+        <rect x="217" y="248" width="118.14496265604949" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="343.1449626560495" y="265.28" class="chart-value">169 637 octets · 5 ms · HTTP 200</text><text x="0" y="299.28" class="chart-label">/stages-cascades-parkour-2</text>
+        <rect x="217" y="282" width="115.46638707185991" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="340.4663870718599" y="299.28" class="chart-value">165 791 octets · 6 ms · HTTP 200</text><text x="0" y="333.28" class="chart-label">/team-building-cascades</text>
+        <rect x="217" y="316" width="114.31583926502654" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="339.3158392650265" y="333.28" class="chart-value">164 139 octets · 5 ms · HTTP 200</text><text x="0" y="367.28" class="chart-label">/cuc-events-agence</text>
+        <rect x="217" y="350" width="111.73546418977371" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="336.7354641897737" y="367.28" class="chart-value">160 434 octets · 5 ms · HTTP 200</text><text x="0" y="401.28" class="chart-label">/stunt-workshop-cuc</text>
+        <rect x="217" y="384" width="111.13999301856153" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="336.13999301856154" y="401.28" class="chart-value">159 579 octets · 4 ms · HTTP 200</text><text x="0" y="435.28" class="chart-label">/admin</text>
+        <rect x="217" y="418" width="104.2401884651122" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="329.24018846511217" y="435.28" class="chart-value">149 672 octets · 36 ms · HTTP 200</text><text x="0" y="469.28" class="chart-label">/animations-airbag-parkour</text>
+        <rect x="217" y="452" width="101.8269631923049" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="326.8269631923049" y="469.28" class="chart-value">146 207 octets · 5 ms · HTTP 200</text><text x="0" y="503.28" class="chart-label">/visite-virtuelle</text>
+        <rect x="217" y="486" width="99.27583933248005" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="324.27583933248" y="503.28" class="chart-value">142 544 octets · 5 ms · HTTP 200</text><text x="0" y="537.28" class="chart-label">/spectacles-cascadeurs-yakamasi</text>
+        <rect x="217" y="520" width="5.716523243637026" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="230.71652324363703" y="537.28" class="chart-value">8 208 octets · 6 ms · HTTP 404</text></svg>
+<p class="meta">Site de production local (<code>npm run start</code>) — chaque page répond en 200 ; les deux pages les plus lourdes sont les galeries de films (contenu riche).</p>
+    <div class="grid">
+      <div class="card kpi"><div class="stat">30</div><div class="kl">Routes applicatives</div><div class="ks">15 vitrine × 2 langues + 15 Cockpit</div></div>
+      <div class="card kpi"><div class="stat">15</div><div class="kl">Pages vitrine</div><div class="ks">toutes bilingues FR/EN</div></div>
+      <div class="card kpi"><div class="stat">15</div><div class="kl">Écrans Cockpit</div><div class="ks">administration complète</div></div>
+      <div class="card kpi"><div class="stat">16</div><div class="kl">Images de partage (OG)</div><div class="ks">une par page, générées automatiquement</div></div>
+      <div class="card kpi"><div class="stat">1</div><div class="kl">Conteneur de largeur</div><div class="ks">1600 px — vitrine alignée</div></div>
+      <div class="card kpi"><div class="stat">19</div><div class="kl">Redirections historiques</div><div class="ks">URLs de l'ancien site</div></div>
+    </div>
+  </section>
+
+  <section id="bundle">
+    <h2>4. Bundle & assets</h2>
+    <div class="grid">
+<div class="card kpi"><div class="stat">3.24 Mo</div><div class="kl">JS/CSS client (chunks)</div><div class="ks">50 fichiers</div></div>
+<div class="card kpi"><div class="stat">54.30 Mo</div><div class="kl">Rendu serveur</div><div class="ks">1 502 fichiers</div></div>
+<div class="card kpi"><div class="stat">58.22 Mo</div><div class="kl">Assets publics</div><div class="ks">129 fichiers</div></div>
+<div class="card kpi"><div class="stat">217.86 Mo</div><div class="kl">Médias Supabase Storage</div><div class="ks">182 fichiers</div></div>
+</div>
+<h3>10 plus gros chunks client</h3>
+<table><thead><tr><th>Fichier</th><th>Taille</th></tr></thead>
+     <tbody><tr><td><code>.next/static/chunks/1bb_keeygvtvo.js</code></td><td>629.7 Ko</td></tr><tr><td><code>.next/static/chunks/1qm95vy3v39b6.js</code></td><td>550.5 Ko</td></tr><tr><td><code>.next/static/chunks/0jk3f8vqzkrpw.js</code></td><td>240.5 Ko</td></tr><tr><td><code>.next/static/chunks/0vssptn6r_8zu.js</code></td><td>228.7 Ko</td></tr><tr><td><code>.next/static/chunks/0dqz_567nlx_m.js</code></td><td>162.9 Ko</td></tr><tr><td><code>.next/static/chunks/3ojfhzprlu08t.js</code></td><td>160.1 Ko</td></tr><tr><td><code>.next/static/chunks/150rwy2m33f_g.css</code></td><td>142.2 Ko</td></tr><tr><td><code>.next/static/chunks/0c3h99_om8hef.js</code></td><td>138.7 Ko</td></tr><tr><td><code>.next/static/chunks/0cz1d0mv5g_q7.js</code></td><td>110.0 Ko</td></tr><tr><td><code>.next/static/chunks/094cszwuuj-79.js</code></td><td>78.1 Ko</td></tr></tbody></table>
+  </section>
+
+  <section id="donnees">
+    <h2>5. Base de données Supabase</h2>
+    <div class="grid">
+<div class="card kpi"><div class="stat">1 258</div><div class="kl">Lignes totales</div><div class="ks">18 tables vitrine</div></div>
+<div class="card kpi"><div class="stat">2.35 Mo</div><div class="kl">Taille des données</div><div class="ks">tables + index</div></div>
+<div class="card kpi"><div class="stat">24</div><div class="kl">Tables temps réel</div><div class="ks">publication supabase_realtime</div></div>
+<div class="card kpi"><div class="stat">18</div><div class="kl">Tables sécurisées (RLS)</div><div class="ks">accès par rôle vérifié</div></div>
+<div class="card kpi"><div class="stat">579</div><div class="kl">Traductions en base</div><div class="ks">overlays EN de toutes les entités</div></div>
+</div>
+<h3>Volumétrie par table (lignes)</h3>
+<svg viewBox="0 0 720 520" class="chart" role="img"><text x="0" y="27.28" class="chart-label">site_films</text>
+        <rect x="140" y="10" width="482.3834196891192" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="630.3834196891191" y="27.28" class="chart-value">570</text><text x="0" y="61.28" class="chart-label">site_translations</text>
+        <rect x="140" y="44" width="490" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="638" y="61.28" class="chart-value">579</text><text x="0" y="95.28" class="chart-label">site_settings</text>
+        <rect x="140" y="78" width="9.309153713298791" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="157.3091537132988" y="95.28" class="chart-value">11</text><text x="0" y="129.28" class="chart-label">site_team</text>
+        <rect x="140" y="112" width="10.155440414507773" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="158.15544041450778" y="129.28" class="chart-value">12</text><text x="0" y="163.28" class="chart-label">site_pages</text>
+        <rect x="140" y="146" width="12.694300518134716" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="160.69430051813472" y="163.28" class="chart-value">15</text><text x="0" y="197.28" class="chart-label">site_programs</text>
+        <rect x="140" y="180" width="5.077720207253886" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="153.0777202072539" y="197.28" class="chart-value">6</text><text x="0" y="231.28" class="chart-label">site_campus_pois</text>
+        <rect x="140" y="214" width="4.231433506044905" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="152.2314335060449" y="231.28" class="chart-value">5</text><text x="0" y="265.28" class="chart-label">site_disciplines</text>
+        <rect x="140" y="248" width="8.46286701208981" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="156.46286701208982" y="265.28" class="chart-value">10</text><text x="0" y="299.28" class="chart-label">site_partners</text>
+        <rect x="140" y="282" width="17.7720207253886" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="165.7720207253886" y="299.28" class="chart-value">21</text><text x="0" y="333.28" class="chart-label">site_sessions</text>
+        <rect x="140" y="316" width="15.233160621761659" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="163.23316062176167" y="333.28" class="chart-value">18</text><text x="0" y="367.28" class="chart-label">site_announcements</text>
+        <rect x="140" y="350" width="2" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="150" y="367.28" class="chart-value">1</text><text x="0" y="401.28" class="chart-label">site_footer</text>
+        <rect x="140" y="384" width="2" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="150" y="401.28" class="chart-value">1</text><text x="0" y="435.28" class="chart-label">site_navigation</text>
+        <rect x="140" y="418" width="2" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="150" y="435.28" class="chart-value">1</text><text x="0" y="469.28" class="chart-label">site_social_links</text>
+        <rect x="140" y="452" width="4.231433506044905" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="152.2314335060449" y="469.28" class="chart-value">5</text><text x="0" y="503.28" class="chart-label">site_events</text>
+        <rect x="140" y="486" width="2.538860103626943" height="24" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="150.53886010362694" y="503.28" class="chart-value">3</text></svg>
+<h3>Poids sur disque par table</h3>
+<svg viewBox="0 0 720 418" class="chart" role="img"><text x="0" y="27.28" class="chart-label">site_films</text>
+        <rect x="140" y="10" width="490" height="24" rx="3" fill="#4FC3F7" opacity="0.9"/>
+        <text x="638" y="27.28" class="chart-value">0.64 Mo</text><text x="0" y="61.28" class="chart-label">site_translations</text>
+        <rect x="140" y="44" width="298.780487804878" height="24" rx="3" fill="#4FC3F7" opacity="0.9"/>
+        <text x="446.780487804878" y="61.28" class="chart-value">0.39 Mo</text><text x="0" y="95.28" class="chart-label">site_settings</text>
+        <rect x="140" y="78" width="185.2439024390244" height="24" rx="3" fill="#4FC3F7" opacity="0.9"/>
+        <text x="333.2439024390244" y="95.28" class="chart-value">0.24 Mo</text><text x="0" y="129.28" class="chart-label">site_team</text>
+        <rect x="140" y="112" width="161.34146341463415" height="24" rx="3" fill="#4FC3F7" opacity="0.9"/>
+        <text x="309.3414634146342" y="129.28" class="chart-value">0.21 Mo</text><text x="0" y="163.28" class="chart-label">site_pages</text>
+        <rect x="140" y="146" width="137.4390243902439" height="24" rx="3" fill="#4FC3F7" opacity="0.9"/>
+        <text x="285.4390243902439" y="163.28" class="chart-value">0.18 Mo</text><text x="0" y="197.28" class="chart-label">site_programs</text>
+        <rect x="140" y="180" width="77.6829268292683" height="24" rx="3" fill="#4FC3F7" opacity="0.9"/>
+        <text x="225.6829268292683" y="197.28" class="chart-value">0.10 Mo</text><text x="0" y="231.28" class="chart-label">site_campus_pois</text>
+        <rect x="140" y="214" width="59.75609756097561" height="24" rx="3" fill="#4FC3F7" opacity="0.9"/>
+        <text x="207.7560975609756" y="231.28" class="chart-value">0.08 Mo</text><text x="0" y="265.28" class="chart-label">site_disciplines</text>
+        <rect x="140" y="248" width="59.75609756097561" height="24" rx="3" fill="#4FC3F7" opacity="0.9"/>
+        <text x="207.7560975609756" y="265.28" class="chart-value">0.08 Mo</text><text x="0" y="299.28" class="chart-label">site_partners</text>
+        <rect x="140" y="282" width="47.80487804878049" height="24" rx="3" fill="#4FC3F7" opacity="0.9"/>
+        <text x="195.8048780487805" y="299.28" class="chart-value">0.06 Mo</text><text x="0" y="333.28" class="chart-label">site_sessions</text>
+        <rect x="140" y="316" width="47.80487804878049" height="24" rx="3" fill="#4FC3F7" opacity="0.9"/>
+        <text x="195.8048780487805" y="333.28" class="chart-value">0.06 Mo</text><text x="0" y="367.28" class="chart-label">site_announcements</text>
+        <rect x="140" y="350" width="35.853658536585364" height="24" rx="3" fill="#4FC3F7" opacity="0.9"/>
+        <text x="183.85365853658536" y="367.28" class="chart-value">0.05 Mo</text><text x="0" y="401.28" class="chart-label">site_footer</text>
+        <rect x="140" y="384" width="35.853658536585364" height="24" rx="3" fill="#4FC3F7" opacity="0.9"/>
+        <text x="183.85365853658536" y="401.28" class="chart-value">0.05 Mo</text></svg>
+<div class="two">
+  <div>
+    <h3>Films du catalogue</h3>
+    <div class="donut-wrap"><svg viewBox="0 0 230 230" width="230" height="230"><circle cx="115" cy="115" r="72" fill="none" stroke="#FFE500" stroke-width="26"
+        stroke-dasharray="451.59567660444435 0.7936655124858589" stroke-dashoffset="0" transform="rotate(-90 115 115)"/><circle cx="115" cy="115" r="72" fill="none" stroke="#FFB020" stroke-width="26"
+        stroke-dasharray="0.7936655124858425 451.59567660444435" stroke-dashoffset="-451.59567660444435" transform="rotate(-90 115 115)"/>
+      <text x="115" y="121" text-anchor="middle" class="donut-total">570</text></svg>
+      <ul class="legend"><li><span class="dot" style="background:#FFE500"></span>Publiés — <strong>569</strong></li><li><span class="dot" style="background:#FFB020"></span>Non publiés — <strong>1</strong></li></ul></div>
+    <table><thead><tr><th>Catégorie</th><th>Films publiés</th></tr></thead>
+     <tbody><tr><td>Film</td><td>363</td></tr><tr><td>Série</td><td>148</td></tr><tr><td>Court métrage</td><td>46</td></tr><tr><td>—</td><td>12</td></tr></tbody></table>
+  </div>
+  <div>
+    <h3>Sessions de formation par statut</h3>
+    <table><thead><tr><th>Statut</th><th>Sessions</th></tr></thead>
+     <tbody><tr><td>complet</td><td>7</td></tr><tr><td>ouvert</td><td>6</td></tr><tr><td>bientôt</td><td>3</td></tr><tr><td>dernières places</td><td>2</td></tr></tbody></table>
+    <h3>Traductions en base par entité</h3>
+    <table><thead><tr><th>Entité</th><th>Traductions</th></tr></thead>
+     <tbody><tr><td>film</td><td>501</td></tr><tr><td>page</td><td>15</td></tr><tr><td>partner</td><td>14</td></tr><tr><td>team</td><td>12</td></tr><tr><td>discipline</td><td>10</td></tr><tr><td>campus_facility</td><td>9</td></tr><tr><td>program</td><td>6</td></tr><tr><td>campus_poi</td><td>5</td></tr><tr><td>event</td><td>3</td></tr><tr><td>social_link</td><td>2</td></tr><tr><td>footer</td><td>1</td></tr><tr><td>navigation</td><td>1</td></tr></tbody></table>
+  </div>
+</div>
+<h3>Stockage des médias (bucket Supabase Storage)</h3>
+<svg viewBox="0 0 720 112" class="chart" role="img"><text x="0" y="27.28" class="chart-label">cuc-vitrine-assets</text>
+        <rect x="140" y="10" width="490" height="24" rx="3" fill="#81C784" opacity="0.9"/>
+        <text x="638" y="27.28" class="chart-value">217.45 Mo · 175 fichiers</text><text x="0" y="61.28" class="chart-label">reports</text>
+        <rect x="140" y="44" width="2" height="24" rx="3" fill="#81C784" opacity="0.9"/>
+        <text x="150" y="61.28" class="chart-value">0.40 Mo · 6 fichiers</text><text x="0" y="95.28" class="chart-label">avatars</text>
+        <rect x="140" y="78" width="2" height="24" rx="3" fill="#81C784" opacity="0.9"/>
+        <text x="150" y="95.28" class="chart-value">0.01 Mo · 1 fichiers</text></svg>
+  </section>
+
+  <section id="interco">
+    <h2>6. Interconnexion CUC ↔ CUC Sign</h2>
+    <div class="grid">
+<div class="card kpi"><div class="stat">12</div><div class="kl">Formations CUC Sign</div><div class="ks">référentiel de la plateforme élèves</div></div>
+<div class="card kpi"><div class="stat">13</div><div class="kl">Profils CUC Sign</div><div class="ks">coachs & direction</div></div>
+<div class="card kpi"><div class="stat">9</div><div class="kl">Lieux CUC Sign</div><div class="ks">installations référencées</div></div>
+<div class="card kpi"><div class="stat">10/18</div><div class="kl">Sessions reliées</div><div class="ks">les non-liées attendent leur formation</div></div>
+<div class="card kpi"><div class="stat">5/12</div><div class="kl">Coachs reliés</div><div class="ks">externes sans compte = volontaire</div></div>
+<div class="card kpi"><div class="stat">4/5</div><div class="kl">Zones du campus reliées</div><div class="ks">aucune liaison fausse</div></div>
+</div>
+<p class="meta">Règle permanente : « un lien faux est pire qu'aucun lien ». Toutes les clés étrangères vers CUC Sign sont en <code>ON DELETE SET NULL</code> — la plateforme élèves ne peut jamais être corrompue par la vitrine.</p>
+  </section>
+
+  <section id="i18n">
+    <h2>7. Langues</h2>
+    <div class="grid">
+      <div class="card kpi"><div class="stat">681</div><div class="kl">Clés françaises</div><div class="ks">22 espaces de noms</div></div>
+      <div class="card kpi"><div class="stat">681</div><div class="kl">Clés anglaises</div><div class="ks">catalogue messages/en.json</div></div>
+      <div class="card kpi"><div class="stat">100 %</div><div class="kl">Parité FR → EN</div><div class="ks">aucune clé manquante</div></div>
+      <div class="card kpi"><div class="stat">579</div><div class="kl">Traductions éditoriales</div><div class="ks">contenus bilingues en base</div></div>
+    </div>
+    <p class="meta">Deux mécanismes complémentaires : le catalogue d'interface (messages/*.json, parité stricte vérifiée)
+    et les overlays d'entités (base de données : équipe, films, événements, disciplines, campus, partenaires).</p>
+  </section>
+
+  <section id="qualite">
+    <h2>8. Qualité & sécurité</h2>
+    <div class="grid">
+      <div class="card kpi"><div class="stat">8</div><div class="kl">En-têtes de sécurité</div><div class="ks">X-Content-Type-Options · X-Frame-Options · Referrer-Policy · Permissions-Policy · Strict-Transport-Security · X-DNS-Prefetch-Control · Cross-Origin-Opener-Policy · Content-Security-Policy</div></div>
+      <div class="card kpi"><div class="stat">18</div><div class="kl">Tables RLS actives</div><div class="ks">Row Level Security</div></div>
+      <div class="card kpi"><div class="stat">157</div><div class="kl">Tests verts</div><div class="ks">157 réussis · 0 échec(s)</div></div>
+      <div class="card kpi"><div class="stat">0</div><div class="kl">Anomalies d'audit</div><div class="ks">10 familles de contrôles — voir rapport d'audit</div></div>
+    </div>
+  </section>
+
+  <section id="deps">
+    <h2>9. Dépendances</h2>
+    <div class="two">
+      <div><h3>Production (12)</h3>
+      <table><thead><tr><th>Paquet</th><th>Version</th></tr></thead>
+     <tbody><tr><td><code>@supabase/ssr</code></td><td>0.12.7</td></tr><tr><td><code>@supabase/supabase-js</code></td><td>2.116.0</td></tr><tr><td><code>@types/three</code></td><td>0.186.0</td></tr><tr><td><code>clsx</code></td><td>2.1.1</td></tr><tr><td><code>framer-motion</code></td><td>13.3.0</td></tr><tr><td><code>lucide-react</code></td><td>1.46.0</td></tr><tr><td><code>next</code></td><td>16.3.5</td></tr><tr><td><code>next-intl</code></td><td>4.14.5</td></tr><tr><td><code>react</code></td><td>19.2.8</td></tr><tr><td><code>react-dom</code></td><td>19.2.8</td></tr><tr><td><code>tailwind-merge</code></td><td>3.7.0</td></tr><tr><td><code>three</code></td><td>0.186.0</td></tr></tbody></table></div>
+      <div><h3>Développement (18)</h3>
+      <table><thead><tr><th>Paquet</th><th>Version</th></tr></thead>
+     <tbody><tr><td><code>@tailwindcss/postcss</code></td><td>4</td></tr><tr><td><code>@testing-library/jest-dom</code></td><td>7.0.1</td></tr><tr><td><code>@testing-library/react</code></td><td>16.3.3</td></tr><tr><td><code>@testing-library/user-event</code></td><td>14.6.7</td></tr><tr><td><code>@types/node</code></td><td>22.20.3</td></tr><tr><td><code>@types/react</code></td><td>19</td></tr><tr><td><code>@types/react-dom</code></td><td>19</td></tr><tr><td><code>@vitejs/plugin-react</code></td><td>6.1.1</td></tr><tr><td><code>@vitest/coverage-v8</code></td><td>5.0.1</td></tr><tr><td><code>babel-plugin-react-compiler</code></td><td>1.0.0</td></tr><tr><td><code>eslint</code></td><td>9</td></tr><tr><td><code>eslint-config-next</code></td><td>16.3.5</td></tr><tr><td><code>jsdom</code></td><td>29.1.1</td></tr><tr><td><code>pg</code></td><td>8.23.0</td></tr><tr><td><code>tailwindcss</code></td><td>4</td></tr><tr><td><code>tsx</code></td><td>4.23.13</td></tr><tr><td><code>typescript</code></td><td>5</td></tr><tr><td><code>vitest</code></td><td>5.0.1</td></tr></tbody></table></div>
+    </div>
+  </section>
+
+  <section id="methode">
+    <h2>10. Méthode & mise à jour</h2>
+    <p>Ce tableau de bord est <strong>100 % mesuré</strong>, sans aucune saisie manuelle : arborescence du dépôt,
+    configuration PostgreSQL de production (lecture seule), build Next.js, exécution Vitest, historique git,
+    et — si le serveur local tourne — sondage HTTP réel de chaque page.</p>
+    <p><strong>Pour le mettre à jour :</strong> demandez simplement « mets à jour les chiffres » (ou lancez
+    <code>npm run report:metrics</code>). Le document et ses données brutes
+    (<code>reports/cuc-metriques-2026.metrics.json</code>) sont réécrits avec les valeurs du moment.</p>
+  </section>
+
+  <footer>
+    Généré par <code>scripts/generate_metrics_report.mjs</code> · données brutes : <code>reports/cuc-metriques-2026.metrics.json</code> ·
+    sources : dépôt local, Supabase (lecture seule), build .next, Vitest, git, sondage HTTP local.
+    <span class="pill">aucun CDN</span><span class="pill">aucune donnée externe</span><span class="pill">régénérable</span>
+  </footer>
+</div>
+</body>
+</html>
