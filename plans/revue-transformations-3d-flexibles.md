@@ -373,6 +373,54 @@ incomplet.
 | `console.warn` dans le repli | Une ligne explicite dans les logs serveur à chaque appel sans clé de service |
 | Succès partiel distingué | Une revalidation de pages en échec n'est plus confondue avec un échec d'écriture : les données sont en base, un avertissement le dit |
 
+### Bug d'architecture : la page publique ne lisait jamais les placements
+
+Quatrième retour d'usage : « ça marque bien que c'est enregistré mais quand je vais sur le site
+vitrine mes changements ne sont pas là ».
+
+**Cause :** le chargement depuis Supabase était conditionné par `persistToDatabase` :
+
+```ts
+useEffect(() => {
+  if (!persistToDatabase) return;   // ← site public : sortie immédiate
+  getCampusPlacements3D()...
+}, [persistToDatabase]);
+```
+
+Or seul le Cockpit passe `persistToDatabase`. La page publique ne lisait donc **jamais**
+`site_settings` : elle retombait sur le `localStorage` — vide côté visiteur — puis sur
+`DEFAULT_FACILITIES`. La « source de vérité partagée entre le Cockpit et la page publique »,
+annoncée dans la documentation du composant et affichée dans le bandeau du Cockpit, **n'existait
+pas**. Un enregistrement réussi restait invisible côté vitrine.
+
+**Correctif :** la lecture est désormais **inconditionnelle** ; seule l'**écriture** dépend de
+`persistToDatabase`. Priorité de lecture explicitée : `Supabase` > `localStorage` > défauts OSM.
+
+**Preuve du chaînage complet** (sonde exécutée après redémarrage du serveur par l'opérateur) :
+
+```
+OK    SUPABASE_SERVICE_ROLE_KEY : présente — famille « secret (récente) »
+OK    Ligne trouvée (updated_at = 2026-09-21T11:30:22Z)
+OK    Installations enregistrées : 9
+OK    Forme d'une entrée : x, z, id, code, name, scaleX, scaleY, scaleZ, visible, rotationY, uniformScale
+OK    Écriture de contrôle réussie
+OK    Lecture publique OK — 9 installation(s) visibles côté vitrine
+```
+
+Trois faits, une conclusion :
+
+1. L'écriture du studio **a bien atteint la base** (9 installations, au format v3) — la chaîne
+   clé de service → RLS → Supabase est saine une fois le serveur redémarré.
+2. La lecture **publique** de cette clé est autorisée (politique RLS de lecture) : la vitrine
+   *pouvait* lire.
+3. Elle ne le **faisait pas**, à cause de la condition ci-dessus. C'était donc le seul point
+   restant, et il était dans le code — pas dans la configuration ni chez l'hébergeur.
+
+**Leçon transverse :** une seule condition `if` a suffi à rendre une fonctionnalité entière
+silencieusement inopérante, alors même que tous les diagnostics de configuration étaient au vert.
+Vérifier la *destination* d'un enregistrement ne suffit pas : il faut vérifier que **quelqu'un le
+relit**.
+
 L'observation clé : un enregistrement qui échoue **en silence** est pire qu'un enregistrement
 refusé bruyamment — le premier fait croire au succès. L'interface doit donc dire la vérité sur
 l'état de l'écriture, y compris quand elle échoue.

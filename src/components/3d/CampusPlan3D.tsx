@@ -46,6 +46,27 @@ const HISTORY_LIMIT = 60;
 /** Délai avant la reprise unique d'une écriture en échec. */
 const RETRY_DELAY_MS = 2500;
 
+/** Clé `localStorage` des placements (mode public).
+ *  ⚠ Il s'agit d'un **repli**, pas d'une source partagée : les placements
+ *  faisant autorité vivent dans Supabase (`site_settings`). */
+const LOCAL_STORAGE_KEY = 'cuc_campus_placements_v2';
+
+/**
+ * Placements conservés par le navigateur, normalisés.
+ * Retourne `null` si rien n'est stocké ou si la valeur est illisible.
+ */
+function readLocalPlacements(): Record<string, EditableFacilityItem> | null {
+  if (typeof window === 'undefined') return null;
+  const saved = window.localStorage.getItem(LOCAL_STORAGE_KEY);
+  if (!saved) return null;
+  try {
+    // Migration transparente des placements v1 (`scale` / `heightScale`).
+    return normalizeFacilityRecord(JSON.parse(saved), DEFAULT_FACILITIES);
+  } catch {
+    return null;
+  }
+}
+
 interface HistoryStore {
   past: Array<Record<string, EditableFacilityItem>>;
   future: Array<Record<string, EditableFacilityItem>>;
@@ -86,20 +107,9 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
   const saveBackend: CampusSaveBackend = persistToDatabase ? 'database' : 'local';
 
   const [mode, setMode] = useState<PlanMode>(initialMode);
-  const [facilities, setFacilities] = useState<Record<string, EditableFacilityItem>>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('cuc_campus_placements_v2');
-      if (saved) {
-        try {
-          // Migration transparente des placements v1 (`scale` / `heightScale`).
-          return normalizeFacilityRecord(JSON.parse(saved), DEFAULT_FACILITIES);
-        } catch {
-          // Fallback to default
-        }
-      }
-    }
-    return DEFAULT_FACILITIES;
-  });
+  const [facilities, setFacilities] = useState<Record<string, EditableFacilityItem>>(
+    () => readLocalPlacements() ?? DEFAULT_FACILITIES
+  );
 
   const [selectedObjectId, setSelectedObjectId] = useState<string>('cuc-tower');
   // Le studio d'édition n'est accessible qu'aux techniciens via `?studio=1`
@@ -380,28 +390,52 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
     };
   }, [persistToDatabase, saveBackend]);
 
-  // Chargement initial depuis Supabase (Cockpit uniquement).
-  // Priorité : placements enregistrés en base > placements locaux > défauts
-  // calibrés sur les empreintes OSM réelles.
+  /**
+   * Chargement des placements.
+   *
+   * La lecture depuis Supabase est **inconditionnelle**, y compris sur le site
+   * public. Elle était auparavant liée à `persistToDatabase` : la page
+   * publique ne lisait donc **jamais** les placements enregistrés dans le
+   * Cockpit et retombait sur les positions par défaut. La « source de vérité
+   * partagée » annoncée n'existait pas — un enregistrement réussi dans le
+   * Cockpit restait invisible côté vitrine.
+   *
+   * Seule l'**écriture** dépend de `persistToDatabase`.
+   *
+   * Priorité : Supabase > `localStorage` > défauts calibrés sur les empreintes
+   * OSM réelles.
+   */
   useEffect(() => {
-    if (!persistToDatabase) return;
     let cancelled = false;
 
     getCampusPlacements3D()
       .then((placements) => {
-        if (cancelled || !placements) return;
-        const merged = normalizeFacilityRecord(placements, DEFAULT_FACILITIES);
-        facilitiesRef.current = merged;
-        setFacilities(merged);
+        if (cancelled) return;
+
+        if (placements && Object.keys(placements).length > 0) {
+          const merged = normalizeFacilityRecord(placements, DEFAULT_FACILITIES);
+          facilitiesRef.current = merged;
+          setFacilities(merged);
+          return;
+        }
+
+        // Aucun placement en base : repli sur le navigateur, puis sur les
+        // défauts (déjà appliqués à l'initialisation de l'état).
+        const local = readLocalPlacements();
+        if (local) {
+          facilitiesRef.current = local;
+          setFacilities(local);
+        }
       })
       .catch(() => {
-        // Silencieux : on conserve les placements locaux/défauts.
+        // Lecture indisponible (hors ligne, droits) : on conserve l'état
+        // local ou les défauts, sans bloquer l'affichage du plan.
       });
 
     return () => {
       cancelled = true;
     };
-  }, [persistToDatabase]);
+  }, []);
 
   /**
    * Mutation d'une installation avec persistance différée et inscription dans

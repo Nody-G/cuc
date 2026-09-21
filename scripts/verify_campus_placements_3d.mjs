@@ -228,6 +228,48 @@ async function main() {
         }
     }
 
+    // --- 5. Lecture publique : ce que verra réellement le site vitrine ---
+    //
+    // Le plan public lit désormais `site_settings` avec la clé publique. Sans
+    // politique de lecture publique, le Cockpit enregistrerait correctement
+    // tandis que la vitrine continuerait d'afficher les positions par défaut.
+    if (anonKey) {
+        console.log('\n--- Lecture publique (ce que verra le site vitrine) ---');
+        const anonReader = createClient(supabaseUrl, anonKey, {
+            auth: { persistSession: false, autoRefreshToken: false },
+        });
+
+        const { data: anonRead, error: anonReadError } = await anonReader
+            .from('site_settings')
+            .select('value, updated_at')
+            .eq('key', SETTINGS_KEY)
+            .maybeSingle();
+
+        if (anonReadError) {
+            report(
+                'fail',
+                `Lecture publique REFUSÉE : ${anonReadError.message}` +
+                (anonReadError.code ? ` (code ${anonReadError.code})` : '')
+            );
+            console.log(
+                'Conséquence : le site vitrine ne peut pas lire les placements enregistrés\n' +
+                'et affichera les positions par défaut. Ajouter une politique RLS de lecture\n' +
+                'publique (SELECT) sur site_settings, ou lire cette clé côté serveur.'
+            );
+        } else {
+            const anonPlacements = anonRead?.value?.placements;
+            const anonCount =
+                anonPlacements && typeof anonPlacements === 'object'
+                    ? Object.keys(anonPlacements).length
+                    : 0;
+            report(
+                anonCount > 0 ? 'ok' : 'warn',
+                `Lecture publique OK — ${anonCount} installation(s) visibles côté vitrine` +
+                (anonRead?.updated_at ? ` (modifié le ${anonRead.updated_at})` : '')
+            );
+        }
+    }
+
     console.log('\nConclusion : le chemin d\'écriture Supabase fonctionne depuis cet environnement.');
     console.log('Si le studio ne sauvegarde toujours rien, l\'état affiché dans sa barre d\'outils');
     console.log('donne désormais le message d\'erreur exact remonté par l\'action serveur.');
