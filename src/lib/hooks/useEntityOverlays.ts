@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
+import { useSiteData } from '@/components/i18n/SiteDataProvider';
 
 /** Référence stable : évite de recréer un objet à chaque rendu. */
 const EMPTY_OVERLAYS: Record<string, Record<string, unknown>> = {};
@@ -33,10 +34,14 @@ export function useEntityOverlays(entity: string) {
     const locale = pathname?.startsWith('/en') ? 'en' : 'fr';
     const key = `${entity}|${locale}`;
 
+    // Overlays déjà résolus par le serveur (premier rendu correct, sans flash) :
+    // ils court-circuitent la requête navigateur.
+    const serverOverlays = useSiteData()?.overlays?.[entity] ?? null;
+
     const [state, setState] = useState<OverlayState>({ key: '', overlays: EMPTY_OVERLAYS });
 
     useEffect(() => {
-        if (locale === 'fr' || !entity) return;
+        if (locale === 'fr' || !entity || serverOverlays) return;
 
         let isMounted = true;
         const supabase = createClient();
@@ -62,7 +67,9 @@ export function useEntityOverlays(entity: string) {
         return () => {
             isMounted = false;
         };
-    }, [entity, locale, key]);
+    }, [entity, locale, key, serverOverlays]);
+
+    if (serverOverlays) return serverOverlays;
 
     // Seules les données de la clé courante sont servies.
     return state.key === key ? state.overlays : EMPTY_OVERLAYS;

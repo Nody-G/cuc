@@ -35,6 +35,13 @@ export interface SiteDataValue {
     footer?: LocalizedChromeData<FooterStructure> | null;
     /** Réseaux sociaux déjà localisés (overlay `social_link` appliqué). */
     social?: SiteSocialLink[] | null;
+    /**
+     * Overlays d'entités résolus côté serveur : `entity` → `entity_id` → payload
+     * (`site_translations`). Sans cela, `useEntityOverlays` charge côté navigateur
+     * et le premier rendu (HTML, LCP) reste en français — c'est ce qui laissait
+     * les bios de l'annuaire équipe en FR avant hydratation.
+     */
+    overlays?: Record<string, Record<string, Record<string, unknown>>> | null;
 }
 
 const SiteDataContext = createContext<SiteDataValue | null>(null);

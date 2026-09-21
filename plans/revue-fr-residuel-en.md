@@ -1,9 +1,9 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T16:05:52.518Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T16:16:04.027Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **26** — occurrences : **661**
+Pages contrôlées : **27** — pages avec français résiduel : **26** — occurrences : **605**
 
 ## /en/formation-de-cascadeur — 14 occurrence(s)
 
@@ -55,72 +55,20 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | Provence Studios, Martigues (Bouches-du-Rhône) |
 | texte visible | Contacter pour les Sessions Pro |
 
-## /en/equipe-cascadeurs-pro — 60 occurrence(s)
+## /en/equipe-cascadeurs-pro — 8 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
 | texte visible | L'ÉQUIPE |
 | texte visible | COACHS & PROFESSIONNELS DU CINÉMA |
-| texte visible | CASCADEURS DU CINÉMA D'ACTION INTERNATIONAL |
-| texte visible | Fondateur & Directeur Général |
-| texte visible | Coordinateur de Cascades & Formateur Référent |
-| texte visible | Sécurité de tournage |
-| texte visible | Références & Tournages : 24 |
-| texte visible | crédits |
-| texte visible | Projets & Tournages Cinéma ( |
-| texte visible | Voir la fiche complète |
-| texte visible | Responsable Pédagogique |
 | texte visible | Jérôme Gaspard |
-| texte visible | Coordinateur de Cascades Référent Cinéma |
-| texte visible | Coordinateur de cascades et formateur au CUC avec plus de 30 ans d'expérience et plus de 200 productions. Ancien gymnaste de haut niveau et fondateur d'Action Cascade et France-Cascade, il conçoit et coordonne des cascad |
-| texte visible | Câblage |
-| texte visible | Combats armés |
-| texte visible | Spécialiste Combats & Chutes |
-| texte visible | Domaines d'expertise : Combats chorégraphiés |
-| texte visible | Doublure cinéma |
-| texte visible | Référent Parkour |
-| texte visible | Préparation physique |
-| texte visible | Agilité urbaine |
-| texte visible | Coach Câblage 3D, Torches & Pyrotechnie |
-| texte visible | Directeur adjoint du CUC et cascadeur professionnel chevronné. Franck Blanc encadre les cascades de feu (torches humaines), les chutes de hauteur et les systèmes de câblage 3D avec un protocole strict de sécurité thermiq |
-| texte visible | Câblage en studio |
-| texte visible | Gestion du risque |
-| texte visible | Action Designer & Chorégraphe |
-| texte visible | Spécialiste Chorégraphies de Combat & 2e Équipe |
-| texte visible | Coordinateur de cascades, chorégraphe de combats et réalisateur 2e équipe. Fondateur d'AC Stunts, il intervient sur la conception, le pré-découpage et la chorégraphie d'affrontements intenses pour des blockbusters intern |
-| texte visible | Chorégraphies de combat |
-| texte visible | Découpage technique |
-| texte visible | Prévisualisation |
-| texte visible | Instructeur Référent |
-| texte visible | Spécialiste Combats, Chutes & Comédie Martiale |
-| texte visible | Cascadeur, chorégraphe de combats et cofondateur de la Cascade Demo Team (1997). Auteur d'un ouvrage de référence sur la cascade physique, il enseigne la rigueur martiale, le timing cinétique et les chutes de haute inten |
-| texte visible | Chorégraphie de combat |
-| texte visible | Comédie d'action |
-| texte visible | Chutes synchronisées |
-| texte visible | Spécialiste Chutes et Maniement d'armes |
-| texte visible | Cascadeur professionnel depuis plus de trente ans, crédité sur plus de 240 productions françaises et internationales. Il enseigne les chutes de hauteur, le maniement d'armes et les combats rapprochés, avec un travail cen |
-| texte visible | Combats rapprochés |
-| texte visible | Cascades de véhicules |
-| texte visible | Références & Tournages : 44 |
 | texte visible | La nuit se traîne (2024) |
 | texte visible | Amédéo Cazzella |
-| texte visible | Spécialiste Combats & Maniement d'Armes |
-| texte visible | Cascadeur, régleur de combats et cofondateur de la Cascade Demo Team (1997). Spécialiste reconnu du maniement des armes blanches et de l'escrime scénique pour le cinéma d'action historique et moderne. |
-| texte visible | Chorégraphies armées |
-| texte visible | Spécialiste Acrobaties & Freerunning |
-| texte visible | Cascadeur, freerunner professionnel et champion de France de Speed Running (2013). Niels Dalery enseigne au CUC la maîtrise des acrobaties au sol, des rotations aériennes et du freerunning appliqués aux cascades cinéma. |
-| texte visible | Domaines d'expertise : Acrobatie au sol |
-| texte visible | Tricks de scène |
-| texte visible | Références & Tournages : 1 |
 | texte visible | Bastien Trouvé |
-| texte visible | Formateur au CUC et cascadeur professionnel en activité sur des tournages de longs-métrages, séries télévisées et concepts d'action. |
-| texte visible | Domaines d'expertise : Combats scéniques |
-| texte visible | Formateur au CUC et cascadeur professionnel diplômé BPJEPS AGA. Il intervient sur les cascades physiques, acrobaties et déplacements pour des productions télévisuelles et cinématographiques. |
-| texte visible | Déplacements |
-| texte visible | Références & Tournages : 20 |
-| texte visible | CINÉMA D'ACTION INTERNATIONAL |
+| texte visible | FORMEZ-VOUS AVEC LES MEILLEURS PROFESSIONNELS DU SECTEUR |
+| texte visible | Découvrir les Formations du CUC |
 
-## /en/cuc-team-cascadeur — 37 occurrence(s)
+## /en/cuc-team-cascadeur — 33 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
@@ -149,10 +97,6 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | Cascades physiques et poursuites urbaines. |
 | texte visible | Cascades physiques et poursuites lors du tournage parisien. |
 | texte visible | Combats et cascades physiques. |
-| texte visible | CINÉMA D'ACTION INTERNATIONAL |
-| texte visible | LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC |
-| texte visible | Découvrez l'ensemble des productions cinématographiques et télévisuelles sur lesquelles nos cascadeurs et formateurs sont intervenus. |
-| texte visible | Année (récent → ancien) Année (ancien → récent) Nom (A → Z) Nom (Z → A) |
 | texte visible | SERVICES AUX PRODUCTIONS |
 | texte visible | TOURNER VOS SCÈNES D'ACTION AVEC LE CUC |
 | texte visible | 1. COORDINATION & CHORÉGRAPHIE : Analyse du scénario, chiffrage budgétaire, découpage technique de l'action et chorégraphies sur-mesure adaptées au jeu des comédiens. |

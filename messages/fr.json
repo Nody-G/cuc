@@ -192,6 +192,22 @@
             "etablissement": "Établissement & Nutrition"
         }
     },
+    "team": {
+        "badge": "COACHS & PROFESSIONNELS DU CINÉMA",
+        "title": "L'ÉQUIPE",
+        "subtitle": "Une faculté d'action unique au monde. Des coordinateurs de cascades renommés, des pionniers des Yamakasi, et des cascadeurs en exercice sur les plus grandes productions hollywoodiennes et françaises qui transmettent chaque jour leur savoir-faire sur le terrain.",
+        "performerTag": "CASCADEURS DU CINÉMA D'ACTION INTERNATIONAL",
+        "creditsLabel": "Références & Tournages :",
+        "creditsUnit": "crédits",
+        "othersLabel": "+{count} autres",
+        "projectsLabel": "Projets & Tournages Cinéma",
+        "ctaDetail": "Voir la fiche complète",
+        "showcaseTag": "CINÉMA D'ACTION INTERNATIONAL",
+        "roleCoordination": "Coordination",
+        "roleDouble": "Doublure",
+        "roleStunt": "Cascade",
+        "filmCardTitle": "{title} ({year}) — ouvrir la fiche de production"
+    },
     "home": {
         "hero": {
             "badge": "Centre International de Formation de Cascadeurs",

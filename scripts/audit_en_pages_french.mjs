@@ -55,6 +55,25 @@ function coachSlugs() {
     }
 }
 
+/**
+ * Noms propres de l'équipe (noms de coachs et titres d'œuvres cités dans leurs
+ * crédits) — DONNÉES, jamais de la copie d'interface. Un nom d'intervenant ou un
+ * titre d'œuvre reste identique en anglais : on le neutralise sans inventer de
+ * traduction, et une phrase française qui le contiendrait reste signalée.
+ */
+function coachProperNouns() {
+    try {
+        const src = readFileSync('src/data/team.ts', 'utf8');
+        const names = [...src.matchAll(/^\s+name:\s*'([^']+)'/gm)].map((m) => m[1]);
+        const credits = [...src.matchAll(/notableCredits:\s*\[([\s\S]*?)\]/g)]
+            .flatMap((block) => [...block[1].matchAll(/'([^']{4,})'/g)].map((m) => m[1]))
+            .map((credit) => credit.split('—')[0].trim());
+        return [...names, ...credits];
+    } catch {
+        return [];
+    }
+}
+
 const ACCENTS = /[àâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ]/;
 const FR_HINT =
     /\b(le|la|les|des|une|un|et|pour|avec|sur|dans|notre|nos|vos|est|sont|vous|nous|du|au|aux|par|plus|tout|tous|depuis|entre|ce|cette|ces|qui|que|au|à)\b/i;
@@ -77,6 +96,14 @@ const normalizeTitle = (s) =>
         .trim();
 
 const FILM_TITLES = new Set();
+const PROPER_NOUNS = new Set();
+
+/** Ligne réduite à un nom propre (nom de coach, titre d'œuvre cité). */
+const isProperNounLine = (text) => {
+    if (PROPER_NOUNS.size === 0) return false;
+    const base = text.split('—')[0].replace(/\(\d{4}(?:-\d{4})?\)/g, ' ');
+    return PROPER_NOUNS.has(normalizeTitle(base));
+};
 
 async function loadFilmTitles() {
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, '');
@@ -184,9 +211,13 @@ const targets = [
 console.log('');
 console.log(`=== Français résiduel sur les pages EN — ${BASE} ===`);
 await loadFilmTitles();
+for (const noun of coachProperNouns()) {
+    if (noun.trim().length > 3) PROPER_NOUNS.add(normalizeTitle(noun));
+}
 console.log(
     `Titres de films en allowlist (données du catalogue) : ${FILM_TITLES.size}${FILM_TITLES.size === 0 ? ' — base injoignable, titres non neutralisés' : ''}`
 );
+console.log(`Noms propres de l'équipe en allowlist (données) : ${PROPER_NOUNS.size}`);
 console.log('');
 
 const report = [];

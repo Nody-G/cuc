@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { Film, ArrowUpDown } from 'lucide-react';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getFilms } from '@/lib/data/site-service';
@@ -34,12 +35,24 @@ export interface CucFilmsShowcaseProps {
  */
 export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
     id,
-    badge = 'TOURNAGES & AFFICHES',
-    title = 'LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC',
-    subtitle = "Découvrez l'ensemble des productions cinématographiques et télévisuelles sur lesquelles nos cascadeurs et formateurs sont intervenus.",
+    badge,
+    title,
+    subtitle,
     className = '',
     divider = true,
 }) => {
+    const tFilms = useTranslations('films');
+    const tTeam = useTranslations('team');
+
+    /**
+     * Copie par défaut servie par le catalogue (`films.*`) : plus aucune chaîne
+     * FR en dur, donc plus de fuite en anglais. Les props restent prioritaires
+     * (contenu piloté par `site_pages`).
+     */
+    const resolvedBadge = badge || tFilms('badge');
+    const resolvedTitle = title || tFilms('title');
+    const resolvedSubtitle = subtitle || tFilms('subtitle');
+
     const [films, setFilms] = React.useState<FilmCredit[]>(FILMOGRAPHY_CREDITS);
     const [filmSort, setFilmSort] = React.useState<FilmSort>('year-desc');
     const [selectedFilm, setSelectedFilm] = React.useState<FilmCredit | null>(null);
@@ -88,16 +101,16 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
             <div className="text-center max-w-3xl mx-auto mb-10">
                 <div className="inline-flex items-center gap-2 mb-3">
                     <StuntBadge variant="yellow" icon={<Film className="w-3.5 h-3.5" />}>
-                        {badge}
+                        {resolvedBadge}
                     </StuntBadge>
                     <span className="text-xs font-mono-tech text-zinc-400">
-                        CINÉMA D'ACTION INTERNATIONAL
+                        {tTeam('showcaseTag')}
                     </span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mb-3">
-                    {title}
+                    {resolvedTitle}
                 </h2>
-                <p className="text-xs sm:text-sm font-tech text-zinc-400">{subtitle}</p>
+                <p className="text-xs sm:text-sm font-tech text-zinc-400">{resolvedSubtitle}</p>
                 <label className="mt-5 inline-flex items-center gap-2 text-[11px] font-mono-tech text-zinc-400">
                     <ArrowUpDown className="w-3.5 h-3.5 text-[#FFE500]" />
                     <span className="uppercase tracking-wider">Trier :</span>
@@ -107,10 +120,10 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
                         className="bg-black/60 border border-zinc-700 text-zinc-200 text-[11px] font-mono-tech px-2 py-1 focus:outline-none focus:border-[#FFE500]"
                         aria-label="Trier les films"
                     >
-                        <option value="year-desc">Année (récent → ancien)</option>
-                        <option value="year-asc">Année (ancien → récent)</option>
-                        <option value="title-asc">Nom (A → Z)</option>
-                        <option value="title-desc">Nom (Z → A)</option>
+                        <option value="year-desc">{tFilms('sortYearDesc')}</option>
+                        <option value="year-asc">{tFilms('sortYearAsc')}</option>
+                        <option value="title-asc">{tFilms('sortTitleAsc')}</option>
+                        <option value="title-desc">{tFilms('sortTitleDesc')}</option>
                     </select>
                 </label>
             </div>

@@ -2,6 +2,7 @@
 import { Link } from '@/i18n/navigation';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
@@ -34,16 +35,15 @@ export default function EquipeCascadeursProPage() {
   const [films, setFilms] = React.useState<FilmCredit[]>(FILMOGRAPHY_CREDITS);
   const [selectedFilm, setSelectedFilm] = React.useState<FilmCredit | null>(null);
   const { content } = usePageDynamicContent('equipe-cascadeurs-pro');
+  const t = useTranslations('team');
 
   // Overlays EN des coachs (`site_translations`, entité `team`) : la base FR
   // reste la référence, l'anglais se pose par-dessus dès qu'il est disponible.
   const teamOverlays = useEntityOverlays('team');
 
-  const heroBadge = content.hero?.badge || 'COACHS & PROFESSIONNELS DU CINÉMA';
-  const heroTitle = content.hero?.title || "L'ÉQUIPE";
-  const heroSubtitle =
-    content.hero?.subtitle ||
-    "Une faculté d'action unique au monde. Des coordinateurs de cascades renommés, des pionniers des Yamakasi, et des cascadeurs en exercice sur les plus grandes productions hollywoodiennes et françaises qui transmettent chaque jour leur savoir-faire sur le terrain.";
+  const heroBadge = content.hero?.badge || t('badge');
+  const heroTitle = content.hero?.title || t('title');
+  const heroSubtitle = content.hero?.subtitle || t('subtitle');
   const heroBg =
     content.hero?.bg_image ||
     'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg';
@@ -115,7 +115,7 @@ export default function EquipeCascadeursProPage() {
                 {heroBadge}
               </StuntBadge>
               <span className="text-xs font-mono-tech text-zinc-400">
-                CASCADEURS DU CINÉMA D'ACTION INTERNATIONAL
+                {t('performerTag')}
               </span>
             </div>
 
@@ -238,10 +238,10 @@ export default function EquipeCascadeursProPage() {
                             <div className="pt-2">
                               <div className="flex items-center justify-between gap-1 mb-1.5">
                                 <strong className="text-[11px] font-mono-tech text-zinc-400 uppercase block">
-                                  Références &amp; Tournages :
+                                  {t('creditsLabel')}
                                 </strong>
                                 <span className="text-[10px] font-mono-tech text-zinc-500">
-                                  {member.notableCredits.length} crédits
+                                  {member.notableCredits.length} {t('creditsUnit')}
                                 </span>
                               </div>
                               <div className="flex flex-wrap gap-1.5">
@@ -264,7 +264,7 @@ export default function EquipeCascadeursProPage() {
                                       <span className="truncate max-w-[130px]">{parsed.title}</span>
                                       {parsed.role && (
                                         <span className="text-[9px] opacity-75 font-normal shrink-0">
-                                          [{isCoord ? 'Coordination' : isDoublure ? 'Doublure' : 'Cascade'}]
+                                          [{isCoord ? t('roleCoordination') : isDoublure ? t('roleDouble') : t('roleStunt')}]
                                         </span>
                                       )}
                                     </span>
@@ -272,7 +272,7 @@ export default function EquipeCascadeursProPage() {
                                 })}
                                 {member.notableCredits.length > 4 && (
                                   <span className="text-[10px] font-mono-tech text-[#FFE500] self-center px-1 font-semibold">
-                                    +{member.notableCredits.length - 4} autres
+                                    {t('othersLabel', { count: member.notableCredits.length - 4 })}
                                   </span>
                                 )}
                               </div>
@@ -285,7 +285,7 @@ export default function EquipeCascadeursProPage() {
                               <div className="flex items-center justify-between gap-1 mb-2">
                                 <span className="text-[11px] font-mono-tech text-[#FFE500] uppercase font-bold flex items-center gap-1.5">
                                   <Film className="w-3.5 h-3.5 text-[#FFE500]" />
-                                  Projets & Tournages Cinéma ({coachFilms.length})
+                                  {t('projectsLabel')} ({coachFilms.length})
                                 </span>
                               </div>
                               <div className="grid grid-cols-3 gap-2">
@@ -295,7 +295,7 @@ export default function EquipeCascadeursProPage() {
                                     type="button"
                                     onClick={() => setSelectedFilm(f)}
                                     className="group/thumb relative aspect-[2/3] bg-black border border-zinc-800 hover:border-[#FFE500] overflow-hidden rounded-xs cursor-pointer transition-all text-left"
-                                    title={`${f.title} (${f.year}) - Cliquez pour ouvrir la fiche de production`}
+                                    title={t('filmCardTitle', { title: f.title, year: f.year })}
                                   >
                                     {f.image ? (
                                       <Image
@@ -328,7 +328,7 @@ export default function EquipeCascadeursProPage() {
                           href={`/equipe-cascadeurs-pro/${member.id}`}
                           className="w-full sm:w-auto flex-grow py-2 px-3 bg-[#14141e] hover:bg-[#FFE500] hover:text-black border border-zinc-800 hover:border-[#FFE500] text-xs font-mono-tech uppercase font-bold text-center transition-all flex items-center justify-center gap-2 group/btn cursor-pointer"
                         >
-                          <span>Voir la fiche complète</span>
+                          <span>{t('ctaDetail')}</span>
                           <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1" />
                         </Link>
 

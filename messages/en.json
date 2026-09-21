@@ -192,6 +192,22 @@
             "etablissement": "Accommodation & Nutrition"
         }
     },
+    "team": {
+        "badge": "COACHES & FILM PROFESSIONALS",
+        "title": "THE TEAM",
+        "subtitle": "A world-class action faculty: renowned stunt coordinators, Yamakasi pioneers and stunt performers working on the biggest international and French productions, passing on their craft on the ground every day.",
+        "performerTag": "STUNT PERFORMERS FOR INTERNATIONAL ACTION CINEMA",
+        "creditsLabel": "References & Productions:",
+        "creditsUnit": "credits",
+        "othersLabel": "+{count} more",
+        "projectsLabel": "Film Projects & Productions",
+        "ctaDetail": "View full profile",
+        "showcaseTag": "INTERNATIONAL ACTION CINEMA",
+        "roleCoordination": "Coordination",
+        "roleDouble": "Stunt double",
+        "roleStunt": "Stunt",
+        "filmCardTitle": "{title} ({year}) — open the production file"
+    },
     "home": {
         "hero": {
             "badge": "International Stunt Performer Training Centre",
