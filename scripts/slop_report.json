@@ -1,8 +1,89 @@
 {
-  "generatedAt": "2026-09-21T00:28:18.115Z",
-  "scannedFiles": 412,
-  "total": 0,
-  "byGroup": {},
-  "byRule": [],
-  "findings": []
+  "generatedAt": "2026-09-21T12:03:06.923Z",
+  "scannedFiles": 443,
+  "total": 8,
+  "byGroup": {
+    "badge": 6,
+    "superlatif": 2
+  },
+  "byRule": [
+    {
+      "id": "badge-hollywood",
+      "group": "badge",
+      "count": 2
+    },
+    {
+      "id": "badge-worldwide",
+      "group": "badge",
+      "count": 2
+    },
+    {
+      "id": "badge-elite",
+      "group": "badge",
+      "count": 2
+    },
+    {
+      "id": "superl-légendaire",
+      "group": "superlatif",
+      "count": 2
+    }
+  ],
+  "findings": [
+    {
+      "file": "scripts\\inspect_film_descriptions.mjs",
+      "line": 38,
+      "rule": "badge-hollywood",
+      "group": "badge",
+      "text": "const SUSPECT = /(équipe|equipe)\\s*(de\\s*)?cascadeur|CUC\\b|campus\\s*univers|notre\\s*équipe|nos\\s*cascadeurs|worldwide|hollywood|élite|elite|légendaire|legendaire|gun-?fu|référence\\s*suprême|reference\\"
+    },
+    {
+      "file": "scripts\\inspect_film_descriptions.mjs",
+      "line": 38,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "const SUSPECT = /(équipe|equipe)\\s*(de\\s*)?cascadeur|CUC\\b|campus\\s*univers|notre\\s*équipe|nos\\s*cascadeurs|worldwide|hollywood|élite|elite|légendaire|legendaire|gun-?fu|référence\\s*suprême|reference\\"
+    },
+    {
+      "file": "scripts\\inspect_film_descriptions.mjs",
+      "line": 38,
+      "rule": "badge-elite",
+      "group": "badge",
+      "text": "const SUSPECT = /(équipe|equipe)\\s*(de\\s*)?cascadeur|CUC\\b|campus\\s*univers|notre\\s*équipe|nos\\s*cascadeurs|worldwide|hollywood|élite|elite|légendaire|legendaire|gun-?fu|référence\\s*suprême|reference\\"
+    },
+    {
+      "file": "scripts\\inspect_film_descriptions.mjs",
+      "line": 38,
+      "rule": "superl-légendaire",
+      "group": "superlatif",
+      "text": "const SUSPECT = /(équipe|equipe)\\s*(de\\s*)?cascadeur|CUC\\b|campus\\s*univers|notre\\s*équipe|nos\\s*cascadeurs|worldwide|hollywood|élite|elite|légendaire|legendaire|gun-?fu|référence\\s*suprême|reference\\"
+    },
+    {
+      "file": "scripts\\inspect_film_tags.mjs",
+      "line": 41,
+      "rule": "badge-hollywood",
+      "group": "badge",
+      "text": "const SUSPECT = /CUC|campus|équipe|equipe|cascadeur|worldwide|hollywood|élite|elite|légendaire|legendaire|pro\\s*staff|référence/i;"
+    },
+    {
+      "file": "scripts\\inspect_film_tags.mjs",
+      "line": 41,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "const SUSPECT = /CUC|campus|équipe|equipe|cascadeur|worldwide|hollywood|élite|elite|légendaire|legendaire|pro\\s*staff|référence/i;"
+    },
+    {
+      "file": "scripts\\inspect_film_tags.mjs",
+      "line": 41,
+      "rule": "badge-elite",
+      "group": "badge",
+      "text": "const SUSPECT = /CUC|campus|équipe|equipe|cascadeur|worldwide|hollywood|élite|elite|légendaire|legendaire|pro\\s*staff|référence/i;"
+    },
+    {
+      "file": "scripts\\inspect_film_tags.mjs",
+      "line": 41,
+      "rule": "superl-légendaire",
+      "group": "superlatif",
+      "text": "const SUSPECT = /CUC|campus|équipe|equipe|cascadeur|worldwide|hollywood|élite|elite|légendaire|legendaire|pro\\s*staff|référence/i;"
+    }
+  ]
 }

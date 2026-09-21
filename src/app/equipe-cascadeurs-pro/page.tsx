@@ -60,7 +60,7 @@ export default function EquipeCascadeursProPage() {
   const heroTitle = content.hero?.title || "L'ÉQUIPE";
   const heroSubtitle =
     content.hero?.subtitle ||
-    "Une faculté d'action unique au monde. Des coordinateurs de cascades renommés, des pionniers des Yamakasi, et des cascadeurs en exercice sur les plus grandes productions hollywoodiennes et françaises qui transmettent chaque jour leur savoir-faire sur le terrain.";
+    "Coordinateurs de cascades, pionniers des Yamakasi et cascadeurs en exercice sur des productions françaises et internationales.";
   const heroBg =
     content.hero?.bg_image ||
     'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg';

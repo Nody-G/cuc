@@ -23,7 +23,7 @@ export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
   const title = virtualTourData?.title || 'VISITE VIRTUELLE EN IMMERSION 360°';
   const subtitle =
     virtualTourData?.subtitle ||
-    "Découvrez nos 6 hectares comme si vous y étiez ! Arpentez les plateaux de tournage, la fosse olympique de mousse, les dojos de combat chorégraphié, les hangars de cascades mécaniques et le manège équestre grâce à notre visite virtuelle interactive.";
+    "Visite interactive des 6 hectares : plateaux de tournage, fosse de mousse, dojos, hangars de cascades mécaniques et manège équestre.";
   const ctaText = virtualTourData?.cta_text || 'Ouvrir la Visite Virtuelle 360°';
   const ctaLink = virtualTourData?.cta_link || '/visite-virtuelle';
 

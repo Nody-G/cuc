@@ -35,7 +35,7 @@ export const STAGES_LIST: StageData[] = [
     subBadge: 'ACCESSIBLE DÈS 16 ANS',
     highlightText: 'PENSION COMPLÈTE INCLUSE',
     title: 'FORMULE WEEK-END IMMERSION CUC',
-    description: "Vivez la vie d'un cascadeur de cinéma pendant deux jours complets. Dormez sur le campus, partagez les repas avec l'équipe et sautez sur l'airbag géant en toute sécurité. Idéal pour découvrir ses capacités physiques et faire le plein de sensations fortes.",
+    description: "Deux jours en internat sur le campus : chutes sur airbag géant, combats scéniques et découverte du métier, repas et hébergement compris.",
     details: [
       { icon: 'clock', text: 'Vendredi 17h au Dimanche 17h30 (16h de pratique)' },
       { icon: 'bed', text: 'Hébergement sur place (chambres campus)' },
@@ -60,7 +60,7 @@ export const STAGES_LIST: StageData[] = [
     },
     subBadge: 'COMÉDIENS • DANSEURS • CIRCASSIENS',
     title: 'STAGE AFDAS — ARTISTES INTERPRÈTES',
-    description: "Donnez à vos rôles une crédibilité totale dans les scènes d'action. Formation de 70 heures conventionnée AFDAS dispensée au sein de notre studio parisien à Gennevilliers. Apprenez à encaisser les impacts, manipuler des armes à blanc, chuter dans les escaliers et tournez votre bande-démo d'action.",
+    description: "70 heures conventionnées AFDAS à Gennevilliers : encaisser les impacts, manipuler des armes à blanc, chuter en escalier et tourner une bande-démo d'action.",
     details: [
       { icon: 'clock', text: '2 Semaines (10 jours ouvrés / 70 heures)' },
       { icon: 'map', text: 'Pôle CUC Île-de-France, 92230 Gennevilliers' },

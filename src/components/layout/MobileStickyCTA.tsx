@@ -60,12 +60,16 @@ export const MobileStickyCTA: React.FC = () => {
             <span className="font-bold">{callLabel}</span>
           </a>
 
-          {/* Candidater / Réserver Main CTA */}
-          <Link href={ctaUrl} className="flex-grow">
-            <button className="w-full flex items-center justify-center gap-2 px-3.5 py-2 bg-[#FFE500] text-black font-display font-bold uppercase text-xs tracking-wider shadow-[0_0_15px_rgba(255,229,0,0.3)] active:scale-98">
-              <span>{ctaLabel}</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-            </button>
+          {/* Candidater / Réserver : le lien porte lui-même l'apparence du
+              bouton. Un `<button>` imbriqué dans un `<Link>` superposait deux
+              éléments interactifs, ce qui brouille le clic et la navigation au
+              clavier pour les lecteurs d'écran. */}
+          <Link
+            href={ctaUrl}
+            className="flex-grow flex items-center justify-center gap-2 px-3.5 py-2 bg-[#FFE500] text-black font-display font-bold uppercase text-xs tracking-wider shadow-[0_0_15px_rgba(255,229,0,0.3)] active:scale-98"
+          >
+            <span>{ctaLabel}</span>
+            <ChevronRight className="w-3.5 h-3.5" />
           </Link>
         </motion.div>
       )}

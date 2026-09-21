@@ -54,7 +54,7 @@ export default function TeamBuildingCascadesPage() {
   const heroTitle = content.hero?.title || "TEAM BUILDING D'EXCEPTION";
   const heroSubtitle =
     content.hero?.subtitle ||
-    "Offrez à vos équipes une immersion inoubliable dans l'univers du cinéma d'action et des cascadeurs professionnels. Ateliers modulables de 10 à 300 personnes sur notre campus ou sur le lieu de votre séminaire.";
+    "Ateliers de cascade et de cinéma d'action, de 10 à 300 personnes, sur le campus ou sur votre lieu de séminaire.";
   const heroBg =
     content.hero?.bg_image ||
     'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg';
@@ -158,7 +158,7 @@ export default function TeamBuildingCascadesPage() {
             </h2>
             <p className="text-sm font-tech text-zinc-300 leading-relaxed">
               {content.sections_data?.overview?.description ||
-                "Nous vous proposons des animations et initiations autour du métier de cascadeur, du cinéma et de ses coulisses. Team building, séminaires, collectivités... Notre équipe de professionnels vous propose des ateliers au choix avec du matériel spécifique et une sécurité sans compromis."}
+                "Ateliers au choix, encadrés par des cascadeurs professionnels, avec le matériel et l'encadrement de sécurité fournis."}
             </p>
           </div>
         </section>

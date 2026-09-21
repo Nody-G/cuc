@@ -6,7 +6,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
     code: '01',
     name: 'CUC Tower (Tour de Saut 21m)',
     size: 'Hauteur : 21 mètres',
-    description: 'Structure emblématique inaugurée en octobre 2024 au Cateau-Cambrésis. Haute de plus de 20 mètres avec plusieurs plateformes de saut sécurisées, escalier extérieur galvanisé et coussin airbag géant pour chutes libres de 6 à 21 mètres, défenestrations et descentes en rappel de cinéma.',
+    description: 'Tour de saut inaugurée en octobre 2024 : plateformes étagées de 6 à 21 mètres, escalier extérieur galvanisé et réception sur airbag géant.',
     features: [
       'Plateformes de saut étagées (6m, 9m, 12m, 15m, 21m)',
       'Escalier industriel galvanisé à volées multiples',
@@ -111,7 +111,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
     id: 'qg-staff-hebergement',
     code: '08',
     name: 'Hébergement & Base de Vie (90 Places)',
-    size: 'Domaine de 6 hectares',
+    size: '90 places',
     description: 'Un campus clos permettant d\'héberger et de restaurer jusqu\'à 90 stagiaires et formateurs sur place pour une immersion complète.',
     features: [
       'Chambres avec sanitaires et connexion internet',

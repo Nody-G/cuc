@@ -308,7 +308,6 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({ showToast }) => {
                 icon={Activity}
                 eyebrow="Traçabilité des Actions"
                 title="Journal d’Audit"
-                description="Historique horodaté des modifications effectuées dans le Cockpit : création, édition, publication, suppression et restauration."
                 actions={
                     <div className="flex items-center gap-2">
                         <CockpitButton

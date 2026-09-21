@@ -28,7 +28,7 @@ export default function StuntWorkshopCucPage() {
   const heroTitle = content.hero?.title || 'INTERNATIONAL STUNT WORKSHOP';
   const heroSubtitle =
     content.hero?.subtitle ||
-    "Join performers and stuntmen from across the globe (USA, UK, Europe, Australia, Asia) at the world's premier stunt training facility. 2 weeks of full immersion, 10 physical disciplines, full board on our 6-hectare private estate in France.";
+    "Two weeks of full immersion with performers from the USA, UK, Europe, Australia and Asia. Ten physical disciplines, full board, on a 6-hectare private estate in France.";
   const heroBg =
     content.hero?.bg_image ||
     'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg';

@@ -1,0 +1,1609 @@
+{
+  "longTexts": [
+    {
+      "file": "src/app/admin/components/BackupRestoreModal.tsx",
+      "line": 101,
+      "zone": "cockpit",
+      "length": 114,
+      "text": "ATTENTION : La restauration écrasera les données actuelles par celles de la sauvegarde. Souhaitez-vous continuer ?"
+    },
+    {
+      "file": "src/app/admin/components/MediaLibraryView.tsx",
+      "line": 189,
+      "zone": "cockpit",
+      "length": 111,
+      "text": "Glissez-déposez ou cliquez sur \"Ajouter des images\" pour téléverser vos premières photos dans Supabase Storage."
+    },
+    {
+      "file": "src/app/admin/components/PageRevisionsPanel.tsx",
+      "line": 143,
+      "zone": "cockpit",
+      "length": 119,
+      "text": "Restaurer la révision n°${revision.revision_number} ? L'état actuel sera sauvegardé automatiquement avant l'écrasement."
+    },
+    {
+      "file": "src/app/admin/components/PageRevisionsPanel.tsx",
+      "line": 216,
+      "zone": "cockpit",
+      "length": 137,
+      "text": "Un instantané est créé automatiquement avant chaque modification de la page. Publiez une première modification pour amorcer l'historique."
+    },
+    {
+      "file": "src/app/admin/components/PagesEditorView.tsx",
+      "line": 170,
+      "zone": "cockpit",
+      "length": 170,
+      "text": "Êtes-vous sûr de vouloir rétablir les textes et la disposition d'origine pour \"${formData.title}\" ? Vos modifications personnalisées sur cette page seront réinitialisées."
+    },
+    {
+      "file": "src/app/animations-airbag-parkour/layout.tsx",
+      "line": 5,
+      "zone": "vitrine",
+      "length": 122,
+      "text": "Dispositif d'animation mobile grand public avec saut dans airbag géant et parcours parkour encadré par des professionnels."
+    },
+    {
+      "file": "src/app/animations-airbag-parkour/layout.tsx",
+      "line": 11,
+      "zone": "vitrine",
+      "length": 122,
+      "text": "Dispositif d'animation mobile grand public avec saut dans airbag géant et parcours parkour encadré par des professionnels."
+    },
+    {
+      "file": "src/app/animations-airbag-parkour/page.tsx",
+      "line": 25,
+      "zone": "vitrine",
+      "length": 203,
+      "text": "Faites vivre au grand public les sensations uniques de la chute libre sur coussin d'air géant de cinéma. Une animation spectaculaire encadrée par les cascadeurs professionnels du Campus Univers Cascades."
+    },
+    {
+      "file": "src/app/contact-cuc/layout.tsx",
+      "line": 5,
+      "zone": "vitrine",
+      "length": 166,
+      "text": "Productions cinéma, action design, formations professionnelles de cascadeurs, stages et événements : échangez directement avec les équipes du Campus Univers Cascades."
+    },
+    {
+      "file": "src/app/contact-cuc/layout.tsx",
+      "line": 11,
+      "zone": "vitrine",
+      "length": 166,
+      "text": "Productions cinéma, action design, formations professionnelles de cascadeurs, stages et événements : échangez directement avec les équipes du Campus Univers Cascades."
+    },
+    {
+      "file": "src/app/cuc-events-agence/layout.tsx",
+      "line": 5,
+      "zone": "vitrine",
+      "length": 117,
+      "text": "Prestations événementielles spectaculaires, shows Yamakasi, animation Airbag Géant et team building pour entreprises."
+    },
+    {
+      "file": "src/app/cuc-events-agence/layout.tsx",
+      "line": 11,
+      "zone": "vitrine",
+      "length": 117,
+      "text": "Prestations événementielles spectaculaires, shows Yamakasi, animation Airbag Géant et team building pour entreprises."
+    },
+    {
+      "file": "src/app/cuc-team-cascadeur/layout.tsx",
+      "line": 5,
+      "zone": "vitrine",
+      "length": 130,
+      "text": "Les affiches et longs-métrages doublés et coordonnés par le Campus Univers Cascades et Lucas Dollfus pour le cinéma international."
+    },
+    {
+      "file": "src/app/cuc-team-cascadeur/layout.tsx",
+      "line": 11,
+      "zone": "vitrine",
+      "length": 130,
+      "text": "Les affiches et longs-métrages doublés et coordonnés par le Campus Univers Cascades et Lucas Dollfus pour le cinéma international."
+    },
+    {
+      "file": "src/app/equipe-cascadeurs-pro/layout.tsx",
+      "line": 5,
+      "zone": "vitrine",
+      "length": 136,
+      "text": "Découvrez les coordinateurs de cascades, action designers, membres des Yamakasi et formateurs professionnels du Campus Univers Cascades."
+    },
+    {
+      "file": "src/app/equipe-cascadeurs-pro/layout.tsx",
+      "line": 11,
+      "zone": "vitrine",
+      "length": 136,
+      "text": "Découvrez les coordinateurs de cascades, action designers, membres des Yamakasi et formateurs professionnels du Campus Univers Cascades."
+    },
+    {
+      "file": "src/app/equipe-cascadeurs-pro/page.tsx",
+      "line": 63,
+      "zone": "vitrine",
+      "length": 126,
+      "text": "Coordinateurs de cascades, pionniers des Yamakasi et cascadeurs en exercice sur des productions françaises et internationales."
+    },
+    {
+      "file": "src/app/equipe-cascadeurs-pro/[slug]/page.tsx",
+      "line": 29,
+      "zone": "vitrine",
+      "length": 133,
+      "text": "${member.bio.slice(0, 160)}... Retrouvez la fiche complète, filmographie et spécialités de ${member.name} au Campus Univers Cascades."
+    },
+    {
+      "file": "src/app/formation-de-cascadeur/layout.tsx",
+      "line": 5,
+      "zone": "vitrine",
+      "length": 160,
+      "text": "Formation professionnelle en 2 ans et Stage Découverte 12 jours. Combat chorégraphié, chutes, torche humaine, parkour et préparation cinéma au Cateau-Cambrésis."
+    },
+    {
+      "file": "src/app/formation-de-cascadeur/layout.tsx",
+      "line": 11,
+      "zone": "vitrine",
+      "length": 160,
+      "text": "Formation professionnelle en 2 ans et Stage Découverte 12 jours. Combat chorégraphié, chutes, torche humaine, parkour et préparation cinéma au Cateau-Cambrésis."
+    },
+    {
+      "file": "src/app/formation-de-cascadeur/page.tsx",
+      "line": 38,
+      "zone": "vitrine",
+      "length": 157,
+      "text": "Cursus professionnel en 2 ans et Formule Découverte 12 jours. Combat chorégraphié, chutes, torche humaine, parkour et préparation cinéma au Cateau-Cambrésis."
+    },
+    {
+      "file": "src/app/layout.tsx",
+      "line": 75,
+      "zone": "vitrine",
+      "length": 152,
+      "text": "La plus grande école de cascadeurs professionnels au monde. 6 hectares d'infrastructures, tour d'impact 21m, certification Qualiopi et formations AFDAS."
+    },
+    {
+      "file": "src/app/partenaires/layout.tsx",
+      "line": 5,
+      "zone": "vitrine",
+      "length": 114,
+      "text": "Les marques, fabricants et institutions qui accompagnent le Campus Univers Cascades (Nike, RXR, C17, Kiloutou...)."
+    },
+    {
+      "file": "src/app/partenaires/layout.tsx",
+      "line": 11,
+      "zone": "vitrine",
+      "length": 114,
+      "text": "Les marques, fabricants et institutions qui accompagnent le Campus Univers Cascades (Nike, RXR, C17, Kiloutou...)."
+    },
+    {
+      "file": "src/app/spectacles-cascadeurs-yamakasi/layout.tsx",
+      "line": 5,
+      "zone": "vitrine",
+      "length": 115,
+      "text": "Création et coordination de spectacles vivants d'action, parkour et cascades urbaines pour festivals et événements."
+    },
+    {
+      "file": "src/app/spectacles-cascadeurs-yamakasi/layout.tsx",
+      "line": 11,
+      "zone": "vitrine",
+      "length": 115,
+      "text": "Création et coordination de spectacles vivants d'action, parkour et cascades urbaines pour festivals et événements."
+    },
+    {
+      "file": "src/app/spectacles-cascadeurs-yamakasi/page.tsx",
+      "line": 25,
+      "zone": "vitrine",
+      "length": 224,
+      "text": "Revivez les séquences d'action mythiques de vos films préférés avec les cascadeurs professionnels et doublures cinéma du Campus Univers Cascades. Combats, chutes, Parkour, humour et effets scéniques pour tous vos événeme…"
+    },
+    {
+      "file": "src/app/stages-cascades-parkour-2/layout.tsx",
+      "line": 5,
+      "zone": "vitrine",
+      "length": 129,
+      "text": "Vivez l'expérience d'un cascadeur le temps d'un week-end à 250€ en pension complète ou en stage AFDAS au Campus Univers Cascades."
+    },
+    {
+      "file": "src/app/stages-cascades-parkour-2/layout.tsx",
+      "line": 11,
+      "zone": "vitrine",
+      "length": 129,
+      "text": "Vivez l'expérience d'un cascadeur le temps d'un week-end à 250€ en pension complète ou en stage AFDAS au Campus Univers Cascades."
+    },
+    {
+      "file": "src/app/stunt-workshop-cuc/page.tsx",
+      "line": 31,
+      "zone": "vitrine",
+      "length": 168,
+      "text": "Two weeks of full immersion with performers from the USA, UK, Europe, Australia and Asia. Ten physical disciplines, full board, on a 6-hectare private estate in France."
+    },
+    {
+      "file": "src/app/team-building-cascades/page.tsx",
+      "line": 19,
+      "zone": "vitrine",
+      "length": 187,
+      "text": "En intérieur comme en extérieur, faites goûter à vos collaborateurs les sensations de la chute libre sur coussin d'air géant de cinéma. Dépassement de soi et cohésion collective garantie."
+    },
+    {
+      "file": "src/app/team-building-cascades/page.tsx",
+      "line": 25,
+      "zone": "vitrine",
+      "length": 123,
+      "text": "Initiation aux techniques de combats de films : esquives, feintes, coups scéniques et synchronisation avec les axes caméra."
+    },
+    {
+      "file": "src/app/team-building-cascades/page.tsx",
+      "line": 31,
+      "zone": "vitrine",
+      "length": 155,
+      "text": "Initiation encadrée par des cascadeurs professionnels et spécialistes du déplacement urbain : franchissements d'obstacles, sauts de précision et motricité."
+    },
+    {
+      "file": "src/app/team-building-cascades/page.tsx",
+      "line": 37,
+      "zone": "vitrine",
+      "length": 149,
+      "text": "Découvrez les secrets des maquilleurs de cinéma : création de blessures ultra-réalistes, fausses cicatrices, impacts de balles et prothèses d'action."
+    },
+    {
+      "file": "src/app/team-building-cascades/page.tsx",
+      "line": 43,
+      "zone": "vitrine",
+      "length": 141,
+      "text": "Mettez-vous dans la peau d'un comédien de doublage ! Enregistrez en équipe les répliques et bruitages de séquences cultes du cinéma d'action."
+    },
+    {
+      "file": "src/app/team-building-cascades/page.tsx",
+      "line": 57,
+      "zone": "vitrine",
+      "length": 111,
+      "text": "Ateliers de cascade et de cinéma d'action, de 10 à 300 personnes, sur le campus ou sur votre lieu de séminaire."
+    },
+    {
+      "file": "src/app/team-building-cascades/page.tsx",
+      "line": 161,
+      "zone": "vitrine",
+      "length": 117,
+      "text": "Ateliers au choix, encadrés par des cascadeurs professionnels, avec le matériel et l'encadrement de sécurité fournis."
+    },
+    {
+      "file": "src/app/videos-cascadeur/page.tsx",
+      "line": 37,
+      "zone": "vitrine",
+      "length": 167,
+      "text": "Découvrez les coulisses de l'entraînement des cascadeurs avec les reportages diffusés sur TF1 et France 2, ainsi que les vidéos officielles du Campus Univers Cascades."
+    },
+    {
+      "file": "src/app/videos-cascadeur/page.tsx",
+      "line": 191,
+      "zone": "vitrine",
+      "length": 185,
+      "text": "Immersion des caméras du journal télévisé de TF1 au Campus Univers Cascades : entraînements aux chutes de hauteur, cascades en feu et formation des futures doublures du cinéma d'action."
+    },
+    {
+      "file": "src/app/videos-cascadeur/page.tsx",
+      "line": 192,
+      "zone": "vitrine",
+      "length": 168,
+      "text": "Grand format de 20h30 Le Mag sur France 2 présenté par Laurent Delahousse. Les coulisses de la formation professionnelle au Cateau-Cambrésis et le quotidien des élèves."
+    },
+    {
+      "file": "src/app/visite-guidee/layout.tsx",
+      "line": 5,
+      "zone": "vitrine",
+      "length": 127,
+      "text": "Détail complet des 6 hectares du CUC : dojos, fosse à mousse, tour de 21 mètres, manège équestre et hébergement des stagiaires."
+    },
+    {
+      "file": "src/app/visite-guidee/layout.tsx",
+      "line": 11,
+      "zone": "vitrine",
+      "length": 127,
+      "text": "Détail complet des 6 hectares du CUC : dojos, fosse à mousse, tour de 21 mètres, manège équestre et hébergement des stagiaires."
+    },
+    {
+      "file": "src/app/visite-virtuelle/layout.tsx",
+      "line": 5,
+      "zone": "vitrine",
+      "length": 126,
+      "text": "Explorez le Zoé Bell Hall, la CUC Tower 21m, la fosse olympique et les dojos de combat en immersion 360° interactive HD Media."
+    },
+    {
+      "file": "src/app/visite-virtuelle/layout.tsx",
+      "line": 11,
+      "zone": "vitrine",
+      "length": 126,
+      "text": "Explorez le Zoé Bell Hall, la CUC Tower 21m, la fosse olympique et les dojos de combat en immersion 360° interactive HD Media."
+    },
+    {
+      "file": "src/components/3d/CampusPlan3D.tsx",
+      "line": 175,
+      "zone": "vitrine",
+      "length": 174,
+      "text": "écriture retombe sur la clé publique, refusée par RLS. Si tu viens de la renseigner : redémarre le serveur (npm run dev) ou redéploie (Vercel) — les variables ne sont lues qu"
+    },
+    {
+      "file": "src/components/3d/CampusPlan3D.tsx",
+      "line": 175,
+      "zone": "vitrine",
+      "length": 320,
+      "text": "${message} — sonde : lecture OK (${probe.count} installation(s) en base) mais SUPABASE_SERVICE_ROLE_KEY est absente côté serveur. L'écriture retombe sur la clé publique, refusée par RLS. Si tu viens de la renseigner : re…"
+    },
+    {
+      "file": "src/components/3d/CampusPlan3D.tsx",
+      "line": 182,
+      "zone": "vitrine",
+      "length": 277,
+      "text": "${message} — sonde : SUPABASE_SERVICE_ROLE_KEY contient ${nature} (famille « ${probe.serviceRoleFamily} »), qui ne peut pas écrire. Dans Supabase → Project Settings → API keys, copier la clé secrète (service_role ou sb_s…"
+    },
+    {
+      "file": "src/components/3d/CampusPlan3D.tsx",
+      "line": 185,
+      "zone": "vitrine",
+      "length": 154,
+      "text": "${message} — sonde : la clé de service est entourée d'espaces ou de guillemets. Supprime-les dans la variable d'environnement puis redémarre ou redéploie."
+    },
+    {
+      "file": "src/components/3d/CampusPlan3D.tsx",
+      "line": 187,
+      "zone": "vitrine",
+      "length": 182,
+      "text": "${message} — sonde : lecture OK (${probe.count} installation(s) en base), clé de service valide : la lecture passe et l'écriture est refusée (droits ou contrainte sur site_settings)."
+    },
+    {
+      "file": "src/components/3d/CampusPlan3D.tsx",
+      "line": 191,
+      "zone": "vitrine",
+      "length": 115,
+      "text": "${message} — sonde : lecture également en échec (${probe.error}), donc la cause est côté Supabase, pas côté studio."
+    },
+    {
+      "file": "src/components/3d/CampusPlan3D.tsx",
+      "line": 195,
+      "zone": "vitrine",
+      "length": 201,
+      "text": "${message} — sonde : injoignable depuis ce navigateur, donc l'appel d'action serveur lui-même ne passe pas (vérifier que le déploiement est à jour et que l'onglet n'est pas resté sur un ancien bundle)."
+    },
+    {
+      "file": "src/components/3d/CampusPlan3D.tsx",
+      "line": 385,
+      "zone": "vitrine",
+      "length": 254,
+      "text": "SUPABASE_SERVICE_ROLE_KEY absente sur ce serveur : les lectures passent, mais toute écriture sera refusée par les politiques RLS (code 42501). Renseigner la clé de service dans l\\'environnement (Vercel → Settings → Envir…"
+    },
+    {
+      "file": "src/components/sections/contact/ContactHeroSection.tsx",
+      "line": 57,
+      "zone": "vitrine",
+      "length": 171,
+      "text": "Productions cinématographiques, action design, formations professionnelles de cascadeurs, stages ou événements d'entreprise : échangez directement avec les équipes du CUC."
+    },
+    {
+      "file": "src/components/sections/events/EventsHeroSection.tsx",
+      "line": 21,
+      "zone": "vitrine",
+      "length": 220,
+      "text": "Marquez les esprits lors de vos festivals, lancements de marque, parcs à thème ou séminaires d'entreprise grâce à des shows d'action spectaculaires orchestrés par les cascadeurs professionnels du Campus Univers Cascades."
+    },
+    {
+      "file": "src/components/sections/formation/FormationFormulesSection.tsx",
+      "line": 38,
+      "zone": "vitrine",
+      "length": 154,
+      "text": "accès à la formation longue durée est conditionné par la validation du stage découverte. Ce protocole sélectif garantit la sécurité de tous et le niveau d"
+    },
+    {
+      "file": "src/components/sections/formation/FormationFormulesSection.tsx",
+      "line": 38,
+      "zone": "vitrine",
+      "length": 184,
+      "text": "L'accès à la formation longue durée est conditionné par la validation du stage découverte. Ce protocole sélectif garantit la sécurité de tous et le niveau d'excellence de la promotion."
+    },
+    {
+      "file": "src/components/sections/formation/FormationHeroSection.tsx",
+      "line": 76,
+      "zone": "vitrine",
+      "length": 248,
+      "text": "Cursus de formation professionnelle fondé par Lucas Dollfus. Une immersion technique sur le domaine de 6 hectares au Cateau-Cambrésis pour acquérir les compétences, la discipline de plateau et les réflexes de sécurité ex…"
+    },
+    {
+      "file": "src/components/sections/home/HomeAboutSection.tsx",
+      "line": 37,
+      "zone": "vitrine",
+      "length": 230,
+      "text": "Créé en 2008 par Lucas Dollfus, le Campus Univers Cascades (CUC) est un centre de formation professionnelle dédié aux techniques de cascade physique et mécanique, établi sur un domaine privé de 6 hectares au Cateau-Cambr…"
+    },
+    {
+      "file": "src/components/sections/home/HomeAboutSection.tsx",
+      "line": 38,
+      "zone": "vitrine",
+      "length": 138,
+      "text": "« Maîtriser le risque, créer l'inédit, repousser les limites de la vérité physique au service de la vision des plus grands réalisateurs. »"
+    },
+    {
+      "file": "src/components/sections/home/HomeAboutSection.tsx",
+      "line": 50,
+      "zone": "vitrine",
+      "length": 146,
+      "text": "Plateaux techniques complets : fosse de réception, dojos de combat chorégraphié, hangars de cascades mécaniques et manège équestre sur 6 hectares."
+    },
+    {
+      "file": "src/components/sections/home/HomeAboutSection.tsx",
+      "line": 56,
+      "zone": "vitrine",
+      "length": 124,
+      "text": "Encadrement par des régleurs et coordinateurs en activité, maîtres d'armes et spécialistes du combat scénique et du parkour."
+    },
+    {
+      "file": "src/components/sections/home/HomeAboutSection.tsx",
+      "line": 62,
+      "zone": "vitrine",
+      "length": 113,
+      "text": "Des diplômés actifs sur les longs-métrages, séries télévisées, spectacles vivants et productions internationales."
+    },
+    {
+      "file": "src/components/sections/home/HomeQualiopiSection.tsx",
+      "line": 41,
+      "zone": "vitrine",
+      "length": 144,
+      "text": "Certification délivrée au titre des ACTIONS DE FORMATION. Nos formations sont éligibles aux financements professionnels (AFDAS, France Travail)."
+    },
+    {
+      "file": "src/components/sections/home/HomeSocialSection.tsx",
+      "line": 41,
+      "zone": "vitrine",
+      "length": 138,
+      "text": "Cascades coordonnées et doublées par la CUC Stunt Team pour le long-métrage de Roxine Helberg avec Fadily Camara, Zoé Marchal, Eva Huault."
+    },
+    {
+      "file": "src/components/sections/home/HomeSocialSection.tsx",
+      "line": 50,
+      "zone": "vitrine",
+      "length": 111,
+      "text": "Coordination chirurgicale des frappes et esquives sur tatamis d'impact avec l'équipe de chorégraphes du campus."
+    },
+    {
+      "file": "src/components/sections/home/HomeTournagesSection.tsx",
+      "line": 85,
+      "zone": "vitrine",
+      "length": 245,
+      "text": "Partenaire des productions de cinéma, des séries et des diffuseurs, le Campus Univers Cascades met à disposition son expertise en action design, direction de combats et sécurité sur plateau, avec plus de 570 productions …"
+    },
+    {
+      "file": "src/components/sections/home/HomeVirtualTourSection.tsx",
+      "line": 26,
+      "zone": "vitrine",
+      "length": 132,
+      "text": "Visite interactive des 6 hectares : plateaux de tournage, fosse de mousse, dojos, hangars de cascades mécaniques et manège équestre."
+    },
+    {
+      "file": "src/components/sections/stages/stages.data.ts",
+      "line": 38,
+      "zone": "vitrine",
+      "length": 136,
+      "text": "Deux jours en internat sur le campus : chutes sur airbag géant, combats scéniques et découverte du métier, repas et hébergement compris."
+    },
+    {
+      "file": "src/components/sections/stages/stages.data.ts",
+      "line": 63,
+      "zone": "vitrine",
+      "length": 155,
+      "text": "70 heures conventionnées AFDAS à Gennevilliers : encaisser les impacts, manipuler des armes à blanc, chuter en escalier et tourner une bande-démo d'action."
+    },
+    {
+      "file": "src/components/sections/stages/stages.data.ts",
+      "line": 84,
+      "zone": "vitrine",
+      "length": 176,
+      "text": "Une semaine d'entraînement estival au CUC : Parkour, sauts sur airbag, acrobaties sur fosse à cubes et combats de cinéma. Formule internat avec hébergement et pension complète."
+    },
+    {
+      "file": "src/components/sections/stages/stages.data.ts",
+      "line": 109,
+      "zone": "vitrine",
+      "length": 229,
+      "text": "Session de perfectionnement technique organisée au sein des studios de tournage à Provence Studios. Câblage multi-axes, catapultes pneumatiques (ratchets), torches humaines et protocoles de sécurité pour tournages profes…"
+    },
+    {
+      "file": "src/components/sections/stages/StagesHeroSection.tsx",
+      "line": 59,
+      "zone": "vitrine",
+      "length": 239,
+      "text": "Pour vivre l'expérience cascadeur le temps d'un week-end en immersion totale à 250€, profiter d'une prise en charge intégrale AFDAS en tant qu'artiste interprète, ou rejoindre notre grand Summer Camp estival sur 6 hectar…"
+    },
+    {
+      "file": "src/components/sections/team/TeamHeroSection.tsx",
+      "line": 19,
+      "zone": "vitrine",
+      "length": 188,
+      "text": "Le Campus Univers Cascades et la CUC Stunt Team accompagnent les productions cinématographiques et audiovisuelles, de la conception des chorégraphies d'action jusqu'au tournage en plateau."
+    },
+    {
+      "file": "src/components/ui/campus-map/campusMap.data.ts",
+      "line": 47,
+      "zone": "vitrine",
+      "length": 147,
+      "text": "Inaugurée fin 2024, c'est la plus haute tour de saut d'entraînement d'Europe. Paliers à 5m, 8m, 12m, 16m et 21m pour sauts sur matelas d'air géant."
+    },
+    {
+      "file": "src/components/ui/campus-map/campusMap.data.ts",
+      "line": 60,
+      "zone": "vitrine",
+      "length": 132,
+      "text": "Espace couvert dédié aux chorégraphies martiales, combats cinématographiques, projections et acrobaties au sol avec sol amortissant."
+    },
+    {
+      "file": "src/components/ui/campus-map/campusMap.data.ts",
+      "line": 73,
+      "zone": "vitrine",
+      "length": 116,
+      "text": "Zone extérieure de réception sécurisée pour chutes de hauteur, cascades en torche humaine et éjections de véhicules."
+    },
+    {
+      "file": "src/components/ui/campus-map/campusMap.data.ts",
+      "line": 86,
+      "zone": "vitrine",
+      "length": 132,
+      "text": "Portiques et treuils de vol à haute vitesse pour simuler les propulsions explosives, les envolées et les cascades câblées en studio."
+    },
+    {
+      "file": "src/components/ui/campus-map/campusMap.data.ts",
+      "line": 99,
+      "zone": "vitrine",
+      "length": 131,
+      "text": "Chambres collectives, internat, réfectoire pour la pension complète et salles de debriefing vidéo sur le parc arboré de 6 hectares."
+    },
+    {
+      "file": "src/data/campus.ts",
+      "line": 9,
+      "zone": "vitrine",
+      "length": 138,
+      "text": "Tour de saut inaugurée en octobre 2024 : plateformes étagées de 6 à 21 mètres, escalier extérieur galvanisé et réception sur airbag géant."
+    },
+    {
+      "file": "src/data/campus.ts",
+      "line": 25,
+      "zone": "vitrine",
+      "length": 187,
+      "text": "Espace dédié aux acrobaties et aux chutes, baptisé en hommage à Zoé Bell, marraine du Campus. Équipé d\\'une fosse à cubes de mousse de plus de 50 m³ et d\\'un praticable olympique complet."
+    },
+    {
+      "file": "src/data/campus.ts",
+      "line": 40,
+      "zone": "vitrine",
+      "length": 166,
+      "text": "Espace dédié au câblage 3D, aux simulateurs de blasts et aux chutes de mobilier. Les structures permettent d\\'accrocher des poulies de renvoi haute charge et rachets."
+    },
+    {
+      "file": "src/data/campus.ts",
+      "line": 55,
+      "zone": "vitrine",
+      "length": 158,
+      "text": "Dédiés aux combats chorégraphiés, aux arts martiaux scéniques et au maniement des armes blanches et armes de poing à blanc sous la supervision des formateurs."
+    },
+    {
+      "file": "src/data/campus.ts",
+      "line": 70,
+      "zone": "vitrine",
+      "length": 117,
+      "text": "Installation permettant la pratique des cascades équestres, chutes de cheval de cinéma et voltige en selle sous abri."
+    },
+    {
+      "file": "src/data/campus.ts",
+      "line": 85,
+      "zone": "vitrine",
+      "length": 144,
+      "text": "Circuit clos pour les dérapages contrôlés, manœuvres d\\'action en voiture et quad, percussions de cascadeurs équipés et simulations de tonneaux."
+    },
+    {
+      "file": "src/data/campus.ts",
+      "line": 100,
+      "zone": "vitrine",
+      "length": 139,
+      "text": "Grand parc extérieur arboré et sécurisé offrant de multiples perspectives de tournage : poursuites, explosions, décors urbains et naturels."
+    },
+    {
+      "file": "src/data/campus.ts",
+      "line": 115,
+      "zone": "vitrine",
+      "length": 129,
+      "text": "Un campus clos permettant d\\'héberger et de restaurer jusqu\\'à 90 stagiaires et formateurs sur place pour une immersion complète."
+    },
+    {
+      "file": "src/data/campus.ts",
+      "line": 130,
+      "zone": "vitrine",
+      "length": 132,
+      "text": "Terrain multisports extérieur et zone de conditionnement physique en plein air pour le renforcement musculaire et le travail cardio."
+    },
+    {
+      "file": "src/data/disciplines.ts",
+      "line": 15,
+      "zone": "vitrine",
+      "length": 115,
+      "text": "Reproduction martiale millimétrée, gestion des axes caméra, synchronisation des frappes et crédibilité des impacts."
+    },
+    {
+      "file": "src/data/disciplines.ts",
+      "line": 16,
+      "zone": "vitrine",
+      "length": 201,
+      "text": "Le combat scénique ne consiste pas à frapper réellement, mais à restituer la puissance d\\'un affrontement. Répertoires martiaux, distances de sécurité et valorisation du coup selon l\\'axe de la caméra."
+    },
+    {
+      "file": "src/data/disciplines.ts",
+      "line": 27,
+      "zone": "vitrine",
+      "length": 119,
+      "text": "Défenestration, sauts dans le vide de 6 à 21 mètres, maîtrise aérienne et réceptions sécurisées sur airbags et cartons."
+    },
+    {
+      "file": "src/data/disciplines.ts",
+      "line": 28,
+      "zone": "vitrine",
+      "length": 232,
+      "text": "La CUC Tower offre plusieurs plateformes de saut jusqu\\'à 21 mètres. Défenestration, décrochage arrière et vrillé, avec un travail sur les repères dans l\\'espace, la posture jusqu\\'à la réception et les dispositifs d\\'am…"
+    },
+    {
+      "file": "src/data/disciplines.ts",
+      "line": 39,
+      "zone": "vitrine",
+      "length": 112,
+      "text": "Embrasement partiel ou intégral du cascadeur avec gel thermique de protection et tenues ignifugées multicouches."
+    },
+    {
+      "file": "src/data/disciplines.ts",
+      "line": 40,
+      "zone": "vitrine",
+      "length": 180,
+      "text": "Application du gel thermique isolant, combinaisons en fibres d\\'aramide (Nomex), gestion du souffle et coordination de l\\'extinction d\\'urgence avec les techniciens pyrotechniques."
+    },
+    {
+      "file": "src/data/disciplines.ts",
+      "line": 52,
+      "zone": "vitrine",
+      "length": 186,
+      "text": "Câbles aéronautiques, poulies de renvoi et harnais ergonomiques portés sous les vêtements. Le module forme à la propulsion par contrepoids humain ou pneumatique (deadman drop, ratchets)."
+    },
+    {
+      "file": "src/data/disciplines.ts",
+      "line": 63,
+      "zone": "vitrine",
+      "length": 119,
+      "text": "Déplacements synchronisés d\\'unités d\\'intervention, maniement réaliste d\\'armes factices et à blanc, rappel sur paroi."
+    },
+    {
+      "file": "src/data/disciplines.ts",
+      "line": 64,
+      "zone": "vitrine",
+      "length": 184,
+      "text": "Gestuelle des unités d\\'intervention au cinéma : manipulation d\\'armes à blanc, progression coordonnée en couloir et escalier, communication gestuelle et descentes en rappel sur paroi."
+    },
+    {
+      "file": "src/data/disciplines.ts",
+      "line": 76,
+      "zone": "vitrine",
+      "length": 208,
+      "text": "Enseigné avec Malik Diouf, co-fondateur du groupe Yamakasi. Sur un Parkour Park modulable : saut de bras, saut de chat, passe-muraille, réceptions roulées sur sol dur et enchaînements sans rupture de vitesse."
+    },
+    {
+      "file": "src/data/disciplines.ts",
+      "line": 88,
+      "zone": "vitrine",
+      "length": 200,
+      "text": "Absorption des chocs sur les zones amortissantes du corps, pour préserver la tête, les articulations et la colonne vertébrale. Inclut les passages à travers le verre en résine et le mobilier cassable."
+    },
+    {
+      "file": "src/data/disciplines.ts",
+      "line": 100,
+      "zone": "vitrine",
+      "length": 209,
+      "text": "Sécurité des lames, distance d\\'estoc, parades et intentions de frappe. Le travail commence avec des armes de répétition en aluminium et mousse, puis aborde les armes scéniques, d\\'époque comme contemporaines."
+    },
+    {
+      "file": "src/data/disciplines.ts",
+      "line": 112,
+      "zone": "vitrine",
+      "length": 171,
+      "text": "Roulement précis pour contrôler la trajectoire et éviter les traumatismes : contacts amortis sur les marches, gainage corporel et sortie de chute dans l\\'axe de la caméra."
+    },
+    {
+      "file": "src/data/disciplines.ts",
+      "line": 124,
+      "zone": "vitrine",
+      "length": 198,
+      "text": "Fosse à cubes de mousse et trampolines : les élèves développent leur repérage dans l\\'espace avant d\\'adapter leurs figures aux contraintes de tournage (sols durs, costumes, angles de prise de vue)."
+    },
+    {
+      "file": "src/data/navigation.ts",
+      "line": 289,
+      "zone": "vitrine",
+      "length": 173,
+      "text": "Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. 6 hectares d'installations de pointe."
+    },
+    {
+      "file": "src/data/programs.ts",
+      "line": 75,
+      "zone": "vitrine",
+      "length": 134,
+      "text": "12 jours pour éprouver le rythme du métier, sans engagement sur le cursus long. L\\'équipe pédagogique statue ensuite sur l\\'admission."
+    },
+    {
+      "file": "src/data/programs.ts",
+      "line": 156,
+      "zone": "vitrine",
+      "length": 114,
+      "text": "Recevoir des coups, chuter sans danger, manier des armes factices et dialoguer avec les coordinateurs de cascades."
+    },
+    {
+      "file": "src/data/programs.ts",
+      "line": 195,
+      "zone": "vitrine",
+      "length": 123,
+      "text": "Une semaine d\\'été sur le campus : Parkour, Freerun, airbag et combats chorégraphiés, encadrés par les instructeurs du CUC."
+    },
+    {
+      "file": "src/data/programs.ts",
+      "line": 234,
+      "zone": "vitrine",
+      "length": 152,
+      "text": "Perfectionnement en plateau à Provence Studios (Martigues) : câblage complexe, chutes et sécurité pyrotechnique. Réservé aux professionnels en activité."
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 10,
+      "zone": "vitrine",
+      "length": 227,
+      "text": "Fondateur du Campus Univers Cascades en 2008. Lucas Dollfus coordonne les cascades de longs-métrages, séries et événements, en appliquant une méthode d\\'entraînement axée sur la rigueur technique, la sécurité et la polyv…"
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 76,
+      "zone": "vitrine",
+      "length": 273,
+      "text": "Coordinateur de cascades et formateur au CUC avec plus de 30 ans d\\'expérience et plus de 200 productions. Ancien gymnaste de haut niveau et fondateur d\\'Action Cascade et France-Cascade, il conçoit et coordonne des casc…"
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 142,
+      "zone": "vitrine",
+      "length": 252,
+      "text": "Cascadeur professionnel, membre de Cascade Demo Team et Hitz International. Lauréat d\\'un Taurus World Stunt Award pour John Wick 4 et nommé meilleur coordinateur pour The Killer (John Woo). Il est notamment la doublure …"
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 209,
+      "zone": "vitrine",
+      "length": 214,
+      "text": "Membre co-fondateur historique du groupe Yamakasi. Malik Diouf enseigne au CUC le Parkour et le franchissement d\\'obstacles urbains, alliant performance d\\'acteur, coordination d\\'action et rigueur de transmission."
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 275,
+      "zone": "vitrine",
+      "length": 236,
+      "text": "Directeur adjoint du CUC et cascadeur professionnel chevronné. Franck Blanc encadre les cascades de feu (torches humaines), les chutes de hauteur et les systèmes de câblage 3D avec un protocole strict de sécurité thermiq…"
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 340,
+      "zone": "vitrine",
+      "length": 231,
+      "text": "Coordinateur de cascades, chorégraphe de combats et réalisateur 2e équipe. Fondateur d\\'AC Stunts, il intervient sur la conception, le pré-découpage et la chorégraphie d\\'affrontements intenses pour des blockbusters inte…"
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 405,
+      "zone": "vitrine",
+      "length": 226,
+      "text": "Cascadeur, chorégraphe de combats et cofondateur de la Cascade Demo Team (1997). Auteur d\\'un ouvrage de référence sur la cascade physique, il enseigne la rigueur martiale, le timing cinétique et les chutes de haute inte…"
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 477,
+      "zone": "vitrine",
+      "length": 286,
+      "text": "Cascadeur professionnel depuis plus de trente ans, crédité sur plus de 240 productions françaises et internationales. Il enseigne les chutes de hauteur, le maniement d\\'armes et les combats rapprochés, avec un travail ce…"
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 582,
+      "zone": "vitrine",
+      "length": 202,
+      "text": "Cascadeur, régleur de combats et cofondateur de la Cascade Demo Team (1997). Spécialiste reconnu du maniement des armes blanches et de l\\'escrime scénique pour le cinéma d\\'action historique et moderne."
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 646,
+      "zone": "vitrine",
+      "length": 219,
+      "text": "Cascadeur, freerunner professionnel et champion de France de Speed Running (2013). Niels Dalery enseigne au CUC la maîtrise des acrobaties au sol, des rotations aériennes et du freerunning appliqués aux cascades cinéma."
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 659,
+      "zone": "vitrine",
+      "length": 133,
+      "text": "Formateur au CUC et cascadeur professionnel en activité sur des tournages de longs-métrages, séries télévisées et concepts d\\'action."
+    },
+    {
+      "file": "src/data/team.ts",
+      "line": 722,
+      "zone": "vitrine",
+      "length": 190,
+      "text": "Formateur au CUC et cascadeur professionnel diplômé BPJEPS AGA. Il intervient sur les cascades physiques, acrobaties et déplacements pour des productions télévisuelles et cinématographiques."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 457,
+      "zone": "vitrine",
+      "length": 129,
+      "text": "Le plus grand centre européen d'entraînement et de formation professionnelle de cascadeurs pour le cinéma d'action international."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 477,
+      "zone": "vitrine",
+      "length": 230,
+      "text": "Créé en 2008 par Lucas Dollfus, le Campus Univers Cascades (CUC) est un centre de formation professionnelle dédié aux techniques de cascade physique et mécanique, établi sur un domaine privé de 6 hectares au Cateau-Cambr…"
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 478,
+      "zone": "vitrine",
+      "length": 138,
+      "text": "« Maîtriser le risque, créer l'inédit, repousser les limites de la vérité physique au service de la vision des plus grands réalisateurs. »"
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 491,
+      "zone": "vitrine",
+      "length": 129,
+      "text": "De la prévisualisation 3D aux tournages internationaux : le CUC accompagne les plus grands réalisateurs et plateformes mondiales."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 498,
+      "zone": "vitrine",
+      "length": 138,
+      "text": "Explorez nos 11 000 m² d'infrastructures de pointe : fosse de chute, dojos de combat, hangars de câblerie et zones de cascades mécaniques."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 505,
+      "zone": "vitrine",
+      "length": 169,
+      "text": "Nos formations professionnelles répondent aux critères d'exigence du Référentiel National Qualité et sont éligibles aux prises en charge de la formation professionnelle."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 516,
+      "zone": "vitrine",
+      "length": 129,
+      "text": "Les plus grands diffuseurs, studios de cinéma et productions internationales font appel aux cascadeurs et régleurs formés au CUC."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 521,
+      "zone": "vitrine",
+      "length": 114,
+      "text": "Coulisses des entraînements, extraits de tournages et réalisations de nos élèves sur les réseaux officiels du CUC."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 541,
+      "zone": "vitrine",
+      "length": 134,
+      "text": "Un cursus d'excellence de 720h à 800h sur 2 ans pour maîtriser l'ensemble des disciplines de la cascade physique et cinématographique."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 560,
+      "zone": "vitrine",
+      "length": 154,
+      "text": "accès à la formation longue durée est conditionné par la validation du stage découverte. Ce protocole sélectif garantit la sécurité de tous et le niveau d"
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 560,
+      "zone": "vitrine",
+      "length": 184,
+      "text": "L'accès à la formation longue durée est conditionné par la validation du stage découverte. Ce protocole sélectif garantit la sécurité de tous et le niveau d'excellence de la promotion."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 567,
+      "zone": "vitrine",
+      "length": 139,
+      "text": "12 jours consécutifs pour tester vos aptitudes physiques, votre sang-froid et votre capacité d'adaptation avant de postuler au cursus long."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 580,
+      "zone": "vitrine",
+      "length": 149,
+      "text": "Le cursus complet pour devenir cascadeur professionnel certifié. 9 modules intensifs répartis sur 2 ans d'entraînement physique et cinématographique."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 607,
+      "zone": "vitrine",
+      "length": 150,
+      "text": "Du stage découverte immersion 12 jours aux week-ends intensifs, vivez l'entraînement des cascadeurs du cinéma dans des conditions de sécurité absolue."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 624,
+      "zone": "vitrine",
+      "length": 111,
+      "text": "Stages intensifs ouverts dès 16 ans, du week-end découverte à la masterclass de perfectionnement professionnel."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 631,
+      "zone": "vitrine",
+      "length": 152,
+      "text": "L'immersion complète au cœur du campus CUC. Entraînement physique, combat scénique, chutes, câblerie et passage obligatoire pour intégrer le cursus pro."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 639,
+      "zone": "vitrine",
+      "length": 139,
+      "text": "Découverte des franchissements urbains Yamakasi, réceptions d'impact et acrobaties au sol en toute sécurité sur nos structures intérieures."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 647,
+      "zone": "vitrine",
+      "length": 120,
+      "text": "Chorégraphies martiales pour caméras, maniement d'armes d'accessoire, timing d'impact et techniques de réaction au coup."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 655,
+      "zone": "vitrine",
+      "length": 141,
+      "text": "Vol sur harnais, projections câblées par treuil et protocole de sécurité complet de la torche humaine encadrée par des artificiers certifiés."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 673,
+      "zone": "vitrine",
+      "length": 133,
+      "text": "Rejoignez des cascadeurs et performeurs venus du monde entier (USA, UK, Europe, Australie) pour 2 semaines d'immersion totale au CUC."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 700,
+      "zone": "vitrine",
+      "length": 139,
+      "text": "Une faculté d'action unique au monde. Des coordinateurs de cascades renommés, des pionniers des Yamakasi et des professionnels en exercice."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 725,
+      "zone": "vitrine",
+      "length": 128,
+      "text": "Le Campus Univers Cascades et la CUC Stunt Team accompagnent les productions avec un vivier de plus de 200 cascadeurs certifiés."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 753,
+      "zone": "vitrine",
+      "length": 132,
+      "text": "Marquez les esprits lors de vos festivals, lancements de marque, parcs à thème ou séminaires avec des shows d'action spectaculaires."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 779,
+      "zone": "vitrine",
+      "length": 143,
+      "text": "Offrez à vos équipes une expérience fédératrice hors du commun : cascades de cinéma, doublage vocal et cascade physique encadrées par des pros."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 796,
+      "zone": "vitrine",
+      "length": 170,
+      "text": "Offrez à vos collaborateurs une expérience fédératrice hors du commun : cascades de cinéma, doublage vocal et cascade physique encadrées par des professionnels certifiés."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 806,
+      "zone": "vitrine",
+      "length": 187,
+      "text": "En intérieur comme en extérieur, faites goûter à vos collaborateurs les sensations de la chute libre sur coussin d'air géant de cinéma. Dépassement de soi et cohésion collective garantie."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 813,
+      "zone": "vitrine",
+      "length": 123,
+      "text": "Initiation aux techniques de combats de films : esquives, feintes, coups scéniques et synchronisation avec les axes caméra."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 820,
+      "zone": "vitrine",
+      "length": 155,
+      "text": "Initiation encadrée par des cascadeurs professionnels et spécialistes du déplacement urbain : franchissements d'obstacles, sauts de précision et motricité."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 827,
+      "zone": "vitrine",
+      "length": 149,
+      "text": "Découvrez les secrets des maquilleurs de cinéma : création de blessures ultra-réalistes, fausses cicatrices, impacts de balles et prothèses d'action."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 834,
+      "zone": "vitrine",
+      "length": 141,
+      "text": "Mettez-vous dans la peau d'un comédien de doublage ! Enregistrez en équipe les répliques et bruitages de séquences cultes du cinéma d'action."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 851,
+      "zone": "vitrine",
+      "length": 138,
+      "text": "Des performances scéniques explosives alliant voltige urbaine Yamakasi, combats chorégraphiés, pyrotechnie et cascades de haute précision."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 877,
+      "zone": "vitrine",
+      "length": 127,
+      "text": "Faites vivre au grand public les sensations uniques de la chute libre sur coussin d'air géant de cinéma dans un cadre sécurisé."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 903,
+      "zone": "vitrine",
+      "length": 122,
+      "text": "Explorez nos 11 000 m² d'infrastructures de pointe : fosse de chute, dojos, hangars de câblerie et tour de saut 21 mètres."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 928,
+      "zone": "vitrine",
+      "length": 128,
+      "text": "Découvrez les 6 hectares d'infrastructures du CUC : tour de saut 21m, 1300 m² de hangars, dojos, hébergement et studio parisien."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 956,
+      "zone": "vitrine",
+      "length": 138,
+      "text": "Découvrez les coulisses de l'entraînement des cascadeurs avec les reportages de TF1, France 2 et les showreels du Campus Univers Cascades."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 981,
+      "zone": "vitrine",
+      "length": 149,
+      "text": "Le Campus Univers Cascades travaille avec des marques, fabricants et institutions reconnus dans leurs domaines : équipement, protection et formation."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 1006,
+      "zone": "vitrine",
+      "length": 157,
+      "text": "Productions cinématographiques, action design, formations professionnelles, stages ou événements d'entreprise : échangez directement avec les équipes du CUC."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 1023,
+      "zone": "vitrine",
+      "length": 116,
+      "text": "Le Domaine CUC de 6 hectares est situé au Cateau-Cambrésis (59360), au carrefour des grandes métropoles européennes."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 1280,
+      "zone": "vitrine",
+      "length": 176,
+      "text": "Spectacles vivants sur-mesure pour parcs, festivals, lancements de produit et grands événements. Combats chorégraphiés, voltige Yamakasi, chutes de hauteur et torches humaines."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 1299,
+      "zone": "vitrine",
+      "length": 182,
+      "text": "Faites vivre au grand public les sensations uniques de la chute libre sur coussin d’air géant (sauts de 4 à 8 mètres). Encadrement assuré par des cascadeurs professionnels certifiés."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 1318,
+      "zone": "vitrine",
+      "length": 206,
+      "text": "Fédérez vos équipes lors d’un séminaire d’action inoubliable : tournage de faux trailer d’action, combat cinéma, doublage vocal et saut airbag. Accueil jusqu’à 90 personnes avec hébergement et restauration."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 1504,
+      "zone": "vitrine",
+      "length": 153,
+      "text": "Passionné de cascade physique et de cinéma d’action, je souhaite intégrer la promotion 2026. Disponible pour les auditions physiques au Cateau-Cambrésis."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 1520,
+      "zone": "vitrine",
+      "length": 135,
+      "text": "Comédienne intermittente, je cherche à perfectionner mes compétences en combat chorégraphié et chutes câblées pour de futurs tournages."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 1536,
+      "zone": "vitrine",
+      "length": 145,
+      "text": "Bonjour, nous souhaiterions privatiser le domaine pour une journée Team Building avec ateliers Chute Airbag et Combat Scénique pour notre équipe."
+    },
+    {
+      "file": "src/lib/seo.ts",
+      "line": 15,
+      "zone": "vitrine",
+      "length": 191,
+      "text": "Centre de formation professionnelle pour cascadeurs de cinéma et spectacle : domaine de 6 hectares, CUC Tower 21m, chutes de hauteur, câblage. Certification QUALIOPI et prise en charge AFDAS."
+    }
+  ],
+  "metaDescriptions": [
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 452,
+      "zone": "vitrine",
+      "length": 168,
+      "text": "Centre d'entraînement de cascadeurs professionnels fondé en 2008 par Lucas Dollfus. 11 000 m² d'infrastructures dédiées au cinéma d'action, parkour, combat et cascades."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 536,
+      "zone": "vitrine",
+      "length": 138,
+      "text": "Formation professionnelle longue durée de 2 ans. 720h à 800h d'entraînement intensif aux combats, chutes, câblerie, feu et torche humaine."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 602,
+      "zone": "vitrine",
+      "length": 142,
+      "text": "Découvrez nos stages de cascade physique, parkour et cascades cinéma ouverts dès 16 ans. Initiations débutants et perfectionnements intensifs."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 668,
+      "zone": "vitrine",
+      "length": 113,
+      "text": "Stage international de cascade en anglais et français. 2 semaines résidentielles d'immersion au Cateau-Cambrésis."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 720,
+      "zone": "vitrine",
+      "length": 123,
+      "text": "La CUC Stunt Team accompagne réalisateurs et productions cinéma de la conception des cascades jusqu'au tournage en plateau."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 748,
+      "zone": "vitrine",
+      "length": 126,
+      "text": "Spectacles vivants, animations airbag géant et team building d'entreprise orchestrés par les cascadeurs professionnels du CUC."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 774,
+      "zone": "vitrine",
+      "length": 133,
+      "text": "Séminaires d'entreprise et cohésion d'équipe dans les coulisses du cinéma : combat chorégraphié, doublage voix et dépassement de soi."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 846,
+      "zone": "vitrine",
+      "length": 123,
+      "text": "Spectacles vivants d'action, combats chorégraphiés et acrobaties urbaines Yamakasi pour vos événements, festivals et parcs."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 872,
+      "zone": "vitrine",
+      "length": 139,
+      "text": "Faites vivre le grand frisson du saut dans le vide sur coussin d'air géant de cinéma. Animation encadrée par des cascadeurs professionnels."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 898,
+      "zone": "vitrine",
+      "length": 111,
+      "text": "Explorez les 11 000 m² du Campus Univers Cascades en immersion 360° ou via le plan topographique 3D interactif."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 923,
+      "zone": "vitrine",
+      "length": 135,
+      "text": "Découvrez en détail les installations du CUC : tour de saut 21m, 1300 m² de hangars, dojo de combat, fosse de réception et hébergement."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 951,
+      "zone": "vitrine",
+      "length": 120,
+      "text": "Retrouvez les reportages diffusés aux JT de TF1 et France 2 sur le CUC ainsi que les showreels des cascadeurs du campus."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 976,
+      "zone": "vitrine",
+      "length": 127,
+      "text": "Le Campus Univers Cascades collabore avec les plus grandes marques de protection, studios de cinéma et institutions certifiées."
+    },
+    {
+      "file": "src/lib/data/site-service.ts",
+      "line": 1001,
+      "zone": "vitrine",
+      "length": 147,
+      "text": "Productions cinéma, action design, formations professionnelles de cascadeurs, stages et événements : contactez l'équipe du Campus Univers Cascades."
+    }
+  ],
+  "links": [
+    {
+      "file": "src/app/admin/CockpitApp.tsx",
+      "line": 668,
+      "zone": "cockpit",
+      "href": "#cockpit-main",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/app/admin/components/InquiriesView.tsx",
+      "line": 695,
+      "zone": "cockpit",
+      "href": "mailto:${selectedInquiry.email}",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/app/admin/components/InquiriesView.tsx",
+      "line": 701,
+      "zone": "cockpit",
+      "href": "tel:${selectedInquiry.phone}",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/app/layout.tsx",
+      "line": 116,
+      "zone": "vitrine",
+      "href": "#contenu-principal",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/app/videos-cascadeur/page.tsx",
+      "line": 322,
+      "zone": "vitrine",
+      "href": "https://www.instagram.com/campus.univers.cascades/",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/app/videos-cascadeur/page.tsx",
+      "line": 332,
+      "zone": "vitrine",
+      "href": "https://www.tiktok.com/@campusuniverscascades",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/layout/footer-sections/FooterBrandAndSites.tsx",
+      "line": 42,
+      "zone": "vitrine",
+      "href": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/layout/footer-sections/FooterBrandAndSites.tsx",
+      "line": 115,
+      "zone": "vitrine",
+      "href": "https://www.google.com/maps/dir/?api=1&destination=50.0909,3.5374",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/layout/footer-sections/FooterBrandAndSites.tsx",
+      "line": 139,
+      "zone": "vitrine",
+      "href": "https://www.google.com/maps/search/?api=1&query=Gennevilliers+92230",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/layout/footer-sections/FooterDirectContacts.tsx",
+      "line": 36,
+      "zone": "vitrine",
+      "href": "tel:${(settings.phone || ",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/components/layout/footer-sections/FooterDirectContacts.tsx",
+      "line": 46,
+      "zone": "vitrine",
+      "href": "mailto:${settings.email_general || ",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/components/layout/MobileStickyCTA.tsx",
+      "line": 51,
+      "zone": "vitrine",
+      "href": "tel:${phone.replace(/\\s+/g, ",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/components/layout/navbar/NavActionsBar.tsx",
+      "line": 49,
+      "zone": "vitrine",
+      "href": "tel:${(settings.phone || ",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/components/layout/navbar/NavMobileDrawer.tsx",
+      "line": 137,
+      "zone": "vitrine",
+      "href": "tel:+33672849492",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/components/sections/contact/ContactCoordinatesSidebar.tsx",
+      "line": 53,
+      "zone": "vitrine",
+      "href": "tel:+33672849492",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/components/sections/contact/ContactCoordinatesSidebar.tsx",
+      "line": 68,
+      "zone": "vitrine",
+      "href": "mailto:contact@campus-universcascades.com",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/components/sections/contact/ContactCoordinatesSidebar.tsx",
+      "line": 131,
+      "zone": "vitrine",
+      "href": "#campus-map-hub",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/components/sections/contact/ContactCoordinatesSidebar.tsx",
+      "line": 138,
+      "zone": "vitrine",
+      "href": "https://www.google.com/maps/dir/?api=1&destination=50.0909,3.5374",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/sections/formation/FormationHeroSection.tsx",
+      "line": 95,
+      "zone": "vitrine",
+      "href": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/sections/home/HomeQualiopiSection.tsx",
+      "line": 88,
+      "zone": "vitrine",
+      "href": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/sections/home/HomeSocialSection.tsx",
+      "line": 117,
+      "zone": "vitrine",
+      "href": "https://www.instagram.com/campus.univers.cascades/",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/sections/home/HomeSocialSection.tsx",
+      "line": 134,
+      "zone": "vitrine",
+      "href": "https://www.instagram.com/campus.univers.cascades/",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/sections/home/HomeSocialSection.tsx",
+      "line": 156,
+      "zone": "vitrine",
+      "href": "https://www.youtube.com/@campusuniverscascades",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/sections/home/HomeSocialSection.tsx",
+      "line": 178,
+      "zone": "vitrine",
+      "href": "https://www.tiktok.com/@campusuniverscascades",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/sections/home/HomeSocialSection.tsx",
+      "line": 200,
+      "zone": "vitrine",
+      "href": "https://www.facebook.com/campus.univers.cascades",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/sections/home/HomeSocialSection.tsx",
+      "line": 222,
+      "zone": "vitrine",
+      "href": "https://wa.me/33672849492",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/sections/team/TeamHeroSection.tsx",
+      "line": 76,
+      "zone": "vitrine",
+      "href": "#filmographie",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/components/sections/team/TeamProductionServices.tsx",
+      "line": 66,
+      "zone": "vitrine",
+      "href": "tel:+33672849492",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/components/sections/team/TeamProductionServices.tsx",
+      "line": 70,
+      "zone": "vitrine",
+      "href": "mailto:contact@campus-universcascades.com",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/components/sections/visite/VisiteAccessTransport.tsx",
+      "line": 85,
+      "zone": "vitrine",
+      "href": "https://www.google.com/maps/dir/?api=1&destination=50.0909,3.5374",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/sections/visite/VisiteAccessTransport.tsx",
+      "line": 102,
+      "zone": "vitrine",
+      "href": "tel:+33672849492",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/components/sections/visite/VisiteAccessTransport.tsx",
+      "line": 110,
+      "zone": "vitrine",
+      "href": "mailto:contact@campus-universcascades.com",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/components/sections/visite/VisiteHeroSection.tsx",
+      "line": 52,
+      "zone": "vitrine",
+      "href": "#plan-3d-domaine",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/components/sections/visite/VisiteHeroSection.tsx",
+      "line": 61,
+      "zone": "vitrine",
+      "href": "#visite-virtuelle-360",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/components/sections/visite/VisiteHeroSection.tsx",
+      "line": 70,
+      "zone": "vitrine",
+      "href": "#installations-detail",
+      "external": false,
+      "newTab": false,
+      "rel": false
+    },
+    {
+      "file": "src/components/ui/campus-map/CampusAppLaunchers.tsx",
+      "line": 21,
+      "zone": "vitrine",
+      "href": "https://www.google.com/maps/dir/?api=1&destination=${coordinates}",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/ui/campus-map/CampusAppLaunchers.tsx",
+      "line": 35,
+      "zone": "vitrine",
+      "href": "https://maps.apple.com/?daddr=${coordinates}",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/ui/campus-map/CampusAppLaunchers.tsx",
+      "line": 49,
+      "zone": "vitrine",
+      "href": "https://waze.com/ul?ll=${coordinates}&navigate=yes",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/ui/campus-map/CampusAppLaunchers.tsx",
+      "line": 63,
+      "zone": "vitrine",
+      "href": "https://www.sncf-connect.com/",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    },
+    {
+      "file": "src/components/ui/parallax-hero/HeroHudOverlay.tsx",
+      "line": 22,
+      "zone": "vitrine",
+      "href": "https://www.google.com/maps/search/?api=1&query=Campus+Univers+Cascades+70+Rue+Faidherbe+59360+Le+Cateau-Cambr%C3%A9sis",
+      "external": true,
+      "newTab": true,
+      "rel": true
+    }
+  ],
+  "buttons": [],
+  "brokenInternal": []
+}
