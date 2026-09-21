@@ -3,16 +3,17 @@
  * DOSSIER DE PRÉSENTATION CLIENT — L'APPLICATION DU CAMPUS UNIVERS CASCADES
  * =========================================================================
  *
- * Version enrichie : explications, schémas et graphiques en nombre, chiffres
- * mesurés en direct (base de données de production), effets discrets mais
- * modernes — le tout autonome et imprimable.
+ * Version 4 : données live supplémentaires (complétude du catalogue, coachs,
+ * partenaires par catégorie, prochaines sessions datées), animations retravaillées
+ * (carte-enveloppe sur le cycle de demande, flux animés façon « paquets de données »,
+ * barres qui poussent au défilement, marquee de chiffres, scrollspy), glossaire.
+ * Le tout autonome et imprimable.
  *
  * Régénération : `npm run report:dossier`
  * Sortie : reports/cuc-dossier-application.html
  *
  * Sources :
- *   - Supabase de production (lecture seule : films par décennie, coachs au
- *     catalogue, contenus, stockage) — via DATABASE_URL, repli silencieux ;
+ *   - Supabase de production (lecture seule) — via DATABASE_URL, repli silencieux ;
  *   - scripts/audit_supabase_state_report.json (volumétrie) ;
  *   - reports/cuc-metriques-2026.metrics.json (poids de pages, garanties).
  */
@@ -46,7 +47,15 @@ const t = Array.isArray(metrics?.database?.tables)
 /* Mesures complémentaires en direct (lecture seule, repli silencieux) */
 /* ------------------------------------------------------------------ */
 
-const live = { filmsByDecade: [], topCoaches: [], storage: metrics?.database?.storage ?? [] };
+const live = {
+  filmsByDecade: [],
+  topCoaches: [],
+  storage: metrics?.database?.storage ?? [],
+  partnersByCategory: [],
+  sessions: [],
+  programNames: {},
+  quality: null,
+};
 
 async function collectLive() {
   const databaseUrl = process.env.DATABASE_URL;
@@ -90,6 +99,59 @@ async function collectLive() {
       }));
     }
   } catch { }
+  try {
+    const partners = await client.query(
+      `SELECT category, COUNT(*)::int AS n FROM site_partners
+             WHERE is_published = true GROUP BY 1 ORDER BY n DESC`
+    );
+    live.partnersByCategory = partners.rows;
+  } catch { }
+  try {
+    const sessions = await client.query(
+      `SELECT program_id, date_display, status FROM site_sessions
+             WHERE is_published = true AND date_display IS NOT NULL
+             ORDER BY order_index ASC NULLS LAST LIMIT 12`
+    );
+    live.sessions = sessions.rows;
+  } catch { }
+  try {
+    let progs = { rows: [] };
+    try {
+      progs = await client.query(`SELECT id, name FROM site_programs`);
+    } catch {
+      try {
+        progs = await client.query(`SELECT id, title FROM site_programs`);
+      } catch { }
+    }
+    live.programNames = Object.fromEntries(
+      progs.rows.map((r) => [r.id, r.name ?? r.title]).filter(([, v]) => v)
+    );
+  } catch { }
+  try {
+    const fq = await client.query(
+      `SELECT COUNT(*)::int AS total,
+                    COUNT(*) FILTER (WHERE image IS NOT NULL AND image <> '')::int AS with_image,
+                    COUNT(*) FILTER (WHERE (image IS NOT NULL AND image <> '')
+                                       AND (description IS NOT NULL AND description <> ''))::int AS both
+             FROM site_films WHERE is_published = true`
+    );
+    const tq = await client.query(
+      `SELECT COUNT(*)::int AS total,
+                    COUNT(*) FILTER (WHERE bio IS NOT NULL AND bio <> '')::int AS with_bio,
+                    COUNT(*) FILTER (WHERE imdb IS NOT NULL AND imdb <> '')::int AS with_imdb,
+                    COUNT(*) FILTER (WHERE avatar_url IS NOT NULL AND avatar_url <> '')::int AS with_avatar
+             FROM site_team`
+    );
+    let filmsEn = 0;
+    try {
+      const en = await client.query(
+        `SELECT COUNT(DISTINCT entity_id)::int AS n FROM site_translations
+               WHERE entity = 'film' AND locale = 'en'`
+      );
+      filmsEn = en.rows[0]?.n ?? 0;
+    } catch { }
+    live.quality = { films: fq.rows[0], team: tq.rows[0], filmsEn };
+  } catch { }
   await client.end();
 }
 await collectLive().catch(() => { });
@@ -101,11 +163,11 @@ const storageBytes = live.storage.reduce((a, s) => a + (s.bytes ?? 0), 0);
 /* Boîte à outils visuelle (identité CUC)                              */
 /* ================================================================== */
 
-const esc = (s) =>
-  String(s).replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"');
+const esc = (s) => String(s).replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"');
 const nf = (n) => Number(n).toLocaleString('fr-FR');
 const mo = (bytes) => `${(bytes / 1024 / 1024).toFixed(1).replace('.', ',')} Mo`;
 const kb = (bytes) => `${Math.round(bytes / 1024)} Ko`;
+const pct = (a, b) => (b ? Math.round((100 * a) / b) : 0);
 
 const FEAT_ICONS = {
   film: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/>',
@@ -158,7 +220,7 @@ const kpiHtml = (value, label, sub = '') => {
   return `<div class="kpi reveal"><div class="n">${inner}</div><div class="l">${esc(label)}</div>${sub ? `<div class="s">${esc(sub)}</div>` : ''}</div>`;
 };
 
-/** Barres horizontales (SVG maison). */
+/** Barres horizontales (SVG maison) — les barres poussent à l'entrée dans l'écran. */
 function barChart(rows, { color = '#FFE500' } = {}) {
   if (!rows.length) return '<p class="meta">Données indisponibles pour le moment.</p>';
   const width = 760;
@@ -172,7 +234,7 @@ function barChart(rows, { color = '#FFE500' } = {}) {
       const w = Math.max(3, ((width - labelW - 110) * r.value) / max);
       const y = gap + i * (barH + gap);
       return `<text x="0" y="${y + barH * 0.72}" class="chart-label">${esc(r.label)}</text>
-        <rect x="${labelW}" y="${y}" width="${w}" height="${barH}" rx="4" fill="${r.color || color}" opacity="0.92"/>
+        <rect class="bar-grow" x="${labelW}" y="${y}" width="${w}" height="${barH}" rx="4" fill="${r.color || color}" opacity="0.92"/>
         <text x="${labelW + w + 9}" y="${y + barH * 0.72}" class="chart-value">${esc(r.display ?? nf(r.value))}</text>`;
     })
     .join('');
@@ -287,6 +349,8 @@ const FAQ = [
   { q: 'Où sont hébergées les images et vidéos du site ?', a: "Dans la base du projet, pas sur l'ancien site : une bibliothèque centralisée (écran Médias) sert automatiquement des formats optimisés pour le web." },
   { q: 'Le site est-il optimisé pour être trouvé sur Google ?', a: "Oui : chaque page possède son propre titre, sa description et son image de partage, un plan du site est publié automatiquement, et les fiches (films, coachs) utilisent des données structurées que les moteurs de recherche lisent nativement." },
   { q: 'Que se passe-t-il sur un téléphone ?', a: "Tout le site est conçu d'abord pour le mobile : les jaquettes de films passent en grille compacte, les menus se replient, un bouton d'appel direct apparaît en bas d'écran. Le plan 3D et la visite 360° fonctionnent aussi au doigt." },
+  { q: 'Les chiffres de ce dossier sont-ils figés ?', a: "Non : ce dossier est régénéré à la demande, directement depuis la base de données. Chaque nouvelle version reflète l'état réel du site au jour de sa génération." },
+  { q: 'Et si je veux un état des lieux technique complet ?', a: "Un rapport technique détaillé existe en parallèle de ce dossier : structure du code, performances, sécurité, référencement, qualité des liens et des traductions. Il est mis à jour avec la même méthode." },
 ];
 
 const PRACTICES = [
@@ -310,6 +374,17 @@ const SITE_MAP = [
   { theme: 'Activités d’action', pages: ['CUC Events', 'Spectacles Yamakasi', 'Animations airbag', 'Team building'], iconName: 'layers' },
   { theme: 'L’équipe & les films', pages: ['L’équipe (12 fiches)', 'Tournage — CUC Stunt Team', 'Catalogue des films'], iconName: 'star' },
   { theme: 'Confiance & contact', pages: ['Partenaires', 'Vidéos & reportages', 'Contact'], iconName: 'phone' },
+];
+
+const GLOSSARY = [
+  { iconName: 'layout', title: 'Site vitrine', desc: "La partie publique de l'application : les 15 pages consultées par vos visiteurs, en français et en anglais." },
+  { iconName: 'sliders', title: 'Cockpit', desc: "L'espace d'administration protégé, où votre équipe gère l'ensemble du contenu — sans passer par un développeur." },
+  { iconName: 'database', title: 'Base de données (Supabase)', desc: 'Le coffre central du projet : textes, images, films, dates, traductions. Le site et le Cockpit y lisent et écrivent selon leurs droits respectifs.' },
+  { iconName: 'refresh', title: 'Temps réel', desc: 'Mécanisme qui pousse automatiquement un changement enregistré dans le Cockpit vers le navigateur du visiteur — sans rechargement de page.' },
+  { iconName: 'edit', title: 'Révisions (historique)', desc: "Versions successives d'une page, conservées automatiquement. Restaurer une version antérieure prend un clic." },
+  { iconName: 'shield', title: 'CUC Sign', desc: 'La plateforme pédagogique des élèves. Le site y lit les formations, coachs et lieux du campus — en lecture seule, jamais en écriture.' },
+  { iconName: 'users', title: 'Rôles & permissions', desc: "Chaque compte du Cockpit possède un rôle (direction, secrétariat, encadrement) qui définit précisément ce qu'il peut consulter et modifier." },
+  { iconName: 'check', title: 'Qualiopi', desc: "Certification qualité des organismes de formation, délivrée en France — citée sur votre site public au titre de la formation professionnelle." },
 ];
 
 /* ================================================================== */
@@ -358,6 +433,17 @@ const translationsByEntity = (metrics?.database?.translationsByEntity ?? dbState
   .slice(0, 10)
   .map((r) => ({ label: ENTITY_LABELS[r.entity] ?? r.entity ?? 'Autre', value: r.n }));
 
+const PARTNER_LABELS = {
+  cinema: 'Cinéma & production',
+  materiel: 'Matériel & équipements',
+  institutionnel: 'Institutions & financeurs',
+  media: 'Médias & presse',
+};
+const partnersRows = live.partnersByCategory.map((r) => ({
+  label: PARTNER_LABELS[r.category] ?? r.category ?? 'Autres',
+  value: r.n,
+}));
+
 const cucSign = metrics?.database?.cucSign ?? dbState?.cucSign;
 const rlsOn = metrics?.database?.rlsOn ?? dbState?.rlsOn ?? 0;
 const realtimeTables = metrics?.database?.realtimeTables ?? dbState?.realtimePublication?.length ?? 0;
@@ -369,6 +455,64 @@ const i18n = metrics?.i18n ?? null;
 
 const decadeRows = live.filmsByDecade.map((r) => ({ label: `${r.decade}s`, value: r.n }));
 const coachRows = live.topCoaches.map((r) => ({ label: r.name, value: r.n }));
+
+/* ------------------------------------------------------------------ */
+/* Sessions live — telles qu'affichées sur le site                     */
+/* ------------------------------------------------------------------ */
+
+const PRETTY_PROGRAM = (id) =>
+  String(id ?? '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+
+const programLabel = (id) => live.programNames[id] ?? PRETTY_PROGRAM(id) ?? 'Session';
+
+const STATUS_STYLE = {
+  'ouvert': ['Ouvertes aux inscriptions', 's-ok'],
+  'dernières places': ['Dernières places', 's-last'],
+  'complet': ['Complet', 's-full'],
+  'bientôt': ['Annoncées prochainement', 's-soon'],
+};
+
+const sessionsHtml = live.sessions.length
+  ? live.sessions
+    .map((s) => {
+      const [label, cls] = STATUS_STYLE[s.status] ?? [s.status ?? 'Statut à préciser', 's-soon'];
+      return `<li class="sess reveal">
+        <span class="sess-status ${cls}">${esc(label)}</span>
+        <span class="sess-title">${esc(programLabel(s.program_id))}</span>
+        <span class="sess-date">${esc(s.date_display ?? '')}</span>
+      </li>`;
+    })
+    .join('')
+  : '<li class="sess reveal"><span class="sess-title">Aucune session datée publiée pour le moment.</span></li>';
+
+/* ------------------------------------------------------------------ */
+/* Qualité éditoriale (complétude réelle du catalogue)                 */
+/* ------------------------------------------------------------------ */
+
+const q = live.quality;
+const qualityKpis = q
+  ? [
+    kpiHtml(`${pct(q.films.with_image, q.films.total)} %`, 'films avec affiche', `${nf(q.films.with_image)} sur ${nf(q.films.total)}`),
+    kpiHtml(q.films.both, 'films avec affiche ET description', 'fiche complète, prête à lire'),
+    kpiHtml(q.filmsEn, 'films traduits en anglais', 'fiches bilingues en base'),
+    kpiHtml(q.team.with_imdb, 'coachs avec fiche IMDb', `sur ${nf(q.team.total)} coachs et direction`),
+    kpiHtml(q.team.with_bio, 'coachs avec biographie', 'textes rédigés, pas de gabarit'),
+    kpiHtml(q.team.with_avatar, 'coachs avec portrait', 'photos officielles du campus'),
+  ].join('')
+  : '';
+
+const completenessDonut = q
+  ? donut(
+    [
+      { label: 'Fiche complète (affiche + description)', value: q.films.both },
+      { label: 'Affiche sans description', value: Math.max(0, q.films.with_image - q.films.both) },
+      { label: 'À compléter', value: Math.max(0, q.films.total - q.films.with_image) },
+    ],
+    { unit: 'films' }
+  )
+  : '<p class="meta">Données indisponibles.</p>';
 
 /* ================================================================== */
 /* Schémas SVG                                                         */
@@ -382,20 +526,20 @@ const svgTile = (x, y, w, h, label, sub) => `
 const ecosystemSvg = `
 <svg viewBox="0 0 940 360" class="chart" role="img" aria-label="Schéma : visiteur, site vitrine, Supabase, Cockpit d'administration et plateforme CUC Sign">
   <path d="M150 167 C 180 167, 186 120, 208 108" fill="none" stroke="#3a3a44" stroke-width="2"/>
-  <path d="M540 165 C 492 165, 484 112, 434 102" fill="none" stroke="#3a3a44" stroke-width="2"/>
-  <path d="M430 272 C 480 272, 500 250, 556 240" fill="none" stroke="#3a3a44" stroke-width="2"/>
-  <path d="M730 170 H 798" fill="none" stroke="#3a3a44" stroke-width="2"/>
-  <path d="M798 210 H 732" fill="none" stroke="#3a3a44" stroke-width="2"/>
+  <path d="M540 165 C 492 165, 484 112, 434 102" fill="none" stroke="#2a2a33" stroke-width="2.6"/>
+  <path class="flowline" style="stroke:#7bd88f" d="M540 165 C 492 165, 484 112, 434 102"/>
+  <path d="M430 272 C 480 272, 500 250, 556 240" fill="none" stroke="#2a2a33" stroke-width="2.6"/>
+  <path class="flowline" style="stroke:#FFE500" d="M430 272 C 480 272, 500 250, 556 240"/>
+  <path d="M730 170 H 798" fill="none" stroke="#2a2a33" stroke-width="2.6"/>
+  <path class="flowline" style="stroke:#4FC3F7" d="M730 170 H 798"/>
+  <path d="M798 210 H 732" fill="none" stroke="#2a2a33" stroke-width="2.6"/>
+  <path class="flowline" style="stroke:#4FC3F7; opacity:.55" d="M798 210 H 732"/>
   ${svgTile(30, 125, 120, 84, 'Visiteur', 'web & mobile')}
   ${svgTile(210, 40, 224, 84, 'Site vitrine', '15 pages • FR / EN')}
   ${svgTile(210, 230, 224, 84, 'Cockpit admin', '15 écrans • rôles')}
   ${svgTile(540, 135, 190, 100, 'Supabase', 'base + temps réel')}
   ${svgTile(800, 135, 120, 100, 'CUC Sign', 'plateforme élèves')}
-  <circle class="flowdot" r="3.5" fill="#FFE500" style="offset-path: path('M430 272 C 480 272, 500 250, 556 240'); animation-duration: 2.6s"/>
-  <circle class="flowdot" r="3.5" fill="#FFE500" style="offset-path: path('M430 272 C 480 272, 500 250, 556 240'); animation-duration: 2.6s; animation-delay: -1.3s"/>
-  <circle class="flowdot" r="3.5" fill="#7bd88f" style="offset-path: path('M540 165 C 492 165, 484 112, 434 102'); animation-duration: 2.2s"/>
-  <circle class="flowdot" r="3.5" fill="#4FC3F7" style="offset-path: path('M730 170 H 798'); animation-duration: 3.2s"/>
-  <circle class="flowdot" r="3.5" fill="#4FC3F7" style="offset-path: path('M798 210 H 732'); animation-duration: 3.2s; animation-delay: -1.6s"/>
+  <circle class="halo" cx="635" cy="185" r="72" fill="none" stroke="#FFE500" stroke-width="1.4" opacity="0.25"/>
   <text x="500" y="300" text-anchor="middle" fill="#7c7c88" font-size="11">Le Cockpit écrit dans la base ; le site la lit — rien ne transite par la machine du visiteur.</text>
 </svg>`;
 
@@ -426,26 +570,33 @@ const pageAnatomySvg = `
   <text x="120" y="352" fill="#ffef9e" font-size="11">● pastilles jaunes : contenus modifiables par votre équipe, sans code</text>
 </svg>`;
 
-/** Le cycle d'une demande : 5 étapes reliées. */
+/** Le cycle d'une demande : carte-enveloppe voyageuse + étapes qui s'allument. */
+const CYCLE_STEPS = [
+  { x: 120, n: '1', t: 'Le visiteur écrit', s: 'formulaire guidé' },
+  { x: 295, n: '2', t: 'La demande arrive', s: 'Cockpit · Candidatures' },
+  { x: 470, n: '3', t: 'Votre équipe qualifie', s: 'statut + notes internes' },
+  { x: 645, n: '4', t: 'Vous répondez', s: 'email / téléphone' },
+  { x: 820, n: '5', t: 'Conversion possible', s: 'compte élève CUC Sign' },
+];
+const CYCLE_DELAYS = ['0.3s', '2.6s', '4.9s', '7.2s', '9.5s'];
+
 const requestCycleSvg = `
 <svg viewBox="0 0 940 170" class="chart" role="img" aria-label="Cycle d'une demande : formulaire, réception, qualification, échange, conversion">
   <path d="M120 62 H 820" stroke="#2a2a33" stroke-width="2" stroke-dasharray="6 7"/>
-  ${[
-    { x: 120, n: '1', t: 'Le visiteur écrit', s: 'formulaire guidé' },
-    { x: 295, n: '2', t: 'La demande arrive', s: 'Cockpit · Candidatures' },
-    { x: 470, n: '3', t: 'Votre équipe qualifie', s: 'statut + notes internes' },
-    { x: 645, n: '4', t: 'Vous répondez', s: 'email / téléphone' },
-    { x: 820, n: '5', t: 'Conversion possible', s: 'compte élève CUC Sign' },
-  ]
-    .map(
-      (p, i) => `
-    <circle cx="${p.x}" cy="62" r="24" fill="${i === 0 ? '#FFE500' : '#12121a'}" stroke="${i === 0 ? '#FFE500' : '#3a3a44'}" stroke-width="2"/>
-    <text x="${p.x}" y="68" text-anchor="middle" fill="${i === 0 ? '#111' : '#fff'}" font-size="14" font-weight="700">${p.n}</text>
+  <path class="rc-fill" d="M120 62 H 820"/>
+  ${CYCLE_STEPS.map(
+  (p, i) => `
+    <circle class="rc-ping" cx="${p.x}" cy="62" r="24" style="animation-delay:${CYCLE_DELAYS[i]}"/>
+    <circle class="rc-node" cx="${p.x}" cy="62" r="24" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:${CYCLE_DELAYS[i]}"/>
+    <text x="${p.x}" y="68" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">${p.n}</text>
     <text x="${p.x}" y="112" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">${p.t}</text>
     <text x="${p.x}" y="130" text-anchor="middle" fill="#9a9aa5" font-size="11">${p.s}</text>`
-    )
+)
     .join('')}
-  <circle class="flowdot" r="4" fill="#FFE500" style="offset-path: path('M120 62 H 820'); animation-duration: 6s"/>
+  <g class="flowmsg" style="offset-path: path('M120 62 H 820')">
+    <rect x="-17" y="-13" width="34" height="26" rx="7" fill="#FFE500"/>
+    <path d="M-11 -5 L0 3 L11 -5" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
 </svg>`;
 
 /* ================================================================== */
@@ -464,6 +615,20 @@ const FIGURE_DATA = [
 ];
 
 const figuresHtml = FIGURE_DATA.map(([v, l, s]) => (v != null ? kpiHtml(v, l, s) : '')).join('');
+
+/* Marquee de chiffres (bandeau défilant sous le héros). */
+const stripItems = [
+  `${nf(t['site_films'] ?? 570)} films au catalogue`,
+  `${nf(t['site_team'] ?? 12)} coachs & direction`,
+  `${nf(t['site_pages'] ?? 15)} pages · FR / EN`,
+  t['site_translations'] ? `${nf(t['site_translations'])} traductions éditoriales` : null,
+  realtimeTables ? `${nf(realtimeTables)} tables synchronisées en temps réel` : null,
+  storageFiles ? `${nf(storageFiles)} images & documents hébergés` : null,
+  t['site_sessions'] ? `${nf(t['site_sessions'])} sessions de formation` : null,
+].filter(Boolean);
+const stripHtml = [...stripItems, ...stripItems]
+  .map((x) => `<span>${esc(x)}</span><span class="sep">◆</span>`)
+  .join('');
 
 const connectionHtml = cucSign
   ? `<div class="kpis">
@@ -520,10 +685,11 @@ const mechCardsHtml = MECHANISMS.map(featCard).join('');
 const workflowHtml = WORKFLOWS.map(featCard).join('');
 const publicAccordions = PUBLIC_PAGES.map(accordionRow).join('');
 const cockpitAccordions = COCKPIT_APPS.map(accordionRow).join('');
+const glossaryAccordions = GLOSSARY.map(accordionRow).join('');
 const faqAccordions = FAQ.map(
-  ({ q, a }) => `
+  ({ q: question, a }) => `
   <details class="acc reveal">
-    <summary><span>${esc(q)}</span>
+    <summary><span>${esc(question)}</span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
     <div class="acc-body">${esc(a)}</div>
@@ -545,10 +711,14 @@ const html = `<!DOCTYPE html>
 <style>
   :root { color-scheme: dark; }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body { margin: 0; background: #060608; color: #e7e7ea; font: 15px/1.65 "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
   :focus-visible { outline: 2px solid #FFE500; outline-offset: 2px; border-radius: 4px; }
   .wrap { max-width: 1180px; margin: 0 auto; padding: 52px 24px 96px; }
   header.hero { padding: 34px 0 30px; border-bottom: 1px solid #26262e; margin-bottom: 34px; position: relative; }
+  header.hero::after { content: ""; position: absolute; z-index: -1; top: -60px; right: -40px; width: 420px; height: 260px;
+    background: radial-gradient(closest-side, rgba(255,229,0,.10), transparent 70%); animation: glowPulse 8s ease-in-out infinite; pointer-events: none; }
+  @keyframes glowPulse { 50% { opacity: .45; transform: translateY(8px) scale(1.06); } }
   .kicker { color: #FFE500; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; }
   h1 { font-size: clamp(30px, 4.4vw, 48px); margin: 12px 0 8px; line-height: 1.12; }
   h1 em { font-style: normal; background: linear-gradient(100deg, #FFE500, #fff6c4, #FFE500); background-size: 220% 100%;
@@ -559,9 +729,14 @@ const html = `<!DOCTYPE html>
   .btn { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #111; background: #FFE500; border: 0; border-radius: 999px; padding: 9px 18px; cursor: pointer; text-decoration: none; transition: transform .15s ease; }
   .btn:hover { transform: translateY(-1px); }
   .btn.ghost { background: transparent; color: #e7e7ea; border: 1px solid #3a3a44; }
+  .strip { overflow: hidden; margin-top: 20px; border-top: 1px solid #26262e; border-bottom: 1px solid #26262e; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .strip-inner { display: flex; align-items: center; gap: 26px; padding: 10px 0; white-space: nowrap; width: max-content; color: #b9b9c2; font-size: 12.5px; animation: slideZ 46s linear infinite; }
+  .strip-inner .sep { color: #FFE500; font-size: 9px; }
+  @keyframes slideZ { to { transform: translateX(-50%); } }
   nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 0; position: sticky; top: 10px; z-index: 20; padding: 8px 0; background: linear-gradient(#060608, #060608e6); backdrop-filter: blur(6px); }
-  nav.toc a { font-size: 12px; color: #cfcfd6; border: 1px solid #2c2c36; border-radius: 999px; padding: 5px 12px; text-decoration: none; background: #0b0b10; transition: border-color .15s ease, color .15s ease; }
+  nav.toc a { font-size: 12px; color: #cfcfd6; border: 1px solid #2c2c36; border-radius: 999px; padding: 5px 12px; text-decoration: none; background: #0b0b10; transition: border-color .15s ease, color .15s ease, background .15s ease; }
   nav.toc a:hover { border-color: #FFE500; color: #FFE500; }
+  nav.toc a.active { border-color: #FFE500; color: #FFE500; background: #16160d; }
   section { scroll-margin-top: 92px; }
   h2 { margin-top: 64px; font-size: 25px; border-left: 4px solid #FFE500; padding-left: 12px; }
   h3 { margin-top: 34px; font-size: 18px; color: #f2f2f5; }
@@ -573,6 +748,8 @@ const html = `<!DOCTYPE html>
   .kpi { background: linear-gradient(180deg, #101017 0%, #0c0c11 100%); border: 1px solid #26262e; border-radius: 14px; padding: 16px 18px; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
   .kpi:hover { transform: translateY(-3px); border-color: #3a3a44; box-shadow: 0 14px 34px rgba(0,0,0,.45); }
   .kpi .n { font-size: 30px; font-weight: 700; color: #fff; letter-spacing: .01em; }
+  .kpi .n span.done { display: inline-block; animation: pop .42s ease; }
+  @keyframes pop { 50% { transform: scale(1.16); color: #FFE500; } }
   .kpi .l { font-size: 13px; color: #e2e2e8; margin-top: 2px; }
   .kpi .s { font-size: 11.5px; color: #8a8a95; margin-top: 2px; }
   .feat-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
@@ -585,9 +762,10 @@ const html = `<!DOCTYPE html>
   .feat .tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
   .tag { font-size: 10.5px; letter-spacing: .04em; text-transform: uppercase; color: #ffef9e; border: 1px solid #3d3a1e; background: rgba(255,229,0,.06); border-radius: 999px; padding: 2px 9px; }
   .fi svg { width: 20px; height: 20px; stroke: #FFE500; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-  details.acc { border: 1px solid #26262e; border-radius: 12px; background: #0d0d12; margin: 8px 0; overflow: hidden; transition: border-color .2s ease; }
+  details.acc { border: 1px solid #26262e; border-radius: 12px; background: #0d0d12; margin: 8px 0; overflow: hidden; transition: border-color .2s ease, background .2s ease; }
   details.acc:hover { border-color: #3a3a44; }
-  details.acc summary { cursor: pointer; list-style: none; padding: 13px 18px; display: flex; align-items: center; gap: 12px; font-weight: 600; color: #eef0f4; }
+  details.acc summary { cursor: pointer; list-style: none; padding: 13px 18px; display: flex; align-items: center; gap: 12px; font-weight: 600; color: #eef0f4; transition: background .2s ease; }
+  details.acc summary:hover { background: #12121a; }
   details.acc summary::-webkit-details-marker { display: none; }
   details.acc summary .role { color: #9a9aa5; font-weight: 400; font-size: 12.5px; }
   details.acc summary .chev { margin-left: auto; color: #FFE500; transition: transform .25s ease; flex: 0 0 auto; }
@@ -618,17 +796,43 @@ const html = `<!DOCTYPE html>
   .key { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; }
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
   @media (max-width: 920px) { .two-col { grid-template-columns: 1fr; } }
-  .flowdot { offset-rotate: 0deg; animation-name: flowRun; animation-timing-function: linear; animation-iteration-count: infinite; }
-  @keyframes flowRun { from { offset-distance: 0%; } to { offset-distance: 100%; } }
   .callout { border-left: 4px solid #FFE500; background: #101016; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 20px 0; color: #d6d6dd; }
   .map-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 14px; }
   .map-card { background: #0d0d12; border: 1px solid #26262e; border-radius: 14px; padding: 16px 18px; }
   .map-card h4 { margin: 8px 0 8px; font-size: 14.5px; color: #fff; }
   .map-card ul { margin: 0; padding-left: 18px; color: #b9b9c2; font-size: 12.8px; }
   .map-card li { margin: 3px 0; }
+  ul.sessions { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+  .sess { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: #0d0d12; border: 1px solid #26262e; border-radius: 12px; padding: 12px 16px; }
+  .sess-status { font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; border-radius: 999px; padding: 3px 10px; border: 1px solid #3a3a44; white-space: nowrap; }
+  .s-ok { color: #9ee6a8; border-color: #2e5533; background: rgba(129,199,132,.08); }
+  .s-last { color: #ffd28a; border-color: #5a4620; background: rgba(255,176,32,.08); }
+  .s-full { color: #ff9d8a; border-color: #5c3128; background: rgba(255,112,67,.08); }
+  .s-soon { color: #b9c6d8; border-color: #333c47; background: rgba(79,195,247,.06); }
+  .sess-title { font-weight: 600; color: #eef0f4; }
+  .sess-date { margin-left: auto; color: #9a9aa5; font-size: 13px; }
   footer { margin-top: 76px; border-top: 1px solid #26262e; padding-top: 20px; color: #8a8a95; font-size: 12.5px; }
   .pill { display: inline-block; font-size: 11px; padding: 2px 9px; border: 1px solid #3a3a44; border-radius: 999px; color: #c9c9d1; margin-right: 6px; }
   code { color: #ffe9a8; }
+  /* --- Animations (natives, sans dépendance) --- */
+  .flowline { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 3 12; animation: march 1.5s linear infinite; }
+  @keyframes march { to { stroke-dashoffset: -15; } }
+  .halo { animation: haloPulse 4.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes haloPulse { 0%, 100% { opacity: .12; transform: scale(.96); } 50% { opacity: .38; transform: scale(1.03); } }
+  /* Cycle de demande : carte-enveloppe voyageuse + étapes qui s'allument en séquence */
+  .flowmsg { offset-rotate: 0deg; animation: msgRun 10.5s linear infinite; filter: drop-shadow(0 4px 10px rgba(255,229,0,.28)); }
+  @keyframes msgRun {
+    0% { offset-distance: 0%; opacity: 0; }
+    2% { opacity: 1; }
+    88% { offset-distance: 100%; opacity: 1; }
+    94%, 100% { offset-distance: 100%; opacity: 0; }
+  }
+  .rc-node { animation: nodeHit 10.5s linear infinite; }
+  @keyframes nodeHit { 0% { stroke: #FFE500; stroke-width: 3.2; } 10% { stroke: #FFE500; stroke-width: 3.2; } 22%, 100% { stroke: #3a3a44; stroke-width: 2; } }
+  .rc-ping { fill: none; stroke: #FFE500; stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; animation: pingOut 10.5s ease-out infinite; }
+  @keyframes pingOut { 0% { transform: scale(.6); opacity: .8; } 10% { transform: scale(1.7); opacity: 0; } 10.01%, 100% { opacity: 0; } }
+  .rc-fill { fill: none; stroke: #FFE500; stroke-width: 2; stroke-dasharray: 700; stroke-dashoffset: 700; animation: lineFill 10.5s linear infinite; }
+  @keyframes lineFill { 0% { stroke-dashoffset: 700; opacity: .85; } 88% { stroke-dashoffset: 0; opacity: .85; } 92% { opacity: 0; } 92.01%, 100% { stroke-dashoffset: 700; opacity: 0; } }
   /* --- Confort de lecture (CSS moderne, sans dépendance) --- */
   @supports (animation-timeline: scroll()) {
     .progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; z-index: 60;
@@ -639,16 +843,24 @@ const html = `<!DOCTYPE html>
   @supports (animation-timeline: view()) {
     .reveal { animation: riseIn both; animation-timeline: view(); animation-range: entry 0% entry 55%; }
     @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    h2 { animation: flagIn both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
+    @keyframes flagIn { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: none; } }
+    .bar-grow { transform-box: fill-box; transform-origin: left center; animation: barIn both; animation-timeline: view(); animation-range: entry 12% entry 62%; }
+    @keyframes barIn { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   }
   .totop { position: fixed; right: 18px; bottom: 18px; z-index: 40; width: 42px; height: 42px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center; background: #0e0e14; border: 1px solid #3a3a44;
     color: #FFE500; text-decoration: none; font-size: 18px; box-shadow: 0 10px 24px rgba(0,0,0,.45); }
   .totop:hover { border-color: #FFE500; }
-  @media (prefers-reduced-motion: reduce) { .flowdot, .reveal, .progress, h1 em { animation: none !important; } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .flowline, .halo, .flowmsg, .rc-node, .rc-ping, .rc-fill, .strip-inner, header.hero::after,
+    .reveal, h2, .bar-grow, .progress, h1 em, .kpi .n span.done { animation: none !important; }
+  }
   @media print {
     body { background: #fff; color: #111; }
-    .feat, .kpi, .step, .map-card { border-color: #ddd; background: #fff; }
-    nav.toc, .totop, .progress, .hero-actions { display: none; }
+    .feat, .kpi, .step, .map-card, .sess { border-color: #ddd; background: #fff; }
+    nav.toc, .totop, .progress, .hero-actions, .strip, header.hero::after { display: none; }
     details.acc { break-inside: avoid; }
     details.acc .acc-body { display: block; }
   }
@@ -670,11 +882,12 @@ const html = `<!DOCTYPE html>
       <button class="btn" onclick="window.print()">Imprimer / PDF</button>
       <a class="btn ghost" href="#faq">Aller aux questions fréquentes</a>
     </div>
+    <div class="strip" aria-hidden="true"><div class="strip-inner">${stripHtml}</div></div>
     <nav class="toc">
       <a href="#vue">Vue d'ensemble</a><a href="#ecosysteme">Comment ça marche</a><a href="#carte">La carte du site</a>
       <a href="#site">Le site public</a><a href="#cockpit">Le Cockpit</a><a href="#quotidien">Au quotidien</a>
       <a href="#chiffres">Chiffres clés</a><a href="#contenus">Les contenus</a><a href="#capot">Sous le capot</a>
-      <a href="#pratiques">Bonnes pratiques</a><a href="#faq">FAQ</a>
+      <a href="#pratiques">Bonnes pratiques</a><a href="#glossaire">Glossaire</a><a href="#faq">FAQ</a>
     </nav>
   </header>
 
@@ -698,11 +911,12 @@ const html = `<!DOCTYPE html>
 
   <section id="ecosysteme">
     <h2>2. Comment ça marche, en un schéma</h2>
-    <p>Le visiteur consulte le site ; votre équipe modifie le contenu depuis le Cockpit ; la base fait le pont — en temps réel.</p>
+    <p>Le visiteur consulte le site ; votre équipe modifie le contenu depuis le Cockpit ; la base fait le pont — en temps réel.
+    Les flux animés matérialisent les échanges : chaque pointillé qui défile est un transfert d'information réel.</p>
     <div class="flow reveal">${ecosystemSvg}</div>
     <div class="legend-row">
-      <span><span class="key" style="background:#FFE500"></span>écriture depuis le Cockpit → base de données</span>
-      <span><span class="key" style="background:#7bd88f"></span>rafraîchissement temps réel → site public</span>
+      <span><span class="key" style="background:#FFE500"></span>Cockpit → base : vos modifications</span>
+      <span><span class="key" style="background:#7bd88f"></span>base → site : rafraîchissement temps réel</span>
       <span><span class="key" style="background:#4FC3F7"></span>liaison lecture seule ↔ plateforme élèves CUC Sign</span>
     </div>
 
@@ -747,7 +961,12 @@ const html = `<!DOCTYPE html>
     <div class="feat-grid">${workflowHtml}</div>
 
     <h3>Le cycle d'une demande, de bout en bout</h3>
+    <p class="meta">Suivez l'enveloppe : une candidature envoyée depuis le site parcourt cinq étapes jusqu'à sa réponse. Chaque étape s'allume au moment où la demande l'atteint.</p>
     <div class="flow reveal">${requestCycleSvg}</div>
+
+    <h3>Vos sessions, telles qu'elles apparaissent aujourd'hui sur le site</h3>
+    <p class="meta">Relevé en direct dans la base de données : chaque ligne correspond à une session publiée, avec sa date affichée publiquement et son statut actuel.</p>
+    <ul class="sessions">${sessionsHtml}</ul>
 
     <div class="callout">
       <strong>En cas de doute :</strong> rien n'est fragile. Chaque page possède un historique de versions restaurable,
@@ -759,6 +978,14 @@ const html = `<!DOCTYPE html>
     <h2>7. L'application en un coup d'œil</h2>
     <div class="kpis">${figuresHtml}</div>
     <p class="meta" style="margin-top:14px">Chiffres relevés automatiquement depuis la base de données du projet, au moment de la génération de ce dossier.</p>
+
+    ${qualityKpis
+    ? `<h3>La qualité éditoriale, mesurée <span class="meta">(complétude réelle du catalogue et des fiches coachs)</span></h3>
+    <p>Un catalogue ne vaut que par la richesse de ses fiches. Ces chiffres disent précisément où en est la documentation
+    de chaque film et de chaque coach — et ce qu'il reste éventuellement à compléter.</p>
+    <div class="kpis">${qualityKpis}</div>`
+    : ''
+  }
   </section>
 
   <section id="contenus">
@@ -791,6 +1018,19 @@ const html = `<!DOCTYPE html>
     ${barChart(coachRows, { color: '#BA68C8' })}`
     : ''
   }
+
+    <div class="two-col">
+      <div>
+        <h3>Les partenaires par famille</h3>
+        ${partnersRows.length ? barChart(partnersRows, { color: '#F06292' }) : '<p class="meta">Données indisponibles.</p>'}
+        <p class="meta">Qui accompagne le campus : équipementiers, marques, institutions et médias.</p>
+      </div>
+      <div>
+        <h3>La complétude des fiches films</h3>
+        ${completenessDonut}
+        <p class="meta">Répartition des films publiés selon la richesse de leur fiche (affiche et description).</p>
+      </div>
+    </div>
 
     <h3>Les traductions, entité par entité</h3>
     ${translationsByEntity.length ? barChart(translationsByEntity, { color: '#81C784' }) : '<p class="meta">Données indisponibles.</p>'}
@@ -859,8 +1099,14 @@ const html = `<!DOCTYPE html>
     <div class="feat-grid">${practicesHtml}</div>
   </section>
 
+  <section id="glossaire">
+    <h2>11. Glossaire — les mots du projet, en clair</h2>
+    <p>Huit termes que vous croiserez dans les échanges sur le projet, expliqués sans jargon.</p>
+    ${glossaryAccordions}
+  </section>
+
   <section id="faq">
-    <h2>11. Questions fréquentes</h2>
+    <h2>12. Questions fréquentes</h2>
     ${faqAccordions}
   </section>
 
@@ -871,7 +1117,7 @@ const html = `<!DOCTYPE html>
   </footer>
 </div>
 <script>
-  /* Compteurs animés — effet discret, désactivé si mouvement réduit ou sans observer. */
+  /* Compteurs animés — désactivés si mouvement réduit ou sans observer. */
   (function () {
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (!('IntersectionObserver' in window)) return;
@@ -889,11 +1135,35 @@ const html = `<!DOCTYPE html>
           var eased = 1 - Math.pow(1 - p, 3);
           el.textContent = Math.round(target * eased).toLocaleString('fr-FR');
           if (p < 1) requestAnimationFrame(step);
+          else el.classList.add('done');
         }
         requestAnimationFrame(step);
       });
     }, { threshold: 0.35 });
     els.forEach(function (el) { io.observe(el); });
+  })();
+
+  /* Chapitre actif dans le sommaire (scrollspy discret). */
+  (function () {
+    var links = document.querySelectorAll('nav.toc a');
+    if (!links.length || !('IntersectionObserver' in window)) return;
+    var byId = {};
+    links.forEach(function (a) {
+      var id = (a.getAttribute('href') || '').replace('#', '');
+      if (id) byId[id] = a;
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        links.forEach(function (a) { a.classList.remove('active'); });
+        var a = byId[entry.target.id];
+        if (a) a.classList.add('active');
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    Object.keys(byId).forEach(function (id) {
+      var s = document.getElementById(id);
+      if (s) io.observe(s);
+    });
   })();
 </script>
 </body>
@@ -902,9 +1172,11 @@ const html = `<!DOCTYPE html>
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, html, 'utf8');
 
-console.log('=== Dossier de présentation client généré ===');
-console.log(`Sections : 11 · accordéons : ${PUBLIC_PAGES.length + COCKPIT_APPS.length + FAQ.length + 1}`);
-console.log(`Graphiques : contenus(${contentRows.length}) · films par catégorie(${filmsByCategory.length}) · sessions(${sessionsByStatus.length}) · décennies(${decadeRows.length}) · coachs(${coachRows.length}) · traductions(${translationsByEntity.length}) · médias(${live.storage.length}) · pages(${pageWeights ? pageWeights.length : 0})`);
-console.log(`Schémas : écosystème · carte du site(${SITE_MAP.length} thèmes) · anatomie de page · cycle de demande`);
+console.log('=== Dossier de présentation client généré (v4) ===');
+console.log(`Sections : 12 · accordéons : ${PUBLIC_PAGES.length + COCKPIT_APPS.length + GLOSSARY.length + FAQ.length + 1}`);
+console.log(`Graphiques : contenus(${contentRows.length}) · films(${filmsByCategory.length}) · sessions(${sessionsByStatus.length}) · décennies(${decadeRows.length}) · coachs(${coachRows.length}) · partenaires(${partnersRows.length}) · complétude(${q ? 3 : 0}) · traductions(${translationsByEntity.length}) · médias(${live.storage.length}) · pages(${pageWeights ? pageWeights.length : 0})`);
+console.log(`Sessions live : ${live.sessions.length} lignes datées`);
+console.log(`Qualité : ${q ? `${nf(q.films.with_image)}/${nf(q.films.total)} affiches · ${nf(q.filmsEn)} films EN · ${nf(q.team.with_imdb)} IMDb` : 'indisponible'}`);
+console.log(`Schémas : écosystème (flux animés) · carte du site(${SITE_MAP.length} thèmes) · anatomie de page · cycle de demande (carte voyageuse)`);
 console.log('Sortie :');
 console.log('  - reports/cuc-dossier-application.html');
