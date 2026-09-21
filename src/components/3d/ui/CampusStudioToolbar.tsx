@@ -95,8 +95,8 @@ export const CampusStudioToolbar: React.FC<CampusStudioToolbarProps> = ({
                     title={TOOL_HINT[tool]}
                     aria-pressed={gizmoMode === tool}
                     className={`flex items-center gap-1.5 px-2.5 py-1.5 border text-[10px] font-bold uppercase tracking-wide cursor-pointer transition-colors ${gizmoMode === tool
-                            ? 'bg-[#00e5ff]/15 border-[#00e5ff] text-[#00e5ff]'
-                            : 'bg-transparent border-transparent text-zinc-400 hover:text-white hover:border-zinc-600'
+                        ? 'bg-[#00e5ff]/15 border-[#00e5ff] text-[#00e5ff]'
+                        : 'bg-transparent border-transparent text-zinc-400 hover:text-white hover:border-zinc-600'
                         }`}
                 >
                     {TOOL_ICON[tool]}
@@ -130,18 +130,25 @@ export const CampusStudioToolbar: React.FC<CampusStudioToolbarProps> = ({
 
             <span className="w-px h-5 bg-zinc-700" />
 
-            <button
-                onClick={onSaveNow}
-                title={
-                    status.detail
-                        ? `${status.label} — ${status.detail}. Cliquer pour enregistrer immédiatement.`
-                        : `${status.label}. Cliquer pour enregistrer immédiatement.`
-                }
-                className={`flex items-center gap-1.5 px-2 py-1.5 border bg-transparent text-[10px] cursor-pointer hover:bg-white/5 ${SAVE_TONE_CLASSES[status.tone]}`}
+            {/* Le détail (dont le message d'erreur réel) est affiché ici même, et non
+                seulement dans une infobulle : un échec doit se lire sans survol. */}
+            <div
+                className={`flex items-center gap-1.5 px-2 py-1.5 border text-[10px] ${SAVE_TONE_CLASSES[status.tone]}`}
             >
-                <StatusIcon className={`w-3.5 h-3.5 ${status.tone === 'progress' ? 'animate-spin' : ''}`} />
-                <span className="max-w-44 truncate">{status.label}</span>
-            </button>
+                <button
+                    onClick={onSaveNow}
+                    title={`${status.label}. Cliquer pour enregistrer immédiatement.`}
+                    className="flex items-center gap-1.5 bg-transparent cursor-pointer hover:opacity-80 whitespace-nowrap"
+                >
+                    <StatusIcon className={`w-3.5 h-3.5 ${status.tone === 'progress' ? 'animate-spin' : ''}`} />
+                    <span>{status.label}</span>
+                </button>
+                {status.detail && (
+                    <span className="max-w-80 truncate text-zinc-400" title={status.detail}>
+                        · {status.detail}
+                    </span>
+                )}
+            </div>
         </div>
     );
 };

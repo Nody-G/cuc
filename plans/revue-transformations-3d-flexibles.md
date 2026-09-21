@@ -335,6 +335,44 @@ persistant en base, n'importe quel visiteur pourrait réécrire le plan du campu
 La séparation actuelle (public = local, Cockpit = base) doit donc être conservée, ou une
 vérification d'authentification doit être ajoutée à l'action avant tout élargissement.
 
+### Cause racine confirmée : clé de service absente → écriture refusée par RLS
+
+Troisième retour d'usage : « ça marque échec de l'enregistrement ». Le diagnostic affiché a permis
+d'aller au bout, et la sonde Node a reproduit la cause exacte :
+
+```
+--- Contrôle du repli sur clé publique (scénario sans clé de service) ---
+WARN  Écriture avec la clé publique REFUSÉE :
+      new row violates row-level security policy for table "site_settings" (code 42501)
+```
+
+**Enchaînement réel :**
+
+1. [`createAdminClient()`](src/lib/supabase/admin.ts:20) retombe **silencieusement** sur
+   `NEXT_PUBLIC_SUPABASE_ANON_KEY` quand `SUPABASE_SERVICE_ROLE_KEY` est absente de
+   l'environnement d'exécution.
+2. Avec la clé publique, les **lectures** passent (politiques RLS publiques) mais les **écritures**
+   sont refusées : `42501`.
+3. Le studio affiche donc « Échec de l'enregistrement », alors que la lecture du plan, elle,
+   fonctionne parfaitement — d'où l'impression d'un studio « à moitié » cassé.
+
+**Correctif de configuration (action à faire côté environnement) :** renseigner
+`SUPABASE_SERVICE_ROLE_KEY` là où tourne l'application (Vercel → *Settings → Environment
+Variables*), puis **redéployer**. En local, `.env.local` la contient déjà — le diagnostic Node le
+confirme (`SUPABASE_SERVICE_ROLE_KEY : présente`), c'est donc l'environnement distant qui est
+incomplet.
+
+**Correctifs de code, pour que ce cas ne soit plus jamais muet :**
+
+| Correctif | Effet |
+| --- | --- |
+| `hasServiceRoleKey()` | Rend la configuration de la clé de service **observable** au lieu de la déduire d'une erreur RLS |
+| Sonde `probeCampusPlacements3D()` | Lecture seule sur le même chemin serveur ; distingue « action injoignable », « lecture OK / écriture refusée » et « lecture en échec » |
+| Diagnostic automatique après échec | Le message final nomme la cause : clé de service absente, droits, contrainte ou réseau |
+| Contrôle à l'ouverture | Le studio signale la configuration incomplète **avant** le premier geste, au lieu de laisser perdre un déplacement |
+| `console.warn` dans le repli | Une ligne explicite dans les logs serveur à chaque appel sans clé de service |
+| Succès partiel distingué | Une revalidation de pages en échec n'est plus confondue avec un échec d'écriture : les données sont en base, un avertissement le dit |
+
 L'observation clé : un enregistrement qui échoue **en silence** est pire qu'un enregistrement
 refusé bruyamment — le premier fait croire au succès. L'interface doit donc dire la vérité sur
 l'état de l'écriture, y compris quand elle échoue.

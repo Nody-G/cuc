@@ -142,6 +142,44 @@ async function main() {
     }
 
     report('ok', 'Écriture de contrôle réussie (valeur réécrite à l\'identique)');
+
+    // --- 4. Contrôle du repli sur clé publique ---
+    //
+    // `createAdminClient()` retombe sur la clé publique quand
+    // SUPABASE_SERVICE_ROLE_KEY est absente. Les politiques RLS laissent alors
+    // passer les lectures mais refusent les écritures : le studio affiche un
+    // échec alors que la lecture du plan fonctionne. Ce test reproduit ce
+    // scénario. Il réécrit la valeur **à l'identique** : aucune donnée n'est
+    // modifiée, seul `updated_at` peut l'être.
+    if (anonKey) {
+        console.log('\n--- Contrôle du repli sur clé publique (scénario sans clé de service) ---');
+        const anon = createClient(supabaseUrl, anonKey, {
+            auth: { persistSession: false, autoRefreshToken: false },
+        });
+
+        const { error: anonWriteError } = await anon
+            .from('site_settings')
+            .upsert({ key: SETTINGS_KEY, value: payload, updated_at: new Date().toISOString() });
+
+        if (anonWriteError) {
+            report(
+                'warn',
+                `Écriture avec la clé publique REFUSÉE : ${anonWriteError.message}` +
+                (anonWriteError.code ? ` (code ${anonWriteError.code})` : '')
+            );
+            console.log(
+                'Ce refus est attendu et pédagogique : tout environnement dont la clé de service est\n' +
+                'absente écrira ainsi — lecture OK, écriture refusée. Le studio affichera donc\n' +
+                '« Échec de l\'enregistrement » avec la mention « clé de service absente ».'
+            );
+        } else {
+            report(
+                'warn',
+                'Écriture avec la clé publique ACCEPTÉE : les politiques RLS de site_settings autorisent l\'écriture anonyme. À restreindre.'
+            );
+        }
+    }
+
     console.log('\nConclusion : le chemin d\'écriture Supabase fonctionne depuis cet environnement.');
     console.log('Si le studio ne sauvegarde toujours rien, l\'état affiché dans sa barre d\'outils');
     console.log('donne désormais le message d\'erreur exact remonté par l\'action serveur.');

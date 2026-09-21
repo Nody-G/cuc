@@ -102,6 +102,12 @@ export interface CampusSaveStatus {
   backend: CampusSaveBackend;
   /** Message remonté par Supabase (ou par le stockage local), le cas échéant. */
   error?: string;
+  /**
+   * Écriture réussie mais conséquence partielle (par exemple revalidation des
+   * pages publiques en échec). Les données sont bien en base : il serait faux
+   * de présenter l'opération comme un échec.
+   */
+  warning?: string;
   /** Horodatage de la dernière écriture réussie. */
   savedAt?: number;
 }

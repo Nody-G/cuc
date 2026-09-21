@@ -15,6 +15,18 @@ describe('persistenceStatus — destination des écritures', () => {
         expect(remote.detail).toMatch(/partagé/i);
     });
 
+    it('distingue un succès partiel d’un échec : les données sont bien en base', () => {
+        const partial = describeSaveStatus({
+            state: 'saved',
+            backend: 'database',
+            savedAt: Date.now(),
+            warning: 'Données enregistrées, revalidation en échec : routes indisponibles',
+        });
+        expect(partial.tone).toBe('success');
+        expect(partial.detail).toMatch(/attention/i);
+        expect(partial.detail).toMatch(/revalidation/i);
+    });
+
     it('prévient dès l’état au repos qu’un studio public n’écrit que dans le navigateur', () => {
         const idle = describeSaveStatus({ state: 'idle', backend: 'local' });
         expect(idle.label).toMatch(/locales/i);

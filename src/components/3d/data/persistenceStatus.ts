@@ -61,6 +61,14 @@ export function describeSaveStatus(status: CampusSaveStatus | undefined): SaveSt
         };
     }
 
+    if (status.warning) {
+        return {
+            label: isLocal ? 'Enregistré localement' : 'Enregistré dans Supabase',
+            detail: `Attention : ${status.warning}`,
+            tone: 'success',
+        };
+    }
+
     return {
         label: isLocal ? 'Enregistré localement' : 'Enregistré dans Supabase',
         detail: isLocal

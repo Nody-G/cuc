@@ -1,7 +1,7 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
-import { createAdminClient } from '@/lib/supabase/admin';
+import { createAdminClient, hasServiceRoleKey } from '@/lib/supabase/admin';
 import { revalidatePath } from 'next/cache';
 import { SiteInquiry } from '@/lib/data/site-service';
 
@@ -954,16 +954,78 @@ export async function upsertCampusPlacements3D(
 
     if (error) {
       console.error(
-        `[upsertCampusPlacements3D] Écriture site_settings impossible : ${error.message}`
+        `[upsertCampusPlacements3D] Écriture site_settings impossible : ${error.code ?? ''} ${error.message}`
       );
-      return { success: false, error: error.message };
+      return { success: false, error: `${error.message}${error.code ? ` (code ${error.code})` : ''}` };
     }
 
-    await revalidateSite(['/', '/visite-guidee', '/visite-virtuelle']);
+    // L'échec de revalidation n'est pas un échec d'écriture : les données sont
+    // en base. Il est remonté comme avertissement au lieu d'être avalé, sinon
+    // une page publique figée resterait inexplicable.
+    const revalidation = await revalidateSite(['/', '/visite-guidee', '/visite-virtuelle']);
+    if (revalidation && 'success' in revalidation && revalidation.success === false) {
+      console.error(
+        `[upsertCampusPlacements3D] Revalidation impossible : ${revalidation.error}`
+      );
+      return { success: true, warning: `Données enregistrées, revalidation en échec : ${revalidation.error}` };
+    }
+
     return { success: true };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    console.error(`[upsertCampusPlacements3D] Exception : ${message}`);
     return { success: false, error: message };
+  }
+}
+
+/**
+ * Sonde de diagnostic de la persistance des placements 3D.
+ *
+ * Lecture **seule** de la ligne stockée, exécutée par le même chemin serveur
+ * que l'écriture. Permet de distinguer trois causes autrement indiscernables :
+ *  - l'action serveur n'est pas joignable depuis le navigateur (erreur de
+ *    protocole d'action) ;
+ *  - l'écriture est refusée alors que la lecture fonctionne ;
+ *  - la lecture elle-même échoue (droits, schéma, réseau).
+ */
+export async function probeCampusPlacements3D() {
+  const serviceRoleConfigured = hasServiceRoleKey();
+  try {
+    const adminClient = createAdminClient();
+    const { data, error } = await adminClient
+      .from('site_settings')
+      .select('value, updated_at')
+      .eq('key', 'campus_placements_3d')
+      .maybeSingle();
+
+    if (error) {
+      return {
+        success: false,
+        stage: 'read' as const,
+        serviceRoleConfigured,
+        error: `${error.message}${error.code ? ` (code ${error.code})` : ''}`,
+      };
+    }
+
+    const placements = (data?.value as { placements?: Record<string, unknown> } | undefined)
+      ?.placements;
+    const count = placements && typeof placements === 'object' ? Object.keys(placements).length : 0;
+
+    return {
+      success: true,
+      stage: 'read' as const,
+      serviceRoleConfigured,
+      hasRow: Boolean(data),
+      count,
+      updatedAt: data?.updated_at ?? null,
+    };
+  } catch (err: unknown) {
+    return {
+      success: false,
+      stage: 'read' as const,
+      serviceRoleConfigured,
+      error: err instanceof Error ? err.message : 'Erreur inconnue',
+    };
   }
 }
 

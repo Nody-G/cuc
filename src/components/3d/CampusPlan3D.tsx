@@ -25,7 +25,7 @@ import { CampusEditorPanel } from './ui/CampusEditorPanel';
 import { CampusStudioToolbar } from './ui/CampusStudioToolbar';
 import { CampusJsonStudioModal } from './ui/CampusJsonStudioModal';
 import { getCampusPlacements3D } from '@/lib/data/site-service';
-import { upsertCampusPlacements3D } from '@/app/admin/actions';
+import { probeCampusPlacements3D, upsertCampusPlacements3D } from '@/app/admin/actions';
 
 export type { PlanMode, CameraPreset, EditableFacilityItem, GizmoMode, CampusPlan3DProps };
 
@@ -144,6 +144,34 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
   }, []);
 
   /**
+   * Enrichit un échec d'écriture par une **sonde de lecture** exécutée sur le
+   * même chemin serveur. Trois causes se ressemblent depuis le navigateur et
+   * exigent des corrections opposées :
+   *  - l'action serveur n'est pas joignable (protocole d'action) ;
+   *  - la lecture fonctionne mais l'écriture est refusée (droits, contrainte) ;
+   *  - les deux échouent (schéma, réseau, configuration).
+   */
+  const diagnosePersistFailure = useCallback(async (message: string): Promise<string> => {
+    try {
+      const probe = await probeCampusPlacements3D();
+
+      if (probe && 'success' in probe && probe.success) {
+        if (probe.serviceRoleConfigured === false) {
+          return `${message} — sonde : lecture OK (${probe.count} installation(s) en base) mais SUPABASE_SERVICE_ROLE_KEY absente sur ce serveur. L'écriture retombe donc sur la clé publique, que les politiques RLS refusent. Renseigner la clé de service dans l'environnement (Vercel → Settings → Environment Variables) puis redéployer.`;
+        }
+        return `${message} — sonde : lecture OK (${probe.count} installation(s) en base) avec clé de service configurée, donc la lecture passe et c'est l'écriture qui est refusée (droits ou contrainte sur site_settings).`;
+      }
+
+      if (probe && 'error' in probe && probe.error) {
+        return `${message} — sonde : lecture également en échec (${probe.error}), donc la cause est côté Supabase, pas côté studio.`;
+      }
+      return message;
+    } catch {
+      return `${message} — sonde : injoignable depuis ce navigateur, donc l'appel d'action serveur lui-même ne passe pas (vérifier que le déploiement est à jour et que l'onglet n'est pas resté sur un ancien bundle).`;
+    }
+  }, []);
+
+  /**
    * Une tentative d'écriture : Supabase en mode Cockpit (`site_settings`
    * key='campus_placements_3d'), `localStorage` en mode public.
    *
@@ -174,19 +202,29 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
       try {
         const result = await upsertCampusPlacements3D(payload);
         if (result && 'success' in result && result.success === false) {
-          throw new Error(result.error ?? 'Erreur inconnue côté Supabase');
+          const diagnosed = await diagnosePersistFailure(
+            result.error ?? 'Erreur inconnue côté Supabase'
+          );
+          throw new Error(diagnosed);
         }
+
+        const warning =
+          result && 'warning' in result && typeof result.warning === 'string'
+            ? result.warning
+            : undefined;
+
         pendingPayloadRef.current = null;
-        setSaveStatus({ state: 'saved', backend: saveBackend, savedAt: Date.now() });
+        setSaveStatus({ state: 'saved', backend: saveBackend, savedAt: Date.now(), warning });
         return true;
       } catch (err: unknown) {
-        const message = err instanceof Error ? err.message : 'Erreur inconnue';
+        const raw = err instanceof Error ? err.message : 'Erreur inconnue';
+        const message = raw.includes('— sonde') ? raw : await diagnosePersistFailure(raw);
         console.error('[CampusPlan3D] Enregistrement des placements impossible :', message);
         setSaveStatus({ state: 'error', backend: saveBackend, error: message });
         return false;
       }
     },
-    [persistToDatabase, saveBackend]
+    [persistToDatabase, saveBackend, diagnosePersistFailure]
   );
 
   /**
@@ -298,6 +336,39 @@ export const CampusPlan3D: React.FC<CampusPlan3DProps> = ({
     },
     [pushHistory, schedulePersist]
   );
+
+  /**
+   * Contrôle préalable de la configuration serveur (Cockpit uniquement).
+   *
+   * Sans `SUPABASE_SERVICE_ROLE_KEY`, les écritures sont refusées par RLS et
+   * chaque déplacement échouerait — mais seulement **après** le geste. Mieux
+   * vaut l'annoncer dès l'ouverture du studio que laisser l'opérateur
+   * découvrir le problème en perdant son travail.
+   */
+  useEffect(() => {
+    if (!persistToDatabase) return;
+    let cancelled = false;
+
+    probeCampusPlacements3D()
+      .then((probe) => {
+        if (cancelled || !probe) return;
+        if ('serviceRoleConfigured' in probe && probe.serviceRoleConfigured === false) {
+          setSaveStatus({
+            state: 'error',
+            backend: saveBackend,
+            error:
+              'SUPABASE_SERVICE_ROLE_KEY absente sur ce serveur : les lectures passent, mais toute écriture sera refusée par les politiques RLS (code 42501). Renseigner la clé de service dans l\'environnement (Vercel → Settings → Environment Variables) puis redéployer.',
+          });
+        }
+      })
+      .catch(() => {
+        // Silencieux : le diagnostic d'échec d'écriture prendra le relais.
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [persistToDatabase, saveBackend]);
 
   // Chargement initial depuis Supabase (Cockpit uniquement).
   // Priorité : placements enregistrés en base > placements locaux > défauts
