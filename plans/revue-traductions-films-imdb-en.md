@@ -155,3 +155,18 @@ Synopsis EN écrits : **131**. Non résolus : **5**.
 | `sauveur-giordano` | Sauveur Giordano | aucune intrigue IMDb |
 
 Reste à traiter après ce lot : **0** fiche(s).
+
+## Sources anglaises épuisées
+
+Constat établi le 2026-09-21T19:31:34.902Z : **aucune** des fiches ci-dessous ne possède de synopsis anglais sur les trois sources interrogeables (TMDB, IMDb, Wikipédia anglophone).
+
+| id | titre | IMDb | Constat |
+|---|---|---|---|
+| `6-x-confine-e-s` | 6 X Confiné.e.s | tt14199566 | aucune intrigue IMDb ; aucune entrée Wikipédia anglophone |
+| `commissaire-moulin` | Commissaire Moulin | tt0166423 | aucune intrigue IMDb ; aucune entrée Wikipédia anglophone |
+| `mon-frere-yves` | Mon frère Yves | tt2158643 | intrigue IMDb en français uniquement ; Wikipédia EN ne décrit que le roman de Pierre Loti |
+| `panique-au-grand-magasin` | Panique au Grand Magasin | tt38048816 | aucune intrigue IMDb ; aucune entrée Wikipédia anglophone |
+| `sauveur-giordano` | Sauveur Giordano | tt0338411 | aucune intrigue IMDb ; aucune entrée Wikipédia anglophone |
+
+**Décision** : repli français conservé, conformément à la doctrine — une phrase inventée serait plus grave qu’un texte resté en français.
+Une traduction humaine reste possible à tout moment : il suffit d’ajouter `{ description: "…" }` dans `site_translations` (entité `film`) pour que la fiche passe en anglais, sans toucher au code.
