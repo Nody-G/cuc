@@ -31,6 +31,7 @@
     "i18n:audit:consumption": "node scripts/audit_overlay_consumption.mjs",
     "i18n:verify:texts": "npm run i18n:selftest:repairs && npm run i18n:audit:consumption && npm run i18n:audit:integrity && npm run i18n:audit:integrity:repo",
     "i18n:verify:no-leak": "node scripts/verify_overlay_locale_leak.mjs",
+    "i18n:verify:shown": "tsx scripts/verify_overlays_really_shown.mjs",
     "probe:dev": "node scripts/probe_public_routes.mjs http://localhost:3000",
     "i18n:audit:completeness": "node scripts/audit_i18n_completeness.mjs",
     "i18n:audit:surface": "node scripts/audit_translation_surface.mjs",
