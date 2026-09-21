@@ -35,6 +35,94 @@
     },
     "formation": {
         "ctaApplyPro": "Apply to the Pro Programme",
+        "formules": {
+            "badge": "ADMISSION PATHWAY & PROGRAMME",
+            "title": "FROM DISCOVERY COURSE TO PRO DIPLOMA",
+            "subtitle": "Access to the long programme is conditional on passing the discovery course. This selective protocol guarantees everyone's safety and the standard of the cohort.",
+            "step1Badge": "STEP 01 • MANDATORY SELECTION",
+            "step1Hours": "80 HOURS",
+            "step1Title": "DISCOVERY COURSE & SELECTION",
+            "step1Desc": "12 consecutive days to test your physical abilities, your composure and your ability to adapt before applying to the long programme.",
+            "labelDuration": "Duration:",
+            "step1Duration": "12 consecutive days (80h of practice)",
+            "labelPlace": "Location:",
+            "place": "Domaine CUC, 59360 Le Cateau-Cambrésis",
+            "labelBoarding": "Accommodation:",
+            "step1Boarding": "Full board available on site (90 beds)",
+            "step1ProgramTitle": "The 12-day programme includes:",
+            "step1Items": [
+                "Introduction to choreographed fights and camera axes",
+                "Self-height falls and landings on modular platforms",
+                "Progressive high falls up to 6-9 metres onto airbag",
+                "Obstacle course and Yamakasi Parkour",
+                "Individual aptitude assessment and pro admission decision"
+            ],
+            "step1Cta": "Book the Discovery Course",
+            "step2Badge": "STEP 02 • PROFESSIONAL TRAINING",
+            "step2Hours": "720 TO 800 HOURS",
+            "step2Title": "2-YEAR PROFESSIONAL PROGRAMME",
+            "step2Desc": "9 to 10 twelve-day courses spread over two years. The complete programme that trains versatile stunt performers able to work immediately for international cinema.",
+            "labelRhythm": "Rhythm:",
+            "step2Rhythm": "One 12-day course every two months (2 years)",
+            "labelAccreditation": "Accreditation:",
+            "step2Accreditation": "QUALIOPI certified • AFDAS / France Travail funding",
+            "labelCertification": "Certification:",
+            "step2Certification": "CUC Professional Stunt Performer Diploma",
+            "step2ProgramTitle": "Full command of the modules:",
+            "step2Items": [
+                "Extreme falls up to 21 metres on the CUC Tower",
+                "Full-body burn with pyro protocols",
+                "3D rigging, superhero wirework and catapults",
+                "Special forces, blank-firing weapons and tactical rappel",
+                "Direct entry into the CUC stunt coordinator network"
+            ]
+        },
+        "pedagogy": {
+            "sessionsTitle": "UPCOMING SESSIONS",
+            "registrationNote": "* Enrolment is processed in order of validation of the medical file and the discovery course.",
+            "statuses": {
+                "full": "FULL",
+                "few": "LAST PLACES",
+                "open": "OPEN"
+            },
+            "sessions": [
+                {
+                    "label": "16 to 28 August 2026",
+                    "status": "full"
+                },
+                {
+                    "label": "18 to 30 October 2026",
+                    "status": "full"
+                },
+                {
+                    "label": "21 Feb. to 05 March 2027",
+                    "status": "full"
+                },
+                {
+                    "label": "18 to 30 April 2027",
+                    "status": "few"
+                },
+                {
+                    "label": "27 June to 09 July 2027",
+                    "status": "open"
+                }
+            ],
+            "admissionTitle": "ADMISSION REQUIREMENTS",
+            "admissionAge": "Be <b>18 or over</b> at the start of the programme.",
+            "admissionDiscovery": "Have successfully completed the <b>12-day discovery course</b>.",
+            "admissionMedical": "Provide a <b>medical certificate of advanced fitness</b> for physical stunts.",
+            "admissionBoard": "Application validated by the CUC teaching committee.",
+            "fundingTitle": "FUNDING",
+            "sealAlt": "CUC seal",
+            "fundingQualiopi": "Campus Univers Cascades is a <b>QUALIOPI</b> certified organisation.",
+            "fundingIntro": "Programmes may be fully or partially funded by:",
+            "fundingItems": [
+                "• AFDAS (freelance entertainment workers)",
+                "• FRANCE TRAVAIL (AIF grant for jobseekers)",
+                "• OPCO & entertainment companies",
+                "• Interest-free instalments (self-funded)"
+            ]
+        },
         "cta": {
             "title": "READY TO JOIN THE STUNT SCHOOL?",
             "text": "Contact our teaching team to check your eligibility, schedule your discovery course or build your funding application.",

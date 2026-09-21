@@ -1,39 +1,17 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T15:56:02.026Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T15:58:29.038Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **26** — occurrences : **697**
+Pages contrôlées : **27** — pages avec français résiduel : **26** — occurrences : **661**
 
-## /en/formation-de-cascadeur — 50 occurrence(s)
+## /en/formation-de-cascadeur — 14 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
 | texte visible | Un cursus d'excellence de 720h à 800h sur 2 ans pour maîtriser l'ensemble des disciplines de la cascade physique et cinématographique. |
 | texte visible | DU STAGE DÉCOUVERTE AU DIPLÔME PRO |
 | texte visible | L'accès à la formation longue durée est conditionné par la validation du stage découverte. Ce protocole sélectif garantit la sécurité de tous et le niveau d'excellence de la promotion. |
-| texte visible | ÉTAPE 01 • SÉLECTION OBLIGATOIRE |
-| texte visible | STAGE DÉCOUVERTE & SÉLECTION |
-| texte visible | 12 jours consécutifs pour tester vos aptitudes physiques, votre sang-froid et votre capacité d'adaptation avant de postuler au cursus long. |
-| texte visible | Durée : 12 jours consécutifs (80h de pratique) |
-| texte visible | Hébergement : Pension complète disponible sur place (90 lits) |
-| texte visible | Au programme des 12 jours : |
-| texte visible | Initiation aux combats chorégraphiés et axes caméra |
-| texte visible | Chutes de sa hauteur et absorptions sur praticables |
-| texte visible | Sauts progressifs en hauteur jusqu'à 6-9 mètres sur airbag |
-| texte visible | Bilan individuel d'aptitude et verdict d'admission pro |
-| texte visible | Réserver la Session Découverte |
-| texte visible | ÉTAPE 02 • FORMATION PROFESSIONNELLE |
-| texte visible | 720 À 800 HEURES |
-| texte visible | 9 à 10 stages de 12 jours échelonnés sur deux ans. Le cursus complet qui forme les cascadeurs polyvalents aptes à tourner immédiatement pour le cinéma international. |
-| texte visible | Rythme : 1 stage de 12 jours tous les deux mois (2 ans) |
-| texte visible | Certification : Diplôme de Cascadeur Professionnel CUC |
-| texte visible | Maîtrise totale des modules : |
-| texte visible | Chutes extrêmes jusqu'à 21 mètres sur la CUC Tower |
-| texte visible | Torche humaine intégrale avec protocoles pyro |
-| texte visible | Câblage 3D, wirework super-héroïque et catapultes |
-| texte visible | Forces spéciales, armes à blanc et rappel tactique |
-| texte visible | Insertion directe dans le réseau de coordinateurs cascades CUC |
 | texte visible | RÉPERTOIRE TECHNIQUE |
 | texte visible | LES 10 DISCIPLINES DE LA CASCADE PHYSIQUE |
 | texte visible | Combat Chorégraphié & Action Design |
@@ -45,20 +23,6 @@ Pages contrôlées : **27** — pages avec français résiduel : **26** — occu
 | texte visible | Mitaines d'entraînement |
 | texte visible | Sacs de frappe et paos |
 | texte visible | Caméras de contrôle d'axe |
-| texte visible | 16 au 28 août 2026 |
-| texte visible | 18 au 30 octobre 2026 |
-| texte visible | 21 fév. au 05 mars 2027 |
-| texte visible | 18 au 30 avril 2027 |
-| texte visible | DERNIÈRES PLACES |
-| texte visible | 27 juin au 09 juillet 2027 |
-| texte visible | * Les inscriptions se font par ordre de validation du dossier médical et du stage découverte. |
-| texte visible | Être âgé de 18 ans révolus au début du cursus. |
-| texte visible | Avoir validé avec succès le stage découverte de 12 jours . |
-| texte visible | Fournir un certificat médical d'aptitude poussée à la cascade physique. |
-| texte visible | Validation du dossier par la commission pédagogique CUC. |
-| texte visible | Les formations peuvent faire l'objet d'une prise en charge intégrale ou partielle par : |
-| texte visible | • OPCO & Entreprises du spectacle |
-| texte visible | • Échéanciers sans frais (fonds propres) |
 
 ## /en/stages-cascades-parkour-2 — 26 occurrence(s)
 

@@ -16,6 +16,20 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
   onApply,
 }) => {
   const t = useTranslations('formation');
+  const tp = useTranslations('formation.pedagogy');
+
+  /**
+   * Sessions, statuts et financements : la copie vit dans `formation.pedagogy`
+   * (les dates FR « 16 au 28 août 2026 » ne s'affichent plus en mode anglais).
+   */
+  const sessions = (tp.raw('sessions') as { label: string; status: string }[]) ?? [];
+  const statuses = (tp.raw('statuses') as Record<string, string>) ?? {};
+  const fundingItems = (tp.raw('fundingItems') as string[]) ?? [];
+  const statusStyles: Record<string, string> = {
+    full: 'text-red-400 bg-red-950/40 border-red-800',
+    few: 'text-[#FFE500] bg-yellow-950/40 border-yellow-700',
+    open: 'text-emerald-400 bg-emerald-950/40 border-emerald-800',
+  };
 
   return (
     <section className="py-16 bg-[#07070a] border-t border-zinc-800">
@@ -26,43 +40,24 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
             <div className="flex items-center gap-2 mb-4">
               <Calendar className="w-4 h-4 text-[#FFE500]" />
               <h3 className="font-display uppercase text-lg text-white">
-                PROCHAINES SESSIONS
+                {tp('sessionsTitle')}
               </h3>
             </div>
             <div className="space-y-2.5 text-xs font-mono-tech">
-              <div className="flex items-center justify-between p-2.5 bg-[#14141c] border border-zinc-800">
-                <span className="text-zinc-300">16 au 28 août 2026</span>
-                <span className="text-red-400 bg-red-950/40 px-2 py-0.5 border border-red-800">
-                  COMPLET
-                </span>
-              </div>
-              <div className="flex items-center justify-between p-2.5 bg-[#14141c] border border-zinc-800">
-                <span className="text-zinc-300">18 au 30 octobre 2026</span>
-                <span className="text-red-400 bg-red-950/40 px-2 py-0.5 border border-red-800">
-                  COMPLET
-                </span>
-              </div>
-              <div className="flex items-center justify-between p-2.5 bg-[#14141c] border border-zinc-800">
-                <span className="text-zinc-300">21 fév. au 05 mars 2027</span>
-                <span className="text-red-400 bg-red-950/40 px-2 py-0.5 border border-red-800">
-                  COMPLET
-                </span>
-              </div>
-              <div className="flex items-center justify-between p-2.5 bg-[#14141c] border border-zinc-800">
-                <span className="text-zinc-300">18 au 30 avril 2027</span>
-                <span className="text-[#FFE500] bg-yellow-950/40 px-2 py-0.5 border border-yellow-700">
-                  DERNIÈRES PLACES
-                </span>
-              </div>
-              <div className="flex items-center justify-between p-2.5 bg-[#14141c] border border-zinc-800">
-                <span className="text-zinc-300">27 juin au 09 juillet 2027</span>
-                <span className="text-emerald-400 bg-emerald-950/40 px-2 py-0.5 border border-emerald-800">
-                  OUVERT
-                </span>
-              </div>
+              {sessions.map((session) => (
+                <div
+                  key={session.label}
+                  className="flex items-center justify-between p-2.5 bg-[#14141c] border border-zinc-800"
+                >
+                  <span className="text-zinc-300">{session.label}</span>
+                  <span className={`px-2 py-0.5 border ${statusStyles[session.status] ?? ''}`}>
+                    {statuses[session.status] ?? ''}
+                  </span>
+                </div>
+              ))}
             </div>
             <div className="mt-4 text-[11px] font-tech text-zinc-500">
-              * Les inscriptions se font par ordre de validation du dossier médical et du stage découverte.
+              {tp('registrationNote')}
             </div>
           </div>
 
@@ -71,33 +66,29 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
             <div className="flex items-center gap-2 mb-4">
               <ShieldCheck className="w-4 h-4 text-[#FFE500]" />
               <h3 className="font-display uppercase text-lg text-white">
-                CONDITIONS D'ADMISSION
+                {tp('admissionTitle')}
               </h3>
             </div>
             <ul className="space-y-3 text-xs font-tech text-zinc-300">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-[#FFE500] shrink-0 mt-0.5" />
+                <span>{tp.rich('admissionAge', { b: (chunks) => <strong>{chunks}</strong> })}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#FFE500] shrink-0 mt-0.5" />
                 <span>
-                  Être âgé de <strong>18 ans révolus</strong> au début du cursus.
+                  {tp.rich('admissionDiscovery', { b: (chunks) => <strong>{chunks}</strong> })}
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-[#FFE500] shrink-0 mt-0.5" />
                 <span>
-                  Avoir validé avec succès le <strong>stage découverte de 12 jours</strong>.
+                  {tp.rich('admissionMedical', { b: (chunks) => <strong>{chunks}</strong> })}
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-[#FFE500] shrink-0 mt-0.5" />
-                <span>
-                  Fournir un <strong>certificat médical d'aptitude poussée</strong> à la cascade physique.
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#FFE500] shrink-0 mt-0.5" />
-                <span>
-                  Validation du dossier par la commission pédagogique CUC.
-                </span>
+                <span>{tp('admissionBoard')}</span>
               </li>
             </ul>
           </div>
@@ -108,13 +99,13 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
               <div className="flex items-center gap-2">
                 <Award className="w-4 h-4 text-[#FFE500]" />
                 <h3 className="font-display uppercase text-lg text-white">
-                  PRISE EN CHARGE
+                  {tp('fundingTitle')}
                 </h3>
               </div>
               <div className="relative w-8 h-8 opacity-75">
                 <Image
                   src="/images/logos/cuc-logo-bw.png"
-                  alt="Sceau CUC"
+                  alt={tp('sealAlt')}
                   width={32}
                   height={32}
                   className="object-contain"
@@ -122,17 +113,12 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
               </div>
             </div>
             <div className="space-y-3 text-xs font-tech text-zinc-300">
-              <p>
-                Le Campus Univers Cascades est un organisme certifié <strong>QUALIOPI</strong>.
-              </p>
-              <p>
-                Les formations peuvent faire l'objet d'une prise en charge intégrale ou partielle par :
-              </p>
+              <p>{tp.rich('fundingQualiopi', { b: (chunks) => <strong>{chunks}</strong> })}</p>
+              <p>{tp('fundingIntro')}</p>
               <div className="space-y-1 font-mono-tech text-[11px] text-[#FFE500]">
-                <div>• AFDAS (Intermittents du spectacle)</div>
-                <div>• FRANCE TRAVAIL (AIF demandeurs d'emploi)</div>
-                <div>• OPCO &amp; Entreprises du spectacle</div>
-                <div>• Échéanciers sans frais (fonds propres)</div>
+                {fundingItems.map((item) => (
+                  <div key={item}>{item}</div>
+                ))}
               </div>
             </div>
           </div>

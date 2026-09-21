@@ -35,6 +35,94 @@
     },
     "formation": {
         "ctaApplyPro": "Candidater au Cursus Pro",
+        "formules": {
+            "badge": "PARCOURS D'ADMISSION & CURSUS",
+            "title": "DU STAGE DÉCOUVERTE AU DIPLÔME PRO",
+            "subtitle": "L'accès à la formation longue durée est conditionné par la validation du stage découverte. Ce protocole sélectif garantit la sécurité de tous et le niveau d'excellence de la promotion.",
+            "step1Badge": "ÉTAPE 01 • SÉLECTION OBLIGATOIRE",
+            "step1Hours": "80 HEURES",
+            "step1Title": "STAGE DÉCOUVERTE & SÉLECTION",
+            "step1Desc": "12 jours consécutifs pour tester vos aptitudes physiques, votre sang-froid et votre capacité d'adaptation avant de postuler au cursus long.",
+            "labelDuration": "Durée :",
+            "step1Duration": "12 jours consécutifs (80h de pratique)",
+            "labelPlace": "Lieu :",
+            "place": "Domaine CUC, 59360 Le Cateau-Cambrésis",
+            "labelBoarding": "Hébergement :",
+            "step1Boarding": "Pension complète disponible sur place (90 lits)",
+            "step1ProgramTitle": "Au programme des 12 jours :",
+            "step1Items": [
+                "Initiation aux combats chorégraphiés et axes caméra",
+                "Chutes de sa hauteur et absorptions sur praticables",
+                "Sauts progressifs en hauteur jusqu'à 6-9 mètres sur airbag",
+                "Parcours d'obstacles et Parkour Yamakasi",
+                "Bilan individuel d'aptitude et verdict d'admission pro"
+            ],
+            "step1Cta": "Réserver la Session Découverte",
+            "step2Badge": "ÉTAPE 02 • FORMATION PROFESSIONNELLE",
+            "step2Hours": "720 À 800 HEURES",
+            "step2Title": "FORMATION PROFESSIONNELLE 2 ANS",
+            "step2Desc": "9 à 10 stages de 12 jours échelonnés sur deux ans. Le cursus complet qui forme les cascadeurs polyvalents aptes à tourner immédiatement pour le cinéma international.",
+            "labelRhythm": "Rythme :",
+            "step2Rhythm": "1 stage de 12 jours tous les deux mois (2 ans)",
+            "labelAccreditation": "Agrément :",
+            "step2Accreditation": "Certifié QUALIOPI • Prise en charge AFDAS / France Travail",
+            "labelCertification": "Certification :",
+            "step2Certification": "Diplôme de Cascadeur Professionnel CUC",
+            "step2ProgramTitle": "Maîtrise totale des modules :",
+            "step2Items": [
+                "Chutes extrêmes jusqu'à 21 mètres sur la CUC Tower",
+                "Torche humaine intégrale avec protocoles pyro",
+                "Câblage 3D, wirework super-héroïque et catapultes",
+                "Forces spéciales, armes à blanc et rappel tactique",
+                "Insertion directe dans le réseau de coordinateurs cascades CUC"
+            ]
+        },
+        "pedagogy": {
+            "sessionsTitle": "PROCHAINES SESSIONS",
+            "registrationNote": "* Les inscriptions se font par ordre de validation du dossier médical et du stage découverte.",
+            "statuses": {
+                "full": "COMPLET",
+                "few": "DERNIÈRES PLACES",
+                "open": "OUVERT"
+            },
+            "sessions": [
+                {
+                    "label": "16 au 28 août 2026",
+                    "status": "full"
+                },
+                {
+                    "label": "18 au 30 octobre 2026",
+                    "status": "full"
+                },
+                {
+                    "label": "21 fév. au 05 mars 2027",
+                    "status": "full"
+                },
+                {
+                    "label": "18 au 30 avril 2027",
+                    "status": "few"
+                },
+                {
+                    "label": "27 juin au 09 juillet 2027",
+                    "status": "open"
+                }
+            ],
+            "admissionTitle": "CONDITIONS D'ADMISSION",
+            "admissionAge": "Être âgé de <b>18 ans révolus</b> au début du cursus.",
+            "admissionDiscovery": "Avoir validé avec succès le <b>stage découverte de 12 jours</b>.",
+            "admissionMedical": "Fournir un <b>certificat médical d'aptitude poussée</b> à la cascade physique.",
+            "admissionBoard": "Validation du dossier par la commission pédagogique CUC.",
+            "fundingTitle": "PRISE EN CHARGE",
+            "sealAlt": "Sceau CUC",
+            "fundingQualiopi": "Le Campus Univers Cascades est un organisme certifié <b>QUALIOPI</b>.",
+            "fundingIntro": "Les formations peuvent faire l'objet d'une prise en charge intégrale ou partielle par :",
+            "fundingItems": [
+                "• AFDAS (Intermittents du spectacle)",
+                "• FRANCE TRAVAIL (AIF demandeurs d'emploi)",
+                "• OPCO & Entreprises du spectacle",
+                "• Échéanciers sans frais (fonds propres)"
+            ]
+        },
         "cta": {
             "title": "PRÊT À INTÉGRER L'ÉCOLE DES CASCADEURS ?",
             "text": "Contactez notre équipe pédagogique pour vérifier votre éligibilité, planifier votre stage découverte ou monter votre dossier de financement.",
