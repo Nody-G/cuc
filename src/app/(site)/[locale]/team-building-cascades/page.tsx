@@ -2,6 +2,7 @@
 import { Link } from '@/i18n/navigation';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
@@ -49,6 +50,7 @@ const TEAM_BUILDING_WORKSHOPS = [
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 
 export default function TeamBuildingCascadesPage() {
+  const t = useTranslations('teamBuilding');
   const { content } = usePageDynamicContent('team-building-cascades');
 
   const heroBadge = content.hero?.badge || 'SÉMINAIRES & ENTREPRISES';
@@ -74,7 +76,7 @@ export default function TeamBuildingCascadesPage() {
           <div className="absolute inset-0 z-0">
             <Image
               src={heroBg}
-              alt="Team building cinéma et cascades CUC Events"
+              alt={t('heroMeta')}
               fill
               priority
               sizes="100vw"
@@ -101,7 +103,7 @@ export default function TeamBuildingCascadesPage() {
                 {heroBadge}
               </StuntBadge>
               <span className="text-xs font-mono-tech text-zinc-400">
-                COHÉSION D'ÉQUIPE • COULISSES DU CINÉMA
+                {t('heroMeta')}
               </span>
             </div>
 
@@ -151,15 +153,14 @@ export default function TeamBuildingCascadesPage() {
                 className="w-13 h-13 object-contain drop-shadow-[0_0_12px_rgba(255,229,0,0.35)]"
               />
               <span className="text-xs font-mono-tech text-[#FFE500] font-bold tracking-widest uppercase">
-                {content.sections_data?.overview?.badge || 'CUC EVENTS • IMMERSION ENTREPRISE'}
+                {content.sections_data?.overview?.badge || t('overviewBadge')}
               </span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-display uppercase text-white mb-4">
-              {content.sections_data?.overview?.title || 'LES ATELIERS DU CINÉMA'}
+              {content.sections_data?.overview?.title || t('overviewTitle')}
             </h2>
             <p className="text-sm font-tech text-zinc-300 leading-relaxed">
-              {content.sections_data?.overview?.description ||
-                "Nous vous proposons des animations et initiations autour du métier de cascadeur, du cinéma et de ses coulisses. Team building, séminaires, collectivités... Notre équipe de professionnels vous propose des ateliers au choix avec du matériel spécifique et une sécurité sans compromis."}
+              {content.sections_data?.overview?.description || t('overviewDescription')}
             </p>
           </div>
         </section>
@@ -181,14 +182,14 @@ export default function TeamBuildingCascadesPage() {
                       {workshop.img ? (
                         <Image
                           src={workshop.img}
-                          alt={workshop.title || 'Atelier cascade'}
+                          alt={workshop.title || t('workshopFallbackTitle')}
                           fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-xs font-mono-tech text-zinc-500">
-                          ATELIER CUC
+                          {t('workshopFallbackLabel')}
                         </div>
                       )}
                       {workshop.category && (
@@ -207,8 +208,8 @@ export default function TeamBuildingCascadesPage() {
                   </div>
 
                   <div className="pt-4 mt-4 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono-tech text-zinc-500">
-                    <span>Atelier au choix</span>
-                    <span className="text-[#FFE500]">Modulable</span>
+                    <span>{t('workshopChoice')}</span>
+                    <span className="text-[#FFE500]">{t('workshopModular')}</span>
                   </div>
                 </div>
               ))}
@@ -220,18 +221,17 @@ export default function TeamBuildingCascadesPage() {
         <section className="py-16 bg-[#0c0c10] border-t border-zinc-800">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <StuntBadge variant="yellow" icon={<Users className="w-3.5 h-3.5" />}>
-              SUR MESURE
+              {t('customBadge')}
             </StuntBadge>
             <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mt-3 mb-4">
-              COMBINEZ PLUSIEURS ATELIERS POUR VOTRE JOURNÉE
+              {t('customTitle')}
             </h2>
             <p className="text-xs sm:text-sm font-tech text-zinc-400 leading-relaxed mb-8 max-w-2xl mx-auto">
-              Nous adaptons le déroulement, le nombre d'animateurs cascadeurs et le matériel selon vos objectifs,
-              vos contraintes de planning et la taille de votre groupe.
+              {t('customDescription')}
             </p>
             <Link href="/contact-cuc?demande=cuc-events">
               <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
-                Recevoir une Proposition Détaillée & Devis
+                {t('customCta')}
               </TacticalButton>
             </Link>
           </div>

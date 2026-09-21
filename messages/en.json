@@ -699,6 +699,51 @@
             }
         ]
     },
+    "teamBuilding": {
+        "heroMeta": "TEAM COHESION • BEHIND THE SCENES",
+        "overviewBadge": "CUC EVENTS • CORPORATE IMMERSION",
+        "overviewTitle": "CINEMA WORKSHOPS",
+        "overviewDescription": "We offer activities and introductions to the stunt profession, film-making and what happens behind the scenes. Team building, seminars, public bodies... Our team of professionals offers a choice of workshops with dedicated equipment and uncompromising safety.",
+        "workshopChoice": "Workshop of your choice",
+        "workshopModular": "Modular",
+        "workshopFallbackTitle": "Stunt workshop",
+        "workshopFallbackLabel": "CUC WORKSHOP",
+        "customBadge": "TAILOR-MADE",
+        "customTitle": "COMBINE SEVERAL WORKSHOPS FOR YOUR DAY",
+        "customDescription": "We adapt the programme, the number of stunt instructors and the equipment to your goals, your schedule constraints and the size of your group.",
+        "customCta": "Get a Detailed Proposal & Quote"
+    },
+    "animations": {
+        "heroBadge": "CINEMA AIRBAG • PROFESSIONAL SUPERVISION",
+        "heroTitle": "AIRBAG & PARKOUR ANIMATIONS",
+        "heroSubtitle": "Give the general public the unique sensation of free fall onto a giant cinema airbag. A spectacular activity supervised by the professional stunt performers of Campus Univers Cascades.",
+        "ctaPrimaryText": "Airbag Animation Quote",
+        "ctaSecondaryText": "All CUC Events Offers",
+        "heroImageAlt": "Giant cinema Xtrem Jump airbag, CUC Events",
+        "logoAlt": "CUC Events animations",
+        "breadcrumbHome": "HOME",
+        "breadcrumbEvents": "CUC EVENTS",
+        "breadcrumbCurrent": "GIANT AIRBAG & PARKOUR ANIMATIONS",
+        "heroMeta": "+20,000 SUPERVISED JUMPS • SINCE 2009",
+        "stat1Label": "Jumps Performed in Europe",
+        "stat2Value": "20 METRES",
+        "stat2Label": "Maximum Airbag Capacity",
+        "stat3Label": "Safety and Professional Supervision",
+        "stat4Label": "Airbag Animation Pioneers",
+        "panelTag": "CUC EVENTS ANIMATIONS",
+        "panelSub": "XTREM JUMP CINEMA AIRBAG & PARKOUR",
+        "panelTitle": "XTREM JUMP AIRBAG: PUBLIC INITIATION & SHOWS",
+        "panelParagraph1": "The general public can finally taste the adrenaline and discover the unique sensations of free fall in optimal safety, thanks to our giant airbag — the air cushion used in film-making — able to catch a professional stunt performer falling from up to 20 metres.",
+        "panelParagraph2": "Our agency and our team of professionals pioneered this event activity in France back in 2009. With more than 20,000 supervised jumps across Europe, our qualified stunt performers guide every participant for a memorable and safe jump.",
+        "includedTitle": "Included in the package:",
+        "includedItems": [
+            "Giant cinema airbag certified to EU standards",
+            "Suitable jump platform or scaffolding",
+            "Supervision by 2 to 4 professional stunt performers",
+            "Acrobatic jump demonstrations included"
+        ],
+        "panelImageAlt": "Jump onto the giant CUC airbag"
+    },
     "stages": {
         "fallbackBadge": "CUC COURSE",
         "fallbackCta": "Book my course",

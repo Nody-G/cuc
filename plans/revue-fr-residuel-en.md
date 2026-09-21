@@ -1,9 +1,9 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T17:19:37.161Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T17:26:11.441Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **25** — occurrences : **188**
+Pages contrôlées : **27** — pages avec français résiduel : **24** — occurrences : **170**
 
 ## /en/formation-de-cascadeur — 11 occurrence(s)
 
@@ -160,34 +160,11 @@ Pages contrôlées : **27** — pages avec français résiduel : **25** — occu
 |---|---|
 | texte visible | ZOË BELL AT THE CAMPUS |
 
-## /en/team-building-cascades — 6 occurrence(s)
+## /en/animations-airbag-parkour — 1 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | COHÉSION D'ÉQUIPE • COULISSES DU CINÉMA |
-| texte visible | Atelier au choix |
-| texte visible | SUR MESURE |
-| texte visible | COMBINEZ PLUSIEURS ATELIERS POUR VOTRE JOURNÉE |
-| texte visible | Nous adaptons le déroulement, le nombre d'animateurs cascadeurs et le matériel selon vos objectifs, vos contraintes de planning et la taille de votre groupe. |
-| texte visible | Recevoir une Proposition Détaillée & Devis |
-
-## /en/animations-airbag-parkour — 13 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | ANIMATIONS AIRBAG GÉANT & PARKOUR |
-| texte visible | +20 000 CHUTES ENCADRÉES • DEPUIS 2009 |
-| texte visible | Sauts Réalisés en Europe |
-| texte visible | 20 MÈTRES |
-| texte visible | Capacité Maximale Airbag |
-| texte visible | Sécurité et Encadrement Pro |
 | texte visible | XTREM JUMP AIRBAG CINÉMA & PARKOUR |
-| texte visible | Le grand public peut enfin goûter à l'adrénaline et découvrir les sensations uniques de la chute libre avec une sécurité optimale. Ils profiteront pour cela de notre Airbag géant (coussin d’air utilisé au cinéma) pouvant |
-| texte visible | Notre agence et notre équipe de professionnels ont été les précurseurs de cette animation événementielle en France dès 2009. Avec plus de 20 000 chutes encadrées à travers l'Europe, nos cascadeurs diplômés guident chaque |
-| texte visible | Inclus dans la prestation : Airbag géant cinéma certifié aux normes UE |
-| texte visible | Plateforme ou échafaudage de saut adapté |
-| texte visible | Encadrement par 2 à 4 cascadeurs pros |
-| texte visible | Démonstrations de sauts acrobatiques incluses |
 
 ## /en/spectacles-cascadeurs-yamakasi — 10 occurrence(s)
 

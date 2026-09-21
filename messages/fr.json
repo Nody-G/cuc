@@ -699,6 +699,51 @@
             }
         ]
     },
+    "teamBuilding": {
+        "heroMeta": "COHÉSION D'ÉQUIPE • COULISSES DU CINÉMA",
+        "overviewBadge": "CUC EVENTS • IMMERSION ENTREPRISE",
+        "overviewTitle": "LES ATELIERS DU CINÉMA",
+        "overviewDescription": "Nous vous proposons des animations et initiations autour du métier de cascadeur, du cinéma et de ses coulisses. Team building, séminaires, collectivités... Notre équipe de professionnels vous propose des ateliers au choix avec du matériel spécifique et une sécurité sans compromis.",
+        "workshopChoice": "Atelier au choix",
+        "workshopModular": "Modulable",
+        "workshopFallbackTitle": "Atelier cascade",
+        "workshopFallbackLabel": "ATELIER CUC",
+        "customBadge": "SUR MESURE",
+        "customTitle": "COMBINEZ PLUSIEURS ATELIERS POUR VOTRE JOURNÉE",
+        "customDescription": "Nous adaptons le déroulement, le nombre d'animateurs cascadeurs et le matériel selon vos objectifs, vos contraintes de planning et la taille de votre groupe.",
+        "customCta": "Recevoir une Proposition Détaillée & Devis"
+    },
+    "animations": {
+        "heroBadge": "AIRBAG DE CINÉMA • ENCADREMENT PROFESSIONNEL",
+        "heroTitle": "ANIMATIONS AIRBAG & PARKOUR",
+        "heroSubtitle": "Faites vivre au grand public les sensations uniques de la chute libre sur coussin d'air géant de cinéma. Une animation spectaculaire encadrée par les cascadeurs professionnels du Campus Univers Cascades.",
+        "ctaPrimaryText": "Devis Animation Airbag",
+        "ctaSecondaryText": "Toutes les Offres CUC Events",
+        "heroImageAlt": "Xtrem Jump Airbag Géant de Cinéma CUC Events",
+        "logoAlt": "CUC Events Animations",
+        "breadcrumbHome": "ACCUEIL",
+        "breadcrumbEvents": "CUC EVENTS",
+        "breadcrumbCurrent": "ANIMATIONS AIRBAG GÉANT & PARKOUR",
+        "heroMeta": "+20 000 CHUTES ENCADRÉES • DEPUIS 2009",
+        "stat1Label": "Sauts Réalisés en Europe",
+        "stat2Value": "20 MÈTRES",
+        "stat2Label": "Capacité Maximale Airbag",
+        "stat3Label": "Sécurité et Encadrement Pro",
+        "stat4Label": "Pionniers de l'Animation Airbag",
+        "panelTag": "CUC EVENTS ANIMATIONS",
+        "panelSub": "XTREM JUMP AIRBAG CINÉMA & PARKOUR",
+        "panelTitle": "XTREM JUMP AIRBAG : INITIATION GRAND PUBLIC & SHOWS",
+        "panelParagraph1": "Le grand public peut enfin goûter à l'adrénaline et découvrir les sensations uniques de la chute libre avec une sécurité optimale. Ils profiteront pour cela de notre Airbag géant (coussin d'air utilisé au cinéma) pouvant réceptionner une chute d'un cascadeur professionnel allant jusqu'à 20 mètres.",
+        "panelParagraph2": "Notre agence et notre équipe de professionnels ont été les précurseurs de cette animation événementielle en France dès 2009. Avec plus de 20 000 chutes encadrées à travers l'Europe, nos cascadeurs diplômés guident chaque participant pour un saut mémorable et sans danger.",
+        "includedTitle": "Inclus dans la prestation :",
+        "includedItems": [
+            "Airbag géant cinéma certifié aux normes UE",
+            "Plateforme ou échafaudage de saut adapté",
+            "Encadrement par 2 à 4 cascadeurs pros",
+            "Démonstrations de sauts acrobatiques incluses"
+        ],
+        "panelImageAlt": "Saut sur Airbag géant CUC"
+    },
     "stages": {
         "fallbackBadge": "STAGE CUC",
         "fallbackCta": "Réserver mon stage",

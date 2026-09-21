@@ -64,14 +64,54 @@ function coachSlugs() {
 function coachProperNouns() {
     try {
         const src = readFileSync('src/data/team.ts', 'utf8');
-        const names = [...src.matchAll(/^\s+name:\s*'([^']+)'/gm)].map((m) => m[1]);
+        // Le fichier mélange guillemets simples et doubles : les deux formes
+        // doivent être lues, sinon les noms de coachs passent pour du français.
+        const singleQuoted = [...src.matchAll(/^\s+name:\s*'([^']+)'/gm)].map((m) => m[1]);
+        const doubleQuoted = [...src.matchAll(/^\s+name:\s*"([^"]+)"/gm)].map((m) => m[1]);
         const credits = [...src.matchAll(/notableCredits:\s*\[([\s\S]*?)\]/g)]
-            .flatMap((block) => [...block[1].matchAll(/'([^']{4,})'/g)].map((m) => m[1]))
+            .flatMap((block) => [
+                ...block[1].matchAll(/'([^']{4,})'/g),
+                ...block[1].matchAll(/"([^"]{4,})"/g),
+            ].map((m) => m[1]))
             .map((credit) => credit.split('—')[0].trim());
-        return [...names, ...credits];
+        return [...singleQuoted, ...doubleQuoted, ...credits];
     } catch {
         return [];
     }
+}
+
+/**
+ * Noms de PERSONNES et titres d'œuvres issus des données du dépôt :
+ * réalisateurs (`director`), acteurs doublés (`doubledActors`), artistes de
+ * `celebrities.ts` (`name`) et titres du catalogue local (`title`).
+ *
+ * Ces chaînes ne sont pas de la copie d'interface : ce sont des identités, qui
+ * restent identiques dans toutes les langues. On ne neutralise que les lignes
+ * qui SONT exclusivement composées de ces noms (cf. `isProperNounLine`).
+ */
+function dataProperNouns() {
+    const files = [
+        'src/data/filmography.ts',
+        'src/data/celebrities.ts',
+        'src/data/filmBanners.ts',
+    ];
+    const out = [];
+    for (const file of files) {
+        let src;
+        try {
+            src = readFileSync(file, 'utf8');
+        } catch {
+            continue;
+        }
+        for (const m of src.matchAll(/"(?:director|title)"\s*:\s*"([^"]{3,})"/g)) out.push(m[1]);
+        for (const m of src.matchAll(/"doubledActors"\s*:\s*\[([^\]]*)\]/g)) {
+            for (const n of m[1].matchAll(/"([^"]{3,})"/g)) out.push(n[1]);
+        }
+        for (const m of src.matchAll(/^\s+name:\s*'([^']{3,})'/gm)) out.push(m[1]);
+        for (const m of src.matchAll(/^\s+name:\s*"([^"]{3,})"/gm)) out.push(m[1]);
+        for (const m of src.matchAll(/"actorName"\s*:\s*"([^"]{3,})"/g)) out.push(m[1]);
+    }
+    return out;
 }
 
 const ACCENTS = /[àâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ]/;
@@ -98,11 +138,31 @@ const normalizeTitle = (s) =>
 const FILM_TITLES = new Set();
 const PROPER_NOUNS = new Set();
 
-/** Ligne réduite à un nom propre (nom de coach, titre d'œuvre cité). */
+/**
+ * Échafaudage français courant devant une liste de noms (crédits de tournage).
+ * Il est retiré AVANT la comparaison : la ligne n'est neutralisée que si ce qui
+ * reste est une liste de noms propres connus.
+ */
+const NAME_LIST_PREFIX = /^(dir\.|doubl[ée]e?\s+par|avec|coordinateur\s*:|coordination\s*:)\s*/i;
+
+/**
+ * Ligne réduite à un nom propre, OU à une LISTE de noms propres séparés par
+ * `&`, `,`, `;`, `et` ou `/` (ex. « Dir. Matthieu Delaporte & Alexandre de La
+ * Patellière »). Chaque segment doit être un nom connu (ou un sigle très court) :
+ * une phrase française contenant un nom reste signalée.
+ */
 const isProperNounLine = (text) => {
     if (PROPER_NOUNS.size === 0) return false;
-    const base = text.split('—')[0].replace(/\(\d{4}(?:-\d{4})?\)/g, ' ');
-    return PROPER_NOUNS.has(normalizeTitle(base));
+    const withoutPrefix = text.replace(NAME_LIST_PREFIX, '');
+    const cleaned = withoutPrefix.replace(/\(\d{4}(?:-\d{4})?\)/g, ' ');
+    const segments = cleaned
+        .split(/[&,;/]|\set\s/i)
+        .map((segment) => normalizeTitle(segment))
+        .filter((segment) => segment.length > 0);
+    if (segments.length === 0) return false;
+    return segments.every(
+        (segment) => PROPER_NOUNS.has(segment) || segment.length <= 4
+    );
 };
 
 async function loadFilmTitles() {
@@ -215,7 +275,7 @@ const targets = [
 console.log('');
 console.log(`=== Français résiduel sur les pages EN — ${BASE} ===`);
 await loadFilmTitles();
-for (const noun of coachProperNouns()) {
+for (const noun of [...coachProperNouns(), ...dataProperNouns()]) {
     if (noun.trim().length > 3) PROPER_NOUNS.add(normalizeTitle(noun));
 }
 console.log(
