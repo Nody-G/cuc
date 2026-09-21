@@ -5,13 +5,8 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { ExternalLink } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
-import {
-  InstagramLogo,
-  YouTubeLogo,
-  TikTokLogo,
-  FacebookLogo,
-  WhatsAppLogo,
-} from '@/components/ui/BrandLogos';
+import { SocialIcon } from '@/components/ui/logos/SocialLogos';
+import { useSocialLinks } from '@/lib/hooks/useNavigation';
 import {
   StudioParallaxScene,
   StudioParallaxLayer,
@@ -30,7 +25,16 @@ interface HomeSocialSectionProps {
 
 export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData }) => {
   const t = useTranslations('home.social');
-  const channels = (t.raw('channels') as Record<string, string>) ?? {};
+  /**
+   * Réseaux pilotés par `site_social_links` — aucune URL en dur ici. Les logos
+   * sont seuls (aucun libellé visible qui surcharge) : le nom de la plateforme
+   * et le handle restent accessibles via `aria-label`/`title`.
+   */
+  const socialLinks = useSocialLinks();
+  const activeSocials = socialLinks.filter((social) => social.is_active);
+  const instagramUrl =
+    socialLinks.find((social) => social.platform === 'instagram')?.url ??
+    'https://www.instagram.com/campus.univers.cascades/';
   const postCopy =
     (t.raw('posts') as { title: string; tag: string; desc: string }[]) ?? [];
 
@@ -113,11 +117,7 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
             </div>
           </div>
 
-          <a
-            href="https://www.instagram.com/campus.univers.cascades/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={instagramUrl} target="_blank" rel="noopener noreferrer">
             <TacticalButton
               variant="secondary"
               size="md"
@@ -128,117 +128,29 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
           </a>
         </div>
 
-        {/* Social Links Strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-10">
-          <a
-            href="https://www.instagram.com/campus.univers.cascades/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-[#0e0e14]/90 backdrop-blur-xs border border-zinc-800 hover:border-[#E1306C] p-3.5 flex items-center gap-3 transition-all duration-300 group hover:shadow-[0_0_20px_rgba(225,48,108,0.2)]"
-          >
-            <div className="p-2 bg-black/60 border border-zinc-800 group-hover:border-[#E1306C] transition-colors shrink-0">
-              <InstagramLogo
-                className="w-5 h-5 group-hover:scale-110 transition-transform"
-                variant="color"
-              />
-            </div>
-            <div className="overflow-hidden">
-              <span className="text-[11px] font-mono-tech text-[#E1306C] font-bold block uppercase leading-tight">
-                Instagram
-              </span>
-              <span className="text-[10px] font-tech text-zinc-400 truncate block">
-                @campus.univers.cascades
-              </span>
-            </div>
-          </a>
-
-          <a
-            href="https://www.youtube.com/@campusuniverscascades"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-[#0e0e14]/90 backdrop-blur-xs border border-zinc-800 hover:border-[#FF0000] p-3.5 flex items-center gap-3 transition-all duration-300 group hover:shadow-[0_0_20px_rgba(255,0,0,0.2)]"
-          >
-            <div className="p-2 bg-black/60 border border-zinc-800 group-hover:border-[#FF0000] transition-colors shrink-0">
-              <YouTubeLogo
-                className="w-5 h-5 group-hover:scale-110 transition-transform"
-                variant="color"
-              />
-            </div>
-            <div className="overflow-hidden">
-              <span className="text-[11px] font-mono-tech text-[#FF0000] font-bold block uppercase leading-tight">
-                YouTube
-              </span>
-              <span className="text-[10px] font-tech text-zinc-400 truncate block">
-                {channels.youtube ?? ''}
-              </span>
-            </div>
-          </a>
-
-          <a
-            href="https://www.tiktok.com/@campusuniverscascades"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-[#0e0e14]/90 backdrop-blur-xs border border-zinc-800 hover:border-[#25F4EE] p-3.5 flex items-center gap-3 transition-all duration-300 group hover:shadow-[0_0_20px_rgba(37,244,238,0.2)]"
-          >
-            <div className="p-2 bg-black/60 border border-zinc-800 group-hover:border-[#25F4EE] transition-colors shrink-0">
-              <TikTokLogo
-                className="w-5 h-5 group-hover:scale-110 transition-transform"
-                variant="color"
-              />
-            </div>
-            <div className="overflow-hidden">
-              <span className="text-[11px] font-mono-tech text-[#25F4EE] font-bold block uppercase leading-tight">
-                TikTok
-              </span>
-              <span className="text-[10px] font-tech text-zinc-400 truncate block">
-                {channels.tiktok ?? ''}
-              </span>
-            </div>
-          </a>
-
-          <a
-            href="https://www.facebook.com/campus.univers.cascades"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-[#0e0e14]/90 backdrop-blur-xs border border-zinc-800 hover:border-[#1877F2] p-3.5 flex items-center gap-3 transition-all duration-300 group hover:shadow-[0_0_20px_rgba(24,119,242,0.2)]"
-          >
-            <div className="p-2 bg-black/60 border border-zinc-800 group-hover:border-[#1877F2] transition-colors shrink-0">
-              <FacebookLogo
-                className="w-5 h-5 group-hover:scale-110 transition-transform"
-                variant="color"
-              />
-            </div>
-            <div className="overflow-hidden">
-              <span className="text-[11px] font-mono-tech text-[#1877F2] font-bold block uppercase leading-tight">
-                Facebook
-              </span>
-              <span className="text-[10px] font-tech text-zinc-400 truncate block">
-                {channels.facebook ?? ''}
-              </span>
-            </div>
-          </a>
-
-          <a
-            href="https://wa.me/33672849492"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-[#0e0e14]/90 backdrop-blur-xs border border-zinc-800 hover:border-[#25D366] p-3.5 flex items-center gap-3 transition-all duration-300 group hover:shadow-[0_0_20px_rgba(37,211,102,0.2)]"
-          >
-            <div className="p-2 bg-black/60 border border-zinc-800 group-hover:border-[#25D366] transition-colors shrink-0">
-              <WhatsAppLogo
-                className="w-5 h-5 group-hover:scale-110 transition-transform"
-                variant="color"
-              />
-            </div>
-            <div className="overflow-hidden">
-              <span className="text-[11px] font-mono-tech text-[#25D366] font-bold block uppercase leading-tight">
-                WhatsApp
-              </span>
-              <span className="text-[10px] font-tech text-zinc-400 truncate block">
-                {channels.whatsapp ?? ''}
-              </span>
-            </div>
-          </a>
+        {/* Rangée de logos seuls — l'envie de cliquer vient de l'icône, pas du texte */}
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-10">
+          {activeSocials.map((social) => {
+            const label = social.handle ? `${social.label} ${social.handle}` : social.label;
+            return (
+              <a
+                key={social.id}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                title={label}
+                style={{ ['--brand' as string]: social.brand_color || '#FFE500' } as React.CSSProperties}
+                className="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center bg-[#0e0e14]/90 border border-zinc-800 hover:border-[color:var(--brand)] hover:bg-white/[0.04] transition-colors duration-200 group/soc"
+              >
+                <SocialIcon
+                  platform={social.platform}
+                  variant="color"
+                  className="w-5 h-5 sm:w-[22px] sm:h-[22px] group-hover/soc:scale-110 transition-transform duration-200"
+                />
+              </a>
+            );
+          })}
         </div>
 
         {/* Instagram 3D Spatialized Triptyque */}

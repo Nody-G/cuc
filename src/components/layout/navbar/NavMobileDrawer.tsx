@@ -166,21 +166,24 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
               </a>
             </div>
 
-            {/* Official Social Links Mobile Strip — piloté par site_social_links */}
+            {/* Réseaux : logos seuls (aucun libellé visible), piloté par
+                `site_social_links`. Nom et handle restent accessibles. */}
             {drawerSocials.length > 0 && (
-              <div className="flex items-center justify-center gap-3 pt-3 border-t border-zinc-800">
+              <div className="flex flex-wrap items-center justify-center gap-2.5 pt-3 border-t border-zinc-800">
                 {drawerSocials.map((social) => (
                   <a
                     key={social.id}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 bg-[#14141c] border border-zinc-800 hover:border-[#FFE500] transition-colors group"
-                    aria-label={social.label}
+                    style={{ ['--brand' as string]: social.brand_color || '#FFE500' } as React.CSSProperties}
+                    className="w-10 h-10 flex items-center justify-center bg-[#14141c] border border-zinc-800 hover:border-[color:var(--brand)] hover:bg-white/[0.05] transition-colors group"
+                    aria-label={social.handle ? `${social.label} · ${social.handle}` : social.label}
                     title={social.handle ? `${social.label} — ${social.handle}` : social.label}
                   >
                     <SocialIcon
                       platform={social.platform}
+                      variant="color"
                       className="w-4 h-4 group-hover:scale-110 transition-transform"
                     />
                   </a>

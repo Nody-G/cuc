@@ -40,13 +40,14 @@ export const NavActionsBar: React.FC = () => {
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${social.label} (nouvelle fenêtre)`}
-              className="p-1.5 text-zinc-400 hover:text-[#FFE500] hover:bg-white/5 transition-all group/soc"
+              style={{ ['--brand' as string]: social.brand_color || '#FFE500' } as React.CSSProperties}
+              aria-label={social.handle ? `${social.label} · ${social.handle}` : social.label}
+              className="p-1.5 border border-transparent hover:border-[color:var(--brand)] hover:bg-white/[0.06] transition-colors group/soc"
               title={social.handle ? `${social.label} ${social.handle}` : social.label}
             >
               <SocialIcon
                 platform={social.platform}
-                className="w-3.5 h-3.5 group-hover/soc:scale-110 transition-transform"
+                className="w-3.5 h-3.5 group-soc:scale-110 transition-transform"
                 variant="color"
               />
             </a>

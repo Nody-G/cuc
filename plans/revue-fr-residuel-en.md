@@ -1,6 +1,6 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T15:58:29.038Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T16:05:52.518Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
 Pages contrôlées : **27** — pages avec français résiduel : **26** — occurrences : **661**

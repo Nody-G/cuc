@@ -80,30 +80,32 @@ export const FooterDirectContacts: React.FC = () => {
           {t('networksText')}
         </p>
 
-        <div className="flex flex-col space-y-2">
-          {footerSocials.map((social) => (
-            <a
-              key={social.id}
-              href={social.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-between px-3 py-2 bg-[#101016] border border-zinc-800 hover:border-[#FFE500]/70 text-xs font-mono-tech text-zinc-300 hover:text-white transition-all group"
-            >
-              <div className="flex items-center gap-2.5">
+        {/* Logos seuls : le libellé et l'indice d'affichage deviennent
+            accessibles (`aria-label` / `title`) et ne surchargent plus la carte. */}
+        <div className="flex flex-wrap items-center gap-2">
+          {footerSocials.map((social) => {
+            const label = [social.label, social.handle, social.display_hint]
+              .filter(Boolean)
+              .join(' · ');
+            return (
+              <a
+                key={social.id}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                title={label}
+                style={{ ['--brand' as string]: social.brand_color || '#FFE500' } as React.CSSProperties}
+                className="w-9 h-9 flex items-center justify-center bg-[#101016] border border-zinc-800 hover:border-[color:var(--brand)] hover:bg-white/[0.05] transition-colors duration-200 group/soc"
+              >
                 <SocialIcon
                   platform={social.platform}
                   variant="color"
-                  className="w-4 h-4 shrink-0 group-hover:scale-110 transition-transform"
+                  className="w-4 h-4 group-hover/soc:scale-110 transition-transform duration-200"
                 />
-                <span className="group-hover:text-white">{social.label}</span>
-              </div>
-              {social.display_hint && (
-                <span className="text-[10px] text-zinc-500 font-mono-tech group-hover:text-[#FFE500]">
-                  {social.display_hint}
-                </span>
-              )}
-            </a>
-          ))}
+              </a>
+            );
+          })}
         </div>
       </div>
     </>
