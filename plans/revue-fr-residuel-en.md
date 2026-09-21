@@ -1,9 +1,9 @@
 # Revue — Français résiduel sur les pages EN (rendu réel)
 
-Généré le 2026-09-21T17:34:42.257Z — cible **0 occurrence** (hors allowlist).
+Généré le 2026-09-21T17:35:40.655Z — cible **0 occurrence** (hors allowlist).
 
 Base sondée : `http://localhost:3000`
-Pages contrôlées : **27** — pages avec français résiduel : **20** — occurrences : **123**
+Pages contrôlées : **27** — pages avec français résiduel : **9** — occurrences : **92**
 
 ## /en/formation-de-cascadeur — 11 occurrence(s)
 
@@ -29,19 +29,16 @@ Pages contrôlées : **27** — pages avec français résiduel : **20** — occu
 | texte visible | CUC Île-de-France centre, 92230 Gennevilliers |
 | texte visible | Provence Studios, Martigues (Bouches-du-Rhône) |
 
-## /en/equipe-cascadeurs-pro — 7 occurrence(s)
+## /en/equipe-cascadeurs-pro — 4 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
 | texte visible | L'ÉQUIPE |
-| texte visible | Jérôme Gaspard |
 | texte visible | La nuit se traîne (2024) |
-| texte visible | Amédéo Cazzella |
-| texte visible | Bastien Trouvé |
 | texte visible | FORMEZ-VOUS AVEC LES MEILLEURS PROFESSIONNELS DU SECTEUR |
 | texte visible | Découvrir les Formations du CUC |
 
-## /en/cuc-team-cascadeur — 31 occurrence(s)
+## /en/cuc-team-cascadeur — 29 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
@@ -56,12 +53,10 @@ Pages contrôlées : **27** — pages avec français résiduel : **20** — occu
 | texte visible | HALL OF FAME DU CINÉMA D'ACTION |
 | texte visible | Retrouvez une sélection de productions audiovisuelles et cinématographiques sur lesquelles sont intervenus les cascadeurs et formateurs du CUC. |
 | texte visible | LES ACTEURS DOUBLÉS & PRODUCTIONS |
-| texte visible | Doublé par Vincent Bouillon |
 | texte visible | Combats chorégraphiés, cascades physiques et poursuites. |
 | texte visible | Fiche détaillée |
 | texte visible | Cascades physiques et combats chorégraphiés. |
 | texte visible | Duels à l'épée et cascades physiques réglés avec les régleurs CUC. |
-| texte visible | François Civil |
 | texte visible | Combats rapprochés et cascades physiques. |
 | texte visible | Combats rapprochés et fusillades tactiques. |
 | texte visible | Cascades physiques et affrontements armés. |
@@ -141,90 +136,9 @@ Pages contrôlées : **27** — pages avec français résiduel : **20** — occu
 |---|---|
 | texte visible | ZOË BELL AT THE CAMPUS |
 
-## /en/equipe-cascadeurs-pro/lucas-dollfus — 2 occurrence(s)
+## /en/equipe-cascadeurs-pro/jerome-gaspard — 1 occurrence(s)
 
 | Source | Texte détecté |
 |---|---|
-| texte visible | Dir. Frédéric Tellier |
-| texte visible | Jérôme Gaspard |
-
-## /en/equipe-cascadeurs-pro/jerome-gaspard — 4 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | Jérôme Gaspard |
 | texte visible | Samuel Le Bihan |
-| texte visible | Dir. Matthieu Delaporte & Alexandre de La Patellière |
-| texte visible | Dir. Jérôme Salle |
-
-## /en/equipe-cascadeurs-pro/vincent-bouillon — 3 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | Dir. Matthieu Delaporte & Alexandre de La Patellière |
-| texte visible | Dir. Jérôme Salle |
-| texte visible | Jérôme Gaspard |
-
-## /en/equipe-cascadeurs-pro/malik-diouf — 2 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | Dir. Cédric Jimenez |
-| texte visible | Jérôme Gaspard |
-
-## /en/equipe-cascadeurs-pro/franck-blanc — 1 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | Jérôme Gaspard |
-
-## /en/equipe-cascadeurs-pro/kefi-abrikh — 2 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | Dir. Cédric Nicolas-Troyan |
-| texte visible | Jérôme Gaspard |
-
-## /en/equipe-cascadeurs-pro/maurice-chan — 1 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | Jérôme Gaspard |
-
-## /en/equipe-cascadeurs-pro/michel-bouis — 3 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | Dir. Cédric Jimenez |
-| texte visible | Dir. Gérard Krawczyk |
-| texte visible | Jérôme Gaspard |
-
-## /en/equipe-cascadeurs-pro/amedeo-cazzella — 3 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | Amédéo Cazzella |
-| texte visible | Dir. Matthieu Delaporte & Alexandre de La Patellière |
-| texte visible | Jérôme Gaspard |
-
-## /en/equipe-cascadeurs-pro/niels-dalery — 1 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | Jérôme Gaspard |
-
-## /en/equipe-cascadeurs-pro/bastien-trouve — 3 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | Bastien Trouvé |
-| texte visible | Dir. Cédric Nicolas-Troyan |
-| texte visible | Jérôme Gaspard |
-
-## /en/equipe-cascadeurs-pro/alan-cueff — 2 occurrence(s)
-
-| Source | Texte détecté |
-|---|---|
-| texte visible | Dir. Cédric Nicolas-Troyan |
-| texte visible | Jérôme Gaspard |
 

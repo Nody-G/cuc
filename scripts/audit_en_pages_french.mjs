@@ -229,6 +229,11 @@ const isFrench = (s) => {
     if (text.length < 4) return false;
     if (ALLOWLIST.some((re) => re.test(text))) return false;
     if (isFilmTitleLine(text)) return false;
+    // Noms de personnes et listes de noms issus des DONNÉES (`team.ts`,
+    // `filmography.ts`, `celebrities.ts`) : ce sont des identités, non
+    // traduisibles. Sans cet appel, « Jérôme Gaspard » ou « Dir. Jérôme Salle »
+    // étaient comptés comme du français résiduel.
+    if (isProperNounLine(text)) return false;
     return ACCENTS.test(text) || FR_HINT.test(text);
 };
 
