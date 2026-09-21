@@ -32,6 +32,31 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
   const heroRef = useRef<HTMLElement>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  /**
+   * Mode calme — tactile (pointer grossier) ou `prefers-reduced-motion`.
+   *
+   * Cause racine des bugs mobiles signalés : le tilt 3D était piloté par
+   * `pointermove`, or le scroll au doigt émet ces événements — le fond se
+   * penchait puis restait incliné (`pointerleave` ne se déclenche pas au
+   * toucher). S'ajoutaient un Ken-Burns en boucle, un fondu de 1 s et quatre
+   * visuels plein écran empilés : de quoi produire déformation, scintillement
+   * et cadrage instable sur mobile.
+   */
+  const [isCalmMode, setIsCalmMode] = useState(false);
+
+  useEffect(() => {
+    const coarse = window.matchMedia('(hover: none), (pointer: coarse)');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setIsCalmMode(coarse.matches || reduced.matches);
+    sync();
+    coarse.addEventListener('change', sync);
+    reduced.addEventListener('change', sync);
+    return () => {
+      coarse.removeEventListener('change', sync);
+      reduced.removeEventListener('change', sync);
+    };
+  }, []);
+
   // 1. Saccade-absorbing hydraulic spring for scroll (absorbs wheel notches & finger flicks)
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -73,6 +98,9 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
 
   // Pointer event listeners with smooth coordinate mapping
   const handlePointerMove = (e: React.PointerEvent<HTMLElement>) => {
+    // Souris uniquement (et jamais en mode calme) : le doigt ne doit pas
+    // incliner l'environnement pendant le scroll.
+    if (isCalmMode || e.pointerType !== 'mouse') return;
     const rect = e.currentTarget.getBoundingClientRect();
     const normX = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
     const normY = (e.clientY - rect.top) / rect.height - 0.5;
@@ -102,46 +130,85 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
       ref={heroRef}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
-      className="relative min-h-[90vh] sm:min-h-[94vh] flex flex-col justify-between overflow-hidden bg-[#060608] border-b border-zinc-900 select-none [perspective:1200px]"
+      className="relative min-h-[90svh] sm:min-h-[94svh] flex flex-col justify-between overflow-hidden bg-[#060608] border-b border-zinc-900 select-none [perspective:1200px]"
     >
       {/* 1. Deep 3D Background Layer: Photography + Ken-Burns + Organic Inertial Tilt */}
       <motion.div
-        style={{
-          y: bgScrollY,
-          x: bgShiftX,
-          rotateX: bgRotateX,
-          rotateY: bgRotateY,
-          transformStyle: 'preserve-3d',
-        }}
-        className="absolute -inset-8 z-0 will-change-transform overflow-hidden origin-center pointer-events-none"
+        style={
+          isCalmMode
+            ? undefined
+            : {
+              y: bgScrollY,
+              x: bgShiftX,
+              rotateX: bgRotateX,
+              rotateY: bgRotateY,
+              transformStyle: 'preserve-3d',
+            }
+        }
+        className={`absolute z-0 overflow-hidden origin-center pointer-events-none ${isCalmMode ? 'inset-0' : '-inset-8 will-change-transform'
+          }`}
       >
-        {HERO_SLIDES.map((slide, idx) => {
-          const isActive = idx === currentSlide;
-          return (
-            <div
-              key={idx}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
-              }`}
-            >
-              {/* Ken-Burns slow breathing scale */}
-              <motion.div
-                animate={isActive ? { scale: [1, 1.05] } : { scale: 1 }}
-                transition={{ duration: SLIDE_DURATION_SEC, ease: 'easeOut' }}
-                className="relative w-full h-full scale-105"
-              >
-                <Image
-                  src={slide.url}
-                  alt={slide.caption}
-                  fill
-                  priority={idx === 0}
-                  sizes="100vw"
-                  className="object-cover object-center brightness-[0.50] contrast-[1.08]"
-                />
-              </motion.div>
+        {isCalmMode ? (
+          <>
+            {/* Mode calme : une seule image peinte, coupe franche entre les
+                visuels (aucun fondu lourd), et le visuel suivant est préchargé
+                hors écran (décodé mais invisible) pour que la coupe reste
+                instantanée malgré le réseau mobile. */}
+            <div className="absolute inset-0">
+              <Image
+                key={currentSlide}
+                src={HERO_SLIDES[currentSlide].url}
+                alt={HERO_SLIDES[currentSlide].caption}
+                fill
+                priority={currentSlide === 0}
+                sizes="100vw"
+                /* Cadrage portrait : `object-center` coupait les sujets sur un
+                   écran étroit — un point focal légèrement au-dessus du centre
+                   garde l'action et le domaine dans le cadre. */
+                className="object-cover object-[50%_38%] brightness-[0.50] contrast-[1.08]"
+              />
             </div>
-          );
-        })}
+            <div className="invisible absolute inset-0" aria-hidden="true">
+              <Image
+                src={HERO_SLIDES[(currentSlide + 1) % HERO_SLIDES.length].url}
+                alt=""
+                fill
+                sizes="100vw"
+                className="object-cover object-center"
+              />
+            </div>
+          </>
+        ) : (
+          HERO_SLIDES.map((slide, idx) => {
+            const isActive = idx === currentSlide;
+            return (
+              /* Empilement stable (plus de bascule z-10/z-0) : le changement de
+                 z-index sur des calques plein écran provoquait un scintillement
+                 dû au recalcul de composition. */
+              <div
+                key={idx}
+                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                  }`}
+              >
+                {/* Ken-Burns slow breathing scale */}
+                <motion.div
+                  animate={isActive ? { scale: [1, 1.05] } : { scale: 1 }}
+                  transition={{ duration: SLIDE_DURATION_SEC, ease: 'easeOut' }}
+                  className="relative w-full h-full scale-105"
+                >
+                  <Image
+                    src={slide.url}
+                    alt={slide.caption}
+                    fill
+                    priority={idx === 0}
+                    sizes="100vw"
+                    className="object-cover object-center brightness-[0.50] contrast-[1.08]"
+                  />
+                </motion.div>
+              </div>
+            );
+          })
+        )}
 
         {/* Cinematic Vignettes */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/40 to-transparent" />
@@ -154,6 +221,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
         smoothMouseX={smoothMouseX}
         smoothMouseY={smoothMouseY}
         smoothScroll={smoothScroll}
+        simplified={isCalmMode}
       />
 
       {/* 3. Subtle Location & Campus Header Overlay */}

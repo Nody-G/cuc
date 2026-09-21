@@ -49,7 +49,7 @@ export const MobileStickyCTA: React.FC = () => {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 80, opacity: 0 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#060608]/95 backdrop-blur-md border-t border-[#FFE500]/30 px-3.5 py-2.5 flex items-center justify-between gap-2.5 shadow-[0_-10px_25px_rgba(0,0,0,0.9)]"
+          className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#060608]/95 backdrop-blur-md border-t border-[#FFE500]/30 px-3.5 pt-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))] flex items-center justify-between gap-2.5 shadow-[0_-10px_25px_rgba(0,0,0,0.9)]"
         >
           {/* Quick Call Button */}
           <a

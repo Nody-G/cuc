@@ -11,6 +11,7 @@ import { TacticalButton } from '@/components/ui/TacticalButton';
 import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getTeam, getFilms } from '@/lib/data/site-service';
+import { applyTeamOverlay } from '@/lib/i18n/apply-team-overlay';
 import { normalizeRole } from '@/lib/credit-role';
 import { creditTitleKey } from '@/lib/credit-title';
 import { ImdbLogo } from '@/components/ui/BrandLogos';
@@ -45,22 +46,35 @@ function normalizeTitleKey(title: string): string {
 
 interface CoachDetailClientProps {
   slug: string;
+  /**
+   * Overlays EN des coachs, résolus côté serveur (`site_translations`,
+   * entité `team`). Le français reste la base : un overlay absent laisse la
+   * fiche FR intacte.
+   */
+  teamOverlays?: Record<string, Record<string, unknown>>;
 }
 
-export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({ slug }) => {
-  const [allTeam, setAllTeam] = useState<Instructor[]>(CUC_TEAM);
+export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
+  slug,
+  teamOverlays,
+}) => {
+  const [allTeam, setAllTeam] = useState<Instructor[]>(() =>
+    CUC_TEAM.map((m) => applyTeamOverlay(m, teamOverlays?.[m.id]))
+  );
   const [allFilms, setAllFilms] = useState<FilmCredit[]>(FILMOGRAPHY_CREDITS);
   const [selectedFilmModal, setSelectedFilmModal] = useState<FilmCredit | null>(null);
   const [filmSort, setFilmSort] = useState<FilmSort>('year-desc');
 
   useEffect(() => {
     getTeam().then((t) => {
-      if (t && t.length > 0) setAllTeam(t);
+      if (t && t.length > 0) {
+        setAllTeam(t.map((m) => applyTeamOverlay(m, teamOverlays?.[m.id])));
+      }
     });
     getFilms().then((f) => {
       if (f && f.length > 0) setAllFilms(f);
     });
-  }, []);
+  }, [teamOverlays]);
 
   const member = allTeam.find((m) => m.id === slug) || CUC_TEAM.find((m) => m.id === slug);
 

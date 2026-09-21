@@ -1,5 +1,6 @@
 'use client';
 import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 import React from 'react';
 
@@ -14,6 +15,8 @@ interface FormationPedagogyModalitiesProps {
 export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesProps> = ({
   onApply,
 }) => {
+  const t = useTranslations('formation');
+
   return (
     <section className="py-16 bg-[#07070a] border-t border-zinc-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -139,11 +142,10 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
         <div className="mt-12 bg-[#121218] border-2 border-[#FFE500] p-8 text-center relative">
 
           <h3 className="text-3xl font-display uppercase text-white mb-2">
-            PRÊT À INTÉGRER L'ÉCOLE DES CASCADEURS ?
+            {t('cta.title')}
           </h3>
           <p className="text-xs font-tech text-zinc-400 max-w-xl mx-auto mb-6">
-            Contactez notre équipe pédagogique pour vérifier votre éligibilité, planifier votre stage
-            découverte ou monter votre dossier de financement.
+            {t('cta.text')}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <TacticalButton
@@ -151,11 +153,11 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
               size="lg"
               onClick={() => onApply('pro-longue-duree')}
             >
-              Candidater au Cursus Pro
+              {t('ctaApplyPro')}
             </TacticalButton>
             <Link href="/contact-cuc?demande=afdas-artistes-interpretes">
               <TacticalButton variant="secondary" size="lg">
-                Nous Contacter par Téléphone
+                {t('cta.contact')}
               </TacticalButton>
             </Link>
           </div>

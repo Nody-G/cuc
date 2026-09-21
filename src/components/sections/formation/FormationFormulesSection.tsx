@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { Target, Clock, MapPin, Bed, CheckCircle2, ShieldCheck, Award } from 'lucide-react';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { TacticalButton } from '@/components/ui/TacticalButton';
@@ -31,6 +32,7 @@ export const FormationFormulesSection: React.FC<FormationFormulesSectionProps> =
   onApply,
   formulesData,
 }) => {
+  const t = useTranslations('formation');
   const badge = formulesData?.badge || "PARCOURS D'ADMISSION & CURSUS";
   const title = formulesData?.title || "DU STAGE DÉCOUVERTE AU DIPLÔME PRO";
   const subtitle =
@@ -215,7 +217,7 @@ export const FormationFormulesSection: React.FC<FormationFormulesSectionProps> =
                 className="w-full"
                 onClick={() => onApply('pro-longue-duree')}
               >
-                Candidater au Cursus Pro
+                {t('ctaApplyPro')}
               </TacticalButton>
             </div>
           </div>

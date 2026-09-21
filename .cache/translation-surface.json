@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-21T14:35:57.861Z",
-  "uiTotal": 421,
+  "generatedAt": "2026-09-21T15:18:04.823Z",
+  "uiTotal": 411,
   "uiFiles": [
     {
       "file": "src\\components\\sections\\formation\\FormationFormulesSection.tsx",
@@ -64,10 +64,6 @@
     },
     {
       "file": "src\\app\\(site)\\[locale]\\visite-virtuelle\\page.tsx",
-      "count": 8
-    },
-    {
-      "file": "src\\components\\sections\\formation\\FormationHeroSection.tsx",
       "count": 8
     },
     {
@@ -216,10 +212,6 @@
     },
     {
       "file": "src\\components\\sections\\home\\HomeAboutSection.tsx",
-      "count": 2
-    },
-    {
-      "file": "src\\components\\sections\\partenaires\\PartenairesGridSection.tsx",
       "count": 2
     },
     {
@@ -472,26 +464,6 @@
       "rows": 18,
       "total": 0,
       "perField": []
-    },
-    {
-      "entity": "video",
-      "label": "Vidéos",
-      "table": "site_videos",
-      "idField": "id",
-      "fields": [
-        {
-          "name": "title",
-          "kind": "scalar"
-        },
-        {
-          "name": "description",
-          "kind": "scalar"
-        }
-      ],
-      "rows": 0,
-      "total": 0,
-      "perField": [],
-      "missing": true
     }
   ]
 }

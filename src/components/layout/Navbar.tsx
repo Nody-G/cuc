@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { Link, usePathname } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 import { Menu, X, ExternalLink } from 'lucide-react';
 import { TacticalButton } from '../ui/TacticalButton';
 import { NavDropdownItem } from './navbar/NavDropdowns';
@@ -16,6 +17,7 @@ import type { NavItem } from '@/data/navigation';
 export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const navigation = useNavigation();
+  const t = useTranslations('common');
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
@@ -84,7 +86,7 @@ export const Navbar: React.FC = () => {
       >
         <div className="max-w-[1680px] w-full mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           {/* Logo CUC */}
-          <Link href="/" className="flex items-center gap-3 group shrink-0">
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group min-w-0">
             <div className="relative w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
               <Image
                 src="/images/logos/cuc-logo-yellow.png"
@@ -95,11 +97,14 @@ export const Navbar: React.FC = () => {
                 className="object-contain drop-shadow-[0_0_10px_rgba(255,229,0,0.4)] group-hover:drop-shadow-[0_0_16px_rgba(255,229,0,0.7)] transition-all"
               />
             </div>
-            <div className="flex flex-col">
-              <span className="font-display text-lg sm:text-xl font-bold tracking-wider text-white leading-none group-hover:text-[#FFE500] transition-colors">
+            {/* Nom de marque masqué sous 480 px : sans cela, ce bloc (non
+                compressible) poussait le bouton du menu hors de l'écran sur les
+                téléphones étroits. Il réapparaît ensuite et se tronque si besoin. */}
+            <div className="hidden min-[480px]:flex flex-col min-w-0">
+              <span className="font-display text-lg sm:text-xl font-bold tracking-wider text-white leading-none group-hover:text-[#FFE500] transition-colors truncate">
                 CAMPUS UNIVERS CASCADES
               </span>
-              <span className="text-[10px] font-mono-tech tracking-widest text-zinc-400 uppercase leading-tight mt-0.5">
+              <span className="hidden sm:block text-[10px] font-mono-tech tracking-widest text-zinc-400 uppercase leading-tight mt-0.5 truncate">
                 Stunt Academy & Team • Est. 2008
               </span>
             </div>
@@ -155,8 +160,12 @@ export const Navbar: React.FC = () => {
           <NavActionsBar />
 
           {/* Mobile Menu Toggle Button */}
-          <div className="flex items-center gap-2 xl:hidden">
-            <LanguageSwitcher />
+          <div className="flex items-center gap-1.5 sm:gap-2 xl:hidden shrink-0">
+            {/* Sous `sm` uniquement : au-delà, le sélecteur de `NavActionsBar`
+                prend le relais (évite un doublon de drapeau dans la barre). */}
+            <div className="sm:hidden">
+              <LanguageSwitcher />
+            </div>
             <Link href={cta.href}>
               <TacticalButton
                 variant="primary"
@@ -168,8 +177,10 @@ export const Navbar: React.FC = () => {
             </Link>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-zinc-300 hover:text-[#FFE500] border border-zinc-800 bg-[#121216] cursor-pointer"
-              aria-label="Menu"
+              className="p-2.5 text-zinc-300 hover:text-[#FFE500] border border-zinc-800 bg-[#121216] cursor-pointer touch-manipulation"
+              aria-label={mobileMenuOpen ? t('closeMenu') : t('openMenu')}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-nav-drawer"
             >
               {mobileMenuOpen ? (
                 <X className="w-6 h-6" />

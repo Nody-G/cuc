@@ -24,5 +24,50 @@
         "ctaInfrastructures": "Facilities",
         "ctaVisite360": "360° Tour",
         "ctaPlan3d": "3D Map"
+    },
+    "formation": {
+        "ctaApplyPro": "Apply to the Pro Programme",
+        "cta": {
+            "title": "READY TO JOIN THE STUNT SCHOOL?",
+            "text": "Contact our teaching team to check your eligibility, schedule your discovery course or build your funding application.",
+            "contact": "Contact Us by Phone"
+        },
+        "hero": {
+            "breadcrumbHome": "HOME",
+            "breadcrumbCurrent": "PROFESSIONAL STUNT TRAINING",
+            "badge": "QUALIOPI CERTIFIED PROGRAMME",
+            "titleLead": "PROFESSIONAL STUNT PERFORMER",
+            "titleHighlight": "TRAINING",
+            "subtitle": "Professional stunt training programme founded by Lucas Dollfus. A technical immersion in Le Cateau-Cambrésis to acquire the skills, set discipline and safety reflexes required by action cinema.",
+            "ctaDiscovery": "Discovery Course (12 days)",
+            "imageAlt": "Professional stunt training at Campus Univers Cascades",
+            "certificateTitle": "View the CUC accreditation and certification file",
+            "brochureAlt": "Download the CUC brochure"
+        },
+        "stats": {
+            "practiceLabel": "Intensive Practical Set Training",
+            "graduatesLabel": "Certified Trainees",
+            "satisfactionLabel": "Satisfaction Rate",
+            "referenceLabel": "Reference Programme in France",
+            "since": "SINCE 2011"
+        }
+    },
+    "partenaires": {
+        "cinemaHeading": "Partner Studios & Productions",
+        "specializedHeading": "Specialised & Institutional Partners",
+        "productionBadge": "Film Production",
+        "officialSite": "Official website",
+        "website": "Website",
+        "roleMateriel": "Equipment Supplier",
+        "roleMedia": "Media",
+        "roleInstitutionnel": "Institutional",
+        "categories": {
+            "agrement": "State Approval & Certification",
+            "equipementiers": "Equipment & Protective Gear",
+            "materiel": "Filming Equipment & Gear",
+            "pedagogie": "Teaching & Professional Stunts",
+            "multimedia": "Multimedia & Production",
+            "etablissement": "Accommodation & Nutrition"
+        }
     }
 }

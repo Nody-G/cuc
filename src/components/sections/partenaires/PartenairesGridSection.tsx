@@ -2,11 +2,27 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { ExternalLink, Film, Award } from 'lucide-react';
 import { CUC_PARTNERS } from './partenaires.data';
 import { getPartners, SitePartner } from '@/lib/data/site-service';
 
+/**
+ * Clés i18n des intitulés de groupes de `partenaires.data` (FR = source).
+ * Le libellé FR reste la clé de repli : un groupe non répertorié s'affiche tel
+ * quel plutôt que de disparaître.
+ */
+const CATEGORY_KEYS: Record<string, string> = {
+  "Agrément & Certification d'État": 'categories.agrement',
+  'Équipementiers & Protections': 'categories.equipementiers',
+  'Matériel & Équipement de Tournage': 'categories.materiel',
+  'Pédagogie & Cascades Professionnelles': 'categories.pedagogie',
+  'Multimédia & Production': 'categories.multimedia',
+  'Établissement & Nutrition': 'categories.etablissement',
+};
+
 export const PartenairesGridSection: React.FC = () => {
+  const t = useTranslations('partenaires');
   const [dbPartners, setDbPartners] = useState<SitePartner[]>([]);
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
 
@@ -39,7 +55,7 @@ export const PartenairesGridSection: React.FC = () => {
             <div className="flex items-center gap-3 border-b border-zinc-800 pb-3">
               <Film className="w-4 h-4 text-[#FFE500]" />
               <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                Studios &amp; Productions Partenaires
+                {t('cinemaHeading')}
               </h2>
             </div>
 
@@ -69,7 +85,7 @@ export const PartenairesGridSection: React.FC = () => {
 
                     <div className="flex items-center justify-between gap-2 mb-2">
                       <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold">
-                        Production Cinéma
+                        {t('productionBadge')}
                       </span>
                     </div>
 
@@ -92,7 +108,7 @@ export const PartenairesGridSection: React.FC = () => {
                         rel="noopener noreferrer"
                         className="text-[#FFE500] hover:underline flex items-center gap-1 font-bold"
                       >
-                        <span>Site officiel</span>
+                        <span>{t('officialSite')}</span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     </div>
@@ -109,7 +125,7 @@ export const PartenairesGridSection: React.FC = () => {
             <div className="flex items-center gap-3 border-b border-zinc-800 pb-3">
               <Award className="w-4 h-4 text-[#FFE500]" />
               <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                Partenaires Spécialisés &amp; Institutionnels
+                {t('specializedHeading')}
               </h2>
             </div>
 
@@ -139,7 +155,11 @@ export const PartenairesGridSection: React.FC = () => {
 
                     <div className="flex items-center justify-between gap-2 mb-2">
                       <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold">
-                        {partner.category === 'materiel' ? 'Équipementier' : partner.category === 'media' ? 'Média' : 'Institutionnel'}
+                        {partner.category === 'materiel'
+                          ? t('roleMateriel')
+                          : partner.category === 'media'
+                            ? t('roleMedia')
+                            : t('roleInstitutionnel')}
                       </span>
                     </div>
 
@@ -179,7 +199,9 @@ export const PartenairesGridSection: React.FC = () => {
             <div className="flex items-center gap-3 border-b border-zinc-800 pb-3">
               {catGroup.icon}
               <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                {catGroup.category}
+                {CATEGORY_KEYS[catGroup.category]
+                  ? t(CATEGORY_KEYS[catGroup.category])
+                  : catGroup.category}
               </h2>
             </div>
 
@@ -236,7 +258,7 @@ export const PartenairesGridSection: React.FC = () => {
                         rel="noopener noreferrer"
                         className="text-[#FFE500] hover:underline flex items-center gap-1 font-bold"
                       >
-                        <span>Site web</span>
+                        <span>{t('website')}</span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     ) : null}

@@ -7,6 +7,13 @@ interface HeroTechDepthProps {
   smoothMouseX: MotionValue<number>;
   smoothMouseY: MotionValue<number>;
   smoothScroll: MotionValue<number>;
+  /**
+   * Mobile / `prefers-reduced-motion` : ne conserver que la géométrie statique
+   * (grille, anneaux, repères). Le halo `blur-3xl` et les particules animées en
+   * boucle sont la part la plus coûteuse du calque — c'est elle qui alimentait
+   * le scintillement observé sur les visuels du hero.
+   */
+  simplified?: boolean;
 }
 
 // Generate static deterministic particles for 3D depth
@@ -23,6 +30,7 @@ export const HeroTechDepth: React.FC<HeroTechDepthProps> = ({
   smoothMouseX,
   smoothMouseY,
   smoothScroll,
+  simplified = false,
 }) => {
   // Layer 1: Midground Mech Matrix Transforms (subtle tilt & shift)
   const matrixX = useTransform(smoothMouseX, [-20, 20], [-12, 12]);
@@ -65,17 +73,22 @@ export const HeroTechDepth: React.FC<HeroTechDepthProps> = ({
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden z-10 will-change-transform">
       {/* 1. Volumetric Organic Halo: Soft interactive warm beam */}
-      <motion.div
-        style={{ x: lightX, y: lightY }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[55rem] h-[35rem] rounded-full bg-[radial-gradient(circle,_rgba(255,229,0,0.065)_0%,_rgba(255,200,0,0.02)_45%,_transparent_70%)] blur-3xl pointer-events-none will-change-transform"
-      />
+      {!simplified && (
+        <motion.div
+          style={{ x: lightX, y: lightY }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[55rem] h-[35rem] rounded-full bg-[radial-gradient(circle,_rgba(255,229,0,0.065)_0%,_rgba(255,200,0,0.02)_45%,_transparent_70%)] blur-3xl pointer-events-none will-change-transform"
+        />
+      )}
 
       {/* 2. Midground Tech/Mech Precision Geometry (Perspective Grid + Optics) */}
       <motion.div
-        style={{ x: matrixX, y: matrixY }}
-        className="absolute inset-0 will-change-transform opacity-35 sm:opacity-45"
+        style={simplified ? undefined : { x: matrixX, y: matrixY }}
+        className="absolute inset-0 opacity-35 sm:opacity-45"
       >
-        <motion.div style={{ y: matrixScrollY }} className="w-full h-full relative">
+        <motion.div
+          style={simplified ? undefined : { y: matrixScrollY }}
+          className="w-full h-full relative"
+        >
           {/* Subtle Cyber/Cinematic Reticle Circle in center */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[34rem] sm:w-[48rem] h-[34rem] sm:h-[48rem] rounded-full border border-white/[0.04] pointer-events-none">
             {/* Pulsing Concentric Range Ring */}
@@ -113,39 +126,41 @@ export const HeroTechDepth: React.FC<HeroTechDepthProps> = ({
       </motion.div>
 
       {/* 3. Foreground Floating Stereoscopic Optical Motes (Multi-depth embers) */}
-      <motion.div
-        style={{ x: dustX, y: dustY }}
-        className="absolute inset-0 pointer-events-none will-change-transform"
-      >
-        <motion.div style={{ y: dustScrollY }} className="w-full h-full relative">
-          {particles.map((p) => {
-            // Near particles drift more dramatically than far ones
-            const depthFactor = p.depth;
-            return (
-              <motion.div
-                key={p.id}
-                animate={{
-                  y: [0, -14 * depthFactor, 0],
-                  opacity: [p.opacity * 0.7, p.opacity, p.opacity * 0.7],
-                  scale: [1, 1.15, 1],
-                }}
-                transition={{
-                  duration: 4.5 + p.id * 0.35,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-                style={{
-                  left: `${p.x}%`,
-                  top: `${p.y}%`,
-                  width: `${p.size}px`,
-                  height: `${p.size}px`,
-                }}
-                className="absolute rounded-full bg-[#FFE500] shadow-[0_0_8px_rgba(255,229,0,0.8)]"
-              />
-            );
-          })}
+      {!simplified && (
+        <motion.div
+          style={{ x: dustX, y: dustY }}
+          className="absolute inset-0 pointer-events-none will-change-transform"
+        >
+          <motion.div style={{ y: dustScrollY }} className="w-full h-full relative">
+            {particles.map((p) => {
+              // Near particles drift more dramatically than far ones
+              const depthFactor = p.depth;
+              return (
+                <motion.div
+                  key={p.id}
+                  animate={{
+                    y: [0, -14 * depthFactor, 0],
+                    opacity: [p.opacity * 0.7, p.opacity, p.opacity * 0.7],
+                    scale: [1, 1.15, 1],
+                  }}
+                  transition={{
+                    duration: 4.5 + p.id * 0.35,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                  style={{
+                    left: `${p.x}%`,
+                    top: `${p.y}%`,
+                    width: `${p.size}px`,
+                    height: `${p.size}px`,
+                  }}
+                  className="absolute rounded-full bg-[#FFE500] shadow-[0_0_8px_rgba(255,229,0,0.8)]"
+                />
+              );
+            })}
+          </motion.div>
         </motion.div>
-      </motion.div>
+      )}
     </div>
   );
 };

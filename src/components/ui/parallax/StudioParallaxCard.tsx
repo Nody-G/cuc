@@ -26,6 +26,9 @@ export const StudioParallaxCard: React.FC<StudioParallaxCardProps> = ({
   const rotateY = useTransform(springX, [-0.5, 0.5], [-maxTilt, maxTilt]);
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    // Souris uniquement : au doigt, le scroll tactile déclenchait l'inclinaison
+    // 3D et laissait les cartes penchées (aucun `pointerleave` au toucher).
+    if (e.pointerType !== 'mouse') return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;

@@ -1,5 +1,6 @@
 'use client';
 import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 import React from 'react';
 import Image from 'next/image';
@@ -19,6 +20,8 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
   onApply,
   heroData,
 }) => {
+  const t = useTranslations('formation');
+
   return (
     <>
       {/* Page Header Hero */}
@@ -26,7 +29,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
         <div className="absolute inset-0 z-0">
           <Image
             src={heroData?.bg_image || "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-7-scaled.jpg"}
-            alt="Formation professionnelle de cascadeur au Campus Univers Cascades"
+            alt={t('hero.imageAlt')}
             fill
             priority
             sizes="100vw"
@@ -39,11 +42,11 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">
-              ACCUEIL
+              {t('hero.breadcrumbHome')}
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
             <span className="text-[#FFE500]">
-              FORMATION PROFESSIONNELLE DE CASCADEUR
+              {t('hero.breadcrumbCurrent')}
             </span>
           </div>
 
@@ -58,7 +61,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
               />
             </div>
             <StuntBadge variant="yellow" icon={<Award className="w-3.5 h-3.5" />}>
-              {heroData?.badge || 'CURSUS CERTIFIÉ QUALIOPI'}
+              {heroData?.badge || t('hero.badge')}
             </StuntBadge>
             <span className="text-xs font-mono-tech text-zinc-400 hidden sm:inline">
               AFDAS 100% • FRANCE TRAVAIL
@@ -69,12 +72,12 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
             {heroData?.title ? (
               <span>{heroData.title}</span>
             ) : (
-              <>FORMATION PROFESSIONNELLE <span className="text-[#FFE500]">DE CASCADEUR</span></>
+              <>{t('hero.titleLead')} <span className="text-[#FFE500]">{t('hero.titleHighlight')}</span></>
             )}
           </h1>
 
           <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-            {heroData?.subtitle || "Cursus de formation professionnelle fondé par Lucas Dollfus. Une immersion technique au Cateau-Cambrésis pour acquérir les compétences, la discipline de plateau et les réflexes de sécurité exigés par le cinéma d'action."}
+            {heroData?.subtitle || t('hero.subtitle')}
           </p>
 
           <div className="flex flex-wrap gap-4 mt-8">
@@ -84,25 +87,25 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
               icon={<ChevronRight className="w-4 h-4" />}
               onClick={() => onApply('pro-longue-duree')}
             >
-              Candidater au Cursus Pro
+              {t('ctaApplyPro')}
             </TacticalButton>
             <TacticalButton
               variant="secondary"
               size="lg"
               onClick={() => onApply('stage-decouverte')}
             >
-              Formule Découverte (12 jours)
+              {t('hero.ctaDiscovery')}
             </TacticalButton>
             <a
               href="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block hover:opacity-90 transition-opacity"
-              title="Consulter le dossier d'agrément et de certification CUC"
+              title={t('hero.certificateTitle')}
             >
               <Image
                 src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Encart-plaquette.png"
-                alt="Télécharger la plaquette CUC"
+                alt={t('hero.brochureAlt')}
                 width={240}
                 height={50}
                 className="object-contain"
@@ -121,7 +124,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
                 720H
               </div>
               <div className="text-xs font-mono-tech text-zinc-400 uppercase tracking-wider">
-                Pratique Intensive Plateau
+                {t('stats.practiceLabel')}
               </div>
             </div>
 
@@ -130,7 +133,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
                 224
               </div>
               <div className="text-xs font-mono-tech text-zinc-400 uppercase tracking-wider">
-                Stagiaires Certifiés
+                {t('stats.graduatesLabel')}
               </div>
             </div>
 
@@ -139,16 +142,16 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
                 100%
               </div>
               <div className="text-xs font-mono-tech text-zinc-400 uppercase tracking-wider">
-                Taux de Satisfaction
+                {t('stats.satisfactionLabel')}
               </div>
             </div>
 
             <div className="border-l-2 border-[#FFE500] pl-4 py-1">
               <div className="text-3xl sm:text-4xl font-display text-[#FFE500]">
-                DEPUIS 2011
+                {t('stats.since')}
               </div>
               <div className="text-xs font-mono-tech text-zinc-400 uppercase tracking-wider">
-                Formation Référente en France
+                {t('stats.referenceLabel')}
               </div>
             </div>
           </div>

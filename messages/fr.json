@@ -24,5 +24,50 @@
         "ctaInfrastructures": "Infrastructures",
         "ctaVisite360": "Visite 360°",
         "ctaPlan3d": "Plan 3D"
+    },
+    "formation": {
+        "ctaApplyPro": "Candidater au Cursus Pro",
+        "cta": {
+            "title": "PRÊT À INTÉGRER L'ÉCOLE DES CASCADEURS ?",
+            "text": "Contactez notre équipe pédagogique pour vérifier votre éligibilité, planifier votre stage découverte ou monter votre dossier de financement.",
+            "contact": "Nous Contacter par Téléphone"
+        },
+        "hero": {
+            "breadcrumbHome": "ACCUEIL",
+            "breadcrumbCurrent": "FORMATION PROFESSIONNELLE DE CASCADEUR",
+            "badge": "CURSUS CERTIFIÉ QUALIOPI",
+            "titleLead": "FORMATION PROFESSIONNELLE",
+            "titleHighlight": "DE CASCADEUR",
+            "subtitle": "Cursus de formation professionnelle fondé par Lucas Dollfus. Une immersion technique au Cateau-Cambrésis pour acquérir les compétences, la discipline de plateau et les réflexes de sécurité exigés par le cinéma d'action.",
+            "ctaDiscovery": "Formule Découverte (12 jours)",
+            "imageAlt": "Formation professionnelle de cascadeur au Campus Univers Cascades",
+            "certificateTitle": "Consulter le dossier d'agrément et de certification CUC",
+            "brochureAlt": "Télécharger la plaquette CUC"
+        },
+        "stats": {
+            "practiceLabel": "Pratique Intensive Plateau",
+            "graduatesLabel": "Stagiaires Certifiés",
+            "satisfactionLabel": "Taux de Satisfaction",
+            "referenceLabel": "Formation Référente en France",
+            "since": "DEPUIS 2011"
+        }
+    },
+    "partenaires": {
+        "cinemaHeading": "Studios & Productions Partenaires",
+        "specializedHeading": "Partenaires Spécialisés & Institutionnels",
+        "productionBadge": "Production Cinéma",
+        "officialSite": "Site officiel",
+        "website": "Site web",
+        "roleMateriel": "Équipementier",
+        "roleMedia": "Média",
+        "roleInstitutionnel": "Institutionnel",
+        "categories": {
+            "agrement": "Agrément & Certification d'État",
+            "equipementiers": "Équipementiers & Protections",
+            "materiel": "Matériel & Équipement de Tournage",
+            "pedagogie": "Pédagogie & Cascades Professionnelles",
+            "multimedia": "Multimédia & Production",
+            "etablissement": "Établissement & Nutrition"
+        }
     }
 }

@@ -1,5 +1,6 @@
 'use client';
 import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 import React from 'react';
 
@@ -30,6 +31,7 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
 }) => {
   const navigation = useNavigation();
   const socialLinks = useSocialLinks();
+  const t = useTranslations('common');
 
   const drawerSocials = socialLinks.filter((s) => s.show_in_drawer);
   const cta = navigation.cta;
@@ -97,12 +99,29 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
+        /* Voile de fermeture au tap : posé sous la barre (z négatif dans le
+           contexte d'empilement du header) pour laisser la navigation visible. */
+        <motion.button
+          type="button"
+          key="mobile-nav-backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          onClick={onClose}
+          aria-label={t('closeMenu')}
+          className="xl:hidden fixed inset-0 -z-10 bg-black/50 cursor-default"
+        />
+      )}
+      {isOpen && (
         <motion.div
+          key="mobile-nav-panel"
+          id="mobile-nav-drawer"
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.22, ease: 'easeInOut' }}
-          className="xl:hidden bg-[#0a0a0e] border-b border-[#FFE500]/40 p-5 space-y-3 shadow-2xl max-h-[85vh] overflow-y-auto overflow-hidden"
+          className="xl:hidden relative bg-[#0a0a0e] border-b border-[#FFE500]/40 p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] space-y-3 shadow-2xl max-h-[85dvh] overflow-y-auto overscroll-contain"
         >
           <div className="h-1 w-full hazard-stripes mb-2" />
 

@@ -1,12 +1,12 @@
 # Revue — Surface de traduction (périmètre « complet visible »)
 
-Généré le 2026-09-21T14:35:57.860Z par [`audit_translation_surface.mjs`](scripts/audit_translation_surface.mjs:1).
+Généré le 2026-09-21T15:18:04.822Z par [`audit_translation_surface.mjs`](scripts/audit_translation_surface.mjs:1).
 
 ## Synthèse
 
-- Copie d’interface en dur : **421 chaînes** dans **73 fichiers**
+- Copie d’interface en dur : **411 chaînes** dans **71 fichiers**
 - Valeurs françaises en base (périmètre public) : **551**
-- Catalogue UI actuel : **20 clés** (EN : 20)
+- Catalogue UI actuel : **50 clés** (EN : 50)
 
 ## A. Interface — fichiers les plus chargés
 
@@ -28,7 +28,6 @@ Généré le 2026-09-21T14:35:57.860Z par [`audit_translation_surface.mjs`](scri
 | `src\components\ui\VirtualTourViewer.tsx` | 10 |
 | `src\components\sections\visite\VisiteAccessTransport.tsx` | 9 |
 | `src\app\(site)\[locale]\visite-virtuelle\page.tsx` | 8 |
-| `src\components\sections\formation\FormationHeroSection.tsx` | 8 |
 | `src\components\sections\team\TeamProductionGalleries.tsx` | 8 |
 | `src\app\(site)\[locale]\equipe-cascadeurs-pro\page.tsx` | 7 |
 | `src\components\sections\events\EventsPartnersBanners.tsx` | 7 |
@@ -66,7 +65,6 @@ Généré le 2026-09-21T14:35:57.860Z par [`audit_translation_surface.mjs`](scri
 | `src\components\layout\MobileStickyCTA.tsx` | 2 |
 | `src\components\sections\contact\ContactHeroSection.tsx` | 2 |
 | `src\components\sections\home\HomeAboutSection.tsx` | 2 |
-| `src\components\sections\partenaires\PartenairesGridSection.tsx` | 2 |
 | `src\components\sections\partenaires\PartenairesHeroSection.tsx` | 2 |
 | `src\components\sections\team\TeamHeroSection.tsx` | 2 |
 | `src\components\ui\campus-map\CampusRadarView.tsx` | 2 |
@@ -101,10 +99,9 @@ Généré le 2026-09-21T14:35:57.860Z par [`audit_translation_surface.mjs`](scri
 | Films | `site_films` | 570 | 418 | description : 418 |
 | Partenaires | `site_partners` | 21 | 14 | description : 14 |
 | Sessions de formation | `site_sessions` | 18 | 0 | — |
-| Vidéos | `site_videos` | 0 | 0 | table non lisible |
 
 ## C. Catalogues de messages
 
-- `messages/fr.json` : 20 clés
-- `messages/en.json` : 20 clés
+- `messages/fr.json` : 50 clés
+- `messages/en.json` : 50 clés
 - Clés présentes en FR mais absentes en EN : 0

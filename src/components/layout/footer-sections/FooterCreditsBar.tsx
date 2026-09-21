@@ -86,7 +86,8 @@ export const FooterCreditsBar: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 10 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-20 sm:bottom-8 right-5 sm:right-8 z-40 p-3 bg-[#0a0a0e]/90 hover:bg-[#FFE500] text-zinc-300 hover:text-black border border-zinc-700 hover:border-[#FFE500] backdrop-blur-md shadow-2xl transition-colors cursor-pointer active:scale-95"
+            /* `bottom` mobile = au-dessus de la barre collante + encoche iOS. */
+            className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] sm:bottom-8 right-5 sm:right-8 z-40 p-3 bg-[#0a0a0e]/90 hover:bg-[#FFE500] text-zinc-300 hover:text-black border border-zinc-700 hover:border-[#FFE500] backdrop-blur-md shadow-2xl transition-colors cursor-pointer active:scale-95"
             aria-label="Remonter en haut de la page"
             title="Remonter en haut"
           >

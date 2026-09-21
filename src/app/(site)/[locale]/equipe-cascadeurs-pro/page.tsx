@@ -11,6 +11,8 @@ import { TacticalButton } from '@/components/ui/TacticalButton';
 import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getTeam, getFilms } from '@/lib/data/site-service';
+import { applyTeamOverlay } from '@/lib/i18n/apply-team-overlay';
+import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 import { createClient } from '@/lib/supabase/client';
 import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
 import { Instructor, FilmCredit, parseCredit } from '@/types';
@@ -32,6 +34,10 @@ export default function EquipeCascadeursProPage() {
   const [films, setFilms] = React.useState<FilmCredit[]>(FILMOGRAPHY_CREDITS);
   const [selectedFilm, setSelectedFilm] = React.useState<FilmCredit | null>(null);
   const { content } = usePageDynamicContent('equipe-cascadeurs-pro');
+
+  // Overlays EN des coachs (`site_translations`, entité `team`) : la base FR
+  // reste la référence, l'anglais se pose par-dessus dès qu'il est disponible.
+  const teamOverlays = useEntityOverlays('team');
 
   const heroBadge = content.hero?.badge || 'COACHS & PROFESSIONNELS DU CINÉMA';
   const heroTitle = content.hero?.title || "L'ÉQUIPE";
@@ -70,6 +76,11 @@ export default function EquipeCascadeursProPage() {
       removeSafeChannel(supabase, channel);
     };
   }, []);
+
+  const displayTeam = React.useMemo(
+    () => team.map((m) => applyTeamOverlay(m, teamOverlays?.[m.id])),
+    [team, teamOverlays]
+  );
 
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
@@ -131,7 +142,7 @@ export default function EquipeCascadeursProPage() {
         <section className="py-16">
           <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-              {team.map((member) => {
+              {displayTeam.map((member) => {
                 const coachFilms = films.filter(
                   (f) =>
                     (member.film_ids && member.film_ids.includes(f.id)) ||
