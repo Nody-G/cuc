@@ -127,13 +127,19 @@ export class ImdbClient {
 
     /**
      * Requête GraphQL brute avec retry/backoff.
+     *
+     * `options.headers` permet de surcharger l'en-tête de langue : le client
+     * demande `fr-FR` par défaut (fiches coachs), mais les synopsis anglais
+     * exigent `x-imdb-user-language: en-US` pour que IMDb renvoie bien la
+     * version anglaise de l'intrigue.
+     *
      * @param {string} query
      * @param {object} variables
-     * @param {{retries?: number}} [options]
+     * @param {{retries?: number, headers?: Record<string,string>}} [options]
      */
     async graphql(query, variables = {}, options = {}) {
         const retries = options.retries ?? 3;
-        const cacheKey = cacheKeyFor({ q: query, v: variables });
+        const cacheKey = cacheKeyFor({ q: query, v: variables, h: options.headers ?? null });
         const cached = this._readCache(cacheKey);
         if (cached) {
             this.stats.cacheHits += 1;
@@ -146,7 +152,7 @@ export class ImdbClient {
         for (let attempt = 0; attempt <= retries; attempt += 1) {
             await this.limiter.acquire();
             try {
-                const data = await this._post(GRAPHQL_HOST, '/', body);
+                const data = await this._post(GRAPHQL_HOST, '/', body, options.headers);
                 this.stats.requests += 1;
                 this._writeCache(cacheKey, data);
                 return data;
@@ -161,7 +167,7 @@ export class ImdbClient {
         throw lastError ?? new Error('IMDb GraphQL : échec inconnu');
     }
 
-    _post(hostname, requestPath, body) {
+    _post(hostname, requestPath, body, extraHeaders = null) {
         return new Promise((resolve, reject) => {
             const req = https.request(
                 {
@@ -178,6 +184,7 @@ export class ImdbClient {
                         'x-imdb-client-name': 'imdb-web-next',
                         'x-imdb-user-country': 'FR',
                         'x-imdb-user-language': 'fr-FR',
+                        ...(extraHeaders || {}),
                     },
                 },
                 (res) => {

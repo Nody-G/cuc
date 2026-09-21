@@ -103,6 +103,24 @@ for (const def of REGISTRY.entities) {
     let covered = 0;
     const missing = [];
 
+    /**
+     * Vrai si la valeur est RÉDIGÉE EN FRANÇAIS. Le test combine accents et
+     * mots-outils, et se méfie des faux positifs : une phrase anglaise citant
+     * « Amélie », « André Malraux » ou « Charles de Gaulle » reste anglaise.
+     */
+    const FR_ACCENTS = /[àâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ]/;
+    const FR_WORDS =
+        /\b(le|la|les|des|une|un|et|pour|avec|sur|dans|est|sont|du|au|aux|par|qui|que|ne|pas|plus|tout|tous|elle|ils|elles|chez|nous|vous|notre|nos|vos|ses|son|sa|ce|cette|ces)\b/gi;
+    const EN_WORDS =
+        /\b(the|of|and|to|in|a|an|is|are|was|were|with|for|his|her|their|who|that|when|after|from|by|on|at|as|it|he|she|they|while|into|between)\b/gi;
+    const isFrenchText = (value) => {
+        if (typeof value !== 'string' || !/[a-z]/i.test(value)) return false;
+        const en = (value.match(EN_WORDS) ?? []).length;
+        const fr = (value.match(FR_WORDS) ?? []).length;
+        if (en >= 2 && en >= fr) return false;
+        return FR_ACCENTS.test(value) || fr >= 2 || (fr >= 1 && en === 0);
+    };
+
     for (const row of rows) {
         const id = row[def.idField];
         const payload = overlayIndex.get(`${def.entity}|${id}`) || {};
@@ -110,6 +128,10 @@ for (const def of REGISTRY.entities) {
             const frLeaves = flatten(row[field.name], field.name, {}, true);
             const enLeaves = flatten(payload[field.name], field.name, {}, false);
             for (const [path, frText] of Object.entries(frLeaves)) {
+                // Un champ DÉJÀ en anglais (données importées d'IMDb/TMDB, titres de
+                // séries étrangères…) n'a pas besoin d'overlay : l'exiger gonflait
+                // le déficit d'une couverture qui n'apportait rien au visiteur.
+                if (!isFrenchText(frText)) continue;
                 total += 1;
                 const enText = enLeaves[path];
                 if (enText && enText !== frText) covered += 1;
