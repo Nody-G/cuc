@@ -4,9 +4,35 @@ import * as THREE from 'three';
 import { soundFX } from '@/lib/soundFx';
 import {
   EditableFacilityItem,
+  FacilityTransform,
+  GizmoDragType,
   ThreeSceneContext,
 } from '../types/campus3d.types';
-import { findGizmoHandle, findBuildingGroup } from './useCampusGizmo';
+import {
+  TRANSFORM_LIMITS,
+  clampPosition,
+  clampScale,
+  getFacilityRadius,
+  normalizeAngle360,
+  snapToStep,
+  transformOf,
+} from '../data/facilityTransform';
+import {
+  axisVector,
+  getObjectFrame,
+  rayAxisParam,
+  rayPlanePoint,
+  resolveAxisScaleDrag,
+  resolveUniformScaleDrag,
+  signedAngleAroundAxis,
+} from './gizmoMath';
+import {
+  findBuildingGroup,
+  findFirstActiveGizmoHandle,
+  handleToDragType,
+  setHighlightRadius,
+} from './useCampusGizmo';
+import { anchorGizmo, applyTransformToObject } from './campusSync';
 
 interface PointerEventsSetupOptions {
   canvas: HTMLCanvasElement;
@@ -22,6 +48,8 @@ interface PointerEventsSetupOptions {
   setCameraDistance: (dist: number) => void;
 }
 
+type Axis = 'x' | 'y' | 'z';
+
 export function setupCampusPointerEvents({
   canvas,
   threeRef,
@@ -36,7 +64,77 @@ export function setupCampusPointerEvents({
   setCameraDistance,
 }: PointerEventsSetupOptions) {
   let pointerDownClientPos = { x: 0, y: 0 };
-  let pendingDragValues: { id: string; x: number; z: number; rotationY: number } | null = null;
+  let pendingTransform: { id: string; transform: FacilityTransform } | null = null;
+
+  const updateMouseVector = (three: ThreeSceneContext, e: PointerEvent) => {
+    const rect = canvas.getBoundingClientRect();
+    three.mouseVector.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    three.mouseVector.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+    three.raycaster.setFromCamera(three.mouseVector, three.camera);
+  };
+
+  const applySnap = (value: number): number => snapToStep(value, snapGridRef.current);
+
+  /**
+   * Angle courant du pointeur autour de l'axe vertical, mesuré dans le plan
+   * perpendiculaire passant par le centre du gizmo.
+   *
+   * Le sens de rotation obtenu est celui de Three.js (règle de la main
+   * droite) : le delta d'angle se cumule donc directement à `rotationY`, sans
+   * correction de signe ad hoc.
+   */
+  const lacetAngleAt = (three: ThreeSceneContext, center: THREE.Vector3): number | null => {
+    const axis = axisVector('y');
+    const planePoint = rayPlanePoint(three.raycaster.ray, axis, center);
+    if (!planePoint) return null;
+    return signedAngleAroundAxis(planePoint, center, axis, new THREE.Vector3(1, 0, 0));
+  };
+
+  /**
+   * Capture l'état nécessaire à la manipulation : transformée de départ,
+   * rayon englobant de l'objet, échelle du gizmo **gelée** pour la durée du
+   * glisser (sans ce gel, agrandir le bâtiment agrandirait le gizmo, qui
+   * agrandirait le bâtiment — une boucle divergente), et paramètre de
+   * référence le long de l'axe manipulé.
+   */
+  const beginGizmoDrag = (
+    three: ThreeSceneContext,
+    e: PointerEvent,
+    item: EditableFacilityItem,
+    dragType: GizmoDragType
+  ) => {
+    if (!dragType) return;
+
+    three.dragStartTransform = transformOf(item);
+    three.dragStartPointer = { x: e.clientX, y: e.clientY };
+    three.activeDragType = dragType;
+    three.dragObjectRadius =
+      getObjectFrame(three.buildingsGroup.getObjectByName(item.id))?.radius ?? 9;
+
+    const frozen = three.gizmoGroup.userData.gizmoScale;
+    three.gizmoScaleFrozen = typeof frozen === 'number' && frozen > 0 ? frozen : 1;
+
+    const groundHit = new THREE.Vector3();
+    if (three.raycaster.ray.intersectPlane(three.groundPlaneRaycast, groundHit)) {
+      three.dragStartIntersection.copy(groundHit);
+    } else {
+      three.dragStartIntersection.set(three.dragStartTransform.x, 0, three.dragStartTransform.z);
+    }
+
+    const center = three.gizmoGroup.position.clone();
+    three.dragStartAxisParam = 0;
+
+    if (dragType === 'scale-x' || dragType === 'scale-y' || dragType === 'scale-z') {
+      const axis = dragType.slice(-1) as Axis;
+      three.dragStartAxisParam = rayAxisParam(three.raycaster.ray, center, axisVector(axis));
+    } else if (dragType === 'rotate-y') {
+      three.dragStartAxisParam = lacetAngleAt(three, center) ?? 0;
+    }
+
+    three.isDraggingGizmo = true;
+    three.isDragging = false;
+    canvas.setPointerCapture(e.pointerId);
+  };
 
   const onPointerDown = (e: PointerEvent) => {
     const three = threeRef.current;
@@ -44,62 +142,37 @@ export function setupCampusPointerEvents({
 
     three.prevMousePos = { x: e.clientX, y: e.clientY };
     pointerDownClientPos = { x: e.clientX, y: e.clientY };
-    pendingDragValues = null;
-    const rect = canvas.getBoundingClientRect();
-    three.mouseVector.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    three.mouseVector.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-    three.raycaster.setFromCamera(three.mouseVector, three.camera);
+    pendingTransform = null;
+    updateMouseVector(three, e);
 
-    // Gizmo hit detection in editor mode
     if (isEditorOpenRef.current && e.button === 0) {
+      // 1. Poignée de gizmo : noms exacts **et** poignée réellement visible
+      //    (`Raycaster` ignore `Object3D.visible`, donc les jeux de poignées
+      //    masqués des autres modes doivent être écartés explicitement).
+      const currentItem = facilitiesRef.current[selectedObjectIdRef.current];
       const gizmoHits = three.raycaster.intersectObjects(three.gizmoGroup.children, true);
-      if (gizmoHits.length > 0) {
-        const handleName = findGizmoHandle(gizmoHits[0].object, three.gizmoGroup);
-        if (handleName) {
-          const currentItem = facilitiesRef.current[selectedObjectIdRef.current];
-          if (currentItem) {
-            const groundHit = new THREE.Vector3();
-            if (three.raycaster.ray.intersectPlane(three.groundPlaneRaycast, groundHit)) {
-              three.dragStartIntersection.copy(groundHit);
-              three.dragStartPos = { x: currentItem.x, z: currentItem.z };
-              three.dragStartRotation = currentItem.rotationY;
-              three.dragStartAngle = (Math.atan2(groundHit.x - currentItem.x, groundHit.z - currentItem.z) * 180) / Math.PI;
-
-              if (handleName === 'gizmo-axis-x') three.activeDragType = 'x';
-              else if (handleName === 'gizmo-axis-z') three.activeDragType = 'z';
-              else if (handleName === 'gizmo-rot-y') three.activeDragType = 'rot';
-              else three.activeDragType = 'center';
-
-              three.isDraggingGizmo = true;
-              three.isDragging = false;
-              canvas.setPointerCapture(e.pointerId);
-              return;
-            }
-          }
+      if (currentItem && gizmoHits.length > 0) {
+        const handle = findFirstActiveGizmoHandle(gizmoHits, three.gizmoGroup);
+        const dragType = handle ? handleToDragType(handle) : null;
+        if (dragType) {
+          beginGizmoDrag(three, e, currentItem, dragType);
+          return;
         }
       }
 
-      // Building click detection in editor mode
+      // 2. Clic sur un bâtiment : sélection, puis glisser libre au sol si le
+      //    mode « Gizmo » est actif.
       const bldgHits = three.raycaster.intersectObjects(three.buildingsGroup.children, true);
       if (bldgHits.length > 0) {
         const topBldg = findBuildingGroup(bldgHits[0].object, three.buildingsGroup);
         if (topBldg && topBldg.name) {
           onSelectObjectId(topBldg.name);
           soundFX.playTacticalClick();
+
           if (dragModeRef.current === 'gizmo') {
             const curItem = facilitiesRef.current[topBldg.name];
             if (curItem) {
-              const groundHit = new THREE.Vector3();
-              if (three.raycaster.ray.intersectPlane(three.groundPlaneRaycast, groundHit)) {
-                three.dragStartIntersection.copy(groundHit);
-                three.dragStartPos = { x: curItem.x, z: curItem.z };
-                three.dragStartRotation = curItem.rotationY;
-                three.activeDragType = 'center';
-                three.isDraggingGizmo = true;
-                three.isDragging = false;
-                canvas.setPointerCapture(e.pointerId);
-                return;
-              }
+              beginGizmoDrag(three, e, curItem, 'translate-free');
             }
           }
           return;
@@ -116,77 +189,114 @@ export function setupCampusPointerEvents({
     const three = threeRef.current;
     if (!three) return;
 
-    const rect = canvas.getBoundingClientRect();
-    three.mouseVector.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    three.mouseVector.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-
-    // Active Gizmo dragging
+    // --- Manipulation de gizmo active ---
     if (three.isDraggingGizmo && isEditorOpenRef.current && three.activeDragType) {
-      three.raycaster.setFromCamera(three.mouseVector, three.camera);
-      const curHit = new THREE.Vector3();
-      if (three.raycaster.ray.intersectPlane(three.groundPlaneRaycast, curHit)) {
-        const selectedId = selectedObjectIdRef.current;
-        const currentItem = facilitiesRef.current[selectedId];
-        if (!currentItem) return;
+      const active = three.activeDragType;
+      updateMouseVector(three, e);
+      const ray = three.raycaster.ray;
 
-        const snap = snapGridRef.current;
-        const applySnap = (val: number) => {
-          if (snap <= 0.1) return Math.round(val * 10) / 10;
-          return Math.round(val / snap) * snap;
-        };
+      const id = selectedObjectIdRef.current;
+      const item = facilitiesRef.current[id];
+      if (!item) return;
 
-        let nextX = currentItem.x;
-        let nextZ = currentItem.z;
-        let nextRot = currentItem.rotationY;
+      const start = three.dragStartTransform;
+      const next: FacilityTransform = { ...start };
+      const fine = e.shiftKey;
+      const snap = snapGridRef.current;
+      const center = three.gizmoGroup.position.clone();
 
-        if (three.activeDragType === 'x') {
-          const dx = curHit.x - three.dragStartIntersection.x;
-          nextX = applySnap(Math.max(-75, Math.min(75, three.dragStartPos.x + dx)));
-        } else if (three.activeDragType === 'z') {
-          const dz = curHit.z - three.dragStartIntersection.z;
-          nextZ = applySnap(Math.max(-75, Math.min(75, three.dragStartPos.z + dz)));
-        } else if (three.activeDragType === 'center') {
-          const dx = curHit.x - three.dragStartIntersection.x;
-          const dz = curHit.z - three.dragStartIntersection.z;
-          nextX = applySnap(Math.max(-75, Math.min(75, three.dragStartPos.x + dx)));
-          nextZ = applySnap(Math.max(-75, Math.min(75, three.dragStartPos.z + dz)));
-        } else if (three.activeDragType === 'rot') {
-          const curAngle = (Math.atan2(curHit.x - currentItem.x, curHit.z - currentItem.z) * 180) / Math.PI;
-          const diffAngle = curAngle - three.dragStartAngle;
-          nextRot = Math.round(((three.dragStartRotation - diffAngle) + 3600) % 360);
-          if (snap >= 1.0) nextRot = Math.round(nextRot / 5) * 5;
-        }
-
-        // Direct 60 FPS mesh updates without locking localStorage
-        const bldg = three.buildingsGroup.getObjectByName(selectedId);
-        if (bldg) {
-          bldg.position.x = nextX;
-          bldg.position.z = nextZ;
-          bldg.rotation.y = (nextRot * Math.PI) / 180;
-        }
-        const beacon = three.beaconsGroup.getObjectByName(`beacon-${selectedId}`);
-        if (beacon) beacon.position.set(nextX, 0, nextZ);
-        if (three.gizmoGroup) {
-          three.gizmoGroup.position.set(nextX, 0.15, nextZ);
-          const rotSub = three.gizmoGroup.getObjectByName('gizmo-rot-subgroup');
-          if (rotSub) {
-            rotSub.rotation.y = (nextRot * Math.PI) / 180;
+      switch (active) {
+        case 'translate-x':
+        case 'translate-z':
+        case 'translate-free': {
+          const hit = new THREE.Vector3();
+          if (!ray.intersectPlane(three.groundPlaneRaycast, hit)) break;
+          const dx = hit.x - three.dragStartIntersection.x;
+          const dz = hit.z - three.dragStartIntersection.z;
+          if (active !== 'translate-z') {
+            next.x = clampPosition(applySnap(start.x + dx));
           }
+          if (active !== 'translate-x') {
+            next.z = clampPosition(applySnap(start.z + dz));
+          }
+          break;
         }
 
-        pendingDragValues = { id: selectedId, x: nextX, z: nextZ, rotationY: nextRot };
+        case 'scale-x':
+        case 'scale-y':
+        case 'scale-z': {
+          const axis = active.slice(-1) as Axis;
+          let delta = rayAxisParam(ray, center, axisVector(axis)) - three.dragStartAxisParam;
+          if (fine) delta *= 0.25;
+
+          const key = `scale${axis.toUpperCase()}` as 'scaleX' | 'scaleY' | 'scaleZ';
+          const startScale = start[key];
+          const raw = resolveAxisScaleDrag(startScale, delta, three.dragObjectRadius);
+          const snapped =
+            !fine && snap >= 1
+              ? snapToStep(raw, TRANSFORM_LIMITS.scaleStep)
+              : Number(raw.toFixed(3));
+
+          if (item.uniformScale) {
+            const ratio = snapped / (startScale || 1);
+            next.scaleX = clampScale(start.scaleX * ratio);
+            next.scaleY = clampScale(start.scaleY * ratio);
+            next.scaleZ = clampScale(start.scaleZ * ratio);
+          } else {
+            next[key] = clampScale(snapped, startScale);
+          }
+          break;
+        }
+
+        case 'scale-uniform': {
+          const factor = resolveUniformScaleDrag(1, e.clientY - three.dragStartPointer.y, fine);
+          next.scaleX = clampScale(start.scaleX * factor);
+          next.scaleY = clampScale(start.scaleY * factor);
+          next.scaleZ = clampScale(start.scaleZ * factor);
+          break;
+        }
+
+        case 'rotate-y': {
+          const angle = lacetAngleAt(three, center);
+          if (angle === null) break;
+
+          let deltaDeg = THREE.MathUtils.radToDeg(angle - three.dragStartAxisParam);
+          // Déroulement du passage ±180° pour éviter un saut d'un demi-tour.
+          if (deltaDeg > 180) deltaDeg -= 360;
+          if (deltaDeg < -180) deltaDeg += 360;
+          if (fine) deltaDeg *= 0.25;
+          if (!fine && snap >= 1) deltaDeg = snapToStep(deltaDeg, 5);
+
+          next.rotationY = normalizeAngle360(start.rotationY + deltaDeg);
+          break;
+        }
+
+        default:
+          break;
       }
+
+      // Application directe à 60 FPS, sans écriture de persistance.
+      applyTransformToObject(three, id, next);
+      anchorGizmo(three, id, next, three.gizmoMode);
+      if (three.highlightGroup?.visible) {
+        setHighlightRadius(three.highlightGroup, getFacilityRadius(id, next));
+      }
+
+      pendingTransform = { id, transform: next };
       return;
     }
 
-    // Camera orbit
+    // --- Orbite caméra ---
     if (three.isDragging) {
       const deltaX = e.clientX - three.prevMousePos.x;
       const deltaY = e.clientY - three.prevMousePos.y;
       three.prevMousePos = { x: e.clientX, y: e.clientY };
 
       three.targetSpherical.theta -= deltaX * 0.007;
-      three.targetSpherical.phi = Math.max(0.04, Math.min(Math.PI * 0.48, three.targetSpherical.phi - deltaY * 0.007));
+      three.targetSpherical.phi = Math.max(
+        0.04,
+        Math.min(Math.PI * 0.48, three.targetSpherical.phi - deltaY * 0.007)
+      );
     }
   };
 
@@ -198,16 +308,15 @@ export function setupCampusPointerEvents({
       canvas.releasePointerCapture(e.pointerId);
     }
 
-    const totalDragDist = Math.hypot(e.clientX - pointerDownClientPos.x, e.clientY - pointerDownClientPos.y);
+    const totalDragDist = Math.hypot(
+      e.clientX - pointerDownClientPos.x,
+      e.clientY - pointerDownClientPos.y
+    );
 
-    // Only select and focus a building if the user actually clicked (drag < 6px)
+    // Hors studio, un clic net (sans glisser) cadre le bâtiment pointé.
     if (!isEditorOpenRef.current && !three.isDraggingGizmo) {
       if (totalDragDist < 6) {
-        const rect = canvas.getBoundingClientRect();
-        three.mouseVector.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-        three.mouseVector.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-        three.raycaster.setFromCamera(three.mouseVector, three.camera);
-
+        updateMouseVector(three, e);
         const intersects = three.raycaster.intersectObjects(three.buildingsGroup.children, true);
         if (intersects.length > 0) {
           const topObj = findBuildingGroup(intersects[0].object, three.buildingsGroup);
@@ -219,20 +328,20 @@ export function setupCampusPointerEvents({
       }
     }
 
-    // Commit gizmo changes upon mouse release
+    // Validation de la manipulation à la fin du glisser : une seule écriture,
+    // donc une seule entrée d'historique par geste.
     if (three.isDraggingGizmo) {
       three.isDraggingGizmo = false;
       three.activeDragType = null;
-      if (pendingDragValues) {
-        updateFacilityRef.current(pendingDragValues.id, {
-          x: pendingDragValues.x,
-          z: pendingDragValues.z,
-          rotationY: pendingDragValues.rotationY,
-        });
-        pendingDragValues = null;
+      three.gizmoScaleFrozen = null;
+
+      if (pendingTransform) {
+        updateFacilityRef.current(pendingTransform.id, { ...pendingTransform.transform });
+        pendingTransform = null;
       }
       soundFX.playTacticalClick();
     }
+
     three.isDragging = false;
   };
 
@@ -240,7 +349,11 @@ export function setupCampusPointerEvents({
     e.preventDefault();
     const three = threeRef.current;
     if (!three) return;
-    three.targetSpherical.radius = Math.max(22, Math.min(140, three.targetSpherical.radius + e.deltaY * 0.06));
+    // Bornes alignées sur `handleZoom` (20 → 220 m) pour couvrir le domaine réel.
+    three.targetSpherical.radius = Math.max(
+      20,
+      Math.min(220, three.targetSpherical.radius + e.deltaY * 0.06)
+    );
     setCameraDistance(Math.round(three.targetSpherical.radius));
   };
 

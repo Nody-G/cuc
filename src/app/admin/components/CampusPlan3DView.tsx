@@ -89,31 +89,46 @@ export const CampusPlan3DView: React.FC = () => {
             </div>
             <p className="text-xs text-zinc-400 leading-relaxed">
               Sélectionnez un bâtiment dans le panneau latéral puis glissez-le directement dans la
-              scène. Les flèches du clavier déplacent l’objet (pas de 0,5 m ; <kbd>Maj</kbd> = 2,5 m ;{' '}
-              <kbd>Alt</kbd> = 0,1 m).
+              scène (ou utilisez les flèches du gizmo). Les flèches du clavier déplacent l’objet sur le
+              plan du sol (pas de 0,5 m ; <kbd>Maj</kbd> = 2,5 m ; <kbd>Alt</kbd> = 0,1 m).{' '}
+              <kbd>F</kbd> cadre la caméra sur l’objet sélectionné.
             </p>
           </div>
 
           <div className="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800">
             <div className="flex items-center gap-2 mb-2 text-amber-400">
               <RotateCw className="w-4 h-4" />
-              <span className="text-xs font-bold uppercase tracking-wider">Orienter</span>
+              <span className="text-xs font-bold uppercase tracking-wider">Tourner</span>
             </div>
             <p className="text-xs text-zinc-400 leading-relaxed">
-              Touche <kbd>R</kbd> pour pivoter de 15° (<kbd>Maj</kbd> + <kbd>R</kbd> pour −15°). La
-              rotation est exprimée en degrés et appliquée à l’identique dans la scène publique.
+              Touche <kbd>2</kbd> (ou le bouton « Tourner ») puis glissez l’anneau de lacet. Les
+              touches <kbd>[</kbd> / <kbd>]</kbd> pivotent de 15°, le curseur règle la rotation au
+              degré près. Le bâtiment reste d’aplomb : aucune inclinaison n’est appliquée.
             </p>
           </div>
 
           <div className="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800">
             <div className="flex items-center gap-2 mb-2 text-emerald-400">
               <Maximize2 className="w-4 h-4" />
-              <span className="text-xs font-bold uppercase tracking-wider">Dimensionner</span>
+              <span className="text-xs font-bold uppercase tracking-wider">Redimensionner</span>
             </div>
             <p className="text-xs text-zinc-400 leading-relaxed">
-              Touches <kbd>+</kbd> / <kbd>−</kbd> pour l’échelle (0,2 → 3,0). Les curseurs du panneau
-              règlent l’échelle et la hauteur au centième près. <kbd>F</kbd> cadre la caméra sur
-              l’objet sélectionné.
+              Touche <kbd>3</kbd> (ou le bouton « Redimensionner ») puis glissez un axe, ou réglez
+              largeur, hauteur et profondeur séparément dans le panneau (0,05 → 12 ×). Le cadenas
+              « Liée » verrouille les trois axes ensemble ; « Échelle 1:1 » revient à l’emprise réelle.
+              <kbd>+</kbd> / <kbd>−</kbd> ajustent l’échelle uniforme.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800 md:col-span-3">
+            <div className="flex items-center gap-2 mb-2 text-zinc-300">
+              <Info className="w-4 h-4" />
+              <span className="text-xs font-bold uppercase tracking-wider">Annuler / rétablir</span>
+            </div>
+            <p className="text-xs text-zinc-400 leading-relaxed">
+              <kbd>Ctrl</kbd> + <kbd>Z</kbd> annule la dernière modification et{' '}
+              <kbd>Ctrl</kbd> + <kbd>Maj</kbd> + <kbd>Z</kbd> la rétablit. Un glisser de poignée
+              compte pour une seule étape ; les réglages continus d’un même curseur sont fusionnés.
             </p>
           </div>
         </div>

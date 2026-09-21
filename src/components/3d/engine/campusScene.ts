@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { CAMPUS_FACILITIES } from '@/data/campus';
 import { EditableFacilityItem, PlanMode } from '../types/campus3d.types';
+import { transformOf } from '../data/facilityTransform';
 import {
   createSceneMaterials,
   buildTowerMesh,
@@ -14,6 +15,12 @@ import {
   buildOutdoorMesh,
   type MaterialRole,
 } from './campusBuildingMeshes';
+
+const DEG_TO_RAD = Math.PI / 180;
+
+function degToRad(degrees: number): number {
+  return degrees * DEG_TO_RAD;
+}
 
 export {
   createSceneMaterials,
@@ -144,9 +151,12 @@ export function setupCampusBuildings(
     const item = facilities[id];
     const group = builder();
     if (item) {
-      group.position.set(item.x, 0, item.z);
-      group.rotation.y = (item.rotationY * Math.PI) / 180;
-      group.scale.set(item.scale, item.scale * item.heightScale, item.scale);
+      const transform = transformOf(item);
+      // `|| 1` : garde-fou contre un enregistrement hérité incomplet (une
+      // échelle `NaN` rendrait le maillage invisible sans message d'erreur).
+      group.position.set(transform.x || 0, 0, transform.z || 0);
+      group.rotation.y = degToRad(transform.rotationY || 0);
+      group.scale.set(transform.scaleX || 1, transform.scaleY || 1, transform.scaleZ || 1);
       group.visible = item.visible;
     }
     buildingsGroup.add(group);
@@ -179,7 +189,7 @@ export function setupCampusBuildings(
     ripple.position.y = 0.2;
     beacon.add(ripple);
 
-    beacon.position.set(item.x, 0, item.z);
+    beacon.position.set(item.x || 0, 0, item.z || 0);
     beacon.visible = item.visible;
     beaconsGroup.add(beacon);
   });

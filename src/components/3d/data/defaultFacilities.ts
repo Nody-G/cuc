@@ -15,8 +15,15 @@ export const DEFAULT_FACILITIES: Record<string, EditableFacilityItem> =
         x: real.x,
         z: real.z,
         rotationY: real.rotationY,
-        scale: 1.0,
-        heightScale: 1.0,
+        // Échelle 1:1 avec l'empreinte OSM réelle : le modèle n'est ni
+        // agrandi ni réduit tant que l'opérateur n'en décide pas autrement.
+        scaleX: 1,
+        scaleY: 1,
+        scaleZ: 1,
+        // Verrou d'échelle uniforme actif par défaut : un bâtiment se
+        // redimensionne d'abord de façon homothétique, le déverrouillage
+        // restant un geste explicite de l'opérateur.
+        uniformScale: true,
         visible: true,
       };
       return [id, item];

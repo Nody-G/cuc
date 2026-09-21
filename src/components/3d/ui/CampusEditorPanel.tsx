@@ -13,9 +13,21 @@ import {
   Download,
   Upload,
   RotateCcw,
+  Move3d,
+  RotateCw,
+  Maximize2,
+  Undo2,
+  Redo2,
 } from 'lucide-react';
-import { EditableFacilityItem } from '../types/campus3d.types';
+import { EditableFacilityItem, GizmoMode } from '../types/campus3d.types';
+import { GIZMO_MODE_LABELS } from '../data/facilityTransform';
 import { EditorCoordinateInputs } from './EditorCoordinateInputs';
+
+const GIZMO_MODE_ICONS: Record<GizmoMode, React.ReactNode> = {
+  translate: <Move3d className="w-3.5 h-3.5" />,
+  rotate: <RotateCw className="w-3.5 h-3.5" />,
+  scale: <Maximize2 className="w-3.5 h-3.5" />,
+};
 
 interface CampusEditorPanelProps {
   isOpen: boolean;
@@ -28,6 +40,12 @@ interface CampusEditorPanelProps {
   onSetSnapGrid: (snap: number) => void;
   dragMode: 'gizmo' | 'orbit';
   onSetDragMode: (mode: 'gizmo' | 'orbit') => void;
+  gizmoMode: GizmoMode;
+  onSetGizmoMode: (mode: GizmoMode) => void;
+  canUndo: boolean;
+  canRedo: boolean;
+  onUndo: () => void;
+  onRedo: () => void;
   onUpdateFacility: (id: string, updates: Partial<EditableFacilityItem>) => void;
   onAddCustomMarker: () => void;
   onCopyConfiguration: () => void;
@@ -48,6 +66,12 @@ export const CampusEditorPanel: React.FC<CampusEditorPanelProps> = ({
   onSetSnapGrid,
   dragMode,
   onSetDragMode,
+  gizmoMode,
+  onSetGizmoMode,
+  canUndo,
+  canRedo,
+  onUndo,
+  onRedo,
   onUpdateFacility,
   onAddCustomMarker,
   onCopyConfiguration,
@@ -81,6 +105,56 @@ export const CampusEditorPanel: React.FC<CampusEditorPanelProps> = ({
       </div>
 
       <div className="p-4 space-y-4 text-xs font-mono-tech text-zinc-300">
+        {/* Outil de manipulation actif + historique */}
+        <div>
+          <div className="text-[9px] text-zinc-400 uppercase font-bold mb-1">
+            OUTIL DE MANIPULATION :
+          </div>
+          <div className="grid grid-cols-3 gap-1.5">
+            {(['translate', 'rotate', 'scale'] as GizmoMode[]).map((mode) => (
+              <button
+                key={mode}
+                onClick={() => onSetGizmoMode(mode)}
+                className={`py-2 border text-[10px] flex flex-col items-center gap-1 cursor-pointer transition-colors ${gizmoMode === mode
+                  ? 'bg-[#00e5ff]/15 border-[#00e5ff] text-[#00e5ff] font-bold'
+                  : 'bg-[#14141c] border-zinc-700 text-zinc-400 hover:text-white'
+                  }`}
+                title={`Poignées du gizmo : ${GIZMO_MODE_LABELS[mode].toLowerCase()}`}
+              >
+                {GIZMO_MODE_ICONS[mode]}
+                <span>{GIZMO_MODE_LABELS[mode]}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-2 gap-1.5 mt-1.5">
+            <button
+              onClick={onUndo}
+              disabled={!canUndo}
+              className={`py-1.5 border text-[10px] flex items-center justify-center gap-1 cursor-pointer ${canUndo
+                ? 'bg-[#14141c] border-zinc-700 text-zinc-200 hover:border-[#00e5ff]'
+                : 'bg-[#0f1016] border-zinc-800 text-zinc-600 cursor-not-allowed'
+                }`}
+              title="Annuler la dernière modification (Ctrl+Z)"
+            >
+              <Undo2 className="w-3 h-3" />
+              <span>Annuler</span>
+            </button>
+            <button
+              onClick={onRedo}
+              disabled={!canRedo}
+              className={`py-1.5 border text-[10px] flex items-center justify-center gap-1 cursor-pointer ${canRedo
+                ? 'bg-[#14141c] border-zinc-700 text-zinc-200 hover:border-[#00e5ff]'
+                : 'bg-[#0f1016] border-zinc-800 text-zinc-600 cursor-not-allowed'
+                }`}
+              title="Rétablir la modification annulée (Ctrl+Maj+Z)"
+            >
+              <Redo2 className="w-3 h-3" />
+              <span>Rétablir</span>
+            </button>
+          </div>
+        </div>
+
         {/* Object Selector & Quick Focus */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
@@ -121,11 +195,10 @@ export const CampusEditorPanel: React.FC<CampusEditorPanelProps> = ({
                 <button
                   key={stepVal}
                   onClick={() => onSetSnapGrid(stepVal)}
-                  className={`flex-1 py-1 text-[10px] cursor-pointer transition-colors ${
-                    snapGrid === stepVal
-                      ? 'bg-[#00e5ff] text-black font-bold'
-                      : 'text-zinc-400 hover:text-white'
-                  }`}
+                  className={`flex-1 py-1 text-[10px] cursor-pointer transition-colors ${snapGrid === stepVal
+                    ? 'bg-[#00e5ff] text-black font-bold'
+                    : 'text-zinc-400 hover:text-white'
+                    }`}
                 >
                   {stepVal}m
                 </button>
@@ -138,22 +211,20 @@ export const CampusEditorPanel: React.FC<CampusEditorPanelProps> = ({
             <div className="flex border border-zinc-700 bg-black">
               <button
                 onClick={() => onSetDragMode('gizmo')}
-                className={`flex-1 py-1 text-[10px] cursor-pointer transition-colors ${
-                  dragMode === 'gizmo'
-                    ? 'bg-[#FFE500] text-black font-bold'
-                    : 'text-zinc-400 hover:text-white'
-                }`}
+                className={`flex-1 py-1 text-[10px] cursor-pointer transition-colors ${dragMode === 'gizmo'
+                  ? 'bg-[#FFE500] text-black font-bold'
+                  : 'text-zinc-400 hover:text-white'
+                  }`}
                 title="Manipuler via les flèches du Gizmo"
               >
                 Gizmo 3D
               </button>
               <button
                 onClick={() => onSetDragMode('orbit')}
-                className={`flex-1 py-1 text-[10px] cursor-pointer transition-colors ${
-                  dragMode === 'orbit'
-                    ? 'bg-[#FFE500] text-black font-bold'
-                    : 'text-zinc-400 hover:text-white'
-                }`}
+                className={`flex-1 py-1 text-[10px] cursor-pointer transition-colors ${dragMode === 'orbit'
+                  ? 'bg-[#FFE500] text-black font-bold'
+                  : 'text-zinc-400 hover:text-white'
+                  }`}
                 title="Pivoter la vue"
               >
                 Caméra
@@ -173,11 +244,10 @@ export const CampusEditorPanel: React.FC<CampusEditorPanelProps> = ({
         <div className="flex items-center gap-2">
           <button
             onClick={() => onUpdateFacility(selectedObjectId, { visible: !selectedItem.visible })}
-            className={`flex-1 py-2 px-3 border text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${
-              selectedItem.visible
-                ? 'bg-[#161822] border-zinc-700 text-zinc-300 hover:text-white'
-                : 'bg-red-950/40 border-red-800 text-red-400'
-            }`}
+            className={`flex-1 py-2 px-3 border text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer ${selectedItem.visible
+              ? 'bg-[#161822] border-zinc-700 text-zinc-300 hover:text-white'
+              : 'bg-red-950/40 border-red-800 text-red-400'
+              }`}
           >
             {selectedItem.visible ? <Eye className="w-3.5 h-3.5 text-[#00e5ff]" /> : <EyeOff className="w-3.5 h-3.5 text-red-400" />}
             <span>{selectedItem.visible ? 'Masquer' : 'Afficher'}</span>
@@ -231,6 +301,16 @@ export const CampusEditorPanel: React.FC<CampusEditorPanelProps> = ({
               <span>Reset</span>
             </button>
           </div>
+        </div>
+
+        {/* Aide contextuelle sobre : gestes et raccourcis réellement disponibles */}
+        <div className="pt-2 border-t border-zinc-800 text-[9px] text-zinc-500 leading-relaxed">
+          <div className="text-zinc-400 uppercase font-bold mb-1">Raccourcis studio</div>
+          <div>Poignées : glisser une flèche (déplacer), l'anneau (tourner) ou un cube d'axe (redimensionner).</div>
+          <div>Maj + glisser : réglage fin. Aimantation : voir « Aimantation grille ».</div>
+          <div>1 / 2 / 3 : Déplacer · Tourner · Redimensionner.</div>
+          <div>Flèches : X / Z — [ / ] : rotation — + / − : échelle uniforme.</div>
+          <div>Ctrl+Z / Ctrl+Maj+Z : annuler / rétablir — F : cadrer.</div>
         </div>
       </div>
     </aside>

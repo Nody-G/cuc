@@ -43,4 +43,37 @@ describe('defaultFacilities — DEFAULT_FACILITIES', () => {
             expect(typeof facility.visible).toBe('boolean');
         }
     });
+
+    it('expose une transformée complète (translation, lacet, échelle par axe)', () => {
+        for (const facility of Object.values(DEFAULT_FACILITIES)) {
+            expect(Number.isFinite(facility.rotationY)).toBe(true);
+            expect(Number.isFinite(facility.scaleX)).toBe(true);
+            expect(Number.isFinite(facility.scaleY)).toBe(true);
+            expect(Number.isFinite(facility.scaleZ)).toBe(true);
+            expect(typeof facility.uniformScale).toBe('boolean');
+        }
+    });
+
+    it('démarre à l’échelle 1:1 sur les empreintes OSM réelles', () => {
+        for (const facility of Object.values(DEFAULT_FACILITIES)) {
+            expect(facility.scaleX).toBe(1);
+            expect(facility.scaleY).toBe(1);
+            expect(facility.scaleZ).toBe(1);
+        }
+    });
+
+    it('ne porte ni altitude ni inclinaison (périmètre retenu)', () => {
+        for (const facility of Object.values(DEFAULT_FACILITIES)) {
+            expect(facility).not.toHaveProperty('y');
+            expect(facility).not.toHaveProperty('rotationX');
+            expect(facility).not.toHaveProperty('rotationZ');
+        }
+    });
+
+    it('n’écrit plus les champs hérités v1 (`scale`, `heightScale`)', () => {
+        for (const facility of Object.values(DEFAULT_FACILITIES)) {
+            expect(facility).not.toHaveProperty('scale');
+            expect(facility).not.toHaveProperty('heightScale');
+        }
+    });
 });

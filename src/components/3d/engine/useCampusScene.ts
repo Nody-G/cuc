@@ -7,6 +7,7 @@ import {
   PlanMode,
   CameraPreset,
   EditableFacilityItem,
+  GizmoMode,
   ThreeSceneContext,
 } from '../types/campus3d.types';
 import { PRESET_CONFIGS } from '../data/defaultFacilities';
@@ -15,7 +16,8 @@ import {
   setupCampusBuildings,
   applyPlanMode,
 } from './campusScene';
-import { createCampusGizmo, createCampusHighlight } from './useCampusGizmo';
+import { createCampusGizmo, createCampusHighlight, setGizmoScale } from './useCampusGizmo';
+import { computeGizmoScale } from './gizmoMath';
 import { setupCampusPointerEvents } from './useCampusPointerDrag';
 import { syncCampusScene } from './campusSync';
 
@@ -27,6 +29,7 @@ interface UseCampusSceneProps {
   isEditorOpen: boolean;
   snapGrid: number;
   dragMode: 'gizmo' | 'orbit';
+  gizmoMode: GizmoMode;
   mode: PlanMode;
   onUpdateFacility: (id: string, updates: Partial<EditableFacilityItem>) => void;
   onSelectObjectId: (id: string) => void;
@@ -40,6 +43,7 @@ export function useCampusScene({
   isEditorOpen,
   snapGrid,
   dragMode,
+  gizmoMode,
   mode,
   onUpdateFacility,
   onSelectObjectId,
@@ -56,6 +60,7 @@ export function useCampusScene({
   const selectedObjectIdRef = useRef(selectedObjectId);
   const snapGridRef = useRef(snapGrid);
   const dragModeRef = useRef(dragMode);
+  const gizmoModeRef = useRef(gizmoMode);
   const updateFacilityRef = useRef(onUpdateFacility);
   const onSelectObjectIdRef = useRef(onSelectObjectId);
   const modeRef = useRef(mode);
@@ -117,6 +122,7 @@ export function useCampusScene({
     selectedObjectIdRef.current = selectedObjectId;
     snapGridRef.current = snapGrid;
     dragModeRef.current = dragMode;
+    gizmoModeRef.current = gizmoMode;
     updateFacilityRef.current = onUpdateFacility;
     onSelectObjectIdRef.current = onSelectObjectId;
     focusFacilityRef.current = focusFacility;
@@ -184,9 +190,20 @@ export function useCampusScene({
       isDraggingGizmo: false,
       activeDragType: null,
       dragStartIntersection: new THREE.Vector3(),
-      dragStartPos: { x: 0, z: 0 },
-      dragStartRotation: 0,
-      dragStartAngle: 0,
+      dragStartTransform: {
+        x: 0,
+        z: 0,
+        rotationY: 0,
+        scaleX: 1,
+        scaleY: 1,
+        scaleZ: 1,
+      },
+      dragStartAxisParam: 0,
+      dragStartPointer: { x: 0, y: 0 },
+      dragObjectRadius: 9,
+      gizmoMode: gizmoModeRef.current,
+      gizmoObjectRadius: 9,
+      gizmoScaleFrozen: null,
       prevMousePos: { x: 0, y: 0 },
       spherical,
       targetSpherical,
@@ -275,11 +292,21 @@ export function useCampusScene({
         }
       }
 
-      // Pulse rotation indicator on Gizmo
+      // Gizmo : pulsation du disque central + échelle adaptative.
+      // L'échelle est recalculée depuis la distance caméra (constance à
+      // l'écran) sauf pendant un glisser, où elle reste gelée pour éviter
+      // toute boucle de rétroaction sur la mise à l'échelle.
       if (three.gizmoGroup && three.gizmoGroup.visible) {
         const pulse = 1 + Math.sin(three.pulseTime * 4) * 0.03;
         const disc = three.gizmoGroup.getObjectByName('gizmo-center');
         if (disc) disc.scale.set(pulse, pulse, 1);
+
+        if (three.gizmoScaleFrozen === null) {
+          setGizmoScale(
+            three.gizmoGroup,
+            computeGizmoScale(three.spherical.radius, three.gizmoObjectRadius)
+          );
+        }
       }
 
       // Animate highlight target reticle & pulsing ring
@@ -334,8 +361,8 @@ export function useCampusScene({
 
   // Sync Gizmo, Meshes, and Highlight Target with current state
   useEffect(() => {
-    syncCampusScene(threeRef.current, isEditorOpen, selectedObjectId, facilities);
-  }, [isEditorOpen, selectedObjectId, facilities]);
+    syncCampusScene(threeRef.current, isEditorOpen, selectedObjectId, facilities, gizmoMode);
+  }, [isEditorOpen, selectedObjectId, facilities, gizmoMode]);
 
   return {
     bearing,

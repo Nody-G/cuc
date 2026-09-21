@@ -1,53 +1,122 @@
 import * as THREE from 'three';
-import { EditableFacilityItem, ThreeSceneContext } from '../types/campus3d.types';
+import {
+  EditableFacilityItem,
+  FacilityTransform,
+  GizmoMode,
+  ThreeSceneContext,
+} from '../types/campus3d.types';
+import { getFacilityRadius, transformOf } from '../data/facilityTransform';
+import { computeGizmoScale, getObjectFrame } from './gizmoMath';
+import { setGizmoMode, setGizmoScale, setHighlightRadius } from './useCampusGizmo';
 
-export function syncGizmoPosition(
-  gizmoGroup: THREE.Group | undefined,
-  isEditorOpen: boolean,
-  selectedObjectId: string,
-  facilities: Record<string, EditableFacilityItem>
+const DEG_TO_RAD = Math.PI / 180;
+
+function degToRad(degrees: number): number {
+  return degrees * DEG_TO_RAD;
+}
+
+/**
+ * Applique la transformée d'une installation à son maillage.
+ *
+ * Ordre de composition de Three.js : `matrix = T · R · S`. L'échelle est donc
+ * appliquée **dans le repère local** de l'objet, avant la rotation. C'est
+ * exactement ce qu'il faut pour une mise à l'échelle non uniforme (largeur /
+ * profondeur / hauteur) : aucune distorsion en cisaillement, même sur un
+ * bâtiment déjà pivoté.
+ *
+ * Le bâtiment reste posé au sol (`y = 0`) et seul le lacet est appliqué : le
+ * modèle de données ne porte ni altitude ni inclinaison.
+ */
+export function applyTransformToObject(
+  three: ThreeSceneContext,
+  id: string,
+  transform: FacilityTransform
 ): void {
-  if (!gizmoGroup) return;
-
-  if (!isEditorOpen) {
-    gizmoGroup.visible = false;
-    return;
+  const bldg = three.buildingsGroup.getObjectByName(id);
+  if (bldg) {
+    bldg.position.set(transform.x, 0, transform.z);
+    bldg.rotation.set(0, degToRad(transform.rotationY), 0);
+    bldg.scale.set(transform.scaleX, transform.scaleY, transform.scaleZ);
   }
 
-  const item = facilities[selectedObjectId];
-  if (item) {
-    gizmoGroup.visible = true;
-    gizmoGroup.position.set(item.x, 0.15, item.z);
-    gizmoGroup.rotation.y = 0;
-    const rotSub = gizmoGroup.getObjectByName('gizmo-rot-subgroup');
-    if (rotSub) {
-      rotSub.rotation.y = (item.rotationY * Math.PI) / 180;
-    }
-  } else {
-    gizmoGroup.visible = false;
+  const beacon = three.beaconsGroup.getObjectByName(`beacon-${id}`);
+  if (beacon) {
+    beacon.position.set(transform.x, 0, transform.z);
   }
 }
 
-export function syncHighlightTarget(
-  highlightGroup: THREE.Group | undefined,
+/**
+ * Ancre le gizmo sur l'objet sélectionné.
+ *
+ * - Mode **Déplacer** : ancrage au sol, pour que le disque de glissement libre
+ *   se comporte comme une poignée posée au sol.
+ * - Modes **Tourner** / **Redimensionner** : ancrage au centre englobant, afin
+ *   que l'anneau de lacet enveloppe le volume et que les poignées d'échelle
+ *   restent accessibles sur un bâtiment haut ou agrandi.
+ *
+ * L'échelle du gizmo est **gelée** pendant un glisser : sans ce gel, agrandir
+ * le bâtiment agrandirait le gizmo, qui agrandirait le bâtiment — une boucle
+ * de rétroaction divergente.
+ */
+export function anchorGizmo(
+  three: ThreeSceneContext,
+  id: string,
+  transform: FacilityTransform,
+  gizmoMode: GizmoMode
+): void {
+  const gizmo = three.gizmoGroup;
+  if (!gizmo) return;
+
+  const frame = getObjectFrame(three.buildingsGroup.getObjectByName(id));
+  three.gizmoObjectRadius = frame?.radius ?? 9;
+
+  const anchorY = gizmoMode === 'translate' ? 0.15 : frame?.center.y ?? 0.15;
+  gizmo.position.set(transform.x, anchorY, transform.z);
+  gizmo.rotation.y = 0;
+
+  const frozen = three.gizmoScaleFrozen;
+  const scale = frozen ?? computeGizmoScale(three.spherical.radius, three.gizmoObjectRadius);
+  setGizmoScale(gizmo, scale);
+}
+
+export function syncGizmoPosition(
+  three: ThreeSceneContext,
+  isEditorOpen: boolean,
   selectedObjectId: string,
   facilities: Record<string, EditableFacilityItem>,
-  beaconsGroup?: THREE.Group,
-  buildingsGroup?: THREE.Group
+  gizmoMode: GizmoMode
 ): void {
-  if (!highlightGroup) return;
+  const gizmo = three.gizmoGroup;
+  if (!gizmo) return;
 
   const item = facilities[selectedObjectId];
-  if (item && item.visible) {
+  if (!isEditorOpen || !item) {
+    gizmo.visible = false;
+    return;
+  }
+
+  gizmo.visible = true;
+  setGizmoMode(gizmo, gizmoMode);
+  anchorGizmo(three, selectedObjectId, transformOf(item), gizmoMode);
+}
+
+export function syncHighlightTarget(
+  three: ThreeSceneContext,
+  selectedObjectId: string,
+  facilities: Record<string, EditableFacilityItem>
+): void {
+  const { highlightGroup, beaconsGroup, buildingsGroup } = three;
+
+  const item = facilities[selectedObjectId];
+  if (highlightGroup && item && item.visible) {
     highlightGroup.visible = true;
     highlightGroup.position.set(item.x, 0, item.z);
-    const baseScale = Math.max(1.0, item.scale);
-    highlightGroup.scale.set(baseScale, 1, baseScale);
-  } else {
+    setHighlightRadius(highlightGroup, getFacilityRadius(selectedObjectId, item));
+  } else if (highlightGroup) {
     highlightGroup.visible = false;
   }
 
-  // Highlight beacon corresponding to selected object
+  // Beacon correspondant à l'objet sélectionné.
   if (beaconsGroup) {
     beaconsGroup.children.forEach((bGroup) => {
       const isSelected = bGroup.name === `beacon-${selectedObjectId}`;
@@ -65,7 +134,7 @@ export function syncHighlightTarget(
     });
   }
 
-  // Enhance emissive lighting on the selected building
+  // Rehaussement de l'émission sur le bâtiment sélectionné.
   if (buildingsGroup) {
     buildingsGroup.children.forEach((bldg) => {
       const isSelected = bldg.name === selectedObjectId;
@@ -146,11 +215,8 @@ export function syncFacilitiesMeshes(
       bldg = createCustomMarkerMesh(id);
       three.buildingsGroup.add(bldg);
     }
-    bldg.position.x = item.x;
-    bldg.position.z = item.z;
-    bldg.rotation.y = (item.rotationY * Math.PI) / 180;
-    bldg.scale.set(item.scale, item.scale * item.heightScale, item.scale);
     bldg.visible = item.visible;
+    applyTransformToObject(three, id, transformOf(item));
 
     let beacon = three.beaconsGroup.getObjectByName(`beacon-${id}`);
     if (!beacon) {
@@ -166,10 +232,11 @@ export function syncCampusScene(
   three: ThreeSceneContext | null,
   isEditorOpen: boolean,
   selectedObjectId: string,
-  facilities: Record<string, EditableFacilityItem>
+  facilities: Record<string, EditableFacilityItem>,
+  gizmoMode: GizmoMode
 ): void {
   if (!three) return;
-  syncGizmoPosition(three.gizmoGroup, isEditorOpen, selectedObjectId, facilities);
   syncFacilitiesMeshes(three, facilities);
-  syncHighlightTarget(three.highlightGroup, selectedObjectId, facilities, three.beaconsGroup, three.buildingsGroup);
+  syncGizmoPosition(three, isEditorOpen, selectedObjectId, facilities, gizmoMode);
+  syncHighlightTarget(three, selectedObjectId, facilities);
 }
