@@ -9,6 +9,7 @@ import {
     type NavigationStructure,
 } from '@/data/navigation';
 import { OVERLAY_ENTITIES, type Locale } from './entities';
+import { mergeLocalized } from './localized-merge';
 
 /**
  * ==============================================================================
@@ -30,24 +31,12 @@ import { OVERLAY_ENTITIES, type Locale } from './entities';
  * restent donc cacheables et prérendables.
  */
 
-/** Fusion récursive : l'overlay écrase le FR, les tableaux non vides remplacent. */
-function mergeLocalized<T>(base: T, overlay: unknown): T {
-    if (overlay === null || overlay === undefined) return base;
-    if (Array.isArray(overlay)) return (overlay.length > 0 ? overlay : base) as T;
-    if (typeof overlay === 'object') {
-        if (typeof base !== 'object' || base === null || Array.isArray(base)) {
-            return overlay as T;
-        }
-        const out: Record<string, unknown> = { ...(base as Record<string, unknown>) };
-        for (const [key, value] of Object.entries(overlay as Record<string, unknown>)) {
-            out[key] = key in out ? mergeLocalized(out[key], value) : value;
-        }
-        return out as T;
-    }
-    // Scalaire : une valeur vide ne doit jamais effacer le français.
-    if (overlay === '' || overlay === null) return base;
-    return overlay as T;
-}
+/**
+ * La fusion FR + overlay vit désormais dans `lib/i18n/localized-merge.ts` :
+ * elle est partagée avec le client (`usePageDynamicContent`) et avec l'éditeur
+ * bilingue du Cockpit, ce qui garantit qu'un même overlay produit exactement le
+ * même rendu sur la vitrine, dans l'aperçu et dans le formulaire de traduction.
+ */
 
 /** Lit l'overlay EN d'une entité (ou null si absent). */
 async function fetchOverlay(

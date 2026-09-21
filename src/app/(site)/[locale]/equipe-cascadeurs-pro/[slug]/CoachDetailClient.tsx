@@ -14,6 +14,7 @@ import { getTeam, getFilms } from '@/lib/data/site-service';
 import { useTranslations } from 'next-intl';
 import { applyTeamOverlay } from '@/lib/i18n/apply-team-overlay';
 import { normalizeRole } from '@/lib/credit-role';
+import { renderRoleSet } from '@/lib/i18n/role-labels';
 import { creditTitleKey } from '@/lib/credit-title';
 import { ImdbLogo } from '@/components/ui/BrandLogos';
 import { Instructor, FilmCredit, parseCredit, ParsedCredit } from '@/types';
@@ -215,10 +216,15 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
   // Le libellé brut est systématiquement ramené à un rôle canonique lisible
   // (Coordinateur des cascades · Doublure de X · Cascadeur · Parkour · Câblage).
   const getCoachFilmRole = (film: FilmCredit): { role: string; isCoord: boolean; isDoublure: boolean } => {
+    /**
+     * Le libellé est **rendu traduit** (namespace `team`) : auparavant le rôle
+     * canonique français (« Cascadeur », « Doublure de X ») s'affichait tel quel
+     * sur les pages anglaises.
+     */
     const fromRaw = (raw: string) => {
       const n = normalizeRole(raw);
       return {
-        role: n.label,
+        role: renderRoleSet({ roles: n.roles, doubledActors: n.doubledActors }, tt),
         isCoord: n.roles.includes('Coordinateur des cascades'),
         isDoublure: n.roles.includes('Doublure'),
       };
@@ -241,11 +247,19 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
     if (matched && matched.role) {
       return fromRaw(matched.role);
     }
-    // 4. Déduction basée sur le titre principal
+    // 4. Déduction basée sur le titre principal du coach
     if (member.title.toLowerCase().includes('coordinateur')) {
-      return { role: 'Coordinateur des cascades', isCoord: true, isDoublure: false };
+      return {
+        role: renderRoleSet({ roles: ['Coordinateur des cascades'], doubledActors: [] }, tt),
+        isCoord: true,
+        isDoublure: false,
+      };
     }
-    return { role: 'Cascadeur', isCoord: false, isDoublure: false };
+    return {
+      role: renderRoleSet({ roles: ['Cascadeur'], doubledActors: [] }, tt),
+      isCoord: false,
+      isDoublure: false,
+    };
   };
 
   // Autres membres de l'équipe

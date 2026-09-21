@@ -12,9 +12,13 @@ import {
   Rocket,
   Image as ImageIcon,
   Columns2,
+  Loader2,
 } from 'lucide-react';
 import { SitePageContent, DEFAULT_PAGE_CONTENTS, normalizeSlug } from '@/lib/data/site-service';
 import { upsertPageContent, resetPageContentToDefault, setPagePublishState } from '@/app/(admin)/admin/actions';
+import { LocaleToggle } from '@/app/(admin)/admin/components/ui/LocaleToggle';
+import type { EditorLocaleOption } from '@/app/(admin)/admin/components/ui/LocaleToggle';
+import { useEntityTranslation } from '@/lib/hooks/useEntityTranslation';
 import { MediaPickerModal } from './MediaPickerModal';
 import { PageLayoutManager } from './PageLayoutManager';
 import { HeroSeoEditor } from './pages-editor/HeroSeoEditor';
@@ -95,8 +99,50 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     };
   });
 
+  /**
+   * Langue d'édition. Le français reste la source : passer en anglais ne change
+   * pas de page, cela injecte le contenu localisé (français + surcharges
+   * anglaises) dans les mêmes éditeurs. Rien n'est chargé tant qu'on reste en FR.
+   */
+  const [editorLocale, setEditorLocale] = useState<EditorLocaleOption>('fr');
+
+  const translation = useEntityTranslation<SitePageContent>({
+    entity: 'page',
+    entityId: cleanSelectedSlug,
+    locale: editorLocale,
+    base: formData,
+  });
+
+  /** Contenu injecté dans les éditeurs : source FR, ou contenu localisé en EN. */
+  const activeData: SitePageContent = editorLocale === 'en' ? translation.localized : formData;
+  const setActiveData: React.Dispatch<React.SetStateAction<SitePageContent>> =
+    editorLocale === 'en' ? translation.setLocalized : setFormData;
+
+  /** En anglais, la traduction doit être chargée avant d'être éditée. */
+  const isTranslationLoading = editorLocale === 'en' && !translation.ready;
+
+  /**
+   * Confirme l'abandon d'une saisie anglaise non enregistrée.
+   * Le brouillon est conservé tant qu'on reste sur la page, mais changer de page
+   * le remplace : mieux vaut prévenir que perdre un travail de traduction.
+   */
+  const confirmLeaveEnglishDraft = (action: string): boolean => {
+    if (editorLocale !== 'en' || !translation.dirty) return true;
+    return window.confirm(
+      `Des modifications anglaises ne sont pas enregistrées. ${action} les abandonnera.\n\nContinuer sans enregistrer ?`
+    );
+  };
+
+  /** Bascule de langue, avec garde-fou si l'anglais n'est pas enregistré. */
+  const handleLocaleChange = (next: EditorLocaleOption) => {
+    if (next === editorLocale) return;
+    if (!confirmLeaveEnglishDraft('Changer de langue')) return;
+    setEditorLocale(next);
+  };
+
   // Synchronisation lors du changement de page
   const handleSelectPage = (slug: string) => {
+    if (!confirmLeaveEnglishDraft('Changer de page')) return;
     const clean = normalizeSlug(slug);
     setSelectedSlug(clean);
     const target = pages.find((p) => normalizeSlug(p.slug) === clean);
@@ -118,8 +164,39 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     setPreviewKey((prev) => prev + 1);
   };
 
+  /**
+   * Enregistrement de la traduction anglaise.
+   *
+   * N'écrit que le diff avec le français : aucune valeur vide, tableaux complets,
+   * structure et médias repris du français. Le contenu source n'est jamais
+   * touché, et un overlay devenu identique au français est supprimé plutôt que
+   * laissé vide.
+   */
+  const handleSaveTranslation = async () => {
+    const before = translation.coverage;
+    const res = await translation.save();
+
+    if (!res.success) {
+      showToast(`Erreur : ${res.error || 'Enregistrement de la traduction impossible'}`);
+      return;
+    }
+
+    setPreviewKey((prev) => prev + 1);
+    showToast(
+      before.translated === 0
+        ? 'Aucune différence avec le français : la page reste servie en français.'
+        : `Traduction anglaise enregistrée — ${before.percent} % de couverture (${before.translated}/${before.total} champs).`
+    );
+  };
+
   const handleSave = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
+
+    if (editorLocale === 'en') {
+      await handleSaveTranslation();
+      return;
+    }
+
     setIsSaving(true);
 
     const clean = normalizeSlug(formData.slug);
@@ -189,148 +266,216 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     }
   };
 
+  /**
+   * Réinitialisation anglaise : on supprime l'overlay, la page repasse
+   * intégralement en français (jamais un contenu vide publié).
+   */
+  const handleRemoveTranslation = async () => {
+    const confirmed = window.confirm(
+      `Supprimer la traduction anglaise de « ${formData.title} » ? La page repassera entièrement en français sur la vitrine.`
+    );
+    if (!confirmed) return;
+
+    const res = await translation.remove();
+    if (res.success) {
+      setPreviewKey((prev) => prev + 1);
+      showToast('Traduction anglaise supprimée — la page repasse en français.');
+    } else {
+      showToast(`Erreur : ${res.error || 'Suppression impossible'}`);
+    }
+  };
+
+  /**
+   * Les médias sont partagés entre les langues : en anglais, on l'annonce au
+   * lieu d'écrire une valeur qui serait ignorée à l'enregistrement.
+   */
+  const handleMediaPickerRequest = (target: string) => {
+    if (editorLocale === 'en') {
+      showToast('Les images sont partagées entre les langues : modifiez-les en français (FR).');
+      return;
+    }
+    setMediaPickerTarget(target);
+  };
+
+  /** La structure (ajouter ou retirer un bloc) appartient à la source française. */
+  const blockStructureChangeInEnglish = (what: string): boolean => {
+    if (editorLocale !== 'en') return false;
+    showToast(`${what} se structure en français : modifiez la liste en FR, puis traduisez-la ici.`);
+    return true;
+  };
+
   // Handlers pour Team Building
+  // Toutes les écritures passent par `setActiveData` et lisent l'état précédent :
+  // en anglais, elles modifient le brouillon de traduction sans jamais écraser
+  // une valeur anglaise avec la valeur française.
   const handleUpdateWorkshop = (index: number, updates: any) => {
-    const currentList = Array.isArray(formData.sections_data?.workshops)
-      ? [...formData.sections_data.workshops]
-      : [];
-    currentList[index] = { ...currentList[index], ...updates };
-    setFormData((prev) => ({
-      ...prev,
-      sections_data: {
-        ...(prev.sections_data || {}),
-        workshops: currentList,
-      },
-    }));
+    setActiveData((prev) => {
+      const currentList = Array.isArray(prev.sections_data?.workshops)
+        ? [...prev.sections_data.workshops]
+        : [];
+      currentList[index] = { ...currentList[index], ...updates };
+      return {
+        ...prev,
+        sections_data: {
+          ...(prev.sections_data || {}),
+          workshops: currentList,
+        },
+      };
+    });
   };
 
   const handleAddWorkshop = () => {
-    const currentList = Array.isArray(formData.sections_data?.workshops)
-      ? [...formData.sections_data.workshops]
-      : [];
-    currentList.push({
-      id: `workshop_${Date.now()}`,
-      title: 'Nouvel Atelier Cascade',
-      category: 'Initiation & Action',
-      desc: 'Description des exercices et sensations proposées aux équipes.',
-      img: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg',
+    if (blockStructureChangeInEnglish('Les ateliers')) return;
+    setActiveData((prev) => {
+      const currentList = Array.isArray(prev.sections_data?.workshops)
+        ? [...prev.sections_data.workshops]
+        : [];
+      currentList.push({
+        id: `workshop_${Date.now()}`,
+        title: 'Nouvel Atelier Cascade',
+        category: 'Initiation & Action',
+        desc: 'Description des exercices et sensations proposées aux équipes.',
+        img: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg',
+      });
+      return {
+        ...prev,
+        sections_data: {
+          ...(prev.sections_data || {}),
+          workshops: currentList,
+        },
+      };
     });
-    setFormData((prev) => ({
-      ...prev,
-      sections_data: {
-        ...(prev.sections_data || {}),
-        workshops: currentList,
-      },
-    }));
   };
 
   const handleRemoveWorkshop = (index: number) => {
-    const currentList = Array.isArray(formData.sections_data?.workshops)
-      ? formData.sections_data.workshops.filter((_: any, i: number) => i !== index)
-      : [];
-    setFormData((prev) => ({
-      ...prev,
-      sections_data: {
-        ...(prev.sections_data || {}),
-        workshops: currentList,
-      },
-    }));
+    if (blockStructureChangeInEnglish('Les ateliers')) return;
+    setActiveData((prev) => {
+      const currentList = Array.isArray(prev.sections_data?.workshops)
+        ? prev.sections_data.workshops.filter((_: any, i: number) => i !== index)
+        : [];
+      return {
+        ...prev,
+        sections_data: {
+          ...(prev.sections_data || {}),
+          workshops: currentList,
+        },
+      };
+    });
   };
 
   // Handlers pour Formules
   const handleUpdateFormule = (index: number, updates: any) => {
-    const current = formData.sections_data?.formules || {};
-    const items = Array.isArray(current.items) ? [...current.items] : [];
-    items[index] = { ...items[index], ...updates };
-    setFormData((prev) => ({
-      ...prev,
-      sections_data: {
-        ...(prev.sections_data || {}),
-        formules: {
-          ...current,
-          items,
+    setActiveData((prev) => {
+      const current = prev.sections_data?.formules || {};
+      const items = Array.isArray(current.items) ? [...current.items] : [];
+      items[index] = { ...items[index], ...updates };
+      return {
+        ...prev,
+        sections_data: {
+          ...(prev.sections_data || {}),
+          formules: {
+            ...current,
+            items,
+          },
         },
-      },
-    }));
+      };
+    });
   };
 
   // Handlers pour Stages
   const handleUpdateStageItem = (index: number, updates: any) => {
-    const current = formData.sections_data?.stages_catalogue || {};
-    const items = Array.isArray(current.items) ? [...current.items] : [];
-    items[index] = { ...items[index], ...updates };
-    setFormData((prev) => ({
-      ...prev,
-      sections_data: {
-        ...(prev.sections_data || {}),
-        stages_catalogue: {
-          ...current,
-          items,
+    setActiveData((prev) => {
+      const current = prev.sections_data?.stages_catalogue || {};
+      const items = Array.isArray(current.items) ? [...current.items] : [];
+      items[index] = { ...items[index], ...updates };
+      return {
+        ...prev,
+        sections_data: {
+          ...(prev.sections_data || {}),
+          stages_catalogue: {
+            ...current,
+            items,
+          },
         },
-      },
-    }));
+      };
+    });
   };
 
   const handleAddStageItem = () => {
-    const current = formData.sections_data?.stages_catalogue || {};
-    const items = Array.isArray(current.items) ? [...current.items] : [];
-    items.push({
-      id: `stage_${Date.now()}`,
-      title: 'Nouveau Stage Thématique',
-      duration: '3 Jours (21h)',
-      desc: 'Description des disciplines enseignées et du niveau requis.',
-    });
-    setFormData((prev) => ({
-      ...prev,
-      sections_data: {
-        ...(prev.sections_data || {}),
-        stages_catalogue: {
-          ...current,
-          items,
+    if (blockStructureChangeInEnglish('Le catalogue de stages')) return;
+    setActiveData((prev) => {
+      const current = prev.sections_data?.stages_catalogue || {};
+      const items = Array.isArray(current.items) ? [...current.items] : [];
+      items.push({
+        id: `stage_${Date.now()}`,
+        title: 'Nouveau Stage Thématique',
+        duration: '3 Jours (21h)',
+        desc: 'Description des disciplines enseignées et du niveau requis.',
+      });
+      return {
+        ...prev,
+        sections_data: {
+          ...(prev.sections_data || {}),
+          stages_catalogue: {
+            ...current,
+            items,
+          },
         },
-      },
-    }));
+      };
+    });
   };
 
   const handleRemoveStageItem = (index: number) => {
-    const current = formData.sections_data?.stages_catalogue || {};
-    const items = Array.isArray(current.items)
-      ? current.items.filter((_: any, i: number) => i !== index)
-      : [];
-    setFormData((prev) => ({
-      ...prev,
-      sections_data: {
-        ...(prev.sections_data || {}),
-        stages_catalogue: {
-          ...current,
-          items,
+    if (blockStructureChangeInEnglish('Le catalogue de stages')) return;
+    setActiveData((prev) => {
+      const current = prev.sections_data?.stages_catalogue || {};
+      const items = Array.isArray(current.items)
+        ? current.items.filter((_: any, i: number) => i !== index)
+        : [];
+      return {
+        ...prev,
+        sections_data: {
+          ...(prev.sections_data || {}),
+          stages_catalogue: {
+            ...current,
+            items,
+          },
         },
-      },
-    }));
+      };
+    });
   };
 
   // Handlers pour Chiffres Clés
   const handleAddKeyStat = () => {
-    const currentList = Array.isArray(formData.sections) ? [...formData.sections] : [];
-    currentList.push({
-      id: `stat_${Date.now()}`,
-      title: 'Nouvelle Statistique',
-      value: '100%',
-      description: 'Précision sur la métrique',
+    if (blockStructureChangeInEnglish('Les chiffres clés')) return;
+    setActiveData((prev) => {
+      const currentList = Array.isArray(prev.sections) ? [...prev.sections] : [];
+      currentList.push({
+        id: `stat_${Date.now()}`,
+        title: 'Nouvelle Statistique',
+        value: '100%',
+        description: 'Précision sur la métrique',
+      });
+      return { ...prev, sections: currentList };
     });
-    setFormData((prev) => ({ ...prev, sections: currentList }));
   };
 
   const handleRemoveKeyStat = (id: string) => {
-    const currentList = (formData.sections || []).filter((s) => s.id !== id);
-    setFormData((prev) => ({ ...prev, sections: currentList }));
+    if (blockStructureChangeInEnglish('Les chiffres clés')) return;
+    setActiveData((prev) => ({
+      ...prev,
+      sections: (prev.sections || []).filter((s) => s.id !== id),
+    }));
   };
 
-  const handleUpdateKeyStat = (id: string, updates: Partial<{ title: string; value: string; description: string }>) => {
-    const currentList = (formData.sections || []).map((s) =>
-      s.id === id ? { ...s, ...updates } : s
-    );
-    setFormData((prev) => ({ ...prev, sections: currentList }));
+  const handleUpdateKeyStat = (
+    id: string,
+    updates: Partial<{ title: string; value: string; description: string }>
+  ) => {
+    setActiveData((prev) => ({
+      ...prev,
+      sections: (prev.sections || []).map((s) => (s.id === id ? { ...s, ...updates } : s)),
+    }));
   };
 
   // URL d'aperçu construite à partir de l'origine résolue côté client.
@@ -344,7 +489,10 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   //  - l'encadrement reste toujours autorisé (`X-Frame-Options: SAMEORIGIN`,
   //    `frame-ancestors 'self'`), quel que soit le domaine d'accès ;
   //  - le préfixe de locale est respecté (`fr` sans préfixe, `en` sous `/en`).
-  const previewUrl = buildPreviewUrl(previewOrigin, formData.slug);
+  // L'aperçu suit la langue éditée : en anglais, l'iframe charge `/en/<slug>`,
+  // et le brouillon poussé est le contenu localisé — l'aperçu montre donc
+  // exactement ce que le public recevra.
+  const previewUrl = buildPreviewUrl(previewOrigin, formData.slug, editorLocale);
 
   /**
    * Édition inline : lorsqu'un champ est cliqué dans l'aperçu, on retrouve
@@ -374,69 +522,106 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
    * pouvoir être rendu soit seul (onglet « Contenu »), soit côte à côte avec
    * l'aperçu live (vue partagée).
    */
-  const renderContentEditors = () => (
-    <div className="space-y-6 animate-in fade-in duration-150">
-      {/* Bloc A & B1 : Hero & Référencement */}
-      <HeroSeoEditor
-        formData={formData}
-        setFormData={setFormData}
-        setMediaPickerTarget={setMediaPickerTarget}
-      />
+  const renderContentEditors = () => {
+    // En anglais, on n'affiche jamais la traduction d'une autre page : le temps du
+    // chargement, on montre un état explicite plutôt qu'un formulaire trompeur.
+    if (isTranslationLoading) {
+      return (
+        <div className="flex items-center justify-center gap-3 p-10 rounded-xl bg-[#0D0D12] border border-white/10 text-xs text-gray-400">
+          <Loader2 className="w-4 h-4 animate-spin text-[#FFE500]" />
+          <span>Chargement de la traduction anglaise…</span>
+        </div>
+      );
+    }
 
-      {/* Bloc B1 : Accueil (6 blocs de contenu) */}
-      {formData.slug === '/' && (
-        <HomePageEditor
-          formData={formData}
-          setFormData={setFormData}
-          setMediaPickerTarget={setMediaPickerTarget}
+    // Les mêmes éditeurs qu'en français : seule la source des valeurs change.
+    // La structure affichée reste celle du français (`formData.slug`).
+    return (
+      <div className="space-y-6 animate-in fade-in duration-150">
+        {editorLocale === 'en' && (
+          <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-[11px] text-gray-300 space-y-1.5">
+            <div>
+              Vous éditez la version anglaise. Les champs encore en français sont hérités : remplacez-les
+              pour les traduire.
+            </div>
+            {translation.coverage.missing.length > 0 && (
+              <div className="text-gray-400 font-mono">
+                Restent à traduire : {translation.coverage.missing.slice(0, 6).join(' · ')}
+                {translation.coverage.missing.length > 6 ? ' …' : ''}
+              </div>
+            )}
+            {translation.coverage.staleArrays.length > 0 && (
+              <div className="text-amber-300">
+                Structure modifiée depuis la traduction (
+                {translation.coverage.staleArrays.map((s) => s.path).join(', ')}) : la liste anglaise
+                correspondante n'est plus enregistrée tant qu'elle n'est pas réalignée.
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Bloc A & B1 : Hero & Référencement */}
+        <HeroSeoEditor
+          formData={activeData}
+          setFormData={setActiveData}
+          setMediaPickerTarget={handleMediaPickerRequest}
         />
-      )}
 
-      {/* Bloc B2 : Team Building */}
-      {formData.slug === 'team-building-cascades' && (
-        <TeamBuildingPageEditor
-          formData={formData}
-          setFormData={setFormData}
-          setMediaPickerTarget={setMediaPickerTarget}
-          handleUpdateWorkshop={handleUpdateWorkshop}
-          handleAddWorkshop={handleAddWorkshop}
-          handleRemoveWorkshop={handleRemoveWorkshop}
+        {/* Bloc B1 : Accueil (6 blocs de contenu) */}
+        {formData.slug === '/' && (
+          <HomePageEditor
+            formData={activeData}
+            setFormData={setActiveData}
+            setMediaPickerTarget={handleMediaPickerRequest}
+          />
+        )}
+
+        {/* Bloc B2 : Team Building */}
+        {formData.slug === 'team-building-cascades' && (
+          <TeamBuildingPageEditor
+            formData={activeData}
+            setFormData={setActiveData}
+            setMediaPickerTarget={handleMediaPickerRequest}
+            handleUpdateWorkshop={handleUpdateWorkshop}
+            handleAddWorkshop={handleAddWorkshop}
+            handleRemoveWorkshop={handleRemoveWorkshop}
+          />
+        )}
+
+        {/* Bloc B3 : Formation Pro 2 Ans */}
+        {formData.slug === 'formation-de-cascadeur' && (
+          <FormationPageEditor
+            formData={activeData}
+            setFormData={setActiveData}
+            handleUpdateFormule={handleUpdateFormule}
+          />
+        )}
+
+        {/* Bloc B4 : Stages & Parkour */}
+        {formData.slug === 'stages-cascades-parkour-2' && (
+          <StagesPageEditor
+            formData={activeData}
+            handleUpdateStageItem={handleUpdateStageItem}
+            handleAddStageItem={handleAddStageItem}
+            handleRemoveStageItem={handleRemoveStageItem}
+          />
+        )}
+
+        {/* Bloc B5 : Contact & Accès */}
+        {formData.slug === 'contact-cuc' && (
+          <ContactPageEditor formData={activeData} setFormData={setActiveData} />
+        )}
+
+        {/* Bloc C : Chiffres Clés & Statistiques */}
+        <KeyStatsEditor
+          formData={activeData}
+          handleAddKeyStat={handleAddKeyStat}
+          handleRemoveKeyStat={handleRemoveKeyStat}
+          handleUpdateKeyStat={handleUpdateKeyStat}
         />
-      )}
-
-      {/* Bloc B3 : Formation Pro 2 Ans */}
-      {formData.slug === 'formation-de-cascadeur' && (
-        <FormationPageEditor
-          formData={formData}
-          setFormData={setFormData}
-          handleUpdateFormule={handleUpdateFormule}
-        />
-      )}
-
-      {/* Bloc B4 : Stages & Parkour */}
-      {formData.slug === 'stages-cascades-parkour-2' && (
-        <StagesPageEditor
-          formData={formData}
-          handleUpdateStageItem={handleUpdateStageItem}
-          handleAddStageItem={handleAddStageItem}
-          handleRemoveStageItem={handleRemoveStageItem}
-        />
-      )}
-
-      {/* Bloc B5 : Contact & Accès */}
-      {formData.slug === 'contact-cuc' && (
-        <ContactPageEditor formData={formData} setFormData={setFormData} />
-      )}
-
-      {/* Bloc C : Chiffres Clés & Statistiques */}
-      <KeyStatsEditor
-        formData={formData}
-        handleAddKeyStat={handleAddKeyStat}
-        handleRemoveKeyStat={handleRemoveKeyStat}
-        handleUpdateKeyStat={handleUpdateKeyStat}
-      />
-    </div>
-  );
+      </div>
+    );
+  };
 
   return (
     <div className="space-y-6">
@@ -458,6 +643,16 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
+          {/* Bascule de langue : la traduction anglaise s'édite dans ce même
+              formulaire, sans quitter la page. */}
+          <LocaleToggle
+            locale={editorLocale}
+            onChange={handleLocaleChange}
+            coverage={editorLocale === 'en' && translation.ready ? translation.coverage : null}
+            dirty={translation.dirty}
+            busy={translation.loading || translation.saving}
+          />
+
           {/* Statut de publication (workflow brouillon → publié) */}
           <span
             className={`px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider border flex items-center gap-1.5 ${formData.is_published
@@ -516,25 +711,51 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
             </span>
           </button>
 
-          <button
-            type="button"
-            onClick={handleResetToDefault}
-            disabled={isResetting}
-            className="px-3.5 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 border border-white/10 transition-colors disabled:opacity-50"
-            title="Rétablir la version officielle d'origine CUC"
-          >
-            <RotateCcw className={`w-3.5 h-3.5 ${isResetting ? 'animate-spin' : ''}`} />
-            <span>Réinitialiser</span>
-          </button>
+          {editorLocale === 'fr' ? (
+            <button
+              type="button"
+              onClick={handleResetToDefault}
+              disabled={isResetting}
+              className="px-3.5 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 border border-white/10 transition-colors disabled:opacity-50"
+              title="Rétablir la version officielle d'origine CUC"
+            >
+              <RotateCcw className={`w-3.5 h-3.5 ${isResetting ? 'animate-spin' : ''}`} />
+              <span>Réinitialiser</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={handleRemoveTranslation}
+              disabled={translation.saving || !translation.ready}
+              className="px-3.5 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 border border-white/10 transition-colors disabled:opacity-50"
+              title="Supprimer la traduction anglaise : la page repasse intégralement en français"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Réinitialiser l'anglais</span>
+            </button>
+          )}
 
           <button
             type="button"
             onClick={() => handleSave()}
-            disabled={isSaving}
+            disabled={isSaving || translation.saving || (editorLocale === 'en' && !translation.ready)}
             className="px-5 py-2 rounded-lg bg-[#FFE500] hover:bg-[#ffe600e6] text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-yellow-500/10 disabled:opacity-50 transition-transform active:scale-95"
+            title={
+              editorLocale === 'en'
+                ? 'Enregistrer la traduction anglaise (seules les différences avec le français sont écrites)'
+                : 'Enregistrer le contenu français de la page'
+            }
           >
             <Save className="w-3.5 h-3.5" />
-            <span>{isSaving ? 'Enregistrement...' : 'Enregistrer'}</span>
+            <span>
+              {editorLocale === 'en'
+                ? translation.saving
+                  ? 'Enregistrement…'
+                  : 'Enregistrer EN'
+                : isSaving
+                  ? 'Enregistrement...'
+                  : 'Enregistrer FR'}
+            </span>
           </button>
         </div>
       </div>
@@ -592,7 +813,17 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
 
       {/* 1. ONGLET STRUCTURE & EMPLACEMENTS (PageLayoutManager) */}
       {activeTab === 'layout' && (
-        <div className="animate-in fade-in duration-150">
+        <div className="animate-in fade-in duration-150 space-y-4">
+          {editorLocale === 'en' && (
+            <div className="flex items-start gap-2.5 p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-gray-300">
+              <Sliders className="w-4 h-4 text-[#FFE500] shrink-0 mt-0.5" />
+              <span>
+                La structure des blocs est <strong>commune aux deux langues</strong> : elle se règle en
+                français. Ces libellés d'administration ne sont jamais publiés sur la vitrine, ils ne
+                se traduisent donc pas.
+              </span>
+            </div>
+          )}
           <PageLayoutManager
             layoutSections={formData.layout_sections || []}
             onChange={(updatedSections) =>
@@ -647,19 +878,19 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
               <div className="min-w-0">{renderContentEditors()}</div>
               <div className="min-w-0 xl:sticky xl:top-4">
                 <LivePreviewPane
-                  draft={formData}
+                  draft={activeData}
                   previewUrl={previewUrl}
                   reloadKey={previewKey}
-                  onFieldFocus={handlePreviewFieldFocus}
+                  onFieldSelect={handlePreviewFieldFocus}
                 />
               </div>
             </div>
           ) : (
             <LivePreviewPane
-              draft={formData}
+              draft={activeData}
               previewUrl={previewUrl}
               reloadKey={previewKey}
-              onFieldFocus={handlePreviewFieldFocus}
+              onFieldSelect={handlePreviewFieldFocus}
             />
           )}
         </div>
@@ -679,32 +910,46 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
                 <span className="text-gray-300 font-mono">{formData.slug}</span>
               </div>
               <h4 className="text-lg text-[#8ab4f8] hover:underline cursor-pointer font-medium leading-snug line-clamp-1">
-                {formData.meta_title || formData.title}
+                {activeData.meta_title || activeData.title}
               </h4>
               <p className="text-xs text-[#bdc1c6] leading-relaxed line-clamp-2">
-                {formData.meta_description ||
+                {activeData.meta_description ||
                   'Découvrez le Campus Univers Cascades, référence européenne de la formation de cascadeurs pour le cinéma.'}
               </p>
             </div>
           </div>
 
           <div className="bg-[#0D0D12] border border-white/10 rounded-xl p-6 space-y-5">
+            {editorLocale === 'en' && (
+              <div>
+                <label className="block text-xs font-mono text-gray-400 mb-1">
+                  Titre éditorial de la page (vitrine et partage)
+                </label>
+                <input
+                  type="text"
+                  value={activeData.title || ''}
+                  onChange={(e) => setActiveData((prev) => ({ ...prev, title: e.target.value }))}
+                  className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500]"
+                />
+              </div>
+            )}
+
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label className="text-xs font-mono text-gray-400">
                   Balise &lt;title&gt; Google (Recommandé : 50-65 caractères)
                 </label>
                 <span
-                  className={`text-[11px] font-mono ${(formData.meta_title?.length || 0) > 65 ? 'text-yellow-400' : 'text-gray-400'
+                  className={`text-[11px] font-mono ${(activeData.meta_title?.length || 0) > 65 ? 'text-yellow-400' : 'text-gray-400'
                     }`}
                 >
-                  {formData.meta_title?.length || 0} / 65 car.
+                  {activeData.meta_title?.length || 0} / 65 car.
                 </span>
               </div>
               <input
                 type="text"
-                value={formData.meta_title || ''}
-                onChange={(e) => setFormData({ ...formData, meta_title: e.target.value })}
+                value={activeData.meta_title || ''}
+                onChange={(e) => setActiveData((prev) => ({ ...prev, meta_title: e.target.value }))}
                 className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500]"
               />
             </div>
@@ -715,16 +960,18 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
                   Meta Description Google (Recommandé : 120-160 caractères)
                 </label>
                 <span
-                  className={`text-[11px] font-mono ${(formData.meta_description?.length || 0) > 160 ? 'text-yellow-400' : 'text-gray-400'
+                  className={`text-[11px] font-mono ${(activeData.meta_description?.length || 0) > 160 ? 'text-yellow-400' : 'text-gray-400'
                     }`}
                 >
-                  {formData.meta_description?.length || 0} / 160 car.
+                  {activeData.meta_description?.length || 0} / 160 car.
                 </span>
               </div>
               <textarea
                 rows={3}
-                value={formData.meta_description || ''}
-                onChange={(e) => setFormData({ ...formData, meta_description: e.target.value })}
+                value={activeData.meta_description || ''}
+                onChange={(e) =>
+                  setActiveData((prev) => ({ ...prev, meta_description: e.target.value }))
+                }
                 className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500]"
               />
             </div>
@@ -739,33 +986,54 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
                   placeholder="https://... ou /images/..."
                   value={formData.og_image || ''}
                   onChange={(e) => setFormData({ ...formData, og_image: e.target.value })}
-                  className="flex-1 bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500]"
+                  disabled={editorLocale === 'en'}
+                  className="flex-1 bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500] disabled:opacity-60"
                 />
                 <button
                   type="button"
-                  onClick={() => setMediaPickerTarget('og_image')}
-                  className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-bold text-white flex items-center gap-1.5 transition-colors"
+                  onClick={() => handleMediaPickerRequest('og_image')}
+                  disabled={editorLocale === 'en'}
+                  className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-bold text-white flex items-center gap-1.5 transition-colors disabled:opacity-50"
                 >
                   <ImageIcon className="w-3.5 h-3.5 text-[#FFE500]" />
                   Médiathèque
                 </button>
               </div>
+              {editorLocale === 'en' && (
+                <p className="mt-1.5 text-[11px] text-gray-500">
+                  Média partagé entre les langues : il se modifie en français. La traduction ne réécrit
+                  jamais une image ni une URL.
+                </p>
+              )}
             </div>
           </div>
         </div>
       )}
 
-      {/* 5. HISTORIQUE DES VERSIONS (site_page_revisions) */}
-      <PageRevisionsPanel
-        slug={cleanSelectedSlug}
-        currentContent={currentPage}
-        showToast={showToast}
-        onRestored={(restored) => {
-          setFormData(restored);
-          onPageSaved(restored);
-          setPreviewKey((prev) => prev + 1);
-        }}
-      />
+      {/* 5. HISTORIQUE DES VERSIONS (site_page_revisions — contenu français) */}
+      {editorLocale === 'fr' ? (
+        <PageRevisionsPanel
+          slug={cleanSelectedSlug}
+          currentContent={currentPage}
+          showToast={showToast}
+          onRestored={(restored) => {
+            setFormData(restored);
+            onPageSaved(restored);
+            setPreviewKey((prev) => prev + 1);
+          }}
+        />
+      ) : (
+        <div className="flex items-start gap-2.5 p-3 rounded-xl bg-white/5 border border-white/10 text-[11px] text-gray-400">
+          <Globe className="w-4 h-4 text-[#FFE500] shrink-0 mt-0.5" />
+          <span>
+            L'historique des versions porte sur le contenu français. La traduction anglaise n'a
+            qu'un état courant
+            {translation.updatedAt
+              ? ` — dernière modification le ${new Date(translation.updatedAt).toLocaleString('fr-FR')}.`
+              : ' — aucune traduction enregistrée pour cette page.'}
+          </span>
+        </div>
+      )}
 
       {/* Modal Médiathèque intégrée */}
       {mediaPickerTarget && (

@@ -14,8 +14,8 @@ import { CockpitIconButton, cx } from '@/app/(admin)/admin/components/ui';
  * reflétée instantanément, sans écriture en base ni rechargement.
  *
  * Le clic sur un élément `[data-cuc-field]` de l'aperçu renvoie l'identifiant du
- * champ au parent, qui peut alors faire défiler et focaliser l'input
- * correspondant (édition inline).
+ * champ au parent (`onFieldSelect`) : en mode inspection, il fait défiler et
+ * focalise l'input correspondant du formulaire.
  */
 
 type PreviewDevice = 'desktop' | 'tablet' | 'mobile';
@@ -27,8 +27,8 @@ interface LivePreviewPaneProps {
     previewUrl: string;
     /** Change à chaque changement de page pour forcer le rechargement de l'iframe. */
     reloadKey: number;
-    /** Callback déclenché au clic d'un champ dans l'aperçu (édition inline). */
-    onFieldFocus?: (field: string) => void;
+    /** Callback déclenché à la sélection d'un champ dans l'aperçu (édition inline). */
+    onFieldSelect?: (field: string) => void;
     /** Classe additionnelle pour le conteneur. */
     className?: string;
 }
@@ -55,7 +55,7 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
     draft,
     previewUrl,
     reloadKey,
-    onFieldFocus,
+    onFieldSelect,
     className,
 }) => {
     const [device, setDevice] = useState<PreviewDevice>('desktop');
@@ -63,7 +63,8 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
 
     const { iframeRef, isReady, hoveredField } = usePreviewBridge({
         draft,
-        onFieldFocus,
+        mode: 'inspect',
+        onFieldSelect,
     });
 
     const handleRefresh = useCallback(() => {

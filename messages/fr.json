@@ -309,6 +309,7 @@
         "showcaseTag": "CINÉMA D'ACTION INTERNATIONAL",
         "roleCoordination": "Coordination",
         "roleDouble": "Doublure",
+        "roleDoubleOf": "Doublure de {names}",
         "roleStunt": "Cascade",
         "filmCardTitle": "{title} ({year}) — ouvrir la fiche de production",
         "breadcrumb": "ÉQUIPE PRO",
@@ -626,13 +627,7 @@
             "ctaProduction": "Échanger sur votre Production",
             "ctaCatalog": "Voir le catalogue de films",
             "posterAlt": "Affiche de {title}",
-            "category": "Film",
-            "actorRoles": [
-                "Cascades & combats",
-                "Cascadeurs CUC (tournage Paris)",
-                "Demi Moore & M. Qualley",
-                "Équipe cascades CUC"
-            ]
+            "category": "Film"
         },
         "qualiopi": {
             "badge": "CERTIFICATION QUALIOPI",

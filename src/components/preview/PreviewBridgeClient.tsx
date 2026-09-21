@@ -1,75 +1,127 @@
 'use client';
 
 import { useEffect } from 'react';
-import { PREVIEW_CHANNEL, type PreviewMessage } from '@/lib/hooks/usePreviewBridge';
+import {
+    CUC_FIELD_ATTRIBUTE,
+    CUC_KIND_ATTRIBUTE,
+    isSameOrigin,
+    parsePreviewMessage,
+    previewMessage,
+    resolveFieldKind,
+    type PreviewMessage,
+    type PreviewMode,
+} from '@/lib/preview/preview-protocol';
 import { setPreviewDraft } from '@/lib/preview/preview-store';
+import {
+    clearPreviewSelection,
+    selectPreviewField,
+    setPreviewEditMode,
+} from '@/lib/preview/preview-edit';
 
 /**
- * Pont de prévisualisation monté sur la vitrine publique.
+ * ==============================================================================
+ * CUC — Pont d'aperçu monté sur la vitrine publique
+ * ==============================================================================
+ * Inerte en navigation normale : ce composant n'agit que si la page est
+ * **embarquée** dans l'iframe du Cockpit (`window.parent !== window`).
  *
- * Ce composant est inerte en navigation normale : il ne fait qu'écouter les
- * messages `postMessage` émis par le Cockpit. Lorsqu'il reçoit un brouillon,
- * il l'injecte dans le store de prévisualisation (consommé par
- * `usePageDynamicContent`) et active le mode édition inline :
+ * Rôle :
+ *  - applique le brouillon poussé par le Cockpit (`draft`) dans le store local,
+ *    sans écriture en base ni rechargement ;
+ *  - annonce la préparation de l'iframe (`ready`) ;
+ *  - rapporte le survol (`field-hover`) et le clic (`field-select`) des éléments
+ *    portant `data-cuc-field` ;
+ *  - expose le mode courant (`inspect` ou `edit`) sur `<html data-cuc-mode>`,
+ *    ce qui pilote les affordances de la couche d'édition en place.
  *
- * - survol d'un élément `[data-cuc-field]` → surlignage + message `field-hover`
- * - clic sur un élément `[data-cuc-field]` → message `field-focus` (le Cockpit
- *   fait défiler et met le focus sur l'input correspondant)
- *
- * Aucune donnée n'est écrite en base : l'aperçu est purement local.
+ * Sécurité : l'origine est vérifiée à la réception et chaque envoi est adressé
+ * explicitement à l'origine du Cockpit — jamais `'*'`.
  */
 export const PreviewBridgeClient: React.FC = () => {
     useEffect(() => {
-        // Sécurité : n'activer le pont que si la page est bien embarquée dans une
-        // iframe (donc pilotée par le Cockpit).
         const isEmbedded = typeof window !== 'undefined' && window.parent !== window;
         if (!isEmbedded) return;
 
+        const origin = window.location.origin;
+        // Mode courant du canal : lu par le gestionnaire de clic. `inspect` par
+        // défaut — un bundle hérité ne connaît que ce comportement.
+        let mode: PreviewMode = 'inspect';
+
         const post = (message: PreviewMessage) => {
-            window.parent.postMessage(message, '*');
+            window.parent.postMessage(message, origin);
         };
 
         const handleMessage = (event: MessageEvent) => {
-            const data = event.data as PreviewMessage | undefined;
-            if (!data || data.channel !== PREVIEW_CHANNEL) return;
-            if (data.type === 'draft') {
-                setPreviewDraft(data.payload);
+            if (!isSameOrigin(event.origin, origin)) return;
+            const message = parsePreviewMessage(event.data);
+            if (!message) return;
+
+            switch (message.type) {
+                case 'draft':
+                    setPreviewDraft(message.payload);
+                    break;
+                case 'mode': {
+                    mode = message.payload;
+                    document.documentElement.setAttribute('data-cuc-mode', mode);
+                    setPreviewEditMode(mode);
+                    break;
+                }
+                default:
+                    // Messages site → Cockpit : sans effet ici.
+                    break;
             }
         };
 
         window.addEventListener('message', handleMessage);
 
         // Signale au Cockpit que l'iframe est prête à recevoir le brouillon.
-        post({ channel: PREVIEW_CHANNEL, type: 'ready' });
+        post(previewMessage.ready());
 
-        // --- Édition inline : surlignage et focus des champs éditables ---
+        // --- Repérage des champs éditables ---
         const findField = (target: EventTarget | null): HTMLElement | null => {
             if (!(target instanceof HTMLElement)) return null;
-            return target.closest<HTMLElement>('[data-cuc-field]');
+            return target.closest<HTMLElement>(`[${CUC_FIELD_ATTRIBUTE}]`);
+        };
+
+        const fieldPath = (el: HTMLElement): string | null => {
+            const field = el.getAttribute(CUC_FIELD_ATTRIBUTE);
+            return field && field.trim().length > 0 ? field : null;
         };
 
         const handleMouseOver = (event: MouseEvent) => {
             const el = findField(event.target);
             if (!el) return;
-            const field = el.getAttribute('data-cuc-field');
-            if (field) post({ channel: PREVIEW_CHANNEL, type: 'field-hover', field });
+            const field = fieldPath(el);
+            if (!field) return;
+            post(previewMessage.fieldHover(field));
         };
 
         const handleMouseOut = (event: MouseEvent) => {
             const el = findField(event.target);
             if (!el) return;
-            post({ channel: PREVIEW_CHANNEL, type: 'field-hover', field: null });
+            post(previewMessage.fieldHover(null));
         };
 
         const handleClick = (event: MouseEvent) => {
             const el = findField(event.target);
             if (!el) return;
-            const field = el.getAttribute('data-cuc-field');
+            const field = fieldPath(el);
             if (!field) return;
-            // Empêche la navigation : le clic sert à sélectionner le champ à éditer.
+            // Le clic sélectionne le champ : en mode `edit`, la couche d'édition
+            // en place (PreviewEditLayer) prend le relais ; en mode `inspect`, le
+            // Cockpit met le focus sur l'input correspondant du formulaire.
             event.preventDefault();
             event.stopPropagation();
-            post({ channel: PREVIEW_CHANNEL, type: 'field-focus', field });
+            if (mode === 'edit') {
+                selectPreviewField({
+                    field,
+                    kind: resolveFieldKind(el.getAttribute(CUC_KIND_ATTRIBUTE)),
+                    element: el,
+                });
+            } else {
+                clearPreviewSelection();
+            }
+            post(previewMessage.fieldSelect(field));
         };
 
         document.addEventListener('mouseover', handleMouseOver, true);
@@ -80,8 +132,8 @@ export const PreviewBridgeClient: React.FC = () => {
         const style = document.createElement('style');
         style.setAttribute('data-cuc-preview-style', '');
         style.textContent = `
-      [data-cuc-field] { cursor: pointer !important; transition: outline-color .15s ease, background-color .15s ease; }
-      [data-cuc-field]:hover { outline: 2px dashed rgba(255,229,0,.85) !important; outline-offset: 3px !important; background-color: rgba(255,229,0,.06) !important; }
+      [${CUC_FIELD_ATTRIBUTE}] { cursor: pointer !important; transition: outline-color .15s ease, background-color .15s ease; }
+      [${CUC_FIELD_ATTRIBUTE}]:hover { outline: 2px dashed rgba(255,229,0,.85) !important; outline-offset: 3px !important; background-color: rgba(255,229,0,.06) !important; }
       [data-cuc-field-active] { outline: 2px solid #FFE500 !important; outline-offset: 3px !important; background-color: rgba(255,229,0,.1) !important; }
     `;
         document.head.appendChild(style);
@@ -92,6 +144,8 @@ export const PreviewBridgeClient: React.FC = () => {
             document.removeEventListener('mouseout', handleMouseOut, true);
             document.removeEventListener('click', handleClick, true);
             style.remove();
+            clearPreviewSelection();
+            document.documentElement.removeAttribute('data-cuc-mode');
         };
     }, []);
 

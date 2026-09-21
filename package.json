@@ -18,6 +18,7 @@
     "audit:app": "node scripts/audit_full_app.mjs",
     "audit:slop": "node scripts/hunt_llm_cliches.mjs",
     "audit:doctrine": "node scripts/verify_doctrine_in_db.mjs",
+    "audit:fields": "node scripts/audit_cuc_fields.mjs",
     "audit:featured": "node scripts/verify_featured_matching.mjs",
     "audit:supabase": "node scripts/audit_supabase_state.mjs",
     "design:container": "node scripts/apply_canonical_container.mjs",

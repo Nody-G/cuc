@@ -53,8 +53,11 @@ function fold(value: string): string {
  */
 export function extractDoubledActors(role: string): string[] {
     const raw = String(role || '');
+    // Le motif est insensible à la casse : la forme canonique en base est
+    // « Doublure Keanu Reeves » (majuscule), que la version sensible à la casse
+    // ne reconnaissait pas — le comédien doublé n'apparaissait donc jamais.
     const matches = raw.matchAll(
-        /doublure\s*(?:de\s+|d'|:)?\s*([A-ZÀ-Ý][\p{L}'-]+(?:\s+[A-ZÀ-Ý][\p{L}'-]+){0,3})/gu
+        /doublure\s*(?:de\s+|d'|:)?\s*([A-ZÀ-Ý][\p{L}'-]+(?:\s+[A-ZÀ-Ý][\p{L}'-]+){0,3})/giu
     );
 
     const stopWords = new Set([
@@ -135,6 +138,50 @@ export function normalizeRole(role: string): NormalizedRole {
         label: labelParts.join(' · '),
         doubledActors,
         detail,
+    };
+}
+
+/** Ensemble de rôles tenus sur une production — sans aucune langue. */
+export interface RoleSetSummary {
+    /** Rôles canoniques présents, ordonnés par priorité. */
+    roles: CanonicalRole[];
+    /** Comédiens doublés mentionnés dans les libellés. */
+    doubledActors: string[];
+}
+
+/**
+ * Synthèse **sans langue** des rôles tenus par le CUC sur une production.
+ *
+ * Les légendes de jaquettes étaient écrites à la main dans les catalogues de
+ * messages (« Cascadeurs CUC (tournage Paris) », « Équipe cascades CUC »…) :
+ * des auto-références au campus, sans fait vérifiable, affichées comme un rôle.
+ * Elles sont désormais dérivées des rôles **réellement enregistrés** en base
+ * (`site_films.metadata.cuc_team_roles`).
+ *
+ * Le rendu textuel est délégué à la couche i18n
+ * (`@/lib/i18n/role-labels`) : un libellé « Cascadeur » écrit en dur ici
+ * s'affichait tel quel sur les pages anglaises.
+ *
+ * Sans rôle enregistré, l'ensemble est vide : mieux vaut aucune légende qu'une
+ * affirmation inventée.
+ */
+export function summarizeFilmRoleSet(
+    roles: Record<string, string> | null | undefined
+): RoleSetSummary {
+    if (!roles) return { roles: [], doubledActors: [] };
+
+    const present = new Set<CanonicalRole>();
+    const doubledActors = new Set<string>();
+
+    for (const rawRole of Object.values(roles)) {
+        const normalized = normalizeRole(String(rawRole || ''));
+        normalized.roles.forEach((role) => present.add(role));
+        normalized.doubledActors.forEach((actor) => doubledActors.add(actor));
+    }
+
+    return {
+        roles: CANONICAL_ROLE_ORDER.filter((role) => present.has(role)),
+        doubledActors: [...doubledActors],
     };
 }
 

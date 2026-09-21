@@ -14,6 +14,8 @@ import {
 import { getFilms } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { creditTitleKey } from '@/lib/credit-title';
+import { summarizeFilmRoleSet } from '@/lib/credit-role';
+import { renderRoleSet } from '@/lib/i18n/role-labels';
 import { FilmPosterCard } from '@/components/sections/films/FilmPosterCard';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
 import { FilmCredit } from '@/types';
@@ -90,7 +92,8 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
   tournagesData,
 }) => {
   const t = useTranslations('home.tournages');
-  const actorRoles = (t.raw('actorRoles') as string[]) ?? [];
+  /** Namespace `team` : il porte déjà les libellés de rôle traduits (FR/EN). */
+  const tTeam = useTranslations('team');
 
   const badge = tournagesData?.badge || t('badge');
   const title = tournagesData?.title || t('title');
@@ -122,6 +125,19 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
     () => new Map(films.map((f) => [creditTitleKey(f.title), f])),
     [films]
   );
+
+  /**
+   * Légende d'une jaquette : synthèse des rôles **réellement enregistrés** pour
+   * cette production (`metadata.cuc_team_roles`). Les libellés écrits en dur
+   * (« Cascadeurs CUC (tournage Paris) », « Équipe cascades CUC ») sont retirés :
+   * une auto-référence au campus n'est pas un rôle. Sans rôle en base, aucune
+   * légende n'est affichée — une affirmation fausse serait pire qu'une absence.
+   */
+  const captionFor = (film?: FilmCredit): string | undefined => {
+    if (!film?.cuc_team_roles) return undefined;
+    const label = renderRoleSet(summarizeFilmRoleSet(film.cuc_team_roles), tTeam);
+    return label === '' ? undefined : label;
+  };
 
   return (
     <StudioParallaxScene className="py-24 sm:py-28 bg-[#08080c] border-b border-zinc-800/80 relative overflow-hidden">
@@ -247,7 +263,7 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
                           }
                         }
                         sizes="(max-width: 1024px) 50vw, 20vw"
-                        caption={actorRoles[idx]}
+                        caption={captionFor(match)}
                         onOpen={match ? () => setSelectedFilm(match) : undefined}
                         href={match ? undefined : '/cuc-team-cascadeur#filmographie'}
                       />

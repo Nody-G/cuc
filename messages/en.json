@@ -309,6 +309,7 @@
         "showcaseTag": "INTERNATIONAL ACTION CINEMA",
         "roleCoordination": "Coordination",
         "roleDouble": "Stunt double",
+        "roleDoubleOf": "Stunt double for {names}",
         "roleStunt": "Stunt",
         "filmCardTitle": "{title} ({year}) — open the production file",
         "breadcrumb": "STUNT TEAM",
@@ -626,13 +627,7 @@
             "ctaProduction": "Discuss Your Production",
             "ctaCatalog": "See the film catalogue",
             "posterAlt": "{title} poster",
-            "category": "Film",
-            "actorRoles": [
-                "Stunts & fights",
-                "CUC stunt performers (Paris shoot)",
-                "Demi Moore & M. Qualley",
-                "CUC stunt team"
-            ]
+            "category": "Film"
         },
         "qualiopi": {
             "badge": "QUALIOPI CERTIFICATION",

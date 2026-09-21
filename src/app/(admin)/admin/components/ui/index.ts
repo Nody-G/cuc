@@ -51,3 +51,6 @@ export type { Toast, ToastTone, ToastProviderProps } from './ToastProvider';
 
 export { useProgressiveList } from './useProgressiveList';
 export type { ProgressiveListOptions, ProgressiveListResult } from './useProgressiveList';
+
+export { LocaleToggle } from './LocaleToggle';
+export type { LocaleToggleProps, EditorLocaleOption } from './LocaleToggle';

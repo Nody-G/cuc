@@ -10,6 +10,7 @@ import { CUC_TEAM } from '@/data/team';
 import { getTeam } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { normalizeRole } from '@/lib/credit-role';
+import { renderRoleSet } from '@/lib/i18n/role-labels';
 import { ImdbLogo, AllocineLogo, YouTubeLogo } from '@/components/ui/BrandLogos';
 import { X, Clapperboard, ExternalLink, ChevronRight, Film } from 'lucide-react';
 
@@ -23,6 +24,8 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
   onClose,
 }) => {
   const t = useTranslations('teamProduction');
+  /** Namespace `team` : libellés de rôle déjà traduits (FR/EN). */
+  const tTeam = useTranslations('team');
   const [teamMembers, setTeamMembers] = React.useState<Instructor[]>(CUC_TEAM);
 
   const loadTeam = React.useCallback(() => {
@@ -179,18 +182,26 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                                 return member.role;
                               })();
 
-                            // Rôle ramené à un libellé canonique lisible
-                            // (Coordinateur des cascades · Doublure de X · Cascadeur · Parkour · Câblage).
+                            // Rôle ramené à un libellé canonique, puis **traduit** :
+                            // un libellé français (« Cascadeur », « Doublure de X »)
+                            // s'affichait tel quel sur les pages anglaises.
                             const normalized = normalizeRole(rawRole);
                             const isCoord = normalized.roles.includes('Coordinateur des cascades');
+                            const roleLabelText = renderRoleSet(
+                              {
+                                roles: normalized.roles,
+                                doubledActors: normalized.doubledActors,
+                              },
+                              tTeam
+                            );
 
                             return (
                               <div
                                 className={`text-[10px] font-mono-tech truncate ${isCoord ? 'text-[#FFE500] font-semibold' : 'text-zinc-400'
                                   }`}
-                                title={normalized.detail || normalized.label}
+                                title={normalized.detail || roleLabelText}
                               >
-                                {normalized.label}
+                                {roleLabelText}
                               </div>
                             );
                           })()}

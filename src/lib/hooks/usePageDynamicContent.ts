@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/client';
 import { useSiteData } from '@/components/i18n/SiteDataProvider';
 import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
 import { SitePageContent, DEFAULT_PAGE_CONTENTS, normalizeSlug } from '@/lib/data/site-service';
+import { mergeLocalized } from '@/lib/i18n/localized-merge';
 import { getPreviewDraft, subscribePreviewDraft } from '@/lib/preview/preview-store';
 
 /**
@@ -269,20 +270,17 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
     return subscribePreviewDraft(applyDraft);
   }, [cleanSlug]);
 
+  /**
+   * Fusion FR + overlay EN : on délègue à l'implémentation partagée
+   * (`mergeLocalized`) au lieu de refaire un spread local. Deux raisons :
+   *   - une valeur anglaise vide ne peut plus effacer le français (l'ancien
+   *     `hero: {...content.hero, ...translation.hero}` le permettait) ;
+   *   - le rendu client, l'aperçu du Cockpit et le formulaire de traduction
+   *     appliquent désormais exactement la même règle.
+   */
   const mergedContent = useMemo<SitePageContent>(() => {
     if (!translation) return content;
-    return {
-      ...content,
-      title: translation.title || content.title,
-      meta_title: translation.meta_title || content.meta_title,
-      meta_description: translation.meta_description || content.meta_description,
-      hero: { ...content.hero, ...(translation.hero || {}) },
-      sections_data: deepMergeSectionsData(content.sections_data, translation.sections_data),
-      sections:
-        translation.sections && translation.sections.length > 0
-          ? translation.sections
-          : content.sections,
-    };
+    return mergeLocalized(content, translation);
   }, [content, translation]);
 
   return { content: mergedContent, isLoading };

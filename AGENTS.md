@@ -166,3 +166,90 @@ y compris ceux qui ne sont pas encore au catalogue. Un crédit absent du catalog
 peut être créé à la volée via « Créer la fiche » (recherche sans résultat →
 `upsertFilm` → ajout immédiat du crédit).
 
+# DOCTRINE ÉDITION BILINGUE DU COCKPIT (FR → EN)
+
+**Règle Permanente — Une seule fusion, un seul diff, jamais de vide publié.**
+
+## 1. Source unique de vérité
+[`localized-merge.ts`](src/lib/i18n/localized-merge.ts:1) porte à la fois la
+**fusion** FR + overlay et la **production** de l'overlay à écrire. Le serveur
+([`server.ts`](src/lib/i18n/server.ts:1)), le client
+([`usePageDynamicContent.ts`](src/lib/hooks/usePageDynamicContent.ts:1)) et
+l'éditeur bilingue du Cockpit
+([`useEntityTranslation.ts`](src/lib/hooks/useEntityTranslation.ts:1)) l'importent.
+**Ne JAMAIS réimplémenter une fusion locale** : un `hero` fusionné par simple
+spread laissait une valeur anglaise vide effacer le français.
+
+## 2. Invariants non négociables
+1. **Aucune valeur vide persistée** : vider un champ anglais le ramène au
+   français, il n'est jamais publié vide.
+2. **Un tableau s'écrit en bloc** : complet ou pas du tout (même longueur que le
+   français exigée). Ses clés techniques — ancres `id`, images, liens, ordres —
+   sont **reprises du français**, jamais traduites.
+3. **Aucune structure inventée** : `layout_sections` (libellés d'administration),
+   `og_image`, `slug`, identité et états ne figurent jamais dans un payload.
+4. **Divergence de structure = aucune écriture** : si la liste française a changé,
+   le tableau anglais n'est pas écrit (rien plutôt qu'un tableau faux) et le
+   Cockpit signale le désalignement.
+
+## 3. Édition en place dans le Cockpit
+La bascule `FR | EN` de
+[`PagesEditorView.tsx`](src/app/(admin)/admin/components/PagesEditorView.tsx:1)
+édite la traduction dans le **même formulaire** : les sous-éditeurs ignorent la
+langue, ils reçoivent le contenu localisé (`hydrateLocalized`) et un setter.
+L'aperçu live charge la locale active (`/en/<slug>`), l'onglet « Mise en page »
+est verrouillé en EN, et les médias ne se modifient qu'en français.
+
+## 4. Vérification obligatoire après toute modification
+- `npx vitest run src/lib/i18n/localized-merge.test.ts` — invariants de fusion, de
+  diff, de couverture et d'exclusion de `layout_sections`.
+- `node scripts/verify_page_translation_invariants.mjs` — contrôle en base des
+  pages : aucune valeur vide, aucune racine verrouillée, tableaux alignés et items
+  complets. Produit `plans/revue-edition-en-pages.md` et sort en code 2 en cas de
+  régression.
+- `node scripts/audit_i18n_completeness.mjs` — couverture FR → EN feuille par
+  feuille (référence historique du taux de couverture).
+
+# DOCTRINE ÉDITION BILINGUE DU COCKPIT (FR → EN)
+
+**Règle Permanente — Une seule fusion, un seul diff, jamais de vide publié.**
+
+## 1. Source unique de vérité
+[`localized-merge.ts`](src/lib/i18n/localized-merge.ts:1) porte à la fois la
+**fusion** FR + overlay et la **production** de l'overlay à écrire. Le serveur
+([`server.ts`](src/lib/i18n/server.ts:1)), le client
+([`usePageDynamicContent.ts`](src/lib/hooks/usePageDynamicContent.ts:1)) et
+l'éditeur bilingue du Cockpit
+([`useEntityTranslation.ts`](src/lib/hooks/useEntityTranslation.ts:1)) l'importent.
+**Ne JAMAIS réimplémenter une fusion locale** : un `hero` fusionné par spread
+superficiel laissait une valeur anglaise vide effacer le français.
+
+## 2. Invariants non négociables
+1. **Aucune valeur vide persistée** : vider un champ anglais le ramène au
+   français, il n'est jamais publié vide.
+2. **Un tableau s'écrit en bloc** : complet ou pas du tout (même longueur que le
+   français exigée). Ses clés techniques — ancres `id`, images, liens, ordres —
+   sont **reprises du français**, jamais traduites.
+3. **Aucune structure inventée** : `layout_sections` (libellés d'administration),
+   `og_image`, `slug`, identité et états ne figurent jamais dans un payload.
+4. **Divergence de structure = aucune écriture** : si la liste française a changé,
+   le tableau anglais n'est pas écrit (rien plutôt qu'un tableau faux) et le
+   Cockpit signale le désalignement.
+
+## 3. Édition en place dans le Cockpit
+La bascule `FR | EN` de [`PagesEditorView.tsx`](src/app/(admin)/admin/components/PagesEditorView.tsx:1)
+édite la traduction dans le **même formulaire** : les sous-éditeurs ignorent la
+langue, ils reçoivent le contenu localisé (`hydrateLocalized`) et un setter.
+L'aperçu live charge la locale active (`/en/<slug>`), l'onglet « Mise en page »
+est verrouillé en EN, et les médias ne se modifient qu'en français.
+
+## 4. Vérification obligatoire après toute modification
+- `npx vitest run src/lib/i18n/localized-merge.test.ts` — invariants de fusion, de
+  diff, de couverture et d'exclusion de `layout_sections`.
+- `node scripts/verify_page_translation_invariants.mjs` — contrôle en base des
+  15 pages : aucune valeur vide, aucune racine verrouillée, tableaux alignés et
+  items complets. Produit `plans/revue-edition-en-pages.md`, sort en code 2 en cas
+  de régression.
+- `node scripts/audit_i18n_completeness.mjs` — couverture FR → EN feuille par
+  feuille (référence historique du taux de couverture).
+

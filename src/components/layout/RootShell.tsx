@@ -20,6 +20,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { MobileStickyCTA } from '@/components/layout/MobileStickyCTA';
 import { SkipLink } from '@/components/layout/SkipLink';
 import { PreviewBridgeClient } from '@/components/preview/PreviewBridgeClient';
+import { PreviewEditLayer } from '@/components/preview/PreviewEditLayer';
 import { SpeculationRules } from '@/components/preview/SpeculationRules';
 import { educationalOrganizationJsonLd, websiteJsonLd } from '@/lib/seo';
 
@@ -104,6 +105,8 @@ export function RootShell({
                     <MobileStickyCTA />
                     {/* Pont d'aperçu live du Cockpit — inerte hors iframe. */}
                     <PreviewBridgeClient />
+                    {/* Édition en place (Mode Studio) — inerte hors iframe. */}
+                    <PreviewEditLayer />
                     {/* Speculation Rules API — préchargement/prérendu instantané. */}
                     <SpeculationRules />
                 </NextIntlClientProvider>

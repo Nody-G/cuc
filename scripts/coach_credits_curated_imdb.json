@@ -6,12 +6,13 @@
   "globalStats": {
     "coaches": 12,
     "totalRaw": 894,
-    "totalKept": 877,
+    "totalKept": 1020,
     "totalExcludedNonCinema": 9,
     "totalExcludedUnverifiable": 4,
     "totalCoordinators": 19,
     "totalDoublures": 5,
-    "totalRichRoles": 24
+    "totalRichRoles": 24,
+    "repairedAt": "2026-09-21T23:32:41.794Z"
   },
   "coaches": [
     {
@@ -5606,928 +5607,2216 @@
       ]
     },
     {
-      "id": "michael-troude",
-      "name": "Michaël Troude",
+      "id": "michel-bouis",
+      "name": "Michel Bouis",
       "identityStatus": "RÉSOLU",
-      "declaredCreditsCount": 11,
+      "imdbId": "nm0099365",
+      "declaredCreditsCount": 244,
       "stats": {
-        "total": 102,
-        "kept": 101,
+        "total": 244,
+        "kept": 244,
         "excludedNonCinema": 0,
-        "excludedUnverifiable": 1,
+        "excludedUnverifiable": 0,
         "coordinators": 0,
         "doublures": 0,
         "richRoles": 0
       },
       "credits": [
         {
+          "title": "Impacts",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt39299809",
+          "titleType": "tvMovie",
+          "formatted": "Impacts (2026) — Cascadeur"
+        },
+        {
+          "title": "Deep",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt33093141",
+          "titleType": "tvMiniSeries",
+          "formatted": "Deep (2026) — Cascadeur"
+        },
+        {
+          "title": "Le Fantôme de l'Opéra",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt37740990",
+          "titleType": "movie",
+          "formatted": "Le Fantôme de l'Opéra (2026) — Cascadeur"
+        },
+        {
+          "title": "La maison de nos rêves",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt40571629",
+          "titleType": "movie",
+          "formatted": "La maison de nos rêves (2026) — Cascadeur"
+        },
+        {
+          "title": "Vigilante",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt35476147",
+          "titleType": "movie",
+          "formatted": "Vigilante (2026) — Cascadeur"
+        },
+        {
+          "title": "Apparences",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt35676750",
+          "titleType": "tvMiniSeries",
+          "formatted": "Apparences (2026) — Cascadeur"
+        },
+        {
+          "title": "Ceux qui comptent",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt35404853",
+          "titleType": "movie",
+          "formatted": "Ceux qui comptent (2026) — Cascadeur"
+        },
+        {
+          "title": "Papa Malgre Lui",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt41101766",
+          "titleType": "tvMovie",
+          "formatted": "Papa Malgre Lui (2026) — Cascadeur"
+        },
+        {
+          "title": "LOL 2.0",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt36841139",
+          "titleType": "movie",
+          "formatted": "LOL 2.0 (2026) — Cascadeur"
+        },
+        {
+          "title": "Les Lionnes",
+          "year": 2026,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt34139155",
+          "titleType": "tvSeries",
+          "formatted": "Les Lionnes (2026) — Cascadeur"
+        },
+        {
+          "title": "Mitterrand confidentiel",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt37319645",
+          "titleType": "tvMiniSeries",
+          "formatted": "Mitterrand confidentiel (2025) — Cascadeur"
+        },
+        {
+          "title": "Les 3 Brestoises",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt39201469",
+          "titleType": "tvMovie",
+          "formatted": "Les 3 Brestoises (2025) — Cascadeur"
+        },
+        {
+          "title": "Les aventurières",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt41228966",
+          "titleType": "tvMiniSeries",
+          "formatted": "Les aventurières (2025) — Cascadeur"
+        },
+        {
+          "title": "Désenchantées",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt35889176",
+          "titleType": "tvMiniSeries",
+          "formatted": "Désenchantées (2025) — Cascadeur"
+        },
+        {
+          "title": "Gérald le conquérant",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt29312656",
+          "titleType": "movie",
+          "formatted": "Gérald le conquérant (2025) — Cascadeur"
+        },
+        {
+          "title": "Regarde",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt34479814",
+          "titleType": "movie",
+          "formatted": "Regarde (2025) — Cascadeur"
+        },
+        {
+          "title": "Influencers",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt36833584",
+          "titleType": "movie",
+          "formatted": "Influencers (2025) — Cascadeur"
+        },
+        {
+          "title": "La Danse des renards",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt33362861",
+          "titleType": "movie",
+          "formatted": "La Danse des renards (2025) — Cascadeur"
+        },
+        {
+          "title": "Que ma volonté soit faite",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt36553782",
+          "titleType": "movie",
+          "formatted": "Que ma volonté soit faite (2025) — Cascadeur"
+        },
+        {
+          "title": "Anaon",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt33354944",
+          "titleType": "tvSeries",
+          "formatted": "Anaon (2025) — Cascadeur"
+        },
+        {
+          "title": "Zion",
+          "year": 2025,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt30330486",
+          "titleType": "movie",
+          "formatted": "Zion (2025) — Cascadeur"
+        },
+        {
+          "title": "Mademoiselle Holmes",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt26813534",
+          "titleType": "tvMiniSeries",
+          "formatted": "Mademoiselle Holmes (2024) — Cascadeur"
+        },
+        {
+          "title": "Commandant Saint-Barth",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt36093729",
+          "titleType": "tvSeries",
+          "formatted": "Commandant Saint-Barth (2024) — Cascadeur"
+        },
+        {
+          "title": "Les Boules de Noël",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt33396608",
+          "titleType": "movie",
+          "formatted": "Les Boules de Noël (2024) — Cascadeur"
+        },
+        {
+          "title": "Ollie",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt30415406",
+          "titleType": "movie",
+          "formatted": "Ollie (2024) — Cascadeur"
+        },
+        {
+          "title": "Blood River",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt33257950",
+          "titleType": "tvMiniSeries",
+          "formatted": "Blood River (2024) — Cascadeur"
+        },
+        {
+          "title": "The Last Front",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt9713418",
+          "titleType": "movie",
+          "formatted": "The Last Front (2024) — Cascadeur"
+        },
+        {
           "title": "Elyas",
           "year": 2024,
           "role": "Cascadeur",
-          "status": "CONFIRMÉ",
+          "status": "RÉSOLU",
           "imdbId": "tt28336131",
-          "score": 128,
+          "titleType": "movie",
           "formatted": "Elyas (2024) — Cascadeur"
         },
         {
-          "title": "The Substance",
+          "title": "La nuit se traîne",
           "year": 2024,
           "role": "Cascadeur",
-          "status": "CONFIRMÉ",
-          "imdbId": "tt17526714",
-          "score": 128,
-          "formatted": "The Substance (2024) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt16826430",
+          "titleType": "movie",
+          "formatted": "La nuit se traîne (2024) — Cascadeur"
         },
         {
-          "title": "Athena",
+          "title": "L'Amour ouf",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt27490099",
+          "titleType": "movie",
+          "formatted": "L'Amour ouf (2024) — Cascadeur"
+        },
+        {
+          "title": "Ici et là-bas",
+          "year": 2024,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt27722530",
+          "titleType": "movie",
+          "formatted": "Ici et là-bas (2024) — Cascadeur"
+        },
+        {
+          "title": "En place",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt23546622",
+          "titleType": "tvSeries",
+          "formatted": "En place (2023) — Cascadeur"
+        },
+        {
+          "title": "Chasse gardée",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt9115752",
+          "titleType": "movie",
+          "formatted": "Chasse gardée (2023) — Cascadeur"
+        },
+        {
+          "title": "Vjeran Tomic: L'homme-araignée de Paris",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt29274601",
+          "titleType": "movie",
+          "formatted": "Vjeran Tomic: L'homme-araignée de Paris (2023) — Cascadeur"
+        },
+        {
+          "title": "D'argent et de sang",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt18413548",
+          "titleType": "tvMiniSeries",
+          "formatted": "D'argent et de sang (2023) — Cascadeur"
+        },
+        {
+          "title": "Captives",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt13482796",
+          "titleType": "movie",
+          "formatted": "Captives (2023) — Cascadeur"
+        },
+        {
+          "title": "Par-delà les montagnes",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt26771225",
+          "titleType": "movie",
+          "formatted": "Par-delà les montagnes (2023) — Cascadeur"
+        },
+        {
+          "title": "Madame de Sévigné",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt22374610",
+          "titleType": "movie",
+          "formatted": "Madame de Sévigné (2023) — Cascadeur"
+        },
+        {
+          "title": "Iris et les hommes",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt22533910",
+          "titleType": "movie",
+          "formatted": "Iris et les hommes (2023) — Cascadeur"
+        },
+        {
+          "title": "Cash",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt27987407",
+          "titleType": "movie",
+          "formatted": "Cash (2023) — Cascadeur"
+        },
+        {
+          "title": "Rosalie",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt26342863",
+          "titleType": "movie",
+          "formatted": "Rosalie (2023) — Cascadeur"
+        },
+        {
+          "title": "10 jours encore sans maman",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt16983432",
+          "titleType": "movie",
+          "formatted": "10 jours encore sans maman (2023) — Cascadeur"
+        },
+        {
+          "title": "Sage homme",
+          "year": 2023,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt15568526",
+          "titleType": "movie",
+          "formatted": "Sage homme (2023) — Cascadeur"
+        },
+        {
+          "title": "L'Attaque des déchets",
           "year": 2022,
           "role": "Cascadeur",
-          "status": "CONFIRMÉ",
-          "imdbId": "tt15445056",
-          "score": 126,
-          "formatted": "Athena (2022) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt25621774",
+          "titleType": "tvMovie",
+          "formatted": "L'Attaque des déchets (2022) — Cascadeur"
         },
         {
-          "title": "Balle perdue 2",
+          "title": "Rendez-vous avec le crime",
           "year": 2022,
           "role": "Cascadeur",
-          "status": "CONFIRMÉ",
-          "imdbId": "tt14465706",
-          "score": 126,
-          "formatted": "Balle perdue 2 (2022) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt30953658",
+          "titleType": "tvSeries",
+          "formatted": "Rendez-vous avec le crime (2022) — Cascadeur"
         },
         {
-          "title": "BAC Nord",
+          "title": "Tropic",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt18036574",
+          "titleType": "movie",
+          "formatted": "Tropic (2022) — Cascadeur"
+        },
+        {
+          "title": "La gravité",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt18990128",
+          "titleType": "movie",
+          "formatted": "La gravité (2022) — Cascadeur"
+        },
+        {
+          "title": "En roue libre",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt15484716",
+          "titleType": "movie",
+          "formatted": "En roue libre (2022) — Cascadeur"
+        },
+        {
+          "title": "Loin du périph",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt13822738",
+          "titleType": "movie",
+          "formatted": "Loin du périph (2022) — Cascadeur"
+        },
+        {
+          "title": "Viens je t'emmène",
+          "year": 2022,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt11669538",
+          "titleType": "movie",
+          "formatted": "Viens je t'emmène (2022) — Cascadeur"
+        },
+        {
+          "title": "Lupin",
+          "year": 2021,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2531336",
+          "titleType": "tvSeries",
+          "formatted": "Lupin (2021) — Cascadeur"
+        },
+        {
+          "title": "Malabar",
+          "year": 2021,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt13224952",
+          "titleType": "short",
+          "formatted": "Malabar (2021) — Cascadeur"
+        },
+        {
+          "title": "La Révolution",
           "year": 2020,
           "role": "Cascadeur",
-          "status": "CONFIRMÉ",
-          "imdbId": "tt10404944",
-          "score": 124,
-          "formatted": "BAC Nord (2020) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt13044528",
+          "titleType": "tvSeries",
+          "formatted": "La Révolution (2020) — Cascadeur"
         },
         {
-          "title": "Banlieue 13: Ultimatum",
-          "year": 2009,
-          "role": "Cascadeur",
-          "status": "CONFIRMÉ",
-          "imdbId": "tt1247640",
-          "score": 113,
-          "formatted": "Banlieue 13: Ultimatum (2009) — Cascadeur"
-        },
-        {
-          "title": "Taken",
-          "year": 2008,
-          "role": "Cascadeur",
-          "status": "CONFIRMÉ",
-          "imdbId": "tt0936501",
-          "score": 112,
-          "formatted": "Taken (2008) — Cascadeur"
-        },
-        {
-          "title": "Banlieue 13",
-          "year": 2004,
-          "role": "Cascadeur",
-          "status": "CONFIRMÉ",
-          "imdbId": "tt0414852",
-          "score": 108,
-          "formatted": "Banlieue 13 (2004) — Cascadeur"
-        },
-        {
-          "title": "Le Transporteur",
-          "year": 2002,
-          "role": "Cascadeur",
-          "status": "CONFIRMÉ",
-          "imdbId": "tt0293662",
-          "score": 106,
-          "formatted": "Le Transporteur (2002) — Cascadeur"
-        },
-        {
-          "title": "Le Baiser mortel du dragon",
-          "year": 2001,
-          "role": "Cascadeur",
-          "status": "CONFIRMÉ",
-          "imdbId": "tt0271027",
-          "score": 105,
-          "formatted": "Le Baiser mortel du dragon (2001) — Cascadeur"
-        },
-        {
-          "title": "Après la nuit",
-          "year": 2025,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt35852286",
-          "score": 69,
-          "formatted": "Après la nuit (2025) — Cascadeur"
-        },
-        {
-          "title": "Heads of State",
-          "year": 2025,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt13357520",
-          "score": 69,
-          "formatted": "Heads of State (2025) — Cascadeur"
-        },
-        {
-          "title": "Jean Valjean",
-          "year": 2025,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt35363310",
-          "score": 69,
-          "formatted": "Jean Valjean (2025) — Cascadeur"
-        },
-        {
-          "title": "Les braises",
-          "year": 2025,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt29729103",
-          "score": 69,
-          "formatted": "Les braises (2025) — Cascadeur"
-        },
-        {
-          "title": "Les Sentinelles",
-          "year": 2025,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt10094546",
-          "score": 69,
-          "formatted": "Les Sentinelles (2025) — Cascadeur"
-        },
-        {
-          "title": "Bisons",
-          "year": 2024,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt21422618",
-          "score": 68,
-          "formatted": "Bisons (2024) — Cascadeur"
-        },
-        {
-          "title": "Furies",
-          "year": 2024,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt11384300",
-          "score": 68,
-          "formatted": "Furies (2024) — Cascadeur"
-        },
-        {
-          "title": "GTmax",
-          "year": 2024,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt29260436",
-          "score": 68,
-          "formatted": "GTmax (2024) — Cascadeur"
-        },
-        {
-          "title": "La Cage",
-          "year": 2024,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt28288478",
-          "score": 68,
-          "formatted": "La Cage (2024) — Cascadeur"
-        },
-        {
-          "title": "Paris Has Fallen",
-          "year": 2024,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt33184638",
-          "score": 68,
-          "formatted": "Paris Has Fallen (2024) — Cascadeur"
-        },
-        {
-          "title": "Astérix & Obélix: L'Empire du Milieu",
-          "year": 2023,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt11210390",
-          "score": 67,
-          "formatted": "Astérix & Obélix: L'Empire du Milieu (2023) — Cascadeur"
-        },
-        {
-          "title": "B.R.I.",
-          "year": 2023,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt17506104",
-          "score": 67,
-          "formatted": "B.R.I. (2023) — Cascadeur"
-        },
-        {
-          "title": "Les Siffleurs",
-          "year": 2023,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt26932544",
-          "score": 67,
-          "formatted": "Les Siffleurs (2023) — Cascadeur"
-        },
-        {
-          "title": "La Maison d'en face",
-          "year": 2022,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt22180340",
-          "score": 66,
-          "formatted": "La Maison d'en face (2022) — Cascadeur"
-        },
-        {
-          "title": "Eight for Silver",
-          "year": 2021,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt9907782",
-          "score": 65,
-          "formatted": "Eight for Silver (2021) — Cascadeur"
-        },
-        {
-          "title": "Germinal",
-          "year": 2021,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt10133336",
-          "score": 65,
-          "formatted": "Germinal (2021) — Cascadeur"
-        },
-        {
-          "title": "Gloria",
-          "year": 2021,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt14271432",
-          "score": 65,
-          "formatted": "Gloria (2021) — Cascadeur"
-        },
-        {
-          "title": "Mourir peut attendre",
-          "year": 2021,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt2382320",
-          "score": 65,
-          "formatted": "Mourir peut attendre (2021) — Cascadeur"
-        },
-        {
-          "title": "Paris Police 1900",
-          "year": 2021,
-          "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt10840070",
-          "score": 65,
-          "formatted": "Paris Police 1900 (2021) — Cascadeur"
-        },
-        {
-          "title": "French Exit",
+          "title": "Rouge",
           "year": 2020,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt10279362",
-          "score": 64,
-          "formatted": "French Exit (2020) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt12444642",
+          "titleType": "movie",
+          "formatted": "Rouge (2020) — Cascadeur"
         },
         {
-          "title": "Anna",
+          "title": "Le lion",
+          "year": 2020,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt9908390",
+          "titleType": "movie",
+          "formatted": "Le lion (2020) — Cascadeur"
+        },
+        {
+          "title": "Tropiques criminels",
           "year": 2019,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt7456310",
-          "score": 63,
-          "formatted": "Anna (2019) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt10688206",
+          "titleType": "tvSeries",
+          "formatted": "Tropiques criminels (2019) — Cascadeur"
         },
         {
-          "title": "Kursk",
-          "year": 2018,
+          "title": "Le crime lui va si bien",
+          "year": 2019,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt4951982",
-          "score": 62,
-          "formatted": "Kursk (2018) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt13761678",
+          "titleType": "tvMiniSeries",
+          "formatted": "Le crime lui va si bien (2019) — Cascadeur"
+        },
+        {
+          "title": "Au nom de la terre",
+          "year": 2019,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt10545470",
+          "titleType": "movie",
+          "formatted": "Au nom de la terre (2019) — Cascadeur"
+        },
+        {
+          "title": "Osmosis",
+          "year": 2019,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt7043380",
+          "titleType": "tvSeries",
+          "formatted": "Osmosis (2019) — Cascadeur"
+        },
+        {
+          "title": "La Promesse de l'Eau",
+          "year": 2019,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt7791184",
+          "titleType": "tvMovie",
+          "formatted": "La Promesse de l'Eau (2019) — Cascadeur"
         },
         {
           "title": "L'Empereur de Paris",
           "year": 2018,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
+          "status": "RÉSOLU",
           "imdbId": "tt7025976",
-          "score": 62,
+          "titleType": "movie",
           "formatted": "L'Empereur de Paris (2018) — Cascadeur"
         },
         {
-          "title": "Lukas",
+          "title": "Le pont du diable",
           "year": 2018,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt7816392",
-          "score": 62,
-          "formatted": "Lukas (2018) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt9262090",
+          "titleType": "tvMovie",
+          "formatted": "Le pont du diable (2018) — Cascadeur"
         },
         {
-          "title": "Carbone",
+          "title": "Alad'2",
+          "year": 2018,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt7136896",
+          "titleType": "movie",
+          "formatted": "Alad'2 (2018) — Cascadeur"
+        },
+        {
+          "title": "At Eternity's Gate",
+          "year": 2018,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt6938828",
+          "titleType": "movie",
+          "formatted": "At Eternity's Gate (2018) — Cascadeur"
+        },
+        {
+          "title": "En guerre",
+          "year": 2018,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt7555774",
+          "titleType": "movie",
+          "formatted": "En guerre (2018) — Cascadeur"
+        },
+        {
+          "title": "Les innocents",
+          "year": 2018,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt7854398",
+          "titleType": "tvMiniSeries",
+          "formatted": "Les innocents (2018) — Cascadeur"
+        },
+        {
+          "title": "L'art du crime",
           "year": 2017,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt6183834",
-          "score": 61,
-          "formatted": "Carbone (2017) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt6190050",
+          "titleType": "tvSeries",
+          "formatted": "L'art du crime (2017) — Cascadeur"
         },
         {
-          "title": "La Deuxième Étoile",
+          "title": "Le rêve français",
           "year": 2017,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt6515420",
-          "score": 61,
-          "formatted": "La Deuxième Étoile (2017) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt6338762",
+          "titleType": "tvMiniSeries",
+          "formatted": "Le rêve français (2017) — Cascadeur"
         },
         {
-          "title": "Tueurs",
+          "title": "Money",
           "year": 2017,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt6901252",
-          "score": 61,
-          "formatted": "Tueurs (2017) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt2935516",
+          "titleType": "movie",
+          "formatted": "Money (2017) — Cascadeur"
         },
         {
-          "title": "RAID Dingue",
+          "title": "Mon poussin",
+          "year": 2017,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt6286630",
+          "titleType": "movie",
+          "formatted": "Mon poussin (2017) — Cascadeur"
+        },
+        {
+          "title": "Overdrive",
+          "year": 2017,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1935194",
+          "titleType": "movie",
+          "formatted": "Overdrive (2017) — Cascadeur"
+        },
+        {
+          "title": "De toutes mes forces",
+          "year": 2017,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt6253942",
+          "titleType": "movie",
+          "formatted": "De toutes mes forces (2017) — Cascadeur"
+        },
+        {
+          "title": "Meurtres à Dunkerque",
           "year": 2016,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt5736696",
-          "score": 60,
-          "formatted": "RAID Dingue (2016) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt6510840",
+          "titleType": "tvMovie",
+          "formatted": "Meurtres à Dunkerque (2016) — Cascadeur"
         },
         {
-          "title": "Patriot",
+          "title": "Meurtres à La Ciotat",
+          "year": 2016,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt5608998",
+          "titleType": "tvMovie",
+          "formatted": "Meurtres à La Ciotat (2016) — Cascadeur"
+        },
+        {
+          "title": "Versailles",
           "year": 2015,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt4687882",
-          "score": 59,
-          "formatted": "Patriot (2015) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt3830558",
+          "titleType": "tvSeries",
+          "formatted": "Versailles (2015) — Cascadeur"
         },
         {
-          "title": "Colt 45",
+          "title": "Accusé",
+          "year": 2015,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt3490432",
+          "titleType": "tvSeries",
+          "formatted": "Accusé (2015) — Cascadeur"
+        },
+        {
+          "title": "Meurtres en Bourgogne",
+          "year": 2015,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt4833040",
+          "titleType": "tvMovie",
+          "formatted": "Meurtres en Bourgogne (2015) — Cascadeur"
+        },
+        {
+          "title": "En mai, fais ce qu'il te plaît",
+          "year": 2015,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2296747",
+          "titleType": "movie",
+          "formatted": "En mai, fais ce qu'il te plaît (2015) — Cascadeur"
+        },
+        {
+          "title": "Le secret d'Elise",
+          "year": 2015,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt4224920",
+          "titleType": "tvMiniSeries",
+          "formatted": "Le secret d'Elise (2015) — Cascadeur"
+        },
+        {
+          "title": "Le mystère du lac",
+          "year": 2015,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt4579480",
+          "titleType": "tvSeries",
+          "formatted": "Le mystère du lac (2015) — Cascadeur"
+        },
+        {
+          "title": "Coup de chaud",
+          "year": 2015,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt4331318",
+          "titleType": "movie",
+          "formatted": "Coup de chaud (2015) — Cascadeur"
+        },
+        {
+          "title": "La belle saison",
+          "year": 2015,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt4080768",
+          "titleType": "movie",
+          "formatted": "La belle saison (2015) — Cascadeur"
+        },
+        {
+          "title": "Organ Donation-The Man who Died the most in the Movies",
+          "year": 2015,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt27404611",
+          "titleType": "video",
+          "formatted": "Organ Donation-The Man who Died the most in the Movies (2015) — Cascadeur"
+        },
+        {
+          "title": "En immersion",
+          "year": 2015,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt4025156",
+          "titleType": "tvMiniSeries",
+          "formatted": "En immersion (2015) — Cascadeur"
+        },
+        {
+          "title": "Les gorilles",
+          "year": 2015,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt3592172",
+          "titleType": "movie",
+          "formatted": "Les gorilles (2015) — Cascadeur"
+        },
+        {
+          "title": "Les témoins",
           "year": 2014,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt2113636",
-          "score": 58,
-          "formatted": "Colt 45 (2014) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt4322508",
+          "titleType": "tvSeries",
+          "formatted": "Les témoins (2014) — Cascadeur"
         },
         {
-          "title": "Goal of the Dead",
+          "title": "Ceux de 14",
           "year": 2014,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt2787824",
-          "score": 58,
-          "formatted": "Goal of the Dead (2014) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt4094242",
+          "titleType": "tvSeries",
+          "formatted": "Ceux de 14 (2014) — Cascadeur"
         },
         {
-          "title": "L'Enquête",
+          "title": "Duel au soleil",
           "year": 2014,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt3037028",
-          "score": 58,
-          "formatted": "L'Enquête (2014) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt3713152",
+          "titleType": "tvSeries",
+          "formatted": "Duel au soleil (2014) — Cascadeur"
         },
         {
-          "title": "La French",
+          "title": "Origines",
           "year": 2014,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt2935564",
-          "score": 58,
-          "formatted": "La French (2014) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt3335946",
+          "titleType": "tvSeries",
+          "formatted": "Origines (2014) — Cascadeur"
         },
         {
-          "title": "Yamla Pagla Deewana 2",
+          "title": "Les Francis",
+          "year": 2014,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt3114432",
+          "titleType": "movie",
+          "formatted": "Les Francis (2014) — Cascadeur"
+        },
+        {
+          "title": "Maintenant ou jamais",
+          "year": 2014,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2994636",
+          "titleType": "movie",
+          "formatted": "Maintenant ou jamais (2014) — Cascadeur"
+        },
+        {
+          "title": "Ça va passer... Mais quand?",
+          "year": 2014,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt3335590",
+          "titleType": "tvMovie",
+          "formatted": "Ça va passer... Mais quand? (2014) — Cascadeur"
+        },
+        {
+          "title": "3xManon",
+          "year": 2014,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt3556544",
+          "titleType": "tvMiniSeries",
+          "formatted": "3xManon (2014) — Cascadeur"
+        },
+        {
+          "title": "Le dernier diamant",
+          "year": 2014,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt3136752",
+          "titleType": "movie",
+          "formatted": "Le dernier diamant (2014) — Cascadeur"
+        },
+        {
+          "title": "Richelieu: La pourpre et le sang",
+          "year": 2014,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt3156284",
+          "titleType": "tvMovie",
+          "formatted": "Richelieu: La pourpre et le sang (2014) — Cascadeur"
+        },
+        {
+          "title": "3 Days to Kill",
+          "year": 2014,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2172934",
+          "titleType": "movie",
+          "formatted": "3 Days to Kill (2014) — Cascadeur"
+        },
+        {
+          "title": "Mea Culpa",
+          "year": 2014,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt3112654",
+          "titleType": "movie",
+          "formatted": "Mea Culpa (2014) — Cascadeur"
+        },
+        {
+          "title": "Une femme dans la Révolution",
           "year": 2013,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt2510874",
-          "score": 57,
-          "formatted": "Yamla Pagla Deewana 2 (2013) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt3405250",
+          "titleType": "tvMiniSeries",
+          "formatted": "Une femme dans la Révolution (2013) — Cascadeur"
         },
         {
-          "title": "Après mai",
-          "year": 2012,
+          "title": "Angélique",
+          "year": 2013,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1846472",
-          "score": 56,
-          "formatted": "Après mai (2012) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt2776074",
+          "titleType": "movie",
+          "formatted": "Angélique (2013) — Cascadeur"
         },
         {
-          "title": "De l'autre côté du périph",
-          "year": 2012,
+          "title": "La confrérie des larmes",
+          "year": 2013,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1937133",
-          "score": 56,
-          "formatted": "De l'autre côté du périph (2012) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt2522934",
+          "titleType": "movie",
+          "formatted": "La confrérie des larmes (2013) — Cascadeur"
         },
         {
-          "title": "Le Guetteur",
-          "year": 2012,
+          "title": "L'autre vie de Richard Kemp",
+          "year": 2013,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1946298",
-          "score": 56,
-          "formatted": "Le Guetteur (2012) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt2843344",
+          "titleType": "movie",
+          "formatted": "L'autre vie de Richard Kemp (2013) — Cascadeur"
         },
         {
-          "title": "Le réserviste",
+          "title": "La croisière",
+          "year": 2013,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2763886",
+          "titleType": "tvSeries",
+          "formatted": "La croisière (2013) — Cascadeur"
+        },
+        {
+          "title": "Mortel été",
+          "year": 2013,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2994628",
+          "titleType": "tvMovie",
+          "formatted": "Mortel été (2013) — Cascadeur"
+        },
+        {
+          "title": "Au bonheur des ogres",
+          "year": 2013,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2129887",
+          "titleType": "movie",
+          "formatted": "Au bonheur des ogres (2013) — Cascadeur"
+        },
+        {
+          "title": "Il faut marier maman",
+          "year": 2013,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2794396",
+          "titleType": "tvMovie",
+          "formatted": "Il faut marier maman (2013) — Cascadeur"
+        },
+        {
+          "title": "Crime d'État",
+          "year": 2013,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2639724",
+          "titleType": "tvMovie",
+          "formatted": "Crime d'État (2013) — Cascadeur"
+        },
+        {
+          "title": "Caïn",
           "year": 2012,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt2612084",
-          "score": 56,
-          "formatted": "Le réserviste (2012) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt2364258",
+          "titleType": "tvSeries",
+          "formatted": "Caïn (2012) — Cascadeur"
         },
         {
           "title": "No Limit",
           "year": 2012,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
+          "status": "RÉSOLU",
           "imdbId": "tt2493230",
-          "score": 56,
+          "titleType": "tvSeries",
           "formatted": "No Limit (2012) — Cascadeur"
         },
         {
-          "title": "Colombiana",
-          "year": 2011,
+          "title": "Mais qui a re-tué Pamela Rose?",
+          "year": 2012,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1657507",
-          "score": 55,
-          "formatted": "Colombiana (2011) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt2342207",
+          "titleType": "movie",
+          "formatted": "Mais qui a re-tué Pamela Rose? (2012) — Cascadeur"
         },
         {
-          "title": "La planque",
-          "year": 2011,
+          "title": "Main courante",
+          "year": 2012,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1730701",
-          "score": 55,
-          "formatted": "La planque (2011) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt2359700",
+          "titleType": "tvSeries",
+          "formatted": "Main courante (2012) — Cascadeur"
         },
         {
-          "title": "Le client",
+          "title": "Mes deux amours",
+          "year": 2012,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2359650",
+          "titleType": "tvMovie",
+          "formatted": "Mes deux amours (2012) — Cascadeur"
+        },
+        {
+          "title": "Superstar",
+          "year": 2012,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1849111",
+          "titleType": "movie",
+          "formatted": "Superstar (2012) — Cascadeur"
+        },
+        {
+          "title": "Mauvaise fille",
+          "year": 2012,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2359668",
+          "titleType": "movie",
+          "formatted": "Mauvaise fille (2012) — Cascadeur"
+        },
+        {
+          "title": "Stars 80",
+          "year": 2012,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2166143",
+          "titleType": "movie",
+          "formatted": "Stars 80 (2012) — Cascadeur"
+        },
+        {
+          "title": "Trois mondes",
+          "year": 2012,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2369497",
+          "titleType": "movie",
+          "formatted": "Trois mondes (2012) — Cascadeur"
+        },
+        {
+          "title": "Cloclo",
+          "year": 2012,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2076176",
+          "titleType": "movie",
+          "formatted": "Cloclo (2012) — Cascadeur"
+        },
+        {
+          "title": "Crapuleuses",
+          "year": 2012,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2248731",
+          "titleType": "tvMovie",
+          "formatted": "Crapuleuses (2012) — Cascadeur"
+        },
+        {
+          "title": "Toussaint Louverture",
+          "year": 2012,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2062690",
+          "titleType": "tvMiniSeries",
+          "formatted": "Toussaint Louverture (2012) — Cascadeur"
+        },
+        {
+          "title": "Eléonore, l'intrépide",
+          "year": 2012,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2313227",
+          "titleType": "tvMovie",
+          "formatted": "Eléonore, l'intrépide (2012) — Cascadeur"
+        },
+        {
+          "title": "Doc Martin",
           "year": 2011,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt2056630",
-          "score": 55,
-          "formatted": "Le client (2011) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1745066",
+          "titleType": "tvSeries",
+          "formatted": "Doc Martin (2011) — Cascadeur"
+        },
+        {
+          "title": "L'homme de la situation",
+          "year": 2011,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2202218",
+          "titleType": "tvSeries",
+          "formatted": "L'homme de la situation (2011) — Cascadeur"
+        },
+        {
+          "title": "Le sang de la vigne",
+          "year": 2011,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1809792",
+          "titleType": "tvSeries",
+          "formatted": "Le sang de la vigne (2011) — Cascadeur"
+        },
+        {
+          "title": "Bye Bye Blondie",
+          "year": 2011,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1688064",
+          "titleType": "movie",
+          "formatted": "Bye Bye Blondie (2011) — Cascadeur"
+        },
+        {
+          "title": "Rani",
+          "year": 2011,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt2039092",
+          "titleType": "tvSeries",
+          "formatted": "Rani (2011) — Cascadeur"
+        },
+        {
+          "title": "L'exercice de l'Etat",
+          "year": 2011,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1781843",
+          "titleType": "movie",
+          "formatted": "L'exercice de l'Etat (2011) — Cascadeur"
         },
         {
           "title": "Les beaux mecs",
           "year": 2011,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
+          "status": "RÉSOLU",
           "imdbId": "tt1857209",
-          "score": 55,
+          "titleType": "tvMiniSeries",
           "formatted": "Les beaux mecs (2011) — Cascadeur"
         },
         {
-          "title": "Mr. Perfect",
+          "title": "Requiem pour une tueuse",
           "year": 2011,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1852036",
-          "score": 55,
-          "formatted": "Mr. Perfect (2011) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1723047",
+          "titleType": "movie",
+          "formatted": "Requiem pour une tueuse (2011) — Cascadeur"
         },
         {
-          "title": "Angèle et Tony",
+          "title": "Une cible dans le dos",
+          "year": 2011,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1570727",
+          "titleType": "tvMovie",
+          "formatted": "Une cible dans le dos (2011) — Cascadeur"
+        },
+        {
+          "title": "La grève des femmes",
+          "year": 2011,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1739189",
+          "titleType": "tvMovie",
+          "formatted": "La grève des femmes (2011) — Cascadeur"
+        },
+        {
+          "title": "Le fils à Jo",
+          "year": 2011,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1548603",
+          "titleType": "movie",
+          "formatted": "Le fils à Jo (2011) — Cascadeur"
+        },
+        {
+          "title": "Clem",
           "year": 2010,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1538221",
-          "score": 54,
-          "formatted": "Angèle et Tony (2010) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1600746",
+          "titleType": "tvSeries",
+          "formatted": "Clem (2010) — Cascadeur"
         },
         {
-          "title": "Arthur 3 : La Guerre des deux mondes",
+          "title": "La loi selon Bartoli",
           "year": 2010,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0940656",
-          "score": 54,
-          "formatted": "Arthur 3 : La Guerre des deux mondes (2010) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1563664",
+          "titleType": "tvSeries",
+          "formatted": "La loi selon Bartoli (2010) — Cascadeur"
         },
         {
-          "title": "Captifs",
+          "title": "Victoire Bonnot",
           "year": 2010,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1600701",
-          "score": 54,
-          "formatted": "Captifs (2010) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1611715",
+          "titleType": "tvSeries",
+          "formatted": "Victoire Bonnot (2010) — Cascadeur"
         },
         {
-          "title": "From Paris with Love",
+          "title": "À bout portant",
           "year": 2010,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1179034",
-          "score": 54,
-          "formatted": "From Paris with Love (2010) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1545759",
+          "titleType": "movie",
+          "formatted": "À bout portant (2010) — Cascadeur"
         },
         {
-          "title": "La blonde aux seins nus",
+          "title": "Les vivants et les morts",
           "year": 2010,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1298831",
-          "score": 54,
-          "formatted": "La blonde aux seins nus (2010) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1389057",
+          "titleType": "tvSeries",
+          "formatted": "Les vivants et les morts (2010) — Cascadeur"
         },
         {
-          "title": "La plus pire semaine de ma vie",
+          "title": "Fracture",
           "year": 2010,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1800894",
-          "score": 54,
-          "formatted": "La plus pire semaine de ma vie (2010) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1726637",
+          "titleType": "tvMovie",
+          "formatted": "Fracture (2010) — Cascadeur"
         },
         {
-          "title": "Braquo",
-          "year": 2009,
+          "title": "Merci papa, merci maman",
+          "year": 2010,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1429534",
-          "score": 53,
-          "formatted": "Braquo (2009) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1710581",
+          "titleType": "tvMovie",
+          "formatted": "Merci papa, merci maman (2010) — Cascadeur"
         },
         {
-          "title": "Cartouche, le brigand magnifique",
-          "year": 2009,
+          "title": "Nouvelle Maud",
+          "year": 2010,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1383237",
-          "score": 53,
-          "formatted": "Cartouche, le brigand magnifique (2009) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1661316",
+          "titleType": "tvSeries",
+          "formatted": "Nouvelle Maud (2010) — Cascadeur"
         },
         {
-          "title": "L'armée du crime",
-          "year": 2009,
+          "title": "Hors-la-loi",
+          "year": 2010,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1258120",
-          "score": 53,
-          "formatted": "L'armée du crime (2009) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1229381",
+          "titleType": "movie",
+          "formatted": "Hors-la-loi (2010) — Cascadeur"
         },
         {
-          "title": "La Horde",
-          "year": 2009,
+          "title": "L'autre monde",
+          "year": 2010,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1183276",
-          "score": 53,
-          "formatted": "La Horde (2009) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1479269",
+          "titleType": "movie",
+          "formatted": "L'autre monde (2010) — Cascadeur"
         },
         {
-          "title": "Le visiteur du futur",
-          "year": 2009,
+          "title": "Imogène McCarthery",
+          "year": 2010,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt2473544",
-          "score": 53,
-          "formatted": "Le visiteur du futur (2009) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1376421",
+          "titleType": "movie",
+          "formatted": "Imogène McCarthery (2010) — Cascadeur"
         },
         {
-          "title": "Un prophète",
-          "year": 2009,
+          "title": "Je, François Villon, voleur, assassin, poète",
+          "year": 2010,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1235166",
-          "score": 53,
-          "formatted": "Un prophète (2009) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1611868",
+          "titleType": "tvMovie",
+          "formatted": "Je, François Villon, voleur, assassin, poète (2010) — Cascadeur"
+        },
+        {
+          "title": "Le baltringue",
+          "year": 2010,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1405807",
+          "titleType": "movie",
+          "formatted": "Le baltringue (2010) — Cascadeur"
         },
         {
           "title": "Un village français",
           "year": 2009,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
+          "status": "RÉSOLU",
           "imdbId": "tt1288631",
-          "score": 53,
+          "titleType": "tvSeries",
           "formatted": "Un village français (2009) — Cascadeur"
         },
         {
-          "title": "Vertige",
+          "title": "Profilage",
           "year": 2009,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1433562",
-          "score": 53,
-          "formatted": "Vertige (2009) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1418572",
+          "titleType": "tvSeries",
+          "formatted": "Profilage (2009) — Cascadeur"
         },
         {
-          "title": "Deux jours à tuer",
-          "year": 2008,
+          "title": "Malevil",
+          "year": 2009,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0996930",
-          "score": 52,
-          "formatted": "Deux jours à tuer (2008) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt3307176",
+          "titleType": "tvMovie",
+          "formatted": "Malevil (2009) — Cascadeur"
         },
         {
-          "title": "Dirty money, l'infiltré",
-          "year": 2008,
+          "title": "RTT",
+          "year": 2009,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1230453",
-          "score": 52,
-          "formatted": "Dirty money, l'infiltré (2008) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1345507",
+          "titleType": "movie",
+          "formatted": "RTT (2009) — Cascadeur"
         },
         {
-          "title": "L'Ennemi public n° 1",
-          "year": 2008,
+          "title": "Commissaire Magellan",
+          "year": 2009,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0411272",
-          "score": 52,
-          "formatted": "L'Ennemi public n° 1 (2008) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1548331",
+          "titleType": "tvSeries",
+          "formatted": "Commissaire Magellan (2009) — Cascadeur"
         },
         {
-          "title": "Trahison",
-          "year": 2008,
+          "title": "Cinéman",
+          "year": 2009,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0988047",
-          "score": 52,
-          "formatted": "Trahison (2008) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1130984",
+          "titleType": "movie",
+          "formatted": "Cinéman (2009) — Cascadeur"
         },
         {
-          "title": "Un monde à nous",
+          "title": "Rose & noir",
+          "year": 2009,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1463450",
+          "titleType": "movie",
+          "formatted": "Rose & noir (2009) — Cascadeur"
+        },
+        {
+          "title": "Cartouche, le brigand magnifique",
+          "year": 2009,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1383237",
+          "titleType": "tvSeries",
+          "formatted": "Cartouche, le brigand magnifique (2009) — Cascadeur"
+        },
+        {
+          "title": "L'évasion",
+          "year": 2009,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1397517",
+          "titleType": "tvMovie",
+          "formatted": "L'évasion (2009) — Cascadeur"
+        },
+        {
+          "title": "Incognito",
+          "year": 2009,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1315883",
+          "titleType": "movie",
+          "formatted": "Incognito (2009) — Cascadeur"
+        },
+        {
+          "title": "Action spéciale douanes",
+          "year": 2009,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1230415",
+          "titleType": "tvSeries",
+          "formatted": "Action spéciale douanes (2009) — Cascadeur"
+        },
+        {
+          "title": "Banlieue 13: Ultimatum",
+          "year": 2009,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1247640",
+          "titleType": "movie",
+          "formatted": "Banlieue 13: Ultimatum (2009) — Cascadeur"
+        },
+        {
+          "title": "Nicolas Le Floch",
           "year": 2008,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt1266115",
-          "score": 52,
-          "formatted": "Un monde à nous (2008) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1304873",
+          "titleType": "tvSeries",
+          "formatted": "Nicolas Le Floch (2008) — Cascadeur"
+        },
+        {
+          "title": "Merlin",
+          "year": 2008,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1199099",
+          "titleType": "tvSeries",
+          "formatted": "Merlin (2008) — Cascadeur"
+        },
+        {
+          "title": "Flics",
+          "year": 2008,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1099219",
+          "titleType": "tvSeries",
+          "formatted": "Flics (2008) — Cascadeur"
+        },
+        {
+          "title": "La dame de Monsoreau",
+          "year": 2008,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1156509",
+          "titleType": "tvMovie",
+          "formatted": "La dame de Monsoreau (2008) — Cascadeur"
+        },
+        {
+          "title": "De sang et d'encre",
+          "year": 2008,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1239397",
+          "titleType": "tvMovie",
+          "formatted": "De sang et d'encre (2008) — Cascadeur"
+        },
+        {
+          "title": "Le transporteur 3",
+          "year": 2008,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1129442",
+          "titleType": "movie",
+          "formatted": "Le transporteur 3 (2008) — Cascadeur"
+        },
+        {
+          "title": "Le gendre idéal",
+          "year": 2008,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1249303",
+          "titleType": "tvMovie",
+          "formatted": "Le gendre idéal (2008) — Cascadeur"
+        },
+        {
+          "title": "Bouquet final",
+          "year": 2008,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1134801",
+          "titleType": "movie",
+          "formatted": "Bouquet final (2008) — Cascadeur"
+        },
+        {
+          "title": "Go Fast: Au coeur du trafic",
+          "year": 2008,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1179855",
+          "titleType": "movie",
+          "formatted": "Go Fast: Au coeur du trafic (2008) — Cascadeur"
+        },
+        {
+          "title": "L'Instinct de mort",
+          "year": 2008,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1259014",
+          "titleType": "movie",
+          "formatted": "L'Instinct de mort (2008) — Cascadeur"
+        },
+        {
+          "title": "Terre de lumière",
+          "year": 2008,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1165961",
+          "titleType": "tvMiniSeries",
+          "formatted": "Terre de lumière (2008) — Cascadeur"
+        },
+        {
+          "title": "Duval et Moretti",
+          "year": 2008,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1043818",
+          "titleType": "tvSeries",
+          "formatted": "Duval et Moretti (2008) — Cascadeur"
+        },
+        {
+          "title": "Skate or Die",
+          "year": 2008,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1124397",
+          "titleType": "movie",
+          "formatted": "Skate or Die (2008) — Cascadeur"
+        },
+        {
+          "title": "Les insoumis",
+          "year": 2008,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1034397",
+          "titleType": "movie",
+          "formatted": "Les insoumis (2008) — Cascadeur"
+        },
+        {
+          "title": "Paris",
+          "year": 2008,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0869994",
+          "titleType": "movie",
+          "formatted": "Paris (2008) — Cascadeur"
+        },
+        {
+          "title": "Fais pas ci, fais pas ça",
+          "year": 2007,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt1101174",
+          "titleType": "tvSeries",
+          "formatted": "Fais pas ci, fais pas ça (2007) — Cascadeur"
         },
         {
           "title": "Brigade Navarro",
           "year": 2007,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
+          "status": "RÉSOLU",
           "imdbId": "tt1055436",
-          "score": 51,
+          "titleType": "tvSeries",
           "formatted": "Brigade Navarro (2007) — Cascadeur"
         },
         {
-          "title": "La surprise",
+          "title": "Paris enquêtes criminelles",
           "year": 2007,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0955343",
-          "score": 51,
-          "formatted": "La surprise (2007) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt1002919",
+          "titleType": "tvSeries",
+          "formatted": "Paris enquêtes criminelles (2007) — Cascadeur"
         },
         {
           "title": "Taxi 4",
           "year": 2007,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
+          "status": "RÉSOLU",
           "imdbId": "tt0804540",
-          "score": 51,
+          "titleType": "movie",
           "formatted": "Taxi 4 (2007) — Cascadeur"
         },
         {
-          "title": "Aurore",
-          "year": 2006,
+          "title": "Pars vite et reviens tard",
+          "year": 2007,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0473779",
-          "score": 50,
-          "formatted": "Aurore (2006) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0446707",
+          "titleType": "movie",
+          "formatted": "Pars vite et reviens tard (2007) — Cascadeur"
         },
         {
-          "title": "Les Brigades du Tigre",
+          "title": "Section de recherches",
           "year": 2006,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0462667",
-          "score": 50,
-          "formatted": "Les Brigades du Tigre (2006) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0806905",
+          "titleType": "tvSeries",
+          "formatted": "Section de recherches (2006) — Cascadeur"
         },
         {
-          "title": "OSS 117 : Le Caire, nid d'espions",
+          "title": "R.I.S. Police scientifique",
           "year": 2006,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0464913",
-          "score": 50,
-          "formatted": "OSS 117 : Le Caire, nid d'espions (2006) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0497156",
+          "titleType": "tvSeries",
+          "formatted": "R.I.S. Police scientifique (2006) — Cascadeur"
         },
         {
-          "title": "Sable noir",
+          "title": "Les bleus: premiers pas dans la police",
           "year": 2006,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0778571",
-          "score": 50,
-          "formatted": "Sable noir (2006) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0759057",
+          "titleType": "tvSeries",
+          "formatted": "Les bleus: premiers pas dans la police (2006) — Cascadeur"
         },
         {
-          "title": "Des jours et des nuits",
-          "year": 2005,
+          "title": "Les tricheurs",
+          "year": 2006,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0441183",
-          "score": 49,
-          "formatted": "Des jours et des nuits (2005) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0878088",
+          "titleType": "tvSeries",
+          "formatted": "Les tricheurs (2006) — Cascadeur"
+        },
+        {
+          "title": "Les Aristos",
+          "year": 2006,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0486084",
+          "titleType": "movie",
+          "formatted": "Les Aristos (2006) — Cascadeur"
+        },
+        {
+          "title": "Un ticket pour l'espace",
+          "year": 2006,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0444519",
+          "titleType": "movie",
+          "formatted": "Un ticket pour l'espace (2006) — Cascadeur"
         },
         {
           "title": "Engrenages",
           "year": 2005,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
+          "status": "RÉSOLU",
           "imdbId": "tt0477507",
-          "score": 49,
+          "titleType": "tvSeries",
           "formatted": "Engrenages (2005) — Cascadeur"
         },
         {
-          "title": "La vie à mains nues",
+          "title": "Clara Sheller",
           "year": 2005,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0425621",
-          "score": 49,
-          "formatted": "La vie à mains nues (2005) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0443948",
+          "titleType": "tvSeries",
+          "formatted": "Clara Sheller (2005) — Cascadeur"
         },
         {
-          "title": "Arsène Lupin",
-          "year": 2004,
+          "title": "Commissaire Cordier",
+          "year": 2005,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0373690",
-          "score": 48,
-          "formatted": "Arsène Lupin (2004) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0486783",
+          "titleType": "tvSeries",
+          "formatted": "Commissaire Cordier (2005) — Cascadeur"
+        },
+        {
+          "title": "Le juge",
+          "year": 2005,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0435967",
+          "titleType": "tvMiniSeries",
+          "formatted": "Le juge (2005) — Cascadeur"
         },
         {
           "title": "Léa Parker",
           "year": 2004,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
+          "status": "RÉSOLU",
           "imdbId": "tt0411009",
-          "score": 48,
+          "titleType": "tvSeries",
           "formatted": "Léa Parker (2004) — Cascadeur"
         },
         {
-          "title": "Les Montana",
+          "title": "Banlieue 13",
           "year": 2004,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0404639",
-          "score": 48,
-          "formatted": "Les Montana (2004) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0414852",
+          "titleType": "movie",
+          "formatted": "Banlieue 13 (2004) — Cascadeur"
         },
         {
-          "title": "Un long dimanche de fiançailles",
+          "title": "Le silence de la mer",
           "year": 2004,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0344510",
-          "score": 48,
-          "formatted": "Un long dimanche de fiançailles (2004) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0430594",
+          "titleType": "tvMovie",
+          "formatted": "Le silence de la mer (2004) — Cascadeur"
         },
         {
-          "title": "Diane, femme flic",
+          "title": "Secret Passage",
+          "year": 2004,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0286058",
+          "titleType": "movie",
+          "formatted": "Secret Passage (2004) — Cascadeur"
+        },
+        {
+          "title": "L'américain",
+          "year": 2004,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0381008",
+          "titleType": "movie",
+          "formatted": "L'américain (2004) — Cascadeur"
+        },
+        {
+          "title": "Poids léger",
+          "year": 2004,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0389282",
+          "titleType": "movie",
+          "formatted": "Poids léger (2004) — Cascadeur"
+        },
+        {
+          "title": "Pierre et Jean",
+          "year": 2004,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0389275",
+          "titleType": "tvMovie",
+          "formatted": "Pierre et Jean (2004) — Cascadeur"
+        },
+        {
+          "title": "Les Rivières pourpres 2 : Les Anges de l'apocalypse",
+          "year": 2004,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0337103",
+          "titleType": "movie",
+          "formatted": "Les Rivières pourpres 2 : Les Anges de l'apocalypse (2004) — Cascadeur"
+        },
+        {
+          "title": "Franck Keller",
           "year": 2003,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0392969",
-          "score": 47,
-          "formatted": "Diane, femme flic (2003) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0354296",
+          "titleType": "tvSeries",
+          "formatted": "Franck Keller (2003) — Cascadeur"
         },
         {
-          "title": "Samouraïs",
+          "title": "Lagardère",
+          "year": 2003,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0397508",
+          "titleType": "tvSeries",
+          "formatted": "Lagardère (2003) — Cascadeur"
+        },
+        {
+          "title": "Tais-toi !",
+          "year": 2003,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0310203",
+          "titleType": "movie",
+          "formatted": "Tais-toi ! (2003) — Cascadeur"
+        },
+        {
+          "title": "Fargas",
+          "year": 2003,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0386934",
+          "titleType": "tvSeries",
+          "formatted": "Fargas (2003) — Cascadeur"
+        },
+        {
+          "title": "Tempo",
+          "year": 2003,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0307553",
+          "titleType": "movie",
+          "formatted": "Tempo (2003) — Cascadeur"
+        },
+        {
+          "title": "Octane",
+          "year": 2003,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0323465",
+          "titleType": "movie",
+          "formatted": "Octane (2003) — Cascadeur"
+        },
+        {
+          "title": "Le Mystère de la chambre jaune",
+          "year": 2003,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0356922",
+          "titleType": "movie",
+          "formatted": "Le Mystère de la chambre jaune (2003) — Cascadeur"
+        },
+        {
+          "title": "Fanfan la Tulipe",
+          "year": 2003,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0305568",
+          "titleType": "movie",
+          "formatted": "Fanfan la Tulipe (2003) — Cascadeur"
+        },
+        {
+          "title": "Effroyables Jardins",
+          "year": 2003,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0285052",
+          "titleType": "movie",
+          "formatted": "Effroyables Jardins (2003) — Cascadeur"
+        },
+        {
+          "title": "Taxi 3",
+          "year": 2003,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0295721",
+          "titleType": "movie",
+          "formatted": "Taxi 3 (2003) — Cascadeur"
+        },
+        {
+          "title": "Un tueur aux trousses",
+          "year": 2003,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0271136",
+          "titleType": "movie",
+          "formatted": "Un tueur aux trousses (2003) — Cascadeur"
+        },
+        {
+          "title": "S.O.S. 18",
           "year": 2002,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0284457",
-          "score": 46,
-          "formatted": "Samouraïs (2002) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0404664",
+          "titleType": "tvSeries",
+          "formatted": "S.O.S. 18 (2002) — Cascadeur"
+        },
+        {
+          "title": "Père et maire",
+          "year": 2002,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0310511",
+          "titleType": "tvSeries",
+          "formatted": "Père et maire (2002) — Cascadeur"
+        },
+        {
+          "title": "SoeurThérèse.com",
+          "year": 2002,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0337215",
+          "titleType": "tvSeries",
+          "formatted": "SoeurThérèse.com (2002) — Cascadeur"
+        },
+        {
+          "title": "Et demain, Paula?",
+          "year": 2002,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0346950",
+          "titleType": "tvMovie",
+          "formatted": "Et demain, Paula? (2002) — Cascadeur"
+        },
+        {
+          "title": "Le Transporteur",
+          "year": 2002,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0293662",
+          "titleType": "movie",
+          "formatted": "Le Transporteur (2002) — Cascadeur"
+        },
+        {
+          "title": "Femme fatale",
+          "year": 2002,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0280665",
+          "titleType": "movie",
+          "formatted": "Femme fatale (2002) — Cascadeur"
+        },
+        {
+          "title": "Vivante",
+          "year": 2002,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0282251",
+          "titleType": "movie",
+          "formatted": "Vivante (2002) — Cascadeur"
+        },
+        {
+          "title": "Astérix & Obélix : Mission Cléopâtre",
+          "year": 2002,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0250223",
+          "titleType": "movie",
+          "formatted": "Astérix & Obélix : Mission Cléopâtre (2002) — Cascadeur"
+        },
+        {
+          "title": "Commissariat Bastille",
+          "year": 2001,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0267163",
+          "titleType": "tvSeries",
+          "formatted": "Commissariat Bastille (2001) — Cascadeur"
         },
         {
           "title": "Largo Winch",
           "year": 2001,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
+          "status": "RÉSOLU",
           "imdbId": "tt0224902",
-          "score": 45,
+          "titleType": "tvSeries",
           "formatted": "Largo Winch (2001) — Cascadeur"
         },
         {
-          "title": "Le Pacte des loups",
+          "title": "Chaos",
           "year": 2001,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0237534",
-          "score": 45,
-          "formatted": "Le Pacte des loups (2001) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0265116",
+          "titleType": "movie",
+          "formatted": "Chaos (2001) — Cascadeur"
         },
         {
-          "title": "Wasabi",
+          "title": "D'Artagnan",
           "year": 2001,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0281364",
-          "score": 45,
-          "formatted": "Wasabi (2001) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0246544",
+          "titleType": "movie",
+          "formatted": "D'Artagnan (2001) — Cascadeur"
         },
         {
-          "title": "Le grand patron",
+          "title": "La boîte",
+          "year": 2001,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0262301",
+          "titleType": "movie",
+          "formatted": "La boîte (2001) — Cascadeur"
+        },
+        {
+          "title": "Le Baiser mortel du dragon",
+          "year": 2001,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0271027",
+          "titleType": "movie",
+          "formatted": "Le Baiser mortel du dragon (2001) — Cascadeur"
+        },
+        {
+          "title": "Entre 4 murs",
           "year": 2000,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0270133",
-          "score": 44,
-          "formatted": "Le grand patron (2000) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0388918",
+          "titleType": "short",
+          "formatted": "Entre 4 murs (2000) — Cascadeur"
+        },
+        {
+          "title": "Paria",
+          "year": 2000,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0262674",
+          "titleType": "movie",
+          "formatted": "Paria (2000) — Cascadeur"
+        },
+        {
+          "title": "Les filles ne savent pas nager",
+          "year": 2000,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0239507",
+          "titleType": "movie",
+          "formatted": "Les filles ne savent pas nager (2000) — Cascadeur"
+        },
+        {
+          "title": "Mary Lester",
+          "year": 2000,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0187656",
+          "titleType": "tvSeries",
+          "formatted": "Mary Lester (2000) — Cascadeur"
+        },
+        {
+          "title": "Taxi 2",
+          "year": 2000,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0183869",
+          "titleType": "movie",
+          "formatted": "Taxi 2 (2000) — Cascadeur"
         },
         {
           "title": "Boulevard du Palais",
           "year": 1999,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
+          "status": "RÉSOLU",
           "imdbId": "tt0188318",
-          "score": 43,
+          "titleType": "tvSeries",
           "formatted": "Boulevard du Palais (1999) — Cascadeur"
         },
         {
-          "title": "Bingo!",
-          "year": 1998,
+          "title": "Jeanne d'Arc",
+          "year": 1999,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0127463",
-          "score": 42,
-          "formatted": "Bingo! (1998) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0151137",
+          "titleType": "movie",
+          "formatted": "Jeanne d'Arc (1999) — Cascadeur"
         },
         {
-          "title": "Hors jeu",
-          "year": 1998,
+          "title": "La Neuvième Porte",
+          "year": 1999,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0166651",
-          "score": 42,
-          "formatted": "Hors jeu (1998) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0142688",
+          "titleType": "movie",
+          "formatted": "La Neuvième Porte (1999) — Cascadeur"
         },
         {
-          "title": "Ma 6-T va crack-er",
+          "title": "Le créateur",
+          "year": 1999,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0203427",
+          "titleType": "movie",
+          "formatted": "Le créateur (1999) — Cascadeur"
+        },
+        {
+          "title": "Ça ne se refuse pas",
+          "year": 1998,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0120563",
+          "titleType": "movie",
+          "formatted": "Ça ne se refuse pas (1998) — Cascadeur"
+        },
+        {
+          "title": "L'homme au masque de fer",
+          "year": 1998,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0120744",
+          "titleType": "movie",
+          "formatted": "L'homme au masque de fer (1998) — Cascadeur"
+        },
+        {
+          "title": "Joséphine, ange gardien",
           "year": 1997,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0119589",
-          "score": 41,
-          "formatted": "Ma 6-T va crack-er (1997) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0172014",
+          "titleType": "tvSeries",
+          "formatted": "Joséphine, ange gardien (1997) — Cascadeur"
+        },
+        {
+          "title": "Vérité oblige",
+          "year": 1997,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0173604",
+          "titleType": "tvSeries",
+          "formatted": "Vérité oblige (1997) — Cascadeur"
+        },
+        {
+          "title": "P.J.",
+          "year": 1997,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0166927",
+          "titleType": "tvSeries",
+          "formatted": "P.J. (1997) — Cascadeur"
+        },
+        {
+          "title": "Louis Page",
+          "year": 1997,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0217955",
+          "titleType": "tvSeries",
+          "formatted": "Louis Page (1997) — Cascadeur"
+        },
+        {
+          "title": "Dobermann",
+          "year": 1997,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0118996",
+          "titleType": "movie",
+          "formatted": "Dobermann (1997) — Cascadeur"
+        },
+        {
+          "title": "Aventures Caraïbes",
+          "year": 1996,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0115274",
+          "titleType": "tvMiniSeries",
+          "formatted": "Aventures Caraïbes (1996) — Cascadeur"
+        },
+        {
+          "title": "Fallait pas!..",
+          "year": 1996,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0116271",
+          "titleType": "movie",
+          "formatted": "Fallait pas!.. (1996) — Cascadeur"
+        },
+        {
+          "title": "La Fille de d'Artagnan",
+          "year": 1994,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0109798",
+          "titleType": "movie",
+          "formatted": "La Fille de d'Artagnan (1994) — Cascadeur"
+        },
+        {
+          "title": "La reine Margot",
+          "year": 1994,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0110963",
+          "titleType": "movie",
+          "formatted": "La reine Margot (1994) — Cascadeur"
         },
         {
           "title": "Le juge est une femme",
           "year": 1993,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
+          "status": "RÉSOLU",
           "imdbId": "tt0169458",
-          "score": 40,
+          "titleType": "tvSeries",
           "formatted": "Le juge est une femme (1993) — Cascadeur"
         },
         {
-          "title": "La vie de famille",
-          "year": 1989,
+          "title": "Deux justiciers dans la ville",
+          "year": 1993,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
-          "imdbId": "tt0096579",
-          "score": 40,
-          "formatted": "La vie de famille (1989) — Cascadeur"
+          "status": "RÉSOLU",
+          "imdbId": "tt0173541",
+          "titleType": "tvSeries",
+          "formatted": "Deux justiciers dans la ville (1993) — Cascadeur"
+        },
+        {
+          "title": "Une famille formidable",
+          "year": 1992,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0169504",
+          "titleType": "tvSeries",
+          "formatted": "Une famille formidable (1992) — Cascadeur"
+        },
+        {
+          "title": "Julie Lescaut",
+          "year": 1992,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0106042",
+          "titleType": "tvSeries",
+          "formatted": "Julie Lescaut (1992) — Cascadeur"
+        },
+        {
+          "title": "Highlander",
+          "year": 1992,
+          "role": "Cascadeur",
+          "status": "RÉSOLU",
+          "imdbId": "tt0103442",
+          "titleType": "tvSeries",
+          "formatted": "Highlander (1992) — Cascadeur"
         },
         {
           "title": "Navarro",
           "year": 1989,
           "role": "Cascadeur",
-          "status": "NOUVEAU",
+          "status": "RÉSOLU",
           "imdbId": "tt0096658",
-          "score": 40,
+          "titleType": "tvSeries",
           "formatted": "Navarro (1989) — Cascadeur"
-        },
-        {
-          "title": "Danny the Dog",
-          "year": 2005,
-          "role": "Cascadeur",
-          "status": "NON VÉRIFIABLE",
-          "imdbId": null,
-          "score": 19,
-          "formatted": "Danny the Dog (2005) — Cascadeur"
         }
       ]
     },
@@ -8111,5 +9400,6 @@
         }
       ]
     }
-  ]
+  ],
+  "repairNote": "michael-troude (IMDb nm0873735 — autre personne) remplacé par michel-bouis (IMDb nm0099365) : 244 crédits cascades vérifiés. Cf. plans/revue-credits-michel-bouis.md."
 }
