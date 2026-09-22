@@ -1,9 +1,18 @@
 'use client';
 
 import React, { useCallback, useMemo, useState } from 'react';
-import { Monitor, Tablet, Smartphone, RefreshCw, ExternalLink, MousePointerClick } from 'lucide-react';
+import {
+    Monitor,
+    Tablet,
+    Smartphone,
+    RefreshCw,
+    ExternalLink,
+    MousePointerClick,
+    Pencil,
+} from 'lucide-react';
 import type { SitePageContent } from '@/lib/data/site-service';
 import { usePreviewBridge } from '@/lib/hooks/usePreviewBridge';
+import type { PreviewMode } from '@/lib/preview/preview-protocol';
 import { CockpitIconButton, cx } from '@/app/(admin)/admin/components/ui';
 
 /**
@@ -29,6 +38,12 @@ interface LivePreviewPaneProps {
     reloadKey: number;
     /** Callback déclenché à la sélection d'un champ dans l'aperçu (édition inline). */
     onFieldSelect?: (field: string) => void;
+    /** `inspect` : clic = focus du formulaire. `edit` : clic = saisie en place. */
+    mode?: PreviewMode;
+    /** Demande de bascule de mode (état contrôlé par le parent). */
+    onModeChange?: (mode: PreviewMode) => void;
+    /** Valeur validée dans l'aperçu (édition en place) → brouillon du Cockpit. */
+    onFieldCommit?: (field: string, value: string) => void;
     /** Classe additionnelle pour le conteneur. */
     className?: string;
 }
@@ -56,6 +71,9 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
     previewUrl,
     reloadKey,
     onFieldSelect,
+    mode = 'inspect',
+    onModeChange,
+    onFieldCommit,
     className,
 }) => {
     const [device, setDevice] = useState<PreviewDevice>('desktop');
@@ -63,8 +81,9 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
 
     const { iframeRef, isReady, hoveredField } = usePreviewBridge({
         draft,
-        mode: 'inspect',
+        mode,
         onFieldSelect,
+        onFieldCommit,
     });
 
     const handleRefresh = useCallback(() => {
@@ -109,6 +128,26 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
                 </div>
 
                 <div className="flex items-center gap-2">
+                    <button
+                        type="button"
+                        onClick={() => onModeChange?.(mode === 'edit' ? 'inspect' : 'edit')}
+                        aria-pressed={mode === 'edit'}
+                        title={
+                            mode === 'edit'
+                                ? 'Revenir au mode inspection'
+                                : 'Éditer les textes directement dans l’aperçu'
+                        }
+                        className={cx(
+                            'inline-flex items-center gap-1.5 text-[11px] font-mono-tech px-2 py-1.5 rounded-md border transition-colors',
+                            mode === 'edit'
+                                ? 'bg-[#FFE500] text-black border-[#FFE500]'
+                                : 'bg-black/40 text-zinc-400 border-white/10 hover:text-white hover:border-white/25'
+                        )}
+                    >
+                        <Pencil className="w-3.5 h-3.5" />
+                        <span className="hidden sm:inline">Édition en place</span>
+                    </button>
+
                     <span
                         className={cx(
                             'hidden sm:inline-flex items-center gap-1.5 text-[11px] font-mono-tech px-2 py-1 rounded-md border',
@@ -148,7 +187,9 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
             <div className="flex items-center gap-2 text-[11px] font-mono-tech text-zinc-500 px-1">
                 <MousePointerClick className="w-3.5 h-3.5 text-[#FFE500]" />
                 <span>
-                    Cliquez un élément surligné dans l’aperçu pour éditer le champ correspondant.
+                    {mode === 'edit'
+                        ? 'Cliquez un texte ou un lien dans l’aperçu, saisissez, puis Entrée pour valider (Ctrl+Entrée en multi-lignes). Échap annule.'
+                        : 'Cliquez un élément surligné dans l’aperçu pour éditer le champ correspondant.'}
                 </span>
                 {hoveredField && (
                     <span className="ml-auto text-[#FFE500] truncate max-w-[40%]" title={hoveredField}>

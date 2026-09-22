@@ -31,6 +31,8 @@ import { KeyStatsEditor } from './pages-editor/KeyStatsEditor';
 import { PageRevisionsPanel } from './PageRevisionsPanel';
 import { LivePreviewPane } from './pages-editor/LivePreviewPane';
 import { buildPreviewUrl } from '@/lib/preview/preview-url';
+import { setFieldValue } from '@/lib/preview/field-path';
+import type { PreviewMode } from '@/lib/preview/preview-protocol';
 
 interface PagesEditorViewProps {
   pages: SitePageContent[];
@@ -120,6 +122,26 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
 
   /** En anglais, la traduction doit être chargée avant d'être éditée. */
   const isTranslationLoading = editorLocale === 'en' && !translation.ready;
+
+  /**
+   * Mode de l'aperçu live : `inspect` (clic = focus du champ dans le formulaire)
+   * ou `edit` (saisie directement sur la page). L'état est contrôlé ici pour que
+   * l'aperçu et le formulaire restent cohérents.
+   */
+  const [previewMode, setPreviewMode] = useState<PreviewMode>('inspect');
+
+  /**
+   * Édition en place : la valeur validée dans l'aperçu est écrite dans le
+   * brouillon courant (français ou traduction anglaise). Aucune écriture en base —
+   * la persistance reste l'action explicite « Enregistrer ».
+   */
+  const handlePreviewFieldCommit = useCallback(
+    (field: string, value: string) => {
+      if (isTranslationLoading) return;
+      setActiveData((prev) => setFieldValue(prev, field, value));
+    },
+    [isTranslationLoading, setActiveData]
+  );
 
   /**
    * Confirme l'abandon d'une saisie anglaise non enregistrée.
@@ -881,7 +903,10 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
                   draft={activeData}
                   previewUrl={previewUrl}
                   reloadKey={previewKey}
-                  onFieldSelect={handlePreviewFieldFocus}
+                  mode={previewMode}
+                  onModeChange={setPreviewMode}
+                  onFieldCommit={handlePreviewFieldCommit}
+                  onFieldSelect={previewMode === 'inspect' ? handlePreviewFieldFocus : undefined}
                 />
               </div>
             </div>
@@ -890,7 +915,10 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
               draft={activeData}
               previewUrl={previewUrl}
               reloadKey={previewKey}
-              onFieldSelect={handlePreviewFieldFocus}
+              mode={previewMode}
+              onModeChange={setPreviewMode}
+              onFieldCommit={handlePreviewFieldCommit}
+              onFieldSelect={previewMode === 'inspect' ? handlePreviewFieldFocus : undefined}
             />
           )}
         </div>
