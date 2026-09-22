@@ -16,7 +16,7 @@ import { applyTeamOverlay } from '@/lib/i18n/apply-team-overlay';
 import { applyFilmOverlays } from '@/lib/i18n/apply-film-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 import { createClient } from '@/lib/supabase/client';
-import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
+import { subscribeTable } from '@/lib/supabase/realtime';
 import { Instructor, FilmCredit, parseCredit } from '@/types';
 import { CucFilmsShowcase } from '@/components/sections/films/CucFilmsShowcase';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
@@ -65,27 +65,18 @@ export default function EquipeCascadeursProPage() {
     getFilms().then(setFilms);
 
     const supabase = createClient();
-    const channel = createSafeChannel(supabase, 'realtime:site_team_films', (ch) =>
-      ch
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'site_team' },
-          () => {
-            getTeam().then(setTeam);
-          }
-        )
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'site_films' },
-          () => {
-            getFilms().then(setFilms);
-            getTeam().then(setTeam);
-          }
-        )
-    );
+    // Canal partagé par client : équipe et films sur le même WebSocket.
+    const unsubscribeTeam = subscribeTable(supabase, { table: 'site_team' }, () => {
+      getTeam().then(setTeam);
+    });
+    const unsubscribeFilms = subscribeTable(supabase, { table: 'site_films' }, () => {
+      getFilms().then(setFilms);
+      getTeam().then(setTeam);
+    });
 
     return () => {
-      removeSafeChannel(supabase, channel);
+      unsubscribeTeam();
+      unsubscribeFilms();
     };
   }, []);
 
@@ -107,7 +98,7 @@ export default function EquipeCascadeursProPage() {
       <main id="contenu-principal" className="flex-grow pt-28">
         {/* Hero Header */}
         <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
-          <div className="absolute inset-0 z-0">
+          <div data-cuc-field="hero.bg_image" data-cuc-kind="image" className="absolute inset-0 z-0">
             <Image
               src={heroBg}
               alt="L'équipe pédagogique et cascadeurs professionnels du CUC"

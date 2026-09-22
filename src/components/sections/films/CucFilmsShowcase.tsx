@@ -6,7 +6,7 @@ import { Film, ArrowUpDown } from 'lucide-react';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getFilms } from '@/lib/data/site-service';
 import { createClient } from '@/lib/supabase/client';
-import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
+import { subscribeTable } from '@/lib/supabase/realtime';
 import { FilmCredit } from '@/types';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
@@ -76,18 +76,13 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
         getFilms().then(setFilms);
 
         const supabase = createClient();
-        const channel = createSafeChannel(supabase, 'realtime:site_films_showcase', (ch) =>
-            ch.on(
-                'postgres_changes',
-                { event: '*', schema: 'public', table: 'site_films' },
-                () => {
-                    getFilms().then(setFilms);
-                }
-            )
-        );
+        // Canal partagé par client : une page = un WebSocket (cf. `subscribeTable`).
+        const unsubscribe = subscribeTable(supabase, { table: 'site_films' }, () => {
+            getFilms().then(setFilms);
+        });
 
         return () => {
-            removeSafeChannel(supabase, channel);
+            unsubscribe();
         };
     }, []);
 

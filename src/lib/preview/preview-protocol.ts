@@ -37,6 +37,9 @@ export const CUC_FIELD_ATTRIBUTE = 'data-cuc-field';
 /** Attribut portant la nature du champ (choix du widget d'édition). */
 export const CUC_KIND_ATTRIBUTE = 'data-cuc-kind';
 
+/** Attribut portant l'index d'un item de liste (`data-cuc-kind="list-item"`). */
+export const CUC_INDEX_ATTRIBUTE = 'data-cuc-index';
+
 /* ------------------------------------------------------------------ *
  * Modèle
  * ------------------------------------------------------------------ */

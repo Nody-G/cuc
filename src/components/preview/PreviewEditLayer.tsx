@@ -2,7 +2,12 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { CSSProperties, KeyboardEvent as ReactKeyboardEvent } from 'react';
-import { hasCommitChanged, previewMessage, type PreviewMessage } from '@/lib/preview/preview-protocol';
+import {
+    CUC_INDEX_ATTRIBUTE,
+    hasCommitChanged,
+    previewMessage,
+    type PreviewMessage,
+} from '@/lib/preview/preview-protocol';
 import {
     clearPreviewSelection,
     getPreviewEditState,
@@ -50,6 +55,21 @@ interface OverlayState {
     fontFamily: string;
 }
 
+/** Champ image : on ne saisit pas de texte, on remplace le média. */
+interface MediaState {
+    field: string;
+    element: HTMLElement;
+    layout: OverlayLayout;
+}
+
+/** Item de liste : on ne saisit pas de texte, on agit sur la liste. */
+interface ListState {
+    field: string;
+    index: number;
+    element: HTMLElement;
+    layout: OverlayLayout;
+}
+
 function measure(element: HTMLElement): OverlayLayout {
     const rect = element.getBoundingClientRect();
     return { left: rect.left, top: rect.top, width: rect.width };
@@ -72,6 +92,8 @@ export const PreviewEditLayer: React.FC = () => {
         () => typeof window !== 'undefined' && window.parent !== window
     );
     const [overlay, setOverlay] = useState<OverlayState | null>(null);
+    const [media, setMedia] = useState<MediaState | null>(null);
+    const [list, setList] = useState<ListState | null>(null);
     const overlayRef = useRef<OverlayState | null>(null);
     const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
     const activeElementRef = useRef<HTMLElement | null>(null);
@@ -98,21 +120,67 @@ export const PreviewEditLayer: React.FC = () => {
 
         const apply = (state: PreviewEditState) => {
             const selection = resolveOverlaySelection(state);
+            // Champ image : l'édition en place propose de remplacer le média, pas
+            // de saisir du texte — l'écriture passe par la médiathèque du Cockpit.
+            const mediaSelection =
+                state.mode === 'edit' && state.selection?.kind === 'image'
+                    ? state.selection
+                    : null;
+            const listSelection =
+                state.mode === 'edit' && state.selection?.kind === 'list-item'
+                    ? state.selection
+                    : null;
+            const nextElement =
+                selection?.element ?? mediaSelection?.element ?? listSelection?.element ?? null;
             const previous = activeElementRef.current;
 
-            if (previous && previous !== selection?.element) {
+            if (previous && previous !== nextElement) {
                 previous.removeAttribute(ACTIVE_ATTRIBUTE);
                 activeElementRef.current = null;
             }
 
-            if (!selection) {
+            if (!selection && !mediaSelection && !listSelection) {
                 cancelledRef.current = false;
                 setOverlay(null);
+                setMedia(null);
+                setList(null);
                 return;
             }
 
+            if (listSelection) {
+                const rawIndex = listSelection.element.getAttribute(CUC_INDEX_ATTRIBUTE);
+                const index = rawIndex === null ? -1 : Number.parseInt(rawIndex, 10);
+                activeElementRef.current = listSelection.element;
+                listSelection.element.setAttribute(ACTIVE_ATTRIBUTE, '');
+                setOverlay(null);
+                setMedia(null);
+                setList({
+                    field: listSelection.field,
+                    index: Number.isInteger(index) ? index : -1,
+                    element: listSelection.element,
+                    layout: measure(listSelection.element),
+                });
+                return;
+            }
+
+            if (mediaSelection) {
+                activeElementRef.current = mediaSelection.element;
+                mediaSelection.element.setAttribute(ACTIVE_ATTRIBUTE, '');
+                setOverlay(null);
+                setList(null);
+                setMedia({
+                    field: mediaSelection.field,
+                    element: mediaSelection.element,
+                    layout: measure(mediaSelection.element),
+                });
+                return;
+            }
+
+            if (!selection) return;
             activeElementRef.current = selection.element;
             selection.element.setAttribute(ACTIVE_ATTRIBUTE, '');
+            setMedia(null);
+            setList(null);
             setOverlay(buildOverlay(selection));
         };
 
@@ -120,7 +188,7 @@ export const PreviewEditLayer: React.FC = () => {
         return subscribePreviewEdit(apply);
     }, [embedded]);
 
-    const isOpen = overlay !== null;
+    const isOpen = overlay !== null || media !== null || list !== null;
 
     // Repositionnement : la saisie suit l'élément au défilement et au
     // redimensionnement ; si l'élément disparaît (re-rendu React), on ferme.
@@ -129,16 +197,29 @@ export const PreviewEditLayer: React.FC = () => {
 
         const reposition = () => {
             const current = overlayRef.current;
-            if (!current) return;
-            const element = current.selection.element;
-            if (!element.isConnected) {
-                clearPreviewSelection();
-                return;
+            if (current) {
+                const element = current.selection.element;
+                if (!element.isConnected) {
+                    clearPreviewSelection();
+                    return;
+                }
+                const layout = measure(element);
+                setOverlay((prev) =>
+                    prev && prev.selection.element === element ? { ...prev, layout } : prev
+                );
             }
-            const layout = measure(element);
-            setOverlay((prev) =>
-                prev && prev.selection.element === element ? { ...prev, layout } : prev
-            );
+
+            setMedia((prev) => {
+                if (!prev) return prev;
+                if (!prev.element.isConnected) return null;
+                return { ...prev, layout: measure(prev.element) };
+            });
+
+            setList((prev) => {
+                if (!prev) return prev;
+                if (!prev.element.isConnected) return null;
+                return { ...prev, layout: measure(prev.element) };
+            });
         };
 
         window.addEventListener('scroll', reposition, true);
@@ -203,7 +284,74 @@ export const PreviewEditLayer: React.FC = () => {
         [commit, closeOverlay]
     );
 
-    if (!embedded || !overlay) return null;
+    if (!embedded || (!overlay && !media && !list)) return null;
+
+    if (list) {
+        const listCommandButton = (
+            label: string,
+            command: 'add' | 'remove' | 'move-up' | 'move-down' | 'duplicate'
+        ) => (
+            <button
+                key={command}
+                type="button"
+                title={label}
+                onClick={() => {
+                    post(previewMessage.listCommand(list.field, command, list.index));
+                    closeOverlay();
+                }}
+                className="bg-[#FFE500] text-black font-mono-tech text-[11px] font-bold px-2.5 py-1.5 border border-black/40 hover:opacity-90 transition-opacity"
+            >
+                {label}
+            </button>
+        );
+
+        return (
+            <div
+                data-cuc-list-overlay=""
+                style={{
+                    position: 'fixed',
+                    left: list.layout.left,
+                    top: list.layout.top,
+                    zIndex: 2147483000,
+                }}
+                className="flex items-center gap-1 bg-black/85 p-1"
+            >
+                {listCommandButton('Monter', 'move-up')}
+                {listCommandButton('Descendre', 'move-down')}
+                {listCommandButton('Dupliquer', 'duplicate')}
+                {listCommandButton('Ajouter', 'add')}
+                {listCommandButton('Supprimer', 'remove')}
+            </div>
+        );
+    }
+
+    if (media) {
+        return (
+            <div
+                data-cuc-media-overlay=""
+                style={{
+                    position: 'fixed',
+                    left: media.layout.left,
+                    top: media.layout.top,
+                    maxWidth: media.layout.width,
+                    zIndex: 2147483000,
+                }}
+            >
+                <button
+                    type="button"
+                    onClick={() => {
+                        post(previewMessage.mediaRequest(media.field));
+                        closeOverlay();
+                    }}
+                    className="w-full bg-[#FFE500] text-black font-mono-tech text-[11px] font-bold uppercase tracking-wider px-3 py-2 border-2 border-black/40 hover:opacity-90 transition-opacity"
+                >
+                    Remplacer l’image
+                </button>
+            </div>
+        );
+    }
+
+    if (!overlay) return null;
 
     const { layout, selection, value, fontSize, fontFamily } = overlay;
     const isTextarea = selection.kind === 'textarea';

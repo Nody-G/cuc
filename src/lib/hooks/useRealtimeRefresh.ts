@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
+import { subscribeTable } from '@/lib/supabase/realtime';
 
 /**
  * Abonnement Supabase Realtime de CONFORT pour un composant client.
@@ -12,8 +12,8 @@ import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
  * le contenu initial (fallback ou dernier état chargé) reste affiché.
  *
  * Centralise le patron « composant live sans Realtime » relevé par l'audit :
- *   1. UN canal par composant (même pour plusieurs tables), nom à suffixe
- *      unique garanti par [`createSafeChannel`](src/lib/supabase/realtime.ts:46) ;
+ *   1. UN canal PARTAGÉ par client (`subscribeTable`) : toutes les tables de la
+ *      page tiennent sur le même WebSocket, quel que soit le nombre de hooks ;
  *   2. `refresh` capturé par référence : la souscription ne se recrée JAMAIS
  *      à chaque rendu (fini les re-subscriptions involontaires) ;
  *   3. anti-rebond des rafales d'événements (une écriture Cockpit peut émettre
@@ -52,25 +52,13 @@ export function useRealtimeRefresh(
             }, debounceMs);
         };
 
-        const channel = createSafeChannel(
-            supabase,
-            `realtime:${tableList.join('+')}`,
-            (ch) => {
-                let current = ch;
-                for (const table of tableList) {
-                    current = current.on(
-                        'postgres_changes',
-                        { event: '*', schema: 'public', table },
-                        schedule
-                    );
-                }
-                return current;
-            }
-        );
+        // Canal PARTAGÉ par client : toutes les tables écoutées par cette page
+        // s'enregistrent sur le même WebSocket (cf. `subscribeTable`).
+        const unsubscribers = tableList.map((table) => subscribeTable(supabase, { table }, schedule));
 
         return () => {
             if (timer) clearTimeout(timer);
-            removeSafeChannel(supabase, channel);
+            for (const unsubscribe of unsubscribers) unsubscribe();
         };
     }, [tablesKey, debounceMs]);
 }

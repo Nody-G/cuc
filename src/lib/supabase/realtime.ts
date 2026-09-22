@@ -70,3 +70,97 @@ export function removeSafeChannel(
         /* Déjà retiré ou client fermé : sans conséquence. */
     }
 }
+
+/* ------------------------------------------------------------------ *
+ * Canal PARTAGÉ par client — un seul WebSocket pour toute la page
+ * ------------------------------------------------------------------ */
+
+export interface PostgresChangeConfig {
+    table: string;
+    filter?: string;
+    event?: 'INSERT' | 'UPDATE' | 'DELETE' | '*';
+}
+
+interface SharedChannelEntry {
+    channel: RealtimeChannel;
+    listeners: number;
+    subscribed: boolean;
+}
+
+/** Un canal partagé par client Supabase (et non un canal par écoute). */
+const sharedChannels = new WeakMap<SupabaseClient, SharedChannelEntry>();
+
+/**
+ * Écoute `postgres_changes` sur un **canal partagé par client**.
+ *
+ * Pourquoi : une page publique pouvait ouvrir 5 à 7 canaux Realtime (navigation,
+ * pied de page, réseaux sociaux, page, traductions, annonces, films…), soit
+ * autant de WebSockets par visiteur — la vraie limite de charge, bien avant la
+ * base elle-même. Ici, tous les hooks montés dans le même commit React
+ * s'enregistrent sur le même canal : **un seul WebSocket** en régime nominal.
+ *
+ * La souscription est différée d'un tick (`queueMicrotask`) précisément pour
+ * laisser les autres hooks du même rendu s'enregistrer avant `subscribe()`
+ * (Supabase interdit d'ajouter un écouteur après souscription).
+ *
+ * Doctrine inchangée : Realtime est un CONFORT. Toute exception est absorbée et
+ * la fonction de désabonnement reste sûre.
+ */
+export function subscribeTable(
+    supabase: SupabaseClient,
+    config: PostgresChangeConfig,
+    handler: (payload: { new: unknown; eventType?: string; old?: unknown }) => void
+): () => void {
+    try {
+        let entry = sharedChannels.get(supabase);
+        if (!entry || entry.subscribed) {
+            const channel = supabase.channel(uniqueChannelName('cuc:shared'));
+            const created: SharedChannelEntry = { channel, listeners: 0, subscribed: false };
+            queueMicrotask(() => {
+                if (created.subscribed) return;
+                created.subscribed = true;
+                try {
+                    created.channel.subscribe();
+                } catch {
+                    /* Realtime indisponible : le repli statique reste affiché. */
+                }
+            });
+            sharedChannels.set(supabase, created);
+            entry = created;
+        }
+
+        const target = entry;
+        const state = { active: true };
+
+        target.channel.on(
+            'postgres_changes',
+            {
+                event: config.event ?? '*',
+                schema: 'public',
+                table: config.table,
+                ...(config.filter ? { filter: config.filter } : {}),
+            },
+            (payload) => {
+                if (!state.active) return;
+                handler(payload as { new: unknown; eventType?: string; old?: unknown });
+            }
+        );
+        target.listeners += 1;
+
+        return () => {
+            state.active = false;
+            target.listeners -= 1;
+            if (target.listeners > 0) return;
+            if (sharedChannels.get(supabase) === target) sharedChannels.delete(supabase);
+            try {
+                supabase.removeChannel(target.channel);
+            } catch {
+                /* Déjà retiré ou client fermé : sans conséquence. */
+            }
+        };
+    } catch {
+        return () => {
+            /* Aucun canal créé : rien à retirer. */
+        };
+    }
+}

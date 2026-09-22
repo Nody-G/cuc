@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useSiteData } from '@/components/i18n/SiteDataProvider';
 import { createClient } from '@/lib/supabase/client';
-import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
+import { subscribeTable } from '@/lib/supabase/realtime';
 import {
     DEFAULT_NAVIGATION,
     DEFAULT_FOOTER,
@@ -180,32 +180,33 @@ export function useNavigation(id: string = 'main'): NavigationStructure {
 
         // Canal à nom unique + garde : évite la collision qui provoquait
         // « cannot add postgres_changes callbacks ... after subscribe() ».
-        const channel = createSafeChannel(supabase, `site_navigation:${id}`, (ch) =>
-            ch.on(
-                'postgres_changes',
-                { event: '*', schema: 'public', table: 'site_navigation', filter: `id=eq.${id}` },
-                (payload) => {
-                    const row = payload.new as { structure?: NavigationStructure; is_published?: boolean } | null;
-                    if (!row?.structure || row.is_published === false) {
-                        setStructure(DEFAULT_NAVIGATION.structure);
-                        return;
-                    }
-                    const incoming = row.structure;
-                    if (!incoming.items || !Array.isArray(incoming.items) || incoming.items.length === 0) {
-                        setStructure(DEFAULT_NAVIGATION.structure);
-                        return;
-                    }
-                    setStructure({
-                        items: incoming.items,
-                        cta: incoming.cta || DEFAULT_NAVIGATION.structure.cta,
-                    });
+        // Canal partagé par client (cf. `subscribeTable`) : plus un canal par
+        // table — la barre de navigation, le pied de page et les réseaux sociaux
+        // tiennent sur le même WebSocket.
+        const unsubscribeNavigation = subscribeTable(
+            supabase,
+            { table: 'site_navigation', filter: `id=eq.${id}` },
+            (payload) => {
+                const row = payload.new as { structure?: NavigationStructure; is_published?: boolean } | null;
+                if (!row?.structure || row.is_published === false) {
+                    setStructure(DEFAULT_NAVIGATION.structure);
+                    return;
                 }
-            )
+                const incoming = row.structure;
+                if (!incoming.items || !Array.isArray(incoming.items) || incoming.items.length === 0) {
+                    setStructure(DEFAULT_NAVIGATION.structure);
+                    return;
+                }
+                setStructure({
+                    items: incoming.items,
+                    cta: incoming.cta || DEFAULT_NAVIGATION.structure.cta,
+                });
+            }
         );
 
         return () => {
             cancelled = true;
-            removeSafeChannel(supabase, channel);
+            unsubscribeNavigation();
         };
     }, [id, hasServerData]);
 
@@ -255,33 +256,31 @@ export function useFooter(id: string = 'main'): FooterStructure {
 
         fetchFooter();
 
-        const channel = createSafeChannel(supabase, `site_footer:${id}`, (ch) =>
-            ch.on(
-                'postgres_changes',
-                { event: '*', schema: 'public', table: 'site_footer', filter: `id=eq.${id}` },
-                (payload) => {
-                    const row = payload.new as { structure?: FooterStructure; is_published?: boolean } | null;
-                    if (!row?.structure || row.is_published === false) {
-                        setStructure(DEFAULT_FOOTER.structure);
-                        return;
-                    }
-                    const incoming = row.structure;
-                    if (!incoming.columns || !Array.isArray(incoming.columns)) {
-                        setStructure(DEFAULT_FOOTER.structure);
-                        return;
-                    }
-                    setStructure({
-                        columns: incoming.columns,
-                        brand: incoming.brand || DEFAULT_FOOTER.structure.brand,
-                        legal: incoming.legal || DEFAULT_FOOTER.structure.legal,
-                    });
+        const unsubscribeFooter = subscribeTable(
+            supabase,
+            { table: 'site_footer', filter: `id=eq.${id}` },
+            (payload) => {
+                const row = payload.new as { structure?: FooterStructure; is_published?: boolean } | null;
+                if (!row?.structure || row.is_published === false) {
+                    setStructure(DEFAULT_FOOTER.structure);
+                    return;
                 }
-            )
+                const incoming = row.structure;
+                if (!incoming.columns || !Array.isArray(incoming.columns)) {
+                    setStructure(DEFAULT_FOOTER.structure);
+                    return;
+                }
+                setStructure({
+                    columns: incoming.columns,
+                    brand: incoming.brand || DEFAULT_FOOTER.structure.brand,
+                    legal: incoming.legal || DEFAULT_FOOTER.structure.legal,
+                });
+            }
         );
 
         return () => {
             cancelled = true;
-            removeSafeChannel(supabase, channel);
+            unsubscribeFooter();
         };
     }, [id, hasServerFooter]);
 
@@ -357,19 +356,13 @@ export function useSocialLinks(): SiteSocialLink[] {
         // Canal nommé dans l'exception de production :
         // "cannot add postgres_changes callbacks for realtime:site_social_links:all
         //  after subscribe()". Le nom unique par instance supprime la collision.
-        const channel = createSafeChannel(supabase, 'site_social_links:all', (ch) =>
-            ch.on(
-                'postgres_changes',
-                { event: '*', schema: 'public', table: 'site_social_links' },
-                () => {
-                    fetchLinks();
-                }
-            )
-        );
+        const unsubscribeSocial = subscribeTable(supabase, { table: 'site_social_links' }, () => {
+            fetchLinks();
+        });
 
         return () => {
             cancelled = true;
-            removeSafeChannel(supabase, channel);
+            unsubscribeSocial();
         };
     }, [hasServerSocial]);
 

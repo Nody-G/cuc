@@ -26,7 +26,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
     <>
       {/* Page Header Hero */}
       <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
-        <div className="absolute inset-0 z-0">
+        <div data-cuc-field="hero.bg_image" data-cuc-kind="image" className="absolute inset-0 z-0">
           <Image
             src={heroData?.bg_image || "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-7-scaled.jpg"}
             alt={t('hero.imageAlt')}

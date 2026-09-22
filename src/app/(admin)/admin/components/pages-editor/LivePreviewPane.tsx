@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import type { SitePageContent } from '@/lib/data/site-service';
 import { usePreviewBridge } from '@/lib/hooks/usePreviewBridge';
-import type { PreviewMode } from '@/lib/preview/preview-protocol';
+import type { PreviewListCommand, PreviewMode } from '@/lib/preview/preview-protocol';
 import { CockpitIconButton, cx } from '@/app/(admin)/admin/components/ui';
 
 /**
@@ -49,6 +49,10 @@ interface LivePreviewPaneProps {
     onModeChange?: (mode: PreviewMode) => void;
     /** Valeur validée dans l'aperçu (édition en place) → brouillon du Cockpit. */
     onFieldCommit?: (field: string, value: string) => void;
+    /** L'aperçu demande la médiathèque pour un champ image. */
+    onMediaRequest?: (field: string) => void;
+    /** Commande d'ajout / suppression / réordonnancement d'item de liste. */
+    onListCommand?: (field: string, command: PreviewListCommand, index: number) => void;
     /** Langue servie dans l'aperçu (`/en/...` en anglais). */
     locale?: PreviewLocale;
     /** Demande de bascule de langue (le parent recharge l'URL localisée). */
@@ -85,6 +89,8 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
     mode = 'inspect',
     onModeChange,
     onFieldCommit,
+    onMediaRequest,
+    onListCommand,
     locale = 'fr',
     onLocaleChange,
     className,
@@ -98,6 +104,8 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
         mode,
         onFieldSelect,
         onFieldCommit,
+        onMediaRequest,
+        onListCommand,
     });
 
     const handleRefresh = useCallback(() => {

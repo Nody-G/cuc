@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { useSiteData } from '@/components/i18n/SiteDataProvider';
-import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
+import { subscribeTable } from '@/lib/supabase/realtime';
 import { SitePageContent, DEFAULT_PAGE_CONTENTS, normalizeSlug } from '@/lib/data/site-service';
 import { mergeLocalized } from '@/lib/i18n/localized-merge';
 import { getPreviewDraft, subscribePreviewDraft } from '@/lib/preview/preview-store';
@@ -174,70 +174,52 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
       fetchTranslation();
     }
 
-    // Abonnement Supabase Realtime instantané
-    const channel = createSafeChannel(
+    // Abonnement Realtime instantané — canal PARTAGÉ par client (cf.
+    // `subscribeTable`) : la page et ses traductions tiennent sur le même
+    // WebSocket que la navigation, le pied de page et les réseaux sociaux.
+    const unsubscribePage = subscribeTable(
       supabase,
-      `realtime_page_${cleanSlug.replace(/[^a-zA-Z0-9_-]/g, '_')}`,
-      (ch) =>
-        ch.on(
-          'postgres_changes',
-          {
-            event: '*',
-            schema: 'public',
-            table: 'site_pages',
-            filter: `slug=eq.${cleanSlug}`,
-          },
-          (payload) => {
-            if (payload.new && isMounted) {
-              const updated = payload.new as SitePageContent;
-              setContent((prev) => ({
-                ...prev,
-                ...updated,
-                hero: {
-                  ...prev.hero,
-                  ...(updated.hero || {}),
-                },
-                layout_sections:
-                  updated.layout_sections && updated.layout_sections.length > 0
-                    ? updated.layout_sections
-                    : prev.layout_sections,
-                sections_data: deepMergeSectionsData(
-                  defaultData.sections_data,
-                  updated.sections_data
-                ),
-                sections:
-                  updated.sections && updated.sections.length > 0
-                    ? updated.sections
-                    : prev.sections,
-              }));
-            }
-          }
-        )
+      { table: 'site_pages', filter: `slug=eq.${cleanSlug}` },
+      (payload) => {
+        if (payload.new && isMounted) {
+          const updated = payload.new as SitePageContent;
+          setContent((prev) => ({
+            ...prev,
+            ...updated,
+            hero: {
+              ...prev.hero,
+              ...(updated.hero || {}),
+            },
+            layout_sections:
+              updated.layout_sections && updated.layout_sections.length > 0
+                ? updated.layout_sections
+                : prev.layout_sections,
+            sections_data: deepMergeSectionsData(
+              defaultData.sections_data,
+              updated.sections_data
+            ),
+            sections:
+              updated.sections && updated.sections.length > 0
+                ? updated.sections
+                : prev.sections,
+          }));
+        }
+      }
     );
 
-    const translationChannel =
+    const unsubscribeTranslation =
       locale === 'fr'
         ? null
-        : createSafeChannel(
+        : subscribeTable(
           supabase,
-          `realtime_translations_${cleanSlug.replace(/[^a-zA-Z0-9_-]/g, '_')}`,
-          (ch) =>
-            ch.on(
-              'postgres_changes',
-              {
-                event: '*',
-                schema: 'public',
-                table: 'site_translations',
-                filter: `entity_id=eq.${cleanSlug}`,
-              },
-              () => fetchTranslation()
-            )
+          { table: 'site_translations', filter: `entity_id=eq.${cleanSlug}` },
+          () => fetchTranslation()
         );
 
     return () => {
       isMounted = false;
-      removeSafeChannel(supabase, channel);
-      if (translationChannel) removeSafeChannel(supabase, translationChannel);
+      unsubscribePage();
+      unsubscribeTranslation?.();
     };
   }, [cleanSlug, locale, hasServerPage]);
 

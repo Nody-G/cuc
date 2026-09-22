@@ -32,6 +32,7 @@ import { PageRevisionsPanel } from './PageRevisionsPanel';
 import { LivePreviewPane } from './pages-editor/LivePreviewPane';
 import { buildPreviewUrl } from '@/lib/preview/preview-url';
 import { setFieldValue } from '@/lib/preview/field-path';
+import { applyListCommand, type ListCommand } from '@/lib/preview/list-command';
 import type { PreviewMode } from '@/lib/preview/preview-protocol';
 
 interface PagesEditorViewProps {
@@ -139,6 +140,19 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     (field: string, value: string) => {
       if (isTranslationLoading) return;
       setActiveData((prev) => setFieldValue(prev, field, value));
+    },
+    [isTranslationLoading, setActiveData]
+  );
+
+  /**
+   * Commandes de listes (ajouter, supprimer, réordonner, dupliquer) : le moteur
+   * pur garantit qu'aucun item n'est inventé (liste vide) et qu'aucune liste
+   * rendue n'est vidée ; l'écriture vise le brouillon de la langue active.
+   */
+  const handlePreviewListCommand = useCallback(
+    (field: string, command: ListCommand, index: number) => {
+      if (isTranslationLoading) return;
+      setActiveData((prev) => applyListCommand(prev, field, command, index));
     },
     [isTranslationLoading, setActiveData]
   );
@@ -909,6 +923,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
                   onFieldSelect={previewMode === 'inspect' ? handlePreviewFieldFocus : undefined}
                   locale={editorLocale}
                   onLocaleChange={handleLocaleChange}
+                  onMediaRequest={setMediaPickerTarget}
+                  onListCommand={handlePreviewListCommand}
                 />
               </div>
             </div>
@@ -923,6 +939,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
               onFieldSelect={previewMode === 'inspect' ? handlePreviewFieldFocus : undefined}
               locale={editorLocale}
               onLocaleChange={handleLocaleChange}
+              onMediaRequest={setMediaPickerTarget}
+              onListCommand={handlePreviewListCommand}
             />
           )}
         </div>
@@ -1073,32 +1091,19 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
           isOpen={true}
           onClose={() => setMediaPickerTarget(null)}
           onSelectUrl={(url) => {
-            if (mediaPickerTarget === 'hero_bg') {
-              setFormData({
-                ...formData,
-                hero: { ...formData.hero, bg_image: url },
-              });
-            } else if (mediaPickerTarget === 'og_image') {
-              setFormData({ ...formData, og_image: url });
-            } else if (mediaPickerTarget.startsWith('workshop_img_')) {
-              const idx = parseInt(mediaPickerTarget.replace('workshop_img_', ''), 10);
+            const target = mediaPickerTarget;
+            if (target === 'hero_bg') {
+              setActiveData((prev) => ({ ...prev, hero: { ...prev.hero, bg_image: url } }));
+            } else if (target === 'og_image') {
+              setActiveData((prev) => ({ ...prev, og_image: url }));
+            } else if (target.startsWith('workshop_img_')) {
+              const idx = parseInt(target.replace('workshop_img_', ''), 10);
               handleUpdateWorkshop(idx, { img: url });
-            } else if (mediaPickerTarget.startsWith('sections_data.')) {
-              // Cible générique `sections_data.<bloc>.<champ>` : écrit la valeur
-              // dans le bloc correspondant sans dupliquer la logique par page.
-              const [, block, field] = mediaPickerTarget.split('.');
-              if (block && field) {
-                setFormData((prev) => ({
-                  ...prev,
-                  sections_data: {
-                    ...(prev.sections_data || {}),
-                    [block]: {
-                      ...((prev.sections_data || {})[block] || {}),
-                      [field]: url,
-                    },
-                  },
-                }));
-              }
+            } else {
+              // Cible générique : chemin complet (`hero.bg_image`,
+              // `sections_data.<bloc>.<champ>`, `sections_data.<bloc>.items.<i>.<champ>`),
+              // écrit dans la langue active (brouillon FR ou overlay EN).
+              setActiveData((prev) => setFieldValue(prev, target, url));
             }
             setMediaPickerTarget(null);
           }}

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 
 import { getActiveAnnouncement, getSiteSettings, SiteAnnouncement } from '@/lib/data/site-service';
 import { createClient } from '@/lib/supabase/client';
-import { createSafeChannel, removeSafeChannel } from '@/lib/supabase/realtime';
+import { subscribeTable } from '@/lib/supabase/realtime';
 
 export const AnnouncementBanner: React.FC = () => {
   const [announcement, setAnnouncement] = useState<SiteAnnouncement | null>(null);
@@ -34,29 +34,27 @@ export const AnnouncementBanner: React.FC = () => {
       }
     });
 
-    // 2. Souscription Supabase Realtime en direct (canal à nom unique + garde)
+    // 2. Souscription Realtime — canal PARTAGÉ par client (cf. `subscribeTable`).
     const supabase = createClient();
-    const channel = createSafeChannel(supabase, 'realtime:site_announcements', (ch) =>
-      ch.on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'site_announcements' },
-        (payload) => {
-          if (payload.eventType === 'DELETE') {
-            setAnnouncement(null);
+    const unsubscribe = subscribeTable(
+      supabase,
+      { table: 'site_announcements' },
+      (payload) => {
+        if (payload.eventType === 'DELETE') {
+          setAnnouncement(null);
+        } else {
+          const row = payload.new as SiteAnnouncement;
+          if (row && row.is_active) {
+            setAnnouncement(row);
           } else {
-            const row = payload.new as SiteAnnouncement;
-            if (row && row.is_active) {
-              setAnnouncement(row);
-            } else {
-              setAnnouncement(null);
-            }
+            setAnnouncement(null);
           }
         }
-      )
+      }
     );
 
     return () => {
-      removeSafeChannel(supabase, channel);
+      unsubscribe();
     };
   }, []);
 
