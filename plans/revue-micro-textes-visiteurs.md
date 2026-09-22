@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T00:39:52.682Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T00:43:24.208Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -8,11 +8,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | Catégorie | Occurrences |
 | --- | ---: |
 | ANNOTÉ — éditable en place | 58 |
-| DONNÉES — éditable par un écran existant | 176 |
+| DONNÉES — éditable par un écran existant | 178 |
 | TRADUCTION — à brancher sur une clé de page | 594 |
-| CODÉ EN DUR — dette (ne suit ni la langue ni le Cockpit) | 83 |
+| CODÉ EN DUR — dette (ne suit ni la langue ni le Cockpit) | 82 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 17 |
-| **Total** | **928** |
+| **Total** | **929** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -263,13 +263,15 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.160 — `{pillars[0].paragraph1}`
 - l.163 — `{pillars[0].paragraph2}`
 - l.169 — `{pillars[0].cta}`
-- l.216 — `{pillars[1].paragraph2}`
-- l.222 — `{pillars[1].cta}`
-- l.236 — `{pillars[2].tag}`
-- l.239 — `{pillars[2].title}`
-- l.244 — `{pillars[2].paragraph1}`
-- l.247 — `{pillars[2].paragraph2}`
-- l.253 — `{pillars[2].cta}`
+- l.203 — `{pillars[1].tag}`
+- l.211 — `{pillars[1].paragraph1}`
+- l.214 — `{pillars[1].paragraph2}`
+- l.220 — `{pillars[1].cta}`
+- l.234 — `{pillars[2].tag}`
+- l.237 — `{pillars[2].title}`
+- l.242 — `{pillars[2].paragraph1}`
+- l.245 — `{pillars[2].paragraph2}`
+- l.251 — `{pillars[2].cta}`
 
 ### `src\components\sections\films\CucFilmsShowcase.tsx`
 
@@ -843,7 +845,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.116 — `{evt.cta_text || t('learnMore')}`
 - l.146 — `{/* 1. SPECTACLES (Fallback) */}`
 - l.187 — `{/* 2. ANIMATIONS */}`
-- l.230 — `{/* 3. TEAM BUILDING */}`
+- l.228 — `{/* 3. TEAM BUILDING */}`
 
 ### `src\components\sections\films\CucFilmsShowcase.tsx`
 
@@ -1384,7 +1386,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\components\sections\events\EventsPillarsSection.tsx`
 
 - l.136 — `Campus Univers Cascades`
-- l.203 — `SENSATIONS FORTES GRAND PUBLIC`
 
 ### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
 

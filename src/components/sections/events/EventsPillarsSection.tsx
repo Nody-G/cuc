@@ -200,7 +200,7 @@ export const EventsPillarsSection: React.FC = () => {
                 <div className="lg:col-span-7 space-y-4 order-1 lg:order-2">
                   <div className="mb-4">
                     <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1">
-                      SENSATIONS FORTES GRAND PUBLIC
+                      {pillars[1].tag}
                     </span>
                     <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
                       ANIMATIONS &amp; FREEJUMP AIRBAG
@@ -208,9 +208,7 @@ export const EventsPillarsSection: React.FC = () => {
                   </div>
 
                   <p className="text-sm font-tech text-zinc-300 leading-relaxed">
-                    {t.rich('animationsBody', {
-                      strong: (chunks) => <strong className="text-white">{chunks}</strong>,
-                    })}
+                    {pillars[1].paragraph1}
                   </p>
                   <p className="text-xs font-tech text-zinc-400 leading-relaxed">
                     {pillars[1].paragraph2}
