@@ -21,6 +21,54 @@ import {
 } from 'lucide-react';
 
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+import { mergeSectionItems, usePageSectionData } from '@/lib/hooks/usePageSectionData';
+
+/**
+ * Copie certifiée du bloc « workshop » de la page internationale.
+ *
+ * Elle sert de **repli** : chaque texte est éditable en place dans le Mode Studio
+ * (`sections_data.workshop.*`), y compris les points de programme et les visuels
+ * de la page. Aucune valeur vide n'est publiée — le repli reste la référence.
+ */
+interface WorkshopHighlight {
+  value?: string;
+  label?: string;
+}
+
+interface WorkshopCurriculumItem {
+  title?: string;
+  desc?: string;
+}
+
+const HIGHLIGHTS_DEFAULT: Required<WorkshopHighlight>[] = [
+  { value: '14 DAYS', label: 'Intensive Training Camp' },
+  { value: '21M', label: 'CUC Stunt High Fall Tower' },
+  { value: '90 BEDS', label: 'On-Site Accommodation' },
+  { value: '100%', label: 'Real Action Showreel Video' },
+];
+
+const CURRICULUM_DEFAULT: Required<WorkshopCurriculumItem>[] = [
+  {
+    title: 'FIGHT CHOREOGRAPHY & HONG KONG ACTION DESIGN',
+    desc: 'Camera angles, punch-selling techniques, multi-opponent combat drills, and weapons flow.',
+  },
+  {
+    title: 'WIREWORK & 3D RIGGING',
+    desc: 'Harness flights, deadman drops, air-ramps, and superhero wall-running stunts.',
+  },
+  {
+    title: 'HIGH FALLS UP TO 21 METERS',
+    desc: 'Defenestrations, backwards drops, and high-impact landing on giant calibrated airbags.',
+  },
+  {
+    title: 'FULL BODY BURN (HUMAN TORCH)',
+    desc: 'Pyro safety protocols, protective Nomex suits, fire retardant gels, and emergency procedures.',
+  },
+  {
+    title: 'SHOWREEL ACTION PRODUCTION',
+    desc: 'Professional cinematic camera crew shoots your dynamic action scene at the end of the camp.',
+  },
+];
 
 export default function StuntWorkshopCucPage() {
   const t = useTranslations('stuntWorkshop');
@@ -38,6 +86,74 @@ export default function StuntWorkshopCucPage() {
   const ctaPrimaryText = content.hero?.cta_primary_text || 'Apply for Next Session';
   const ctaSecondaryText = content.hero?.cta_secondary_text || 'Inquire & Information';
   const ctaSecondaryLink = content.hero?.cta_secondary_link || '/contact-cuc';
+
+  const workshop = usePageSectionData<{
+    breadcrumb_home?: string;
+    breadcrumb_current?: string;
+    highlights?: WorkshopHighlight[];
+    program_badge?: string;
+    program_tag?: string;
+    program_title?: string;
+    program_intro?: string;
+    curriculum?: WorkshopCurriculumItem[];
+    location_title?: string;
+    location_body?: string;
+    location_note?: string;
+    housing_title?: string;
+    housing_body?: string;
+    housing_note?: string;
+    certificate_title?: string;
+    certificate_body?: string;
+    certificate_note?: string;
+    cta_title?: string;
+    cta_body?: string;
+    cta_primary?: string;
+    cta_secondary?: string;
+  }>('workshop');
+
+  const highlights = mergeSectionItems(
+    HIGHLIGHTS_DEFAULT,
+    workshop?.highlights ? { items: workshop.highlights } : null
+  );
+  const curriculum = mergeSectionItems(
+    CURRICULUM_DEFAULT,
+    workshop?.curriculum ? { items: workshop.curriculum } : null
+  );
+
+  const breadcrumbHome = workshop?.breadcrumb_home || 'HOME / ACCUEIL';
+  const breadcrumbCurrent = workshop?.breadcrumb_current || 'INTERNATIONAL STUNT WORKSHOP';
+  const programBadge = workshop?.program_badge || 'PROGRAMME INTENSIF';
+  const programTag = workshop?.program_tag || 'CURRICULUM INTERNATIONAL';
+  const programTitle = workshop?.program_title || 'INTERNATIONAL STUNT PERFORMER TRAINING';
+  const programIntro =
+    workshop?.program_intro ||
+    'The CUC International Stunt Workshop is designed for physical actors, martial artists, gymnasts, parkour athletes and professional stuntmen seeking world-class certification. Taught in both English and French by high-profile action coordinators with credits on John Wick 4, Fast & Furious, and James Bond.';
+  const locationTitle = workshop?.location_title || 'LOCATION & ACCESS';
+  const locationBody =
+    workshop?.location_body ||
+    'Campus Univers Cascades is located in Le Cateau-Cambrésis (59360), Northern France. Just 2 hours drive from Paris CDG International Airport, and 1 hour from Lille or Brussels (Belgium).';
+  const locationNote =
+    workshop?.location_note ||
+    'Airport shuttles and train station pickups available upon booking.';
+  const housingTitle = workshop?.housing_title || 'FULL BOARD HOUSING';
+  const housingBody =
+    workshop?.housing_body ||
+    'Stay on-site in student housing facilities (90 beds total). All three meals (breakfast, lunch, dinner) are served daily by our professional catering staff, specifically calibrated for high athletic performance.';
+  const housingNote =
+    workshop?.housing_note ||
+    'Single or shared rooms with high-speed Wi-Fi and laundry facilities.';
+  const certificateTitle = workshop?.certificate_title || 'OFFICIAL CERTIFICATE';
+  const certificateBody =
+    workshop?.certificate_body ||
+    'Graduates receive the official CUC Workshop Certificate detailing all hours and disciplines completed during the session.';
+  const certificateNote =
+    workshop?.certificate_note || 'Includes raw 4K footage of your choreographed action scenes.';
+  const ctaTitle = workshop?.cta_title || 'READY TO ELEVATE YOUR ACTION CAREER?';
+  const ctaBody =
+    workshop?.cta_body ||
+    'Spaces are limited to ensure maximum individual camera time and safety coaching. Apply today to secure your spot for the upcoming international session.';
+  const ctaPrimary = workshop?.cta_primary || 'Apply for International Workshop';
+  const ctaSecondary = workshop?.cta_secondary || 'Contact Admissions';
 
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
@@ -60,11 +176,20 @@ export default function StuntWorkshopCucPage() {
 
           <div className="relative z-10 page-shell">
             <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
-              <Link href="/" className="hover:text-[#FFE500] transition-colors">
-                HOME / ACCUEIL
+              <Link
+                href="/"
+                data-cuc-field="sections_data.workshop.breadcrumb_home"
+                className="hover:text-[#FFE500] transition-colors"
+              >
+                {breadcrumbHome}
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-              <span className="text-[#FFE500]">INTERNATIONAL STUNT WORKSHOP</span>
+              <span
+                data-cuc-field="sections_data.workshop.breadcrumb_current"
+                className="text-[#FFE500]"
+              >
+                {breadcrumbCurrent}
+              </span>
             </div>
 
             <div className="inline-flex items-center gap-2 mb-4">
@@ -133,22 +258,23 @@ export default function StuntWorkshopCucPage() {
         <section className="py-8 bg-[#0c0c10] border-b border-zinc-800">
           <div className="page-shell">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 font-mono-tech text-xs">
-              <div className="border-l-2 border-[#FFE500] pl-4">
-                <div className="text-3xl sm:text-4xl font-display text-white">14 DAYS</div>
-                <div className="text-zinc-400 uppercase">Intensive Training Camp</div>
-              </div>
-              <div className="border-l-2 border-[#FFE500] pl-4">
-                <div className="text-3xl sm:text-4xl font-display text-[#FFE500]">21M</div>
-                <div className="text-zinc-400 uppercase">CUC Stunt High Fall Tower</div>
-              </div>
-              <div className="border-l-2 border-[#FFE500] pl-4">
-                <div className="text-3xl sm:text-4xl font-display text-white">90 BEDS</div>
-                <div className="text-zinc-400 uppercase">On-Site Accommodation</div>
-              </div>
-              <div className="border-l-2 border-[#FFE500] pl-4">
-                <div className="text-3xl sm:text-4xl font-display text-[#FFE500]">100%</div>
-                <div className="text-zinc-400 uppercase">Real Action Showreel Video</div>
-              </div>
+              {highlights.map((highlight, index) => (
+                <div key={index} className="border-l-2 border-[#FFE500] pl-4">
+                  <div
+                    data-cuc-field={`sections_data.workshop.highlights.${index}.value`}
+                    className={`text-3xl sm:text-4xl font-display ${index % 2 === 0 ? 'text-white' : 'text-[#FFE500]'
+                      }`}
+                  >
+                    {highlight.value}
+                  </div>
+                  <div
+                    data-cuc-field={`sections_data.workshop.highlights.${index}.label`}
+                    className="text-zinc-400 uppercase"
+                  >
+                    {highlight.label}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -160,72 +286,50 @@ export default function StuntWorkshopCucPage() {
               <div className="lg:col-span-7 space-y-6">
                 <div className="inline-flex items-center gap-2">
                   <StuntBadge variant="yellow" icon={<Zap className="w-3.5 h-3.5" />}>
-                    PROGRAMME INTENSIF
+                    <span data-cuc-field="sections_data.workshop.program_badge">{programBadge}</span>
                   </StuntBadge>
-                  <span className="text-xs font-mono-tech text-zinc-400">CURRICULUM INTERNATIONAL</span>
+                  <span
+                    data-cuc-field="sections_data.workshop.program_tag"
+                    className="text-xs font-mono-tech text-zinc-400"
+                  >
+                    {programTag}
+                  </span>
                 </div>
 
-                <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white">
-                  INTERNATIONAL STUNT PERFORMER TRAINING
+                <h2
+                  data-cuc-field="sections_data.workshop.program_title"
+                  className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white"
+                >
+                  {programTitle}
                 </h2>
 
-                <p className="text-sm font-tech text-zinc-300 leading-relaxed">
-                  The CUC International Stunt Workshop is designed for physical actors, martial artists,
-                  gymnasts, parkour athletes and professional stuntmen seeking world-class certification.
-                  Taught in both English and French by high-profile action coordinators with credits on
-                  <em> John Wick 4</em>, <em>Fast & Furious</em>, and <em>James Bond</em>.
+                <p
+                  data-cuc-field="sections_data.workshop.program_intro"
+                  className="text-sm font-tech text-zinc-300 leading-relaxed"
+                >
+                  {programIntro}
                 </p>
 
                 <div className="space-y-3 text-xs font-tech text-zinc-300">
-                  <div className="p-3.5 bg-[#0e0e14] border border-zinc-800 flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-[#FFE500] shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-white font-mono-tech block mb-0.5">
-                        FIGHT CHOREOGRAPHY & HONG KONG ACTION DESIGN
-                      </strong>
-                      Camera angles, punch-selling techniques, multi-opponent combat drills, and weapons flow.
+                  {curriculum.map((item, index) => (
+                    <div
+                      key={index}
+                      className="p-3.5 bg-[#0e0e14] border border-zinc-800 flex items-start gap-3"
+                    >
+                      <CheckCircle2 className="w-4 h-4 text-[#FFE500] shrink-0 mt-0.5" />
+                      <div>
+                        <strong
+                          data-cuc-field={`sections_data.workshop.curriculum.${index}.title`}
+                          className="text-white font-mono-tech block mb-0.5"
+                        >
+                          {item.title}
+                        </strong>
+                        <span data-cuc-field={`sections_data.workshop.curriculum.${index}.desc`}>
+                          {item.desc}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="p-3.5 bg-[#0e0e14] border border-zinc-800 flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-[#FFE500] shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-white font-mono-tech block mb-0.5">
-                        WIREWORK & 3D RIGGING
-                      </strong>
-                      Harness flights, deadman drops, air-ramps, and superhero wall-running stunts.
-                    </div>
-                  </div>
-
-                  <div className="p-3.5 bg-[#0e0e14] border border-zinc-800 flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-[#FFE500] shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-white font-mono-tech block mb-0.5">
-                        HIGH FALLS UP TO 21 METERS
-                      </strong>
-                      Defenestrations, backwards drops, and high-impact landing on giant calibrated airbags.
-                    </div>
-                  </div>
-
-                  <div className="p-3.5 bg-[#0e0e14] border border-zinc-800 flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-[#FFE500] shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-white font-mono-tech block mb-0.5">
-                        FULL BODY BURN (HUMAN TORCH)
-                      </strong>
-                      Pyro safety protocols, protective Nomex suits, fire retardant gels, and emergency procedures.
-                    </div>
-                  </div>
-
-                  <div className="p-3.5 bg-[#0e0e14] border border-zinc-800 flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-[#FFE500] shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-white font-mono-tech block mb-0.5">
-                        SHOWREEL ACTION PRODUCTION
-                      </strong>
-                      Professional cinematic camera crew shoots your dynamic action scene at the end of the camp.
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
 
@@ -284,43 +388,72 @@ export default function StuntWorkshopCucPage() {
               <div className="bg-[#121218] border border-zinc-800 p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <MapPin className="w-4 h-4 text-[#FFE500]" />
-                  <h3 className="font-display uppercase text-lg text-white">LOCATION & ACCESS</h3>
+                  <h3
+                    data-cuc-field="sections_data.workshop.location_title"
+                    className="font-display uppercase text-lg text-white"
+                  >
+                    {locationTitle}
+                  </h3>
                 </div>
-                <p className="text-xs font-tech text-zinc-300 leading-relaxed mb-4">
-                  Campus Univers Cascades is located in <strong>Le Cateau-Cambrésis (59360)</strong>,
-                  Northern France. Just 2 hours drive from Paris CDG International Airport,
-                  and 1 hour from Lille or Brussels (Belgium).
+                <p
+                  data-cuc-field="sections_data.workshop.location_body"
+                  className="text-xs font-tech text-zinc-300 leading-relaxed mb-4"
+                >
+                  {locationBody}
                 </p>
-                <div className="text-[11px] font-mono-tech text-zinc-500">
-                  Airport shuttles and train station pickups available upon booking.
+                <div
+                  data-cuc-field="sections_data.workshop.location_note"
+                  className="text-[11px] font-mono-tech text-zinc-500"
+                >
+                  {locationNote}
                 </div>
               </div>
 
               <div className="bg-[#121218] border border-zinc-800 p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <Bed className="w-4 h-4 text-[#FFE500]" />
-                  <h3 className="font-display uppercase text-lg text-white">FULL BOARD HOUSING</h3>
+                  <h3
+                    data-cuc-field="sections_data.workshop.housing_title"
+                    className="font-display uppercase text-lg text-white"
+                  >
+                    {housingTitle}
+                  </h3>
                 </div>
-                <p className="text-xs font-tech text-zinc-300 leading-relaxed mb-4">
-                  Stay on-site in student housing facilities (90 beds total). All three meals
-                  (breakfast, lunch, dinner) are served daily by our professional catering staff,
-                  specifically calibrated for high athletic performance.
+                <p
+                  data-cuc-field="sections_data.workshop.housing_body"
+                  className="text-xs font-tech text-zinc-300 leading-relaxed mb-4"
+                >
+                  {housingBody}
                 </p>
-                <div className="text-[11px] font-mono-tech text-zinc-500">
-                  Single or shared rooms with high-speed Wi-Fi and laundry facilities.
+                <div
+                  data-cuc-field="sections_data.workshop.housing_note"
+                  className="text-[11px] font-mono-tech text-zinc-500"
+                >
+                  {housingNote}
                 </div>
               </div>
 
               <div className="bg-[#121218] border border-zinc-800 p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <Award className="w-4 h-4 text-[#FFE500]" />
-                  <h3 className="font-display uppercase text-lg text-white">OFFICIAL CERTIFICATE</h3>
+                  <h3
+                    data-cuc-field="sections_data.workshop.certificate_title"
+                    className="font-display uppercase text-lg text-white"
+                  >
+                    {certificateTitle}
+                  </h3>
                 </div>
-                <p className="text-xs font-tech text-zinc-300 leading-relaxed mb-4">
-                  Graduates receive the official CUC Workshop Certificate detailing all hours and disciplines completed during the session.
+                <p
+                  data-cuc-field="sections_data.workshop.certificate_body"
+                  className="text-xs font-tech text-zinc-300 leading-relaxed mb-4"
+                >
+                  {certificateBody}
                 </p>
-                <div className="text-[11px] font-mono-tech text-zinc-500">
-                  Includes raw 4K footage of your choreographed action scenes.
+                <div
+                  data-cuc-field="sections_data.workshop.certificate_note"
+                  className="text-[11px] font-mono-tech text-zinc-500"
+                >
+                  {certificateNote}
                 </div>
               </div>
             </div>
@@ -336,12 +469,17 @@ export default function StuntWorkshopCucPage() {
                   className="w-14 h-14 object-contain drop-shadow-[0_0_15px_rgba(255,229,0,0.35)]"
                 />
               </div>
-              <h3 className="text-3xl font-display uppercase text-white mb-2">
-                READY TO ELEVATE YOUR ACTION CAREER?
+              <h3
+                data-cuc-field="sections_data.workshop.cta_title"
+                className="text-3xl font-display uppercase text-white mb-2"
+              >
+                {ctaTitle}
               </h3>
-              <p className="text-xs font-tech text-zinc-400 max-w-xl mx-auto mb-6">
-                Spaces are limited to ensure maximum individual camera time and safety coaching.
-                Apply today to secure your spot for the upcoming international session.
+              <p
+                data-cuc-field="sections_data.workshop.cta_body"
+                className="text-xs font-tech text-zinc-400 max-w-xl mx-auto mb-6"
+              >
+                {ctaBody}
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <TacticalButton
@@ -349,11 +487,13 @@ export default function StuntWorkshopCucPage() {
                   size="lg"
                   onClick={() => setIsApplicationOpen(true)}
                 >
-                  Apply for International Workshop
+                  <span data-cuc-field="sections_data.workshop.cta_primary">{ctaPrimary}</span>
                 </TacticalButton>
                 <Link href="/contact-cuc">
                   <TacticalButton variant="secondary" size="lg">
-                    Contact Admissions
+                    <span data-cuc-field="sections_data.workshop.cta_secondary">
+                      {ctaSecondary}
+                    </span>
                   </TacticalButton>
                 </Link>
               </div>

@@ -19,6 +19,8 @@ import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 
 export default function SpectaclesCascadeursYamakasiPage() {
   const t = useTranslations('spectacles');
+  /** Chrome commun : mention de diffusion (fin de paragraphe). */
+  const chrome = useTranslations('commonChrome');
   const { content } = usePageDynamicContent('spectacles-cascadeurs-yamakasi');
   const specsItems = t.raw('specsItems') as { label: string; value: string }[];
 
@@ -217,7 +219,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
                   <p className="text-sm font-tech text-zinc-300 leading-relaxed">
                     Devant plus de 15 000 spectateurs, la CUC Stunt Team a assuré le show d&apos;ouverture
                     avec des cascades synchronisées, des sauts depuis les structures aériennes et des combats
-                    retransmis sur écrans géants.
+                    {chrome('broadcastNote')}
                   </p>
 
                   <div className="pt-2">

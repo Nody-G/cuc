@@ -1216,6 +1216,24 @@
         "teamBannersIntro": "Retrouvez les affiches des productions françaises et internationales sur lesquelles nos équipes sont intervenues. Cliquez sur une affiche pour la voir en haute résolution.",
         "teamBannersHdLabel": "AFFICHE HD"
     },
+    "commonChrome": {
+        "breadcrumbHome": "ACCUEIL",
+        "brandName": "CAMPUS UNIVERS CASCADES",
+        "brandTagline": "Stunt Academy & Team",
+        "brandTaglineEst": "Stunt Academy & Team • Est. 2008",
+        "campusCity": "Le Cateau-Cambrésis (59)",
+        "eventsAnimationsBadge": "CUC EVENTS ANIMATIONS",
+        "siteCampus": "CAMPUS CUC",
+        "siteEvents": "CUC EVENTS",
+        "siteStuntTeam": "CUC STUNT TEAM",
+        "campusNameTitle": "Campus Univers Cascades",
+        "heroTitleTail": "Cascades",
+        "locationLabel": "LE CATEAU-CAMBRÉSIS",
+        "trainingPathTitle": "Trajectoire & Philosophie",
+        "otherCoordinatorsTitle": "Autres Coordinateurs & Instructeurs",
+        "broadcastNote": "retransmis sur écrans géants.",
+        "eventsAgencySubtitle": "Spectacles • Animations • Team Building"
+    },
     "applicationModal": {
         "closeAria": "Fermer",
         "badge": "CANDIDATURE & ADMISSIONS",

@@ -1,6 +1,6 @@
 # Revue — Couverture des champs éditables (Mode Studio)
 
-Généré le 2026-09-22T01:03:44.887Z par `scripts/audit_cuc_fields.mjs`.
+Généré le 2026-09-22T01:11:40.871Z par `scripts/audit_cuc_fields.mjs`.
 
 ## 1. Couverture par page
 
@@ -9,7 +9,7 @@ Généré le 2026-09-22T01:03:44.887Z par `scripts/audit_cuc_fields.mjs`.
 | `/` | 64 | 0 | `src\components\ui\ParallaxHero.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\ui\parallax-hero\HeroHudOverlay.tsx`, `src\components\sections\home\HomeAboutSection.tsx`, `src\components\sections\home\HomeTournagesSection.tsx`, `src\components\sections\home\HomeVirtualTourSection.tsx`, `src\components\sections\home\HomeQualiopiSection.tsx`, `src\components\sections\home\HomePartnersSection.tsx`, `src\components\sections\home\HomeSocialSection.tsx` | ✅ |
 | `formation-de-cascadeur` | 24 | 9 | `src\components\sections\formation\FormationHeroSection.tsx`, `src\components\sections\formation\FormationFormulesSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\formation\FormationDisciplinesExplorer.tsx`, `src\components\sections\formation\FormationPedagogyModalities.tsx` | ✅ |
 | `stages-cascades-parkour-2` | 5 | 0 | `src\components\sections\stages\StagesHeroSection.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
-| `stunt-workshop-cuc` | 6 | 0 | `src\app\(site)\[locale]\stunt-workshop-cuc\page.tsx` | ✅ |
+| `stunt-workshop-cuc` | 25 | 0 | `src\app\(site)\[locale]\stunt-workshop-cuc\page.tsx` | ✅ |
 | `equipe-cascadeurs-pro` | 5 | 0 | `src\app\(site)\[locale]\equipe-cascadeurs-pro\page.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
 | `cuc-team-cascadeur` | 24 | 2 | `src\components\sections\team\TeamHeroSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\team\TeamProductionGalleries.tsx`, `src\components\sections\team\TeamBannersSection.tsx`, `src\components\sections\team\TeamProductionServices.tsx` | ✅ |
 | `cuc-events-agence` | 20 | 6 | `src\components\sections\events\EventsHeroSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\events\EventsPillarsSection.tsx`, `src\components\sections\events\EventsGuaranteesSection.tsx` | ✅ |
@@ -38,6 +38,7 @@ Natures autorisées : `text`, `textarea`, `image`, `link`, `list-item`.
 - `src\components\sections\home\HomePartnersSection.tsx (3)`
 - `src\components\sections\home\HomeSocialSection.tsx (5)`
 - `src\components\sections\stages\StagesGridSection.tsx (11)`
+- `src\app\(site)\[locale]\stunt-workshop-cuc\page.tsx (4)`
 - `src\components\sections\team\TeamProductionGalleries.tsx (3)`
 - `src\components\sections\team\TeamBannersSection.tsx (1)`
 - `src\components\sections\visite\VisiteFacilitiesDetail.tsx (7)`

@@ -18,6 +18,8 @@ interface EventsHeroSectionProps {
 
 export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) => {
   const t = useTranslations('eventsAgence');
+  /** Fil d'Ariane commun — éditable via « Micro-textes du site ». */
+  const chrome = useTranslations('commonChrome');
   const badge = hero?.badge || t('heroBadge');
   const title = hero?.title || t('heroTitle');
   const subtitle = hero?.subtitle || t('heroSubtitle');
@@ -46,7 +48,7 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
       <div className="relative z-10 page-shell">
         <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
           <Link href="/" className="hover:text-[#FFE500] transition-colors">
-            ACCUEIL
+            {chrome('breadcrumbHome')}
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
           <span className="text-[#FFE500]">CUC EVENTS & SPECTACLES</span>

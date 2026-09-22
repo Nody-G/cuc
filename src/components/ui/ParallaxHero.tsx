@@ -37,6 +37,8 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const tHero = useTranslations('home.hero');
+  /** Chrome commun : la seconde ligne du titre est un libellé éditable. */
+  const chrome = useTranslations('commonChrome');
   /**
    * Copies localisées par clé de visuel (`home.hero.slides.<key>`) et métriques
    * (`home.hero.metrics`) : plus aucune chaîne rédactionnelle dans ce fichier,
@@ -288,7 +290,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
               <>
                 Campus Univers <br />
                 <span className="text-[#FFE500] drop-shadow-[0_0_35px_rgba(255,229,0,0.32)]">
-                  Cascades
+                  {chrome('heroTitleTail')}
                 </span>
               </>
             )}

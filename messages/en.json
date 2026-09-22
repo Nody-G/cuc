@@ -1216,6 +1216,24 @@
         "teamBannersIntro": "Browse the posters of the French and international productions our teams worked on. Click a poster to view it in high resolution.",
         "teamBannersHdLabel": "POSTER HD"
     },
+    "commonChrome": {
+        "breadcrumbHome": "HOME",
+        "brandName": "CAMPUS UNIVERS CASCADES",
+        "brandTagline": "Stunt Academy & Team",
+        "brandTaglineEst": "Stunt Academy & Team • Est. 2008",
+        "campusCity": "Le Cateau-Cambrésis (59)",
+        "eventsAnimationsBadge": "CUC EVENTS ANIMATIONS",
+        "siteCampus": "CAMPUS CUC",
+        "siteEvents": "CUC EVENTS",
+        "siteStuntTeam": "CUC STUNT TEAM",
+        "campusNameTitle": "Campus Univers Cascades",
+        "heroTitleTail": "Cascades",
+        "locationLabel": "LE CATEAU-CAMBRÉSIS",
+        "trainingPathTitle": "Trajectory & Philosophy",
+        "otherCoordinatorsTitle": "Other Coordinators & Instructors",
+        "broadcastNote": "broadcast on giant screens.",
+        "eventsAgencySubtitle": "Shows • Animations • Team Building"
+    },
     "applicationModal": {
         "closeAria": "Close",
         "badge": "APPLICATION & ADMISSIONS",

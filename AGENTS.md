@@ -330,8 +330,13 @@ est verrouillé en EN, et les médias ne se modifient qu'en français.
    l'action (`settings.microcopy`).
 
 ## 3. Vérification obligatoire après toute modification
-- `npm run audit:microcopy` — seuls les textes **codés en dur** restent une dette ; les clés
-  `t('…')` sont éditables par la surcharge. Rapport : `plans/revue-micro-textes-visiteurs.md`.
+- `npm run audit:microcopy` — les libellés `t('…')` sont éditables par la surcharge ; la
+  catégorie **« codés en dur » doit rester à zéro** (les routes d'image Open Graph, les
+  adresses, marques et coordonnées sont hors périmètre, les expressions JSX calculées aussi :
+  un faux positif ferait mentir le rapport autant qu'un oubli).
+  Rapport : `plans/revue-micro-textes-visiteurs.md`.
+- Chrome transverse (`commonChrome`) : fil d'Ariane, nom du campus, accroche, ville, enseignes
+  des trois entités — une seule clé par libellé, jamais un littéral dans un composant.
 - `npx vitest run src/lib/i18n/microcopy.test.ts` — fusion, nettoyage, invariant du vide,
   alignement FR ↔ EN par clé (jamais par index).
 - `npm run studio:gate:full` — verdict unique : champs, budget, micro-textes, TypeScript, tests.

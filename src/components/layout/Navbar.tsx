@@ -18,6 +18,8 @@ export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const navigation = useNavigation();
   const t = useTranslations('common');
+  /** Chrome commun (marque, accroche) — éditable via « Micro-textes du site ». */
+  const chrome = useTranslations('commonChrome');
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
@@ -102,10 +104,10 @@ export const Navbar: React.FC = () => {
                 téléphones étroits. Il réapparaît ensuite et se tronque si besoin. */}
             <div className="hidden min-[480px]:flex flex-col min-w-0">
               <span className="font-display text-lg sm:text-xl font-bold tracking-wider text-white leading-none group-hover:text-[#FFE500] transition-colors truncate">
-                CAMPUS UNIVERS CASCADES
+                {chrome('brandName')}
               </span>
               <span className="hidden sm:block text-[10px] font-mono-tech tracking-widest text-zinc-400 uppercase leading-tight mt-0.5 truncate">
-                Stunt Academy & Team • Est. 2008
+                {chrome('brandTaglineEst')}
               </span>
             </div>
           </Link>

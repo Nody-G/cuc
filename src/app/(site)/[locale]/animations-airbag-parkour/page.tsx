@@ -19,6 +19,8 @@ import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 
 export default function AnimationsAirbagParkourPage() {
   const t = useTranslations('animations');
+  /** Chrome commun : enseigne de l'agence événements. */
+  const chrome = useTranslations('commonChrome');
   const { content } = usePageDynamicContent('animations-airbag-parkour');
   const includedItems = t.raw('includedItems') as string[];
 
@@ -165,7 +167,7 @@ export default function AnimationsAirbagParkourPage() {
                     />
                     <div>
                       <span className="text-xs font-mono-tech text-[#FFE500] font-bold tracking-wider uppercase block">
-                        CUC EVENTS ANIMATIONS
+                        {chrome('eventsAnimationsBadge')}
                       </span>
                       <span className="text-[10px] font-mono-tech text-zinc-500 uppercase">
                         {t('panelSub')}

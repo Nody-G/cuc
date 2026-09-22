@@ -24,6 +24,8 @@ import { CampusTravelPlanner } from './campus-map/CampusTravelPlanner';
 
 export const InteractiveCampusMap: React.FC = () => {
   const t = useTranslations('contact.map');
+  /** Chrome commun : nom du campus affiché dans la barre d'état de la carte. */
+  const chrome = useTranslations('commonChrome');
 
   const [activeTab, setActiveTab] = useState<'radar' | 'map'>('radar');
   const [pois, setPois] = useState<POI[]>(CAMPUS_POIS);
@@ -79,7 +81,7 @@ export const InteractiveCampusMap: React.FC = () => {
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
             <span className="text-white font-bold tracking-wider">
-              CAMPUS UNIVERS CASCADES
+              {chrome('brandName')}
             </span>
           </div>
           <span className="hidden sm:inline text-zinc-600">•</span>

@@ -56,7 +56,12 @@ const INLINE_TEXT_RE = />\s*([^<>{};=]{2,})\s*</g;
 /** Expression JSX pure : `{expression}` — données ou appel de traduction. */
 const JSX_EXPRESSION_RE = /^\{([^{}]+)\}$/;
 
-const TRANSLATION_CALL_RE = /\b(?:t|t[A-Z]\w*|tf|tp|td)\s*\(\s*['"]/;
+/**
+ * Appels de traduction : guillemets **et** gabarits (`t(`options.${id}`)`) — un
+ * gabarit est une clé composée, donc du texte déjà pris en charge par le
+ * catalogue et surchargeable depuis le Cockpit.
+ */
+const TRANSLATION_CALL_RE = /\b(?:t|t[A-Z]\w*|tf|tp|td)\s*\(\s*['"`]/;
 
 /**
  * Catégorie 5 — libellés TECHNIQUES : marques, plateformes, adresses, formats.
@@ -64,13 +69,22 @@ const TRANSLATION_CALL_RE = /\b(?:t|t[A-Z]\w*|tf|tp|td)\s*\(\s*['"]/;
  * n'aurait aucun sens (et un « Google Maps » localisé serait un contresens).
  */
 const TECHNICAL_LABEL_RE =
-    /^(?:IMDb|Allociné|AlloCiné|Allocine|Google Maps|Apple Maps|Waze|Instagram|Facebook|YouTube|TikTok|LinkedIn|Vimeo|Spotify|Portfolio|Allo Ciné)$/i;
+    /^(?:IMDb|Allociné|AlloCiné|Allocine|Google Maps|Apple Maps|Waze|Instagram|Facebook|YouTube|TikTok|LinkedIn|Vimeo|Spotify|Portfolio|Allo Ciné|SNCF Connect)$/i;
 const TECHNICAL_PATTERNS = [
     /@[\w.-]+\.[a-z]{2,}/i, // adresse e-mail
     /^https?:\/\//i, // URL
     /^(?:LAT|LON)\b/i, // coordonnées
     /^[\d\s.,%°•:+hHm²-]+$/, // nombres, unités, mesures
+    // Adresse postale : une donnée, jamais un libellé éditorial.
+    /\b\d{2,4}\s?(?:bis\s)?(?:Rue|Avenue|Boulevard|Route|Chemin|Impasse)\b/i,
+    /\b\d{5}\b\s+[A-ZÀ-Ý]/,
 ];
+
+/**
+ * Routes d'image (Open Graph, icônes) : le texte y est *peint* dans un visuel
+ * généré, pas rendu dans une interface — il ne relève pas des micro-textes.
+ */
+const IMAGE_ROUTE_RE = /opengraph-image|og-image|icon\.tsx/;
 const ANNOTATION_RE = /data-cuc-field|cucField\(|itemPath\(/;
 const DATA_HINT_RE =
     /(?:content|settings|hero|heroData|formulesData|data|formData|member|film|coach|program|stat|item|section|overlay|copy)\./i;
@@ -80,7 +94,9 @@ function walk(dir, out = []) {
     for (const entry of readdirSync(dir)) {
         const full = join(dir, entry);
         if (statSync(full).isDirectory()) walk(full, out);
-        else if (['.tsx', '.ts'].includes(extname(full))) out.push(full);
+        else if (['.tsx', '.ts'].includes(extname(full)) && !IMAGE_ROUTE_RE.test(full)) {
+            out.push(full);
+        }
     }
     return out;
 }
@@ -108,11 +124,38 @@ function looksEditorial(text) {
     return true;
 }
 
+/**
+ * Faux positifs structurels : expressions JSX calculées, attributs booléens et
+ * identifiants nus. Ce ne sont **pas** des micro-textes — les compter comme dette
+ * ferait mentir le rapport autant que les oublier.
+ */
+const CODE_NOISE_PATTERNS = [
+    /\.\w+\(/, // appel de méthode : .split(, .replace(, .substring(, .toLowerCase(
+    /\.length\b/,
+    /\{[^{}]*\+[^{}]*\}/, // {currentIndex + 1}
+    /^[a-z][\w$]*(\.[\w$]+)*$/, // identifiant nu ou chemin : priority, role, navigation.items
+    /^[a-z]\w*=\{[^}]*\}$/, // attribut JSX booléen ou calculé
+    /\bString\(|\bNumber\(|\bparseInt\(|\bJSON\./,
+];
+
+function isCodeNoise(text) {
+    const clean = text.trim();
+    if (!clean) return true;
+    return CODE_NOISE_PATTERNS.some((pattern) => pattern.test(clean));
+}
+
 function classify({ text, lines, index }) {
+    const sourceLine = lines[index] ?? '';
     const annotationContext = [lines[index - 1], lines[index], lines[index + 1]]
         .filter(Boolean)
         .some((line) => ANNOTATION_RE.test(line));
     if (annotationContext) return 1;
+
+    /**
+     * `<em>` encadre systématiquement un nom propre (titre de film, marque) :
+     * ce n'est pas un texte éditorial à traduire, c'est une donnée.
+     */
+    if (/<em>/.test(sourceLine)) return 5;
 
     const expression = text.trim().match(JSX_EXPRESSION_RE);
     const expressionBody = expression ? expression[1].trim() : null;
@@ -141,18 +184,30 @@ function analyzeFile(file) {
         const clean = text.trim();
         if (!looksEditorial(clean)) return;
         if (TECHNICAL_ATTR_RE.test(clean)) return;
+        if (isCodeNoise(clean)) return;
         if (isComment(lines[index])) return;
         findings.push({ text: clean, line: index + 1, category: classify({ text: clean, lines, index }) });
     };
 
+    // Commentaires JSX multi-lignes : jamais du contenu visible.
+    let jsxCommentOpen = false;
+
     lines.forEach((line, index) => {
+        if (jsxCommentOpen) {
+            if (line.includes('*/}')) jsxCommentOpen = false;
+            return;
+        }
+        if (line.includes('{/*')) {
+            if (!line.includes('*/}')) jsxCommentOpen = true;
+            return;
+        }
         if (isComment(line)) return;
         if (TECHNICAL_ATTR_RE.test(line)) return;
 
-        // 1. Texte inline dans une balise : `>Texte<`
+        // 1. Texte inline dans une balise : `> Texte < `
         for (const match of line.matchAll(INLINE_TEXT_RE)) push(match[1], index);
 
-        // 2. Ligne d'expression JSX seule : `{t('…')}`, `{heroData?.title || t('…')}`…
+        // 2. Ligne d'expression JSX seule : `{ t('…') } `, `{ heroData?.title || t('…') } `…
         //    Sans cela, tout le contenu piloté par les données ou les traductions
         //    serait invisible à l'audit — et le rapport mentirait par omission.
         const trimmed = line.trim();

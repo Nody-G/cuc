@@ -25,6 +25,8 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
   accessInfo,
 }) => {
   const t = useTranslations('contact.sidebar');
+  /** Libellés des trois entités du campus — éditables via « Micro-textes ». */
+  const chrome = useTranslations('commonChrome');
 
   return (
     <div className="lg:col-span-5 space-y-6">
@@ -194,7 +196,7 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
               className="object-contain p-1"
             />
             <span className="text-[10px] font-mono-tech text-zinc-400 mt-1">
-              CAMPUS CUC
+              {chrome('siteCampus')}
             </span>
           </div>
 
@@ -207,7 +209,7 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
               className="rounded-full border border-zinc-700 object-cover"
             />
             <span className="text-[10px] font-mono-tech text-zinc-400 mt-1">
-              CUC EVENTS
+              {chrome('siteEvents')}
             </span>
           </div>
 
@@ -220,7 +222,7 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
               className="rounded-full border border-zinc-700 object-cover"
             />
             <span className="text-[10px] font-mono-tech text-zinc-400 mt-1">
-              CUC STUNT TEAM
+              {chrome('siteStuntTeam')}
             </span>
           </div>
         </div>

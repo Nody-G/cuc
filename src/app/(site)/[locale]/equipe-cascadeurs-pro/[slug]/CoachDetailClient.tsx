@@ -103,6 +103,8 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
   const notableCredits = member?.notableCredits;
   const tt = useTranslations('team');
   const tf = useTranslations('films');
+  /** Chrome commun : fil d'Ariane et intitulés de sections transverses. */
+  const chrome = useTranslations('commonChrome');
 
   /**
    * Le normaliseur de rôles (`credit-role.ts`) renvoie des libellés canoniques
@@ -274,7 +276,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
           {/* Fil d'Ariane */}
           <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-8 flex-wrap">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">
-              ACCUEIL
+              {chrome('breadcrumbHome')}
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
             <Link href="/equipe-cascadeurs-pro" className="hover:text-[#FFE500] transition-colors">
@@ -407,7 +409,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
               <div className="bg-[#0e0e14] border border-zinc-800 p-6 sm:p-8 relative">
                 <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 uppercase tracking-wider mb-4 pb-3 border-b border-zinc-800/80">
                   <Award className="w-4 h-4 text-[#FFE500]" />
-                  <span>Trajectoire & Philosophie</span>
+                  <span>{chrome('trainingPathTitle')}</span>
                 </div>
 
                 <p className="text-sm sm:text-base font-tech text-zinc-200 leading-relaxed whitespace-pre-line">
@@ -615,7 +617,7 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
                   {tt('campusFacultyTag')}
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                  Autres Coordinateurs & Instructeurs
+                  {chrome('otherCoordinatorsTitle')}
                 </h2>
               </div>
 

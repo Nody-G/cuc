@@ -51,6 +51,8 @@ import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 
 export default function TeamBuildingCascadesPage() {
   const t = useTranslations('teamBuilding');
+  /** Chrome commun : fil d'Ariane et enseigne de l'agence événements. */
+  const chrome = useTranslations('commonChrome');
   const { content } = usePageDynamicContent('team-building-cascades');
 
   const heroBadge = content.hero?.badge || 'SÉMINAIRES & ENTREPRISES';
@@ -88,11 +90,11 @@ export default function TeamBuildingCascadesPage() {
           <div className="relative z-10 page-shell">
             <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
               <Link href="/" className="hover:text-[#FFE500] transition-colors">
-                ACCUEIL
+                {chrome('breadcrumbHome')}
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
               <Link href="/cuc-events-agence" className="hover:text-[#FFE500] transition-colors">
-                CUC EVENTS
+                {chrome('siteEvents')}
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
               <span className="text-[#FFE500]">TEAM BUILDING D'EXCEPTION</span>

@@ -26,6 +26,8 @@ export default function Error({
     reset: () => void;
 }) {
     const t = useTranslations('common');
+    /** Chrome commun : nom du campus — éditable via « Micro-textes du site ». */
+    const chrome = useTranslations('commonChrome');
 
     useEffect(() => {
         // Journalisation exploitable pour le diagnostic (console navigateur + Vercel).
@@ -36,7 +38,7 @@ export default function Error({
         <div className="min-h-screen bg-[#060608] text-white flex flex-col items-center justify-center px-6 selection:bg-[#FFE500] selection:text-black">
             <div className="max-w-lg w-full text-center">
                 <p className="font-mono-tech text-[11px] uppercase tracking-[0.3em] text-[#FFE500] mb-4">
-                    Campus Univers Cascades
+                    {chrome('campusNameTitle')}
                 </p>
                 <h1 className="font-display text-4xl sm:text-5xl uppercase tracking-wide mb-4">
                     {t('errorTitle')}

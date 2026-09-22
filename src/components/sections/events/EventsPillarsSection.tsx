@@ -26,6 +26,8 @@ interface PillarCopy {
 
 export const EventsPillarsSection: React.FC = () => {
   const t = useTranslations('eventsAgence');
+  /** Chrome commun : nom du campus (repli visuel d'affiche). */
+  const chrome = useTranslations('commonChrome');
   const pillars = t.raw('pillars') as PillarCopy[];
 
   /**
@@ -144,7 +146,7 @@ export const EventsPillarsSection: React.FC = () => {
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-zinc-900 text-zinc-600 font-mono text-xs">
-                        Campus Univers Cascades
+                        {chrome('campusNameTitle')}
                       </div>
                     )}
                   </div>

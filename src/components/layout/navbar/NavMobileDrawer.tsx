@@ -32,6 +32,8 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
   const navigation = useNavigation();
   const socialLinks = useSocialLinks();
   const t = useTranslations('common');
+  /** Chrome commun (marque, accroche, ville) — éditable via « Micro-textes ». */
+  const chrome = useTranslations('commonChrome');
 
   const drawerSocials = socialLinks.filter((s) => s.show_in_drawer);
   const cta = navigation.cta;
@@ -138,10 +140,10 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
             </div>
             <div>
               <span className="font-display text-sm font-bold tracking-wider text-white block leading-tight">
-                CAMPUS UNIVERS CASCADES
+                {chrome('brandName')}
               </span>
               <span className="text-[9px] font-mono-tech text-[#FFE500] uppercase tracking-widest block">
-                Stunt Academy & Team
+                {chrome('brandTagline')}
               </span>
             </div>
           </div>
@@ -160,7 +162,7 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
               </TacticalButton>
             </Link>
             <div className="flex items-center justify-between text-xs font-mono-tech text-zinc-400 pt-2">
-              <span>Le Cateau-Cambrésis (59)</span>
+              <span>{chrome('campusCity')}</span>
               <a href="tel:+33672849492" className="text-[#FFE500]">
                 06 72 84 94 92
               </a>

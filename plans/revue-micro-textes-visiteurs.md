@@ -1,113 +1,70 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T01:03:45.051Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T01:11:41.034Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 121 |
-| DONNÉES — éditable par un écran existant | 218 |
-| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 539 |
-| CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 77 |
-| HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 15 |
-| **Total** | **970** |
+| ANNOTÉ — éditable en place | 66 |
+| DONNÉES — éditable par un écran existant | 232 |
+| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 262 |
+| CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
+| HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 18 |
+| **Total** | **578** |
 
 ## 1. ANNOTÉ — éditable en place
 
 ### `src\app\(site)\[locale]\animations-airbag-parkour\page.tsx`
 
-- l.71 — `{heroBadge}`
-- l.110 — `{ctaPrimaryText}`
-- l.118 — `{ctaSecondaryText}`
-
-### `src\app\(site)\[locale]\equipe-cascadeurs-pro\page.tsx`
-
-- l.132 — `{...cucField('hero.title')}`
-- l.148 — `{...cucField('hero.subtitle', 'textarea')}`
+- l.73 — `{heroBadge}`
+- l.112 — `{ctaPrimaryText}`
+- l.120 — `{ctaSecondaryText}`
 
 ### `src\app\(site)\[locale]\spectacles-cascadeurs-yamakasi\page.tsx`
 
-- l.71 — `{heroBadge}`
-- l.110 — `{ctaPrimaryText}`
-- l.118 — `{ctaSecondaryText}`
+- l.73 — `{heroBadge}`
+- l.112 — `{ctaPrimaryText}`
+- l.120 — `{ctaSecondaryText}`
 
 ### `src\app\(site)\[locale]\stunt-workshop-cuc\page.tsx`
 
-- l.73 — `{heroBadge}`
-- l.118 — `{ctaPrimaryText}`
-- l.124 — `{ctaSecondaryText}`
+- l.198 — `{heroBadge}`
+- l.243 — `{ctaPrimaryText}`
+- l.249 — `{ctaSecondaryText}`
+- l.328 — `{item.desc}`
+- l.495 — `{ctaSecondary}`
 
 ### `src\app\(site)\[locale]\team-building-cascades\page.tsx`
 
-- l.104 — `{heroBadge}`
-- l.145 — `{ctaPrimaryText}`
-- l.153 — `{ctaSecondaryText}`
+- l.106 — `{heroBadge}`
+- l.147 — `{ctaPrimaryText}`
+- l.155 — `{ctaSecondaryText}`
 
 ### `src\app\(site)\[locale]\videos-cascadeur\page.tsx`
 
 - l.128 — `{heroBadge}`
 
-### `src\app\(site)\[locale]\visite-virtuelle\page.tsx`
-
-- l.106 — `{...cucField('hero.badge')}`
-- l.113 — `{...cucField('hero.meta')}`
-- l.121 — `{...cucField('hero.title')}`
-- l.131 — `{...cucField('hero.subtitle', 'textarea')}`
-
-### `src\components\sections\contact\ContactHeroSection.tsx`
-
-- l.53 — `{...cucField('hero.title')}`
-- l.67 — `{...cucField('hero.subtitle', 'textarea')}`
-
 ### `src\components\sections\events\EventsHeroSection.tsx`
 
-- l.60 — `{hero?.meta || 'SPECTACLES • ANIMATIONS • TEAM BUILDING'}`
-- l.65 — `{...cucField('hero.title')}`
-- l.79 — `{...cucField('hero.subtitle', 'textarea')}`
+- l.62 — `{hero?.meta || 'SPECTACLES • ANIMATIONS • TEAM BUILDING'}`
 
 ### `src\components\sections\events\EventsPillarsSection.tsx`
 
-- l.163 — `{...cucField(itemPath('events_pillars', 0, 'tag'))}`
-- l.169 — `{...cucField(itemPath('events_pillars', 0, 'title'))}`
-- l.177 — `{...cucField(itemPath('events_pillars', 0, 'paragraph1'), 'textarea')}`
-- l.183 — `{...cucField(itemPath('events_pillars', 0, 'paragraph2'), 'textarea')}`
-- l.193 — `{pillarItems[0].cta}`
-- l.201 — `{...cucField(itemPath('events_pillars', 0, 'image'), 'image')}`
-- l.219 — `{...cucField(itemPath('events_pillars', 1, 'image'), 'image')}`
-- l.234 — `{...cucField(itemPath('events_pillars', 1, 'tag'))}`
-- l.240 — `{...cucField(itemPath('events_pillars', 1, 'title'))}`
-- l.248 — `{...cucField(itemPath('events_pillars', 1, 'paragraph1'), 'textarea')}`
-- l.254 — `{...cucField(itemPath('events_pillars', 1, 'paragraph2'), 'textarea')}`
-- l.264 — `{pillarItems[1].cta}`
-- l.279 — `{...cucField(itemPath('events_pillars', 2, 'tag'))}`
-- l.285 — `{...cucField(itemPath('events_pillars', 2, 'title'))}`
-- l.293 — `{...cucField(itemPath('events_pillars', 2, 'paragraph1'), 'textarea')}`
-- l.299 — `{...cucField(itemPath('events_pillars', 2, 'paragraph2'), 'textarea')}`
-- l.309 — `{pillarItems[2].cta}`
-- l.317 — `{...cucField(itemPath('events_pillars', 2, 'image'), 'image')}`
+- l.195 — `{pillarItems[0].cta}`
+- l.266 — `{pillarItems[1].cta}`
+- l.311 — `{pillarItems[2].cta}`
 
 ### `src\components\sections\formation\FormationDisciplinesExplorer.tsx`
 
 - l.64 — `{chrome?.badge || t('disciplines.badge')}`
-- l.68 — `{...cucField('sections_data.disciplines.title')}`
 
 ### `src\components\sections\formation\FormationFormulesSection.tsx`
 
-- l.67 — `{...cucField('sections_data.formules.title')}`
-- l.73 — `{...cucField('sections_data.formules.subtitle', 'textarea')}`
-- l.89 — `{...cucField(itemPath('formules', decouverteIndex, 'step_badge'))}`
-- l.95 — `{...cucField(itemPath('formules', decouverteIndex, 'duration_badge'))}`
-- l.103 — `{...cucField(itemPath('formules', decouverteIndex, 'title'))}`
-- l.109 — `{...cucField(itemPath('formules', decouverteIndex, 'description'), 'textarea')}`
 - l.121 — `{decouverte?.duration_text || tf('step1Duration')}`
 - l.136 — `{decouverte?.boarding_text || tf('step1Boarding')}`
 - l.163 — `{decouverte?.cta_text || tf('step1Cta')}`
-- l.178 — `{...cucField(itemPath('formules', proIndex, 'step_badge'))}`
-- l.184 — `{...cucField(itemPath('formules', proIndex, 'duration_badge'))}`
-- l.192 — `{...cucField(itemPath('formules', proIndex, 'title'))}`
-- l.198 — `{...cucField(itemPath('formules', proIndex, 'description'), 'textarea')}`
 - l.210 — `{pro?.schedule_text || tf('step2Rhythm')}`
 - l.219 — `{pro?.boarding_text || tf('step2Accreditation')}`
 - l.228 — `{pro?.certification_text || tf('step2Certification')}`
@@ -118,12 +75,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.65 — `{heroData?.badge || t('hero.badge')}`
 - l.105 — `{heroData?.cta_primary_text || t('ctaApplyPro')}`
 - l.114 — `{heroData?.cta_secondary_text || t('hero.ctaDiscovery')}`
-
-### `src\components\sections\formation\FormationPedagogyModalities.tsx`
-
-- l.52 — `{...cucField('sections_data.pedagogie.sessions_title')}`
-- l.81 — `{...cucField('sections_data.pedagogie.admission_title')}`
-- l.117 — `{...cucField('sections_data.pedagogie.funding_title')}`
 
 ### `src\components\sections\home\HomeSocialSection.tsx`
 
@@ -147,34 +98,13 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.262 — `{officialSite}`
 - l.340 — `{websiteLabel}`
 
-### `src\components\sections\partenaires\PartenairesHeroSection.tsx`
-
-- l.59 — `{...cucField('hero.title')}`
-- l.75 — `{...cucField('hero.subtitle', 'textarea')}`
-
-### `src\components\sections\stages\StagesHeroSection.tsx`
-
-- l.56 — `{...cucField('hero.title')}`
-- l.67 — `{...cucField('hero.subtitle', 'textarea')}`
-
-### `src\components\sections\team\TeamHeroSection.tsx`
-
-- l.58 — `{...cucField('hero.title')}`
-- l.73 — `{...cucField('hero.subtitle', 'textarea')}`
-
 ### `src\components\sections\team\TeamProductionGalleries.tsx`
 
 - l.156 — `{expandLabel}`
 
 ### `src\components\sections\team\TeamProductionServices.tsx`
 
-- l.41 — `{...cucField('sections_data.services_production.badge')}`
-- l.47 — `{...cucField('sections_data.services_production.title')}`
-- l.53 — `{...cucField('sections_data.services_production.intro', 'textarea')}`
-- l.63 — `{...cucField(itemPath('services_production', idx, 'label'))}`
 - l.69 — `{item.body}`
-- l.80 — `{...cucField('sections_data.services_production.contact_title')}`
-- l.86 — `{...cucField('sections_data.services_production.contact_intro', 'textarea')}`
 - l.112 — `{block?.cta || t('services.cta')}`
 
 ### `src\components\sections\visite\VisiteAccessTransport.tsx`
@@ -197,21 +127,15 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\visite\VisiteHeroSection.tsx`
 
-- l.59 — `{...cucField('hero.title')}`
-- l.73 — `{...cucField('hero.subtitle', 'textarea')}`
 - l.87 — `{hero?.cta_primary_text || t('hero.ctaFacilities')}`
 - l.98 — `{hero?.cta_secondary_text || t('hero.ctaTour360')}`
 
 ### `src\components\ui\ParallaxHero.tsx`
 
-- l.273 — `{heroData?.since || tHero('since')}`
-- l.279 — `{...cucField('hero.title')}`
-- l.302 — `{...cucField('hero.subtitle', 'textarea')}`
-- l.328 — `{...cucField(’hero.metrics.${i}.val’)}`
-- l.334 — `{...cucField(’hero.metrics.${i}.label’)}`
-- l.358 — `{heroData?.cta_primary_text || tHero('ctaFormation')}`
-- l.374 — `{heroData?.cta_secondary_text || tHero('ctaVisit')}`
-- l.390 — `{heroData?.cta_tertiary_text || tHero('ctaStuntTeam')}`
+- l.275 — `{heroData?.since || tHero('since')}`
+- l.360 — `{heroData?.cta_primary_text || tHero('ctaFormation')}`
+- l.376 — `{heroData?.cta_secondary_text || tHero('ctaVisit')}`
+- l.392 — `{heroData?.cta_tertiary_text || tHero('ctaStuntTeam')}`
 
 ### `src\components\ui\parallax-hero\HeroHudOverlay.tsx`
 
@@ -222,29 +146,26 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\animations-airbag-parkour\page.tsx`
 
-- l.103 — `{heroSubtitle}`
+- l.105 — `{heroSubtitle}`
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\CoachDetailClient.tsx`
 
-- l.303 — `{member.role}`
-- l.321 — `{member.name.charAt(0)}`
-- l.390 — `{member.role}`
-- l.398 — `{member.name}`
-- l.402 — `{member.title}`
-- l.414 — `{member.bio}`
-- l.430 — `{spec}`
-- l.444 — `{member.doubledActors.join(' • ')}`
-- l.532 — `{film.title}`
-- l.544 — `{film.year}`
-- l.589 — `{film.title}`
-- l.654 — `{other.role}`
-- l.657 — `{other.name}`
+- l.305 — `{member.role}`
+- l.392 — `{member.role}`
+- l.400 — `{member.name}`
+- l.404 — `{member.title}`
+- l.416 — `{member.bio}`
+- l.432 — `{spec}`
+- l.534 — `{film.title}`
+- l.546 — `{film.year}`
+- l.591 — `{film.title}`
+- l.656 — `{other.role}`
+- l.659 — `{other.name}`
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\page.tsx`
 
 - l.151 — `{heroSubtitle}`
 - l.188 — `{member.role}`
-- l.205 — `{member.name.charAt(0)}`
 - l.220 — `{member.name}`
 - l.224 — `{member.title}`
 - l.230 — `{member.bio}`
@@ -257,18 +178,37 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\spectacles-cascadeurs-yamakasi\page.tsx`
 
-- l.103 — `{heroSubtitle}`
+- l.105 — `{heroSubtitle}`
 
 ### `src\app\(site)\[locale]\stunt-workshop-cuc\page.tsx`
 
-- l.107 — `{heroSubtitle}`
+- l.184 — `{breadcrumbHome}`
+- l.191 — `{breadcrumbCurrent}`
+- l.232 — `{heroSubtitle}`
+- l.268 — `{highlight.value}`
+- l.274 — `{highlight.label}`
+- l.295 — `{programTag}`
+- l.303 — `{programTitle}`
+- l.310 — `{programIntro}`
+- l.325 — `{item.title}`
+- l.395 — `{locationTitle}`
+- l.402 — `{locationBody}`
+- l.408 — `{locationNote}`
+- l.419 — `{housingTitle}`
+- l.426 — `{housingBody}`
+- l.432 — `{housingNote}`
+- l.443 — `{certificateTitle}`
+- l.450 — `{certificateBody}`
+- l.456 — `{certificateNote}`
+- l.476 — `{ctaTitle}`
+- l.482 — `{ctaBody}`
 
 ### `src\app\(site)\[locale]\team-building-cascades\page.tsx`
 
-- l.138 — `{heroSubtitle}`
-- l.215 — `{workshop.category}`
-- l.221 — `{workshop.title}`
-- l.224 — `{workshop.desc}`
+- l.140 — `{heroSubtitle}`
+- l.217 — `{workshop.category}`
+- l.223 — `{workshop.title}`
+- l.226 — `{workshop.desc}`
 
 ### `src\app\(site)\[locale]\videos-cascadeur\page.tsx`
 
@@ -287,8 +227,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\Navbar.tsx`
 
-- l.153 — `{item.label}`
-- l.175 — `{cta.label}`
+- l.155 — `{item.label}`
+- l.177 — `{cta.label}`
 
 ### `src\components\layout\RootShell.tsx`
 
@@ -307,7 +247,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\footer-sections\FooterDirectContacts.tsx`
 
-- l.56 — `{settings.phone || '(+33) 06 72 84 94 92'}`
 - l.66 — `{settings.email_general || 'contact@campus-universcascades.com'}`
 
 ### `src\components\layout\footer-sections\FooterNavMatrix.tsx`
@@ -326,8 +265,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\navbar\NavMobileDrawer.tsx`
 
-- l.94 — `{item.label}`
-- l.159 — `{cta.label}`
+- l.96 — `{item.label}`
+- l.161 — `{cta.label}`
 
 ### `src\components\sections\ApplicationModal.tsx`
 
@@ -349,26 +288,26 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\events\EventsHeroSection.tsx`
 
-- l.82 — `{subtitle}`
+- l.84 — `{subtitle}`
 
 ### `src\components\sections\events\EventsPillarsSection.tsx`
 
-- l.87 — `{evt.badge}`
-- l.91 — `{evt.title}`
-- l.95 — `{evt.subtitle}`
-- l.102 — `{evt.description}`
-- l.166 — `{pillarItems[0].tag}`
-- l.172 — `{pillarItems[0].title}`
-- l.180 — `{pillarItems[0].paragraph1}`
-- l.186 — `{pillarItems[0].paragraph2}`
-- l.237 — `{pillarItems[1].tag}`
-- l.243 — `{pillarItems[1].title}`
-- l.251 — `{pillarItems[1].paragraph1}`
-- l.257 — `{pillarItems[1].paragraph2}`
-- l.282 — `{pillarItems[2].tag}`
-- l.288 — `{pillarItems[2].title}`
-- l.296 — `{pillarItems[2].paragraph1}`
-- l.302 — `{pillarItems[2].paragraph2}`
+- l.89 — `{evt.badge}`
+- l.93 — `{evt.title}`
+- l.97 — `{evt.subtitle}`
+- l.104 — `{evt.description}`
+- l.168 — `{pillarItems[0].tag}`
+- l.174 — `{pillarItems[0].title}`
+- l.182 — `{pillarItems[0].paragraph1}`
+- l.188 — `{pillarItems[0].paragraph2}`
+- l.239 — `{pillarItems[1].tag}`
+- l.245 — `{pillarItems[1].title}`
+- l.253 — `{pillarItems[1].paragraph1}`
+- l.259 — `{pillarItems[1].paragraph2}`
+- l.284 — `{pillarItems[2].tag}`
+- l.290 — `{pillarItems[2].title}`
+- l.298 — `{pillarItems[2].paragraph1}`
+- l.304 — `{pillarItems[2].paragraph2}`
 
 ### `src\components\sections\films\CucFilmsShowcase.tsx`
 
@@ -417,7 +356,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.108 — `{movie.title}`
 - l.115 — `{movie.description}`
 - l.131 — `{actor}`
-- l.163 — `{member.name.charAt(0)}`
 - l.169 — `{member.name}`
 - l.204 — `{roleLabelText}`
 
@@ -568,8 +506,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\ParallaxHero.tsx`
 
-- l.331 — `{stat.val}`
-- l.337 — `{stat.label}`
+- l.333 — `{stat.val}`
+- l.339 — `{stat.label}`
 
 ### `src\components\ui\campus-map\CampusRadarView.tsx`
 
@@ -602,196 +540,99 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ## 3. TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n)
 
-### `src\app\(site)\[locale]\HomeView.tsx`
-
-- l.81 — `{/* Studio Animation Continuous Global Depth Atmosphere */}`
-
 ### `src\app\(site)\[locale]\animations-airbag-parkour\page.tsx`
 
-- l.41 — `{/* Hero Header */}`
-- l.58 — `{t('breadcrumbHome')}`
-- l.62 — `{t('breadcrumbEvents')}`
-- l.79 — `{content.hero?.meta || t('heroMeta')}`
-- l.127 — `{/* Chiffres Clés Airbag */}`
-- l.151 — `{/* Contenu Détaillé */}`
-- l.171 — `{t('panelSub')}`
-- l.177 — `{t('panelTitle')}`
-- l.181 — `{t('panelParagraph1')}`
-- l.185 — `{t('panelParagraph2')}`
-- l.190 — `{t('includedTitle')}`
+- l.60 — `{t('breadcrumbHome')}`
+- l.64 — `{t('breadcrumbEvents')}`
+- l.81 — `{content.hero?.meta || t('heroMeta')}`
+- l.170 — `{chrome('eventsAnimationsBadge')}`
+- l.173 — `{t('panelSub')}`
+- l.179 — `{t('panelTitle')}`
+- l.183 — `{t('panelParagraph1')}`
+- l.187 — `{t('panelParagraph2')}`
+- l.192 — `{t('includedTitle')}`
 
 ### `src\app\(site)\[locale]\contact-cuc\page.tsx`
 
-- l.26 — `{/* 1. Page Header Hero */}`
-- l.29 — `{/* 2. Contact Form & Coordinates Hub */}`
-- l.33 — `{/* Formulaire de Contact */}`
-- l.36 — `{/* Coordonnées, Standard & Deux Sites */}`
-- l.42 — `{/* 3. Interactive Campus Map & Navigation Hub */}`
 - l.53 — `{t('sectionBadge')}`
 - l.56 — `{t('sectionTitle')}{' '}`
 - l.60 — `{t('sectionIntro')}`
 
-### `src\app\(site)\[locale]\cuc-team-cascadeur\page.tsx`
-
-- l.62 — `{/* Lightbox Modal for HD Viewing */}`
-
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\CoachDetailClient.tsx`
 
-- l.200 — `{tt('coachNotFound')}`
-- l.274 — `{/* Fil d'Ariane */}`
-- l.281 — `{tt('breadcrumb')}`
-- l.287 — `{/* Profil Principal — Hero Showcase */}`
-- l.289 — `{/* Colonne Gauche : Grande Photo Portrait Immersive */}`
-- l.292 — `{/* Stage Portrait plein format */}`
-- l.294 — `{/* Ambient Lighting Glow */}`
-- l.297 — `{/* Tactical Grid */}`
-- l.300 — `{/* Badge Rôle - Top Left */}`
-- l.307 — `{/* Photo Haute Définition Pleine Taille */}`
-- l.325 — `{/* Dégradé de transition basse */}`
-- l.329 — `{/* Liens Officiels & Profils en pied de photo */}`
-- l.385 — `{/* Colonne Droite : Informations Détaillées, Trajectoire & Compétences */}`
-- l.393 — `{tt('facultyTag')}`
-- l.406 — `{/* Biographie Détaillée */}`
-- l.418 — `{/* Domaines d'Expertise Tactique */}`
-- l.436 — `{/* Doublures Acteurs Clés (si existant) */}`
-- l.449 — `{/* Call to Action Direct */}`
-- l.453 — `{tt('ctaContact')}`
-- l.459 — `{tt('ctaTrain')}`
-- l.466 — `{/* Section Filmographie & Tournages Associés (Affiches & Rôles Spécifiques) */}`
-- l.479 — `{tt('filmographyHint')}`
-- l.518 — `{/* Affiche du film */}`
-- l.547 — `{/* Mise en avant (définie dans le cockpit) */}`
-- l.550 — `{tt('featuredBadge')}`
-- l.554 — `{/* Hover action icon */}`
-- l.563 — `{/* Informations & Rôle spécifique */}`
-- l.565 — `{/* RÔLE DU COACH SUR CE FILM */}`
-- l.568 — `{tt('roleOnProduction')}`
-- l.610 — `{/* Découvrir les autres formateurs du Campus */}`
-- l.615 — `{tt('campusFacultyTag')}`
-- l.670 — `{/* Bouton Retour */}`
-- l.683 — `{/* Modale d'informations de film quand on clique sur une affiche */}`
+- l.202 — `{tt('coachNotFound')}`
+- l.279 — `{chrome('breadcrumbHome')}`
+- l.283 — `{tt('breadcrumb')}`
+- l.395 — `{tt('facultyTag')}`
+- l.455 — `{tt('ctaContact')}`
+- l.461 — `{tt('ctaTrain')}`
+- l.481 — `{tt('filmographyHint')}`
+- l.552 — `{tt('featuredBadge')}`
+- l.570 — `{tt('roleOnProduction')}`
+- l.617 — `{tt('campusFacultyTag')}`
+- l.620 — `{chrome('otherCoordinatorsTitle')}`
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\page.tsx`
 
-- l.99 — `{/* Hero Header */}`
 - l.116 — `{t('breadcrumbHome')}`
 - l.127 — `{t('performerTag')}`
-- l.139 — `{heroTitle.substring(heroTitle.lastIndexOf(' ') + 1)}`
-- l.156 — `{/* Team Roster Grid with Grand High-Impact Portraits */}`
-- l.173 — `{/* Portrait Showcase Stage */}`
-- l.179 — `{/* Ambient Glow on hover */}`
-- l.182 — `{/* Tactical cinematic grid overlay */}`
-- l.185 — `{/* Role Badge - Top Left */}`
-- l.192 — `{/* High-Resolution Full-Stature Portrait */}`
-- l.209 — `{/* Subtle bottom shadow gradient to blend with card content */}`
-- l.213 — `{/* Card Content Section */}`
-- l.216 — `{/* Name & Title */}`
-- l.228 — `{/* Bio */}`
-- l.233 — `{/* Specialties */}`
-- l.251 — `{/* Références & Tournages Qualifiés */}`
 - l.256 — `{t('creditsLabel')}`
-- l.259 — `{member.notableCredits.length} {t('creditsUnit')}`
-- l.290 — `{t('othersLabel', { count: member.notableCredits.length - 4 })}`
-- l.297 — `{/* Projets & Tournages Cinéma */}`
-- l.340 — `{/* Action Button & Links Footer */}`
-- l.382 — `{/* FILMOGRAPHIE & TOURNAGES DE L'ÉQUIPE — composant partagé avec la page TOURNAGE */}`
-- l.385 — `{/* Bottom Callout */}`
 - l.389 — `{t('ctaBlockTitle')}`
 - l.392 — `{t('ctaBlockBody')}`
 - l.396 — `{t('ctaBlockButton')}`
-- l.406 — `{/* Modal Dossier de Production du Film (interactions des cartes coachs) */}`
 
 ### `src\app\(site)\[locale]\error.tsx`
 
-- l.42 — `{t('errorTitle')}`
-- l.45 — `{t('errorText')}`
-- l.54 — `{t('retry')}`
-- l.60 — `{t('backHome')}`
-- l.66 — `{t('errorReference', { digest: error.digest })}`
-
-### `src\app\(site)\[locale]\formation-de-cascadeur\page.tsx`
-
-- l.30 — `{/* Données structurées schema.org — Course */}`
-- l.47 — `{/* 1. Page Header Hero & Key Indicators */}`
-- l.50 — `{/* 2. Les 2 Formules du Cursus Professionnel */}`
-- l.56 — `{/* 3. Les 10 Disciplines de la Cascade Physique */}`
-- l.59 — `{/* 4. Modalités Pédagogiques, Calendrier & Prise en Charge */}`
-
-### `src\app\(site)\[locale]\opengraph-image.tsx`
-
-- l.35 — `{/* Bandeau supérieur */}`
-- l.56 — `{isEn ? "LE CATEAU-CAMBRÉSIS • FRANCE" : "LE CATEAU-CAMBRÉSIS • 59"}`
-- l.61 — `{/* Titre principal */}`
-- l.72 — `{isEn ? "THE WORLD'S LARGEST" : "LA PLUS GRANDE ÉCOLE"}`
-- l.83 — `{isEn ? "STUNT PERFORMER SCHOOL" : "DE CASCADEURS AU MONDE"}`
-- l.87 — `{/* Bandeau inférieur — chiffres clés */}`
-- l.108 — `{ ...size }`
+- l.41 — `{chrome('campusNameTitle')}`
+- l.44 — `{t('errorTitle')}`
+- l.47 — `{t('errorText')}`
+- l.56 — `{t('retry')}`
+- l.62 — `{t('backHome')}`
+- l.68 — `{t('errorReference', { digest: error.digest })}`
 
 ### `src\app\(site)\[locale]\spectacles-cascadeurs-yamakasi\page.tsx`
 
-- l.41 — `{/* Hero Header */}`
-- l.58 — `{t('breadcrumbHome')}`
-- l.62 — `{t('breadcrumbEvents')}`
-- l.79 — `{content.hero?.meta || t('heroMeta')}`
-- l.127 — `{/* Détails de l'offre Spectacles */}`
-- l.130 — `{/* Show Formats */}`
-- l.145 — `{t('panelTag')}`
-- l.148 — `{t('panelSub')}`
-- l.154 — `{t('panelTitle')}`
-- l.158 — `{t('panelParagraph')}`
-- l.163 — `{t('specsTitle')}`
-- l.189 — `{/* Référence Prestige : Accor Arena */}`
-- l.208 — `{t('arenaBadge')}`
-- l.214 — `{t('arenaTitle')}`
-- l.226 — `{t('arenaCta')}`
+- l.60 — `{t('breadcrumbHome')}`
+- l.64 — `{t('breadcrumbEvents')}`
+- l.81 — `{content.hero?.meta || t('heroMeta')}`
+- l.147 — `{t('panelTag')}`
+- l.150 — `{t('panelSub')}`
+- l.156 — `{t('panelTitle')}`
+- l.160 — `{t('panelParagraph')}`
+- l.165 — `{t('specsTitle')}`
+- l.210 — `{t('arenaBadge')}`
+- l.216 — `{t('arenaTitle')}`
+- l.222 — `{chrome('broadcastNote')}`
+- l.228 — `{t('arenaCta')}`
 
 ### `src\app\(site)\[locale]\stunt-workshop-cuc\page.tsx`
 
-- l.47 — `{/* International Workshop Hero */}`
-- l.81 — `{content.hero?.meta || t('heroMeta')}`
-- l.94 — `{heroTitle.substring(heroTitle.lastIndexOf(' ') + 1)}`
-- l.132 — `{/* Global Key Highlights */}`
-- l.156 — `{/* Workshop Content & Curriculum */}`
-- l.232 — `{/* Right Side Visual Cards — Real Workshop Photos */}`
-- l.280 — `{/* Accommodation & Location Info */}`
-- l.328 — `{/* Bottom Inscription Box */}`
+- l.206 — `{content.hero?.meta || t('heroMeta')}`
 
 ### `src\app\(site)\[locale]\team-building-cascades\page.tsx`
 
-- l.74 — `{/* Hero Header */}`
-- l.112 — `{content.hero?.meta || t('heroMeta')}`
-- l.125 — `{heroTitle.substring(heroTitle.lastIndexOf(' ') + 1)}`
-- l.162 — `{/* Intro */}`
-- l.174 — `{content.sections_data?.overview?.badge || t('overviewBadge')}`
-- l.178 — `{content.sections_data?.overview?.title || t('overviewTitle')}`
-- l.181 — `{content.sections_data?.overview?.description || t('overviewDescription')}`
-- l.186 — `{/* Ateliers Dynamiques & Adaptatifs */}`
-- l.210 — `{t('workshopFallbackLabel')}`
-- l.238 — `{/* Formule personnalisée CTA */}`
-- l.242 — `{t('customBadge')}`
-- l.245 — `{t('customTitle')}`
-- l.248 — `{t('customDescription')}`
-- l.252 — `{t('customCta')}`
+- l.93 — `{chrome('breadcrumbHome')}`
+- l.97 — `{chrome('siteEvents')}`
+- l.114 — `{content.hero?.meta || t('heroMeta')}`
+- l.176 — `{content.sections_data?.overview?.badge || t('overviewBadge')}`
+- l.180 — `{content.sections_data?.overview?.title || t('overviewTitle')}`
+- l.183 — `{content.sections_data?.overview?.description || t('overviewDescription')}`
+- l.212 — `{t('workshopFallbackLabel')}`
+- l.244 — `{t('customBadge')}`
+- l.247 — `{t('customTitle')}`
+- l.250 — `{t('customDescription')}`
+- l.254 — `{t('customCta')}`
 
 ### `src\app\(site)\[locale]\videos-cascadeur\page.tsx`
 
-- l.81 — `{/* JSON-LD : un VideoObject par programme TV (rich results Google Vidéo) */}`
-- l.102 — `{/* Hero Header */}`
 - l.119 — `{t('breadcrumbHome')}`
 - l.136 — `{content.hero?.meta || t('heroMeta')}`
-- l.165 — `{/* Video Player Box */}`
-- l.168 — `{/* Video Selector Tabs */}`
-- l.193 — `{/* Main Video Screen with HUD Frame */}`
 - l.209 — `{t('videoFallback')}`
 - l.227 — `{t('videoFallback')}`
-- l.232 — `{/* Video Information */}`
 - l.245 — `{t('broadcastBadge')}`
-- l.253 — `{/* Real CUC Videos & Documentaries Grid */}`
 - l.258 — `{t('docusBadge')}`
 - l.261 — `{t('docusTitle')}`
 - l.264 — `{t('docusHint')}`
-- l.300 — `{/* Video Player Modal */}`
-- l.335 — `{/* Médias & Réseaux Sociaux */}`
 - l.340 — `{t('mediaTag')}`
 - l.343 — `{t('mediaTitle')}`
 - l.346 — `{t('mediaIntro')}`
@@ -804,21 +645,16 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.98 — `{t('tour3dParagraph')}`
 - l.119 — `{t('tour360Badge')}`
 - l.125 — `{t('tour360Paragraph')}`
-- l.161 — `{/* Lightbox Modal */}`
 
 ### `src\app\(site)\[locale]\visite-virtuelle\page.tsx`
 
 - l.35 — `{t('loading3d')}`
-- l.86 — `{/* Breadcrumb */}`
 - l.89 — `{t('breadcrumbHome')}`
 - l.93 — `{t('breadcrumbCampus')}`
-- l.101 — `{/* Page Header */}`
 - l.109 — `{content.hero?.badge || t('pageTag')}`
 - l.124 — `{content.hero?.title || t('pageTitle')}{' '}`
 - l.134 — `{content.hero?.subtitle || t('pageSubtitle')}`
 - l.171 — `{t('ctaRendezVous')}`
-- l.177 — `{/* Interactive Viewer: either 360 Player or 3D Campus Plan */}`
-- l.188 — `{/* Key Facts and Practical Info */}`
 - l.195 — `{t('factsTitle1')}`
 - l.199 — `{t('factsBody1')}`
 - l.207 — `{t('factsTitle2')}`
@@ -826,35 +662,10 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.219 — `{t('factsTitle3')}`
 - l.223 — `{t('factsBody3')}`
 
-### `src\components\layout\Footer.tsx`
-
-- l.17 — `{/* Top Hazard Accent Line */}`
-- l.20 — `{/* Main Footer Container */}`
-- l.23 — `{/* Brand, Mission & Adresses */}`
-- l.26 — `{/* Lignes Directes & Réseaux */}`
-- l.30 — `{/* Quick Nav Matrix */}`
-- l.33 — `{/* Cinematic Credits Footer Bar & Floating Top Button */}`
-
-### `src\components\layout\MobileStickyCTA.tsx`
-
-- l.70 — `{/* Quick Call Button */}`
-
 ### `src\components\layout\Navbar.tsx`
 
-- l.80 — `{/* Main Bar */}`
-- l.88 — `{/* Logo CUC */}`
-- l.113 — `{/* Desktop Navigation Links — séquence unique ordonnée par ’order’ */}`
-- l.159 — `{/* Right Action CTA & Quick Tools */}`
-- l.162 — `{/* Mobile Menu Toggle Button */}`
-- l.195 — `{/* Mobile Drawer */}`
-
-### `src\components\layout\RootShell.tsx`
-
-- l.102 — `{/* Lien d'évitement — libellé localisé (client, catalogue ’common’) */}`
-- l.106 — `{/* Pont d'aperçu live du Cockpit — inerte hors iframe. */}`
-- l.108 — `{/* Édition en place (Mode Studio) — inerte hors iframe. */}`
-- l.110 — `{/* Speculation Rules API — préchargement/prérendu instantané. */}`
-- l.113 — `{/* Données structurées schema.org */}`
+- l.107 — `{chrome('brandName')}`
+- l.110 — `{chrome('brandTaglineEst')}`
 
 ### `src\components\layout\SkipLink.tsx`
 
@@ -862,10 +673,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\footer-sections\FooterBrandAndSites.tsx`
 
-- l.23 — `{/* Brand & Mission */}`
 - l.69 — `{t('certified')}`
 - l.72 — `{t('funding')}`
-- l.94 — `{/* Adresses & Implantations */}`
 - l.97 — `{t('sitesTitle')}`
 - l.104 — `{t('mainCampus')}`
 - l.108 — `{t('mainCampusAddress')}`
@@ -876,37 +685,21 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.161 — `{t('productionAgency')}`
 - l.164 — `{t('productionDesc')}`
 
-### `src\components\layout\footer-sections\FooterCreditsBar.tsx`
-
-- l.43 — `{/* Cinematic Credits Footer Bar */}`
-- l.82 — `{/* Floating Back To Top Button */}`
-
 ### `src\components\layout\footer-sections\FooterDirectContacts.tsx`
 
-- l.43 — `{/* Contacts Directs */}`
 - l.46 — `{t('directLines')}`
-- l.82 — `{/* Socials & Networks — pilotés par site_social_links */}`
 - l.85 — `{t('networksTitle')}`
 - l.89 — `{t('networksText')}`
 
-### `src\components\layout\navbar\NavActionsBar.tsx`
-
-- l.43 — `{/* Quick Official Social Icons — pilotés par site_social_links */}`
-
 ### `src\components\layout\navbar\NavMobileDrawer.tsx`
 
-- l.128 — `{/* Mobile Brand Header */}`
+- l.143 — `{chrome('brandName')}`
+- l.146 — `{chrome('brandTagline')}`
 
 ### `src\components\sections\ApplicationModal.tsx`
 
-- l.142 — `{/* Tactical Crosshair Corners */}`
-- l.144 — `{/* Top Warning Bar */}`
-- l.147 — `{/* Close button */}`
-- l.158 — `{/* Header */}`
 - l.176 — `{t('titleLead')}`
 - l.180 — `{t('intro')}`
-- l.184 — `{/* Profile Selection Tabs */}`
-- l.201 — `{/* Form */}`
 - l.206 — `{t('labels.fullName')}`
 - l.219 — `{t('labels.age')}`
 - l.237 — `{t('labels.email')}`
@@ -922,37 +715,31 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\HallOfFame.tsx`
 
-- l.38 — `{/* Subtle Anamorphic Glow */}`
-- l.42 — `{/* Header Principal */}`
 - l.57 — `{t('hallOfFame.badge')}`
 - l.62 — `{t('hallOfFame.title')}`
 - l.66 — `{t('hallOfFame.subtitle')}`
-- l.70 — `{/* SECTION VEDETTE : LES ACTEURS ET COMÉDIENS DOUBLÉS */}`
-- l.73 — `{/* SECTION FILMS : LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC */}`
-- l.77 — `{/* Modale Acteurs doublés */}`
 
 ### `src\components\sections\contact\ContactCoordinatesSidebar.tsx`
 
-- l.31 — `{/* Standard téléphonique */}`
-- l.36 — `{t('standardTitle')}`
-- l.54 — `{t('directPhone')}`
-- l.69 — `{t('email')}`
-- l.84 — `{t('hours')}`
-- l.89 — `{t('hoursValue')}`
-- l.91 — `{t('hoursSaturday')}`
-- l.116 — `{/* Implantations */}`
-- l.119 — `{t('sitesTitle')}`
-- l.124 — `{t('mainCampus')}`
-- l.127 — `{t('mainCampusAddress')}`
-- l.130 — `{t('mainCampusRegion')}`
-- l.155 — `{t('idfHub')}`
-- l.158 — `{t('idfStudio')}`
-- l.161 — `{t('idfAddress')}`
-- l.168 — `{t('production')}`
-- l.171 — `{t('productionDesc')}`
-- l.176 — `{/* Qualiopi Guarantee */}`
-- l.182 — `{/* Official Entities Logos */}`
-- l.185 — `{t('entitiesTitle')}`
+- l.38 — `{t('standardTitle')}`
+- l.56 — `{t('directPhone')}`
+- l.71 — `{t('email')}`
+- l.86 — `{t('hours')}`
+- l.91 — `{t('hoursValue')}`
+- l.93 — `{t('hoursSaturday')}`
+- l.121 — `{t('sitesTitle')}`
+- l.126 — `{t('mainCampus')}`
+- l.129 — `{t('mainCampusAddress')}`
+- l.132 — `{t('mainCampusRegion')}`
+- l.157 — `{t('idfHub')}`
+- l.160 — `{t('idfStudio')}`
+- l.163 — `{t('idfAddress')}`
+- l.170 — `{t('production')}`
+- l.173 — `{t('productionDesc')}`
+- l.187 — `{t('entitiesTitle')}`
+- l.199 — `{chrome('siteCampus')}`
+- l.212 — `{chrome('siteEvents')}`
+- l.225 — `{chrome('siteStuntTeam')}`
 
 ### `src\components\sections\contact\ContactForm.tsx`
 
@@ -965,6 +752,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.138 — `{t('labelPhone')}`
 - l.160 — `{t('labelEmail')}`
 - l.181 — `{t('labelProgram')}`
+- l.193 — `{t(’options.${programId}’)}`
 - l.204 — `{t('labelExperience')}`
 - l.223 — `{t('labelMessage')}`
 - l.253 — `{isSubmitting ? t('submitting') : t('submit')}`
@@ -977,20 +765,19 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.60 — `{t('titleLine')}{' '}`
 - l.70 — `{heroData?.subtitle || t('subtitle')}`
 
+### `src\components\sections\events\EventsHeroSection.tsx`
+
+- l.51 — `{chrome('breadcrumbHome')}`
+
 ### `src\components\sections\events\EventsPartnersBanners.tsx`
 
-- l.12 — `{/* ILS NOUS ONT FAIT CONFIANCE (BANDES LOGOS) */}`
 - l.20 — `{t('partnersTitle')}`
-- l.24 — `{/* Authentic Brand Logo Strips directly from the live site */}`
-- l.57 — `{/* BANDES AFFICHES DE FILMS */}`
 - l.65 — `{t('cinemaTitle')}`
 
 ### `src\components\sections\events\EventsPillarsSection.tsx`
 
-- l.127 — `{evt.cta_text || t('learnMore')}`
-- l.157 — `{/* 1. SPECTACLES (Fallback) */}`
-- l.215 — `{/* 2. ANIMATIONS */}`
-- l.273 — `{/* 3. TEAM BUILDING */}`
+- l.129 — `{evt.cta_text || t('learnMore')}`
+- l.149 — `{chrome('campusNameTitle')}`
 
 ### `src\components\sections\films\CucFilmsShowcase.tsx`
 
@@ -999,22 +786,16 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\components\sections\formation\FormationDisciplinesExplorer.tsx`
 
 - l.71 — `{chrome?.title || t('disciplines.title')}`
-- l.76 — `{/* Interactive Discipline Explorer */}`
-- l.78 — `{/* Navigation List on Left */}`
-- l.113 — `{/* Discipline Detail Card on Right with Real Image */}`
-- l.116 — `{/* Real Image of Discipline */}`
 - l.140 — `{t('disciplines.cinemaContextLabel')}`
 - l.147 — `{t('disciplines.equipmentLabel')}`
 
 ### `src\components\sections\formation\FormationFormulesSection.tsx`
 
-- l.81 — `{/* Carte 1 : Formule Découverte & Sélection */}`
 - l.92 — `{decouverte?.step_badge || tf('step1Badge')}`
 - l.98 — `{decouverte?.duration_badge || tf('step1Hours')}`
 - l.106 — `{decouverte?.title || tf('step1Title')}`
 - l.112 — `{decouverte?.description || tf('step1Desc')}`
 - l.143 — `{tf('step1ProgramTitle')}`
-- l.169 — `{/* Carte 2 : Cursus Pro Longue Durée */}`
 - l.181 — `{pro?.step_badge || tf('step2Badge')}`
 - l.187 — `{pro?.duration_badge || tf('step2Hours')}`
 - l.195 — `{pro?.title || tf('step2Title')}`
@@ -1023,13 +804,10 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\formation\FormationHeroSection.tsx`
 
-- l.27 — `{/* Page Header Hero */}`
-- l.42 — `{/* Breadcrumb */}`
 - l.45 — `{t('hero.breadcrumbHome')}`
 - l.49 — `{t('hero.breadcrumbCurrent')}`
 - l.73 — `{heroData?.meta || 'AFDAS 100% • FRANCE TRAVAIL'}`
 - l.94 — `{heroData?.subtitle || t('hero.subtitle')}`
-- l.136 — `{/* Chiffres clés & indicateurs */}`
 - l.145 — `{t('stats.practiceLabel')}`
 - l.154 — `{t('stats.graduatesLabel')}`
 - l.163 — `{t('stats.satisfactionLabel')}`
@@ -1038,15 +816,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\formation\FormationPedagogyModalities.tsx`
 
-- l.47 — `{/* Calendrier Prochaines Sessions */}`
 - l.55 — `{chrome?.sessions_title || tp('sessionsTitle')}`
 - l.66 — `{statuses[session.status] ?? ''}`
 - l.72 — `{tp('registrationNote')}`
-- l.76 — `{/* Conditions d'accès */}`
 - l.84 — `{chrome?.admission_title || tp('admissionTitle')}`
-- l.111 — `{/* Financement & Prise en Charge */}`
 - l.120 — `{chrome?.funding_title || tp('fundingTitle')}`
-- l.145 — `{/* Bottom CTA */}`
 - l.149 — `{t('cta.title')}`
 - l.152 — `{t('cta.text')}`
 - l.160 — `{t('ctaApplyPro')}`
@@ -1054,98 +828,30 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\hall-of-fame\CelebrityDetailsModal.tsx`
 
-- l.32 — `{/* Header */}`
 - l.37 — `{t('celebrityModal.title')}`
-- l.49 — `{/* Content */}`
-- l.52 — `{/* Photo */}`
-- l.63 — `{/* Info */}`
-- l.71 — `{/* Doublure cascades - Uniquement si une doublure dédiée est renseignée */}`
 - l.75 — `{t('celebrityModal.doublesLabel')}`
-- l.83 — `{/* Scènes d'action */}`
 - l.87 — `{t('celebrityModal.scenesLabel')}`
-- l.95 — `{/* Films */}`
 - l.98 — `{t('celebrityModal.filmsLabel')}`
-- l.112 — `{/* IMDb Button */}`
-- l.131 — `{/* Footer */}`
 - l.137 — `{t('celebrityModal.close')}`
 
 ### `src\components\sections\hall-of-fame\CelebrityDoublesGallery.tsx`
 
-- l.74 — `{/* Section Header */}`
 - l.80 — `{t('hallOfFame.actorsBadge')}`
 - l.84 — `{t('hallOfFame.actorsTitle')}`
 - l.87 — `{t('hallOfFame.actorsIntro')}`
-- l.93 — `{/* Celebrities Grid with Real Portraits & Clean Cards */}`
-- l.101 — `{/* Photo Portrait Container */}`
-- l.112 — `{/* IMDb Direct Link */}`
-- l.125 — `{/* Body Content */}`
-- l.132 — `{/* Stunt Double Reference - Uniquement si une doublure dédiée est renseignée */}`
-- l.140 — `{/* Stunt Specialty */}`
-- l.148 — `{/* Key Productions Badges */}`
 - l.151 — `{t('hallOfFame.filmsLabel')}`
-- l.165 — `{/* Action Bar */}`
-- l.186 — `{/* Bottom Border Accent */}`
 
 ### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
 
-- l.56 — `{/* Header */}`
 - l.61 — `{t('filmModal.title')}`
-- l.73 — `{/* Content */}`
-- l.76 — `{/* Poster */}`
-- l.101 — `{/* Details */}`
 - l.105 — `{movie.year}{movie.director ? ’ • ${t('filmModal.directedBy', { name: movie.director })}’ : ''}`
-- l.112 — `{/* Description factuelle de la fiche film */}`
-- l.119 — `{/* Doublures */}`
 - l.123 — `{t('filmModal.doublesLabel')}`
-- l.138 — `{/* Équipe CUC */}`
 - l.142 — `{t('filmModal.teamLabel')}`
-- l.216 — `{/* Liens externes */}`
-- l.259 — `{/* Footer */}`
 - l.265 — `{t('filmModal.close')}`
-
-### `src\components\sections\home\HomeAboutSection.tsx`
-
-- l.77 — `{/* Background Soft Glow Layer */}`
-- l.82 — `{/* Visual Side: 2.5D Multi-Plane Portrait Composition */}`
-- l.84 — `{/* Layer A: Background Shadow Frame & Photo (Deep plane) */}`
-- l.98 — `{/* Layer B: Founder Quote Card (Floating mid-plane) */}`
-- l.135 — `{/* Layer C: Year Tag Badge (Floating foreground plane) */}`
-- l.146 — `{/* Editorial Content Side */}`
-- l.184 — `{/* 4 Pillars Grid with Staggered Parallax Wave */}`
-- l.218 — `{/* CTAs */}`
 
 ### `src\components\sections\home\HomePartnersSection.tsx`
 
-- l.112 — `{/* Background Soft Glow */}`
-- l.151 — `{/* Staggered Wave Parallax Grid */}`
 - l.190 — `{partner.role || roles[partner.roleKey] || ''}`
-
-### `src\components\sections\home\HomeQualiopiSection.tsx`
-
-- l.50 — `{/* Ambient Certification Glow */}`
-- l.60 — `{/* Floating Accreditation Badge */}`
-
-### `src\components\sections\home\HomeSocialSection.tsx`
-
-- l.94 — `{/* Ambient Depth Halo */}`
-- l.160 — `{/* Rangée de logos seuls — l'envie de cliquer vient de l'icône, pas du texte */}`
-- l.185 — `{/* Instagram 3D Spatialized Triptyque */}`
-
-### `src\components\sections\home\HomeTournagesSection.tsx`
-
-- l.167 — `{/* Cinematic Golden Ambience Beam */}`
-- l.174 — `{/* Top Header */}`
-- l.217 — `{/* Studio Card with 3 Pillars & Production Poster Showcase */}`
-- l.221 — `{/* Left Column: 3 Pillars */}`
-- l.324 — `{/* Fiche détaillée — même modale que le showcase des films. */}`
-
-### `src\components\sections\home\HomeVirtualTourSection.tsx`
-
-- l.41 — `{/* Background Volumetric Beam */}`
-- l.51 — `{/* Text Side */}`
-- l.102 — `{/* 3D Portal Window Side */}`
-- l.105 — `{/* Sliding Internal 360 Photo (Layer Depth) */}`
-- l.121 — `{/* Floating Compass Center HUD */}`
 
 ### `src\components\sections\partenaires\PartenairesCtaSection.tsx`
 
@@ -1156,12 +862,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\partenaires\PartenairesGridSection.tsx`
 
-- l.117 — `{/* Section Partenaires Cinéma additionnels configurés dans le Cockpit */}`
 - l.169 — `{localized(partner).description}`
-- l.195 — `{/* Section Partenaires Additionnels (Équipements, Institutions, Médias) */}`
 - l.248 — `{localized(partner).description}`
-- l.274 — `{/* Groupes de partenaires statiques certifiés */}`
-- l.294 — `{/* Logo Box */}`
 - l.314 — `{localized(partner).role}`
 - l.317 — `{localized(partner).category}`
 - l.326 — `{localized(partner).description}`
@@ -1170,44 +872,27 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.43 — `{t('breadcrumbHome')}`
 - l.54 — `{t('heroMeta')}`
-- l.66 — `{title.substring(title.lastIndexOf(' ') + 1)}`
 
 ### `src\components\sections\stages\StagesGridSection.tsx`
 
 - l.274 — `{renderIcon(detail.icon)}`
-- l.314 — `{/* Right Photo Preview */}`
 
 ### `src\components\sections\stages\StagesHeroSection.tsx`
 
-- l.23 — `{/* Hero Header */}`
 - l.40 — `{t('hero.breadcrumbHome')}`
 - l.51 — `{t('hero.meta')}`
 - l.70 — `{heroData?.subtitle || t('hero.subtitle')}`
-- l.75 — `{/* Header Visual Banner from original site */}`
-
-### `src\components\sections\team\TeamBannersSection.tsx`
-
-- l.67 — `{/* Real CUC Banners */}`
 
 ### `src\components\sections\team\TeamHeroSection.tsx`
 
 - l.47 — `{t('hero.breadcrumbHome')}`
-- l.63 — `{title.split('&')[0]}`
-- l.95 — `{/* Cinematic Textured CUC Emblem Showcase */}`
 - l.109 — `{t('hero.emblemLabel')}`
-
-### `src\components\sections\team\TeamProductionGalleries.tsx`
-
-- l.71 — `{/* 1. CUC PROD — LE STUDIO ET LA SALLE (Grille 3x2) */}`
-- l.117 — `{/* 2. CUC PROD — LES CASCADEURS */}`
-- l.166 — `{/* 3. CUC PROD — LES ÉQUIPEMENTS (Grille aérée et organisée) */}`
 
 ### `src\components\sections\team\TeamProductionServices.tsx`
 
 - l.44 — `{block?.badge || t('services.badge')}`
 - l.50 — `{block?.title || t('services.title')}`
 - l.56 — `{block?.intro || t('services.intro')}`
-- l.76 — `{/* Callout contact production */}`
 - l.83 — `{block?.contact_title || t('services.contactTitle')}`
 - l.89 — `{block?.contact_intro || t('services.contactIntro')}`
 - l.95 — `{t('services.coordinatorValue')}`
@@ -1218,25 +903,12 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.25 — `{ src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/CUC-5.0-203-e1671702096970.jpg', title: 'Cascadeurs CUC', category: 'Les Cascadeurs' }`
 - l.36 — `{ src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/MG_5464-1.jpg', title: 'Équipements CUC', category: 'Les Équipements' }`
 
-### `src\components\sections\visite\VisiteAccessTransport.tsx`
-
-- l.149 — `{/* Adresse & Contact Box */}`
-
-### `src\components\sections\visite\VisiteFacilitiesDetail.tsx`
-
-- l.166 — `{/* Selector Grid / Detail */}`
-- l.168 — `{/* Left Selector List */}`
-- l.189 — `{String(index + 1).padStart(2, '0')}`
-- l.215 — `{/* Right Detail Display */}`
-
 ### `src\components\sections\visite\VisiteHeroSection.tsx`
 
-- l.29 — `{/* Hero Header */}`
 - l.46 — `{t('hero.breadcrumbHome')}`
 - l.66 — `{t('hero.titleLead')}{' '}`
 - l.76 — `{hero?.subtitle || t('hero.subtitle')}`
 - l.104 — `{t('hero.ctaPlan3D')}`
-- l.111 — `{/* Chiffres Clés du Site */}`
 
 ### `src\components\sections\visite\VisitePhotoGallery.tsx`
 
@@ -1246,46 +918,18 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\InteractiveCampusMap.tsx`
 
-- l.76 — `{/* Top Info Bar */}`
-- l.91 — `{/* Domain info */}`
-- l.99 — `{/* Main Grid: Map / Radar Viewer + Multi-App Launchers */}`
-- l.101 — `{/* Left Column: Interactive Map / Radar View (8 cols) */}`
-- l.104 — `{/* View Selector & Mode Switch */}`
-- l.131 — `{/* Copy GPS button */}`
-- l.142 — `{t('copied')}`
-- l.154 — `{/* View Content Area */}`
-- l.165 — `{/* Tactical Target Overlay */}`
-- l.179 — `{/* Adresse badge */}`
-- l.196 — `{/* Quick Interconnectivity Buttons */}`
-- l.200 — `{/* Right Column: Travel Times & Step-by-Step Directions (4 cols) */}`
+- l.84 — `{chrome('brandName')}`
+- l.144 — `{t('copied')}`
 
 ### `src\components\ui\LightboxModal.tsx`
 
-- l.72 — `{/* Top Header Bar */}`
-- l.88 — `{'• ' + currentImage.category}`
-- l.105 — `{/* Main Image Viewport */}`
-- l.110 — `{/* Left Arrow */}`
-- l.120 — `{/* The Image */}`
-- l.132 — `{/* Right Arrow */}`
-- l.143 — `{/* Bottom Caption Bar */}`
 - l.152 — `{t('navHint')}`
 
 ### `src\components\ui\ParallaxHero.tsx`
 
-- l.47 — `{ caption: string; sub: string; badge: string; tag: string }`
-- l.161 — `{/* 1. Deep 3D Background Layer: Photography + Ken-Burns + Organic Inertial Tilt */}`
-- l.219 — `{/* Ken-Burns slow breathing scale */}`
-- l.239 — `{/* Cinematic Vignettes */}`
-- l.245 — `{/* 2. Tech / Mech & Organic 3D Depth Layer (absorbs wheel & finger saccades) */}`
-- l.253 — `{/* 3. Subtle Location & Campus Header Overlay */}`
-- l.256 — `{/* 4. Central Text Content: Rock-Solid Focal Plane (NO text displacement!) */}`
-- l.262 — `{/* Refined Pill Badge */}`
-- l.277 — `{/* Clean Editorial Title */}`
-- l.297 — `{/* Dynamic Subtitle with smooth crossfade */}`
-- l.309 — `{heroData?.subtitle || activeCopy?.sub || ''}`
-- l.314 — `{/* Key Metrics Cards */}`
-- l.344 — `{/* Action CTAs */}`
-- l.398 — `{/* 5. Modern Segmented Slide Navigation & Smooth Scroll Cue */}`
+- l.49 — `{ caption: string; sub: string; badge: string; tag: string }`
+- l.293 — `{chrome('heroTitleTail')}`
+- l.311 — `{heroData?.subtitle || activeCopy?.sub || ''}`
 
 ### `src\components\ui\TacticalButton.tsx`
 
@@ -1293,228 +937,29 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\VirtualTourViewer.tsx`
 
-- l.59 — `{/* HUD Top Control Bar */}`
-- l.67 — `{t('viewerTitle')}`
-- l.74 — `{/* Actions */}`
-- l.125 — `{/* Navigation Helper Banner */}`
-- l.133 — `{t('navHelpBody2')}`
-- l.140 — `{t('hideLabel')}`
-- l.145 — `{/* The 360 Virtual Tour iFrame Container */}`
-
-### `src\components\ui\campus-map\CampusAppLaunchers.tsx`
-
-- l.21 — `{/* Google Maps */}`
-- l.35 — `{/* Apple Maps */}`
-- l.49 — `{/* Waze */}`
-- l.63 — `{/* SNCF Connect */}`
-
-### `src\components\ui\campus-map\CampusRadarView.tsx`
-
-- l.25 — `{/* Real Aerial Orthophoto HD Zoom 19 (IGN/ESRI) */}`
-- l.35 — `{/* Dark vignetting gradient */}`
-- l.40 — `{/* Grid Lines Background */}`
-- l.50 — `{/* Radar Concentric Rings */}`
-- l.56 — `{/* Radar Crosshairs */}`
-- l.61 — `{/* Top HUD Telemetry & Mode Switch */}`
-- l.82 — `{/* Radar Hotspot Markers */}`
-- l.112 — `{/* Marker Tooltip */}`
-- l.126 — `{/* Selected POI Details Panel */}`
+- l.69 — `{t('viewerTitle')}`
+- l.72 — `{chrome('locationLabel')}`
+- l.135 — `{t('navHelpBody2')}`
+- l.142 — `{t('hideLabel')}`
 
 ### `src\components\ui\campus-map\CampusTravelPlanner.tsx`
 
 - l.68 — `{t('travelTitle')}`
 - l.72 — `{t('travelBadge')}`
-- l.76 — `{/* City Tabs */}`
-- l.94 — `{/* Selected Route Info Box */}`
-- l.96 — `{/* Train Card */}`
-- l.116 — `{/* Car Card */}`
-- l.137 — `{/* Practical Guidance */}`
 - l.140 — `{t('accessInfoTitle')}`
-- l.156 — `{/* Bottom Call to Action */}`
 - l.165 — `{isCopied ? t('addressCopied') : t('copyAddress')}`
-
-### `src\components\ui\parallax-hero\HeroHudOverlay.tsx`
-
-- l.34 — `{/* Discreet Location Indicator */}`
-- l.46 — `{/* Google Maps Quick Access Pill */}`
-
-### `src\components\ui\parallax-hero\HeroTechDepth.tsx`
-
-- l.75 — `{/* 1. Volumetric Organic Halo: Soft interactive warm beam */}`
-- l.83 — `{/* 2. Midground Tech/Mech Precision Geometry (Perspective Grid + Optics) */}`
-- l.92 — `{/* Subtle Cyber/Cinematic Reticle Circle in center */}`
-- l.94 — `{/* Pulsing Concentric Range Ring */}`
-- l.99 — `{/* Perspective Horizon Lines (fine mech grid) */}`
-- l.118 — `{/* Precision Sensor Corner Brackets (Cinematic viewfinder markers) */}`
-- l.128 — `{/* 3. Foreground Floating Stereoscopic Optical Motes (Multi-depth embers) */}`
-
-### `src\components\ui\parallax\StudioGlobalAtmosphere.tsx`
-
-- l.40 — `{/* 1. Subtle Global Vertical Telemetry Guide Lines (Studio Film Margins) */}`
-- l.47 — `{/* 2. Soft Ambient Lighting Beacons that shift with scroll depth */}`
-- l.61 — `{/* 3. Floating Micro-Particles rising with scroll inertia */}`
 
 ## 4. CODÉ EN DUR — dette (aucune prise en charge par le Cockpit)
 
-### `src\app\(site)\[locale]\animations-airbag-parkour\page.tsx`
-
-- l.90 — `{heroTitle.split('&')[0]} &amp;{' '}`
-- l.168 — `CUC EVENTS ANIMATIONS`
-
-### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\CoachDetailClient.tsx`
-
-- l.118 — `role`
-- l.277 — `ACCUEIL`
-- l.410 — `Trajectoire & Philosophie`
-- l.618 — `Autres Coordinateurs & Instructeurs`
-
-### `src\app\(site)\[locale]\equipe-cascadeurs-pro\page.tsx`
-
-- l.137 — `{heroTitle.substring(0, heroTitle.lastIndexOf(' '))}{' '}`
-
-### `src\app\(site)\[locale]\error.tsx`
-
-- l.39 — `Campus Univers Cascades`
-
-### `src\app\(site)\[locale]\opengraph-image.tsx`
-
-- l.54 — `CAMPUS UNIVERS CASCADES`
-- l.98 — `11 000 M²`
-- l.100 — `CUC TOWER 21 M`
-
-### `src\app\(site)\[locale]\spectacles-cascadeurs-yamakasi\page.tsx`
-
-- l.90 — `{heroTitle.split('&')[0]} &amp;{' '}`
-- l.220 — `retransmis sur écrans géants.`
-
-### `src\app\(site)\[locale]\stunt-workshop-cuc\page.tsx`
-
-- l.64 — `HOME / ACCUEIL`
-- l.92 — `{heroTitle.substring(0, heroTitle.lastIndexOf(' '))}{' '}`
-- l.163 — `PROGRAMME INTENSIF`
-- l.169 — `INTERNATIONAL STUNT PERFORMER TRAINING`
-- l.175 — `Taught in both English and French by high-profile action coordinators with credits on`
-- l.176 — `John Wick 4`
-- l.176 — `Fast & Furious`
-- l.176 — `, and`
-- l.176 — `James Bond`
-- l.184 — `FIGHT CHOREOGRAPHY & HONG KONG ACTION DESIGN`
-- l.186 — `Camera angles, punch-selling techniques, multi-opponent combat drills, and weapons flow.`
-- l.194 — `WIREWORK & 3D RIGGING`
-- l.196 — `Harness flights, deadman drops, air-ramps, and superhero wall-running stunts.`
-- l.204 — `HIGH FALLS UP TO 21 METERS`
-- l.206 — `Defenestrations, backwards drops, and high-impact landing on giant calibrated airbags.`
-- l.214 — `FULL BODY BURN (HUMAN TORCH)`
-- l.216 — `Pyro safety protocols, protective Nomex suits, fire retardant gels, and emergency procedures.`
-- l.224 — `SHOWREEL ACTION PRODUCTION`
-- l.226 — `Professional cinematic camera crew shoots your dynamic action scene at the end of the camp.`
-- l.290 — `Le Cateau-Cambrésis (59360)`
-- l.292 — `and 1 hour from Lille or Brussels (Belgium).`
-- l.295 — `Airport shuttles and train station pickups available upon booking.`
-- l.305 — `Stay on-site in student housing facilities (90 beds total). All three meals`
-- l.307 — `specifically calibrated for high athletic performance.`
-- l.310 — `Single or shared rooms with high-speed Wi-Fi and laundry facilities.`
-- l.320 — `Graduates receive the official CUC Workshop Certificate detailing all hours and disciplines completed during the session.`
-- l.323 — `Includes raw 4K footage of your choreographed action scenes.`
-- l.340 — `READY TO ELEVATE YOUR ACTION CAREER?`
-- l.343 — `Spaces are limited to ensure maximum individual camera time and safety coaching.`
-- l.344 — `Apply today to secure your spot for the upcoming international session.`
-- l.352 — `Apply for International Workshop`
-- l.356 — `Contact Admissions`
-
-### `src\app\(site)\[locale]\team-building-cascades\page.tsx`
-
-- l.91 — `ACCUEIL`
-- l.95 — `CUC EVENTS`
-- l.123 — `{heroTitle.substring(0, heroTitle.lastIndexOf(' '))}{' '}`
-
-### `src\app\(site)\[locale]\videos-cascadeur\page.tsx`
-
-- l.147 — `{heroTitle.split('&')[0]} &amp;{' '}`
-- l.328 — `allowFullScreen`
-
-### `src\components\layout\MobileStickyCTA.tsx`
-
-- l.81 — `’ imbriqué dans un ’`
-- l.82 — `éléments interactifs, ce qui brouille le clic et la navigation au`
-
-### `src\components\layout\Navbar.tsx`
-
-- l.65 — `navigation.items`
-- l.105 — `CAMPUS UNIVERS CASCADES`
-- l.108 — `Stunt Academy & Team • Est. 2008`
-
-### `src\components\layout\footer-sections\FooterCreditsBar.tsx`
-
-- l.46 — `{legal.copyright.replace('{year}', String(year ?? 2026))}`
-
-### `src\components\layout\navbar\NavMobileDrawer.tsx`
-
-- l.141 — `CAMPUS UNIVERS CASCADES`
-- l.144 — `Stunt Academy & Team`
-- l.163 — `Le Cateau-Cambrésis (59)`
-
-### `src\components\sections\contact\ContactCoordinatesSidebar.tsx`
-
-- l.197 — `CAMPUS CUC`
-- l.210 — `CUC EVENTS`
-- l.223 — `CUC STUNT TEAM`
-
-### `src\components\sections\contact\ContactForm.tsx`
-
-- l.193 — `{t(’options.${programId}’)}`
-
-### `src\components\sections\events\EventsHeroSection.tsx`
-
-- l.49 — `ACCUEIL`
-- l.70 — `{title.split(':')[0]} :{' '}`
-
-### `src\components\sections\events\EventsPartnersBanners.tsx`
-
-- l.77 — `priority`
-
-### `src\components\sections\events\EventsPillarsSection.tsx`
-
-- l.147 — `Campus Univers Cascades`
-
-### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
-
-- l.177 — `c.toLowerCase().includes(movie.title.toLowerCase())`
-
-### `src\components\sections\partenaires\PartenairesHeroSection.tsx`
-
-- l.64 — `{title.substring(0, title.lastIndexOf(' '))}{' '}`
-
-### `src\components\ui\InteractiveCampusMap.tsx`
-
-- l.82 — `CAMPUS UNIVERS CASCADES`
-- l.172 — `70 Rue Faidherbe, 59360 Le Cateau-Cambrésis`
-- l.182 — `70 Rue Faidherbe • 59360 Le Cateau-Cambrésis`
-
-### `src\components\ui\LightboxModal.tsx`
-
-- l.79 — `{currentIndex + 1} / {images.length}`
-- l.128 — `priority`
-
-### `src\components\ui\ParallaxHero.tsx`
-
-- l.291 — `Cascades`
-
-### `src\components\ui\VirtualTourViewer.tsx`
-
-- l.70 — `LE CATEAU-CAMBRÉSIS`
-
-### `src\components\ui\campus-map\CampusAppLaunchers.tsx`
-
-- l.72 — `SNCF Connect`
+Aucune occurrence.
 
 ## 5. HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées)
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\CoachDetailClient.tsx`
 
-- l.352 — `Allociné`
-- l.365 — `Instagram`
-- l.377 — `Portfolio`
+- l.354 — `Allociné`
+- l.367 — `Instagram`
+- l.379 — `Portfolio`
 
 ### `src\components\sections\ApplicationModal.tsx`
 
@@ -1522,8 +967,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\contact\ContactCoordinatesSidebar.tsx`
 
-- l.75 — `contact@campus-universcascades.com`
-- l.148 — `Google Maps`
+- l.77 — `contact@campus-universcascades.com`
+- l.150 — `Google Maps`
 
 ### `src\components\sections\formation\FormationHeroSection.tsx`
 
@@ -1544,11 +989,14 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\InteractiveCampusMap.tsx`
 
-- l.87 — `LAT 50.0909° N • LON 3.5374° E`
+- l.89 — `LAT 50.0909° N • LON 3.5374° E`
+- l.174 — `70 Rue Faidherbe, 59360 Le Cateau-Cambrésis`
+- l.184 — `70 Rue Faidherbe • 59360 Le Cateau-Cambrésis`
 
 ### `src\components\ui\campus-map\CampusAppLaunchers.tsx`
 
 - l.30 — `Google Maps`
 - l.44 — `Apple Maps`
 - l.58 — `Waze`
+- l.72 — `SNCF Connect`
 

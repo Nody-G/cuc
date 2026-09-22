@@ -20,6 +20,8 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
   className = '',
 }) => {
   const t = useTranslations('visiteVirtuelle');
+  /** Chrome commun : localisation affichée dans la barre du lecteur 360. */
+  const chrome = useTranslations('commonChrome');
   const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -67,7 +69,7 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
             {t('viewerTitle')}
           </span>
           <span className="hidden sm:inline-block px-2 py-0.5 bg-[#14141c] border border-zinc-800 text-[10px] font-mono-tech text-zinc-400">
-            LE CATEAU-CAMBRÉSIS
+            {chrome('locationLabel')}
           </span>
         </div>
 
