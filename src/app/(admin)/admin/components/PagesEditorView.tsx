@@ -880,7 +880,7 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
             title={
               formData.is_published
                 ? 'La page est visible sur la vitrine publique.'
-                : 'La page est en brouillon : elle n’est pas visible publiquement.'
+                : 'Page en brouillon : exclue du sitemap, mais encore joignable par URL directe (garde de diffusion à venir).'
             }
           >
             <span
@@ -889,6 +889,19 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
             />
             {formData.is_published ? 'Publiée' : 'Brouillon'}
           </span>
+
+          {/*
+            État dit franchement : tant que la garde de diffusion n'est pas posée
+            (route d'aperçu admin + 404 public, cf. plans/revue-diffusion-brouillons.md),
+            dépublier retire la page du sitemap sans la fermer. Le dire ici évite de
+            croire à un contrôle qui n'existe pas encore.
+          */}
+          {!formData.is_published && (
+            <span className="px-2.5 py-1 rounded-md text-[10px] font-mono leading-tight max-w-[24rem] border border-amber-500/30 bg-amber-500/5 text-amber-300">
+              Brouillon : retirée du sitemap, encore joignable par URL directe — garde de
+              diffusion à venir.
+            </span>
+          )}
 
           <a
             href={previewUrl}

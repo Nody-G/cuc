@@ -20,11 +20,12 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
    - `site_disciplines` ↔ **aucune table CUC Sign** : `evaluation_disciplines` est une table d'**instance** (`session_id NOT NULL` → `evaluation_sessions.id`, `ON DELETE CASCADE`) portant 4 étiquettes courtes, alors que `site_disciplines` est un **référentiel éditorial** de 10 entrées spécialisées. Aucun appariement 1:1 n'existe et CUC Sign ne possède **aucune table de référentiel de disciplines**. Ne JAMAIS créer de FK ici — un lien faux serait pire qu'aucun lien. Cf. `plans/revue-interconnexion-disciplines.md`.
 3. **Isolation et Sécurité** : Les tables du site vitrine et du cockpit sont strictement préfixées par `site_` et les clés étrangères vers CUC Sign utilisent `ON DELETE SET NULL` pour préserver l'intégrité absolue de CUC Sign.
 4. **Un lien FAUX est pire qu'aucun lien** : Avant de créer une clé étrangère, prouver que la cardinalité et la granularité des deux tables sont compatibles. Une FK remplie de correspondances arbitraires propage de la fausse donnée dans toute l'application — c'est plus grave qu'une FK NULL.
-5. **Publication réelle** : `site_pages.is_published` est écrit par le Cockpit, mais **aucune
-   lecture publique ne le respecte encore** — dépublier une page ne la retire donc **pas** du
-   public. Chantier documenté et chiffré : [`plans/revue-diffusion-brouillons.md`](plans/revue-diffusion-brouillons.md:1)
-   (route d'aperçu admin → puis `notFound()` public). Ne jamais communiquer l'inverse tant que
-   la garde n'est pas posée.
+5. **Publication réelle** : `site_pages.is_published` est écrit par le Cockpit ; le **sitemap**
+   exclut désormais les pages en brouillon ([`sitemap.ts`](src/app/sitemap.ts:9)) et le Cockpit
+   annonce l'état exact (« retirée du sitemap, encore joignable par URL directe »). La **garde
+   serveur** (route d'aperçu admin → puis `notFound()` public) reste à poser : chantier
+   documenté et chiffré dans [`plans/revue-diffusion-brouillons.md`](plans/revue-diffusion-brouillons.md:1).
+   Ne jamais communiquer l'inverse tant que la garde n'est pas posée.
 6. **Panne de lecture** : une lecture Supabase en échec sert la **copie certifiée** du code
    (`DEFAULT_PAGE_CONTENTS`, `DEFAULT_NAVIGATION`…) — jamais une page morte. C'est déjà en
    place dans [`getLocalizedPageContent()`](src/lib/i18n/server.ts:93).
