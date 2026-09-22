@@ -1,6 +1,10 @@
 import { cacheLife, cacheTag } from 'next/cache';
 import { createPublicClient } from '@/lib/supabase/public';
-import { normalizeSlug, type SitePageContent } from '@/lib/data/site-service';
+import {
+    DEFAULT_PAGE_CONTENTS,
+    normalizeSlug,
+    type SitePageContent,
+} from '@/lib/data/site-service';
 import type { SiteSocialLink } from '@/data/navigation';
 import {
     DEFAULT_FOOTER,
@@ -102,7 +106,18 @@ export async function getMicrocopyOverrides(): Promise<MicrocopyOverlay> {
 
 /**
  * Contenu d'une page, DÉJÀ localisé (FR fusionné avec l'overlay EN).
- * Retourne `null` si la page n'existe pas en base.
+ *
+ * Comportements explicites :
+ *   1. **page présente** → contenu servi (avec l'overlay de langue) ;
+ *   2. **lecture impossible** (Supabase indisponible) → copie **certifiée** du
+ *      code, plutôt qu'une page morte : le visiteur garde un site cohérent ;
+ *   3. **page absente** → `null`, la route décide (repli client certifié).
+ *
+ * Point ouvert, documenté et non contourné : une page `is_published = false`
+ * reste servie publiquement. La garde `notFound()` ne peut pas être posée ici
+ * sans casser l'aperçu du Cockpit (l'iframe de l'éditeur charge l'URL publique,
+ * et lire `searchParams` rendrait les pages dynamiques, donc lentes). La parade
+ * complète est décrite dans `plans/revue-diffusion-brouillons.md`.
  */
 export async function getLocalizedPageContent(
     slug: string,
@@ -114,15 +129,27 @@ export async function getLocalizedPageContent(
     cacheTag('site_pages', 'site_translations', `page:${cleanSlug}`, `locale:${locale}`);
 
     const supabase = createPublicClient();
-    const { data, error } = await supabase
-        .from('site_pages')
-        .select('*')
-        .eq('slug', cleanSlug)
-        .maybeSingle();
 
-    if (error || !data) return null;
+    let row: (SitePageContent & { is_published?: boolean }) | null = null;
+    let readFailed = false;
 
-    const base = data as SitePageContent;
+    try {
+        const { data, error } = await supabase
+            .from('site_pages')
+            .select('*')
+            .eq('slug', cleanSlug)
+            .maybeSingle();
+
+        if (error) readFailed = true;
+        else row = (data as (SitePageContent & { is_published?: boolean }) | null) ?? null;
+    } catch {
+        readFailed = true;
+    }
+
+    if (readFailed) return DEFAULT_PAGE_CONTENTS[cleanSlug] ?? null;
+    if (!row) return null;
+
+    const base = row as SitePageContent;
     const overlay = await fetchOverlay('page', cleanSlug, locale);
     if (!overlay) return base;
 
