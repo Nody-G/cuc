@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image as ImageIcon } from 'lucide-react';
 import type { HomeFieldDef } from './home-blocks';
+import { LinkField } from '../LinkField';
 
 const INPUT_CLASS =
     'w-full bg-black/60 border border-white/20 rounded px-3 py-2 text-xs text-white focus:border-[#FFE500] focus:outline-none';
@@ -49,6 +50,20 @@ export const HomeBlockFieldControl: React.FC<HomeBlockFieldControlProps> = ({
                         <ImageIcon className="w-4 h-4" />
                     </button>
                 </div>
+            </div>
+        );
+    }
+
+    /** Champ de lien : sélecteur de pages — plus de chemin tapé à la main. */
+    if (field.key.endsWith('_link')) {
+        return (
+            <div>
+                <label className={LABEL_CLASS}>{field.label}</label>
+                <LinkField
+                    value={value}
+                    onChange={onChange}
+                    field={field.liveEdit ? `sections_data.${block}.${field.key}` : undefined}
+                />
             </div>
         );
     }

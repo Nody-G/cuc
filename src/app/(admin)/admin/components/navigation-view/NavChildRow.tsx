@@ -2,6 +2,7 @@ import React from 'react';
 import { ChevronDown, ChevronUp, CornerDownRight, Eye, EyeOff, Trash2 } from 'lucide-react';
 import type { NavChildItem } from '@/data/navigation';
 import { NAV_INPUT_CLASS } from './navigation-ui';
+import { LinkField } from '../pages-editor/LinkField';
 
 export interface NavChildRowProps {
     parentId: string;
@@ -63,12 +64,9 @@ export const NavChildRow: React.FC<NavChildRowProps> = ({
                 />
             </div>
             <div className="sm:col-span-4">
-                <input
-                    type="text"
+                <LinkField
                     value={child.href}
-                    placeholder="/url"
-                    onChange={(e) => onUpdateChild(parentId, child.id, { href: e.target.value })}
-                    className={NAV_INPUT_CLASS}
+                    onChange={(href) => onUpdateChild(parentId, child.id, { href })}
                 />
             </div>
         </div>

@@ -22,7 +22,6 @@ export const CockpitCoreTabs: React.FC<CockpitTabContentProps> = (props) => (
                 switchTab={props.switchTab}
                 teamLength={props.team.length}
                 filmsLength={props.films.length}
-                eventsLength={props.eventsList.length}
                 partnersLength={props.partnersList.length}
                 totalSessions={props.totalSessions}
                 fullSessions={props.fullSessions}

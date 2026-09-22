@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T12:07:26.820Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T19:37:43.418Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -9,10 +9,10 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | --- | ---: |
 | ANNOTÉ — éditable en place | 225 |
 | DONNÉES — éditable par un écran existant | 111 |
-| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 213 |
+| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 211 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 18 |
-| **Total** | **567** |
+| **Total** | **565** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -451,8 +451,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\Navbar.tsx`
 
-- l.155 — `{item.label}`
-- l.177 — `{cta.label}`
+- l.143 — `{item.label}`
+- l.165 — `{cta.label}`
 
 ### `src\components\layout\RootShell.tsx`
 
@@ -732,11 +732,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.214 — `{t('factsBody2')}`
 - l.222 — `{t('factsTitle3')}`
 - l.226 — `{t('factsBody3')}`
-
-### `src\components\layout\Navbar.tsx`
-
-- l.107 — `{chrome('brandName')}`
-- l.110 — `{chrome('brandTaglineEst')}`
 
 ### `src\components\layout\SkipLink.tsx`
 

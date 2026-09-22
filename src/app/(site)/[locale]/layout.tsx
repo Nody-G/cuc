@@ -61,10 +61,9 @@ export const metadata: Metadata = {
         description: 'Plus grand centre de formation professionnelle de cascadeurs de cinéma au monde.',
         images: [DEFAULT_OG_IMAGE.url],
     },
-    icons: {
-        icon: [{ url: '/images/logos/cuc-logo-yellow.png', type: 'image/png' }],
-        apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
-    },
+    // Les icônes viennent des conventions de fichiers de `src/app/` : `icon.tsx`
+    // (monogramme jaune, lisible à 16 px) et `apple-icon.png`. Les redéclarer ici
+    // doublonnait la source de vérité et imposait le logotype complet en onglet.
 };
 
 /**

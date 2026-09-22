@@ -111,7 +111,7 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
                     <span>
                         {mode === 'edit'
                             ? 'Cliquez un texte ou un lien dans l’aperçu, saisissez, puis Entrée pour valider (Ctrl+Entrée en multi-lignes). Échap annule.'
-                            : 'Cliquez un élément surligné dans l’aperçu pour éditer le champ correspondant.'}
+                            : 'Mode inspection : un clic désigne le champ et l’ouvre dans le formulaire. Activez « Édition en place » pour saisir ici.'}
                     </span>
                     <span
                         className="shrink-0 px-1.5 py-0.5 rounded border border-[#FFE500]/40 text-[#FFE500] font-bold"

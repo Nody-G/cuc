@@ -7,7 +7,6 @@ import {
   Calendar,
   Users,
   Film,
-  Sparkles,
   Handshake,
   Settings,
   Inbox,
@@ -25,7 +24,6 @@ interface DashboardViewProps {
   switchTab: (tab: TabType) => void;
   teamLength: number;
   filmsLength: number;
-  eventsLength: number;
   partnersLength: number;
   totalSessions: number;
   fullSessions: number;
@@ -45,7 +43,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   switchTab,
   teamLength,
   filmsLength,
-  eventsLength,
   partnersLength,
   totalSessions,
   fullSessions,
@@ -144,18 +141,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           onClick={() => switchTab('films')}
         >
           <div className="text-3xl font-black text-white">{filmsLength}</div>
-        </DashboardModuleCard>
-
-        {/* Module Prestations Events */}
-        <DashboardModuleCard
-          label="CUC Events"
-          icon={Sparkles}
-          iconClass="bg-amber-500/10 text-amber-400"
-          subtitle="Shows & team-building"
-          cta="Gérer les offres"
-          onClick={() => switchTab('events')}
-        >
-          <div className="text-3xl font-black text-white">{eventsLength || 3}</div>
         </DashboardModuleCard>
 
         {/* Module Partenaires */}

@@ -10,7 +10,6 @@ import {
     Calendar,
     Users,
     Film,
-    Sparkles,
     Handshake,
     Settings,
     Shield,
@@ -167,14 +166,6 @@ export function buildCommands({ selectTab, openBackup, openHealth }: CommandActi
             keywords: ['bandeau', 'banniere', 'annonce', 'message', 'alerte'],
         },
         {
-            id: 'nav-events',
-            label: 'Gérer les Événements',
-            category: 'Navigation',
-            icon: Sparkles,
-            action: () => selectTab('events'),
-            keywords: ['agenda', 'evenements', 'portes ouvertes', 'stages'],
-        },
-        {
             id: 'nav-partners',
             label: 'Gérer les Partenaires',
             category: 'Navigation',
@@ -239,14 +230,6 @@ export function buildCommands({ selectTab, openBackup, openHealth }: CommandActi
             icon: FileText,
             action: () => selectTab('pages'),
             keywords: ['ajouter', 'nouvelle', 'creer', 'page', 'contenu'],
-        },
-        {
-            id: 'action-new-event',
-            label: 'Créer un Nouvel Événement',
-            category: 'Actions Rapides',
-            icon: Sparkles,
-            action: () => selectTab('events'),
-            keywords: ['ajouter', 'nouvel', 'creer', 'evenement', 'agenda'],
         },
         {
             id: 'action-new-partner',

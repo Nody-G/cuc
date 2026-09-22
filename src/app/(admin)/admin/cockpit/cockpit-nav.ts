@@ -22,7 +22,6 @@ import {
     PanelBottom,
     Settings,
     Share2,
-    Sparkles,
     Stethoscope,
     Users,
     Shield,
@@ -237,7 +236,9 @@ export function buildNavSections({
                     : []),
                 ...(isDirecteurOrAdmin
                     ? [
-                        { id: 'events' as TabType, label: 'Prestations Events', icon: Sparkles },
+                        // « Prestations Events » n'est plus exposé : le site vitrine
+                        // se gère ici, pas les offres. La route `/admin/events`
+                        // reste fonctionnelle en accès direct (aucune donnée perdue).
                         { id: 'partners' as TabType, label: 'Partenaires & Labels', icon: Handshake },
                     ]
                     : []),

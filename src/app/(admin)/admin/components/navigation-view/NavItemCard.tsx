@@ -5,12 +5,12 @@ import {
     ChevronUp,
     Eye,
     EyeOff,
-    Link2,
     Plus,
     Trash2,
 } from 'lucide-react';
 import type { NavChildItem, NavItem, NavItemType } from '@/data/navigation';
 import { NAV_INPUT_CLASS } from './navigation-ui';
+import { LinkField } from '../pages-editor/LinkField';
 import { TYPE_LABELS } from './navigation-form';
 import { NavChildRow } from './NavChildRow';
 
@@ -106,19 +106,11 @@ export const NavItemCard: React.FC<NavItemCardProps> = ({
                 </div>
 
                 <div className="sm:col-span-5">
-                    <label className="block text-[10px] font-mono text-gray-500 mb-1 uppercase">
-                        {item.type === 'dropdown' ? 'URL (optionnelle)' : 'URL'}
-                    </label>
-                    <div className="relative">
-                        <Link2 className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
-                        <input
-                            type="text"
-                            value={item.href || ''}
-                            placeholder="/formation-de-cascadeur"
-                            onChange={(e) => onUpdateItem(item.id, { href: e.target.value })}
-                            className={`${NAV_INPUT_CLASS} pl-9`}
-                        />
-                    </div>
+                    <LinkField
+                        label={item.type === 'dropdown' ? 'URL (optionnelle)' : 'URL'}
+                        value={item.href || ''}
+                        onChange={(href) => onUpdateItem(item.id, { href })}
+                    />
                 </div>
             </div>
 

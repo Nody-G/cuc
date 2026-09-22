@@ -2,6 +2,7 @@ import React from 'react';
 import { ExternalLink } from 'lucide-react';
 import type { NavigationStructure } from '@/data/navigation';
 import { NAV_INPUT_CLASS } from './navigation-ui';
+import { LinkField } from '../pages-editor/LinkField';
 
 export interface NavigationCtaCardProps {
     cta: NavigationStructure['cta'];
@@ -23,15 +24,11 @@ export const NavigationCtaCard: React.FC<NavigationCtaCardProps> = ({ cta, onCha
                     className={NAV_INPUT_CLASS}
                 />
             </div>
-            <div>
-                <label className="block text-xs font-mono text-gray-400 mb-1">URL du bouton</label>
-                <input
-                    type="text"
-                    value={cta.href}
-                    onChange={(e) => onChange({ href: e.target.value })}
-                    className={NAV_INPUT_CLASS}
-                />
-            </div>
+            <LinkField
+                label="URL du bouton"
+                value={cta.href}
+                onChange={(href) => onChange({ href })}
+            />
         </div>
     </div>
 );

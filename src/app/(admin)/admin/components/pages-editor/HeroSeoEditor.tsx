@@ -3,6 +3,7 @@
 import React from 'react';
 import { Image as ImageIcon } from 'lucide-react';
 import { SitePageContent } from '@/lib/data/site-service';
+import { LinkField } from './LinkField';
 
 interface HeroSeoEditorProps {
   formData: SitePageContent;
@@ -194,21 +195,17 @@ export const HeroSeoEditor: React.FC<HeroSeoEditorProps> = ({
                   className="w-full bg-black/60 border border-white/20 rounded px-2 py-1 text-xs text-white"
                 />
               </div>
-              <div>
-                <label className="block text-[10px] font-mono text-gray-400 mb-0.5">Lien de destination</label>
-                <input
-                  type="text"
-                  value={formData.hero.cta_primary_link || ''}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      hero: { ...prev.hero, cta_primary_link: e.target.value },
-                    }))
-                  }
-                  placeholder="ex: /formation-de-cascadeur"
-                  className="w-full bg-black/60 border border-white/20 rounded px-2 py-1 text-xs font-mono text-gray-300"
-                />
-              </div>
+              <LinkField
+                label="Lien de destination"
+                field="hero.cta_primary_link"
+                value={formData.hero.cta_primary_link || ''}
+                onChange={(value) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    hero: { ...prev.hero, cta_primary_link: value },
+                  }))
+                }
+              />
             </div>
 
             <div className="p-3 bg-black/40 rounded-lg border border-white/5 space-y-2">
@@ -230,21 +227,17 @@ export const HeroSeoEditor: React.FC<HeroSeoEditorProps> = ({
                   className="w-full bg-black/60 border border-white/20 rounded px-2 py-1 text-xs text-white"
                 />
               </div>
-              <div>
-                <label className="block text-[10px] font-mono text-gray-400 mb-0.5">Lien de destination</label>
-                <input
-                  type="text"
-                  value={formData.hero.cta_secondary_link || ''}
-                  onChange={(e) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      hero: { ...prev.hero, cta_secondary_link: e.target.value },
-                    }))
-                  }
-                  placeholder="ex: /visite-virtuelle"
-                  className="w-full bg-black/60 border border-white/20 rounded px-2 py-1 text-xs font-mono text-gray-300"
-                />
-              </div>
+              <LinkField
+                label="Lien de destination"
+                field="hero.cta_secondary_link"
+                value={formData.hero.cta_secondary_link || ''}
+                onChange={(value) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    hero: { ...prev.hero, cta_secondary_link: value },
+                  }))
+                }
+              />
             </div>
           </div>
         </div>

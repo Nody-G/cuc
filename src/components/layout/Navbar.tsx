@@ -18,8 +18,6 @@ export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const navigation = useNavigation();
   const t = useTranslations('common');
-  /** Chrome commun (marque, accroche) — éditable via « Micro-textes du site ». */
-  const chrome = useTranslations('commonChrome');
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
@@ -99,17 +97,7 @@ export const Navbar: React.FC = () => {
                 className="object-contain drop-shadow-[0_0_10px_rgba(255,229,0,0.4)] group-hover:drop-shadow-[0_0_16px_rgba(255,229,0,0.7)] transition-all"
               />
             </div>
-            {/* Nom de marque masqué sous 480 px : sans cela, ce bloc (non
-                compressible) poussait le bouton du menu hors de l'écran sur les
-                téléphones étroits. Il réapparaît ensuite et se tronque si besoin. */}
-            <div className="hidden min-[480px]:flex flex-col min-w-0">
-              <span className="font-display text-lg sm:text-xl font-bold tracking-wider text-white leading-none group-hover:text-[#FFE500] transition-colors truncate">
-                {chrome('brandName')}
-              </span>
-              <span className="hidden sm:block text-[10px] font-mono-tech tracking-widest text-zinc-400 uppercase leading-tight mt-0.5 truncate">
-                {chrome('brandTaglineEst')}
-              </span>
-            </div>
+            {/* Logo seul : le nom de marque n'est plus répété à côté du logo. */}
           </Link>
 
           {/* Desktop Navigation Links — séquence unique ordonnée par `order` */}

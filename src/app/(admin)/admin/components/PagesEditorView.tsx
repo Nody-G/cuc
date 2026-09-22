@@ -52,7 +52,10 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   );
 
   const [editorLocale, setEditorLocale] = useState<EditorLocaleOption>('fr');
-  const [previewMode, setPreviewMode] = useState<PreviewMode>('inspect');
+  // Édition directe par défaut : dans l'aperçu, un clic sur un texte annoté ouvre
+  // la saisie en place. Le mode `inspect` (clic = champ du formulaire) reste
+  // accessible dans la barre de l'aperçu.
+  const [previewMode, setPreviewMode] = useState<PreviewMode>('edit');
 
   const cleanSelectedSlug = normalizeSlug(selectedSlug);
   const draft = usePageEditorDraft({ pages, selectedSlug: cleanSelectedSlug, editorLocale });

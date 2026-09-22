@@ -49,8 +49,8 @@ export const PreviewToolbar: React.FC<PreviewToolbarProps> = ({
                     aria-pressed={mode === 'edit'}
                     title={
                         mode === 'edit'
-                            ? 'Revenir au mode inspection'
-                            : 'Éditer les textes directement dans l’aperçu'
+                            ? 'Édition en place activée — cliquer pour revenir à l’inspection (le clic ouvre alors le champ dans le formulaire)'
+                            : 'Activer l’édition en place — cliquer un texte pour le modifier directement dans l’aperçu'
                     }
                     className={cx(
                         'inline-flex items-center gap-1.5 text-[11px] font-mono-tech px-2 py-1.5 rounded-md border transition-colors',
@@ -60,7 +60,9 @@ export const PreviewToolbar: React.FC<PreviewToolbarProps> = ({
                     )}
                 >
                     <Pencil className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">Édition en place</span>
+                    <span className="hidden sm:inline">
+                        {mode === 'edit' ? 'Édition en place' : 'Activer l’édition'}
+                    </span>
                 </button>
             )}
 
