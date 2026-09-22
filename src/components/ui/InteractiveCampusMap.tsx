@@ -23,6 +23,7 @@ import {
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { usePreviewSettings } from '@/lib/preview/use-preview-settings';
 import { cucSetting } from '@/lib/preview/cuc-chrome';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 import { applyPoiOverlay, applyPoiOverlays } from '@/lib/i18n/apply-poi-overlay';
 import { CampusRadarView } from './campus-map/CampusRadarView';
@@ -106,7 +107,10 @@ export const InteractiveCampusMap: React.FC = () => {
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-            <span className="text-white font-bold tracking-wider">
+            <span
+              className="text-white font-bold tracking-wider"
+              {...cucMicro('commonChrome.brandName')}
+            >
               {chrome('brandName')}
             </span>
           </div>
@@ -166,14 +170,17 @@ export const InteractiveCampusMap: React.FC = () => {
                 {copied ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="text-emerald-400 font-bold">
+                    <span
+                      className="text-emerald-400 font-bold"
+                      {...cucMicro('contact.map.copied')}
+                    >
                       {t('copied')}
                     </span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-3.5 h-3.5" />
-                    <span>{t('copyGps')}</span>
+                    <span {...cucMicro('contact.map.copyGps')}>{t('copyGps')}</span>
                   </>
                 )}
               </button>

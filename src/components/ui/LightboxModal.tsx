@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 export interface LightboxImage {
   src: string;
@@ -149,7 +150,7 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
           {currentImage.title}
         </div>
         <div className="text-[11px] font-mono-tech text-zinc-500">
-          {t('navHint')}
+          <span {...cucMicro('lightbox.navHint')}>{t('navHint')}</span>
         </div>
       </div>
     </div>

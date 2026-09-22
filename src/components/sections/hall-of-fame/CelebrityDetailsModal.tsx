@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { DoubledCelebrity } from '@/types';
 import { X, Clapperboard, ExternalLink } from 'lucide-react';
 import { ImdbLogo } from '@/components/ui/BrandLogos';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 interface CelebrityDetailsModalProps {
   celebrity: DoubledCelebrity | null;
@@ -34,7 +35,9 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
           <div className="flex items-center gap-2">
             <Clapperboard className="w-4 h-4 text-[#FFE500]" />
             <span className="text-xs font-mono-tech text-zinc-300 font-bold uppercase tracking-wider">
-                            {t('celebrityModal.title')}
+              <span {...cucMicro('teamProduction.celebrityModal.title')}>
+                {t('celebrityModal.title')}
+              </span>
             </span>
           </div>
           <button
@@ -72,7 +75,9 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
               {celebrity.stuntDoubles ? (
                 <div className="space-y-1">
                   <span className="text-[11px] font-mono-tech text-[#FFE500] uppercase font-bold block">
-                    {t('celebrityModal.doublesLabel')}
+                    <span {...cucMicro('teamProduction.celebrityModal.doublesLabel')}>
+                      {t('celebrityModal.doublesLabel')}
+                    </span>
                   </span>
                   <span className="text-xs text-white font-mono-tech font-bold">
                     {celebrity.stuntDoubles}
@@ -84,7 +89,9 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
               {celebrity.stuntSpecialty ? (
                 <div className="space-y-1">
                   <span className="text-[11px] font-mono-tech text-zinc-400 uppercase font-bold block">
-                    {t('celebrityModal.scenesLabel')}
+                    <span {...cucMicro('teamProduction.celebrityModal.scenesLabel')}>
+                      {t('celebrityModal.scenesLabel')}
+                    </span>
                   </span>
                   <p className="text-xs text-zinc-300 font-tech leading-relaxed">
                     {celebrity.stuntSpecialty}
@@ -95,7 +102,9 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
               {/* Films */}
               <div className="space-y-1.5">
                 <span className="text-[11px] font-mono-tech text-zinc-500 uppercase font-bold block">
-                  {t('celebrityModal.filmsLabel')}
+                  <span {...cucMicro('teamProduction.celebrityModal.filmsLabel')}>
+                    {t('celebrityModal.filmsLabel')}
+                  </span>
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {celebrity.productions.map((p, idx) => (
@@ -119,7 +128,9 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                     className="inline-flex items-center gap-2 px-3 py-2 bg-[#f5c518] hover:bg-[#ffe500] text-black font-bold font-mono-tech text-xs transition-colors"
                   >
                     <ImdbLogo className="h-3.5 w-auto" />
-                    <span>{t('celebrityModal.imdbCta')}</span>
+                    <span {...cucMicro('teamProduction.celebrityModal.imdbCta')}>
+                      {t('celebrityModal.imdbCta')}
+                    </span>
                     <ExternalLink className="w-3 h-3 ml-0.5" />
                   </a>
                 </div>
@@ -134,7 +145,9 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
             onClick={onClose}
             className="text-zinc-400 hover:text-white uppercase font-bold cursor-pointer transition-colors"
           >
-            {t('celebrityModal.close')}
+            <span {...cucMicro('teamProduction.celebrityModal.close')}>
+              {t('celebrityModal.close')}
+            </span>
           </button>
         </div>
       </div>

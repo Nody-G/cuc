@@ -12,6 +12,7 @@ import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { normalizeRole } from '@/lib/credit-role';
 import { renderRoleSet } from '@/lib/i18n/role-labels';
 import { ImdbLogo, AllocineLogo, YouTubeLogo } from '@/components/ui/BrandLogos';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 import { X, Clapperboard, ExternalLink, ChevronRight, Film } from 'lucide-react';
 
 interface FilmDetailsModalProps {
@@ -58,7 +59,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
           <div className="flex items-center gap-2">
             <Clapperboard className="w-4 h-4 text-[#FFE500]" />
             <span className="text-xs font-mono-tech text-zinc-300 font-bold uppercase tracking-wider">
-              {t('filmModal.title')}
+              <span {...cucMicro('teamProduction.filmModal.title')}>{t('filmModal.title')}</span>
             </span>
           </div>
           <button
@@ -120,7 +121,9 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
               {movie.doubledActors && movie.doubledActors.length > 0 && (
                 <div className="space-y-1">
                   <span className="text-[11px] font-mono-tech text-zinc-500 uppercase font-bold block">
-                    {t('filmModal.doublesLabel')}
+                    <span {...cucMicro('teamProduction.filmModal.doublesLabel')}>
+                      {t('filmModal.doublesLabel')}
+                    </span>
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     {movie.doubledActors.map((actor, idx) => (
@@ -139,7 +142,9 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
               {involvedTeamMembers.length > 0 && (
                 <div className="space-y-1.5">
                   <span className="text-[11px] font-mono-tech text-zinc-500 uppercase font-bold block">
-                    {t('filmModal.teamLabel')}
+                    <span {...cucMicro('teamProduction.filmModal.teamLabel')}>
+                      {t('filmModal.teamLabel')}
+                    </span>
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {involvedTeamMembers.map((member) => (
@@ -247,7 +252,9 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#141419] hover:bg-zinc-800 text-red-400 border border-zinc-700 font-mono-tech text-xs transition-colors"
                   >
                     <YouTubeLogo className="w-3.5 h-3.5" variant="color" />
-                    <span>{t('filmModal.trailer')}</span>
+                    <span {...cucMicro('teamProduction.filmModal.trailer')}>
+                      {t('filmModal.trailer')}
+                    </span>
                     <ExternalLink className="w-3 h-3 ml-0.5" />
                   </a>
                 )}
@@ -262,7 +269,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
             onClick={onClose}
             className="text-zinc-400 hover:text-white uppercase font-bold cursor-pointer transition-colors"
           >
-            {t('filmModal.close')}
+            <span {...cucMicro('teamProduction.filmModal.close')}>{t('filmModal.close')}</span>
           </button>
         </div>
       </div >

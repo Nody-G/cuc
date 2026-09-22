@@ -10,6 +10,7 @@ import {
   Info,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 interface VirtualTourViewerProps {
   className?: string;
@@ -66,9 +67,12 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </div>
           <span className="font-display uppercase tracking-wider text-sm text-white font-bold flex items-center gap-2">
-            {t('viewerTitle')}
+            <span {...cucMicro('visiteVirtuelle.viewerTitle')}>{t('viewerTitle')}</span>
           </span>
-          <span className="hidden sm:inline-block px-2 py-0.5 bg-[#14141c] border border-zinc-800 text-[10px] font-mono-tech text-zinc-400">
+          <span
+            className="hidden sm:inline-block px-2 py-0.5 bg-[#14141c] border border-zinc-800 text-[10px] font-mono-tech text-zinc-400"
+            {...cucMicro('commonChrome.locationLabel')}
+          >
             {chrome('locationLabel')}
           </span>
         </div>
@@ -132,14 +136,14 @@ export const VirtualTourViewer: React.FC<VirtualTourViewerProps> = ({
             <span>
               <strong className="text-white">{t('navHelpTitle')}</strong> {t('navHelpBody1')}{' '}
               <span className="text-[#FFE500] font-semibold">{t('navHelpHighlight')}</span>{' '}
-              {t('navHelpBody2')}
+              <span {...cucMicro('visiteVirtuelle.navHelpBody2')}>{t('navHelpBody2')}</span>
             </span>
           </div>
           <button
             onClick={() => setInfoOpen(false)}
             className="text-zinc-500 hover:text-white text-xs font-mono-tech shrink-0 cursor-pointer"
           >
-            {t('hideLabel')}
+            <span {...cucMicro('visiteVirtuelle.hideLabel')}>{t('hideLabel')}</span>
           </button>
         </div>
       )}

@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { Compass, Train, Car, MapPin, Copy } from 'lucide-react';
 import { TravelRoute } from './campusMap.data';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 /**
  * Copie éditoriale des itinéraires (villes, tags, descriptions train/voiture) :
@@ -65,11 +66,11 @@ export const CampusTravelPlanner: React.FC<CampusTravelPlannerProps> = ({
           <div className="flex items-center gap-2">
             <Compass className="w-4 h-4 text-[#FFE500]" />
             <h3 className="text-base font-display uppercase text-white tracking-wider">
-              {t('travelTitle')}
+              <span {...cucMicro('contact.map.travelTitle')}>{t('travelTitle')}</span>
             </h3>
           </div>
           <span className="text-[10px] font-mono-tech px-1.5 py-0.5 bg-zinc-800 text-zinc-400">
-            {t('travelBadge')}
+            <span {...cucMicro('contact.map.travelBadge')}>{t('travelBadge')}</span>
           </span>
         </div>
 
@@ -137,7 +138,7 @@ export const CampusTravelPlanner: React.FC<CampusTravelPlannerProps> = ({
           {/* Practical Guidance */}
           <div className="bg-[#151520] border border-zinc-800/80 p-3 text-[11px] font-tech text-zinc-400 space-y-1">
             <div className="font-mono-tech text-[#FFE500] uppercase font-bold text-[10px]">
-              {t('accessInfoTitle')}
+              <span {...cucMicro('contact.map.accessInfoTitle')}>{t('accessInfoTitle')}</span>
             </div>
             <p>
               {t.rich('accessInfoParking', {
@@ -161,9 +162,11 @@ export const CampusTravelPlanner: React.FC<CampusTravelPlannerProps> = ({
           className="w-full py-2.5 px-3 bg-[#181822] hover:bg-[#202030] border border-zinc-700 text-xs font-mono-tech text-zinc-200 hover:text-white flex items-center justify-center gap-2 transition-colors cursor-pointer"
         >
           <Copy className="w-3.5 h-3.5 text-[#FFE500]" />
-          <span>
-            {isCopied ? t('addressCopied') : t('copyAddress')}
-          </span>
+          {isCopied ? (
+            <span {...cucMicro('contact.map.addressCopied')}>{t('addressCopied')}</span>
+          ) : (
+            <span {...cucMicro('contact.map.copyAddress')}>{t('copyAddress')}</span>
+          )}
         </button>
       </div>
     </div>

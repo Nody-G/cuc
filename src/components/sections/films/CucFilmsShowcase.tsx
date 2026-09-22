@@ -12,6 +12,7 @@ import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetails
 import { FilmPosterCard } from '@/components/sections/films/FilmPosterCard';
 import { applyFilmOverlays } from '@/lib/i18n/apply-film-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 type FilmSort = 'year-desc' | 'year-asc' | 'title-asc' | 'title-desc';
 
@@ -111,7 +112,7 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
                         {resolvedBadge}
                     </StuntBadge>
                     <span className="text-xs font-mono-tech text-zinc-400">
-                        {tTeam('showcaseTag')}
+                        <span {...cucMicro('team.showcaseTag')}>{tTeam('showcaseTag')}</span>
                     </span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mb-3">

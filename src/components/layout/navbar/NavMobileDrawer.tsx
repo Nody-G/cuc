@@ -10,6 +10,7 @@ import { ExternalLink } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { SocialIcon } from '@/components/ui/logos/SocialLogos';
 import { useNavigation, useSocialLinks } from '@/lib/hooks/useNavigation';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 import type { NavItem } from '@/data/navigation';
 
 interface NavMobileDrawerProps {
@@ -139,10 +140,16 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
               />
             </div>
             <div>
-              <span className="font-display text-sm font-bold tracking-wider text-white block leading-tight">
+              <span
+                className="font-display text-sm font-bold tracking-wider text-white block leading-tight"
+                {...cucMicro('commonChrome.brandName')}
+              >
                 {chrome('brandName')}
               </span>
-              <span className="text-[9px] font-mono-tech text-[#FFE500] uppercase tracking-widest block">
+              <span
+                className="text-[9px] font-mono-tech text-[#FFE500] uppercase tracking-widest block"
+                {...cucMicro('commonChrome.brandTagline')}
+              >
                 {chrome('brandTagline')}
               </span>
             </div>

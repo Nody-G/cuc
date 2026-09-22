@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { ChevronRight, Compass, Building } from 'lucide-react';
 import { TacticalButton } from '../TacticalButton';
 import { cucField } from '@/lib/preview/cuc-field';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 import type { SitePageHero } from '@/lib/data/site-service';
 import type { HeroMetric, SlideCopy } from './useParallaxHero';
 
@@ -69,7 +70,10 @@ export const HeroFocalContent: React.FC<HeroFocalContentProps> = ({
                     ) : (
                         <>
                             Campus Univers <br />
-                            <span className="text-[#FFE500] drop-shadow-[0_0_35px_rgba(255,229,0,0.32)]">
+                            <span
+                                className="text-[#FFE500] drop-shadow-[0_0_35px_rgba(255,229,0,0.32)]"
+                                {...cucMicro('commonChrome.heroTitleTail')}
+                            >
                                 {chrome('heroTitleTail')}
                             </span>
                         </>

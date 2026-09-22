@@ -9,6 +9,7 @@ import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { DoubledCelebrity } from '@/types';
 import { ImdbLogo } from '@/components/ui/BrandLogos';
 import { UserCheck, ExternalLink, Info } from 'lucide-react';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 interface CelebrityDoublesGalleryProps {
   onSelectCelebrity: (celebrity: DoubledCelebrity) => void;
@@ -77,14 +78,20 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
           <div className="flex items-center gap-2 mb-2">
             <UserCheck className="w-5 h-5 text-[#FFE500]" />
             <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
-              {t('hallOfFame.actorsBadge')}
+              <span {...cucMicro('teamProduction.hallOfFame.actorsBadge')}>
+                {t('hallOfFame.actorsBadge')}
+              </span>
             </span>
           </div>
           <h3 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-tight text-white">
-            {t('hallOfFame.actorsTitle')}
+            <span {...cucMicro('teamProduction.hallOfFame.actorsTitle')}>
+              {t('hallOfFame.actorsTitle')}
+            </span>
           </h3>
           <p className="text-xs sm:text-sm text-zinc-400 font-tech mt-1 max-w-2xl">
-            {t('hallOfFame.actorsIntro')}
+            <span {...cucMicro('teamProduction.hallOfFame.actorsIntro')}>
+              {t('hallOfFame.actorsIntro')}
+            </span>
           </p>
         </div>
 
@@ -148,7 +155,9 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
               {/* Key Productions Badges */}
               <div>
                 <div className="text-[9px] font-mono-tech text-zinc-500 uppercase tracking-wider mb-1.5 font-bold">
-                  {t('hallOfFame.filmsLabel')}
+                  <span {...cucMicro('teamProduction.hallOfFame.filmsLabel')}>
+                    {t('hallOfFame.filmsLabel')}
+                  </span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {actor.productions.slice(0, 3).map((prod, pIdx) => (

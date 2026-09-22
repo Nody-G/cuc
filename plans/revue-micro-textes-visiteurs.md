@@ -1,18 +1,18 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T20:49:30.822Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T20:54:57.524Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 270 |
+| ANNOTÉ — éditable en place | 291 |
 | DONNÉES — éditable par un écran existant | 106 |
-| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 85 |
+| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 54 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 16 |
-| **Total** | **477** |
+| **Total** | **467** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -156,6 +156,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.87 — `{phone}`
 
+### `src\components\layout\navbar\NavMobileDrawer.tsx`
+
+- l.147 — `{chrome('brandName')}`
+- l.153 — `{chrome('brandTagline')}`
+
 ### `src\components\sections\HallOfFame.tsx`
 
 - l.61 — `{t('hallOfFame.tag')}`
@@ -184,6 +189,10 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.62 — `{hero?.meta || 'SPECTACLES • ANIMATIONS • TEAM BUILDING'}`
 - l.84 — `{subtitle}`
+
+### `src\components\sections\events\pillars\DbEventPillarCard.tsx`
+
+- l.95 — `{chrome('campusNameTitle')}`
 
 ### `src\components\sections\events\pillars\StaticPillarCard.tsx`
 
@@ -235,8 +244,31 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\components\sections\formation\FormationPedagogyModalities.tsx`
 
 - l.56 — `{chrome?.sessions_title || tp('sessionsTitle')}`
-- l.85 — `{chrome?.admission_title || tp('admissionTitle')}`
-- l.121 — `{chrome?.funding_title || tp('fundingTitle')}`
+- l.74 — `{tp('registrationNote')}`
+- l.87 — `{chrome?.admission_title || tp('admissionTitle')}`
+- l.123 — `{chrome?.funding_title || tp('fundingTitle')}`
+
+### `src\components\sections\hall-of-fame\CelebrityDetailsModal.tsx`
+
+- l.39 — `{t('celebrityModal.title')}`
+- l.79 — `{t('celebrityModal.doublesLabel')}`
+- l.93 — `{t('celebrityModal.scenesLabel')}`
+- l.106 — `{t('celebrityModal.filmsLabel')}`
+- l.132 — `{t('celebrityModal.imdbCta')}`
+- l.149 — `{t('celebrityModal.close')}`
+
+### `src\components\sections\hall-of-fame\CelebrityDoublesGallery.tsx`
+
+- l.82 — `{t('hallOfFame.actorsBadge')}`
+- l.88 — `{t('hallOfFame.actorsTitle')}`
+- l.93 — `{t('hallOfFame.actorsIntro')}`
+- l.159 — `{t('hallOfFame.filmsLabel')}`
+
+### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
+
+- l.125 — `{t('filmModal.doublesLabel')}`
+- l.146 — `{t('filmModal.teamLabel')}`
+- l.256 — `{t('filmModal.trailer')}`
 
 ### `src\components\sections\home\HomeAboutSection.tsx`
 
@@ -434,17 +466,24 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\InteractiveCampusMap.tsx`
 
-- l.203 — `{fullAddress}`
+- l.114 — `{chrome('brandName')}`
+- l.177 — `{t('copied')}`
+- l.210 — `{fullAddress}`
+
+### `src\components\ui\VirtualTourViewer.tsx`
+
+- l.76 — `{chrome('locationLabel')}`
 
 ### `src\components\ui\parallax-hero\HeroFocalContent.tsx`
 
-- l.55 — `{heroData?.since || tHero('since')}`
-- l.91 — `{heroData?.subtitle || activeCopy?.sub || ''}`
-- l.113 — `{stat.val}`
-- l.119 — `{stat.label}`
-- l.140 — `{heroData?.cta_primary_text || tHero('ctaFormation')}`
-- l.156 — `{heroData?.cta_secondary_text || tHero('ctaVisit')}`
-- l.172 — `{heroData?.cta_tertiary_text || tHero('ctaStuntTeam')}`
+- l.56 — `{heroData?.since || tHero('since')}`
+- l.77 — `{chrome('heroTitleTail')}`
+- l.95 — `{heroData?.subtitle || activeCopy?.sub || ''}`
+- l.117 — `{stat.val}`
+- l.123 — `{stat.label}`
+- l.144 — `{heroData?.cta_primary_text || tHero('ctaFormation')}`
+- l.160 — `{heroData?.cta_secondary_text || tHero('ctaVisit')}`
+- l.176 — `{heroData?.cta_tertiary_text || tHero('ctaStuntTeam')}`
 
 ### `src\components\ui\parallax-hero\HeroHudOverlay.tsx`
 
@@ -556,8 +595,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\navbar\NavMobileDrawer.tsx`
 
-- l.96 — `{item.label}`
-- l.161 — `{cta.label}`
+- l.97 — `{item.label}`
+- l.168 — `{cta.label}`
 
 ### `src\components\sections\application-modal\ApplicationFormBody.tsx`
 
@@ -570,15 +609,15 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\events\pillars\DbEventPillarCard.tsx`
 
-- l.33 — `{evt.badge}`
-- l.37 — `{evt.title}`
-- l.41 — `{evt.subtitle}`
-- l.48 — `{evt.description}`
+- l.34 — `{evt.badge}`
+- l.38 — `{evt.title}`
+- l.42 — `{evt.subtitle}`
+- l.49 — `{evt.description}`
 
 ### `src\components\sections\films\CucFilmsShowcase.tsx`
 
-- l.111 — `{resolvedBadge}`
-- l.118 — `{resolvedTitle}`
+- l.112 — `{resolvedBadge}`
+- l.119 — `{resolvedTitle}`
 
 ### `src\components\sections\films\FilmPosterCard.tsx`
 
@@ -599,26 +638,26 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\hall-of-fame\CelebrityDetailsModal.tsx`
 
-- l.67 — `{celebrity.name}`
-- l.78 — `{celebrity.stuntDoubles}`
-- l.90 — `{celebrity.stuntSpecialty}`
-- l.106 — `{p}`
+- l.70 — `{celebrity.name}`
+- l.83 — `{celebrity.stuntDoubles}`
+- l.97 — `{celebrity.stuntSpecialty}`
+- l.115 — `{p}`
 
 ### `src\components\sections\hall-of-fame\CelebrityDoublesGallery.tsx`
 
-- l.129 — `{actor.name}`
-- l.143 — `{actor.stuntSpecialty}`
-- l.160 — `{prod}`
+- l.136 — `{actor.name}`
+- l.150 — `{actor.stuntSpecialty}`
+- l.169 — `{prod}`
 
 ### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
 
-- l.90 — `{movie.title}`
-- l.96 — `{movie.year}`
-- l.108 — `{movie.title}`
-- l.115 — `{movie.description}`
-- l.131 — `{actor}`
-- l.169 — `{member.name}`
-- l.204 — `{roleLabelText}`
+- l.91 — `{movie.title}`
+- l.97 — `{movie.year}`
+- l.109 — `{movie.title}`
+- l.116 — `{movie.description}`
+- l.134 — `{actor}`
+- l.174 — `{member.name}`
+- l.209 — `{roleLabelText}`
 
 ### `src\components\sections\home\HomeAboutSection.tsx`
 
@@ -653,8 +692,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\LightboxModal.tsx`
 
-- l.83 — `{currentImage.title}`
-- l.149 — `{currentImage.title}`
+- l.84 — `{currentImage.title}`
+- l.150 — `{currentImage.title}`
 
 ### `src\components\ui\campus-map\CampusRadarView.tsx`
 
@@ -667,11 +706,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\campus-map\CampusTravelPlanner.tsx`
 
-- l.104 — `{selectedRouteData.train.time}`
-- l.108 — `{selectedRouteData.train.details}`
-- l.125 — `{selectedRouteData.car.distance}`
-- l.128 — `{selectedRouteData.car.time}`
-- l.133 — `{selectedRouteData.car.details}`
+- l.105 — `{selectedRouteData.train.time}`
+- l.109 — `{selectedRouteData.train.details}`
+- l.126 — `{selectedRouteData.car.distance}`
+- l.129 — `{selectedRouteData.car.time}`
+- l.134 — `{selectedRouteData.car.details}`
 
 ### `src\components\ui\parallax\StudioParallaxCard.tsx`
 
@@ -690,15 +729,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\app\(site)\[locale]\error.tsx`
 
 - l.71 — `{t('errorReference', { digest: error.digest })}`
-
-### `src\components\layout\SkipLink.tsx`
-
-- l.20 — `{t('skipToContent')}`
-
-### `src\components\layout\navbar\NavMobileDrawer.tsx`
-
-- l.143 — `{chrome('brandName')}`
-- l.146 — `{chrome('brandTagline')}`
 
 ### `src\components\sections\application-modal\ApplicationFields.tsx`
 
@@ -766,12 +796,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\events\pillars\DbEventPillarCard.tsx`
 
-- l.73 — `{evt.cta_text || t('learnMore')}`
-- l.93 — `{chrome('campusNameTitle')}`
-
-### `src\components\sections\films\CucFilmsShowcase.tsx`
-
-- l.114 — `{tTeam('showcaseTag')}`
+- l.74 — `{evt.cta_text || t('learnMore')}`
 
 ### `src\components\sections\formation\FormationHeroSection.tsx`
 
@@ -780,30 +805,10 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\components\sections\formation\FormationPedagogyModalities.tsx`
 
 - l.67 — `{statuses[session.status] ?? ''}`
-- l.73 — `{tp('registrationNote')}`
-
-### `src\components\sections\hall-of-fame\CelebrityDetailsModal.tsx`
-
-- l.37 — `{t('celebrityModal.title')}`
-- l.75 — `{t('celebrityModal.doublesLabel')}`
-- l.87 — `{t('celebrityModal.scenesLabel')}`
-- l.98 — `{t('celebrityModal.filmsLabel')}`
-- l.137 — `{t('celebrityModal.close')}`
-
-### `src\components\sections\hall-of-fame\CelebrityDoublesGallery.tsx`
-
-- l.80 — `{t('hallOfFame.actorsBadge')}`
-- l.84 — `{t('hallOfFame.actorsTitle')}`
-- l.87 — `{t('hallOfFame.actorsIntro')}`
-- l.151 — `{t('hallOfFame.filmsLabel')}`
 
 ### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
 
-- l.61 — `{t('filmModal.title')}`
-- l.105 — `{movie.year}{movie.director ? ’ • ${t('filmModal.directedBy', { name: movie.director })}’ : ''}`
-- l.123 — `{t('filmModal.doublesLabel')}`
-- l.142 — `{t('filmModal.teamLabel')}`
-- l.265 — `{t('filmModal.close')}`
+- l.106 — `{movie.year}{movie.director ? ’ • ${t('filmModal.directedBy', { name: movie.director })}’ : ''}`
 
 ### `src\components\sections\partenaires\PartenairesHeroSection.tsx`
 
@@ -828,33 +833,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.14 — `{ src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/006.jpg', title: 'Studio CUC', category: 'Le Studio et la Salle' }`
 - l.25 — `{ src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/CUC-5.0-203-e1671702096970.jpg', title: 'Cascadeurs CUC', category: 'Les Cascadeurs' }`
 - l.36 — `{ src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/MG_5464-1.jpg', title: 'Équipements CUC', category: 'Les Équipements' }`
-
-### `src\components\ui\InteractiveCampusMap.tsx`
-
-- l.110 — `{chrome('brandName')}`
-- l.170 — `{t('copied')}`
-
-### `src\components\ui\LightboxModal.tsx`
-
-- l.152 — `{t('navHint')}`
-
-### `src\components\ui\VirtualTourViewer.tsx`
-
-- l.69 — `{t('viewerTitle')}`
-- l.72 — `{chrome('locationLabel')}`
-- l.135 — `{t('navHelpBody2')}`
-- l.142 — `{t('hideLabel')}`
-
-### `src\components\ui\campus-map\CampusTravelPlanner.tsx`
-
-- l.68 — `{t('travelTitle')}`
-- l.72 — `{t('travelBadge')}`
-- l.140 — `{t('accessInfoTitle')}`
-- l.165 — `{isCopied ? t('addressCopied') : t('copyAddress')}`
-
-### `src\components\ui\parallax-hero\HeroFocalContent.tsx`
-
-- l.73 — `{chrome('heroTitleTail')}`
 
 ## 4. CODÉ EN DUR — dette (aucune prise en charge par le Cockpit)
 
@@ -883,12 +861,12 @@ Aucune occurrence.
 
 ### `src\components\sections\hall-of-fame\CelebrityDoublesGallery.tsx`
 
-- l.179 — `IMDb`
+- l.188 — `IMDb`
 
 ### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
 
-- l.226 — `IMDb`
-- l.238 — `AlloCiné`
+- l.231 — `IMDb`
+- l.243 — `AlloCiné`
 
 ### `src\components\sections\team\TeamProductionServices.tsx`
 
@@ -896,7 +874,7 @@ Aucune occurrence.
 
 ### `src\components\ui\InteractiveCampusMap.tsx`
 
-- l.115 — `LAT 50.0909° N • LON 3.5374° E`
+- l.119 — `LAT 50.0909° N • LON 3.5374° E`
 
 ### `src\components\ui\campus-map\CampusAppLaunchers.tsx`
 

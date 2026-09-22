@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import type { SiteEvent } from '@/lib/data/site-service';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 interface DbEventPillarCardProps {
     evt: SiteEvent;
@@ -90,7 +91,9 @@ export const DbEventPillarCard: React.FC<DbEventPillarCardProps> = ({ evt, isRev
                         />
                     ) : (
                         <div className="w-full h-full flex items-center justify-center bg-zinc-900 text-zinc-600 font-mono text-xs">
-                            {chrome('campusNameTitle')}
+                            <span {...cucMicro('commonChrome.campusNameTitle')}>
+                                {chrome('campusNameTitle')}
+                            </span>
                         </div>
                     )}
                 </div>

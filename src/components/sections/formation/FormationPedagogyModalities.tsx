@@ -70,7 +70,9 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
               ))}
             </div>
             <div className="mt-4 text-[11px] font-tech text-zinc-500">
-              {tp('registrationNote')}
+              <span {...cucMicro('formation.pedagogy.registrationNote')}>
+                {tp('registrationNote')}
+              </span>
             </div>
           </div>
 
