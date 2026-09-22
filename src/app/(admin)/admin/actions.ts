@@ -646,10 +646,42 @@ export async function upsertPageContent(slug: string, pageData: {
   layout_sections?: any[];
   sections_data?: Record<string, any>;
   is_published?: boolean;
+  /**
+   * Horodatage de la version chargée dans l'éditeur. S'il est fourni et que la
+   * base porte une version **plus récente**, l'écriture est refusée : deux
+   * administrateurs (ou deux onglets) ne doivent pas s'écraser en silence.
+   * Le brouillon local de l'éditeur est conservé, il recharge et repart.
+   */
+  expectedUpdatedAt?: string | null;
 }) {
   try {
     const cleanSlug = slug === '/' ? '/' : slug.replace(/^\//, '');
     const adminClient = createAdminClient();
+
+    // Garde de concurrence : tolérance de 2 s (précision et fuseau des
+    // horodatages), donc aucun faux positif sur une écriture normale.
+    if (pageData.expectedUpdatedAt) {
+      const { data: existing } = await adminClient
+        .from('site_pages')
+        .select('updated_at')
+        .eq('slug', cleanSlug)
+        .maybeSingle();
+
+      const storedMs = Date.parse(
+        ((existing as { updated_at?: string } | null)?.updated_at ?? '') || ''
+      );
+      const expectedMs = Date.parse(pageData.expectedUpdatedAt);
+
+      if (Number.isFinite(storedMs) && Number.isFinite(expectedMs) && storedMs - expectedMs > 2000) {
+        return {
+          success: false,
+          conflict: true,
+          error:
+            'Cette page a été modifiée depuis son ouverture (autre onglet ou autre administrateur). Rechargez l’éditeur pour repartir de la dernière version : votre brouillon local est conservé.',
+        };
+      }
+    }
+
     const { error } = await adminClient
       .from('site_pages')
       .upsert({

@@ -35,6 +35,13 @@ import { LivePreviewPane } from './pages-editor/LivePreviewPane';
 import { StudioInspector } from './pages-editor/StudioInspector';
 import { buildPreviewUrl } from '@/lib/preview/preview-url';
 import { collectDraftChanges, revertDraftField } from '@/lib/preview/draft-diff';
+import {
+  clearDraftSnapshot,
+  isDraftPersistable,
+  readDraftSnapshot,
+  recoveredDraftMessage,
+  writeDraftSnapshot,
+} from '@/lib/preview/draft-storage';
 import { setFieldValue } from '@/lib/preview/field-path';
 import { applyListCommand, type ListCommand } from '@/lib/preview/list-command';
 import {
@@ -210,6 +217,50 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     applyDraftChange(() => savedData);
   };
 
+  /**
+   * Filet de sécurité du poste de travail : le brouillon survit à un
+   * rechargement d'onglet, une coupure réseau ou un crash navigateur. Rien n'est
+   * écrit en base, et tout est effacé dès que la page est enregistrée.
+   */
+  useEffect(() => {
+    if (!isDraftPersistable(draftChanges.length)) {
+      clearDraftSnapshot(cleanSelectedSlug, editorLocale);
+      return;
+    }
+    writeDraftSnapshot(cleanSelectedSlug, editorLocale, activeData);
+  }, [activeData, cleanSelectedSlug, editorLocale, draftChanges.length]);
+
+  /** Récupération proposée une seule fois par page et par langue. */
+  const recoveredDraftsRef = useRef<Set<string>>(new Set());
+  useEffect(() => {
+    const key = `${cleanSelectedSlug}:${editorLocale}`;
+    if (recoveredDraftsRef.current.has(key)) return;
+    recoveredDraftsRef.current.add(key);
+
+    const stored = readDraftSnapshot(cleanSelectedSlug, editorLocale);
+    if (!stored) return;
+
+    if (!window.confirm(recoveredDraftMessage(stored))) {
+      clearDraftSnapshot(cleanSelectedSlug, editorLocale);
+      return;
+    }
+
+    applyDraftChange(() => stored.draft as SitePageContent);
+  }, [applyDraftChange, cleanSelectedSlug, editorLocale]);
+
+  /** Avertissement navigateur tant qu'il reste des modifications non enregistrées. */
+  useEffect(() => {
+    if (draftChanges.length === 0) return;
+
+    const warnBeforeLeaving = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = '';
+    };
+
+    window.addEventListener('beforeunload', warnBeforeLeaving);
+    return () => window.removeEventListener('beforeunload', warnBeforeLeaving);
+  }, [draftChanges.length]);
+
   const handleUndo = useCallback(() => {
     const previous = undoHistory(historyRef.current, activeDataRef.current);
     if (previous === null) return;
@@ -368,10 +419,14 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
       layout_sections: formData.layout_sections || [],
       sections_data: formData.sections_data || {},
       is_published: formData.is_published,
+      // Refus d'écriture si la page a bougé depuis son ouverture (autre onglet,
+      // autre administrateur) : on ne réécrit jamais par-dessus sans le dire.
+      expectedUpdatedAt: savedData.updated_at ?? null,
     });
 
     setIsSaving(false);
     if (res.success) {
+      clearDraftSnapshot(clean, editorLocale);
       onPageSaved(formData);
       setPreviewKey((prev) => prev + 1);
       showToast(`Page "${formData.title}" enregistrée avec succès !`);

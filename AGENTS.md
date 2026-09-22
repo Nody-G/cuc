@@ -313,6 +313,13 @@ est verrouillé en EN, et les médias ne se modifient qu'en français.
 - Publication : [`revalidateSite`](src/app/(admin)/admin/actions.ts:58) revalide les chemins
   FR **et** `/en/...`, **et** les tags (`site_pages`, `site_translations`, `site_navigation`,
   `site_footer`, `site_social_links`).
+- **Filet local du poste de travail** : le brouillon est recopié dans `localStorage`
+  ([`draft-storage.ts`](src/lib/preview/draft-storage.ts:1), TTL 7 jours, versionné, effacé
+  à l'enregistrement) et proposé à la récupération après un rechargement ; un `beforeunload`
+  avertit tant qu'il reste des modifications. La base ne voit **toujours** rien.
+- **Concurrence** : `upsertPageContent` refuse une écriture si la page a été modifiée depuis
+  son ouverture (tolérance 2 s sur `updated_at`) — deux administrateurs ou deux onglets ne
+  s'écrasent jamais en silence, et le brouillon local est conservé pour rejouer la saisie.
 
 ## 5. Vérification obligatoire après toute modification
 - `npm run audit:fields` — couverture des champs page par page (code 2 si une page n'expose
