@@ -1,26 +1,26 @@
 # Revue — Couverture des champs éditables (Mode Studio)
 
-Généré le 2026-09-21T23:50:49.927Z par `scripts/audit_cuc_fields.mjs`.
+Généré le 2026-09-22T00:15:35.115Z par `scripts/audit_cuc_fields.mjs`.
 
 ## 1. Couverture par page
 
-| Page | Champs annotés | Fichiers porteurs | Statut |
-| --- | ---: | --- | --- |
-| `/` | 27 | `src\components\sections\home\HomeAboutSection.tsx`, `src\components\sections\home\HomeTournagesSection.tsx`, `src\components\sections\home\HomeVirtualTourSection.tsx`, `src\components\sections\home\HomeQualiopiSection.tsx`, `src\components\sections\home\HomePartnersSection.tsx`, `src\components\sections\home\HomeSocialSection.tsx` | ✅ |
-| `formation-de-cascadeur` | 0 | — | ❌ 0 champ |
-| `stages-cascades-parkour-2` | 0 | — | ❌ 0 champ |
-| `stunt-workshop-cuc` | 0 | — | ❌ 0 champ |
-| `equipe-cascadeurs-pro` | 0 | — | ❌ 0 champ |
-| `cuc-team-cascadeur` | 0 | — | ❌ 0 champ |
-| `cuc-events-agence` | 0 | — | ❌ 0 champ |
-| `team-building-cascades` | 0 | — | ❌ 0 champ |
-| `spectacles-cascadeurs-yamakasi` | 0 | — | ❌ 0 champ |
-| `animations-airbag-parkour` | 0 | — | ❌ 0 champ |
-| `visite-virtuelle` | 0 | — | ❌ 0 champ |
-| `visite-guidee` | 0 | — | ❌ 0 champ |
-| `videos-cascadeur` | 0 | — | ❌ 0 champ |
-| `partenaires` | 0 | — | ❌ 0 champ |
-| `contact-cuc` | 0 | — | ❌ 0 champ |
+| Page | Champs | Dont listes | Fichiers porteurs | Statut |
+| --- | ---: | ---: | --- | --- |
+| `/` | 27 | 0 | `src\components\sections\home\HomeAboutSection.tsx`, `src\components\sections\home\HomeTournagesSection.tsx`, `src\components\sections\home\HomeVirtualTourSection.tsx`, `src\components\sections\home\HomeQualiopiSection.tsx`, `src\components\sections\home\HomePartnersSection.tsx`, `src\components\sections\home\HomeSocialSection.tsx` | ✅ |
+| `formation-de-cascadeur` | 17 | 9 | `src\components\sections\formation\FormationHeroSection.tsx`, `src\components\sections\formation\FormationFormulesSection.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
+| `stages-cascades-parkour-2` | 4 | 0 | `src\components\sections\stages\StagesHeroSection.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
+| `stunt-workshop-cuc` | 0 | 0 | — | ❌ 0 champ |
+| `equipe-cascadeurs-pro` | 4 | 0 | `src\app\(site)\[locale]\equipe-cascadeurs-pro\page.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
+| `cuc-team-cascadeur` | 5 | 0 | `src\components\sections\team\TeamHeroSection.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
+| `cuc-events-agence` | 6 | 0 | `src\components\sections\events\EventsHeroSection.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
+| `team-building-cascades` | 0 | 0 | — | ❌ 0 champ |
+| `spectacles-cascadeurs-yamakasi` | 0 | 0 | — | ❌ 0 champ |
+| `animations-airbag-parkour` | 0 | 0 | — | ❌ 0 champ |
+| `visite-virtuelle` | 0 | 0 | — | ❌ 0 champ |
+| `visite-guidee` | 0 | 0 | — | ❌ 0 champ |
+| `videos-cascadeur` | 0 | 0 | — | ❌ 0 champ |
+| `partenaires` | 4 | 0 | `src\components\sections\partenaires\PartenairesHeroSection.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
+| `contact-cuc` | 4 | 0 | `src\components\sections\contact\ContactHeroSection.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
 
 ## 2. Croisement avec l’éditeur d’accueil
 
@@ -39,9 +39,10 @@ Aucun : tous les champs sont déclarés en littéral.
 ## 5. Synthèse
 
 - Pages auditées : 15
-- Pages sans aucun champ : 14
+- Pages sans aucun champ : 7
 - Routes absentes : 0
 - Natures inconnues : 0
+- Champs de liste (`itemPath`) : 9
 
 ❌ Régression de couverture : les pages sans champ ne sont pas éditables en place.
 

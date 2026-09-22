@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import Image from 'next/image';
 import { TacticalButton } from '@/components/ui/TacticalButton';
+import { cucField } from '@/lib/preview/cuc-field';
 import { Film, ChevronRight } from 'lucide-react';
 import { SitePageHero } from '@/lib/data/site-service';
 
@@ -50,10 +51,13 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
             </div>
 
             <div className="flex items-center gap-2 mb-4 text-xs font-mono-tech uppercase font-bold tracking-wider text-[#FFE500]">
-              <span>{badge}</span>
+              <span {...cucField('hero.badge')}>{badge}</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
+            <h1
+              {...cucField('hero.title')}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
+            >
               {title.includes('&') ? (
                 <>
                   {title.split('&')[0]}
@@ -65,14 +69,17 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
               )}
             </h1>
 
-            <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
+            <p
+              {...cucField('hero.subtitle', 'textarea')}
+              className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
+            >
               {subtitle}
             </p>
 
             <div className="flex flex-wrap gap-4 mt-8">
               <Link href={ctaPrimaryLink}>
                 <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
-                  {ctaPrimaryText}
+                  <span {...cucField('hero.cta_primary_text')}>{ctaPrimaryText}</span>
                 </TacticalButton>
               </Link>
               <a

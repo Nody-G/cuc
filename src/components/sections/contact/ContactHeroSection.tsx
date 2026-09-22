@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 
 import { Phone, ChevronRight } from 'lucide-react';
 import { StuntBadge } from '@/components/ui/StuntBadge';
+import { cucField } from '@/lib/preview/cuc-field';
 
 import { SitePageHero } from '@/lib/data/site-service';
 
@@ -41,14 +42,17 @@ export const ContactHeroSection: React.FC<ContactHeroSectionProps> = ({ heroData
 
         <div className="inline-flex items-center gap-2 mb-4">
           <StuntBadge variant="yellow" icon={<Phone className="w-3.5 h-3.5" />}>
-            {heroData?.badge || t('badge')}
+            <span {...cucField('hero.badge')}>{heroData?.badge || t('badge')}</span>
           </StuntBadge>
           <span className="text-xs font-mono-tech text-zinc-400">
             {t('locationLabel')}
           </span>
         </div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
+        <h1
+          {...cucField('hero.title')}
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
+        >
           {heroData?.title ? (
             <span>{heroData.title}</span>
           ) : (
@@ -59,7 +63,10 @@ export const ContactHeroSection: React.FC<ContactHeroSectionProps> = ({ heroData
           )}
         </h1>
 
-        <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
+        <p
+          {...cucField('hero.subtitle', 'textarea')}
+          className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
+        >
           {heroData?.subtitle || t('subtitle')}
         </p>
       </div>

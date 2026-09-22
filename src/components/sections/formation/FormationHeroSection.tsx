@@ -61,14 +61,20 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
               />
             </div>
             <StuntBadge variant="yellow" icon={<Award className="w-3.5 h-3.5" />}>
-              {heroData?.badge || t('hero.badge')}
+              <span data-cuc-field="hero.badge" data-cuc-kind="text">
+                {heroData?.badge || t('hero.badge')}
+              </span>
             </StuntBadge>
             <span className="text-xs font-mono-tech text-zinc-400 hidden sm:inline">
               AFDAS 100% • FRANCE TRAVAIL
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
+          <h1
+            data-cuc-field="hero.title"
+            data-cuc-kind="text"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
+          >
             {heroData?.title ? (
               <span>{heroData.title}</span>
             ) : (
@@ -76,7 +82,11 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
             )}
           </h1>
 
-          <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
+          <p
+            data-cuc-field="hero.subtitle"
+            data-cuc-kind="textarea"
+            className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
+          >
             {heroData?.subtitle || t('hero.subtitle')}
           </p>
 
@@ -87,14 +97,18 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
               icon={<ChevronRight className="w-4 h-4" />}
               onClick={() => onApply('pro-longue-duree')}
             >
-              {t('ctaApplyPro')}
+              <span data-cuc-field="hero.cta_primary_text" data-cuc-kind="text">
+                {heroData?.cta_primary_text || t('ctaApplyPro')}
+              </span>
             </TacticalButton>
             <TacticalButton
               variant="secondary"
               size="lg"
               onClick={() => onApply('stage-decouverte')}
             >
-              {t('hero.ctaDiscovery')}
+              <span data-cuc-field="hero.cta_secondary_text" data-cuc-kind="text">
+                {heroData?.cta_secondary_text || t('hero.ctaDiscovery')}
+              </span>
             </TacticalButton>
             <a
               href="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf"

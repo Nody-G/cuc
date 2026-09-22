@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Target, Clock, MapPin, Bed, CheckCircle2, ShieldCheck, Award } from 'lucide-react';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { TacticalButton } from '@/components/ui/TacticalButton';
+import { cucField, findItemIndex, itemPath } from '@/lib/preview/cuc-field';
 
 interface FormationFormulesSectionProps {
   onApply: (programId: string) => void;
@@ -44,17 +45,34 @@ export const FormationFormulesSection: React.FC<FormationFormulesSectionProps> =
   const title = formulesData?.title || tf('title');
   const subtitle = formulesData?.subtitle || tf('subtitle');
 
+  /**
+   * Items des deux formules, retrouvés par identifiant — jamais par position :
+   * c'est leur index réel qui compose le chemin éditable, un index faux
+   * écrirait la copie d'une autre formule.
+   */
+  const items = formulesData?.items ?? [];
+  const decouverteIndex = findItemIndex(items, 'decouverte');
+  const proIndex = findItemIndex(items, 'pro_longue_duree');
+  const decouverte = decouverteIndex >= 0 ? items[decouverteIndex] : undefined;
+  const pro = proIndex >= 0 ? items[proIndex] : undefined;
+
   return (
     <section className="py-16">
       <div className="page-shell">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <StuntBadge variant="yellow" icon={<Target className="w-3.5 h-3.5" />}>
-            {badge}
+            <span {...cucField('sections_data.formules.badge')}>{badge}</span>
           </StuntBadge>
-          <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mt-3 mb-3">
+          <h2
+            {...cucField('sections_data.formules.title')}
+            className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mt-3 mb-3"
+          >
             {title}
           </h2>
-          <p className="text-sm font-tech text-zinc-400">
+          <p
+            {...cucField('sections_data.formules.subtitle', 'textarea')}
+            className="text-sm font-tech text-zinc-400"
+          >
             {subtitle}
           </p>
         </div>
@@ -67,26 +85,41 @@ export const FormationFormulesSection: React.FC<FormationFormulesSectionProps> =
           >
             <div>
               <div className="flex items-center justify-between gap-2 mb-4">
-                <span className="px-2.5 py-1 bg-zinc-800 text-zinc-300 font-mono-tech text-[10px] uppercase tracking-wider">
-                  {tf('step1Badge')}
+                <span
+                  {...cucField(itemPath('formules', decouverteIndex, 'step_badge'))}
+                  className="px-2.5 py-1 bg-zinc-800 text-zinc-300 font-mono-tech text-[10px] uppercase tracking-wider"
+                >
+                  {decouverte?.step_badge || tf('step1Badge')}
                 </span>
-                <span className="text-xs font-mono-tech text-[#FFE500]">
-                  {tf('step1Hours')}
+                <span
+                  {...cucField(itemPath('formules', decouverteIndex, 'duration_badge'))}
+                  className="text-xs font-mono-tech text-[#FFE500]"
+                >
+                  {decouverte?.duration_badge || tf('step1Hours')}
                 </span>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-display uppercase text-white mb-2">
-                {tf('step1Title')}
+              <h3
+                {...cucField(itemPath('formules', decouverteIndex, 'title'))}
+                className="text-2xl sm:text-3xl font-display uppercase text-white mb-2"
+              >
+                {decouverte?.title || tf('step1Title')}
               </h3>
-              <p className="text-xs font-tech text-zinc-400 mb-6">
-                {tf('step1Desc')}
+              <p
+                {...cucField(itemPath('formules', decouverteIndex, 'description'), 'textarea')}
+                className="text-xs font-tech text-zinc-400 mb-6"
+              >
+                {decouverte?.description || tf('step1Desc')}
               </p>
 
               <div className="space-y-3 mb-6 text-xs font-tech">
                 <div className="flex items-center gap-3 text-zinc-300">
                   <Clock className="w-4 h-4 text-[#FFE500] shrink-0" />
                   <span>
-                    <strong>{tf('labelDuration')}</strong> {tf('step1Duration')}
+                    <strong>{tf('labelDuration')}</strong>{' '}
+                    <span {...cucField(itemPath('formules', decouverteIndex, 'duration_text'))}>
+                      {decouverte?.duration_text || tf('step1Duration')}
+                    </span>
                   </span>
                 </div>
                 <div className="flex items-center gap-3 text-zinc-300">
@@ -98,7 +131,10 @@ export const FormationFormulesSection: React.FC<FormationFormulesSectionProps> =
                 <div className="flex items-center gap-3 text-zinc-300">
                   <Bed className="w-4 h-4 text-[#FFE500] shrink-0" />
                   <span>
-                    <strong>{tf('labelBoarding')}</strong> {tf('step1Boarding')}
+                    <strong>{tf('labelBoarding')}</strong>{' '}
+                    <span {...cucField(itemPath('formules', decouverteIndex, 'boarding_text'))}>
+                      {decouverte?.boarding_text || tf('step1Boarding')}
+                    </span>
                   </span>
                 </div>
               </div>
@@ -123,7 +159,9 @@ export const FormationFormulesSection: React.FC<FormationFormulesSectionProps> =
                 className="w-full"
                 onClick={() => onApply('stage-decouverte')}
               >
-                {tf('step1Cta')}
+                <span {...cucField(itemPath('formules', decouverteIndex, 'cta_text'))}>
+                  {decouverte?.cta_text || tf('step1Cta')}
+                </span>
               </TacticalButton>
             </div>
           </div>
@@ -136,38 +174,59 @@ export const FormationFormulesSection: React.FC<FormationFormulesSectionProps> =
 
             <div>
               <div className="flex items-center justify-between gap-2 mb-4">
-                <span className="px-2.5 py-1 bg-[#FFE500] text-black font-mono-tech text-[10px] font-bold uppercase tracking-wider">
-                  {tf('step2Badge')}
+                <span
+                  {...cucField(itemPath('formules', proIndex, 'step_badge'))}
+                  className="px-2.5 py-1 bg-[#FFE500] text-black font-mono-tech text-[10px] font-bold uppercase tracking-wider"
+                >
+                  {pro?.step_badge || tf('step2Badge')}
                 </span>
-                <span className="text-xs font-mono-tech text-[#FFE500]">
-                  {tf('step2Hours')}
+                <span
+                  {...cucField(itemPath('formules', proIndex, 'duration_badge'))}
+                  className="text-xs font-mono-tech text-[#FFE500]"
+                >
+                  {pro?.duration_badge || tf('step2Hours')}
                 </span>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-display uppercase text-white mb-2">
-                {tf('step2Title')}
+              <h3
+                {...cucField(itemPath('formules', proIndex, 'title'))}
+                className="text-2xl sm:text-3xl font-display uppercase text-white mb-2"
+              >
+                {pro?.title || tf('step2Title')}
               </h3>
-              <p className="text-xs font-tech text-zinc-300 mb-6">
-                {tf('step2Desc')}
+              <p
+                {...cucField(itemPath('formules', proIndex, 'description'), 'textarea')}
+                className="text-xs font-tech text-zinc-300 mb-6"
+              >
+                {pro?.description || tf('step2Desc')}
               </p>
 
               <div className="space-y-3 mb-6 text-xs font-tech">
                 <div className="flex items-center gap-3 text-zinc-300">
                   <Clock className="w-4 h-4 text-[#FFE500] shrink-0" />
                   <span>
-                    <strong>{tf('labelRhythm')}</strong> {tf('step2Rhythm')}
+                    <strong>{tf('labelRhythm')}</strong>{' '}
+                    <span {...cucField(itemPath('formules', proIndex, 'schedule_text'))}>
+                      {pro?.schedule_text || tf('step2Rhythm')}
+                    </span>
                   </span>
                 </div>
                 <div className="flex items-center gap-3 text-zinc-300">
                   <ShieldCheck className="w-4 h-4 text-[#FFE500] shrink-0" />
                   <span>
-                    <strong>{tf('labelAccreditation')}</strong> {tf('step2Accreditation')}
+                    <strong>{tf('labelAccreditation')}</strong>{' '}
+                    <span {...cucField(itemPath('formules', proIndex, 'boarding_text'))}>
+                      {pro?.boarding_text || tf('step2Accreditation')}
+                    </span>
                   </span>
                 </div>
                 <div className="flex items-center gap-3 text-zinc-300">
                   <Award className="w-4 h-4 text-[#FFE500] shrink-0" />
                   <span>
-                    <strong>{tf('labelCertification')}</strong> {tf('step2Certification')}
+                    <strong>{tf('labelCertification')}</strong>{' '}
+                    <span {...cucField(itemPath('formules', proIndex, 'certification_text'))}>
+                      {pro?.certification_text || tf('step2Certification')}
+                    </span>
                   </span>
                 </div>
               </div>
@@ -192,7 +251,9 @@ export const FormationFormulesSection: React.FC<FormationFormulesSectionProps> =
                 className="w-full"
                 onClick={() => onApply('pro-longue-duree')}
               >
-                {t('ctaApplyPro')}
+                <span {...cucField(itemPath('formules', proIndex, 'cta_text'))}>
+                  {pro?.cta_text || t('ctaApplyPro')}
+                </span>
               </TacticalButton>
             </div>
           </div>

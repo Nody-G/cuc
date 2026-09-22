@@ -58,6 +58,13 @@ const IMPORT_RE = /(?:import|export)\s+(?:type\s+)?(?:[\s\S]*?\s+from\s+)?['"]([
 const FIELD_ATTR_RE = /data-cuc-field=(["'])((?:(?!\1).)+)\1/g;
 const FIELD_DYNAMIC_RE = /data-cuc-field=\{(?!["'])/g;
 const KIND_ATTR_RE = /data-cuc-kind=(["'])((?:(?!\1).)+)\1/g;
+/**
+ * Champs posés via les helpers partagés (`cucField('chemin')`,
+ * `itemPath('bloc', index, 'clé')`) : ce sont des champs réels, l'audit doit les
+ * compter. Sans cela, adopter le helper ferait chuter la couverture mesurée.
+ */
+const FIELD_HELPER_RE = /cucField\(\s*'([^']+)'/g;
+const ITEM_HELPER_RE = /itemPath\(\s*'([^']+)'\s*,\s*[^,)]+\s*,\s*'([^']+)'\s*\)/g;
 
 function read(file) {
     return readFileSync(file, 'utf8');
@@ -135,6 +142,7 @@ function analyzePage(slug) {
         route: relative(ROOT, route),
         routeExists: existsSync(route),
         fields: new Set(),
+        listFields: new Set(),
         kinds: new Set(),
         dynamic: [],
         files: new Set(),
@@ -148,6 +156,14 @@ function analyzePage(slug) {
 
         for (const match of source.matchAll(FIELD_ATTR_RE)) {
             result.fields.add(match[2]);
+            result.files.add(rel);
+        }
+        for (const match of source.matchAll(FIELD_HELPER_RE)) {
+            result.fields.add(match[1]);
+            result.files.add(rel);
+        }
+        for (const match of source.matchAll(ITEM_HELPER_RE)) {
+            result.listFields.add(`sections_data.${match[1]}.items[].${match[2]}`);
             result.files.add(rel);
         }
         for (const match of source.matchAll(KIND_ATTR_RE)) {
@@ -180,7 +196,9 @@ function main() {
         (field) => home && !home.fields.has(field)
     );
 
-    const emptyPages = results.filter((result) => result.fields.size === 0);
+    const emptyPages = results.filter(
+        (result) => result.fields.size + result.listFields.size === 0
+    );
     const missingRoutes = results.filter((result) => !result.routeExists);
     const failures = emptyPages.length + missingRoutes.length + unknownKinds.size;
 
@@ -191,16 +209,17 @@ function main() {
     lines.push('');
     lines.push('## 1. Couverture par page');
     lines.push('');
-    lines.push('| Page | Champs annotés | Fichiers porteurs | Statut |');
-    lines.push('| --- | ---: | --- | --- |');
+    lines.push('| Page | Champs | Dont listes | Fichiers porteurs | Statut |');
+    lines.push('| --- | ---: | ---: | --- | --- |');
     for (const result of results) {
+        const total = result.fields.size + result.listFields.size;
         const status = !result.routeExists
             ? '❌ route absente'
-            : result.fields.size === 0
+            : total === 0
                 ? '❌ 0 champ'
                 : '✅';
         lines.push(
-            `| \`${result.slug}\` | ${result.fields.size} | ${[...result.files].map((file) => `\`${file}\``).join(', ') || '—'} | ${status} |`
+            `| \`${result.slug}\` | ${total} | ${result.listFields.size} | ${[...result.files].map((file) => `\`${file}\``).join(', ') || '—'} | ${status} |`
         );
     }
     lines.push('');
@@ -243,6 +262,9 @@ function main() {
     lines.push(`- Pages sans aucun champ : ${emptyPages.length}`);
     lines.push(`- Routes absentes : ${missingRoutes.length}`);
     lines.push(`- Natures inconnues : ${unknownKinds.size}`);
+    lines.push(
+        `- Champs de liste (\`itemPath\`) : ${results.reduce((sum, result) => sum + result.listFields.size, 0)}`
+    );
     lines.push('');
     lines.push(
         failures === 0

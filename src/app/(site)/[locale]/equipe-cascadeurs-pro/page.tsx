@@ -30,6 +30,7 @@ import {
 } from 'lucide-react';
 
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+import { cucField } from '@/lib/preview/cuc-field';
 
 export default function EquipeCascadeursProPage() {
   const [team, setTeam] = React.useState<Instructor[]>(CUC_TEAM);
@@ -129,14 +130,17 @@ export default function EquipeCascadeursProPage() {
 
             <div className="inline-flex items-center gap-2 mb-4">
               <StuntBadge variant="yellow" icon={<Users className="w-3.5 h-3.5" />}>
-                {heroBadge}
+                <span {...cucField('hero.badge')}>{heroBadge}</span>
               </StuntBadge>
               <span className="text-xs font-mono-tech text-zinc-400">
                 {t('performerTag')}
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
+            <h1
+              {...cucField('hero.title')}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
+            >
               {heroTitle.includes(' ') ? (
                 <>
                   {heroTitle.substring(0, heroTitle.lastIndexOf(' '))}{' '}
@@ -149,7 +153,10 @@ export default function EquipeCascadeursProPage() {
               )}
             </h1>
 
-            <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
+            <p
+              {...cucField('hero.subtitle', 'textarea')}
+              className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
+            >
               {heroSubtitle}
             </p>
           </div>

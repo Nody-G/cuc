@@ -6,6 +6,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { StuntBadge } from '@/components/ui/StuntBadge';
+import { cucField } from '@/lib/preview/cuc-field';
 import { Sparkles, ChevronRight } from 'lucide-react';
 
 import { SitePageHero } from '@/lib/data/site-service';
@@ -44,14 +45,17 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
 
           <div className="inline-flex items-center gap-2 mb-4">
             <StuntBadge variant="yellow" icon={<Sparkles className="w-3.5 h-3.5" />}>
-              {heroData?.badge || t('hero.badge')}
+              <span {...cucField('hero.badge')}>{heroData?.badge || t('hero.badge')}</span>
             </StuntBadge>
             <span className="text-xs font-mono-tech text-zinc-400">
               {t('hero.meta')}
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
+          <h1
+            {...cucField('hero.title')}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
+          >
             {heroData?.title ? (
               <span>{heroData.title}</span>
             ) : (
@@ -59,7 +63,10 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
             )}
           </h1>
 
-          <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
+          <p
+            {...cucField('hero.subtitle', 'textarea')}
+            className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
+          >
             {heroData?.subtitle || t('hero.subtitle')}
           </p>
         </div>
