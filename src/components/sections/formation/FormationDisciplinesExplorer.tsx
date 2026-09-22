@@ -11,6 +11,8 @@ import { getDisciplines } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { applyDisciplineOverlays } from '@/lib/i18n/apply-discipline-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
+import { usePageSectionData } from '@/lib/hooks/usePageSectionData';
+import { cucField } from '@/lib/preview/cuc-field';
 
 /**
  * Référentiel des 10 disciplines de la cascade physique.
@@ -22,6 +24,9 @@ import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
  */
 export const FormationDisciplinesExplorer: React.FC = () => {
   const t = useTranslations('formation');
+
+  /** Chrome de la section (badge, titre) : données de page prioritaires. */
+  const chrome = usePageSectionData<{ badge?: string; title?: string }>('disciplines');
   const [activeDisciplineIndex, setActiveDisciplineIndex] = useState(0);
   const [rawDisciplines, setRawDisciplines] = useState<Discipline[]>(CUC_DISCIPLINES);
 
@@ -55,10 +60,15 @@ export const FormationDisciplinesExplorer: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
           <div>
             <StuntBadge variant="yellow" icon={<Zap className="w-3.5 h-3.5" />}>
-              {t('disciplines.badge')}
+              <span {...cucField('sections_data.disciplines.badge')}>
+                {chrome?.badge || t('disciplines.badge')}
+              </span>
             </StuntBadge>
-            <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mt-3">
-              {t('disciplines.title')}
+            <h2
+              {...cucField('sections_data.disciplines.title')}
+              className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mt-3"
+            >
+              {chrome?.title || t('disciplines.title')}
             </h2>
           </div>
         </div>

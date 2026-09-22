@@ -7,6 +7,8 @@ import React from 'react';
 import Image from 'next/image';
 import { Calendar, ShieldCheck, Award, CheckCircle2 } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
+import { usePageSectionData } from '@/lib/hooks/usePageSectionData';
+import { cucField } from '@/lib/preview/cuc-field';
 
 interface FormationPedagogyModalitiesProps {
   onApply: (programId: string) => void;
@@ -17,6 +19,13 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
 }) => {
   const t = useTranslations('formation');
   const tp = useTranslations('formation.pedagogy');
+
+  /** Titres des trois colonnes : données de page prioritaires. */
+  const chrome = usePageSectionData<{
+    sessions_title?: string;
+    admission_title?: string;
+    funding_title?: string;
+  }>('pedagogie');
 
   /**
    * Sessions, statuts et financements : la copie vit dans `formation.pedagogy`
@@ -39,8 +48,11 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
           <div className="bg-[#0e0e14] border border-zinc-800 p-6">
             <div className="flex items-center gap-2 mb-4">
               <Calendar className="w-4 h-4 text-[#FFE500]" />
-              <h3 className="font-display uppercase text-lg text-white">
-                {tp('sessionsTitle')}
+              <h3
+                {...cucField('sections_data.pedagogie.sessions_title')}
+                className="font-display uppercase text-lg text-white"
+              >
+                {chrome?.sessions_title || tp('sessionsTitle')}
               </h3>
             </div>
             <div className="space-y-2.5 text-xs font-mono-tech">
@@ -65,8 +77,11 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
           <div className="bg-[#0e0e14] border border-zinc-800 p-6">
             <div className="flex items-center gap-2 mb-4">
               <ShieldCheck className="w-4 h-4 text-[#FFE500]" />
-              <h3 className="font-display uppercase text-lg text-white">
-                {tp('admissionTitle')}
+              <h3
+                {...cucField('sections_data.pedagogie.admission_title')}
+                className="font-display uppercase text-lg text-white"
+              >
+                {chrome?.admission_title || tp('admissionTitle')}
               </h3>
             </div>
             <ul className="space-y-3 text-xs font-tech text-zinc-300">
@@ -98,8 +113,11 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <Award className="w-4 h-4 text-[#FFE500]" />
-                <h3 className="font-display uppercase text-lg text-white">
-                  {tp('fundingTitle')}
+                <h3
+                  {...cucField('sections_data.pedagogie.funding_title')}
+                  className="font-display uppercase text-lg text-white"
+                >
+                  {chrome?.funding_title || tp('fundingTitle')}
                 </h3>
               </div>
               <div className="relative w-8 h-8 opacity-75">

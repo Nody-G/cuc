@@ -1,18 +1,18 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T00:45:30.435Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T00:48:35.769Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 76 |
-| DONNÉES — éditable par un écran existant | 176 |
-| TRADUCTION — à brancher sur une clé de page | 594 |
+| ANNOTÉ — éditable en place | 89 |
+| DONNÉES — éditable par un écran existant | 175 |
+| TRADUCTION — à brancher sur une clé de page | 592 |
 | CODÉ EN DUR — dette (ne suit ni la langue ni le Cockpit) | 82 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 17 |
-| **Total** | **945** |
+| **Total** | **955** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -88,6 +88,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.309 — `{pillarItems[2].cta}`
 - l.317 — `{...cucField(itemPath('events_pillars', 2, 'image'), 'image')}`
 
+### `src\components\sections\formation\FormationDisciplinesExplorer.tsx`
+
+- l.64 — `{chrome?.badge || t('disciplines.badge')}`
+- l.68 — `{...cucField('sections_data.disciplines.title')}`
+
 ### `src\components\sections\formation\FormationFormulesSection.tsx`
 
 - l.67 — `{...cucField('sections_data.formules.title')}`
@@ -114,6 +119,12 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.105 — `{heroData?.cta_primary_text || t('ctaApplyPro')}`
 - l.114 — `{heroData?.cta_secondary_text || t('hero.ctaDiscovery')}`
 
+### `src\components\sections\formation\FormationPedagogyModalities.tsx`
+
+- l.52 — `{...cucField('sections_data.pedagogie.sessions_title')}`
+- l.81 — `{...cucField('sections_data.pedagogie.admission_title')}`
+- l.117 — `{...cucField('sections_data.pedagogie.funding_title')}`
+
 ### `src\components\sections\partenaires\PartenairesHeroSection.tsx`
 
 - l.59 — `{...cucField('hero.title')}`
@@ -128,6 +139,17 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.58 — `{...cucField('hero.title')}`
 - l.73 — `{...cucField('hero.subtitle', 'textarea')}`
+
+### `src\components\sections\team\TeamProductionServices.tsx`
+
+- l.41 — `{...cucField('sections_data.services_production.badge')}`
+- l.47 — `{...cucField('sections_data.services_production.title')}`
+- l.53 — `{...cucField('sections_data.services_production.intro', 'textarea')}`
+- l.63 — `{...cucField(itemPath('services_production', idx, 'label'))}`
+- l.69 — `{item.body}`
+- l.80 — `{...cucField('sections_data.services_production.contact_title')}`
+- l.86 — `{...cucField('sections_data.services_production.contact_intro', 'textarea')}`
+- l.112 — `{block?.cta || t('services.cta')}`
 
 ### `src\components\sections\visite\VisiteHeroSection.tsx`
 
@@ -308,11 +330,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\formation\FormationDisciplinesExplorer.tsx`
 
-- l.86 — `{d.number}`
-- l.89 — `{d.name}`
-- l.119 — `{activeDiscipline.name}`
-- l.124 — `{activeDiscipline.fullDesc}`
-- l.145 — `{item}`
+- l.96 — `{d.number}`
+- l.99 — `{d.name}`
+- l.129 — `{activeDiscipline.name}`
+- l.134 — `{activeDiscipline.fullDesc}`
+- l.155 — `{item}`
 
 ### `src\components\sections\formation\FormationFormulesSection.tsx`
 
@@ -420,8 +442,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\team\TeamProductionServices.tsx`
 
-- l.37 — `{item.label}`
-- l.39 — `{item.body}`
+- l.66 — `{item.label}`
 
 ### `src\components\sections\visite\VisiteFacilitiesDetail.tsx`
 
@@ -872,14 +893,13 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\formation\FormationDisciplinesExplorer.tsx`
 
-- l.58 — `{t('disciplines.badge')}`
-- l.61 — `{t('disciplines.title')}`
-- l.66 — `{/* Interactive Discipline Explorer */}`
-- l.68 — `{/* Navigation List on Left */}`
-- l.103 — `{/* Discipline Detail Card on Right with Real Image */}`
-- l.106 — `{/* Real Image of Discipline */}`
-- l.130 — `{t('disciplines.cinemaContextLabel')}`
-- l.137 — `{t('disciplines.equipmentLabel')}`
+- l.71 — `{chrome?.title || t('disciplines.title')}`
+- l.76 — `{/* Interactive Discipline Explorer */}`
+- l.78 — `{/* Navigation List on Left */}`
+- l.113 — `{/* Discipline Detail Card on Right with Real Image */}`
+- l.116 — `{/* Real Image of Discipline */}`
+- l.140 — `{t('disciplines.cinemaContextLabel')}`
+- l.147 — `{t('disciplines.equipmentLabel')}`
 
 ### `src\components\sections\formation\FormationFormulesSection.tsx`
 
@@ -913,19 +933,19 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\formation\FormationPedagogyModalities.tsx`
 
-- l.38 — `{/* Calendrier Prochaines Sessions */}`
-- l.43 — `{tp('sessionsTitle')}`
-- l.54 — `{statuses[session.status] ?? ''}`
-- l.60 — `{tp('registrationNote')}`
-- l.64 — `{/* Conditions d'accès */}`
-- l.69 — `{tp('admissionTitle')}`
-- l.96 — `{/* Financement & Prise en Charge */}`
-- l.102 — `{tp('fundingTitle')}`
-- l.127 — `{/* Bottom CTA */}`
-- l.131 — `{t('cta.title')}`
-- l.134 — `{t('cta.text')}`
-- l.142 — `{t('ctaApplyPro')}`
-- l.146 — `{t('cta.contact')}`
+- l.47 — `{/* Calendrier Prochaines Sessions */}`
+- l.55 — `{chrome?.sessions_title || tp('sessionsTitle')}`
+- l.66 — `{statuses[session.status] ?? ''}`
+- l.72 — `{tp('registrationNote')}`
+- l.76 — `{/* Conditions d'accès */}`
+- l.84 — `{chrome?.admission_title || tp('admissionTitle')}`
+- l.111 — `{/* Financement & Prise en Charge */}`
+- l.120 — `{chrome?.funding_title || tp('fundingTitle')}`
+- l.145 — `{/* Bottom CTA */}`
+- l.149 — `{t('cta.title')}`
+- l.152 — `{t('cta.text')}`
+- l.160 — `{t('ctaApplyPro')}`
+- l.164 — `{t('cta.contact')}`
 
 ### `src\components\sections\hall-of-fame\CelebrityDetailsModal.tsx`
 
@@ -1108,14 +1128,13 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\team\TeamProductionServices.tsx`
 
-- l.24 — `{t('services.badge')}`
-- l.27 — `{t('services.title')}`
-- l.30 — `{t('services.intro')}`
-- l.45 — `{/* Callout contact production */}`
-- l.49 — `{t('services.contactTitle')}`
-- l.52 — `{t('services.contactIntro')}`
-- l.58 — `{t('services.coordinatorValue')}`
-- l.74 — `{t('services.cta')}`
+- l.44 — `{block?.badge || t('services.badge')}`
+- l.50 — `{block?.title || t('services.title')}`
+- l.56 — `{block?.intro || t('services.intro')}`
+- l.76 — `{/* Callout contact production */}`
+- l.83 — `{block?.contact_title || t('services.contactTitle')}`
+- l.89 — `{block?.contact_intro || t('services.contactIntro')}`
+- l.95 — `{t('services.coordinatorValue')}`
 
 ### `src\components\sections\team\teamGalleries.data.ts`
 
@@ -1480,7 +1499,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\team\TeamProductionServices.tsx`
 
-- l.67 — `contact@campus-universcascades.com`
+- l.104 — `contact@campus-universcascades.com`
 
 ### `src\components\sections\visite\VisiteAccessTransport.tsx`
 

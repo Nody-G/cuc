@@ -21,6 +21,8 @@
     "audit:fields": "node scripts/audit_cuc_fields.mjs",
     "audit:microcopy": "node scripts/audit_visible_microcopy.mjs",
     "audit:budget": "node scripts/audit_performance_budget.mjs",
+    "studio:gate": "node scripts/studio_gate.mjs",
+    "studio:gate:full": "node scripts/studio_gate.mjs --with-tests",
     "audit:featured": "node scripts/verify_featured_matching.mjs",
     "audit:supabase": "node scripts/audit_supabase_state.mjs",
     "design:container": "node scripts/apply_canonical_container.mjs",
