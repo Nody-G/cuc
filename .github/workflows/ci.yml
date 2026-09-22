@@ -39,6 +39,14 @@ jobs:
       - name: Unit tests
         run: npm run test
 
+      # Gate Mode Studio : couverture des champs éditables, budget performance
+      # (canal Realtime unique, aperçu allégé, revalidation FR + EN, aucune
+      # écriture depuis l'aperçu) et dette de micro-textes mesurée. La dette de
+      # micro-textes est **non bloquante** ici (elle est publiée dans le rapport) ;
+      # une page sans champ éditable ou un écart de budget, eux, cassent la CI.
+      - name: Mode Studio — audits (champs, budget, micro-textes)
+        run: npm run studio:gate
+
       - name: Audit (routes, ancres, liens)
         run: npm run audit:strict
 

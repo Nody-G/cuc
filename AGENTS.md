@@ -382,3 +382,24 @@ est verrouillé en EN, et les médias ne se modifient qu'en français.
   alignement FR ↔ EN par clé (jamais par index).
 - `npm run studio:gate:full` — verdict unique : champs, budget, micro-textes, TypeScript, tests.
 
+# DOCTRINE DURABILITÉ : CE QUI GARDE LE SITE SAIN
+
+**Règle Permanente — ce qui n'est pas mesuré dérive.**
+
+1. **Feuille de route vivante** : [`plans/roadmap-site-2026.md`](plans/roadmap-site-2026.md:1)
+   classe les évolutions par impact × effort (publication 404, RLS `site_pages`, accessibilité
+   automatisée, budgets JS, JSON-LD, couverture EN). Un sujet ne se discute pas sans ce document.
+2. **La CI est la définition de « terminé »** : [`ci.yml`](.github/workflows/ci.yml:1) enchaîne
+   lint, typecheck, tests, **gate Mode Studio** (champs, budget, micro-textes) et build. Un
+   commit qui casse l'un de ces contrôles n'est pas livrable — la dette restante est publiée
+   dans `plans/`, jamais silencieuse.
+3. **Le piège RLS à ne pas rouvrir** : passer la policy publique de `site_pages`
+   (`FOR SELECT USING (true)`) à `is_published = true` **avant** l'arrivée du vrai 404 ferait
+   afficher les brouillons avec le **contenu certifié** — « absent » et « dépublié » deviendraient
+   indistinguables pour le code actuel. Ordre imposé : 404 d'abord, policy ensuite.
+4. **Une seule source de vérité par sujet** : métadonnées →
+   [`buildRouteMetadata()`](src/lib/i18n/route-metadata.ts:24), fusion bilingue →
+   [`localized-merge.ts`](src/lib/i18n/localized-merge.ts:1), libellés →
+   [`microcopy.ts`](src/lib/i18n/microcopy.ts:1), champs éditables →
+   [`cuc-field.ts`](src/lib/preview/cuc-field.ts:1). Toute duplication locale est un bug futur.
+
