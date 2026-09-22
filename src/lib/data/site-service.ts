@@ -1482,6 +1482,12 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   }
 }
 
+/**
+ * Les surcharges de micro-textes sont portées par `getMicrocopyOverrides()` de
+ * `@/lib/i18n/server` (lecture mise en cache et étiquetée `site_settings`) :
+ * elles ne sont pas dupliquées ici pour éviter deux chemins de lecture.
+ */
+
 export interface SiteInquiry {
   id: string;
   full_name: string;

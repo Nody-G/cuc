@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T00:56:13.850Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T01:03:45.051Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -9,8 +9,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | --- | ---: |
 | ANNOTÉ — éditable en place | 121 |
 | DONNÉES — éditable par un écran existant | 218 |
-| TRADUCTION — à brancher sur une clé de page | 539 |
-| CODÉ EN DUR — dette (ne suit ni la langue ni le Cockpit) | 77 |
+| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 539 |
+| CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 77 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 15 |
 | **Total** | **970** |
 
@@ -600,7 +600,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.59 — `{children}`
 
-## 3. TRADUCTION — à brancher sur une clé de page
+## 3. TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n)
 
 ### `src\app\(site)\[locale]\HomeView.tsx`
 
@@ -1354,7 +1354,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.47 — `{/* 2. Soft Ambient Lighting Beacons that shift with scroll depth */}`
 - l.61 — `{/* 3. Floating Micro-Particles rising with scroll inertia */}`
 
-## 4. CODÉ EN DUR — dette (ne suit ni la langue ni le Cockpit)
+## 4. CODÉ EN DUR — dette (aucune prise en charge par le Cockpit)
 
 ### `src\app\(site)\[locale]\animations-airbag-parkour\page.tsx`
 

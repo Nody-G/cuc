@@ -10,6 +10,11 @@ import {
 } from '@/data/navigation';
 import { OVERLAY_ENTITIES, type Locale } from './entities';
 import { mergeLocalized } from './localized-merge';
+import {
+    MICROCOPY_SETTINGS_KEY,
+    sanitizeMicrocopyOverlay,
+    type MicrocopyOverlay,
+} from './microcopy';
 
 /**
  * ==============================================================================
@@ -56,6 +61,39 @@ async function fetchOverlay(
         .maybeSingle();
     if (error || !data?.payload) return null;
     return data.payload as Record<string, unknown>;
+}
+
+/* ------------------------------------------------------------------ *
+ * Micro-textes (surcharge du catalogue i18n)
+ * ------------------------------------------------------------------ */
+
+/**
+ * Surcharges de micro-textes écrites depuis le Cockpit
+ * (`site_settings.microcopy_overrides`).
+ *
+ * Lues une seule fois puis servies par le cache (`'use cache'` + tag
+ * `site_settings`) : le rendu i18n ne déclenche donc **aucune requête publique
+ * nominale**, et une publication du Cockpit rafraîchit le cache par tag. Une
+ * lecture en échec laisse le catalogue embarqué intact.
+ */
+export async function getMicrocopyOverrides(): Promise<MicrocopyOverlay> {
+    'use cache';
+    cacheLife('max');
+    cacheTag('site_settings');
+
+    try {
+        const supabase = createPublicClient();
+        const { data, error } = await supabase
+            .from('site_settings')
+            .select('value')
+            .eq('key', MICROCOPY_SETTINGS_KEY)
+            .maybeSingle();
+
+        if (error || !data?.value) return {};
+        return sanitizeMicrocopyOverlay(data.value);
+    } catch {
+        return {};
+    }
 }
 
 /* ------------------------------------------------------------------ *

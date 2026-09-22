@@ -17,7 +17,12 @@
  *                      affichée sur `/en`).
  *
  * Sortie : `plans/revue-micro-textes-visiteurs.md`, code 2 s'il reste des
- * catégories 3 ou 4.
+ * textes CODÉS EN DUR (catégorie 4).
+ *
+ * Les libellés passant par `t('…')` (catégorie 3) ne sont plus une dette : ils
+ * sont éditables sans redéploiement depuis l'écran « Micro-textes du site » du
+ * Cockpit, qui écrit une surcharge (`site_settings.microcopy_overrides`)
+ * appliquée aux catalogues i18n (cf. `src/lib/i18n/microcopy.ts`).
  *
  * Limite assumée : l'analyse est statique et syntaxique (pas un AST JSX). Les
  * libellés techniques (noms de marque, `alt`, `title`, `aria-label`) sont hors
@@ -196,8 +201,8 @@ function main() {
     const label = {
         1: 'ANNOTÉ — éditable en place',
         2: 'DONNÉES — éditable par un écran existant',
-        3: 'TRADUCTION — à brancher sur une clé de page',
-        4: 'CODÉ EN DUR — dette (ne suit ni la langue ni le Cockpit)',
+        3: 'TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n)',
+        4: 'CODÉ EN DUR — dette (aucune prise en charge par le Cockpit)',
         5: 'HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées)',
     };
 
@@ -243,15 +248,19 @@ function main() {
 
     writeFileSync(REPORT, `${lines.join('\n')}\n`, 'utf8');
 
-    const debt = byCategory.get(3).length + byCategory.get(4).length;
+    /** Seul le codé en dur reste une dette : la catégorie 3 est éditable en Cockpit. */
+    const debt = byCategory.get(4).length;
+    const editable = byCategory.get(1).length + byCategory.get(2).length + byCategory.get(3).length;
     console.log(`[audit:microcopy] ${files.length} fichiers analysés, ${total} textes visibles classés.`);
     console.log(
-        `[audit:microcopy] Annotés : ${byCategory.get(1).length} · données : ${byCategory.get(2).length} · traductions : ${byCategory.get(3).length} · codés en dur : ${byCategory.get(4).length} · techniques : ${byCategory.get(5).length}`
+        `[audit:microcopy] Éditables : ${editable} (annotés ${byCategory.get(1).length} · données ${byCategory.get(2).length} · traduction ${byCategory.get(3).length}) · codés en dur : ${byCategory.get(4).length} · techniques : ${byCategory.get(5).length}`
     );
     console.log(`[audit:microcopy] Rapport : ${relative(ROOT, REPORT)}`);
 
     if (debt > 0) {
-        console.error(`[audit:microcopy] ÉCHEC — ${debt} textes à brancher ou codés en dur (code 2).`);
+        console.error(
+            `[audit:microcopy] DETTE — ${debt} texte(s) codé(s) en dur, à brancher sur une donnée ou une clé (code 2).`
+        );
         process.exitCode = 2;
     } else {
         console.log('[audit:microcopy] OK — aucun texte orphelin détecté.');

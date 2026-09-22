@@ -95,6 +95,7 @@ import { BackupRestoreModal } from './components/BackupRestoreModal';
 import { CommandPalette } from './components/CommandPalette';
 import { SystemHealthModal } from './components/SystemHealthModal';
 import { TranslationsView } from './components/TranslationsView';
+import { MicrocopyView } from './components/MicrocopyView';
 
 export type TabType =
   | 'dashboard'
@@ -118,6 +119,7 @@ export type TabType =
   | 'health'
   | 'analytics'
   | 'translations'
+  | 'microcopy'
   | 'settings';
 
 interface CockpitAppProps {
@@ -151,6 +153,7 @@ const TAB_ROUTES: ReadonlyArray<{ tab: TabType; segment: string }> = [
   { tab: 'analytics', segment: 'analytics' },
   { tab: 'settings', segment: 'settings' },
   { tab: 'translations', segment: 'translations' },
+  { tab: 'microcopy', segment: 'microtextes' },
 ];
 
 /** Résout un chemin d'URL vers l'onglet correspondant (ou `null` si inconnu). */
@@ -585,6 +588,12 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
               badge: 'i18n',
             },
             {
+              id: 'microcopy' as TabType,
+              label: 'Micro-textes du site',
+              icon: Globe,
+              badge: 'studio',
+            },
+            {
               id: 'media' as TabType,
               label: 'Médiathèque Storage',
               icon: ImageIcon,
@@ -873,6 +882,9 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
 
           {/* 7bis. TRADUCTIONS EN (i18n) */}
           {activeTab === 'translations' && <TranslationsView showToast={showToast} />}
+
+          {/* 7ter. MICRO-TEXTES DU SITE (surcharges du catalogue i18n) */}
+          {activeTab === 'microcopy' && <MicrocopyView showToast={showToast} />}
 
           {/* 8. CMS ÉDITEUR DE PAGES */}
           {activeTab === 'pages' && (

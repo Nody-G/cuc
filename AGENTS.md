@@ -300,5 +300,39 @@ est verrouillé en EN, et les médias ne se modifient qu'en français.
   codés en dur). Rapport : `plans/revue-micro-textes-visiteurs.md`.
 - `npm run audit:budget` — budget performance (canal partagé, zéro requête publique nominale,
   FR + EN, aperçu allégé). Rapport : `plans/revue-budget-performance.md`.
+- `npm run studio:gate` / `npm run studio:gate:full` — **gate unique** enchaînant les trois
+  audits puis le typecheck et les tests ; un seul verdict, aucune vérification oubliée.
 - `npm run test` (protocole, chemins, listes, inertie) + `npm run typecheck` + `npm run build`.
+
+# DOCTRINE MICRO-TEXTES : TOUT LIBELLÉ D'INTERFACE EST ÉDITABLE
+
+**Règle Permanente — Une seule surcharge, fusionnée dans le catalogue ; aucun site d'appel réécrit.**
+
+## 1. Le mécanisme
+- Source unique : [`microcopy.ts`](src/lib/i18n/microcopy.ts:1) — aplatissement, fusion,
+  nettoyage et table éditable. **Ne jamais réimplémenter** une fusion de catalogue localement.
+- Stockage : `site_settings`, clé `microcopy_overrides` →
+  `{ fr: { 'home.about.title': '…' }, en: { … } }`.
+- Application : [`request.ts`](src/i18n/request.ts:1) fusionne la surcharge dans le catalogue de
+  la locale ; **tous** les `t()` (composants serveur ET clients) en bénéficient, sans
+  redéploiement et sans toucher la vitrine.
+- Édition : onglet « Micro-textes du site » du Cockpit
+  ([`MicrocopyView.tsx`](src/app/(admin)/admin/components/MicrocopyView.tsx:1)) — recherche,
+  groupes par namespace, FR/EN côte à côte, retour au catalogue par clé.
+
+## 2. Invariants non négociables
+1. **Aucune valeur vide publiée** : vider un champ **retire** la surcharge, le catalogue
+   redevient la source — jamais de libellé blanc.
+2. **Aucune structure inventée** : seules des clés de forme valide sont écrites, une valeur
+   reste une chaîne (les tableaux sont hors périmètre : une liste passe par une section).
+3. La surcharge **corrige** une clé existante, elle ne fabrique pas de nouvelle traduction.
+4. Publication : `saveMicrocopyOverrides` revalide les 15 pages, FR **et** EN, et journalise
+   l'action (`settings.microcopy`).
+
+## 3. Vérification obligatoire après toute modification
+- `npm run audit:microcopy` — seuls les textes **codés en dur** restent une dette ; les clés
+  `t('…')` sont éditables par la surcharge. Rapport : `plans/revue-micro-textes-visiteurs.md`.
+- `npx vitest run src/lib/i18n/microcopy.test.ts` — fusion, nettoyage, invariant du vide,
+  alignement FR ↔ EN par clé (jamais par index).
+- `npm run studio:gate:full` — verdict unique : champs, budget, micro-textes, TypeScript, tests.
 
