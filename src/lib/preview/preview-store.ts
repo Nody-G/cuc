@@ -39,7 +39,45 @@ export function subscribePreviewDraft(listener: Listener): () => void {
     };
 }
 
+/* ------------------------------------------------------------------ *
+ * Chrome : surcharges des réglages du site (`site_settings.general`)
+ * ------------------------------------------------------------------ */
+
+/**
+ * Surcharges locales des réglages, poussées par le Cockpit (`settings-draft`).
+ * Elles s'appliquent **par-dessus** les réglages serveur, uniquement dans
+ * l'aperçu : la vitrine publique n'en voit jamais rien.
+ */
+export type PreviewSettingsOverrides = Record<string, string>;
+
+type SettingsListener = (overrides: PreviewSettingsOverrides) => void;
+
+let previewSettings: PreviewSettingsOverrides = {};
+const settingsListeners = new Set<SettingsListener>();
+
+export function setPreviewSettings(overrides: PreviewSettingsOverrides): void {
+    previewSettings = { ...overrides };
+    settingsListeners.forEach((listener) => listener(previewSettings));
+}
+
+export function getPreviewSettings(): PreviewSettingsOverrides {
+    return previewSettings;
+}
+
+export function clearPreviewSettings(): void {
+    if (Object.keys(previewSettings).length === 0) return;
+    previewSettings = {};
+    settingsListeners.forEach((listener) => listener(previewSettings));
+}
+
+export function subscribePreviewSettings(listener: SettingsListener): () => void {
+    settingsListeners.add(listener);
+    return () => {
+        settingsListeners.delete(listener);
+    };
+}
+
 /** Indique si un brouillon d'aperçu est actuellement actif. */
 export function isPreviewActive(): boolean {
-    return previewDraft !== null;
+    return previewDraft !== null || Object.keys(previewSettings).length > 0;
 }

@@ -34,12 +34,16 @@ import {
 export interface UsePreviewBridgeOptions {
     /** Contenu brouillon à pousser dans l'iframe. */
     draft: SitePageContent;
+    /** Surcharges de réglages du site (brouillon chrome) poussées dans l'iframe. */
+    settings?: Record<string, string>;
     /** `inspect` : clic = focus du formulaire. `edit` : clic = édition en place. */
     mode?: PreviewMode;
     /** Champ sélectionné dans l'aperçu (clic). */
     onFieldSelect?: (field: string) => void;
     /** Valeur validée par l'éditeur en place (mode `edit`). */
     onFieldCommit?: (field: string, value: string) => void;
+    /** Valeur validée pour un réglage du site (`data-cuc-setting`). */
+    onSettingCommit?: (key: string, value: string) => void;
     /** Commande d'ajout / suppression / réordonnancement d'item de liste. */
     onListCommand?: (field: string, command: PreviewListCommand, index: number) => void;
     /** L'iframe demande l'ouverture de la médiathèque pour un champ image. */
@@ -61,9 +65,11 @@ export interface UsePreviewBridgeResult {
 
 export function usePreviewBridge({
     draft,
+    settings = {},
     mode = 'inspect',
     onFieldSelect,
     onFieldCommit,
+    onSettingCommit,
     onListCommand,
     onMediaRequest,
 }: UsePreviewBridgeOptions): UsePreviewBridgeResult {
@@ -75,20 +81,37 @@ export function usePreviewBridge({
     // Brouillon, mode et callbacks lus par ref : l'écouteur `message` reste
     // stable, y compris pendant une frappe continue dans un éditeur en place.
     const draftRef = useRef(draft);
+    const settingsRef = useRef(settings);
     const modeRef = useRef<PreviewMode>(mode);
-    const handlersRef = useRef({ onFieldSelect, onFieldCommit, onListCommand, onMediaRequest });
+    const handlersRef = useRef({
+        onFieldSelect,
+        onFieldCommit,
+        onSettingCommit,
+        onListCommand,
+        onMediaRequest,
+    });
 
     useEffect(() => {
         draftRef.current = draft;
     }, [draft]);
 
     useEffect(() => {
+        settingsRef.current = settings;
+    }, [settings]);
+
+    useEffect(() => {
         modeRef.current = mode;
     }, [mode]);
 
     useEffect(() => {
-        handlersRef.current = { onFieldSelect, onFieldCommit, onListCommand, onMediaRequest };
-    }, [onFieldSelect, onFieldCommit, onListCommand, onMediaRequest]);
+        handlersRef.current = {
+            onFieldSelect,
+            onFieldCommit,
+            onSettingCommit,
+            onListCommand,
+            onMediaRequest,
+        };
+    }, [onFieldSelect, onFieldCommit, onSettingCommit, onListCommand, onMediaRequest]);
 
     /** Envoie un message à l'iframe (origine cible = origine du Cockpit). */
     const post = useCallback((message: PreviewMessage) => {
@@ -99,6 +122,7 @@ export function usePreviewBridge({
 
     const pushDraft = useCallback(() => {
         post(previewMessage.draft(draftRef.current));
+        post(previewMessage.settingsDraft(settingsRef.current));
     }, [post]);
 
     // Écoute des messages provenant de l'iframe (abonnement stable).
@@ -112,9 +136,10 @@ export function usePreviewBridge({
             switch (message.type) {
                 case 'ready':
                     setIsReady(true);
-                    // Handshake : mode puis brouillon — l'iframe est prête.
+                    // Handshake : mode, brouillon puis chrome — l'iframe est prête.
                     post(previewMessage.mode(modeRef.current));
                     post(previewMessage.draft(draftRef.current));
+                    post(previewMessage.settingsDraft(settingsRef.current));
                     break;
                 case 'field-hover':
                     setHoveredField(message.field);
@@ -124,7 +149,11 @@ export function usePreviewBridge({
                     handlers.onFieldSelect?.(message.field);
                     break;
                 case 'field-commit':
-                    handlers.onFieldCommit?.(message.field, message.value);
+                    if (message.source === 'setting') {
+                        handlers.onSettingCommit?.(message.field, message.value);
+                    } else {
+                        handlers.onFieldCommit?.(message.field, message.value);
+                    }
                     break;
                 case 'list-command':
                     handlers.onListCommand?.(message.field, message.command, message.index);
@@ -134,6 +163,7 @@ export function usePreviewBridge({
                     break;
                 case 'mode':
                 case 'draft':
+                case 'settings-draft':
                 case 'media-commit':
                     // Messages Cockpit → iframe : sans effet côté parent.
                     break;
@@ -149,6 +179,12 @@ export function usePreviewBridge({
         if (!isReady) return;
         post(previewMessage.draft(draft));
     }, [draft, isReady, post]);
+
+    // Chrome : le brouillon de réglages suit la même règle (live).
+    useEffect(() => {
+        if (!isReady) return;
+        post(previewMessage.settingsDraft(settings));
+    }, [settings, isReady, post]);
 
     // Propagation du mode : le pont bascule ses affordances d'édition.
     useEffect(() => {

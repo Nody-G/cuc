@@ -19,16 +19,47 @@
  * Fonction pure, sans React : la seule vérité est le DOM.
  */
 
-import { CUC_FIELD_ATTRIBUTE } from './preview-protocol';
+import {
+    CUC_FIELD_ATTRIBUTE,
+    CUC_MICRO_ATTRIBUTE,
+    CUC_SETTING_ATTRIBUTE,
+    type PreviewFieldSource,
+} from './preview-protocol';
 
 /** Contrôles interactifs : toute leur surface désigne leur libellé. */
 const CONTROL_SELECTOR = 'a[href], button, [role="button"]';
 
-/** Chemin réellement porté par un élément (jamais un attribut vide). */
-function fieldPathOf(element: Element): string | null {
-    const path = element.getAttribute(CUC_FIELD_ATTRIBUTE);
-    const clean = path?.trim() ?? '';
-    return clean.length > 0 ? clean : null;
+/**
+ * Attributs reconnus, dans l'ordre de priorité. Un nœud ne porte qu'**une**
+ * source : le chrome (réglages, micro-textes) se résout comme le contenu.
+ */
+const FIELD_ATTRIBUTES: ReadonlyArray<{ attribute: string; source: PreviewFieldSource }> = [
+    { attribute: CUC_FIELD_ATTRIBUTE, source: 'page' },
+    { attribute: CUC_SETTING_ATTRIBUTE, source: 'setting' },
+    { attribute: CUC_MICRO_ATTRIBUTE, source: 'micro' },
+];
+
+/** Sélecteur unique de tous les champs éditables en place. */
+export const CUC_FIELD_SELECTOR = FIELD_ATTRIBUTES.map(
+    ({ attribute }) => `[${attribute}]`
+).join(', ');
+
+export interface ResolvedFieldTarget {
+    /** Clé transmise au Cockpit (chemin de page, clé de réglage, clé i18n). */
+    field: string;
+    /** Où le commit doit être écrit. */
+    source: PreviewFieldSource;
+    /** Attribut porteur (utile aux diagnostics et aux tests). */
+    attribute: string;
+}
+
+/** Cible portée par un élément (jamais un attribut vide), ou `null`. */
+export function resolveFieldTarget(element: Element): ResolvedFieldTarget | null {
+    for (const { attribute, source } of FIELD_ATTRIBUTES) {
+        const value = element.getAttribute(attribute)?.trim();
+        if (value) return { field: value, source, attribute };
+    }
+    return null;
 }
 
 /**
@@ -39,19 +70,20 @@ export function resolveFieldElement(target: EventTarget | null): HTMLElement | n
     if (!(target instanceof Element)) return null;
 
     // 1. Cas nominal : la cible (ou un ancêtre) porte l'annotation.
-    const annotated = target.closest<HTMLElement>(`[${CUC_FIELD_ATTRIBUTE}]`);
-    if (annotated) return fieldPathOf(annotated) ? annotated : null;
+    const annotated = target.closest<HTMLElement>(CUC_FIELD_SELECTOR);
+    if (annotated) return resolveFieldTarget(annotated) ? annotated : null;
 
     // 2. Contrôle interactif : un unique champ descendant → le rembourrage et
     //    les icônes désignent ce libellé, sans jamais deviner entre plusieurs.
     const control = target.closest<HTMLElement>(CONTROL_SELECTOR);
     if (!control) return null;
 
-    const candidates = [...control.querySelectorAll<HTMLElement>(`[${CUC_FIELD_ATTRIBUTE}]`)]
-        .filter((element) => fieldPathOf(element) !== null);
+    const candidates = [...control.querySelectorAll<HTMLElement>(CUC_FIELD_SELECTOR)].filter(
+        (element) => resolveFieldTarget(element) !== null
+    );
     if (candidates.length === 0) return null;
 
-    const paths = new Set(candidates.map((element) => fieldPathOf(element)));
+    const paths = new Set(candidates.map((element) => resolveFieldTarget(element)?.field));
     if (paths.size !== 1) return null;
 
     return candidates[0];

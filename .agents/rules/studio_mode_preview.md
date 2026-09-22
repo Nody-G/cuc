@@ -19,6 +19,11 @@
 - Helpers : `cucField('hero.title')`, `itemPath('formules', index, 'title')`
   (`src/lib/preview/cuc-field.ts`). Un chemin indisponible ne pose
   **aucun attribut** (zéro champ fantôme).
+- **Chrome** : `data-cuc-setting="<clé>"` pour un réglage du site
+  (`site_settings.general`). Le commit porte sa source ; le Cockpit écrit une
+  clé à la fois (`updateSiteSettingField`), une valeur vidée revenant au réglage
+  servi — jamais un texte blanc. `data-cuc-micro` (catalogue i18n) suit le même
+  canal (`settings-draft` / `field-commit source`).
 - Listes : `data-cuc-index="<i>"` sur l'item, chemin du **tableau** dans `data-cuc-field`.
 - Rendu **data-first** obligatoire : `{donnée || t('clé')}` — le repli traduit reste en place.
 

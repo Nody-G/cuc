@@ -48,6 +48,12 @@ export const CUC_INDEX_ATTRIBUTE = 'data-cuc-index';
  */
 export const CUC_FIELD_HOVER_ATTRIBUTE = 'data-cuc-field-hover';
 
+/** Attribut d'un texte issu des réglages du site (`site_settings`, clé `general`). */
+export const CUC_SETTING_ATTRIBUTE = 'data-cuc-setting';
+
+/** Attribut d'un texte issu du catalogue de micro-textes (surcharge i18n). */
+export const CUC_MICRO_ATTRIBUTE = 'data-cuc-micro';
+
 /* ------------------------------------------------------------------ *
  * Modèle
  * ------------------------------------------------------------------ */
@@ -65,6 +71,16 @@ export const CUC_FIELD_KINDS: readonly CucFieldKind[] = [
 
 /** Mode du canal : `inspect` (clic = focus du formulaire) ou `edit` (édition en place). */
 export type PreviewMode = 'inspect' | 'edit';
+
+/**
+ * Source d'un texte éditable en place : contenu de page (`data-cuc-field`),
+ * réglage du site (`data-cuc-setting`) ou micro-texte (`data-cuc-micro`).
+ * La source décide **où** le Cockpit écrit le commit — jamais un chemin
+ * interprété au hasard.
+ */
+export type PreviewFieldSource = 'page' | 'setting' | 'micro';
+
+const PREVIEW_FIELD_SOURCES: readonly PreviewFieldSource[] = ['page', 'setting', 'micro'];
 
 /** Commandes de liste, exécutées par le Cockpit sur le brouillon. */
 export type PreviewListCommand = 'add' | 'remove' | 'move-up' | 'move-down' | 'duplicate';
@@ -87,9 +103,23 @@ export type PreviewMessage =
     | { channel: typeof PREVIEW_CHANNEL; v: 2; type: 'ready' }
     | { channel: typeof PREVIEW_CHANNEL; v: 2; type: 'mode'; payload: PreviewMode }
     | { channel: typeof PREVIEW_CHANNEL; v: 2; type: 'draft'; payload: SitePageContent }
+    | {
+        channel: typeof PREVIEW_CHANNEL;
+        v: 2;
+        type: 'settings-draft';
+        payload: Record<string, string>;
+    }
     | { channel: typeof PREVIEW_CHANNEL; v: 2; type: 'field-hover'; field: string | null }
     | { channel: typeof PREVIEW_CHANNEL; v: 2; type: 'field-select'; field: string }
-    | { channel: typeof PREVIEW_CHANNEL; v: 2; type: 'field-commit'; field: string; value: string }
+    | {
+        channel: typeof PREVIEW_CHANNEL;
+        v: 2;
+        type: 'field-commit';
+        field: string;
+        value: string;
+        /** Absent = contenu de page (bundle antérieur au canal chrome). */
+        source?: PreviewFieldSource;
+    }
     | {
         channel: typeof PREVIEW_CHANNEL;
         v: 2;
@@ -134,6 +164,12 @@ export const previewMessage = {
         type: 'draft',
         payload,
     }),
+    settingsDraft: (payload: Record<string, string>): PreviewMessage => ({
+        channel: PREVIEW_CHANNEL,
+        v: PREVIEW_PROTOCOL_VERSION,
+        type: 'settings-draft',
+        payload,
+    }),
     fieldHover: (field: string | null): PreviewMessage => ({
         channel: PREVIEW_CHANNEL,
         v: PREVIEW_PROTOCOL_VERSION,
@@ -146,12 +182,14 @@ export const previewMessage = {
         type: 'field-select',
         field,
     }),
-    fieldCommit: (field: string, value: string): PreviewMessage => ({
+    fieldCommit: (field: string, value: string, source?: PreviewFieldSource): PreviewMessage => ({
         channel: PREVIEW_CHANNEL,
         v: PREVIEW_PROTOCOL_VERSION,
         type: 'field-commit',
         field,
         value,
+        // Omise pour le contenu de page : la forme historique reste identique.
+        ...(source && source !== 'page' ? { source } : {}),
     }),
     listCommand: (
         field: string,
@@ -202,6 +240,19 @@ function isListCommand(value: unknown): value is PreviewListCommand {
     );
 }
 
+function isFieldSource(value: unknown): value is PreviewFieldSource {
+    return (
+        typeof value === 'string' &&
+        (PREVIEW_FIELD_SOURCES as readonly string[]).includes(value)
+    );
+}
+
+/** Table de chaînes (surcharges de réglages) : jamais de valeur non textuelle. */
+function isStringRecord(value: unknown): value is Record<string, string> {
+    if (!isRecord(value)) return false;
+    return Object.values(value).every((entry) => typeof entry === 'string');
+}
+
 /** Vrai si la valeur est un message v2 strictement valide. */
 export function isPreviewMessage(value: unknown): value is PreviewMessage {
     if (!isRecord(value)) return false;
@@ -220,8 +271,14 @@ export function isPreviewMessage(value: unknown): value is PreviewMessage {
         case 'field-select':
         case 'media-request':
             return isNonEmptyString(value.field);
+        case 'settings-draft':
+            return isStringRecord(value.payload);
         case 'field-commit':
-            return isNonEmptyString(value.field) && typeof value.value === 'string';
+            return (
+                isNonEmptyString(value.field) &&
+                typeof value.value === 'string' &&
+                (value.source === undefined || isFieldSource(value.source))
+            );
         case 'list-command':
             return (
                 isNonEmptyString(value.field) &&

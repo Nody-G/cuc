@@ -7,6 +7,8 @@ import { TacticalButton } from '@/components/ui/TacticalButton';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { SocialIcon } from '@/components/ui/logos/SocialLogos';
 import { useSocialLinks } from '@/lib/hooks/useNavigation';
+import { usePreviewSettings } from '@/lib/preview/use-preview-settings';
+import { CUC_SETTING_ATTRIBUTE } from '@/lib/preview/preview-protocol';
 import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 
@@ -21,6 +23,15 @@ import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 export const NavActionsBar: React.FC = () => {
   const [settings, setSettings] = useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
   const socialLinks = useSocialLinks();
+  /**
+   * Brouillon de réglages du Mode Studio : la surcharge locale prime sur la
+   * valeur serveur, sans écriture en base (le Cockpit pousse le brouillon).
+   */
+  const previewSettings = usePreviewSettings();
+  const ctaText =
+    previewSettings.hero_primary_cta_text || settings.hero_primary_cta_text || 'Contact & Projets';
+  const ctaUrl =
+    previewSettings.hero_primary_cta_url || settings.hero_primary_cta_url || '/contact-cuc';
 
   /** Recharge les réglages du site (état initial + synchronisation Realtime). */
   const loadSettings = React.useCallback(() => {
@@ -75,14 +86,15 @@ export const NavActionsBar: React.FC = () => {
 
       <LanguageSwitcher />
 
-      <Link href={settings.hero_primary_cta_url || '/contact-cuc'} className="shrink-0">
+      <Link href={ctaUrl} className="shrink-0">
         <TacticalButton
           variant="primary"
           size="sm"
           icon={<ChevronRight className="w-4 h-4" />}
           className="whitespace-nowrap"
         >
-          {settings.hero_primary_cta_text || 'Contact & Projets'}
+          {/* Texte de réglage : éditable en place dans l'aperçu du Cockpit. */}
+          <span {...{ [CUC_SETTING_ATTRIBUTE]: 'hero_primary_cta_text' }}>{ctaText}</span>
         </TacticalButton>
       </Link>
     </div>

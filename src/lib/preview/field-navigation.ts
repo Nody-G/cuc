@@ -13,11 +13,12 @@
  */
 
 import {
-    CUC_FIELD_ATTRIBUTE,
     CUC_INDEX_ATTRIBUTE,
     resolveFieldKind,
     type CucFieldKind,
+    type PreviewFieldSource,
 } from './preview-protocol';
+import { CUC_FIELD_SELECTOR, resolveFieldTarget } from './field-hit';
 
 /** Natures éditables par saisie texte (mêmes règles que la couche d'édition). */
 export const INLINE_NAVIGABLE_KINDS: readonly CucFieldKind[] = ['text', 'textarea', 'link'];
@@ -29,6 +30,8 @@ export interface EditableFieldRef {
     kind: CucFieldKind;
     /** Élément porteur de l'attribut. */
     element: HTMLElement;
+    /** Source du texte (absente = contenu de page). */
+    source?: PreviewFieldSource;
 }
 
 function isEditableKind(kind: CucFieldKind): boolean {
@@ -50,17 +53,25 @@ export function collectEditableFields(root: ParentNode): EditableFieldRef[] {
     const seen = new Set<string>();
     const fields: EditableFieldRef[] = [];
 
-    for (const node of root.querySelectorAll<HTMLElement>(`[${CUC_FIELD_ATTRIBUTE}]`)) {
-        const path = node.getAttribute(CUC_FIELD_ATTRIBUTE);
-        if (!path || seen.has(path)) continue;
+    // Contenu de page, réglages et micro-textes : une seule séquence de
+    // tabulation, fidèle à ce que l'utilisateur voit.
+    for (const node of root.querySelectorAll<HTMLElement>(CUC_FIELD_SELECTOR)) {
+        const target = resolveFieldTarget(node);
+        if (!target || seen.has(target.field)) continue;
         if (node.getAttribute(CUC_INDEX_ATTRIBUTE) !== null) continue;
 
         const kind = resolveFieldKind(node.getAttribute('data-cuc-kind'));
         if (!isEditableKind(kind)) continue;
         if (!isVisible(node)) continue;
 
-        seen.add(path);
-        fields.push({ path, kind, element: node });
+        seen.add(target.field);
+        fields.push({
+            path: target.field,
+            kind,
+            element: node,
+            // Omise pour le contenu de page : forme historique conservée.
+            ...(target.source !== 'page' ? { source: target.source } : {}),
+        });
     }
 
     return fields;

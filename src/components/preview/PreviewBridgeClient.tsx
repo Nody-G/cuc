@@ -12,8 +12,12 @@ import {
     type PreviewMessage,
     type PreviewMode,
 } from '@/lib/preview/preview-protocol';
-import { resolveFieldElement } from '@/lib/preview/field-hit';
-import { setPreviewDraft } from '@/lib/preview/preview-store';
+import { resolveFieldElement, resolveFieldTarget } from '@/lib/preview/field-hit';
+import {
+    clearPreviewSettings,
+    setPreviewDraft,
+    setPreviewSettings,
+} from '@/lib/preview/preview-store';
 import {
     clearPreviewSelection,
     selectPreviewField,
@@ -64,6 +68,9 @@ export const PreviewBridgeClient: React.FC = () => {
                 case 'draft':
                     setPreviewDraft(message.payload);
                     break;
+                case 'settings-draft':
+                    setPreviewSettings(message.payload);
+                    break;
                 case 'mode': {
                     mode = message.payload;
                     document.documentElement.setAttribute('data-cuc-mode', mode);
@@ -82,26 +89,22 @@ export const PreviewBridgeClient: React.FC = () => {
         post(previewMessage.ready());
 
         // --- Repérage des champs éditables ---
-        // Cible unique du survol et du clic : le texte annoté, ou le contrôle
-        // qui le porte (icône et rembourrage compris) — jamais de devinette
-        // quand un contrôle contient plusieurs champs (cf. `field-hit`).
-        const fieldPath = (el: HTMLElement): string | null => {
-            const field = el.getAttribute(CUC_FIELD_ATTRIBUTE);
-            return field && field.trim().length > 0 ? field : null;
-        };
-
+        // Cible unique du survol et du clic : le texte annoté (contenu de page,
+        // réglage ou micro-texte), ou le contrôle qui le porte (icône et
+        // rembourrage compris) — jamais de devinette quand un contrôle contient
+        // plusieurs champs (cf. `field-hit`).
         /** Élément réellement désigné par le survol (attribut transitoire). */
         let hovered: HTMLElement | null = null;
 
         const handleMouseOver = (event: MouseEvent) => {
             const el = resolveFieldElement(event.target);
             if (!el || el === hovered) return;
-            const field = fieldPath(el);
-            if (!field) return;
+            const target = resolveFieldTarget(el);
+            if (!target) return;
             hovered?.removeAttribute(CUC_FIELD_HOVER_ATTRIBUTE);
             hovered = el;
             el.setAttribute(CUC_FIELD_HOVER_ATTRIBUTE, '');
-            post(previewMessage.fieldHover(field));
+            post(previewMessage.fieldHover(target.field));
         };
 
         const handleMouseOut = (event: MouseEvent) => {
@@ -117,8 +120,8 @@ export const PreviewBridgeClient: React.FC = () => {
         const handleClick = (event: MouseEvent) => {
             const el = resolveFieldElement(event.target);
             if (!el) return;
-            const field = fieldPath(el);
-            if (!field) return;
+            const target = resolveFieldTarget(el);
+            if (!target) return;
             // Le clic sélectionne le champ : en mode `edit`, la couche d'édition
             // en place (PreviewEditLayer) prend le relais ; en mode `inspect`, le
             // Cockpit met le focus sur l'input correspondant du formulaire.
@@ -130,14 +133,15 @@ export const PreviewBridgeClient: React.FC = () => {
                 hovered?.removeAttribute(CUC_FIELD_HOVER_ATTRIBUTE);
                 hovered = null;
                 selectPreviewField({
-                    field,
+                    field: target.field,
                     kind: resolveFieldKind(el.getAttribute(CUC_KIND_ATTRIBUTE)),
                     element: el,
+                    ...(target.source !== 'page' ? { source: target.source } : {}),
                 });
             } else {
                 clearPreviewSelection();
             }
-            post(previewMessage.fieldSelect(field));
+            post(previewMessage.fieldSelect(target.field));
         };
 
         document.addEventListener('mouseover', handleMouseOver, true);
@@ -198,6 +202,7 @@ export const PreviewBridgeClient: React.FC = () => {
             hovered = null;
             style.remove();
             clearPreviewSelection();
+            clearPreviewSettings();
             document.documentElement.removeAttribute('data-cuc-mode');
         };
     }, []);

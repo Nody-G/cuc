@@ -1,9 +1,11 @@
 # Plan — Rendre le « chrome » éditable dans l'aperçu (réglages + micro-textes)
 
-> État : **conception validée, non implémentée**. L'édition en place couvre aujourd'hui le
-> contenu de page (`site_pages` via `data-cuc-field`). Ce dossier décrit le chantier qui
-> étend la même expérience aux textes du chrome : navbar, pied de page, réseaux, libellés
-> du catalogue i18n.
+> État : **canal « réglages » livré** — protocole `settings-draft` et `field-commit` avec
+> source, tranche chrome du `preview-store`, hook d'affichage, commit/brouillon et
+> sauvegarde par clé (`updateSiteSettingField`) ; premier texte annoté : le CTA de la
+> navbar (« Contact & Projets »). **Reste : les micro-textes** (`data-cuc-micro`) — même
+> canal — et l'extension des annotations aux autres réglages (pied de page, coordonnées,
+> annonces).
 
 ## 1. Le problème, tel qu'il se vit
 
@@ -93,15 +95,15 @@ messages v2 continuent de fonctionner → **aucune fenêtre de panne** au déplo
 
 ## 3. Découpage en lots livrables
 
-| Lot | Contenu | Vérification |
+| Lot | Contenu | État |
 | --- | --- | --- |
-| L1 | Protocole v3 (`chrome-draft`, `chrome-commit`) + tests de parseur | `preview-protocol.test.ts` |
-| L2 | `preview-store` : tranche chrome + tests d'abonnement | tests preview-store |
-| L3 | `PreviewChromeProvider` (messages fusionnés) + hook réglages | test : une surcharge change le rendu sans rechargement |
-| L4 | Annotations navbar + CTA + pied de page (≈ 30 nœuds) | `audit:fields` étendu : promesses « settings » |
-| L5 | Commit chrome → brouillon Cockpit + undo + inspecteur | tests `draft-diff` étendus |
-| L6 | Enregistrement composé + conflits | tests d'action (2 onglets ne s'écrasent pas) |
-| L7 | Micro-textes en place (annotations progressives par namespace) | `audit:microcopy` : « annoté » en hausse, « traduction » en baisse |
+| L1 | Protocole (`settings-draft`, `field-commit` avec source) + tests parseur | ✅ livré |
+| L2 | `preview-store` : tranche chrome (surcharges de réglages) + tests | ✅ livré |
+| L3 | Hook d'affichage `usePreviewSettings` + surcharge appliquée dans la navbar | ✅ livré (réglages) |
+| L4 | Annotations : CTA navbar livré ; **pied de page, coordonnées, annonces à étendre** | 🚧 partiel |
+| L5 | Commit chrome → brouillon Cockpit (source respectée, valeur vidée = retour au défaut) | ✅ livré |
+| L6 | Enregistrement composé (page + réglages, un bouton, échec nommé et conservé) | ✅ livré |
+| L7 | Micro-textes en place (`data-cuc-micro`, fusion des messages, surcharge i18n) | ❌ à faire |
 
 ## 4. Ce qui ne rentre pas dans ce chantier
 

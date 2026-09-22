@@ -21,6 +21,10 @@ export interface PreviewTabPanelProps {
     previewMode: PreviewMode;
     onPreviewModeChange: (mode: PreviewMode) => void;
     onFieldCommit: (field: string, value: string) => void;
+    /** Surcharges de réglages (brouillon chrome) poussées dans l'aperçu. */
+    settings: Record<string, string>;
+    /** Valeur validée pour un réglage du site (`data-cuc-setting`). */
+    onSettingCommit: (key: string, value: string) => void;
     onFieldSelect: (field: string) => void;
     locale: EditorLocaleOption;
     onLocaleChange: (locale: EditorLocaleOption) => void;
@@ -50,6 +54,8 @@ export const PreviewTabPanel: React.FC<PreviewTabPanelProps> = ({
     previewMode,
     onPreviewModeChange,
     onFieldCommit,
+    settings,
+    onSettingCommit,
     onFieldSelect,
     locale,
     onLocaleChange,
@@ -82,6 +88,8 @@ export const PreviewTabPanel: React.FC<PreviewTabPanelProps> = ({
             mode={previewMode}
             onModeChange={onPreviewModeChange}
             onFieldCommit={onFieldCommit}
+            settings={settings}
+            onSettingCommit={onSettingCommit}
             onFieldSelect={fieldSelect}
             locale={locale}
             onLocaleChange={onLocaleChange}

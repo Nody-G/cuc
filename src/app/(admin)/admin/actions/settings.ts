@@ -11,6 +11,24 @@ import { checkIsAdmin } from './auth';
 import { revalidateSite } from './revalidate';
 import { logAuditEvent } from './audit';
 
+/** Pages vitrine où le chrome (navbar, pied de page) est rendu, FR et EN. */
+const CHROME_PAGE_PATHS = [
+  '/',
+  '/formation-de-cascadeur',
+  '/stages-cascades-parkour-2',
+  '/equipe-cascadeurs-pro',
+  '/cuc-team-cascadeur',
+  '/partenaires',
+  '/team-building-cascades',
+  '/animations-airbag-parkour',
+  '/spectacles-cascadeurs-yamakasi',
+  '/stunt-workshop-cuc',
+  '/videos-cascadeur',
+  '/visite-guidee',
+  '/visite-virtuelle',
+  '/contact-cuc',
+];
+
 /**
  * Met à jour les paramètres globaux (coordonnées, réseaux sociaux, footer).
  */
@@ -31,6 +49,58 @@ export async function updateSiteSettings(key: string, value: Record<string, any>
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Erreur inconnue';
     return { success: false, error: message };
+  }
+}
+
+/**
+ * Met à jour **un seul** champ des réglages généraux (`site_settings.general`).
+ *
+ * L'édition en place dans l'aperçu ne connaît qu'une clé à la fois : réécrire
+ * tout l'objet écraserait les champs non chargés. On fusionne donc la clé dans
+ * la valeur existante ; une valeur vide **retire** la clé (retour au réglage
+ * servi) — aucun texte blanc n'est jamais publié.
+ */
+export async function updateSiteSettingField(field: string, value: string) {
+  try {
+    const isAdmin = await checkIsAdmin();
+    if (!isAdmin) return { success: false as const, error: 'Accès refusé' };
+
+    const adminClient = createAdminClient();
+    const { data, error: readError } = await adminClient
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'general')
+      .maybeSingle();
+    if (readError) throw readError;
+
+    const current = (data?.value as Record<string, unknown> | undefined) ?? {};
+    const next: Record<string, unknown> = { ...current };
+    const clean = value.trim();
+    if (clean.length === 0) {
+      delete next[field];
+    } else {
+      next[field] = value;
+    }
+
+    const { error } = await adminClient.from('site_settings').upsert({
+      key: 'general',
+      value: next,
+      updated_at: new Date().toISOString(),
+    });
+    if (error) throw error;
+
+    updateTag('site_settings');
+    await revalidateSite(CHROME_PAGE_PATHS);
+    await logAuditEvent(
+      'settings.field',
+      field,
+      clean.length === 0 ? 'retour au réglage par défaut' : 'modifié dans l’aperçu'
+    );
+
+    return { success: true as const };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return { success: false as const, error: message };
   }
 }
 
@@ -104,22 +174,7 @@ export async function saveMicrocopyOverrides(overlay: unknown) {
     /* Le catalogue i18n est lu sous tag `site_settings` : on l'invalide d'abord. */
     updateTag('site_settings');
 
-    await revalidateSite([
-      '/',
-      '/formation-de-cascadeur',
-      '/stages-cascades-parkour-2',
-      '/equipe-cascadeurs-pro',
-      '/cuc-team-cascadeur',
-      '/partenaires',
-      '/team-building-cascades',
-      '/animations-airbag-parkour',
-      '/spectacles-cascadeurs-yamakasi',
-      '/stunt-workshop-cuc',
-      '/videos-cascadeur',
-      '/visite-guidee',
-      '/visite-virtuelle',
-      '/contact-cuc',
-    ]);
+    await revalidateSite(CHROME_PAGE_PATHS);
 
     const frCount = Object.keys(sanitized.fr ?? {}).length;
     const enCount = Object.keys(sanitized.en ?? {}).length;

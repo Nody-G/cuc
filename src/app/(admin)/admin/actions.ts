@@ -20,7 +20,12 @@ export { upsertSiteTranslation, getSiteTranslation, deleteSiteTranslation } from
 export type { SiteTranslationReadResult } from './actions/translations';
 export { upsertPageContent, setPagePublishState, resetPageContentToDefault } from './actions/pages';
 export { upsertPartner, deletePartner, upsertEvent, deleteEvent } from './actions/partners-events';
-export { updateSiteSettings, loadMicrocopyCatalog, saveMicrocopyOverrides } from './actions/settings';
+export {
+    updateSiteSettings,
+    updateSiteSettingField,
+    loadMicrocopyCatalog,
+    saveMicrocopyOverrides,
+} from './actions/settings';
 export { upsertDiscipline, deleteDiscipline, upsertCampusPOI, deleteCampusPOI } from './actions/campus';
 export { upsertCampusPlacements3D, probeCampusPlacements3D } from './actions/campus-3d';
 export { logAuditEvent } from './actions/audit';

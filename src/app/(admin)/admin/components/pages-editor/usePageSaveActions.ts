@@ -5,6 +5,7 @@ import { DEFAULT_PAGE_CONTENTS, normalizeSlug, type SitePageContent } from '@/li
 import {
     resetPageContentToDefault,
     setPagePublishState,
+    updateSiteSettingField,
     upsertPageContent,
 } from '@/app/(admin)/admin/actions';
 import type { UseEntityTranslationResult } from '@/lib/hooks/useEntityTranslation';
@@ -23,6 +24,10 @@ export interface UsePageSaveActionsArgs {
     bumpPreview: () => void;
     /** Efface le brouillon local après un enregistrement réussi. */
     clearSnapshot: () => void;
+    /** Réglages modifiés dans l'aperçu (brouillon chrome), clé → valeur. */
+    settingDraft: Record<string, string>;
+    /** Efface le brouillon chrome après publication réussie. */
+    clearSettingDraft: () => void;
 }
 
 /**
@@ -43,10 +48,30 @@ export function usePageSaveActions({
     showToast,
     bumpPreview,
     clearSnapshot,
+    settingDraft,
+    clearSettingDraft,
 }: UsePageSaveActionsArgs) {
     const [isSaving, setIsSaving] = useState(false);
     const [isResetting, setIsResetting] = useState(false);
     const [isPublishing, setIsPublishing] = useState(false);
+
+    /**
+     * Écrit les réglages modifiés dans l'aperçu (brouillon chrome). Le
+     * brouillon n'est effacé **que** si toutes les clés sont passées : une
+     * valeur refusée reste visible, jamais perdue en silence.
+     */
+    const flushSettingDraft = async (): Promise<{ ok: boolean; failed: string[] }> => {
+        const keys = Object.keys(settingDraft);
+        if (keys.length === 0) return { ok: true, failed: [] };
+
+        const failed: string[] = [];
+        for (const key of keys) {
+            const res = await updateSiteSettingField(key, settingDraft[key]);
+            if (!res.success) failed.push(key);
+        }
+        if (failed.length === 0) clearSettingDraft();
+        return { ok: failed.length === 0, failed };
+    };
 
     /**
      * Enregistrement de la traduction anglaise.
@@ -71,6 +96,18 @@ export function usePageSaveActions({
                 ? 'Aucune différence avec le français : la page reste servie en français.'
                 : `Traduction anglaise enregistrée — ${before.percent} % de couverture (${before.translated}/${before.total} champs).`
         );
+
+        // Les réglages sont partagés entre les langues : le brouillon chrome
+        // suit la même sauvegarde, quel que soit l'onglet d'édition actif.
+        const chromeKeys = Object.keys(settingDraft);
+        if (chromeKeys.length > 0) {
+            const chrome = await flushSettingDraft();
+            showToast(
+                chrome.ok
+                    ? `${chromeKeys.length} réglage(s) du site publié(s).`
+                    : `Réglage(s) non enregistré(s) : ${chrome.failed.join(', ')} — brouillon conservé.`
+            );
+        }
     };
 
     const handleSave = async (e?: React.FormEvent) => {
@@ -99,15 +136,26 @@ export function usePageSaveActions({
             expectedUpdatedAt: savedData.updated_at ?? null,
         });
 
-        setIsSaving(false);
         if (res.success) {
             clearSnapshot();
             onPageSaved(formData);
             bumpPreview();
-            showToast(`Page "${formData.title}" enregistrée avec succès !`);
+
+            const chromeKeys = Object.keys(settingDraft);
+            if (chromeKeys.length === 0) {
+                showToast(`Page "${formData.title}" enregistrée avec succès !`);
+            } else {
+                const chrome = await flushSettingDraft();
+                showToast(
+                    chrome.ok
+                        ? `Page "${formData.title}" enregistrée · ${chromeKeys.length} réglage(s) du site publié(s).`
+                        : `Page enregistrée, mais réglage(s) refusé(s) : ${chrome.failed.join(', ')} — brouillon conservé.`
+                );
+            }
         } else {
             showToast(`Erreur : ${res.error || 'Sauvegarde impossible'}`);
         }
+        setIsSaving(false);
     };
 
     const handleTogglePublish = async () => {

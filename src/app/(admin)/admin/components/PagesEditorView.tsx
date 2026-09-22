@@ -56,11 +56,30 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   // la saisie en place. Le mode `inspect` (clic = champ du formulaire) reste
   // accessible dans la barre de l'aperçu.
   const [previewMode, setPreviewMode] = useState<PreviewMode>('edit');
+  /**
+   * Brouillon « chrome » : réglages du site modifiés dans l'aperçu (CTA de la
+   * navbar, coordonnées…). Ils sont globaux — pas rattachés à une page — et
+   * publiés par le même bouton « Enregistrer » que le contenu.
+   */
+  const [settingDraft, setSettingDraft] = useState<Record<string, string>>({});
 
   const cleanSelectedSlug = normalizeSlug(selectedSlug);
   const draft = usePageEditorDraft({ pages, selectedSlug: cleanSelectedSlug, editorLocale });
 
   const bumpPreview = () => setPreviewKey((prev) => prev + 1);
+
+  /**
+   * Valeur validée pour un réglage du site : une valeur vidée **retire** la
+   * surcharge (retour au réglage servi), jamais un texte blanc publié.
+   */
+  const handleSettingCommit = (key: string, value: string) => {
+    setSettingDraft((prev) => {
+      const next = { ...prev };
+      if (value.trim().length === 0) delete next[key];
+      else next[key] = value;
+      return next;
+    });
+  };
 
   const save = usePageSaveActions({
     formData: draft.formData,
@@ -72,6 +91,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     showToast,
     bumpPreview,
     clearSnapshot: draft.clearCurrentSnapshot,
+    settingDraft,
+    clearSettingDraft: () => setSettingDraft({}),
   });
 
   /**
@@ -247,6 +268,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
           previewMode={previewMode}
           onPreviewModeChange={setPreviewMode}
           onFieldCommit={draft.handlePreviewFieldCommit}
+          settings={settingDraft}
+          onSettingCommit={handleSettingCommit}
           onFieldSelect={focusCucField}
           locale={editorLocale}
           onLocaleChange={handleLocaleChange}

@@ -15,7 +15,7 @@
  *     place ; `image` et `list-item` sont traités par leurs outils dédiés.
  */
 
-import type { CucFieldKind, PreviewMode } from './preview-protocol';
+import type { CucFieldKind, PreviewFieldSource, PreviewMode } from './preview-protocol';
 
 export interface PreviewSelection {
     /** Chemin canonique du champ (`sections_data.<bloc>.<clé>`, `hero.<clé>`…). */
@@ -24,6 +24,11 @@ export interface PreviewSelection {
     kind: CucFieldKind;
     /** Élément porteur de l'attribut, tel que cliqué dans l'aperçu. */
     element: HTMLElement;
+    /**
+     * Source du texte : contenu de page, réglage du site ou micro-texte.
+     * Absente = contenu de page (sélection historique / bundles antérieurs).
+     */
+    source?: PreviewFieldSource;
 }
 
 export interface PreviewEditState {

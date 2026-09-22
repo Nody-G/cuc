@@ -123,7 +123,15 @@ export function usePreviewEditLayer({
         const node = inputRef.current;
         const next = node ? node.value : current.value;
         if (hasCommitChanged(current.value, next)) {
-            post(previewMessage.fieldCommit(current.selection.field, next));
+            // La source voyage avec le commit : le Cockpit écrit dans le bon
+            // brouillon (page, réglages ou micro-textes), jamais au hasard.
+            post(
+                previewMessage.fieldCommit(
+                    current.selection.field,
+                    next,
+                    current.selection.source
+                )
+            );
         }
         closeOverlay();
     }, [inputRef, post, closeOverlay]);
@@ -150,7 +158,13 @@ export function usePreviewEditLayer({
         const node = inputRef.current;
         const next = node ? node.value : current.value;
         if (hasCommitChanged(current.value, next)) {
-            post(previewMessage.fieldCommit(current.selection.field, next));
+            post(
+                previewMessage.fieldCommit(
+                    current.selection.field,
+                    next,
+                    current.selection.source
+                )
+            );
         }
     }, [inputRef, post]);
 
@@ -194,6 +208,8 @@ export function usePreviewEditLayer({
                     field: target.path,
                     kind: target.kind,
                     element: target.element,
+                    // La navigation clavier suit la même source que le clic.
+                    ...(target.source ? { source: target.source } : {}),
                 });
                 return;
             }

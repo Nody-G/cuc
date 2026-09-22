@@ -43,6 +43,10 @@ interface LivePreviewPaneProps {
     onModeChange?: (mode: PreviewMode) => void;
     /** Valeur validée dans l'aperçu (édition en place) → brouillon du Cockpit. */
     onFieldCommit?: (field: string, value: string) => void;
+    /** Surcharges de réglages du site (brouillon chrome) poussées dans l'aperçu. */
+    settings?: Record<string, string>;
+    /** Valeur validée pour un réglage du site (`data-cuc-setting`). */
+    onSettingCommit?: (key: string, value: string) => void;
     /** L'aperçu demande la médiathèque pour un champ image. */
     onMediaRequest?: (field: string) => void;
     /** Commande d'ajout / suppression / réordonnancement d'item de liste. */
@@ -63,6 +67,8 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
     mode = 'inspect',
     onModeChange,
     onFieldCommit,
+    settings = {},
+    onSettingCommit,
     onMediaRequest,
     onListCommand,
     locale = 'fr',
@@ -73,9 +79,11 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
 
     const { iframeRef, isReady, hoveredField } = usePreviewBridge({
         draft,
+        settings,
         mode,
         onFieldSelect,
         onFieldCommit,
+        onSettingCommit,
         onMediaRequest,
         onListCommand,
     });
@@ -119,6 +127,14 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
                     >
                         {locale === 'en' ? 'EN — English' : 'FR — Français'}
                     </span>
+                    {Object.keys(settings).length > 0 && (
+                        <span
+                            className="shrink-0 px-1.5 py-0.5 rounded border border-amber-400/50 text-amber-300 font-bold"
+                            title="Des réglages du site (CTA, coordonnées…) ont été modifiés dans l’aperçu : « Enregistrer » les publie."
+                        >
+                            {Object.keys(settings).length} réglage(s) modifié(s)
+                        </span>
+                    )}
                     {hoveredField && (
                         <span
                             className="ml-auto text-[#FFE500] truncate max-w-[40%]"
