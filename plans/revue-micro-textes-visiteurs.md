@@ -1,18 +1,18 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T00:43:24.208Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T00:45:30.435Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 58 |
-| DONNÉES — éditable par un écran existant | 178 |
+| ANNOTÉ — éditable en place | 76 |
+| DONNÉES — éditable par un écran existant | 176 |
 | TRADUCTION — à brancher sur une clé de page | 594 |
 | CODÉ EN DUR — dette (ne suit ni la langue ni le Cockpit) | 82 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 17 |
-| **Total** | **929** |
+| **Total** | **945** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -66,6 +66,27 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.60 — `{hero?.meta || 'SPECTACLES • ANIMATIONS • TEAM BUILDING'}`
 - l.65 — `{...cucField('hero.title')}`
 - l.79 — `{...cucField('hero.subtitle', 'textarea')}`
+
+### `src\components\sections\events\EventsPillarsSection.tsx`
+
+- l.163 — `{...cucField(itemPath('events_pillars', 0, 'tag'))}`
+- l.169 — `{...cucField(itemPath('events_pillars', 0, 'title'))}`
+- l.177 — `{...cucField(itemPath('events_pillars', 0, 'paragraph1'), 'textarea')}`
+- l.183 — `{...cucField(itemPath('events_pillars', 0, 'paragraph2'), 'textarea')}`
+- l.193 — `{pillarItems[0].cta}`
+- l.201 — `{...cucField(itemPath('events_pillars', 0, 'image'), 'image')}`
+- l.219 — `{...cucField(itemPath('events_pillars', 1, 'image'), 'image')}`
+- l.234 — `{...cucField(itemPath('events_pillars', 1, 'tag'))}`
+- l.240 — `{...cucField(itemPath('events_pillars', 1, 'title'))}`
+- l.248 — `{...cucField(itemPath('events_pillars', 1, 'paragraph1'), 'textarea')}`
+- l.254 — `{...cucField(itemPath('events_pillars', 1, 'paragraph2'), 'textarea')}`
+- l.264 — `{pillarItems[1].cta}`
+- l.279 — `{...cucField(itemPath('events_pillars', 2, 'tag'))}`
+- l.285 — `{...cucField(itemPath('events_pillars', 2, 'title'))}`
+- l.293 — `{...cucField(itemPath('events_pillars', 2, 'paragraph1'), 'textarea')}`
+- l.299 — `{...cucField(itemPath('events_pillars', 2, 'paragraph2'), 'textarea')}`
+- l.309 — `{pillarItems[2].cta}`
+- l.317 — `{...cucField(itemPath('events_pillars', 2, 'image'), 'image')}`
 
 ### `src\components\sections\formation\FormationFormulesSection.tsx`
 
@@ -254,24 +275,22 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\events\EventsPillarsSection.tsx`
 
-- l.76 — `{evt.badge}`
-- l.80 — `{evt.title}`
-- l.84 — `{evt.subtitle}`
-- l.91 — `{evt.description}`
-- l.152 — `{pillars[0].tag}`
-- l.155 — `{pillars[0].title}`
-- l.160 — `{pillars[0].paragraph1}`
-- l.163 — `{pillars[0].paragraph2}`
-- l.169 — `{pillars[0].cta}`
-- l.203 — `{pillars[1].tag}`
-- l.211 — `{pillars[1].paragraph1}`
-- l.214 — `{pillars[1].paragraph2}`
-- l.220 — `{pillars[1].cta}`
-- l.234 — `{pillars[2].tag}`
-- l.237 — `{pillars[2].title}`
-- l.242 — `{pillars[2].paragraph1}`
-- l.245 — `{pillars[2].paragraph2}`
-- l.251 — `{pillars[2].cta}`
+- l.87 — `{evt.badge}`
+- l.91 — `{evt.title}`
+- l.95 — `{evt.subtitle}`
+- l.102 — `{evt.description}`
+- l.166 — `{pillarItems[0].tag}`
+- l.172 — `{pillarItems[0].title}`
+- l.180 — `{pillarItems[0].paragraph1}`
+- l.186 — `{pillarItems[0].paragraph2}`
+- l.237 — `{pillarItems[1].tag}`
+- l.243 — `{pillarItems[1].title}`
+- l.251 — `{pillarItems[1].paragraph1}`
+- l.257 — `{pillarItems[1].paragraph2}`
+- l.282 — `{pillarItems[2].tag}`
+- l.288 — `{pillarItems[2].title}`
+- l.296 — `{pillarItems[2].paragraph1}`
+- l.302 — `{pillarItems[2].paragraph2}`
 
 ### `src\components\sections\films\CucFilmsShowcase.tsx`
 
@@ -842,10 +861,10 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\events\EventsPillarsSection.tsx`
 
-- l.116 — `{evt.cta_text || t('learnMore')}`
-- l.146 — `{/* 1. SPECTACLES (Fallback) */}`
-- l.187 — `{/* 2. ANIMATIONS */}`
-- l.228 — `{/* 3. TEAM BUILDING */}`
+- l.127 — `{evt.cta_text || t('learnMore')}`
+- l.157 — `{/* 1. SPECTACLES (Fallback) */}`
+- l.215 — `{/* 2. ANIMATIONS */}`
+- l.273 — `{/* 3. TEAM BUILDING */}`
 
 ### `src\components\sections\films\CucFilmsShowcase.tsx`
 
@@ -1385,7 +1404,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\events\EventsPillarsSection.tsx`
 
-- l.136 — `Campus Univers Cascades`
+- l.147 — `Campus Univers Cascades`
 
 ### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
 

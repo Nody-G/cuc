@@ -11,6 +11,8 @@ import { getEvents, SiteEvent } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { applyEventOverlays } from '@/lib/i18n/apply-event-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
+import { mergeSectionItems, usePageSectionData } from '@/lib/hooks/usePageSectionData';
+import { cucField, itemPath } from '@/lib/preview/cuc-field';
 
 /** Copie éditoriale d'un pilier d'agence (repli quand la base est vide). */
 interface PillarCopy {
@@ -25,6 +27,15 @@ interface PillarCopy {
 export const EventsPillarsSection: React.FC = () => {
   const t = useTranslations('eventsAgence');
   const pillars = t.raw('pillars') as PillarCopy[];
+
+  /**
+   * Textes des piliers éditables en place : les données de la page
+   * (`sections_data.events_pillars.items`) priment, le repli traduit reste.
+   */
+  const sectionData = usePageSectionData<{ items?: Array<Partial<PillarCopy>> }>(
+    'events_pillars'
+  );
+  const pillarItems = mergeSectionItems(pillars, sectionData);
   const [dbEvents, setDbEvents] = useState<SiteEvent[]>([]);
 
   /**
@@ -148,34 +159,51 @@ export const EventsPillarsSection: React.FC = () => {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-7 space-y-4">
                   <div className="mb-4">
-                    <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1">
-                      {pillars[0].tag}
+                    <span
+                      {...cucField(itemPath('events_pillars', 0, 'tag'))}
+                      className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1"
+                    >
+                      {pillarItems[0].tag}
                     </span>
-                    <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                      {pillars[0].title}
+                    <h3
+                      {...cucField(itemPath('events_pillars', 0, 'title'))}
+                      className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white"
+                    >
+                      {pillarItems[0].title}
                     </h3>
                   </div>
 
-                  <p className="text-sm font-tech text-zinc-300 leading-relaxed">
-                    {pillars[0].paragraph1}
+                  <p
+                    {...cucField(itemPath('events_pillars', 0, 'paragraph1'), 'textarea')}
+                    className="text-sm font-tech text-zinc-300 leading-relaxed"
+                  >
+                    {pillarItems[0].paragraph1}
                   </p>
-                  <p className="text-xs font-tech text-zinc-400 leading-relaxed">
-                    {pillars[0].paragraph2}
+                  <p
+                    {...cucField(itemPath('events_pillars', 0, 'paragraph2'), 'textarea')}
+                    className="text-xs font-tech text-zinc-400 leading-relaxed"
+                  >
+                    {pillarItems[0].paragraph2}
                   </p>
 
                   <div className="pt-4">
                     <Link href="/contact-cuc?demande=cuc-events">
                       <TacticalButton variant="primary" size="md" icon={<ArrowRight className="w-4 h-4" />}>
-                        {pillars[0].cta}
+                        <span {...cucField(itemPath('events_pillars', 0, 'cta'))}>
+                          {pillarItems[0].cta}
+                        </span>
                       </TacticalButton>
                     </Link>
                   </div>
                 </div>
 
-                <div className="lg:col-span-5 relative h-64 sm:h-72 border border-zinc-800 overflow-hidden bg-black">
+                <div
+                  {...cucField(itemPath('events_pillars', 0, 'image'), 'image')}
+                  className="lg:col-span-5 relative h-64 sm:h-72 border border-zinc-800 overflow-hidden bg-black"
+                >
                   <Image
                     src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Photos-Spectacle-300x200.jpg"
-                    alt={pillars[0].imageAlt}
+                    alt={pillarItems[0].imageAlt}
                     fill
                     sizes="(max-width: 1024px) 100vw, 40vw"
                     className="object-cover"
@@ -187,10 +215,13 @@ export const EventsPillarsSection: React.FC = () => {
             {/* 2. ANIMATIONS */}
             <div className="bg-[#0e0e14] border-2 border-zinc-800 hover:border-[#FFE500]/50 transition-all p-8 relative">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div className="lg:col-span-5 relative h-64 sm:h-72 border border-zinc-800 overflow-hidden bg-black order-2 lg:order-1">
+                <div
+                  {...cucField(itemPath('events_pillars', 1, 'image'), 'image')}
+                  className="lg:col-span-5 relative h-64 sm:h-72 border border-zinc-800 overflow-hidden bg-black order-2 lg:order-1"
+                >
                   <Image
                     src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/FreeJump-CCJ-Puteaux-03-300x200.jpg"
-                    alt={pillars[1].imageAlt}
+                    alt={pillarItems[1].imageAlt}
                     fill
                     sizes="(max-width: 1024px) 100vw, 40vw"
                     className="object-cover"
@@ -199,25 +230,39 @@ export const EventsPillarsSection: React.FC = () => {
 
                 <div className="lg:col-span-7 space-y-4 order-1 lg:order-2">
                   <div className="mb-4">
-                    <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1">
-                      {pillars[1].tag}
+                    <span
+                      {...cucField(itemPath('events_pillars', 1, 'tag'))}
+                      className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1"
+                    >
+                      {pillarItems[1].tag}
                     </span>
-                    <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                      ANIMATIONS &amp; FREEJUMP AIRBAG
+                    <h3
+                      {...cucField(itemPath('events_pillars', 1, 'title'))}
+                      className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white"
+                    >
+                      {pillarItems[1].title}
                     </h3>
                   </div>
 
-                  <p className="text-sm font-tech text-zinc-300 leading-relaxed">
-                    {pillars[1].paragraph1}
+                  <p
+                    {...cucField(itemPath('events_pillars', 1, 'paragraph1'), 'textarea')}
+                    className="text-sm font-tech text-zinc-300 leading-relaxed"
+                  >
+                    {pillarItems[1].paragraph1}
                   </p>
-                  <p className="text-xs font-tech text-zinc-400 leading-relaxed">
-                    {pillars[1].paragraph2}
+                  <p
+                    {...cucField(itemPath('events_pillars', 1, 'paragraph2'), 'textarea')}
+                    className="text-xs font-tech text-zinc-400 leading-relaxed"
+                  >
+                    {pillarItems[1].paragraph2}
                   </p>
 
                   <div className="pt-4">
                     <Link href="/contact-cuc?demande=cuc-events">
                       <TacticalButton variant="primary" size="md" icon={<ArrowRight className="w-4 h-4" />}>
-                        {pillars[1].cta}
+                        <span {...cucField(itemPath('events_pillars', 1, 'cta'))}>
+                          {pillarItems[1].cta}
+                        </span>
                       </TacticalButton>
                     </Link>
                   </div>
@@ -230,34 +275,51 @@ export const EventsPillarsSection: React.FC = () => {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-7 space-y-4">
                   <div className="mb-4">
-                    <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1">
-                      {pillars[2].tag}
+                    <span
+                      {...cucField(itemPath('events_pillars', 2, 'tag'))}
+                      className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1"
+                    >
+                      {pillarItems[2].tag}
                     </span>
-                    <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                      {pillars[2].title}
+                    <h3
+                      {...cucField(itemPath('events_pillars', 2, 'title'))}
+                      className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white"
+                    >
+                      {pillarItems[2].title}
                     </h3>
                   </div>
 
-                  <p className="text-sm font-tech text-zinc-300 leading-relaxed">
-                    {pillars[2].paragraph1}
+                  <p
+                    {...cucField(itemPath('events_pillars', 2, 'paragraph1'), 'textarea')}
+                    className="text-sm font-tech text-zinc-300 leading-relaxed"
+                  >
+                    {pillarItems[2].paragraph1}
                   </p>
-                  <p className="text-xs font-tech text-zinc-400 leading-relaxed">
-                    {pillars[2].paragraph2}
+                  <p
+                    {...cucField(itemPath('events_pillars', 2, 'paragraph2'), 'textarea')}
+                    className="text-xs font-tech text-zinc-400 leading-relaxed"
+                  >
+                    {pillarItems[2].paragraph2}
                   </p>
 
                   <div className="pt-4">
                     <Link href="/contact-cuc?demande=cuc-events">
                       <TacticalButton variant="primary" size="md" icon={<ArrowRight className="w-4 h-4" />}>
-                        {pillars[2].cta}
+                        <span {...cucField(itemPath('events_pillars', 2, 'cta'))}>
+                          {pillarItems[2].cta}
+                        </span>
                       </TacticalButton>
                     </Link>
                   </div>
                 </div>
 
-                <div className="lg:col-span-5 relative h-64 sm:h-72 border border-zinc-800 overflow-hidden bg-black">
+                <div
+                  {...cucField(itemPath('events_pillars', 2, 'image'), 'image')}
+                  className="lg:col-span-5 relative h-64 sm:h-72 border border-zinc-800 overflow-hidden bg-black"
+                >
                   <Image
                     src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/A-atelier-cinema-indoor-300x200.jpg"
-                    alt={pillars[2].imageAlt}
+                    alt={pillarItems[2].imageAlt}
                     fill
                     sizes="(max-width: 1024px) 100vw, 40vw"
                     className="object-cover"
