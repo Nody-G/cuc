@@ -14,8 +14,10 @@ import {
 } from '@/lib/preview/preview-protocol';
 import { resolveFieldElement, resolveFieldTarget } from '@/lib/preview/field-hit';
 import {
+    clearPreviewMicrocopy,
     clearPreviewSettings,
     setPreviewDraft,
+    setPreviewMicrocopy,
     setPreviewSettings,
 } from '@/lib/preview/preview-store';
 import {
@@ -70,6 +72,9 @@ export const PreviewBridgeClient: React.FC = () => {
                     break;
                 case 'settings-draft':
                     setPreviewSettings(message.payload);
+                    break;
+                case 'microcopy-draft':
+                    setPreviewMicrocopy(message.payload);
                     break;
                 case 'mode': {
                     mode = message.payload;
@@ -203,6 +208,7 @@ export const PreviewBridgeClient: React.FC = () => {
             style.remove();
             clearPreviewSelection();
             clearPreviewSettings();
+            clearPreviewMicrocopy();
             document.documentElement.removeAttribute('data-cuc-mode');
         };
     }, []);

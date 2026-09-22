@@ -25,6 +25,10 @@ export interface PreviewTabPanelProps {
     settings: Record<string, string>;
     /** Valeur validée pour un réglage du site (`data-cuc-setting`). */
     onSettingCommit: (key: string, value: string) => void;
+    /** Surcharges de micro-textes (locale active) poussées dans l'aperçu. */
+    microcopy: Record<string, string>;
+    /** Valeur validée pour un micro-texte (`data-cuc-micro`). */
+    onMicrocopyCommit: (key: string, value: string) => void;
     onFieldSelect: (field: string) => void;
     locale: EditorLocaleOption;
     onLocaleChange: (locale: EditorLocaleOption) => void;
@@ -56,6 +60,8 @@ export const PreviewTabPanel: React.FC<PreviewTabPanelProps> = ({
     onFieldCommit,
     settings,
     onSettingCommit,
+    microcopy,
+    onMicrocopyCommit,
     onFieldSelect,
     locale,
     onLocaleChange,
@@ -90,6 +96,8 @@ export const PreviewTabPanel: React.FC<PreviewTabPanelProps> = ({
             onFieldCommit={onFieldCommit}
             settings={settings}
             onSettingCommit={onSettingCommit}
+            microcopy={microcopy}
+            onMicrocopyCommit={onMicrocopyCommit}
             onFieldSelect={fieldSelect}
             locale={locale}
             onLocaleChange={onLocaleChange}

@@ -6,8 +6,10 @@
  * « Fouiller partout » doit être une MESURE, pas une promesse. Ce script passe
  * au crible les composants de vitrine et classe chaque texte visible :
  *
- *   1. ANNOTÉ        — porte `data-cuc-field` ou est posé via `cucField()` /
- *                      `itemPath()` : éditable en place dans le Mode Studio ;
+ *   1. ANNOTÉ        — porte une annotation d'édition en place : contenu de page
+ *                      (`data-cuc-field`, `cucField()`, `itemPath()`), réglage du
+ *                      site (`data-cuc-setting` / `cucSetting()`) ou micro-texte
+ *                      (`data-cuc-micro` / `cucMicro()`) ;
  *   2. DONNÉES       — rendu depuis les données (`content.*`, `settings.*`,
  *                      `heroData`, `formData`…) : éditable par un écran existant ;
  *   3. TRADUCTION    — rendu par `t('…')` / `tf('…')` sans chemin de données :
@@ -85,7 +87,8 @@ const TECHNICAL_PATTERNS = [
  * généré, pas rendu dans une interface — il ne relève pas des micro-textes.
  */
 const IMAGE_ROUTE_RE = /opengraph-image|og-image|icon\.tsx/;
-const ANNOTATION_RE = /data-cuc-field|cucField\(|itemPath\(/;
+const ANNOTATION_RE =
+    /data-cuc-field|cucField\(|itemPath\(|data-cuc-setting|cucSetting\(|data-cuc-micro|cucMicro\(/;
 const DATA_HINT_RE =
     /(?:content|settings|hero|heroData|formulesData|data|formData|member|film|coach|program|stat|item|section|overlay|copy)\./i;
 
@@ -136,6 +139,9 @@ const CODE_NOISE_PATTERNS = [
     /^[a-z][\w$]*(\.[\w$]+)*$/, // identifiant nu ou chemin : priority, role, navigation.items
     /^[a-z]\w*=\{[^}]*\}$/, // attribut JSX booléen ou calculé
     /\bString\(|\bNumber\(|\bparseInt\(|\bJSON\./,
+    // Spread d'attributs JSX (`{...cucField(...)}`, `{...cucSetting('phone')}`,
+    // `{...{…}}`) : une annotation, jamais un texte visible.
+    /^\{\.\.\./,
     // Fragment de type TS capturé par `>Texte<` dans une signature :
     // `(e: FormEvent) => Promise<void>` n'est pas un libellé visiteur.
     /^(?:Promise|void|string|number|boolean|unknown|any|never|object|null|undefined|true|false)$/,

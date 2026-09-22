@@ -14,41 +14,59 @@ import { join } from 'node:path';
  *
  *   "No intl context found. Have you configured the provider?"
  *
- * Le provider est désormais porté par la coquille, à la racine. Ce test vérifie
- * l'invariant structurel : les composants de coquille consommateurs de next-intl
- * doivent être rendus À L'INTÉRIEUR du provider.
+ * Depuis le Mode Studio, la coquille porte `PreviewIntlProvider` (client) : il
+ * applique les surcharges de micro-textes de l'aperçu **et** rend le
+ * `NextIntlClientProvider`. Ce test vérifie les deux maillons de l'invariant :
+ *   1. `RootShell` englobe les composants de coquille consommateurs d'i18n ;
+ *   2. `PreviewIntlProvider` rend bien le provider next-intl (chaîne intacte).
  */
 
 const ROOT_SHELL = join(process.cwd(), 'src', 'components', 'layout', 'RootShell.tsx');
+const PREVIEW_INTL_PROVIDER = join(
+    process.cwd(),
+    'src',
+    'components',
+    'preview',
+    'PreviewIntlProvider.tsx'
+);
 
 describe('RootShell — périmètre du provider next-intl', () => {
     const src = readFileSync(ROOT_SHELL, 'utf8');
 
-    it('rend un NextIntlClientProvider', () => {
+    it('rend PreviewIntlProvider (qui porte le NextIntlClientProvider)', () => {
         expect(
-            src.includes('<NextIntlClientProvider'),
-            'RootShell doit porter le provider next-intl : les composants de coquille en dépendent.'
+            src.includes('<PreviewIntlProvider'),
+            'RootShell doit porter le provider i18n de l’aperçu : les composants de coquille en dépendent.'
+        ).toBe(true);
+        expect(src.includes('</PreviewIntlProvider>')).toBe(true);
+    });
+
+    it('conserve la chaîne next-intl : PreviewIntlProvider rend NextIntlClientProvider', () => {
+        const providerSrc = readFileSync(PREVIEW_INTL_PROVIDER, 'utf8');
+        expect(
+            providerSrc.includes('<NextIntlClientProvider'),
+            'PreviewIntlProvider doit rendre <NextIntlClientProvider>, sinon toute la coquille perd son contexte i18n.'
         ).toBe(true);
     });
 
     it('englobe MobileStickyCTA (dont le Link localisé exige le contexte i18n)', () => {
-        const open = src.indexOf('<NextIntlClientProvider');
-        const close = src.indexOf('</NextIntlClientProvider>');
+        const open = src.indexOf('<PreviewIntlProvider');
+        const close = src.indexOf('</PreviewIntlProvider>');
         const sticky = src.indexOf('<MobileStickyCTA');
 
-        expect(open, 'Balise ouvrante <NextIntlClientProvider> absente').toBeGreaterThan(-1);
-        expect(close, 'Balise fermante </NextIntlClientProvider> absente').toBeGreaterThan(open);
+        expect(open, 'Balise ouvrante <PreviewIntlProvider> absente').toBeGreaterThan(-1);
+        expect(close, 'Balise fermante </PreviewIntlProvider> absente').toBeGreaterThan(open);
         expect(sticky, '<MobileStickyCTA /> absent de la coquille').toBeGreaterThan(-1);
 
         expect(
             sticky > open && sticky < close,
-            '<MobileStickyCTA /> doit être rendu À L\'INTÉRIEUR de <NextIntlClientProvider>, sinon son <Link> localisé lève « No intl context found » dès le premier défilement.'
+            '<MobileStickyCTA /> doit être rendu À L\'INTÉRIEUR du provider i18n, sinon son <Link> localisé lève « No intl context found » dès le premier défilement.'
         ).toBe(true);
     });
 
     it('englobe également le pont d’aperçu du Cockpit', () => {
-        const open = src.indexOf('<NextIntlClientProvider');
-        const close = src.indexOf('</NextIntlClientProvider>');
+        const open = src.indexOf('<PreviewIntlProvider');
+        const close = src.indexOf('</PreviewIntlProvider>');
         const preview = src.indexOf('<PreviewBridgeClient');
 
         expect(

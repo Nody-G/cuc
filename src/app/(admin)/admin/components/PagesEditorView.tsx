@@ -57,11 +57,12 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   // accessible dans la barre de l'aperçu.
   const [previewMode, setPreviewMode] = useState<PreviewMode>('edit');
   /**
-   * Brouillon « chrome » : réglages du site modifiés dans l'aperçu (CTA de la
-   * navbar, coordonnées…). Ils sont globaux — pas rattachés à une page — et
-   * publiés par le même bouton « Enregistrer » que le contenu.
+   * Brouillon « chrome » : réglages du site et micro-textes (libellés du
+   * catalogue) modifiés dans l'aperçu. Ils sont globaux — pas rattachés à une
+   * page — et publiés par le même bouton « Enregistrer » que le contenu.
    */
   const [settingDraft, setSettingDraft] = useState<Record<string, string>>({});
+  const [microcopyDraft, setMicrocopyDraft] = useState<Record<string, string>>({});
 
   const cleanSelectedSlug = normalizeSlug(selectedSlug);
   const draft = usePageEditorDraft({ pages, selectedSlug: cleanSelectedSlug, editorLocale });
@@ -81,6 +82,19 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     });
   };
 
+  /**
+   * Valeur validée pour un micro-texte : une valeur vidée **retire** la
+   * surcharge, le catalogue redevient la source — jamais un libellé blanc.
+   */
+  const handleMicrocopyCommit = (key: string, value: string) => {
+    setMicrocopyDraft((prev) => {
+      const next = { ...prev };
+      if (value.trim().length === 0) delete next[key];
+      else next[key] = value;
+      return next;
+    });
+  };
+
   const save = usePageSaveActions({
     formData: draft.formData,
     savedData: draft.savedData,
@@ -93,6 +107,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     clearSnapshot: draft.clearCurrentSnapshot,
     settingDraft,
     clearSettingDraft: () => setSettingDraft({}),
+    microcopyDraft,
+    clearMicrocopyDraft: () => setMicrocopyDraft({}),
   });
 
   /**
@@ -270,6 +286,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
           onFieldCommit={draft.handlePreviewFieldCommit}
           settings={settingDraft}
           onSettingCommit={handleSettingCommit}
+          microcopy={microcopyDraft}
+          onMicrocopyCommit={handleMicrocopyCommit}
           onFieldSelect={focusCucField}
           locale={editorLocale}
           onLocaleChange={handleLocaleChange}

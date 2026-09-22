@@ -1,11 +1,14 @@
 # Plan — Rendre le « chrome » éditable dans l'aperçu (réglages + micro-textes)
 
-> État : **canal « réglages » livré** — protocole `settings-draft` et `field-commit` avec
-> source, tranche chrome du `preview-store`, hook d'affichage, commit/brouillon et
-> sauvegarde par clé (`updateSiteSettingField`) ; premier texte annoté : le CTA de la
-> navbar (« Contact & Projets »). **Reste : les micro-textes** (`data-cuc-micro`) — même
-> canal — et l'extension des annotations aux autres réglages (pied de page, coordonnées,
-> annonces).
+> État : **canaux « réglages » et « micro-textes » livrés** — protocole
+> (`settings-draft`, `microcopy-draft`, `field-commit` avec source), tranches chrome du
+> `preview-store`, hooks d'affichage, `PreviewIntlProvider` (fusion du catalogue par la
+> même fonction que le serveur), commit/brouillon dans le Cockpit et sauvegarde par clé
+> (`updateSiteSettingField`, `updateMicrocopyOverrideField`). Textes annotés : CTA navbar,
+> téléphone (navbar/footer), e-mail (footer), CTA mobile, adresse de la carte interactive,
+> `footer.directLines`, `footer.networksTitle`, `contact.form.submit`.
+> **Reste : l'extension des annotations** — autres réglages (annonces, horaires) et
+> micro-textes namespace par namespace — purement mécanique, le canal est en place.
 
 ## 1. Le problème, tel qu'il se vit
 
@@ -100,10 +103,10 @@ messages v2 continuent de fonctionner → **aucune fenêtre de panne** au déplo
 | L1 | Protocole (`settings-draft`, `field-commit` avec source) + tests parseur | ✅ livré |
 | L2 | `preview-store` : tranche chrome (surcharges de réglages) + tests | ✅ livré |
 | L3 | Hook d'affichage `usePreviewSettings` + surcharge appliquée dans la navbar | ✅ livré (réglages) |
-| L4 | Annotations : CTA navbar livré ; **pied de page, coordonnées, annonces à étendre** | 🚧 partiel |
-| L5 | Commit chrome → brouillon Cockpit (source respectée, valeur vidée = retour au défaut) | ✅ livré |
-| L6 | Enregistrement composé (page + réglages, un bouton, échec nommé et conservé) | ✅ livré |
-| L7 | Micro-textes en place (`data-cuc-micro`, fusion des messages, surcharge i18n) | ❌ à faire |
+| L4 | Annotations : CTA navbar, téléphone, e-mail, CTA mobile, adresse carte livrés ; reste annonces et horaires | 🚧 en cours |
+| L5 | Commit chrome → brouillon Cockpit (source respectée, valeur vidée = retour au défaut/catalogue) | ✅ livré |
+| L6 | Enregistrement composé (page + chrome, un bouton, échec nommé et conservé) | ✅ livré |
+| L7 | Micro-textes en place : canal livré (`microcopy-draft`, `PreviewIntlProvider`, sauvegarde par clé) + 3 annotations pilotes ; extension par namespace à poursuivre | ✅ canal / 🚧 annotations |
 
 ## 4. Ce qui ne rentre pas dans ce chantier
 

@@ -14,8 +14,15 @@ import {
   TRAVEL_ROUTES,
   POI,
 } from './campus-map/campusMap.data';
-import { getCampusPOIs } from '@/lib/data/site-service';
+import {
+  getCampusPOIs,
+  getSiteSettings,
+  DEFAULT_SITE_SETTINGS,
+  SiteSettings,
+} from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
+import { usePreviewSettings } from '@/lib/preview/use-preview-settings';
+import { cucSetting } from '@/lib/preview/cuc-chrome';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 import { applyPoiOverlay, applyPoiOverlays } from '@/lib/i18n/apply-poi-overlay';
 import { CampusRadarView } from './campus-map/CampusRadarView';
@@ -32,6 +39,7 @@ export const InteractiveCampusMap: React.FC = () => {
   const [selectedPoi, setSelectedPoi] = useState<POI>(CAMPUS_POIS[0]);
   const [activeRoute, setActiveRoute] = useState<string>('paris');
   const [copied, setCopied] = useState<boolean>(false);
+  const [settings, setSettings] = useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
 
   /** Recharge les zones du campus (état initial + synchronisation Realtime). */
   const loadPois = useCallback(() => {
@@ -43,12 +51,27 @@ export const InteractiveCampusMap: React.FC = () => {
     });
   }, []);
 
+  /** Recharge les réglages (adresse du domaine, coordonnées du standard). */
+  const loadSettings = useCallback(() => {
+    getSiteSettings().then((s) => {
+      if (s) setSettings(s);
+    });
+  }, []);
+
   useEffect(() => {
     loadPois();
-  }, [loadPois]);
+    loadSettings();
+  }, [loadPois, loadSettings]);
 
-  // Synchronisation Realtime Cockpit → Vitrine (zones du campus + miroir).
-  useRealtimeRefresh(['site_campus_pois', 'site_settings'], loadPois);
+  // Synchronisation Realtime Cockpit → Vitrine (zones du campus + réglages).
+  const reloadFromServer = useCallback(() => {
+    loadPois();
+    loadSettings();
+  }, [loadPois, loadSettings]);
+  useRealtimeRefresh(['site_campus_pois', 'site_settings'], reloadFromServer);
+
+  /** Brouillon de réglages du Mode Studio : la surcharge locale prime. */
+  const previewSettings = usePreviewSettings();
 
   /**
    * Noms, catégories et descriptions des zones du campus : DONNÉES de
@@ -63,7 +86,10 @@ export const InteractiveCampusMap: React.FC = () => {
   );
 
   const coordinates = '50.0909, 3.5374';
+  /** Adresse servie par les réglages (`address`), éditable en place — jamais en dur. */
   const fullAddress =
+    previewSettings.address ||
+    settings.address ||
     'Domaine CUC, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis, France';
 
   const copyToClipboard = (text: string) => {
@@ -170,8 +196,11 @@ export const InteractiveCampusMap: React.FC = () => {
                       <Crosshair className="w-4 h-4 animate-spin-slow" />
                       <span>{t('domain')}</span>
                     </div>
-                    <p className="text-[11px] font-tech text-zinc-300 leading-snug">
-                      70 Rue Faidherbe, 59360 Le Cateau-Cambrésis
+                    <p
+                      {...cucSetting('address')}
+                      className="text-[11px] font-tech text-zinc-300 leading-snug"
+                    >
+                      {fullAddress}
                     </p>
                     <div className="mt-1 text-[10px] font-mono-tech text-zinc-500">
                       50°05&apos;27.2&quot;N 3°32&apos;14.6&quot;E
@@ -181,7 +210,7 @@ export const InteractiveCampusMap: React.FC = () => {
                   {/* Adresse badge */}
                   <div className="absolute bottom-3 right-3 bg-black/90 px-2 py-1 text-[10px] font-mono-tech text-zinc-400 border border-zinc-800 flex items-center gap-1.5">
                     <Compass className="w-3 h-3 text-[#FFE500]" />
-                    <span>70 Rue Faidherbe • 59360 Le Cateau-Cambrésis</span>
+                    <span {...cucSetting('address')}>{fullAddress}</span>
                   </div>
                 </div>
               ) : (

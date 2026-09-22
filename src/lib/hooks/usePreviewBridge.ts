@@ -36,6 +36,8 @@ export interface UsePreviewBridgeOptions {
     draft: SitePageContent;
     /** Surcharges de réglages du site (brouillon chrome) poussées dans l'iframe. */
     settings?: Record<string, string>;
+    /** Surcharges de micro-textes (locale active) poussées dans l'iframe. */
+    microcopy?: Record<string, string>;
     /** `inspect` : clic = focus du formulaire. `edit` : clic = édition en place. */
     mode?: PreviewMode;
     /** Champ sélectionné dans l'aperçu (clic). */
@@ -44,6 +46,8 @@ export interface UsePreviewBridgeOptions {
     onFieldCommit?: (field: string, value: string) => void;
     /** Valeur validée pour un réglage du site (`data-cuc-setting`). */
     onSettingCommit?: (key: string, value: string) => void;
+    /** Valeur validée pour un micro-texte (`data-cuc-micro`). */
+    onMicrocopyCommit?: (key: string, value: string) => void;
     /** Commande d'ajout / suppression / réordonnancement d'item de liste. */
     onListCommand?: (field: string, command: PreviewListCommand, index: number) => void;
     /** L'iframe demande l'ouverture de la médiathèque pour un champ image. */
@@ -66,10 +70,12 @@ export interface UsePreviewBridgeResult {
 export function usePreviewBridge({
     draft,
     settings = {},
+    microcopy = {},
     mode = 'inspect',
     onFieldSelect,
     onFieldCommit,
     onSettingCommit,
+    onMicrocopyCommit,
     onListCommand,
     onMediaRequest,
 }: UsePreviewBridgeOptions): UsePreviewBridgeResult {
@@ -82,11 +88,13 @@ export function usePreviewBridge({
     // stable, y compris pendant une frappe continue dans un éditeur en place.
     const draftRef = useRef(draft);
     const settingsRef = useRef(settings);
+    const microcopyRef = useRef(microcopy);
     const modeRef = useRef<PreviewMode>(mode);
     const handlersRef = useRef({
         onFieldSelect,
         onFieldCommit,
         onSettingCommit,
+        onMicrocopyCommit,
         onListCommand,
         onMediaRequest,
     });
@@ -100,6 +108,10 @@ export function usePreviewBridge({
     }, [settings]);
 
     useEffect(() => {
+        microcopyRef.current = microcopy;
+    }, [microcopy]);
+
+    useEffect(() => {
         modeRef.current = mode;
     }, [mode]);
 
@@ -108,10 +120,18 @@ export function usePreviewBridge({
             onFieldSelect,
             onFieldCommit,
             onSettingCommit,
+            onMicrocopyCommit,
             onListCommand,
             onMediaRequest,
         };
-    }, [onFieldSelect, onFieldCommit, onSettingCommit, onListCommand, onMediaRequest]);
+    }, [
+        onFieldSelect,
+        onFieldCommit,
+        onSettingCommit,
+        onMicrocopyCommit,
+        onListCommand,
+        onMediaRequest,
+    ]);
 
     /** Envoie un message à l'iframe (origine cible = origine du Cockpit). */
     const post = useCallback((message: PreviewMessage) => {
@@ -123,6 +143,7 @@ export function usePreviewBridge({
     const pushDraft = useCallback(() => {
         post(previewMessage.draft(draftRef.current));
         post(previewMessage.settingsDraft(settingsRef.current));
+        post(previewMessage.microcopyDraft(microcopyRef.current));
     }, [post]);
 
     // Écoute des messages provenant de l'iframe (abonnement stable).
@@ -140,6 +161,7 @@ export function usePreviewBridge({
                     post(previewMessage.mode(modeRef.current));
                     post(previewMessage.draft(draftRef.current));
                     post(previewMessage.settingsDraft(settingsRef.current));
+                    post(previewMessage.microcopyDraft(microcopyRef.current));
                     break;
                 case 'field-hover':
                     setHoveredField(message.field);
@@ -151,6 +173,8 @@ export function usePreviewBridge({
                 case 'field-commit':
                     if (message.source === 'setting') {
                         handlers.onSettingCommit?.(message.field, message.value);
+                    } else if (message.source === 'micro') {
+                        handlers.onMicrocopyCommit?.(message.field, message.value);
                     } else {
                         handlers.onFieldCommit?.(message.field, message.value);
                     }
@@ -164,6 +188,7 @@ export function usePreviewBridge({
                 case 'mode':
                 case 'draft':
                 case 'settings-draft':
+                case 'microcopy-draft':
                 case 'media-commit':
                     // Messages Cockpit → iframe : sans effet côté parent.
                     break;
@@ -180,11 +205,16 @@ export function usePreviewBridge({
         post(previewMessage.draft(draft));
     }, [draft, isReady, post]);
 
-    // Chrome : le brouillon de réglages suit la même règle (live).
+    // Chrome : les brouillons de réglages et de micro-textes suivent la même règle (live).
     useEffect(() => {
         if (!isReady) return;
         post(previewMessage.settingsDraft(settings));
     }, [settings, isReady, post]);
+
+    useEffect(() => {
+        if (!isReady) return;
+        post(previewMessage.microcopyDraft(microcopy));
+    }, [microcopy, isReady, post]);
 
     // Propagation du mode : le pont bascule ses affordances d'édition.
     useEffect(() => {

@@ -19,11 +19,14 @@
 - Helpers : `cucField('hero.title')`, `itemPath('formules', index, 'title')`
   (`src/lib/preview/cuc-field.ts`). Un chemin indisponible ne pose
   **aucun attribut** (zéro champ fantôme).
-- **Chrome** : `data-cuc-setting="<clé>"` pour un réglage du site
-  (`site_settings.general`). Le commit porte sa source ; le Cockpit écrit une
-  clé à la fois (`updateSiteSettingField`), une valeur vidée revenant au réglage
-  servi — jamais un texte blanc. `data-cuc-micro` (catalogue i18n) suit le même
-  canal (`settings-draft` / `field-commit source`).
+- **Chrome** : `data-cuc-setting="<clé>"` (réglage `site_settings.general`) et
+  `data-cuc-micro="<clé du catalogue>"` (libellé `t('…')`). Le commit porte sa
+  source ; le Cockpit écrit une clé à la fois (`updateSiteSettingField`,
+  `updateMicrocopyOverrideField`) et une valeur vidée **retire** la surcharge
+  (retour au réglage servi ou au catalogue) — jamais un texte blanc. Les
+  brouillons voyagent par `settings-draft` / `microcopy-draft` ; la surcharge de
+  catalogue est fusionnée par la **même** fonction que le serveur
+  (`applyMicrocopyOverlay`, via `PreviewIntlProvider`).
 - Listes : `data-cuc-index="<i>"` sur l'item, chemin du **tableau** dans `data-cuc-field`.
 - Rendu **data-first** obligatoire : `{donnée || t('clé')}` — le repli traduit reste en place.
 

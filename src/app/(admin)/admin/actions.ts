@@ -23,6 +23,7 @@ export { upsertPartner, deletePartner, upsertEvent, deleteEvent } from './action
 export {
     updateSiteSettings,
     updateSiteSettingField,
+    updateMicrocopyOverrideField,
     loadMicrocopyCatalog,
     saveMicrocopyOverrides,
 } from './actions/settings';

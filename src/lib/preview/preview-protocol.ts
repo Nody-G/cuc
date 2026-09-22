@@ -109,6 +109,12 @@ export type PreviewMessage =
         type: 'settings-draft';
         payload: Record<string, string>;
     }
+    | {
+        channel: typeof PREVIEW_CHANNEL;
+        v: 2;
+        type: 'microcopy-draft';
+        payload: Record<string, string>;
+    }
     | { channel: typeof PREVIEW_CHANNEL; v: 2; type: 'field-hover'; field: string | null }
     | { channel: typeof PREVIEW_CHANNEL; v: 2; type: 'field-select'; field: string }
     | {
@@ -168,6 +174,12 @@ export const previewMessage = {
         channel: PREVIEW_CHANNEL,
         v: PREVIEW_PROTOCOL_VERSION,
         type: 'settings-draft',
+        payload,
+    }),
+    microcopyDraft: (payload: Record<string, string>): PreviewMessage => ({
+        channel: PREVIEW_CHANNEL,
+        v: PREVIEW_PROTOCOL_VERSION,
+        type: 'microcopy-draft',
         payload,
     }),
     fieldHover: (field: string | null): PreviewMessage => ({
@@ -272,6 +284,7 @@ export function isPreviewMessage(value: unknown): value is PreviewMessage {
         case 'media-request':
             return isNonEmptyString(value.field);
         case 'settings-draft':
+        case 'microcopy-draft':
             return isStringRecord(value.payload);
         case 'field-commit':
             return (

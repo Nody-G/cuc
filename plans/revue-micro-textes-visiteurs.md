@@ -1,18 +1,18 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T19:57:31.260Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T20:26:59.644Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 229 |
-| DONNÉES — éditable par un écran existant | 107 |
-| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 211 |
+| ANNOTÉ — éditable en place | 237 |
+| DONNÉES — éditable par un écran existant | 106 |
+| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 207 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
-| HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 18 |
-| **Total** | **565** |
+| HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 16 |
+| **Total** | **566** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -102,6 +102,22 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.116 — `{content.hero?.meta || 'LE CATEAU-CAMBRÉSIS'}`
 - l.124 — `{content.hero?.title || t('pageTitle')}{' '}`
 - l.134 — `{content.hero?.subtitle || t('pageSubtitle')}`
+
+### `src\components\layout\MobileStickyCTA.tsx`
+
+- l.91 — `{callLabel}`
+- l.104 — `{ctaLabel}`
+
+### `src\components\layout\footer-sections\FooterDirectContacts.tsx`
+
+- l.59 — `{t('directLines')}`
+- l.70 — `{phone}`
+- l.81 — `{email}`
+- l.103 — `{t('networksTitle')}`
+
+### `src\components\layout\navbar\NavActionsBar.tsx`
+
+- l.87 — `{phone}`
 
 ### `src\components\sections\contact\ContactCoordinatesSidebar.tsx`
 
@@ -359,6 +375,10 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.87 — `{hero?.cta_primary_text || t('hero.ctaFacilities')}`
 - l.98 — `{hero?.cta_secondary_text || t('hero.ctaTour360')}`
 
+### `src\components\ui\InteractiveCampusMap.tsx`
+
+- l.203 — `{fullAddress}`
+
 ### `src\components\ui\parallax-hero\HeroFocalContent.tsx`
 
 - l.55 — `{heroData?.since || tHero('since')}`
@@ -454,7 +474,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\RootShell.tsx`
 
-- l.104 — `{children}`
+- l.111 — `{children}`
 
 ### `src\components\layout\footer-sections\FooterBrandAndSites.tsx`
 
@@ -466,10 +486,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.60 — `{link.label}`
 - l.64 — `{link.label}`
-
-### `src\components\layout\footer-sections\FooterDirectContacts.tsx`
-
-- l.66 — `{settings.email_general || 'contact@campus-universcascades.com'}`
 
 ### `src\components\layout\footer-sections\FooterNavMatrix.tsx`
 
@@ -493,7 +509,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\contact\ContactForm.tsx`
 
-- l.240 — `{errorMessage}`
+- l.241 — `{errorMessage}`
 
 ### `src\components\sections\events\pillars\DbEventPillarCard.tsx`
 
@@ -747,9 +763,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\footer-sections\FooterDirectContacts.tsx`
 
-- l.46 — `{t('directLines')}`
-- l.85 — `{t('networksTitle')}`
-- l.89 — `{t('networksText')}`
+- l.107 — `{t('networksText')}`
 
 ### `src\components\layout\navbar\NavMobileDrawer.tsx`
 
@@ -809,20 +823,19 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\contact\ContactForm.tsx`
 
-- l.85 — `{t('title')}`
-- l.88 — `{t('intro')}`
-- l.97 — `{t('successTitle')}`
-- l.100 — `{t('successText')}`
-- l.106 — `{t('sendAnother')}`
-- l.117 — `{t('labelName')}`
-- l.138 — `{t('labelPhone')}`
-- l.160 — `{t('labelEmail')}`
-- l.181 — `{t('labelProgram')}`
-- l.193 — `{t(’options.${programId}’)}`
-- l.204 — `{t('labelExperience')}`
-- l.223 — `{t('labelMessage')}`
-- l.253 — `{isSubmitting ? t('submitting') : t('submit')}`
-- l.258 — `{t('consent')}`
+- l.86 — `{t('title')}`
+- l.89 — `{t('intro')}`
+- l.98 — `{t('successTitle')}`
+- l.101 — `{t('successText')}`
+- l.107 — `{t('sendAnother')}`
+- l.118 — `{t('labelName')}`
+- l.139 — `{t('labelPhone')}`
+- l.161 — `{t('labelEmail')}`
+- l.182 — `{t('labelProgram')}`
+- l.194 — `{t(’options.${programId}’)}`
+- l.205 — `{t('labelExperience')}`
+- l.224 — `{t('labelMessage')}`
+- l.264 — `{t('consent')}`
 
 ### `src\components\sections\contact\ContactHeroSection.tsx`
 
@@ -958,16 +971,12 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\InteractiveCampusMap.tsx`
 
-- l.84 — `{chrome('brandName')}`
-- l.144 — `{t('copied')}`
+- l.110 — `{chrome('brandName')}`
+- l.170 — `{t('copied')}`
 
 ### `src\components\ui\LightboxModal.tsx`
 
 - l.152 — `{t('navHint')}`
-
-### `src\components\ui\TacticalButton.tsx`
-
-- l.46 — `{...props}`
 
 ### `src\components\ui\VirtualTourViewer.tsx`
 
@@ -1027,9 +1036,7 @@ Aucune occurrence.
 
 ### `src\components\ui\InteractiveCampusMap.tsx`
 
-- l.89 — `LAT 50.0909° N • LON 3.5374° E`
-- l.174 — `70 Rue Faidherbe, 59360 Le Cateau-Cambrésis`
-- l.184 — `70 Rue Faidherbe • 59360 Le Cateau-Cambrésis`
+- l.115 — `LAT 50.0909° N • LON 3.5374° E`
 
 ### `src\components\ui\campus-map\CampusAppLaunchers.tsx`
 

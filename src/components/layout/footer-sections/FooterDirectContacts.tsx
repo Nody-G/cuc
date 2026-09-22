@@ -9,6 +9,9 @@ import { SocialIcon } from '@/components/ui/logos/SocialLogos';
 import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { useSocialLinks } from '@/lib/hooks/useNavigation';
+import { usePreviewSettings } from '@/lib/preview/use-preview-settings';
+import { cucSetting } from '@/lib/preview/cuc-chrome';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 /**
  * Lignes directes + réseaux sociaux du pied de page.
@@ -19,6 +22,13 @@ export const FooterDirectContacts: React.FC = () => {
   const t = useTranslations('footer');
   const [settings, setSettings] = useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
   const socialLinks = useSocialLinks();
+  /** Brouillon de réglages du Mode Studio : la surcharge locale prime. */
+  const previewSettings = usePreviewSettings();
+  const phone = previewSettings.phone || settings.phone || '(+33) 06 72 84 94 92';
+  const email =
+    previewSettings.email_general ||
+    settings.email_general ||
+    'contact@campus-universcascades.com';
 
   /** Recharge les coordonnées (état initial + synchronisation Realtime). */
   const loadSettings = React.useCallback(() => {
@@ -42,7 +52,10 @@ export const FooterDirectContacts: React.FC = () => {
     <>
       {/* Contacts Directs */}
       <div className="space-y-3">
-        <h4 className="text-base font-display uppercase tracking-wider text-white border-b border-zinc-800 pb-2">
+        <h4
+          {...cucMicro('footer.directLines')}
+          className="text-base font-display uppercase tracking-wider text-white border-b border-zinc-800 pb-2"
+        >
           {t('directLines')}
         </h4>
 
@@ -50,20 +63,22 @@ export const FooterDirectContacts: React.FC = () => {
           <div className="flex items-center gap-2 text-zinc-300">
             <Phone className="w-4 h-4 text-[#FFE500] shrink-0" />
             <a
-              href={`tel:${(settings.phone || '+33672849492').replace(/\s+/g, '')}`}
+              href={`tel:${phone.replace(/\s+/g, '')}`}
+              {...cucSetting('phone')}
               className="hover:text-[#FFE500] transition-colors"
             >
-              {settings.phone || '(+33) 06 72 84 94 92'}
+              {phone}
             </a>
           </div>
 
           <div className="flex items-center gap-2 text-zinc-300">
             <Mail className="w-4 h-4 text-[#FFE500] shrink-0" />
             <a
-              href={`mailto:${settings.email_general || 'contact@campus-universcascades.com'}`}
+              href={`mailto:${email}`}
+              {...cucSetting('email_general')}
               className="hover:text-[#FFE500] transition-colors"
             >
-              {settings.email_general || 'contact@campus-universcascades.com'}
+              {email}
             </a>
           </div>
 
@@ -81,7 +96,10 @@ export const FooterDirectContacts: React.FC = () => {
 
       {/* Socials & Networks — pilotés par site_social_links */}
       <div className="space-y-3">
-        <h4 className="text-base font-display uppercase tracking-wider text-white border-b border-zinc-800 pb-2">
+        <h4
+          {...cucMicro('footer.networksTitle')}
+          className="text-base font-display uppercase tracking-wider text-white border-b border-zinc-800 pb-2"
+        >
           {t('networksTitle')}
         </h4>
 

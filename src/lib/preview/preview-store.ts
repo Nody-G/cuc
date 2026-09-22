@@ -77,7 +77,50 @@ export function subscribePreviewSettings(listener: SettingsListener): () => void
     };
 }
 
+/* ------------------------------------------------------------------ *
+ * Chrome : surcharges de micro-textes (catalogue i18n, locale active)
+ * ------------------------------------------------------------------ */
+
+/**
+ * Surcharges locales de micro-textes, poussées par le Cockpit
+ * (`microcopy-draft`) : clés plates (`footer.directLines`) → valeur. Elles sont
+ * fusionnées dans le catalogue par la **même** fonction que le serveur
+ * (`applyMicrocopyOverlay`), jamais par une fusion réécrite localement.
+ */
+export type PreviewMicrocopyOverrides = Record<string, string>;
+
+type MicrocopyListener = (overrides: PreviewMicrocopyOverrides) => void;
+
+let previewMicrocopy: PreviewMicrocopyOverrides = {};
+const microcopyListeners = new Set<MicrocopyListener>();
+
+export function setPreviewMicrocopy(overrides: PreviewMicrocopyOverrides): void {
+    previewMicrocopy = { ...overrides };
+    microcopyListeners.forEach((listener) => listener(previewMicrocopy));
+}
+
+export function getPreviewMicrocopy(): PreviewMicrocopyOverrides {
+    return previewMicrocopy;
+}
+
+export function clearPreviewMicrocopy(): void {
+    if (Object.keys(previewMicrocopy).length === 0) return;
+    previewMicrocopy = {};
+    microcopyListeners.forEach((listener) => listener(previewMicrocopy));
+}
+
+export function subscribePreviewMicrocopy(listener: MicrocopyListener): () => void {
+    microcopyListeners.add(listener);
+    return () => {
+        microcopyListeners.delete(listener);
+    };
+}
+
 /** Indique si un brouillon d'aperçu est actuellement actif. */
 export function isPreviewActive(): boolean {
-    return previewDraft !== null || Object.keys(previewSettings).length > 0;
+    return (
+        previewDraft !== null ||
+        Object.keys(previewSettings).length > 0 ||
+        Object.keys(previewMicrocopy).length > 0
+    );
 }

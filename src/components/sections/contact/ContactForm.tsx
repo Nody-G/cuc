@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Send, CheckCircle2 } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { submitInquiry } from '@/app/(admin)/admin/actions';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 /** Identifiants valides du sélecteur « Votre Demande Concerne ». */
 const VALID_PROGRAMS = [
@@ -250,7 +251,12 @@ export const ContactForm: React.FC = () => {
               disabled={isSubmitting}
               icon={<Send className="w-4 h-4" />}
             >
-              {isSubmitting ? t('submitting') : t('submit')}
+              {isSubmitting ? (
+                t('submitting')
+              ) : (
+                /* Libellé du catalogue : éditable en place dans l'aperçu. */
+                <span {...cucMicro('contact.form.submit')}>{t('submit')}</span>
+              )}
             </TacticalButton>
           </div>
 

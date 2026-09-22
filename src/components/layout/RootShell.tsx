@@ -21,6 +21,7 @@ import { MobileStickyCTA } from '@/components/layout/MobileStickyCTA';
 import { SkipLink } from '@/components/layout/SkipLink';
 import { PreviewBridgeClient } from '@/components/preview/PreviewBridgeClient';
 import { PreviewEditLayer } from '@/components/preview/PreviewEditLayer';
+import { PreviewIntlProvider } from '@/components/preview/PreviewIntlProvider';
 import { SpeculationRules } from '@/components/preview/SpeculationRules';
 import { educationalOrganizationJsonLd, websiteJsonLd } from '@/lib/seo';
 
@@ -97,18 +98,25 @@ export function RootShell({
                 className={`${bebasNeue.variable} ${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased min-h-screen bg-[#060608] text-white flex flex-col`}
             >
                 {/* Provider next-intl à la RACINE de la coquille : il englobe la
-                    page ET les composants de coquille (MobileStickyCTA…). */}
+                    page ET les composants de coquille (MobileStickyCTA…), y
+                    compris pendant le prerender. */}
                 <NextIntlClientProvider locale={locale} messages={messages}>
-                    {/* Lien d'évitement — libellé localisé (client, catalogue `common`) */}
-                    <SkipLink />
-                    {children}
-                    <MobileStickyCTA />
-                    {/* Pont d'aperçu live du Cockpit — inerte hors iframe. */}
-                    <PreviewBridgeClient />
-                    {/* Édition en place (Mode Studio) — inerte hors iframe. */}
-                    <PreviewEditLayer />
-                    {/* Speculation Rules API — préchargement/prérendu instantané. */}
-                    <SpeculationRules />
+                    {/* Mode Studio : surcouche des micro-textes modifiés en aperçu.
+                        Sans surcharge, elle est transparente (le provider ci-dessus
+                        fait foi) ; avec surcharge, elle superpose le catalogue
+                        fusionné pour la locale active. */}
+                    <PreviewIntlProvider locale={locale} messages={messages}>
+                        {/* Lien d'évitement — libellé localisé (client, catalogue `common`) */}
+                        <SkipLink />
+                        {children}
+                        <MobileStickyCTA />
+                        {/* Pont d'aperçu live du Cockpit — inerte hors iframe. */}
+                        <PreviewBridgeClient />
+                        {/* Édition en place (Mode Studio) — inerte hors iframe. */}
+                        <PreviewEditLayer />
+                        {/* Speculation Rules API — préchargement/prérendu instantané. */}
+                        <SpeculationRules />
+                    </PreviewIntlProvider>
                 </NextIntlClientProvider>
                 {/* Données structurées schema.org */}
                 <script

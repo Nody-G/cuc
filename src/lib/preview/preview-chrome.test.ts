@@ -3,8 +3,11 @@ import {
     previewMessage,
 } from './preview-protocol';
 import {
+    clearPreviewMicrocopy,
     clearPreviewSettings,
+    getPreviewMicrocopy,
     getPreviewSettings,
+    setPreviewMicrocopy,
     setPreviewSettings,
     subscribePreviewSettings,
 } from './preview-store';
@@ -33,6 +36,26 @@ describe('protocole — chrome éditable', () => {
                 v: 2,
                 type: 'settings-draft',
                 payload: { hero_primary_cta_text: 42 },
+            })
+        ).toBeNull();
+    });
+
+    it('fait l’aller-retour d’un brouillon de micro-textes et refuse le non-textuel', () => {
+        const message = previewMessage.microcopyDraft({
+            'footer.directLines': 'Lignes directes',
+        });
+        const parsed = parsePreviewMessage(JSON.parse(JSON.stringify(message)));
+        expect(parsed?.type).toBe('microcopy-draft');
+        if (parsed?.type === 'microcopy-draft') {
+            expect(parsed.payload['footer.directLines']).toBe('Lignes directes');
+        }
+
+        expect(
+            parsePreviewMessage({
+                channel: 'cuc-preview',
+                v: 2,
+                type: 'microcopy-draft',
+                payload: { 'footer.directLines': 1 },
             })
         ).toBeNull();
     });
@@ -71,6 +94,7 @@ describe('protocole — chrome éditable', () => {
 describe('store — surcharges de réglages', () => {
     afterEach(() => {
         clearPreviewSettings();
+        clearPreviewMicrocopy();
     });
 
     it('publie les surcharges aux abonnés et les efface proprement', () => {
@@ -89,6 +113,14 @@ describe('store — surcharges de réglages', () => {
             'hero_primary_cta_text',
             '',
         ]);
+    });
+
+    it('applique puis efface les micro-textes sans laisser de résidu', () => {
+        setPreviewMicrocopy({ 'footer.directLines': 'Lignes directes' });
+        expect(getPreviewMicrocopy()['footer.directLines']).toBe('Lignes directes');
+
+        clearPreviewMicrocopy();
+        expect(getPreviewMicrocopy()).toEqual({});
     });
 });
 
@@ -146,5 +178,16 @@ describe('champs de réglage — résolution et navigation', () => {
         ]);
         expect(fields[0].source).toBeUndefined();
         expect(fields[1].source).toBe('setting');
+    });
+
+    it('résout la source « micro » d’un libellé du catalogue', () => {
+        const root = mount(
+            '<span data-cuc-micro="footer.directLines">Lignes Directes</span>'
+        );
+        expect(resolveFieldTarget(root)).toEqual({
+            field: 'footer.directLines',
+            source: 'micro',
+            attribute: 'data-cuc-micro',
+        });
     });
 });

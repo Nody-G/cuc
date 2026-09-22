@@ -5,6 +5,7 @@ import { DEFAULT_PAGE_CONTENTS, normalizeSlug, type SitePageContent } from '@/li
 import {
     resetPageContentToDefault,
     setPagePublishState,
+    updateMicrocopyOverrideField,
     updateSiteSettingField,
     upsertPageContent,
 } from '@/app/(admin)/admin/actions';
@@ -28,6 +29,10 @@ export interface UsePageSaveActionsArgs {
     settingDraft: Record<string, string>;
     /** Efface le brouillon chrome après publication réussie. */
     clearSettingDraft: () => void;
+    /** Micro-textes modifiés dans l'aperçu (locale active), clé → valeur. */
+    microcopyDraft: Record<string, string>;
+    /** Efface le brouillon de micro-textes après publication réussie. */
+    clearMicrocopyDraft: () => void;
 }
 
 /**
@@ -50,27 +55,46 @@ export function usePageSaveActions({
     clearSnapshot,
     settingDraft,
     clearSettingDraft,
+    microcopyDraft,
+    clearMicrocopyDraft,
 }: UsePageSaveActionsArgs) {
     const [isSaving, setIsSaving] = useState(false);
     const [isResetting, setIsResetting] = useState(false);
     const [isPublishing, setIsPublishing] = useState(false);
 
     /**
-     * Écrit les réglages modifiés dans l'aperçu (brouillon chrome). Le
-     * brouillon n'est effacé **que** si toutes les clés sont passées : une
-     * valeur refusée reste visible, jamais perdue en silence.
+     * Écrit le brouillon « chrome » : réglages du site puis micro-textes de la
+     * locale active, une clé à la fois. Le brouillon n'est effacé **que** si
+     * tout est passé : une valeur refusée reste visible, jamais perdue en
+     * silence.
      */
-    const flushSettingDraft = async (): Promise<{ ok: boolean; failed: string[] }> => {
-        const keys = Object.keys(settingDraft);
-        if (keys.length === 0) return { ok: true, failed: [] };
-
+    const flushChromeDraft = async (): Promise<{
+        ok: boolean;
+        failed: string[];
+        count: number;
+    }> => {
+        const settingKeys = Object.keys(settingDraft);
+        const microKeys = Object.keys(microcopyDraft);
         const failed: string[] = [];
-        for (const key of keys) {
+
+        for (const key of settingKeys) {
             const res = await updateSiteSettingField(key, settingDraft[key]);
-            if (!res.success) failed.push(key);
+            if (!res.success) failed.push(`réglage « ${key} »`);
         }
-        if (failed.length === 0) clearSettingDraft();
-        return { ok: failed.length === 0, failed };
+        for (const key of microKeys) {
+            const res = await updateMicrocopyOverrideField(editorLocale, key, microcopyDraft[key]);
+            if (!res.success) failed.push(`micro-texte « ${key} »`);
+        }
+
+        if (failed.length === 0) {
+            if (settingKeys.length > 0) clearSettingDraft();
+            if (microKeys.length > 0) clearMicrocopyDraft();
+        }
+        return {
+            ok: failed.length === 0,
+            failed,
+            count: settingKeys.length + microKeys.length,
+        };
     };
 
     /**
@@ -97,15 +121,14 @@ export function usePageSaveActions({
                 : `Traduction anglaise enregistrée — ${before.percent} % de couverture (${before.translated}/${before.total} champs).`
         );
 
-        // Les réglages sont partagés entre les langues : le brouillon chrome
+        // Le chrome (réglages + micro-textes) est partagé entre les langues : il
         // suit la même sauvegarde, quel que soit l'onglet d'édition actif.
-        const chromeKeys = Object.keys(settingDraft);
-        if (chromeKeys.length > 0) {
-            const chrome = await flushSettingDraft();
+        const chrome = await flushChromeDraft();
+        if (chrome.count > 0) {
             showToast(
                 chrome.ok
-                    ? `${chromeKeys.length} réglage(s) du site publié(s).`
-                    : `Réglage(s) non enregistré(s) : ${chrome.failed.join(', ')} — brouillon conservé.`
+                    ? `${chrome.count} texte(s) du site publié(s).`
+                    : `Non enregistré : ${chrome.failed.join(', ')} — brouillon conservé.`
             );
         }
     };
@@ -141,15 +164,14 @@ export function usePageSaveActions({
             onPageSaved(formData);
             bumpPreview();
 
-            const chromeKeys = Object.keys(settingDraft);
-            if (chromeKeys.length === 0) {
+            const chrome = await flushChromeDraft();
+            if (chrome.count === 0) {
                 showToast(`Page "${formData.title}" enregistrée avec succès !`);
             } else {
-                const chrome = await flushSettingDraft();
                 showToast(
                     chrome.ok
-                        ? `Page "${formData.title}" enregistrée · ${chromeKeys.length} réglage(s) du site publié(s).`
-                        : `Page enregistrée, mais réglage(s) refusé(s) : ${chrome.failed.join(', ')} — brouillon conservé.`
+                        ? `Page "${formData.title}" enregistrée · ${chrome.count} texte(s) du site publié(s).`
+                        : `Page enregistrée, mais non publié : ${chrome.failed.join(', ')} — brouillon conservé.`
                 );
             }
         } else {

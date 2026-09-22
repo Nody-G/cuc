@@ -8,7 +8,7 @@ import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { SocialIcon } from '@/components/ui/logos/SocialLogos';
 import { useSocialLinks } from '@/lib/hooks/useNavigation';
 import { usePreviewSettings } from '@/lib/preview/use-preview-settings';
-import { CUC_SETTING_ATTRIBUTE } from '@/lib/preview/preview-protocol';
+import { cucSetting } from '@/lib/preview/cuc-chrome';
 import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 
@@ -32,6 +32,7 @@ export const NavActionsBar: React.FC = () => {
     previewSettings.hero_primary_cta_text || settings.hero_primary_cta_text || 'Contact & Projets';
   const ctaUrl =
     previewSettings.hero_primary_cta_url || settings.hero_primary_cta_url || '/contact-cuc';
+  const phone = previewSettings.phone || settings.phone || '06 72 84 94 92';
 
   /** Recharge les réglages du site (état initial + synchronisation Realtime). */
   const loadSettings = React.useCallback(() => {
@@ -76,12 +77,15 @@ export const NavActionsBar: React.FC = () => {
       )}
 
       <a
-        href={`tel:${(settings.phone || '06 72 84 94 92').replace(/\s/g, '')}`}
+        href={`tel:${phone.replace(/\s/g, '')}`}
         className="hidden 2xl:flex whitespace-nowrap shrink-0 text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] items-center gap-1.5 px-2.5 py-1.5 border border-zinc-800 hover:border-zinc-600 transition-colors"
         title="Standard CUC"
       >
         <PhoneCall className="w-3.5 h-3.5 text-[#FFE500] shrink-0" />
-        <span className="whitespace-nowrap font-mono-tech">{settings.phone || '06 72 84 94 92'}</span>
+        {/* Numéro de réglage : éditable en place dans l'aperçu du Cockpit. */}
+        <span {...cucSetting('phone')} className="whitespace-nowrap font-mono-tech">
+          {phone}
+        </span>
       </a>
 
       <LanguageSwitcher />
@@ -94,7 +98,7 @@ export const NavActionsBar: React.FC = () => {
           className="whitespace-nowrap"
         >
           {/* Texte de réglage : éditable en place dans l'aperçu du Cockpit. */}
-          <span {...{ [CUC_SETTING_ATTRIBUTE]: 'hero_primary_cta_text' }}>{ctaText}</span>
+          <span {...cucSetting('hero_primary_cta_text')}>{ctaText}</span>
         </TacticalButton>
       </Link>
     </div>

@@ -47,6 +47,10 @@ interface LivePreviewPaneProps {
     settings?: Record<string, string>;
     /** Valeur validée pour un réglage du site (`data-cuc-setting`). */
     onSettingCommit?: (key: string, value: string) => void;
+    /** Surcharges de micro-textes (locale active) poussées dans l'aperçu. */
+    microcopy?: Record<string, string>;
+    /** Valeur validée pour un micro-texte (`data-cuc-micro`). */
+    onMicrocopyCommit?: (key: string, value: string) => void;
     /** L'aperçu demande la médiathèque pour un champ image. */
     onMediaRequest?: (field: string) => void;
     /** Commande d'ajout / suppression / réordonnancement d'item de liste. */
@@ -69,6 +73,8 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
     onFieldCommit,
     settings = {},
     onSettingCommit,
+    microcopy = {},
+    onMicrocopyCommit,
     onMediaRequest,
     onListCommand,
     locale = 'fr',
@@ -80,13 +86,18 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
     const { iframeRef, isReady, hoveredField } = usePreviewBridge({
         draft,
         settings,
+        microcopy,
         mode,
         onFieldSelect,
         onFieldCommit,
         onSettingCommit,
+        onMicrocopyCommit,
         onMediaRequest,
         onListCommand,
     });
+
+    /** Textes hors contenu de page modifiés dans l'aperçu (réglages + micro-textes). */
+    const chromeChanges = Object.keys(settings).length + Object.keys(microcopy).length;
 
     return (
         <div
@@ -127,12 +138,12 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
                     >
                         {locale === 'en' ? 'EN — English' : 'FR — Français'}
                     </span>
-                    {Object.keys(settings).length > 0 && (
+                    {chromeChanges > 0 && (
                         <span
                             className="shrink-0 px-1.5 py-0.5 rounded border border-amber-400/50 text-amber-300 font-bold"
-                            title="Des réglages du site (CTA, coordonnées…) ont été modifiés dans l’aperçu : « Enregistrer » les publie."
+                            title="Des réglages ou micro-textes du site (CTA, coordonnées, libellés…) ont été modifiés dans l’aperçu : « Enregistrer » les publie."
                         >
-                            {Object.keys(settings).length} réglage(s) modifié(s)
+                            {chromeChanges} modification(s) du site
                         </span>
                     )}
                     {hoveredField && (

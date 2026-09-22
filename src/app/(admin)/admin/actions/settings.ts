@@ -105,6 +105,67 @@ export async function updateSiteSettingField(field: string, value: string) {
 }
 
 /**
+ * Met à jour **un seul** micro-texte de la surcharge (`microcopy_overrides`).
+ *
+ * L'édition en place ne connaît qu'une clé à la fois : la surcharge complète est
+ * relue, mise à jour puis nettoyée par la **même** sanitisation que l'écran
+ * « Micro-textes » ; une valeur vide **retire** la surcharge (retour au
+ * catalogue) — jamais un libellé blanc publié.
+ */
+export async function updateMicrocopyOverrideField(locale: string, key: string, value: string) {
+  try {
+    const isAdmin = await checkIsAdmin();
+    if (!isAdmin) return { success: false as const, error: 'Accès refusé' };
+
+    const { MICROCOPY_SETTINGS_KEY, MICROCOPY_LOCALES, sanitizeMicrocopyOverlay } = await import(
+      '@/lib/i18n/microcopy'
+    );
+    if (!(MICROCOPY_LOCALES as readonly string[]).includes(locale)) {
+      return { success: false as const, error: 'Locale inconnue' };
+    }
+    const localeKey = locale as 'fr' | 'en';
+
+    const adminClient = createAdminClient();
+    const { data, error: readError } = await adminClient
+      .from('site_settings')
+      .select('value')
+      .eq('key', MICROCOPY_SETTINGS_KEY)
+      .maybeSingle();
+    if (readError) throw readError;
+
+    const current = sanitizeMicrocopyOverlay(data?.value);
+    const values = { ...(current[localeKey] ?? {}) };
+    const clean = value.trim();
+    if (clean.length === 0) {
+      delete values[key];
+    } else {
+      values[key] = clean;
+    }
+
+    const sanitized = sanitizeMicrocopyOverlay({ ...current, [localeKey]: values });
+    const { error } = await adminClient.from('site_settings').upsert({
+      key: MICROCOPY_SETTINGS_KEY,
+      value: sanitized,
+      updated_at: new Date().toISOString(),
+    });
+    if (error) throw error;
+
+    updateTag('site_settings');
+    await revalidateSite(CHROME_PAGE_PATHS);
+    await logAuditEvent(
+      'settings.microcopy',
+      `${localeKey}:${key}`,
+      clean.length === 0 ? 'retour au catalogue' : 'modifié dans l’aperçu'
+    );
+
+    return { success: true as const };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur inconnue';
+    return { success: false as const, error: message };
+  }
+}
+
+/**
  * Catalogue des micro-textes d'interface (FR = source, EN = repli) et surcharges
  * déjà enregistrées.
  *
