@@ -16,11 +16,10 @@ import {
 } from 'lucide-react';
 
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 export default function SpectaclesCascadeursYamakasiPage() {
   const t = useTranslations('spectacles');
-  /** Chrome commun : mention de diffusion (fin de paragraphe). */
-  const chrome = useTranslations('commonChrome');
   const { content } = usePageDynamicContent('spectacles-cascadeurs-yamakasi');
   const specsItems = t.raw('specsItems') as { label: string; value: string }[];
 
@@ -57,14 +56,16 @@ export default function SpectaclesCascadeursYamakasiPage() {
           <div className="relative z-10 page-shell">
             <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
               <Link href="/" className="hover:text-[#FFE500] transition-colors">
-                {t('breadcrumbHome')}
+                <span {...cucMicro('spectacles.breadcrumbHome')}>{t('breadcrumbHome')}</span>
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
               <Link href="/cuc-events-agence" className="hover:text-[#FFE500] transition-colors">
-                {t('breadcrumbEvents')}
+                <span {...cucMicro('spectacles.breadcrumbEvents')}>{t('breadcrumbEvents')}</span>
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-              <span className="text-[#FFE500]">{t('breadcrumbCurrent')}</span>
+              <span className="text-[#FFE500]" {...cucMicro('spectacles.breadcrumbCurrent')}>
+                {t('breadcrumbCurrent')}
+              </span>
             </div>
 
             <div className="inline-flex items-center gap-2 mb-4">
@@ -144,25 +145,25 @@ export default function SpectaclesCascadeursYamakasiPage() {
                     />
                     <div>
                       <span className="text-xs font-mono-tech text-[#FFE500] font-bold tracking-wider uppercase block">
-                        {t('panelTag')}
+                        <span {...cucMicro('spectacles.panelTag')}>{t('panelTag')}</span>
                       </span>
                       <span className="text-[10px] font-mono-tech text-zinc-500 uppercase">
-                        {t('panelSub')}
+                        <span {...cucMicro('spectacles.panelSub')}>{t('panelSub')}</span>
                       </span>
                     </div>
                   </div>
 
                   <h2 className="text-2xl sm:text-3xl font-display uppercase text-white">
-                    {t('panelTitle')}
+                    <span {...cucMicro('spectacles.panelTitle')}>{t('panelTitle')}</span>
                   </h2>
 
                   <p className="text-sm font-tech text-zinc-300 leading-relaxed">
-                    {t('panelParagraph')}
+                    <span {...cucMicro('spectacles.panelParagraph')}>{t('panelParagraph')}</span>
                   </p>
 
                   <div className="p-4 bg-[#14141c] border border-zinc-800 space-y-2 text-xs font-tech">
                     <div className="text-[#FFE500] font-mono-tech font-bold uppercase">
-                      {t('specsTitle')}
+                      <span {...cucMicro('spectacles.specsTitle')}>{t('specsTitle')}</span>
                     </div>
                     <ul className="space-y-1.5 text-zinc-300">
                       {specsItems.map((item) => (
@@ -207,25 +208,23 @@ export default function SpectaclesCascadeursYamakasiPage() {
                 <div className="lg:col-span-7 space-y-4">
                   <div className="flex items-center gap-2">
                     <StuntBadge variant="yellow" icon={<Award className="w-3.5 h-3.5" />}>
-                      {t('arenaBadge')}
+                      <span {...cucMicro('spectacles.arenaBadge')}>{t('arenaBadge')}</span>
                     </StuntBadge>
                     <span className="text-xs font-mono-tech text-zinc-400">ACCOR ARENA • PARIS</span>
                   </div>
 
                   <h3 className="text-3xl font-display uppercase text-white">
-                    {t('arenaTitle')}
+                    <span {...cucMicro('spectacles.arenaTitle')}>{t('arenaTitle')}</span>
                   </h3>
 
                   <p className="text-sm font-tech text-zinc-300 leading-relaxed">
-                    Devant plus de 15 000 spectateurs, la CUC Stunt Team a assuré le show d&apos;ouverture
-                    avec des cascades synchronisées, des sauts depuis les structures aériennes et des combats
-                    {chrome('broadcastNote')}
+                    <span {...cucMicro('spectacles.arenaParagraph')}>{t('arenaParagraph')}</span>
                   </p>
 
                   <div className="pt-2">
                     <Link href="/contact-cuc?demande=cuc-events">
                       <TacticalButton variant="primary" size="md">
-                        {t('arenaCta')}
+                        <span {...cucMicro('spectacles.arenaCta')}>{t('arenaCta')}</span>
                       </TacticalButton>
                     </Link>
                   </div>

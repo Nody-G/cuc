@@ -104,7 +104,7 @@ export const FooterDirectContacts: React.FC = () => {
         </h4>
 
         <p className="text-xs text-zinc-400 font-tech">
-          {t('networksText')}
+          <span {...cucMicro('footer.networksText')}>{t('networksText')}</span>
         </p>
 
         {/* Logos seuls : le libellé et l'indice d'affichage deviennent

@@ -13,6 +13,7 @@ import {
   ContactCoordinatesSidebar,
 } from '@/components/sections/contact';
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 export default function ContactCucPage() {
   const t = useTranslations('contact.map');
@@ -50,14 +51,16 @@ export default function ContactCucPage() {
                 variant="yellow"
                 icon={<Compass className="w-3.5 h-3.5" />}
               >
-                {t('sectionBadge')}
+                <span {...cucMicro('contact.map.sectionBadge')}>{t('sectionBadge')}</span>
               </StuntBadge>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-wide text-white mt-3 mb-3">
-                {t('sectionTitle')}{' '}
-                <span className="text-[#FFE500]">{t('sectionTitleAccent')}</span>
+                <span {...cucMicro('contact.map.sectionTitle')}>{t('sectionTitle')}</span>{' '}
+                <span className="text-[#FFE500]" {...cucMicro('contact.map.sectionTitleAccent')}>
+                  {t('sectionTitleAccent')}
+                </span>
               </h2>
               <p className="text-xs sm:text-sm font-tech text-zinc-400">
-                {t('sectionIntro')}
+                <span {...cucMicro('contact.map.sectionIntro')}>{t('sectionIntro')}</span>
               </p>
             </div>
 

@@ -9,6 +9,7 @@ import { Clapperboard } from 'lucide-react';
 import { CelebrityDoublesGallery } from './hall-of-fame/CelebrityDoublesGallery';
 import { CelebrityDetailsModal } from './hall-of-fame/CelebrityDetailsModal';
 import { CucFilmsShowcase } from './films/CucFilmsShowcase';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 /**
  * Bloc « Hall of Fame » de la page TOURNAGE (`/cuc-team-cascadeur`).
@@ -54,16 +55,20 @@ export const HallOfFame: React.FC = () => {
           </div>
           <div className="inline-flex items-center gap-2 mb-3">
             <StuntBadge variant="yellow" icon={<Clapperboard className="w-3.5 h-3.5" />}>
-              {t('hallOfFame.badge')}
+              <span {...cucMicro('teamProduction.hallOfFame.badge')}>{t('hallOfFame.badge')}</span>
             </StuntBadge>
-            <span className="text-xs font-mono-tech text-zinc-500">{t('hallOfFame.tag')}</span>
+            <span className="text-xs font-mono-tech text-zinc-500" {...cucMicro('teamProduction.hallOfFame.tag')}>
+              {t('hallOfFame.tag')}
+            </span>
           </div>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-display uppercase tracking-tight text-white">
-            {t('hallOfFame.title')}
+            <span {...cucMicro('teamProduction.hallOfFame.title')}>{t('hallOfFame.title')}</span>
           </h2>
           <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-[#FFE500] to-transparent mx-auto my-3" />
           <p className="text-sm sm:text-base text-zinc-400 font-tech mt-2">
-            {t('hallOfFame.subtitle')}
+            <span {...cucMicro('teamProduction.hallOfFame.subtitle')}>
+              {t('hallOfFame.subtitle')}
+            </span>
           </p>
         </div>
 

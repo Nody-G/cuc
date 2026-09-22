@@ -12,6 +12,7 @@ import { soundFX } from '@/lib/soundFx';
 import { useTranslations } from 'next-intl';
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 import { cucField } from '@/lib/preview/cuc-field';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 import {
   ChevronRight,
   MapPin,
@@ -32,7 +33,7 @@ const Plan3DLoading: React.FC = () => {
   return (
     <div className="w-full h-[520px] sm:h-[620px] lg:h-[720px] flex items-center justify-center bg-[#0c0c12] border border-zinc-800">
       <span className="text-xs font-mono-tech text-zinc-500 uppercase tracking-widest animate-pulse">
-        {t('loading3d')}
+        <span {...cucMicro('visiteVirtuelle.loading3d')}>{t('loading3d')}</span>
       </span>
     </div>
   );
@@ -86,14 +87,19 @@ export default function VisiteVirtuellePage() {
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">
-              {t('breadcrumbHome')}
+              <span {...cucMicro('visiteVirtuelle.breadcrumbHome')}>{t('breadcrumbHome')}</span>
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
             <Link href="/visite-guidee" className="hover:text-[#FFE500] transition-colors">
-              {t('breadcrumbCampus')}
+              <span {...cucMicro('visiteVirtuelle.breadcrumbCampus')}>{t('breadcrumbCampus')}</span>
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-            <span className="text-[#FFE500]">
+            <span
+              className="text-[#FFE500]"
+              {...(activeTab === '360'
+                ? cucMicro('visiteVirtuelle.breadcrumb360')
+                : cucMicro('visiteVirtuelle.breadcrumb3d'))}
+            >
               {activeTab === '360' ? t('breadcrumb360') : t('breadcrumb3d')}
             </span>
           </div>
@@ -148,7 +154,7 @@ export default function VisiteVirtuellePage() {
                     }`}
                 >
                   <Eye className="w-3.5 h-3.5" />
-                  <span>{t('tab360Label')}</span>
+                  <span {...cucMicro('visiteVirtuelle.tab360Label')}>{t('tab360Label')}</span>
                 </button>
 
                 <button
@@ -162,13 +168,13 @@ export default function VisiteVirtuellePage() {
                     }`}
                 >
                   <Layers className="w-3.5 h-3.5" />
-                  <span>{t('tab3dLabel')}</span>
+                  <span {...cucMicro('visiteVirtuelle.tab3dLabel')}>{t('tab3dLabel')}</span>
                 </button>
               </div>
 
               <Link href="/contact-cuc?demande=stage-decouverte">
                 <TacticalButton variant="primary" size="md" icon={<PhoneCall className="w-4 h-4" />}>
-                  {t('ctaRendezVous')}
+                  <span {...cucMicro('visiteVirtuelle.ctaRendezVous')}>{t('ctaRendezVous')}</span>
                 </TacticalButton>
               </Link>
             </div>
@@ -195,11 +201,11 @@ export default function VisiteVirtuellePage() {
                 <div className="flex items-center gap-3 mb-3">
                   <Building className="w-5 h-5 text-[#FFE500]" />
                   <h2 className="font-display uppercase text-lg text-white">
-                    {t('factsTitle1')}
+                    <span {...cucMicro('visiteVirtuelle.factsTitle1')}>{t('factsTitle1')}</span>
                   </h2>
                 </div>
                 <p className="text-xs text-zinc-400 leading-relaxed">
-                  {t('factsBody1')}
+                  <span {...cucMicro('visiteVirtuelle.factsBody1')}>{t('factsBody1')}</span>
                 </p>
               </div>
 
@@ -207,11 +213,11 @@ export default function VisiteVirtuellePage() {
                 <div className="flex items-center gap-3 mb-3">
                   <ShieldCheck className="w-5 h-5 text-[#FFE500]" />
                   <h2 className="font-display uppercase text-lg text-white">
-                    {t('factsTitle2')}
+                    <span {...cucMicro('visiteVirtuelle.factsTitle2')}>{t('factsTitle2')}</span>
                   </h2>
                 </div>
                 <p className="text-xs text-zinc-400 leading-relaxed">
-                  {t('factsBody2')}
+                  <span {...cucMicro('visiteVirtuelle.factsBody2')}>{t('factsBody2')}</span>
                 </p>
               </div>
 
@@ -219,11 +225,11 @@ export default function VisiteVirtuellePage() {
                 <div className="flex items-center gap-3 mb-3">
                   <MapPin className="w-5 h-5 text-[#FFE500]" />
                   <h2 className="font-display uppercase text-lg text-white">
-                    {t('factsTitle3')}
+                    <span {...cucMicro('visiteVirtuelle.factsTitle3')}>{t('factsTitle3')}</span>
                   </h2>
                 </div>
                 <p className="text-xs text-zinc-400 leading-relaxed">
-                  {t('factsBody3')}
+                  <span {...cucMicro('visiteVirtuelle.factsBody3')}>{t('factsBody3')}</span>
                 </p>
               </div>
             </div>

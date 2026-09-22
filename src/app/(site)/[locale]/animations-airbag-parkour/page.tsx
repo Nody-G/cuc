@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 export default function AnimationsAirbagParkourPage() {
   const t = useTranslations('animations');
@@ -57,14 +58,16 @@ export default function AnimationsAirbagParkourPage() {
           <div className="relative z-10 page-shell">
             <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
               <Link href="/" className="hover:text-[#FFE500] transition-colors">
-                {t('breadcrumbHome')}
+                <span {...cucMicro('animations.breadcrumbHome')}>{t('breadcrumbHome')}</span>
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
               <Link href="/cuc-events-agence" className="hover:text-[#FFE500] transition-colors">
-                {t('breadcrumbEvents')}
+                <span {...cucMicro('animations.breadcrumbEvents')}>{t('breadcrumbEvents')}</span>
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-              <span className="text-[#FFE500]">{t('breadcrumbCurrent')}</span>
+              <span className="text-[#FFE500]" {...cucMicro('animations.breadcrumbCurrent')}>
+                {t('breadcrumbCurrent')}
+              </span>
             </div>
 
             <div className="inline-flex items-center gap-2 mb-4">
@@ -132,19 +135,27 @@ export default function AnimationsAirbagParkourPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 font-mono-tech text-xs">
               <div className="border-l-2 border-[#FFE500] pl-4">
                 <div className="text-3xl sm:text-4xl font-display text-white">+20 000</div>
-                <div className="text-zinc-400 uppercase">{t('stat1Label')}</div>
+                <div className="text-zinc-400 uppercase">
+                  <span {...cucMicro('animations.stat1Label')}>{t('stat1Label')}</span>
+                </div>
               </div>
               <div className="border-l-2 border-[#FFE500] pl-4">
                 <div className="text-3xl sm:text-4xl font-display text-[#FFE500]">{t('stat2Value')}</div>
-                <div className="text-zinc-400 uppercase">{t('stat2Label')}</div>
+                <div className="text-zinc-400 uppercase">
+                  <span {...cucMicro('animations.stat2Label')}>{t('stat2Label')}</span>
+                </div>
               </div>
               <div className="border-l-2 border-[#FFE500] pl-4">
                 <div className="text-3xl sm:text-4xl font-display text-white">100%</div>
-                <div className="text-zinc-400 uppercase">{t('stat3Label')}</div>
+                <div className="text-zinc-400 uppercase">
+                  <span {...cucMicro('animations.stat3Label')}>{t('stat3Label')}</span>
+                </div>
               </div>
               <div className="border-l-2 border-[#FFE500] pl-4">
                 <div className="text-3xl sm:text-4xl font-display text-[#FFE500]">2009</div>
-                <div className="text-zinc-400 uppercase">{t('stat4Label')}</div>
+                <div className="text-zinc-400 uppercase">
+                  <span {...cucMicro('animations.stat4Label')}>{t('stat4Label')}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -166,30 +177,33 @@ export default function AnimationsAirbagParkourPage() {
                       className="w-11 h-11 object-contain drop-shadow-[0_0_10px_rgba(255,229,0,0.3)]"
                     />
                     <div>
-                      <span className="text-xs font-mono-tech text-[#FFE500] font-bold tracking-wider uppercase block">
+                      <span
+                        className="text-xs font-mono-tech text-[#FFE500] font-bold tracking-wider uppercase block"
+                        {...cucMicro('commonChrome.eventsAnimationsBadge')}
+                      >
                         {chrome('eventsAnimationsBadge')}
                       </span>
                       <span className="text-[10px] font-mono-tech text-zinc-500 uppercase">
-                        {t('panelSub')}
+                        <span {...cucMicro('animations.panelSub')}>{t('panelSub')}</span>
                       </span>
                     </div>
                   </div>
 
                   <h2 className="text-2xl sm:text-3xl font-display uppercase text-white">
-                    {t('panelTitle')}
+                    <span {...cucMicro('animations.panelTitle')}>{t('panelTitle')}</span>
                   </h2>
 
                   <p className="text-sm font-tech text-zinc-300 leading-relaxed">
-                    {t('panelParagraph1')}
+                    <span {...cucMicro('animations.panelParagraph1')}>{t('panelParagraph1')}</span>
                   </p>
 
                   <p className="text-xs sm:text-sm font-tech text-zinc-400 leading-relaxed">
-                    {t('panelParagraph2')}
+                    <span {...cucMicro('animations.panelParagraph2')}>{t('panelParagraph2')}</span>
                   </p>
 
                   <div className="p-4 bg-[#14141c] border border-zinc-800 space-y-2 text-xs font-tech">
                     <strong className="text-[#FFE500] font-mono-tech block uppercase">
-                      {t('includedTitle')}
+                      <span {...cucMicro('animations.includedTitle')}>{t('includedTitle')}</span>
                     </strong>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-zinc-300">
                       {includedItems.map((item) => (

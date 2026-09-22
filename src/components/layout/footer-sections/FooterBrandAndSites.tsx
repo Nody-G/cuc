@@ -7,6 +7,7 @@ import React from 'react';
 import Image from 'next/image';
 import { ExternalLink, Compass, Navigation, MapPin } from 'lucide-react';
 import { useFooter } from '@/lib/hooks/useNavigation';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 /**
  * Bloc marque + implantations du pied de page.
@@ -66,10 +67,10 @@ export const FooterBrandAndSites: React.FC = () => {
               </div>
               <div>
                 <span className="text-[11px] font-mono-tech text-white group-hover:text-[#FFE500] font-bold block">
-                  {t('certified')}
+                  <span {...cucMicro('footer.certified')}>{t('certified')}</span>
                 </span>
                 <span className="text-[10px] text-zinc-500 font-tech">
-                  {t('funding')}
+                  <span {...cucMicro('footer.funding')}>{t('funding')}</span>
                 </span>
               </div>
             </div>
@@ -82,7 +83,7 @@ export const FooterBrandAndSites: React.FC = () => {
           >
             <div className="flex items-center gap-2">
               <Compass className="w-4 h-4 text-[#FFE500]" />
-              <span>{t('virtualTour')}</span>
+              <span {...cucMicro('footer.virtualTour')}>{t('virtualTour')}</span>
             </div>
             <span className="text-[10px] bg-[#FFE500] text-black px-1.5 font-bold">
               360°
@@ -94,20 +95,20 @@ export const FooterBrandAndSites: React.FC = () => {
       {/* Adresses & Implantations */}
       <div className="space-y-3">
         <h4 className="text-base font-display uppercase tracking-wider text-white border-b border-zinc-800 pb-2">
-          {t('sitesTitle')}
+          <span {...cucMicro('footer.sitesTitle')}>{t('sitesTitle')}</span>
         </h4>
 
         <div className="space-y-3 text-xs font-tech">
           <div className="p-2.5 bg-[#101016] border border-zinc-800/80 hover:border-[#FFE500]/50 transition-colors">
             <div>
               <strong className="text-[#FFE500] font-mono-tech block">
-                {t('mainCampus')}
+                <span {...cucMicro('footer.mainCampus')}>{t('mainCampus')}</span>
               </strong>
             </div>
             <p className="text-zinc-300 mt-0.5">
-              {t('mainCampusAddress')}
+              <span {...cucMicro('footer.mainCampusAddress')}>{t('mainCampusAddress')}</span>
               <br />
-              <span className="text-zinc-500">
+              <span className="text-zinc-500" {...cucMicro('footer.region')}>
                 {t('region')}
               </span>
             </p>
@@ -117,7 +118,7 @@ export const FooterBrandAndSites: React.FC = () => {
                 className="text-[10px] font-mono-tech text-[#FFE500] hover:underline flex items-center gap-1"
               >
                 <Compass className="w-3 h-3" />
-                <span>{t('mapAccess')}</span>
+                <span {...cucMicro('footer.mapAccess')}>{t('mapAccess')}</span>
               </Link>
               <span className="text-zinc-600">•</span>
               <a
@@ -127,19 +128,19 @@ export const FooterBrandAndSites: React.FC = () => {
                 className="text-[10px] font-mono-tech text-zinc-400 hover:text-white flex items-center gap-1"
               >
                 <Navigation className="w-3 h-3 text-[#FFE500]" />
-                <span>{t('gpsRoute')}</span>
+                <span {...cucMicro('footer.gpsRoute')}>{t('gpsRoute')}</span>
               </a>
             </div>
           </div>
 
           <div className="p-2.5 bg-[#101016] border border-zinc-800/80 hover:border-zinc-700 transition-colors">
             <strong className="text-[#FFE500] font-mono-tech block">
-              {t('idfHub')}
+              <span {...cucMicro('footer.idfHub')}>{t('idfHub')}</span>
             </strong>
             <p className="text-zinc-300 mt-0.5">
-              {t('idfStudio')}
+              <span {...cucMicro('footer.idfStudio')}>{t('idfStudio')}</span>
               <br />
-              <span className="text-zinc-500">
+              <span className="text-zinc-500" {...cucMicro('footer.idfAddress')}>
                 {t('idfAddress')}
               </span>
             </p>
@@ -151,17 +152,17 @@ export const FooterBrandAndSites: React.FC = () => {
                 className="text-[10px] font-mono-tech text-zinc-400 hover:text-[#FFE500] flex items-center gap-1"
               >
                 <MapPin className="w-3 h-3 text-[#FFE500]" />
-                <span>{t('locateMaps')}</span>
+                <span {...cucMicro('footer.locateMaps')}>{t('locateMaps')}</span>
               </a>
             </div>
           </div>
 
           <div className="pt-1 text-zinc-400">
             <strong className="text-zinc-400 font-mono-tech block text-[11px]">
-              {t('productionAgency')}
+              <span {...cucMicro('footer.productionAgency')}>{t('productionAgency')}</span>
             </strong>
             <p className="text-zinc-500 mt-0.5 text-[11px]">
-              {t('productionDesc')}
+              <span {...cucMicro('footer.productionDesc')}>{t('productionDesc')}</span>
             </p>
           </div>
         </div>

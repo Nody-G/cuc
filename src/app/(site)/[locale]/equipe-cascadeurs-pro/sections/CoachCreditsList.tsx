@@ -3,6 +3,7 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { parseCredit } from '@/types';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 interface CoachCreditsListProps {
     /** Crédits notables du coach (les 4 premiers sont affichés). */
@@ -17,7 +18,7 @@ export const CoachCreditsList: React.FC<CoachCreditsListProps> = ({ credits }) =
         <div className="pt-2">
             <div className="flex items-center justify-between gap-1 mb-1.5">
                 <strong className="text-[11px] font-mono-tech text-zinc-400 uppercase block">
-                    {t('creditsLabel')}
+                    <span {...cucMicro('team.creditsLabel')}>{t('creditsLabel')}</span>
                 </strong>
                 <span className="text-[10px] font-mono-tech text-zinc-500">
                     {credits.length} {t('creditsUnit')}

@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { ArrowUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useFooter } from '@/lib/hooks/useNavigation';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 /**
  * Barre de crédits légaux du pied de page — pilotée par `site_footer.legal`
@@ -67,14 +68,16 @@ export const FooterCreditsBar: React.FC = () => {
             </React.Fragment>
           ))}
           <span>•</span>
-          <span className="text-[#FFE500]/80">{t('qualiopiBadge')}</span>
+          <span className="text-[#FFE500]/80" {...cucMicro('footer.qualiopiBadge')}>
+            {t('qualiopiBadge')}
+          </span>
         </div>
 
         <button
           onClick={scrollToTop}
           className="flex items-center gap-1.5 text-zinc-400 hover:text-[#FFE500] uppercase transition-colors cursor-pointer"
         >
-          <span>{t('backToTop')}</span>
+          <span {...cucMicro('footer.backToTop')}>{t('backToTop')}</span>
           <ArrowUp className="w-3.5 h-3.5" />
         </button>
       </div>

@@ -3,6 +3,7 @@ import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 
 import { useEffect } from 'react';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 
 /**
@@ -38,13 +39,15 @@ export default function Error({
         <div className="min-h-screen bg-[#060608] text-white flex flex-col items-center justify-center px-6 selection:bg-[#FFE500] selection:text-black">
             <div className="max-w-lg w-full text-center">
                 <p className="font-mono-tech text-[11px] uppercase tracking-[0.3em] text-[#FFE500] mb-4">
-                    {chrome('campusNameTitle')}
+                    <span {...cucMicro('commonChrome.campusNameTitle')}>
+                        {chrome('campusNameTitle')}
+                    </span>
                 </p>
                 <h1 className="font-display text-4xl sm:text-5xl uppercase tracking-wide mb-4">
-                    {t('errorTitle')}
+                    <span {...cucMicro('common.errorTitle')}>{t('errorTitle')}</span>
                 </h1>
                 <p className="text-zinc-400 text-sm leading-relaxed mb-8">
-                    {t('errorText')}
+                    <span {...cucMicro('common.errorText')}>{t('errorText')}</span>
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -53,13 +56,13 @@ export default function Error({
                         onClick={() => reset()}
                         className="w-full sm:w-auto px-6 py-3 bg-[#FFE500] hover:bg-[#ffe600e6] text-black text-xs font-black uppercase tracking-wider rounded-lg transition-transform active:scale-95"
                     >
-                        {t('retry')}
+                        <span {...cucMicro('common.retry')}>{t('retry')}</span>
                     </button>
                     <Link
                         href="/"
                         className="w-full sm:w-auto px-6 py-3 border border-zinc-700 hover:border-zinc-500 text-zinc-200 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors text-center"
                     >
-                        {t('backHome')}
+                        <span {...cucMicro('common.backHome')}>{t('backHome')}</span>
                     </Link>
                 </div>
 

@@ -10,6 +10,7 @@ import { VirtualTourViewer } from '@/components/ui/VirtualTourViewer';
 import { LightboxModal } from '@/components/ui/LightboxModal';
 import { Layers, Compass } from 'lucide-react';
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 import {
   CAMPUS_GALLERY_PHOTOS,
   VisiteHeroSection,
@@ -28,7 +29,7 @@ const Plan3DLoading: React.FC = () => {
   return (
     <div className="w-full h-[520px] sm:h-[620px] lg:h-[720px] flex items-center justify-center bg-[#0c0c12] border border-zinc-800">
       <span className="text-xs font-mono-tech text-zinc-500 uppercase tracking-widest animate-pulse">
-        {t('loading3d')}
+        <span {...cucMicro('visiteGuidee.loading3d')}>{t('loading3d')}</span>
       </span>
     </div>
   );
@@ -85,17 +86,20 @@ export default function VisiteGuideePage() {
                     variant="yellow"
                     icon={<Layers className="w-3.5 h-3.5" />}
                   >
-                    {t('tour3dBadge')}
+                    <span {...cucMicro('visiteGuidee.tour3dBadge')}>{t('tour3dBadge')}</span>
                   </StuntBadge>
                   <span className="text-xs font-mono-tech text-zinc-400">
-                    {t('domainClosed')}
+                    <span {...cucMicro('visiteGuidee.domainClosed')}>{t('domainClosed')}</span>
                   </span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-wide text-white mb-3">
-                  {t('tour3dTitle')} <span className="text-[#FFE500]">{t('tour3dTitleAccent')}</span>
+                  <span {...cucMicro('visiteGuidee.tour3dTitle')}>{t('tour3dTitle')}</span>{' '}
+                  <span className="text-[#FFE500]" {...cucMicro('visiteGuidee.tour3dTitleAccent')}>
+                    {t('tour3dTitleAccent')}
+                  </span>
                 </h2>
                 <p className="text-sm font-tech text-zinc-400">
-                  {t('tour3dParagraph')}
+                  <span {...cucMicro('visiteGuidee.tour3dParagraph')}>{t('tour3dParagraph')}</span>
                 </p>
               </div>
               <CampusPlan3D />
@@ -116,13 +120,16 @@ export default function VisiteGuideePage() {
                   variant="yellow"
                   icon={<Compass className="w-3.5 h-3.5" />}
                 >
-                  {t('tour360Badge')}
+                  <span {...cucMicro('visiteGuidee.tour360Badge')}>{t('tour360Badge')}</span>
                 </StuntBadge>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-wide text-white mt-3 mb-3">
-                  {t('tour360Title')} <span className="text-[#FFE500]">{t('tour360TitleAccent')}</span>
+                  <span {...cucMicro('visiteGuidee.tour360Title')}>{t('tour360Title')}</span>{' '}
+                  <span className="text-[#FFE500]" {...cucMicro('visiteGuidee.tour360TitleAccent')}>
+                    {t('tour360TitleAccent')}
+                  </span>
                 </h2>
                 <p className="text-sm font-tech text-zinc-400">
-                  {t('tour360Paragraph')}
+                  <span {...cucMicro('visiteGuidee.tour360Paragraph')}>{t('tour360Paragraph')}</span>
                 </p>
               </div>
               <VirtualTourViewer />

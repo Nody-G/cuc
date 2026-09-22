@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 
 import { cucField } from '@/lib/preview/cuc-field';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 /** Forme minimale d'un atelier : celle écrite par le Cockpit et le socle statique. */
 interface TeamBuildingWorkshop {
@@ -110,14 +111,16 @@ export default function TeamBuildingCascadesPage() {
           <div className="relative z-10 page-shell">
             <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
               <Link href="/" className="hover:text-[#FFE500] transition-colors">
-                {chrome('breadcrumbHome')}
+                <span {...cucMicro('commonChrome.breadcrumbHome')}>{chrome('breadcrumbHome')}</span>
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
               <Link href="/cuc-events-agence" className="hover:text-[#FFE500] transition-colors">
-                {chrome('siteEvents')}
+                <span {...cucMicro('commonChrome.siteEvents')}>{chrome('siteEvents')}</span>
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-              <span className="text-[#FFE500]">TEAM BUILDING D'EXCEPTION</span>
+              <span className="text-[#FFE500]" {...cucMicro('teamBuilding.breadcrumbCurrent')}>
+                {t('breadcrumbCurrent')}
+              </span>
             </div>
 
             <div className="inline-flex items-center gap-2 mb-4">
@@ -243,7 +246,9 @@ export default function TeamBuildingCascadesPage() {
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-xs font-mono-tech text-zinc-500">
-                          {t('workshopFallbackLabel')}
+                          <span {...cucMicro('teamBuilding.workshopFallbackLabel')}>
+                            {t('workshopFallbackLabel')}
+                          </span>
                         </div>
                       )}
                       {workshop.category && (
@@ -277,8 +282,10 @@ export default function TeamBuildingCascadesPage() {
                   </div>
 
                   <div className="pt-4 mt-4 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono-tech text-zinc-500">
-                    <span>{t('workshopChoice')}</span>
-                    <span className="text-[#FFE500]">{t('workshopModular')}</span>
+                    <span {...cucMicro('teamBuilding.workshopChoice')}>{t('workshopChoice')}</span>
+                    <span className="text-[#FFE500]" {...cucMicro('teamBuilding.workshopModular')}>
+                      {t('workshopModular')}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -290,17 +297,17 @@ export default function TeamBuildingCascadesPage() {
         <section className="py-16 bg-[#0c0c10] border-t border-zinc-800">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <StuntBadge variant="yellow" icon={<Users className="w-3.5 h-3.5" />}>
-              {t('customBadge')}
+              <span {...cucMicro('teamBuilding.customBadge')}>{t('customBadge')}</span>
             </StuntBadge>
             <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mt-3 mb-4">
-              {t('customTitle')}
+              <span {...cucMicro('teamBuilding.customTitle')}>{t('customTitle')}</span>
             </h2>
             <p className="text-xs sm:text-sm font-tech text-zinc-400 leading-relaxed mb-8 max-w-2xl mx-auto">
-              {t('customDescription')}
+              <span {...cucMicro('teamBuilding.customDescription')}>{t('customDescription')}</span>
             </p>
             <Link href="/contact-cuc?demande=cuc-events">
               <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
-                {t('customCta')}
+                <span {...cucMicro('teamBuilding.customCta')}>{t('customCta')}</span>
               </TacticalButton>
             </Link>
           </div>
