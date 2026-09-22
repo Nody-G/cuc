@@ -6,6 +6,7 @@ import { Target, Clock, MapPin, Bed, CheckCircle2, ShieldCheck, Award } from 'lu
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { cucField, findItemIndex, itemPath } from '@/lib/preview/cuc-field';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 interface FormationFormulesSectionProps {
   onApply: (programId: string) => void;
@@ -140,7 +141,9 @@ export const FormationFormulesSection: React.FC<FormationFormulesSectionProps> =
               </div>
 
               <h4 className="text-xs font-mono-tech text-[#FFE500] uppercase mb-2">
-                {tf('step1ProgramTitle')}
+                <span {...cucMicro('formation.formules.step1ProgramTitle')}>
+                  {tf('step1ProgramTitle')}
+                </span>
               </h4>
               <ul className="space-y-2 text-xs font-tech text-zinc-300 mb-6">
                 {step1Items.map((item, idx) => (
@@ -232,7 +235,9 @@ export const FormationFormulesSection: React.FC<FormationFormulesSectionProps> =
               </div>
 
               <h4 className="text-xs font-mono-tech text-[#FFE500] uppercase mb-2">
-                {tf('step2ProgramTitle')}
+                <span {...cucMicro('formation.formules.step2ProgramTitle')}>
+                  {tf('step2ProgramTitle')}
+                </span>
               </h4>
               <ul className="space-y-2 text-xs font-tech text-zinc-300 mb-6">
                 {step2Items.map((item, idx) => (

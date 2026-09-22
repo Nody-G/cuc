@@ -10,6 +10,7 @@ import { StuntBadge } from '@/components/ui/StuntBadge';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 
 import { SitePageHero } from '@/lib/data/site-service';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 interface FormationHeroSectionProps {
   onApply: (programId: string) => void;
@@ -42,10 +43,10 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">
-              {t('hero.breadcrumbHome')}
+              <span {...cucMicro('formation.hero.breadcrumbHome')}>{t('hero.breadcrumbHome')}</span>
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-            <span className="text-[#FFE500]">
+            <span className="text-[#FFE500]" {...cucMicro('formation.hero.breadcrumbCurrent')}>
               {t('hero.breadcrumbCurrent')}
             </span>
           </div>
@@ -142,7 +143,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
                 720H
               </div>
               <div className="text-xs font-mono-tech text-zinc-400 uppercase tracking-wider">
-                {t('stats.practiceLabel')}
+                <span {...cucMicro('formation.stats.practiceLabel')}>{t('stats.practiceLabel')}</span>
               </div>
             </div>
 
@@ -151,7 +152,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
                 224
               </div>
               <div className="text-xs font-mono-tech text-zinc-400 uppercase tracking-wider">
-                {t('stats.graduatesLabel')}
+                <span {...cucMicro('formation.stats.graduatesLabel')}>{t('stats.graduatesLabel')}</span>
               </div>
             </div>
 
@@ -160,7 +161,9 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
                 100%
               </div>
               <div className="text-xs font-mono-tech text-zinc-400 uppercase tracking-wider">
-                {t('stats.satisfactionLabel')}
+                <span {...cucMicro('formation.stats.satisfactionLabel')}>
+                  {t('stats.satisfactionLabel')}
+                </span>
               </div>
             </div>
 
@@ -169,7 +172,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
                 {t('stats.since')}
               </div>
               <div className="text-xs font-mono-tech text-zinc-400 uppercase tracking-wider">
-                {t('stats.referenceLabel')}
+                <span {...cucMicro('formation.stats.referenceLabel')}>{t('stats.referenceLabel')}</span>
               </div>
             </div>
           </div>

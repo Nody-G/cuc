@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { Building, Maximize2 } from 'lucide-react';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { LightboxImage } from '@/components/ui/LightboxModal';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 interface VisitePhotoGalleryProps {
   photos: LightboxImage[];
@@ -23,13 +24,13 @@ export const VisitePhotoGallery: React.FC<VisitePhotoGalleryProps> = ({
       <div className="page-shell">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <StuntBadge variant="yellow" icon={<Building className="w-3.5 h-3.5" />}>
-            {t('galleryBadge')}
+            <span {...cucMicro('visite.galleryBadge')}>{t('galleryBadge')}</span>
           </StuntBadge>
           <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mt-3 mb-3">
-            {t('galleryTitle')}
+            <span {...cucMicro('visite.galleryTitle')}>{t('galleryTitle')}</span>
           </h2>
           <p className="text-sm font-tech text-zinc-400">
-            {t('gallerySubtitle')}
+            <span {...cucMicro('visite.gallerySubtitle')}>{t('gallerySubtitle')}</span>
           </p>
         </div>
 

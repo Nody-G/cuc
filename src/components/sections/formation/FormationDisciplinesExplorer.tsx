@@ -13,6 +13,7 @@ import { applyDisciplineOverlays } from '@/lib/i18n/apply-discipline-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 import { usePageSectionData } from '@/lib/hooks/usePageSectionData';
 import { cucField } from '@/lib/preview/cuc-field';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 /**
  * Référentiel des 10 disciplines de la cascade physique.
@@ -137,14 +138,18 @@ export const FormationDisciplinesExplorer: React.FC = () => {
             <div className="space-y-4 pt-4 border-t border-zinc-800 text-xs font-tech">
               <div>
                 <strong className="text-[#FFE500] font-mono-tech block mb-1 uppercase">
-                  {t('disciplines.cinemaContextLabel')}
+                  <span {...cucMicro('formation.disciplines.cinemaContextLabel')}>
+                    {t('disciplines.cinemaContextLabel')}
+                  </span>
                 </strong>
                 <p className="text-zinc-400">{activeDiscipline.cinemaContext}</p>
               </div>
 
               <div>
                 <strong className="text-[#FFE500] font-mono-tech block mb-1 uppercase">
-                  {t('disciplines.equipmentLabel')}
+                  <span {...cucMicro('formation.disciplines.equipmentLabel')}>
+                    {t('disciplines.equipmentLabel')}
+                  </span>
                 </strong>
                 <div className="flex flex-wrap gap-1.5 mt-1">
                   {activeDiscipline.equipment.map((item, idx) => (

@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { cucField } from '@/lib/preview/cuc-field';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 import { Film, ChevronRight } from 'lucide-react';
 import { SitePageHero } from '@/lib/data/site-service';
 
@@ -44,10 +45,14 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
           <div className="lg:col-span-8">
             <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
               <Link href="/" className="hover:text-[#FFE500] transition-colors">
-                {t('hero.breadcrumbHome')}
+                <span {...cucMicro('teamProduction.hero.breadcrumbHome')}>
+                  {t('hero.breadcrumbHome')}
+                </span>
               </Link>
               <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-              <span className="text-[#FFE500]">{t('hero.breadcrumbCurrent')}</span>
+              <span className="text-[#FFE500]" {...cucMicro('teamProduction.hero.breadcrumbCurrent')}>
+                {t('hero.breadcrumbCurrent')}
+              </span>
             </div>
 
             <div className="flex items-center gap-2 mb-4 text-xs font-mono-tech uppercase font-bold tracking-wider text-[#FFE500]">
@@ -87,7 +92,7 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
                 className="inline-flex items-center gap-2 px-5 py-3 border border-zinc-700 bg-zinc-900/80 hover:bg-zinc-800 text-xs font-mono-tech uppercase tracking-wider text-zinc-300 hover:text-white transition-colors"
               >
                 <Film className="w-4 h-4 text-[#FFE500]" />
-                <span>{t('hero.posters')}</span>
+                <span {...cucMicro('teamProduction.hero.posters')}>{t('hero.posters')}</span>
               </a>
             </div>
           </div>
@@ -106,7 +111,7 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
                 />
               </div>
               <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-black px-3 py-0.5 border border-zinc-800 text-[10px] font-mono-tech text-[#FFE500] uppercase tracking-wider whitespace-nowrap shadow-md">
-                {t('hero.emblemLabel')}
+                <span {...cucMicro('teamProduction.hero.emblemLabel')}>{t('hero.emblemLabel')}</span>
               </div>
             </div>
           </div>

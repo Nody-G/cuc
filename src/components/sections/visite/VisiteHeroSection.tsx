@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { ChevronRight, Layers, Compass } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { cucField } from '@/lib/preview/cuc-field';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 import type { SitePageHero } from '@/lib/data/site-service';
 
 interface HeroStatCopy {
@@ -43,10 +44,12 @@ export const VisiteHeroSection: React.FC<VisiteHeroSectionProps> = ({ hero }) =>
         <div className="relative z-10 page-shell">
           <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">
-              {t('hero.breadcrumbHome')}
+              <span {...cucMicro('visite.hero.breadcrumbHome')}>{t('hero.breadcrumbHome')}</span>
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-            <span className="text-[#FFE500]">{t('hero.breadcrumbCurrent')}</span>
+            <span className="text-[#FFE500]" {...cucMicro('visite.hero.breadcrumbCurrent')}>
+              {t('hero.breadcrumbCurrent')}
+            </span>
           </div>
 
           <div className="flex items-center gap-2 mb-4 text-xs font-mono-tech uppercase font-bold tracking-wider text-[#FFE500]">
@@ -63,8 +66,10 @@ export const VisiteHeroSection: React.FC<VisiteHeroSectionProps> = ({ hero }) =>
               hero.title
             ) : (
               <>
-                {t('hero.titleLead')}{' '}
-                <span className="text-[#FFE500]">{t('hero.titleAccent')}</span>
+                <span {...cucMicro('visite.hero.titleLead')}>{t('hero.titleLead')}</span>{' '}
+                <span className="text-[#FFE500]" {...cucMicro('visite.hero.titleAccent')}>
+                  {t('hero.titleAccent')}
+                </span>
               </>
             )}
           </h1>
@@ -101,7 +106,7 @@ export const VisiteHeroSection: React.FC<VisiteHeroSectionProps> = ({ hero }) =>
             </a>
             <a href="#plan-3d-domaine">
               <TacticalButton variant="outline" size="lg">
-                {t('hero.ctaPlan3D')}
+                <span {...cucMicro('visite.hero.ctaPlan3D')}>{t('hero.ctaPlan3D')}</span>
               </TacticalButton>
             </a>
           </div>

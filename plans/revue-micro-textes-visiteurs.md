@@ -1,18 +1,18 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T20:43:56.135Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T20:49:30.822Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 255 |
+| ANNOTÉ — éditable en place | 270 |
 | DONNÉES — éditable par un écran existant | 106 |
-| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 105 |
+| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 85 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 16 |
-| **Total** | **482** |
+| **Total** | **477** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -195,36 +195,42 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\formation\FormationDisciplinesExplorer.tsx`
 
-- l.64 — `{chrome?.badge || t('disciplines.badge')}`
-- l.71 — `{chrome?.title || t('disciplines.title')}`
+- l.65 — `{chrome?.badge || t('disciplines.badge')}`
+- l.72 — `{chrome?.title || t('disciplines.title')}`
+- l.142 — `{t('disciplines.cinemaContextLabel')}`
+- l.151 — `{t('disciplines.equipmentLabel')}`
 
 ### `src\components\sections\formation\FormationFormulesSection.tsx`
 
-- l.70 — `{title}`
-- l.76 — `{subtitle}`
-- l.92 — `{decouverte?.step_badge || tf('step1Badge')}`
-- l.98 — `{decouverte?.duration_badge || tf('step1Hours')}`
-- l.106 — `{decouverte?.title || tf('step1Title')}`
-- l.112 — `{decouverte?.description || tf('step1Desc')}`
-- l.121 — `{decouverte?.duration_text || tf('step1Duration')}`
-- l.136 — `{decouverte?.boarding_text || tf('step1Boarding')}`
-- l.163 — `{decouverte?.cta_text || tf('step1Cta')}`
-- l.181 — `{pro?.step_badge || tf('step2Badge')}`
-- l.187 — `{pro?.duration_badge || tf('step2Hours')}`
-- l.195 — `{pro?.title || tf('step2Title')}`
-- l.201 — `{pro?.description || tf('step2Desc')}`
-- l.210 — `{pro?.schedule_text || tf('step2Rhythm')}`
-- l.219 — `{pro?.boarding_text || tf('step2Accreditation')}`
-- l.228 — `{pro?.certification_text || tf('step2Certification')}`
-- l.255 — `{pro?.cta_text || t('ctaApplyPro')}`
+- l.71 — `{title}`
+- l.77 — `{subtitle}`
+- l.93 — `{decouverte?.step_badge || tf('step1Badge')}`
+- l.99 — `{decouverte?.duration_badge || tf('step1Hours')}`
+- l.107 — `{decouverte?.title || tf('step1Title')}`
+- l.113 — `{decouverte?.description || tf('step1Desc')}`
+- l.122 — `{decouverte?.duration_text || tf('step1Duration')}`
+- l.137 — `{decouverte?.boarding_text || tf('step1Boarding')}`
+- l.145 — `{tf('step1ProgramTitle')}`
+- l.166 — `{decouverte?.cta_text || tf('step1Cta')}`
+- l.184 — `{pro?.step_badge || tf('step2Badge')}`
+- l.190 — `{pro?.duration_badge || tf('step2Hours')}`
+- l.198 — `{pro?.title || tf('step2Title')}`
+- l.204 — `{pro?.description || tf('step2Desc')}`
+- l.213 — `{pro?.schedule_text || tf('step2Rhythm')}`
+- l.222 — `{pro?.boarding_text || tf('step2Accreditation')}`
+- l.231 — `{pro?.certification_text || tf('step2Certification')}`
+- l.239 — `{tf('step2ProgramTitle')}`
+- l.260 — `{pro?.cta_text || t('ctaApplyPro')}`
 
 ### `src\components\sections\formation\FormationHeroSection.tsx`
 
-- l.65 — `{heroData?.badge || t('hero.badge')}`
-- l.73 — `{heroData?.meta || 'AFDAS 100% • FRANCE TRAVAIL'}`
-- l.94 — `{heroData?.subtitle || t('hero.subtitle')}`
-- l.105 — `{heroData?.cta_primary_text || t('ctaApplyPro')}`
-- l.114 — `{heroData?.cta_secondary_text || t('hero.ctaDiscovery')}`
+- l.50 — `{t('hero.breadcrumbCurrent')}`
+- l.66 — `{heroData?.badge || t('hero.badge')}`
+- l.74 — `{heroData?.meta || 'AFDAS 100% • FRANCE TRAVAIL'}`
+- l.95 — `{heroData?.subtitle || t('hero.subtitle')}`
+- l.106 — `{heroData?.cta_primary_text || t('ctaApplyPro')}`
+- l.115 — `{heroData?.cta_secondary_text || t('hero.ctaDiscovery')}`
+- l.165 — `{t('stats.satisfactionLabel')}`
 
 ### `src\components\sections\formation\FormationPedagogyModalities.tsx`
 
@@ -320,8 +326,9 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\stages\StagesHeroSection.tsx`
 
-- l.51 — `{heroData?.meta || t('hero.meta')}`
-- l.70 — `{heroData?.subtitle || t('hero.subtitle')}`
+- l.45 — `{t('hero.breadcrumbCurrent')}`
+- l.54 — `{heroData?.meta || t('hero.meta')}`
+- l.73 — `{heroData?.subtitle || t('hero.subtitle')}`
 
 ### `src\components\sections\stages\grid\StageGridCard.tsx`
 
@@ -347,7 +354,9 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\team\TeamHeroSection.tsx`
 
-- l.76 — `{subtitle}`
+- l.49 — `{t('hero.breadcrumbHome')}`
+- l.54 — `{t('hero.breadcrumbCurrent')}`
+- l.81 — `{subtitle}`
 
 ### `src\components\sections\team\TeamProductionGalleries.tsx`
 
@@ -361,14 +370,18 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\team\TeamProductionServices.tsx`
 
-- l.44 — `{block?.badge || t('services.badge')}`
-- l.50 — `{block?.title || t('services.title')}`
-- l.56 — `{block?.intro || t('services.intro')}`
-- l.66 — `{item.label}`
-- l.69 — `{item.body}`
-- l.83 — `{block?.contact_title || t('services.contactTitle')}`
-- l.89 — `{block?.contact_intro || t('services.contactIntro')}`
-- l.112 — `{block?.cta || t('services.cta')}`
+- l.45 — `{block?.badge || t('services.badge')}`
+- l.51 — `{block?.title || t('services.title')}`
+- l.57 — `{block?.intro || t('services.intro')}`
+- l.67 — `{item.label}`
+- l.70 — `{item.body}`
+- l.84 — `{block?.contact_title || t('services.contactTitle')}`
+- l.90 — `{block?.contact_intro || t('services.contactIntro')}`
+- l.99 — `{t('services.coordinatorLabel')}`
+- l.102 — `{t('services.coordinatorValue')}`
+- l.110 — `{t('services.phoneLabel')}`
+- l.119 — `{t('services.emailLabel')}`
+- l.130 — `{block?.cta || t('services.cta')}`
 
 ### `src\components\sections\visite\VisiteAccessTransport.tsx`
 
@@ -413,9 +426,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\visite\VisiteHeroSection.tsx`
 
-- l.76 — `{hero?.subtitle || t('hero.subtitle')}`
-- l.87 — `{hero?.cta_primary_text || t('hero.ctaFacilities')}`
-- l.98 — `{hero?.cta_secondary_text || t('hero.ctaTour360')}`
+- l.51 — `{t('hero.breadcrumbCurrent')}`
+- l.71 — `{t('hero.titleAccent')}`
+- l.81 — `{hero?.subtitle || t('hero.subtitle')}`
+- l.92 — `{hero?.cta_primary_text || t('hero.ctaFacilities')}`
+- l.103 — `{hero?.cta_secondary_text || t('hero.ctaTour360')}`
 
 ### `src\components\ui\InteractiveCampusMap.tsx`
 
@@ -576,11 +591,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\formation\FormationDisciplinesExplorer.tsx`
 
-- l.96 — `{d.number}`
-- l.99 — `{d.name}`
-- l.129 — `{activeDiscipline.name}`
-- l.134 — `{activeDiscipline.fullDesc}`
-- l.155 — `{item}`
+- l.97 — `{d.number}`
+- l.100 — `{d.name}`
+- l.130 — `{activeDiscipline.name}`
+- l.135 — `{activeDiscipline.fullDesc}`
+- l.160 — `{item}`
 
 ### `src\components\sections\hall-of-fame\CelebrityDetailsModal.tsx`
 
@@ -634,7 +649,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\visite\VisiteHeroSection.tsx`
 
-- l.121 — `{stat.value}`
+- l.126 — `{stat.value}`
 
 ### `src\components\ui\LightboxModal.tsx`
 
@@ -758,25 +773,9 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.114 — `{tTeam('showcaseTag')}`
 
-### `src\components\sections\formation\FormationDisciplinesExplorer.tsx`
-
-- l.140 — `{t('disciplines.cinemaContextLabel')}`
-- l.147 — `{t('disciplines.equipmentLabel')}`
-
-### `src\components\sections\formation\FormationFormulesSection.tsx`
-
-- l.143 — `{tf('step1ProgramTitle')}`
-- l.235 — `{tf('step2ProgramTitle')}`
-
 ### `src\components\sections\formation\FormationHeroSection.tsx`
 
-- l.45 — `{t('hero.breadcrumbHome')}`
-- l.49 — `{t('hero.breadcrumbCurrent')}`
-- l.145 — `{t('stats.practiceLabel')}`
-- l.154 — `{t('stats.graduatesLabel')}`
-- l.163 — `{t('stats.satisfactionLabel')}`
-- l.169 — `{t('stats.since')}`
-- l.172 — `{t('stats.referenceLabel')}`
+- l.172 — `{t('stats.since')}`
 
 ### `src\components\sections\formation\FormationPedagogyModalities.tsx`
 
@@ -820,40 +819,15 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.47 — `{localizer(partner).category}`
 - l.56 — `{localizer(partner).description}`
 
-### `src\components\sections\stages\StagesHeroSection.tsx`
-
-- l.40 — `{t('hero.breadcrumbHome')}`
-
 ### `src\components\sections\stages\grid\StageGridCard.tsx`
 
 - l.78 — `{renderIcon(detail.icon)}`
-
-### `src\components\sections\team\TeamHeroSection.tsx`
-
-- l.47 — `{t('hero.breadcrumbHome')}`
-- l.109 — `{t('hero.emblemLabel')}`
-
-### `src\components\sections\team\TeamProductionServices.tsx`
-
-- l.95 — `{t('services.coordinatorValue')}`
 
 ### `src\components\sections\team\teamGalleries.data.ts`
 
 - l.14 — `{ src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/006.jpg', title: 'Studio CUC', category: 'Le Studio et la Salle' }`
 - l.25 — `{ src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/CUC-5.0-203-e1671702096970.jpg', title: 'Cascadeurs CUC', category: 'Les Cascadeurs' }`
 - l.36 — `{ src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/MG_5464-1.jpg', title: 'Équipements CUC', category: 'Les Équipements' }`
-
-### `src\components\sections\visite\VisiteHeroSection.tsx`
-
-- l.46 — `{t('hero.breadcrumbHome')}`
-- l.66 — `{t('hero.titleLead')}{' '}`
-- l.104 — `{t('hero.ctaPlan3D')}`
-
-### `src\components\sections\visite\VisitePhotoGallery.tsx`
-
-- l.26 — `{t('galleryBadge')}`
-- l.29 — `{t('galleryTitle')}`
-- l.32 — `{t('gallerySubtitle')}`
 
 ### `src\components\ui\InteractiveCampusMap.tsx`
 
@@ -905,7 +879,7 @@ Aucune occurrence.
 
 ### `src\components\sections\formation\FormationHeroSection.tsx`
 
-- l.142 — `720H`
+- l.143 — `720H`
 
 ### `src\components\sections\hall-of-fame\CelebrityDoublesGallery.tsx`
 
@@ -918,7 +892,7 @@ Aucune occurrence.
 
 ### `src\components\sections\team\TeamProductionServices.tsx`
 
-- l.104 — `contact@campus-universcascades.com`
+- l.122 — `contact@campus-universcascades.com`
 
 ### `src\components\ui\InteractiveCampusMap.tsx`
 

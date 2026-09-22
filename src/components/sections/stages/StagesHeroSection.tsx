@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { cucField } from '@/lib/preview/cuc-field';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 import { Sparkles, ChevronRight } from 'lucide-react';
 
 import { SitePageHero } from '@/lib/data/site-service';
@@ -37,10 +38,12 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
         <div className="relative z-10 page-shell">
           <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">
-              {t('hero.breadcrumbHome')}
+              <span {...cucMicro('stages.hero.breadcrumbHome')}>{t('hero.breadcrumbHome')}</span>
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-            <span className="text-[#FFE500]">{t('hero.breadcrumbCurrent')}</span>
+            <span className="text-[#FFE500]" {...cucMicro('stages.hero.breadcrumbCurrent')}>
+              {t('hero.breadcrumbCurrent')}
+            </span>
           </div>
 
           <div className="inline-flex items-center gap-2 mb-4">

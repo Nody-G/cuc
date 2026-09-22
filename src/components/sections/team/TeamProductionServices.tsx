@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { mergeSectionItems, usePageSectionData } from '@/lib/hooks/usePageSectionData';
 import { cucField, itemPath } from '@/lib/preview/cuc-field';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 interface ServiceItemCopy {
   label: string;
@@ -91,15 +92,32 @@ export const TeamProductionServices: React.FC = () => {
 
             <div className="space-y-3 text-xs font-mono-tech text-zinc-300 mb-6">
               <div>
-                <span className="text-[#FFE500] block">{t('services.coordinatorLabel')}</span>
-                {t('services.coordinatorValue')}
+                <span
+                  className="text-[#FFE500] block"
+                  {...cucMicro('teamProduction.services.coordinatorLabel')}
+                >
+                  {t('services.coordinatorLabel')}
+                </span>
+                <span {...cucMicro('teamProduction.services.coordinatorValue')}>
+                  {t('services.coordinatorValue')}
+                </span>
               </div>
               <div>
-                <span className="text-[#FFE500] block">{t('services.phoneLabel')}</span>
+                <span
+                  className="text-[#FFE500] block"
+                  {...cucMicro('teamProduction.services.phoneLabel')}
+                >
+                  {t('services.phoneLabel')}
+                </span>
                 <a href="tel:+33672849492" className="text-white hover:text-[#FFE500]">06 72 84 94 92</a>
               </div>
               <div>
-                <span className="text-[#FFE500] block">{t('services.emailLabel')}</span>
+                <span
+                  className="text-[#FFE500] block"
+                  {...cucMicro('teamProduction.services.emailLabel')}
+                >
+                  {t('services.emailLabel')}
+                </span>
                 <a href="mailto:contact@campus-universcascades.com" className="text-zinc-400 hover:text-white">
                   contact@campus-universcascades.com
                 </a>
