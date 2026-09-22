@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T01:13:32.136Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T01:18:20.530Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.

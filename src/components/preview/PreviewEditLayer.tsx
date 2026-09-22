@@ -12,10 +12,18 @@ import {
     clearPreviewSelection,
     getPreviewEditState,
     resolveOverlaySelection,
+    selectPreviewField,
     subscribePreviewEdit,
     type PreviewEditState,
     type PreviewSelection,
 } from '@/lib/preview/preview-edit';
+import { collectEditableFields, nextEditableField } from '@/lib/preview/field-navigation';
+import {
+    buildInlineEditorTypography,
+    fieldChipLabel,
+    readEditorTypography,
+    type InlineEditorTypography,
+} from '@/lib/preview/inline-style';
 
 /**
  * ==============================================================================
@@ -51,8 +59,12 @@ interface OverlayState {
     layout: OverlayLayout;
     /** Valeur initiale : le contenu de l'élément au moment de l'ouverture. */
     value: string;
-    fontSize: string;
-    fontFamily: string;
+    /** Typographie de l'élément édité : la saisie se fond dans le rendu réel. */
+    typography: InlineEditorTypography;
+    /** Étiquette du champ (`about.title`) : on voit toujours ce qu'on édite. */
+    chip: string;
+    /** Repli affiché quand le champ est vidé (ce que la page rendra alors). */
+    placeholder: string;
 }
 
 /** Champ image : on ne saisit pas de texte, on remplace le média. */
@@ -76,13 +88,18 @@ function measure(element: HTMLElement): OverlayLayout {
 }
 
 function buildOverlay(selection: PreviewSelection): OverlayState {
-    const computed = window.getComputedStyle(selection.element);
+    const element = selection.element;
+    // Texte réellement rendu (donc repli traduit inclus s'il n'y a pas de donnée) :
+    // il sert à la fois de valeur de départ et de repère quand le champ est vidé.
+    const rendered = (element.textContent ?? '').trim();
+
     return {
         selection,
-        layout: measure(selection.element),
-        value: selection.element.textContent ?? '',
-        fontSize: computed.fontSize,
-        fontFamily: computed.fontFamily,
+        layout: measure(element),
+        value: rendered,
+        typography: buildInlineEditorTypography(readEditorTypography(element)),
+        chip: fieldChipLabel(selection.field),
+        placeholder: rendered,
     };
 }
 
@@ -98,6 +115,10 @@ export const PreviewEditLayer: React.FC = () => {
     const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
     const activeElementRef = useRef<HTMLElement | null>(null);
     const cancelledRef = useRef(false);
+    /** Vrai pendant un passage au champ suivant : le flou ne doit rien annuler. */
+    const navigatingRef = useRef(false);
+    /** Vrai quand on arrive au clavier : le curseur se pose en fin de texte. */
+    const caretAtEndRef = useRef(false);
 
     useEffect(() => {
         overlayRef.current = overlay;
@@ -232,12 +253,21 @@ export const PreviewEditLayer: React.FC = () => {
 
     const overlayField = overlay?.selection.field ?? null;
 
-    // Focus et sélection du texte : on édite exactement ce qui est affiché.
+    // Focus et sélection : clic → tout le texte est sélectionné (on remplace),
+    // passage au clavier (Tab) → curseur en fin de texte (on complète).
     useEffect(() => {
         if (!overlayField) return;
         const node = inputRef.current;
         if (!node) return;
         node.focus();
+
+        if (caretAtEndRef.current) {
+            caretAtEndRef.current = false;
+            const end = node.value.length;
+            node.setSelectionRange(end, end);
+            return;
+        }
+
         node.select();
     }, [overlayField]);
 
@@ -253,6 +283,12 @@ export const PreviewEditLayer: React.FC = () => {
     }, [post, closeOverlay]);
 
     const handleBlur = useCallback(() => {
+        // Changement de champ au clavier : la valeur a déjà été validée, le flou
+        // ne doit ni la revalider ni fermer la nouvelle sélection.
+        if (navigatingRef.current) {
+            navigatingRef.current = false;
+            return;
+        }
         if (cancelledRef.current) {
             cancelledRef.current = false;
             closeOverlay();
@@ -261,6 +297,17 @@ export const PreviewEditLayer: React.FC = () => {
         commit();
     }, [commit, closeOverlay]);
 
+    /** Valide la saisie courante sans fermer la couche (navigation clavier). */
+    const flushCurrentValue = useCallback(() => {
+        const current = overlayRef.current;
+        if (!current) return;
+        const node = inputRef.current;
+        const next = node ? node.value : current.value;
+        if (hasCommitChanged(current.value, next)) {
+            post(previewMessage.fieldCommit(current.selection.field, next));
+        }
+    }, [post]);
+
     const handleKeyDown = useCallback(
         (event: ReactKeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
             if (event.key === 'Escape') {
@@ -268,6 +315,40 @@ export const PreviewEditLayer: React.FC = () => {
                 event.stopPropagation();
                 cancelledRef.current = true;
                 closeOverlay();
+                return;
+            }
+
+            // Standard des éditeurs visuels : Tab enchaîne les champs éditables
+            // sans quitter la page — Maj+Tab remonte.
+            if (event.key === 'Tab') {
+                const current = overlayRef.current;
+                if (!current) return;
+
+                event.preventDefault();
+                event.stopPropagation();
+                flushCurrentValue();
+
+                navigatingRef.current = true;
+                caretAtEndRef.current = true;
+
+                const target = nextEditableField(
+                    collectEditableFields(document),
+                    current.selection.field,
+                    event.shiftKey ? -1 : 1
+                );
+
+                if (!target) {
+                    navigatingRef.current = false;
+                    caretAtEndRef.current = false;
+                    closeOverlay();
+                    return;
+                }
+
+                selectPreviewField({
+                    field: target.path,
+                    kind: target.kind,
+                    element: target.element,
+                });
                 return;
             }
 
@@ -281,7 +362,7 @@ export const PreviewEditLayer: React.FC = () => {
             event.stopPropagation();
             commit();
         },
-        [commit, closeOverlay]
+        [commit, closeOverlay, flushCurrentValue]
     );
 
     if (!embedded || (!overlay && !media && !list)) return null;
@@ -353,13 +434,15 @@ export const PreviewEditLayer: React.FC = () => {
 
     if (!overlay) return null;
 
-    const { layout, selection, value, fontSize, fontFamily } = overlay;
+    const { layout, selection, value, typography, chip, placeholder } = overlay;
     const isTextarea = selection.kind === 'textarea';
     const hint = isTextarea
-        ? 'Ctrl+Entrée ou clic ailleurs pour valider · Échap pour annuler'
-        : 'Entrée pour valider · Échap pour annuler';
+        ? 'Ctrl+Entrée valider · Tab champ suivant · Échap annuler'
+        : 'Entrée valider · Tab champ suivant · Échap annuler';
 
-    const fieldStyle: CSSProperties = { fontSize, fontFamily };
+    // La typographie vient de l'élément édité : la saisie se superpose au rendu
+    // réel sans le trahir (mêmes police, corps, graisse, casse, alignement).
+    const fieldStyle = typography as CSSProperties;
 
     return (
         <div
@@ -368,36 +451,53 @@ export const PreviewEditLayer: React.FC = () => {
                 position: 'fixed',
                 left: layout.left,
                 top: layout.top,
-                width: Math.max(layout.width, 160),
+                width: Math.max(layout.width, 180),
                 zIndex: 2147483000,
             }}
         >
-            {isTextarea ? (
-                <textarea
-                    ref={(node) => {
-                        inputRef.current = node;
-                    }}
-                    defaultValue={value}
-                    onBlur={handleBlur}
-                    onKeyDown={handleKeyDown}
-                    rows={3}
-                    style={fieldStyle}
-                    className="w-full bg-[#0D0D12] text-white border-2 border-[#FFE500] outline-none px-2 py-1 leading-snug resize-y"
-                />
-            ) : (
-                <input
-                    ref={(node) => {
-                        inputRef.current = node;
-                    }}
-                    defaultValue={value}
-                    onBlur={handleBlur}
-                    onKeyDown={handleKeyDown}
-                    style={fieldStyle}
-                    className="w-full bg-[#0D0D12] text-white border-2 border-[#FFE500] outline-none px-2 py-1"
-                />
-            )}
-            <div className="mt-1 inline-flex bg-black/85 border border-white/15 text-[11px] font-mono text-zinc-300 px-2 py-1">
-                {hint}
+            <div className="mb-1.5 inline-flex items-center gap-2 bg-black/90 border border-[#FFE500]/60 px-2 py-1 font-mono text-[10px] uppercase tracking-wider">
+                <span className="text-[#FFE500]">{chip}</span>
+                <span className="text-zinc-500">{selection.kind}</span>
+            </div>
+
+            <div className="relative border-2 border-[#FFE500] bg-[#0D0D12]/95 shadow-[0_12px_40px_rgba(0,0,0,0.55)]">
+                {isTextarea ? (
+                    <textarea
+                        ref={(node) => {
+                            inputRef.current = node;
+                        }}
+                        defaultValue={value}
+                        placeholder={placeholder}
+                        onBlur={handleBlur}
+                        onKeyDown={handleKeyDown}
+                        rows={3}
+                        style={fieldStyle}
+                        className="block min-h-[4.5rem] w-full"
+                    />
+                ) : (
+                    <input
+                        ref={(node) => {
+                            inputRef.current = node;
+                        }}
+                        defaultValue={value}
+                        placeholder={placeholder}
+                        onBlur={handleBlur}
+                        onKeyDown={handleKeyDown}
+                        style={fieldStyle}
+                        className="block w-full"
+                    />
+                )}
+            </div>
+
+            <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                {value.length === 0 && (
+                    <span className="inline-flex bg-[#FFE500]/15 border border-[#FFE500]/50 text-[10px] font-mono text-[#FFE500] px-2 py-1">
+                        vide → repli traduit affiché
+                    </span>
+                )}
+                <span className="inline-flex bg-black/85 border border-white/15 text-[10px] font-mono text-zinc-300 px-2 py-1">
+                    {hint}
+                </span>
             </div>
         </div>
     );

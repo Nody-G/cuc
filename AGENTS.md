@@ -273,6 +273,27 @@ est verrouillé en EN, et les médias ne se modifient qu'en français.
 - Listes : `data-cuc-index="<i>"` sur l'item, chemin du **tableau** dans `data-cuc-field`.
 - Rendu **data-first** obligatoire : `{donnée || t('clé')}` — le repli traduit reste en place.
 
+## 2bis. Standards de la saisie en place (tenus par le code, vérifiés par tests)
+- **Typographie miroir** : la saisie reprend le style **calculé** de l'élément édité
+  ([`inline-style.ts`](src/lib/preview/inline-style.ts:1)) — mêmes police, corps, graisse,
+  ligne, casse, alignement, couleur. Un titre s'édite en taille de titre, jamais en champ de
+  12 px posé sur la page.
+- **Clavier complet** : `Entrée` valide (ou `Ctrl/Cmd+Entrée` en multi-lignes), `Échap`
+  annule, **`Tab` / `Maj+Tab` enchaînent les champs éditables** dans l'ordre du document
+  ([`field-navigation.ts`](src/lib/preview/field-navigation.ts:1)). La valeur en cours est
+  validée **avant** le passage, et le flou déclenché par ce passage ne revalide ni ne ferme
+  la nouvelle sélection.
+- **Étiquette du champ** : la saisie porte `bloc.clé` + la nature (`text`, `textarea`, `link`) —
+  on sait toujours ce qu'on modifie.
+- **Repli visible** : le texte réellement rendu sert de `placeholder`, et un champ vidé
+  l'annonce (« vide → repli traduit affiché »). Vider n'écrit jamais un libellé blanc.
+- **Deux modes lisibles** : en inspection le survol est en pointillés (on *désigne* le champ à
+  ouvrir dans le formulaire) ; en édition le survol est discret avec curseur de saisie (on
+  *écrit*), avec un curseur dédié pour les images et les items de liste.
+- **Réversibilité** : `Ctrl+Z` / `Ctrl+Maj+Z` dans le Cockpit, inspecteur de modifications
+  ([`draft-diff.ts`](src/lib/preview/draft-diff.ts:1)) avec retour par champ ou global — rien
+  n'est écrit en base avant « Enregistrer ».
+
 ## 3. Invariants non négociables
 - Aucune valeur vide persistée ; aucun item inventé (liste vide → pas d'ajout) ;
   aucune liste rendue complètement vidée ; aucune structure inventée.

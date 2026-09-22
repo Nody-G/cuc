@@ -132,9 +132,35 @@ export const PreviewBridgeClient: React.FC = () => {
         const style = document.createElement('style');
         style.setAttribute('data-cuc-preview-style', '');
         style.textContent = `
-      [${CUC_FIELD_ATTRIBUTE}] { cursor: pointer !important; transition: outline-color .15s ease, background-color .15s ease; }
-      [${CUC_FIELD_ATTRIBUTE}]:hover { outline: 2px dashed rgba(255,229,0,.85) !important; outline-offset: 3px !important; background-color: rgba(255,229,0,.06) !important; }
-      [data-cuc-field-active] { outline: 2px solid #FFE500 !important; outline-offset: 3px !important; background-color: rgba(255,229,0,.1) !important; }
+      [${CUC_FIELD_ATTRIBUTE}] { transition: outline-color .15s ease, background-color .15s ease; }
+
+      /* Inspection : on désigne le champ à ouvrir dans le formulaire. */
+      html[data-cuc-mode='inspect'] [${CUC_FIELD_ATTRIBUTE}] { cursor: pointer !important; }
+      html[data-cuc-mode='inspect'] [${CUC_FIELD_ATTRIBUTE}]:hover {
+        outline: 2px dashed rgba(255,229,0,.85) !important;
+        outline-offset: 3px !important;
+        background-color: rgba(255,229,0,.06) !important;
+      }
+
+      /* Édition : le survol invite à écrire, chaque nature a son curseur. */
+      html[data-cuc-mode='edit'] [${CUC_FIELD_ATTRIBUTE}] { cursor: text !important; }
+      html[data-cuc-mode='edit'] [${CUC_FIELD_ATTRIBUTE}]:hover {
+        outline: 1px solid rgba(255,229,0,.55) !important;
+        outline-offset: 3px !important;
+      }
+      html[data-cuc-mode='edit'] [${CUC_FIELD_ATTRIBUTE}][data-cuc-kind='image'] { cursor: pointer !important; }
+      html[data-cuc-mode='edit'] [${CUC_FIELD_ATTRIBUTE}][data-cuc-kind='image']:hover { outline-width: 2px !important; }
+      html[data-cuc-mode='edit'] [${CUC_FIELD_ATTRIBUTE}][data-cuc-kind='list-item'] { cursor: pointer !important; }
+      html[data-cuc-mode='edit'] [${CUC_FIELD_ATTRIBUTE}][data-cuc-kind='list-item']:hover {
+        outline: 2px dashed rgba(255,229,0,.6) !important;
+      }
+
+      /* Champ en cours d'édition : encadré plein, jamais confondu avec le survol. */
+      [data-cuc-field-active] {
+        outline: 2px solid #FFE500 !important;
+        outline-offset: 3px !important;
+        background-color: rgba(255,229,0,.1) !important;
+      }
     `;
         document.head.appendChild(style);
 
