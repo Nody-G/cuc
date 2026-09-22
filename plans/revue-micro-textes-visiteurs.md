@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T20:58:27.146Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T21:02:59.760Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -98,20 +98,20 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\team-building-cascades\page.tsx`
 
-- l.122 — `{t('breadcrumbCurrent')}`
-- l.129 — `{heroBadge}`
-- l.137 — `{content.hero?.meta || t('heroMeta')}`
-- l.163 — `{heroSubtitle}`
-- l.170 — `{ctaPrimaryText}`
-- l.178 — `{ctaSecondaryText}`
-- l.202 — `{content.sections_data?.overview?.badge || t('overviewBadge')}`
-- l.209 — `{content.sections_data?.overview?.title || t('overviewTitle')}`
-- l.215 — `{content.sections_data?.overview?.description || t('overviewDescription')}`
-- l.250 — `{t('workshopFallbackLabel')}`
-- l.261 — `{workshop.category}`
-- l.272 — `{workshop.title}`
-- l.280 — `{workshop.desc}`
-- l.287 — `{t('workshopModular')}`
+- l.84 — `{t('breadcrumbCurrent')}`
+- l.91 — `{heroBadge}`
+- l.99 — `{content.hero?.meta || t('heroMeta')}`
+- l.125 — `{heroSubtitle}`
+- l.132 — `{ctaPrimaryText}`
+- l.140 — `{ctaSecondaryText}`
+- l.164 — `{content.sections_data?.overview?.badge || t('overviewBadge')}`
+- l.171 — `{content.sections_data?.overview?.title || t('overviewTitle')}`
+- l.177 — `{content.sections_data?.overview?.description || t('overviewDescription')}`
+- l.212 — `{t('workshopFallbackLabel')}`
+- l.223 — `{workshop.category}`
+- l.234 — `{workshop.title}`
+- l.242 — `{workshop.desc}`
+- l.249 — `{t('workshopModular')}`
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosHero.tsx`
 

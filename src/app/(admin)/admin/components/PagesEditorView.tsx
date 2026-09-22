@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { DEFAULT_PAGE_CONTENTS, normalizeSlug, type SitePageContent } from '@/lib/data/site-service';
 import { buildPreviewUrl } from '@/lib/preview/preview-url';
-import { setFieldValue } from '@/lib/preview/field-path';
 import type { PreviewMode } from '@/lib/preview/preview-protocol';
 import type { EditorLocaleOption } from '@/app/(admin)/admin/components/ui/LocaleToggle';
 import { MediaPickerModal } from './MediaPickerModal';
@@ -17,9 +16,10 @@ import { PageEditorTopBar } from './pages-editor/PageEditorTopBar';
 import { PreviewTabPanel } from './pages-editor/PreviewTabPanel';
 import { RevisionsSection } from './pages-editor/RevisionsSection';
 import { SeoTabPanel } from './pages-editor/SeoTabPanel';
-import { useChromeDraftPersistence } from './pages-editor/useChromeDraftPersistence';
+import { useChromeDraftState } from './pages-editor/useChromeDraftState';
 import { usePageEditorDraft } from './pages-editor/usePageEditorDraft';
 import { usePageSaveActions } from './pages-editor/usePageSaveActions';
+import { usePreviewMediaPicker } from './pages-editor/usePreviewMediaPicker';
 import { useSectionHandlers } from './pages-editor/useSectionHandlers';
 
 interface PagesEditorViewProps {
@@ -57,61 +57,13 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   // la saisie en place. Le mode `inspect` (clic = champ du formulaire) reste
   // accessible dans la barre de l'aperçu.
   const [previewMode, setPreviewMode] = useState<PreviewMode>('edit');
-  /**
-   * Brouillon « chrome » : réglages du site et micro-textes (libellés du
-   * catalogue) modifiés dans l'aperçu. Ils sont globaux — pas rattachés à une
-   * page — et publiés par le même bouton « Enregistrer » que le contenu.
-   */
-  const [settingDraft, setSettingDraft] = useState<Record<string, string>>({});
-  /**
-   * Micro-textes segmentés **par locale d'édition** : un libellé appartient à une
-   * langue. Sans cette séparation, un texte français saisi dans l'aperçu puis
-   * publié après bascule en anglais serait écrit dans la surcharge EN.
-   */
-  const [microcopyDrafts, setMicrocopyDrafts] = useState<
-    Record<EditorLocaleOption, Record<string, string>>
-  >({ fr: {}, en: {} });
-  const microcopyDraft = microcopyDrafts[editorLocale];
+  /** Brouillon « chrome » (réglages + micro-textes), segmenté par locale. */
+  const chrome = useChromeDraftState(editorLocale);
 
   const cleanSelectedSlug = normalizeSlug(selectedSlug);
   const draft = usePageEditorDraft({ pages, selectedSlug: cleanSelectedSlug, editorLocale });
 
   const bumpPreview = () => setPreviewKey((prev) => prev + 1);
-
-  /**
-   * Valeur validée pour un réglage du site : une valeur vidée **retire** la
-   * surcharge (retour au réglage servi), jamais un texte blanc publié.
-   */
-  const handleSettingCommit = (key: string, value: string) => {
-    setSettingDraft((prev) => {
-      const next = { ...prev };
-      if (value.trim().length === 0) delete next[key];
-      else next[key] = value;
-      return next;
-    });
-  };
-
-  /**
-   * Valeur validée pour un micro-texte : une valeur vidée **retire** la
-   * surcharge, le catalogue redevient la source — jamais un libellé blanc.
-   */
-  const handleMicrocopyCommit = (key: string, value: string) => {
-    setMicrocopyDrafts((prev) => {
-      const next = { ...prev[editorLocale] };
-      if (value.trim().length === 0) delete next[key];
-      else next[key] = value;
-      return { ...prev, [editorLocale]: next };
-    });
-  };
-
-  /** Filet local du brouillon chrome (réglages + micro-textes), par locale. */
-  useChromeDraftPersistence({
-    locale: editorLocale,
-    settings: settingDraft,
-    microcopy: microcopyDraft,
-    setSettings: setSettingDraft,
-    setMicrocopy: (values) => setMicrocopyDrafts((prev) => ({ ...prev, [editorLocale]: values })),
-  });
 
   const save = usePageSaveActions({
     formData: draft.formData,
@@ -123,10 +75,10 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     showToast,
     bumpPreview,
     clearSnapshot: draft.clearCurrentSnapshot,
-    settingDraft,
-    clearSettingDraft: () => setSettingDraft({}),
-    microcopyDraft,
-    clearMicrocopyDraft: () => setMicrocopyDrafts((prev) => ({ ...prev, [editorLocale]: {} })),
+    settingDraft: chrome.settings,
+    clearSettingDraft: chrome.clearSettings,
+    microcopyDraft: chrome.microcopy,
+    clearMicrocopyDraft: chrome.clearMicrocopy,
   });
 
   /**
@@ -174,35 +126,15 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     blockStructureChangeInEnglish,
   });
 
-  /**
-   * Les médias sont partagés entre les langues : en anglais, on l'annonce au
-   * lieu d'écrire une valeur qui serait ignorée à l'enregistrement.
-   */
-  const handleMediaPickerRequest = (target: string) => {
-    if (editorLocale === 'en') {
-      showToast('Les images sont partagées entre les langues : modifiez-les en français (FR).');
-      return;
-    }
-    setMediaPickerTarget(target);
-  };
-
-  const handleMediaSelected = (url: string) => {
-    const target = mediaPickerTarget;
-    if (target === 'hero_bg') {
-      draft.applyDraftChange((prev) => ({ ...prev, hero: { ...prev.hero, bg_image: url } }));
-    } else if (target === 'og_image') {
-      draft.applyDraftChange((prev) => ({ ...prev, og_image: url }));
-    } else if (target && target.startsWith('workshop_img_')) {
-      const idx = parseInt(target.replace('workshop_img_', ''), 10);
-      handlers.handleUpdateWorkshop(idx, { img: url });
-    } else if (target) {
-      // Cible générique : chemin complet (`hero.bg_image`,
-      // `sections_data.<bloc>.<champ>`, `sections_data.<bloc>.items.<i>.<champ>`),
-      // écrit dans la langue active (brouillon FR ou overlay EN).
-      draft.applyDraftChange((prev) => setFieldValue(prev, target, url));
-    }
-    setMediaPickerTarget(null);
-  };
+  /** Médiathèque : médias partagés entre les langues (écriture FR uniquement). */
+  const mediaPicker = usePreviewMediaPicker({
+    editorLocale,
+    mediaPickerTarget,
+    setMediaPickerTarget,
+    showToast,
+    applyDraftChange: draft.applyDraftChange,
+    onWorkshopImage: (index, url) => handlers.handleUpdateWorkshop(index, { img: url }),
+  });
 
   const handleResetLayout = () => {
     const defaultData = DEFAULT_PAGE_CONTENTS[draft.formData.slug];
@@ -237,7 +169,7 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
       editorLocale={editorLocale}
       coverageMissing={draft.translation.coverage.missing}
       coverageStale={draft.translation.coverage.staleArrays.map((s) => s.path)}
-      onMediaRequest={handleMediaPickerRequest}
+      onMediaRequest={mediaPicker.request}
       handlers={handlers}
     />
   );
@@ -302,10 +234,10 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
           previewMode={previewMode}
           onPreviewModeChange={setPreviewMode}
           onFieldCommit={draft.handlePreviewFieldCommit}
-          settings={settingDraft}
-          onSettingCommit={handleSettingCommit}
-          microcopy={microcopyDraft}
-          onMicrocopyCommit={handleMicrocopyCommit}
+          settings={chrome.settings}
+          onSettingCommit={chrome.commitSetting}
+          microcopy={chrome.microcopy}
+          onMicrocopyCommit={chrome.commitMicrocopy}
           onFieldSelect={focusCucField}
           locale={editorLocale}
           onLocaleChange={handleLocaleChange}
@@ -327,7 +259,7 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
           formData={draft.formData}
           setFormData={draft.setFormData}
           editorLocale={editorLocale}
-          onMediaRequest={handleMediaPickerRequest}
+          onMediaRequest={mediaPicker.request}
         />
       )}
 
@@ -345,7 +277,7 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
         <MediaPickerModal
           isOpen={true}
           onClose={() => setMediaPickerTarget(null)}
-          onSelectUrl={handleMediaSelected}
+          onSelectUrl={mediaPicker.applySelected}
         />
       )}
     </div>

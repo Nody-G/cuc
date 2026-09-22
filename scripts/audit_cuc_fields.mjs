@@ -35,6 +35,8 @@ const PAGES_EDITOR_LEGACY = join(ADMIN, 'PagesEditorView.tsx');
 /** Promesses d'édition en place de l'accueil (description déclarative). */
 const HOME_BLOCKS = join(ADMIN, 'pages-editor', 'home-page', 'home-blocks.ts');
 const PROTOCOL = join(SRC, 'lib', 'preview', 'preview-protocol.ts');
+/** Découpage SRP : les natures (`CUC_FIELD_KINDS`) vivent dans le noyau. */
+const PROTOCOL_CORE = join(SRC, 'lib', 'preview', 'preview-protocol-core.ts');
 const REPORT = join(ROOT, 'plans', 'revue-couverture-champs-visuels.md');
 
 /** Profondeur maximale du graphe d'imports suivi depuis la route. */
@@ -97,9 +99,13 @@ function extractPages() {
     return [...block.matchAll(/value:\s*'([^']+)'/g)].map((match) => match[1]);
 }
 
-/** Natures autorisées, lues dans le protocole (aucune liste dupliquée). */
+/**
+ * Natures autorisées, lues dans le protocole (aucune liste dupliquée).
+ * Le noyau `preview-protocol-core` fait foi ; la façade reste lue pour un
+ * dépôt antérieur au découpage SRP.
+ */
 function extractFieldKinds() {
-    const source = read(PROTOCOL);
+    const source = read(existsSync(PROTOCOL_CORE) ? PROTOCOL_CORE : PROTOCOL);
     const match = source.match(/CUC_FIELD_KINDS[^=]*=\s*\[([\s\S]*?)\]/);
     if (!match) return [];
     return [...match[1].matchAll(/'([^']+)'/g)].map((entry) => entry[1]);
