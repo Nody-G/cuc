@@ -6,6 +6,7 @@ import { motion, useScroll, useSpring, useTransform, useMotionValue, AnimatePres
 import Image from 'next/image';
 
 import { TacticalButton } from './TacticalButton';
+import { cucField } from '@/lib/preview/cuc-field';
 import {
   ChevronRight,
   Compass,
@@ -255,13 +256,14 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 backdrop-blur-md text-[11px] font-mono-tech tracking-widest text-zinc-300 uppercase shadow-xs mb-5"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#FFE500]" />
-            <span>{heroData?.badge || tHero('badge')}</span>
+            <span {...cucField('hero.badge')}>{heroData?.badge || tHero('badge')}</span>
             <span className="text-zinc-600">•</span>
             <span className="text-[#FFE500] font-semibold">{tHero('since')}</span>
           </motion.div>
 
           {/* Clean Editorial Title */}
           <motion.h1
+            {...cucField('hero.title')}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
@@ -284,6 +286,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
             <AnimatePresence mode="wait">
               <motion.p
                 key={currentSlide}
+                {...cucField('hero.subtitle', 'textarea')}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
@@ -328,7 +331,9 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
           >
             <Link href={heroData?.cta_primary_link || '/formation-de-cascadeur'}>
               <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
-                {heroData?.cta_primary_text || tHero('ctaFormation')}
+                <span {...cucField('hero.cta_primary_text')}>
+                  {heroData?.cta_primary_text || tHero('ctaFormation')}
+                </span>
               </TacticalButton>
             </Link>
 
@@ -338,7 +343,9 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
                 size="lg"
                 icon={<Building className="w-4 h-4 text-[#FFE500]" />}
               >
-                {heroData?.cta_secondary_text || tHero('ctaVisit')}
+                <span {...cucField('hero.cta_secondary_text')}>
+                  {heroData?.cta_secondary_text || tHero('ctaVisit')}
+                </span>
               </TacticalButton>
             </Link>
 
