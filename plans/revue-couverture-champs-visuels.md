@@ -1,6 +1,6 @@
 # Revue — Couverture des champs éditables (Mode Studio)
 
-Généré le 2026-09-22T00:54:27.860Z par `scripts/audit_cuc_fields.mjs`.
+Généré le 2026-09-22T00:55:14.541Z par `scripts/audit_cuc_fields.mjs`.
 
 ## 1. Couverture par page
 
@@ -11,8 +11,8 @@ Généré le 2026-09-22T00:54:27.860Z par `scripts/audit_cuc_fields.mjs`.
 | `stages-cascades-parkour-2` | 5 | 0 | `src\components\sections\stages\StagesHeroSection.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
 | `stunt-workshop-cuc` | 6 | 0 | `src\app\(site)\[locale]\stunt-workshop-cuc\page.tsx` | ✅ |
 | `equipe-cascadeurs-pro` | 5 | 0 | `src\app\(site)\[locale]\equipe-cascadeurs-pro\page.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
-| `cuc-team-cascadeur` | 17 | 2 | `src\components\sections\team\TeamHeroSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\team\TeamBannersSection.tsx`, `src\components\sections\team\TeamProductionServices.tsx` | ✅ |
-| `cuc-events-agence` | 13 | 6 | `src\components\sections\events\EventsHeroSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\events\EventsPillarsSection.tsx` | ✅ |
+| `cuc-team-cascadeur` | 24 | 2 | `src\components\sections\team\TeamHeroSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\team\TeamProductionGalleries.tsx`, `src\components\sections\team\TeamBannersSection.tsx`, `src\components\sections\team\TeamProductionServices.tsx` | ✅ |
+| `cuc-events-agence` | 20 | 6 | `src\components\sections\events\EventsHeroSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\events\EventsPillarsSection.tsx`, `src\components\sections\events\EventsGuaranteesSection.tsx` | ✅ |
 | `team-building-cascades` | 6 | 0 | `src\app\(site)\[locale]\team-building-cascades\page.tsx` | ✅ |
 | `spectacles-cascadeurs-yamakasi` | 6 | 0 | `src\app\(site)\[locale]\spectacles-cascadeurs-yamakasi\page.tsx` | ✅ |
 | `animations-airbag-parkour` | 6 | 0 | `src\app\(site)\[locale]\animations-airbag-parkour\page.tsx` | ✅ |
@@ -38,6 +38,7 @@ Natures autorisées : `text`, `textarea`, `image`, `link`, `list-item`.
 - `src\components\sections\home\HomePartnersSection.tsx (3)`
 - `src\components\sections\home\HomeSocialSection.tsx (5)`
 - `src\components\sections\stages\StagesGridSection.tsx (11)`
+- `src\components\sections\team\TeamProductionGalleries.tsx (3)`
 - `src\components\sections\team\TeamBannersSection.tsx (1)`
 
 ## 5. Synthèse

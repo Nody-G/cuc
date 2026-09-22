@@ -1,18 +1,18 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T00:54:28.025Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T00:55:14.703Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 105 |
-| DONNÉES — éditable par un écran existant | 194 |
-| TRADUCTION — à brancher sur une clé de page | 568 |
+| ANNOTÉ — éditable en place | 106 |
+| DONNÉES — éditable par un écran existant | 203 |
+| TRADUCTION — à brancher sur une clé de page | 562 |
 | CODÉ EN DUR — dette (ne suit ni la langue ni le Cockpit) | 79 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 17 |
-| **Total** | **963** |
+| **Total** | **967** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -161,6 +161,10 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.58 — `{...cucField('hero.title')}`
 - l.73 — `{...cucField('hero.subtitle', 'textarea')}`
+
+### `src\components\sections\team\TeamProductionGalleries.tsx`
+
+- l.156 — `{expandLabel}`
 
 ### `src\components\sections\team\TeamProductionServices.tsx`
 
@@ -318,9 +322,12 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\events\EventsGuaranteesSection.tsx`
 
-- l.29 — `{guarantees[0].title}`
-- l.45 — `{guarantees[1].title}`
-- l.53 — `{guarantees[2].title}`
+- l.44 — `{guarantees[0].title}`
+- l.50 — `{guarantees[0].description}`
+- l.72 — `{guarantees[1].title}`
+- l.78 — `{guarantees[1].description}`
+- l.88 — `{guarantees[2].title}`
+- l.94 — `{guarantees[2].description}`
 
 ### `src\components\sections\events\EventsHeroSection.tsx`
 
@@ -492,6 +499,15 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\components\sections\team\TeamHeroSection.tsx`
 
 - l.76 — `{subtitle}`
+
+### `src\components\sections\team\TeamProductionGalleries.tsx`
+
+- l.79 — `{studioBadge}`
+- l.85 — `{studioTitle}`
+- l.125 — `{doublesBadge}`
+- l.131 — `{doublesTitle}`
+- l.174 — `{equipmentBadge}`
+- l.180 — `{equipmentTitle}`
 
 ### `src\components\sections\team\TeamProductionServices.tsx`
 
@@ -1146,15 +1162,9 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\team\TeamProductionGalleries.tsx`
 
-- l.21 — `{/* 1. CUC PROD — LE STUDIO ET LA SALLE (Grille 3x2) */}`
-- l.26 — `{t('galleries.studioBadge')}`
-- l.29 — `{t('galleries.studioTitle')}`
-- l.59 — `{/* 2. CUC PROD — LES CASCADEURS */}`
-- l.64 — `{t('galleries.doublesBadge')}`
-- l.67 — `{t('galleries.doublesTitle')}`
-- l.98 — `{/* 3. CUC PROD — LES ÉQUIPEMENTS (Grille aérée et organisée) */}`
-- l.103 — `{t('galleries.equipmentBadge')}`
-- l.106 — `{t('galleries.equipmentTitle')}`
+- l.71 — `{/* 1. CUC PROD — LE STUDIO ET LA SALLE (Grille 3x2) */}`
+- l.117 — `{/* 2. CUC PROD — LES CASCADEURS */}`
+- l.166 — `{/* 3. CUC PROD — LES ÉQUIPEMENTS (Grille aérée et organisée) */}`
 
 ### `src\components\sections\team\TeamProductionServices.tsx`
 
