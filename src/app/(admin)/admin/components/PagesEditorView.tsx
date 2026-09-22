@@ -32,7 +32,9 @@ import { ContactPageEditor } from './pages-editor/ContactPageEditor';
 import { KeyStatsEditor } from './pages-editor/KeyStatsEditor';
 import { PageRevisionsPanel } from './PageRevisionsPanel';
 import { LivePreviewPane } from './pages-editor/LivePreviewPane';
+import { StudioInspector } from './pages-editor/StudioInspector';
 import { buildPreviewUrl } from '@/lib/preview/preview-url';
+import { collectDraftChanges, revertDraftField } from '@/lib/preview/draft-diff';
 import { setFieldValue } from '@/lib/preview/field-path';
 import { applyListCommand, type ListCommand } from '@/lib/preview/list-command';
 import {
@@ -171,6 +173,42 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     },
     [setActiveData, syncHistoryState]
   );
+
+  /**
+   * État **enregistré** de la page : référence du diff de l'inspecteur. Il est
+   * reconstruit exactement comme l'initialisation du formulaire, donc une
+   * modification du brouillon ne le décale jamais.
+   */
+  const defaultPageData = DEFAULT_PAGE_CONTENTS[cleanSelectedSlug] || {};
+  const savedData: SitePageContent = {
+    ...defaultPageData,
+    ...currentPage,
+    slug: cleanSelectedSlug,
+    hero: { ...(defaultPageData.hero || {}), ...(currentPage?.hero || {}) },
+    layout_sections:
+      currentPage?.layout_sections && currentPage.layout_sections.length > 0
+        ? currentPage.layout_sections
+        : defaultPageData.layout_sections || [],
+    sections_data: {
+      ...(defaultPageData.sections_data || {}),
+      ...(currentPage?.sections_data || {}),
+    },
+  } as SitePageContent;
+
+  /**
+   * Diff du brouillon. En édition anglaise l'inspecteur est neutralisé : le
+   * brouillon anglais est un overlay, sa comparaison au français serait fausse.
+   */
+  const isInspectorEnabled = editorLocale === 'fr';
+  const draftChanges = isInspectorEnabled ? collectDraftChanges(savedData, activeData) : [];
+
+  const handleRevertChange = (path: string) => {
+    applyDraftChange((prev) => revertDraftField(prev, savedData, path));
+  };
+
+  const handleRevertAllChanges = () => {
+    applyDraftChange(() => savedData);
+  };
 
   const handleUndo = useCallback(() => {
     const previous = undoHistory(historyRef.current, activeDataRef.current);
@@ -1025,7 +1063,7 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
           {isSplitView ? (
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-start">
               <div className="min-w-0">{renderContentEditors()}</div>
-              <div className="min-w-0 xl:sticky xl:top-4">
+              <div className="min-w-0 xl:sticky xl:top-4 space-y-4">
                 <LivePreviewPane
                   draft={activeData}
                   previewUrl={previewUrl}
@@ -1039,22 +1077,40 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
                   onMediaRequest={setMediaPickerTarget}
                   onListCommand={handlePreviewListCommand}
                 />
+                <StudioInspector
+                  changes={draftChanges}
+                  isEnabled={isInspectorEnabled}
+                  isTranslation={editorLocale === 'en'}
+                  onFocusField={handlePreviewFieldFocus}
+                  onRevert={handleRevertChange}
+                  onRevertAll={handleRevertAllChanges}
+                />
               </div>
             </div>
           ) : (
-            <LivePreviewPane
-              draft={activeData}
-              previewUrl={previewUrl}
-              reloadKey={previewKey}
-              mode={previewMode}
-              onModeChange={setPreviewMode}
-              onFieldCommit={handlePreviewFieldCommit}
-              onFieldSelect={previewMode === 'inspect' ? handlePreviewFieldFocus : undefined}
-              locale={editorLocale}
-              onLocaleChange={handleLocaleChange}
-              onMediaRequest={setMediaPickerTarget}
-              onListCommand={handlePreviewListCommand}
-            />
+            <div className="space-y-4">
+              <StudioInspector
+                changes={draftChanges}
+                isEnabled={isInspectorEnabled}
+                isTranslation={editorLocale === 'en'}
+                onFocusField={handlePreviewFieldFocus}
+                onRevert={handleRevertChange}
+                onRevertAll={handleRevertAllChanges}
+              />
+              <LivePreviewPane
+                draft={activeData}
+                previewUrl={previewUrl}
+                reloadKey={previewKey}
+                mode={previewMode}
+                onModeChange={setPreviewMode}
+                onFieldCommit={handlePreviewFieldCommit}
+                onFieldSelect={previewMode === 'inspect' ? handlePreviewFieldFocus : undefined}
+                locale={editorLocale}
+                onLocaleChange={handleLocaleChange}
+                onMediaRequest={setMediaPickerTarget}
+                onListCommand={handlePreviewListCommand}
+              />
+            </div>
           )}
         </div>
       )}
