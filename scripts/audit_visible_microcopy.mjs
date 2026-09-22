@@ -52,6 +52,20 @@ const INLINE_TEXT_RE = />\s*([^<>{};=]{2,})\s*</g;
 const JSX_EXPRESSION_RE = /^\{([^{}]+)\}$/;
 
 const TRANSLATION_CALL_RE = /\b(?:t|t[A-Z]\w*|tf|tp|td)\s*\(\s*['"]/;
+
+/**
+ * Catégorie 5 — libellés TECHNIQUES : marques, plateformes, adresses, formats.
+ * Ce ne sont pas des textes éditoriaux : les traduire ou les confier au CMS
+ * n'aurait aucun sens (et un « Google Maps » localisé serait un contresens).
+ */
+const TECHNICAL_LABEL_RE =
+    /^(?:IMDb|Allociné|AlloCiné|Allocine|Google Maps|Apple Maps|Waze|Instagram|Facebook|YouTube|TikTok|LinkedIn|Vimeo|Spotify|Portfolio|Allo Ciné)$/i;
+const TECHNICAL_PATTERNS = [
+    /@[\w.-]+\.[a-z]{2,}/i, // adresse e-mail
+    /^https?:\/\//i, // URL
+    /^(?:LAT|LON)\b/i, // coordonnées
+    /^[\d\s.,%°•:+hHm²-]+$/, // nombres, unités, mesures
+];
 const ANNOTATION_RE = /data-cuc-field|cucField\(|itemPath\(/;
 const DATA_HINT_RE =
     /(?:content|settings|hero|heroData|formulesData|data|formData|member|film|coach|program|stat|item|section|overlay|copy)\./i;
@@ -107,6 +121,9 @@ function classify({ text, lines, index }) {
     }
 
     if (TRANSLATION_CALL_RE.test(text)) return 3;
+    if (TECHNICAL_LABEL_RE.test(text) || TECHNICAL_PATTERNS.some((re) => re.test(text))) {
+        return 5;
+    }
     return 4;
 }
 
@@ -163,6 +180,7 @@ function main() {
         [2, []],
         [3, []],
         [4, []],
+        [5, []],
     ]);
     let total = 0;
 
@@ -180,6 +198,7 @@ function main() {
         2: 'DONNÉES — éditable par un écran existant',
         3: 'TRADUCTION — à brancher sur une clé de page',
         4: 'CODÉ EN DUR — dette (ne suit ni la langue ni le Cockpit)',
+        5: 'HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées)',
     };
 
     const lines = [];
@@ -192,13 +211,13 @@ function main() {
     lines.push('');
     lines.push('| Catégorie | Occurrences |');
     lines.push('| --- | ---: |');
-    for (const category of [1, 2, 3, 4]) {
+    for (const category of [1, 2, 3, 4, 5]) {
         lines.push(`| ${label[category]} | ${byCategory.get(category).length} |`);
     }
     lines.push(`| **Total** | **${total}** |`);
     lines.push('');
 
-    for (const category of [1, 2, 3, 4]) {
+    for (const category of [1, 2, 3, 4, 5]) {
         const entries = byCategory.get(category);
         lines.push(`## ${category}. ${label[category]}`);
         lines.push('');
@@ -227,7 +246,7 @@ function main() {
     const debt = byCategory.get(3).length + byCategory.get(4).length;
     console.log(`[audit:microcopy] ${files.length} fichiers analysés, ${total} textes visibles classés.`);
     console.log(
-        `[audit:microcopy] Annotés : ${byCategory.get(1).length} · données : ${byCategory.get(2).length} · traductions : ${byCategory.get(3).length} · codés en dur : ${byCategory.get(4).length}`
+        `[audit:microcopy] Annotés : ${byCategory.get(1).length} · données : ${byCategory.get(2).length} · traductions : ${byCategory.get(3).length} · codés en dur : ${byCategory.get(4).length} · techniques : ${byCategory.get(5).length}`
     );
     console.log(`[audit:microcopy] Rapport : ${relative(ROOT, REPORT)}`);
 
