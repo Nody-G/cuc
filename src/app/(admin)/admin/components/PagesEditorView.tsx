@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Save,
   Globe,
@@ -13,6 +13,8 @@ import {
   Image as ImageIcon,
   Columns2,
   Loader2,
+  Undo2,
+  Redo2,
 } from 'lucide-react';
 import { SitePageContent, DEFAULT_PAGE_CONTENTS, normalizeSlug } from '@/lib/data/site-service';
 import { upsertPageContent, resetPageContentToDefault, setPagePublishState } from '@/app/(admin)/admin/actions';
@@ -33,6 +35,15 @@ import { LivePreviewPane } from './pages-editor/LivePreviewPane';
 import { buildPreviewUrl } from '@/lib/preview/preview-url';
 import { setFieldValue } from '@/lib/preview/field-path';
 import { applyListCommand, type ListCommand } from '@/lib/preview/list-command';
+import {
+  canRedoHistory,
+  canUndoHistory,
+  createDraftHistory,
+  pushHistory,
+  redoHistory,
+  resetHistory,
+  undoHistory,
+} from '@/lib/preview/draft-history';
 import type { PreviewMode } from '@/lib/preview/preview-protocol';
 
 interface PagesEditorViewProps {
@@ -132,6 +143,73 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   const [previewMode, setPreviewMode] = useState<PreviewMode>('inspect');
 
   /**
+   * Historique du brouillon (undo / redo) : le Mode Studio édite en mémoire, il
+   * doit donc pouvoir revenir en arrière sans réseau. Vidé au changement de page
+   * ou de langue — les deux brouillons sont distincts.
+   */
+  const historyRef = useRef(createDraftHistory<SitePageContent>());
+  const [historyState, setHistoryState] = useState({ canUndo: false, canRedo: false });
+  const activeDataRef = useRef<SitePageContent>(activeData);
+
+  useEffect(() => {
+    activeDataRef.current = activeData;
+  }, [activeData]);
+
+  const syncHistoryState = useCallback(() => {
+    setHistoryState({
+      canUndo: canUndoHistory(historyRef.current),
+      canRedo: canRedoHistory(historyRef.current),
+    });
+  }, []);
+
+  /** Point d'historisation unique : toute mutation du brouillon passe ici. */
+  const applyDraftChange = useCallback(
+    (mutate: (prev: SitePageContent) => SitePageContent) => {
+      pushHistory(historyRef.current, activeDataRef.current);
+      syncHistoryState();
+      setActiveData((prev) => mutate(prev));
+    },
+    [setActiveData, syncHistoryState]
+  );
+
+  const handleUndo = useCallback(() => {
+    const previous = undoHistory(historyRef.current, activeDataRef.current);
+    if (previous === null) return;
+    setActiveData(previous);
+    syncHistoryState();
+  }, [setActiveData, syncHistoryState]);
+
+  const handleRedo = useCallback(() => {
+    const next = redoHistory(historyRef.current, activeDataRef.current);
+    if (next === null) return;
+    setActiveData(next);
+    syncHistoryState();
+  }, [setActiveData, syncHistoryState]);
+
+  // Raccourcis : Ctrl/Cmd+Z annule, Ctrl/Cmd+Maj+Z (ou Ctrl+Y) rétablit. Dans un
+  // champ de saisie, on ne touche à rien : l'undo natif du navigateur y reste roi.
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!(event.ctrlKey || event.metaKey)) return;
+      const target = event.target as HTMLElement | null;
+      const tag = target?.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || target?.isContentEditable) return;
+
+      const key = event.key.toLowerCase();
+      if (key === 'z' && !event.shiftKey) {
+        event.preventDefault();
+        handleUndo();
+      } else if ((key === 'z' && event.shiftKey) || key === 'y') {
+        event.preventDefault();
+        handleRedo();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleUndo, handleRedo]);
+
+  /**
    * Édition en place : la valeur validée dans l'aperçu est écrite dans le
    * brouillon courant (français ou traduction anglaise). Aucune écriture en base —
    * la persistance reste l'action explicite « Enregistrer ».
@@ -139,9 +217,9 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   const handlePreviewFieldCommit = useCallback(
     (field: string, value: string) => {
       if (isTranslationLoading) return;
-      setActiveData((prev) => setFieldValue(prev, field, value));
+      applyDraftChange((prev) => setFieldValue(prev, field, value));
     },
-    [isTranslationLoading, setActiveData]
+    [isTranslationLoading, applyDraftChange]
   );
 
   /**
@@ -152,9 +230,9 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   const handlePreviewListCommand = useCallback(
     (field: string, command: ListCommand, index: number) => {
       if (isTranslationLoading) return;
-      setActiveData((prev) => applyListCommand(prev, field, command, index));
+      applyDraftChange((prev) => applyListCommand(prev, field, command, index));
     },
-    [isTranslationLoading, setActiveData]
+    [isTranslationLoading, applyDraftChange]
   );
 
   /**
@@ -174,6 +252,9 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     if (next === editorLocale) return;
     if (!confirmLeaveEnglishDraft('Changer de langue')) return;
     setEditorLocale(next);
+    // FR et EN sont deux brouillons distincts : l'historique ne les mélange pas.
+    resetHistory(historyRef.current);
+    syncHistoryState();
   };
 
   // Synchronisation lors du changement de page
@@ -198,6 +279,9 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
       },
     });
     setPreviewKey((prev) => prev + 1);
+    // Nouvelle page = nouveau brouillon : l'historique repart de zéro.
+    resetHistory(historyRef.current);
+    syncHistoryState();
   };
 
   /**
@@ -900,18 +984,42 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
               <span className="font-mono text-[#FFE500] truncate">{previewUrl}</span>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setIsSplitView((prev) => !prev)}
-              className={`px-3 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 border transition-colors shrink-0 ${isSplitView
-                ? 'bg-[#FFE500] text-black border-[#FFE500]'
-                : 'bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border-white/10'
-                }`}
-              title="Afficher l’éditeur et l’aperçu côte à côte"
-            >
-              <Columns2 className="w-3.5 h-3.5" />
-              <span>Vue partagée</span>
-            </button>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={handleUndo}
+                disabled={!historyState.canUndo}
+                className="px-2.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 border transition-colors bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border-white/10 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white/5"
+                title="Annuler la dernière modification (Ctrl+Z)"
+              >
+                <Undo2 className="w-3.5 h-3.5" />
+                <span className="sr-only">Annuler</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleRedo}
+                disabled={!historyState.canRedo}
+                className="px-2.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 border transition-colors bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border-white/10 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white/5"
+                title="Rétablir (Ctrl+Maj+Z)"
+              >
+                <Redo2 className="w-3.5 h-3.5" />
+                <span className="sr-only">Rétablir</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setIsSplitView((prev) => !prev)}
+                className={`px-3 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 border transition-colors shrink-0 ${isSplitView
+                  ? 'bg-[#FFE500] text-black border-[#FFE500]'
+                  : 'bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border-white/10'
+                  }`}
+                title="Afficher l’éditeur et l’aperçu côte à côte"
+              >
+                <Columns2 className="w-3.5 h-3.5" />
+                <span>Vue partagée</span>
+              </button>
+            </div>
           </div>
 
           {isSplitView ? (
@@ -1098,9 +1206,9 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
           onSelectUrl={(url) => {
             const target = mediaPickerTarget;
             if (target === 'hero_bg') {
-              setActiveData((prev) => ({ ...prev, hero: { ...prev.hero, bg_image: url } }));
+              applyDraftChange((prev) => ({ ...prev, hero: { ...prev.hero, bg_image: url } }));
             } else if (target === 'og_image') {
-              setActiveData((prev) => ({ ...prev, og_image: url }));
+              applyDraftChange((prev) => ({ ...prev, og_image: url }));
             } else if (target.startsWith('workshop_img_')) {
               const idx = parseInt(target.replace('workshop_img_', ''), 10);
               handleUpdateWorkshop(idx, { img: url });
@@ -1108,7 +1216,7 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
               // Cible générique : chemin complet (`hero.bg_image`,
               // `sections_data.<bloc>.<champ>`, `sections_data.<bloc>.items.<i>.<champ>`),
               // écrit dans la langue active (brouillon FR ou overlay EN).
-              setActiveData((prev) => setFieldValue(prev, target, url));
+              applyDraftChange((prev) => setFieldValue(prev, target, url));
             }
             setMediaPickerTarget(null);
           }}
