@@ -17,46 +17,54 @@ respecte** :
 Conséquence : **dépublier une page ne la retire pas de la vitrine.** Le bouton donne
 l'illusion d'un contrôle qui n'existe pas. C'est un écart de vérité, pas un détail cosmétique.
 
-## 2. Pourquoi la garde évidente a été écartée (et non oubliée)
+## 2. La garde mise en place : le brouillon n'est plus rendu
 
-La correction « naturelle » — `if (is_published === false) notFound()` — a été implémentée,
-puis **retirée volontairement** après vérification, car elle casse deux choses :
+Trois verrous, dans cet ordre — chacun vérifiable :
 
-1. **L'aperçu du Cockpit** : l'iframe de l'éditeur charge l'URL **publique** de la page
-   (`buildPreviewUrl`). Un brouillon répondrait 404 : on ne pourrait plus éditer une page
-   avant de la publier — c'est-à-dire dans le cas d'usage normal.
-2. **La performance** : contourner la garde en lisant `searchParams` (le `?cuc-preview=1`
-   déjà présent) rendrait les routes **dynamiques**. Aujourd'hui elles sont prérendues
-   (`93/93` pages statiques ou PPR) ; on échangerait une page en trop contre un site plus lent
-   pour tout le monde — mauvais marché.
+1. **Sitemap** : [`sitemap.ts`](src/app/sitemap.ts:9) ne déclare que les slugs
+   `is_published = true` (lecture mise en cache sous le tag `site_pages` ; une panne de
+   lecture n'ampute rien).
+2. **Rendu** : [`UnpublishedPageGate`](src/components/i18n/UnpublishedPageGate.tsx:1), branché
+   dans [`SiteDataProvider`](src/components/i18n/SiteDataProvider.tsx:49), remplace le contenu
+   par un avis sobre **au rendu serveur** — le HTML public ne contient donc **aucun texte non
+   publié**. Les 15 routes passent par ce provider (14 via `PageDataProvider` de leur layout,
+   l'accueil directement) : aucune page ne peut oublier la garde.
+3. **Aperçu** : dans l'iframe du Cockpit (`?cuc-preview=1`), la garde s'efface — sans quoi on
+   ne pourrait plus éditer une page avant de la publier.
 
-## 3. La parade complète (à faire, dans cet ordre)
+Pourquoi pas `notFound()` tout de suite : la lecture du contexte d'aperçu
+(`searchParams`) est interdite dans les lectures mises en cache et rendrait les routes
+**dynamiques** (les 93 pages prérendues passeraient en rendu à la demande). On perdrait en
+performance publique ce qu'on gagnerait en confort éditorial.
 
-1. **Route d'aperçu dédiée, réservée au Cockpit** : `/preview/[slug]` (non mise en cache,
-   vérifiant la session admin via `checkIsAdmin()`), qui rend la page **même non publiée** et
-   pose `robots: noindex`.
-2. **`buildPreviewUrl()`** pointe vers cette route (`?cuc-preview=1` conservé pour couper le
-   Realtime et les effets lourds). L'ifra­me reste sur la même origine.
-3. **Garde serveur publique** : `getLocalizedPageContent()` filtre `is_published = true` et
-   `notFound()` si la ligne est absente ou dépubliée — la page disparaît réellement de la
-   vitrine, du sitemap et des moteurs.
-4. **Test d'invariant** : un brouillon répond 404 en public et 200 dans `/preview`, la copie
-   certifiée restant servie en cas de panne Supabase (comportement déjà en place ici).
+## 3. Ce qu'il reste, et comment le finir proprement
 
-## 4. Ce qui a été livré en attendant
+- **Statut HTTP** : aujourd'hui la réponse est `200` avec l'avis « page non publiée » (le
+  contenu n'est plus servi, mais l'URL n'est pas dite absente). Pour un vrai `404` :
+  1. extraire le JSX de chaque route dans un composant (`<XView/>`) — 15 fichiers, mécanique ;
+  2. créer `/preview/[slug]` (serveur, `checkIsAdmin()`, `robots: noindex`) qui rend ces vues
+     avec `allowUnpublished` ;
+  3. pointer [`buildPreviewUrl()`](src/lib/preview/preview-url.ts:1) dessus, puis appeler
+     `notFound()` dans les routes publiques quand `is_published === false`.
+- **Balisage** : ajouter `robots: { index: false }` sur les pages non publiées (une fois la
+  route d'aperçu en place, la métadonnée et le 404 se posent au même endroit).
+
+## 4. État vérifié aujourd'hui
 
 - **Panne de lecture** : `getLocalizedPageContent()` sert la **copie certifiée**
-  (`DEFAULT_PAGE_CONTENTS`) au lieu de laisser une page morte — le visiteur garde un site
-  cohérent même si Supabase est injoignable.
-- **Page absente** : `null` remonté à la route, qui applique son repli (comportement inchangé,
-  désormais explicite et documenté dans le code).
-- **Le reste du risque éditorial est traité** : perte de brouillon
+  (`DEFAULT_PAGE_CONTENTS`) au lieu d'une page morte.
+- **Page absente** : `null` remonté à la route, repli client certifié (comportement explicite
+  et documenté dans le code).
+- **Risque éditorial** : perte de brouillon
   ([`draft-storage.ts`](src/lib/preview/draft-storage.ts:1)) et écrasement concurrent
-  (`upsertPageContent`, garde `updated_at`).
+  (`upsertPageContent`, garde `updated_at`) traités.
+- **Gate** : `npm run studio:gate:full` vert — dont 4 tests dédiés à la garde
+  ([`UnpublishedPageGate.test.tsx`](src/components/i18n/UnpublishedPageGate.test.tsx:1)) :
+  contenu publié rendu, contenu non publié **jamais** rendu, aperçu servi, cas sans contenu.
 
-## 5. Vérification attendue après la parade
+## 5. Contrôle manuel recommandé
 
-- `npm run studio:gate:full` vert (champs, budget, micro-textes, TypeScript, tests).
-- `npm run build` : **93 pages** toujours prérendues (aucune route passée en dynamique).
-- Contrôle manuel : dépublier une page → 404 en public, aperçu éditable dans le Cockpit,
-  republication → la page revient sans redéploiement.
+1. Dépublier une page dans le Cockpit → en navigation privée : avis « Cette page n'est pas
+   publiée », aucun texte du brouillon dans le source HTML, page absente de `/sitemap.xml`.
+2. Ouvrir l'aperçu dans le Cockpit → la page s'édite normalement (garde neutralisée).
+3. Republier → la page revient immédiatement (revalidation par tags), sans redéploiement.

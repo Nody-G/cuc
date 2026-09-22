@@ -3,6 +3,7 @@
 import React, { createContext, useContext } from 'react';
 import type { SitePageContent } from '@/lib/data/site-service';
 import type { FooterStructure, NavigationStructure, SiteSocialLink } from '@/data/navigation';
+import { UnpublishedPageGate } from './UnpublishedPageGate';
 
 /**
  * ==============================================================================
@@ -46,11 +47,19 @@ export interface SiteDataValue {
 
 const SiteDataContext = createContext<SiteDataValue | null>(null);
 
+/**
+ * Le provider porte aussi la **garde de diffusion** : un contenu dont
+ * `is_published` vaut `false` n'est jamais rendu au public (voir
+ * [`UnpublishedPageGate`](./UnpublishedPageGate.tsx)). Le contrôle est unique et
+ * central — les 15 pages passent par ce provider, aucune ne peut l'oublier.
+ */
 export const SiteDataProvider: React.FC<{
     value: SiteDataValue;
     children: React.ReactNode;
 }> = ({ value, children }) => (
-    <SiteDataContext.Provider value={value}>{children}</SiteDataContext.Provider>
+    <SiteDataContext.Provider value={value}>
+        <UnpublishedPageGate page={value.page}>{children}</UnpublishedPageGate>
+    </SiteDataContext.Provider>
 );
 
 /**
