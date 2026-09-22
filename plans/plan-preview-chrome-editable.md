@@ -1,18 +1,19 @@
-# Plan — Rendre le « chrome » éditable dans l'aperçu (réglages + micro-textes)
+NDE# Plan — Rendre le « chrome » éditable dans l'aperçu (réglages + micro-textes)
 
-> État : **canaux « réglages » et « micro-textes » livrés et durcis** — protocole
-> (`settings-draft`, `microcopy-draft`, `field-commit` avec source), tranches chrome du
-> `preview-store`, hooks d'affichage, `PreviewIntlProvider` (fusion du catalogue par la
-> même fonction que le serveur), commit/brouillon dans le Cockpit et sauvegarde par clé
-> (`updateSiteSettingField`, `updateMicrocopyOverrideField`). Trois garanties serveur :
-> clé de catalogue inconnue **refusée** (`isMicrocopyKey`), brouillon chrome conservé si un
-> enregistrement partiel échoue, filet local par locale (`chrome-draft-storage`).
-> Textes annotés : CTA navbar, téléphone (navbar/footer), e-mail (footer), CTA mobile
-> (réglage FR / catalogue EN selon la langue), adresse de la carte interactive,
-> `footer.directLines`, `footer.networksTitle`, formulaire de contact (titres, libellés,
-> consentement), CTA formation, encart équipe, CTA partenaires.
-> **Reste : l'extension des annotations** — autres réglages (annonces, horaires) et
-> micro-textes namespace par namespace — purement mécanique, le canal est en place.
+> État : **canaux « réglages » et « micro-textes » livrés, durcis et déployés sur tout
+> le site statique** — protocole (`settings-draft`, `microcopy-draft`, `field-commit` avec
+> source), tranches chrome du `preview-store`, hooks d'affichage, `PreviewIntlProvider`
+> (fusion du catalogue par la même fonction que le serveur), commit/brouillon dans le
+> Cockpit et sauvegarde par clé (`updateSiteSettingField`, `updateMicrocopyOverrideField`).
+> Quatre garanties serveur : clé de catalogue inconnue **refusée** (`isMicrocopyKey`),
+> brouillon chrome conservé si un enregistrement partiel échoue, filet local par locale
+> (`chrome-draft-storage`), micro-textes segmentés par locale d'édition.
+> **Couverture** : l'audit (`audit:microcopy`) mesure **306 textes annotés**, 0 codé en
+> dur ; les 14 valeurs restantes en catégorie « traduction » sont **dynamiques par
+> nature** (interpolations `{digest}` / `{name}`, index `options.${id}`,
+> `statuses[session.status]`, données d'entités via `localizer(partner)`), hors périmètre
+> d'une surcharge statique. Reste hors chantier : les entités DB (annonces, coachs,
+> films) qui relèvent d'un canal d'entité, documenté en § 4.
 
 ## 1. Le problème, tel qu'il se vit
 
@@ -113,7 +114,7 @@ messages v2 continuent de fonctionner → **aucune fenêtre de panne** au déplo
 | L4 | Annotations : CTA navbar, téléphone, e-mail, CTA mobile (FR/EN selon la langue), adresse carte livrés ; reste annonces et horaires | ✅ livré |
 | L5 | Commit chrome → brouillon Cockpit (source respectée, valeur vidée = retour au défaut/catalogue) | ✅ livré |
 | L6 | Enregistrement composé (page + chrome, un bouton, échec nommé et conservé) | ✅ livré |
-| L7 | Micro-textes en place : canal livré (`microcopy-draft`, `PreviewIntlProvider`, sauvegarde par clé) + formulaire de contact, CTA formation, encart équipe, CTA partenaires ; extension par namespace à poursuivre | ✅ canal / 🚧 annotations |
+| L7 | Micro-textes en place : canal livré (`microcopy-draft`, `PreviewIntlProvider`, sauvegarde par clé) + **extension achevée** sur tout le statique (pied de page, formulaires, héros, modales, pages, cartes, visionneuses) | ✅ livré |
 | L8 | Garde-fou serveur : clé absente du catalogue refusée (`isMicrocopyKey` + test) | ✅ livré |
 | L9 | Filet local du brouillon chrome (`chrome-draft-storage.ts`, hook, tests) + micro-textes segmentés par locale | ✅ livré |
 
