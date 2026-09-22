@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { TacticalButton } from './TacticalButton';
 import { cucField } from '@/lib/preview/cuc-field';
 import { isPreviewFrame } from '@/lib/preview/preview-context';
+import { mergeSectionItems } from '@/lib/hooks/usePageSectionData';
 import {
   ChevronRight,
   Compass,
@@ -45,7 +46,15 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
     HeroSlide['key'],
     { caption: string; sub: string; badge: string; tag: string }
   >;
-  const quickMetrics = tHero.raw('metrics') as { val: string; label: string }[];
+  const metricDefaults = tHero.raw('metrics') as { val: string; label: string }[];
+  /**
+   * Fusion index par index : `hero.metrics.<i>` prime sur `home.hero.metrics`,
+   * sans jamais ajouter ni retirer de métrique (structure stable).
+   */
+  const quickMetrics = mergeSectionItems(
+    metricDefaults,
+    heroData?.metrics ? { items: heroData.metrics } : null
+  );
   const activeCopy = slideCopy[HERO_SLIDES[currentSlide].key];
 
   /**
@@ -242,7 +251,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
       />
 
       {/* 3. Subtle Location & Campus Header Overlay */}
-      <HeroHudOverlay />
+      <HeroHudOverlay heroData={heroData} />
 
       {/* 4. Central Text Content: Rock-Solid Focal Plane (NO text displacement!) */}
       <div className="relative z-20 flex-grow flex items-center justify-center pt-24 pb-8 sm:pt-28 pointer-events-auto">
@@ -260,7 +269,9 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
             <span className="w-1.5 h-1.5 rounded-full bg-[#FFE500]" />
             <span {...cucField('hero.badge')}>{heroData?.badge || tHero('badge')}</span>
             <span className="text-zinc-600">•</span>
-            <span className="text-[#FFE500] font-semibold">{tHero('since')}</span>
+            <span {...cucField('hero.since')} className="text-[#FFE500] font-semibold">
+              {heroData?.since || tHero('since')}
+            </span>
           </motion.div>
 
           {/* Clean Editorial Title */}
@@ -313,10 +324,16 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
                 className="flex items-center gap-3 pl-3 pr-4 py-2.5 bg-black/50 backdrop-blur-md border border-white/[0.08] border-l-2 border-l-[#FFE500]"
               >
                 <div className="text-left">
-                  <div className="text-[#FFE500] font-display text-base sm:text-lg font-bold tracking-wide leading-none">
+                  <div
+                    {...cucField(`hero.metrics.${i}.val`)}
+                    className="text-[#FFE500] font-display text-base sm:text-lg font-bold tracking-wide leading-none"
+                  >
                     {stat.val}
                   </div>
-                  <div className="text-zinc-400 font-mono-tech text-[9px] uppercase tracking-widest mt-0.5">
+                  <div
+                    {...cucField(`hero.metrics.${i}.label`)}
+                    className="text-zinc-400 font-mono-tech text-[9px] uppercase tracking-widest mt-0.5"
+                  >
                     {stat.label}
                   </div>
                 </div>
@@ -331,7 +348,11 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
           >
-            <Link href={heroData?.cta_primary_link || '/formation-de-cascadeur'}>
+            <Link
+              href={heroData?.cta_primary_link || '/formation-de-cascadeur'}
+              data-cuc-field="hero.cta_primary_link"
+              data-cuc-kind="link"
+            >
               <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
                 <span {...cucField('hero.cta_primary_text')}>
                   {heroData?.cta_primary_text || tHero('ctaFormation')}
@@ -339,7 +360,11 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
               </TacticalButton>
             </Link>
 
-            <Link href={heroData?.cta_secondary_link || '/visite-guidee'}>
+            <Link
+              href={heroData?.cta_secondary_link || '/visite-guidee'}
+              data-cuc-field="hero.cta_secondary_link"
+              data-cuc-kind="link"
+            >
               <TacticalButton
                 variant="secondary"
                 size="lg"
@@ -351,13 +376,19 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
               </TacticalButton>
             </Link>
 
-            <Link href="/cuc-team-cascadeur">
+            <Link
+              href={heroData?.cta_tertiary_link || '/cuc-team-cascadeur'}
+              data-cuc-field="hero.cta_tertiary_link"
+              data-cuc-kind="link"
+            >
               <TacticalButton
                 variant="outline"
                 size="lg"
                 icon={<Compass className="w-4 h-4 text-[#FFE500]" />}
               >
-                {tHero('ctaStuntTeam')}
+                <span {...cucField('hero.cta_tertiary_text')}>
+                  {heroData?.cta_tertiary_text || tHero('ctaStuntTeam')}
+                </span>
               </TacticalButton>
             </Link>
           </motion.div>

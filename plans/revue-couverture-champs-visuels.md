@@ -1,12 +1,12 @@
 # Revue — Couverture des champs éditables (Mode Studio)
 
-Généré le 2026-09-22T00:48:35.604Z par `scripts/audit_cuc_fields.mjs`.
+Généré le 2026-09-22T00:52:42.744Z par `scripts/audit_cuc_fields.mjs`.
 
 ## 1. Couverture par page
 
 | Page | Champs | Dont listes | Fichiers porteurs | Statut |
 | --- | ---: | ---: | --- | --- |
-| `/` | 33 | 0 | `src\components\ui\ParallaxHero.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\home\HomeAboutSection.tsx`, `src\components\sections\home\HomeTournagesSection.tsx`, `src\components\sections\home\HomeVirtualTourSection.tsx`, `src\components\sections\home\HomeQualiopiSection.tsx`, `src\components\sections\home\HomePartnersSection.tsx`, `src\components\sections\home\HomeSocialSection.tsx` | ✅ |
+| `/` | 64 | 0 | `src\components\ui\ParallaxHero.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\ui\parallax-hero\HeroHudOverlay.tsx`, `src\components\sections\home\HomeAboutSection.tsx`, `src\components\sections\home\HomeTournagesSection.tsx`, `src\components\sections\home\HomeVirtualTourSection.tsx`, `src\components\sections\home\HomeQualiopiSection.tsx`, `src\components\sections\home\HomePartnersSection.tsx`, `src\components\sections\home\HomeSocialSection.tsx` | ✅ |
 | `formation-de-cascadeur` | 24 | 9 | `src\components\sections\formation\FormationHeroSection.tsx`, `src\components\sections\formation\FormationFormulesSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\formation\FormationDisciplinesExplorer.tsx`, `src\components\sections\formation\FormationPedagogyModalities.tsx` | ✅ |
 | `stages-cascades-parkour-2` | 5 | 0 | `src\components\sections\stages\StagesHeroSection.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
 | `stunt-workshop-cuc` | 6 | 0 | `src\app\(site)\[locale]\stunt-workshop-cuc\page.tsx` | ✅ |
@@ -34,7 +34,9 @@ Natures autorisées : `text`, `textarea`, `image`, `link`, `list-item`.
 
 ## 4. Attributs dynamiques (non auditables par littéral)
 
-Aucun : tous les champs sont déclarés en littéral.
+- `src\components\sections\home\HomeAboutSection.tsx (3)`
+- `src\components\sections\home\HomePartnersSection.tsx (3)`
+- `src\components\sections\home\HomeSocialSection.tsx (5)`
 
 ## 5. Synthèse
 

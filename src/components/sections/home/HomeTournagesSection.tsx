@@ -35,16 +35,30 @@ export interface HomeTournagesData {
   badge?: string;
   title?: string;
   subtitle?: string;
+  team_tag?: string;
   cta_text?: string;
   cta_link?: string;
+  cta_production?: string;
+  cta_catalog?: string;
+  pillar1_title?: string;
+  pillar1_desc?: string;
+  pillar2_title?: string;
+  pillar2_desc?: string;
+  pillar3_title?: string;
+  pillar3_desc?: string;
 }
 
 export interface HomeVirtualTourData {
   badge?: string;
   title?: string;
   subtitle?: string;
+  tag?: string;
   cta_text?: string;
   cta_link?: string;
+  installations_cta?: string;
+  hud_title?: string;
+  hud_hint?: string;
+  image_url?: string;
 }
 
 interface HomeTournagesSectionProps {
@@ -100,6 +114,15 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
   const subtitle = tournagesData?.subtitle || t('subtitle');
   const ctaText = tournagesData?.cta_text || t('cta');
   const ctaLink = tournagesData?.cta_link || '/cuc-team-cascadeur';
+  const teamTag = tournagesData?.team_tag || t('teamTag');
+  const ctaProduction = tournagesData?.cta_production || t('ctaProduction');
+  const ctaCatalog = tournagesData?.cta_catalog || t('ctaCatalog');
+  const pillar1Title = tournagesData?.pillar1_title || t('pillar1Title');
+  const pillar1Desc = tournagesData?.pillar1_desc || t('pillar1Desc');
+  const pillar2Title = tournagesData?.pillar2_title || t('pillar2Title');
+  const pillar2Desc = tournagesData?.pillar2_desc || t('pillar2Desc');
+  const pillar3Title = tournagesData?.pillar3_title || t('pillar3Title');
+  const pillar3Desc = tournagesData?.pillar3_desc || t('pillar3Desc');
 
   /**
    * Catalogue live des films (`site_films`) : les affiches éditoriales de la
@@ -159,8 +182,11 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
                 <Clapperboard className="w-3.5 h-3.5" />
                 {badge}
               </span>
-              <span className="text-xs font-mono-tech text-zinc-500 hidden sm:inline">
-                {t('teamTag')}
+              <span
+                data-cuc-field="sections_data.tournages.team_tag"
+                className="text-xs font-mono-tech text-zinc-500 hidden sm:inline"
+              >
+                {teamTag}
               </span>
             </div>
 
@@ -197,42 +223,61 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({
                 <div className="p-4 bg-[#14141c] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors">
                   <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] uppercase font-bold mb-1">
                     <Film className="w-3.5 h-3.5" />
-                    <span>{t('pillar1Title')}</span>
+                    <span data-cuc-field="sections_data.tournages.pillar1_title">
+                      {pillar1Title}
+                    </span>
                   </div>
-                  <p className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed">
-                    {t('pillar1Desc')}
+                  <p
+                    data-cuc-field="sections_data.tournages.pillar1_desc"
+                    className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed"
+                  >
+                    {pillar1Desc}
                   </p>
                 </div>
 
                 <div className="p-4 bg-[#14141c] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors">
                   <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] uppercase font-bold mb-1">
                     <Sparkles className="w-3.5 h-3.5" />
-                    <span>{t('pillar2Title')}</span>
+                    <span data-cuc-field="sections_data.tournages.pillar2_title">
+                      {pillar2Title}
+                    </span>
                   </div>
-                  <p className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed">
-                    {t('pillar2Desc')}
+                  <p
+                    data-cuc-field="sections_data.tournages.pillar2_desc"
+                    className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed"
+                  >
+                    {pillar2Desc}
                   </p>
                 </div>
 
                 <div className="p-4 bg-[#14141c] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors">
                   <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] uppercase font-bold mb-1">
                     <ShieldCheck className="w-3.5 h-3.5" />
-                    <span>{t('pillar3Title')}</span>
+                    <span data-cuc-field="sections_data.tournages.pillar3_title">
+                      {pillar3Title}
+                    </span>
                   </div>
-                  <p className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed">
-                    {t('pillar3Desc')}
+                  <p
+                    data-cuc-field="sections_data.tournages.pillar3_desc"
+                    className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed"
+                  >
+                    {pillar3Desc}
                   </p>
                 </div>
 
                 <div className="pt-2 flex flex-wrap items-center gap-4">
                   <Link href="/contact-cuc?demande=tournage-production">
                     <TacticalButton variant="primary" size="md">
-                      {t('ctaProduction')}
+                      <span data-cuc-field="sections_data.tournages.cta_production">
+                        {ctaProduction}
+                      </span>
                     </TacticalButton>
                   </Link>
                   <Link href="/cuc-team-cascadeur#filmographie">
                     <span className="text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] transition-colors flex items-center gap-1">
-                      {t('ctaCatalog')}
+                      <span data-cuc-field="sections_data.tournages.cta_catalog">
+                        {ctaCatalog}
+                      </span>
                       <ChevronRight className="w-3 h-3" />
                     </span>
                   </Link>

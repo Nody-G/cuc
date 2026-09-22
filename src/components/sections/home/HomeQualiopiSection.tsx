@@ -20,6 +20,8 @@ export interface HomeQualiopiData {
   badge?: string;
   title?: string;
   subtitle?: string;
+  cta_text?: string;
+  logo_url?: string;
   afdas_badge?: string;
   afdas_text?: string;
   france_travail_badge?: string;
@@ -40,6 +42,8 @@ export const HomeQualiopiSection: React.FC<HomeQualiopiSectionProps> = ({
   const badge = qualiopiData?.badge || t('badge');
   const title = qualiopiData?.title || t('title');
   const subtitle = qualiopiData?.subtitle || t('subtitle');
+  const ctaText = qualiopiData?.cta_text || t('cta');
+  const logoUrl = qualiopiData?.logo_url || '/images/partenaires/qualiopi.png';
 
   return (
     <StudioParallaxScene className="py-16 bg-[#0e0e14]/90 border-b border-zinc-800/80 relative overflow-hidden">
@@ -55,9 +59,13 @@ export const HomeQualiopiSection: React.FC<HomeQualiopiSectionProps> = ({
             <div className="flex items-start gap-4 sm:gap-6">
               {/* Floating Accreditation Badge */}
               <StudioParallaxLayer speed={0.08} className="shrink-0">
-                <div className="relative w-36 sm:w-44 h-20 sm:h-22 p-2 bg-white border border-[#FFE500] shadow-lg flex items-center justify-center">
+                <div
+                  data-cuc-field="sections_data.qualiopi.logo_url"
+                  data-cuc-kind="image"
+                  className="relative w-36 sm:w-44 h-20 sm:h-22 p-2 bg-white border border-[#FFE500] shadow-lg flex items-center justify-center"
+                >
                   <Image
-                    src="/images/partenaires/qualiopi.png"
+                    src={logoUrl}
                     alt={t('logoAlt')}
                     fill
                     className="object-contain p-1.5"
@@ -101,7 +109,7 @@ export const HomeQualiopiSection: React.FC<HomeQualiopiSectionProps> = ({
                 size="sm"
                 icon={<FileCheck className="w-4 h-4" />}
               >
-                {t('cta')}
+                <span data-cuc-field="sections_data.qualiopi.cta_text">{ctaText}</span>
               </TacticalButton>
             </a>
           </div>

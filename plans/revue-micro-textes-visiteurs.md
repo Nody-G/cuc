@@ -1,18 +1,18 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T00:48:35.769Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T00:52:42.910Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 89 |
-| DONNÉES — éditable par un écran existant | 175 |
-| TRADUCTION — à brancher sur une clé de page | 592 |
+| ANNOTÉ — éditable en place | 102 |
+| DONNÉES — éditable par un écran existant | 187 |
+| TRADUCTION — à brancher sur une clé de page | 574 |
 | CODÉ EN DUR — dette (ne suit ni la langue ni le Cockpit) | 82 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 17 |
-| **Total** | **955** |
+| **Total** | **962** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -125,6 +125,22 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.81 — `{...cucField('sections_data.pedagogie.admission_title')}`
 - l.117 — `{...cucField('sections_data.pedagogie.funding_title')}`
 
+### `src\components\sections\home\HomeSocialSection.tsx`
+
+- l.235 — `{seeInstagram}`
+
+### `src\components\sections\home\HomeTournagesSection.tsx`
+
+- l.227 — `{pillar1Title}`
+- l.242 — `{pillar2Title}`
+- l.257 — `{pillar3Title}`
+- l.272 — `{ctaProduction}`
+- l.279 — `{ctaCatalog}`
+
+### `src\components\sections\home\HomeVirtualTourSection.tsx`
+
+- l.95 — `{installationsCta}`
+
 ### `src\components\sections\partenaires\PartenairesHeroSection.tsx`
 
 - l.59 — `{...cucField('hero.title')}`
@@ -160,10 +176,19 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\ParallaxHero.tsx`
 
-- l.268 — `{...cucField('hero.title')}`
-- l.291 — `{...cucField('hero.subtitle', 'textarea')}`
-- l.337 — `{heroData?.cta_primary_text || tHero('ctaFormation')}`
-- l.349 — `{heroData?.cta_secondary_text || tHero('ctaVisit')}`
+- l.273 — `{heroData?.since || tHero('since')}`
+- l.279 — `{...cucField('hero.title')}`
+- l.302 — `{...cucField('hero.subtitle', 'textarea')}`
+- l.328 — `{...cucField(’hero.metrics.${i}.val’)}`
+- l.334 — `{...cucField(’hero.metrics.${i}.label’)}`
+- l.358 — `{heroData?.cta_primary_text || tHero('ctaFormation')}`
+- l.374 — `{heroData?.cta_secondary_text || tHero('ctaVisit')}`
+- l.390 — `{heroData?.cta_tertiary_text || tHero('ctaStuntTeam')}`
+
+### `src\components\ui\parallax-hero\HeroHudOverlay.tsx`
+
+- l.38 — `{location}`
+- l.42 — `{privateDomain}`
 
 ## 2. DONNÉES — éditable par un écran existant
 
@@ -367,52 +392,64 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\home\HomeAboutSection.tsx`
 
-- l.99 — `{founderQuote}`
-- l.106 — `{founderName}`
-- l.112 — `{founderRole}`
-- l.125 — `{badgeYear}`
-- l.143 — `{tag}`
-- l.149 — `{subtag}`
-- l.157 — `{title}`
-- l.164 — `{description}`
-- l.177 — `{pillar.title}`
-- l.180 — `{pillar.tag}`
-- l.184 — `{pillar.desc}`
-- l.197 — `{ctaPrimaryText}`
-- l.202 — `{ctaSecondaryText}`
+- l.108 — `{founderLabel}`
+- l.115 — `{founderQuote}`
+- l.122 — `{founderName}`
+- l.128 — `{founderRole}`
+- l.141 — `{badgeYear}`
+- l.159 — `{tag}`
+- l.165 — `{subtag}`
+- l.173 — `{title}`
+- l.180 — `{description}`
+- l.196 — `{pillar.title}`
+- l.202 — `{pillar.tag}`
+- l.209 — `{pillar.desc}`
+- l.222 — `{ctaPrimaryText}`
+- l.227 — `{ctaSecondaryText}`
 
 ### `src\components\sections\home\HomePartnersSection.tsx`
 
-- l.109 — `{badge}`
-- l.115 — `{title}`
-- l.122 — `{subtitle}`
-- l.161 — `{partner.name}`
+- l.125 — `{badge}`
+- l.131 — `{title}`
+- l.138 — `{subtitle}`
+- l.184 — `{partner.name}`
 
 ### `src\components\sections\home\HomeQualiopiSection.tsx`
 
-- l.75 — `{badge}`
-- l.82 — `{title}`
-- l.88 — `{subtitle}`
+- l.83 — `{badge}`
+- l.90 — `{title}`
+- l.96 — `{subtitle}`
 
 ### `src\components\sections\home\HomeSocialSection.tsx`
 
-- l.99 — `{badge}`
-- l.109 — `{title}`
-- l.115 — `{subtitle}`
+- l.125 — `{badge}`
+- l.131 — `{handle}`
+- l.138 — `{title}`
+- l.144 — `{subtitle}`
+- l.215 — `{post.tag}`
+- l.223 — `{post.title}`
+- l.229 — `{post.desc}`
 
 ### `src\components\sections\home\HomeTournagesSection.tsx`
 
-- l.160 — `{badge}`
-- l.171 — `{title}`
-- l.178 — `{subtitle}`
-- l.185 — `{ctaText}`
+- l.183 — `{badge}`
+- l.189 — `{teamTag}`
+- l.197 — `{title}`
+- l.204 — `{subtitle}`
+- l.211 — `{ctaText}`
+- l.234 — `{pillar1Desc}`
+- l.249 — `{pillar2Desc}`
+- l.264 — `{pillar3Desc}`
 
 ### `src\components\sections\home\HomeVirtualTourSection.tsx`
 
-- l.51 — `{badge}`
-- l.62 — `{title}`
-- l.69 — `{subtitle}`
-- l.79 — `{ctaText}`
+- l.58 — `{badge}`
+- l.64 — `{tag}`
+- l.72 — `{title}`
+- l.79 — `{subtitle}`
+- l.89 — `{ctaText}`
+- l.132 — `{hudTitle}`
+- l.138 — `{hudHint}`
 
 ### `src\components\sections\partenaires\PartenairesGridSection.tsx`
 
@@ -463,8 +500,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\ParallaxHero.tsx`
 
-- l.317 — `{stat.val}`
-- l.320 — `{stat.label}`
+- l.331 — `{stat.val}`
+- l.337 — `{stat.label}`
 
 ### `src\components\ui\campus-map\CampusRadarView.tsx`
 
@@ -1000,64 +1037,47 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\home\HomeAboutSection.tsx`
 
-- l.64 — `{/* Background Soft Glow Layer */}`
-- l.69 — `{/* Visual Side: 2.5D Multi-Plane Portrait Composition */}`
-- l.71 — `{/* Layer A: Background Shadow Frame & Photo (Deep plane) */}`
-- l.85 — `{/* Layer B: Founder Quote Card (Floating mid-plane) */}`
-- l.92 — `{t('founderLabel')}`
-- l.119 — `{/* Layer C: Year Tag Badge (Floating foreground plane) */}`
-- l.130 — `{/* Editorial Content Side */}`
-- l.168 — `{/* 4 Pillars Grid with Staggered Parallax Wave */}`
-- l.193 — `{/* CTAs */}`
+- l.77 — `{/* Background Soft Glow Layer */}`
+- l.82 — `{/* Visual Side: 2.5D Multi-Plane Portrait Composition */}`
+- l.84 — `{/* Layer A: Background Shadow Frame & Photo (Deep plane) */}`
+- l.98 — `{/* Layer B: Founder Quote Card (Floating mid-plane) */}`
+- l.135 — `{/* Layer C: Year Tag Badge (Floating foreground plane) */}`
+- l.146 — `{/* Editorial Content Side */}`
+- l.184 — `{/* 4 Pillars Grid with Staggered Parallax Wave */}`
+- l.218 — `{/* CTAs */}`
 
 ### `src\components\sections\home\HomePartnersSection.tsx`
 
-- l.96 — `{/* Background Soft Glow */}`
-- l.135 — `{/* Staggered Wave Parallax Grid */}`
-- l.164 — `{roles[partner.roleKey] ?? ''}`
+- l.112 — `{/* Background Soft Glow */}`
+- l.151 — `{/* Staggered Wave Parallax Grid */}`
+- l.190 — `{partner.role || roles[partner.roleKey] || ''}`
 
 ### `src\components\sections\home\HomeQualiopiSection.tsx`
 
-- l.46 — `{/* Ambient Certification Glow */}`
-- l.56 — `{/* Floating Accreditation Badge */}`
-- l.104 — `{t('cta')}`
+- l.50 — `{/* Ambient Certification Glow */}`
+- l.60 — `{/* Floating Accreditation Badge */}`
 
 ### `src\components\sections\home\HomeSocialSection.tsx`
 
-- l.72 — `{/* Ambient Depth Halo */}`
-- l.102 — `{t('handle')}`
-- l.126 — `{t('join')}`
-- l.131 — `{/* Rangée de logos seuls — l'envie de cliquer vient de l'icône, pas du texte */}`
-- l.156 — `{/* Instagram 3D Spatialized Triptyque */}`
-- l.177 — `{postCopy[idx]?.tag ?? ''}`
-- l.182 — `{postCopy[idx]?.title ?? ''}`
-- l.185 — `{postCopy[idx]?.desc ?? ''}`
+- l.94 — `{/* Ambient Depth Halo */}`
+- l.160 — `{/* Rangée de logos seuls — l'envie de cliquer vient de l'icône, pas du texte */}`
+- l.185 — `{/* Instagram 3D Spatialized Triptyque */}`
 
 ### `src\components\sections\home\HomeTournagesSection.tsx`
 
-- l.144 — `{/* Cinematic Golden Ambience Beam */}`
-- l.151 — `{/* Top Header */}`
-- l.163 — `{t('teamTag')}`
-- l.191 — `{/* Studio Card with 3 Pillars & Production Poster Showcase */}`
-- l.195 — `{/* Left Column: 3 Pillars */}`
-- l.203 — `{t('pillar1Desc')}`
-- l.213 — `{t('pillar2Desc')}`
-- l.223 — `{t('pillar3Desc')}`
-- l.230 — `{t('ctaProduction')}`
-- l.235 — `{t('ctaCatalog')}`
-- l.279 — `{/* Fiche détaillée — même modale que le showcase des films. */}`
+- l.167 — `{/* Cinematic Golden Ambience Beam */}`
+- l.174 — `{/* Top Header */}`
+- l.217 — `{/* Studio Card with 3 Pillars & Production Poster Showcase */}`
+- l.221 — `{/* Left Column: 3 Pillars */}`
+- l.324 — `{/* Fiche détaillée — même modale que le showcase des films. */}`
 
 ### `src\components\sections\home\HomeVirtualTourSection.tsx`
 
-- l.34 — `{/* Background Volumetric Beam */}`
-- l.44 — `{/* Text Side */}`
-- l.54 — `{t('tag')}`
-- l.84 — `{t('installationsCta')}`
-- l.90 — `{/* 3D Portal Window Side */}`
-- l.93 — `{/* Sliding Internal 360 Photo (Layer Depth) */}`
-- l.104 — `{/* Floating Compass Center HUD */}`
-- l.112 — `{t('hudTitle')}`
-- l.115 — `{t('hudHint')}`
+- l.41 — `{/* Background Volumetric Beam */}`
+- l.51 — `{/* Text Side */}`
+- l.102 — `{/* 3D Portal Window Side */}`
+- l.105 — `{/* Sliding Internal 360 Photo (Layer Depth) */}`
+- l.121 — `{/* Floating Compass Center HUD */}`
 
 ### `src\components\sections\partenaires\PartenairesCtaSection.tsx`
 
@@ -1219,21 +1239,20 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\ParallaxHero.tsx`
 
-- l.46 — `{ caption: string; sub: string; badge: string; tag: string }`
-- l.152 — `{/* 1. Deep 3D Background Layer: Photography + Ken-Burns + Organic Inertial Tilt */}`
-- l.210 — `{/* Ken-Burns slow breathing scale */}`
-- l.230 — `{/* Cinematic Vignettes */}`
-- l.236 — `{/* 2. Tech / Mech & Organic 3D Depth Layer (absorbs wheel & finger saccades) */}`
-- l.244 — `{/* 3. Subtle Location & Campus Header Overlay */}`
-- l.247 — `{/* 4. Central Text Content: Rock-Solid Focal Plane (NO text displacement!) */}`
-- l.253 — `{/* Refined Pill Badge */}`
-- l.266 — `{/* Clean Editorial Title */}`
-- l.286 — `{/* Dynamic Subtitle with smooth crossfade */}`
-- l.298 — `{heroData?.subtitle || activeCopy?.sub || ''}`
-- l.303 — `{/* Key Metrics Cards */}`
-- l.327 — `{/* Action CTAs */}`
-- l.360 — `{tHero('ctaStuntTeam')}`
-- l.367 — `{/* 5. Modern Segmented Slide Navigation & Smooth Scroll Cue */}`
+- l.47 — `{ caption: string; sub: string; badge: string; tag: string }`
+- l.161 — `{/* 1. Deep 3D Background Layer: Photography + Ken-Burns + Organic Inertial Tilt */}`
+- l.219 — `{/* Ken-Burns slow breathing scale */}`
+- l.239 — `{/* Cinematic Vignettes */}`
+- l.245 — `{/* 2. Tech / Mech & Organic 3D Depth Layer (absorbs wheel & finger saccades) */}`
+- l.253 — `{/* 3. Subtle Location & Campus Header Overlay */}`
+- l.256 — `{/* 4. Central Text Content: Rock-Solid Focal Plane (NO text displacement!) */}`
+- l.262 — `{/* Refined Pill Badge */}`
+- l.277 — `{/* Clean Editorial Title */}`
+- l.297 — `{/* Dynamic Subtitle with smooth crossfade */}`
+- l.309 — `{heroData?.subtitle || activeCopy?.sub || ''}`
+- l.314 — `{/* Key Metrics Cards */}`
+- l.344 — `{/* Action CTAs */}`
+- l.398 — `{/* 5. Modern Segmented Slide Navigation & Smooth Scroll Cue */}`
 
 ### `src\components\ui\TacticalButton.tsx`
 
@@ -1283,8 +1302,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\parallax-hero\HeroHudOverlay.tsx`
 
-- l.16 — `{/* Discreet Location Indicator */}`
-- l.24 — `{/* Google Maps Quick Access Pill */}`
+- l.34 — `{/* Discreet Location Indicator */}`
+- l.46 — `{/* Google Maps Quick Access Pill */}`
 
 ### `src\components\ui\parallax-hero\HeroTechDepth.tsx`
 
@@ -1457,7 +1476,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\ParallaxHero.tsx`
 
-- l.280 — `Cascades`
+- l.291 — `Cascades`
 
 ### `src\components\ui\VirtualTourViewer.tsx`
 

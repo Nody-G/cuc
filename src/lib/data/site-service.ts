@@ -423,8 +423,18 @@ export interface SitePageHero {
   cta_primary_link?: string;
   cta_secondary_text?: string;
   cta_secondary_link?: string;
+  cta_tertiary_text?: string;
+  cta_tertiary_link?: string;
   bg_image?: string;
   video_url?: string;
+  /** Micro-textes du HUD (localisation, domaine privé, libellé et cible de la carte). */
+  hud_location?: string;
+  hud_private_domain?: string;
+  hud_map_label?: string;
+  hud_map_url?: string;
+  /** Mention « depuis » du badge ; métriques rapides fusionnées par index. */
+  since?: string;
+  metrics?: Array<{ val?: string; label?: string }>;
 }
 
 export interface SitePageSection {

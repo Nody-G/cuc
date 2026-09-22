@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
+import { mergeSectionItems } from '@/lib/hooks/usePageSectionData';
 import {
   StudioParallaxScene,
   StudioParallaxLayer,
@@ -23,12 +24,15 @@ interface HomeAboutSectionProps {
     founder_quote?: string;
     founder_name?: string;
     founder_role?: string;
+    founder_label?: string;
     badge_year?: string;
     image_url?: string;
     cta_primary_text?: string;
     cta_primary_link?: string;
     cta_secondary_text?: string;
     cta_secondary_link?: string;
+    /** Piliers éditoriaux — fusionnés index par index avec les libellés traduits. */
+    pillars?: Array<{ title?: string; desc?: string; tag?: string }>;
   };
 }
 
@@ -41,9 +45,17 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
    * mise en page, pas du texte.
    */
   const pillarSpeeds = [-0.05, 0.05, -0.04, 0.06];
-  const pillars = (
+  const pillarDefaults = (
     (t.raw('pillars') as { title: string; desc: string; tag: string }[]) ?? []
   ).map((pillar, idx) => ({ ...pillar, speed: pillarSpeeds[idx] ?? 0 }));
+  /**
+   * Fusion index par index avec `sections_data.about.pillars` : les textes sont
+   * éditoriaux, les amplitudes de parallaxe restent des valeurs de mise en page.
+   */
+  const pillars = mergeSectionItems(
+    pillarDefaults,
+    aboutData?.pillars ? { items: aboutData.pillars } : null
+  );
 
   const title = aboutData?.title || t('title');
   const tag = aboutData?.tag || t('tag');
@@ -52,6 +64,7 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
   const founderQuote = aboutData?.founder_quote || t('founderQuote');
   const founderName = aboutData?.founder_name || t('founderName');
   const founderRole = aboutData?.founder_role || t('founderRole');
+  const founderLabel = aboutData?.founder_label || t('founderLabel');
   const badgeYear = aboutData?.badge_year || t('badgeYear');
   const imageUrl = aboutData?.image_url || 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg';
   const ctaPrimaryText = aboutData?.cta_primary_text || t('ctaPrimary');
@@ -88,8 +101,11 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
                 <div className="bg-[#0a0a0e]/95 backdrop-blur-md border border-zinc-700/80 p-4 sm:p-5 shadow-2xl">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="w-2 h-2 rounded-full bg-[#FFE500]" />
-                    <span className="text-[10px] font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
-                      {t('founderLabel')}
+                    <span
+                      data-cuc-field="sections_data.about.founder_label"
+                      className="text-[10px] font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider"
+                    >
+                      {founderLabel}
                     </span>
                   </div>
                   <p
@@ -173,14 +189,23 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
                     <div className="p-4 sm:p-5 border border-zinc-800 bg-[#0d0d12]/90 backdrop-blur-xs flex flex-col justify-between h-full hover:border-[#FFE500]/40 transition-colors group">
                       <div>
                         <div className="flex items-center justify-between gap-2 mb-2">
-                          <h3 className="text-sm font-display uppercase tracking-wider text-white group-hover:text-[#FFE500] transition-colors">
+                          <h3
+                            data-cuc-field={`sections_data.about.pillars.${idx}.title`}
+                            className="text-sm font-display uppercase tracking-wider text-white group-hover:text-[#FFE500] transition-colors"
+                          >
                             {pillar.title}
                           </h3>
-                          <span className="text-[9px] font-mono-tech text-[#FFE500] border border-[#FFE500]/30 px-1.5 py-0.5">
+                          <span
+                            data-cuc-field={`sections_data.about.pillars.${idx}.tag`}
+                            className="text-[9px] font-mono-tech text-[#FFE500] border border-[#FFE500]/30 px-1.5 py-0.5"
+                          >
                             {pillar.tag}
                           </span>
                         </div>
-                        <p className="text-xs text-zinc-400 font-tech leading-relaxed">
+                        <p
+                          data-cuc-field={`sections_data.about.pillars.${idx}.desc`}
+                          className="text-xs text-zinc-400 font-tech leading-relaxed"
+                        >
                           {pillar.desc}
                         </p>
                       </div>

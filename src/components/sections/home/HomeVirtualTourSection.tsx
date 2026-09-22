@@ -28,6 +28,13 @@ export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
   const subtitle = virtualTourData?.subtitle || t('subtitle');
   const ctaText = virtualTourData?.cta_text || t('cta');
   const ctaLink = virtualTourData?.cta_link || '/visite-virtuelle';
+  const tag = virtualTourData?.tag || t('tag');
+  const installationsCta = virtualTourData?.installations_cta || t('installationsCta');
+  const hudTitle = virtualTourData?.hud_title || t('hudTitle');
+  const hudHint = virtualTourData?.hud_hint || t('hudHint');
+  const imageUrl =
+    virtualTourData?.image_url ||
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Zoe-Bell-Hall.jpg';
 
   return (
     <StudioParallaxScene className="py-28 bg-[#08080c] border-b border-zinc-800/80 relative overflow-hidden">
@@ -50,8 +57,11 @@ export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
                   >
                     {badge}
                   </span>
-                  <span className="text-xs font-mono-tech text-zinc-400">
-                    {t('tag')}
+                  <span
+                    data-cuc-field="sections_data.virtual_tour.tag"
+                    className="text-xs font-mono-tech text-zinc-400"
+                  >
+                    {tag}
                   </span>
                 </div>
 
@@ -81,7 +91,9 @@ export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
                   </Link>
                   <Link href="/visite-guidee">
                     <TacticalButton variant="secondary" size="lg">
-                      {t('installationsCta')}
+                      <span data-cuc-field="sections_data.virtual_tour.installations_cta">
+                        {installationsCta}
+                      </span>
                     </TacticalButton>
                   </Link>
                 </div>
@@ -91,9 +103,14 @@ export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
               <div className="lg:col-span-5 relative">
                 <div className="relative h-64 sm:h-80 w-full border border-zinc-700/80 overflow-hidden bg-black group shadow-2xl">
                   {/* Sliding Internal 360 Photo (Layer Depth) */}
-                  <StudioParallaxLayer speed={-0.12} className="relative w-full h-[120%] -top-[10%]">
+                  <StudioParallaxLayer
+                    speed={-0.12}
+                    className="relative w-full h-[120%] -top-[10%]"
+                    data-cuc-field="sections_data.virtual_tour.image_url"
+                    data-cuc-kind="image"
+                  >
                     <Image
-                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Zoe-Bell-Hall.jpg"
+                      src={imageUrl}
                       alt={t('previewAlt')}
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"
@@ -108,11 +125,17 @@ export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
                         <Compass className="w-8 h-8" />
                       </div>
                     </StudioParallaxLayer>
-                    <span className="font-display uppercase text-lg text-white font-bold tracking-wider">
-                      {t('hudTitle')}
+                    <span
+                      data-cuc-field="sections_data.virtual_tour.hud_title"
+                      className="font-display uppercase text-lg text-white font-bold tracking-wider"
+                    >
+                      {hudTitle}
                     </span>
-                    <span className="text-xs font-mono-tech text-[#FFE500] mt-1">
-                      {t('hudHint')}
+                    <span
+                      data-cuc-field="sections_data.virtual_tour.hud_hint"
+                      className="text-xs font-mono-tech text-[#FFE500] mt-1"
+                    >
+                      {hudHint}
                     </span>
                   </div>
 

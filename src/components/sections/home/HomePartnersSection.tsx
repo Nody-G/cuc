@@ -6,6 +6,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { ChevronRight } from 'lucide-react';
+import { mergeSectionItems } from '@/lib/hooks/usePageSectionData';
 import {
   StudioParallaxScene,
   StudioParallaxLayer,
@@ -19,6 +20,8 @@ interface HomePartner {
   logo: string;
   bgVariant?: 'light' | 'dark';
   speed: number;
+  /** Rôle éditorial libre : prime sur le libellé traduit quand il est saisi. */
+  role?: string;
 }
 
 /**
@@ -30,6 +33,9 @@ export interface HomePartnersData {
   badge?: string;
   title?: string;
   subtitle?: string;
+  view_all?: string;
+  /** Partenaires éditoriaux — fusionnés index par index avec le socle local. */
+  items?: Array<{ name?: string; role?: string; logo?: string }>;
 }
 
 interface HomePartnersSectionProps {
@@ -45,8 +51,9 @@ export const HomePartnersSection: React.FC<HomePartnersSectionProps> = ({
   const badge = partnersData?.badge || t('badge');
   const title = partnersData?.title || t('title');
   const subtitle = partnersData?.subtitle || '';
+  const viewAll = partnersData?.view_all || t('viewAll');
 
-  const partners: HomePartner[] = [
+  const partnerDefaults: HomePartner[] = [
     {
       name: 'Nike',
       roleKey: 'equipementier',
@@ -91,6 +98,15 @@ export const HomePartnersSection: React.FC<HomePartnersSectionProps> = ({
     },
   ];
 
+  /**
+   * Fusion index par index : le nom, le rôle et le logo sont éditoriaux ; la
+   * variante de fond et l'amplitude de parallaxe restent locales.
+   */
+  const partners = mergeSectionItems(
+    partnerDefaults,
+    partnersData?.items ? { items: partnersData.items } : null
+  );
+
   return (
     <StudioParallaxScene className="py-20 bg-[#08080c]/90 border-b border-zinc-800/80 relative overflow-hidden">
       {/* Background Soft Glow */}
@@ -127,7 +143,7 @@ export const HomePartnersSection: React.FC<HomePartnersSectionProps> = ({
             href="/partenaires"
             className="text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] flex items-center gap-1.5 transition-colors group"
           >
-            <span>{t('viewAll')}</span>
+            <span data-cuc-field="sections_data.partners.view_all">{viewAll}</span>
             <ChevronRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
@@ -142,26 +158,36 @@ export const HomePartnersSection: React.FC<HomePartnersSectionProps> = ({
                   className="h-28 bg-[#0e0e14]/90 backdrop-blur-xs border border-zinc-800 hover:border-[#FFE500]/50 p-3 flex flex-col items-center justify-between transition-all duration-300 group hover:shadow-[0_4px_25px_rgba(255,229,0,0.12)] relative rounded-xs block h-full"
                 >
                   <div
+                    data-cuc-field={`sections_data.partners.items.${i}.logo`}
+                    data-cuc-kind="image"
                     className={`w-full h-14 ${partner.bgVariant === 'light'
                       ? 'bg-white border-zinc-200'
                       : 'bg-black/90 border-zinc-800'
                       } border p-1.5 flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105 duration-300 relative`}
                   >
-                    <Image
-                      src={partner.logo}
-                      alt={t('logoAlt', { name: partner.name })}
-                      fill
-                      sizes="140px"
-                      className="object-contain p-1"
-                    />
+                    {partner.logo ? (
+                      <Image
+                        src={partner.logo}
+                        alt={t('logoAlt', { name: partner.name })}
+                        fill
+                        sizes="140px"
+                        className="object-contain p-1"
+                      />
+                    ) : null}
                   </div>
 
                   <div className="text-center w-full">
-                    <span className="block text-[11px] font-display uppercase tracking-wider text-zinc-300 group-hover:text-white transition-colors truncate">
+                    <span
+                      data-cuc-field={`sections_data.partners.items.${i}.name`}
+                      className="block text-[11px] font-display uppercase tracking-wider text-zinc-300 group-hover:text-white transition-colors truncate"
+                    >
                       {partner.name}
                     </span>
-                    <span className="block text-[9px] font-mono-tech text-zinc-500 uppercase tracking-tight truncate">
-                      {roles[partner.roleKey] ?? ''}
+                    <span
+                      data-cuc-field={`sections_data.partners.items.${i}.role`}
+                      className="block text-[9px] font-mono-tech text-zinc-500 uppercase tracking-tight truncate"
+                    >
+                      {partner.role || roles[partner.roleKey] || ''}
                     </span>
                   </div>
                 </Link>

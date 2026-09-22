@@ -17,6 +17,12 @@ export interface HomeSocialData {
   badge?: string;
   title?: string;
   subtitle?: string;
+  handle?: string;
+  join_text?: string;
+  see_instagram?: string;
+  avatar_url?: string;
+  /** Publications Instagram — copie éditoriale alignée par index. */
+  posts?: Array<{ title?: string; tag?: string; desc?: string; image?: string; link?: string }>;
 }
 
 interface HomeSocialSectionProps {
@@ -35,18 +41,25 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
   const instagramUrl =
     socialLinks.find((social) => social.platform === 'instagram')?.url ??
     'https://www.instagram.com/campus.univers.cascades/';
-  const postCopy =
+  const postDefaults =
     (t.raw('posts') as { title: string; tag: string; desc: string }[]) ?? [];
 
   const badge = socialData?.badge || t('badge');
   const title = socialData?.title || t('title');
   const subtitle = socialData?.subtitle || t('subtitle');
+  const handle = socialData?.handle || t('handle');
+  const joinText = socialData?.join_text || t('join');
+  const seeInstagram = socialData?.see_instagram || t('seeInstagram');
+  const avatarUrl =
+    socialData?.avatar_url ||
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus.univers.cascades.webp';
 
   /**
-   * Seuls le lien, l'image et l'amplitude de parallaxe restent locaux : la copie
-   * est dans `home.social.posts` (alignée par index).
+   * Médias locaux (lien, image, amplitude de parallaxe) + copie de repli
+   * traduite : `sections_data.social.posts.<index>` prime, la structure reste
+   * locale pour qu'aucune liste ne puisse être vidée ou inventée.
    */
-  const instagramPosts = [
+  const postMedia = [
     {
       link: 'https://www.instagram.com/reel/DJW5wq0MIzt/',
       image:
@@ -67,6 +80,15 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
     },
   ];
 
+  const instagramPosts = postMedia.map((media, idx) => ({
+    ...media,
+    title: socialData?.posts?.[idx]?.title || postDefaults[idx]?.title || '',
+    tag: socialData?.posts?.[idx]?.tag || postDefaults[idx]?.tag || '',
+    desc: socialData?.posts?.[idx]?.desc || postDefaults[idx]?.desc || '',
+    link: socialData?.posts?.[idx]?.link || media.link,
+    image: socialData?.posts?.[idx]?.image || media.image,
+  }));
+
   return (
     <StudioParallaxScene className="py-24 bg-[#060608]/90 border-b border-zinc-800/80 relative overflow-hidden">
       {/* Ambient Depth Halo */}
@@ -79,9 +101,13 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div className="flex items-center gap-5">
             <StudioParallaxCard maxTilt={8}>
-              <div className="relative w-16 h-16 rounded-full border-2 border-[#FFE500] overflow-hidden bg-black shrink-0 shadow-[0_0_20px_rgba(255,229,0,0.35)]">
+              <div
+                data-cuc-field="sections_data.social.avatar_url"
+                data-cuc-kind="image"
+                className="relative w-16 h-16 rounded-full border-2 border-[#FFE500] overflow-hidden bg-black shrink-0 shadow-[0_0_20px_rgba(255,229,0,0.35)]"
+              >
                 <Image
-                  src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus.univers.cascades.webp"
+                  src={avatarUrl}
                   alt={t('avatarAlt')}
                   fill
                   sizes="64px"
@@ -98,8 +124,11 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
                 >
                   {badge}
                 </span>
-                <span className="text-xs font-mono-tech text-zinc-500">
-                  {t('handle')}
+                <span
+                  data-cuc-field="sections_data.social.handle"
+                  className="text-xs font-mono-tech text-zinc-500"
+                >
+                  {handle}
                 </span>
               </div>
               <h2
@@ -123,7 +152,7 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
               size="md"
               icon={<ExternalLink className="w-4 h-4" />}
             >
-              {t('join')}
+              <span data-cuc-field="sections_data.social.join_text">{joinText}</span>
             </TacticalButton>
           </a>
         </div>
@@ -160,34 +189,51 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
               <StudioParallaxCard maxTilt={5} className="h-full">
                 <a
                   href={post.link}
+                  data-cuc-field={`sections_data.social.posts.${idx}.link`}
+                  data-cuc-kind="link"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-[#0e0e14]/95 backdrop-blur-xs border border-zinc-800 hover:border-[#FFE500]/60 p-5 group transition-all flex flex-col justify-between h-full shadow-lg hover:shadow-[0_10px_35px_rgba(255,229,0,0.1)] block"
                 >
                   <div>
-                    <div className="relative h-56 w-full mb-4 overflow-hidden border border-zinc-800 bg-black">
+                    <div
+                      data-cuc-field={`sections_data.social.posts.${idx}.image`}
+                      data-cuc-kind="image"
+                      className="relative h-56 w-full mb-4 overflow-hidden border border-zinc-800 bg-black"
+                    >
                       <Image
                         src={post.image}
-                        alt={postCopy[idx]?.title ?? ''}
+                        alt={post.title}
                         fill
                         sizes="(max-width: 768px) 100vw, 33vw"
                         className="object-cover object-center group-hover:scale-105 transition-transform duration-500 brightness-85"
                       />
-                      <div className="absolute top-3 left-3 bg-black/80 px-2 py-0.5 text-[10px] font-mono-tech text-[#FFE500] font-bold border border-white/20">
-                        {postCopy[idx]?.tag ?? ''}
+                      <div
+                        data-cuc-field={`sections_data.social.posts.${idx}.tag`}
+                        className="absolute top-3 left-3 bg-black/80 px-2 py-0.5 text-[10px] font-mono-tech text-[#FFE500] font-bold border border-white/20"
+                      >
+                        {post.tag}
                       </div>
                     </div>
 
-                    <h3 className="text-xl font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors mb-2">
-                      {postCopy[idx]?.title ?? ''}
+                    <h3
+                      data-cuc-field={`sections_data.social.posts.${idx}.title`}
+                      className="text-xl font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors mb-2"
+                    >
+                      {post.title}
                     </h3>
-                    <p className="text-xs font-tech text-zinc-400 leading-relaxed mb-4">
-                      {postCopy[idx]?.desc ?? ''}
+                    <p
+                      data-cuc-field={`sections_data.social.posts.${idx}.desc`}
+                      className="text-xs font-tech text-zinc-400 leading-relaxed mb-4"
+                    >
+                      {post.desc}
                     </p>
                   </div>
 
                   <div className="pt-3 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono-tech text-zinc-500">
-                    <span>{t('seeInstagram')}</span>
+                    <span data-cuc-field="sections_data.social.see_instagram">
+                      {seeInstagram}
+                    </span>
                     <ExternalLink className="w-3.5 h-3.5 text-[#FFE500] group-hover:translate-x-0.5 transition-transform" />
                   </div>
                 </a>
