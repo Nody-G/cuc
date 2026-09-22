@@ -415,6 +415,8 @@ export interface LayoutSection {
 
 export interface SitePageHero {
   badge?: string;
+  /** Ligne de métadonnées du hero (« AFDAS 100% • FRANCE TRAVAIL », « TF1 • FRANCE 2 »…). */
+  meta?: string;
   title: string;
   subtitle: string;
   cta_primary_text?: string;

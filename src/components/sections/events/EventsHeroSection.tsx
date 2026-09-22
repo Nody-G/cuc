@@ -56,8 +56,8 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
           <StuntBadge variant="yellow" icon={<Sparkles className="w-3.5 h-3.5" />}>
             <span {...cucField('hero.badge')}>{badge}</span>
           </StuntBadge>
-          <span className="text-xs font-mono-tech text-zinc-400">
-            SPECTACLES • ANIMATIONS • TEAM BUILDING
+          <span {...cucField('hero.meta')} className="text-xs font-mono-tech text-zinc-400">
+            {hero?.meta || 'SPECTACLES • ANIMATIONS • TEAM BUILDING'}
           </span>
         </div>
 

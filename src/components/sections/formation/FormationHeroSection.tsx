@@ -65,8 +65,12 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
                 {heroData?.badge || t('hero.badge')}
               </span>
             </StuntBadge>
-            <span className="text-xs font-mono-tech text-zinc-400 hidden sm:inline">
-              AFDAS 100% • FRANCE TRAVAIL
+            <span
+              data-cuc-field="hero.meta"
+              data-cuc-kind="text"
+              className="text-xs font-mono-tech text-zinc-400 hidden sm:inline"
+            >
+              {heroData?.meta || 'AFDAS 100% • FRANCE TRAVAIL'}
             </span>
           </div>
 

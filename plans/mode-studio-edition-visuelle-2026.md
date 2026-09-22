@@ -138,6 +138,40 @@ l'édition en place (texte, image, liste), consigner les champs volontairement n
 - `node scripts/probe_public_routes.mjs http://localhost:3000` — aucune régression publique.
 - Mesure du budget : 0 requête publique nominale, 1 canal Realtime max, 1 upsert par enregistrement.
 
+## 12. Extension validée — aperçu (langue, plein écran) et micro-textes visiteurs
+
+### 12.1 Bascule de langue dans l'aperçu live
+
+- Sélecteur segmenté `FR | EN` dans la barre d'outils de l'aperçu (et dans la vue plein écran).
+- Il pilote la locale d'édition : l'URL d'aperçu (`/en/...`) et le brouillon poussé changent, donc
+  ce que l'on voit est exactement ce que le public anglais recevra.
+- Invariant : une édition en place écrit toujours dans la langue active (base FR ou overlay EN).
+
+### 12.2 Mode plein écran de l'aperçu
+
+- Iframe plein écran avec **uniquement** : sélecteur PC / tablette / mobile, badge Live, sortie (Échap).
+- Même pont, mêmes garanties : origine stricte, inertie hors iframe, aucune écriture en base.
+- Entrée depuis l'éditeur de pages et depuis la palette de commandes.
+
+### 12.3 Campagne micro-textes — fouiller partout, mesurer avant de promettre
+
+Nouveau `scripts/audit_visible_microcopy.mjs` : recense les **nœuds de texte visibles** des composants
+de vitrine et classe chaque occurrence.
+
+| Catégorie | Traitement |
+| --- | --- |
+| 1. Annotée `data-cuc-field` | éditable en place (rien à faire) |
+| 2. Issue des données (`content.*`, `site_settings`, `site_navigation`, `site_footer`) | éditable par un écran existant |
+| 3. Issue d'une traduction `t(...)` sans chemin de données | **à brancher** (clé de données + défaut + annotation) |
+| 4. **Chaîne codée en dur** | dette prioritaire — cas réels constatés : `AFDAS 100% • FRANCE TRAVAIL`, `SPECTACLES • ANIMATIONS • TEAM BUILDING`, fil d'Ariane Events `ACCUEIL` / `CUC EVENTS & SPECTACLES` (affichés en français même sur `/en`) |
+| 5. Libellé technique (marque, nom propre) | hors périmètre, justifié explicitement |
+
+Rapport : `plans/revue-micro-textes-visiteurs.md` — sortie en code 2 tant qu'il reste des catégories 3 ou 4.
+
+**Frontière assumée** : le chrome global (`site_settings`, `site_navigation`, `site_footer`,
+`site_social_links`) reste édité par ses écrans dédiés déjà livrés. Le Mode Studio ne prétend pas
+éditer le chrome tant qu'il n'a pas d'entité dédiée — un lien faux est pire qu'aucun lien.
+
 ## 11. Non-objectifs et risques
 
 - **Pas de HTML riche** : texte brut + sauts de ligne. Aucune mise en forme inventée.

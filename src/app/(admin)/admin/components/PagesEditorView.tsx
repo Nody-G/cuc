@@ -907,6 +907,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
                   onModeChange={setPreviewMode}
                   onFieldCommit={handlePreviewFieldCommit}
                   onFieldSelect={previewMode === 'inspect' ? handlePreviewFieldFocus : undefined}
+                  locale={editorLocale}
+                  onLocaleChange={handleLocaleChange}
                 />
               </div>
             </div>
@@ -919,6 +921,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
               onModeChange={setPreviewMode}
               onFieldCommit={handlePreviewFieldCommit}
               onFieldSelect={previewMode === 'inspect' ? handlePreviewFieldFocus : undefined}
+              locale={editorLocale}
+              onLocaleChange={handleLocaleChange}
             />
           )}
         </div>
