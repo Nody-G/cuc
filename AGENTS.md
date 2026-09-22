@@ -253,3 +253,52 @@ est verrouillé en EN, et les médias ne se modifient qu'en français.
 - `node scripts/audit_i18n_completeness.mjs` — couverture FR → EN feuille par
   feuille (référence historique du taux de couverture).
 
+# DOCTRINE MODE STUDIO : ÉDITION VISUELLE EN PLACE (APERÇU LIVE)
+
+**Règle Permanente — Le brouillon voyage en mémoire ; la base ne voit qu'un enregistrement.**
+
+## 1. Le pont Cockpit ↔ vitrine
+- Protocole versionné [`preview-protocol.ts`](src/lib/preview/preview-protocol.ts:1) (v2,
+  origine vérifiée des deux côtés, tolérance des bundles hérités encore en cache CDN).
+- La page publique embarque `PreviewBridgeClient` (brouillon, survol, sélection) et
+  `PreviewEditLayer` (saisie en place) — **strictement inertes hors iframe**, couvert par tests.
+- **Aucune écriture en base depuis l'aperçu** : seul le bouton « Enregistrer » persiste,
+  via les server actions existantes.
+
+## 2. Marquer un champ éditable
+- `data-cuc-field="<chemin>"` + `data-cuc-kind="text|textarea|image|link|list-item"`.
+- Helpers : `cucField('hero.title')`, `itemPath('formules', index, 'title')`
+  ([`cuc-field.ts`](src/lib/preview/cuc-field.ts:1)). Un chemin indisponible ne pose
+  **aucun attribut** (zéro champ fantôme).
+- Listes : `data-cuc-index="<i>"` sur l'item, chemin du **tableau** dans `data-cuc-field`.
+- Rendu **data-first** obligatoire : `{donnée || t('clé')}` — le repli traduit reste en place.
+
+## 3. Invariants non négociables
+- Aucune valeur vide persistée ; aucun item inventé (liste vide → pas d'ajout) ;
+  aucune liste rendue complètement vidée ; aucune structure inventée.
+- Saisie en place : `input`/`textarea` superposés — **jamais** `contentEditable` sur un
+  nœud rendu par React (la réconciliation écraserait le DOM).
+- Écriture du brouillon par chemin immuable :
+  [`field-path.ts`](src/lib/preview/field-path.ts:1).
+- Commandes de liste : moteur pur [`list-command.ts`](src/lib/preview/list-command.ts:1).
+
+## 4. Performance et publication
+- Realtime : **un seul WebSocket par client** (`subscribeTable`, canal partagé). La
+  navigation, le pied de page, les réseaux, la page, ses traductions, les annonces et les
+  films passent par ce canal.
+- Aperçu : `?cuc-preview=1` coupe le Realtime et met les effets lourds en veille
+  ([`preview-context.ts`](src/lib/preview/preview-context.ts:1)). La vitrine publique n'est
+  **jamais** chargée avec ce paramètre.
+- Publication : [`revalidateSite`](src/app/(admin)/admin/actions.ts:58) revalide les chemins
+  FR **et** `/en/...`, **et** les tags (`site_pages`, `site_translations`, `site_navigation`,
+  `site_footer`, `site_social_links`).
+
+## 5. Vérification obligatoire après toute modification
+- `npm run audit:fields` — couverture des champs page par page (code 2 si une page n'expose
+  aucun champ). Rapport : `plans/revue-couverture-champs-visuels.md`.
+- `npm run audit:microcopy` — micro-textes visiteurs classés (annotés / données / traductions /
+  codés en dur). Rapport : `plans/revue-micro-textes-visiteurs.md`.
+- `npm run audit:budget` — budget performance (canal partagé, zéro requête publique nominale,
+  FR + EN, aperçu allégé). Rapport : `plans/revue-budget-performance.md`.
+- `npm run test` (protocole, chemins, listes, inertie) + `npm run typecheck` + `npm run build`.
+

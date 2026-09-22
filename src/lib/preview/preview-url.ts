@@ -50,12 +50,21 @@ export function buildPreviewPath(slug: string, locale: PreviewLocale = DEFAULT_L
  * URL absolue de l'aperçu. Renvoie une chaîne vide tant que l'origine n'est pas
  * résolue (rendu serveur / premier rendu) : l'iframe n'est alors pas montée, ce
  * qui évite un `src=""` chargeant la page courante.
+ *
+ * `options.quiet` ajoute `?cuc-preview=1` : la page d'aperçu coupe alors le
+ * Realtime (le brouillon arrive déjà par `postMessage`) et met en veille les
+ * effets lourds — voir `preview-context.ts`. La vitrine publique, elle, n'est
+ * jamais chargée avec ce paramètre.
  */
 export function buildPreviewUrl(
     origin: string,
     slug: string,
-    locale: PreviewLocale = DEFAULT_LOCALE
+    locale: PreviewLocale = DEFAULT_LOCALE,
+    options: { quiet?: boolean } = {}
 ): string {
     if (!origin) return '';
-    return `${origin.replace(/\/+$/, '')}${buildPreviewPath(slug, locale)}`;
+    const base = `${origin.replace(/\/+$/, '')}${buildPreviewPath(slug, locale)}`;
+    if (!options.quiet) return base;
+    const separator = base.includes('?') ? '&' : '?';
+    return `${base}${separator}cuc-preview=1`;
 }

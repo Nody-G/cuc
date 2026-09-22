@@ -7,6 +7,7 @@ import Image from 'next/image';
 
 import { TacticalButton } from './TacticalButton';
 import { cucField } from '@/lib/preview/cuc-field';
+import { isPreviewFrame } from '@/lib/preview/preview-context';
 import {
   ChevronRight,
   Compass,
@@ -62,7 +63,8 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
   useEffect(() => {
     const coarse = window.matchMedia('(hover: none), (pointer: coarse)');
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const sync = () => setIsCalmMode(coarse.matches || reduced.matches);
+    // Aperçu du Cockpit : effets continus mis en veille (iframe réactive).
+    const sync = () => setIsCalmMode(isPreviewFrame() || coarse.matches || reduced.matches);
     sync();
     coarse.addEventListener('change', sync);
     reduced.addEventListener('change', sync);

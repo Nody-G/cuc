@@ -528,7 +528,12 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   // L'aperçu suit la langue éditée : en anglais, l'iframe charge `/en/<slug>`,
   // et le brouillon poussé est le contenu localisé — l'aperçu montre donc
   // exactement ce que le public recevra.
-  const previewUrl = buildPreviewUrl(previewOrigin, formData.slug, editorLocale);
+  // `quiet` : l'iframe d'aperçu coupe le Realtime (le brouillon arrive par
+  // `postMessage`) et met en veille les effets lourds — la page publique, elle,
+  // n'est jamais chargée avec ce paramètre.
+  const previewUrl = buildPreviewUrl(previewOrigin, formData.slug, editorLocale, {
+    quiet: true,
+  });
 
   /**
    * Édition inline : lorsqu'un champ est cliqué dans l'aperçu, on retrouve

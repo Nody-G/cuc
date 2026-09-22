@@ -1,4 +1,5 @@
 import type { RealtimeChannel, SupabaseClient } from '@supabase/supabase-js';
+import { isPreviewFrame } from '@/lib/preview/preview-context';
 
 /**
  * Fabrique de canaux Supabase Realtime SÛRS.
@@ -111,6 +112,14 @@ export function subscribeTable(
     config: PostgresChangeConfig,
     handler: (payload: { new: unknown; eventType?: string; old?: unknown }) => void
 ): () => void {
+    // Aperçu du Cockpit : le brouillon arrive déjà par `postMessage`, un
+    // WebSocket supplémentaire ne servirait qu'à recevoir le même contenu.
+    if (isPreviewFrame()) {
+        return () => {
+            /* Rien à retirer : aucun canal n'a été ouvert. */
+        };
+    }
+
     try {
         let entry = sharedChannels.get(supabase);
         if (!entry || entry.subscribed) {
