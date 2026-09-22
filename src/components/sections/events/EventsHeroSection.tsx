@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { cucField } from '@/lib/preview/cuc-field';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 import { Sparkles, ChevronRight } from 'lucide-react';
 
 import { SitePageHero } from '@/lib/data/site-service';
@@ -48,10 +49,12 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
       <div className="relative z-10 page-shell">
         <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
           <Link href="/" className="hover:text-[#FFE500] transition-colors">
-            {chrome('breadcrumbHome')}
+            <span {...cucMicro('commonChrome.breadcrumbHome')}>{chrome('breadcrumbHome')}</span>
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-          <span className="text-[#FFE500]">CUC EVENTS & SPECTACLES</span>
+          <span className="text-[#FFE500]" {...cucMicro('eventsAgence.breadcrumbCurrent')}>
+            {t('breadcrumbCurrent')}
+          </span>
         </div>
 
         <div className="inline-flex items-center gap-2 mb-4">

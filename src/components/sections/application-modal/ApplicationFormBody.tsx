@@ -8,6 +8,7 @@ import { TacticalButton } from '../../ui/TacticalButton';
 import { StuntBadge } from '../../ui/StuntBadge';
 import { ApplicationFields } from './ApplicationFields';
 import { AFDAS_VALUES, type ApplicationFormData, type ProfileType } from './application-form';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 interface ApplicationFormBodyProps {
     profileType: ProfileType;
@@ -61,11 +62,13 @@ export const ApplicationFormBody: React.FC<ApplicationFormBodyProps> = ({
                     </div>
                 </div>
                 <h2 id="modal-title" className="text-3xl md:text-4xl font-display uppercase tracking-wider text-white">
-                    {t('titleLead')}
-                    <span className="text-[#FFE500]">{t('titleAccent')}</span>
+                    <span {...cucMicro('applicationModal.titleLead')}>{t('titleLead')}</span>
+                    <span className="text-[#FFE500]" {...cucMicro('applicationModal.titleAccent')}>
+                        {t('titleAccent')}
+                    </span>
                 </h2>
                 <p className="text-sm text-zinc-400 font-tech mt-1">
-                    {t('intro')}
+                    <span {...cucMicro('applicationModal.intro')}>{t('intro')}</span>
                 </p>
             </div>
 
@@ -93,7 +96,9 @@ export const ApplicationFormBody: React.FC<ApplicationFormBodyProps> = ({
                 {profileType === 'afdas' && (
                     <div>
                         <label className="block text-xs font-mono-tech uppercase text-[#FFE500] mb-1">
-                            {t('labels.afdasStatus')}
+                            <span {...cucMicro('applicationModal.labels.afdasStatus')}>
+                                {t('labels.afdasStatus')}
+                            </span>
                         </label>
                         <select
                             value={formData.afdasStatus}
@@ -111,7 +116,9 @@ export const ApplicationFormBody: React.FC<ApplicationFormBodyProps> = ({
 
                 <div>
                     <label className="block text-xs font-mono-tech uppercase text-zinc-400 mb-1">
-                        {t('labels.sport')}
+                        <span {...cucMicro('applicationModal.labels.sport')}>
+                            {t('labels.sport')}
+                        </span>
                     </label>
                     <input
                         type="text"
@@ -124,7 +131,9 @@ export const ApplicationFormBody: React.FC<ApplicationFormBodyProps> = ({
 
                 <div>
                     <label className="block text-xs font-mono-tech uppercase text-zinc-400 mb-1">
-                        {t('labels.session')}
+                        <span {...cucMicro('applicationModal.labels.session')}>
+                            {t('labels.session')}
+                        </span>
                     </label>
                     <textarea
                         rows={3}
@@ -138,7 +147,12 @@ export const ApplicationFormBody: React.FC<ApplicationFormBodyProps> = ({
                 <div className="bg-zinc-900/80 border border-zinc-800 p-3 flex items-start gap-3">
                     <Shield className="w-5 h-5 text-[#FFE500] shrink-0 mt-0.5" />
                     <p className="text-xs text-zinc-400">
-                        <strong className="text-white">{t('safetyTitle')}</strong> {t('safetyBody')}
+                        <strong className="text-white">
+                            <span {...cucMicro('applicationModal.safetyTitle')}>
+                                {t('safetyTitle')}
+                            </span>
+                        </strong>{' '}
+                        <span {...cucMicro('applicationModal.safetyBody')}>{t('safetyBody')}</span>
                     </p>
                 </div>
 
@@ -154,7 +168,7 @@ export const ApplicationFormBody: React.FC<ApplicationFormBodyProps> = ({
                         onClick={onClose}
                         className="px-4 py-2.5 text-xs font-mono-tech uppercase text-zinc-400 hover:text-white"
                     >
-                        {t('cancel')}
+                        <span {...cucMicro('applicationModal.cancel')}>{t('cancel')}</span>
                     </button>
                     <TacticalButton
                         type="submit"
@@ -162,7 +176,11 @@ export const ApplicationFormBody: React.FC<ApplicationFormBodyProps> = ({
                         disabled={isSubmitting}
                         icon={<Send className="w-4 h-4" />}
                     >
-                        {isSubmitting ? t('submitting') : t('submit')}
+                        {isSubmitting ? (
+                            <span {...cucMicro('applicationModal.submitting')}>{t('submitting')}</span>
+                        ) : (
+                            <span {...cucMicro('applicationModal.submit')}>{t('submit')}</span>
+                        )}
                     </TacticalButton>
                 </div>
             </form>

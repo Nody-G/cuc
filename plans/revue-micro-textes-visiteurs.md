@@ -1,18 +1,18 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T20:54:57.524Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T20:58:27.146Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 291 |
+| ANNOTÉ — éditable en place | 306 |
 | DONNÉES — éditable par un écran existant | 106 |
-| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 54 |
+| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 14 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 16 |
-| **Total** | **467** |
+| **Total** | **442** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -166,15 +166,34 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.61 — `{t('hallOfFame.tag')}`
 - l.70 — `{t('hallOfFame.subtitle')}`
 
+### `src\components\sections\application-modal\ApplicationFields.tsx`
+
+- l.26 — `{t('labels.fullName')}`
+- l.41 — `{t('labels.age')}`
+- l.61 — `{t('labels.email')}`
+- l.76 — `{t('labels.phone')}`
+
+### `src\components\sections\application-modal\ApplicationFormBody.tsx`
+
+- l.67 — `{t('titleAccent')}`
+- l.100 — `{t('labels.afdasStatus')}`
+- l.120 — `{t('labels.sport')}`
+- l.135 — `{t('labels.session')}`
+- l.152 — `{t('safetyTitle')}`
+
 ### `src\components\sections\contact\ContactCoordinatesSidebar.tsx`
 
-- l.120 — `{accessInfo?.train_info || accessInfo?.train}`
-- l.128 — `{accessInfo?.car_info || accessInfo?.car}`
-- l.136 — `{accessInfo.parking_info}`
+- l.121 — `{accessInfo?.train_info || accessInfo?.train}`
+- l.129 — `{accessInfo?.car_info || accessInfo?.car}`
+- l.137 — `{accessInfo.parking_info}`
+- l.160 — `{t('mainCampusRegion')}`
+- l.191 — `{t('idfAddress')}`
 
 ### `src\components\sections\contact\ContactHeroSection.tsx`
 
-- l.70 — `{heroData?.subtitle || t('subtitle')}`
+- l.42 — `{t('breadcrumbCurrent')}`
+- l.65 — `{t('titleAccent')}`
+- l.75 — `{heroData?.subtitle || t('subtitle')}`
 
 ### `src\components\sections\events\EventsGuaranteesSection.tsx`
 
@@ -187,8 +206,9 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\events\EventsHeroSection.tsx`
 
-- l.62 — `{hero?.meta || 'SPECTACLES • ANIMATIONS • TEAM BUILDING'}`
-- l.84 — `{subtitle}`
+- l.56 — `{t('breadcrumbCurrent')}`
+- l.65 — `{hero?.meta || 'SPECTACLES • ANIMATIONS • TEAM BUILDING'}`
+- l.87 — `{subtitle}`
 
 ### `src\components\sections\events\pillars\DbEventPillarCard.tsx`
 
@@ -345,8 +365,9 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\partenaires\PartenairesHeroSection.tsx`
 
-- l.54 — `{hero?.meta || t('heroMeta')}`
-- l.78 — `{subtitle}`
+- l.48 — `{t('breadcrumbCurrent')}`
+- l.57 — `{hero?.meta || t('heroMeta')}`
+- l.81 — `{subtitle}`
 
 ### `src\components\sections\partenaires\grid\AdditionalPartnerCard.tsx`
 
@@ -600,8 +621,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\application-modal\ApplicationFormBody.tsx`
 
-- l.84 — `{tab.label}`
-- l.147 — `{submitError}`
+- l.87 — `{tab.label}`
+- l.161 — `{submitError}`
 
 ### `src\components\sections\contact\ContactForm.tsx`
 
@@ -730,77 +751,17 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.71 — `{t('errorReference', { digest: error.digest })}`
 
-### `src\components\sections\application-modal\ApplicationFields.tsx`
-
-- l.24 — `{t('labels.fullName')}`
-- l.37 — `{t('labels.age')}`
-- l.55 — `{t('labels.email')}`
-- l.68 — `{t('labels.phone')}`
-
 ### `src\components\sections\application-modal\ApplicationFormBody.tsx`
 
-- l.64 — `{t('titleLead')}`
-- l.68 — `{t('intro')}`
-- l.96 — `{t('labels.afdasStatus')}`
-- l.105 — `{afdasLabels[index] ?? value}`
-- l.114 — `{t('labels.sport')}`
-- l.127 — `{t('labels.session')}`
-- l.157 — `{t('cancel')}`
-- l.165 — `{isSubmitting ? t('submitting') : t('submit')}`
-
-### `src\components\sections\application-modal\ApplicationSuccessView.tsx`
-
-- l.23 — `{t('successTitle')}`
-- l.48 — `{t('closeCase')}`
-
-### `src\components\sections\contact\ContactCoordinatesSidebar.tsx`
-
-- l.49 — `{t('standardTitle')}`
-- l.67 — `{t('directPhone')}`
-- l.82 — `{t('email')}`
-- l.97 — `{t('hours')}`
-- l.106 — `{t('hoursValue')}`
-- l.108 — `{t('hoursSaturday')}`
-- l.148 — `{t('sitesTitle')}`
-- l.153 — `{t('mainCampus')}`
-- l.156 — `{t('mainCampusAddress')}`
-- l.159 — `{t('mainCampusRegion')}`
-- l.184 — `{t('idfHub')}`
-- l.187 — `{t('idfStudio')}`
-- l.190 — `{t('idfAddress')}`
-- l.197 — `{t('production')}`
-- l.200 — `{t('productionDesc')}`
-- l.214 — `{t('entitiesTitle')}`
-- l.226 — `{chrome('siteCampus')}`
-- l.239 — `{chrome('siteEvents')}`
-- l.252 — `{chrome('siteStuntTeam')}`
+- l.110 — `{afdasLabels[index] ?? value}`
 
 ### `src\components\sections\contact\ContactForm.tsx`
 
 - l.194 — `{t(’options.${programId}’)}`
 
-### `src\components\sections\contact\ContactHeroSection.tsx`
-
-- l.37 — `{t('breadcrumbHome')}`
-- l.48 — `{t('locationLabel')}`
-- l.60 — `{t('titleLine')}{' '}`
-
-### `src\components\sections\events\EventsHeroSection.tsx`
-
-- l.51 — `{chrome('breadcrumbHome')}`
-
-### `src\components\sections\events\EventsPartnersBanners.tsx`
-
-- l.20 — `{t('partnersTitle')}`
-- l.65 — `{t('cinemaTitle')}`
-
 ### `src\components\sections\events\pillars\DbEventPillarCard.tsx`
 
 - l.74 — `{evt.cta_text || t('learnMore')}`
-
-### `src\components\sections\formation\FormationHeroSection.tsx`
-
-- l.172 — `{t('stats.since')}`
 
 ### `src\components\sections\formation\FormationPedagogyModalities.tsx`
 
@@ -809,10 +770,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
 
 - l.106 — `{movie.year}{movie.director ? ’ • ${t('filmModal.directedBy', { name: movie.director })}’ : ''}`
-
-### `src\components\sections\partenaires\PartenairesHeroSection.tsx`
-
-- l.43 — `{t('breadcrumbHome')}`
 
 ### `src\components\sections\partenaires\grid\AdditionalPartnerCard.tsx`
 
@@ -848,12 +805,12 @@ Aucune occurrence.
 
 ### `src\components\sections\application-modal\ApplicationSuccessView.tsx`
 
-- l.43 — `contact@campus-universcascades.com`
+- l.44 — `contact@campus-universcascades.com`
 
 ### `src\components\sections\contact\ContactCoordinatesSidebar.tsx`
 
-- l.88 — `contact@campus-universcascades.com`
-- l.177 — `Google Maps`
+- l.89 — `contact@campus-universcascades.com`
+- l.178 — `Google Maps`
 
 ### `src\components\sections\formation\FormationHeroSection.tsx`
 

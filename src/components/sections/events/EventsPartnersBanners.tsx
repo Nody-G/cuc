@@ -4,6 +4,7 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { StuntBadge } from '@/components/ui/StuntBadge';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 export const EventsPartnersBanners: React.FC = () => {
   const t = useTranslations('eventsAgence');
@@ -14,10 +15,12 @@ export const EventsPartnersBanners: React.FC = () => {
         <div className="page-shell">
           <div className="text-center max-w-3xl mx-auto mb-10">
             <div className="inline-flex items-center gap-2 mb-2">
-              <StuntBadge variant="yellow">{t('partnersBadge')}</StuntBadge>
+              <StuntBadge variant="yellow">
+                <span {...cucMicro('eventsAgence.partnersBadge')}>{t('partnersBadge')}</span>
+              </StuntBadge>
             </div>
             <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-              {t('partnersTitle')}
+              <span {...cucMicro('eventsAgence.partnersTitle')}>{t('partnersTitle')}</span>
             </h2>
           </div>
 
@@ -59,10 +62,12 @@ export const EventsPartnersBanners: React.FC = () => {
         <div className="page-shell">
           <div className="text-center max-w-3xl mx-auto mb-10">
             <div className="inline-flex items-center gap-2 mb-2">
-              <StuntBadge variant="yellow">{t('cinemaBadge')}</StuntBadge>
+              <StuntBadge variant="yellow">
+                <span {...cucMicro('eventsAgence.cinemaBadge')}>{t('cinemaBadge')}</span>
+              </StuntBadge>
             </div>
             <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-              {t('cinemaTitle')}
+              <span {...cucMicro('eventsAgence.cinemaTitle')}>{t('cinemaTitle')}</span>
             </h2>
           </div>
 

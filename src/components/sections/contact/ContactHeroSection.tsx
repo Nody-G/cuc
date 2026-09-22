@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { Phone, ChevronRight } from 'lucide-react';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { cucField } from '@/lib/preview/cuc-field';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 import { SitePageHero } from '@/lib/data/site-service';
 
@@ -34,10 +35,12 @@ export const ContactHeroSection: React.FC<ContactHeroSectionProps> = ({ heroData
       <div className="relative z-10 page-shell">
         <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
           <Link href="/" className="hover:text-[#FFE500] transition-colors">
-            {t('breadcrumbHome')}
+            <span {...cucMicro('contact.hero.breadcrumbHome')}>{t('breadcrumbHome')}</span>
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-          <span className="text-[#FFE500]">{t('breadcrumbCurrent')}</span>
+          <span className="text-[#FFE500]" {...cucMicro('contact.hero.breadcrumbCurrent')}>
+            {t('breadcrumbCurrent')}
+          </span>
         </div>
 
         <div className="inline-flex items-center gap-2 mb-4">
@@ -45,7 +48,7 @@ export const ContactHeroSection: React.FC<ContactHeroSectionProps> = ({ heroData
             <span {...cucField('hero.badge')}>{heroData?.badge || t('badge')}</span>
           </StuntBadge>
           <span className="text-xs font-mono-tech text-zinc-400">
-            {t('locationLabel')}
+            <span {...cucMicro('contact.hero.locationLabel')}>{t('locationLabel')}</span>
           </span>
         </div>
 
@@ -57,8 +60,10 @@ export const ContactHeroSection: React.FC<ContactHeroSectionProps> = ({ heroData
             <span>{heroData.title}</span>
           ) : (
             <>
-              {t('titleLine')}{' '}
-              <span className="text-[#FFE500]">{t('titleAccent')}</span>
+              <span {...cucMicro('contact.hero.titleLine')}>{t('titleLine')}</span>{' '}
+              <span className="text-[#FFE500]" {...cucMicro('contact.hero.titleAccent')}>
+                {t('titleAccent')}
+              </span>
             </>
           )}
         </h1>

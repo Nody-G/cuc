@@ -3,6 +3,7 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import type { ApplicationFormData } from './application-form';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 const FIELD_CLASS =
     'w-full bg-[#16161c] border border-zinc-700 focus:border-[#FFE500] px-3 py-2.5 text-sm text-white focus:outline-none transition-colors';
@@ -21,7 +22,9 @@ export const ApplicationFields: React.FC<ApplicationFieldsProps> = ({ formData, 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label className="block text-xs font-mono-tech uppercase text-zinc-400 mb-1">
-                        {t('labels.fullName')}
+                        <span {...cucMicro('applicationModal.labels.fullName')}>
+                            {t('labels.fullName')}
+                        </span>
                     </label>
                     <input
                         type="text"
@@ -34,7 +37,9 @@ export const ApplicationFields: React.FC<ApplicationFieldsProps> = ({ formData, 
                 </div>
                 <div>
                     <label className="block text-xs font-mono-tech uppercase text-zinc-400 mb-1">
-                        {t('labels.age')}
+                        <span {...cucMicro('applicationModal.labels.age')}>
+                            {t('labels.age')}
+                        </span>
                     </label>
                     <input
                         type="number"
@@ -52,7 +57,9 @@ export const ApplicationFields: React.FC<ApplicationFieldsProps> = ({ formData, 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label className="block text-xs font-mono-tech uppercase text-zinc-400 mb-1">
-                        {t('labels.email')}
+                        <span {...cucMicro('applicationModal.labels.email')}>
+                            {t('labels.email')}
+                        </span>
                     </label>
                     <input
                         type="email"
@@ -65,7 +72,9 @@ export const ApplicationFields: React.FC<ApplicationFieldsProps> = ({ formData, 
                 </div>
                 <div>
                     <label className="block text-xs font-mono-tech uppercase text-zinc-400 mb-1">
-                        {t('labels.phone')}
+                        <span {...cucMicro('applicationModal.labels.phone')}>
+                            {t('labels.phone')}
+                        </span>
                     </label>
                     <input
                         type="tel"

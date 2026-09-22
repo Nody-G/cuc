@@ -12,6 +12,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { cucField } from '@/lib/preview/cuc-field';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 /**
  * `sections_data.access_info` — clés canoniques écrites par l'éditeur de page
@@ -46,7 +47,7 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
 
         <div className="flex items-center justify-between gap-3 mb-4">
           <h3 className="text-xl font-display uppercase text-white">
-            {t('standardTitle')}
+            <span {...cucMicro('contact.sidebar.standardTitle')}>{t('standardTitle')}</span>
           </h3>
           <div className="relative w-10 h-10 shrink-0">
             <Image
@@ -64,7 +65,7 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
             <Phone className="w-5 h-5 text-[#FFE500] shrink-0" />
             <div>
               <strong className="text-zinc-300 font-mono-tech block">
-                {t('directPhone')}
+                <span {...cucMicro('contact.sidebar.directPhone')}>{t('directPhone')}</span>
               </strong>
               <a
                 href="tel:+33672849492"
@@ -79,7 +80,7 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
             <Mail className="w-5 h-5 text-[#FFE500] shrink-0" />
             <div>
               <strong className="text-zinc-300 font-mono-tech block">
-                {t('email')}
+                <span {...cucMicro('contact.sidebar.email')}>{t('email')}</span>
               </strong>
               <a
                 href="mailto:contact@campus-universcascades.com"
@@ -94,7 +95,7 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
             <Clock className="w-5 h-5 text-[#FFE500] shrink-0 mt-0.5" />
             <div>
               <strong className="text-zinc-300 font-mono-tech block">
-                {t('hours')}
+                <span {...cucMicro('contact.sidebar.hours')}>{t('hours')}</span>
               </strong>
               <span
                 {...cucField('sections_data.access_info.schedule_info')}
@@ -103,9 +104,9 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
                 {accessInfo?.schedule_info ||
                   accessInfo?.opening_hours || (
                     <>
-                      {t('hoursValue')}
+                      <span {...cucMicro('contact.sidebar.hoursValue')}>{t('hoursValue')}</span>
                       <br />
-                      {t('hoursSaturday')}
+                      <span {...cucMicro('contact.sidebar.hoursSaturday')}>{t('hoursSaturday')}</span>
                     </>
                   )}
               </span>
@@ -145,17 +146,17 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
       {/* Implantations */}
       <div className="bg-[#0e0e14] border border-zinc-800 p-6 space-y-4 text-xs font-tech">
         <h3 className="text-lg font-display uppercase text-white border-b border-zinc-800 pb-2">
-          {t('sitesTitle')}
+          <span {...cucMicro('contact.sidebar.sitesTitle')}>{t('sitesTitle')}</span>
         </h3>
 
         <div className="p-3 bg-[#12121a] border border-zinc-800/80 hover:border-[#FFE500]/50 transition-colors">
           <strong className="text-[#FFE500] font-mono-tech block mb-0.5">
-            {t('mainCampus')}
+            <span {...cucMicro('contact.sidebar.mainCampus')}>{t('mainCampus')}</span>
           </strong>
           <p className="text-zinc-300">
-            {t('mainCampusAddress')}
+            <span {...cucMicro('contact.sidebar.mainCampusAddress')}>{t('mainCampusAddress')}</span>
             <br />
-            <span className="text-zinc-500">
+            <span className="text-zinc-500" {...cucMicro('contact.sidebar.mainCampusRegion')}>
               {t('mainCampusRegion')}
             </span>
           </p>
@@ -181,12 +182,12 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
 
         <div className="p-3 bg-[#12121a] border border-zinc-800/80 hover:border-zinc-700 transition-colors">
           <strong className="text-[#FFE500] font-mono-tech block mb-0.5">
-            {t('idfHub')}
+            <span {...cucMicro('contact.sidebar.idfHub')}>{t('idfHub')}</span>
           </strong>
           <p className="text-zinc-300">
-            {t('idfStudio')}
+            <span {...cucMicro('contact.sidebar.idfStudio')}>{t('idfStudio')}</span>
             <br />
-            <span className="text-zinc-500">
+            <span className="text-zinc-500" {...cucMicro('contact.sidebar.idfAddress')}>
               {t('idfAddress')}
             </span>
           </p>
@@ -194,10 +195,10 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
 
         <div className="pt-2 border-t border-zinc-800/80">
           <strong className="text-zinc-400 font-mono-tech block text-[11px] mb-0.5">
-            {t('production')}
+            <span {...cucMicro('contact.sidebar.production')}>{t('production')}</span>
           </strong>
           <span className="text-zinc-500">
-            {t('productionDesc')}
+            <span {...cucMicro('contact.sidebar.productionDesc')}>{t('productionDesc')}</span>
           </span>
         </div>
       </div>
@@ -211,7 +212,7 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
       {/* Official Entities Logos */}
       <div className="bg-[#0e0e14] border border-zinc-800 p-6 text-center space-y-3">
         <span className="text-[10px] font-mono-tech uppercase text-zinc-500 block">
-          {t('entitiesTitle')}
+          <span {...cucMicro('contact.sidebar.entitiesTitle')}>{t('entitiesTitle')}</span>
         </span>
         <div className="flex items-center justify-center gap-6 pt-2">
           <div className="flex flex-col items-center">
@@ -223,7 +224,7 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
               className="object-contain p-1"
             />
             <span className="text-[10px] font-mono-tech text-zinc-400 mt-1">
-              {chrome('siteCampus')}
+              <span {...cucMicro('commonChrome.siteCampus')}>{chrome('siteCampus')}</span>
             </span>
           </div>
 
@@ -236,7 +237,7 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
               className="rounded-full border border-zinc-700 object-cover"
             />
             <span className="text-[10px] font-mono-tech text-zinc-400 mt-1">
-              {chrome('siteEvents')}
+              <span {...cucMicro('commonChrome.siteEvents')}>{chrome('siteEvents')}</span>
             </span>
           </div>
 
@@ -249,7 +250,7 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
               className="rounded-full border border-zinc-700 object-cover"
             />
             <span className="text-[10px] font-mono-tech text-zinc-400 mt-1">
-              {chrome('siteStuntTeam')}
+              <span {...cucMicro('commonChrome.siteStuntTeam')}>{chrome('siteStuntTeam')}</span>
             </span>
           </div>
         </div>

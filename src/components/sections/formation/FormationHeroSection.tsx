@@ -169,7 +169,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
 
             <div className="border-l-2 border-[#FFE500] pl-4 py-1">
               <div className="text-3xl sm:text-4xl font-display text-[#FFE500]">
-                {t('stats.since')}
+                <span {...cucMicro('formation.stats.since')}>{t('stats.since')}</span>
               </div>
               <div className="text-xs font-mono-tech text-zinc-400 uppercase tracking-wider">
                 <span {...cucMicro('formation.stats.referenceLabel')}>{t('stats.referenceLabel')}</span>

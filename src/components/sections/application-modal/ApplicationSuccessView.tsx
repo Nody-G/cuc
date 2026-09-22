@@ -4,6 +4,7 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import { CheckCircle2, Phone, Mail, MapPin } from 'lucide-react';
 import { TacticalButton } from '../../ui/TacticalButton';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 interface ApplicationSuccessViewProps {
     fullName: string;
@@ -20,7 +21,7 @@ export const ApplicationSuccessView: React.FC<ApplicationSuccessViewProps> = ({ 
                 <CheckCircle2 className="w-10 h-10" />
             </div>
             <h3 className="text-3xl font-display uppercase tracking-wider text-white mb-2">
-                {t('successTitle')}
+                <span {...cucMicro('applicationModal.successTitle')}>{t('successTitle')}</span>
             </h3>
             <p className="text-sm text-zinc-300 max-w-md mx-auto mb-6 font-tech">
                 {t.rich('successBody', {
@@ -32,11 +33,11 @@ export const ApplicationSuccessView: React.FC<ApplicationSuccessViewProps> = ({ 
             <div className="bg-[#14141a] border border-zinc-800 p-4 text-left max-w-md mx-auto mb-6 space-y-2 text-xs font-mono-tech text-zinc-400">
                 <div className="flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-[#FFE500]" />
-                    <span>{t('contactAddress')}</span>
+                    <span {...cucMicro('applicationModal.contactAddress')}>{t('contactAddress')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                     <Phone className="w-4 h-4 text-[#FFE500]" />
-                    <span>{t('contactPhone')}</span>
+                    <span {...cucMicro('applicationModal.contactPhone')}>{t('contactPhone')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                     <Mail className="w-4 h-4 text-[#FFE500]" />
@@ -45,7 +46,7 @@ export const ApplicationSuccessView: React.FC<ApplicationSuccessViewProps> = ({ 
             </div>
 
             <TacticalButton variant="primary" onClick={onClose}>
-                {t('closeCase')}
+                <span {...cucMicro('applicationModal.closeCase')}>{t('closeCase')}</span>
             </TacticalButton>
         </div>
     );
