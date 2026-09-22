@@ -3,6 +3,7 @@ import {
     buildMicrocopyEntries,
     flattenMessages,
     groupMicrocopyEntries,
+    isMicrocopyKey,
     pickMicrocopyValues,
     sanitizeMicrocopyOverlay,
     sanitizeMicrocopyValues,
@@ -139,5 +140,24 @@ describe('groupMicrocopyEntries', () => {
         expect(groups[0].group).toBe('home');
         expect(groups.map((group) => group.group).sort()).toEqual(['home', 'teamProduction']);
         expect(groups.flatMap((group) => group.entries)).toHaveLength(4);
+    });
+});
+
+describe('isMicrocopyKey', () => {
+    it('reconnaît une clé texte existante', () => {
+        expect(isMicrocopyKey(CATALOG, 'home.about.title')).toBe(true);
+        expect(isMicrocopyKey(CATALOG, 'teamProduction.galleries.studioBadge')).toBe(true);
+    });
+
+    it('refuse une clé absente, un chemin incomplet ou traversant un tableau', () => {
+        expect(isMicrocopyKey(CATALOG, 'home.about.subtitle')).toBe(false);
+        expect(isMicrocopyKey(CATALOG, 'home')).toBe(false);
+        expect(isMicrocopyKey(CATALOG, 'teamProduction.pillars.title')).toBe(false);
+    });
+
+    it('refuse une clé mal formée ou un catalogue non objet', () => {
+        expect(isMicrocopyKey(CATALOG, 'home..title')).toBe(false);
+        expect(isMicrocopyKey(CATALOG, 'home about')).toBe(false);
+        expect(isMicrocopyKey(null, 'home.about.title')).toBe(false);
     });
 });

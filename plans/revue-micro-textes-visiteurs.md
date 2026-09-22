@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T20:26:59.644Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T20:33:24.829Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -9,10 +9,10 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | --- | ---: |
 | ANNOTÉ — éditable en place | 237 |
 | DONNÉES — éditable par un écran existant | 106 |
-| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 207 |
+| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 184 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 16 |
-| **Total** | **566** |
+| **Total** | **543** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -105,8 +105,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\MobileStickyCTA.tsx`
 
-- l.91 — `{callLabel}`
-- l.104 — `{ctaLabel}`
+- l.93 — `{callLabel}`
+- l.106 — `{ctaLabel}`
 
 ### `src\components\layout\footer-sections\FooterDirectContacts.tsx`
 
@@ -186,9 +186,9 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\formation\FormationPedagogyModalities.tsx`
 
-- l.55 — `{chrome?.sessions_title || tp('sessionsTitle')}`
-- l.84 — `{chrome?.admission_title || tp('admissionTitle')}`
-- l.120 — `{chrome?.funding_title || tp('fundingTitle')}`
+- l.56 — `{chrome?.sessions_title || tp('sessionsTitle')}`
+- l.85 — `{chrome?.admission_title || tp('admissionTitle')}`
+- l.121 — `{chrome?.funding_title || tp('fundingTitle')}`
 
 ### `src\components\sections\home\HomeAboutSection.tsx`
 
@@ -677,12 +677,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.20 — `{t('creditsLabel')}`
 
-### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\EquipeCallout.tsx`
-
-- l.15 — `{t('ctaBlockTitle')}`
-- l.18 — `{t('ctaBlockBody')}`
-- l.22 — `{t('ctaBlockButton')}`
-
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\EquipeHeroSection.tsx`
 
 - l.47 — `{t('breadcrumbHome')}`
@@ -823,19 +817,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\contact\ContactForm.tsx`
 
-- l.86 — `{t('title')}`
-- l.89 — `{t('intro')}`
-- l.98 — `{t('successTitle')}`
-- l.101 — `{t('successText')}`
-- l.107 — `{t('sendAnother')}`
-- l.118 — `{t('labelName')}`
-- l.139 — `{t('labelPhone')}`
-- l.161 — `{t('labelEmail')}`
-- l.182 — `{t('labelProgram')}`
 - l.194 — `{t(’options.${programId}’)}`
-- l.205 — `{t('labelExperience')}`
-- l.224 — `{t('labelMessage')}`
-- l.264 — `{t('consent')}`
 
 ### `src\components\sections\contact\ContactHeroSection.tsx`
 
@@ -883,12 +865,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\formation\FormationPedagogyModalities.tsx`
 
-- l.66 — `{statuses[session.status] ?? ''}`
-- l.72 — `{tp('registrationNote')}`
-- l.149 — `{t('cta.title')}`
-- l.152 — `{t('cta.text')}`
-- l.160 — `{t('ctaApplyPro')}`
-- l.164 — `{t('cta.contact')}`
+- l.67 — `{statuses[session.status] ?? ''}`
+- l.73 — `{tp('registrationNote')}`
 
 ### `src\components\sections\hall-of-fame\CelebrityDetailsModal.tsx`
 
@@ -912,13 +890,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.123 — `{t('filmModal.doublesLabel')}`
 - l.142 — `{t('filmModal.teamLabel')}`
 - l.265 — `{t('filmModal.close')}`
-
-### `src\components\sections\partenaires\PartenairesCtaSection.tsx`
-
-- l.18 — `{t('ctaBadge')}`
-- l.21 — `{t('ctaTitle')}`
-- l.24 — `{t('ctaBody')}`
-- l.28 — `{t('ctaButton')}`
 
 ### `src\components\sections\partenaires\PartenairesHeroSection.tsx`
 

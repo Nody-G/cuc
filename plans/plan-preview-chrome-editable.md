@@ -1,12 +1,16 @@
 # Plan — Rendre le « chrome » éditable dans l'aperçu (réglages + micro-textes)
 
-> État : **canaux « réglages » et « micro-textes » livrés** — protocole
+> État : **canaux « réglages » et « micro-textes » livrés et durcis** — protocole
 > (`settings-draft`, `microcopy-draft`, `field-commit` avec source), tranches chrome du
 > `preview-store`, hooks d'affichage, `PreviewIntlProvider` (fusion du catalogue par la
 > même fonction que le serveur), commit/brouillon dans le Cockpit et sauvegarde par clé
-> (`updateSiteSettingField`, `updateMicrocopyOverrideField`). Textes annotés : CTA navbar,
-> téléphone (navbar/footer), e-mail (footer), CTA mobile, adresse de la carte interactive,
-> `footer.directLines`, `footer.networksTitle`, `contact.form.submit`.
+> (`updateSiteSettingField`, `updateMicrocopyOverrideField`). Trois garanties serveur :
+> clé de catalogue inconnue **refusée** (`isMicrocopyKey`), brouillon chrome conservé si un
+> enregistrement partiel échoue, filet local par locale (`chrome-draft-storage`).
+> Textes annotés : CTA navbar, téléphone (navbar/footer), e-mail (footer), CTA mobile
+> (réglage FR / catalogue EN selon la langue), adresse de la carte interactive,
+> `footer.directLines`, `footer.networksTitle`, formulaire de contact (titres, libellés,
+> consentement), CTA formation, encart équipe, CTA partenaires.
 > **Reste : l'extension des annotations** — autres réglages (annonces, horaires) et
 > micro-textes namespace par namespace — purement mécanique, le canal est en place.
 
@@ -77,7 +81,9 @@ messages v2 continuent de fonctionner → **aucune fenêtre de panne** au déplo
     vider un réglage revient à la valeur d'usine (confirmation), jamais une chaîne vide ;
   - undo/redo et inspecteur de modifications : réutiliser `draft-diff` en l'étendant d'une
     seconde entrée de domaine ;
-  - persistance locale (`draft-storage`) : même filet, clés préfixées `chrome:`.
+  - persistance locale (`chrome-draft-storage.ts`) : même filet que le contenu de page,
+    **par locale** — un micro-texte appartient à une langue et n'est jamais rejoué dans
+    l'autre.
 - Bouton « Enregistrer » : il devient un **enregistrement composé** —
   `upsertPageContent` (si brouillon page) puis `saveSiteSettings` / `saveMicrocopyOverrides`
   (si brouillon chrome), dans cet ordre, avec un seul toast de bilan. En cas d'échec partiel,
@@ -89,8 +95,9 @@ messages v2 continuent de fonctionner → **aucune fenêtre de panne** au déplo
 
 - Origine vérifiée des deux côtés (inchangé) ; aucune écriture base depuis l'iframe.
 - Une surcharge microtexte ne peut **corriger** qu'une clé existante du catalogue (règle
-  canonique `site_microcopy.md` § 2.3) : le commit est validé côté Cockpit contre
-  `microcopyCatalogKeys` avant d'entrer dans le brouillon.
+  canonique `site_microcopy.md` § 2.3). Le garde-fou est **serveur**, au moment de
+  l'écriture : `updateMicrocopyOverrideField` refuse toute clé absente des catalogues via
+  `isMicrocopyKey` (une valeur vidée reste permise : c'est un retrait).
 - Un réglage inconnu (`key` hors `SiteSettings`) est refusé : pas de structure inventée.
 - Priorité d'affichage dans la vitrine : brouillon chrome (aperçu) > serveur ;
   contenu de page (`data-cuc-field`) reste prioritaire sur `data-cuc-micro` quand les deux
@@ -103,10 +110,12 @@ messages v2 continuent de fonctionner → **aucune fenêtre de panne** au déplo
 | L1 | Protocole (`settings-draft`, `field-commit` avec source) + tests parseur | ✅ livré |
 | L2 | `preview-store` : tranche chrome (surcharges de réglages) + tests | ✅ livré |
 | L3 | Hook d'affichage `usePreviewSettings` + surcharge appliquée dans la navbar | ✅ livré (réglages) |
-| L4 | Annotations : CTA navbar, téléphone, e-mail, CTA mobile, adresse carte livrés ; reste annonces et horaires | 🚧 en cours |
+| L4 | Annotations : CTA navbar, téléphone, e-mail, CTA mobile (FR/EN selon la langue), adresse carte livrés ; reste annonces et horaires | ✅ livré |
 | L5 | Commit chrome → brouillon Cockpit (source respectée, valeur vidée = retour au défaut/catalogue) | ✅ livré |
 | L6 | Enregistrement composé (page + chrome, un bouton, échec nommé et conservé) | ✅ livré |
-| L7 | Micro-textes en place : canal livré (`microcopy-draft`, `PreviewIntlProvider`, sauvegarde par clé) + 3 annotations pilotes ; extension par namespace à poursuivre | ✅ canal / 🚧 annotations |
+| L7 | Micro-textes en place : canal livré (`microcopy-draft`, `PreviewIntlProvider`, sauvegarde par clé) + formulaire de contact, CTA formation, encart équipe, CTA partenaires ; extension par namespace à poursuivre | ✅ canal / 🚧 annotations |
+| L8 | Garde-fou serveur : clé absente du catalogue refusée (`isMicrocopyKey` + test) | ✅ livré |
+| L9 | Filet local du brouillon chrome (`chrome-draft-storage.ts`, hook, tests) + micro-textes segmentés par locale | ✅ livré |
 
 ## 4. Ce qui ne rentre pas dans ce chantier
 

@@ -10,6 +10,7 @@ import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { usePreviewSettings } from '@/lib/preview/use-preview-settings';
 import { cucSetting } from '@/lib/preview/cuc-chrome';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 /**
  * Barre d'action collante mobile — libellés et liens pilotés par `site_settings`
@@ -83,9 +84,10 @@ export const MobileStickyCTA: React.FC = () => {
             title={t('callTitle')}
           >
             <Phone className="w-3.5 h-3.5" />
-            {/* Libellé FR piloté par les réglages : éditable en place (jamais en EN). */}
+            {/* Libellé piloté par sa source réelle : réglage du Cockpit en FR,
+                catalogue `common` en EN — les deux sont éditables en place. */}
             <span
-              {...(!isEn ? cucSetting('mobile_sticky_call_label') : {})}
+              {...(isEn ? cucMicro('common.call') : cucSetting('mobile_sticky_call_label'))}
               className="font-bold"
             >
               {callLabel}
@@ -100,7 +102,7 @@ export const MobileStickyCTA: React.FC = () => {
             href={ctaUrl}
             className="flex-grow flex items-center justify-center gap-2 px-3.5 py-2 bg-[#FFE500] text-black font-display font-bold uppercase text-xs tracking-wider shadow-[0_0_15px_rgba(255,229,0,0.3)] active:scale-98"
           >
-            <span {...(!isEn ? cucSetting('mobile_sticky_cta_text') : {})}>
+            <span {...(isEn ? cucMicro('common.stickyCta') : cucSetting('mobile_sticky_cta_text'))}>
               {ctaLabel}
             </span>
             <ChevronRight className="w-3.5 h-3.5" />

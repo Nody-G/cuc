@@ -27,6 +27,15 @@
   brouillons voyagent par `settings-draft` / `microcopy-draft` ; la surcharge de
   catalogue est fusionnée par la **même** fonction que le serveur
   (`applyMicrocopyOverlay`, via `PreviewIntlProvider`).
+- **Garde-fous chrome** : le serveur refuse toute clé de catalogue inconnue
+  (`isMicrocopyKey` — pas de texte orphelin) ; les micro-textes du brouillon sont
+  **segmentés par locale** (jamais rejoués dans l'autre langue) ; le brouillon
+  chrome a son filet local par locale (`chrome-draft-storage.ts`), effacé dès que
+  les deux brouillons sont vides (donc après publication).
+- **Un texte, une source** : quand la valeur affichée change de source selon la
+  langue (CTA mobile : réglage FR / catalogue EN), l'annotation suit la source
+  réelle (`cucSetting` / `cucMicro` selon `locale`) — un nœud n'est jamais annoté
+  pour une source qu'il n'affiche pas.
 - Listes : `data-cuc-index="<i>"` sur l'item, chemin du **tableau** dans `data-cuc-field`.
 - Rendu **data-first** obligatoire : `{donnée || t('clé')}` — le repli traduit reste en place.
 

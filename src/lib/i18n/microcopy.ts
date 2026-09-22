@@ -64,6 +64,26 @@ export function flattenMessages(messages: unknown, prefix = ''): MicrocopyValues
     return out;
 }
 
+/**
+ * Vérifie qu'une clé **existe déjà** comme texte dans un catalogue.
+ *
+ * C'est le garde-fou de l'invariant 2 : une surcharge ne peut viser qu'un
+ * libellé réellement rendu. Une clé absente créerait un texte orphelin —
+ * jamais affiché, jamais éditable dans la table (`buildMicrocopyEntries` fait
+ * foi sur les clés françaises).
+ */
+export function isMicrocopyKey(messages: unknown, key: string): boolean {
+    if (typeof key !== 'string' || !KEY_PATTERN.test(key)) return false;
+
+    let cursor: unknown = messages;
+    for (const segment of key.split('.')) {
+        if (!isPlainObject(cursor)) return false;
+        cursor = cursor[segment];
+    }
+
+    return typeof cursor === 'string';
+}
+
 /** Écrit une valeur dans un objet imbriqué, en créant les objets intermédiaires. */
 function setPath(target: Record<string, unknown>, path: string, value: string): void {
     const segments = path.split('.').filter((segment) => segment.length > 0);

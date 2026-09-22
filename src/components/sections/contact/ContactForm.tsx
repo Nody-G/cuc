@@ -83,10 +83,10 @@ export const ContactForm: React.FC = () => {
     <div className="lg:col-span-7 bg-[#0e0e14] border-2 border-zinc-800 p-6 sm:p-8 relative">
 
       <h2 className="text-2xl sm:text-3xl font-display uppercase text-white mb-2">
-        {t('title')}
+        <span {...cucMicro('contact.form.title')}>{t('title')}</span>
       </h2>
       <p className="text-xs font-tech text-zinc-400 mb-6">
-        {t('intro')}
+        <span {...cucMicro('contact.form.intro')}>{t('intro')}</span>
       </p>
 
       {submitted ? (
@@ -95,16 +95,16 @@ export const ContactForm: React.FC = () => {
             <CheckCircle2 className="w-6 h-6" />
           </div>
           <h3 className="text-2xl font-display uppercase text-white">
-            {t('successTitle')}
+            <span {...cucMicro('contact.form.successTitle')}>{t('successTitle')}</span>
           </h3>
           <p className="text-xs font-tech text-zinc-300 max-w-md mx-auto">
-            {t('successText')}
+            <span {...cucMicro('contact.form.successText')}>{t('successText')}</span>
           </p>
           <button
             onClick={() => setSubmitted(false)}
             className="px-4 py-2 bg-zinc-800 text-xs font-mono-tech uppercase text-zinc-300 hover:text-white cursor-pointer"
           >
-            {t('sendAnother')}
+            <span {...cucMicro('contact.form.sendAnother')}>{t('sendAnother')}</span>
           </button>
         </div>
       ) : (
@@ -115,7 +115,7 @@ export const ContactForm: React.FC = () => {
                 htmlFor="contact-name"
                 className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
               >
-                {t('labelName')}
+                <span {...cucMicro('contact.form.labelName')}>{t('labelName')}</span>
               </label>
               <input
                 id="contact-name"
@@ -136,7 +136,7 @@ export const ContactForm: React.FC = () => {
                 htmlFor="contact-phone"
                 className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
               >
-                {t('labelPhone')}
+                <span {...cucMicro('contact.form.labelPhone')}>{t('labelPhone')}</span>
               </label>
               <input
                 id="contact-phone"
@@ -158,7 +158,7 @@ export const ContactForm: React.FC = () => {
               htmlFor="contact-email"
               className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
             >
-              {t('labelEmail')}
+              <span {...cucMicro('contact.form.labelEmail')}>{t('labelEmail')}</span>
             </label>
             <input
               id="contact-email"
@@ -179,7 +179,7 @@ export const ContactForm: React.FC = () => {
               htmlFor="contact-program"
               className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
             >
-              {t('labelProgram')}
+              <span {...cucMicro('contact.form.labelProgram')}>{t('labelProgram')}</span>
             </label>
             <select
               id="contact-program"
@@ -202,7 +202,7 @@ export const ContactForm: React.FC = () => {
               htmlFor="contact-sportExperience"
               className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
             >
-              {t('labelExperience')}
+              <span {...cucMicro('contact.form.labelExperience')}>{t('labelExperience')}</span>
             </label>
             <input
               id="contact-sportExperience"
@@ -221,7 +221,7 @@ export const ContactForm: React.FC = () => {
               htmlFor="contact-message"
               className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
             >
-              {t('labelMessage')}
+              <span {...cucMicro('contact.form.labelMessage')}>{t('labelMessage')}</span>
             </label>
             <textarea
               id="contact-message"
@@ -261,7 +261,7 @@ export const ContactForm: React.FC = () => {
           </div>
 
           <div className="text-[10px] font-mono-tech text-zinc-500 pt-1 text-center">
-            {t('consent')}
+            <span {...cucMicro('contact.form.consent')}>{t('consent')}</span>
           </div>
         </form>
       )}

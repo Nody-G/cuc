@@ -17,6 +17,7 @@ import { PageEditorTopBar } from './pages-editor/PageEditorTopBar';
 import { PreviewTabPanel } from './pages-editor/PreviewTabPanel';
 import { RevisionsSection } from './pages-editor/RevisionsSection';
 import { SeoTabPanel } from './pages-editor/SeoTabPanel';
+import { useChromeDraftPersistence } from './pages-editor/useChromeDraftPersistence';
 import { usePageEditorDraft } from './pages-editor/usePageEditorDraft';
 import { usePageSaveActions } from './pages-editor/usePageSaveActions';
 import { useSectionHandlers } from './pages-editor/useSectionHandlers';
@@ -62,7 +63,15 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
    * page — et publiés par le même bouton « Enregistrer » que le contenu.
    */
   const [settingDraft, setSettingDraft] = useState<Record<string, string>>({});
-  const [microcopyDraft, setMicrocopyDraft] = useState<Record<string, string>>({});
+  /**
+   * Micro-textes segmentés **par locale d'édition** : un libellé appartient à une
+   * langue. Sans cette séparation, un texte français saisi dans l'aperçu puis
+   * publié après bascule en anglais serait écrit dans la surcharge EN.
+   */
+  const [microcopyDrafts, setMicrocopyDrafts] = useState<
+    Record<EditorLocaleOption, Record<string, string>>
+  >({ fr: {}, en: {} });
+  const microcopyDraft = microcopyDrafts[editorLocale];
 
   const cleanSelectedSlug = normalizeSlug(selectedSlug);
   const draft = usePageEditorDraft({ pages, selectedSlug: cleanSelectedSlug, editorLocale });
@@ -87,13 +96,22 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
    * surcharge, le catalogue redevient la source — jamais un libellé blanc.
    */
   const handleMicrocopyCommit = (key: string, value: string) => {
-    setMicrocopyDraft((prev) => {
-      const next = { ...prev };
+    setMicrocopyDrafts((prev) => {
+      const next = { ...prev[editorLocale] };
       if (value.trim().length === 0) delete next[key];
       else next[key] = value;
-      return next;
+      return { ...prev, [editorLocale]: next };
     });
   };
+
+  /** Filet local du brouillon chrome (réglages + micro-textes), par locale. */
+  useChromeDraftPersistence({
+    locale: editorLocale,
+    settings: settingDraft,
+    microcopy: microcopyDraft,
+    setSettings: setSettingDraft,
+    setMicrocopy: (values) => setMicrocopyDrafts((prev) => ({ ...prev, [editorLocale]: values })),
+  });
 
   const save = usePageSaveActions({
     formData: draft.formData,
@@ -108,7 +126,7 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     settingDraft,
     clearSettingDraft: () => setSettingDraft({}),
     microcopyDraft,
-    clearMicrocopyDraft: () => setMicrocopyDraft({}),
+    clearMicrocopyDraft: () => setMicrocopyDrafts((prev) => ({ ...prev, [editorLocale]: {} })),
   });
 
   /**

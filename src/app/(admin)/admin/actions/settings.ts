@@ -117,9 +117,8 @@ export async function updateMicrocopyOverrideField(locale: string, key: string, 
     const isAdmin = await checkIsAdmin();
     if (!isAdmin) return { success: false as const, error: 'Accès refusé' };
 
-    const { MICROCOPY_SETTINGS_KEY, MICROCOPY_LOCALES, sanitizeMicrocopyOverlay } = await import(
-      '@/lib/i18n/microcopy'
-    );
+    const { MICROCOPY_SETTINGS_KEY, MICROCOPY_LOCALES, sanitizeMicrocopyOverlay, isMicrocopyKey } =
+      await import('@/lib/i18n/microcopy');
     if (!(MICROCOPY_LOCALES as readonly string[]).includes(locale)) {
       return { success: false as const, error: 'Locale inconnue' };
     }
@@ -139,6 +138,15 @@ export async function updateMicrocopyOverrideField(locale: string, key: string, 
     if (clean.length === 0) {
       delete values[key];
     } else {
+      /* Invariant : jamais de clé orpheline — la surcharge ne peut viser qu'un
+         texte déjà présent dans un catalogue (FR source ou EN traduit). */
+      const [fr, en] = await Promise.all([
+        import('../../../../../messages/fr.json'),
+        import('../../../../../messages/en.json'),
+      ]);
+      if (!isMicrocopyKey(fr.default, key) && !isMicrocopyKey(en.default, key)) {
+        return { success: false as const, error: `Clé absente du catalogue : ${key}` };
+      }
       values[key] = clean;
     }
 

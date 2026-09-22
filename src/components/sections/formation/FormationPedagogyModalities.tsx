@@ -9,6 +9,7 @@ import { Calendar, ShieldCheck, Award, CheckCircle2 } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { usePageSectionData } from '@/lib/hooks/usePageSectionData';
 import { cucField } from '@/lib/preview/cuc-field';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 interface FormationPedagogyModalitiesProps {
   onApply: (programId: string) => void;
@@ -146,10 +147,10 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
         <div className="mt-12 bg-[#121218] border-2 border-[#FFE500] p-8 text-center relative">
 
           <h3 className="text-3xl font-display uppercase text-white mb-2">
-            {t('cta.title')}
+            <span {...cucMicro('formation.cta.title')}>{t('cta.title')}</span>
           </h3>
           <p className="text-xs font-tech text-zinc-400 max-w-xl mx-auto mb-6">
-            {t('cta.text')}
+            <span {...cucMicro('formation.cta.text')}>{t('cta.text')}</span>
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <TacticalButton
@@ -157,11 +158,11 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
               size="lg"
               onClick={() => onApply('pro-longue-duree')}
             >
-              {t('ctaApplyPro')}
+              <span {...cucMicro('formation.ctaApplyPro')}>{t('ctaApplyPro')}</span>
             </TacticalButton>
             <Link href="/contact-cuc?demande=afdas-artistes-interpretes">
               <TacticalButton variant="secondary" size="lg">
-                {t('cta.contact')}
+                <span {...cucMicro('formation.cta.contact')}>{t('cta.contact')}</span>
               </TacticalButton>
             </Link>
           </div>
