@@ -24,6 +24,14 @@ interface CustomStageInput {
     price?: string;
     duration?: string;
     image?: { src?: string; alt?: string };
+    /** Correctifs saisis en place (mêmes clés que `StageOverride`). */
+    badge_text?: string;
+    sub_badge?: string;
+    highlight_text?: string;
+    details?: string[];
+    button_label?: string;
+    pdf_label?: string;
+    image_alt?: string;
 }
 
 /**
@@ -34,13 +42,18 @@ export function useStagesGrid(customStages?: unknown[]): StagesGridController {
     const t = useTranslations('stages');
     const cardCopy = t.raw('cards') as StageCopy[];
     /**
-     * Correctifs saisis en place : `sections_data.stages_cards.items.<index>`
-     * prime sur la copie traduite — qui reste le repli si rien n'est saisi.
+     * Ancien bloc d'overrides du Mode Studio : lu en **repli** pour ne pas
+     * perdre une saisie antérieure à l'alignement. La source canonique est
+     * désormais `stages_catalogue.items` — le même bloc que le formulaire du
+     * Cockpit, donc une seule vérité par champ.
      */
-    const overrides = usePageSectionData<{ items?: StageOverride[] }>('stages_cards');
-    const overrideItems = overrides?.items;
+    const legacyOverrides = usePageSectionData<{ items?: StageOverride[] }>('stages_cards')?.items;
 
-    const customList = (customStages ?? []) as CustomStageInput[];
+    // Mémoïsée : les correctifs entrent dans les dépendances du rendu localisé.
+    const customList = React.useMemo(
+        () => (customStages ?? []) as CustomStageInput[],
+        [customStages]
+    );
 
     const displayList: StageData[] = (customList.length > 0)
         ? customList.map((cs, idx: number) => {
@@ -83,7 +96,29 @@ export function useStagesGrid(customStages?: unknown[]): StagesGridController {
         () =>
             displayList.map((stage, index) => {
                 const copy = cardCopy.find((entry) => entry.id === stage.id);
-                const over = overrideItems?.[index];
+                /**
+                 * Correctifs : l'item `stages_catalogue` (source unique, écrite
+                 * par le formulaire comme par l'édition en place) ; l'ancien
+                 * bloc `stages_cards` ne sert que de repli hérité.
+                 */
+                const catalogueItem = customList[index];
+                const legacy = legacyOverrides?.[index];
+                const over: StageOverride | undefined =
+                    catalogueItem || legacy
+                        ? {
+                            badge_text: catalogueItem?.badge_text ?? legacy?.badge_text,
+                            sub_badge: catalogueItem?.sub_badge ?? legacy?.sub_badge,
+                            highlight_text:
+                                catalogueItem?.highlight_text ?? legacy?.highlight_text,
+                            title: catalogueItem?.title ?? legacy?.title,
+                            description: catalogueItem?.description ?? legacy?.description,
+                            details: catalogueItem?.details ?? legacy?.details,
+                            button_label: catalogueItem?.button_label ?? legacy?.button_label,
+                            pdf_label: catalogueItem?.pdf_label ?? legacy?.pdf_label,
+                            image: catalogueItem?.image?.src ?? legacy?.image,
+                            image_alt: catalogueItem?.image_alt ?? legacy?.image_alt,
+                        }
+                        : undefined;
 
                 return {
                     ...stage,
@@ -120,7 +155,7 @@ export function useStagesGrid(customStages?: unknown[]): StagesGridController {
                     },
                 };
             }),
-        [displayList, cardCopy, overrideItems]
+        [displayList, cardCopy, customList, legacyOverrides]
     );
 
     return { localizedList };

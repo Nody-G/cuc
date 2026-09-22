@@ -14,9 +14,18 @@ import {
   ChevronRight
 } from 'lucide-react';
 
-import { cucField, itemPath } from '@/lib/preview/cuc-field';
+import { cucField } from '@/lib/preview/cuc-field';
 
-const TEAM_BUILDING_WORKSHOPS = [
+/** Forme minimale d'un atelier : celle écrite par le Cockpit et le socle statique. */
+interface TeamBuildingWorkshop {
+  id?: string;
+  title?: string;
+  category?: string;
+  desc?: string;
+  img?: string;
+}
+
+const TEAM_BUILDING_WORKSHOPS: TeamBuildingWorkshop[] = [
   {
     title: "Chute de Hauteur sur Airbag",
     category: "Adrénaline & Confiance",
@@ -59,9 +68,12 @@ export default function TeamBuildingCascadesPage() {
 
   /** Liste d'ateliers servie par les données tant qu'elle existe (repli statique sinon). */
   const workshopsFromContent = (content.sections_data?.workshops?.length ?? 0) > 0;
-  /** Annotation d'atelier : jamais de champ fantôme pointant sur la liste de repli. */
-  const workshopField = (idx: number, key: string, kind: 'text' | 'textarea' | 'image' = 'text') =>
-    workshopsFromContent ? cucField(itemPath('workshops', idx, key), kind) : {};
+  /**
+   * Annotation d'atelier écrite **au site d'appel**, en gabarit littéral
+   * (`cucField(\`sections_data.workshops.${idx}.title\`)`) : clé comprise, donc
+   * auditable par `audit:fields` — et jamais de champ fantôme sur la liste de
+   * repli statique.
+   */
 
   const heroBadge = content.hero?.badge || 'SÉMINAIRES & ENTREPRISES';
   const heroTitle = content.hero?.title || "TEAM BUILDING D'EXCEPTION";
@@ -209,14 +221,16 @@ export default function TeamBuildingCascadesPage() {
               {((content.sections_data?.workshops && content.sections_data.workshops.length > 0)
                 ? content.sections_data.workshops
                 : TEAM_BUILDING_WORKSHOPS
-              ).map((workshop: any, idx: number) => (
+              ).map((workshop: TeamBuildingWorkshop, idx: number) => (
                 <div
                   key={workshop.id || idx}
                   className="bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/60 p-5 group transition-all flex flex-col justify-between"
                 >
                   <div>
                     <div
-                      {...workshopField(idx, 'img', 'image')}
+                      {...(workshopsFromContent
+                        ? cucField(`sections_data.workshops.${idx}.img`, 'image')
+                        : {})}
                       className="relative h-56 w-full mb-4 border border-zinc-800 overflow-hidden bg-black"
                     >
                       {workshop.img ? (
@@ -234,7 +248,9 @@ export default function TeamBuildingCascadesPage() {
                       )}
                       {workshop.category && (
                         <div
-                          {...workshopField(idx, 'category')}
+                          {...(workshopsFromContent
+                            ? cucField(`sections_data.workshops.${idx}.category`)
+                            : {})}
                           className="absolute top-3 left-3 bg-black/85 px-2.5 py-0.5 text-[10px] font-mono-tech text-[#FFE500] border border-white/20"
                         >
                           {workshop.category}
@@ -243,13 +259,17 @@ export default function TeamBuildingCascadesPage() {
                     </div>
 
                     <h3
-                      {...workshopField(idx, 'title')}
+                      {...(workshopsFromContent
+                        ? cucField(`sections_data.workshops.${idx}.title`)
+                        : {})}
                       className="text-xl font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors mb-2"
                     >
                       {workshop.title}
                     </h3>
                     <p
-                      {...workshopField(idx, 'desc', 'textarea')}
+                      {...(workshopsFromContent
+                        ? cucField(`sections_data.workshops.${idx}.desc`, 'textarea')
+                        : {})}
                       className="text-xs font-tech text-zinc-400 leading-relaxed"
                     >
                       {workshop.desc}

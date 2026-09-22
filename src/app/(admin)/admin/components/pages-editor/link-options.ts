@@ -14,7 +14,7 @@
 
 import { SITE_PAGES_OPTIONS } from './pages-options';
 
-export type LinkOptionGroup = 'page' | 'ancre';
+export type LinkOptionGroup = 'page' | 'ancre' | 'intention';
 
 export interface LinkOption {
     value: string;
@@ -24,9 +24,26 @@ export interface LinkOption {
 
 /** Ancres réellement posées dans la vitrine (jamais d'identifiant inventé). */
 const PAGE_ANCHORS: ReadonlyArray<Omit<LinkOption, 'group'>> = [
-    { value: '#formulaire', label: 'Ancre : formulaire de candidature' },
-    { value: '#contact-form', label: 'Ancre : formulaire de contact' },
-    { value: '#campus-map-hub', label: 'Ancre : carte du campus' },
+    { value: '#formulaire', label: 'Contact → ancre : formulaire de candidature' },
+    { value: '#contact-form', label: 'Contact → ancre : formulaire de message' },
+    { value: '#campus-map-hub', label: 'Contact → ancre : carte & accès' },
+];
+
+/**
+ * Intentions de contact réellement consommées par la vitrine (`?demande=…`) :
+ * l'éditeur n'a plus à reconstruire ces URL à la main, et une faute de frappe
+ * dans le paramètre ne peut plus casser silencieusement la pré-qualification.
+ */
+const CONTACT_INTENTS: ReadonlyArray<Omit<LinkOption, 'group'>> = [
+    { value: '/contact-cuc?demande=cuc-events', label: 'Contact → devis CUC Events' },
+    {
+        value: '/contact-cuc?demande=afdas-artistes-interpretes',
+        label: 'Contact → candidature AFDAS (artistes-interprètes)',
+    },
+    {
+        value: '/contact-cuc?demande=tournage-production',
+        label: 'Contact → tournage & production',
+    },
 ];
 
 /** Slug éditorial → chemin public (« / », « /visite-guidee »). */
@@ -45,6 +62,7 @@ export const INTERNAL_LINK_OPTIONS: ReadonlyArray<LinkOption> = [
         label: pageLabel(option.label),
         group: 'page' as const,
     })),
+    ...CONTACT_INTENTS.map((intent) => ({ ...intent, group: 'intention' as const })),
     ...PAGE_ANCHORS.map((anchor) => ({ ...anchor, group: 'ancre' as const })),
 ];
 

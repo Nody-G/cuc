@@ -52,6 +52,7 @@ export const LinkField: React.FC<LinkFieldProps> = ({
     const groups = useMemo(
         () => ({
             pages: INTERNAL_LINK_OPTIONS.filter((option) => option.group === 'page'),
+            intents: INTERNAL_LINK_OPTIONS.filter((option) => option.group === 'intention'),
             anchors: INTERNAL_LINK_OPTIONS.filter((option) => option.group === 'ancre'),
         }),
         []
@@ -90,6 +91,13 @@ export const LinkField: React.FC<LinkFieldProps> = ({
                 >
                     <optgroup label="Pages du site">
                         {groups.pages.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </optgroup>
+                    <optgroup label="Formulaires de contact (intention)">
+                        {groups.intents.map((option) => (
                             <option key={option.value} value={option.value}>
                                 {option.label}
                             </option>

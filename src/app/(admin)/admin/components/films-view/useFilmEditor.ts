@@ -6,7 +6,6 @@ import { upsertFilm, deleteFilm } from '@/app/(admin)/admin/actions';
 import { createEmptyFilm, normalizeDoubledActors } from './film-form';
 
 export interface UseFilmEditorArgs {
-    films: FilmCredit[];
     setFilms: React.Dispatch<React.SetStateAction<FilmCredit[]>>;
     showToast: (msg: string) => void;
 }
@@ -19,7 +18,7 @@ export interface UseFilmEditorArgs {
  * Couche « Hooks & Orchestration » (`AGENTS.md` § 1) — les Server Actions
  * restent dans `actions/**`.
  */
-export function useFilmEditor({ films, setFilms, showToast }: UseFilmEditorArgs) {
+export function useFilmEditor({ setFilms, showToast }: UseFilmEditorArgs) {
     const [, startTransition] = useTransition();
     const [editingFilm, setEditingFilm] = useState<FilmCredit | null>(null);
     const [showMediaPicker, setShowMediaPicker] = useState(false);

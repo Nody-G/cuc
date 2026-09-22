@@ -1,18 +1,18 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T19:37:43.418Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T19:51:03.982Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 225 |
-| DONNÉES — éditable par un écran existant | 111 |
+| ANNOTÉ — éditable en place | 229 |
+| DONNÉES — éditable par un écran existant | 108 |
 | TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 211 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 18 |
-| **Total** | **565** |
+| **Total** | **566** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -78,14 +78,17 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\team-building-cascades\page.tsx`
 
-- l.114 — `{heroBadge}`
-- l.122 — `{content.hero?.meta || t('heroMeta')}`
-- l.148 — `{heroSubtitle}`
-- l.155 — `{ctaPrimaryText}`
-- l.163 — `{ctaSecondaryText}`
-- l.187 — `{content.sections_data?.overview?.badge || t('overviewBadge')}`
-- l.194 — `{content.sections_data?.overview?.title || t('overviewTitle')}`
-- l.200 — `{content.sections_data?.overview?.description || t('overviewDescription')}`
+- l.126 — `{heroBadge}`
+- l.134 — `{content.hero?.meta || t('heroMeta')}`
+- l.160 — `{heroSubtitle}`
+- l.167 — `{ctaPrimaryText}`
+- l.175 — `{ctaSecondaryText}`
+- l.199 — `{content.sections_data?.overview?.badge || t('overviewBadge')}`
+- l.206 — `{content.sections_data?.overview?.title || t('overviewTitle')}`
+- l.212 — `{content.sections_data?.overview?.description || t('overviewDescription')}`
+- l.256 — `{workshop.category}`
+- l.267 — `{workshop.title}`
+- l.275 — `{workshop.desc}`
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosHero.tsx`
 
@@ -268,15 +271,16 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.57 — `{stage.highlightText}`
 - l.66 — `{stage.title}`
 - l.72 — `{stage.description}`
-- l.82 — `{detail.text}`
-- l.97 — `{stage.buttonLabel}`
-- l.111 — `{stage.pdfLink.label}`
+- l.89 — `{detail.text}`
+- l.95 — `{detail.text}`
+- l.111 — `{stage.buttonLabel}`
+- l.125 — `{stage.pdfLink.label}`
 
 ### `src\components\sections\stages\grid\stage-render.tsx`
 
-- l.84 — `{badge.text}`
-- l.93 — `{badge.text}`
-- l.102 — `{badge.text}`
+- l.85 — `{badge.text}`
+- l.94 — `{badge.text}`
+- l.103 — `{badge.text}`
 
 ### `src\components\sections\team\TeamBannersSection.tsx`
 
@@ -409,13 +413,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\layout.tsx`
 
-- l.144 — `{children}`
-
-### `src\app\(site)\[locale]\team-building-cascades\page.tsx`
-
-- l.240 — `{workshop.category}`
-- l.249 — `{workshop.title}`
-- l.255 — `{workshop.desc}`
+- l.143 — `{children}`
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\DmVideoModal.tsx`
 
@@ -703,13 +701,13 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\team-building-cascades\page.tsx`
 
-- l.101 — `{chrome('breadcrumbHome')}`
-- l.105 — `{chrome('siteEvents')}`
-- l.232 — `{t('workshopFallbackLabel')}`
-- l.273 — `{t('customBadge')}`
-- l.276 — `{t('customTitle')}`
-- l.279 — `{t('customDescription')}`
-- l.283 — `{t('customCta')}`
+- l.113 — `{chrome('breadcrumbHome')}`
+- l.117 — `{chrome('siteEvents')}`
+- l.246 — `{t('workshopFallbackLabel')}`
+- l.293 — `{t('customBadge')}`
+- l.296 — `{t('customTitle')}`
+- l.299 — `{t('customDescription')}`
+- l.303 — `{t('customCta')}`
 
 ### `src\app\(site)\[locale]\visite-guidee\page.tsx`
 

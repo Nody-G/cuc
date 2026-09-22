@@ -33,8 +33,9 @@ export interface StageCopy {
 
 /**
  * Correctifs éditoriaux saisis en place dans le Mode Studio
- * (`sections_data.stages_cards.items.<index>`) : ils priment sur la copie
- * traduite, qui reste le repli quand aucune valeur n'est saisie.
+ * (`sections_data.stages_catalogue.items.<index>`, la même source que le
+ * formulaire du Cockpit) : ils priment sur la copie traduite, qui reste le
+ * repli quand aucune valeur n'est saisie.
  */
 export interface StageOverride {
     badge_text?: string;

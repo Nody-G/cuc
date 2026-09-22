@@ -34,7 +34,7 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
   disciplines = [],
   showToast,
 }) => {
-  const editor = useFilmEditor({ films, setFilms, showToast });
+  const editor = useFilmEditor({ setFilms, showToast });
   const filters = useFilmFilters(films);
 
   return (

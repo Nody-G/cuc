@@ -6,7 +6,8 @@ import { StageGridCard } from './grid/StageGridCard';
 
 interface StagesGridSectionProps {
   onOpenApplication: (programId: string) => void;
-  customStages?: any[];
+  /** `sections_data.stages_catalogue` — forme validée dans `useStagesGrid`. */
+  customStages?: unknown[];
 }
 
 /**

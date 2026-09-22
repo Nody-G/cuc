@@ -39,11 +39,11 @@ export const StageGridCard: React.FC<StageGridCardProps> = ({
                     <div className="flex flex-wrap items-center gap-2 mb-3">
                         {renderBadge(
                             stage.badge,
-                            `sections_data.stages_cards.items.${stageIndex}.badge_text`
+                            `sections_data.stages_catalogue.items.${stageIndex}.badge_text`
                         )}
                         {stage.subBadge && (
                             <span
-                                data-cuc-field={`sections_data.stages_cards.items.${stageIndex}.sub_badge`}
+                                data-cuc-field={`sections_data.stages_catalogue.items.${stageIndex}.sub_badge`}
                                 className="px-2 py-0.5 bg-zinc-800 text-zinc-300 font-mono-tech text-xs uppercase"
                             >
                                 {stage.subBadge}
@@ -51,7 +51,7 @@ export const StageGridCard: React.FC<StageGridCardProps> = ({
                         )}
                         {stage.highlightText && (
                             <span
-                                data-cuc-field={`sections_data.stages_cards.items.${stageIndex}.highlight_text`}
+                                data-cuc-field={`sections_data.stages_catalogue.items.${stageIndex}.highlight_text`}
                                 className="text-emerald-400 text-xs font-mono-tech font-bold"
                             >
                                 {stage.highlightText}
@@ -60,13 +60,13 @@ export const StageGridCard: React.FC<StageGridCardProps> = ({
                     </div>
 
                     <h2
-                        data-cuc-field={`sections_data.stages_cards.items.${stageIndex}.title`}
+                        data-cuc-field={`sections_data.stages_catalogue.items.${stageIndex}.title`}
                         className="text-3xl sm:text-4xl font-display uppercase text-white mb-3"
                     >
                         {stage.title}
                     </h2>
                     <p
-                        data-cuc-field={`sections_data.stages_cards.items.${stageIndex}.description`}
+                        data-cuc-field={`sections_data.stages_catalogue.items.${stageIndex}.description`}
                         className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed mb-6"
                     >
                         {stage.description}
@@ -76,11 +76,25 @@ export const StageGridCard: React.FC<StageGridCardProps> = ({
                         {stage.details.map((detail, idx) => (
                             <div key={idx} className="flex items-center gap-2">
                                 {renderIcon(detail.icon)}
-                                <span
-                                    data-cuc-field={`sections_data.stages_cards.items.${stageIndex}.details.${idx}`}
-                                >
-                                    {detail.text}
-                                </span>
+                                {/* La première ligne de détail est la durée : elle
+                                    s'écrit dans `duration`, la **même clé** que le
+                                    formulaire du Cockpit. Les lignes suivantes
+                                    restent des détails. Deux attributs gabarits
+                                    purs : chaque promesse d'éditeur est prouvable
+                                    par `audit:fields`. */}
+                                {idx === 0 ? (
+                                    <span
+                                        data-cuc-field={`sections_data.stages_catalogue.items.${stageIndex}.duration`}
+                                    >
+                                        {detail.text}
+                                    </span>
+                                ) : (
+                                    <span
+                                        data-cuc-field={`sections_data.stages_catalogue.items.${stageIndex}.details.${idx}`}
+                                    >
+                                        {detail.text}
+                                    </span>
+                                )}
                             </div>
                         ))}
                     </div>
@@ -92,7 +106,7 @@ export const StageGridCard: React.FC<StageGridCardProps> = ({
                             onClick={() => onOpenApplication(stage.id)}
                         >
                             <span
-                                data-cuc-field={`sections_data.stages_cards.items.${stageIndex}.button_label`}
+                                data-cuc-field={`sections_data.stages_catalogue.items.${stageIndex}.button_label`}
                             >
                                 {stage.buttonLabel}
                             </span>
@@ -106,7 +120,7 @@ export const StageGridCard: React.FC<StageGridCardProps> = ({
                             >
                                 <FileText className="w-4 h-4 text-[#FFE500]" />
                                 <span
-                                    data-cuc-field={`sections_data.stages_cards.items.${stageIndex}.pdf_label`}
+                                    data-cuc-field={`sections_data.stages_catalogue.items.${stageIndex}.pdf_label`}
                                 >
                                     {stage.pdfLink.label}
                                 </span>
@@ -117,7 +131,7 @@ export const StageGridCard: React.FC<StageGridCardProps> = ({
 
                 {/* Right Photo Preview */}
                 <div
-                    data-cuc-field={`sections_data.stages_cards.items.${stageIndex}.image`}
+                    data-cuc-field={`sections_data.stages_catalogue.items.${stageIndex}.image`}
                     data-cuc-kind="image"
                     className="lg:col-span-5 relative h-72 sm:h-96 border border-zinc-800 overflow-hidden flex items-center justify-center bg-black/40"
                 >

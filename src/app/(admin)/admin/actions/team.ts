@@ -48,7 +48,11 @@ export async function upsertTeamMember(member: {
     // Repli si la migration `featured_credits` / `credits_display_limit`
     // n'a pas encore été appliquée : on enregistre le reste de la fiche.
     if (error && /featured_credits|credits_display_limit/.test(error.message)) {
-      const { featured_credits: _f, credits_display_limit: _c, ...legacyPayload } = payload;
+      // Repli sans les colonnes absentes : copie puis suppression ciblée,
+      // plutôt que deux variables « pour jeter » (bruit de lint inutile).
+      const legacyPayload: Record<string, any> = { ...payload };
+      delete legacyPayload.featured_credits;
+      delete legacyPayload.credits_display_limit;
       const retry = await adminClient.from('site_team').upsert(legacyPayload);
       error = retry.error;
     }

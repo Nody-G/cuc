@@ -3,10 +3,20 @@
 import React from 'react';
 import { SitePageContent } from '@/lib/data/site-service';
 
+/** Forme minimale d'une formule : celle écrite par le formulaire et la vitrine. */
+interface FormuleItem {
+  id?: string;
+  title?: string;
+  step_badge?: string;
+  description?: string;
+  duration_text?: string;
+  cta_text?: string;
+}
+
 interface FormationPageEditorProps {
   formData: SitePageContent;
   setFormData: React.Dispatch<React.SetStateAction<SitePageContent>>;
-  handleUpdateFormule: (index: number, updates: any) => void;
+  handleUpdateFormule: (index: number, updates: Record<string, unknown>) => void;
 }
 
 export const FormationPageEditor: React.FC<FormationPageEditorProps> = ({
@@ -96,65 +106,67 @@ export const FormationPageEditor: React.FC<FormationPageEditorProps> = ({
         </div>
 
         <div className="space-y-4 pt-2">
-          {(formData.sections_data?.formules?.items || []).map((formule: any, idx: number) => (
-            <div
-              key={formule.id || idx}
-              className="bg-black/40 border border-white/10 rounded-xl p-4 space-y-3"
-            >
-              <div className="text-xs font-mono text-[#FFE500] uppercase font-bold">
-                Formule #{idx + 1} : {formule.title}
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {(formData.sections_data?.formules?.items || []).map(
+            (formule: FormuleItem, idx: number) => (
+              <div
+                key={formule.id || idx}
+                className="bg-black/40 border border-white/10 rounded-xl p-4 space-y-3"
+              >
+                <div className="text-xs font-mono text-[#FFE500] uppercase font-bold">
+                  Formule #{idx + 1} : {formule.title}
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[10px] font-mono text-gray-400 mb-1">Titre de la formule</label>
+                    <input
+                      type="text"
+                      value={formule.title || ''}
+                      onChange={(e) => handleUpdateFormule(idx, { title: e.target.value })}
+                      className="w-full bg-black/60 border border-white/20 rounded px-2.5 py-1.5 text-xs text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-mono text-gray-400 mb-1">Badge étape</label>
+                    <input
+                      type="text"
+                      value={formule.step_badge || ''}
+                      onChange={(e) => handleUpdateFormule(idx, { step_badge: e.target.value })}
+                      className="w-full bg-black/60 border border-white/20 rounded px-2.5 py-1.5 text-xs text-[#FFE500]"
+                    />
+                  </div>
+                </div>
                 <div>
-                  <label className="block text-[10px] font-mono text-gray-400 mb-1">Titre de la formule</label>
-                  <input
-                    type="text"
-                    value={formule.title || ''}
-                    onChange={(e) => handleUpdateFormule(idx, { title: e.target.value })}
+                  <label className="block text-[10px] font-mono text-gray-400 mb-1">Description</label>
+                  <textarea
+                    rows={2}
+                    value={formule.description || ''}
+                    onChange={(e) => handleUpdateFormule(idx, { description: e.target.value })}
                     className="w-full bg-black/60 border border-white/20 rounded px-2.5 py-1.5 text-xs text-white"
                   />
                 </div>
-                <div>
-                  <label className="block text-[10px] font-mono text-gray-400 mb-1">Badge étape</label>
-                  <input
-                    type="text"
-                    value={formule.step_badge || ''}
-                    onChange={(e) => handleUpdateFormule(idx, { step_badge: e.target.value })}
-                    className="w-full bg-black/60 border border-white/20 rounded px-2.5 py-1.5 text-xs text-[#FFE500]"
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[10px] font-mono text-gray-400 mb-1">Volume horaire / Durée</label>
+                    <input
+                      type="text"
+                      value={formule.duration_text || ''}
+                      onChange={(e) => handleUpdateFormule(idx, { duration_text: e.target.value })}
+                      className="w-full bg-black/60 border border-white/20 rounded px-2.5 py-1.5 text-xs text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-mono text-gray-400 mb-1">Texte du bouton CTA</label>
+                    <input
+                      type="text"
+                      value={formule.cta_text || ''}
+                      onChange={(e) => handleUpdateFormule(idx, { cta_text: e.target.value })}
+                      className="w-full bg-black/60 border border-white/20 rounded px-2.5 py-1.5 text-xs text-white"
+                    />
+                  </div>
                 </div>
               </div>
-              <div>
-                <label className="block text-[10px] font-mono text-gray-400 mb-1">Description</label>
-                <textarea
-                  rows={2}
-                  value={formule.description || ''}
-                  onChange={(e) => handleUpdateFormule(idx, { description: e.target.value })}
-                  className="w-full bg-black/60 border border-white/20 rounded px-2.5 py-1.5 text-xs text-white"
-                />
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-[10px] font-mono text-gray-400 mb-1">Volume horaire / Durée</label>
-                  <input
-                    type="text"
-                    value={formule.duration_text || ''}
-                    onChange={(e) => handleUpdateFormule(idx, { duration_text: e.target.value })}
-                    className="w-full bg-black/60 border border-white/20 rounded px-2.5 py-1.5 text-xs text-white"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[10px] font-mono text-gray-400 mb-1">Texte du bouton CTA</label>
-                  <input
-                    type="text"
-                    value={formule.cta_text || ''}
-                    onChange={(e) => handleUpdateFormule(idx, { cta_text: e.target.value })}
-                    className="w-full bg-black/60 border border-white/20 rounded px-2.5 py-1.5 text-xs text-white"
-                  />
-                </div>
-              </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
       </div>
     </div>

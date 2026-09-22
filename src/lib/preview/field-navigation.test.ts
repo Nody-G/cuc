@@ -24,8 +24,11 @@ function mountDocument(): HTMLElement {
     document.body.appendChild(root);
 
     root.querySelectorAll<HTMLElement>('[data-cuc-field]').forEach((element) => {
-        if (element.getAttribute('data-cuc-index') === null) stubRect(element);
-        element.getAttribute('data-cuc-index') === null ? stubRect(element) : stubRect(element, 0, 0);
+        if (element.getAttribute('data-cuc-index') === null) {
+            stubRect(element);
+        } else {
+            stubRect(element, 0, 0);
+        }
     });
 
     return root;

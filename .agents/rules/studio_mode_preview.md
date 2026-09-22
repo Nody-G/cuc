@@ -40,6 +40,10 @@
 - **Deux modes lisibles** : en inspection le survol est en pointillés (on *désigne* le champ à
   ouvrir dans le formulaire) ; en édition le survol est discret avec curseur de saisie (on
   *écrit*), avec un curseur dédié pour les images et les items de liste.
+- **Édition par défaut** : l'onglet Aperçu ouvre en mode `edit` — un clic sur un texte annoté
+  ouvre la saisie ; l'inspection reste accessible dans la barre. Un contrôle (bouton, lien) dont
+  **un seul** champ est annoté est éditable sur toute sa surface (icônes SVG et rembourrage
+  compris) ; plusieurs champs = comportement public conservé (`src/lib/preview/field-hit.ts`).
 - **Réversibilité** : `Ctrl+Z` / `Ctrl+Maj+Z` dans le Cockpit, inspecteur de modifications
   (`src/lib/preview/draft-diff.ts`) avec retour par champ ou global — rien
   n'est écrit en base avant « Enregistrer ».
@@ -50,6 +54,10 @@
   aucune liste rendue complètement vidée ; aucune structure inventée.
 - Saisie en place : `input`/`textarea` superposés — **jamais** `contentEditable` sur un
   nœud rendu par React (la réconciliation écraserait le DOM).
+- **Une seule source par texte** : un correctif d'édition en place écrit dans le **même**
+  chemin que le formulaire du Cockpit (ex. stages : `sections_data.stages_catalogue.items.*`,
+  jamais un bloc d'overrides parallèle) ; `audit:fields` exige que chaque champ promis par un
+  éditeur (`liveEdit`, formulaires, items) soit annoté côté vitrine.
 - Écriture du brouillon par chemin immuable :
   `src/lib/preview/field-path.ts`.
 - Commandes de liste : moteur pur `src/lib/preview/list-command.ts`.

@@ -35,13 +35,25 @@ describe('link-options', () => {
         expect(isKnownInternalLink(null)).toBe(false);
     });
 
+    it('propose les intentions de contact réellement consommées par la vitrine', () => {
+        const intents = INTERNAL_LINK_OPTIONS.filter((option) => option.group === 'intention');
+        const values = intents.map((option) => option.value);
+        expect(values).toContain('/contact-cuc?demande=cuc-events');
+        expect(values).toContain('/contact-cuc?demande=afdas-artistes-interpretes');
+        expect(values).toContain('/contact-cuc?demande=tournage-production');
+        expect(isKnownInternalLink('/contact-cuc?demande=cuc-events')).toBe(true);
+        expect(describeLink('/contact-cuc?demande=cuc-events')).toBe('Contact → devis CUC Events');
+    });
+
     it('décrit une page, un lien externe, une ancre et une cible vide', () => {
         expect(describeLink('/contact-cuc')).toBe('Contact & Accès');
         expect(describeLink('https://example.com')).toContain('Lien externe');
         expect(describeLink('mailto:contact@campus-universcascades.com')).toContain(
             'Lien externe'
         );
-        expect(describeLink('#formulaire')).toContain('Ancre');
+        expect(describeLink('#formulaire')).toBe(
+            'Contact → ancre : formulaire de candidature'
+        );
         expect(describeLink('')).toBe('Aucune cible');
     });
 

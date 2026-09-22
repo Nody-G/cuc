@@ -60,18 +60,25 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
   const effectiveFallback: Partial<SitePageContent> | undefined = hasServerPage
     ? (serverPage as Partial<SitePageContent>)
     : fallback;
-  const defaultData: SitePageContent = DEFAULT_PAGE_CONTENTS[cleanSlug] || {
-    slug: cleanSlug,
-    title: 'Campus Univers Cascades',
-    hero: {
-      title: 'CAMPUS UNIVERS CASCADES',
-      subtitle: "Le plus grand centre européen de formation de cascadeurs.",
-    },
-    layout_sections: [],
-    sections_data: {},
-    sections: [],
-    is_published: true,
-  };
+  // Identité stable par slug : les effets ci-dessous s'appuient sur
+  // `defaultData.sections_data`, une valeur recréée à chaque rendu ferait
+  // boucler les abonnements Realtime.
+  const defaultData: SitePageContent = useMemo(
+    () =>
+      DEFAULT_PAGE_CONTENTS[cleanSlug] || {
+        slug: cleanSlug,
+        title: 'Campus Univers Cascades',
+        hero: {
+          title: 'CAMPUS UNIVERS CASCADES',
+          subtitle: "Le plus grand centre européen de formation de cascadeurs.",
+        },
+        layout_sections: [],
+        sections_data: {},
+        sections: [],
+        is_published: true,
+      },
+    [cleanSlug]
+  );
 
   const initialContent: SitePageContent = {
     ...defaultData,
@@ -221,7 +228,7 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
       unsubscribePage();
       unsubscribeTranslation?.();
     };
-  }, [cleanSlug, locale, hasServerPage]);
+  }, [cleanSlug, locale, hasServerPage, defaultData.sections_data]);
 
   // Aperçu live du Cockpit : si un brouillon est poussé via `postMessage`,
   // il prend le pas sur le contenu Supabase sans rechargement ni écriture.
@@ -250,7 +257,7 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
     if (existing) applyDraft(existing);
 
     return subscribePreviewDraft(applyDraft);
-  }, [cleanSlug]);
+  }, [cleanSlug, defaultData.sections_data]);
 
   /**
    * Fusion FR + overlay EN : on délègue à l'implémentation partagée

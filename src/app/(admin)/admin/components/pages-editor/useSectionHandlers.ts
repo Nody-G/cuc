@@ -136,7 +136,8 @@ export function useSectionHandlers({
                 id: `stage_${Date.now()}`,
                 title: 'Nouveau Stage Thématique',
                 duration: '3 Jours (21h)',
-                desc: 'Description des disciplines enseignées et du niveau requis.',
+                // Clé canonique lue par la vitrine (`desc` n'a jamais été affiché).
+                description: 'Description des disciplines enseignées et du niveau requis.',
             });
             return {
                 ...prev,
