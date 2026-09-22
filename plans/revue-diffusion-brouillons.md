@@ -39,15 +39,25 @@ performance publique ce qu'on gagnerait en confort éditorial.
 
 ## 3. Ce qu'il reste, et comment le finir proprement
 
-- **Statut HTTP** : aujourd'hui la réponse est `200` avec l'avis « page non publiée » (le
-  contenu n'est plus servi, mais l'URL n'est pas dite absente). Pour un vrai `404` :
-  1. extraire le JSX de chaque route dans un composant (`<XView/>`) — 15 fichiers, mécanique ;
-  2. créer `/preview/[slug]` (serveur, `checkIsAdmin()`, `robots: noindex`) qui rend ces vues
-     avec `allowUnpublished` ;
-  3. pointer [`buildPreviewUrl()`](src/lib/preview/preview-url.ts:1) dessus, puis appeler
-     `notFound()` dans les routes publiques quand `is_published === false`.
-- **Balisage** : ajouter `robots: { index: false }` sur les pages non publiées (une fois la
-  route d'aperçu en place, la métadonnée et le 404 se posent au même endroit).
+**Balisage — fait** : [`buildRouteMetadata()`](src/lib/i18n/route-metadata.ts:24), source
+unique des métadonnées des 14 routes, pose `robots: { index: false, follow: false }` dès que la
+page est en brouillon (4 tests). Une page non publiée ne peut donc plus être indexée, et la
+republication rétablit `index` sans intervention.
+
+**Statut HTTP 404 — deux voies possibles**, à trancher :
+
+- **Voie A — extraction des vues (la plus propre)** : sortir le JSX de chaque route dans un
+  composant (`<XView/>`), créer `/preview/[slug]` (serveur, `checkIsAdmin()`, `noindex`) qui
+  rend ces vues avec `allowUnpublished`, pointer [`buildPreviewUrl()`](src/lib/preview/preview-url.ts:1)
+  dessus, puis appeler `notFound()` dans les routes publiques. Coût : 15 fichiers réorganisés ;
+  bénéfice : vrai 404, aperçu isolé et sécurisé par la session.
+- **Voie B — témoin d'aperçu signé** : le Cockpit pose un cookie `cuc_preview` **signé**
+  (HMAC côté serveur, expiration courte) et la garde serveur laisse passer uniquement ce
+  témoin. Coût : un aller-retour d'écriture de cookie et une vérification HMAC ; bénéfice :
+  aucun fichier de vue déplacé. À préférer si l'extraction des 15 vues doit attendre.
+
+Dans les deux cas, l'aperçu du Cockpit doit continuer de fonctionner : c'est la contrainte qui
+interdit la solution naïve (`notFound()` sec), déjà testée et écartée.
 
 ## 4. État vérifié aujourd'hui
 

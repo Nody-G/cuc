@@ -38,9 +38,18 @@ export async function buildRouteMetadata(options: {
     const frPath = `/${slug}`;
     const enPath = `/en/${slug}`;
 
+    /**
+     * Page en brouillon : **hors index**. Le contenu n'est déjà plus rendu au
+     * public (garde de diffusion), et cette métadonnée ferme le dernier usage
+     * possible d'une page non publiée — figurer dans les résultats de recherche.
+     * Le retour à `index` est automatique à la republication (même source).
+     */
+    const isDraft = page?.is_published === false;
+
     return {
         title,
         description,
+        robots: isDraft ? { index: false, follow: false } : undefined,
         alternates: {
             canonical: frPath,
             languages: { fr: frPath, en: enPath },

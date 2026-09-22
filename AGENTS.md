@@ -21,12 +21,14 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 3. **Isolation et Sécurité** : Les tables du site vitrine et du cockpit sont strictement préfixées par `site_` et les clés étrangères vers CUC Sign utilisent `ON DELETE SET NULL` pour préserver l'intégrité absolue de CUC Sign.
 4. **Un lien FAUX est pire qu'aucun lien** : Avant de créer une clé étrangère, prouver que la cardinalité et la granularité des deux tables sont compatibles. Une FK remplie de correspondances arbitraires propage de la fausse donnée dans toute l'application — c'est plus grave qu'une FK NULL.
 5. **Publication réelle** : `site_pages.is_published` est écrit par le Cockpit et **respecté**
-   en trois points — sitemap ([`sitemap.ts`](src/app/sitemap.ts:9)), **rendu**
+   en quatre points — sitemap ([`sitemap.ts`](src/app/sitemap.ts:9)), **rendu**
    ([`UnpublishedPageGate`](src/components/i18n/UnpublishedPageGate.tsx:1) branché dans
    [`SiteDataProvider`](src/components/i18n/SiteDataProvider.tsx:49) : le HTML public ne
-   contient jamais un contenu non publié) et **aperçu** (l'iframe du Cockpit, `?cuc-preview=1`,
-   neutralise la garde pour continuer à éditer un brouillon). Reste à faire, documenté :
-   le **statut HTTP 404** public (extraction des vues + route d'aperçu admin) —
+   contient jamais un contenu non publié), **moteurs** (`robots: noindex` posé par
+   [`buildRouteMetadata()`](src/lib/i18n/route-metadata.ts:24), source unique des métadonnées
+   des 14 routes) et **aperçu** (l'iframe du Cockpit, `?cuc-preview=1`, neutralise la garde
+   pour continuer à éditer un brouillon). Reste à faire, avec les deux voies chiffrées :
+   le **statut HTTP 404** —
    [`plans/revue-diffusion-brouillons.md`](plans/revue-diffusion-brouillons.md:1).
 6. **Panne de lecture** : une lecture Supabase en échec sert la **copie certifiée** du code
    (`DEFAULT_PAGE_CONTENTS`, `DEFAULT_NAVIGATION`…) — jamais une page morte. C'est déjà en
