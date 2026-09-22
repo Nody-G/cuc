@@ -29,6 +29,10 @@ export interface PreviewTabPanelProps {
     microcopy: Record<string, string>;
     /** Valeur validée pour un micro-texte (`data-cuc-micro`). */
     onMicrocopyCommit: (key: string, value: string) => void;
+    /** Surcharges d'entités (`table:id:champ` → valeur) poussées dans l'aperçu. */
+    entities: Record<string, string>;
+    /** Valeur validée pour une entité (`data-cuc-entity`). */
+    onEntityCommit: (ref: string, value: string) => void;
     onFieldSelect: (field: string) => void;
     locale: EditorLocaleOption;
     onLocaleChange: (locale: EditorLocaleOption) => void;
@@ -62,6 +66,8 @@ export const PreviewTabPanel: React.FC<PreviewTabPanelProps> = ({
     onSettingCommit,
     microcopy,
     onMicrocopyCommit,
+    entities,
+    onEntityCommit,
     onFieldSelect,
     locale,
     onLocaleChange,
@@ -98,6 +104,8 @@ export const PreviewTabPanel: React.FC<PreviewTabPanelProps> = ({
             onSettingCommit={onSettingCommit}
             microcopy={microcopy}
             onMicrocopyCommit={onMicrocopyCommit}
+            entities={entities}
+            onEntityCommit={onEntityCommit}
             onFieldSelect={fieldSelect}
             locale={locale}
             onLocaleChange={onLocaleChange}

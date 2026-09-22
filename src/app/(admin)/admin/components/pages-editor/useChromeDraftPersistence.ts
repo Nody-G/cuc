@@ -17,8 +17,11 @@ export interface UseChromeDraftPersistenceArgs {
     settings: Record<string, string>;
     /** Micro-textes de **cette** locale modifiés dans l'aperçu (clé → valeur). */
     microcopy: Record<string, string>;
+    /** Entités éditées en place (référence `table:id:champ` → valeur). */
+    entities: Record<string, string>;
     setSettings: (values: Record<string, string>) => void;
     setMicrocopy: (values: Record<string, string>) => void;
+    setEntities: (values: Record<string, string>) => void;
 }
 
 /**
@@ -36,8 +39,10 @@ export function useChromeDraftPersistence({
     locale,
     settings,
     microcopy,
+    entities,
     setSettings,
     setMicrocopy,
+    setEntities,
 }: UseChromeDraftPersistenceArgs): void {
     const recoveredLocalesRef = useRef<Set<string>>(new Set());
 
@@ -56,17 +61,18 @@ export function useChromeDraftPersistence({
 
         setSettings(stored.settings);
         setMicrocopy(stored.microcopy);
-    }, [locale, setSettings, setMicrocopy]);
+        setEntities(stored.entities);
+    }, [locale, setSettings, setMicrocopy, setEntities]);
 
     /* Persistance continue : un brouillon vidé (après sauvegarde) est effacé. */
     useEffect(() => {
-        const snapshot: ChromeDraftSnapshot = { settings, microcopy };
+        const snapshot: ChromeDraftSnapshot = { settings, microcopy, entities };
         if (!isChromeDraftPersistable(snapshot)) {
             clearChromeDraftSnapshot(locale);
             return;
         }
         writeChromeDraftSnapshot(locale, snapshot);
-    }, [settings, microcopy, locale]);
+    }, [settings, microcopy, entities, locale]);
 
     /* Avertissement navigateur tant qu'il reste des textes non publiés. */
     const hasChanges = Object.keys(settings).length + Object.keys(microcopy).length > 0;

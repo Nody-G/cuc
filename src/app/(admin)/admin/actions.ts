@@ -28,6 +28,7 @@ export {
     saveMicrocopyOverrides,
 } from './actions/settings';
 export { upsertDiscipline, deleteDiscipline, upsertCampusPOI, deleteCampusPOI } from './actions/campus';
+export { updateEntityField } from './actions/entities';
 export { upsertCampusPlacements3D, probeCampusPlacements3D } from './actions/campus-3d';
 export { logAuditEvent } from './actions/audit';
 export { uploadMediaFile, listMediaFolder, listMediaTree, getMediaReferences } from './actions/media';

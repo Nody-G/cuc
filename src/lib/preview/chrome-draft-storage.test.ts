@@ -30,17 +30,37 @@ function createStorage(): Storage {
 const DRAFT = {
     settings: { phone: '(+33) 06 00 00 00 00' },
     microcopy: { 'common.call': 'Appel direct' },
+    entities: { 'site_announcements:12:title': 'Journée portes ouvertes' },
 };
 
 describe('writeChromeDraftSnapshot / readChromeDraftSnapshot', () => {
-    it('écrit puis relit un brouillon', () => {
+    it('écrit puis relit un brouillon (réglages, micro-textes, entités)', () => {
         const storage = createStorage();
         expect(writeChromeDraftSnapshot('fr', DRAFT, { storage, now: 1_000 })).toBe(true);
 
         const stored = readChromeDraftSnapshot('fr', { storage, now: 1_500 });
         expect(stored?.settings).toEqual(DRAFT.settings);
         expect(stored?.microcopy).toEqual(DRAFT.microcopy);
+        expect(stored?.entities).toEqual(DRAFT.entities);
         expect(stored?.savedAt).toBe(1_000);
+    });
+
+    it('tolère un instantané antérieur au canal d’entité (entities absent → {})', () => {
+        const storage = createStorage();
+        storage.setItem(
+            chromeDraftStorageKey('fr'),
+            JSON.stringify({
+                version: CHROME_DRAFT_STORAGE_VERSION,
+                savedAt: 0,
+                locale: 'fr',
+                settings: { phone: '06' },
+                microcopy: {},
+            })
+        );
+
+        const stored = readChromeDraftSnapshot('fr', { storage, now: 500 });
+        expect(stored).not.toBeNull();
+        expect(stored?.entities).toEqual({});
     });
 
     it('isole les locales : aucun micro-texte rejoué dans l’autre langue', () => {
@@ -68,18 +88,32 @@ describe('writeChromeDraftSnapshot / readChromeDraftSnapshot', () => {
 
         storage.setItem(
             chromeDraftStorageKey('fr'),
-            JSON.stringify({ version: CHROME_DRAFT_STORAGE_VERSION + 1, savedAt: 0, locale: 'fr', settings: {}, microcopy: {} })
+            JSON.stringify({
+                version: CHROME_DRAFT_STORAGE_VERSION + 1,
+                savedAt: 0,
+                locale: 'fr',
+                settings: {},
+                microcopy: {},
+                entities: {},
+            })
         );
         expect(readChromeDraftSnapshot('fr', { storage })).toBeNull();
 
         storage.setItem(
             chromeDraftStorageKey('fr'),
-            JSON.stringify({ version: CHROME_DRAFT_STORAGE_VERSION, savedAt: 0, locale: 'en', settings: {}, microcopy: {} })
+            JSON.stringify({
+                version: CHROME_DRAFT_STORAGE_VERSION,
+                savedAt: 0,
+                locale: 'en',
+                settings: {},
+                microcopy: {},
+                entities: {},
+            })
         );
         expect(readChromeDraftSnapshot('fr', { storage })).toBeNull();
     });
 
-    it('ignore une forme invalide : valeurs non textuelles ou cartes manquantes', () => {
+    it('ignore une forme invalide : valeurs non textuelles, cartes manquantes ou entités douteuses', () => {
         const storage = createStorage();
         storage.setItem(
             chromeDraftStorageKey('fr'),
@@ -89,6 +123,7 @@ describe('writeChromeDraftSnapshot / readChromeDraftSnapshot', () => {
                 locale: 'fr',
                 settings: { phone: 42 },
                 microcopy: {},
+                entities: {},
             })
         );
         expect(readChromeDraftSnapshot('fr', { storage })).toBeNull();
@@ -96,6 +131,19 @@ describe('writeChromeDraftSnapshot / readChromeDraftSnapshot', () => {
         storage.setItem(
             chromeDraftStorageKey('fr'),
             JSON.stringify({ version: CHROME_DRAFT_STORAGE_VERSION, savedAt: 0, locale: 'fr' })
+        );
+        expect(readChromeDraftSnapshot('fr', { storage })).toBeNull();
+
+        storage.setItem(
+            chromeDraftStorageKey('fr'),
+            JSON.stringify({
+                version: CHROME_DRAFT_STORAGE_VERSION,
+                savedAt: 0,
+                locale: 'fr',
+                settings: {},
+                microcopy: {},
+                entities: { 'site_announcements:12:title': 12 },
+            })
         );
         expect(readChromeDraftSnapshot('fr', { storage })).toBeNull();
     });
@@ -116,14 +164,27 @@ describe('writeChromeDraftSnapshot / readChromeDraftSnapshot', () => {
 
 describe('isChromeDraftPersistable', () => {
     it('refuse un brouillon vide', () => {
-        expect(isChromeDraftPersistable({ settings: {}, microcopy: {} })).toBe(false);
+        expect(isChromeDraftPersistable({ settings: {}, microcopy: {}, entities: {} })).toBe(false);
     });
 
-    it('accepte un brouillon de réglages ou de micro-textes', () => {
-        expect(isChromeDraftPersistable({ settings: { phone: '06' }, microcopy: {} })).toBe(true);
-        expect(isChromeDraftPersistable({ settings: {}, microcopy: { 'common.call': 'Appel' } })).toBe(
-            true
-        );
+    it('accepte un brouillon de réglages, de micro-textes ou d’entités', () => {
+        expect(
+            isChromeDraftPersistable({ settings: { phone: '06' }, microcopy: {}, entities: {} })
+        ).toBe(true);
+        expect(
+            isChromeDraftPersistable({
+                settings: {},
+                microcopy: { 'common.call': 'Appel' },
+                entities: {},
+            })
+        ).toBe(true);
+        expect(
+            isChromeDraftPersistable({
+                settings: {},
+                microcopy: {},
+                entities: { 'site_announcements:12:title': 'Titre' },
+            })
+        ).toBe(true);
     });
 });
 
@@ -135,6 +196,7 @@ describe('recoveredChromeDraftMessage', () => {
             locale: 'fr',
             settings: {},
             microcopy: {},
+            entities: {},
         });
         expect(message).toContain('retrouvés');
         expect(message).toContain('restaurer');
@@ -147,6 +209,7 @@ describe('recoveredChromeDraftMessage', () => {
             locale: 'fr',
             settings: {},
             microcopy: {},
+            entities: {},
         });
         expect(message).toContain('précédemment');
     });

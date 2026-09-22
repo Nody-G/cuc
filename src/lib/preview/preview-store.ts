@@ -116,11 +116,50 @@ export function subscribePreviewMicrocopy(listener: MicrocopyListener): () => vo
     };
 }
 
+/* ------------------------------------------------------------------ *
+ * Entités : surcharges d'entités de la base (référence `table:id:champ`)
+ * ------------------------------------------------------------------ */
+
+/**
+ * Surcharges locales d'entités, poussées par le Cockpit (`entity-draft`).
+ * Elles s'appliquent **par-dessus** les valeurs serveur, uniquement dans
+ * l'aperçu : la vitrine publique n'en voit jamais rien.
+ */
+export type PreviewEntityOverrides = Record<string, string>;
+
+type EntityListener = (overrides: PreviewEntityOverrides) => void;
+
+let previewEntities: PreviewEntityOverrides = {};
+const entityListeners = new Set<EntityListener>();
+
+export function setPreviewEntities(overrides: PreviewEntityOverrides): void {
+    previewEntities = { ...overrides };
+    entityListeners.forEach((listener) => listener(previewEntities));
+}
+
+export function getPreviewEntities(): PreviewEntityOverrides {
+    return previewEntities;
+}
+
+export function clearPreviewEntities(): void {
+    if (Object.keys(previewEntities).length === 0) return;
+    previewEntities = {};
+    entityListeners.forEach((listener) => listener(previewEntities));
+}
+
+export function subscribePreviewEntities(listener: EntityListener): () => void {
+    entityListeners.add(listener);
+    return () => {
+        entityListeners.delete(listener);
+    };
+}
+
 /** Indique si un brouillon d'aperçu est actuellement actif. */
 export function isPreviewActive(): boolean {
     return (
         previewDraft !== null ||
         Object.keys(previewSettings).length > 0 ||
-        Object.keys(previewMicrocopy).length > 0
+        Object.keys(previewMicrocopy).length > 0 ||
+        Object.keys(previewEntities).length > 0
     );
 }

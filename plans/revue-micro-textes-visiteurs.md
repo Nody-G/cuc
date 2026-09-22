@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T21:02:59.760Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T21:12:27.992Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -8,11 +8,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | Catégorie | Occurrences |
 | --- | ---: |
 | ANNOTÉ — éditable en place | 306 |
-| DONNÉES — éditable par un écran existant | 106 |
+| DONNÉES — éditable par un écran existant | 107 |
 | TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 14 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 16 |
-| **Total** | **442** |
+| **Total** | **443** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -582,7 +582,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\AnnouncementBanner.tsx`
 
-- l.67 — `{announcement.badge}`
+- l.93 — `{badgeText}`
+- l.98 — `{titleText}`
 
 ### `src\components\layout\Navbar.tsx`
 

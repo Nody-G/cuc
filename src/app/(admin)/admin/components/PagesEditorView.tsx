@@ -79,6 +79,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     clearSettingDraft: chrome.clearSettings,
     microcopyDraft: chrome.microcopy,
     clearMicrocopyDraft: chrome.clearMicrocopy,
+    entityDraft: chrome.entities,
+    clearEntityDraft: chrome.clearEntities,
   });
 
   /**
@@ -238,6 +240,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
           onSettingCommit={chrome.commitSetting}
           microcopy={chrome.microcopy}
           onMicrocopyCommit={chrome.commitMicrocopy}
+          entities={chrome.entities}
+          onEntityCommit={chrome.commitEntity}
           onFieldSelect={focusCucField}
           locale={editorLocale}
           onLocaleChange={handleLocaleChange}

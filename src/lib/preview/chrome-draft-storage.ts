@@ -26,10 +26,12 @@ export const CHROME_DRAFT_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 /** Version du format stocké : un ancien format est ignoré, jamais migré à l'aveugle. */
 export const CHROME_DRAFT_STORAGE_VERSION = 1;
 
-/** Contenu du brouillon chrome : réglages et micro-textes en attente. */
+/** Contenu du brouillon chrome : réglages, micro-textes et entités en attente. */
 export interface ChromeDraftSnapshot {
     settings: Record<string, string>;
     microcopy: Record<string, string>;
+    /** Entités éditées en place : référence `table:id:champ` → valeur. */
+    entities: Record<string, string>;
 }
 
 export interface StoredChromeDraft {
@@ -38,6 +40,8 @@ export interface StoredChromeDraft {
     locale: string;
     settings: Record<string, string>;
     microcopy: Record<string, string>;
+    /** Absent d'un instantané antérieur au canal d'entité → `{}`. */
+    entities: Record<string, string>;
 }
 
 export interface ChromeDraftStorageOptions {
@@ -69,7 +73,12 @@ function isStringRecord(value: unknown): value is Record<string, string> {
 
 /** Un brouillon sans aucune modification ne mérite pas d'être stocké. */
 export function isChromeDraftPersistable(draft: ChromeDraftSnapshot): boolean {
-    return Object.keys(draft.settings).length + Object.keys(draft.microcopy).length > 0;
+    return (
+        Object.keys(draft.settings).length +
+        Object.keys(draft.microcopy).length +
+        Object.keys(draft.entities).length >
+        0
+    );
 }
 
 /** Écrit l'instantané (silencieux si le stockage est indisponible). */
@@ -87,6 +96,7 @@ export function writeChromeDraftSnapshot(
         locale,
         settings: draft.settings,
         microcopy: draft.microcopy,
+        entities: draft.entities,
     };
 
     try {
@@ -142,6 +152,9 @@ export function readChromeDraftSnapshot(
     if (typeof candidate.savedAt !== 'number') return discard();
     if (!isStringRecord(candidate.settings)) return discard();
     if (!isStringRecord(candidate.microcopy)) return discard();
+    // Entités : canal postérieur → absence tolérée, forme stricte si présent.
+    const entities = candidate.entities === undefined ? {} : candidate.entities;
+    if (!isStringRecord(entities)) return discard();
 
     const now = options.now ?? Date.now();
     if (now - candidate.savedAt > CHROME_DRAFT_TTL_MS) return discard();
@@ -152,6 +165,7 @@ export function readChromeDraftSnapshot(
         locale: candidate.locale,
         settings: candidate.settings,
         microcopy: candidate.microcopy,
+        entities,
     };
 }
 

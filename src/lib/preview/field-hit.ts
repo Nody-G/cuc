@@ -20,6 +20,7 @@
  */
 
 import {
+    CUC_ENTITY_ATTRIBUTE,
     CUC_FIELD_ATTRIBUTE,
     CUC_MICRO_ATTRIBUTE,
     CUC_SETTING_ATTRIBUTE,
@@ -31,12 +32,14 @@ const CONTROL_SELECTOR = 'a[href], button, [role="button"]';
 
 /**
  * Attributs reconnus, dans l'ordre de priorité. Un nœud ne porte qu'**une**
- * source : le chrome (réglages, micro-textes) se résout comme le contenu.
+ * source : chrome (réglages, micro-textes) et entités de la base se résolvent
+ * comme le contenu de page.
  */
 const FIELD_ATTRIBUTES: ReadonlyArray<{ attribute: string; source: PreviewFieldSource }> = [
     { attribute: CUC_FIELD_ATTRIBUTE, source: 'page' },
     { attribute: CUC_SETTING_ATTRIBUTE, source: 'setting' },
     { attribute: CUC_MICRO_ATTRIBUTE, source: 'micro' },
+    { attribute: CUC_ENTITY_ATTRIBUTE, source: 'entity' },
 ];
 
 /** Sélecteur unique de tous les champs éditables en place. */

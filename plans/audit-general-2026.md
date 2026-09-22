@@ -1,6 +1,6 @@
 # Audit général de l'application CUC
 
-**Généré le :** 2026-09-21T21:48:11.430Z
+**Généré le :** 2026-09-22T21:03:50.785Z
 
 > État des lieux factuel. Aucune correction appliquée.
 
@@ -9,7 +9,7 @@
 | Contrôle | Valeur |
 |---|---|
 | Routes détectées | 30 |
-| Fichiers source scannés | 276 |
+| Fichiers source scannés | 690 |
 | Liens internes cassés | 0 |
 | Ancres orphelines | 0 |
 | Doublons de liens | 0 |
@@ -17,13 +17,13 @@
 | URLs legacy WordPress (vivantes) | 0 |
 | URLs legacy (registres/scripts obsolètes) | 4389 |
 | Occurrences doctrine (actionnables) | 0 |
-| Occurrences doctrine (métadonnées de scripts) | 101 |
+| Occurrences doctrine (métadonnées de scripts) | 104 |
 | Conflits de handles sociaux | 0 |
 | Redirections invalides/chaînées | 0 |
 | Écarts de largeur (max-w-7xl/6xl) | 0 |
 | Canaux Realtime sans nettoyage | 0 |
-| Composants live sans Realtime | 2 |
-| Couverture Realtime (composants live) | 90 % |
+| Composants live sans Realtime | 4 |
+| Couverture Realtime (composants live) | 81 % |
 | Clés i18n fr → en manquantes | 0 |
 | Clés i18n en surnuméraires | 0 |
 | Routes publiques sans metadata | 0 |
@@ -70,8 +70,10 @@ Aucune anomalie détectée.
 
 ## Composants live sans Realtime
 
-- `src/components/3d/CampusPlan3D.tsx` — getters : getCampusPlacements3D
+- `src/components/3d/campus-plan/useFacilityHistory.ts` — getters : getCampusPlacements3D
 - `src/components/i18n/PageDataProvider.tsx` — getters : getLocalizedPageContent
+- `src/lib/hooks/usePageDynamicContent.ts` — getters : getPreviewDraft
+- `src/lib/hooks/usePageSectionData.ts` — getters : getPreviewDraft
 
 ## Clés i18n manquantes en anglais
 

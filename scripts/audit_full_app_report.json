@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-21T21:48:11.429Z",
+  "generatedAt": "2026-09-22T21:03:50.784Z",
   "summary": {
     "routes": 30,
-    "sourceFiles": 276,
+    "sourceFiles": 690,
     "errors": {
       "brokenLinks": 0,
       "orphanAnchors": 0,
@@ -16,14 +16,14 @@
       "realtimeLeaks": 0
     },
     "warnings": {
-      "realtimeGaps": 2,
+      "realtimeGaps": 4,
       "i18nMissingInEn": 0,
       "i18nExtraInEn": 0,
       "metadataGaps": 0
     },
     "totalErrors": 0,
-    "totalWarnings": 2,
-    "realtimeCoverageRatio": 90
+    "totalWarnings": 4,
+    "realtimeCoverageRatio": 81
   },
   "routes": [
     "/[locale]",
@@ -495,6 +495,24 @@
       "excerpt": "T = /CUC|campus|équipe|equipe|cascadeur|worldwide|hollywood|élite|elite|légendaire|legend"
     },
     {
+      "file": "scripts/inspect_suspect_labels_surface.mjs",
+      "line": 42,
+      "label": "badge: WORLDWIDE",
+      "excerpt": "Tournage Paris|tournage paris|HOLLYWOOD|WORLDWIDE|ÉLITE|ELITE|BLOCKBUSTER|BOX-OFFICE|SUCC"
+    },
+    {
+      "file": "scripts/inspect_suspect_labels_surface.mjs",
+      "line": 42,
+      "label": "badge: BOX-OFFICE",
+      "excerpt": "YWOOD|WORLDWIDE|ÉLITE|ELITE|BLOCKBUSTER|BOX-OFFICE|SUCCÈS MONDIAL)/i; async function re"
+    },
+    {
+      "file": "scripts/inspect_suspect_labels_surface.mjs",
+      "line": 42,
+      "label": "badge: SUCCÈS MONDIAL",
+      "excerpt": "WIDE|ÉLITE|ELITE|BLOCKBUSTER|BOX-OFFICE|SUCCÈS MONDIAL)/i; async function rest(pathname) {"
+    },
+    {
       "file": "scripts/lib/credit-curator.mjs",
       "line": 244,
       "label": "superlatif: chutes massives",
@@ -744,57 +762,57 @@
   "socialConflicts": [],
   "socialOccurrences": [
     {
-      "file": "src/app/(admin)/admin/components/FilmsView.tsx",
-      "line": 543,
+      "file": "src/app/(admin)/admin/components/films-view/FilmEditorFields.tsx",
+      "line": 173,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://youtube.com/watch"
     },
     {
-      "file": "src/app/(admin)/admin/components/TeamView.tsx",
-      "line": 854,
+      "file": "src/app/(admin)/admin/components/team-view/TeamMemberIdentityFields.tsx",
+      "line": 143,
       "platform": "instagram",
       "handle": "...",
       "url": "https://instagram.com/..."
     },
     {
-      "file": "src/app/(site)/[locale]/videos-cascadeur/page.tsx",
-      "line": 354,
+      "file": "src/app/(site)/[locale]/videos-cascadeur/sections/VideosMediaSection.tsx",
+      "line": 47,
       "platform": "instagram",
       "handle": "campus.univers.cascades",
       "url": "https://www.instagram.com/campus.univers.cascades/"
     },
     {
-      "file": "src/app/(site)/[locale]/videos-cascadeur/page.tsx",
-      "line": 364,
+      "file": "src/app/(site)/[locale]/videos-cascadeur/sections/VideosMediaSection.tsx",
+      "line": 57,
       "platform": "tiktok",
       "handle": "@campusuniverscascades",
       "url": "https://www.tiktok.com/@campusuniverscascades"
     },
     {
       "file": "src/components/sections/home/HomeSocialSection.tsx",
-      "line": 37,
+      "line": 43,
       "platform": "instagram",
       "handle": "campus.univers.cascades",
       "url": "https://www.instagram.com/campus.univers.cascades/"
     },
     {
       "file": "src/components/sections/home/HomeSocialSection.tsx",
-      "line": 51,
+      "line": 64,
       "platform": "instagram",
       "handle": "reel/DJW5wq0MIzt",
       "url": "https://www.instagram.com/reel/DJW5wq0MIzt/"
     },
     {
       "file": "src/components/sections/home/HomeSocialSection.tsx",
-      "line": 57,
+      "line": 70,
       "platform": "instagram",
       "handle": "reel/DKAFa9dsRVa",
       "url": "https://www.instagram.com/reel/DKAFa9dsRVa/"
     },
     {
       "file": "src/components/sections/home/HomeSocialSection.tsx",
-      "line": 63,
+      "line": 76,
       "platform": "instagram",
       "handle": "reel/DJmOS2tMQpk",
       "url": "https://www.instagram.com/reel/DJmOS2tMQpk/"
@@ -1326,63 +1344,63 @@
     },
     {
       "file": "src/data/team.ts",
-      "line": 37,
+      "line": 44,
       "platform": "instagram",
       "handle": "lucas.dollfus",
       "url": "https://www.instagram.com/lucas.dollfus/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 39,
+      "line": 46,
       "platform": "instagram",
       "handle": "lucas.dollfus",
       "url": "https://www.instagram.com/lucas.dollfus/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 172,
+      "line": 603,
       "platform": "instagram",
       "handle": "vincentbouillon",
       "url": "https://www.instagram.com/vincentbouillon/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 238,
+      "line": 783,
       "platform": "instagram",
       "handle": "malikdiouf_yamakasi",
       "url": "https://www.instagram.com/malikdiouf_yamakasi/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 651,
+      "line": 2100,
       "platform": "instagram",
       "handle": "nielsdalery",
       "url": "https://www.instagram.com/nielsdalery"
     },
     {
-      "file": "src/lib/data/site-service.ts",
-      "line": 1217,
+      "file": "src/lib/data/site/defaults/partners.ts",
+      "line": 82,
       "platform": "instagram",
       "handle": "actioncascade",
       "url": "https://www.instagram.com/actioncascade/"
     },
     {
-      "file": "src/lib/data/site-service.ts",
-      "line": 1227,
+      "file": "src/lib/data/site/defaults/partners.ts",
+      "line": 92,
       "platform": "youtube",
       "handle": "@ayacatch",
       "url": "https://www.youtube.com/@ayacatch"
     },
     {
-      "file": "src/lib/data/site-service.ts",
-      "line": 1237,
+      "file": "src/lib/data/site/defaults/partners.ts",
+      "line": 102,
       "platform": "instagram",
       "handle": "cascadedemoteam",
       "url": "https://www.instagram.com/cascadedemoteam/"
     },
     {
-      "file": "src/lib/data/site-service.ts",
-      "line": 1247,
+      "file": "src/lib/data/site/defaults/partners.ts",
+      "line": 112,
       "platform": "youtube",
       "handle": "@xtremvideo",
       "url": "https://www.youtube.com/@XtremVideo"
@@ -1425,10 +1443,17 @@
       "src/app/(site)/[locale]/contact-cuc/page.tsx",
       "src/app/(site)/[locale]/equipe-cascadeurs-pro/[slug]/CoachDetailClient.tsx",
       "src/app/(site)/[locale]/equipe-cascadeurs-pro/page.tsx",
+      "src/app/(site)/[locale]/equipe-cascadeurs-pro/sections/EquipeHeroSection.tsx",
       "src/app/(site)/[locale]/spectacles-cascadeurs-yamakasi/page.tsx",
       "src/app/(site)/[locale]/stunt-workshop-cuc/page.tsx",
+      "src/app/(site)/[locale]/stunt-workshop-cuc/sections/WorkshopHero.tsx",
+      "src/app/(site)/[locale]/stunt-workshop-cuc/sections/WorkshopHighlights.tsx",
+      "src/app/(site)/[locale]/stunt-workshop-cuc/sections/WorkshopProgram.tsx",
       "src/app/(site)/[locale]/team-building-cascades/page.tsx",
-      "src/app/(site)/[locale]/videos-cascadeur/page.tsx",
+      "src/app/(site)/[locale]/videos-cascadeur/sections/VideosDocusGrid.tsx",
+      "src/app/(site)/[locale]/videos-cascadeur/sections/VideosHero.tsx",
+      "src/app/(site)/[locale]/videos-cascadeur/sections/VideosMediaSection.tsx",
+      "src/app/(site)/[locale]/videos-cascadeur/sections/VideosPlayer.tsx",
       "src/app/(site)/[locale]/visite-guidee/page.tsx",
       "src/app/(site)/[locale]/visite-virtuelle/page.tsx",
       "src/components/layout/Footer.tsx",
@@ -1464,7 +1489,7 @@
   },
   "realtimeGaps": [
     {
-      "file": "src/components/3d/CampusPlan3D.tsx",
+      "file": "src/components/3d/campus-plan/useFacilityHistory.ts",
       "getters": [
         "getCampusPlacements3D"
       ]
@@ -1474,18 +1499,30 @@
       "getters": [
         "getLocalizedPageContent"
       ]
+    },
+    {
+      "file": "src/lib/hooks/usePageDynamicContent.ts",
+      "getters": [
+        "getPreviewDraft"
+      ]
+    },
+    {
+      "file": "src/lib/hooks/usePageSectionData.ts",
+      "getters": [
+        "getPreviewDraft"
+      ]
     }
   ],
   "realtimeLeaks": [],
   "realtimeCovered": [
     {
-      "file": "src/app/(site)/[locale]/equipe-cascadeurs-pro/page.tsx"
+      "file": "src/app/(site)/[locale]/equipe-cascadeurs-pro/sections/useEquipeCascadeursData.ts"
     },
     {
-      "file": "src/app/(site)/[locale]/equipe-cascadeurs-pro/[slug]/CoachDetailClient.tsx"
+      "file": "src/app/(site)/[locale]/equipe-cascadeurs-pro/[slug]/coach-detail/useCoachDetailData.ts"
     },
     {
-      "file": "src/app/(site)/[locale]/videos-cascadeur/page.tsx"
+      "file": "src/app/(site)/[locale]/videos-cascadeur/sections/useVideosPage.ts"
     },
     {
       "file": "src/components/layout/AnnouncementBanner.tsx"
@@ -1500,7 +1537,7 @@
       "file": "src/components/layout/navbar/NavActionsBar.tsx"
     },
     {
-      "file": "src/components/sections/events/EventsPillarsSection.tsx"
+      "file": "src/components/sections/events/pillars/useEventsPillars.ts"
     },
     {
       "file": "src/components/sections/films/CucFilmsShowcase.tsx"
@@ -1515,10 +1552,10 @@
       "file": "src/components/sections/hall-of-fame/FilmDetailsModal.tsx"
     },
     {
-      "file": "src/components/sections/home/HomeTournagesSection.tsx"
+      "file": "src/components/sections/home/tournages/useHomeTournages.ts"
     },
     {
-      "file": "src/components/sections/partenaires/PartenairesGridSection.tsx"
+      "file": "src/components/sections/partenaires/grid/usePartnersGrid.ts"
     },
     {
       "file": "src/components/sections/visite/VisiteFacilitiesDetail.tsx"
@@ -1527,18 +1564,12 @@
       "file": "src/components/ui/InteractiveCampusMap.tsx"
     },
     {
-      "file": "src/lib/hooks/useNavigation.ts"
-    },
-    {
-      "file": "src/lib/hooks/usePageDynamicContent.ts"
-    },
-    {
       "file": "src/lib/hooks/useRealtimeRefresh.ts"
     }
   ],
   "i18nParity": {
-    "frKeys": 681,
-    "enKeys": 681,
+    "frKeys": 703,
+    "enKeys": 703,
     "missingInEn": [],
     "extraInEn": []
   },

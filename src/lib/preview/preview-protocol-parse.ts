@@ -24,6 +24,7 @@ import {
     type PreviewMode,
 } from './preview-protocol-core';
 import type { SitePageContent } from '@/lib/data/site-service';
+import { isEntityRef } from './entity-ref';
 
 const PREVIEW_MODES: readonly PreviewMode[] = ['inspect', 'edit'];
 const PREVIEW_LIST_COMMANDS: readonly PreviewListCommand[] = [
@@ -33,7 +34,7 @@ const PREVIEW_LIST_COMMANDS: readonly PreviewListCommand[] = [
     'move-down',
     'duplicate',
 ];
-const PREVIEW_FIELD_SOURCES: readonly PreviewFieldSource[] = ['page', 'setting', 'micro'];
+const PREVIEW_FIELD_SOURCES: readonly PreviewFieldSource[] = ['page', 'setting', 'micro', 'entity'];
 
 function isRecord(value: unknown): value is Record<string, unknown> {
     return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -86,12 +87,15 @@ export function isPreviewMessage(value: unknown): value is PreviewMessage {
             return isNonEmptyString(value.field);
         case 'settings-draft':
         case 'microcopy-draft':
+        case 'entity-draft':
             return isStringRecord(value.payload);
         case 'field-commit':
             return (
                 isNonEmptyString(value.field) &&
                 typeof value.value === 'string' &&
-                (value.source === undefined || isFieldSource(value.source))
+                (value.source === undefined || isFieldSource(value.source)) &&
+                // Une entité se désigne par sa référence canonique, jamais par un chemin libre.
+                (value.source !== 'entity' || isEntityRef(value.field))
             );
         case 'list-command':
             return (

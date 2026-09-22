@@ -51,6 +51,10 @@ interface LivePreviewPaneProps {
     microcopy?: Record<string, string>;
     /** Valeur validée pour un micro-texte (`data-cuc-micro`). */
     onMicrocopyCommit?: (key: string, value: string) => void;
+    /** Surcharges d'entités (`table:id:champ` → valeur) poussées dans l'aperçu. */
+    entities?: Record<string, string>;
+    /** Valeur validée pour une entité (`data-cuc-entity`). */
+    onEntityCommit?: (ref: string, value: string) => void;
     /** L'aperçu demande la médiathèque pour un champ image. */
     onMediaRequest?: (field: string) => void;
     /** Commande d'ajout / suppression / réordonnancement d'item de liste. */
@@ -75,6 +79,8 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
     onSettingCommit,
     microcopy = {},
     onMicrocopyCommit,
+    entities = {},
+    onEntityCommit,
     onMediaRequest,
     onListCommand,
     locale = 'fr',
@@ -87,17 +93,20 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
         draft,
         settings,
         microcopy,
+        entities,
         mode,
         onFieldSelect,
         onFieldCommit,
         onSettingCommit,
         onMicrocopyCommit,
+        onEntityCommit,
         onMediaRequest,
         onListCommand,
     });
 
-    /** Textes hors contenu de page modifiés dans l'aperçu (réglages + micro-textes). */
-    const chromeChanges = Object.keys(settings).length + Object.keys(microcopy).length;
+    /** Textes hors contenu de page modifiés dans l'aperçu (chrome + entités). */
+    const chromeChanges =
+        Object.keys(settings).length + Object.keys(microcopy).length + Object.keys(entities).length;
 
     return (
         <div

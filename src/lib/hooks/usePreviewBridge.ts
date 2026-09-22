@@ -38,6 +38,8 @@ export interface UsePreviewBridgeOptions {
     settings?: Record<string, string>;
     /** Surcharges de micro-textes (locale active) poussées dans l'iframe. */
     microcopy?: Record<string, string>;
+    /** Surcharges d'entités (`table:id:champ` → valeur) poussées dans l'iframe. */
+    entities?: Record<string, string>;
     /** `inspect` : clic = focus du formulaire. `edit` : clic = édition en place. */
     mode?: PreviewMode;
     /** Champ sélectionné dans l'aperçu (clic). */
@@ -48,6 +50,8 @@ export interface UsePreviewBridgeOptions {
     onSettingCommit?: (key: string, value: string) => void;
     /** Valeur validée pour un micro-texte (`data-cuc-micro`). */
     onMicrocopyCommit?: (key: string, value: string) => void;
+    /** Valeur validée pour une entité (`data-cuc-entity`, référence `table:id:champ`). */
+    onEntityCommit?: (ref: string, value: string) => void;
     /** Commande d'ajout / suppression / réordonnancement d'item de liste. */
     onListCommand?: (field: string, command: PreviewListCommand, index: number) => void;
     /** L'iframe demande l'ouverture de la médiathèque pour un champ image. */
@@ -71,11 +75,13 @@ export function usePreviewBridge({
     draft,
     settings = {},
     microcopy = {},
+    entities = {},
     mode = 'inspect',
     onFieldSelect,
     onFieldCommit,
     onSettingCommit,
     onMicrocopyCommit,
+    onEntityCommit,
     onListCommand,
     onMediaRequest,
 }: UsePreviewBridgeOptions): UsePreviewBridgeResult {
@@ -89,12 +95,14 @@ export function usePreviewBridge({
     const draftRef = useRef(draft);
     const settingsRef = useRef(settings);
     const microcopyRef = useRef(microcopy);
+    const entitiesRef = useRef(entities);
     const modeRef = useRef<PreviewMode>(mode);
     const handlersRef = useRef({
         onFieldSelect,
         onFieldCommit,
         onSettingCommit,
         onMicrocopyCommit,
+        onEntityCommit,
         onListCommand,
         onMediaRequest,
     });
@@ -112,6 +120,10 @@ export function usePreviewBridge({
     }, [microcopy]);
 
     useEffect(() => {
+        entitiesRef.current = entities;
+    }, [entities]);
+
+    useEffect(() => {
         modeRef.current = mode;
     }, [mode]);
 
@@ -121,6 +133,7 @@ export function usePreviewBridge({
             onFieldCommit,
             onSettingCommit,
             onMicrocopyCommit,
+            onEntityCommit,
             onListCommand,
             onMediaRequest,
         };
@@ -129,6 +142,7 @@ export function usePreviewBridge({
         onFieldCommit,
         onSettingCommit,
         onMicrocopyCommit,
+        onEntityCommit,
         onListCommand,
         onMediaRequest,
     ]);
@@ -144,6 +158,7 @@ export function usePreviewBridge({
         post(previewMessage.draft(draftRef.current));
         post(previewMessage.settingsDraft(settingsRef.current));
         post(previewMessage.microcopyDraft(microcopyRef.current));
+        post(previewMessage.entityDraft(entitiesRef.current));
     }, [post]);
 
     // Écoute des messages provenant de l'iframe (abonnement stable).
@@ -162,6 +177,7 @@ export function usePreviewBridge({
                     post(previewMessage.draft(draftRef.current));
                     post(previewMessage.settingsDraft(settingsRef.current));
                     post(previewMessage.microcopyDraft(microcopyRef.current));
+                    post(previewMessage.entityDraft(entitiesRef.current));
                     break;
                 case 'field-hover':
                     setHoveredField(message.field);
@@ -175,6 +191,8 @@ export function usePreviewBridge({
                         handlers.onSettingCommit?.(message.field, message.value);
                     } else if (message.source === 'micro') {
                         handlers.onMicrocopyCommit?.(message.field, message.value);
+                    } else if (message.source === 'entity') {
+                        handlers.onEntityCommit?.(message.field, message.value);
                     } else {
                         handlers.onFieldCommit?.(message.field, message.value);
                     }
@@ -189,6 +207,7 @@ export function usePreviewBridge({
                 case 'draft':
                 case 'settings-draft':
                 case 'microcopy-draft':
+                case 'entity-draft':
                 case 'media-commit':
                     // Messages Cockpit → iframe : sans effet côté parent.
                     break;
@@ -215,6 +234,12 @@ export function usePreviewBridge({
         if (!isReady) return;
         post(previewMessage.microcopyDraft(microcopy));
     }, [microcopy, isReady, post]);
+
+    // Entités : même règle de publication continue.
+    useEffect(() => {
+        if (!isReady) return;
+        post(previewMessage.entityDraft(entities));
+    }, [entities, isReady, post]);
 
     // Propagation du mode : le pont bascule ses affordances d'édition.
     useEffect(() => {

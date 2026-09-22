@@ -49,6 +49,12 @@ export const CUC_SETTING_ATTRIBUTE = 'data-cuc-setting';
 /** Attribut d'un texte issu du catalogue de micro-textes (surcharge i18n). */
 export const CUC_MICRO_ATTRIBUTE = 'data-cuc-micro';
 
+/**
+ * Attribut d'un texte issu d'une **entité de la base** (annonces, coachs,
+ * films…), portant la référence canonique `table:id:champ` (`entity-ref.ts`).
+ */
+export const CUC_ENTITY_ATTRIBUTE = 'data-cuc-entity';
+
 /* ------------------------------------------------------------------ *
  * Modèle
  * ------------------------------------------------------------------ */
@@ -69,11 +75,12 @@ export type PreviewMode = 'inspect' | 'edit';
 
 /**
  * Source d'un texte éditable en place : contenu de page (`data-cuc-field`),
- * réglage du site (`data-cuc-setting`) ou micro-texte (`data-cuc-micro`).
+ * réglage du site (`data-cuc-setting`), micro-texte (`data-cuc-micro`) ou
+ * entité de la base (`data-cuc-entity`, référence `table:id:champ`).
  * La source décide **où** le Cockpit écrit le commit — jamais un chemin
  * interprété au hasard.
  */
-export type PreviewFieldSource = 'page' | 'setting' | 'micro';
+export type PreviewFieldSource = 'page' | 'setting' | 'micro' | 'entity';
 
 /** Commandes de liste, exécutées par le Cockpit sur le brouillon. */
 export type PreviewListCommand = 'add' | 'remove' | 'move-up' | 'move-down' | 'duplicate';
@@ -99,12 +106,23 @@ export type PreviewMessage =
         type: 'microcopy-draft';
         payload: Record<string, string>;
     }
+    | {
+        channel: typeof PREVIEW_CHANNEL;
+        v: 2;
+        type: 'entity-draft';
+        /** Références `table:id:champ` → valeurs brouillon. */
+        payload: Record<string, string>;
+    }
     | { channel: typeof PREVIEW_CHANNEL; v: 2; type: 'field-hover'; field: string | null }
     | { channel: typeof PREVIEW_CHANNEL; v: 2; type: 'field-select'; field: string }
     | {
         channel: typeof PREVIEW_CHANNEL;
         v: 2;
         type: 'field-commit';
+        /**
+         * `source: 'entity'` → référence `table:id:champ` (`entity-ref.ts`) ;
+         * sinon chemin de page, clé de réglage ou clé de catalogue.
+         */
         field: string;
         value: string;
         /** Absent = contenu de page (bundle antérieur au canal chrome). */
@@ -164,6 +182,12 @@ export const previewMessage = {
         channel: PREVIEW_CHANNEL,
         v: PREVIEW_PROTOCOL_VERSION,
         type: 'microcopy-draft',
+        payload,
+    }),
+    entityDraft: (payload: Record<string, string>): PreviewMessage => ({
+        channel: PREVIEW_CHANNEL,
+        v: PREVIEW_PROTOCOL_VERSION,
+        type: 'entity-draft',
         payload,
     }),
     fieldHover: (field: string | null): PreviewMessage => ({

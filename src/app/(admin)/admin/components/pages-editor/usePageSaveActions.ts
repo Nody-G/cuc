@@ -5,6 +5,7 @@ import { DEFAULT_PAGE_CONTENTS, normalizeSlug, type SitePageContent } from '@/li
 import {
     resetPageContentToDefault,
     setPagePublishState,
+    updateEntityField,
     updateMicrocopyOverrideField,
     updateSiteSettingField,
     upsertPageContent,
@@ -33,6 +34,10 @@ export interface UsePageSaveActionsArgs {
     microcopyDraft: Record<string, string>;
     /** Efface le brouillon de micro-textes après publication réussie. */
     clearMicrocopyDraft: () => void;
+    /** Entités éditées en place (référence `table:id:champ` → valeur). */
+    entityDraft: Record<string, string>;
+    /** Efface le brouillon d'entités après publication réussie. */
+    clearEntityDraft: () => void;
 }
 
 /**
@@ -57,6 +62,8 @@ export function usePageSaveActions({
     clearSettingDraft,
     microcopyDraft,
     clearMicrocopyDraft,
+    entityDraft,
+    clearEntityDraft,
 }: UsePageSaveActionsArgs) {
     const [isSaving, setIsSaving] = useState(false);
     const [isResetting, setIsResetting] = useState(false);
@@ -75,6 +82,7 @@ export function usePageSaveActions({
     }> => {
         const settingKeys = Object.keys(settingDraft);
         const microKeys = Object.keys(microcopyDraft);
+        const entityRefs = Object.keys(entityDraft);
         const failed: string[] = [];
 
         for (const key of settingKeys) {
@@ -85,15 +93,20 @@ export function usePageSaveActions({
             const res = await updateMicrocopyOverrideField(editorLocale, key, microcopyDraft[key]);
             if (!res.success) failed.push(`micro-texte « ${key} »`);
         }
+        for (const ref of entityRefs) {
+            const res = await updateEntityField(ref, entityDraft[ref]);
+            if (!res.success) failed.push(`entité « ${ref} »`);
+        }
 
         if (failed.length === 0) {
             if (settingKeys.length > 0) clearSettingDraft();
             if (microKeys.length > 0) clearMicrocopyDraft();
+            if (entityRefs.length > 0) clearEntityDraft();
         }
         return {
             ok: failed.length === 0,
             failed,
-            count: settingKeys.length + microKeys.length,
+            count: settingKeys.length + microKeys.length + entityRefs.length,
         };
     };
 

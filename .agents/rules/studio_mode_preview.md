@@ -27,6 +27,11 @@
   brouillons voyagent par `settings-draft` / `microcopy-draft` ; la surcharge de
   catalogue est fusionnée par la **même** fonction que le serveur
   (`applyMicrocopyOverlay`, via `PreviewIntlProvider`).
+- **Entités** : `data-cuc-entity="<table>:<id>:<champ>"` (référence canonique
+  `entity-ref.ts`, pilote : bannière d'annonce). Le brouillon voyage par
+  `entity-draft` ; l'écriture est une **liste blanche** serveur
+  (`actions/entities.ts`, valeur vide refusée) — jamais une table ou un champ
+  libre.
 - **Garde-fous chrome** : le serveur refuse toute clé de catalogue inconnue
   (`isMicrocopyKey` — pas de texte orphelin) ; les micro-textes du brouillon sont
   **segmentés par locale** (jamais rejoués dans l'autre langue) ; le brouillon

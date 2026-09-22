@@ -88,7 +88,7 @@ const TECHNICAL_PATTERNS = [
  */
 const IMAGE_ROUTE_RE = /opengraph-image|og-image|icon\.tsx/;
 const ANNOTATION_RE =
-    /data-cuc-field|cucField\(|itemPath\(|data-cuc-setting|cucSetting\(|data-cuc-micro|cucMicro\(/;
+    /data-cuc-field|cucField\(|itemPath\(|data-cuc-setting|cucSetting\(|data-cuc-micro|cucMicro\(|data-cuc-entity|cucEntity\(/;
 const DATA_HINT_RE =
     /(?:content|settings|hero|heroData|formulesData|data|formData|member|film|coach|program|stat|item|section|overlay|copy)\./i;
 

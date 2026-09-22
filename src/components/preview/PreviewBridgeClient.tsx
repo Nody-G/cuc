@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import {
+    CUC_ENTITY_ATTRIBUTE,
     CUC_FIELD_ATTRIBUTE,
     CUC_FIELD_HOVER_ATTRIBUTE,
     CUC_KIND_ATTRIBUTE,
@@ -14,9 +15,11 @@ import {
 } from '@/lib/preview/preview-protocol';
 import { resolveFieldElement, resolveFieldTarget } from '@/lib/preview/field-hit';
 import {
+    clearPreviewEntities,
     clearPreviewMicrocopy,
     clearPreviewSettings,
     setPreviewDraft,
+    setPreviewEntities,
     setPreviewMicrocopy,
     setPreviewSettings,
 } from '@/lib/preview/preview-store';
@@ -75,6 +78,9 @@ export const PreviewBridgeClient: React.FC = () => {
                     break;
                 case 'microcopy-draft':
                     setPreviewMicrocopy(message.payload);
+                    break;
+                case 'entity-draft':
+                    setPreviewEntities(message.payload);
                     break;
                 case 'mode': {
                     mode = message.payload;
@@ -157,13 +163,14 @@ export const PreviewBridgeClient: React.FC = () => {
         const style = document.createElement('style');
         style.setAttribute('data-cuc-preview-style', '');
         style.textContent = `
-      [${CUC_FIELD_ATTRIBUTE}], [${CUC_FIELD_HOVER_ATTRIBUTE}] {
+      [${CUC_FIELD_ATTRIBUTE}], [${CUC_ENTITY_ATTRIBUTE}], [${CUC_FIELD_HOVER_ATTRIBUTE}] {
         transition: outline-color .15s ease, background-color .15s ease;
       }
 
       /* Inspection : on désigne le champ à ouvrir dans le formulaire ; le
          contrôle entier (bouton, lien) désigne son libellé au survol. */
       html[data-cuc-mode='inspect'] [${CUC_FIELD_ATTRIBUTE}],
+      html[data-cuc-mode='inspect'] [${CUC_ENTITY_ATTRIBUTE}],
       html[data-cuc-mode='inspect'] [${CUC_FIELD_HOVER_ATTRIBUTE}] { cursor: pointer !important; }
       html[data-cuc-mode='inspect'] [${CUC_FIELD_HOVER_ATTRIBUTE}] {
         outline: 2px dashed rgba(255,229,0,.85) !important;
@@ -173,6 +180,7 @@ export const PreviewBridgeClient: React.FC = () => {
 
       /* Édition : le survol invite à écrire, chaque nature a son curseur. */
       html[data-cuc-mode='edit'] [${CUC_FIELD_ATTRIBUTE}],
+      html[data-cuc-mode='edit'] [${CUC_ENTITY_ATTRIBUTE}],
       html[data-cuc-mode='edit'] [${CUC_FIELD_HOVER_ATTRIBUTE}] { cursor: text !important; }
       html[data-cuc-mode='edit'] [${CUC_FIELD_HOVER_ATTRIBUTE}] {
         outline: 1px solid rgba(255,229,0,.55) !important;
@@ -209,6 +217,7 @@ export const PreviewBridgeClient: React.FC = () => {
             clearPreviewSelection();
             clearPreviewSettings();
             clearPreviewMicrocopy();
+            clearPreviewEntities();
             document.documentElement.removeAttribute('data-cuc-mode');
         };
     }, []);

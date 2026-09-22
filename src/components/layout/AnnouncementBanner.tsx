@@ -5,9 +5,14 @@ import React, { useEffect, useState } from 'react';
 
 import { getActiveAnnouncement, getSiteSettings, SiteAnnouncement } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
+import { entityRef } from '@/lib/preview/entity-ref';
+import { cucEntity } from '@/lib/preview/cuc-entity';
+import { resolveEntityOverride, usePreviewEntities } from '@/lib/preview/use-preview-entity';
 
 export const AnnouncementBanner: React.FC = () => {
   const [announcement, setAnnouncement] = useState<SiteAnnouncement | null>(null);
+  /** Surcharges locales d'entités (édition en place dans l'aperçu). */
+  const entityOverrides = usePreviewEntities();
 
   /** Rechargement annonce + alerte d'urgence : état initial et Realtime. */
   const loadAnnouncement = React.useCallback(() => {
@@ -47,6 +52,24 @@ export const AnnouncementBanner: React.FC = () => {
     return null;
   }
 
+  /**
+   * Édition en place : l'alerte d'urgence (portée par les réglages) n'est pas
+   * une entité — seules les annonces réelles s'ancrent sur `site_announcements`.
+   */
+  type BannerField = 'title' | 'message' | 'badge' | 'link_text';
+  const entityEditable = announcement.id !== 'emergency-alert';
+  const refFor = (field: BannerField) =>
+    entityEditable ? entityRef('site_announcements', announcement.id, field) : null;
+  const attrFor = (field: BannerField) =>
+    entityEditable ? cucEntity('site_announcements', announcement.id, field) : {};
+  const valueOf = (field: BannerField, base: string) =>
+    resolveEntityOverride(entityOverrides, refFor(field)) ?? base;
+
+  const badgeText = announcement.badge ? valueOf('badge', announcement.badge) : '';
+  const titleText = valueOf('title', announcement.title);
+  const messageText = announcement.message ? valueOf('message', announcement.message) : '';
+  const linkText = valueOf('link_text', announcement.link_text || 'En savoir plus');
+
   const styleClasses = {
     gold: 'bg-[#FFE500] text-black border-b border-black/10',
     info: 'bg-blue-600 text-white border-b border-blue-700',
@@ -62,14 +85,24 @@ export const AnnouncementBanner: React.FC = () => {
     >
       <div className="max-w-[1680px] mx-auto flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5 overflow-hidden">
-          {announcement.badge && (
-            <span className="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-black/20 shrink-0">
-              {announcement.badge}
+          {badgeText && (
+            <span
+              className="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-black/20 shrink-0"
+              {...attrFor('badge')}
+            >
+              {badgeText}
             </span>
           )}
           <span className="truncate">
-            <strong className="font-bold">{announcement.title}</strong>
-            {announcement.message && <span className="opacity-90 font-medium"> — {announcement.message}</span>}
+            <strong className="font-bold" {...attrFor('title')}>
+              {titleText}
+            </strong>
+            {messageText && (
+              <span className="opacity-90 font-medium">
+                {' — '}
+                <span {...attrFor('message')}>{messageText}</span>
+              </span>
+            )}
           </span>
         </div>
 
@@ -78,7 +111,7 @@ export const AnnouncementBanner: React.FC = () => {
             href={announcement.link_url}
             className="shrink-0 underline font-bold hover:opacity-80 text-xs transition-opacity ml-2"
           >
-            {announcement.link_text || 'En savoir plus'} →
+            <span {...attrFor('link_text')}>{linkText}</span> →
           </Link>
         )}
       </div>

@@ -12,8 +12,12 @@ NDE# Plan — Rendre le « chrome » éditable dans l'aperçu (réglages + micro
 > dur ; les 14 valeurs restantes en catégorie « traduction » sont **dynamiques par
 > nature** (interpolations `{digest}` / `{name}`, index `options.${id}`,
 > `statuses[session.status]`, données d'entités via `localizer(partner)`), hors périmètre
-> d'une surcharge statique. Reste hors chantier : les entités DB (annonces, coachs,
-> films) qui relèvent d'un canal d'entité, documenté en § 4.
+> d'une surcharge statique.
+> **Canal d'entité livré** : pilote complet sur la **bannière d'annonce** —
+> `data-cuc-entity="<table>:<id>:<champ>"` (`entity-ref.ts`), commit `source: 'entity'`,
+> brouillon poussé par `entity-draft`, écriture serveur sous **liste blanche**
+> (`updateEntityField`), filet local étendu aux entités. L'extension aux autres entités
+> suit la même recette (§ 4).
 
 ## 1. Le problème, tel qu'il se vit
 
@@ -40,6 +44,10 @@ Deux brouillons distincts, deux boutons d'enregistrement : c'est une séparation
   (ex. `hero_primary_cta_text`, `hero_primary_cta_url`).
 - `data-cuc-micro="<namespace.clé>"` — un texte rendu par `t('…')` et surchargeable
   (le namespace est celui du `useTranslations` du composant).
+- `data-cuc-entity="<table>:<id>:<champ>"` — un texte rendu depuis une **entité de la
+  base** (pilote : bannière d'annonce, `site_announcements`). La référence est canonique
+  (`entity-ref.ts`) et l'écriture passe par la **liste blanche** serveur
+  (`actions/entities.ts`).
 - Les natures : `text` (défaut), `textarea`, `link` — mêmes overlays que l'existant.
 
 **Règle d'or conservée** : un texte **donnée de page** reste `data-cuc-field` (priorité au
@@ -100,6 +108,9 @@ messages v2 continuent de fonctionner → **aucune fenêtre de panne** au déplo
   l'écriture : `updateMicrocopyOverrideField` refuse toute clé absente des catalogues via
   `isMicrocopyKey` (une valeur vidée reste permise : c'est un retrait).
 - Un réglage inconnu (`key` hors `SiteSettings`) est refusé : pas de structure inventée.
+- Une entité n'est éditable que si son couple `(table, champ)` figure dans la liste
+  blanche de `actions/entities.ts` ; une valeur vidée est **refusée** (elle effacerait un
+  texte servi publiquement — retirer une annonce se fait dans son écran dédié).
 - Priorité d'affichage dans la vitrine : brouillon chrome (aperçu) > serveur ;
   contenu de page (`data-cuc-field`) reste prioritaire sur `data-cuc-micro` quand les deux
   pourraient coexister (jamais sur le même nœud).
@@ -117,11 +128,13 @@ messages v2 continuent de fonctionner → **aucune fenêtre de panne** au déplo
 | L7 | Micro-textes en place : canal livré (`microcopy-draft`, `PreviewIntlProvider`, sauvegarde par clé) + **extension achevée** sur tout le statique (pied de page, formulaires, héros, modales, pages, cartes, visionneuses) | ✅ livré |
 | L8 | Garde-fou serveur : clé absente du catalogue refusée (`isMicrocopyKey` + test) | ✅ livré |
 | L9 | Filet local du brouillon chrome (`chrome-draft-storage.ts`, hook, tests) + micro-textes segmentés par locale | ✅ livré |
+| L10 | Canal d'entité : pilote bannière d'annonce (`data-cuc-entity`, `entity-draft`, commit `entity`, liste blanche serveur, filet local étendu) | ✅ livré |
 
 ## 4. Ce qui ne rentre pas dans ce chantier
 
-- Les entités DB (coachs, films) : leur édition en place nécessiterait un overlay
-  d'entité et un routage de commit vers `site_team` / films — dossier distinct.
+- L'**extension** du canal d'entité aux coachs et films : la recette est en place
+  (une ligne de liste blanche + annotations `cucEntity`), les traductions d'entités
+  (overlays EN) restant gérées par leurs écrans dédiés.
 - Les contenus purement SEO (`meta_*`) : invisibles dans la page, ils restent dans
   l'onglet SEO (c'est leur nature).
 
