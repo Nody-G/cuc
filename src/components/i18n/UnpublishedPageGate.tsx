@@ -1,8 +1,14 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useSyncExternalStore } from 'react';
+import Link from 'next/link';
 import type { SitePageContent } from '@/lib/data/site-service';
 import { isPreviewFrame } from '@/lib/preview/preview-context';
+
+/** Abonnement vide : la valeur d'aperçu est constante pour une page donnée. */
+const subscribePreview = () => () => { };
+const getPreviewSnapshot = () => isPreviewFrame();
+const getServerPreviewSnapshot = () => false;
 
 /**
  * ==============================================================================
@@ -29,12 +35,16 @@ export const UnpublishedPageGate: React.FC<{
     page?: SitePageContent | null;
     children: React.ReactNode;
 }> = ({ page, children }) => {
-    /** `false` au rendu serveur (aucun `window`) : le brouillon n'est jamais rendu. */
-    const [isPreview, setIsPreview] = useState(false);
-
-    useEffect(() => {
-        setIsPreview(isPreviewFrame());
-    }, []);
+    /**
+     * `false` au rendu serveur (aucun `window`) : le brouillon n'est jamais rendu.
+     * Lecture sans `setState` dans un effet (`react-hooks/set-state-in-effect`) :
+     * l'hydratation démarre sur le snapshot serveur puis bascule sur le client.
+     */
+    const isPreview = useSyncExternalStore(
+        subscribePreview,
+        getPreviewSnapshot,
+        getServerPreviewSnapshot
+    );
 
     if (page?.is_published !== false || isPreview) return <>{children}</>;
 
@@ -54,12 +64,12 @@ export const UnpublishedPageGate: React.FC<{
                     Elle existe dans le Cockpit du campus mais n’a pas été publiée sur la vitrine.
                     Les équipes peuvent la prévisualiser et la publier depuis l’éditeur de pages.
                 </p>
-                <a
+                <Link
                     href="/"
                     className="mt-6 inline-flex items-center gap-2 text-xs font-mono-tech font-bold uppercase text-[#FFE500] hover:text-white transition-colors"
                 >
                     Retour à l’accueil
-                </a>
+                </Link>
             </div>
         </main>
     );

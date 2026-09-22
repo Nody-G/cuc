@@ -4,59 +4,44 @@ import { Link } from '@/i18n/navigation';
 import React, { useEffect, useState } from 'react';
 
 import { getActiveAnnouncement, getSiteSettings, SiteAnnouncement } from '@/lib/data/site-service';
-import { createClient } from '@/lib/supabase/client';
-import { subscribeTable } from '@/lib/supabase/realtime';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 
 export const AnnouncementBanner: React.FC = () => {
   const [announcement, setAnnouncement] = useState<SiteAnnouncement | null>(null);
 
-  useEffect(() => {
-    // 1. Chargement initial
+  /** Rechargement annonce + alerte d'urgence : état initial et Realtime. */
+  const loadAnnouncement = React.useCallback(() => {
     getActiveAnnouncement().then((data) => {
       if (data && data.is_active) {
         setAnnouncement(data);
-      } else {
-        // Vérifie si une alerte d'urgence globale est active dans SiteSettings
-        getSiteSettings().then((st) => {
-          if (st.emergency_active && st.emergency_message) {
-            setAnnouncement({
-              id: 'emergency-alert',
-              title: st.emergency_badge || 'ALERTE CUC',
-              message: st.emergency_message,
-              badge: st.emergency_badge || 'URGENCE',
-              link_url: st.emergency_link_url || '',
-              link_text: st.emergency_link_text || 'En savoir plus',
-              style: st.emergency_style || 'alert',
-              is_active: true,
-            });
-          }
-        });
+        return;
       }
-    });
-
-    // 2. Souscription Realtime — canal PARTAGÉ par client (cf. `subscribeTable`).
-    const supabase = createClient();
-    const unsubscribe = subscribeTable(
-      supabase,
-      { table: 'site_announcements' },
-      (payload) => {
-        if (payload.eventType === 'DELETE') {
-          setAnnouncement(null);
+      // Repli : alerte d'urgence globale portée par `site_settings`.
+      getSiteSettings().then((st) => {
+        if (st.emergency_active && st.emergency_message) {
+          setAnnouncement({
+            id: 'emergency-alert',
+            title: st.emergency_badge || 'ALERTE CUC',
+            message: st.emergency_message,
+            badge: st.emergency_badge || 'URGENCE',
+            link_url: st.emergency_link_url || '',
+            link_text: st.emergency_link_text || 'En savoir plus',
+            style: st.emergency_style || 'alert',
+            is_active: true,
+          });
         } else {
-          const row = payload.new as SiteAnnouncement;
-          if (row && row.is_active) {
-            setAnnouncement(row);
-          } else {
-            setAnnouncement(null);
-          }
+          setAnnouncement(null);
         }
-      }
-    );
-
-    return () => {
-      unsubscribe();
-    };
+      });
+    });
   }, []);
+
+  useEffect(() => {
+    loadAnnouncement();
+  }, [loadAnnouncement]);
+
+  // Synchronisation Realtime Cockpit → Vitrine (annonces + réglages d'urgence).
+  useRealtimeRefresh(['site_announcements', 'site_settings'], loadAnnouncement);
 
   if (!announcement || !announcement.is_active) {
     return null;

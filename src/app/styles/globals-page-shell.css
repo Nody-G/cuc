@@ -1,0 +1,28 @@
+/* ============================================================
+   CONTENEUR DE PAGE CANONIQUE — VITRINE
+   ------------------------------------------------------------
+   Source unique de la largeur publique (décision 2026-09-21) :
+   la vitrine adopte la largeur de la page ÉQUIPE (1600 px).
+   Tout conteneur racine de page / section / layout DOIT utiliser
+   `.page-shell` — plus aucun `max-w-7xl` local (audit v2, règle 9).
+   Équivalence historique exacte :
+   `max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8`.
+   ============================================================ */
+.page-shell {
+    width: 100%;
+    max-width: 1600px;
+    margin-inline: auto;
+    padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+    .page-shell {
+        padding-inline: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .page-shell {
+        padding-inline: 2rem;
+    }
+}

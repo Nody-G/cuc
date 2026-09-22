@@ -47,8 +47,8 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
             <StuntBadge variant="yellow" icon={<Sparkles className="w-3.5 h-3.5" />}>
               <span {...cucField('hero.badge')}>{heroData?.badge || t('hero.badge')}</span>
             </StuntBadge>
-            <span className="text-xs font-mono-tech text-zinc-400">
-              {t('hero.meta')}
+            <span {...cucField('hero.meta')} className="text-xs font-mono-tech text-zinc-400">
+              {heroData?.meta || t('hero.meta')}
             </span>
           </div>
 

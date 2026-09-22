@@ -5,8 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Film, ArrowUpDown } from 'lucide-react';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getFilms } from '@/lib/data/site-service';
-import { createClient } from '@/lib/supabase/client';
-import { subscribeTable } from '@/lib/supabase/realtime';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { FilmCredit } from '@/types';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
@@ -72,19 +71,17 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
         [films, filmOverlays]
     );
 
-    React.useEffect(() => {
+    /** Rechargement du catalogue : état initial + synchronisation Realtime. */
+    const loadFilms = React.useCallback(() => {
         getFilms().then(setFilms);
-
-        const supabase = createClient();
-        // Canal partagé par client : une page = un WebSocket (cf. `subscribeTable`).
-        const unsubscribe = subscribeTable(supabase, { table: 'site_films' }, () => {
-            getFilms().then(setFilms);
-        });
-
-        return () => {
-            unsubscribe();
-        };
     }, []);
+
+    React.useEffect(() => {
+        loadFilms();
+    }, [loadFilms]);
+
+    // Synchronisation Realtime Cockpit → Vitrine (catalogue des films).
+    useRealtimeRefresh(['site_films'], loadFilms);
 
     // Tri du catalogue (date ou nom, croissant/décroissant)
     const sortedFilms = React.useMemo(() => {

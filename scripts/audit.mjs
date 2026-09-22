@@ -9,8 +9,9 @@
  *   - audit_links.js               (détection des routes + liens)
  *
  * Usage :
- *   node scripts/audit.mjs            # rapport complet
- *   node scripts/audit.mjs --strict   # code de sortie 1 si problème détecté (CI)
+ *   node scripts/audit.mjs                        # rapport complet
+ *   node scripts/audit.mjs --strict               # code de sortie 1 si problème détecté (CI)
+ *   node scripts/audit.mjs --write-size-baseline  # régénère la dette SRP après extraction
  */
 
 import fs from 'node:fs';
@@ -20,6 +21,11 @@ const ROOT = process.cwd();
 const SRC = path.join(ROOT, 'src');
 const APP = path.join(SRC, 'app');
 const STRICT = process.argv.includes('--strict');
+const WRITE_SIZE_BASELINE = process.argv.includes('--write-size-baseline');
+
+/** Plafond SRP (AGENTS.md § 2) : 300 lignes par fichier d'application. */
+const MAX_LINES = 300;
+const SIZE_BASELINE_PATH = path.join(ROOT, 'scripts', 'size-baseline.json');
 
 const IGNORED_DIRS = new Set(['node_modules', '.next', '.git', 'coverage']);
 const CODE_EXT = /\.(tsx|ts|jsx|js|mjs|css)$/;
@@ -88,7 +94,9 @@ for (const file of sourceFiles) {
         }
         if (!raw.startsWith('/') && !raw.startsWith('#')) return; // externe / mailto / tel
         const hashIdx = raw.indexOf('#');
-        const route = hashIdx >= 0 ? raw.slice(0, hashIdx) : raw;
+        let route = hashIdx >= 0 ? raw.slice(0, hashIdx) : raw;
+        const queryIdx = route.indexOf('?');
+        if (queryIdx >= 0) route = route.slice(0, queryIdx); // ?demande=… n'est pas la route
         const hash = hashIdx >= 0 ? raw.slice(hashIdx + 1) : '';
         internalLinks.push({ file: fileRel, href: raw, route, hash });
     };
@@ -101,6 +109,12 @@ for (const file of sourceFiles) {
 /* 3. Validation des routes internes                                  */
 /* ------------------------------------------------------------------ */
 const routeSet = new Set(routes);
+/* Les liens next-intl sont écrits sans préfixe de locale (`/contact-cuc`) alors que
+   la route détectée est `/[locale]/contact-cuc` : accepter la variante publique. */
+for (const route of routes) {
+    const m = route.match(/^\/\[locale\](.*)$/);
+    if (m) routeSet.add(m[1] === '' ? '/' : m[1]);
+}
 const invalidRoutes = [];
 
 /** Chemins d'assets statiques servis depuis /public (jamais des routes). */
@@ -122,7 +136,8 @@ const idCache = new Map();
 function fileHasId(file, id) {
     if (!fs.existsSync(file)) return false;
     if (!idCache.has(file)) idCache.set(file, fs.readFileSync(file, 'utf8'));
-    return new RegExp(`id=["']${id}["']`).test(idCache.get(file));
+    // Accepte `id="x"` (JSX) et `id: 'x'` (donnée rendue via `id={...}`, ex. étapes de stages).
+    return new RegExp(`id[=:]\\s*["']${id}["']`).test(idCache.get(file));
 }
 
 const missingAnchors = [];
@@ -154,6 +169,56 @@ const sized = walk(SRC, (n) => CODE_EXT.test(n)).map((f) => {
 });
 sized.sort((a, b) => b.lines - a.lines);
 
+/* Catalogues de DONNÉES pures (littéraux de contenu, pas de logique ni d'UI) :
+   hors plafond composant (AGENTS.md § 2 vise les composants UI et la logique).
+   Les découper nuirait à la règle anti-sur-fragmentation. */
+const SIZE_EXEMPT = [/^src\/data\//, /^src\/lib\/data\/site\/defaults\//];
+
+/* ------------------------------------------------------------------ */
+/* 5bis. Plafond SRP — ratchet (AGENTS.md § 2 : 300 lignes max)       */
+/* ------------------------------------------------------------------ */
+// Les fichiers déjà au-dessus du plafond vivent dans `scripts/size-baseline.json` :
+// ils ne peuvent que rétrécir. Une extraction qui les fait passer sous 300 lignes
+// permet de les retirer de la baseline (régénérer : --write-size-baseline).
+function readSizeBaseline() {
+    try {
+        return JSON.parse(fs.readFileSync(SIZE_BASELINE_PATH, 'utf8'));
+    } catch {
+        return {};
+    }
+}
+
+const sizeBaseline = readSizeBaseline();
+const sizeViolations = [];
+const sizeRatchet = [];
+
+for (const f of sized) {
+    if (f.lines <= MAX_LINES) continue;
+    if (SIZE_EXEMPT.some((re) => re.test(f.path))) continue;
+    const baseline = sizeBaseline[f.path];
+    if (baseline === undefined) {
+        sizeViolations.push({ ...f, reason: `nouveau fichier > ${MAX_LINES} lignes` });
+    } else if (f.lines > baseline) {
+        sizeViolations.push({ ...f, reason: `+${f.lines - baseline} lignes vs baseline ${baseline}` });
+    } else {
+        sizeRatchet.push({ ...f, baseline });
+    }
+}
+
+if (WRITE_SIZE_BASELINE) {
+    // N'inscrit que la dette réellement suivie : les catalogues exemptés
+    // (`SIZE_EXEMPT`) ne doivent pas figer une autorisation de croissance.
+    const next = Object.fromEntries(
+        sized
+            .filter((f) => f.lines > MAX_LINES && !SIZE_EXEMPT.some((re) => re.test(f.path)))
+            .map((f) => [f.path, f.lines])
+    );
+    fs.writeFileSync(SIZE_BASELINE_PATH, `${JSON.stringify(next, null, 2)}\n`, 'utf8');
+    console.log(
+        `Baseline SRP écrite : ${rel(SIZE_BASELINE_PATH)} (${Object.keys(next).length} fichier(s) suivis > ${MAX_LINES} lignes, hors exemptés)`
+    );
+}
+
 /* ------------------------------------------------------------------ */
 /* Rapport                                                            */
 /* ------------------------------------------------------------------ */
@@ -181,7 +246,16 @@ sized.slice(0, 15).forEach((f) =>
     line(`  ${String(f.lines).padStart(5)} lignes | ${(f.bytes / 1024).toFixed(1).padStart(6)} Ko | ${f.path}`)
 );
 
-const problems = invalidRoutes.length + missingAnchors.length + suspicious.length;
+section(`PLAFOND SRP (${MAX_LINES} LIGNES — AGENTS.md § 2)`);
+line(`  Dette baseline (ne peut que rétrécir) : ${sizeRatchet.length} fichier(s)`);
+sizeRatchet.forEach((f) =>
+    line(`    • ${String(f.lines).padStart(5)} lignes (baseline ${f.baseline}) | ${f.path}`)
+);
+line(`  Violations : ${sizeViolations.length}`);
+sizeViolations.forEach((f) => line(`    ✗ ${f.reason} | ${f.path}`));
+
+const problems =
+    invalidRoutes.length + missingAnchors.length + suspicious.length + sizeViolations.length;
 section('RÉSULTAT');
 line(`  ${problems === 0 ? '✓ Aucun problème détecté.' : `✗ ${problems} problème(s) détecté(s).`}`);
 

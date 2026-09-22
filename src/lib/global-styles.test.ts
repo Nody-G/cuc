@@ -1,5 +1,5 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
-import { extname, join, relative } from 'node:path';
+import { dirname, extname, join, relative, resolve } from 'node:path';
 
 /**
  * Garde-fou de non-régression — feuille de style globale.
@@ -17,7 +17,9 @@ import { extname, join, relative } from 'node:path';
  * Le test échoue si :
  *   1. `src/app/globals.css` disparaît ;
  *   2. la feuille n'importe plus Tailwind ;
- *   3. la règle de fond sombre du site disparaît ;
+ *   3. la règle de fond sombre du site disparaît — la feuille globale est une
+ *      façade depuis la vague SRP P0.g.47 : la lecture suit donc les imports
+ *      relatifs (`@import "./styles/…"`), où qu'ils vivent ;
  *   4. plus AUCUN module de `src/` n'importe `globals.css`.
  */
 
@@ -25,6 +27,22 @@ const SRC = join(process.cwd(), 'src');
 const GLOBAL_CSS = join(SRC, 'app', 'globals.css');
 const ALLOWED_EXT = new Set(['.ts', '.tsx', '.js', '.jsx']);
 const IMPORT_PATTERN = /(?:import|from)\s+['"][^'"]*globals\.css['"]/;
+
+/** Imports CSS relatifs (`@import "./styles/x.css"`), résolus localement. */
+const CSS_IMPORT_PATTERN = /@import\s+['"](\.\.?\/[^'"]+\.css)['"]/g;
+
+/** Contenu d'une feuille CSS, imports relatifs inclus (récursivement). */
+function readCssWithImports(file: string, seen = new Set<string>()): string {
+    if (seen.has(file)) return '';
+    seen.add(file);
+    const content = readFileSync(file, 'utf8');
+    let out = content;
+    for (const match of content.matchAll(CSS_IMPORT_PATTERN)) {
+        const imported = resolve(dirname(file), match[1]);
+        out += `\n${readCssWithImports(imported, seen)}`;
+    }
+    return out;
+}
 
 function walk(dir: string, out: string[] = []): string[] {
     for (const entry of readdirSync(dir)) {
@@ -45,8 +63,8 @@ describe('Feuille de style globale — chargement CSS garanti', () => {
         expect(readFileSync(GLOBAL_CSS, 'utf8')).toMatch(/@import\s+['"]tailwindcss['"]/);
     });
 
-    it('la feuille globale définit le fond sombre du site', () => {
-        expect(readFileSync(GLOBAL_CSS, 'utf8')).toMatch(/background-color:\s*#060608/i);
+    it('la feuille globale définit le fond sombre du site (imports inclus)', () => {
+        expect(readCssWithImports(GLOBAL_CSS)).toMatch(/background-color:\s*#060608/i);
     });
 
     it("au moins un module de src/ importe globals.css (sinon aucun CSS n'est chargé)", () => {

@@ -1,6 +1,6 @@
 # Audit Supabase — état de la base vitrine CUC
 
-**Généré le :** 2026-09-21T21:45:46.060Z  
+**Généré le :** 2026-09-22T03:29:42.430Z  
 **Lecture seule** — aucune écriture base.
 
 ## Publication Realtime
@@ -23,7 +23,7 @@
 | `site_programs` | 6 | ✔ |
 | `site_inquiries` | 0 | ✔ |
 | `site_audit_logs` | 0 | ✔ |
-| `site_announcements` | 1 | ✔ |
+| `site_announcements` | 2 | ✔ |
 | `site_settings` | 11 | ✔ |
 | `site_navigation` | 1 | ✔ |
 | `site_footer` | 1 | ✔ |

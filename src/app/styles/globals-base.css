@@ -1,0 +1,177 @@
+/* Variables, base du document et accessibilité (focus, reduced-motion). */
+
+:root {
+    --background: #060608;
+    --foreground: #f4f4f6;
+    --cuc-yellow: #FFE500;
+    --cuc-yellow-bright: #FFF04D;
+    --cuc-yellow-deep: #D4BE00;
+    --cuc-charcoal: #0e0e12;
+    --cuc-surface: #141419;
+    --cuc-card: #1a1a21;
+    --cuc-border: #272730;
+    --cuc-border-light: #3e3e4d;
+
+    /* ===================================================
+     CONTRASTES WCAG 2.2 AA (Phase 4)
+     ===================================================
+     Les gris Tailwind par défaut (zinc-400/500) tombent sous le ratio
+     4.5:1 sur fond #060608. On redéfinit des variables de texte
+     secondaire conformes, utilisées via `.text-muted` / `.text-subtle`. */
+    --cuc-text-muted: #b4b4c0;
+    /* ratio ≈ 9.1:1 sur #060608 */
+    --cuc-text-subtle: #9a9aa8;
+    /* ratio ≈ 6.6:1 sur #060608 */
+    --cuc-text-faint: #82828f;
+    /* ratio ≈ 4.9:1 sur #060608 (limite AA) */
+    --cuc-focus-ring: #FFE500;
+}
+
+body {
+    background-color: #060608;
+    color: #f4f4f6;
+    font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+    selection-background-color: #FFE500;
+    selection-color: #000000;
+    /* Rendu typographique 2026 : équilibre les titres et évite les orphelines. */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===================================================
+   TYPOGRAPHIE MODERNE (Phase 5 — CSS Text 4)
+   ===================================================
+   `text-wrap: balance` sur les titres (évite les lignes orphelines),
+   `text-wrap: pretty` sur les paragraphes (évite les veuves).
+   Dégradation gracieuse : ignoré par les navigateurs non compatibles. */
+h1,
+h2,
+h3,
+h4,
+.text-balance {
+    text-wrap: balance;
+}
+
+p,
+li,
+figcaption,
+.text-pretty {
+    text-wrap: pretty;
+}
+
+/* ===================================================
+   CONTAINER QUERIES (Phase 5 — composants auto-adaptatifs)
+   ===================================================
+   Permet aux cartes de s'adapter à la largeur de LEUR conteneur
+   (et non du viewport), indispensable pour les grilles réutilisables. */
+.card-container {
+    container-type: inline-size;
+    container-name: card;
+}
+
+@container card (min-width: 420px) {
+    .card-responsive-row {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+@container card (max-width: 419px) {
+    .card-responsive-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+::selection {
+    background: #FFE500;
+    color: #000000;
+}
+
+/* Custom Tactical Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0a0d;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #272730;
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #FFE500;
+}
+
+/* UX: Smooth scroll behavior with accessibility respect */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ===================================================
+   ACCESSIBILITÉ CLAVIER (WCAG 2.2 AA — 2.4.7 / 2.4.11)
+   =================================================== */
+
+/* Focus visible unifié : anneau jaune CUC à fort contraste.
+   On cible `:focus-visible` uniquement pour ne pas afficher l'anneau
+   lors d'un clic souris (comportement natif des navigateurs modernes). */
+:focus-visible {
+    outline: 2px solid #FFE500;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* Sur fond clair (ex. bouton jaune), on inverse l'anneau pour garantir
+   un contraste ≥ 3:1 (WCAG 1.4.11 Non-text Contrast). */
+.bg-\[\#FFE500\]:focus-visible,
+button.bg-\[\#FFE500\]:focus-visible {
+    outline-color: #060608;
+}
+
+/* Suppression de l'outline par défaut uniquement quand `:focus-visible`
+   est supporté, afin de ne jamais laisser un utilisateur clavier sans repère. */
+@supports selector(:focus-visible) {
+    :focus:not(:focus-visible) {
+        outline: none;
+    }
+}
+
+/* Cible de défilement : compense la navbar fixe (h ~ 72px) lors d'un
+   saut vers une ancre interne (WCAG 2.4.11 Focus Not Obscured). */
+:target {
+    scroll-margin-top: 6rem;
+}
+
+/* Respect strict de `prefers-reduced-motion` pour les animations
+   décoratives infinies (shimmer, pulse) — déjà couvert plus bas, mais
+   on neutralise aussi les transformations de survol coûteuses. */
+@media (prefers-reduced-motion: reduce) {
+    .luxury-metric-card:hover {
+        transform: none;
+    }
+
+    .animate-pulse-slow,
+    .text-shimmer-gold {
+        animation: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

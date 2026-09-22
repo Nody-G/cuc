@@ -1,35 +1,63 @@
 {
-  "generatedAt": "2026-09-21T12:03:06.923Z",
-  "scannedFiles": 443,
-  "total": 8,
+  "generatedAt": "2026-09-22T03:30:57.134Z",
+  "scannedFiles": 712,
+  "total": 22,
   "byGroup": {
-    "badge": 6,
-    "superlatif": 2
+    "jargon": 8,
+    "badge": 11,
+    "superlatif": 3
   },
   "byRule": [
     {
       "id": "badge-hollywood",
       "group": "badge",
-      "count": 2
+      "count": 3
     },
     {
       "id": "badge-worldwide",
       "group": "badge",
-      "count": 2
+      "count": 3
+    },
+    {
+      "id": "badge-box-office",
+      "group": "badge",
+      "count": 1
     },
     {
       "id": "badge-elite",
       "group": "badge",
-      "count": 2
+      "count": 3
+    },
+    {
+      "id": "badge-exclusif",
+      "group": "badge",
+      "count": 1
     },
     {
       "id": "superl-légendaire",
       "group": "superlatif",
       "count": 2
+    },
+    {
+      "id": "superl-succès-mondial",
+      "group": "superlatif",
+      "count": 1
+    },
+    {
+      "id": "jargon-tactical",
+      "group": "jargon",
+      "count": 8
     }
   ],
   "findings": [
     {
+      "file": "scripts\\fix_team_production_i18n.mjs",
+      "line": 308,
+      "rule": "jargon-tactical",
+      "group": "jargon",
+      "text": "specialty: 'Close-quarters fights and tactical gunfire.',"
+    },
+    {
       "file": "scripts\\inspect_film_descriptions.mjs",
       "line": 38,
       "rule": "badge-hollywood",
@@ -84,6 +112,97 @@
       "rule": "superl-légendaire",
       "group": "superlatif",
       "text": "const SUSPECT = /CUC|campus|équipe|equipe|cascadeur|worldwide|hollywood|élite|elite|légendaire|legendaire|pro\\s*staff|référence/i;"
+    },
+    {
+      "file": "scripts\\inspect_suspect_labels_surface.mjs",
+      "line": 42,
+      "rule": "badge-hollywood",
+      "group": "badge",
+      "text": "/(Équipe cascades CUC|Cascadeurs CUC|Doublures cascades CUC|CUC Performers|CUC Team|Performers de Combat|Spécialistes Rigging|Co-fondateur CUC|Stunt Support|Stunt Doubling|Enforcers|\\(Tournage|Tournag"
+    },
+    {
+      "file": "scripts\\inspect_suspect_labels_surface.mjs",
+      "line": 42,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "/(Équipe cascades CUC|Cascadeurs CUC|Doublures cascades CUC|CUC Performers|CUC Team|Performers de Combat|Spécialistes Rigging|Co-fondateur CUC|Stunt Support|Stunt Doubling|Enforcers|\\(Tournage|Tournag"
+    },
+    {
+      "file": "scripts\\inspect_suspect_labels_surface.mjs",
+      "line": 42,
+      "rule": "badge-box-office",
+      "group": "badge",
+      "text": "/(Équipe cascades CUC|Cascadeurs CUC|Doublures cascades CUC|CUC Performers|CUC Team|Performers de Combat|Spécialistes Rigging|Co-fondateur CUC|Stunt Support|Stunt Doubling|Enforcers|\\(Tournage|Tournag"
+    },
+    {
+      "file": "scripts\\inspect_suspect_labels_surface.mjs",
+      "line": 42,
+      "rule": "badge-elite",
+      "group": "badge",
+      "text": "/(Équipe cascades CUC|Cascadeurs CUC|Doublures cascades CUC|CUC Performers|CUC Team|Performers de Combat|Spécialistes Rigging|Co-fondateur CUC|Stunt Support|Stunt Doubling|Enforcers|\\(Tournage|Tournag"
+    },
+    {
+      "file": "scripts\\inspect_suspect_labels_surface.mjs",
+      "line": 42,
+      "rule": "superl-succès-mondial",
+      "group": "superlatif",
+      "text": "/(Équipe cascades CUC|Cascadeurs CUC|Doublures cascades CUC|CUC Performers|CUC Team|Performers de Combat|Spécialistes Rigging|Co-fondateur CUC|Stunt Support|Stunt Doubling|Enforcers|\\(Tournage|Tournag"
+    },
+    {
+      "file": "scripts\\purge_6ha_mentions.mjs",
+      "line": 71,
+      "rule": "jargon-tactical",
+      "group": "jargon",
+      "text": "add('src/components/ui/InteractiveCampusMap.tsx', 'Tactical Radar Layout for 6 Hectares Domain', 'Tactical Radar Layout for the Campus Domain');"
+    },
+    {
+      "file": "scripts\\seed_disciplines_translations_en.mjs",
+      "line": 106,
+      "rule": "jargon-tactical",
+      "group": "jargon",
+      "text": "name: 'Weapon Handling & Tactical Roles',"
+    },
+    {
+      "file": "scripts\\seed_disciplines_translations_en.mjs",
+      "line": 108,
+      "rule": "jargon-tactical",
+      "group": "jargon",
+      "text": "'Synchronised tactical unit movement, realistic handling of prop and blank-firing weapons, wall abseiling.',"
+    },
+    {
+      "file": "scripts\\seed_disciplines_translations_en.mjs",
+      "line": 110,
+      "rule": "jargon-tactical",
+      "group": "jargon",
+      "text": "'This module teaches the precise movement of tactical units on screen: handling blank-firing weapons, coordinated progression through corridors and stairwells, hand signals and abseiling descents. Tra"
+    },
+    {
+      "file": "scripts\\seed_disciplines_translations_en.mjs",
+      "line": 117,
+      "rule": "jargon-tactical",
+      "group": "jargon",
+      "text": "'Film tactical vests',"
+    },
+    {
+      "file": "scripts\\seed_team_translations_en.mjs",
+      "line": 65,
+      "rule": "badge-exclusif",
+      "group": "badge",
+      "text": "bio: 'Professional stunt performer, member of the Cascade Demo Team and Hitz International. Winner of a Taurus World Stunt Award for John Wick 4 and nominated as best coordinator for The Killer (John "
+    },
+    {
+      "file": "scripts\\seed_team_translations_en.mjs",
+      "line": 111,
+      "rule": "jargon-tactical",
+      "group": "jargon",
+      "text": "bio: 'Instructor at the CUC and professional stunt performer with a BPJEPS AGA qualification. He works on physical stunts, acrobatics and tactical movement for television and film productions.',"
+    },
+    {
+      "file": "scripts\\seed_team_translations_en.mjs",
+      "line": 112,
+      "rule": "jargon-tactical",
+      "group": "jargon",
+      "text": "specialties: ['Acrobatics', 'Physical falls', 'Driving stunts', 'Tactical movement'],"
     }
   ]
 }

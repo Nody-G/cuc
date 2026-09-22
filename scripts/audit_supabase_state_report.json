@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T21:45:46.060Z",
+  "generatedAt": "2026-09-22T03:29:42.430Z",
   "tables": {
     "site_pages": 15,
     "site_page_revisions": 0,
@@ -12,7 +12,7 @@
     "site_programs": 6,
     "site_inquiries": 0,
     "site_audit_logs": 0,
-    "site_announcements": 1,
+    "site_announcements": 2,
     "site_settings": 11,
     "site_navigation": 1,
     "site_footer": 1,
@@ -263,10 +263,6 @@
       "shape": "list",
       "length": 0
     },
-    "team": {
-      "shape": "array",
-      "length": 12
-    },
     "celebrities": {
       "shape": "list",
       "length": 11
@@ -282,6 +278,10 @@
     "campus_facilities": {
       "shape": "list",
       "length": 9
+    },
+    "team": {
+      "shape": "array",
+      "length": 12
     },
     "general": {
       "shape": "object",

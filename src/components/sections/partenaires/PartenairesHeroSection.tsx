@@ -50,8 +50,8 @@ export const PartenairesHeroSection: React.FC<PartenairesHeroSectionProps> = ({ 
           <StuntBadge variant="yellow" icon={<Handshake className="w-3.5 h-3.5" />}>
             <span {...cucField('hero.badge')}>{badge}</span>
           </StuntBadge>
-          <span className="text-xs font-mono-tech text-zinc-400">
-            {t('heroMeta')}
+          <span {...cucField('hero.meta')} className="text-xs font-mono-tech text-zinc-400">
+            {hero?.meta || t('heroMeta')}
           </span>
         </div>
 

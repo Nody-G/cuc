@@ -396,6 +396,7 @@
             "hoursSaturday": "Saturday (course days): 9:00 am - 5:00 pm",
             "train": "TRAIN:",
             "road": "ROAD:",
+            "parking": "PARKING:",
             "sitesTitle": "OUR TWO LOCATIONS",
             "mainCampus": "MAIN CAMPUS:",
             "mainCampusAddress": "Domaine CUC, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis",
@@ -875,7 +876,7 @@
     "spectacles": {
         "heroBadge": "CINEMA TAKES TO THE STAGE",
         "heroTitle": "STUNT & YAMAKASI SHOWS",
-        "heroSubtitle": "Relive the iconic action sequences from your favourite films with the professional stunt performers and film doubles of Campus Univers Cascades. Fights, falls, parkour, humour and stage effects for all your events.",
+        "heroSubtitle": "Relive the action sequences from your favourite films with the professional stunt performers and film doubles of Campus Univers Cascades. Fights, falls, parkour, humour and stage effects for all your events.",
         "ctaPrimaryText": "Request a Show Quote",
         "ctaSecondaryText": "Watch our Live Videos",
         "heroImageAlt": "Professional stunt shows, CUC Events",

@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import {
     CUC_FIELD_ATTRIBUTE,
+    CUC_FIELD_HOVER_ATTRIBUTE,
     CUC_KIND_ATTRIBUTE,
     isSameOrigin,
     parsePreviewMessage,
@@ -11,6 +12,7 @@ import {
     type PreviewMessage,
     type PreviewMode,
 } from '@/lib/preview/preview-protocol';
+import { resolveFieldElement } from '@/lib/preview/field-hit';
 import { setPreviewDraft } from '@/lib/preview/preview-store';
 import {
     clearPreviewSelection,
@@ -30,7 +32,9 @@ import {
  *    sans écriture en base ni rechargement ;
  *  - annonce la préparation de l'iframe (`ready`) ;
  *  - rapporte le survol (`field-hover`) et le clic (`field-select`) des éléments
- *    portant `data-cuc-field` ;
+ *    portant `data-cuc-field` — et d'un contrôle (bouton, lien) dont un
+ *    **unique** champ est annoté : sa surface entière (rembourrage, icône SVG)
+ *    désigne alors son libellé, au lieu de naviguer par accident ;
  *  - expose le mode courant (`inspect` ou `edit`) sur `<html data-cuc-mode>`,
  *    ce qui pilote les affordances de la couche d'édition en place.
  *
@@ -78,32 +82,40 @@ export const PreviewBridgeClient: React.FC = () => {
         post(previewMessage.ready());
 
         // --- Repérage des champs éditables ---
-        const findField = (target: EventTarget | null): HTMLElement | null => {
-            if (!(target instanceof HTMLElement)) return null;
-            return target.closest<HTMLElement>(`[${CUC_FIELD_ATTRIBUTE}]`);
-        };
-
+        // Cible unique du survol et du clic : le texte annoté, ou le contrôle
+        // qui le porte (icône et rembourrage compris) — jamais de devinette
+        // quand un contrôle contient plusieurs champs (cf. `field-hit`).
         const fieldPath = (el: HTMLElement): string | null => {
             const field = el.getAttribute(CUC_FIELD_ATTRIBUTE);
             return field && field.trim().length > 0 ? field : null;
         };
 
+        /** Élément réellement désigné par le survol (attribut transitoire). */
+        let hovered: HTMLElement | null = null;
+
         const handleMouseOver = (event: MouseEvent) => {
-            const el = findField(event.target);
-            if (!el) return;
+            const el = resolveFieldElement(event.target);
+            if (!el || el === hovered) return;
             const field = fieldPath(el);
             if (!field) return;
+            hovered?.removeAttribute(CUC_FIELD_HOVER_ATTRIBUTE);
+            hovered = el;
+            el.setAttribute(CUC_FIELD_HOVER_ATTRIBUTE, '');
             post(previewMessage.fieldHover(field));
         };
 
         const handleMouseOut = (event: MouseEvent) => {
-            const el = findField(event.target);
-            if (!el) return;
+            if (!hovered) return;
+            // On ne quitte le champ que si la cible suivante est ailleurs :
+            // glisser du texte vers l'icône du même bouton le laisse actif.
+            if (resolveFieldElement(event.relatedTarget) === hovered) return;
+            hovered.removeAttribute(CUC_FIELD_HOVER_ATTRIBUTE);
+            hovered = null;
             post(previewMessage.fieldHover(null));
         };
 
         const handleClick = (event: MouseEvent) => {
-            const el = findField(event.target);
+            const el = resolveFieldElement(event.target);
             if (!el) return;
             const field = fieldPath(el);
             if (!field) return;
@@ -113,6 +125,10 @@ export const PreviewBridgeClient: React.FC = () => {
             event.preventDefault();
             event.stopPropagation();
             if (mode === 'edit') {
+                // La sélection prend le relais visuel : l'encadré actif remplace
+                // le surlignage de survol (aucun double contour).
+                hovered?.removeAttribute(CUC_FIELD_HOVER_ATTRIBUTE);
+                hovered = null;
                 selectPreviewField({
                     field,
                     kind: resolveFieldKind(el.getAttribute(CUC_KIND_ATTRIBUTE)),
@@ -132,26 +148,35 @@ export const PreviewBridgeClient: React.FC = () => {
         const style = document.createElement('style');
         style.setAttribute('data-cuc-preview-style', '');
         style.textContent = `
-      [${CUC_FIELD_ATTRIBUTE}] { transition: outline-color .15s ease, background-color .15s ease; }
+      [${CUC_FIELD_ATTRIBUTE}], [${CUC_FIELD_HOVER_ATTRIBUTE}] {
+        transition: outline-color .15s ease, background-color .15s ease;
+      }
 
-      /* Inspection : on désigne le champ à ouvrir dans le formulaire. */
-      html[data-cuc-mode='inspect'] [${CUC_FIELD_ATTRIBUTE}] { cursor: pointer !important; }
-      html[data-cuc-mode='inspect'] [${CUC_FIELD_ATTRIBUTE}]:hover {
+      /* Inspection : on désigne le champ à ouvrir dans le formulaire ; le
+         contrôle entier (bouton, lien) désigne son libellé au survol. */
+      html[data-cuc-mode='inspect'] [${CUC_FIELD_ATTRIBUTE}],
+      html[data-cuc-mode='inspect'] [${CUC_FIELD_HOVER_ATTRIBUTE}] { cursor: pointer !important; }
+      html[data-cuc-mode='inspect'] [${CUC_FIELD_HOVER_ATTRIBUTE}] {
         outline: 2px dashed rgba(255,229,0,.85) !important;
         outline-offset: 3px !important;
         background-color: rgba(255,229,0,.06) !important;
       }
 
       /* Édition : le survol invite à écrire, chaque nature a son curseur. */
-      html[data-cuc-mode='edit'] [${CUC_FIELD_ATTRIBUTE}] { cursor: text !important; }
-      html[data-cuc-mode='edit'] [${CUC_FIELD_ATTRIBUTE}]:hover {
+      html[data-cuc-mode='edit'] [${CUC_FIELD_ATTRIBUTE}],
+      html[data-cuc-mode='edit'] [${CUC_FIELD_HOVER_ATTRIBUTE}] { cursor: text !important; }
+      html[data-cuc-mode='edit'] [${CUC_FIELD_HOVER_ATTRIBUTE}] {
         outline: 1px solid rgba(255,229,0,.55) !important;
         outline-offset: 3px !important;
       }
-      html[data-cuc-mode='edit'] [${CUC_FIELD_ATTRIBUTE}][data-cuc-kind='image'] { cursor: pointer !important; }
-      html[data-cuc-mode='edit'] [${CUC_FIELD_ATTRIBUTE}][data-cuc-kind='image']:hover { outline-width: 2px !important; }
-      html[data-cuc-mode='edit'] [${CUC_FIELD_ATTRIBUTE}][data-cuc-kind='list-item'] { cursor: pointer !important; }
-      html[data-cuc-mode='edit'] [${CUC_FIELD_ATTRIBUTE}][data-cuc-kind='list-item']:hover {
+      html[data-cuc-mode='edit'] [${CUC_FIELD_ATTRIBUTE}][data-cuc-kind='image'],
+      html[data-cuc-mode='edit'] [${CUC_FIELD_HOVER_ATTRIBUTE}][data-cuc-kind='image'] { cursor: pointer !important; }
+      html[data-cuc-mode='edit'] [${CUC_FIELD_HOVER_ATTRIBUTE}][data-cuc-kind='image'] {
+        outline-width: 2px !important;
+      }
+      html[data-cuc-mode='edit'] [${CUC_FIELD_ATTRIBUTE}][data-cuc-kind='list-item'],
+      html[data-cuc-mode='edit'] [${CUC_FIELD_HOVER_ATTRIBUTE}][data-cuc-kind='list-item'] { cursor: pointer !important; }
+      html[data-cuc-mode='edit'] [${CUC_FIELD_HOVER_ATTRIBUTE}][data-cuc-kind='list-item'] {
         outline: 2px dashed rgba(255,229,0,.6) !important;
       }
 
@@ -169,6 +194,8 @@ export const PreviewBridgeClient: React.FC = () => {
             document.removeEventListener('mouseover', handleMouseOver, true);
             document.removeEventListener('mouseout', handleMouseOut, true);
             document.removeEventListener('click', handleClick, true);
+            hovered?.removeAttribute(CUC_FIELD_HOVER_ATTRIBUTE);
+            hovered = null;
             style.remove();
             clearPreviewSelection();
             document.documentElement.removeAttribute('data-cuc-mode');

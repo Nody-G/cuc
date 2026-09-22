@@ -1,24 +1,40 @@
 # RÈGLE PERMANENTE : INTERCONNEXION CUC VITRINE ↔ CUC SIGN & PERSISTANCE TOTALE
 
-## 1. Principe Directeur Absolu
-Le site vitrine / Cockpit CUC et l'application métier d'émargement et d'administration **CUC Sign** partagent la même instance de base de données Supabase (`https://xkbkcsypftvspmkfnrfm.supabase.co`).
-L'agent doit **systématiquement et obligatoirement interconnecter** toute donnée ou entité présente dans le site CUC avec CUC Sign dès que c'est utile, pertinent et nécessaire.
+**Zéro valeur orpheline ; un lien faux est pire qu'aucun lien.**
 
-## 2. Zéro Valeur ou Texte Orphelin
-- Toute valeur, tout texte, tout paramètre modifiable via le Cockpit CUC (ou saisi par un utilisateur sur la vitrine) **doit avoir sa place en base de données Supabase**.
-- Ne JAMAIS laisser de données en dur (mock), de formulaires non persistés, ou de données confinées uniquement au `localStorage` sans persistance Supabase.
+> Source canonique du sujet — ne pas recopier ce contenu dans `AGENTS.md`.
 
-## 3. Matrice des Interconnexions Obligatoires
-| Entité CUC Vitrine / Cockpit | Table CUC | Table CUC Sign | Clé de Liaison & Utilité |
+## 1. Principe directeur
+
+- Site vitrine / Cockpit CUC et CUC Sign partagent la même instance Supabase (`https://xkbkcsypftvspmkfnrfm.supabase.co`).
+- **Zéro Texte ni Valeur Orpheline** : tout ce qui est modifiable dans le Cockpit (sessions, formateurs, disciplines, zones du campus, pages vitrine, formulaires, candidatures) est persisté en base. Aucun contenu critique uniquement en `localStorage` ou en constante locale non synchronisée.
+- **Interconnexion bidirectionnelle maximale** dès que c'est utile et pertinent.
+
+## 2. Matrice des interconnexions
+
+| Entité vitrine / Cockpit | Table vitrine | Table CUC Sign | Liaison |
 | :--- | :--- | :--- | :--- |
-| **Sessions de Formation** | `site_sessions` | `formations` | `cuc_sign_formation_id` ↔ `formations.id` : Permet aux sessions affichées sur le site de correspondre aux promotions réelles de CUC Sign (dates, émargement, statut de session). |
-| **Équipe & Formateurs** | `site_team` | `profiles` | `profile_id` ↔ `profiles.id` : Permet aux coachs de la vitrine d'être liés aux comptes utilisateurs formateurs de CUC Sign (avec rôle `coach`, `instructor`, `admin`). |
-| **Campus & Lieux d'Entraînement** | `site_campus_pois` | `locations` | `location_id` ↔ `locations.id` : Les zones interactives du campus (Dojo Malik, Tour Gaspard, Salle Bell, etc.) correspondent aux lieux d'entraînement enregistrés dans CUC Sign. |
-| **Disciplines** | `site_disciplines` | `evaluation_disciplines` | `discipline_id` : Alignement des grilles d'évaluation et compétences entre la formation CUC Sign et les fiches programmes de la vitrine. |
-| **Candidatures & Inquiries** | `site_inquiries` | `students` / `inscriptions` | Dès qu'un prospect postule sur la vitrine, la demande est enregistrée et préparée pour conversion en dossier élève CUC Sign. |
-| **Traçabilité & Audit** | `site_audit_logs` | `audit_logs` | Traçabilité des actions administratives pour conformité Qualiopi et sécurité. |
+| Sessions de formation | `site_sessions` | `formations` | `cuc_sign_formation_id` ↔ `formations.id` |
+| Équipe & formateurs | `site_team` | `profiles` | `profile_id` ↔ `profiles.id` (coachs, directeurs) |
+| Campus & lieux d'entraînement | `site_campus_pois` | `locations` | `location_id` ↔ `locations.id` |
+| Candidatures & leads | `site_inquiries` | `students` / `profiles` | conversion en dossier élève (admissions) |
+| Disciplines | `site_disciplines` | **aucune table** | **Aucun appariement — ne JAMAIS créer de FK.** `evaluation_disciplines` est une table d'**instance** (`session_id NOT NULL` → `evaluation_sessions.id`, `ON DELETE CASCADE`) de 4 étiquettes courtes ; `site_disciplines` est un **référentiel éditorial** de 10 entrées spécialisées. Cf. `plans/revue-interconnexion-disciplines.md`. |
 
-## 4. Règles de Sécurité et d'Intégrité
-1. **Préfixe Obligatoire** : Toutes les tables créées pour la vitrine ou le cockpit doivent porter le préfixe `site_` (`site_pages`, `site_sessions`, `site_team`, `site_disciplines`, `site_campus_pois`, `site_inquiries`, `site_audit_logs`, `site_settings`).
-2. **Protection CUC Sign** : Les clés étrangères vers les tables de CUC Sign doivent systématiquement avoir `ON DELETE SET NULL`. Une modification ou suppression sur la vitrine ne doit JAMAIS corrompre ou supprimer de données métier dans CUC Sign.
-3. **Synchronisation Temps Réel** : Les canaux Supabase Realtime doivent écouter les tables `site_*` pour répercuter immédiatement les mises à jour sans rechargement.
+## 3. Sécurité et intégrité
+
+1. **Préfixe obligatoire** : les tables vitrine/cockpit portent strictement le préfixe `site_`.
+2. **Protection CUC Sign** : les clés étrangères vers CUC Sign utilisent `ON DELETE SET NULL` — une action côté vitrine ne corrompt jamais les données métier de CUC Sign.
+3. **Un lien FAUX est pire qu'aucun lien** : prouver la compatibilité de cardinalité et de granularité avant toute FK. Une FK remplie de correspondances arbitraires propage de la fausse donnée dans toute l'application — c'est plus grave qu'une FK NULL.
+4. **Realtime** : les mises à jour des tables `site_*` passent par les canaux existants (`subscribeTable`, un seul WebSocket par client).
+5. **Panne de lecture** : une lecture Supabase en échec sert la **copie certifiée** du code (`DEFAULT_PAGE_CONTENTS`, `DEFAULT_NAVIGATION`…) — jamais une page morte. En place dans `getLocalizedPageContent()` (`src/lib/i18n/server.ts`).
+
+## 4. Publication réelle des pages
+
+`site_pages.is_published` est écrit par le Cockpit et respecté en **quatre points** :
+
+1. **Sitemap** — `src/app/sitemap.ts`.
+2. **Rendu** — `UnpublishedPageGate` branché dans `SiteDataProvider` : le HTML public ne contient jamais un contenu non publié.
+3. **Moteurs** — `robots: noindex` posé par `buildRouteMetadata()` (`src/lib/i18n/route-metadata.ts`), source unique des métadonnées des 14 routes.
+4. **Aperçu** — l'iframe du Cockpit (`?cuc-preview=1`) neutralise la garde pour continuer à éditer un brouillon.
+
+Reste à faire : le **statut HTTP 404** — deux voies chiffrées dans `plans/revue-diffusion-brouillons.md`. **Ordre imposé** : 404 d'abord, policy RLS `site_pages` ensuite.

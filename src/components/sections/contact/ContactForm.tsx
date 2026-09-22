@@ -107,7 +107,7 @@ export const ContactForm: React.FC = () => {
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-4 text-xs font-tech">
+        <form id="formulaire" onSubmit={handleSubmit} className="space-y-4 text-xs font-tech scroll-mt-28">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label

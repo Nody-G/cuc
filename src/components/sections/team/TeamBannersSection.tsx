@@ -35,7 +35,7 @@ export const TeamBannersSection: React.FC<TeamBannersSectionProps> = ({
   /** Affiches : les entrées éditoriales priment index par index, jamais de liste vidée. */
   const banners = React.useMemo(
     () => mergeSectionItems(BANNER_GALLERY, block?.items ? { items: block.items } : null),
-    [block?.items]
+    [block]
   );
 
   // Les frises d'affiches héritées de l'ancien site ont été supprimées au profit

@@ -1,18 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { createClient } from '@/lib/supabase/client';
+import { getTranslationRows, type TranslationRow } from '@/lib/data/translations';
 import { upsertSiteTranslation } from '@/app/(admin)/admin/actions';
 import { Globe, Save, RefreshCw, AlertTriangle } from 'lucide-react';
-
-interface TranslationRow {
-    id: string;
-    entity: string;
-    entity_id: string;
-    locale: string;
-    payload: Record<string, any>;
-    is_published: boolean;
-}
 
 interface TranslationsViewProps {
     showToast?: (type: any, message: string) => void;
@@ -33,22 +24,16 @@ export const TranslationsView: React.FC<TranslationsViewProps> = ({ showToast })
     const [jsonErrors, setJsonErrors] = useState<Record<string, boolean>>({});
 
     const load = useCallback(async () => {
-        const supabase = createClient();
-        const { data, error } = await supabase
-            .from('site_translations')
-            .select('*')
-            .order('entity', { ascending: true })
-            .order('entity_id', { ascending: true });
+        const { rows: list, error } = await getTranslationRows();
 
-        if (!error && data) {
-            const list = data as TranslationRow[];
+        if (!error) {
             setRows(list);
             setDrafts(
                 Object.fromEntries(list.map((r) => [r.id, JSON.stringify(r.payload, null, 2)]))
             );
             setJsonErrors({});
-        } else if (error) {
-            showToast?.('error', `Chargement impossible : ${error.message}`);
+        } else {
+            showToast?.('error', `Chargement impossible : ${error}`);
         }
         setLoading(false);
     }, [showToast]);
@@ -56,24 +41,18 @@ export const TranslationsView: React.FC<TranslationsViewProps> = ({ showToast })
     useEffect(() => {
         let cancelled = false;
         (async () => {
-            const supabase = createClient();
-            const { data, error } = await supabase
-                .from('site_translations')
-                .select('*')
-                .order('entity', { ascending: true })
-                .order('entity_id', { ascending: true });
+            const { rows: list, error } = await getTranslationRows();
 
             if (cancelled) return;
 
-            if (!error && data) {
-                const list = data as TranslationRow[];
+            if (!error) {
                 setRows(list);
                 setDrafts(
                     Object.fromEntries(list.map((r) => [r.id, JSON.stringify(r.payload, null, 2)]))
                 );
                 setJsonErrors({});
-            } else if (error) {
-                showToast?.('error', `Chargement impossible : ${error.message}`);
+            } else {
+                showToast?.('error', `Chargement impossible : ${error}`);
             }
             setLoading(false);
         })();

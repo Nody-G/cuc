@@ -176,7 +176,10 @@ export default function VisiteVirtuellePage() {
 
           {/* Interactive Viewer: either 360 Player or 3D Campus Plan */}
           {isSectionVisible('viewer') && (
-            <div id="plan-3d-campus" className="mb-12 scroll-mt-28">
+            <div className="mb-12">
+              {/* Ancres `#viewer` et `#plan-3d-campus` (copie certifiée ; le hash 3D est géré plus haut). */}
+              <span id="viewer" aria-hidden="true" className="block h-0 scroll-mt-28" />
+              <span id="plan-3d-campus" aria-hidden="true" className="block h-0 scroll-mt-28" />
               {activeTab === '360' ? (
                 <VirtualTourViewer />
               ) : (

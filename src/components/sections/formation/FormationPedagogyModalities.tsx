@@ -44,8 +44,8 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
     <section className="py-16 bg-[#07070a] border-t border-zinc-800">
       <div className="page-shell">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Calendrier Prochaines Sessions */}
-          <div className="bg-[#0e0e14] border border-zinc-800 p-6">
+          {/* Calendrier Prochaines Sessions — ancre `#dates` (CTA « Voir les prochaines dates »). */}
+          <div id="dates" className="bg-[#0e0e14] border border-zinc-800 p-6 scroll-mt-28">
             <div className="flex items-center gap-2 mb-4">
               <Calendar className="w-4 h-4 text-[#FFE500]" />
               <h3
@@ -108,8 +108,8 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
             </ul>
           </div>
 
-          {/* Financement & Prise en Charge */}
-          <div className="bg-[#0e0e14] border border-zinc-800 p-6">
+          {/* Financement & Prise en Charge — ancre `#certifications` (Qualiopi, CTA Partenaires). */}
+          <div id="certifications" className="bg-[#0e0e14] border border-zinc-800 p-6 scroll-mt-28">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <Award className="w-4 h-4 text-[#FFE500]" />

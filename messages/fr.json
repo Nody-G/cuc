@@ -396,6 +396,7 @@
             "hoursSaturday": "Samedi (jours de stage) : 09h00 - 17h00",
             "train": "TRAIN :",
             "road": "ROUTE :",
+            "parking": "PARKING :",
             "sitesTitle": "NOS DEUX SITES",
             "mainCampus": "CAMPUS PRINCIPAL :",
             "mainCampusAddress": "Domaine CUC, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis",
@@ -875,7 +876,7 @@
     "spectacles": {
         "heroBadge": "LE CINÉMA S'INVITE SUR SCÈNE",
         "heroTitle": "SPECTACLES CASCADEURS & YAMAKASI",
-        "heroSubtitle": "Revivez les séquences d'action mythiques de vos films préférés avec les cascadeurs professionnels et doublures cinéma du Campus Univers Cascades. Combats, chutes, Parkour, humour et effets scéniques pour tous vos événements.",
+        "heroSubtitle": "Revivez les séquences d'action de vos films préférés avec les cascadeurs professionnels et doublures cinéma du Campus Univers Cascades. Combats, chutes, Parkour, humour et effets scéniques pour tous vos événements.",
         "ctaPrimaryText": "Demander un Devis Spectacle",
         "ctaSecondaryText": "Voir nos Vidéos en Direct",
         "heroImageAlt": "Spectacles de cascadeurs professionnels CUC Events",

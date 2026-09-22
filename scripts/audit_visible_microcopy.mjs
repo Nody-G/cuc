@@ -136,6 +136,9 @@ const CODE_NOISE_PATTERNS = [
     /^[a-z][\w$]*(\.[\w$]+)*$/, // identifiant nu ou chemin : priority, role, navigation.items
     /^[a-z]\w*=\{[^}]*\}$/, // attribut JSX booléen ou calculé
     /\bString\(|\bNumber\(|\bparseInt\(|\bJSON\./,
+    // Fragment de type TS capturé par `>Texte<` dans une signature :
+    // `(e: FormEvent) => Promise<void>` n'est pas un libellé visiteur.
+    /^(?:Promise|void|string|number|boolean|unknown|any|never|object|null|undefined|true|false)$/,
 ];
 
 function isCodeNoise(text) {
@@ -144,12 +147,25 @@ function isCodeNoise(text) {
     return CODE_NOISE_PATTERNS.some((pattern) => pattern.test(clean));
 }
 
+/**
+ * L'annotation vit dans la **balise ouvrante**, souvent plusieurs lignes
+ * au-dessus du texte (attributs JSX multi-lignes) : une fenêtre d'une ligne
+ * classait « dette » des champs pourtant éditables en place. On remonte donc
+ * jusqu'à la ligne qui ouvre la balise — jamais au-delà, pour ne pas hériter
+ * de l'annotation d'un frère précédent.
+ */
+function hasAnnotationContext(lines, index) {
+    for (let cursor = index; cursor >= 0 && cursor >= index - 10; cursor -= 1) {
+        const line = lines[cursor] ?? '';
+        if (ANNOTATION_RE.test(line)) return true;
+        if (line.includes('<')) return false;
+    }
+    return false;
+}
+
 function classify({ text, lines, index }) {
     const sourceLine = lines[index] ?? '';
-    const annotationContext = [lines[index - 1], lines[index], lines[index + 1]]
-        .filter(Boolean)
-        .some((line) => ANNOTATION_RE.test(line));
-    if (annotationContext) return 1;
+    if (hasAnnotationContext(lines, index)) return 1;
 
     /**
      * `<em>` encadre systématiquement un nom propre (titre de film, marque) :

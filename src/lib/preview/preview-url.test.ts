@@ -24,7 +24,17 @@ import {
 
 const SRC = join(process.cwd(), 'src');
 const SITE_DIR = join(SRC, 'app', '(site)', '[locale]');
-const PAGES_EDITOR = join(SRC, 'app', '(admin)', 'admin', 'components', 'PagesEditorView.tsx');
+// Le sélecteur de pages a été extrait du God Component : il vit dans le module
+// de contrats de l'éditeur (`pages-editor/pages-options.ts`).
+const PAGES_EDITOR = join(
+    SRC,
+    'app',
+    '(admin)',
+    'admin',
+    'components',
+    'pages-editor',
+    'pages-options.ts'
+);
 const ALLOWED_EXT = new Set(['.ts', '.tsx', '.js', '.jsx']);
 
 /** Route factice interdite (assemblée pour ne pas s'auto-détecter). */

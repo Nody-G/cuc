@@ -1,0 +1,30 @@
+/* Helpers typographiques (polices CUC) et utilitaires de contraste WCAG. */
+
+/* Typography helper classes */
+.font-display {
+    font-family: var(--font-bebas-neue), sans-serif;
+    letter-spacing: 0.04em;
+}
+
+.font-tech {
+    font-family: var(--font-space-grotesk), monospace, sans-serif;
+}
+
+.font-mono-tech {
+    font-family: var(--font-jetbrains-mono), monospace;
+}
+
+/* ===================================================
+   UTILITAIRES DE CONTRASTE (Phase 4 — WCAG 2.2 AA)
+   =================================================== */
+.text-muted {
+    color: var(--cuc-text-muted);
+}
+
+.text-subtle {
+    color: var(--cuc-text-subtle);
+}
+
+.text-faint {
+    color: var(--cuc-text-faint);
+}

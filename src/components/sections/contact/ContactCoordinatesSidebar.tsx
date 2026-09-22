@@ -11,12 +11,23 @@ import {
   Navigation,
   ShieldCheck,
 } from 'lucide-react';
+import { cucField } from '@/lib/preview/cuc-field';
 
+/**
+ * `sections_data.access_info` — clés canoniques écrites par l'éditeur de page
+ * (`ContactPageEditor`) et les contenus par défaut. Les clés héritées (`train`,
+ * `car`, `opening_hours`) restent lues en repli : une donnée publiée avant
+ * l'alignement ne disparaît jamais de la page.
+ */
 interface ContactCoordinatesSidebarProps {
   accessInfo?: {
+    train_info?: string;
+    car_info?: string;
+    parking_info?: string;
+    schedule_info?: string;
+    /** Forme héritée (lecture seule). */
     train?: string;
     car?: string;
-    plane?: string;
     opening_hours?: string;
   };
 }
@@ -85,29 +96,45 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
               <strong className="text-zinc-300 font-mono-tech block">
                 {t('hours')}
               </strong>
-              <span className="text-zinc-400">
-                {accessInfo?.opening_hours || (
-                  <>
-                    {t('hoursValue')}
-                    <br />
-                    {t('hoursSaturday')}
-                  </>
-                )}
+              <span
+                {...cucField('sections_data.access_info.schedule_info')}
+                className="text-zinc-400"
+              >
+                {accessInfo?.schedule_info ||
+                  accessInfo?.opening_hours || (
+                    <>
+                      {t('hoursValue')}
+                      <br />
+                      {t('hoursSaturday')}
+                    </>
+                  )}
               </span>
             </div>
           </div>
-          {(accessInfo?.train || accessInfo?.car) && (
+          {(accessInfo?.train_info || accessInfo?.train || accessInfo?.car_info || accessInfo?.car) && (
             <div className="pt-3 border-t border-zinc-800/80 space-y-1.5 text-[11px] text-zinc-400">
-              {accessInfo?.train && (
+              {(accessInfo?.train_info || accessInfo?.train) && (
                 <div className="flex items-start gap-2">
                   <span className="text-[#FFE500] font-mono-tech font-bold shrink-0">{t('train')}</span>
-                  <span>{accessInfo.train}</span>
+                  <span {...cucField('sections_data.access_info.train_info')}>
+                    {accessInfo?.train_info || accessInfo?.train}
+                  </span>
                 </div>
               )}
-              {accessInfo?.car && (
+              {(accessInfo?.car_info || accessInfo?.car) && (
                 <div className="flex items-start gap-2">
                   <span className="text-[#FFE500] font-mono-tech font-bold shrink-0">{t('road')}</span>
-                  <span>{accessInfo.car}</span>
+                  <span {...cucField('sections_data.access_info.car_info')}>
+                    {accessInfo?.car_info || accessInfo?.car}
+                  </span>
+                </div>
+              )}
+              {accessInfo?.parking_info && (
+                <div className="flex items-start gap-2">
+                  <span className="text-[#FFE500] font-mono-tech font-bold shrink-0">{t('parking')}</span>
+                  <span {...cucField('sections_data.access_info.parking_info')}>
+                    {accessInfo.parking_info}
+                  </span>
                 </div>
               )}
             </div>

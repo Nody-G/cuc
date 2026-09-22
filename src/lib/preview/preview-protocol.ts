@@ -40,6 +40,14 @@ export const CUC_KIND_ATTRIBUTE = 'data-cuc-kind';
 /** Attribut portant l'index d'un item de liste (`data-cuc-kind="list-item"`). */
 export const CUC_INDEX_ATTRIBUTE = 'data-cuc-index';
 
+/**
+ * Attribut transitoire posé sur l'élément **réellement désigné** par le
+ * survol : le texte annoté lui-même, ou le contrôle (bouton, lien) dont la
+ * surface entière désigne son unique libellé. Purement visuel : il n'est ni
+ * persisté, ni transporté par le protocole.
+ */
+export const CUC_FIELD_HOVER_ATTRIBUTE = 'data-cuc-field-hover';
+
 /* ------------------------------------------------------------------ *
  * Modèle
  * ------------------------------------------------------------------ */

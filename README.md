@@ -113,4 +113,5 @@ Consulter la [documentation de déploiement Next.js](https://nextjs.org/docs/app
 
 - [`plans/audit-complet-et-modernisation-2026.md`](plans/audit-complet-et-modernisation-2026.md) —
   audit complet et feuille de route de modernisation.
-- [`AGENTS.md`](AGENTS.md) — règles destinées aux agents de développement.
+- [`AGENTS.md`](AGENTS.md) — directives d'architecture (SRP, protocole agent) et index des règles.
+- [`.agents/rules/`](.agents/rules/architecture.md) — règles canoniques par sujet (une seule source par sujet).

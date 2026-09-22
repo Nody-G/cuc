@@ -47,7 +47,7 @@ export const TeamProductionGalleries: React.FC<TeamProductionGalleriesProps> = (
         STUDIO_GALLERY,
         block?.studio_items ? { items: block.studio_items } : null
       ),
-    [block?.studio_items]
+    [block]
   );
   const doublesGallery = React.useMemo(
     () =>
@@ -55,7 +55,7 @@ export const TeamProductionGalleries: React.FC<TeamProductionGalleriesProps> = (
         CASCADEUR_GALLERY,
         block?.doubles_items ? { items: block.doubles_items } : null
       ),
-    [block?.doubles_items]
+    [block]
   );
   const equipmentGallery = React.useMemo(
     () =>
@@ -63,7 +63,7 @@ export const TeamProductionGalleries: React.FC<TeamProductionGalleriesProps> = (
         EQUIPMENT_GALLERY,
         block?.equipment_items ? { items: block.equipment_items } : null
       ),
-    [block?.equipment_items]
+    [block]
   );
 
   return (

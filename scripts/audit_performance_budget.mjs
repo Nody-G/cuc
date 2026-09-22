@@ -33,6 +33,9 @@ const ADMIN_DIR = join(ROOT, 'src', 'app', '(admin)');
 const REALTIME_LIB = join(ROOT, 'src', 'lib', 'supabase', 'realtime.ts');
 const PREVIEW_HOOK = join(ROOT, 'src', 'lib', 'hooks', 'usePageDynamicContent.ts');
 const ACTIONS = join(ROOT, 'src', 'app', '(admin)', 'admin', 'actions.ts');
+/** Modules de domaine des Server Actions : la façade `actions.ts` les ré-exporte
+ *  (règle SRP) — l'audit lit l'ensemble de la surface, pas un seul fichier. */
+const ACTIONS_DIR = join(ROOT, 'src', 'app', '(admin)', 'admin', 'actions');
 const PREVIEW_PANE = join(
     ROOT,
     'src',
@@ -70,7 +73,13 @@ const previewHook = readFileSync(PREVIEW_HOOK, 'utf8');
 const guardsServerFetch = /if \(!hasServerPage\)/.test(previewHook);
 
 /* 3. Publication FR + EN et invalidation par tags. */
-const actions = readFileSync(ACTIONS, 'utf8');
+const actionFiles = [ACTIONS];
+if (existsSync(ACTIONS_DIR)) {
+    for (const entry of readdirSync(ACTIONS_DIR)) {
+        if (entry.endsWith('.ts')) actionFiles.push(join(ACTIONS_DIR, entry));
+    }
+}
+const actions = actionFiles.map((f) => readFileSync(f, 'utf8')).join('\n');
 const mirrorsEnglish = actions.includes("path === '/' ? '/en' : `/en${path}`");
 const invalidatesTags = actions.includes('updateTag(tag)') || actions.includes("updateTag('site_");
 

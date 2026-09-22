@@ -5,6 +5,7 @@
  * une traduction ne peut jamais vider une page, un tableau est écrit en bloc
  * (ses ancres viennent du français), et la structure n'est jamais inventée.
  *
+ * Les fixtures (`PAGE`, `EN_EDITED`) vivent dans `localized-merge.fixtures.ts`.
  * Aucun import de `vitest` : `globals: true` est activé dans
  * `vitest.config.mts` (convention du dépôt, cf. `vitest.setup.mts`).
  */
@@ -18,65 +19,7 @@ import {
     sanitizeOverlayPayload,
     translationCoverage,
 } from './localized-merge';
-
-/** Contenu de page représentatif : hero, chiffres clés, catalogue à ancres. */
-const PAGE = {
-    slug: 'stages-cascades-parkour-2',
-    title: 'Stages & Initiations',
-    meta_title: 'Stages cascades',
-    meta_description: 'Description française de la page.',
-    og_image: 'https://cdn.example/og.jpg',
-    is_published: true,
-    updated_at: '2026-09-21T00:00:00.000Z',
-    hero: {
-        badge: 'STAGES 2026',
-        title: 'STAGES & INITIATIONS',
-        subtitle: 'Le français reste la source.',
-        bg_image: 'https://cdn.example/hero.jpg',
-    },
-    layout_sections: [{ id: 'hero', name: 'En-tête des Stages', order: 1, is_visible: true }],
-    sections: [
-        {
-            id: 'stat_1',
-            title: 'Le campus',
-            value: '11 000 m²',
-            description: 'Surface totale du site',
-        },
-    ],
-    sections_data: {
-        stages_catalogue: {
-            badge: 'CATALOGUE DES STAGES',
-            items: [
-                {
-                    id: 'stage_decouverte',
-                    title: 'Stage découverte',
-                    duration: '12 jours (80 h)',
-                    desc: 'Description française du stage découverte.',
-                    img: 'https://cdn.example/stage-1.jpg',
-                },
-            ],
-        },
-    },
-};
-
-/** Contenu EN tel que le formulaire du Cockpit le produit : FR + retouches. */
-const EN_EDITED = {
-    ...PAGE,
-    meta_description: 'English description of the page.',
-    hero: { ...PAGE.hero, badge: '2026 WORKSHOPS' },
-    sections_data: {
-        stages_catalogue: {
-            ...PAGE.sections_data.stages_catalogue,
-            items: [
-                {
-                    ...PAGE.sections_data.stages_catalogue.items[0],
-                    title: 'Discovery Workshop',
-                    desc: '',
-                },
-            ],
-        },
-    },
-};
+import { catalogueItems, EN_EDITED, PAGE } from './localized-merge.fixtures';
 
 describe('mergeLocalized', () => {
     it('fusionne récursivement sans perdre les clés françaises absentes de l’overlay', () => {
@@ -158,9 +101,7 @@ describe('diffTranslation', () => {
 
     it('écrit le tableau complet, ancres et images reprises du français', () => {
         const payload = diffTranslation(PAGE, EN_EDITED);
-        const items = (
-            payload.sections_data as Record<string, any>
-        ).stages_catalogue.items as Array<Record<string, unknown>>;
+        const items = catalogueItems(payload);
 
         expect(items).toHaveLength(1);
         expect(items[0].id).toBe('stage_decouverte');
@@ -170,9 +111,7 @@ describe('diffTranslation', () => {
 
     it('remet le français quand une feuille d’un item est vidée', () => {
         const payload = diffTranslation(PAGE, EN_EDITED);
-        const items = (
-            payload.sections_data as Record<string, any>
-        ).stages_catalogue.items as Array<Record<string, unknown>>;
+        const items = catalogueItems(payload);
 
         expect(items[0].desc).toBe('Description française du stage découverte.');
     });

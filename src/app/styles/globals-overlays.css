@@ -1,0 +1,108 @@
+/* Surcouches natives : View Transitions, popover et dialog. */
+
+/* ===================================================
+   VIEW TRANSITIONS API (Phase 5 — navigation fluide 2026)
+   ===================================================
+   Transitions natives entre pages (Chrome/Edge 111+, Safari 18+).
+   Dégradation gracieuse : sans support, la navigation reste instantanée. */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root) {
+    animation: 180ms cubic-bezier(0.4, 0, 1, 1) both cuc-fade-out;
+}
+
+::view-transition-new(root) {
+    animation: 240ms cubic-bezier(0, 0, 0.2, 1) both cuc-fade-in;
+}
+
+@keyframes cuc-fade-out {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+}
+
+@keyframes cuc-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Éléments persistants (navbar, footer) : pas de re-animation au changement de page. */
+::view-transition-old(site-header),
+::view-transition-new(site-header) {
+    animation: none;
+}
+
+/* ===================================================
+   POPOVER API (Phase 5 — menus natifs sans JS)
+   ===================================================
+   Reset des styles UA pour les popovers tactiques. */
+[popover] {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: inherit;
+    overflow: visible;
+}
+
+[popover]::backdrop {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(2px);
+}
+
+/* ===================================================
+   DIALOG NATIF (Phase 5 — modales accessibles)
+   =================================================== */
+dialog {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: inherit;
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+
+dialog[open] {
+    animation: cuc-dialog-in 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes cuc-dialog-in {
+    from {
+        opacity: 0;
+        transform: scale(0.96) translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    ::view-transition-old(root),
+    ::view-transition-new(root),
+    dialog[open] {
+        animation: none !important;
+    }
+}

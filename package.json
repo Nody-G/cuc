@@ -13,6 +13,7 @@
     "test:coverage": "vitest run --coverage",
     "audit": "node scripts/audit.mjs",
     "audit:strict": "node scripts/audit.mjs --strict",
+    "audit:size:baseline": "node scripts/audit.mjs --write-size-baseline",
     "audit:all": "node scripts/audit_all.mjs",
     "audit:all:fast": "node scripts/audit_all.mjs --fast",
     "audit:app": "node scripts/audit_full_app.mjs",

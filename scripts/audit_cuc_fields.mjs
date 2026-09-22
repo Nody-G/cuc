@@ -26,23 +26,16 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = join(ROOT, 'src');
-const PAGES_EDITOR = join(
-    SRC,
-    'app',
-    '(admin)',
-    'admin',
-    'components',
-    'PagesEditorView.tsx'
-);
-const HOME_EDITOR = join(
-    SRC,
-    'app',
-    '(admin)',
-    'admin',
-    'components',
-    'pages-editor',
-    'HomePageEditor.tsx'
-);
+const ADMIN = join(SRC, 'app', '(admin)', 'admin', 'components');
+/** Source de vérité des 15 pages : le sélecteur de l'éditeur de pages. */
+const PAGES_OPTIONS = join(ADMIN, 'pages-editor', 'pages-options.ts');
+/** Forme héritée : le sélecteur a vécu dans la façade `PagesEditorView`. */
+const PAGES_EDITOR_LEGACY = join(ADMIN, 'PagesEditorView.tsx');
+/**
+ * Champs attendus de l'accueil : description déclarative des blocs
+ * (`liveEdit: true` = promesse d'édition en place).
+ */
+const HOME_BLOCKS = join(ADMIN, 'pages-editor', 'home-page', 'home-blocks.ts');
 const PROTOCOL = join(SRC, 'lib', 'preview', 'preview-protocol.ts');
 const REPORT = join(ROOT, 'plans', 'revue-couverture-champs-visuels.md');
 
@@ -70,10 +63,20 @@ function read(file) {
     return readFileSync(file, 'utf8');
 }
 
-/** Les 15 slugs de pages déclarés par le Cockpit (source de vérité unique). */
+/**
+ * Les 15 slugs de pages déclarés par le Cockpit (source de vérité unique).
+ * Lit `pages-options.ts` et retombe sur l'ancien emplacement si besoin : un
+ * audit qui ne trouve plus sa source doit le dire, pas mesurer zéro page.
+ */
 function extractPages() {
-    const source = read(PAGES_EDITOR);
+    const source = existsSync(PAGES_OPTIONS)
+        ? read(PAGES_OPTIONS)
+        : existsSync(PAGES_EDITOR_LEGACY)
+            ? read(PAGES_EDITOR_LEGACY)
+            : null;
+    if (!source) return [];
     const start = source.indexOf('const SITE_PAGES_OPTIONS');
+    if (start < 0) return [];
     const block = source.slice(start, source.indexOf('];', start));
     return [...block.matchAll(/value:\s*'([^']+)'/g)].map((match) => match[1]);
 }
@@ -86,13 +89,31 @@ function extractFieldKinds() {
     return [...match[1].matchAll(/'([^']+)'/g)].map((entry) => entry[1]);
 }
 
-/** Champs attendus pour l'accueil, tels que l'éditeur les cible. */
+/**
+ * Champs attendus pour l'accueil : tout champ marqué `liveEdit: true` dans la
+ * description déclarative des blocs est promis à l'édition en place — l'audit
+ * exige donc son annotation côté vitrine.
+ */
 function extractExpectedHomeFields() {
-    if (!existsSync(HOME_EDITOR)) return [];
-    const source = read(HOME_EDITOR);
-    return [
-        ...source.matchAll(/fieldAttr\(\s*'([^']+)'\s*,\s*'([^']+)'\s*\)/g),
-    ].map((match) => `sections_data.${match[1]}.${match[2]}`);
+    if (!existsSync(HOME_BLOCKS)) return [];
+    const source = read(HOME_BLOCKS);
+
+    const blocks = [...source.matchAll(/id:\s*'([^']+)'/g)].map((match) => ({
+        id: match[1],
+        start: match.index ?? 0,
+    }));
+
+    const fields = [];
+    blocks.forEach((block, index) => {
+        const end = blocks[index + 1]?.start ?? source.length;
+        const body = source.slice(block.start, end);
+        for (const field of body.matchAll(/\{\s*key:\s*'([^']+)'[^{}]*\}/g)) {
+            if (/liveEdit:\s*true/.test(field[0])) {
+                fields.push(`sections_data.${block.id}.${field[1]}`);
+            }
+        }
+    });
+    return fields;
 }
 
 function routeFileFor(slug) {
@@ -180,6 +201,13 @@ function analyzePage(slug) {
 
 function main() {
     const pages = extractPages();
+    if (pages.length === 0) {
+        console.error(
+            '[audit:cuc-fields] ÉCHEC — aucune page extraite : vérifier `pages-options.ts` (source du sélecteur).'
+        );
+        process.exitCode = 2;
+        return;
+    }
     const fieldKinds = extractFieldKinds();
     const expectedHome = extractExpectedHomeFields();
     const results = pages.map(analyzePage);
@@ -226,12 +254,12 @@ function main() {
     lines.push('## 2. Croisement avec l’éditeur d’accueil');
     lines.push('');
     if (expectedHome.length === 0) {
-        lines.push('Aucun champ attendu détecté dans `HomePageEditor` (vérifier le renommage du helper `fieldAttr`).');
+        lines.push('Aucun champ `liveEdit: true` détecté dans `home-blocks.ts` (vérifier la description déclarative).');
     } else if (missingHomeFields.length === 0) {
-        lines.push(`✅ Les ${expectedHome.length} champs ciblés par l’éditeur d’accueil sont annotés côté vitrine.`);
+        lines.push(`✅ Les ${expectedHome.length} champs promis par l’éditeur d’accueil (\`liveEdit\`) sont annotés côté vitrine.`);
     } else {
         lines.push(
-            `❌ ${missingHomeFields.length}/${expectedHome.length} champs attendus sans annotation côté vitrine :`
+            `❌ ${missingHomeFields.length}/${expectedHome.length} champs promis sans annotation côté vitrine :`
         );
         lines.push('');
         for (const field of missingHomeFields) lines.push(`- \`${field}\``);

@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState, useCallback } from 'react';
-import * as THREE from 'three';
 import { soundFX } from '@/lib/soundFx';
 import {
   PlanMode,
@@ -11,15 +10,11 @@ import {
   ThreeSceneContext,
 } from '../types/campus3d.types';
 import { PRESET_CONFIGS } from '../data/defaultFacilities';
-import {
-  initCampusScene,
-  setupCampusBuildings,
-  applyPlanMode,
-} from './campusScene';
-import { createCampusGizmo, createCampusHighlight, setGizmoScale } from './useCampusGizmo';
-import { computeGizmoScale } from './gizmoMath';
+import { applyPlanMode } from './campusScene';
 import { setupCampusPointerEvents } from './useCampusPointerDrag';
 import { syncCampusScene } from './campusSync';
+import { initCampusSceneGraph } from './campus-scene/scene-init';
+import { createSceneRenderLoop } from './campus-scene/scene-animate';
 
 interface UseCampusSceneProps {
   canvasRef: React.RefObject<HTMLCanvasElement | null>;
@@ -37,6 +32,13 @@ interface UseCampusSceneProps {
   onGizmoModeChange: (mode: GizmoMode) => void;
 }
 
+/**
+ * Orchestration de la scène 3D du campus : cycle de vie Three.js, télémétrie
+ * caméra throttlée et ponts vers les interactions (pointeur, gizmo, sync).
+ *
+ * Le graphe de scène vit dans `campus-scene/scene-init` ; la boucle de rendu
+ * dans `campus-scene/scene-animate`.
+ */
 export function useCampusScene({
   canvasRef,
   containerRef,
@@ -127,98 +129,16 @@ export function useCampusScene({
     const width = container.clientWidth;
     const height = container.clientHeight;
 
-    const {
-      scene,
-      camera,
-      renderer,
-      groundMesh,
-      groundGrid,
-      ambientLight,
-      sunLight,
-      aerialTexture,
-    } = initCampusScene(canvas, width, height);
-
-    const buildingsGroup = new THREE.Group();
-    scene.add(buildingsGroup);
-
-    const beaconsGroup = new THREE.Group();
-    scene.add(beaconsGroup);
-
-    // Setup procedural facility meshes
-    setupCampusBuildings(buildingsGroup, beaconsGroup, facilitiesRef.current);
-
-    // Setup 3D Gizmo & Highlight Target
-    const gizmoGroup = createCampusGizmo();
-    scene.add(gizmoGroup);
-
-    const highlightGroup = createCampusHighlight();
-    scene.add(highlightGroup);
-
-    const overview = PRESET_CONFIGS.overview;
-    const spherical = { radius: overview.radius, theta: overview.theta, phi: overview.phi };
-    const targetSpherical = { ...spherical };
-    const center = new THREE.Vector3(overview.center[0], overview.center[1], overview.center[2]);
-    const targetCenter = center.clone();
-    const currentLookAt = center.clone();
-
-    threeRef.current = {
-      scene,
-      camera,
-      renderer,
-      buildingsGroup,
-      beaconsGroup,
-      gizmoGroup,
-      highlightGroup,
-      groundMesh,
-      groundGrid,
-      groundPlaneRaycast: new THREE.Plane(new THREE.Vector3(0, 1, 0), 0),
-      ambientLight,
-      sunLight,
-      aerialTexture,
-      isDragging: false,
-      isPanning: false,
-      isDraggingGizmo: false,
-      activeDragType: null,
-      dragStartIntersection: new THREE.Vector3(),
-      dragStartTransform: {
-        x: 0,
-        z: 0,
-        rotationY: 0,
-        scaleX: 1,
-        scaleY: 1,
-        scaleZ: 1,
-      },
-      dragStartAxisParam: 0,
-      dragPivot: new THREE.Vector3(),
-      dragGizmoMode: 'translate',
-      dragStartPointer: { x: 0, y: 0 },
-      dragObjectRadius: 9,
+    const three = initCampusSceneGraph({
+      canvas,
+      width,
+      height,
+      facilities: facilitiesRef.current,
+      mode: modeRef.current,
       gizmoMode: gizmoModeRef.current,
-      gizmoObjectRadius: 9,
-      gizmoScaleFrozen: null,
-      prevMousePos: { x: 0, y: 0 },
-      spherical,
-      targetSpherical,
-      center,
-      targetCenter,
-      currentLookAt,
-      pulseTime: 0,
-      animFrameId: 0,
-      raycaster: new THREE.Raycaster(),
-      mouseVector: new THREE.Vector2(),
-    };
-
-    // Apply initial mode
-    applyPlanMode(
-      modeRef.current,
-      scene,
-      buildingsGroup,
-      groundMesh,
-      groundGrid,
-      ambientLight,
-      sunLight,
-      aerialTexture
-    );
+    });
+    threeRef.current = three;
+    const { renderer } = three;
 
     // Setup Pointer & Drag Interactions
     const cleanupPointerEvents = setupCampusPointerEvents({
@@ -239,89 +159,20 @@ export function useCampusScene({
       if (!container || !canvas || !threeRef.current) return;
       const w = container.clientWidth;
       const h = container.clientHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
+      threeRef.current.camera.aspect = w / h;
+      threeRef.current.camera.updateProjectionMatrix();
+      threeRef.current.renderer.setSize(w, h);
     };
     window.addEventListener('resize', handleResize);
 
     // 60 FPS Render Loop
-    const animate = () => {
-      const three = threeRef.current;
-      if (!three) return;
-
-      three.pulseTime += 0.035;
-      three.spherical.radius += (three.targetSpherical.radius - three.spherical.radius) * 0.08;
-      three.spherical.theta += (three.targetSpherical.theta - three.spherical.theta) * 0.08;
-      three.spherical.phi += (three.targetSpherical.phi - three.spherical.phi) * 0.08;
-
-      three.center.lerp(three.targetCenter, 0.08);
-      three.currentLookAt.lerp(three.center, 0.08);
-
-      const { radius, theta, phi } = three.spherical;
-      const camX = three.center.x + radius * Math.sin(phi) * Math.sin(theta);
-      const camY = three.center.y + radius * Math.cos(phi);
-      const camZ = three.center.z + radius * Math.sin(phi) * Math.cos(theta);
-
-      three.camera.position.set(camX, camY, camZ);
-      three.camera.lookAt(three.currentLookAt);
-
-      // Throttle React telemetry state updates to ~120ms to prevent 60fps React thrashing
-      const now = performance.now();
-      if (now - lastTelemetryUpdateRef.current > 120) {
-        lastTelemetryUpdateRef.current = now;
-        const deg = Math.round((theta * 180) / Math.PI) % 360;
-        const normalizedDeg = deg >= 0 ? deg : 360 + deg;
-        const roundedDist = Math.round(radius);
-
-        if (prevBearingRef.current !== normalizedDeg) {
-          prevBearingRef.current = normalizedDeg;
-          setBearing(normalizedDeg);
-        }
-        if (prevDistRef.current !== roundedDist) {
-          prevDistRef.current = roundedDist;
-          setCameraDistance(roundedDist);
-        }
-      }
-
-      // Gizmo : pulsation du disque central + échelle adaptative.
-      // L'échelle est recalculée depuis la distance caméra (constance à
-      // l'écran) sauf pendant un glisser, où elle reste gelée pour éviter
-      // toute boucle de rétroaction sur la mise à l'échelle.
-      if (three.gizmoGroup && three.gizmoGroup.visible) {
-        const pulse = 1 + Math.sin(three.pulseTime * 4) * 0.03;
-        const disc = three.gizmoGroup.getObjectByName('gizmo-center');
-        if (disc) disc.scale.set(pulse, pulse, 1);
-
-        if (three.gizmoScaleFrozen === null) {
-          setGizmoScale(
-            three.gizmoGroup,
-            computeGizmoScale(three.spherical.radius, three.gizmoObjectRadius)
-          );
-        }
-      }
-
-      // Animate highlight target reticle & pulsing ring
-      if (three.highlightGroup && three.highlightGroup.visible) {
-        const reticle = three.highlightGroup.getObjectByName('highlight-reticle');
-        if (reticle) reticle.rotation.y += 0.012;
-        const pulse = 1 + Math.sin(three.pulseTime * 3) * 0.05;
-        const outer = three.highlightGroup.getObjectByName('highlight-outer-ring');
-        if (outer) outer.scale.set(pulse, pulse, 1);
-      }
-
-      // Animate holographic beacon diamonds
-      three.beaconsGroup.children.forEach((bGroup, index) => {
-        const diamond = bGroup.children[0];
-        if (diamond) {
-          diamond.rotation.y += 0.03;
-          diamond.position.y = 14 + Math.sin(three.pulseTime * 2 + index * 0.8) * 0.6;
-        }
-      });
-
-      three.renderer.render(three.scene, three.camera);
-      three.animFrameId = requestAnimationFrame(animate);
-    };
+    const animate = createSceneRenderLoop(threeRef, {
+      lastUpdateRef: lastTelemetryUpdateRef,
+      prevBearingRef,
+      prevDistRef,
+      setBearing,
+      setCameraDistance,
+    });
     threeRef.current.animFrameId = requestAnimationFrame(animate);
 
     return () => {

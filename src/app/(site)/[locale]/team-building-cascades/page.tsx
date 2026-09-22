@@ -14,6 +14,8 @@ import {
   ChevronRight
 } from 'lucide-react';
 
+import { cucField, itemPath } from '@/lib/preview/cuc-field';
+
 const TEAM_BUILDING_WORKSHOPS = [
   {
     title: "Chute de Hauteur sur Airbag",
@@ -54,6 +56,12 @@ export default function TeamBuildingCascadesPage() {
   /** Chrome commun : fil d'Ariane et enseigne de l'agence événements. */
   const chrome = useTranslations('commonChrome');
   const { content } = usePageDynamicContent('team-building-cascades');
+
+  /** Liste d'ateliers servie par les données tant qu'elle existe (repli statique sinon). */
+  const workshopsFromContent = (content.sections_data?.workshops?.length ?? 0) > 0;
+  /** Annotation d'atelier : jamais de champ fantôme pointant sur la liste de repli. */
+  const workshopField = (idx: number, key: string, kind: 'text' | 'textarea' | 'image' = 'text') =>
+    workshopsFromContent ? cucField(itemPath('workshops', idx, key), kind) : {};
 
   const heroBadge = content.hero?.badge || 'SÉMINAIRES & ENTREPRISES';
   const heroTitle = content.hero?.title || "TEAM BUILDING D'EXCEPTION";
@@ -172,14 +180,23 @@ export default function TeamBuildingCascadesPage() {
                 height={52}
                 className="w-13 h-13 object-contain drop-shadow-[0_0_12px_rgba(255,229,0,0.35)]"
               />
-              <span className="text-xs font-mono-tech text-[#FFE500] font-bold tracking-widest uppercase">
+              <span
+                {...cucField('sections_data.overview.badge')}
+                className="text-xs font-mono-tech text-[#FFE500] font-bold tracking-widest uppercase"
+              >
                 {content.sections_data?.overview?.badge || t('overviewBadge')}
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-display uppercase text-white mb-4">
+            <h2
+              {...cucField('sections_data.overview.title')}
+              className="text-3xl sm:text-4xl font-display uppercase text-white mb-4"
+            >
               {content.sections_data?.overview?.title || t('overviewTitle')}
             </h2>
-            <p className="text-sm font-tech text-zinc-300 leading-relaxed">
+            <p
+              {...cucField('sections_data.overview.description', 'textarea')}
+              className="text-sm font-tech text-zinc-300 leading-relaxed"
+            >
               {content.sections_data?.overview?.description || t('overviewDescription')}
             </p>
           </div>
@@ -198,7 +215,10 @@ export default function TeamBuildingCascadesPage() {
                   className="bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/60 p-5 group transition-all flex flex-col justify-between"
                 >
                   <div>
-                    <div className="relative h-56 w-full mb-4 border border-zinc-800 overflow-hidden bg-black">
+                    <div
+                      {...workshopField(idx, 'img', 'image')}
+                      className="relative h-56 w-full mb-4 border border-zinc-800 overflow-hidden bg-black"
+                    >
                       {workshop.img ? (
                         <Image
                           src={workshop.img}
@@ -213,16 +233,25 @@ export default function TeamBuildingCascadesPage() {
                         </div>
                       )}
                       {workshop.category && (
-                        <div className="absolute top-3 left-3 bg-black/85 px-2.5 py-0.5 text-[10px] font-mono-tech text-[#FFE500] border border-white/20">
+                        <div
+                          {...workshopField(idx, 'category')}
+                          className="absolute top-3 left-3 bg-black/85 px-2.5 py-0.5 text-[10px] font-mono-tech text-[#FFE500] border border-white/20"
+                        >
                           {workshop.category}
                         </div>
                       )}
                     </div>
 
-                    <h3 className="text-xl font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors mb-2">
+                    <h3
+                      {...workshopField(idx, 'title')}
+                      className="text-xl font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors mb-2"
+                    >
                       {workshop.title}
                     </h3>
-                    <p className="text-xs font-tech text-zinc-400 leading-relaxed">
+                    <p
+                      {...workshopField(idx, 'desc', 'textarea')}
+                      className="text-xs font-tech text-zinc-400 leading-relaxed"
+                    >
                       {workshop.desc}
                     </p>
                   </div>
