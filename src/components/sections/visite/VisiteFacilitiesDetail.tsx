@@ -10,6 +10,7 @@ import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 import { applyFacilityOverlays } from '@/lib/i18n/apply-facility-overlay';
 import { InfrastructureSpot } from '@/types';
+import { usePageSectionData } from '@/lib/hooks/usePageSectionData';
 
 /**
  * Précharge une image distante dans le cache navigateur (et, en amont, dans le
@@ -44,14 +45,56 @@ export const VisiteFacilitiesDetail: React.FC = () => {
   const [activeFacilityId, setActiveFacilityId] = useState(() => resolveInitialFacilityId(CAMPUS_FACILITIES));
 
   /**
+   * Chrome + correctifs d'installations saisis en place
+   * (`sections_data.installations.<clé>` et `.items.<index>`). Les données
+   * restent celles de `site_settings`/`campus_facilities` : la saisie prime,
+   * le repli reste la donnée.
+   */
+  const block = usePageSectionData<{
+    tag?: string;
+    title?: string;
+    subtitle?: string;
+    specs_label?: string;
+    compliance_label?: string;
+    items?: Array<{
+      name?: string;
+      size?: string;
+      description?: string;
+      image?: string;
+      specifications?: string;
+      features?: string[];
+    }>;
+  }>('installations');
+
+  const tag = block?.tag || t('facilitiesTag');
+  const title = block?.title || t('facilitiesTitle');
+  const subtitle = block?.subtitle || t('facilitiesSubtitle');
+  const specsLabel = block?.specs_label || t('facilitiesSpecsLabel');
+  const complianceLabel = block?.compliance_label || t('facilitiesComplianceLabel');
+
+  /**
    * Noms, gabarits, descriptions, équipements et normes des installations sont
    * des DONNÉES : l'anglais arrive par l'overlay `campus_facility`, appliqué ici.
    */
   const facilityOverlays = useEntityOverlays('campus_facility');
-  const facilities = useMemo(
-    () => applyFacilityOverlays(rawFacilities, facilityOverlays),
-    [rawFacilities, facilityOverlays],
-  );
+  const facilityItems = block?.items;
+  const facilities = useMemo(() => {
+    const merged = applyFacilityOverlays(rawFacilities, facilityOverlays);
+    if (!facilityItems || facilityItems.length === 0) return merged;
+    return merged.map((facility, index) => {
+      const over = facilityItems[index];
+      if (!over) return facility;
+      return {
+        ...facility,
+        name: over.name || facility.name,
+        size: over.size || facility.size,
+        description: over.description || facility.description,
+        image: over.image || facility.image,
+        specifications: over.specifications || facility.specifications,
+        features: over.features?.length ? over.features : facility.features,
+      };
+    });
+  }, [rawFacilities, facilityOverlays, facilityItems]);
 
   /** Recharge les installations (état initial + synchronisation Realtime). */
   const loadFacilities = useCallback(() => {
@@ -93,19 +136,30 @@ export const VisiteFacilitiesDetail: React.FC = () => {
     () => facilities.find((f) => f.id === activeFacilityId) || facilities[0],
     [facilities, activeFacilityId],
   );
+  /** Index de l'installation affichée : il porte le chemin éditable du détail. */
+  const selectedIndex = facilities.findIndex((f) => f.id === selectedFacility?.id);
 
   return (
     <section id="installations-detail" className="py-16 scroll-mt-24">
       <div className="page-shell">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-2">
-            {t('facilitiesTag')}
+          <span
+            data-cuc-field="sections_data.installations.tag"
+            className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-2"
+          >
+            {tag}
           </span>
-          <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mb-3">
-            {t('facilitiesTitle')}
+          <h2
+            data-cuc-field="sections_data.installations.title"
+            className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mb-3"
+          >
+            {title}
           </h2>
-          <p className="text-sm font-tech text-zinc-400">
-            {t('facilitiesSubtitle')}
+          <p
+            data-cuc-field="sections_data.installations.subtitle"
+            className="text-sm font-tech text-zinc-400"
+          >
+            {subtitle}
           </p>
         </div>
 
@@ -135,10 +189,16 @@ export const VisiteFacilitiesDetail: React.FC = () => {
                       {String(index + 1).padStart(2, '0')}
                     </span>
                     <div className="truncate">
-                      <span className="font-display uppercase text-sm tracking-wide block truncate">
+                      <span
+                        data-cuc-field={`sections_data.installations.items.${index}.name`}
+                        className="font-display uppercase text-sm tracking-wide block truncate"
+                      >
                         {facility.name}
                       </span>
-                      <span className="text-[10px] font-mono-tech text-zinc-500 block truncate">
+                      <span
+                        data-cuc-field={`sections_data.installations.items.${index}.size`}
+                        className="text-[10px] font-mono-tech text-zinc-500 block truncate"
+                      >
                         {facility.size}
                       </span>
                     </div>
@@ -157,7 +217,11 @@ export const VisiteFacilitiesDetail: React.FC = () => {
             {/* Facility Image — `loading="eager"` + préchargement amont : le
                 changement d'installation est instantané (aucun aller-retour
                 réseau au clic). */}
-            <div className="relative h-72 sm:h-96 w-full mb-6 border border-zinc-800 overflow-hidden bg-black">
+            <div
+              data-cuc-field={`sections_data.installations.items.${selectedIndex}.image`}
+              data-cuc-kind="image"
+              className="relative h-72 sm:h-96 w-full mb-6 border border-zinc-800 overflow-hidden bg-black"
+            >
               <Image
                 key={selectedFacility.id}
                 src={selectedFacility.image}
@@ -170,17 +234,26 @@ export const VisiteFacilitiesDetail: React.FC = () => {
               />
             </div>
 
-            <h3 className="text-2xl sm:text-3xl font-display uppercase text-white mb-2">
+            <h3
+              data-cuc-field={`sections_data.installations.items.${selectedIndex}.name`}
+              className="text-2xl sm:text-3xl font-display uppercase text-white mb-2"
+            >
               {selectedFacility.name}
             </h3>
-            <p className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed mb-6">
+            <p
+              data-cuc-field={`sections_data.installations.items.${selectedIndex}.description`}
+              className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed mb-6"
+            >
               {selectedFacility.description}
             </p>
 
             <div className="space-y-4 pt-4 border-t border-zinc-800 text-xs font-tech">
               <div>
-                <strong className="text-[#FFE500] font-mono-tech block mb-2 uppercase">
-                  {t('facilitiesSpecsLabel')}
+                <strong
+                  data-cuc-field="sections_data.installations.specs_label"
+                  className="text-[#FFE500] font-mono-tech block mb-2 uppercase"
+                >
+                  {specsLabel}
                 </strong>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {selectedFacility.features.map((feature, idx) => (
@@ -189,17 +262,28 @@ export const VisiteFacilitiesDetail: React.FC = () => {
                       className="flex items-start gap-2 text-zinc-300"
                     >
                       <CheckCircle2 className="w-3.5 h-3.5 text-[#FFE500] shrink-0 mt-0.5" />
-                      <span>{feature}</span>
+                      <span
+                        data-cuc-field={`sections_data.installations.items.${selectedIndex}.features.${idx}`}
+                      >
+                        {feature}
+                      </span>
                     </div>
                   ))}
                 </div>
               </div>
 
               <div className="p-3 bg-black/50 border border-zinc-800 text-zinc-400">
-                <strong className="text-zinc-300 font-mono-tech text-[11px] block uppercase mb-0.5">
-                  {t('facilitiesComplianceLabel')}
+                <strong
+                  data-cuc-field="sections_data.installations.compliance_label"
+                  className="text-zinc-300 font-mono-tech text-[11px] block uppercase mb-0.5"
+                >
+                  {complianceLabel}
                 </strong>
-                {selectedFacility.specifications}
+                <span
+                  data-cuc-field={`sections_data.installations.items.${selectedIndex}.specifications`}
+                >
+                  {selectedFacility.specifications}
+                </span>
               </div>
             </div>
           </div>

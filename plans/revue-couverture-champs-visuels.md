@@ -1,6 +1,6 @@
 # Revue — Couverture des champs éditables (Mode Studio)
 
-Généré le 2026-09-22T00:55:14.541Z par `scripts/audit_cuc_fields.mjs`.
+Généré le 2026-09-22T00:56:13.689Z par `scripts/audit_cuc_fields.mjs`.
 
 ## 1. Couverture par page
 
@@ -17,7 +17,7 @@ Généré le 2026-09-22T00:55:14.541Z par `scripts/audit_cuc_fields.mjs`.
 | `spectacles-cascadeurs-yamakasi` | 6 | 0 | `src\app\(site)\[locale]\spectacles-cascadeurs-yamakasi\page.tsx` | ✅ |
 | `animations-airbag-parkour` | 6 | 0 | `src\app\(site)\[locale]\animations-airbag-parkour\page.tsx` | ✅ |
 | `visite-virtuelle` | 5 | 0 | `src\app\(site)\[locale]\visite-virtuelle\page.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
-| `visite-guidee` | 7 | 0 | `src\components\sections\visite\VisiteHeroSection.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
+| `visite-guidee` | 36 | 0 | `src\components\sections\visite\VisiteHeroSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\visite\VisiteFacilitiesDetail.tsx`, `src\components\sections\visite\VisiteAccessTransport.tsx` | ✅ |
 | `videos-cascadeur` | 4 | 0 | `src\app\(site)\[locale]\videos-cascadeur\page.tsx` | ✅ |
 | `partenaires` | 9 | 0 | `src\components\sections\partenaires\PartenairesHeroSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\partenaires\PartenairesGridSection.tsx` | ✅ |
 | `contact-cuc` | 4 | 0 | `src\components\sections\contact\ContactHeroSection.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
@@ -40,6 +40,7 @@ Natures autorisées : `text`, `textarea`, `image`, `link`, `list-item`.
 - `src\components\sections\stages\StagesGridSection.tsx (11)`
 - `src\components\sections\team\TeamProductionGalleries.tsx (3)`
 - `src\components\sections\team\TeamBannersSection.tsx (1)`
+- `src\components\sections\visite\VisiteFacilitiesDetail.tsx (7)`
 
 ## 5. Synthèse
 

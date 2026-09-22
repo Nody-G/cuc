@@ -1,18 +1,18 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T00:55:14.703Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T00:56:13.850Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 106 |
-| DONNÉES — éditable par un écran existant | 203 |
-| TRADUCTION — à brancher sur une clé de page | 562 |
-| CODÉ EN DUR — dette (ne suit ni la langue ni le Cockpit) | 79 |
-| HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 17 |
-| **Total** | **967** |
+| ANNOTÉ — éditable en place | 121 |
+| DONNÉES — éditable par un écran existant | 218 |
+| TRADUCTION — à brancher sur une clé de page | 539 |
+| CODÉ EN DUR — dette (ne suit ni la langue ni le Cockpit) | 77 |
+| HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 15 |
+| **Total** | **970** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -176,6 +176,24 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.80 — `{...cucField('sections_data.services_production.contact_title')}`
 - l.86 — `{...cucField('sections_data.services_production.contact_intro', 'textarea')}`
 - l.112 — `{block?.cta || t('services.cta')}`
+
+### `src\components\sections\visite\VisiteAccessTransport.tsx`
+
+- l.85 — `{accessBadge}`
+- l.112 — `{accessCarBody}`
+- l.127 — `{accessTrainBody}`
+- l.142 — `{accessPlaneBody}`
+- l.168 — `{campusName}`
+- l.172 — `{campusAddress}`
+- l.181 — `{mapRadarLabel}`
+- l.192 — `{mapExternalLabel}`
+- l.206 — `{phoneLabel}`
+- l.213 — `{phoneDisplay}`
+- l.218 — `{emailLabel}`
+- l.225 — `{emailAddress}`
+- l.238 — `{idfValue}`
+- l.242 — `{idfZip}`
+- l.250 — `{accessCta}`
 
 ### `src\components\sections\visite\VisiteHeroSection.tsx`
 
@@ -513,13 +531,31 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.66 — `{item.label}`
 
+### `src\components\sections\visite\VisiteAccessTransport.tsx`
+
+- l.92 — `{accessTitle}`
+- l.98 — `{accessIntro}`
+- l.109 — `{accessCarLabel}`
+- l.124 — `{accessTrainLabel}`
+- l.139 — `{accessPlaneLabel}`
+- l.156 — `{coordinatesTitle}`
+- l.165 — `{addressLabel}`
+- l.203 — `{standardLabel}`
+- l.235 — `{idfLabel}`
+
 ### `src\components\sections\visite\VisiteFacilitiesDetail.tsx`
 
-- l.139 — `{facility.name}`
-- l.142 — `{facility.size}`
-- l.174 — `{selectedFacility.name}`
-- l.177 — `{selectedFacility.description}`
-- l.202 — `{selectedFacility.specifications}`
+- l.150 — `{tag}`
+- l.156 — `{title}`
+- l.162 — `{subtitle}`
+- l.196 — `{facility.name}`
+- l.202 — `{facility.size}`
+- l.241 — `{selectedFacility.name}`
+- l.247 — `{selectedFacility.description}`
+- l.256 — `{specsLabel}`
+- l.268 — `{feature}`
+- l.280 — `{complianceLabel}`
+- l.285 — `{selectedFacility.specifications}`
 
 ### `src\components\sections\visite\VisiteHeroSection.tsx`
 
@@ -1184,37 +1220,14 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\visite\VisiteAccessTransport.tsx`
 
-- l.19 — `{t('accessBadge')}`
-- l.22 — `{t('accessTitle')}`
-- l.25 — `{t('accessIntro')}`
-- l.33 — `{t('accessCarLabel')}`
-- l.35 — `{t('accessCarBody')}`
-- l.43 — `{t('accessTrainLabel')}`
-- l.45 — `{t('accessTrainBody')}`
-- l.53 — `{t('accessPlaneLabel')}`
-- l.55 — `{t('accessPlaneBody')}`
-- l.61 — `{/* Adresse & Contact Box */}`
-- l.65 — `{t('coordinatesTitle')}`
-- l.71 — `{t('addressLabel')}`
-- l.75 — `{t('accessAddress')}`
-- l.98 — `{t('standardLabel')}`
-- l.100 — `{t('phoneLabel')}{' '}`
-- l.108 — `{t('emailLabel')}{' '}`
-- l.119 — `{t('idfLabel')}`
-- l.121 — `{t('idfValue')}`
-- l.129 — `{t('accessCta')}`
+- l.149 — `{/* Adresse & Contact Box */}`
 
 ### `src\components\sections\visite\VisiteFacilitiesDetail.tsx`
 
-- l.102 — `{t('facilitiesTag')}`
-- l.105 — `{t('facilitiesTitle')}`
-- l.108 — `{t('facilitiesSubtitle')}`
-- l.112 — `{/* Selector Grid / Detail */}`
-- l.114 — `{/* Left Selector List */}`
-- l.135 — `{String(index + 1).padStart(2, '0')}`
-- l.155 — `{/* Right Detail Display */}`
-- l.183 — `{t('facilitiesSpecsLabel')}`
-- l.200 — `{t('facilitiesComplianceLabel')}`
+- l.166 — `{/* Selector Grid / Detail */}`
+- l.168 — `{/* Left Selector List */}`
+- l.189 — `{String(index + 1).padStart(2, '0')}`
+- l.215 — `{/* Right Detail Display */}`
 
 ### `src\components\sections\visite\VisiteHeroSection.tsx`
 
@@ -1472,11 +1485,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.64 — `{title.substring(0, title.lastIndexOf(' '))}{' '}`
 
-### `src\components\sections\visite\VisiteAccessTransport.tsx`
-
-- l.73 — `CAMPUS UNIVERS CASCADES`
-- l.123 — `92230 Gennevilliers`
-
 ### `src\components\ui\InteractiveCampusMap.tsx`
 
 - l.82 — `CAMPUS UNIVERS CASCADES`
@@ -1533,11 +1541,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\components\sections\team\TeamProductionServices.tsx`
 
 - l.104 — `contact@campus-universcascades.com`
-
-### `src\components\sections\visite\VisiteAccessTransport.tsx`
-
-- l.91 — `Google Maps`
-- l.113 — `contact@campus-universcascades.com`
 
 ### `src\components\ui\InteractiveCampusMap.tsx`
 
