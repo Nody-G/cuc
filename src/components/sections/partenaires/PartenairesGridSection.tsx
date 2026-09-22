@@ -7,6 +7,7 @@ import { ExternalLink, Film, Award } from 'lucide-react';
 import { CUC_PARTNERS } from './partenaires.data';
 import { getPartners, SitePartner } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
+import { usePageSectionData } from '@/lib/hooks/usePageSectionData';
 
 /**
  * Copie éditoriale d'un partenaire, appariée par NOM (les logos, sites et
@@ -39,6 +40,24 @@ export const PartenairesGridSection: React.FC = () => {
   const [dbPartners, setDbPartners] = useState<SitePartner[]>([]);
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
   const partnerCopy = t.raw('partners') as PartnerCopy[];
+
+  /**
+   * Chrome éditorial du bloc : chaque libellé retombe sur sa traduction. Les
+   * fiches partenaires elles-mêmes restent pilotées par `site_partners`.
+   */
+  const chrome = usePageSectionData<{
+    cinema_heading?: string;
+    specialized_heading?: string;
+    production_badge?: string;
+    official_site?: string;
+    website_label?: string;
+  }>('partenaires_grid');
+
+  const cinemaHeading = chrome?.cinema_heading || t('cinemaHeading');
+  const specializedHeading = chrome?.specialized_heading || t('specializedHeading');
+  const productionBadge = chrome?.production_badge || t('productionBadge');
+  const officialSite = chrome?.official_site || t('officialSite');
+  const websiteLabel = chrome?.website_label || t('website');
 
   const copyByName = React.useMemo(
     () => new Map(partnerCopy.map((copy) => [copy.name.toLowerCase().trim(), copy])),
@@ -100,8 +119,11 @@ export const PartenairesGridSection: React.FC = () => {
           <div className="space-y-6">
             <div className="flex items-center gap-3 border-b border-zinc-800 pb-3">
               <Film className="w-4 h-4 text-[#FFE500]" />
-              <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                {t('cinemaHeading')}
+              <h2
+                data-cuc-field="sections_data.partenaires_grid.cinema_heading"
+                className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white"
+              >
+                {cinemaHeading}
               </h2>
             </div>
 
@@ -130,8 +152,11 @@ export const PartenairesGridSection: React.FC = () => {
                     </div>
 
                     <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold">
-                        {t('productionBadge')}
+                      <span
+                        data-cuc-field="sections_data.partenaires_grid.production_badge"
+                        className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold"
+                      >
+                        {productionBadge}
                       </span>
                     </div>
 
@@ -154,7 +179,9 @@ export const PartenairesGridSection: React.FC = () => {
                         rel="noopener noreferrer"
                         className="text-[#FFE500] hover:underline flex items-center gap-1 font-bold"
                       >
-                        <span>{t('officialSite')}</span>
+                        <span data-cuc-field="sections_data.partenaires_grid.official_site">
+                          {officialSite}
+                        </span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     </div>
@@ -170,8 +197,11 @@ export const PartenairesGridSection: React.FC = () => {
           <div className="space-y-6">
             <div className="flex items-center gap-3 border-b border-zinc-800 pb-3">
               <Award className="w-4 h-4 text-[#FFE500]" />
-              <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                {t('specializedHeading')}
+              <h2
+                data-cuc-field="sections_data.partenaires_grid.specialized_heading"
+                className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white"
+              >
+                {specializedHeading}
               </h2>
             </div>
 
@@ -228,7 +258,9 @@ export const PartenairesGridSection: React.FC = () => {
                         rel="noopener noreferrer"
                         className="text-[#FFE500] hover:underline flex items-center gap-1 font-bold"
                       >
-                        <span>{t('officialSite')}</span>
+                        <span data-cuc-field="sections_data.partenaires_grid.official_site">
+                          {officialSite}
+                        </span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     </div>
@@ -304,7 +336,9 @@ export const PartenairesGridSection: React.FC = () => {
                         rel="noopener noreferrer"
                         className="text-[#FFE500] hover:underline flex items-center gap-1 font-bold"
                       >
-                        <span>{t('website')}</span>
+                        <span data-cuc-field="sections_data.partenaires_grid.website_label">
+                          {websiteLabel}
+                        </span>
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     ) : null}

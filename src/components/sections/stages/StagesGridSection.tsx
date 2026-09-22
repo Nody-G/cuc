@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { STAGES_LIST, StageData } from './stages.data';
+import { usePageSectionData } from '@/lib/hooks/usePageSectionData';
 
 /**
  * Copie éditoriale d'un stage, appariée par `id` : badges, titre, description,
@@ -23,6 +24,24 @@ interface StageCopy {
   buttonLabel?: string;
   pdfLabel?: string;
   imageAlt?: string;
+}
+
+/**
+ * Correctifs éditoriaux saisis en place dans le Mode Studio
+ * (`sections_data.stages_cards.items.<index>`) : ils priment sur la copie
+ * traduite, qui reste le repli quand aucune valeur n'est saisie.
+ */
+interface StageOverride {
+  badge_text?: string;
+  sub_badge?: string;
+  highlight_text?: string;
+  title?: string;
+  description?: string;
+  details?: string[];
+  button_label?: string;
+  pdf_label?: string;
+  image?: string;
+  image_alt?: string;
 }
 
 const pickCopy = (value: string | undefined, fallback: string): string =>
@@ -64,23 +83,32 @@ const renderIcon = (type: string) => {
   }
 };
 
-const renderBadge = (badge: StageData['badge']) => {
+const renderBadge = (badge: StageData['badge'], fieldPath?: string) => {
   switch (badge.variant) {
     case 'yellow':
       return (
-        <span className="px-2.5 py-0.5 bg-[#FFE500] text-black font-mono-tech text-xs font-bold uppercase">
+        <span
+          data-cuc-field={fieldPath}
+          className="px-2.5 py-0.5 bg-[#FFE500] text-black font-mono-tech text-xs font-bold uppercase"
+        >
           {badge.text}
         </span>
       );
     case 'emerald':
       return (
-        <span className="px-2.5 py-0.5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-mono-tech text-xs font-bold uppercase">
+        <span
+          data-cuc-field={fieldPath}
+          className="px-2.5 py-0.5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-mono-tech text-xs font-bold uppercase"
+        >
           {badge.text}
         </span>
       );
     case 'red':
       return (
-        <span className="px-2.5 py-0.5 bg-red-500/20 text-red-400 border border-red-500/40 font-mono-tech text-xs font-bold uppercase">
+        <span
+          data-cuc-field={fieldPath}
+          className="px-2.5 py-0.5 bg-red-500/20 text-red-400 border border-red-500/40 font-mono-tech text-xs font-bold uppercase"
+        >
           {badge.text}
         </span>
       );
@@ -95,6 +123,12 @@ export const StagesGridSection: React.FC<StagesGridSectionProps> = ({
 }) => {
   const t = useTranslations('stages');
   const cardCopy = t.raw('cards') as StageCopy[];
+  /**
+   * Correctifs saisis en place : `sections_data.stages_cards.items.<index>`
+   * prime sur la copie traduite — qui reste le repli si rien n'est saisi.
+   */
+  const overrides = usePageSectionData<{ items?: StageOverride[] }>('stages_cards');
+  const overrideItems = overrides?.items;
 
   const displayList: StageData[] = (customStages && customStages.length > 0)
     ? customStages.map((cs: any, idx: number) => {
@@ -135,39 +169,52 @@ export const StagesGridSection: React.FC<StagesGridSectionProps> = ({
    */
   const localizedList = React.useMemo(
     () =>
-      displayList.map((stage) => {
+      displayList.map((stage, index) => {
         const copy = cardCopy.find((entry) => entry.id === stage.id);
-        if (!copy) return stage;
+        const over = overrideItems?.[index];
 
         return {
           ...stage,
-          badge: { ...stage.badge, text: pickCopy(copy.badgeText, stage.badge.text) },
+          badge: {
+            ...stage.badge,
+            text: pickCopy(over?.badge_text ?? copy?.badgeText, stage.badge.text),
+          },
           subBadge: stage.subBadge
-            ? pickCopy(copy.subBadge, stage.subBadge)
+            ? pickCopy(over?.sub_badge ?? copy?.subBadge, stage.subBadge)
             : stage.subBadge,
           highlightText: stage.highlightText
-            ? pickCopy(copy.highlightText, stage.highlightText)
+            ? pickCopy(over?.highlight_text ?? copy?.highlightText, stage.highlightText)
             : stage.highlightText,
-          title: pickCopy(copy.title, stage.title),
-          description: pickCopy(copy.description, stage.description),
-          details: stage.details.map((detail, index) => ({
+          title: pickCopy(over?.title ?? copy?.title, stage.title),
+          description: pickCopy(over?.description ?? copy?.description, stage.description),
+          details: stage.details.map((detail, detailIndex) => ({
             ...detail,
-            text: pickCopy(copy.details?.[index], detail.text),
+            text: pickCopy(
+              over?.details?.[detailIndex] ?? copy?.details?.[detailIndex],
+              detail.text
+            ),
           })),
-          buttonLabel: pickCopy(copy.buttonLabel, stage.buttonLabel),
+          buttonLabel: pickCopy(over?.button_label ?? copy?.buttonLabel, stage.buttonLabel),
           pdfLink: stage.pdfLink
-            ? { ...stage.pdfLink, label: pickCopy(copy.pdfLabel, stage.pdfLink.label) }
+            ? {
+              ...stage.pdfLink,
+              label: pickCopy(over?.pdf_label ?? copy?.pdfLabel, stage.pdfLink.label),
+            }
             : stage.pdfLink,
-          image: { ...stage.image, alt: pickCopy(copy.imageAlt, stage.image.alt) },
+          image: {
+            ...stage.image,
+            src: pickCopy(over?.image, stage.image.src),
+            alt: pickCopy(over?.image_alt ?? copy?.imageAlt, stage.image.alt),
+          },
         };
       }),
-    [displayList, cardCopy]
+    [displayList, cardCopy, overrideItems]
   );
 
   return (
     <section className="py-16">
       <div className="page-shell space-y-12">
-        {localizedList.map((stage) => {
+        {localizedList.map((stage, stageIndex) => {
           const isHighlight = stage.isPopular;
           return (
             <div
@@ -186,23 +233,38 @@ export const StagesGridSection: React.FC<StagesGridSectionProps> = ({
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-7">
                   <div className="flex flex-wrap items-center gap-2 mb-3">
-                    {renderBadge(stage.badge)}
+                    {renderBadge(
+                      stage.badge,
+                      `sections_data.stages_cards.items.${stageIndex}.badge_text`
+                    )}
                     {stage.subBadge && (
-                      <span className="px-2 py-0.5 bg-zinc-800 text-zinc-300 font-mono-tech text-xs uppercase">
+                      <span
+                        data-cuc-field={`sections_data.stages_cards.items.${stageIndex}.sub_badge`}
+                        className="px-2 py-0.5 bg-zinc-800 text-zinc-300 font-mono-tech text-xs uppercase"
+                      >
                         {stage.subBadge}
                       </span>
                     )}
                     {stage.highlightText && (
-                      <span className="text-emerald-400 text-xs font-mono-tech font-bold">
+                      <span
+                        data-cuc-field={`sections_data.stages_cards.items.${stageIndex}.highlight_text`}
+                        className="text-emerald-400 text-xs font-mono-tech font-bold"
+                      >
                         {stage.highlightText}
                       </span>
                     )}
                   </div>
 
-                  <h2 className="text-3xl sm:text-4xl font-display uppercase text-white mb-3">
+                  <h2
+                    data-cuc-field={`sections_data.stages_cards.items.${stageIndex}.title`}
+                    className="text-3xl sm:text-4xl font-display uppercase text-white mb-3"
+                  >
                     {stage.title}
                   </h2>
-                  <p className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed mb-6">
+                  <p
+                    data-cuc-field={`sections_data.stages_cards.items.${stageIndex}.description`}
+                    className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed mb-6"
+                  >
                     {stage.description}
                   </p>
 
@@ -210,7 +272,11 @@ export const StagesGridSection: React.FC<StagesGridSectionProps> = ({
                     {stage.details.map((detail, idx) => (
                       <div key={idx} className="flex items-center gap-2">
                         {renderIcon(detail.icon)}
-                        <span>{detail.text}</span>
+                        <span
+                          data-cuc-field={`sections_data.stages_cards.items.${stageIndex}.details.${idx}`}
+                        >
+                          {detail.text}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -221,7 +287,11 @@ export const StagesGridSection: React.FC<StagesGridSectionProps> = ({
                       size="md"
                       onClick={() => onOpenApplication(stage.id)}
                     >
-                      {stage.buttonLabel}
+                      <span
+                        data-cuc-field={`sections_data.stages_cards.items.${stageIndex}.button_label`}
+                      >
+                        {stage.buttonLabel}
+                      </span>
                     </TacticalButton>
                     {stage.pdfLink && (
                       <a
@@ -231,14 +301,22 @@ export const StagesGridSection: React.FC<StagesGridSectionProps> = ({
                         className="inline-flex items-center gap-2 text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] transition-colors"
                       >
                         <FileText className="w-4 h-4 text-[#FFE500]" />
-                        <span>{stage.pdfLink.label}</span>
+                        <span
+                          data-cuc-field={`sections_data.stages_cards.items.${stageIndex}.pdf_label`}
+                        >
+                          {stage.pdfLink.label}
+                        </span>
                       </a>
                     )}
                   </div>
                 </div>
 
                 {/* Right Photo Preview */}
-                <div className="lg:col-span-5 relative h-72 sm:h-96 border border-zinc-800 overflow-hidden flex items-center justify-center bg-black/40">
+                <div
+                  data-cuc-field={`sections_data.stages_cards.items.${stageIndex}.image`}
+                  data-cuc-kind="image"
+                  className="lg:col-span-5 relative h-72 sm:h-96 border border-zinc-800 overflow-hidden flex items-center justify-center bg-black/40"
+                >
                   <Image
                     src={stage.image.src}
                     alt={stage.image.alt}

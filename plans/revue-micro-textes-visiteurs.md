@@ -1,18 +1,18 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T00:52:42.910Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T00:54:28.025Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 102 |
-| DONNÉES — éditable par un écran existant | 187 |
-| TRADUCTION — à brancher sur une clé de page | 574 |
-| CODÉ EN DUR — dette (ne suit ni la langue ni le Cockpit) | 82 |
+| ANNOTÉ — éditable en place | 105 |
+| DONNÉES — éditable par un écran existant | 194 |
+| TRADUCTION — à brancher sur une clé de page | 568 |
+| CODÉ EN DUR — dette (ne suit ni la langue ni le Cockpit) | 79 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 17 |
-| **Total** | **962** |
+| **Total** | **963** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -140,6 +140,12 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\components\sections\home\HomeVirtualTourSection.tsx`
 
 - l.95 — `{installationsCta}`
+
+### `src\components\sections\partenaires\PartenairesGridSection.tsx`
+
+- l.183 — `{officialSite}`
+- l.262 — `{officialSite}`
+- l.340 — `{websiteLabel}`
 
 ### `src\components\sections\partenaires\PartenairesHeroSection.tsx`
 
@@ -453,10 +459,13 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\partenaires\PartenairesGridSection.tsx`
 
-- l.139 — `{partner.name}`
-- l.213 — `{partner.name}`
-- l.246 — `{catGroup.icon}`
-- l.290 — `{partner.name}`
+- l.126 — `{cinemaHeading}`
+- l.159 — `{productionBadge}`
+- l.164 — `{partner.name}`
+- l.204 — `{specializedHeading}`
+- l.243 — `{partner.name}`
+- l.278 — `{catGroup.icon}`
+- l.322 — `{partner.name}`
 
 ### `src\components\sections\partenaires\PartenairesHeroSection.tsx`
 
@@ -464,14 +473,21 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\stages\StagesGridSection.tsx`
 
-- l.72 — `{badge.text}`
-- l.78 — `{badge.text}`
-- l.84 — `{badge.text}`
-- l.192 — `{stage.subBadge}`
-- l.197 — `{stage.highlightText}`
-- l.203 — `{stage.title}`
-- l.206 — `{stage.description}`
-- l.224 — `{stage.buttonLabel}`
+- l.94 — `{badge.text}`
+- l.103 — `{badge.text}`
+- l.112 — `{badge.text}`
+- l.245 — `{stage.subBadge}`
+- l.253 — `{stage.highlightText}`
+- l.262 — `{stage.title}`
+- l.268 — `{stage.description}`
+- l.278 — `{detail.text}`
+- l.293 — `{stage.buttonLabel}`
+- l.307 — `{stage.pdfLink.label}`
+
+### `src\components\sections\team\TeamBannersSection.tsx`
+
+- l.57 — `{title}`
+- l.63 — `{intro}`
 
 ### `src\components\sections\team\TeamHeroSection.tsx`
 
@@ -1088,18 +1104,15 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\partenaires\PartenairesGridSection.tsx`
 
-- l.98 — `{/* Section Partenaires Cinéma additionnels configurés dans le Cockpit */}`
-- l.104 — `{t('cinemaHeading')}`
-- l.134 — `{t('productionBadge')}`
-- l.144 — `{localized(partner).description}`
-- l.168 — `{/* Section Partenaires Additionnels (Équipements, Institutions, Médias) */}`
-- l.174 — `{t('specializedHeading')}`
-- l.218 — `{localized(partner).description}`
-- l.242 — `{/* Groupes de partenaires statiques certifiés */}`
-- l.262 — `{/* Logo Box */}`
-- l.282 — `{localized(partner).role}`
-- l.285 — `{localized(partner).category}`
-- l.294 — `{localized(partner).description}`
+- l.117 — `{/* Section Partenaires Cinéma additionnels configurés dans le Cockpit */}`
+- l.169 — `{localized(partner).description}`
+- l.195 — `{/* Section Partenaires Additionnels (Équipements, Institutions, Médias) */}`
+- l.248 — `{localized(partner).description}`
+- l.274 — `{/* Groupes de partenaires statiques certifiés */}`
+- l.294 — `{/* Logo Box */}`
+- l.314 — `{localized(partner).role}`
+- l.317 — `{localized(partner).category}`
+- l.326 — `{localized(partner).description}`
 
 ### `src\components\sections\partenaires\PartenairesHeroSection.tsx`
 
@@ -1109,9 +1122,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\stages\StagesGridSection.tsx`
 
-- l.189 — `{renderBadge(stage.badge)}`
-- l.212 — `{renderIcon(detail.icon)}`
-- l.240 — `{/* Right Photo Preview */}`
+- l.274 — `{renderIcon(detail.icon)}`
+- l.314 — `{/* Right Photo Preview */}`
 
 ### `src\components\sections\stages\StagesHeroSection.tsx`
 
@@ -1123,9 +1135,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\team\TeamBannersSection.tsx`
 
-- l.29 — `{t('teamBannersBadge')}`
-- l.32 — `{t('teamBannersTitle')}`
-- l.40 — `{/* Real CUC Banners */}`
+- l.67 — `{/* Real CUC Banners */}`
 
 ### `src\components\sections\team\TeamHeroSection.tsx`
 
@@ -1451,12 +1461,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\components\sections\partenaires\PartenairesHeroSection.tsx`
 
 - l.64 — `{title.substring(0, title.lastIndexOf(' '))}{' '}`
-
-### `src\components\sections\team\TeamBannersSection.tsx`
-
-- l.35 — `Retrouvez les affiches des productions françaises et internationales`
-- l.36 — `sur lesquelles nos équipes sont intervenues. Cliquez sur une affiche pour la voir en haute résolution.`
-- l.59 — `AFFICHE HD`
 
 ### `src\components\sections\visite\VisiteAccessTransport.tsx`
 

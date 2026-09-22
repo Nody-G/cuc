@@ -1212,7 +1212,9 @@
         ],
         "teamBannersBadge": "CRÉDITS CINÉMATOGRAPHIQUES",
         "teamBannersTitle": "LES FILMS COORDONNÉS PAR LE CUC & LUCAS DOLLFUS",
-        "teamBannersPosterTitle": "Cliquer pour ouvrir l'affiche en plein écran"
+        "teamBannersPosterTitle": "Cliquer pour ouvrir l'affiche en plein écran",
+        "teamBannersIntro": "Retrouvez les affiches des productions françaises et internationales sur lesquelles nos équipes sont intervenues. Cliquez sur une affiche pour la voir en haute résolution.",
+        "teamBannersHdLabel": "AFFICHE HD"
     },
     "applicationModal": {
         "closeAria": "Fermer",

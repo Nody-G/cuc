@@ -1212,7 +1212,9 @@
         ],
         "teamBannersBadge": "FILM CREDITS",
         "teamBannersTitle": "FILMS COORDINATED BY THE CUC & LUCAS DOLLFUS",
-        "teamBannersPosterTitle": "Click to open the poster full screen"
+        "teamBannersPosterTitle": "Click to open the poster full screen",
+        "teamBannersIntro": "Browse the posters of the French and international productions our teams worked on. Click a poster to view it in high resolution.",
+        "teamBannersHdLabel": "POSTER HD"
     },
     "applicationModal": {
         "closeAria": "Close",
