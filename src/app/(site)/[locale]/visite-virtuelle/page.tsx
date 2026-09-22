@@ -11,6 +11,7 @@ import { VirtualTourViewer } from '@/components/ui/VirtualTourViewer';
 import { soundFX } from '@/lib/soundFx';
 import { useTranslations } from 'next-intl';
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+import { cucField } from '@/lib/preview/cuc-field';
 import {
   ChevronRight,
   MapPin,
@@ -101,21 +102,36 @@ export default function VisiteVirtuellePage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
-                  {t('pageTag')}
+                <span
+                  {...cucField('hero.badge')}
+                  className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider"
+                >
+                  {content.hero?.badge || t('pageTag')}
                 </span>
                 <span className="text-xs font-mono-tech text-zinc-500">•</span>
-                <span className="text-xs font-mono-tech text-zinc-400">
-                  LE CATEAU-CAMBRÉSIS
+                <span
+                  {...cucField('hero.meta')}
+                  className="text-xs font-mono-tech text-zinc-400"
+                >
+                  {content.hero?.meta || 'LE CATEAU-CAMBRÉSIS'}
                 </span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-display uppercase tracking-tight text-white leading-none">
-                {t('pageTitle')} <span className="text-[#FFE500]">{activeTab === '360' ? t('suffix360') : t('suffix3d')}</span>
+              <h1
+                {...cucField('hero.title')}
+                className="text-4xl sm:text-5xl md:text-6xl font-display uppercase tracking-tight text-white leading-none"
+              >
+                {content.hero?.title || t('pageTitle')}{' '}
+                <span className="text-[#FFE500]">
+                  {activeTab === '360' ? t('suffix360') : t('suffix3d')}
+                </span>
               </h1>
 
-              <p className="text-sm sm:text-base text-zinc-300 font-tech mt-3 max-w-3xl leading-relaxed">
-                {t('pageSubtitle')}
+              <p
+                {...cucField('hero.subtitle', 'textarea')}
+                className="text-sm sm:text-base text-zinc-300 font-tech mt-3 max-w-3xl leading-relaxed"
+              >
+                {content.hero?.subtitle || t('pageSubtitle')}
               </p>
             </div>
 

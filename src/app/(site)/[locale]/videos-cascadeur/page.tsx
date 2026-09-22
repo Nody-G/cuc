@@ -124,14 +124,24 @@ export default function VideosCascadeurPage() {
 
             <div className="inline-flex items-center gap-2 mb-4">
               <StuntBadge variant="yellow" icon={<Tv className="w-3.5 h-3.5" />}>
-                {heroBadge}
+                <span data-cuc-field="hero.badge" data-cuc-kind="text">
+                  {heroBadge}
+                </span>
               </StuntBadge>
-              <span className="text-xs font-mono-tech text-zinc-400">
-                {t('heroMeta')}
+              <span
+                data-cuc-field="hero.meta"
+                data-cuc-kind="text"
+                className="text-xs font-mono-tech text-zinc-400"
+              >
+                {content.hero?.meta || t('heroMeta')}
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
+            <h1
+              data-cuc-field="hero.title"
+              data-cuc-kind="text"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
+            >
               {heroTitle.includes('&') ? (
                 <>
                   {heroTitle.split('&')[0]} &amp;{' '}
@@ -142,7 +152,11 @@ export default function VideosCascadeurPage() {
               )}
             </h1>
 
-            <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
+            <p
+              data-cuc-field="hero.subtitle"
+              data-cuc-kind="textarea"
+              className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
+            >
               {heroSubtitle}
             </p>
           </div>

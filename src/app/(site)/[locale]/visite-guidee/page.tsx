@@ -69,7 +69,7 @@ export default function VisiteGuideePage() {
   const renderSection = (sectionId: string) => {
     switch (sectionId) {
       case 'hero':
-        return <VisiteHeroSection key="hero" />;
+        return <VisiteHeroSection key="hero" hero={content?.hero} />;
 
       case 'plan_3d':
         return (

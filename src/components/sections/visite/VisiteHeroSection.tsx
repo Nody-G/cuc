@@ -7,13 +7,20 @@ import { useTranslations } from 'next-intl';
 
 import { ChevronRight, Layers, Compass } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
+import { cucField } from '@/lib/preview/cuc-field';
+import type { SitePageHero } from '@/lib/data/site-service';
 
 interface HeroStatCopy {
   value: string;
   label: string;
 }
 
-export const VisiteHeroSection: React.FC = () => {
+interface VisiteHeroSectionProps {
+  /** Hero de la page (`site_pages.hero`) — prioritaire sur les libellés traduits. */
+  hero?: Partial<SitePageHero>;
+}
+
+export const VisiteHeroSection: React.FC<VisiteHeroSectionProps> = ({ hero }) => {
   const t = useTranslations('visite');
   const stats = t.raw('hero.stats') as HeroStatCopy[];
 
@@ -43,17 +50,30 @@ export const VisiteHeroSection: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-2 mb-4 text-xs font-mono-tech uppercase font-bold tracking-wider text-[#FFE500]">
-            <span>{t('hero.badge')}</span>
+            <span {...cucField('hero.badge')}>{hero?.badge || t('hero.badge')}</span>
             <span className="text-zinc-600">•</span>
             <span className="text-zinc-400">{t('hero.location')}</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none">
-            {t('hero.titleLead')} <span className="text-[#FFE500]">{t('hero.titleAccent')}</span>
+          <h1
+            {...cucField('hero.title')}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
+          >
+            {hero?.title ? (
+              hero.title
+            ) : (
+              <>
+                {t('hero.titleLead')}{' '}
+                <span className="text-[#FFE500]">{t('hero.titleAccent')}</span>
+              </>
+            )}
           </h1>
 
-          <p className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed">
-            {t('hero.subtitle')}
+          <p
+            {...cucField('hero.subtitle', 'textarea')}
+            className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
+          >
+            {hero?.subtitle || t('hero.subtitle')}
           </p>
 
           <div className="flex flex-wrap gap-4 mt-8">
@@ -63,7 +83,9 @@ export const VisiteHeroSection: React.FC = () => {
                 size="lg"
                 icon={<Layers className="w-4 h-4 text-black" />}
               >
-                {t('hero.ctaFacilities')}
+                <span {...cucField('hero.cta_primary_text')}>
+                  {hero?.cta_primary_text || t('hero.ctaFacilities')}
+                </span>
               </TacticalButton>
             </a>
             <a href="#visite-virtuelle-360">
@@ -72,7 +94,9 @@ export const VisiteHeroSection: React.FC = () => {
                 size="lg"
                 icon={<Compass className="w-4 h-4 text-[#FFE500]" />}
               >
-                {t('hero.ctaTour360')}
+                <span {...cucField('hero.cta_secondary_text')}>
+                  {hero?.cta_secondary_text || t('hero.ctaTour360')}
+                </span>
               </TacticalButton>
             </a>
             <a href="#plan-3d-domaine">
