@@ -1,6 +1,6 @@
 # Revue — Budget performance du Mode Studio
 
-Généré le 2026-09-22T20:41:48.264Z par `scripts/audit_performance_budget.mjs`.
+Généré le 2026-09-22T20:43:56.043Z par `scripts/audit_performance_budget.mjs`.
 
 | Engagement | État | Preuve |
 | --- | --- | --- |

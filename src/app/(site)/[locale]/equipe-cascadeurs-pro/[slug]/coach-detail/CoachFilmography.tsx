@@ -6,6 +6,7 @@ import { Award, ArrowUpDown, Film, Maximize2, ShieldCheck, Users } from 'lucide-
 import type { useTranslations } from 'next-intl';
 import type { FilmCredit, Instructor } from '@/types';
 import { type CoachFilmRole, type FilmSort, normalizeTitleKey } from './coach-films';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 export interface CoachFilmographyProps {
     member: Instructor;
@@ -60,13 +61,13 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
                 <div>
                     <div className="flex items-center gap-2 text-xs font-mono-tech text-[#FFE500] uppercase font-bold mb-1">
                         <Film className="w-4 h-4" />
-                        <span>{tt('filmographyTag')}</span>
+                        <span {...cucMicro('team.filmographyTag')}>{tt('filmographyTag')}</span>
                     </div>
                     <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
                         Cascades & Tournages de {member.name}
                     </h2>
                     <p className="text-xs font-tech text-zinc-400 mt-1">
-                        {tt('filmographyHint')}
+                        <span {...cucMicro('team.filmographyHint')}>{tt('filmographyHint')}</span>
                     </p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -137,7 +138,7 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
                                     {/* Mise en avant (définie dans le cockpit) */}
                                     {isFeatured && (
                                         <span className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-[#FFE500] text-black text-[9px] font-mono-tech font-bold uppercase tracking-wider shadow-md">
-                                            {tt('featuredBadge')}
+                                            <span {...cucMicro('team.featuredBadge')}>{tt('featuredBadge')}</span>
                                         </span>
                                     )}
 
@@ -145,7 +146,7 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
                                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
                                         <span className="px-3 py-1.5 bg-[#FFE500] text-black font-mono-tech text-xs uppercase font-bold flex items-center gap-1.5 shadow-xl">
                                             <Maximize2 className="w-3.5 h-3.5" />
-                                            <span>{tt('filmCardHover')}</span>
+                                            <span {...cucMicro('team.filmCardHover')}>{tt('filmCardHover')}</span>
                                         </span>
                                     </div>
                                 </div>
@@ -155,7 +156,7 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
                                     {/* RÔLE DU COACH SUR CE FILM */}
                                     <div>
                                         <span className="text-[9px] font-mono-tech text-zinc-500 uppercase block mb-1">
-                                            {tt('roleOnProduction')}
+                                            <span {...cucMicro('team.roleOnProduction')}>{tt('roleOnProduction')}</span>
                                         </span>
                                         {isCoord ? (
                                             <div className="px-2.5 py-1 bg-[#FFE500]/15 border border-[#FFE500]/50 text-[#FFE500] text-[11px] font-mono-tech font-bold uppercase flex items-center gap-1.5 rounded-xs">

@@ -1,18 +1,18 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-22T20:41:48.350Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-22T20:43:56.135Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 253 |
+| ANNOTÉ — éditable en place | 255 |
 | DONNÉES — éditable par un écran existant | 106 |
-| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 116 |
+| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 105 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 16 |
-| **Total** | **491** |
+| **Total** | **482** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -29,6 +29,14 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\app\(site)\[locale]\contact-cuc\page.tsx`
 
 - l.59 — `{t('sectionTitleAccent')}`
+
+### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachOtherMembers.tsx`
+
+- l.31 — `{chrome('otherCoordinatorsTitle')}`
+
+### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachProfile.tsx`
+
+- l.48 — `{chrome('trainingPathTitle')}`
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\EquipeHeroSection.tsx`
 
@@ -432,14 +440,14 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachFilmography.tsx`
 
-- l.122 — `{film.title}`
-- l.134 — `{film.year}`
-- l.179 — `{film.title}`
+- l.123 — `{film.title}`
+- l.135 — `{film.year}`
+- l.180 — `{film.title}`
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachOtherMembers.tsx`
 
-- l.65 — `{other.role}`
-- l.68 — `{other.name}`
+- l.68 — `{other.role}`
+- l.71 — `{other.name}`
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachPortrait.tsx`
 
@@ -447,11 +455,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachProfile.tsx`
 
-- l.26 — `{member.role}`
-- l.34 — `{member.name}`
-- l.38 — `{member.title}`
-- l.50 — `{member.bio}`
-- l.66 — `{spec}`
+- l.27 — `{member.role}`
+- l.35 — `{member.name}`
+- l.39 — `{member.title}`
+- l.53 — `{member.bio}`
+- l.69 — `{spec}`
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\CoachCard.tsx`
 
@@ -663,32 +671,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.59 — `{children}`
 
 ## 3. TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n)
-
-### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\CoachDetailClient.tsx`
-
-- l.69 — `{chrome('breadcrumbHome')}`
-- l.73 — `{tt('breadcrumb')}`
-
-### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachFilmography.tsx`
-
-- l.69 — `{tt('filmographyHint')}`
-- l.140 — `{tt('featuredBadge')}`
-- l.158 — `{tt('roleOnProduction')}`
-
-### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachNotFound.tsx`
-
-- l.22 — `{tt('coachNotFound')}`
-
-### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachOtherMembers.tsx`
-
-- l.26 — `{tt('campusFacultyTag')}`
-- l.29 — `{chrome('otherCoordinatorsTitle')}`
-
-### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachProfile.tsx`
-
-- l.29 — `{tt('facultyTag')}`
-- l.89 — `{tt('ctaContact')}`
-- l.95 — `{tt('ctaTrain')}`
 
 ### `src\app\(site)\[locale]\error.tsx`
 

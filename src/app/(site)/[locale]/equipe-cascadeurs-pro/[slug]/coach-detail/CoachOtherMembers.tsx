@@ -6,6 +6,7 @@ import { Link } from '@/i18n/navigation';
 import { ArrowRight } from 'lucide-react';
 import type { useTranslations } from 'next-intl';
 import type { Instructor } from '@/types';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 export interface CoachOtherMembersProps {
     members: Instructor[];
@@ -23,10 +24,12 @@ export const CoachOtherMembers: React.FC<CoachOtherMembersProps> = ({
         <div className="flex items-center justify-between gap-4 mb-8">
             <div>
                 <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold block mb-1">
-                    {tt('campusFacultyTag')}
+                    <span {...cucMicro('team.campusFacultyTag')}>{tt('campusFacultyTag')}</span>
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                    {chrome('otherCoordinatorsTitle')}
+                    <span {...cucMicro('commonChrome.otherCoordinatorsTitle')}>
+                        {chrome('otherCoordinatorsTitle')}
+                    </span>
                 </h2>
             </div>
 
@@ -34,7 +37,7 @@ export const CoachOtherMembers: React.FC<CoachOtherMembersProps> = ({
                 href="/equipe-cascadeurs-pro"
                 className="text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] flex items-center gap-1.5 transition-colors group"
             >
-                <span>{tt('seeWholeTeam')}</span>
+                <span {...cucMicro('team.seeWholeTeam')}>{tt('seeWholeTeam')}</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
             </Link>
         </div>

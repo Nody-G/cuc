@@ -13,6 +13,7 @@ import { CoachOtherMembers } from './coach-detail/CoachOtherMembers';
 import { CoachPortrait } from './coach-detail/CoachPortrait';
 import { CoachProfile } from './coach-detail/CoachProfile';
 import { createCoachFilmRoleResolver } from './coach-detail/coach-films';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 import { useCoachDetailData } from './coach-detail/useCoachDetailData';
 
 interface CoachDetailClientProps {
@@ -66,11 +67,11 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
           {/* Fil d'Ariane */}
           <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-8 flex-wrap">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">
-              {chrome('breadcrumbHome')}
+              <span {...cucMicro('commonChrome.breadcrumbHome')}>{chrome('breadcrumbHome')}</span>
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
             <Link href="/equipe-cascadeurs-pro" className="hover:text-[#FFE500] transition-colors">
-              {tt('breadcrumb')}
+              <span {...cucMicro('team.breadcrumb')}>{tt('breadcrumb')}</span>
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
             <span className="text-[#FFE500] uppercase font-bold">{member.name}</span>
