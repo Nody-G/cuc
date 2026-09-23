@@ -19,8 +19,11 @@
    (`getPreviewPageContent`). La migration est outillée et dry-run par défaut
    (`npm run db:migrate:site-pages-rls[:write]`) ; son application reste conditionnée à une
    vérification anonyme possible — le 2026-09-23, l'API Data du projet répondait
-   **402 Payment Required** à toutes les clés (incident de plateforme, cf.
-   `plans/revue-rls-site-pages.md`).
+   **402 : `exceed_storage_size_quota`** (« upgrade their plan or remove spend caps ») à
+   toutes les clés, service role compris. Action propriétaire : plan/spend caps Supabase puis
+   purge du stockage (`npm run media:audit`, cf. `plans/revue-mediatheque-storage.md` et
+   `plans/revue-rls-site-pages.md`). La vitrine publique, elle, sert ses replis certifiés :
+   c'est le garde-fou prévu, pas un incident silencieux.
 4. **Une seule source de vérité par sujet** : métadonnées → `buildRouteMetadata()`
    (`src/lib/i18n/route-metadata.ts`), fusion bilingue → `src/lib/i18n/localized-merge.ts`,
    libellés → `src/lib/i18n/microcopy.ts`, champs éditables → `src/lib/preview/cuc-field.ts`.

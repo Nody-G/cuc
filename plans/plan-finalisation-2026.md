@@ -171,3 +171,24 @@ objectif : **0 nouveau** warning et réduction continue, suivie dans le rapport.
 | L2 — Accessibilité mesurée (axe) | ✅ 2026-09-23 | `794b729` | 4 tests sur 3 surfaces, 0 violation `serious`/`critical` ; détecteur validé par contrôle négatif (`image-alt` bloquant détecté) ; `color-contrast` documenté hors jsdom |
 | L3 — Budget poids JS par route | ✅ 2026-09-23 | `3092543` | 54 routes mesurées (gzip, HTML prérendus — Turbopack n'émet plus `app-build-manifest.json`) ; baseline committée ; contrôle négatif : −10 % de baseline → échec `+11,1 %` ; gate local (si build) + CI après build |
 | L4 — 404 des brouillons (voie A) | ✅ 2026-09-23 | `ca134dc` | `getPublicPageContent()` (404 réel ; mécanisme vérifié au runtime), aperçu `/[locale]/preview` (admin, 15 vrais écrans, `instant = false`), garde de statut au proxy, statuts ○/◐ conservés, +8 tests (379 au total) |
+| L5 — RLS `site_pages` | 🟡 outillé, application en attente | `1405d07` | porte 404 RLS-proof (`getPagePublicationState`) + aperçu client admin (`getPreviewPageContent`) ; migration + applier dry-run (`db:migrate:site-pages-rls[:write]`) ; sonde anonyme impossible (API 402) ; base : 15 publiées / 0 brouillon |
+| L6 — Couverture EN | ⛔ bloqué par l'incident | — | `i18n:audit:completeness` interrompu : `402 exceed_storage_size_quota` — à relancer dès rétablissement |
+| L7 — Dette lint `any` | ⏳ à lancer | — | 65 avertissements, inchangés ; module par module, jamais un grand soir |
+| L8 — Roadmap P5 (décisions) | ⏳ à trancher | — | multi-brouillons, `publish_at`, défilement synchronisé : décision produit avant tout code |
+
+### Incident plateforme (2026-09-23)
+
+L'API Data Supabase répond **402 Payment Required** à **toutes** les clés (anon ET service) :
+
+```
+{"message":"Service for this project is restricted due to the following violations:
+exceed_storage_size_quota. The project owner must upgrade their plan or remove spend caps
+to restore service."}
+```
+
+- **Effet** : vérifications base suspendues (L5, L6) ; la vitrine publique sert ses replis
+  certifiés (garde-fou prévu, jamais une page morte) ;
+- **Actions propriétaire** : plan/spend caps Supabase, puis purge du stockage
+  (`npm run media:audit`, [`revue-mediatheque-storage.md`](plans/revue-mediatheque-storage.md:1)) ;
+- **Ensuite** : `npm run db:migrate:site-pages-rls:write` (vérifie « brouillon = 0 ligne »),
+  puis relancer le lot 6.

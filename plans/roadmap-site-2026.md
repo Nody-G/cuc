@@ -37,9 +37,13 @@ plus confondus. Migration prête : [`migration_site_pages_rls.sql`](scripts/migr
 
 + `npm run db:migrate:site-pages-rls[:write]` (dry-run par défaut, sonde anonyme incluse).
 **Application en attente** : le 2026-09-23, l'API Data du projet a répondu **402 Payment
-Required** à toutes les clés (anon ET service) — la vérification « brouillon = 0 ligne » exige
-une API rétablie ; constat et procédure dans [`revue-rls-site-pages.md`](plans/revue-rls-site-pages.md:1).
-État base au 2026-09-23 : 15 pages publiées, 0 brouillon.
+Required** à toutes les clés (anon ET service) — cause exacte :
+`exceed_storage_size_quota` (« upgrade their plan or remove spend caps »). Actions
+propriétaire : plan/spend caps Supabase, puis purge du stockage (`npm run media:audit`,
+[`revue-mediatheque-storage.md`](plans/revue-mediatheque-storage.md:1)). La vérification
+« brouillon = 0 ligne » se refait alors en une commande. Constat et procédure dans
+[`revue-rls-site-pages.md`](plans/revue-rls-site-pages.md:1). État base au 2026-09-23 :
+15 pages publiées, 0 brouillon.
 
 ## Priorité 3 — qualité mesurable (impact large, effort faible)
 
