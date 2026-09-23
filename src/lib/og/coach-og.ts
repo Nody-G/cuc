@@ -1,6 +1,7 @@
 import type { Instructor } from '@/types';
 import type { OgImageOptions } from '@/lib/og-image';
 import type { Locale } from '@/lib/i18n/entities';
+import { routeOgOptions } from '@/lib/og/route-og-copy';
 
 /**
  * ==============================================================================
@@ -9,25 +10,9 @@ import type { Locale } from '@/lib/i18n/entities';
  * ==============================================================================
  * Fonction pure : mêmes entrées → même carte. Le chargement (catalogue + overlay
  * EN) vit dans la route OG ; ici, seul l'assemblage du visuel — nom, fonction et
- * spécialités du coach. Slug inconnu → repli générique, identique à la carte du
- * parent `/equipe-cascadeurs-pro` (jamais de carte vide).
+ * spécialités du coach. Slug inconnu → repli générique, **la carte de la route
+ * parente** (`route-og-copy.ts`) : une seule formulation par carte, jamais deux.
  */
-
-/** Carte de repli : la même que la route parente, dans la langue demandée. */
-const GENERIC_CARD: Record<Locale, OgImageOptions> = {
-    fr: {
-        eyebrow: "L'ÉQUIPE",
-        title: "L'ÉQUIPE DU CAMPUS",
-        subtitle: 'Formateurs, cascadeurs et encadrement technique',
-        metrics: ['FORMATEURS', 'CASCADEURS', 'TECHNIQUE', 'SÉCURITÉ'],
-    },
-    en: {
-        eyebrow: 'THE TEAM',
-        title: 'THE CAMPUS TEAM',
-        subtitle: 'Instructors, stunt performers and technical supervision',
-        metrics: ['INSTRUCTORS', 'STUNT PERFORMERS', 'TECHNIQUE', 'SAFETY'],
-    },
-};
 
 /**
  * Options de rendu pour `renderOgImage`.
@@ -40,7 +25,7 @@ export function coachOgOptions(
     member: Instructor | undefined,
     locale: Locale
 ): OgImageOptions {
-    if (!member) return GENERIC_CARD[locale];
+    if (!member) return routeOgOptions('equipe-cascadeurs-pro', locale);
 
     const specialties = member.specialties
         .filter((item) => item.trim().length > 0)
@@ -51,5 +36,6 @@ export function coachOgOptions(
         title: member.name,
         subtitle: member.title,
         metrics: specialties.length > 0 ? specialties : [member.role],
+        locale,
     };
 }

@@ -1,10 +1,15 @@
 /**
- * Génère un fichier `opengraph-image.tsx` par route (hors racine, déjà fournie).
+ * OBSOLÈTE (conservé pour traçabilité) — ne plus exécuter.
  *
- * Chaque fichier délègue le rendu à la fabrique partagée `renderOgImage`
- * (src/lib/og-image.tsx) afin de garantir une charte visuelle homogène.
+ * Ce script a créé les `opengraph-image.tsx` par route avec une **copie française
+ * en dur** : une page `/en/…` partageait donc une vignette française (incident
+ * constaté et corrigé le 2026-09-23).
  *
- * Idempotent : écrase le fichier s'il existe déjà.
+ * Source de vérité depuis cette date : `src/lib/og/route-og-copy.ts` (catalogue
+ * FR + EN) — les routes lisent leurs `params` et appellent `routeOgOptions()`.
+ * Le garde-fou `src/lib/og/route-og-copy.test.ts` échoue si une route cesse de
+ * lire la locale, donc une ré-exécution de ce script casserait la CI : c'est
+ * voulu. Pour ajouter une route, éditer le catalogue, pas ce script.
  */
 import { writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { join } from "node:path";

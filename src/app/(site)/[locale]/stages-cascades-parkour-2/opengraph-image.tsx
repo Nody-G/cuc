@@ -1,18 +1,24 @@
+import { routeOgOptions } from "@/lib/og/route-og-copy";
 import { renderOgImage, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/og-image";
 
 /**
  * Image Open Graph générée dynamiquement pour la route /stages-cascades-parkour-2.
- * Rendu 1200×630 via la fabrique partagée (charte CUC).
+ * Rendu 1200×630 via la fabrique partagée (charte CUC) ; la copie bilingue vit
+ * dans `route-og-copy.ts` — la vignette suit donc la langue de la page partagée.
+ *
+ * `alt` reste le nom de la marque (identique FR/EN) : une description localisée
+ * demanderait `generateImageMetadata`, volontairement écarté ici (l'image porte
+ * déjà son titre à l'écran).
  */
-export const alt = "STAGES CASCADES & PARKOUR";
+export const alt = "Campus Univers Cascades";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 
-export default function OpengraphImage() {
-    return renderOgImage({
-        eyebrow: "STAGES & PARKOUR",
-        title: "STAGES CASCADES & PARKOUR",
-        subtitle: "Week-ends intensifs et stages thématiques ouverts à tous",
-        metrics: ["WEEK-ENDS", "TOUS NIVEAUX", "PARKOUR", "CASCADES"],
-    });
+export default async function OpengraphImage({
+    params,
+}: {
+    params: Promise<{ locale: string }>;
+}) {
+    const { locale } = await params;
+    return renderOgImage(routeOgOptions("stages-cascades-parkour-2", locale));
 }

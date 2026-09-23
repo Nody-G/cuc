@@ -11,6 +11,9 @@ import { ImageResponse } from "next/og";
 export const OG_SIZE = { width: 1200, height: 630 } as const;
 export const OG_CONTENT_TYPE = "image/png" as const;
 
+/** Langues servies par la vitrine : FR par défaut, EN sur `/en/…`. */
+export type OgLocale = "fr" | "en";
+
 export interface OgImageOptions {
     /** Sur-titre affiché en haut (ex. « FORMATION PROFESSIONNELLE »). */
     eyebrow: string;
@@ -18,16 +21,35 @@ export interface OgImageOptions {
     title: string;
     /** Ligne d'accroche optionnelle sous le titre. */
     subtitle?: string;
-    /** Métriques affichées dans le bandeau inférieur. */
-    metrics?: string[];
+    /** Métriques affichées dans le bandeau inférieur (catalogue = lecture seule). */
+    metrics?: readonly string[];
+    /**
+     * Locale de la carte : décide du repère géographique et des métriques par
+     * défaut. La copie elle-même (titre, accroche) est fournie par l'appelant —
+     * `routeOgOptions()` pour les routes, `coachOgOptions()` pour les coachs.
+     */
+    locale?: OgLocale;
 }
+
+/** Repère sous le nom du campus : département côté FR, pays côté EN. */
+const GEO_LABEL: Record<OgLocale, string> = {
+    fr: "LE CATEAU-CAMBRÉSIS • 59",
+    en: "LE CATEAU-CAMBRÉSIS • FRANCE",
+};
+
+const DEFAULT_METRICS: Record<OgLocale, string[]> = {
+    fr: ["11 000 M²", "CUC TOWER 21 M", "AGRÉMENT QUALIOPI", "DEPUIS 2008"],
+    en: ["11,000 M²", "CUC TOWER 21 M", "QUALIOPI CERTIFIED", "SINCE 2008"],
+};
 
 export function renderOgImage({
     eyebrow,
     title,
     subtitle,
-    metrics = ["11 000 M²", "CUC TOWER 21 M", "AGRÉMENT QUALIOPI", "DEPUIS 2008"],
+    metrics,
+    locale = "fr",
 }: OgImageOptions): ImageResponse {
+    const displayedMetrics = metrics ?? DEFAULT_METRICS[locale];
     return new ImageResponse(
         (
             <div
@@ -57,7 +79,7 @@ export function renderOgImage({
                     >
                         <span>CAMPUS UNIVERS CASCADES</span>
                         <span style={{ color: "#a1a1aa", fontSize: 18, letterSpacing: 4 }}>
-                            LE CATEAU-CAMBRÉSIS • 59
+                            {GEO_LABEL[locale]}
                         </span>
                     </div>
                 </div>
@@ -105,7 +127,7 @@ export function renderOgImage({
                         fontSize: 22,
                     }}
                 >
-                    {metrics.map((metric, idx) => (
+                    {displayedMetrics.map((metric, idx) => (
                         <div key={metric} style={{ display: "flex", gap: 24 }}>
                             {idx > 0 ? <span style={{ color: "#FFE500" }}>•</span> : null}
                             <span>{metric}</span>

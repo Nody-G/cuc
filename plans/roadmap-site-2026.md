@@ -64,7 +64,23 @@ Détail et preuves : [`revue-rls-site-pages.md`](plans/revue-rls-site-pages.md:1
 2. **Partage social — ✅ tenu (2026-09-23)** : OG dynamique des fiches coach
    ([`opengraph-image.tsx`](<src/app/(site)/[locale]/equipe-cascadeurs-pro/[slug]/opengraph-image.tsx:1>)
    — nom, fonction, spécialités, repli générique sur slug inconnu), livrée comme lot 1 du plan de
-   finalisation (commit `b6668a2`) ; les autres routes gardent leur OG par route.
+   finalisation (commit `b6668a2`). **Cartes de route bilingues** : les 14 `opengraph-image.tsx`
+   des pages publiques lisaient une copie **française en dur** (une page `/en/…` partageait une
+   vignette française) — elles lisent désormais `params.locale` via le catalogue unique
+   [`route-og-copy.ts`](src/lib/og/route-og-copy.ts:1) (FR repris verbatim, EN reprenant les
+   libellés déjà validés par les overlays `site_translations`), avec le repère géographique
+   localisé dans [`renderOgImage`](src/lib/og-image.tsx:26). Garde-fou :
+   [`route-og-copy.test.ts`](src/lib/og/route-og-copy.test.ts:1) (les deux langues existent, l'EN
+   n'est jamais une copie du FR, chaque route reste branchée sur le catalogue). **Preuve runtime** :
+   4 routes sondées sur le serveur de production local → 4/4 servent un PNG FR **et** un PNG EN
+   distincts (200, `image/png`).
+
+   *Constats de la même sonde (à traiter hors code)* :
+   - `www.campus-universcascades.com` sert encore **l'ancien WordPress** (`wp-content`, WP Rocket) :
+     toutes les URLs absolues (og:image, canonical, sitemap) ne seront exactes qu'après la bascule
+     DNS vers le déploiement Next ;
+   - `twitter:image` reste l'image générique Supabase (`slider-8-scaled.jpg`) — l'image par défaut
+     masque la carte de route côté Twitter/X ; à arbitrer (la carte de route est déjà bilingue).
 3. **Contenu — ✅ mesuré et complété (2026-09-23)** : couverture EN **100 % (226/226)** ;
    au passage, la coquille FR « DEPUIS 20008 » (`hero.since`, accueil) et son équivalent EN
    « SINCE 2008 » ont été corrigés. Restent **28 composants** avec copie FR en dur —
@@ -82,9 +98,9 @@ Détail et preuves : [`revue-rls-site-pages.md`](plans/revue-rls-site-pages.md:1
 
 ## Règles de conduite pour la suite (non négociables)
 
-+ **Une seule source de vérité par sujet** : métadonnées (`buildRouteMetadata`), fusion
+- **Une seule source de vérité par sujet** : métadonnées (`buildRouteMetadata`), fusion
   bilingue (`localized-merge`), libellés (`microcopy`), champs éditables (`cucField`).
-+ **Aucun faux contrôle** : si un bouton ne fait pas ce qu'il annonce, soit on le corrige, soit
+- **Aucun faux contrôle** : si un bouton ne fait pas ce qu'il annonce, soit on le corrige, soit
   on l'écrit — comme pour la publication.
-+ **Tout ce qui est mesuré est publié** : les audits écrivent leurs rapports dans `plans/`, la
+- **Tout ce qui est mesuré est publié** : les audits écrivent leurs rapports dans `plans/`, la
   CI échoue sur les contrôles bloquants, la dette restante est chiffrée et datée.
