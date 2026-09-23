@@ -102,15 +102,27 @@ export function useVideosPage(): UseVideosPageResult {
         });
     }, [tvPrograms, videoCopy]);
 
-    /** Reels Instagram localisés (titre et description issus du catalogue i18n). */
+    const dynamicReels = content.sections_data?.reels;
+    const isReelsVisible = content.layout_sections
+        ? content.layout_sections.find((s) => s.id === 'reels')?.is_visible ?? true
+        : true;
+
+    const baseReels: InstagramReel[] = isReelsVisible
+        ? Array.isArray(dynamicReels?.items)
+            ? (dynamicReels.items as InstagramReel[])
+            : INSTAGRAM_REELS
+        : [];
+
+    /** Reels Instagram (source dynamique Cockpit ou catalogue initial). */
     const localizedReels = React.useMemo(() => {
-        return INSTAGRAM_REELS.map((reel, idx) => {
+        return baseReels.map((reel, idx) => {
             const copy = reelsCopy[idx];
-            return copy
-                ? { ...reel, title: copy.title, description: copy.description }
-                : reel;
+            if (copy && !dynamicReels?.items) {
+                return { ...reel, title: copy.title, description: copy.description };
+            }
+            return reel;
         });
-    }, [reelsCopy]);
+    }, [baseReels, reelsCopy, dynamicReels?.items]);
 
     const activeReelIndex = selectedReel
         ? localizedReels.findIndex((r) => r.id === selectedReel.id)
@@ -153,8 +165,8 @@ export function useVideosPage(): UseVideosPageResult {
             socialInstagram: t('socialInstagram'),
             socialTiktok: t('socialTiktok'),
             closeTitle: t('closeTitle'),
-            reelsTitle: t('reelsTitle'),
-            reelsIntro: t('reelsIntro'),
+            reelsTitle: dynamicReels?.title || t('reelsTitle'),
+            reelsIntro: dynamicReels?.intro || t('reelsIntro'),
             reelsPlay: t('reelsPlay'),
             reelsWatchOnInsta: t('reelsWatchOnInsta'),
             reelsPrev: t('reelsPrev'),

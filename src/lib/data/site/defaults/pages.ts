@@ -524,9 +524,41 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     layout_sections: [
       { id: 'hero', name: 'En-tête Vidéos & Émissions TV', order: 1, is_visible: true },
       { id: 'gallery', name: 'Grille des Reportages & Démos Dailymotion', order: 2, is_visible: true },
-      { id: 'media', name: 'Réseaux & Relais Médias', order: 3, is_visible: true },
+      { id: 'reels', name: 'Sessions Instagram Reels', order: 3, is_visible: true },
+      { id: 'media', name: 'Réseaux & Relais Médias', order: 4, is_visible: true },
     ],
-    sections_data: {},
+    sections_data: {
+      reels: {
+        title: "SESSIONS D'ACTION EN FORMAT COURT",
+        intro: "Vivez l'action au plus près avec les formats verticaux officiels du Campus Univers Cascades.",
+        items: [
+          {
+            id: 'reel-1',
+            shortcode: 'DJW5wq0MIzt',
+            url: 'https://www.instagram.com/reel/DJW5wq0MIzt/',
+            title: 'COKA CHICAS — Sortie Cinéma',
+            description: "COKA CHICAS sort aujourd’hui au cinéma 🎬 Un film de @roxinehelberg avec le trio de choc @fadilycamara | @zoemarchal | @eva.huault.",
+            coverImage: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/001.jpg',
+          },
+          {
+            id: 'reel-2',
+            shortcode: 'DKAFa9dsRVa',
+            url: 'https://www.instagram.com/reel/DKAFa9dsRVa/',
+            title: 'Bob Training',
+            description: 'Bob training 🥋 Wait for it... Entraînements techniques et chorégraphies martiales au Campus Univers Cascades.',
+            coverImage: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/002.jpg',
+          },
+          {
+            id: 'reel-3',
+            shortcode: 'DJmOS2tMQpk',
+            url: 'https://www.instagram.com/reel/DJmOS2tMQpk/',
+            title: 'Risk Zone — Part I',
+            description: 'RISK ZONE ⚠️ Part I. Cascades physiques, effets et mises en situation sur les installations du campus.',
+            coverImage: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/defenestration.jpg',
+          },
+        ],
+      },
+    },
     sections: [],
     is_published: true,
   },

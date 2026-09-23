@@ -1,7 +1,7 @@
 
 # Revue — Intégrité des textes des catalogues (`messages/*.json`)
 
-Généré le 2026-09-23T15:23:11.045Z par `scripts/audit_repo_text_integrity.mjs`.
+Généré le 2026-09-23T15:48:37.170Z par `scripts/audit_repo_text_integrity.mjs`.
 - Chaînes inspectées : **2004** sur 2 catalogue(s)
 - Double-encodage UTF-8 : **0**
 - Textes français sans aucune apostrophe : **0**

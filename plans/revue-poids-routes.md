@@ -1,6 +1,6 @@
 # Revue — Poids JS par route (budget)
 
-Généré le 2026-09-23T15:25:01.325Z par `scripts/audit_route_weight.mjs`.
+Généré le 2026-09-23T15:50:18.365Z par `scripts/audit_route_weight.mjs`.
 
 Mesure : somme **gzip** des chunks JS référencés par le HTML prérendu de chaque
 route publique (`fr/*`, `en/*`) — c’est ce que reçoit le navigateur au premier
@@ -21,16 +21,16 @@ avertissement **> +2 %**. Régénérer la baseline (après revue) :
 
 | Route | Poids | Baseline | Δ |
 | --- | ---: | ---: | ---: |
-| `/en` | 435.4 Ko | 435.4 Ko | -0.0 % |
-| `/fr` | 435.4 Ko | 435.4 Ko | -0.0 % |
-| `/en/cuc-team-cascadeur` | 423.5 Ko | 423.5 Ko | -0.0 % |
-| `/fr/cuc-team-cascadeur` | 423.5 Ko | 423.5 Ko | -0.0 % |
-| `/en/formation-de-cascadeur` | 422.6 Ko | 422.6 Ko | -0.0 % |
-| `/fr/formation-de-cascadeur` | 422.6 Ko | 422.6 Ko | -0.0 % |
-| `/en/visite-guidee` | 421.1 Ko | 421.1 Ko | -0.0 % |
-| `/fr/visite-guidee` | 421.1 Ko | 421.1 Ko | -0.0 % |
-| `/en/contact-cuc` | 419.7 Ko | 419.7 Ko | -0.0 % |
-| `/fr/contact-cuc` | 419.7 Ko | 419.7 Ko | -0.0 % |
+| `/en` | 435.8 Ko | 435.4 Ko | +0.1 % |
+| `/fr` | 435.8 Ko | 435.4 Ko | +0.1 % |
+| `/en/cuc-team-cascadeur` | 423.9 Ko | 423.5 Ko | +0.1 % |
+| `/fr/cuc-team-cascadeur` | 423.9 Ko | 423.5 Ko | +0.1 % |
+| `/en/formation-de-cascadeur` | 423 Ko | 422.6 Ko | +0.1 % |
+| `/fr/formation-de-cascadeur` | 423 Ko | 422.6 Ko | +0.1 % |
+| `/en/visite-guidee` | 421.5 Ko | 421.1 Ko | +0.1 % |
+| `/fr/visite-guidee` | 421.5 Ko | 421.1 Ko | +0.1 % |
+| `/en/contact-cuc` | 420.1 Ko | 419.7 Ko | +0.1 % |
+| `/fr/contact-cuc` | 420.1 Ko | 419.7 Ko | +0.1 % |
 
 ## Nouvelles routes (hors baseline — régénérer la baseline après revue)
 

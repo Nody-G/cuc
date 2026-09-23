@@ -10,6 +10,7 @@ import { TeamBuildingPageEditor } from './TeamBuildingPageEditor';
 import { FormationPageEditor } from './FormationPageEditor';
 import { StagesPageEditor } from './StagesPageEditor';
 import { ContactPageEditor } from './ContactPageEditor';
+import { VideosPageEditor } from './VideosPageEditor';
 import { KeyStatsEditor } from './KeyStatsEditor';
 import type { SectionHandlers } from './useSectionHandlers';
 
@@ -130,6 +131,15 @@ export const ContentEditorsSwitch: React.FC<ContentEditorsSwitchProps> = ({
             {/* Bloc B5 : Contact & Accès */}
             {slug === 'contact-cuc' && (
                 <ContactPageEditor formData={activeData} setFormData={setActiveData} />
+            )}
+
+            {/* Bloc B6 : Vidéos & Reels Instagram */}
+            {slug === 'videos-cascadeur' && (
+                <VideosPageEditor
+                    formData={activeData}
+                    setFormData={setActiveData}
+                    setMediaPickerTarget={onMediaRequest}
+                />
             )}
 
             {/* Bloc C : Chiffres Clés & Statistiques */}

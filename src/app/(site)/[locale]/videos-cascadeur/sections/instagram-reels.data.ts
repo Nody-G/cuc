@@ -1,6 +1,6 @@
 /**
- * Données des vidéos & Reels Instagram officiels du Campus Univers Cascades.
- * Zéro badge ni étiquette marketing conformément à la règle stricte du projet.
+ * Données par défaut des vidéos & Reels Instagram du Campus Univers Cascades.
+ * Zéro fausse information : titres et légendes authentiques issues du compte officiel.
  */
 
 export interface InstagramReel {
@@ -17,8 +17,9 @@ export const INSTAGRAM_REELS: InstagramReel[] = [
         id: 'reel-1',
         shortcode: 'DJW5wq0MIzt',
         url: 'https://www.instagram.com/reel/DJW5wq0MIzt/',
-        title: 'Chorégraphie & Combat Rapproché',
-        description: 'Enchaînements physiques et synchronisation caméra lors des sessions intensives au campus.',
+        title: 'COKA CHICAS — Sortie Cinéma',
+        description:
+            'COKA CHICAS sort aujourd’hui au cinéma 🎬 Un film de @roxinehelberg avec le trio de choc @fadilycamara | @zoemarchal | @eva.huault.',
         coverImage:
             'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/001.jpg',
     },
@@ -26,8 +27,9 @@ export const INSTAGRAM_REELS: InstagramReel[] = [
         id: 'reel-2',
         shortcode: 'DKAFa9dsRVa',
         url: 'https://www.instagram.com/reel/DKAFa9dsRVa/',
-        title: 'Chutes & Absorptions',
-        description: 'Travail des impacts, réceptions au sol et gestion des trajectoires avec nos cascadeurs pro.',
+        title: 'Bob Training',
+        description:
+            'Bob training 🥋 Wait for it... Entraînements techniques et chorégraphies martiales au Campus Univers Cascades.',
         coverImage:
             'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/002.jpg',
     },
@@ -35,8 +37,9 @@ export const INSTAGRAM_REELS: InstagramReel[] = [
         id: 'reel-3',
         shortcode: 'DJmOS2tMQpk',
         url: 'https://www.instagram.com/reel/DJmOS2tMQpk/',
-        title: 'Défénestration & Hauteur',
-        description: 'Sauts en immersion et franchissements spectaculaires sur les infrastructures de la tour CUC.',
+        title: 'Risk Zone — Part I',
+        description:
+            'RISK ZONE ⚠️ Part I. Cascades physiques, effets et mises en situation sur les installations du campus.',
         coverImage:
             'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/defenestration.jpg',
     },
