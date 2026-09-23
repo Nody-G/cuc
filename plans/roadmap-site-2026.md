@@ -16,6 +16,7 @@ vérification attendue. Rien n'est « prévu » sans un endroit précis où le c
 | Panne de lecture | copie certifiée servie (jamais de page morte) |
 | Édition sans perte | filet local du brouillon + garde de concurrence à l'enregistrement |
 | Publication | sitemap, rendu, `robots: noindex`, aperçu — quatre points alignés |
+| Accessibilité mesurée | 3 surfaces (accueil, formation, contact) auditées `axe-core`, seuil **0 violation `serious`/`critical`** — `npm run test` + [`a11y-harness.tsx`](src/lib/testing/a11y-harness.tsx:1). Limite assumée : jsdom ne calcule pas les couleurs, le contraste reste vérifié en navigateur |
 | Tout le reste | `npm run studio:gate:full` **et** la CI ([`ci.yml`](.github/workflows/ci.yml:1)) |
 
 ## Priorité 1 — finir la publication (le seul trou connu)
@@ -40,9 +41,9 @@ qu'après** le 404 de la priorité 1 (qui fera de « absent » une réponse expl
 
 ## Priorité 3 — qualité mesurable (impact large, effort faible)
 
-1. **Accessibilité** : aucun audit automatisé n'existe. Ajouter `axe-core` sur 3 pages clés
-   (accueil, formation, contact) en test de composant, et viser zéro violation sérieuse
-   (`serious`/`critical`). C'est le seul axe de qualité non couvert par une mesure.
+1. **Accessibilité — ✅ tenu (2026-09-23)** : audit automatisé livré sur 3 surfaces
+   (accueil, formation, contact), zéro violation `serious`/`critical` — voir « Déjà tenu ».
+   Reste hors couverture locale le contraste (jsdom) : à contrôler en navigateur.
 2. **Poids des images** : `scripts/add_image_sizes.mjs` existe ; vérifier que toute nouvelle
    image passe par `next/image` avec `sizes` (un test statique peut le garantir).
 3. **Budgets chiffrés** : ajouter au gate un seuil de poids JS par route (`.next` build
