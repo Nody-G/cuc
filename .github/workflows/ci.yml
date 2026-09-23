@@ -54,3 +54,11 @@ jobs:
         run: npm run build
         env:
           NEXT_TELEMETRY_DISABLED: "1"
+
+      # Budget de poids JS par route : somme gzip des chunks référencés par les
+      # HTML prérendus, comparée à la baseline committée (échec > +5 %).
+      # Exécuté APRÈS le build : la mesure lit `.next`.
+      - name: Budget poids JS par route
+        run: npm run audit:route-weight
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"

@@ -17,6 +17,7 @@ vérification attendue. Rien n'est « prévu » sans un endroit précis où le c
 | Édition sans perte | filet local du brouillon + garde de concurrence à l'enregistrement |
 | Publication | sitemap, rendu, `robots: noindex`, aperçu — quatre points alignés |
 | Accessibilité mesurée | 3 surfaces (accueil, formation, contact) auditées `axe-core`, seuil **0 violation `serious`/`critical`** — `npm run test` + [`a11y-harness.tsx`](src/lib/testing/a11y-harness.tsx:1). Limite assumée : jsdom ne calcule pas les couleurs, le contraste reste vérifié en navigateur |
+| Poids JS par route | baseline committée ([`route-weight-baseline.json`](plans/route-weight-baseline.json:1)), contrôle automatique au gate (si build local) **et** en CI après build : échec > **+5 %**, alerte > +2 % — `npm run audit:route-weight` + [`revue-poids-routes.md`](plans/revue-poids-routes.md:1) |
 | Tout le reste | `npm run studio:gate:full` **et** la CI ([`ci.yml`](.github/workflows/ci.yml:1)) |
 
 ## Priorité 1 — finir la publication (le seul trou connu)
@@ -46,8 +47,8 @@ qu'après** le 404 de la priorité 1 (qui fera de « absent » une réponse expl
    Reste hors couverture locale le contraste (jsdom) : à contrôler en navigateur.
 2. **Poids des images** : `scripts/add_image_sizes.mjs` existe ; vérifier que toute nouvelle
    image passe par `next/image` avec `sizes` (un test statique peut le garantir).
-3. **Budgets chiffrés** : ajouter au gate un seuil de poids JS par route (`.next` build
-   report) pour détecter une dérive silencieuse.
+3. **Budgets chiffrés — ✅ tenu (2026-09-23)** : seuil de poids JS par route livré
+   (baseline + gate + CI, échec > +5 %) — voir « Déjà tenu ».
 
 ## Priorité 4 — contenu et acquisition
 

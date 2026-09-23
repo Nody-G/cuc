@@ -8,7 +8,8 @@
  *
  *  - **bloquants** : couverture des champs (aucune page sans champ éditable),
  *    budget performance (canal unique, zéro requête publique nominale, FR + EN,
- *    aperçu allégé) ;
+ *    aperçu allégé), poids JS par route **si un build local existe** (sinon la
+ *    ligne est affichée « IGNORÉ », jamais un faux OK) ;
  *  - **informatifs** : dette micro-textes (par nature décroissante, elle est
  *    mesurée et publiée, pas bloquante) ;
  *  - `--with-tests` ajoute typecheck et suite Vitest (plus long).
@@ -19,7 +20,8 @@
  */
 
 import { spawnSync } from 'node:child_process';
-import { dirname, resolve } from 'node:path';
+import { existsSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -42,6 +44,21 @@ const steps = [
         blocking: false,
     },
 ];
+
+/**
+ * Le poids JS se mesure sur le **build** (`.next`) : le contrôle n'est ajouté
+ * que si un build local existe. La CI l'exécute de toute façon après son propre
+ * build (`npm run audit:route-weight`) ; ici, sans build, la ligne est signalée
+ * « IGNORÉ » — un contrôle manquant ne doit jamais ressembler à un contrôle vert.
+ */
+const HAS_BUILD = existsSync(join(ROOT, '.next', 'server', 'app'));
+if (HAS_BUILD) {
+    steps.push({
+        name: 'Poids JS par route (build)',
+        command: ['node', ['scripts/audit_route_weight.mjs']],
+        blocking: true,
+    });
+}
 
 if (withTests) {
     steps.push(
@@ -68,6 +85,11 @@ console.log('=== Gate Mode Studio ===');
 for (const result of results) {
     const state = result.code === 0 ? 'OK' : result.blocking ? 'ÉCHEC' : 'DETTE (non bloquante)';
     console.log(`- ${result.name} : ${state}${result.code === 0 ? '' : ` (code ${result.code})`}`);
+}
+if (!HAS_BUILD) {
+    console.log(
+        '- Poids JS par route (build) : IGNORÉ — aucun build local (« npm run build » puis relancer)'
+    );
 }
 
 const blockingFailure = results.some((result) => result.blocking && result.code !== 0);

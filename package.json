@@ -22,6 +22,8 @@
     "audit:fields": "node scripts/audit_cuc_fields.mjs",
     "audit:microcopy": "node scripts/audit_visible_microcopy.mjs",
     "audit:budget": "node scripts/audit_performance_budget.mjs",
+    "audit:route-weight": "node scripts/audit_route_weight.mjs",
+    "audit:route-weight:baseline": "node scripts/audit_route_weight.mjs --baseline",
     "studio:gate": "node scripts/studio_gate.mjs",
     "studio:gate:full": "node scripts/studio_gate.mjs --with-tests",
     "audit:featured": "node scripts/verify_featured_matching.mjs",
