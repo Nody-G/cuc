@@ -18,6 +18,7 @@ vérification attendue. Rien n'est « prévu » sans un endroit précis où le c
 | Publication | sitemap, rendu, `robots: noindex`, aperçu — quatre points alignés |
 | Accessibilité mesurée | 3 surfaces (accueil, formation, contact) auditées `axe-core`, seuil **0 violation `serious`/`critical`** — `npm run test` + [`a11y-harness.tsx`](src/lib/testing/a11y-harness.tsx:1). Limite assumée : jsdom ne calcule pas les couleurs, le contraste reste vérifié en navigateur |
 | Poids JS par route | baseline committée ([`route-weight-baseline.json`](plans/route-weight-baseline.json:1)), contrôle automatique au gate (si build local) **et** en CI après build : échec > **+5 %**, alerte > +2 % — `npm run audit:route-weight` + [`revue-poids-routes.md`](plans/revue-poids-routes.md:1) |
+| Hygiène des images | garde-fou statique [`image-usage.test.ts`](src/lib/image-usage.test.ts:1) : aucune `<img>` brute dans `src/`, toute `<Image fill>` déclare `sizes`, toute `<Image>` réserve sa place (width/height, fill, ou spread assumé) — exécuté par `npm run test`, donc par la CI |
 | Tout le reste | `npm run studio:gate:full` **et** la CI ([`ci.yml`](.github/workflows/ci.yml:1)) |
 
 ## Priorité 1 — finir la publication — ✅ tenu (2026-09-23)
@@ -45,18 +46,25 @@ Détail et preuves : [`revue-rls-site-pages.md`](plans/revue-rls-site-pages.md:1
 1. **Accessibilité — ✅ tenu (2026-09-23)** : audit automatisé livré sur 3 surfaces
    (accueil, formation, contact), zéro violation `serious`/`critical` — voir « Déjà tenu ».
    Reste hors couverture locale le contraste (jsdom) : à contrôler en navigateur.
-2. **Poids des images** : `scripts/add_image_sizes.mjs` existe ; vérifier que toute nouvelle
-   image passe par `next/image` avec `sizes` (un test statique peut le garantir).
+2. **Poids des images — ✅ tenu (2026-09-23)** : garde-fou statique livré,
+   [`image-usage.test.ts`](src/lib/image-usage.test.ts:1) — `<img>` brute interdite dans `src/`,
+   `<Image fill>` sans `sizes` refusée, `<Image>` sans réserve de place refusée ; détecteur validé
+   par contrôle négatif sur sources synthétiques ; **0 violation** sur le code existant
+   (voir « Déjà tenu »).
 3. **Budgets chiffrés — ✅ tenu (2026-09-23)** : seuil de poids JS par route livré
    (baseline + gate + CI, échec > +5 %) — voir « Déjà tenu ».
 
 ## Priorité 4 — contenu et acquisition
 
-1. **JSON-LD enrichi** : `EducationalOrganization` et `WebSite` sont en place ; ajouter
-   `Course` (formations) et `FAQPage` (questions réellement présentes sur la page) — jamais de
-   balisage inventé.
-2. **Partage social** : les images OG par route existent ; vérifier la couverture OG sur les
-   fiches coach (les pages les plus partagées).
+1. **JSON-LD enrichi — ✅ tenu (2026-09-23)** : `EducationalOrganization` + `WebSite` dans la
+   coquille ([`RootShell.tsx`](src/components/layout/RootShell.tsx:26)), `Course` branché sur la page
+   formation ([`formation-de-cascadeur/page.tsx`](<src/app/(site)/[locale]/formation-de-cascadeur/page.tsx:35>)),
+   `VideoObject` sur la page vidéos. `FAQPage` : **sans objet** — aucune question/réponse réelle
+   sur les pages à ce jour (aucun balisage inventé).
+2. **Partage social — ✅ tenu (2026-09-23)** : OG dynamique des fiches coach
+   ([`opengraph-image.tsx`](<src/app/(site)/[locale]/equipe-cascadeurs-pro/[slug]/opengraph-image.tsx:1>)
+   — nom, fonction, spécialités, repli générique sur slug inconnu), livrée comme lot 1 du plan de
+   finalisation (commit `b6668a2`) ; les autres routes gardent leur OG par route.
 3. **Contenu — ✅ mesuré et complété (2026-09-23)** : couverture EN **100 % (226/226)** ;
    au passage, la coquille FR « DEPUIS 20008 » (`hero.since`, accueil) et son équivalent EN
    « SINCE 2008 » ont été corrigés. Restent **28 composants** avec copie FR en dur —

@@ -1,5 +1,12 @@
 # Audit Complet & Modernisation 2026 — Campus Univers Cascades (CUC)
 
+> **Document d'audit initial — non pilotant (statut 2026-09-23).** Ses phases ont nourri la
+> modernisation livrée (commits `fbbb2ef` puis `5e7b4e5` : SEO, performance, accessibilité, UX,
+> qualité, CI). Les cases à cocher ci-dessous ne sont plus un suivi d'exécution : le pilotage des
+> sujets restants vit dans [`roadmap-site-2026.md`](plans/roadmap-site-2026.md:1) et
+> [`plan-finalisation-2026.md`](plans/plan-finalisation-2026.md:1) — ne pas s'y fier pour savoir ce
+> qui reste ouvert.
+
 > Périmètre : vérification exhaustive de l'application Next.js 16 / React 19 (routes, liens, doublons, contenus superflus, navigation) + mise en place de technologies de pointe attendues pour un site vitrine premium en septembre 2026.
 
 ---
