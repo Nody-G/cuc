@@ -7,6 +7,26 @@ import { CUC_TEAM } from '@/data/team';
 import { Instructor } from '@/types';
 import { getSupabaseClient } from './client';
 
+/** Colonnes lues sur `site_team` (les optionnelles tolèrent la migration absente). */
+interface TeamRow {
+  id: string;
+  name: string;
+  role: string;
+  title: string;
+  specialties?: string[];
+  bio?: string;
+  doubled_actors?: string[];
+  notable_credits?: string[];
+  featured_credits?: string[];
+  credits_display_limit?: number;
+  external_url?: string;
+  avatar_url?: string;
+  instagram?: string;
+  imdb?: string;
+  profile_id?: string | null;
+  metadata?: Record<string, unknown>;
+}
+
 /**
  * Récupère l'équipe d'instructeurs.
  */
@@ -16,8 +36,8 @@ export async function getTeam(): Promise<Instructor[]> {
     // `featured_credits` et `credits_display_limit` sont optionnelles : si la
     // migration n'a pas encore été appliquée, on retombe sur un select de base
     // pour ne jamais casser l'affichage public.
-    let data: any[] | null = null;
-    let error: any = null;
+    let data: TeamRow[] | null = null;
+    let error: { message: string } | null = null;
 
     const extended = await supabase
       .from('site_team')

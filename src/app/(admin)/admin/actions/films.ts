@@ -27,7 +27,7 @@ export async function upsertFilm(film: {
   highlight?: boolean;
   cuc_team_involved?: string[];
   cuc_team_roles?: Record<string, string>;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }) {
   try {
     const adminClient = createAdminClient();
@@ -67,8 +67,9 @@ export async function upsertFilm(film: {
         .eq('key', 'films')
         .maybeSingle();
 
-      const list: any[] = row?.value?.list || [];
-      const idx = list.findIndex((f: any) => f.id === film.id);
+      const list: Record<string, unknown>[] =
+        (row?.value as { list?: Record<string, unknown>[] } | null | undefined)?.list || [];
+      const idx = list.findIndex((f) => f.id === film.id);
       if (idx >= 0) {
         list[idx] = { ...list[idx], ...film, updated_at: new Date().toISOString() };
       } else {

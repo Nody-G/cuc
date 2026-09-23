@@ -46,7 +46,12 @@ export function useSocialLinks(): SiteSocialLink[] {
                         .eq('locale', 'en')
                         .eq('is_published', true);
                     overlays = Object.fromEntries(
-                        (rows || []).map((row: any) => [row.entity_id, row.payload || {}])
+                        (rows || []).map(
+                            (row: { entity_id: string; payload?: Record<string, unknown> }) => [
+                                row.entity_id,
+                                (row.payload || {}) as { label?: string; display_hint?: string },
+                            ]
+                        )
                     );
                 }
 

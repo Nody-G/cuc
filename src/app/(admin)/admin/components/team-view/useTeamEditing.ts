@@ -10,6 +10,18 @@ export interface UseTeamEditingArgs {
 }
 
 /**
+ * Normalise un champ liste : tableau conservé, chaîne « a, b » découpée,
+ * tout le reste → tableau vide (les fiches historiques portaient des chaînes).
+ */
+function toStringList(value: unknown): string[] {
+    if (Array.isArray(value)) return value as string[];
+    if (typeof value === 'string') {
+        return value.split(',').map((s) => s.trim()).filter(Boolean);
+    }
+    return [];
+}
+
+/**
  * État et écritures de la liste des formateurs (Cockpit).
  *
  * Couche « Hooks & Orchestration » (`AGENTS.md` § 1) : la fiche en édition, le
@@ -27,21 +39,9 @@ export function useTeamEditing({ setTeam, showToast }: UseTeamEditingArgs) {
 
         const updated: Instructor = {
             ...editingMember,
-            specialties: Array.isArray(editingMember.specialties)
-                ? editingMember.specialties
-                : typeof (editingMember as any).specialties === 'string'
-                    ? (editingMember as any).specialties.split(',').map((s: string) => s.trim()).filter(Boolean)
-                    : [],
-            doubledActors: Array.isArray(editingMember.doubledActors)
-                ? editingMember.doubledActors
-                : typeof (editingMember as any).doubledActors === 'string'
-                    ? (editingMember as any).doubledActors.split(',').map((s: string) => s.trim()).filter(Boolean)
-                    : [],
-            notableCredits: Array.isArray(editingMember.notableCredits)
-                ? editingMember.notableCredits
-                : typeof (editingMember as any).notableCredits === 'string'
-                    ? (editingMember as any).notableCredits.split(',').map((s: string) => s.trim()).filter(Boolean)
-                    : [],
+            specialties: toStringList(editingMember.specialties),
+            doubledActors: toStringList(editingMember.doubledActors),
+            notableCredits: toStringList(editingMember.notableCredits),
             featuredCredits: Array.isArray(editingMember.featuredCredits)
                 ? editingMember.featuredCredits
                 : [],

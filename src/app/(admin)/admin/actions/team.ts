@@ -27,11 +27,11 @@ export async function upsertTeamMember(member: {
   featured_credits?: string[];
   credits_display_limit?: number;
   profile_id?: string | null;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }) {
   try {
     const adminClient = createAdminClient();
-    const payload: Record<string, any> = {
+    const payload: Record<string, unknown> = {
       ...member,
       profile_id: member.profile_id || null,
       featured_credits: member.featured_credits || [],
@@ -50,7 +50,7 @@ export async function upsertTeamMember(member: {
     if (error && /featured_credits|credits_display_limit/.test(error.message)) {
       // Repli sans les colonnes absentes : copie puis suppression ciblée,
       // plutôt que deux variables « pour jeter » (bruit de lint inutile).
-      const legacyPayload: Record<string, any> = { ...payload };
+      const legacyPayload: Record<string, unknown> = { ...payload };
       delete legacyPayload.featured_credits;
       delete legacyPayload.credits_display_limit;
       const retry = await adminClient.from('site_team').upsert(legacyPayload);

@@ -45,7 +45,7 @@ export async function upsertSiteTranslation(data: {
   entity: string;
   entity_id: string;
   locale: string;
-  payload: Record<string, any>;
+  payload: Record<string, unknown>;
   is_published?: boolean;
 }): Promise<{ success: boolean; error?: string; payload?: Record<string, unknown> }> {
   try {

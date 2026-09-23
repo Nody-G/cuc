@@ -4,7 +4,7 @@
  */
 
 import { createClient } from '@/lib/supabase/client';
-import { DEFAULT_FOOTER, type FooterStructure } from '@/data/navigation';
+import { DEFAULT_FOOTER, type FooterStructure, type NavItem } from '@/data/navigation';
 
 /** Locale déduite de l'URL (la vitrine vit sous `/[locale]`). */
 export function currentLocale(): 'fr' | 'en' {
@@ -40,13 +40,13 @@ export async function fetchLabelOverlay(
 }
 
 /** Applique les libellés traduits aux items de navigation (et leurs enfants). */
-export function applyItemLabels(items: any[], labels: Record<string, string> | null): any[] {
+export function applyItemLabels(items: NavItem[], labels: Record<string, string> | null): NavItem[] {
     if (!labels) return items;
     return items.map((item) => ({
         ...item,
         label: labels[item.id] || item.label,
         children: Array.isArray(item.children)
-            ? item.children.map((c: any) => ({ ...c, label: labels[c.id] || c.label }))
+            ? item.children.map((c) => ({ ...c, label: labels[c.id] || c.label }))
             : item.children,
     }));
 }

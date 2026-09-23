@@ -91,7 +91,7 @@ export const TeamMemberIdentityFields: React.FC<TeamMemberIdentityFieldsProps> =
                 value={
                     Array.isArray(member.specialties)
                         ? member.specialties.join(', ')
-                        : (member as any).specialties || ''
+                        : (member as unknown as { specialties?: string }).specialties || ''
                 }
                 onChange={(e) =>
                     onMemberChange({
@@ -113,7 +113,7 @@ export const TeamMemberIdentityFields: React.FC<TeamMemberIdentityFieldsProps> =
                 value={
                     Array.isArray(member.doubledActors)
                         ? member.doubledActors.join(', ')
-                        : (member as any).doubledActors || ''
+                        : (member as unknown as { doubledActors?: string }).doubledActors || ''
                 }
                 onChange={(e) =>
                     onMemberChange({

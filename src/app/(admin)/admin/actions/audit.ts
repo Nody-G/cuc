@@ -32,7 +32,16 @@ export async function logAuditEvent(action: string, target: string, details?: st
         .eq('key', 'audit_logs')
         .maybeSingle();
 
-      const list: any[] = row?.value?.list || [];
+      interface AuditLogEntry {
+        id: string;
+        user_name: string;
+        action: string;
+        target: string;
+        details?: string;
+        created_at: string;
+      }
+      const list: AuditLogEntry[] =
+        (row?.value as { list?: AuditLogEntry[] } | null | undefined)?.list || [];
       list.unshift({
         id: `log_${Date.now()}`,
         user_name: userProfile?.full_name || 'Admin',

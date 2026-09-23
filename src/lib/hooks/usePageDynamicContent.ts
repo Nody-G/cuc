@@ -23,10 +23,10 @@ import { getPreviewDraft, subscribePreviewDraft } from '@/lib/preview/preview-st
  * par défaut si l'administrateur ne met à jour qu'un seul sous-champ.
  */
 function deepMergeSectionsData(
-  defaultSections?: Record<string, any>,
-  customSections?: Record<string, any>
-): Record<string, any> {
-  const result: Record<string, any> = { ...(defaultSections || {}) };
+  defaultSections?: Record<string, unknown>,
+  customSections?: Record<string, unknown>
+): Record<string, unknown> {
+  const result: Record<string, unknown> = { ...(defaultSections || {}) };
   if (!customSections) return result;
 
   for (const key of Object.keys(customSections)) {
@@ -105,7 +105,7 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
   const locale = rawPathname?.startsWith('/en') ? 'en' : 'fr';
 
   // Overlay de traduction (table `site_translations`) fusionné par-dessus la base FR.
-  const [translation, setTranslation] = useState<Record<string, any> | null>(null);
+  const [translation, setTranslation] = useState<Record<string, unknown> | null>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -166,7 +166,7 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
           .eq('is_published', true)
           .maybeSingle();
         if (!error && isMounted) {
-          setTranslation((data?.payload as Record<string, any>) || null);
+          setTranslation((data?.payload as Record<string, unknown>) || null);
         }
       } catch (err) {
         console.warn(`[usePageDynamicContent] Traduction ${locale} indisponible pour ${cleanSlug}:`, err);

@@ -17,10 +17,10 @@ export async function upsertPageContent(slug: string, pageData: {
   meta_title?: string;
   meta_description?: string;
   og_image?: string;
-  hero: Record<string, any>;
-  sections?: any[];
-  layout_sections?: any[];
-  sections_data?: Record<string, any>;
+  hero: object;
+  sections?: unknown[];
+  layout_sections?: unknown[];
+  sections_data?: object;
   is_published?: boolean;
   /**
    * Horodatage de la version chargée dans l'éditeur. S'il est fourni et que la

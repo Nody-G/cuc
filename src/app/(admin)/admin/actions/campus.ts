@@ -8,10 +8,57 @@
 import { createAdminClient } from '@/lib/supabase/admin';
 import { revalidateSite } from './revalidate';
 
+/** Discipline telle que reçue de l'éditeur (noms camelCase et snake_case acceptés). */
+type DisciplineInput = {
+  id: string;
+  number?: number | string;
+  name?: string;
+  category?: string;
+  level?: string;
+  duration?: string;
+  shortDesc?: string;
+  short_desc?: string;
+  fullDesc?: string;
+  full_desc?: string;
+  objectives?: unknown[];
+  equipment?: unknown[];
+  safetyRules?: unknown[];
+  safety_rules?: unknown[];
+  prerequisites?: unknown[];
+  instructor_ids?: unknown[];
+  film_ids?: unknown[];
+  program_ids?: unknown[];
+  order_index?: number;
+  is_active?: boolean;
+};
+
+/** Zone/infrastructure du campus telle que reçue de l'éditeur 3D. */
+type CampusPoiInput = {
+  id: string;
+  location_id?: string | null;
+  name?: string;
+  type?: string;
+  category?: string;
+  coords?: object;
+  xPercent?: number;
+  yPercent?: number;
+  level?: string;
+  surface?: string | number | null;
+  capacity?: string | number | null;
+  equipment?: unknown[];
+  features?: unknown[];
+  disciplines?: unknown[];
+  coaches?: unknown[];
+  description?: string | null;
+  image_url?: string | null;
+  order_index?: number;
+  is_active?: boolean;
+};
+
 /**
  * Met à jour ou insère une discipline de cascade (site_disciplines + miroir site_settings).
  */
-export async function upsertDiscipline(discipline: any) {
+export async function upsertDiscipline(discipline: DisciplineInput) {
   try {
     const adminClient = createAdminClient();
 
@@ -50,8 +97,9 @@ export async function upsertDiscipline(discipline: any) {
       .eq('key', 'disciplines')
       .maybeSingle();
 
-    const list: any[] = currentSettings?.value?.list || [];
-    const idx = list.findIndex((d: any) => d.id === discipline.id);
+    const list: DisciplineInput[] =
+      (currentSettings?.value as { list?: DisciplineInput[] } | null | undefined)?.list || [];
+    const idx = list.findIndex((d) => d.id === discipline.id);
     if (idx >= 0) {
       list[idx] = discipline;
     } else {
@@ -92,8 +140,9 @@ export async function deleteDiscipline(id: string) {
       .eq('key', 'disciplines')
       .maybeSingle();
 
-    let list: any[] = currentSettings?.value?.list || [];
-    list = list.filter((d: any) => d.id !== id);
+    let list: DisciplineInput[] =
+      (currentSettings?.value as { list?: DisciplineInput[] } | null | undefined)?.list || [];
+    list = list.filter((d) => d.id !== id);
 
     await adminClient
       .from('site_settings')
@@ -114,7 +163,7 @@ export async function deleteDiscipline(id: string) {
 /**
  * Met à jour ou insère une infrastructure/zone du campus (site_campus_pois + miroir site_settings).
  */
-export async function upsertCampusPOI(poi: any) {
+export async function upsertCampusPOI(poi: CampusPoiInput) {
   try {
     const adminClient = createAdminClient();
 
@@ -160,8 +209,9 @@ export async function upsertCampusPOI(poi: any) {
       .eq('key', 'campus_pois')
       .maybeSingle();
 
-    const list: any[] = currentSettings?.value?.list || [];
-    const idx = list.findIndex((p: any) => p.id === poi.id);
+    const list: CampusPoiInput[] =
+      (currentSettings?.value as { list?: CampusPoiInput[] } | null | undefined)?.list || [];
+    const idx = list.findIndex((p) => p.id === poi.id);
     if (idx >= 0) {
       list[idx] = poi;
     } else {
@@ -209,8 +259,9 @@ export async function deleteCampusPOI(id: string) {
       .eq('key', 'campus_pois')
       .maybeSingle();
 
-    let list: any[] = currentSettings?.value?.list || [];
-    list = list.filter((p: any) => p.id !== id);
+    let list: CampusPoiInput[] =
+      (currentSettings?.value as { list?: CampusPoiInput[] } | null | undefined)?.list || [];
+    list = list.filter((p) => p.id !== id);
 
     await adminClient
       .from('site_settings')

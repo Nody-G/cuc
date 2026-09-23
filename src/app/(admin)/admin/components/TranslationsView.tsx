@@ -6,7 +6,7 @@ import { upsertSiteTranslation } from '@/app/(admin)/admin/actions';
 import { Globe, Save, RefreshCw, AlertTriangle } from 'lucide-react';
 
 interface TranslationsViewProps {
-    showToast?: (type: any, message: string) => void;
+    showToast?: (message: string) => void;
 }
 
 /**
@@ -33,7 +33,7 @@ export const TranslationsView: React.FC<TranslationsViewProps> = ({ showToast })
             );
             setJsonErrors({});
         } else {
-            showToast?.('error', `Chargement impossible : ${error}`);
+            showToast?.(`Chargement impossible : ${error}`);
         }
         setLoading(false);
     }, [showToast]);
@@ -52,7 +52,7 @@ export const TranslationsView: React.FC<TranslationsViewProps> = ({ showToast })
                 );
                 setJsonErrors({});
             } else {
-                showToast?.('error', `Chargement impossible : ${error}`);
+                showToast?.(`Chargement impossible : ${error}`);
             }
             setLoading(false);
         })();
@@ -73,11 +73,11 @@ export const TranslationsView: React.FC<TranslationsViewProps> = ({ showToast })
     };
 
     const save = async (row: TranslationRow) => {
-        let payload: Record<string, any>;
+        let payload: Record<string, unknown>;
         try {
             payload = JSON.parse(drafts[row.id] || '{}');
         } catch {
-            showToast?.('error', `JSON invalide pour ${row.entity}/${row.entity_id}`);
+            showToast?.(`JSON invalide pour ${row.entity}/${row.entity_id}`);
             return;
         }
 
@@ -92,11 +92,11 @@ export const TranslationsView: React.FC<TranslationsViewProps> = ({ showToast })
         setSavingId(null);
 
         if (res.success) {
-            showToast?.('success', `Traduction enregistrée : ${row.entity}/${row.entity_id}`);
+            showToast?.(`Traduction enregistrée : ${row.entity}/${row.entity_id}`);
             setLoading(true);
             await load();
         } else {
-            showToast?.('error', res.error || 'Erreur inconnue');
+            showToast?.(`Enregistrement impossible : ${res.error || 'Erreur inconnue'}`);
         }
     };
 

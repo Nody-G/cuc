@@ -10,6 +10,20 @@ import { revalidateSite } from './revalidate';
 import { logAuditEvent } from './audit';
 import { syncSessionsSeatCountsFromCucSign } from './sessions-sync';
 
+/** Candidature telle que lue (table `site_inquiries` ou miroir `site_settings`). */
+type InquiryRecord = {
+  id?: string;
+  full_name?: string;
+  name?: string;
+  email?: string;
+  phone?: string;
+  program_id?: string;
+  preferred_date?: string;
+  status?: string;
+  metadata?: Record<string, unknown>;
+  updated_at?: string;
+};
+
 /**
  * Convertit une candidature du site vitrine en compte élève complet dans CUC Sign (Passerelle 1-Clic).
  * Crée le profil utilisateur, la fiche élève (dossier médical/urgence) et rattache l'élève à la formation dans CUC Sign.
@@ -19,7 +33,7 @@ export async function convertInquiryToCucSignStudent(inquiryId: string) {
     const adminClient = createAdminClient();
 
     // 1. Récupération de la candidature
-    let inq: any = null;
+    let inq: InquiryRecord | null = null;
     try {
       const { data } = await adminClient
         .from('site_inquiries')
@@ -37,8 +51,9 @@ export async function convertInquiryToCucSignStudent(inquiryId: string) {
         .select('value')
         .eq('key', 'inquiries')
         .maybeSingle();
-      const inqs: any[] = settingRow?.value?.list || [];
-      inq = inqs.find((i: any) => i.id === inquiryId);
+      const inqs: InquiryRecord[] =
+        (settingRow?.value as { list?: InquiryRecord[] } | null | undefined)?.list || [];
+      inq = inqs.find((i) => i.id === inquiryId) ?? null;
     }
 
     if (!inq) {
@@ -108,7 +123,7 @@ export async function convertInquiryToCucSignStudent(inquiryId: string) {
       .select('id, program_id, cuc_sign_formation_id, date_display');
 
     if (sessions && sessions.length > 0) {
-      const matchedSession = sessions.find((s: any) => {
+      const matchedSession = sessions.find((s) => {
         if (s.cuc_sign_formation_id) {
           if (inq.preferred_date && s.date_display && s.date_display.toLowerCase().includes(inq.preferred_date.toLowerCase())) return true;
           if (inq.program_id && s.program_id === inq.program_id) return true;
@@ -180,8 +195,9 @@ export async function convertInquiryToCucSignStudent(inquiryId: string) {
         .eq('key', 'inquiries')
         .maybeSingle();
 
-      const inqs: any[] = settingRow?.value?.list || [];
-      const item = inqs.find((i: any) => i.id === inquiryId);
+      const inqs: InquiryRecord[] =
+        (settingRow?.value as { list?: InquiryRecord[] } | null | undefined)?.list || [];
+      const item = inqs.find((i) => i.id === inquiryId);
       if (item) {
         item.status = 'admis';
         item.metadata = updatedMetadata;

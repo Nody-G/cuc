@@ -16,7 +16,7 @@ import { CHROME_PAGE_PATHS } from './chrome-paths';
 /**
  * Met à jour les paramètres globaux (coordonnées, réseaux sociaux, footer).
  */
-export async function updateSiteSettings(key: string, value: Record<string, any>) {
+export async function updateSiteSettings(key: string, value: object) {
   try {
     const adminClient = createAdminClient();
     const { error } = await adminClient

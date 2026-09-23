@@ -8,6 +8,9 @@
 import { createAdminClient } from '@/lib/supabase/admin';
 import { SiteInquiry } from '@/lib/data/site-service';
 
+/** Entrée du miroir `site_settings.inquiries` (colonnes propres incluses). */
+type InquiryMirror = SiteInquiry & { admin_notes?: string };
+
 /**
  * Enregistre une nouvelle candidature ou demande de contact depuis le site vitrine.
  */
@@ -62,7 +65,8 @@ export async function submitInquiry(data: {
         .eq('key', 'inquiries')
         .maybeSingle();
 
-      const inqs: any[] = settingRow?.value?.list || [];
+      const inqs: InquiryMirror[] =
+        (settingRow?.value as { list?: InquiryMirror[] } | null | undefined)?.list || [];
       inqs.unshift(newInquiry);
 
       await adminClient.from('site_settings').upsert({
@@ -107,8 +111,9 @@ export async function updateInquiryStatus(id: string, status: 'nouveau' | 'en_co
         .eq('key', 'inquiries')
         .maybeSingle();
 
-      const inqs: any[] = settingRow?.value?.list || [];
-      const item = inqs.find((i: any) => i.id === id);
+      const inqs: InquiryMirror[] =
+        (settingRow?.value as { list?: InquiryMirror[] } | null | undefined)?.list || [];
+      const item = inqs.find((i) => i.id === id);
       if (item) {
         item.status = status;
         item.updated_at = new Date().toISOString();
@@ -154,8 +159,9 @@ export async function updateInquiryNotes(id: string, notes: string) {
         .eq('key', 'inquiries')
         .maybeSingle();
 
-      const inqs: any[] = settingRow?.value?.list || [];
-      const item = inqs.find((i: any) => i.id === id);
+      const inqs: InquiryMirror[] =
+        (settingRow?.value as { list?: InquiryMirror[] } | null | undefined)?.list || [];
+      const item = inqs.find((i) => i.id === id);
       if (item) {
         item.admin_notes = notes;
         item.updated_at = new Date().toISOString();
@@ -201,8 +207,9 @@ export async function deleteInquiry(id: string) {
         .eq('key', 'inquiries')
         .maybeSingle();
 
-      let inqs: any[] = settingRow?.value?.list || [];
-      inqs = inqs.filter((i: any) => i.id !== id);
+      let inqs: InquiryMirror[] =
+        (settingRow?.value as { list?: InquiryMirror[] } | null | undefined)?.list || [];
+      inqs = inqs.filter((i) => i.id !== id);
       await adminClient.from('site_settings').upsert({
         key: 'inquiries',
         value: { list: inqs },

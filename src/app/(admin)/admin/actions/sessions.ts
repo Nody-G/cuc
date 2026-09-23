@@ -18,7 +18,7 @@ export async function updateSessionStatus(
 ) {
   try {
     const adminClient = createAdminClient();
-    const updateData: Record<string, any> = {
+    const updateData: Record<string, unknown> = {
       status: newStatus,
       updated_at: new Date().toISOString(),
     };
