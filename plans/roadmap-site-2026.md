@@ -10,7 +10,8 @@ vérification attendue. Rien n'est « prévu » sans un endroit précis où le c
 | --- | --- |
 | Performance publique | pages prérendues (statiques/PPR), lectures `'use cache'` + tags, un seul WebSocket par visiteur — `npm run audit:budget` |
 | Édition en place | 15/15 pages couvertes, standards de saisie (typographie miroir, `Tab`, étiquette, repli visible) — `npm run audit:fields` + tests |
-| Textes | 560 libellés éditables, **0 texte codé en dur** — `npm run audit:microcopy` |
+| Textes | **306 textes annotés, 0 texte codé en dur** (14 valeurs dynamiques assumées : interpolations, index, données d'entités) — `npm run audit:microcopy` |
+| Entités éditables | annonces, coachs (rôle/titre/bio) et films (titre/année) modifiables en place sous **liste blanche serveur** (`updateEntityField`, contrôle d'existence) ; noms de coachs exclus (identité IMDb) — [`plan-preview-chrome-editable.md`](plans/plan-preview-chrome-editable.md:1) + tests |
 | Bilingue | fusion FR + overlay unique (`localized-merge`), invariants testés |
 | Panne de lecture | copie certifiée servie (jamais de page morte) |
 | Édition sans perte | filet local du brouillon + garde de concurrence à l'enregistrement |
