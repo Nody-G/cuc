@@ -204,6 +204,30 @@ for (const route of ROUTES_FR) {
 }
 
 console.log('');
+
+/**
+ * Un vert sans mesure est un faux contrôle : la première version de ce script
+ * annonçait « Aucune fuite » en ayant lu **zéro** page (serveur local éteint),
+ * ce qui laissait passer la vérification sans rien vérifier. Le contrôle échoue
+ * donc désormais explicitement si aucune page n'a pu être lue.
+ */
+if (checked === 0) {
+    console.error(
+        "❌ Aucune page n'a pu être lue — contrôle NON EFFECTUÉ, jamais un vert silencieux."
+    );
+    console.error(
+        '   Démarrez le serveur puis rejouez : `npm run build`, `npm run start`, `npm run i18n:verify:no-leak`.'
+    );
+    process.exit(1);
+}
+
+if (checked < ROUTES_FR.length) {
+    console.log(
+        `⚠️  ${ROUTES_FR.length - checked} page(s) non lue(s) — résultat partiel sur ${checked} page(s).`
+    );
+    console.log('');
+}
+
 if (leaks.length) {
     console.log(`❌ ${leaks.length} fuite(s) d'anglais sur ${checked} page(s) française(s) :`);
     for (const leak of leaks.slice(0, 20)) {

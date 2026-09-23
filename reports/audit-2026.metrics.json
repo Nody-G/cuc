@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-23T07:41:37.034Z",
+  "generatedAt": "2026-09-23T08:45:22.667Z",
   "git": {
-    "head": "612314e",
-    "date": "2026-09-23T09:40:32+02:00",
-    "changed": 1
+    "head": "38fc977",
+    "date": "2026-09-23T10:44:57+02:00",
+    "changed": 0
   },
   "globalScore": 97,
   "scores": {
@@ -15,8 +15,8 @@
     "Tests": 100
   },
   "code": {
-    "totalLines": 138714,
-    "totalFiles": 1139,
+    "totalLines": 139298,
+    "totalFiles": 1143,
     "zones": {
       "Cockpit (admin)": {
         "files": 315,
@@ -24,19 +24,19 @@
       },
       "Vitrine (pages)": {
         "files": 94,
-        "lines": 7412
+        "lines": 7490
       },
       "Composants UI": {
-        "files": 188,
-        "lines": 20731
+        "files": 189,
+        "lines": 20806
       },
       "i18n, données & types": {
         "files": 17,
         "lines": 5861
       },
       "Bibliothèques & données": {
-        "files": 155,
-        "lines": 15469
+        "files": 158,
+        "lines": 15897
       },
       "Autres": {
         "files": 1,
@@ -44,21 +44,21 @@
       },
       "Outillage (scripts)": {
         "files": 286,
-        "lines": 45414
+        "lines": 45419
       },
       "Documentation (plans)": {
         "files": 83,
-        "lines": 13066
+        "lines": 13064
       }
     },
     "byExt": {
       ".ts": {
-        "files": 363,
-        "lines": 40662
+        "files": 366,
+        "lines": 41068
       },
       ".tsx": {
-        "files": 400,
-        "lines": 38017
+        "files": 401,
+        "lines": 38192
       },
       ".css": {
         "files": 7,
@@ -70,7 +70,7 @@
       },
       ".mjs": {
         "files": 282,
-        "lines": 44949
+        "lines": 44954
       },
       ".js": {
         "files": 1,
@@ -78,7 +78,7 @@
       },
       ".md": {
         "files": 80,
-        "lines": 12349
+        "lines": 12347
       }
     },
     "largest": [
@@ -128,14 +128,14 @@
   },
   "tests": {
     "available": true,
-    "total": 385,
-    "passed": 385,
+    "total": 394,
+    "passed": 394,
     "failed": 0,
-    "testFiles": 52
+    "testFiles": 55
   },
   "i18n": {
-    "fr": 703,
-    "en": 703,
+    "fr": 717,
+    "en": 717,
     "missingInEn": 0
   },
   "realtime": {

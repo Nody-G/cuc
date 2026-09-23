@@ -12,7 +12,7 @@ vérification attendue. Rien n'est « prévu » sans un endroit précis où le c
 | Édition en place | 15/15 pages couvertes, standards de saisie (typographie miroir, `Tab`, étiquette, repli visible) — `npm run audit:fields` + tests |
 | Textes | **306 textes annotés, 0 texte codé en dur** (14 valeurs dynamiques assumées : interpolations, index, données d'entités) — `npm run audit:microcopy` |
 | Entités éditables | annonces, coachs (rôle/titre/bio) et films (titre/année) modifiables en place sous **liste blanche serveur** (`updateEntityField`, contrôle d'existence) ; noms de coachs exclus (identité IMDb) — [`plan-preview-chrome-editable.md`](plans/plan-preview-chrome-editable.md:1) + tests |
-| Bilingue | fusion FR + overlay unique (`localized-merge`), invariants testés |
+| Bilingue | fusion FR + overlay unique (`localized-merge`), invariants testés ; **miroir** vérifié sur les 15 pages françaises (`npm run i18n:verify:no-leak`, serveur local requis) — le contrôle échoue désormais explicitement s'il ne lit **0** page (il annonçait « aucune fuite » sans rien mesurer : faux vert corrigé le 2026-09-23) |
 | Panne de lecture | copie certifiée servie (jamais de page morte) |
 | Édition sans perte | filet local du brouillon + garde de concurrence à l'enregistrement |
 | Publication | sitemap, rendu, `robots: noindex`, aperçu — quatre points alignés |
