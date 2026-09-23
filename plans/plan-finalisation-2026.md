@@ -172,7 +172,7 @@ objectif : **0 nouveau** warning et réduction continue, suivie dans le rapport.
 | L3 — Budget poids JS par route | ✅ 2026-09-23 | `3092543` | 54 routes mesurées (gzip, HTML prérendus — Turbopack n'émet plus `app-build-manifest.json`) ; baseline committée ; contrôle négatif : −10 % de baseline → échec `+11,1 %` ; gate local (si build) + CI après build |
 | L4 — 404 des brouillons (voie A) | ✅ 2026-09-23 | `ca134dc` | `getPublicPageContent()` (404 réel ; mécanisme vérifié au runtime), aperçu `/[locale]/preview` (admin, 15 vrais écrans, `instant = false`), garde de statut au proxy, statuts ○/◐ conservés, +8 tests (379 au total) |
 | L5 — RLS `site_pages` | ✅ 2026-09-23 | `1405d07` + `5b7f565` | policy `is_published` **appliquée et vérifiée par sonde Postgres (rôle `anon`, ligne témoin, transaction annulée)** : avant 1 brouillon visible → après **0**, 15 publiées intactes ; applier durci — la vérification ne dépend plus de l'API Data ; sonde REST à rejouer au rétablissement |
-| L6 — Couverture EN | ⛔ bloqué par l'incident | — | `i18n:audit:completeness` interrompu : `402 exceed_storage_size_quota` — à relancer dès rétablissement |
+| L6 — Couverture EN | ✅ 2026-09-23 | `91b2c45` | **100 % (226/226)**, 0/15 page avec manques (rapport régénéré) ; au passage : coquille FR `hero.since` « DEPUIS 20008 » corrigée + overlay EN « SINCE 2008 » ; reste 28 composants à copie FR en dur (éditeurs 3D/admin/technique), chiffrés dans [`revue-traductions-manquantes.md`](plans/revue-traductions-manquantes.md:1) |
 | L7 — Dette lint `any` | ✅ 2026-09-23 | `9bf4aad` | **65 → 6 avertissements** (0 erreur) : `actions/**` 37, team-view 8, hooks 10, data 4, TraductionsView 2 ; module par module, typecheck + gate verts après chaque étape ; bonus : toasts de l'écran « Traductions EN » réparés (l'API racine du Cockpit est mono-argument — les messages s'affichaient « error »/« success » au lieu du texte) |
 | L8 — Roadmap P5 (décisions) | 📝 recommandation rendue | — | **Brouillons multiples : non** — le filet local + la garde de concurrence suffisent (aucune perte constatée). **`publish_at` : à rouvrir SI campagnes datées** — aucune aujourd'hui, ne pas ouvrir. **Défilement synchronisé multi-appareils : dernier** — confort, sans urgence. Aucun code ouvert sans besoin daté. |
 
@@ -192,6 +192,7 @@ to restore service."}
   certifiés (garde-fou prévu, jamais une page morte) ;
 - **Actions propriétaire** : plan/spend caps Supabase, puis purge du stockage
   (`npm run media:audit`, [`revue-mediatheque-storage.md`](plans/revue-mediatheque-storage.md:1)) ;
-- **Fait malgré l'incident** : la policy a été **appliquée le 2026-09-23** et vérifiée par
-  sonde Postgres (l'applier ne dépend plus de l'API).
-- **Ensuite** : rejouer la sonde REST et relancer le lot 6 dès le rétablissement de l'API Data.
+- **Débloqué** : Supabase mis à jour le 2026-09-23 → API restaurée. La policy avait été
+  **appliquée le matin même** (sonde Postgres) puis **confirmée par la sonde REST** l'après-midi
+  (0 brouillon / 15 publiées).
+- **Lot 6 exécuté** dans la foulée : couverture EN **100 %**.

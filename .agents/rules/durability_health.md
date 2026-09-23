@@ -18,9 +18,10 @@
    `getPagePublicationState`, aperçu `getPreviewPageContent`). Vérification reproductible
    **sans dépendre de l'API** : sonde Postgres qui endosse le rôle `anon` avec une ligne
    brouillon témoin dans une transaction annulée (`npm run db:migrate:site-pages-rls[:write]`).
-   À noter : au 2026-09-23, l'API Data du projet répond **402 `exceed_storage_size_quota`**
-   (quota d'organisation dépassé) — la vitrine sert ses replis certifiés par design ;
-   action propriétaire : plan/spend caps + purge du stockage (`npm run media:audit`).
+   **Incident quota (2026-09-23)** : dépassement du quota de stockage de l'organisation →
+   API Data coupée (402) pendant quelques heures, résolu par mise à jour du plan Supabase ;
+   surveiller les quotas en amont. Le stockage média de ce projet pèse **218 Mo** — premier
+   gisement : 3 vidéos de reportages (~127 Mo), à compresser ou migrer (`npm run media:audit`).
 4. **Une seule source de vérité par sujet** : métadonnées → `buildRouteMetadata()`
    (`src/lib/i18n/route-metadata.ts`), fusion bilingue → `src/lib/i18n/localized-merge.ts`,
    libellés → `src/lib/i18n/microcopy.ts`, champs éditables → `src/lib/preview/cuc-field.ts`.

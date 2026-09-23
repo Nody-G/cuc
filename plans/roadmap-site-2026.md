@@ -57,9 +57,11 @@ Détail et preuves : [`revue-rls-site-pages.md`](plans/revue-rls-site-pages.md:1
    balisage inventé.
 2. **Partage social** : les images OG par route existent ; vérifier la couverture OG sur les
    fiches coach (les pages les plus partagées).
-3. **Contenu** : la dette éditoriale est à zéro côté libellés ; le prochain gain est la
-   **couverture EN** des pages (`audit_i18n_completeness.mjs`) — publier l'anglais au même
-   niveau que le français.
+3. **Contenu — ✅ mesuré et complété (2026-09-23)** : couverture EN **100 % (226/226)** ;
+   au passage, la coquille FR « DEPUIS 20008 » (`hero.since`, accueil) et son équivalent EN
+   « SINCE 2008 » ont été corrigés. Restent **28 composants** avec copie FR en dur —
+   majoritairement éditeurs 3D/admin et cas techniques (OG, erreur globale) : lot éditorial à
+   ouvrir seulement si besoin ([`revue-traductions-manquantes.md`](plans/revue-traductions-manquantes.md:1)).
 
 ## Priorité 5 — outillage éditorial (confort, pas urgence)
 
