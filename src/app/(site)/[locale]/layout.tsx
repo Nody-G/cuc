@@ -55,11 +55,13 @@ export const metadata: Metadata = {
         locale: 'fr_FR',
         type: 'website',
     },
+    // Twitter/X : seul le format de carte est déclaré ici — titre, description et
+    // image sont volontairement ABSENTS. Next les recopie depuis `openGraph`
+    // (`postProcessMetadata` → autoFillProps), qui est localisé par route
+    // (`buildRouteMetadata` + `opengraph-image.tsx`). Les redéclarer ici figeait
+    // une copie française **et** l'image générique sur toutes les pages `/en/…`.
     twitter: {
         card: 'summary_large_image',
-        title: 'CAMPUS UNIVERS CASCADES • Stunt Academy & Team',
-        description: 'Plus grand centre de formation professionnelle de cascadeurs de cinéma au monde.',
-        images: [DEFAULT_OG_IMAGE.url],
     },
     // Les icônes viennent des conventions de fichiers de `src/app/` : `icon.tsx`
     // (monogramme jaune, lisible à 16 px) et `apple-icon.png`. Les redéclarer ici

@@ -76,12 +76,20 @@ Détail et preuves : [`revue-rls-site-pages.md`](plans/revue-rls-site-pages.md:1
    4 routes sondées sur le serveur de production local → 4/4 servent un PNG FR **et** un PNG EN
    distincts (200, `image/png`).
 
-   *Constats de la même sonde (à traiter hors code)* :
+   **Twitter/X aligné (même jour)** : le layout `[locale]` déclarait son propre bloc `twitter`
+   (titre, description et image génériques) — les pages `/en/…` affichaient donc une copie
+   française **et** l'image Supabase au lieu de la carte de route. Le mécanisme est vérifié dans
+   le code de Next (`postProcessMetadata`) : quand `twitter.title`/`description`/`images` ne sont
+   pas déclarés, Next les recopie depuis `openGraph`, lui-même localisé par route. Le layout ne
+   déclare donc plus que le format de carte ; garde-fou
+   [`social-metadata.test.ts`](src/lib/social-metadata.test.ts:1). **Preuve runtime** : sur
+   formation et partenaires, en FR et EN, `twitter:image` = la carte de route et les titres X sont
+   localisés — 16/16 contrôles verts.
+
+   *Constat de la même sonde (à traiter hors code)* :
    - `www.campus-universcascades.com` sert encore **l'ancien WordPress** (`wp-content`, WP Rocket) :
      toutes les URLs absolues (og:image, canonical, sitemap) ne seront exactes qu'après la bascule
-     DNS vers le déploiement Next ;
-   - `twitter:image` reste l'image générique Supabase (`slider-8-scaled.jpg`) — l'image par défaut
-     masque la carte de route côté Twitter/X ; à arbitrer (la carte de route est déjà bilingue).
+     DNS vers le déploiement Next.
 3. **Contenu — ✅ mesuré et complété (2026-09-23)** : couverture EN **100 % (226/226)** ;
    au passage, la coquille FR « DEPUIS 20008 » (`hero.since`, accueil) et son équivalent EN
    « SINCE 2008 » ont été corrigés. Restent **28 composants** avec copie FR en dur —
