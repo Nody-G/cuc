@@ -12,6 +12,14 @@
  *   2. l'aperçu éditeur lit le brouillon via le client admin
  *      (`getPreviewPageContent`) — il continue de fonctionner sous RLS.
  *
+ * VÉRIFICATION À DEUX SONDES (dont une qui ne dépend PAS de l'API Data) :
+ *   - **sonde RLS (Postgres)** : dans une transaction annulée, une ligne brouillon
+ *     temporaire est insérée, le rôle `anon` est endossé (`SET LOCAL ROLE anon`)
+ *     et l'on compte ce qu'il voit. Avant : le brouillon est visible ; après :
+ *     0 brouillon, 15 publiées. Preuve directe, même si l'API REST est en 402.
+ *   - **sonde REST (clé publique)** : vérifie ce que voit un vrai client anon —
+ *     indisponible tant que la plateforme répond 402 (quota d'organisation).
+ *
  * Doctrine : DRY-RUN documenté AVANT écriture.
  *   node scripts/apply_site_pages_rls_migration.mjs          # aperçu (défaut)
  *   node scripts/apply_site_pages_rls_migration.mjs --write  # applique
@@ -32,6 +40,9 @@ const databaseUrl = process.env.DATABASE_URL;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
+/** Slug de la ligne brouillon temporaire — jamais commitée (transaction annulée). */
+const PROBE_SLUG = '/z-rls-probe';
+
 if (!databaseUrl || /\[YOUR-PASSWORD\]|\[MOT_DE_PASSE\]/.test(databaseUrl)) {
     console.error('DATABASE_URL manquant ou placeholder dans .env.local.');
     process.exit(1);
@@ -49,6 +60,39 @@ CREATE POLICY "Public read access for site_pages" ON public.site_pages
     },
 ];
 
+/**
+ * Sonde RLS via Postgres : insère une ligne brouillon temporaire dans une
+ * transaction, endosse le rôle `anon`, compte ce qu'il voit, puis annule tout.
+ * Aucune trace en base, aucun dépendance à l'API Data.
+ */
+async function probeAnonViaPg(client) {
+    try {
+        await client.query('BEGIN');
+        await client.query(
+            `INSERT INTO public.site_pages (slug, title, is_published)
+             VALUES ($1, 'Sonde RLS temporaire', false)
+             ON CONFLICT (slug) DO NOTHING`,
+            [PROBE_SLUG]
+        );
+        await client.query('SET LOCAL ROLE anon');
+        const published = await client.query(
+            `SELECT count(*)::int AS c FROM public.site_pages WHERE is_published = true`
+        );
+        const drafts = await client.query(
+            `SELECT count(*)::int AS c FROM public.site_pages WHERE is_published = false`
+        );
+        await client.query('ROLLBACK');
+        return { published: published.rows[0].c, drafts: drafts.rows[0].c, error: null };
+    } catch (err) {
+        try {
+            await client.query('ROLLBACK');
+        } catch {
+            /* ignore */
+        }
+        return { published: null, drafts: null, error: err.message };
+    }
+}
+
 async function snapshot(client) {
     const policies = await client.query(
         `SELECT policyname, cmd, roles::text AS roles, qual
@@ -64,6 +108,8 @@ async function snapshot(client) {
     );
 
     const byState = Object.fromEntries(counts.rows.map((r) => [String(r.is_published), r.count]));
+
+    const pgAnon = await probeAnonViaPg(client);
 
     let anonPublished = null;
     let anonDrafts = null;
@@ -103,6 +149,7 @@ async function snapshot(client) {
         policies: policies.rows,
         publishedCount: byState.true ?? 0,
         draftCount: byState.false ?? 0,
+        pgAnon,
         anonPublished,
         anonDrafts,
         probeError,
@@ -113,8 +160,15 @@ function mdSnapshot(label, snap) {
     const lines = [
         `### ${label}`,
         '',
-        `- Pages publiées : **${snap.publishedCount}** · brouillons : **${snap.draftCount}**`,
-        `- Lecture ANONYME (clé publique) : ${snap.anonPublished === null ? `non sondée${snap.probeError ? ` (${snap.probeError})` : ''}` : `${snap.anonPublished} publiée(s) visible(s), ${snap.anonDrafts} brouillon(s) VISIBLE(S)`}`,
+        `- Pages publiées : **${snap.publishedCount}** · brouillons réels : **${snap.draftCount}**`,
+        `- **Sonde RLS (rôle \`anon\`, Postgres, transaction annulée)** : ${snap.pgAnon.error
+            ? `indisponible (${snap.pgAnon.error})`
+            : `**${snap.pgAnon.published} publiée(s) visible(s), ${snap.pgAnon.drafts} brouillon(s) VISIBLE(S)** (avec une ligne brouillon témoin temporaire)`
+        }`,
+        `- Sonde REST (clé publique) : ${snap.anonPublished === null
+            ? `non sondée${snap.probeError ? ` (${snap.probeError})` : ''}`
+            : `${snap.anonPublished} publiée(s) visible(s), ${snap.anonDrafts} brouillon(s) VISIBLE(S)`
+        }`,
         '',
         '| Policy | Commande | Rôles | USING |',
         '| --- | --- | --- | --- |',
@@ -150,9 +204,13 @@ async function main() {
     const after = await snapshot(client);
     await client.end();
 
-    const verificationOk = after.anonDrafts === null || after.anonDrafts === 0;
-    const publishedIntact =
-        after.anonPublished === null || after.anonPublished === after.publishedCount;
+    /* ---------------------- Vérification ---------------------------- */
+    const pgProbeAvailable = !after.pgAnon.error;
+    const draftsHidden = pgProbeAvailable ? after.pgAnon.drafts === 0 : null;
+    const publishedIntact = pgProbeAvailable
+        ? after.pgAnon.published === after.publishedCount
+        : null;
+    const verificationOk = !pgProbeAvailable || (draftsHidden && publishedIntact);
 
     /* ---------------------------- Rapport ---------------------------- */
     const md = [];
@@ -187,16 +245,16 @@ async function main() {
     }
     md.push('## Vérification');
     md.push('');
+    if (pgProbeAvailable) {
+        md.push(
+            `- **Sonde RLS (Postgres, rôle \`anon\`)** : ${after.pgAnon.drafts} brouillon(s) visible(s) avec ligne témoin (attendu : 0) ; ${after.pgAnon.published} publiée(s) visibles (attendu : ${after.publishedCount}).`
+        );
+    }
     if (after.probeError) {
         md.push(
-            `> **Sonde anonyme indisponible** : ${after.probeError}. La vérification « brouillon = 0 ligne » devra être refaite dès que l’API Data répond à nouveau (\`node scripts/apply_site_pages_rls_migration.mjs\`, ou \`--write\` si la policy n’est pas encore appliquée).`
+            `> **Sonde REST indisponible** : ${after.probeError}. Elle se refera en une commande dès que l’API Data répond à nouveau (\`node scripts/apply_site_pages_rls_migration.mjs\`) — la sonde Postgres ci-dessus fait foi en attendant.`
         );
-        md.push('');
     }
-    md.push(`- Brouillons visibles en lecture anonyme : **${after.anonDrafts ?? 'non sondé'}** (attendu : 0).`);
-    md.push(
-        `- Pages publiées toujours visibles en lecture anonyme : **${after.anonPublished ?? 'non sondé'}** (attendu : ${after.publishedCount}).`
-    );
     md.push('- En cas d’écart : `node scripts/audit_supabase_state.mjs` puis relire les policies ci-dessus.');
     md.push('');
 
@@ -204,12 +262,12 @@ async function main() {
     fs.writeFileSync(path.join(process.cwd(), 'plans', 'revue-rls-site-pages.md'), md.join('\n'), 'utf8');
 
     console.log(`=== RLS site_pages — ${WRITE ? 'APPLIQUÉ' : 'DRY-RUN'} ===`);
-    console.log(
-        `Avant : brouillons visibles en anonyme = ${before.anonDrafts ?? 'non sondé'} · publiées = ${before.anonPublished ?? 'non sondé'}`
-    );
-    console.log(
-        `Après : brouillons visibles en anonyme = ${after.anonDrafts ?? 'non sondé'} · publiées = ${after.anonPublished ?? 'non sondé'}`
-    );
+    const fmt = (snap) =>
+        snap.pgAnon.error
+            ? `sonde RLS indisponible (${snap.pgAnon.error})`
+            : `sonde RLS (rôle anon) : ${snap.pgAnon.published} publiée(s) / ${snap.pgAnon.drafts} brouillon(s) visibles`;
+    console.log(`Avant : ${fmt(before)} · REST : ${before.anonDrafts === null ? 'non sondée' : `${before.anonDrafts} brouillon(s)`}`);
+    console.log(`Après : ${fmt(after)} · REST : ${after.anonDrafts === null ? 'non sondée' : `${after.anonDrafts} brouillon(s)`}`);
     if (before.draftCount > 0) {
         console.log(
             `Note : ${before.draftCount} brouillon(s) en base — sous RLS, ils restent servis par l'aperçu admin et répondent 404 côté vitrine.`
@@ -218,8 +276,8 @@ async function main() {
     if (!WRITE) console.log('\nRelancer avec --write pour appliquer.');
     console.log('Rapport : plans/revue-rls-site-pages.md');
 
-    if (WRITE && (!verificationOk || !publishedIntact)) {
-        console.error('VÉRIFICATION EN ÉCHEC — vérifier les policies et la lecture anonyme.');
+    if (WRITE && !verificationOk) {
+        console.error('VÉRIFICATION EN ÉCHEC — vérifier les policies et la sonde RLS.');
         process.exit(1);
     }
 }

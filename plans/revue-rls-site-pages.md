@@ -1,7 +1,7 @@
 # Revue — RLS `site_pages` (lecture publique = publié seulement)
 
-**Mode :** DRY-RUN (aucune écriture)
-**Généré le :** 2026-09-23T06:01:47.494Z
+**Mode :** APPLIQUÉ (--write)
+**Généré le :** 2026-09-23T06:36:43.193Z
 
 ## Motif
 
@@ -15,8 +15,9 @@ La policy publique `FOR SELECT USING (true)` laissait tout client anonyme lire u
 
 ### AVANT
 
-- Pages publiées : **15** · brouillons : **0**
-- Lecture ANONYME (clé publique) : non sondée (HTTP 402 Payment Required)
+- Pages publiées : **15** · brouillons réels : **0**
+- **Sonde RLS (rôle `anon`, Postgres, transaction annulée)** : **15 publiée(s) visible(s), 1 brouillon(s) VISIBLE(S)** (avec une ligne brouillon témoin temporaire)
+- Sonde REST (clé publique) : non sondée (HTTP 402 Payment Required)
 
 | Policy | Commande | Rôles | USING |
 | --- | --- | --- | --- |
@@ -27,20 +28,23 @@ La policy publique `FOR SELECT USING (true)` laissait tout client anonyme lire u
 
 ### APRÈS
 
-- Pages publiées : **15** · brouillons : **0**
-- Lecture ANONYME (clé publique) : non sondée (HTTP 402 Payment Required)
+- Pages publiées : **15** · brouillons réels : **0**
+- **Sonde RLS (rôle `anon`, Postgres, transaction annulée)** : **15 publiée(s) visible(s), 0 brouillon(s) VISIBLE(S)** (avec une ligne brouillon témoin temporaire)
+- Sonde REST (clé publique) : non sondée (HTTP 402 Payment Required)
 
 | Policy | Commande | Rôles | USING |
 | --- | --- | --- | --- |
 | Admin write access for site_pages | ALL | {public} | `(EXISTS ( SELECT 1
    FROM profiles
   WHERE ((profiles.id = auth.uid()) AND (profiles.role = ANY (ARRAY['admin'::text, 'directeur'::text, 'secretaire'::text])))))` |
-| Public read access for site_pages | SELECT | {public} | `true` |
+| Public read access for site_pages | SELECT | {anon,authenticated} | `(is_published = true)` |
+
+### Exécution
+
+- `site-pages-public-select-published` : ✔
 
 ## Vérification
 
-> **Sonde anonyme indisponible** : HTTP 402 Payment Required. La vérification « brouillon = 0 ligne » devra être refaite dès que l’API Data répond à nouveau (`node scripts/apply_site_pages_rls_migration.mjs`, ou `--write` si la policy n’est pas encore appliquée).
-
-- Brouillons visibles en lecture anonyme : **non sondé** (attendu : 0).
-- Pages publiées toujours visibles en lecture anonyme : **non sondé** (attendu : 15).
+- **Sonde RLS (Postgres, rôle `anon`)** : 0 brouillon(s) visible(s) avec ligne témoin (attendu : 0) ; 15 publiée(s) visibles (attendu : 15).
+> **Sonde REST indisponible** : HTTP 402 Payment Required. Elle se refera en une commande dès que l’API Data répond à nouveau (`node scripts/apply_site_pages_rls_migration.mjs`) — la sonde Postgres ci-dessus fait foi en attendant.
 - En cas d’écart : `node scripts/audit_supabase_state.mjs` puis relire les policies ci-dessus.
