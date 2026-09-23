@@ -161,3 +161,13 @@ objectif : **0 nouveau** warning et réduction continue, suivie dans le rapport.
 | Baseline de poids qui vieillit | commande de régénération + revue à chaque montée de dépendances |
 | RLS appliquée trop tôt | ordre lot 4 → lot 5, dry-run obligatoire |
 | Dette lint infinie | plafond par module, jamais de mélange avec un lot fonctionnel |
+
+## Suivi d'exécution
+
+| Lot | État | Commit | Preuve |
+| --- | --- | --- | --- |
+| L0 — Feuille de route rafraîchie | ✅ 2026-09-23 | `02a7a50` | chiffres réels (306 annotés · 0 codé en dur), ligne « entités éditables » |
+| L1 — OG des fiches coachs | ✅ 2026-09-23 | `b6668a2` | build : `ƒ /[locale]/equipe-cascadeurs-pro/[slug]/opengraph-image-1je4j1` ; 5 tests ; `openGraph.images` config retiré (il masquait l'image fichier — règle vérifiée dans le code de Next) |
+| L2 — Accessibilité mesurée (axe) | ✅ 2026-09-23 | `794b729` | 4 tests sur 3 surfaces, 0 violation `serious`/`critical` ; détecteur validé par contrôle négatif (`image-alt` bloquant détecté) ; `color-contrast` documenté hors jsdom |
+| L3 — Budget poids JS par route | ✅ 2026-09-23 | `3092543` | 54 routes mesurées (gzip, HTML prérendus — Turbopack n'émet plus `app-build-manifest.json`) ; baseline committée ; contrôle négatif : −10 % de baseline → échec `+11,1 %` ; gate local (si build) + CI après build |
+| L4 — 404 des brouillons | ⏳ à lancer | — | pilote accueil + formation, capture ○/◐ avant/après, `/preview/[slug]` gardé admin |
