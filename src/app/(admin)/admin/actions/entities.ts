@@ -17,14 +17,12 @@ import { checkIsAdmin } from './auth';
 import { revalidateSite } from './revalidate';
 import { logAuditEvent } from './audit';
 import { parseEntityRef } from '@/lib/preview/entity-ref';
+import { CHROME_PAGE_PATHS } from './chrome-paths';
 
 /** Table → champs autorisés. Ajouter une entité = une ligne ici, rien d'autre. */
 const EDITABLE_ENTITIES: Readonly<Record<string, readonly string[]>> = {
     site_announcements: ['title', 'message', 'badge', 'link_text'],
 };
-
-/** Pages où une entité de la liste blanche est rendue : republication ciblée. */
-const ENTITY_PAGE_PATHS = ['/', '/contact-cuc'];
 
 /**
  * Met à jour **un seul champ** d'une entité éditable (bannière d'annonce).
@@ -57,7 +55,8 @@ export async function updateEntityField(ref: string, value: string) {
             .eq('id', parts.id);
         if (error) throw error;
 
-        await revalidateSite(ENTITY_PAGE_PATHS);
+        // La bannière est rendue par la navbar : les 15 pages vitrine, FR et EN.
+        await revalidateSite(CHROME_PAGE_PATHS);
         await logAuditEvent('entity.field', ref, 'modifié dans l’aperçu');
 
         return { success: true as const };

@@ -11,23 +11,7 @@ import { checkIsAdmin } from './auth';
 import { revalidateSite } from './revalidate';
 import { logAuditEvent } from './audit';
 
-/** Pages vitrine où le chrome (navbar, pied de page) est rendu, FR et EN. */
-const CHROME_PAGE_PATHS = [
-  '/',
-  '/formation-de-cascadeur',
-  '/stages-cascades-parkour-2',
-  '/equipe-cascadeurs-pro',
-  '/cuc-team-cascadeur',
-  '/partenaires',
-  '/team-building-cascades',
-  '/animations-airbag-parkour',
-  '/spectacles-cascadeurs-yamakasi',
-  '/stunt-workshop-cuc',
-  '/videos-cascadeur',
-  '/visite-guidee',
-  '/visite-virtuelle',
-  '/contact-cuc',
-];
+import { CHROME_PAGE_PATHS } from './chrome-paths';
 
 /**
  * Met à jour les paramètres globaux (coordonnées, réseaux sociaux, footer).
