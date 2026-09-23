@@ -752,6 +752,18 @@
         "reelsWatchOnInsta": "Watch on Instagram",
         "reelsPrev": "Previous Reel",
         "reelsNext": "Next Reel",
+        "reelsExploreMore": "Explore full Instagram video library",
+        "reelsHideExplorer": "Hide extended video library",
+        "reelsExplorerTitle": "All Instagram Videos",
+        "reelsExplorerSubtitle": "Sort and filter all official vertical reels from Campus Univers Cascades",
+        "reelsSortByViews": "Most viewed",
+        "reelsSortByDateDesc": "Newest first",
+        "reelsSortByDateAsc": "Oldest first",
+        "reelsFilterAll": "All",
+        "reelsFilterMecanique": "Vehicle Stunts",
+        "reelsFilterCombat": "Fight Stunts",
+        "reelsFilterSpectacle": "Stage & Shows",
+        "reelsFilterCampus": "Campus Life",
         "reelsItems": [
             {
                 "title": "Another windshield down... 🤭",

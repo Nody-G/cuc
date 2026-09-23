@@ -1,45 +1,67 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
-import { Play, ExternalLink } from 'lucide-react';
+import { Play, ExternalLink, Eye, Sparkles, ChevronDown } from 'lucide-react';
 import { InstagramLogo } from '@/components/ui/logos/SocialLogos';
-import type { InstagramReel } from './instagram-reels.data';
+import {
+    ALL_INSTAGRAM_REELS,
+    type InstagramReel,
+} from './instagram-reels.data';
+import { VideosReelsExplorer } from './VideosReelsExplorer';
 
 export interface VideosReelsSectionProps {
     reels: InstagramReel[];
+    allReels?: InstagramReel[];
+    columns?: number;
     onSelectReel: (reel: InstagramReel) => void;
     labels: {
         title: string;
         intro: string;
         play: string;
         socialInstagram: string;
+        exploreMore?: string;
+        hideExplorer?: string;
+        explorerTitle?: string;
+        explorerSubtitle?: string;
+        sortByViews?: string;
+        sortByDateDesc?: string;
+        sortByDateAsc?: string;
+        filterAll?: string;
+        filterMecanique?: string;
+        filterCombat?: string;
+        filterSpectacle?: string;
+        filterCampus?: string;
     };
 }
 
 /**
  * Section des vidéos & Reels verticaux officiels du CUC.
- * Présentation cinématique 9:16 épurée — strictement aucun badge sur les vidéos.
- * Propose une disposition dynamique allant jusqu'à 6 colonnes sur grand écran.
+ * Présentation cinématique 9:16 — choix dynamique de 2 à 6 colonnes,
+ * affichage du nombre de vues et explorateur étendu triable.
  */
 export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
     reels,
+    allReels = ALL_INSTAGRAM_REELS,
+    columns,
     onSelectReel,
     labels,
 }) => {
+    const [isExplorerOpen, setIsExplorerOpen] = React.useState(false);
+
     if (!reels || reels.length === 0) {
         return null;
     }
 
-    const count = reels.length;
+    const targetCols = columns ? Math.min(Math.max(columns, 2), 6) : Math.min(Math.max(reels.length, 2), 6);
     const gridClassName =
-        count === 1
-            ? 'max-w-sm sm:max-w-md mx-auto'
-            : count === 2
-            ? 'max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6'
-            : count === 3
+        targetCols === 2
+            ? 'max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6'
+            : targetCols === 3
             ? 'max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6'
-            : count === 4
+            : targetCols === 4
             ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5'
-            : count === 5
+            : targetCols === 5
             ? 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4'
             : 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4';
 
@@ -74,7 +96,7 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                     </a>
                 </div>
 
-                {/* Grille adaptative jusqu'à 6 colonnes — aucun badge */}
+                {/* Grille principale configurée (2 à 6 colonnes) */}
                 <div className={gridClassName}>
                     {reels.map((reel) => {
                         const hasDescription = !!(reel.description && reel.description.trim().length > 0);
@@ -102,14 +124,22 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                                 {/* Dégradé cinématique sombre */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none" />
 
-                                {/* Bouton Play central moderne avec halo */}
+                                {/* Nombre de vues épuré en haut à droite */}
+                                {reel.viewsFormatted && (
+                                    <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono-tech text-white">
+                                        <Eye className="w-3 h-3 text-[#FFE500]" />
+                                        <span>{reel.viewsFormatted}</span>
+                                    </div>
+                                )}
+
+                                {/* Bouton Play central avec halo */}
                                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-black/60 backdrop-blur-md border border-white/20 group-hover:border-[#FFE500] group-hover:scale-110 flex items-center justify-center transition-all duration-300 text-white group-hover:text-[#FFE500] shadow-[0_0_25px_rgba(0,0,0,0.8)]">
                                         <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-current translate-x-0.5" />
                                     </div>
                                 </div>
 
-                                {/* Métadonnées réelles — Zéro badge, description réelle uniquement */}
+                                {/* Métadonnées */}
                                 <div className="relative z-10 p-4 sm:p-5">
                                     <h3 className="text-sm sm:text-base font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors mb-1 line-clamp-2">
                                         {reel.title}
@@ -124,6 +154,49 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                         );
                     })}
                 </div>
+
+                {/* Bouton pour explorer toute la vidéothèque Instagram */}
+                <div className="mt-12 text-center">
+                    <button
+                        type="button"
+                        onClick={() => setIsExplorerOpen((prev) => !prev)}
+                        className="inline-flex items-center gap-2.5 px-6 py-3.5 border border-zinc-700 hover:border-[#FFE500] bg-[#0e0e14] hover:bg-[#14141c] text-xs font-mono-tech uppercase text-zinc-200 hover:text-white rounded-xl shadow-lg transition-all duration-200 group cursor-pointer"
+                    >
+                        <Sparkles className="w-4 h-4 text-[#FFE500] group-hover:rotate-12 transition-transform" />
+                        <span>
+                            {isExplorerOpen
+                                ? (labels.hideExplorer || 'Masquer la vidéothèque étendue')
+                                : (labels.exploreMore || `Explorer toute la vidéothèque Instagram (${allReels.length} vidéos)`)}
+                        </span>
+                        <ChevronDown
+                            className={`w-4 h-4 text-[#FFE500] transition-transform duration-300 ${
+                                isExplorerOpen ? 'rotate-180' : ''
+                            }`}
+                        />
+                    </button>
+                </div>
+
+                {/* Explorateur étendu interactif (Tri & Filtres) */}
+                {isExplorerOpen && (
+                    <VideosReelsExplorer
+                        allReels={allReels}
+                        onSelectReel={onSelectReel}
+                        labels={{
+                            title: labels.explorerTitle || 'Toutes les vidéos Instagram',
+                            subtitle:
+                                labels.explorerSubtitle ||
+                                'Triez et filtrez l’ensemble des Reels officiels du Campus Univers Cascades',
+                            sortByViews: labels.sortByViews || 'Nombre de vues',
+                            sortByDateDesc: labels.sortByDateDesc || 'Plus récentes',
+                            sortByDateAsc: labels.sortByDateAsc || 'Plus anciennes',
+                            filterAll: labels.filterAll || 'Toutes',
+                            filterMecanique: labels.filterMecanique || 'Cascades mécaniques',
+                            filterCombat: labels.filterCombat || 'Combats scéniques',
+                            filterSpectacle: labels.filterSpectacle || 'Spectacles & Scène',
+                            filterCampus: labels.filterCampus || 'Vie du campus',
+                        }}
+                    />
+                )}
             </div>
         </section>
     );

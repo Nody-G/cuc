@@ -531,6 +531,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       reels: {
         title: "SESSIONS D'ACTION EN FORMAT COURT",
         intro: "Vivez l'action au plus près avec les formats verticaux officiels du Campus Univers Cascades.",
+        columns: 6,
         items: [
           {
             id: 'reel-1',
@@ -539,6 +540,10 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
             title: 'Encore un pare-brise... 🤭',
             description: 'Encore un pare-brise... 🤭👌 Impact, trajectoire et réception sur pare-brise par les cascadeurs du Campus Univers Cascades.',
             coverImage: '/images/reels/DdEoOcyM-We.jpg',
+            views: 2200000,
+            viewsFormatted: '2,2 M',
+            date: '2024-03-12',
+            category: 'mecanique',
           },
           {
             id: 'reel-2',
@@ -547,6 +552,10 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
             title: 'Concert de PLK au Stade de France',
             description: 'Concert de PLK au Stade de France 🔥 Expérience de folie avec l’équipe de cascadeurs et performers CUC.',
             coverImage: '/images/reels/Dc80NYLMv1Y.jpg',
+            views: 196000,
+            viewsFormatted: '196 k',
+            date: '2024-03-18',
+            category: 'spectacle',
           },
           {
             id: 'reel-3',
@@ -555,6 +564,10 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
             title: 'Piñata Party 😅',
             description: 'Piñata Party au campus 😅🥳 Vie du domaine, esprit d’équipe et bonne humeur entre deux entraînements intensifs.',
             coverImage: '/images/reels/Dcqh0VisRnc.jpg',
+            views: 142000,
+            viewsFormatted: '142 k',
+            date: '2024-03-24',
+            category: 'campus',
           },
           {
             id: 'reel-4',
@@ -563,6 +576,10 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
             title: 'Just Training 🤝',
             description: 'Just training 🤝😅 Répétitions chorégraphiques de combat scénique et coordination des axes caméra.',
             coverImage: '/images/reels/DcjNkFxMRm9.jpg',
+            views: 121000,
+            viewsFormatted: '121 k',
+            date: '2024-03-05',
+            category: 'combat',
           },
           {
             id: 'reel-5',
@@ -571,6 +588,10 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
             title: 'Moto 1 - Voiture 0 🤭',
             description: 'Moto 1 - Voiture 0 🤭👌 Cascade d’action mécanique et impact percutant tourné sur les pistes du campus.',
             coverImage: '/images/reels/DbLJg18Mt7d.jpg',
+            views: 118000,
+            viewsFormatted: '118 k',
+            date: '2024-02-14',
+            category: 'mecanique',
           },
           {
             id: 'reel-6',
@@ -579,6 +600,10 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
             title: 'Team CUC — Fight Training ✌️',
             description: 'Just training ✌️ Session d’entraînement physique et combat au contact avec les membres de la CUC Team.',
             coverImage: '/images/reels/DZNOYRBsuwv.jpg',
+            views: 117000,
+            viewsFormatted: '117 k',
+            date: '2024-01-20',
+            category: 'combat',
           },
         ],
       },

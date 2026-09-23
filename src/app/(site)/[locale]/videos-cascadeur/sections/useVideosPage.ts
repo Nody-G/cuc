@@ -12,7 +12,7 @@ import {
     type VideoCopy,
     type VideosProgram,
 } from './videos-copy';
-import { INSTAGRAM_REELS, type InstagramReel } from './instagram-reels.data';
+import { INSTAGRAM_REELS, ALL_INSTAGRAM_REELS, type InstagramReel } from './instagram-reels.data';
 
 export interface VideosHeroCopy {
     badge: string;
@@ -42,6 +42,18 @@ export interface VideosLabels {
     reelsWatchOnInsta: string;
     reelsPrev: string;
     reelsNext: string;
+    reelsExploreMore: string;
+    reelsHideExplorer: string;
+    reelsExplorerTitle: string;
+    reelsExplorerSubtitle: string;
+    reelsSortByViews: string;
+    reelsSortByDateDesc: string;
+    reelsSortByDateAsc: string;
+    reelsFilterAll: string;
+    reelsFilterMecanique: string;
+    reelsFilterCombat: string;
+    reelsFilterSpectacle: string;
+    reelsFilterCampus: string;
 }
 
 export interface SelectedDmVideo {
@@ -58,7 +70,9 @@ export interface UseVideosPageResult {
     localizedPrograms: VideosProgram[];
     mediaItems: MediaItem[];
     localizedReels: InstagramReel[];
+    allReels: InstagramReel[];
     selectedReel: InstagramReel | null;
+    reelsColumns: number;
     openReel: (reel: InstagramReel) => void;
     closeReel: () => void;
     nextReel: () => void;
@@ -171,6 +185,18 @@ export function useVideosPage(): UseVideosPageResult {
             reelsWatchOnInsta: t('reelsWatchOnInsta'),
             reelsPrev: t('reelsPrev'),
             reelsNext: t('reelsNext'),
+            reelsExploreMore: t('reelsExploreMore'),
+            reelsHideExplorer: t('reelsHideExplorer'),
+            reelsExplorerTitle: t('reelsExplorerTitle'),
+            reelsExplorerSubtitle: t('reelsExplorerSubtitle'),
+            reelsSortByViews: t('reelsSortByViews'),
+            reelsSortByDateDesc: t('reelsSortByDateDesc'),
+            reelsSortByDateAsc: t('reelsSortByDateAsc'),
+            reelsFilterAll: t('reelsFilterAll'),
+            reelsFilterMecanique: t('reelsFilterMecanique'),
+            reelsFilterCombat: t('reelsFilterCombat'),
+            reelsFilterSpectacle: t('reelsFilterSpectacle'),
+            reelsFilterCampus: t('reelsFilterCampus'),
         },
         selectedDmVideo,
         openDmVideo: setSelectedDmVideo,
@@ -178,6 +204,8 @@ export function useVideosPage(): UseVideosPageResult {
         localizedPrograms,
         mediaItems,
         localizedReels,
+        allReels: ALL_INSTAGRAM_REELS,
+        reelsColumns: typeof dynamicReels?.columns === 'number' ? dynamicReels.columns : 6,
         selectedReel,
         openReel: setSelectedReel,
         closeReel: () => setSelectedReel(null),

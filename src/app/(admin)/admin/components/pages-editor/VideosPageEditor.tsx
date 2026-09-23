@@ -43,18 +43,17 @@ export const VideosPageEditor: React.FC<VideosPageEditorProps> = ({
         ? reelsSection.items
         : INSTAGRAM_REELS;
 
-    const updateReels = (newItems: InstagramReel[]) => {
+    const updateReelsSection = (patch: Record<string, any>) => {
         setFormData((prev) => ({
             ...prev,
             sections_data: {
                 ...(prev.sections_data || {}),
-                reels: {
-                    ...(prev.sections_data?.reels || {}),
-                    items: newItems,
-                },
+                reels: { ...(prev.sections_data?.reels || {}), ...patch },
             },
         }));
     };
+
+    const updateReels = (newItems: InstagramReel[]) => updateReelsSection({ items: newItems });
 
     const handleImportReel = async () => {
         if (!newUrl.trim()) return;
@@ -76,6 +75,10 @@ export const VideosPageEditor: React.FC<VideosPageEditorProps> = ({
             title: res.data.title,
             description: res.data.description,
             coverImage: res.data.coverImage,
+            views: 0,
+            viewsFormatted: '',
+            date: new Date().toISOString().split('T')[0],
+            category: 'mecanique',
         };
 
         updateReels([...reelsList, newReel]);
@@ -96,7 +99,7 @@ export const VideosPageEditor: React.FC<VideosPageEditorProps> = ({
         updateReels(copy);
     };
 
-    const handleUpdateReelField = (index: number, field: keyof InstagramReel, value: string) => {
+    const handleUpdateReelField = (index: number, field: keyof InstagramReel, value: any) => {
         const copy = [...reelsList];
         copy[index] = { ...copy[index], [field]: value };
         updateReels(copy);
@@ -117,15 +120,7 @@ export const VideosPageEditor: React.FC<VideosPageEditorProps> = ({
                         <input
                             type="text"
                             value={reelsSection.title || "SESSIONS D'ACTION EN FORMAT COURT"}
-                            onChange={(e) =>
-                                setFormData((prev) => ({
-                                    ...prev,
-                                    sections_data: {
-                                        ...(prev.sections_data || {}),
-                                        reels: { ...(prev.sections_data?.reels || {}), title: e.target.value },
-                                    },
-                                }))
-                            }
+                            onChange={(e) => updateReelsSection({ title: e.target.value })}
                             className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-sm text-white focus:border-[#FFE500] outline-none"
                         />
                     </div>
@@ -135,17 +130,32 @@ export const VideosPageEditor: React.FC<VideosPageEditorProps> = ({
                             type="text"
                             value={reelsSection.intro || ''}
                             placeholder="Description courte de la section..."
-                            onChange={(e) =>
-                                setFormData((prev) => ({
-                                    ...prev,
-                                    sections_data: {
-                                        ...(prev.sections_data || {}),
-                                        reels: { ...(prev.sections_data?.reels || {}), intro: e.target.value },
-                                    },
-                                }))
-                            }
+                            onChange={(e) => updateReelsSection({ intro: e.target.value })}
                             className="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-lg text-sm text-white focus:border-[#FFE500] outline-none"
                         />
+                    </div>
+                </div>
+
+                {/* Sélecteur de colonnes (2 à 6) */}
+                <div className="pt-2 border-t border-white/5">
+                    <label className="block text-xs font-mono-tech text-gray-400 mb-1.5">
+                        Disposition de la grille sur grand écran (2 à 6 colonnes) :
+                    </label>
+                    <div className="flex items-center gap-2">
+                        {[2, 3, 4, 5, 6].map((cols) => (
+                            <button
+                                key={cols}
+                                type="button"
+                                onClick={() => updateReelsSection({ columns: cols })}
+                                className={`px-3 py-1.5 rounded-lg text-xs font-mono-tech uppercase font-bold transition-all cursor-pointer ${
+                                    (reelsSection.columns || 6) === cols
+                                        ? 'bg-[#FFE500] text-black shadow-[0_0_15px_rgba(255,229,0,0.3)]'
+                                        : 'bg-black/50 border border-white/10 text-gray-400 hover:text-white'
+                                }`}
+                            >
+                                {cols} cols
+                            </button>
+                        ))}
                     </div>
                 </div>
 
