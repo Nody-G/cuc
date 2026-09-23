@@ -75,7 +75,7 @@ export const VideosReelsModal: React.FC<VideosReelsModalProps> = ({
                 </div>
 
                 {/* Lecteur iframe officiel Instagram au format vertical */}
-                <div className="relative w-full aspect-[9/16] max-h-[68vh] bg-black overflow-hidden flex items-center justify-center">
+                <div className="relative w-full aspect-[9/16] max-h-[62vh] bg-black overflow-hidden flex items-center justify-center">
                     <iframe
                         src={`https://www.instagram.com/reel/${reel.shortcode}/embed/`}
                         title={reel.title}
@@ -86,8 +86,17 @@ export const VideosReelsModal: React.FC<VideosReelsModalProps> = ({
                     />
                 </div>
 
+                {/* Description de la vidéo sous le lecteur */}
+                {reel.description && reel.description.trim().length > 0 && (
+                    <div className="px-4 py-2.5 bg-[#0e0e13] border-t border-zinc-800/80 max-h-24 overflow-y-auto">
+                        <p className="text-xs font-tech text-zinc-300 leading-snug">
+                            {reel.description}
+                        </p>
+                    </div>
+                )}
+
                 {/* Barre de navigation */}
-                <div className="flex items-center justify-center gap-3 px-4 py-3 border-t border-zinc-800/80 bg-[#121218]">
+                <div className="flex items-center justify-center gap-3 px-4 py-2.5 border-t border-zinc-800/80 bg-[#121218]">
                     <button
                         type="button"
                         onClick={onPrev}
