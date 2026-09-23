@@ -1,7 +1,7 @@
 import { hasLocale } from 'next-intl';
 import { routing } from '@/i18n/routing';
 import type { Locale } from '@/lib/i18n/entities';
-import { getLocalizedPageContent } from '@/lib/i18n/server';
+import { getPreviewPageContent } from '@/lib/i18n/server-preview';
 import { PageDataProvider } from '@/components/i18n/PageDataProvider';
 import { HomeView } from '../HomeView';
 
@@ -22,7 +22,7 @@ export default async function PreviewHomePage({
         ? (locale as Locale)
         : 'fr';
 
-    const page = await getLocalizedPageContent('/', safeLocale);
+    const page = await getPreviewPageContent('/', safeLocale);
 
     return (
         <PageDataProvider page={page} allowUnpublished>

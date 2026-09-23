@@ -12,10 +12,15 @@
    (routes, ancres, plafond SRP 300 lignes) et build. Un
    commit qui casse l'un de ces contrôles n'est pas livrable — la dette restante est publiée
    dans `plans/`, jamais silencieuse.
-3. **Le piège RLS à ne pas rouvrir** : passer la policy publique de `site_pages`
-   (`FOR SELECT USING (true)`) à `is_published = true` **avant** l'arrivée du vrai 404 ferait
-   afficher les brouillons avec le **contenu certifié** — « absent » et « dépublié » deviendraient
-   indistinguables pour le code actuel. Ordre imposé : 404 d'abord, policy ensuite.
+3. **Le piège RLS — séquence tenue, ne pas la rouvrir** : restreindre la policy publique de
+   `site_pages` à `is_published = true` sans les deux lectures service role ferait afficher un
+   brouillon avec le **contenu certifié**. Désormais livrés : porte 404 RLS-proof
+   (`getPublicPageContent` + `getPagePublicationState`) et aperçu sur client admin
+   (`getPreviewPageContent`). La migration est outillée et dry-run par défaut
+   (`npm run db:migrate:site-pages-rls[:write]`) ; son application reste conditionnée à une
+   vérification anonyme possible — le 2026-09-23, l'API Data du projet répondait
+   **402 Payment Required** à toutes les clés (incident de plateforme, cf.
+   `plans/revue-rls-site-pages.md`).
 4. **Une seule source de vérité par sujet** : métadonnées → `buildRouteMetadata()`
    (`src/lib/i18n/route-metadata.ts`), fusion bilingue → `src/lib/i18n/localized-merge.ts`,
    libellés → `src/lib/i18n/microcopy.ts`, champs éditables → `src/lib/preview/cuc-field.ts`.

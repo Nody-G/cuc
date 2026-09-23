@@ -28,14 +28,18 @@ route dédiée `/[locale]/preview` gardée par la session admin (+ garde de stat
 `buildPreviewUrl()` pointé dessus. Statuts ○/◐ des 15 routes conservés, mécanisme vérifié au
 runtime. Détail et preuves : [`revue-diffusion-brouillons.md`](plans/revue-diffusion-brouillons.md:1) § 6.
 
-## Priorité 2 — sécurité des données (à instruire avant d'ouvrir l'écriture à plus de monde)
+## Priorité 2 — sécurité des données — 🟡 outillée, application sous condition
 
-**Policy RLS publique de `site_pages`.** Elle est aujourd'hui `FOR SELECT USING (true)` : un
-client anonyme peut lire un brouillon. La réserver à `is_published = true` ferme le dernier
-accès direct aux brouillons… **mais attention au piège** : une ligne absente et une ligne
-dépubliée deviennent indistinguables, or le code traite « absent » par un repli certifié — un
-brouillon s'afficherait donc avec le contenu de référence. **La policy ne doit être posée
-qu'après** le 404 de la priorité 1 (qui fera de « absent » une réponse explicite).
+**Policy RLS publique de `site_pages`.** Le piège est traité : la porte 404 lit désormais
+l'état de publication via le **service role** (`getPagePublicationState`) et l'aperçu lit le
+brouillon via le **client admin** (`getPreviewPageContent`) — « absent » et « dépublié » ne sont
+plus confondus. Migration prête : [`migration_site_pages_rls.sql`](scripts/migration_site_pages_rls.sql:1)
+
++ `npm run db:migrate:site-pages-rls[:write]` (dry-run par défaut, sonde anonyme incluse).
+**Application en attente** : le 2026-09-23, l'API Data du projet a répondu **402 Payment
+Required** à toutes les clés (anon ET service) — la vérification « brouillon = 0 ligne » exige
+une API rétablie ; constat et procédure dans [`revue-rls-site-pages.md`](plans/revue-rls-site-pages.md:1).
+État base au 2026-09-23 : 15 pages publiées, 0 brouillon.
 
 ## Priorité 3 — qualité mesurable (impact large, effort faible)
 
@@ -69,9 +73,9 @@ qu'après** le 404 de la priorité 1 (qui fera de « absent » une réponse expl
 
 ## Règles de conduite pour la suite (non négociables)
 
-- **Une seule source de vérité par sujet** : métadonnées (`buildRouteMetadata`), fusion
++ **Une seule source de vérité par sujet** : métadonnées (`buildRouteMetadata`), fusion
   bilingue (`localized-merge`), libellés (`microcopy`), champs éditables (`cucField`).
-- **Aucun faux contrôle** : si un bouton ne fait pas ce qu'il annonce, soit on le corrige, soit
++ **Aucun faux contrôle** : si un bouton ne fait pas ce qu'il annonce, soit on le corrige, soit
   on l'écrit — comme pour la publication.
-- **Tout ce qui est mesuré est publié** : les audits écrivent leurs rapports dans `plans/`, la
++ **Tout ce qui est mesuré est publié** : les audits écrivent leurs rapports dans `plans/`, la
   CI échoue sur les contrôles bloquants, la dette restante est chiffrée et datée.

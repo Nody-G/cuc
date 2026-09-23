@@ -2,7 +2,7 @@ import { hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import type { Locale } from '@/lib/i18n/entities';
-import { getLocalizedPageContent } from '@/lib/i18n/server';
+import { getPreviewPageContent } from '@/lib/i18n/server-preview';
 import { PageDataProvider } from '@/components/i18n/PageDataProvider';
 import { normalizePreviewSlug } from '@/lib/preview/preview-url';
 import { PREVIEW_SCREENS } from '../screens';
@@ -30,7 +30,7 @@ export default async function PreviewSlugPage({
         ? (locale as Locale)
         : 'fr';
 
-    const page = await getLocalizedPageContent(key, safeLocale);
+    const page = await getPreviewPageContent(key, safeLocale);
 
     return (
         <PageDataProvider page={page} allowUnpublished>
