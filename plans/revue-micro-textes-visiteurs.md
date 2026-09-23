@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-23T04:57:42.456Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-23T05:05:07.195Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -8,11 +8,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | Catégorie | Occurrences |
 | --- | ---: |
 | ANNOTÉ — éditable en place | 306 |
-| DONNÉES — éditable par un écran existant | 107 |
-| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 14 |
+| DONNÉES — éditable par un écran existant | 102 |
+| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 15 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 16 |
-| **Total** | **443** |
+| **Total** | **439** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -36,7 +36,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachProfile.tsx`
 
-- l.48 — `{chrome('trainingPathTitle')}`
+- l.62 — `{chrome('trainingPathTitle')}`
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\EquipeHeroSection.tsx`
 
@@ -286,9 +286,9 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
 
-- l.125 — `{t('filmModal.doublesLabel')}`
-- l.146 — `{t('filmModal.teamLabel')}`
-- l.256 — `{t('filmModal.trailer')}`
+- l.137 — `{t('filmModal.doublesLabel')}`
+- l.158 — `{t('filmModal.teamLabel')}`
+- l.268 — `{t('filmModal.trailer')}`
 
 ### `src\components\sections\home\HomeAboutSection.tsx`
 
@@ -530,11 +530,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachProfile.tsx`
 
-- l.27 — `{member.role}`
-- l.35 — `{member.name}`
-- l.39 — `{member.title}`
-- l.53 — `{member.bio}`
-- l.69 — `{spec}`
+- l.49 — `{member.name}`
+- l.83 — `{spec}`
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\CoachCard.tsx`
 
@@ -673,13 +670,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
 
-- l.91 — `{movie.title}`
-- l.97 — `{movie.year}`
-- l.109 — `{movie.title}`
-- l.116 — `{movie.description}`
-- l.134 — `{actor}`
-- l.174 — `{member.name}`
-- l.209 — `{roleLabelText}`
+- l.100 — `{movie.title}`
+- l.128 — `{movie.description}`
+- l.146 — `{actor}`
+- l.186 — `{member.name}`
+- l.221 — `{roleLabelText}`
 
 ### `src\components\sections\home\HomeAboutSection.tsx`
 
@@ -770,7 +765,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
 
-- l.106 — `{movie.year}{movie.director ? ’ • ${t('filmModal.directedBy', { name: movie.director })}’ : ''}`
+- l.109 — `{filmValue('year', movie.year ?? '')}`
+- l.118 — `{movie.year}{movie.director ? ’ • ${t('filmModal.directedBy', { name: movie.director })}’ : ''}`
 
 ### `src\components\sections\partenaires\grid\AdditionalPartnerCard.tsx`
 
@@ -823,8 +819,8 @@ Aucune occurrence.
 
 ### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
 
-- l.231 — `IMDb`
-- l.243 — `AlloCiné`
+- l.243 — `IMDb`
+- l.255 — `AlloCiné`
 
 ### `src\components\sections\team\TeamProductionServices.tsx`
 

@@ -16,16 +16,32 @@ import { createAdminClient } from '@/lib/supabase/admin';
 import { checkIsAdmin } from './auth';
 import { revalidateSite } from './revalidate';
 import { logAuditEvent } from './audit';
-import { parseEntityRef } from '@/lib/preview/entity-ref';
+import { parseEntityRef, type EntityRefParts } from '@/lib/preview/entity-ref';
 import { CHROME_PAGE_PATHS } from './chrome-paths';
 
-/** Table → champs autorisés. Ajouter une entité = une ligne ici, rien d'autre. */
+/**
+ * Table → champs autorisés. Ajouter une entité = une ligne ici, rien d'autre.
+ * Les **noms** des coachs restent hors canal : leur identité est vérifiée
+ * (règle `coach_identity_verification.md`) et se corrige dans l'écran Équipe.
+ */
 const EDITABLE_ENTITIES: Readonly<Record<string, readonly string[]>> = {
     site_announcements: ['title', 'message', 'badge', 'link_text'],
+    site_team: ['role', 'title', 'bio'],
+    site_films: ['title', 'year'],
 };
 
+/** Pages spécifiques à republier en plus du chrome (aucune n'est générique). */
+function extraPathsFor(ref: EntityRefParts): string[] {
+    // L'identifiant d'un coach est son slug : sa fiche vit sous ce chemin.
+    if (ref.table === 'site_team') return [`/equipe-cascadeurs-pro/${ref.id}`];
+    // Une jaquette film est rendue par le showcase et les fiches coachs.
+    if (ref.table === 'site_films') return ['/cuc-team-cascadeur', '/equipe-cascadeurs-pro'];
+    return [];
+}
+
 /**
- * Met à jour **un seul champ** d'une entité éditable (bannière d'annonce).
+ * Met à jour **un seul champ** d'une entité de la liste blanche
+ * (bannière d'annonce, fiche coach, fiche film).
  */
 export async function updateEntityField(ref: string, value: string) {
     try {
@@ -44,19 +60,31 @@ export async function updateEntityField(ref: string, value: string) {
         if (clean.length === 0) {
             return {
                 success: false as const,
-                error: 'Une valeur vide effacerait ce texte : saisissez un contenu (ou retirez l’annonce depuis son écran).',
+                error: 'Une valeur vide effacerait ce texte : saisissez un contenu (ou retirez l’élément depuis son écran).',
             };
         }
 
         const adminClient = createAdminClient();
-        const { error } = await adminClient
+        /*
+         * `select('id')` n'est pas décoratif : une fiche absente du catalogue
+         * (jaquette statique pas encore migrée) ne doit pas produire un succès
+         * silencieux — l'aperçu dirait « publié » sans qu'aucune ligne ne change.
+         */
+        const { data, error } = await adminClient
             .from(parts.table)
             .update({ [parts.field]: clean, updated_at: new Date().toISOString() })
-            .eq('id', parts.id);
+            .eq('id', parts.id)
+            .select('id');
         if (error) throw error;
+        if (!data || data.length === 0) {
+            return {
+                success: false as const,
+                error: `Fiche introuvable au catalogue : ${parts.table}:${parts.id}`,
+            };
+        }
 
-        // La bannière est rendue par la navbar : les 15 pages vitrine, FR et EN.
-        await revalidateSite(CHROME_PAGE_PATHS);
+        // Le chrome est rendu par la navbar (15 pages) ; les fiches, en plus.
+        await revalidateSite([...CHROME_PAGE_PATHS, ...extraPathsFor(parts)]);
         await logAuditEvent('entity.field', ref, 'modifié dans l’aperçu');
 
         return { success: true as const };

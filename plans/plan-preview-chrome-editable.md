@@ -128,13 +128,16 @@ messages v2 continuent de fonctionner → **aucune fenêtre de panne** au déplo
 | L7 | Micro-textes en place : canal livré (`microcopy-draft`, `PreviewIntlProvider`, sauvegarde par clé) + **extension achevée** sur tout le statique (pied de page, formulaires, héros, modales, pages, cartes, visionneuses) | ✅ livré |
 | L8 | Garde-fou serveur : clé absente du catalogue refusée (`isMicrocopyKey` + test) | ✅ livré |
 | L9 | Filet local du brouillon chrome (`chrome-draft-storage.ts`, hook, tests) + micro-textes segmentés par locale | ✅ livré |
-| L10 | Canal d'entité : pilote bannière d'annonce (`data-cuc-entity`, `entity-draft`, commit `entity`, liste blanche serveur, filet local étendu) | ✅ livré |
+| L10 | Canal d'entité : bannière d'annonce, fiches **coach** (rôle/titre/bio) et **film** (titre/année) — `data-cuc-entity`, `entity-draft`, commit `entity`, liste blanche serveur + contrôle d'existence, filet local étendu, édition d'entité réservée au FR | ✅ livré |
 
 ## 4. Ce qui ne rentre pas dans ce chantier
 
-- L'**extension** du canal d'entité aux coachs et films : la recette est en place
-  (une ligne de liste blanche + annotations `cucEntity`), les traductions d'entités
-  (overlays EN) restant gérées par leurs écrans dédiés.
+- **Reste hors canal** : les contenus non textuels (listes `specialties` /
+  `doubled_actors`, booléens, médias) et les **noms** de coachs — leur identité est
+  vérifiée (`coach_identity_verification.md`) et se corrige dans l'écran Équipe. Les
+  traductions d'entités (overlays EN) se font dans leurs écrans dédiés : en mode
+  anglais, l'aperçu **refuse** l'édition d'entité plutôt que d'écrire du français
+  resté invisible sous l'overlay.
 - Les contenus purement SEO (`meta_*`) : invisibles dans la page, ils restent dans
   l'onglet SEO (c'est leur nature).
 

@@ -10,13 +10,13 @@ import { ContentEditorsSwitch } from './pages-editor/ContentEditorsSwitch';
 import { EditorTabsBar } from './pages-editor/EditorTabsBar';
 import { focusCucField } from './pages-editor/focus-field';
 import { LayoutTabPanel } from './pages-editor/LayoutTabPanel';
-import { composePageDraft } from './pages-editor/page-draft';
 import type { PageEditorTab } from './pages-editor/pages-options';
 import { PageEditorTopBar } from './pages-editor/PageEditorTopBar';
 import { PreviewTabPanel } from './pages-editor/PreviewTabPanel';
 import { RevisionsSection } from './pages-editor/RevisionsSection';
 import { SeoTabPanel } from './pages-editor/SeoTabPanel';
 import { useChromeDraftState } from './pages-editor/useChromeDraftState';
+import { useEditorNavigation } from './pages-editor/useEditorNavigation';
 import { usePageEditorDraft } from './pages-editor/usePageEditorDraft';
 import { usePageSaveActions } from './pages-editor/usePageSaveActions';
 import { usePreviewMediaPicker } from './pages-editor/usePreviewMediaPicker';
@@ -83,49 +83,22 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     clearEntityDraft: chrome.clearEntities,
   });
 
-  /**
-   * Confirme l'abandon d'une saisie anglaise non enregistrée.
-   * Le brouillon est conservé tant qu'on reste sur la page, mais changer de page
-   * le remplace : mieux vaut prévenir que perdre un travail de traduction.
-   */
-  const confirmLeaveEnglishDraft = (action: string): boolean => {
-    if (editorLocale !== 'en' || !draft.translation.dirty) return true;
-    return window.confirm(
-      `Des modifications anglaises ne sont pas enregistrées. ${action} les abandonnera.\n\nContinuer sans enregistrer ?`
-    );
-  };
-
-  /** Bascule de langue, avec garde-fou si l'anglais n'est pas enregistré. */
-  const handleLocaleChange = (next: EditorLocaleOption) => {
-    if (next === editorLocale) return;
-    if (!confirmLeaveEnglishDraft('Changer de langue')) return;
-    setEditorLocale(next);
-    // FR et EN sont deux brouillons distincts : l'historique ne les mélange pas.
-    draft.resetDraftHistory();
-  };
-
-  // Synchronisation lors du changement de page.
-  const handleSelectPage = (slug: string) => {
-    if (!confirmLeaveEnglishDraft('Changer de page')) return;
-    const clean = normalizeSlug(slug);
-    setSelectedSlug(clean);
-    const target = pages.find((p) => normalizeSlug(p.slug) === clean);
-    draft.setFormData(composePageDraft(clean, target));
-    bumpPreview();
-    // Nouvelle page = nouveau brouillon : l'historique repart de zéro.
-    draft.resetDraftHistory();
-  };
-
-  /** La structure (ajouter ou retirer un bloc) appartient à la source française. */
-  const blockStructureChangeInEnglish = (what: string): boolean => {
-    if (editorLocale !== 'en') return false;
-    showToast(`${what} se structure en français : modifiez la liste en FR, puis traduisez-la ici.`);
-    return true;
-  };
+  /** Garde-fous de navigation : langue, page, structure (voir le hook). */
+  const navigation = useEditorNavigation({
+    editorLocale,
+    translationDirty: draft.translation.dirty,
+    pages,
+    showToast,
+    setEditorLocale,
+    setSelectedSlug,
+    setFormData: draft.setFormData,
+    resetDraftHistory: draft.resetDraftHistory,
+    bumpPreview,
+  });
 
   const handlers = useSectionHandlers({
     setActiveData: draft.setActiveData,
-    blockStructureChangeInEnglish,
+    blockStructureChangeInEnglish: navigation.blockStructureChangeInEnglish,
   });
 
   /** Médiathèque : médias partagés entre les langues (écriture FR uniquement). */
@@ -137,6 +110,21 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     applyDraftChange: draft.applyDraftChange,
     onWorkshopImage: (index, url) => handlers.handleUpdateWorkshop(index, { img: url }),
   });
+
+  /**
+   * Entités (coachs, films, annonces) : elles se traduisent depuis leurs écrans
+   * dédiés — en anglais, on l'annonce au lieu d'écrire une valeur française qui
+   * resterait invisible sous l'overlay EN.
+   */
+  const handleEntityCommit = (ref: string, value: string) => {
+    if (editorLocale === 'en') {
+      showToast(
+        'Les fiches (coachs, films, annonces) se traduisent depuis leurs écrans : modifiez-les en français (FR).'
+      );
+      return;
+    }
+    chrome.commitEntity(ref, value);
+  };
 
   const handleResetLayout = () => {
     const defaultData = DEFAULT_PAGE_CONTENTS[draft.formData.slug];
@@ -180,9 +168,9 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     <div className="space-y-6">
       <PageEditorTopBar
         selectedSlug={selectedSlug}
-        onSelectPage={handleSelectPage}
+        onSelectPage={navigation.handleSelectPage}
         editorLocale={editorLocale}
-        onLocaleChange={handleLocaleChange}
+        onLocaleChange={navigation.handleLocaleChange}
         localeCoverage={
           editorLocale === 'en' && draft.translation.ready ? draft.translation.coverage : null
         }
@@ -241,10 +229,10 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
           microcopy={chrome.microcopy}
           onMicrocopyCommit={chrome.commitMicrocopy}
           entities={chrome.entities}
-          onEntityCommit={chrome.commitEntity}
+          onEntityCommit={handleEntityCommit}
           onFieldSelect={focusCucField}
           locale={editorLocale}
-          onLocaleChange={handleLocaleChange}
+          onLocaleChange={navigation.handleLocaleChange}
           onMediaRequest={setMediaPickerTarget}
           onListCommand={draft.handlePreviewListCommand}
           draftChanges={draft.draftChanges}

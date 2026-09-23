@@ -13,6 +13,9 @@ import { normalizeRole } from '@/lib/credit-role';
 import { renderRoleSet } from '@/lib/i18n/role-labels';
 import { ImdbLogo, AllocineLogo, YouTubeLogo } from '@/components/ui/BrandLogos';
 import { cucMicro } from '@/lib/preview/cuc-micro';
+import { entityRef } from '@/lib/preview/entity-ref';
+import { cucEntity } from '@/lib/preview/cuc-entity';
+import { resolveEntityOverride, usePreviewEntities } from '@/lib/preview/use-preview-entity';
 import { X, Clapperboard, ExternalLink, ChevronRight, Film } from 'lucide-react';
 
 interface FilmDetailsModalProps {
@@ -28,6 +31,8 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
   /** Namespace `team` : libellés de rôle déjà traduits (FR/EN). */
   const tTeam = useTranslations('team');
   const [teamMembers, setTeamMembers] = React.useState<Instructor[]>(CUC_TEAM);
+  /** Édition en place de la fiche film (`site_films`) — titré et année. */
+  const entityOverrides = usePreviewEntities();
 
   const loadTeam = React.useCallback(() => {
     getTeam().then(setTeamMembers);
@@ -41,6 +46,10 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
   useRealtimeRefresh(['site_team'], loadTeam);
 
   if (!movie) return null;
+
+  const filmAttr = (field: 'title' | 'year') => cucEntity('site_films', movie.id, field);
+  const filmValue = (field: 'title' | 'year', base: string) =>
+    resolveEntityOverride(entityOverrides, entityRef('site_films', movie.id, field)) ?? base;
 
   const involvedIds = movie.cuc_team_involved || [];
   const involvedTeamMembers = teamMembers.filter((m) => involvedIds.includes(m.id));
@@ -93,8 +102,11 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                 </div>
               )}
               <div className="absolute top-2 right-2">
-                <span className="bg-[#FFE500] text-black text-[10px] font-mono-tech font-bold px-2 py-0.5">
-                  {movie.year}
+                <span
+                  className="bg-[#FFE500] text-black text-[10px] font-mono-tech font-bold px-2 py-0.5"
+                  {...filmAttr('year')}
+                >
+                  {filmValue('year', movie.year ?? '')}
                 </span>
               </div>
             </div>
@@ -106,7 +118,7 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
                   {movie.year}{movie.director ? ` • ${t('filmModal.directedBy', { name: movie.director })}` : ''}
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white mt-0.5">
-                  {movie.title}
+                  <span {...filmAttr('title')}>{filmValue('title', movie.title)}</span>
                 </h3>
               </div>
 
