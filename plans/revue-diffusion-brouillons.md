@@ -1,7 +1,8 @@
-# Revue — Diffusion des brouillons de page (point ouvert, assumé)
+# Revue — Diffusion des brouillons de page
 
-**Date** : 2026-09-22
+**Date** : 2026-09-22 — **mis à jour le 2026-09-23**
 **Contexte** : audit des risques d'expérience liés au « tout en base de données » (Mode Studio).
+**Statut : résolu** — voie A livrée (voir § 6) : vrai 404 public, aperçu isolé par session admin.
 
 ## 1. Le constat, vérifié dans le code
 
@@ -74,7 +75,32 @@ interdit la solution naïve (`notFound()` sec), déjà testée et écartée.
 
 ## 5. Contrôle manuel recommandé
 
-1. Dépublier une page dans le Cockpit → en navigation privée : avis « Cette page n'est pas
-   publiée », aucun texte du brouillon dans le source HTML, page absente de `/sitemap.xml`.
-2. Ouvrir l'aperçu dans le Cockpit → la page s'édite normalement (garde neutralisée).
+1. Dépublier une page dans le Cockpit → en navigation privée : **404 réel** (statut HTTP),
+   aucun texte du brouillon dans le source HTML, page absente de `/sitemap.xml`.
+2. Ouvrir l'aperçu dans le Cockpit → la page s'édite normalement (route `/preview/...`, session
+   admin) ; **sans session**, la même URL répond 404.
 3. Republier → la page revient immédiatement (revalidation par tags), sans redéploiement.
+
+## 6. Livraison — voie A (2026-09-23)
+
+La décision de diffusion se prend désormais **côté serveur**, en amont du rendu :
+
+- **Porte de diffusion** : [`getPublicPageContent()`](src/lib/i18n/public-page.ts:1) — l'accueil
+  et les 14 layouts passent par elle ; `is_published = false` → `notFound()`. Le mécanisme du
+  vrai 404 pour une route prérendue a été **mesuré au runtime** (route témoin appelant
+  `notFound()` : réponse `404`). Les replis restent intacts : panne de lecture → copie certifiée
+  (200) ; page absente → `null` (repli client certifié). 4 tests dédiés.
+- **Aperçu isolé** : route dédiée `/[locale]/preview` (`preview/layout.tsx` :
+  `checkIsAdmin()`, `noindex`, `instant = false`) qui rend les **vrais écrans** des 15 pages
+  ([`preview/screens.ts`](src/app/(site)/[locale]/preview/screens.ts:1)) — plus aucune
+  reconstruction par sections. [`buildPreviewUrl()`](src/lib/preview/preview-url.ts:59) construit
+  ces URL ; le Cockpit ne change pas.
+- **Garde de statut** : mesuré qu'une garde de session rendue dans une route streamée (shell
+  déjà envoyé) ne peut plus changer le statut HTTP — le refus anonyme est donc posé dans le
+  **proxy** ([`preview-guard.ts`](src/lib/preview/preview-guard.ts:1), fonctions pures testées).
+  Le rôle reste revérifié au rendu (`checkIsAdmin()`) : c'est la frontière de sécurité.
+- **Preuves exécutées le 2026-09-23** : build — les 15 routes publiques conservent leurs
+  statuts ○/◐ ; runtime — `/preview...` anonyme = 404 (FR + EN), vitrine = 200,
+  `notFound()` prérendu = 404, cookie de session factice = 200 sans contenu (refusé au rendu).
+- **Reste à faire (lot 5)** : policy RLS `site_pages` (`FOR SELECT USING (is_published = true)`)
+  — désormais sûre, car « absent » est un 404 explicite et non un repli silencieux.

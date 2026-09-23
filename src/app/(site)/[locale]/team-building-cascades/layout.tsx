@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { buildRouteMetadata } from '@/lib/i18n/route-metadata';
 import { hasLocale } from 'next-intl';
-import { getLocalizedPageContent } from '@/lib/i18n/server';
+import { getPublicPageContent } from '@/lib/i18n/public-page';
 import { routing } from '@/i18n/routing';
 import type { Locale } from '@/lib/i18n/entities';
 import { PageDataProvider } from '@/components/i18n/PageDataProvider';
@@ -36,7 +36,7 @@ export default async function RouteLayout({
 
   // Contenu de page localisé (FR + overlay EN) résolu sur le SERVEUR : le HTML
   // servi est déjà dans la bonne langue, sans flash de français.
-  const page = await getLocalizedPageContent('team-building-cascades', safeLocale);
+  const page = await getPublicPageContent('team-building-cascades', safeLocale);
 
   return (
     <PageDataProvider page={page}>

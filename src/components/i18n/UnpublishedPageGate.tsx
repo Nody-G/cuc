@@ -12,29 +12,29 @@ const getServerPreviewSnapshot = () => false;
 
 /**
  * ==============================================================================
- * CUC — Garde de diffusion : une page non publiée ne se rend pas
+ * CUC — Garde de diffusion (dernier recours)
  * ==============================================================================
- * « Publier » et « dépublier » doivent vouloir dire quelque chose : tant que la
- * garde serveur complète (route d'aperçu admin + 404, cf.
- * `plans/revue-diffusion-brouillons.md`) n'est pas posée, cette garde-ci ferme le
- * trou le plus grave — le contenu d'un brouillon n'est **jamais rendu** :
+ * Depuis le lot « 404 des brouillons », la diffusion se décide **côté serveur** :
+ * l'accueil et les 14 layouts de route appellent `getPublicPageContent()` et une
+ * page définitivement non publiée y répond `404` — plus de « 200 avec avis ».
  *
- *  - décision prise au rendu serveur à partir de `page.is_published` (prop) :
- *    le HTML public ne contient donc **aucun** texte non publié ;
- *  - l'aperçu du Cockpit (`?cuc-preview=1` dans l'iframe) reste servi : sans lui,
- *    on ne pourrait plus éditer une page avant de la publier — c'était la raison
- *    pour laquelle la garde `notFound()` avait dû être retirée côté serveur ;
- *  - le visiteur, lui, voit un avis sobre et honnête plutôt qu'un contenu que le
- *    campus n'a pas publié.
+ * Cette garde reste le **dernier recours** : si un écran s'affichait un jour sans
+ * passer par la porte serveur, le HTML public ne contiendrait toujours aucun
+ * texte non publié :
  *
- * Limite assumée et documentée : la réponse HTTP reste un `200` (le contenu n'est
- * plus servi, mais la route n'est pas annoncée comme absente). Le 404 viendra avec
- * la route d'aperçu dédiée.
+ *  - décision prise au rendu à partir de `page.is_published` (prop) ;
+ *  - `allowUnpublished` : réservé à la route d'aperçu admin (`/preview/...`) —
+ *    le brouillon est servi SANS flash, la décision d'accès est prise par le
+ *    serveur (`checkIsAdmin()`), pas par le navigateur ;
+ *  - `isPreviewFrame()` reste couvert en défense en profondeur (ancien aperçu
+ *    `?cuc-preview=1`).
  */
 export const UnpublishedPageGate: React.FC<{
     page?: SitePageContent | null;
+    /** Réservé à la route d'aperçu admin : sert le brouillon sans le masquer. */
+    allowUnpublished?: boolean;
     children: React.ReactNode;
-}> = ({ page, children }) => {
+}> = ({ page, allowUnpublished = false, children }) => {
     /**
      * `false` au rendu serveur (aucun `window`) : le brouillon n'est jamais rendu.
      * Lecture sans `setState` dans un effet (`react-hooks/set-state-in-effect`) :
@@ -46,7 +46,9 @@ export const UnpublishedPageGate: React.FC<{
         getServerPreviewSnapshot
     );
 
-    if (page?.is_published !== false || isPreview) return <>{children}</>;
+    if (page?.is_published !== false || allowUnpublished || isPreview) {
+        return <>{children}</>;
+    }
 
     return (
         <main

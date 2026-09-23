@@ -20,12 +20,17 @@ import { SiteDataProvider, useSiteData } from './SiteDataProvider';
  */
 export const PageDataProvider: React.FC<{
     page: SitePageContent | null;
+    /** Réservé à la route d'aperçu admin : sert le brouillon sans le masquer. */
+    allowUnpublished?: boolean;
     children: React.ReactNode;
-}> = ({ page, children }) => {
+}> = ({ page, allowUnpublished, children }) => {
     const parent = useSiteData();
 
     return (
-        <SiteDataProvider value={{ ...(parent ?? { locale: 'fr' }), page }}>
+        <SiteDataProvider
+            value={{ ...(parent ?? { locale: 'fr' }), page }}
+            allowUnpublished={allowUnpublished}
+        >
             {children}
         </SiteDataProvider>
     );

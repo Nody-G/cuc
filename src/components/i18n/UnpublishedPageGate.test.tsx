@@ -58,4 +58,13 @@ describe('UnpublishedPageGate', () => {
         );
         expect(screen.getByText('Contenu sans état de publication')).toBeTruthy();
     });
+
+    it('sert le brouillon quand la route d’aperçu admin l’autorise (allowUnpublished)', () => {
+        render(
+            <UnpublishedPageGate page={pageWith(false)} allowUnpublished>
+                <p>Brouillon servi à l’éditeur</p>
+            </UnpublishedPageGate>
+        );
+        expect(screen.getByText('Brouillon servi à l’éditeur')).toBeTruthy();
+    });
 });

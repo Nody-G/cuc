@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { buildRouteMetadata } from '@/lib/i18n/route-metadata';
 import { hasLocale } from 'next-intl';
-import { getLocalizedPageContent } from '@/lib/i18n/server';
+import { getPublicPageContent } from '@/lib/i18n/public-page';
 import { routing } from '@/i18n/routing';
 import type { Locale } from '@/lib/i18n/entities';
 import { PageDataProvider } from '@/components/i18n/PageDataProvider';
@@ -35,8 +35,9 @@ export default async function RouteLayout({
     : 'fr';
 
   // Contenu de page localisé (FR + overlay EN) résolu sur le SERVEUR : le HTML
-  // servi est déjà dans la bonne langue, sans flash de français.
-  const page = await getLocalizedPageContent('formation-de-cascadeur', safeLocale);
+  // servi est déjà dans la bonne langue, sans flash de français. La porte de
+  // diffusion répond 404 si la page est définitivement non publiée.
+  const page = await getPublicPageContent('formation-de-cascadeur', safeLocale);
 
   return (
     <PageDataProvider page={page}>

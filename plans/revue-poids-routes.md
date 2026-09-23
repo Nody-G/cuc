@@ -1,6 +1,6 @@
 # Revue — Poids JS par route (budget)
 
-Généré le 2026-09-23T05:30:05.347Z par `scripts/audit_route_weight.mjs`.
+Généré le 2026-09-23T05:56:50.411Z par `scripts/audit_route_weight.mjs`.
 
 Mesure : somme **gzip** des chunks JS référencés par le HTML prérendu de chaque
 route publique (`fr/*`, `en/*`) — c’est ce que reçoit le navigateur au premier
@@ -10,11 +10,11 @@ avertissement **> +2 %**. Régénérer la baseline (après revue) :
 
 ## Verdict
 
-**OK** — 54 routes mesurées, aucune au-dessus de +5 %.
+**OK** — 56 routes mesurées, aucune au-dessus de +5 %.
 
 - avertissements (> +2 %) : 0
 - améliorations (< −2 %) : 0
-- nouvelles routes (hors baseline) : 0
+- nouvelles routes (hors baseline) : 2
 - routes absentes du build : 0
 
 ## Routes les plus lourdes (top 10)
@@ -31,4 +31,9 @@ avertissement **> +2 %**. Régénérer la baseline (après revue) :
 | `/fr/visite-guidee` | 421.1 Ko | 421.1 Ko | +0.0 % |
 | `/en/contact-cuc` | 419.7 Ko | 419.7 Ko | +0.0 % |
 | `/fr/contact-cuc` | 419.7 Ko | 419.7 Ko | +0.0 % |
+
+## Nouvelles routes (hors baseline — régénérer la baseline après revue)
+
+- `/en/preview`
+- `/fr/preview`
 

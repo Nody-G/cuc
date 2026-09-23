@@ -48,17 +48,22 @@ export interface SiteDataValue {
 const SiteDataContext = createContext<SiteDataValue | null>(null);
 
 /**
- * Le provider porte aussi la **garde de diffusion** : un contenu dont
- * `is_published` vaut `false` n'est jamais rendu au public (voir
- * [`UnpublishedPageGate`](./UnpublishedPageGate.tsx)). Le contrôle est unique et
- * central — les 15 pages passent par ce provider, aucune ne peut l'oublier.
+ * Le provider porte aussi la **garde de diffusion** (dernier recours) : un
+ * contenu dont `is_published` vaut `false` n'est jamais rendu au public — la
+ * décision principale est prise en amont par `getPublicPageContent()` (404).
+ * Le contrôle reste unique et central : les 15 pages passent par ce provider,
+ * aucune ne peut l'oublier.
  */
 export const SiteDataProvider: React.FC<{
     value: SiteDataValue;
+    /** Réservé à la route d'aperçu admin : sert le brouillon sans le masquer. */
+    allowUnpublished?: boolean;
     children: React.ReactNode;
-}> = ({ value, children }) => (
+}> = ({ value, allowUnpublished, children }) => (
     <SiteDataContext.Provider value={value}>
-        <UnpublishedPageGate page={value.page}>{children}</UnpublishedPageGate>
+        <UnpublishedPageGate page={value.page} allowUnpublished={allowUnpublished}>
+            {children}
+        </UnpublishedPageGate>
     </SiteDataContext.Provider>
 );
 

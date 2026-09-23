@@ -2,20 +2,21 @@
  * ==============================================================================
  * CUC — URL d'aperçu live du Cockpit
  * ==============================================================================
- * L'aperçu live encadre la **vraie page publique**, sur la **même origine** que
- * le Cockpit. Pourquoi c'est la seule implémentation correcte :
+ * Depuis le lot « 404 des brouillons », l'aperçu vit sur sa **route dédiée**
+ * `/[locale]/preview/<slug>` :
  *
- *  - chaque page vitrine consomme le brouillon via `postMessage`
- *    (`PreviewBridgeClient` → `preview-store` → `usePageDynamicContent`) et
- *    expose l'édition inline (`[data-cuc-field]`) : l'aperçu est donc fidèle par
- *    construction ;
- *  - une route d'aperçu dédiée qui « rejouerait » les sections ne peut pas
- *    connaître les 15 mises en page : elle finissait par retomber sur les
- *    sections de l'accueil, donnant l'illusion de pages qui n'existent pas.
+ *  - la vitrine publique peut donc répondre un **vrai 404** pour une page non
+ *    publiée (`getPublicPageContent`), sans aucun paramètre d'aperçu ;
+ *  - la route d'aperçu est gardée par la **session admin** (`checkIsAdmin()`) et
+ *    importe les **mêmes écrans** que les pages publiques (`preview/screens.ts`) :
+ *    fidèle par construction, sans page fantôme ;
+ *  - le brouillon continue d'arriver par `postMessage` (`PreviewBridgeClient` →
+ *    `preview-store` → `usePageDynamicContent`) avec l'édition inline
+ *    (`[data-cuc-field]`) : rien ne change pour l'éditeur.
  *
  * Contraintes de routage (cf. `src/i18n/routing.ts` et `src/proxy.ts`) :
  *  - `localePrefix: 'as-needed'` → la locale par défaut (`fr`) est servie
- *    **sans préfixe** : `/formation-de-cascadeur`, jamais `/fr/...` ;
+ *    **sans préfixe** : `/preview/formation-de-cascadeur`, jamais `/fr/...` ;
  *  - `en` est servie sous `/en/...` ;
  *  - le matcher du proxy exclut `/admin` : le Cockpit lui-même n'est jamais
  *    réécrit par l'i18n.
@@ -39,11 +40,11 @@ export function normalizePreviewSlug(slug: string): string {
     return withoutTrailingSlash || '/';
 }
 
-/** Chemin public correspondant au slug édité, pour une locale donnée. */
+/** Chemin de la route d'aperçu dédiée correspondant au slug édité. */
 export function buildPreviewPath(slug: string, locale: PreviewLocale = DEFAULT_LOCALE): string {
     const normalized = normalizePreviewSlug(slug);
-    if (locale === DEFAULT_LOCALE) return normalized;
-    return normalized === '/' ? `/${locale}` : `/${locale}${normalized}`;
+    const base = locale === DEFAULT_LOCALE ? '/preview' : `/${locale}/preview`;
+    return normalized === '/' ? base : `${base}${normalized}`;
 }
 
 /**

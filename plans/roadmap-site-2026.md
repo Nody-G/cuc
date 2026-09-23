@@ -20,16 +20,13 @@ vérification attendue. Rien n'est « prévu » sans un endroit précis où le c
 | Poids JS par route | baseline committée ([`route-weight-baseline.json`](plans/route-weight-baseline.json:1)), contrôle automatique au gate (si build local) **et** en CI après build : échec > **+5 %**, alerte > +2 % — `npm run audit:route-weight` + [`revue-poids-routes.md`](plans/revue-poids-routes.md:1) |
 | Tout le reste | `npm run studio:gate:full` **et** la CI ([`ci.yml`](.github/workflows/ci.yml:1)) |
 
-## Priorité 1 — finir la publication (le seul trou connu)
+## Priorité 1 — finir la publication — ✅ tenu (2026-09-23)
 
-**Statut HTTP 404 pour une page non publiée.** Aujourd'hui : contenu non rendu, hors sitemap,
-hors index, mais réponse `200`. Deux voies chiffrées dans
-[`plans/revue-diffusion-brouillons.md`](plans/revue-diffusion-brouillons.md:1).
-
-- Recommandation : **voie A** (extraire le JSX des 15 routes en composants, puis
-  `/preview/[slug]` gardé par la session admin et `notFound()` public). Elle règle le 404 *et*
-  isole l'aperçu, sans dépendre d'un secret partagé.
-- Effort : mécanique mais large (15 fichiers). À faire seule, sans mélange.
+**Statut HTTP 404 pour une page non publiée.** Voie A livrée : porte serveur
+`getPublicPageContent()` (404 réel pour un brouillon ; replis certifiés intacts), aperçu sur
+route dédiée `/[locale]/preview` gardée par la session admin (+ garde de statut au proxy),
+`buildPreviewUrl()` pointé dessus. Statuts ○/◐ des 15 routes conservés, mécanisme vérifié au
+runtime. Détail et preuves : [`revue-diffusion-brouillons.md`](plans/revue-diffusion-brouillons.md:1) § 6.
 
 ## Priorité 2 — sécurité des données (à instruire avant d'ouvrir l'écriture à plus de monde)
 

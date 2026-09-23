@@ -5,8 +5,8 @@ import { routing } from '@/i18n/routing';
 import {
   getLocalizedFooterChrome,
   getLocalizedNavigation,
-  getLocalizedPageContent,
 } from '@/lib/i18n/server';
+import { getPublicPageContent } from '@/lib/i18n/public-page';
 import { SiteDataProvider } from '@/components/i18n/SiteDataProvider';
 import type { Locale } from '@/lib/i18n/entities';
 import { HomeView } from './HomeView';
@@ -34,7 +34,8 @@ export default async function HomePage({
   setRequestLocale(locale);
 
   const [page, navigation, footer] = await Promise.all([
-    getLocalizedPageContent('/', locale as Locale),
+    // Porte de diffusion : une page définitivement non publiée → 404.
+    getPublicPageContent('/', locale as Locale),
     getLocalizedNavigation('main', locale as Locale),
     getLocalizedFooterChrome('main', locale as Locale),
   ]);
