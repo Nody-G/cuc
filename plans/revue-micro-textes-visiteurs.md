@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-23T15:12:41.380Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-23T15:25:00.898Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -8,11 +8,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | Catégorie | Occurrences |
 | --- | ---: |
 | ANNOTÉ — éditable en place | 306 |
-| DONNÉES — éditable par un écran existant | 99 |
+| DONNÉES — éditable par un écran existant | 104 |
 | TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 15 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
-| HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 16 |
-| **Total** | **436** |
+| HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 17 |
+| **Total** | **442** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -571,6 +571,17 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.25 — `{labels.mediaIntro}`
 - l.38 — `{item.channel}`
 
+### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosReelsModal.tsx`
+
+- l.63 — `{reel.title}`
+
+### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosReelsSection.tsx`
+
+- l.39 — `{labels.title}`
+- l.42 — `{labels.intro}`
+- l.87 — `{reel.title}`
+- l.90 — `{reel.description}`
+
 ### `src\components\layout\AnnouncementBanner.tsx`
 
 - l.93 — `{badgeText}`
@@ -793,6 +804,10 @@ Aucune occurrence.
 - l.79 — `Allociné`
 - l.92 — `Instagram`
 - l.104 — `Portfolio`
+
+### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosReelsSection.tsx`
+
+- l.35 — `INSTAGRAM @CAMPUS.UNIVERS.CASCADES`
 
 ### `src\components\sections\application-modal\ApplicationSuccessView.tsx`
 

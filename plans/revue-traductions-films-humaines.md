@@ -1,8 +1,8 @@
 # Revue — Synopsis EN des dernières fiches films (traduction humaine)
 
-Généré le 2026-09-21T19:45:16.723Z par `scripts/seed_films_hand_translated_en.mjs`.
+Généré le 2026-09-23T15:16:17.760Z par `scripts/seed_films_hand_translated_en.mjs`.
 
-Mode : **application en base**
+Mode : **dry-run (aucune écriture)**
 
 Ces cinq fiches n’ont **aucune source anglaise** : TMDB (pas d’`overview`), IMDb (pas d’intrigue, ou intrigue française), Wikipédia anglophone (aucune entrée). Le synopsis français du cockpit a donc été traduit fidèlement — même procédé que pour les disciplines, partenaires, événements et programmes.
 

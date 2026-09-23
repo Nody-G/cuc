@@ -8,6 +8,8 @@ import { useVideosPage } from './sections/useVideosPage';
 import { VideosHero } from './sections/VideosHero';
 import { VideosDocusGrid } from './sections/VideosDocusGrid';
 import { DmVideoModal } from './sections/DmVideoModal';
+import { VideosReelsSection } from './sections/VideosReelsSection';
+import { VideosReelsModal } from './sections/VideosReelsModal';
 import { VideosMediaSection } from './sections/VideosMediaSection';
 
 /**
@@ -57,6 +59,34 @@ export default function VideosCascadeurPage() {
           video={page.selectedDmVideo}
           onClose={page.closeDmVideo}
           closeTitle={page.labels.closeTitle}
+        />
+
+        {/* Real CUC Action & Stunt Reels (Instagram) — Zéro badge */}
+        <VideosReelsSection
+          reels={page.localizedReels}
+          onSelectReel={page.openReel}
+          labels={{
+            title: page.labels.reelsTitle,
+            intro: page.labels.reelsIntro,
+            play: page.labels.reelsPlay,
+            socialInstagram: page.labels.socialInstagram,
+          }}
+        />
+
+        {/* Reel Player Modal (Lazy loaded 9:16 smartphone player) */}
+        <VideosReelsModal
+          reel={page.selectedReel}
+          onClose={page.closeReel}
+          onPrev={page.prevReel}
+          onNext={page.nextReel}
+          hasPrev={page.hasPrevReel}
+          hasNext={page.hasNextReel}
+          labels={{
+            closeTitle: page.labels.closeTitle,
+            watchOnInsta: page.labels.reelsWatchOnInsta,
+            prev: page.labels.reelsPrev,
+            next: page.labels.reelsNext,
+          }}
         />
 
         {/* Médias & Réseaux Sociaux */}

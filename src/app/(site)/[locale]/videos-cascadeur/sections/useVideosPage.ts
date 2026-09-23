@@ -12,6 +12,7 @@ import {
     type VideoCopy,
     type VideosProgram,
 } from './videos-copy';
+import { INSTAGRAM_REELS, type InstagramReel } from './instagram-reels.data';
 
 export interface VideosHeroCopy {
     badge: string;
@@ -35,6 +36,12 @@ export interface VideosLabels {
     socialInstagram: string;
     socialTiktok: string;
     closeTitle: string;
+    reelsTitle: string;
+    reelsIntro: string;
+    reelsPlay: string;
+    reelsWatchOnInsta: string;
+    reelsPrev: string;
+    reelsNext: string;
 }
 
 export interface SelectedDmVideo {
@@ -50,15 +57,25 @@ export interface UseVideosPageResult {
     closeDmVideo: () => void;
     localizedPrograms: VideosProgram[];
     mediaItems: MediaItem[];
+    localizedReels: InstagramReel[];
+    selectedReel: InstagramReel | null;
+    openReel: (reel: InstagramReel) => void;
+    closeReel: () => void;
+    nextReel: () => void;
+    prevReel: () => void;
+    hasPrevReel: boolean;
+    hasNextReel: boolean;
 }
 
 export function useVideosPage(): UseVideosPageResult {
     const t = useTranslations('videos');
     const [selectedDmVideo, setSelectedDmVideo] = React.useState<SelectedDmVideo | null>(null);
+    const [selectedReel, setSelectedReel] = React.useState<InstagramReel | null>(null);
     const [tvPrograms, setTvPrograms] = React.useState(PROGRAMMES_TV);
     const { content } = usePageDynamicContent('videos-cascadeur');
     const videoCopy = t.raw('programs') as VideoCopy[];
     const mediaItems = t.raw('mediaItems') as MediaItem[];
+    const reelsCopy = (t.raw('reelsItems') as { title: string; description: string }[]) || [];
 
     /** Recharge les programmes TV (état initial + synchronisation Realtime). */
     const loadVideos = React.useCallback(() => {
@@ -84,6 +101,30 @@ export function useVideosPage(): UseVideosPageResult {
             return copy ? { ...program, title: copy.title, sub: copy.sub } : program;
         });
     }, [tvPrograms, videoCopy]);
+
+    /** Reels Instagram localisés (titre et description issus du catalogue i18n). */
+    const localizedReels = React.useMemo(() => {
+        return INSTAGRAM_REELS.map((reel, idx) => {
+            const copy = reelsCopy[idx];
+            return copy
+                ? { ...reel, title: copy.title, description: copy.description }
+                : reel;
+        });
+    }, [reelsCopy]);
+
+    const activeReelIndex = selectedReel
+        ? localizedReels.findIndex((r) => r.id === selectedReel.id)
+        : -1;
+    const hasPrevReel = activeReelIndex > 0;
+    const hasNextReel = activeReelIndex >= 0 && activeReelIndex < localizedReels.length - 1;
+
+    const prevReel = React.useCallback(() => {
+        if (hasPrevReel) setSelectedReel(localizedReels[activeReelIndex - 1]);
+    }, [hasPrevReel, activeReelIndex, localizedReels]);
+
+    const nextReel = React.useCallback(() => {
+        if (hasNextReel) setSelectedReel(localizedReels[activeReelIndex + 1]);
+    }, [hasNextReel, activeReelIndex, localizedReels]);
 
     const heroBadge = content.hero?.badge || t('heroBadge');
     const heroTitle = content.hero?.title || t('heroTitle');
@@ -112,12 +153,26 @@ export function useVideosPage(): UseVideosPageResult {
             socialInstagram: t('socialInstagram'),
             socialTiktok: t('socialTiktok'),
             closeTitle: t('closeTitle'),
+            reelsTitle: t('reelsTitle'),
+            reelsIntro: t('reelsIntro'),
+            reelsPlay: t('reelsPlay'),
+            reelsWatchOnInsta: t('reelsWatchOnInsta'),
+            reelsPrev: t('reelsPrev'),
+            reelsNext: t('reelsNext'),
         },
         selectedDmVideo,
         openDmVideo: setSelectedDmVideo,
         closeDmVideo: () => setSelectedDmVideo(null),
         localizedPrograms,
         mediaItems,
+        localizedReels,
+        selectedReel,
+        openReel: setSelectedReel,
+        closeReel: () => setSelectedReel(null),
+        nextReel,
+        prevReel,
+        hasPrevReel,
+        hasNextReel,
     };
 }
 

@@ -746,6 +746,26 @@
         "socialInstagram": "Voir les cascades sur Instagram",
         "socialTiktok": "Suivre la Stunt Team sur TikTok",
         "closeTitle": "Fermer",
+        "reelsTitle": "SESSIONS D'ACTION EN FORMAT COURT",
+        "reelsIntro": "Vivez l'action au plus près avec les formats verticaux officiels du Campus Univers Cascades.",
+        "reelsPlay": "Lancer le Reel",
+        "reelsWatchOnInsta": "Voir sur Instagram",
+        "reelsPrev": "Reel précédent",
+        "reelsNext": "Reel suivant",
+        "reelsItems": [
+            {
+                "title": "Chorégraphie & Combat Rapproché",
+                "description": "Enchaînements physiques et synchronisation caméra lors des sessions intensives au campus."
+            },
+            {
+                "title": "Chutes & Absorptions",
+                "description": "Travail des impacts, réceptions au sol et gestion des trajectoires avec nos cascadeurs pro."
+            },
+            {
+                "title": "Défénestration & Hauteur",
+                "description": "Sauts en immersion et franchissements spectaculaires sur les infrastructures de la tour CUC."
+            }
+        ],
         "programs": [
             {
                 "dmId": "x9uewe0",

@@ -746,6 +746,26 @@
         "socialInstagram": "See the stunts on Instagram",
         "socialTiktok": "Follow the Stunt Team on TikTok",
         "closeTitle": "Close",
+        "reelsTitle": "SHORT ACTION & STUNT SESSIONS",
+        "reelsIntro": "Experience the action up close with official vertical video sessions from Campus Univers Cascades.",
+        "reelsPlay": "Play Reel",
+        "reelsWatchOnInsta": "Watch on Instagram",
+        "reelsPrev": "Previous Reel",
+        "reelsNext": "Next Reel",
+        "reelsItems": [
+            {
+                "title": "Choreography & Close Combat",
+                "description": "Physical fight sequences and camera synchronization during intensive sessions at the campus."
+            },
+            {
+                "title": "High Falls & Impact Control",
+                "description": "Precision impacts, ground absorption drills and stunt trajectory training with pro coaches."
+            },
+            {
+                "title": "Window Breaks & High Drops",
+                "description": "Dynamic drops, jumps and physical stunt obstacles on the CUC tower structure."
+            }
+        ],
         "programs": [
             {
                 "dmId": "x9uewe0",
