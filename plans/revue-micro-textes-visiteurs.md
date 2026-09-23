@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-23T14:47:31.026Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-23T15:12:41.380Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -8,11 +8,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | Catégorie | Occurrences |
 | --- | ---: |
 | ANNOTÉ — éditable en place | 306 |
-| DONNÉES — éditable par un écran existant | 102 |
+| DONNÉES — éditable par un écran existant | 99 |
 | TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 15 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 16 |
-| **Total** | **439** |
+| **Total** | **436** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -570,12 +570,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.22 — `{labels.mediaTitle}`
 - l.25 — `{labels.mediaIntro}`
 - l.38 — `{item.channel}`
-
-### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosPlayer.tsx`
-
-- l.58 — `{labels.videoFallback}`
-- l.71 — `{labels.videoFallback}`
-- l.89 — `{labels.broadcastBadge}`
 
 ### `src\components\layout\AnnouncementBanner.tsx`
 

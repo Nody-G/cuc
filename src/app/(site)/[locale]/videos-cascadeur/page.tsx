@@ -6,16 +6,15 @@ import { Footer } from '@/components/layout/Footer';
 import { videoObjectJsonLd } from '@/lib/seo';
 import { useVideosPage } from './sections/useVideosPage';
 import { VideosHero } from './sections/VideosHero';
-import { VideosPlayer } from './sections/VideosPlayer';
 import { VideosDocusGrid } from './sections/VideosDocusGrid';
 import { DmVideoModal } from './sections/DmVideoModal';
 import { VideosMediaSection } from './sections/VideosMediaSection';
 
 /**
- * Page « Vidéos & Reportages » — reportages TV, documentaires Dailymotion et
- * relais médias. Copie éditable en Studio (`sections_data` + catalogue i18n),
- * données `site_videos` synchronisées en Realtime. Implémentation découpée
- * dans `./sections/**`.
+ * Page « Vidéos & Reportages » — documentaires Dailymotion et relais médias.
+ * Copie éditable en Studio (`sections_data` + catalogue i18n), données
+ * `site_videos` synchronisées en Realtime. Implémentation découpée dans
+ * `./sections/**`.
  */
 export default function VideosCascadeurPage() {
   const page = useVideosPage();
@@ -45,13 +44,6 @@ export default function VideosCascadeurPage() {
       <main id="contenu-principal" className="flex-grow pt-28">
         {/* Hero Header */}
         <VideosHero hero={page.hero} labels={page.labels} />
-
-        {/* Video Player Box */}
-        <VideosPlayer
-          activeVideo={page.activeVideo}
-          onSelectVideo={page.setActiveVideo}
-          labels={page.labels}
-        />
 
         {/* Real CUC Videos & Documentaries Grid */}
         <VideosDocusGrid

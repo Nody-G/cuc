@@ -20,8 +20,9 @@
    brouillon témoin dans une transaction annulée (`npm run db:migrate:site-pages-rls[:write]`).
    **Incident quota (2026-09-23)** : dépassement du quota de stockage de l'organisation →
    API Data coupée (402) pendant quelques heures, résolu par mise à jour du plan Supabase ;
-   surveiller les quotas en amont. Le stockage média de ce projet pèse **218 Mo** — premier
-   gisement : 3 vidéos de reportages (~127 Mo), à compresser ou migrer (`npm run media:audit`).
+   surveiller les quotas en amont. Le stockage média du projet a été allégé le **2026-09-23**
+   de 218 Mo à **90 Mo** par purge des 3 vidéos de reportages (127 Mo libérés, conservées
+   localement dans `.staging/media/video/`). Surveillance continue via `npm run media:audit`.
 4. **Une seule source de vérité par sujet** : métadonnées → `buildRouteMetadata()`
    (`src/lib/i18n/route-metadata.ts`), fusion bilingue → `src/lib/i18n/localized-merge.ts`,
    libellés → `src/lib/i18n/microcopy.ts`, champs éditables → `src/lib/preview/cuc-field.ts`.

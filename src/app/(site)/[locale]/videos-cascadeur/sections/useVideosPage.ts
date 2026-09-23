@@ -26,14 +26,6 @@ export interface VideosLabels {
     breadcrumbCurrent: string;
     heroImageAlt: string;
     heroMeta: string;
-    tabTf1: string;
-    tabFrance2: string;
-    videoFallback: string;
-    tf1Title: string;
-    tf1Desc: string;
-    france2Title: string;
-    france2Desc: string;
-    broadcastBadge: string;
     docusBadge: string;
     docusTitle: string;
     docusHint: string;
@@ -53,8 +45,6 @@ export interface SelectedDmVideo {
 export interface UseVideosPageResult {
     hero: VideosHeroCopy;
     labels: VideosLabels;
-    activeVideo: 'tf1' | 'france2';
-    setActiveVideo: (video: 'tf1' | 'france2') => void;
     selectedDmVideo: SelectedDmVideo | null;
     openDmVideo: (video: SelectedDmVideo) => void;
     closeDmVideo: () => void;
@@ -64,7 +54,6 @@ export interface UseVideosPageResult {
 
 export function useVideosPage(): UseVideosPageResult {
     const t = useTranslations('videos');
-    const [activeVideo, setActiveVideo] = React.useState<'tf1' | 'france2'>('tf1');
     const [selectedDmVideo, setSelectedDmVideo] = React.useState<SelectedDmVideo | null>(null);
     const [tvPrograms, setTvPrograms] = React.useState(PROGRAMMES_TV);
     const { content } = usePageDynamicContent('videos-cascadeur');
@@ -82,24 +71,6 @@ export function useVideosPage(): UseVideosPageResult {
 
     // Synchronisation Realtime Cockpit → Vitrine (clé `videos` de site_settings).
     useRealtimeRefresh(['site_settings'], loadVideos);
-
-    /**
-     * Ancres `#tf1` / `#france2` (copie certifiée des CTA) : sélectionnent l'onglet
-     * reportage correspondant, comme `#plan-3d-campus` le fait sur la visite virtuelle.
-     */
-    React.useEffect(() => {
-        const handleHash = () => {
-            const hash = window.location.hash;
-            if (hash === '#tf1') setActiveVideo('tf1');
-            if (hash === '#france2') setActiveVideo('france2');
-        };
-        window.addEventListener('hashchange', handleHash);
-        const timer = setTimeout(handleHash, 0);
-        return () => {
-            window.removeEventListener('hashchange', handleHash);
-            clearTimeout(timer);
-        };
-    }, []);
 
     /**
      * Titres et sous-titres des programmes : les DONNÉES (`site_videos` /
@@ -132,14 +103,6 @@ export function useVideosPage(): UseVideosPageResult {
             breadcrumbCurrent: t('breadcrumbCurrent'),
             heroImageAlt: t('heroImageAlt'),
             heroMeta: t('heroMeta'),
-            tabTf1: t('tabTf1'),
-            tabFrance2: t('tabFrance2'),
-            videoFallback: t('videoFallback'),
-            tf1Title: t('tf1Title'),
-            tf1Desc: t('tf1Desc'),
-            france2Title: t('france2Title'),
-            france2Desc: t('france2Desc'),
-            broadcastBadge: t('broadcastBadge'),
             docusBadge: t('docusBadge'),
             docusTitle: t('docusTitle'),
             docusHint: t('docusHint'),
@@ -150,8 +113,6 @@ export function useVideosPage(): UseVideosPageResult {
             socialTiktok: t('socialTiktok'),
             closeTitle: t('closeTitle'),
         },
-        activeVideo,
-        setActiveVideo,
         selectedDmVideo,
         openDmVideo: setSelectedDmVideo,
         closeDmVideo: () => setSelectedDmVideo(null),
@@ -159,3 +120,4 @@ export function useVideosPage(): UseVideosPageResult {
         mediaItems,
     };
 }
+

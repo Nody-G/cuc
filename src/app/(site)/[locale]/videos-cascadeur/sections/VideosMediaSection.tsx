@@ -12,7 +12,7 @@ export const VideosMediaSection: React.FC<VideosMediaSectionProps> = ({
     mediaItems,
     labels,
 }) => (
-    <section className="py-16 bg-[#0c0c10] border-t border-zinc-800">
+    <section id="medias" className="py-16 bg-[#0c0c10] border-t border-zinc-800 scroll-mt-28">
         <div className="page-shell">
             <div className="text-center max-w-3xl mx-auto mb-12">
                 <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-2">

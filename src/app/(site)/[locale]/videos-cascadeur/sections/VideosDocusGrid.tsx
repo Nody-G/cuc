@@ -16,7 +16,7 @@ export const VideosDocusGrid: React.FC<VideosDocusGridProps> = ({
     onSelectProgram,
     labels,
 }) => (
-    <section className="py-16 bg-[#09090d] border-t border-zinc-800">
+    <section id="documentaires" className="py-16 bg-[#09090d] border-t border-zinc-800 scroll-mt-28">
         <div className="page-shell">
             <div className="text-center max-w-3xl mx-auto mb-12">
                 <StuntBadge variant="yellow" icon={<Video className="w-3.5 h-3.5" />}>
