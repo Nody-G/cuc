@@ -180,13 +180,15 @@ en toutes circonstances.
 
 ---
 
-## 7. Reste à faire
+## 7. Reste à faire — ✅ clôturé (2026-09-23)
+
+Ce tableau est historique : les trois tâches sont livrées, **ne pas les rouvrir sur sa foi**.
 
 | # | Tâche | Statut |
 | --- | --- | --- |
-| 15 | Étendre `PagesEditorView` aux `sections_data` restantes | À faire |
-| 38 | Édition inline sur la vitrine | À faire |
-| 39 | Aperçu live (split-screen) dans `PagesEditorView` | À faire |
+| 15 | Étendre `PagesEditorView` aux `sections_data` restantes | ✅ livré — `npm run audit:fields` : **15 pages couvertes**, « couverture et promesses complètes » ([`revue-couverture-champs-visuels.md`](plans/revue-couverture-champs-visuels.md:1)) |
+| 38 | Édition inline sur la vitrine | ✅ livré — Mode Studio ([`PreviewEditLayer.tsx`](src/components/preview/PreviewEditLayer.tsx:31), règle [`studio_mode_preview.md`](.agents/rules/studio_mode_preview.md:1)) |
+| 39 | Aperçu live (split-screen) dans `PagesEditorView` | ✅ livré — [`LivePreviewPane.tsx`](<src/app/(admin)/admin/components/pages-editor/LivePreviewPane.tsx:70>) dans l'onglet Aperçu ([`PreviewTabPanel.tsx`](<src/app/(admin)/admin/components/pages-editor/PreviewTabPanel.tsx:9>)), adossé à la route `/[locale]/preview` |
 
 ---
 

@@ -190,7 +190,7 @@ Statut : ✅ fondations livrées et **build production vert**.
   utilisent `Link`/`usePathname` de `@/i18n/navigation`.
 - Vérifications : `npm run typecheck` ✅ · `npm run build` ✅ (routes `/fr/...` + `/en/...` générées, `/admin` préservé).
 
-Reste à faire :
+Reste à faire à cette date (**historique** — ces phases ont été livrées, voir § 14 ; ne pas piloter sur cette liste) :
 
 - **Phase 4.5 (suite)** : migrer les derniers `next/link` / `useRouter` / `usePathname` (Footer, drawer mobile, dropdowns,
   sections et pages) vers `@/i18n/navigation` ; ajouter le sélecteur au drawer mobile.
@@ -208,7 +208,9 @@ Reste à faire :
 - **5.2 / 5.3 ✅ (pages)** : le hook de contenu [`usePageDynamicContent.ts`](src/lib/hooks/usePageDynamicContent.ts:1)
   dérive la locale depuis l'URL (`/en…`) et **fusionne l'overlay `site_translations` par-dessus la base FR**
   (repli FR automatique si aucune traduction). Abonnement Realtime à `site_translations`.
-  *(Reste à étendre aux lecteurs serveur `getTeam`/`getFilms`/… pour le sitemap et les métadonnées.)*
+  *(✅ étendu depuis : les métadonnées de route lisent `site_pages` + overlay EN côté serveur via
+  `getLocalizedPageContent` dans [`route-metadata.ts`](src/lib/i18n/route-metadata.ts:24) ; l'OG des fiches coach
+  passe par `getTeam` ; le sitemap déclare FR + EN avec les alternances `hreflang`.)*
 - **6.1 (amorce) ✅** : [`seed_site_translations_en.mjs`](scripts/seed_site_translations_en.mjs:1) a semé une
   traduction EN rédigée (sobre, factuelle) pour `page:/` et `page:visite-guidee` (titres + hero + métas).
   Vérifié en base : `hero.title = "THE CAMPUS"` pour `/en/visite-guidee`.

@@ -1,118 +1,102 @@
 {
-  "generatedAt": "2026-09-21T22:39:08.231Z",
+  "generatedAt": "2026-09-23T07:41:37.034Z",
   "git": {
-    "head": "03c81c4",
-    "date": "2026-09-22T00:34:30+02:00",
-    "changed": 3
+    "head": "612314e",
+    "date": "2026-09-23T09:40:32+02:00",
+    "changed": 1
   },
-  "globalScore": 99,
+  "globalScore": 97,
   "scores": {
     "Intégrité technique": 100,
-    "Synchronisation Realtime": 90,
+    "Synchronisation Realtime": 81,
     "Interconnexion CUC Sign": 100,
     "Parité français / anglais": 100,
     "Sécurité": 100,
     "Tests": 100
   },
   "code": {
-    "totalLines": 107342,
-    "totalFiles": 630,
+    "totalLines": 138714,
+    "totalFiles": 1139,
     "zones": {
       "Cockpit (admin)": {
-        "files": 64,
-        "lines": 21500
+        "files": 315,
+        "lines": 30721
       },
       "Vitrine (pages)": {
-        "files": 56,
-        "lines": 6777
+        "files": 94,
+        "lines": 7412
       },
       "Composants UI": {
-        "files": 118,
-        "lines": 16882
+        "files": 188,
+        "lines": 20731
       },
       "i18n, données & types": {
-        "files": 15,
-        "lines": 3587
+        "files": 17,
+        "lines": 5861
       },
       "Bibliothèques & données": {
-        "files": 42,
-        "lines": 7921
+        "files": 155,
+        "lines": 15469
       },
       "Autres": {
         "files": 1,
-        "lines": 25
+        "lines": 40
       },
       "Outillage (scripts)": {
-        "files": 268,
-        "lines": 40312
+        "files": 286,
+        "lines": 45414
       },
       "Documentation (plans)": {
-        "files": 66,
-        "lines": 10338
+        "files": 83,
+        "lines": 13066
       }
     },
     "byExt": {
       ".ts": {
-        "files": 100,
-        "lines": 19204
+        "files": 363,
+        "lines": 40662
       },
       ".tsx": {
-        "files": 194,
-        "lines": 35857
+        "files": 400,
+        "lines": 38017
       },
       ".css": {
-        "files": 1,
-        "lines": 705
+        "files": 7,
+        "lines": 727
       },
       ".json": {
-        "files": 3,
-        "lines": 913
+        "files": 4,
+        "lines": 978
       },
       ".mjs": {
-        "files": 264,
-        "lines": 39847
+        "files": 282,
+        "lines": 44949
       },
       ".js": {
         "files": 1,
         "lines": 63
       },
       ".md": {
-        "files": 64,
-        "lines": 9686
+        "files": 80,
+        "lines": 12349
       }
     },
     "largest": [
       {
-        "file": "src/app/(admin)/admin/actions.ts",
-        "lines": 2502
-      },
-      {
-        "file": "src/lib/data/site-service.ts",
-        "lines": 2234
-      },
-      {
-        "file": "src/app/(admin)/admin/components/TeamView.tsx",
-        "lines": 1414
+        "file": "src/data/team.ts",
+        "lines": 2243
       },
       {
         "file": "src/data/filmography.ts",
         "lines": 1202
       },
       {
-        "file": "src/app/(admin)/admin/components/media/MediaExplorer.tsx",
-        "lines": 1057
-      },
-      {
-        "file": "src/app/(admin)/admin/CockpitApp.tsx",
-        "lines": 1052
+        "file": "scripts/generate_app_dossier.mjs",
+        "lines": 1183
       },
       {
         "file": "scripts/audit_full_app.mjs",
         "lines": 1031
-      },
-      {
-        "file": "src/app/(admin)/admin/components/InquiriesView.tsx",
-        "lines": 1012
       },
       {
         "file": "scripts/generate_metrics_report.mjs",
@@ -121,27 +105,43 @@
       {
         "file": "scripts/generate_audit_report.mjs",
         "lines": 841
+      },
+      {
+        "file": "src/data/team.ts.bak",
+        "lines": 772
+      },
+      {
+        "file": "scripts/sync_all_coach_credits_supabase.mjs",
+        "lines": 611
+      },
+      {
+        "file": "src/lib/data/site/defaults/pages.ts",
+        "lines": 596
+      },
+      {
+        "file": "src/data/navigation.ts",
+        "lines": 583
       }
     ],
     "routes": 30,
-    "sourceFilesScanned": 276
+    "sourceFilesScanned": 690
   },
   "tests": {
     "available": true,
-    "total": 157,
-    "passed": 157,
+    "total": 385,
+    "passed": 385,
     "failed": 0,
-    "testFiles": 15
+    "testFiles": 52
   },
   "i18n": {
-    "fr": 681,
-    "en": 681,
+    "fr": 703,
+    "en": 703,
     "missingInEn": 0
   },
   "realtime": {
-    "coverageRatio": 90,
-    "covered": 19,
-    "gaps": 2
+    "coverageRatio": 81,
+    "covered": 17,
+    "gaps": 4
   },
   "database": {
     "tables": {
@@ -156,7 +156,7 @@
       "site_programs": 6,
       "site_inquiries": 0,
       "site_audit_logs": 0,
-      "site_announcements": 1,
+      "site_announcements": 2,
       "site_settings": 11,
       "site_navigation": 1,
       "site_footer": 1,

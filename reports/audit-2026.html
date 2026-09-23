@@ -93,9 +93,9 @@
     <div class="kicker">Audit général & rapport de santé — 2026</div>
     <h1>Campus Univers Cascades — Application vitrine & Cockpit</h1>
     <p class="meta">
-      Rapport généré le <strong>22/09/2026 00:39:08</strong> —
-      révision <code>03c81c4</code> (2026-09-22T00:34:30+02:00) —
-      3 fichier(s) modifié(s) dans l'arbre de travail.<br/>
+      Rapport généré le <strong>23/09/2026 09:41:37</strong> —
+      révision <code>612314e</code> (2026-09-23T09:40:32+02:00) —
+      1 fichier(s) modifié(s) dans l'arbre de travail.<br/>
       Toutes les mesures sont recalculées par <code>npm run report:audit</code> : ce rapport est <em>reproductible</em>,
       jamais saisi à la main.
     </p>
@@ -104,11 +104,11 @@
   <section>
     <h2>1. Synthèse pour la direction</h2>
     <div class="callout">
-      <strong>Score global : 99/100.</strong>
+      <strong>Score global : 97/100.</strong>
       L'application est <strong>techniquement saine</strong> : aucune erreur détectée sur les 10 contrôles automatisés
       (liens, ancres, doublons, composants orphelins, redirections, contenus, largeurs, doctrine éditoriale, canaux temps réel),
       la base de données est <strong>entièrement synchronisée</strong> avec le Cockpit et le site public, et les contenus
-      anglais couvrent 681 clés de traduction sans aucun manque.
+      anglais couvrent 703 clés de traduction sans aucun manque.
     </div>
     <div class="gauges">
       <figure class="gauge">
@@ -121,12 +121,12 @@
       </svg>
       <figcaption>Intégrité technique</figcaption>
     </figure><figure class="gauge">
-      <svg viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Synchronisation Realtime : 90 sur 100">
+      <svg viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Synchronisation Realtime : 81 sur 100">
         <circle cx="64" cy="64" r="52" fill="none" stroke="#26262e" stroke-width="10"/>
         <circle cx="64" cy="64" r="52" fill="none" stroke="#FFE500" stroke-width="10"
-          stroke-dasharray="294.05307237600465 32.67256359733386" stroke-linecap="round"
+          stroke-dasharray="264.6477651384042 62.07787083493429" stroke-linecap="round"
           transform="rotate(-90 64 64)"/>
-        <text x="64" y="70" text-anchor="middle" class="gauge-value">90</text>
+        <text x="64" y="70" text-anchor="middle" class="gauge-value">81</text>
       </svg>
       <figcaption>Synchronisation Realtime</figcaption>
     </figure><figure class="gauge">
@@ -453,7 +453,7 @@
   <section>
     <h2>4. Méthode & périmètre</h2>
     <p>
-      L'audit couvre <strong>276 fichiers source</strong>,
+      L'audit couvre <strong>690 fichiers source</strong>,
       <strong>30 routes</strong> (15 côté Cockpit),
       la base Supabase de production (18 tables <code>site_*</code>)
       et l'interconnexion avec l'application <strong>CUC&nbsp;Sign</strong>.
@@ -462,67 +462,67 @@
     <ul>
       <li><code>npm run audit</code> — 10 familles de contrôles statiques (liens, ancres, doublons, redirections, composants, largeurs, doctrine, temps réel, i18n).</li>
       <li><code>node scripts/audit_supabase_state.mjs</code> — lecture seule de la base (tables, publication temps réel, RLS, clés étrangères, miroirs).</li>
-      <li><code>npm run report:audit</code> — ce rapport (agrégation des mesures, tests exécutés le 22/09/2026).</li>
+      <li><code>npm run report:audit</code> — ce rapport (agrégation des mesures, tests exécutés le 23/09/2026).</li>
     </ul>
   </section>
 
   <section>
     <h2>5. Le code en chiffres</h2>
     <div class="grid cols-3">
-      <div class="card"><div class="stat">107 342<small>lignes de code (src + scripts + documentation)</small></div></div>
-      <div class="card"><div class="stat">630<small>fichiers suivis dans ces périmètres</small></div></div>
+      <div class="card"><div class="stat">138 714<small>lignes de code (src + scripts + documentation)</small></div></div>
+      <div class="card"><div class="stat">1 139<small>fichiers suivis dans ces périmètres</small></div></div>
       <div class="card"><div class="stat">30<small>routes applicatives (15 Cockpit · 15 vitrine)</small></div></div>
-      <div class="card"><div class="stat">15<small>fichiers de tests automatisés</small></div></div>
+      <div class="card"><div class="stat">52<small>fichiers de tests automatisés</small></div></div>
     </div>
 
     <h3>Répartition des lignes par zone</h3>
     <div class="donut-wrap"><svg viewBox="0 0 220 220" width="220" height="220"><circle cx="110" cy="110" r="70" fill="none" stroke="#FFE500"
-        stroke-width="26" stroke-dasharray="165.17433648722442 274.6486350153466"
+        stroke-width="26" stroke-dasharray="143.99498556611272 295.8279859364583"
         stroke-dashoffset="0" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#FFB020"
-        stroke-width="26" stroke-dasharray="88.09407209950696 351.7288994030641"
-        stroke-dashoffset="-165.17433648722442" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#FF7043"
-        stroke-width="26" stroke-dasharray="69.17228489227334 370.65068661029767"
-        stroke-dashoffset="-253.26840858673137" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#4FC3F7"
-        stroke-width="26" stroke-dasharray="42.35890778440479 397.46406371816624"
-        stroke-dashoffset="-322.4406934790047" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#81C784"
-        stroke-width="26" stroke-dasharray="32.45549512093929 407.3674763816317"
-        stroke-dashoffset="-364.7996012634095" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#BA68C8"
-        stroke-width="26" stroke-dasharray="27.768071005505057 412.05490049706594"
-        stroke-dashoffset="-397.2550963843488" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#F06292"
-        stroke-width="26" stroke-dasharray="14.697369145159604 425.1256023574114"
-        stroke-dashoffset="-425.0231673898539" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#90A4AE"
-        stroke-width="26" stroke-dasharray="0.10243496755756624 439.7205365350135"
-        stroke-dashoffset="-439.7205365350135" transform="rotate(-90 110 110)"/>
-      <text x="110" y="116" text-anchor="middle" class="donut-total">107 342</text></svg>
-      <ul class="legend"><li><span class="dot" style="background:#FFE500"></span>Outillage (scripts) — <strong>40 312</strong> lignes</li><li><span class="dot" style="background:#FFB020"></span>Cockpit (admin) — <strong>21 500</strong> lignes</li><li><span class="dot" style="background:#FF7043"></span>Composants UI — <strong>16 882</strong> lignes</li><li><span class="dot" style="background:#4FC3F7"></span>Documentation (plans) — <strong>10 338</strong> lignes</li><li><span class="dot" style="background:#81C784"></span>Bibliothèques & données — <strong>7 921</strong> lignes</li><li><span class="dot" style="background:#BA68C8"></span>Vitrine (pages) — <strong>6 777</strong> lignes</li><li><span class="dot" style="background:#F06292"></span>i18n, données & types — <strong>3 587</strong> lignes</li><li><span class="dot" style="background:#90A4AE"></span>Autres — <strong>25</strong> lignes</li></ul></div>
+        stroke-width="26" stroke-dasharray="97.40762653755557 342.41534496501544"
+        stroke-dashoffset="-143.99498556611272" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#FF7043"
+        stroke-width="26" stroke-dasharray="65.73215408841068 374.09081741416037"
+        stroke-dashoffset="-241.40261210366828" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#4FC3F7"
+        stroke-width="26" stroke-dasharray="49.047836167749985 390.775135334821"
+        stroke-dashoffset="-307.1347661920789" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#81C784"
+        stroke-width="26" stroke-dasharray="41.42860090295567 398.39437059961534"
+        stroke-dashoffset="-356.18260235982893" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#BA68C8"
+        stroke-width="26" stroke-dasharray="23.501361540847043 416.321609961724"
+        stroke-dashoffset="-397.6112032627846" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#F06292"
+        stroke-width="26" stroke-dasharray="18.583577980424245 421.23939352214677"
+        stroke-dashoffset="-421.11256480363164" transform="rotate(-90 110 110)"/><circle cx="110" cy="110" r="70" fill="none" stroke="#90A4AE"
+        stroke-width="26" stroke-dasharray="0.12682871851509464 439.69614278405595"
+        stroke-dashoffset="-439.6961427840559" transform="rotate(-90 110 110)"/>
+      <text x="110" y="116" text-anchor="middle" class="donut-total">138 714</text></svg>
+      <ul class="legend"><li><span class="dot" style="background:#FFE500"></span>Outillage (scripts) — <strong>45 414</strong> lignes</li><li><span class="dot" style="background:#FFB020"></span>Cockpit (admin) — <strong>30 721</strong> lignes</li><li><span class="dot" style="background:#FF7043"></span>Composants UI — <strong>20 731</strong> lignes</li><li><span class="dot" style="background:#4FC3F7"></span>Bibliothèques & données — <strong>15 469</strong> lignes</li><li><span class="dot" style="background:#81C784"></span>Documentation (plans) — <strong>13 066</strong> lignes</li><li><span class="dot" style="background:#BA68C8"></span>Vitrine (pages) — <strong>7 412</strong> lignes</li><li><span class="dot" style="background:#F06292"></span>i18n, données & types — <strong>5 861</strong> lignes</li><li><span class="dot" style="background:#90A4AE"></span>Autres — <strong>40</strong> lignes</li></ul></div>
 
     <h3>Langages & artefacts</h3>
     <svg viewBox="0 0 640 262" role="img" class="chart">
-        <text x="0" y="28.72" class="chart-label">.mjs — Node.js (264 fichiers)</text>
+        <text x="0" y="28.72" class="chart-label">.mjs — Node.js (282 fichiers)</text>
         <rect x="230" y="10" width="340" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
-        <text x="578" y="28.72" class="chart-value">39 847 lignes</text>
-        <text x="0" y="64.72" class="chart-label">.tsx — TypeScript/React (194 fichiers)</text>
-        <rect x="230" y="46" width="305.95477702210957" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
-        <text x="543.9547770221095" y="64.72" class="chart-value">35 857 lignes</text>
-        <text x="0" y="100.72" class="chart-label">.ts — TypeScript (100 fichiers)</text>
-        <rect x="230" y="82" width="163.86076743544055" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
-        <text x="401.86076743544055" y="100.72" class="chart-value">19 204 lignes</text>
-        <text x="0" y="136.72" class="chart-label">.md — Markdown (64 fichiers)</text>
-        <rect x="230" y="118" width="82.64712525409692" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
-        <text x="320.6471252540969" y="136.72" class="chart-value">9 686 lignes</text>
-        <text x="0" y="172.72" class="chart-label">.json — JSON (3 fichiers)</text>
-        <rect x="230" y="154" width="7.790297889427059" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
-        <text x="245.79029788942705" y="172.72" class="chart-value">913 lignes</text>
-        <text x="0" y="208.72" class="chart-label">.css — CSS (1 fichiers)</text>
-        <rect x="230" y="190" width="6.015509323161091" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
-        <text x="244.0155093231611" y="208.72" class="chart-value">705 lignes</text>
+        <text x="578" y="28.72" class="chart-value">44 949 lignes</text>
+        <text x="0" y="64.72" class="chart-label">.ts — TypeScript (363 fichiers)</text>
+        <rect x="230" y="46" width="307.57258225989455" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="545.5725822598945" y="64.72" class="chart-value">40 662 lignes</text>
+        <text x="0" y="100.72" class="chart-label">.tsx — TypeScript/React (400 fichiers)</text>
+        <rect x="230" y="82" width="287.56546308037997" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="525.5654630803799" y="100.72" class="chart-value">38 017 lignes</text>
+        <text x="0" y="136.72" class="chart-label">.md — Markdown (80 fichiers)</text>
+        <rect x="230" y="118" width="93.40941956439521" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="331.4094195643952" y="136.72" class="chart-value">12 349 lignes</text>
+        <text x="0" y="172.72" class="chart-label">.json — JSON (4 fichiers)</text>
+        <rect x="230" y="154" width="7.397717413068144" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="245.39771741306814" y="172.72" class="chart-value">978 lignes</text>
+        <text x="0" y="208.72" class="chart-label">.css — CSS (7 fichiers)</text>
+        <rect x="230" y="190" width="5.499121226278671" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
+        <text x="243.49912122627867" y="208.72" class="chart-value">727 lignes</text>
         <text x="0" y="244.72" class="chart-label">.js — JavaScript (1 fichiers)</text>
         <rect x="230" y="226" width="2" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
         <text x="240" y="244.72" class="chart-value">63 lignes</text></svg>
 
     <h3>Les 10 fichiers les plus volumineux (points de refactoring futurs)</h3>
     <table><thead><tr><th>Fichier</th><th>Lignes</th></tr></thead><tbody>
-    <tr><td><code>src/app/(admin)/admin/actions.ts</code></td><td>2 502</td></tr><tr><td><code>src/lib/data/site-service.ts</code></td><td>2 234</td></tr><tr><td><code>src/app/(admin)/admin/components/TeamView.tsx</code></td><td>1 414</td></tr><tr><td><code>src/data/filmography.ts</code></td><td>1 202</td></tr><tr><td><code>src/app/(admin)/admin/components/media/MediaExplorer.tsx</code></td><td>1 057</td></tr><tr><td><code>src/app/(admin)/admin/CockpitApp.tsx</code></td><td>1 052</td></tr><tr><td><code>scripts/audit_full_app.mjs</code></td><td>1 031</td></tr><tr><td><code>src/app/(admin)/admin/components/InquiriesView.tsx</code></td><td>1 012</td></tr><tr><td><code>scripts/generate_metrics_report.mjs</code></td><td>956</td></tr><tr><td><code>scripts/generate_audit_report.mjs</code></td><td>841</td></tr>
+    <tr><td><code>src/data/team.ts</code></td><td>2 243</td></tr><tr><td><code>src/data/filmography.ts</code></td><td>1 202</td></tr><tr><td><code>scripts/generate_app_dossier.mjs</code></td><td>1 183</td></tr><tr><td><code>scripts/audit_full_app.mjs</code></td><td>1 031</td></tr><tr><td><code>scripts/generate_metrics_report.mjs</code></td><td>956</td></tr><tr><td><code>scripts/generate_audit_report.mjs</code></td><td>841</td></tr><tr><td><code>src/data/team.ts.bak</code></td><td>772</td></tr><tr><td><code>scripts/sync_all_coach_credits_supabase.mjs</code></td><td>611</td></tr><tr><td><code>src/lib/data/site/defaults/pages.ts</code></td><td>596</td></tr><tr><td><code>src/data/navigation.ts</code></td><td>583</td></tr>
     </tbody></table>
   </section>
 
@@ -543,14 +543,14 @@
         <tr><td>Canaux temps réel sans nettoyage</td><td class="ok">0</td><td>Aucune fuite d'abonnement côté navigateur.</td></tr>
       </tbody>
     </table>
-    <p class="meta">Avertissements restants (non bloquants) : 2 composants à données statiques (plan 3D) sans temps réel — choix assumé.</p>
+    <p class="meta">Avertissements restants (non bloquants) : 4 composants à données statiques (plan 3D) sans temps réel — choix assumé.</p>
   </section>
 
   <section>
     <h2>7. Contenus français / anglais</h2>
     <div class="grid cols-3">
-      <div class="card"><div class="stat">681<small>clés éditoriales en français</small></div></div>
-      <div class="card"><div class="stat">681<small>clés éditoriales en anglais</small></div></div>
+      <div class="card"><div class="stat">703<small>clés éditoriales en français</small></div></div>
+      <div class="card"><div class="stat">703<small>clés éditoriales en anglais</small></div></div>
       <div class="card"><div class="stat">0<small>clés manquantes en anglais</small></div></div>
     </div>
     <p>
@@ -566,7 +566,7 @@
       Toute modification faite dans le Cockpit (sessions, équipe, films, partenaires, événements, disciplines,
       zones du campus, réglages, contenus de pages) se propage <strong>instantanément</strong> au site public,
       sans rechargement manuel et sans intervention technique. La couverture mesurée des surfaces concernées est de
-      <strong>90&nbsp;%</strong> ; les 2 composants restants sont
+      <strong>81&nbsp;%</strong> ; les 4 composants restants sont
       volontairement statiques (rendu 3D lourd).
     </p>
     <p>
@@ -617,7 +617,7 @@
         <text x="240" y="424.72" class="chart-value">3</text>
         <text x="0" y="460.72" class="chart-label">site_announcements</text>
         <rect x="230" y="442" width="2" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
-        <text x="240" y="460.72" class="chart-value">1</text>
+        <text x="240" y="460.72" class="chart-value">2</text>
         <text x="0" y="496.72" class="chart-label">site_navigation</text>
         <rect x="230" y="478" width="2" height="26" rx="3" fill="#FFE500" opacity="0.9"/>
         <text x="240" y="496.72" class="chart-value">1</text>
@@ -645,7 +645,7 @@
     <div class="grid cols-2">
       <div class="card">
         <h3>Tests automatisés</h3>
-        <p>157 tests sur 157 passent (0 échec).</p>
+        <p>385 tests sur 385 passent (0 échec).</p>
         <p class="meta">Vérifications systématiques : compilation TypeScript stricte, analyse ESLint, build de production.</p>
       </div>
       <div class="card">
