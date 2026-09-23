@@ -12,18 +12,15 @@
    (routes, ancres, plafond SRP 300 lignes) et build. Un
    commit qui casse l'un de ces contrôles n'est pas livrable — la dette restante est publiée
    dans `plans/`, jamais silencieuse.
-3. **Le piège RLS — séquence tenue, ne pas la rouvrir** : restreindre la policy publique de
-   `site_pages` à `is_published = true` sans les deux lectures service role ferait afficher un
-   brouillon avec le **contenu certifié**. Désormais livrés : porte 404 RLS-proof
-   (`getPublicPageContent` + `getPagePublicationState`) et aperçu sur client admin
-   (`getPreviewPageContent`). La migration est outillée et dry-run par défaut
-   (`npm run db:migrate:site-pages-rls[:write]`) ; son application reste conditionnée à une
-   vérification anonyme possible — le 2026-09-23, l'API Data du projet répondait
-   **402 : `exceed_storage_size_quota`** (« upgrade their plan or remove spend caps ») à
-   toutes les clés, service role compris. Action propriétaire : plan/spend caps Supabase puis
-   purge du stockage (`npm run media:audit`, cf. `plans/revue-mediatheque-storage.md` et
-   `plans/revue-rls-site-pages.md`). La vitrine publique, elle, sert ses replis certifiés :
-   c'est le garde-fou prévu, pas un incident silencieux.
+3. **RLS `site_pages` — appliquée le 2026-09-23, séquence à ne pas rouvrir** : la policy
+   publique (`FOR SELECT USING (true)`) est remplacée par `USING (is_published = true)` —
+   jamais l'appliquer sans les deux lectures service role (porte 404 `getPublicPageContent` +
+   `getPagePublicationState`, aperçu `getPreviewPageContent`). Vérification reproductible
+   **sans dépendre de l'API** : sonde Postgres qui endosse le rôle `anon` avec une ligne
+   brouillon témoin dans une transaction annulée (`npm run db:migrate:site-pages-rls[:write]`).
+   À noter : au 2026-09-23, l'API Data du projet répond **402 `exceed_storage_size_quota`**
+   (quota d'organisation dépassé) — la vitrine sert ses replis certifiés par design ;
+   action propriétaire : plan/spend caps + purge du stockage (`npm run media:audit`).
 4. **Une seule source de vérité par sujet** : métadonnées → `buildRouteMetadata()`
    (`src/lib/i18n/route-metadata.ts`), fusion bilingue → `src/lib/i18n/localized-merge.ts`,
    libellés → `src/lib/i18n/microcopy.ts`, champs éditables → `src/lib/preview/cuc-field.ts`.

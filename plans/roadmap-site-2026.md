@@ -28,22 +28,17 @@ route dédiée `/[locale]/preview` gardée par la session admin (+ garde de stat
 `buildPreviewUrl()` pointé dessus. Statuts ○/◐ des 15 routes conservés, mécanisme vérifié au
 runtime. Détail et preuves : [`revue-diffusion-brouillons.md`](plans/revue-diffusion-brouillons.md:1) § 6.
 
-## Priorité 2 — sécurité des données — 🟡 outillée, application sous condition
+## Priorité 2 — sécurité des données — ✅ tenu (2026-09-23)
 
-**Policy RLS publique de `site_pages`.** Le piège est traité : la porte 404 lit désormais
-l'état de publication via le **service role** (`getPagePublicationState`) et l'aperçu lit le
-brouillon via le **client admin** (`getPreviewPageContent`) — « absent » et « dépublié » ne sont
-plus confondus. Migration prête : [`migration_site_pages_rls.sql`](scripts/migration_site_pages_rls.sql:1)
-
-+ `npm run db:migrate:site-pages-rls[:write]` (dry-run par défaut, sonde anonyme incluse).
-**Application en attente** : le 2026-09-23, l'API Data du projet a répondu **402 Payment
-Required** à toutes les clés (anon ET service) — cause exacte :
-`exceed_storage_size_quota` (« upgrade their plan or remove spend caps »). Actions
-propriétaire : plan/spend caps Supabase, puis purge du stockage (`npm run media:audit`,
-[`revue-mediatheque-storage.md`](plans/revue-mediatheque-storage.md:1)). La vérification
-« brouillon = 0 ligne » se refait alors en une commande. Constat et procédure dans
-[`revue-rls-site-pages.md`](plans/revue-rls-site-pages.md:1). État base au 2026-09-23 :
-15 pages publiées, 0 brouillon.
+**Policy RLS publique de `site_pages`.** Faille fermée : lecture publique = `is_published = true`
+(anon + authenticated), écrite dans [`migration_site_pages_rls.sql`](scripts/migration_site_pages_rls.sql:1)
+et **appliquée**. Vérifiée **sans dépendre de l'API** par une sonde Postgres qui endosse le
+rôle `anon` avec une ligne brouillon témoin dans une transaction annulée : avant, le brouillon
+était visible ; après, **0 brouillon / 15 publiées intactes**. La porte 404 sous RLS (état
+service role) et l'aperçu client admin étaient livrés avant. Sonde REST à rejouer au
+rétablissement de l'API Data (le 2026-09-23 : **402 `exceed_storage_size_quota`**, quota
+d'organisation dépassé — actions : plan/spend caps + purge du stockage, `npm run media:audit`).
+Détail et preuves : [`revue-rls-site-pages.md`](plans/revue-rls-site-pages.md:1).
 
 ## Priorité 3 — qualité mesurable (impact large, effort faible)
 
