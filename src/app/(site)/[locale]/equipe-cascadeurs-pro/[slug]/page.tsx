@@ -54,7 +54,9 @@ export async function generateMetadata({ params }: CoachPageProps): Promise<Meta
     openGraph: {
       title,
       description,
-      images: member.avatarUrl ? [{ url: member.avatarUrl, alt: member.name }] : [],
+      // `images` est volontairement absent : la carte Open Graph de la fiche
+      // est générée par `opengraph-image.tsx` (nom, fonction, spécialités).
+      // Une entrée `images` config masquerait l'image fichier (règle de Next).
     },
   };
 }
