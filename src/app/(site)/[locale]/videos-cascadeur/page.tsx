@@ -76,6 +76,8 @@ export default function VideosCascadeurPage() {
         {/* Reel Player Modal (Lazy loaded 9:16 smartphone player) */}
         <VideosReelsModal
           reel={page.selectedReel}
+          currentIndex={page.reelIndex}
+          totalCount={page.totalReels}
           onClose={page.closeReel}
           onPrev={page.prevReel}
           onNext={page.nextReel}

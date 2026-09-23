@@ -65,6 +65,8 @@ export interface UseVideosPageResult {
     prevReel: () => void;
     hasPrevReel: boolean;
     hasNextReel: boolean;
+    reelIndex: number;
+    totalReels: number;
 }
 
 export function useVideosPage(): UseVideosPageResult {
@@ -185,6 +187,8 @@ export function useVideosPage(): UseVideosPageResult {
         prevReel,
         hasPrevReel,
         hasNextReel,
+        reelIndex: activeReelIndex >= 0 ? activeReelIndex + 1 : 1,
+        totalReels: localizedReels.length,
     };
 }
 
