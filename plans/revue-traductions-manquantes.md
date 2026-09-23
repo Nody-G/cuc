@@ -1,6 +1,6 @@
 # Revue — Traductions EN manquantes (niveau champ)
 
-Généré le 2026-09-23T07:19:11.757Z par [`audit_i18n_completeness.mjs`](scripts/audit_i18n_completeness.mjs:1).
+Généré le 2026-09-23T08:05:31.040Z par [`audit_i18n_completeness.mjs`](scripts/audit_i18n_completeness.mjs:1).
 
 ## Synthèse
 
@@ -8,7 +8,7 @@ Généré le 2026-09-23T07:19:11.757Z par [`audit_i18n_completeness.mjs`](script
 - Champs couverts en EN : **226**
 - **Couverture : 100 %** (seuil d'échec : 90 %)
 - Pages concernées par au moins un manque : **0**
-- Fichiers de composants contenant de la copie FR en dur : **28**
+- Fichiers de composants contenant de la copie FR en dur : **26**
 
 ## Deux gisements, deux traitements
 
@@ -43,14 +43,11 @@ Ces valeurs sont volontairement identiques en FR et EN : noms propres ou termes 
 | `src\components\i18n\UnpublishedPageGate.test.tsx` | 5 |
 | `src\components\3d\ui\editor-panel\ExportActions.tsx` | 4 |
 | `src\components\3d\ui\EditorCoordinateInputs.tsx` | 4 |
-| `src\components\3d\ui\CampusViewerHUD.tsx` | 3 |
 | `src\components\3d\ui\editor-panel\GizmoToolBar.tsx` | 3 |
 | `src\components\3d\ui\editor-panel\SnapAndDragControls.tsx` | 3 |
 | `src\components\3d\ui\CampusStudioToolbar.tsx` | 2 |
 | `src\components\3d\ui\editor-panel\ObjectSelector.tsx` | 2 |
-| `src\components\3d\ui\FacilitySpotlightCard.tsx` | 2 |
 | `src\components\i18n\UnpublishedPageGate.tsx` | 2 |
-| `src\lib\og-image.tsx` | 2 |
 | `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachPortrait.tsx` | 1 |
 | `src\app\(site)\[locale]\opengraph-image.tsx` | 1 |
 | `src\app\(site)\[locale]\stunt-workshop-cuc\sections\WorkshopApplyBox.tsx` | 1 |
@@ -67,3 +64,4 @@ Ces valeurs sont volontairement identiques en FR et EN : noms propres ou termes 
 | `src\components\ui\logos\MediaLogos.tsx` | 1 |
 | `src\components\ui\parallax-hero\HeroFocalContent.tsx` | 1 |
 | `src\components\ui\TacticalButton.test.tsx` | 1 |
+| `src\lib\og-image.tsx` | 1 |

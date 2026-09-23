@@ -34,6 +34,19 @@
         "ctaVisite360": "360° Tour",
         "ctaPlan3d": "3D Map"
     },
+    "campus3dViewer": {
+        "title": "3D map of the estate",
+        "resetView": "Recentre the view",
+        "enterFullscreen": "Enter fullscreen",
+        "exitFullscreen": "Exit fullscreen",
+        "fullscreen": "Fullscreen",
+        "gestures": "Drag: orbit • Right-click or Shift + drag: pan • Wheel: zoom",
+        "closeCard": "Close the details panel",
+        "cardCta": "View the full details",
+        "facilityFallbackName": "CUC Campus",
+        "badgeInaugurated": "OPENED ON 25 OCTOBER 2024",
+        "badgeVerified": "CUC VERIFIED FACILITY"
+    },
     "formation": {
         "ctaApplyPro": "Apply to the Pro Programme",
         "formules": {
@@ -342,7 +355,10 @@
         "coachBackToTeam": "Back to the team",
         "coachAllocineTitle": "AlloCiné page",
         "coachSortFilmographyAria": "Sort the filmography",
-        "externalLinkAria": "Profile & external references"
+        "externalLinkAria": "Profile & external references",
+        "coachImdbTitle": "Official IMDb page",
+        "coachPortraitAlt": "Portrait of {name}",
+        "coachExternalTitle": "Official website or portfolio"
     },
     "contact": {
         "hero": {

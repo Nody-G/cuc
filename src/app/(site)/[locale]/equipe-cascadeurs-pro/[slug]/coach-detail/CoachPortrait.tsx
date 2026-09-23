@@ -36,7 +36,7 @@ export const CoachPortrait: React.FC<CoachPortraitProps> = ({ member, tt }) => (
                     <div className="relative w-full h-full flex items-end justify-center">
                         <Image
                             src={member.avatarUrl}
-                            alt={`Portrait de ${member.name}`}
+                            alt={tt('coachPortraitAlt', { name: member.name })}
                             fill
                             priority
                             sizes="(max-width: 1024px) 100vw, 40vw"
@@ -62,7 +62,7 @@ export const CoachPortrait: React.FC<CoachPortraitProps> = ({ member, tt }) => (
                             target="_blank"
                             rel="noopener noreferrer"
                             className="px-3 py-1.5 bg-[#14141e] hover:bg-[#F5C518] border border-zinc-800 hover:border-[#F5C518] transition-colors flex items-center"
-                            title="Fiche IMDb Officielle"
+                            title={tt('coachImdbTitle')}
                         >
                             <ImdbLogo className="h-4 w-auto" />
                         </a>
@@ -99,7 +99,7 @@ export const CoachPortrait: React.FC<CoachPortraitProps> = ({ member, tt }) => (
                             target="_blank"
                             rel="noopener noreferrer"
                             className="px-3 py-1.5 bg-[#14141e] hover:bg-[#FFE500] hover:text-black border border-zinc-800 transition-colors text-xs font-mono-tech font-bold"
-                            title="Site officiel ou portfolio"
+                            title={tt('coachExternalTitle')}
                         >
                             Portfolio
                         </a>

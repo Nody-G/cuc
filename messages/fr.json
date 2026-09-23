@@ -34,6 +34,19 @@
         "ctaVisite360": "Visite 360°",
         "ctaPlan3d": "Plan 3D"
     },
+    "campus3dViewer": {
+        "title": "Plan 3D du domaine",
+        "resetView": "Recentrer la vue",
+        "enterFullscreen": "Passer en plein écran",
+        "exitFullscreen": "Quitter le plein écran",
+        "fullscreen": "Plein écran",
+        "gestures": "Glisser : pivoter • Clic droit ou Maj + glisser : déplacer • Molette : zoomer",
+        "closeCard": "Fermer la fiche",
+        "cardCta": "Voir la fiche détaillée",
+        "facilityFallbackName": "Campus CUC",
+        "badgeInaugurated": "INAUGURÉE LE 25 OCTOBRE 2024",
+        "badgeVerified": "INSTALLATION VÉRIFIÉE CUC"
+    },
     "formation": {
         "ctaApplyPro": "Candidater au Cursus Pro",
         "formules": {
@@ -342,7 +355,10 @@
         "coachBackToTeam": "Retour à l'équipe",
         "coachAllocineTitle": "Fiche Allociné",
         "coachSortFilmographyAria": "Trier la filmographie",
-        "externalLinkAria": "Fiche & Références externes"
+        "externalLinkAria": "Fiche & Références externes",
+        "coachImdbTitle": "Fiche IMDb Officielle",
+        "coachPortraitAlt": "Portrait de {name}",
+        "coachExternalTitle": "Site officiel ou portfolio"
     },
     "contact": {
         "hero": {

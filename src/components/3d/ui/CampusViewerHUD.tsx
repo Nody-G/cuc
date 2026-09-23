@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { Compass, Maximize, Minimize, RotateCcw } from 'lucide-react';
 import { EditableFacilityItem } from '../types/campus3d.types';
 import { FacilitySpotlightCard } from './FacilitySpotlightCard';
@@ -29,6 +30,10 @@ interface CampusViewerHUDProps {
  * Ce qui reste : l'identité du plan, le cap et la distance (télémesure
  * factuelle), le recentrage — devenu utile depuis l'ajout du déplacement
  * latéral —, le plein écran, et la fiche du bâtiment sélectionné.
+ *
+ * Copie : catalogue `campus3dViewer` (`messages/{fr,en}.json`) — le HUD est
+ * public (`/en/…` inclus) et le Cockpit fournit le catalogue FR, donc la même
+ * source sert les deux contextes.
  */
 export const CampusViewerHUD: React.FC<CampusViewerHUDProps> = ({
   onReset,
@@ -40,6 +45,8 @@ export const CampusViewerHUD: React.FC<CampusViewerHUDProps> = ({
   isCardVisible,
   onCloseCard,
 }) => {
+  const t = useTranslations('campus3dViewer');
+
   return (
     <>
       {/* Barre de contrôle */}
@@ -50,7 +57,7 @@ export const CampusViewerHUD: React.FC<CampusViewerHUDProps> = ({
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FFE500]" />
           </span>
           <span className="font-display uppercase tracking-wider text-sm text-white font-bold truncate">
-            Plan 3D du domaine
+            {t('title')}
           </span>
           <span className="hidden md:inline-flex items-center gap-1.5 text-[10px] font-mono-tech text-zinc-500">
             <Compass className="w-3 h-3 text-[#FFE500]" />
@@ -65,8 +72,8 @@ export const CampusViewerHUD: React.FC<CampusViewerHUDProps> = ({
             type="button"
             onClick={onReset}
             className="p-1.5 bg-[#14141c] border border-zinc-800 text-zinc-300 hover:text-[#FFE500] cursor-pointer"
-            aria-label="Recentrer la vue"
-            title="Recentrer la vue"
+            aria-label={t('resetView')}
+            title={t('resetView')}
           >
             <RotateCcw className="w-3.5 h-3.5" />
           </button>
@@ -74,8 +81,8 @@ export const CampusViewerHUD: React.FC<CampusViewerHUDProps> = ({
             type="button"
             onClick={onToggleFullscreen}
             className="p-1.5 bg-[#14141c] border border-zinc-800 text-zinc-300 hover:text-[#FFE500] cursor-pointer"
-            aria-label={isFullscreen ? 'Quitter le plein écran' : 'Passer en plein écran'}
-            title={isFullscreen ? 'Quitter le plein écran' : 'Plein écran'}
+            aria-label={isFullscreen ? t('exitFullscreen') : t('enterFullscreen')}
+            title={isFullscreen ? t('exitFullscreen') : t('fullscreen')}
           >
             {isFullscreen ? <Minimize className="w-3.5 h-3.5" /> : <Maximize className="w-3.5 h-3.5" />}
           </button>
@@ -85,7 +92,7 @@ export const CampusViewerHUD: React.FC<CampusViewerHUDProps> = ({
       {/* Gestes réellement disponibles */}
       <div className="pointer-events-none absolute top-3 right-3 z-10 hidden lg:block">
         <span className="bg-black/70 backdrop-blur-xs border border-zinc-800/80 px-2.5 py-1 text-[10px] font-mono-tech text-zinc-400">
-          Glisser : pivoter • Clic droit ou Maj + glisser : déplacer • Molette : zoomer
+          {t('gestures')}
         </span>
       </div>
 
