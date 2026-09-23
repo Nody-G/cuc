@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { InstagramReel } from './instagram-reels.data';
 
 export interface VideosReelsModalProps {
@@ -11,7 +11,7 @@ export interface VideosReelsModalProps {
     hasNext?: boolean;
     labels: {
         closeTitle: string;
-        watchOnInsta: string;
+        watchOnInsta?: string;
         prev: string;
         next: string;
     };
@@ -86,40 +86,28 @@ export const VideosReelsModal: React.FC<VideosReelsModalProps> = ({
                     />
                 </div>
 
-                {/* Barre de navigation & lien direct */}
-                <div className="flex items-center justify-between px-4 py-3 border-t border-zinc-800/80 bg-[#121218]">
-                    <div className="flex items-center gap-2">
-                        <button
-                            type="button"
-                            onClick={onPrev}
-                            disabled={!hasPrev}
-                            title={labels.prev}
-                            className="p-2 border border-zinc-800 bg-[#0c0c10] text-zinc-300 hover:text-[#FFE500] hover:border-[#FFE500] disabled:opacity-30 disabled:pointer-events-none rounded transition-colors"
-                            aria-label={labels.prev}
-                        >
-                            <ChevronLeft className="w-4 h-4" />
-                        </button>
-                        <button
-                            type="button"
-                            onClick={onNext}
-                            disabled={!hasNext}
-                            title={labels.next}
-                            className="p-2 border border-zinc-800 bg-[#0c0c10] text-zinc-300 hover:text-[#FFE500] hover:border-[#FFE500] disabled:opacity-30 disabled:pointer-events-none rounded transition-colors"
-                            aria-label={labels.next}
-                        >
-                            <ChevronRight className="w-4 h-4" />
-                        </button>
-                    </div>
-
-                    <a
-                        href={reel.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] transition-colors"
+                {/* Barre de navigation */}
+                <div className="flex items-center justify-center gap-3 px-4 py-3 border-t border-zinc-800/80 bg-[#121218]">
+                    <button
+                        type="button"
+                        onClick={onPrev}
+                        disabled={!hasPrev}
+                        title={labels.prev}
+                        className="p-2 border border-zinc-800 bg-[#0c0c10] text-zinc-300 hover:text-[#FFE500] hover:border-[#FFE500] disabled:opacity-30 disabled:pointer-events-none rounded transition-colors"
+                        aria-label={labels.prev}
                     >
-                        <span>{labels.watchOnInsta}</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
+                        <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button
+                        type="button"
+                        onClick={onNext}
+                        disabled={!hasNext}
+                        title={labels.next}
+                        className="p-2 border border-zinc-800 bg-[#0c0c10] text-zinc-300 hover:text-[#FFE500] hover:border-[#FFE500] disabled:opacity-30 disabled:pointer-events-none rounded transition-colors"
+                        aria-label={labels.next}
+                    >
+                        <ChevronRight className="w-4 h-4" />
+                    </button>
                 </div>
             </div>
         </div>

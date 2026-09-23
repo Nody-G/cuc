@@ -119,10 +119,6 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                                             {reel.description}
                                         </p>
                                     )}
-                                    <div className="mt-2.5 pt-2 border-t border-white/10 flex items-center justify-between text-[10px] font-mono-tech text-zinc-400 group-hover:text-zinc-200 transition-colors">
-                                        <span className="uppercase tracking-wider">{labels.play}</span>
-                                        <span className="text-[#FFE500] group-hover:translate-x-1 transition-transform">→</span>
-                                    </div>
                                 </div>
                             </article>
                         );
