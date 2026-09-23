@@ -754,16 +754,28 @@
         "reelsNext": "Next Reel",
         "reelsItems": [
             {
-                "title": "COKA CHICAS — Theatrical Release",
-                "description": "COKA CHICAS is out in theaters today 🎬 A film by @roxinehelberg starring the power trio @fadilycamara | @zoemarchal | @eva.huault."
+                "title": "Another windshield down... 🤭",
+                "description": "Another windshield down... 🤭👌 High-impact windshield stunt hit and precision landing by CUC stunt performers."
             },
             {
-                "title": "Bob Training",
-                "description": "Bob training 🥋 Wait for it... Technical stunt drills and martial fight choreography at Campus Univers Cascades."
+                "title": "PLK Live at Stade de France",
+                "description": "PLK Concert at the Stade de France 🔥 Unforgettable live performance with the CUC stunt crew and performers."
             },
             {
-                "title": "Risk Zone — Part I",
-                "description": "RISK ZONE ⚠️ Part I. Live stunt simulations, physical impacts and tactical exercises on campus facilities."
+                "title": "Piñata Party 😅",
+                "description": "Piñata Party on campus 😅🥳 Campus life, teamwork and great vibes between intensive training sessions."
+            },
+            {
+                "title": "Just Training 🤝",
+                "description": "Just training 🤝😅 Scenic fight choreography drills and camera axis coordination."
+            },
+            {
+                "title": "Motorcycle 1 - Car 0 🤭",
+                "description": "Motorcycle 1 - Car 0 🤭👌 Precision vehicle stunt and crash impact filmed on campus tracks."
+            },
+            {
+                "title": "Team CUC — Fight Training ✌️",
+                "description": "Just training ✌️ Physical conditioning and close-combat stunt session with the CUC Team."
             }
         ],
         "programs": [

@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-23T15:50:17.954Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-23T16:06:05.256Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -577,10 +577,10 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosReelsSection.tsx`
 
-- l.54 — `{labels.title}`
-- l.57 — `{labels.intro}`
-- l.110 — `{reel.title}`
-- l.114 — `{reel.description}`
+- l.59 — `{labels.title}`
+- l.62 — `{labels.intro}`
+- l.115 — `{reel.title}`
+- l.119 — `{reel.description}`
 
 ### `src\components\layout\AnnouncementBanner.tsx`
 
@@ -807,7 +807,7 @@ Aucune occurrence.
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosReelsSection.tsx`
 
-- l.50 — `INSTAGRAM @CAMPUS.UNIVERS.CASCADES`
+- l.55 — `INSTAGRAM @CAMPUS.UNIVERS.CASCADES`
 
 ### `src\components\sections\application-modal\ApplicationSuccessView.tsx`
 

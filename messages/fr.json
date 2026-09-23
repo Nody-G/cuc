@@ -754,16 +754,28 @@
         "reelsNext": "Reel suivant",
         "reelsItems": [
             {
-                "title": "COKA CHICAS — Sortie Cinéma",
-                "description": "COKA CHICAS sort aujourd’hui au cinéma 🎬 Un film de @roxinehelberg avec le trio de choc @fadilycamara | @zoemarchal | @eva.huault."
+                "title": "Encore un pare-brise... 🤭",
+                "description": "Encore un pare-brise... 🤭👌 Impact, trajectoire et réception sur pare-brise par les cascadeurs du Campus Univers Cascades."
             },
             {
-                "title": "Bob Training",
-                "description": "Bob training 🥋 Wait for it... Entraînements techniques et chorégraphies martiales au Campus Univers Cascades."
+                "title": "Concert de PLK au Stade de France",
+                "description": "Concert de PLK au Stade de France 🔥 Expérience de folie avec l'équipe de cascadeurs et performers CUC."
             },
             {
-                "title": "Risk Zone — Part I",
-                "description": "RISK ZONE ⚠️ Part I. Cascades physiques, effets et mises en situation sur les installations du campus."
+                "title": "Piñata Party 😅",
+                "description": "Piñata Party au campus 😅🥳 Vie du domaine, esprit d'équipe et bonne humeur entre deux entraînements intensifs."
+            },
+            {
+                "title": "Just Training 🤝",
+                "description": "Just training 🤝😅 Répétitions chorégraphiques de combat scénique et coordination des axes caméra."
+            },
+            {
+                "title": "Moto 1 - Voiture 0 🤭",
+                "description": "Moto 1 - Voiture 0 🤭👌 Cascade d'action mécanique et impact percutant tourné sur les pistes du campus."
+            },
+            {
+                "title": "Team CUC — Fight Training ✌️",
+                "description": "Just training ✌️ Session d'entraînement physique et combat au contact avec les membres de la CUC Team."
             }
         ],
         "programs": [

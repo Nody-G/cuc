@@ -13,7 +13,10 @@ import {
 } from 'lucide-react';
 import { InstagramLogo } from '@/components/ui/logos/SocialLogos';
 import type { SitePageContent } from '@/lib/data/site-service';
-import type { InstagramReel } from '@/app/(site)/[locale]/videos-cascadeur/sections/instagram-reels.data';
+import {
+    INSTAGRAM_REELS,
+    type InstagramReel,
+} from '@/app/(site)/[locale]/videos-cascadeur/sections/instagram-reels.data';
 import { fetchInstagramMetadata } from '@/app/(admin)/admin/actions/instagram';
 
 interface VideosPageEditorProps {
@@ -36,7 +39,9 @@ export const VideosPageEditor: React.FC<VideosPageEditorProps> = ({
     const [importError, setImportError] = React.useState<string | null>(null);
 
     const reelsSection = formData.sections_data?.reels || {};
-    const reelsList: InstagramReel[] = Array.isArray(reelsSection.items) ? reelsSection.items : [];
+    const reelsList: InstagramReel[] = Array.isArray(reelsSection.items)
+        ? reelsSection.items
+        : INSTAGRAM_REELS;
 
     const updateReels = (newItems: InstagramReel[]) => {
         setFormData((prev) => ({

@@ -1,6 +1,6 @@
 /**
  * Données par défaut des vidéos & Reels Instagram du Campus Univers Cascades.
- * Zéro fausse information : titres et légendes authentiques issues du compte officiel.
+ * Zéro fausse information : chaque vidéo correspond rigoureusement à sa légende et sa miniature réelle.
  */
 
 export interface InstagramReel {
@@ -15,32 +15,56 @@ export interface InstagramReel {
 export const INSTAGRAM_REELS: InstagramReel[] = [
     {
         id: 'reel-1',
-        shortcode: 'DJW5wq0MIzt',
-        url: 'https://www.instagram.com/reel/DJW5wq0MIzt/',
-        title: 'COKA CHICAS — Sortie Cinéma',
+        shortcode: 'DdEoOcyM-We',
+        url: 'https://www.instagram.com/reel/DdEoOcyM-We/',
+        title: 'Encore un pare-brise... 🤭',
         description:
-            'COKA CHICAS sort aujourd’hui au cinéma 🎬 Un film de @roxinehelberg avec le trio de choc @fadilycamara | @zoemarchal | @eva.huault.',
-        coverImage:
-            'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/001.jpg',
+            'Encore un pare-brise... 🤭👌 Impact, trajectoire et réception sur pare-brise par les cascadeurs du Campus Univers Cascades.',
+        coverImage: '/images/reels/DdEoOcyM-We.jpg',
     },
     {
         id: 'reel-2',
-        shortcode: 'DKAFa9dsRVa',
-        url: 'https://www.instagram.com/reel/DKAFa9dsRVa/',
-        title: 'Bob Training',
+        shortcode: 'Dc80NYLMv1Y',
+        url: 'https://www.instagram.com/reel/Dc80NYLMv1Y/',
+        title: 'Concert de PLK au Stade de France',
         description:
-            'Bob training 🥋 Wait for it... Entraînements techniques et chorégraphies martiales au Campus Univers Cascades.',
-        coverImage:
-            'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/002.jpg',
+            'Concert de PLK au Stade de France 🔥 Expérience de folie avec l’équipe de cascadeurs et performers CUC.',
+        coverImage: '/images/reels/Dc80NYLMv1Y.jpg',
     },
     {
         id: 'reel-3',
-        shortcode: 'DJmOS2tMQpk',
-        url: 'https://www.instagram.com/reel/DJmOS2tMQpk/',
-        title: 'Risk Zone — Part I',
+        shortcode: 'Dcqh0VisRnc',
+        url: 'https://www.instagram.com/reel/Dcqh0VisRnc/',
+        title: 'Piñata Party 😅',
         description:
-            'RISK ZONE ⚠️ Part I. Cascades physiques, effets et mises en situation sur les installations du campus.',
-        coverImage:
-            'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/defenestration.jpg',
+            'Piñata Party au campus 😅🥳 Vie du domaine, esprit d’équipe et bonne humeur entre deux entraînements intensifs.',
+        coverImage: '/images/reels/Dcqh0VisRnc.jpg',
+    },
+    {
+        id: 'reel-4',
+        shortcode: 'DcjNkFxMRm9',
+        url: 'https://www.instagram.com/reel/DcjNkFxMRm9/',
+        title: 'Just Training 🤝',
+        description:
+            'Just training 🤝😅 Répétitions chorégraphiques de combat scénique et coordination des axes caméra.',
+        coverImage: '/images/reels/DcjNkFxMRm9.jpg',
+    },
+    {
+        id: 'reel-5',
+        shortcode: 'DbLJg18Mt7d',
+        url: 'https://www.instagram.com/reel/DbLJg18Mt7d/',
+        title: 'Moto 1 - Voiture 0 🤭',
+        description:
+            'Moto 1 - Voiture 0 🤭👌 Cascade d’action mécanique et impact percutant tourné sur les pistes du campus.',
+        coverImage: '/images/reels/DbLJg18Mt7d.jpg',
+    },
+    {
+        id: 'reel-6',
+        shortcode: 'DZNOYRBsuwv',
+        url: 'https://www.instagram.com/reel/DZNOYRBsuwv/',
+        title: 'Team CUC — Fight Training ✌️',
+        description:
+            'Just training ✌️ Session d’entraînement physique et combat au contact avec les membres de la CUC Team.',
+        coverImage: '/images/reels/DZNOYRBsuwv.jpg',
     },
 ];
