@@ -1,6 +1,6 @@
 # Audit général de l'application CUC
 
-**Généré le :** 2026-09-22T21:03:50.785Z
+**Généré le :** 2026-09-23T14:47:17.765Z
 
 > État des lieux factuel. Aucune correction appliquée.
 
@@ -8,8 +8,8 @@
 
 | Contrôle | Valeur |
 |---|---|
-| Routes détectées | 30 |
-| Fichiers source scannés | 690 |
+| Routes détectées | 32 |
+| Fichiers source scannés | 709 |
 | Liens internes cassés | 0 |
 | Ancres orphelines | 0 |
 | Doublons de liens | 0 |
@@ -22,11 +22,11 @@
 | Redirections invalides/chaînées | 0 |
 | Écarts de largeur (max-w-7xl/6xl) | 0 |
 | Canaux Realtime sans nettoyage | 0 |
-| Composants live sans Realtime | 4 |
-| Couverture Realtime (composants live) | 81 % |
+| Composants live sans Realtime | 6 |
+| Couverture Realtime (composants live) | 74 % |
 | Clés i18n fr → en manquantes | 0 |
 | Clés i18n en surnuméraires | 0 |
-| Routes publiques sans metadata | 0 |
+| Routes publiques sans metadata | 1 |
 
 ## Liens internes cassés
 
@@ -72,6 +72,8 @@ Aucune anomalie détectée.
 
 - `src/components/3d/campus-plan/useFacilityHistory.ts` — getters : getCampusPlacements3D
 - `src/components/i18n/PageDataProvider.tsx` — getters : getLocalizedPageContent
+- `src/components/i18n/SiteDataProvider.tsx` — getters : getPublicPageContent
+- `src/components/i18n/UnpublishedPageGate.tsx` — getters : getPublicPageContent
 - `src/lib/hooks/usePageDynamicContent.ts` — getters : getPreviewDraft
 - `src/lib/hooks/usePageSectionData.ts` — getters : getPreviewDraft
 
@@ -81,7 +83,7 @@ Aucune anomalie détectée.
 
 ## Routes sans metadata
 
-Aucune anomalie détectée.
+- `/[locale]/preview/[slug]`
 
 ## Routes détectées
 
@@ -94,6 +96,8 @@ Aucune anomalie détectée.
 - `/[locale]/equipe-cascadeurs-pro/[slug]`
 - `/[locale]/formation-de-cascadeur`
 - `/[locale]/partenaires`
+- `/[locale]/preview`
+- `/[locale]/preview/[slug]`
 - `/[locale]/spectacles-cascadeurs-yamakasi`
 - `/[locale]/stages-cascades-parkour-2`
 - `/[locale]/stunt-workshop-cuc`

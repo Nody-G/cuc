@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-22T21:03:50.784Z",
+  "generatedAt": "2026-09-23T14:47:17.763Z",
   "summary": {
-    "routes": 30,
-    "sourceFiles": 690,
+    "routes": 32,
+    "sourceFiles": 709,
     "errors": {
       "brokenLinks": 0,
       "orphanAnchors": 0,
@@ -16,14 +16,14 @@
       "realtimeLeaks": 0
     },
     "warnings": {
-      "realtimeGaps": 4,
+      "realtimeGaps": 6,
       "i18nMissingInEn": 0,
       "i18nExtraInEn": 0,
-      "metadataGaps": 0
+      "metadataGaps": 1
     },
     "totalErrors": 0,
-    "totalWarnings": 4,
-    "realtimeCoverageRatio": 81
+    "totalWarnings": 7,
+    "realtimeCoverageRatio": 74
   },
   "routes": [
     "/[locale]",
@@ -35,6 +35,8 @@
     "/[locale]/equipe-cascadeurs-pro/[slug]",
     "/[locale]/formation-de-cascadeur",
     "/[locale]/partenaires",
+    "/[locale]/preview",
+    "/[locale]/preview/[slug]",
     "/[locale]/spectacles-cascadeurs-yamakasi",
     "/[locale]/stages-cascades-parkour-2",
     "/[locale]/stunt-workshop-cuc",
@@ -1501,6 +1503,18 @@
       ]
     },
     {
+      "file": "src/components/i18n/SiteDataProvider.tsx",
+      "getters": [
+        "getPublicPageContent"
+      ]
+    },
+    {
+      "file": "src/components/i18n/UnpublishedPageGate.tsx",
+      "getters": [
+        "getPublicPageContent"
+      ]
+    },
+    {
       "file": "src/lib/hooks/usePageDynamicContent.ts",
       "getters": [
         "getPreviewDraft"
@@ -1568,10 +1582,14 @@
     }
   ],
   "i18nParity": {
-    "frKeys": 703,
-    "enKeys": 703,
+    "frKeys": 717,
+    "enKeys": 717,
     "missingInEn": [],
     "extraInEn": []
   },
-  "metadataGaps": []
+  "metadataGaps": [
+    {
+      "route": "/[locale]/preview/[slug]"
+    }
+  ]
 }
