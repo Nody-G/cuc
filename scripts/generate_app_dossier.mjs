@@ -3,14 +3,13 @@
  * DOSSIER DE PRÉSENTATION CLIENT — L'APPLICATION DU CAMPUS UNIVERS CASCADES
  * =========================================================================
  *
- * Version 4 : données live supplémentaires (complétude du catalogue, coachs,
- * partenaires par catégorie, prochaines sessions datées), animations retravaillées
- * (carte-enveloppe sur le cycle de demande, flux animés façon « paquets de données »,
- * barres qui poussent au défilement, marquee de chiffres, scrollspy), glossaire.
+ * Version 5 : deux sorties — le dossier de l'application et la page dédiée à
+ * CUC Sign (signalements terrain inclus) ; échelle du projet (lignes de code) et
+ * comparaison avec l'ancien site réintroduites.
  * Le tout autonome et imprimable.
  *
  * Régénération : `npm run report:dossier`
- * Sortie : reports/cuc-dossier-application.html
+ * Sorties : reports/cuc-dossier-application.html · reports/cuc-sign.html
  *
  * Sources :
  *   - Supabase de production (lecture seule) — via DATABASE_URL, repli silencieux ;
@@ -23,10 +22,13 @@ import path from 'node:path';
 import * as dotenv from 'dotenv';
 import pg from 'pg';
 
+import { buildCucSignDossier } from './lib/cuc-sign-dossier.mjs';
+
 dotenv.config({ path: '.env.local' });
 
 const ROOT = process.cwd();
 const OUT = path.join(ROOT, 'reports', 'cuc-dossier-application.html');
+const OUT_SIGN = path.join(ROOT, 'reports', 'cuc-sign.html');
 
 const readJson = (p) => {
   try {
@@ -49,7 +51,6 @@ const t = Array.isArray(metrics?.database?.tables)
 
 const live = {
   filmsByDecade: [],
-  topCoaches: [],
   storage: metrics?.database?.storage ?? [],
   partnersByCategory: [],
   sessions: [],
@@ -70,20 +71,6 @@ async function collectLive() {
              GROUP BY 1 ORDER BY 1`
     );
     live.filmsByDecade = decades.rows.map((r) => ({ decade: r.decade, n: r.n }));
-  } catch { }
-  try {
-    const coaches = await client.query(
-      `SELECT unnest(cuc_team_involved) AS coach_id, COUNT(*)::int AS n
-             FROM site_films WHERE is_published = true AND cuc_team_involved IS NOT NULL
-             GROUP BY 1 ORDER BY n DESC LIMIT 10`
-    );
-    const names = await client.query(`SELECT id, name FROM site_team`);
-    const nameById = new Map(names.rows.map((r) => [r.id, r.name]));
-    live.topCoaches = coaches.rows.map((r) => ({
-      id: r.coach_id,
-      name: nameById.get(r.coach_id) ?? r.coach_id,
-      n: r.n,
-    }));
   } catch { }
   try {
     const storage = await client.query(
@@ -466,7 +453,6 @@ const mediaTotals = storageBytes
   };
 
 const decadeRows = live.filmsByDecade.map((r) => ({ label: `${r.decade}s`, value: r.n }));
-const coachRows = live.topCoaches.map((r) => ({ label: r.name, value: r.n }));
 
 /* ------------------------------------------------------------------ */
 /* Sessions live — telles qu'affichées sur le site                     */
@@ -545,11 +531,16 @@ const contentTable = contentRows.length
 
 const sumValues = (rows) => rows.reduce((a, r) => a + (Number(r.value) || 0), 0);
 
-/** Six repères du catalogue, choisis pour ce qu'ils racontent vraiment. */
+/**
+ * Repères du catalogue, choisis pour ce qu'ils racontent vraiment.
+ *
+ * Le classement « coach le plus présent » a été retiré : le décompte brut issu
+ * de `cuc_team_involved` ne reflète pas la filmographie vérifiée crédit par
+ * crédit (un intervenant peut apparaître des dizaines de fois sans être le plus
+ * présent au regard des crédits validés). Une valeur non fiable n'a pas sa place
+ * dans un dossier client — décision du 2026-09-24.
+ */
 const catalogTraits = [
-  coachRows.length
-    ? kpiHtml(coachRows[0].label, 'coach le plus présent au catalogue', `${nf(coachRows[0].value)} films publiés`)
-    : '',
   decadeRows.length
     ? kpiHtml(
       decadeRows.length,
@@ -584,133 +575,33 @@ const pageWeightSummary = (() => {
 })();
 
 /**
- * Ce que CUC Sign apporte au campus — rédigé à partir de son dépôt
- * (`Nody-G/cuc-sign`) : émargement Qualiopi, kiosque hors ligne, rotations et
- * casting assistant, sécurité des élèves, fiche de casting.
+ * Accroche CUC Sign affichée dans le dossier de l'application : trois cartes,
+ * puis un renvoi vers la page dédiée [`scripts/lib/cuc-sign-dossier.mjs`], qui
+ * porte tout le détail (espaces, signalements, passerelle, avenir).
  */
-const cucSignCards = [
+const cucSignTeaserCards = [
   {
-    iconName: 'shield',
-    title: 'Émargement conforme Qualiopi',
-    desc: "Feuilles de présence numériques horodatées et conservées : c'est la preuve que réclament les financeurs et les audits, produite au fil de l'année.",
-    tags: ['Direction', 'Secrétariat'],
-  },
-  {
-    iconName: 'refresh',
-    title: 'La tablette à l’entrée, même sans réseau',
-    desc: "Mode borne : l'élève signe en quelques secondes par QR code, et le pointage continue de fonctionner si le réseau tombe au gymnase.",
+    iconName: 'users',
+    title: 'Les élèves',
+    desc: 'Ils s’émargent, consultent leur planning, suivent leur progression, signalent une blessure ou un matériel défectueux depuis leur téléphone, et repartent avec un profil de casting.',
     tags: ['Élèves'],
   },
   {
-    iconName: 'users',
-    title: 'Les coachs notent et délibèrent sur le terrain',
-    desc: "Note de 0 à 10 depuis le téléphone, table de délibération pour composer les groupes de niveaux, remplacements gérés, et un coup d'œil avant le cours sur les élèves qui reviennent de blessure.",
+    iconName: 'phone',
+    title: 'Les coachs',
+    desc: 'Ils notent depuis le téléphone, composent les groupes, assurent les remplacements, et voient avant le cours qui revient de blessure — ou qui a signalé un problème.',
     tags: ['Coachs'],
   },
   {
-    iconName: 'sliders',
-    title: 'La direction pilote l’école',
-    desc: "Planning des créneaux et des remplacements, présences et absences suivies, statistiques de fréquentation, gestion des comptes et des rôles (direction, secrétariat, coachs, élèves).",
+    iconName: 'gauge',
+    title: 'La direction & le secrétariat',
+    desc: 'Planning, présences, signalements, comptes et rôles, preuves réclamées par les financeurs : tout se pilote depuis un seul écran.',
     tags: ['Direction'],
   },
-  {
-    iconName: 'database',
-    title: 'La sécurité des élèves, tracée',
-    desc: 'Fiche médicale d’urgence à accès restreint, blessures suivies, matériel défectueux signalé avec photo : ce qui se perdait dans un carnet se retrouve en un écran.',
-    tags: ['Coachs', 'Direction'],
-  },
-  {
-    iconName: 'star',
-    title: 'Compétences validées, fiche de casting prête',
-    desc: "Chaque compétence validée et chaque test physique alimentent une fiche composite PDF — mensurations, skills, profil — directement envoyable aux productions.",
-    tags: ['Élèves'],
-  },
-  {
-    iconName: 'globe',
-    title: 'Pensé aussi pour l’international',
-    desc: 'Les stagiaires étrangers s’émargent et consultent leur progression dans leur langue ; le lexique technique est bilingue.',
-    tags: ['Élèves', 'Coachs'],
-  },
-]
-  .map(featCard)
-  .join('');
+].map(featCard);
 
-/**
- * Ce que CUC Sign change pour l'avenir du campus. Chaque carte s'appuie sur ce
- * qui existe réellement dans le dépôt `Nody-G/cuc-sign` (émargements horodatés,
- * absences, blessures, compétences, fiche composite) : aucune promesse creuse.
- */
-const cucSignFutureCards = [
-  {
-    iconName: 'phone',
-    title: 'Chaque candidature devient un inscrit suivi',
-    desc: "Le site recrute, CUC Sign prend le relais : dossier, convocation, convention, certificat médical et autorisation d'image consignés au même endroit. Rien ne se perd entre le premier message et la rentrée.",
-    tags: ['Recrutement'],
-  },
-  {
-    iconName: 'shield',
-    title: 'Les financeurs demandent des preuves : elles existent',
-    desc: "Émargements horodatés, absences justifiées, certificats médicaux : les pièces réclamées par l'AFDAS, les OPCO et un audit Qualiopi se constituent au fil de l'année au lieu d'être reconstituées la veille.",
-    tags: ['Financements'],
-  },
-  {
-    iconName: 'gauge',
-    title: 'Le campus pilote avec ses propres chiffres',
-    desc: "Présences, blessures, progression, créneaux remplacés : l'équipe voit ce qui fonctionne et ajuste la pédagogie sur des faits, pas sur des impressions.",
-    tags: ['Pilotage'],
-  },
-  {
-    iconName: 'star',
-    title: 'Un vivier où les productions viennent chercher',
-    desc: "Compétences validées, tests physiques, mensurations et showreel composent un profil prêt à envoyer : le CUC ne se contente pas de former, il place ses élèves sur les tournages.",
-    tags: ['Rayonnement'],
-  },
-]
-  .map(featCard)
-  .join('');
-
-/**
- * Circulation réelle entre le site public et CUC Sign. L'état est affiché :
- * « En service » ne se dit que pour ce qui tourne aujourd'hui (le site lit les
- * tables CUC Sign et convertit une candidature), le reste est annoncé pour ce
- * qu'il est — à étendre ou à l'étude.
- */
-const CUC_SIGN_BRIDGE_ROWS = [
-  [
-    'Site → CUC Sign',
-    "Une candidature acceptée devient un dossier élève : identité, coordonnées, programme visé, session souhaitée. Aucune ressaisie.",
-    'En service',
-  ],
-  [
-    'Site → CUC Sign',
-    'Les créneaux planifiés et les coachs qui les assurent : le site affiche les sessions réellement programmées.',
-    'À étendre',
-  ],
-  [
-    'CUC Sign → Site',
-    'Les formations (dates, intitulés), les 12 coachs et les lieux du campus : le site les lit en direct, en lecture seule.',
-    'En service',
-  ],
-  [
-    'CUC Sign → Site',
-    "Le passage d'une session de « ouvert » à « complet » répercuté aussitôt sur la page des stages.",
-    'À étendre',
-  ],
-  [
-    'Plus tard',
-    "Les productions pourraient chercher un cascadeur sur ses compétences validées et ses mensurations, directement depuis le site.",
-    "À l'étude",
-  ],
-];
-
-const cucSignBridgeTable = `
-    <table>
-      <thead><tr><th>Sens</th><th>Ce qui circule entre les deux applications</th><th>État</th></tr></thead>
-      <tbody>${CUC_SIGN_BRIDGE_ROWS.map(
-  ([direction, detail, state]) =>
-    `<tr><td><strong>${direction}</strong></td><td>${detail}</td><td>${state}</td></tr>`
-).join('')}</tbody>
-    </table>`;
+/* Les cartes « avenir », la passerelle et le parcours élève vivent désormais
+   dans `scripts/lib/cuc-sign-dossier.mjs` : une seule source pour la page CUC Sign. */
 
 /* ================================================================== */
 /* Schémas SVG                                                         */
@@ -797,44 +688,7 @@ const requestCycleSvg = `
   </g>
 </svg>`;
 
-/**
- * Parcours d'un élève — le schéma qui relie les trois étages du projet :
- * le site (candidature), le Cockpit (admission) puis CUC Sign (vie de l'élève),
- * jusqu'à l'émargement Qualiopi et à la fiche composite envoyée aux castings.
- *
- * Animation 100 % native (CSS `offset-path` et SVG), sans aucune dépendance :
- * le chemin se dessine, un jeton le parcourt et chaque étape s'allume à son
- * passage. `at` = seconde d'arrivée du jeton sur l'étape, dans une boucle de 16 s.
- */
-const JOURNEY_PATH = 'M120 70 H820 V170 H120 V270 H820';
-const JOURNEY_STEPS = [
-  { x: 120, y: 70, n: '1', t: 'Il postule en ligne', s: 'site public · deux minutes', at: 0 },
-  { x: 470, y: 70, n: '2', t: 'La demande arrive au Cockpit', s: 'statut, notes, réponse', at: 2.4 },
-  { x: 820, y: 70, n: '3', t: 'Admission validée', s: 'convention, convocation', at: 4.9 },
-  { x: 820, y: 170, n: '4', t: 'Le dossier élève naît dans CUC Sign', s: 'même base · aucune double saisie', at: 5.6 },
-  { x: 120, y: 170, n: '5', t: 'Il émarge chaque jour', s: 'tablette à l’entrée, même hors ligne', at: 10.4 },
-  { x: 470, y: 270, n: '6', t: 'Ses compétences se valident', s: 'coachs, tests physiques', at: 12.9 },
-  { x: 820, y: 270, n: '7', t: 'Sa fiche part aux castings', s: 'PDF composite prêt à envoyer', at: 15.4 },
-];
-
-const studentJourneySvg = `
-<svg viewBox="0 0 940 340" class="chart" role="img" aria-label="Parcours d'un élève : candidature en ligne, admission dans le Cockpit, dossier élève dans CUC Sign, émargement quotidien, validation des compétences, fiche composite envoyée aux castings">
-  <path d="${JOURNEY_PATH}" stroke="#26262e" stroke-width="2" stroke-dasharray="6 8" fill="none"/>
-  <path class="jdraw" d="${JOURNEY_PATH}"/>
-  ${JOURNEY_STEPS.map(
-  (p) => `
-    <circle class="jring" cx="${p.x}" cy="${p.y}" r="19" style="animation-delay:${p.at}s"/>
-    <circle class="jnode" cx="${p.x}" cy="${p.y}" r="19" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:${p.at}s"/>
-    <text x="${p.x}" y="${p.y + 5}" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="700">${p.n}</text>
-    <text x="${p.x}" y="${p.y + 40}" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">${p.t}</text>
-    <text x="${p.x}" y="${p.y + 56}" text-anchor="middle" fill="#9a9aa5" font-size="11">${p.s}</text>`
-)
-    .join('')}
-  <g class="jtoken" style="offset-path: path('${JOURNEY_PATH}')">
-    <circle r="12" fill="#FFE500"/>
-    <circle r="5" fill="#111"/>
-  </g>
-</svg>`;
+/* Le parcours élève (`studentJourneySvg`) est rendu dans la page CUC Sign. */
 
 /* ================================================================== */
 /* Assemblages HTML                                                    */
@@ -867,16 +721,7 @@ const stripHtml = [...stripItems, ...stripItems]
   .map((x) => `<span>${esc(x)}</span><span class="sep">◆</span>`)
   .join('');
 
-const connectionHtml = cucSign
-  ? `<div class="kpis">
-    ${kpiHtml(cucSign.formations, 'formations CUC Sign', 'référencées côté site')}
-    ${kpiHtml(cucSign.profiles, 'profils CUC Sign', 'coachs & direction')}
-    ${kpiHtml(cucSign.locations, 'lieux CUC Sign', 'installations du campus')}
-    ${kpiHtml(`${cucSign.linkedSessions}/${cucSign.totalSessions}`, 'sessions reliées', 'les autres attendent leur formation CUC Sign')}
-    ${kpiHtml(`${cucSign.linkedTeam}/${cucSign.totalTeam}`, 'coachs reliés', 'les intervenants externes n’ont pas de compte')}
-    ${kpiHtml(`${cucSign.linkedPois}/${cucSign.totalPois}`, 'zones du campus reliées', 'liaisons vérifiées, jamais approximatives')}
-  </div>`
-  : '<p class="meta">Données d’interconnexion indisponibles pour le moment.</p>';
+/* Les indicateurs du pont CUC Sign sont rendus dans la page dédiée. */
 
 const guaranteesHtml = [
   { iconName: 'shield', title: 'Sécurité par ligne', desc: `${rlsOn} espaces de données protégés par des règles d'accès par rôle : chaque utilisateur du Cockpit ne peut agir que dans son périmètre.`, tags: ['Données'] },
@@ -997,6 +842,63 @@ const resilienceBlock = resilienceRows.length
       qu'aucune page ne parte en production avec un contenu incomplet.
     </p>`
   : '';
+
+/* ------------------------------------------------------------------ */
+/* Échelle du projet & comparaison avec l'ancien site (dossier client) */
+/* ------------------------------------------------------------------ */
+
+const codeTotals = metrics?.code?.totals ?? null;
+const codeTests = metrics?.code?.tests ?? null;
+const componentCount = metrics?.code?.tsx?.componentExports ?? null;
+const securityRedirects = metrics?.security?.redirects ?? 0;
+
+const projectScaleBlock = codeTotals
+  ? `
+    <h3>Le poids du projet, en chiffres <span class="meta">(relevé à la génération de ce dossier)</span></h3>
+    <div class="kpis">
+      ${kpiHtml(codeTotals.lines, 'lignes de code', 'application, outillage et documentation')}
+      ${kpiHtml(codeTotals.files, 'fichiers', 'suivis dans ces périmètres')}
+      ${componentCount ? kpiHtml(componentCount, 'composants d’interface', 'réutilisables et typés') : ''}
+      ${codeTests?.available ? kpiHtml(codeTests.total, 'vérifications automatiques', `${nf(codeTests.passed)} qui passent à chaque mise à jour`) : ''}
+    </div>
+    <p class="meta">
+      Ces chiffres comptent le code réellement écrit pour votre application — pages, Cockpit, composants,
+      outillage et documentation. Ils sont mesurés, jamais estimés, et recalculés à chaque génération.
+    </p>`
+  : '';
+
+/**
+ * Comparaison honnête avec l'ancien site WordPress : ce qui change, sans
+ * superlatif. Aucun « avant » n'est caricaturé, aucun « après » n'est promis
+ * au-delà de ce qui tourne réellement aujourd'hui.
+ */
+const OLD_SITE_ROWS = [
+  ['Diffusion des pages', 'Serveur unique ; chaque visite repasse par WordPress.', 'Pages préparées à l’avance et servies depuis un cache réparti dans le monde.'],
+  ['Mise à jour du contenu', 'Éditeur WordPress et extensions tierces.', 'Cockpit dédié : édition sans code, aperçu avant publication, historique de versions.'],
+  ['Images & documents', 'Hébergés sur l’ancien site (wp-content).', 'Rapatriés dans la base du projet et convertis automatiquement en formats légers.'],
+  ['Sécurité', 'Des dizaines d’extensions tierces à tenir à jour.', `Aucune extension exposée ; accès nominatif par rôle et règles par ligne en base (${rlsOn} espaces protégés).`],
+  ['Adresses & référencement', 'Adresses WordPress historiques.', `Adresses clés conservées (${nf(securityRedirects)} redirections), titre et description par page, données structurées, plan du site automatique.`],
+  ['Langues', 'Contenu en français.', 'Les 15 pages existent en français et en anglais, textes rédigés — jamais traduits automatiquement.'],
+  ['Propriété des données', 'Tables WordPress et extensions.', 'PostgreSQL standard, export complet du contenu depuis le Cockpit.'],
+];
+
+const oldSiteBlock = `
+    <h3>La nouvelle application face à l'ancien site</h3>
+    <p>
+      L'ancien site du campus était un WordPress hébergé sur un serveur classique. La nouvelle application en change
+      la nature — sans rien perdre de ce qui faisait sa valeur.
+    </p>
+    <table>
+      <thead><tr><th>Critère</th><th>Ancien site (WordPress)</th><th>Nouvelle application</th></tr></thead>
+      <tbody>${OLD_SITE_ROWS.map(
+  ([criterion, before, after]) =>
+    `<tr><td><strong>${esc(criterion)}</strong></td><td>${esc(before)}</td><td>${esc(after)}</td></tr>`
+).join('')}</tbody>
+    </table>
+    <div class="callout">
+      <strong>Rien n'est perdu au passage :</strong> les adresses historiques continuent de mener vers la bonne page,
+      pour ne pas abandonner le référencement déjà acquis sur Google.
+    </div>`;
 
 const mechCardsHtml = MECHANISMS.map(featCard).join('');
 const workflowHtml = WORKFLOWS.map(featCard).join('');
@@ -1225,6 +1127,7 @@ const html = `<!DOCTYPE html>
       <a href="#site">Le site public</a><a href="#cockpit">Le Cockpit</a><a href="#quotidien">Au quotidien</a>
       <a href="#chiffres">Chiffres clés</a><a href="#contenus">Les contenus</a><a href="#capot">Sous le capot</a>
       <a href="#pratiques">Bonnes pratiques</a><a href="#glossaire">Glossaire</a><a href="#faq">FAQ</a>
+      <a href="./cuc-sign.html">CUC Sign ↗</a>
     </nav>
   </header>
 
@@ -1347,53 +1250,22 @@ const html = `<!DOCTYPE html>
     : ''
   }
 
-    <h3 id="cuc-sign">CUC Sign — la seconde étape, déjà en chantier</h3>
+    <h3 id="cuc-sign">CUC Sign — <a href="./cuc-sign.html">la plateforme de gestion de l'école</a></h3>
     <p>
-      Le site public et le Cockpit que vous avez entre les mains sont la <strong>première étape</strong>. La seconde existe déjà
-      et s'appelle <strong>CUC Sign</strong> : ce n'est pas un outil réservé aux élèves, c'est la <strong>plateforme de gestion
-      de l'école</strong>, avec un espace pour chacun.
-      <strong>Les élèves</strong> s'émargent chaque jour, consultent leur planning, suivent leur progression et repartent avec un
-      profil de casting. <strong>Les coachs</strong> notent les élèves depuis leur téléphone, délibèrent pour composer les
-      groupes, assurent un remplacement au pied levé et voient avant le cours qui revient de blessure.
-      <strong>La direction et le secrétariat</strong> pilotent le planning, suivent présences et absences, gèrent les comptes et
-      les rôles, et sortent les preuves réclamées par les financeurs.
-      Elle réutilise le travail déjà fait et les mêmes outils que votre site ; surtout, le pont de données est
-      <strong>déjà en service</strong> : les formations, les coachs et les lieux affichés publiquement viennent de CUC Sign,
-      en lecture seule. Les deux applications partagent <strong>la même base de données</strong> — c'est volontaire : rien à
-      dupliquer, rien à synchroniser le jour où la seconde étape démarrera.
+      Le site public et le Cockpit que vous avez entre les mains sont la <strong>première étape</strong>. La seconde
+      existe déjà et s'appelle <strong>CUC Sign</strong> : ce n'est pas un outil réservé aux élèves, c'est la
+      <strong>plateforme de gestion de l'école</strong>, avec un espace pour chacun — élèves, coachs, direction.
+      Les formations, les coachs et les lieux affichés publiquement viennent déjà de CUC Sign, en lecture seule.
     </p>
-    <div class="flow reveal">${studentJourneySvg}</div>
-    <p class="meta">
-      Suivez le jeton : une candidature envoyée depuis votre site traverse l'admission, crée le dossier élève, accompagne
-      l'émargement quotidien, puis ressort en fiche de casting. Chaque étape s'allume au passage.
-    </p>
-
-    <h3>Un espace pour chacun : les élèves, les coachs, la direction</h3>
-    <p class="meta">
-      Trois publics, une seule plateforme, des droits différents : chaque accès est nominatif et limité à son rôle.
-    </p>
-    <div class="feat-grid">${cucSignCards}</div>
-
-    <h3>Les deux applications, main dans la main <span class="meta">(ce qui circule déjà, et ce que la suite ouvrira)</span></h3>
-    <p>
-      C'est là que se joue l'intérêt des deux outils réunis : plus une donnée saisie deux fois, plus une session
-      annoncée sur le site qui contredirait le planning interne. L'état de chaque échange est indiqué : « en service »
-      se dit seulement pour ce qui fonctionne aujourd'hui.
-    </p>
-${cucSignBridgeTable}
-
-    <h3>Ce que cela change pour la suite du CUC</h3>
-    <div class="feat-grid">${cucSignFutureCards}</div>
-
+    <div class="feat-grid">${cucSignTeaserCards}</div>
     <div class="callout">
-      <strong>Deux étapes, pas deux factures surprises.</strong> Le site public et le Cockpit sont livrés et en service — ils ne
-      dépendent pas de CUC Sign pour fonctionner. CUC Sign est en préparation : il sera présenté avec son périmètre et son budget
-      le moment venu, sans rien remettre en cause de ce qui est déjà en place.
+      <strong>CUC Sign a sa propre page.</strong> Le détail complet — espaces élèves, coachs et direction, circulation
+      entre les deux applications, et les signalements terrain (matériel défectueux, rangement, blessure déclarés
+      depuis un téléphone) — y est présenté.
+      <div class="hero-actions">
+        <a class="btn" href="./cuc-sign.html">Ouvrir la page CUC Sign →</a>
+      </div>
     </div>
-
-    <h3>Le pont aujourd'hui, chiffré</h3>
-    <p class="meta">Ces liens sont vérifiés en base : ils disent exactement ce que le site lit de CUC Sign, sans approximation.</p>
-    ${connectionHtml}
   </section>
 
   <section id="capot">
@@ -1402,6 +1274,9 @@ ${cucSignBridgeTable}
       Cette partie s'adresse aux curieux : ce que votre site « pèse », la vitesse à laquelle il répond,
       et les garanties qui l'entourent. Aucune connaissance technique n'est nécessaire pour la lire.
     </p>
+
+${projectScaleBlock}
+${oldSiteBlock}
 
     ${pageWeightSummary
     ? `<h3>Poids et temps de réponse <span class="meta">(mesurés sur la version de production)</span></h3>
@@ -1418,12 +1293,12 @@ ${resilienceBlock}
     <h3>Qui peut faire quoi</h3>
     <div class="feat-grid">${rolesHtml}</div>
 
-    <details class="acc reveal">
-      <summary>${icon('cpu')}<span>Les technologies utilisées <span class="role">— et leur rôle, sans jargon</span></span>
-        <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-      </summary>
-      <div class="acc-body">${techTable}</div>
-    </details>
+    <h3>Stack technique <span class="meta">(les technologies et leur rôle, sans jargon)</span></h3>
+    <p class="meta">
+      Aucun CMS externe, aucune extension tierce exposée : la stack est volontairement courte et standard,
+      pour rester maintenable dans le temps.
+    </p>
+${techTable}
 
     ${bundleBytes ? `<p class="meta">Pour afficher le site, le navigateur télécharge environ ${mo(bundleBytes)} de code, mis en cache après la première visite. La visite suivante est quasi instantanée.</p>` : ''}
     ${i18n ? `<p class="meta">Langues : ${nf(i18n.fr)} clés éditoriales en français, ${nf(i18n.en)} en anglais — parité contrôlée automatiquement à chaque mise à jour.</p>` : ''}
@@ -1508,12 +1383,27 @@ ${resilienceBlock}
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, html, 'utf8');
 
-console.log('=== Dossier de présentation client généré (v4) ===');
-console.log(`Sections : 12 · accordéons : ${PUBLIC_PAGES.length + COCKPIT_APPS.length + GLOSSARY.length + FAQ.length + 1}`);
-console.log(`Repères chiffrés : contenus(tablo ${contentRows.length}) · complétude(${q ? 3 : 0}) · catalogue(${catalogTraits.length}) · résistance(${resilienceRows.length}) · pages(${pageWeights ? pageWeights.length : 0})`);
-console.log('Animation : parcours élève (7 étapes, chemin + jeton, 100 % CSS/SVG)');
+/**
+ * La feuille de style est capturée depuis le dossier déjà assemblé : la page
+ * CUC Sign hérite de la même identité visuelle sans en dupliquer une ligne.
+ */
+const sharedCss = (html.match(/<style>([\s\S]*?)<\/style>/) || [, ''])[1];
+const cucSignHtml = buildCucSignDossier({
+  css: sharedCss,
+  today,
+  generated,
+  kit: { esc, nf, icon, featCard, kpiHtml },
+  cucSign,
+});
+fs.writeFileSync(OUT_SIGN, cucSignHtml, 'utf8');
+
+console.log('=== Dossiers de présentation client générés (v5) ===');
+console.log(`Dossier application — 12 sections · accordéons : ${PUBLIC_PAGES.length + COCKPIT_APPS.length + GLOSSARY.length + FAQ.length + 1}`);
+console.log(`Repères chiffrés : contenus(tablo ${contentRows.length}) · complétude(${q ? 3 : 0}) · catalogue(${catalogTraits.length}) · résistance(${resilienceRows.length}) · pages(${pageWeights ? pageWeights.length : 0}) · échelle(${codeTotals ? 2 : 0}) · comparaison(${OLD_SITE_ROWS.length})`);
 console.log(`Sessions live : ${live.sessions.length} lignes datées`);
 console.log(`Qualité : ${q ? `${nf(q.films.with_image)}/${nf(q.films.total)} affiches · ${nf(q.filmsEn)} films EN · ${nf(q.team.with_imdb)} IMDb` : 'indisponible'}`);
 console.log(`Schémas : écosystème (flux animés) · carte du site(${SITE_MAP.length} thèmes) · anatomie de page · cycle de demande (carte voyageuse)`);
-console.log('Sortie :');
+console.log('Page CUC Sign — 6 sections · signalements smartphone (matériel, rangement, blessure)');
+console.log('Sorties :');
 console.log('  - reports/cuc-dossier-application.html');
+console.log('  - reports/cuc-sign.html');

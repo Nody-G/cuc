@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CUC Sign — la plateforme de gestion de l'école — Campus Univers Cascades</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #060608; color: #e7e7ea; font: 15px/1.65 "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  :focus-visible { outline: 2px solid #FFE500; outline-offset: 2px; border-radius: 4px; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 52px 24px 96px; }
+  header.hero { padding: 34px 0 30px; border-bottom: 1px solid #26262e; margin-bottom: 34px; position: relative; }
+  header.hero::after { content: ""; position: absolute; z-index: -1; top: -60px; right: -40px; width: 420px; height: 260px;
+    background: radial-gradient(closest-side, rgba(255,229,0,.10), transparent 70%); animation: glowPulse 8s ease-in-out infinite; pointer-events: none; }
+  @keyframes glowPulse { 50% { opacity: .45; transform: translateY(8px) scale(1.06); } }
+  .kicker { color: #FFE500; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; }
+  h1 { font-size: clamp(30px, 4.4vw, 48px); margin: 12px 0 8px; line-height: 1.12; }
+  h1 em { font-style: normal; background: linear-gradient(100deg, #FFE500, #fff6c4, #FFE500); background-size: 220% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent; animation: sheen 7s linear infinite; }
+  @keyframes sheen { to { background-position: -220% 0; } }
+  .meta { color: #9a9aa5; font-size: 13.5px; max-width: 860px; }
+  .hero-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #111; background: #FFE500; border: 0; border-radius: 999px; padding: 9px 18px; cursor: pointer; text-decoration: none; transition: transform .15s ease; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.ghost { background: transparent; color: #e7e7ea; border: 1px solid #3a3a44; }
+  .strip { overflow: hidden; margin-top: 20px; border-top: 1px solid #26262e; border-bottom: 1px solid #26262e; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .strip-inner { display: flex; align-items: center; gap: 26px; padding: 10px 0; white-space: nowrap; width: max-content; color: #b9b9c2; font-size: 12.5px; animation: slideZ 46s linear infinite; }
+  .strip-inner .sep { color: #FFE500; font-size: 9px; }
+  @keyframes slideZ { to { transform: translateX(-50%); } }
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 0; position: sticky; top: 10px; z-index: 20; padding: 8px 0; background: linear-gradient(#060608, #060608e6); backdrop-filter: blur(6px); }
+  nav.toc a { font-size: 12px; color: #cfcfd6; border: 1px solid #2c2c36; border-radius: 999px; padding: 5px 12px; text-decoration: none; background: #0b0b10; transition: border-color .15s ease, color .15s ease, background .15s ease; }
+  nav.toc a:hover { border-color: #FFE500; color: #FFE500; }
+  nav.toc a.active { border-color: #FFE500; color: #FFE500; background: #16160d; }
+  section { scroll-margin-top: 92px; }
+  h2 { margin-top: 64px; font-size: 25px; border-left: 4px solid #FFE500; padding-left: 12px; }
+  h3 { margin-top: 34px; font-size: 18px; color: #f2f2f5; }
+  h3 .meta { font-size: 12.5px; }
+  p { color: #c9c9d1; }
+  a { color: #FFE500; }
+  .lead { font-size: 16.5px; color: #d8d8de; max-width: 860px; }
+  .kpis { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin-top: 22px; }
+  .kpi { background: linear-gradient(180deg, #101017 0%, #0c0c11 100%); border: 1px solid #26262e; border-radius: 14px; padding: 16px 18px; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+  .kpi:hover { transform: translateY(-3px); border-color: #3a3a44; box-shadow: 0 14px 34px rgba(0,0,0,.45); }
+  .kpi .n { font-size: 30px; font-weight: 700; color: #fff; letter-spacing: .01em; }
+  .kpi .n span.done { display: inline-block; animation: pop .42s ease; }
+  @keyframes pop { 50% { transform: scale(1.16); color: #FFE500; } }
+  .kpi .l { font-size: 13px; color: #e2e2e8; margin-top: 2px; }
+  .kpi .s { font-size: 11.5px; color: #8a8a95; margin-top: 2px; }
+  .feat-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .feat { background: linear-gradient(180deg, #101017 0%, #0c0c11 100%); border: 1px solid #26262e; border-radius: 14px; padding: 20px; position: relative; overflow: hidden; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+  .feat:hover { transform: translateY(-3px); border-color: #3a3a44; box-shadow: 0 14px 34px rgba(0,0,0,.45); }
+  .feat::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: linear-gradient(90deg, #FFE500, transparent 72%); opacity: .85; }
+  .feat .fi { width: 38px; height: 38px; border-radius: 10px; background: rgba(255,229,0,.08); border: 1px solid rgba(255,229,0,.35); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+  .feat h3 { margin: 0 0 6px; font-size: 16.5px; }
+  .feat p { margin: 0; color: #b9b9c2; font-size: 13.5px; }
+  .feat .tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { font-size: 10.5px; letter-spacing: .04em; text-transform: uppercase; color: #ffef9e; border: 1px solid #3d3a1e; background: rgba(255,229,0,.06); border-radius: 999px; padding: 2px 9px; }
+  .fi svg { width: 20px; height: 20px; stroke: #FFE500; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  details.acc { border: 1px solid #26262e; border-radius: 12px; background: #0d0d12; margin: 8px 0; overflow: hidden; transition: border-color .2s ease, background .2s ease; }
+  details.acc:hover { border-color: #3a3a44; }
+  details.acc summary { cursor: pointer; list-style: none; padding: 13px 18px; display: flex; align-items: center; gap: 12px; font-weight: 600; color: #eef0f4; transition: background .2s ease; }
+  details.acc summary:hover { background: #12121a; }
+  details.acc summary::-webkit-details-marker { display: none; }
+  details.acc summary .role { color: #9a9aa5; font-weight: 400; font-size: 12.5px; }
+  details.acc summary .chev { margin-left: auto; color: #FFE500; transition: transform .25s ease; flex: 0 0 auto; }
+  details.acc[open] summary .chev { transform: rotate(90deg); }
+  details.acc .acc-body { padding: 12px 18px 16px 18px; color: #bfc0c9; font-size: 13.8px; border-top: 1px solid #1d1d25; }
+  .steps { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); margin-top: 14px; }
+  .step { background: #0d0d12; border: 1px solid #26262e; border-radius: 12px; padding: 14px; position: relative; }
+  .step .num { display: inline-flex; width: 24px; height: 24px; border-radius: 50%; background: #FFE500; color: #111; font-weight: 700; font-size: 12.5px; align-items: center; justify-content: center; margin-bottom: 8px; }
+  .step h4 { margin: 0 0 4px; font-size: 14px; color: #fff; }
+  .step p { margin: 0; font-size: 12.5px; color: #a9aab4; }
+  @media (min-width: 1000px) {
+    .step:not(:last-child)::after { content: ""; position: absolute; top: 26px; right: -13px; width: 14px; border-top: 2px dashed #3a3a44; }
+  }
+  .flow { background: radial-gradient(620px 260px at 18% 0%, rgba(255,229,0,.05), transparent), #0b0b10; border: 1px solid #26262e; border-radius: 16px; padding: 10px 12px; }
+  .chart { width: 100%; height: auto; }
+  .chart-label { fill: #c9c9d1; font-size: 13px; }
+  .chart-value { fill: #fff; font-size: 12.5px; font-weight: 600; }
+  .donut-wrap { display: flex; gap: 26px; align-items: center; flex-wrap: wrap; }
+  .donut-total { fill: #fff; font-size: 22px; font-weight: 700; }
+  .legend { list-style: none; margin: 0; padding: 0; font-size: 13px; color: #c9c9d1; }
+  .legend li { margin: 4px 0; }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 10px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid #1f1f27; }
+  th { color: #9a9aa5; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+  td { color: #d6d6dd; }
+  .legend-row { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 10px; font-size: 12px; color: #9a9aa5; }
+  .key { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  @media (max-width: 920px) { .two-col { grid-template-columns: 1fr; } }
+  .callout { border-left: 4px solid #FFE500; background: #101016; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 20px 0; color: #d6d6dd; }
+  .map-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 14px; }
+  .map-card { background: #0d0d12; border: 1px solid #26262e; border-radius: 14px; padding: 16px 18px; }
+  .map-card h4 { margin: 8px 0 8px; font-size: 14.5px; color: #fff; }
+  .map-card ul { margin: 0; padding-left: 18px; color: #b9b9c2; font-size: 12.8px; }
+  .map-card li { margin: 3px 0; }
+  ul.sessions { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+  .sess { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: #0d0d12; border: 1px solid #26262e; border-radius: 12px; padding: 12px 16px; }
+  .sess-status { font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; border-radius: 999px; padding: 3px 10px; border: 1px solid #3a3a44; white-space: nowrap; }
+  .s-ok { color: #9ee6a8; border-color: #2e5533; background: rgba(129,199,132,.08); }
+  .s-last { color: #ffd28a; border-color: #5a4620; background: rgba(255,176,32,.08); }
+  .s-full { color: #ff9d8a; border-color: #5c3128; background: rgba(255,112,67,.08); }
+  .s-soon { color: #b9c6d8; border-color: #333c47; background: rgba(79,195,247,.06); }
+  .sess-title { font-weight: 600; color: #eef0f4; }
+  .sess-date { margin-left: auto; color: #9a9aa5; font-size: 13px; }
+  footer { margin-top: 76px; border-top: 1px solid #26262e; padding-top: 20px; color: #8a8a95; font-size: 12.5px; }
+  .pill { display: inline-block; font-size: 11px; padding: 2px 9px; border: 1px solid #3a3a44; border-radius: 999px; color: #c9c9d1; margin-right: 6px; }
+  code { color: #ffe9a8; }
+  /* --- Animations (natives, sans dépendance) --- */
+  .flowline { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 3 12; animation: march 1.5s linear infinite; }
+  @keyframes march { to { stroke-dashoffset: -15; } }
+  .halo { animation: haloPulse 4.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes haloPulse { 0%, 100% { opacity: .12; transform: scale(.96); } 50% { opacity: .38; transform: scale(1.03); } }
+  /* Cycle de demande : carte-enveloppe voyageuse + étapes qui s'allument en séquence */
+  .flowmsg { offset-rotate: 0deg; animation: msgRun 10.5s linear infinite; filter: drop-shadow(0 4px 10px rgba(255,229,0,.28)); }
+  @keyframes msgRun {
+    0% { offset-distance: 0%; opacity: 0; }
+    2% { opacity: 1; }
+    88% { offset-distance: 100%; opacity: 1; }
+    94%, 100% { offset-distance: 100%; opacity: 0; }
+  }
+  .rc-node { animation: nodeHit 10.5s linear infinite; }
+  @keyframes nodeHit { 0% { stroke: #FFE500; stroke-width: 3.2; } 10% { stroke: #FFE500; stroke-width: 3.2; } 22%, 100% { stroke: #3a3a44; stroke-width: 2; } }
+  .rc-ping { fill: none; stroke: #FFE500; stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; animation: pingOut 10.5s ease-out infinite; }
+  @keyframes pingOut { 0% { transform: scale(.6); opacity: .8; } 10% { transform: scale(1.7); opacity: 0; } 10.01%, 100% { opacity: 0; } }
+  .rc-fill { fill: none; stroke: #FFE500; stroke-width: 2; stroke-dasharray: 700; stroke-dashoffset: 700; animation: lineFill 10.5s linear infinite; }
+  @keyframes lineFill { 0% { stroke-dashoffset: 700; opacity: .85; } 88% { stroke-dashoffset: 0; opacity: .85; } 92% { opacity: 0; } 92.01%, 100% { stroke-dashoffset: 700; opacity: 0; } }
+  /* Parcours d'un élève : le chemin se dessine, le jeton avance, chaque étape s'allume à son passage */
+  .jdraw { fill: none; stroke: #FFE500; stroke-width: 2.6; stroke-linecap: round; stroke-dasharray: 2300; stroke-dashoffset: 2300;
+    animation: jDraw 16s linear infinite; }
+  @keyframes jDraw { 0% { stroke-dashoffset: 2300; opacity: .9; } 94% { stroke-dashoffset: 0; opacity: .9; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+  .jtoken { offset-rotate: 0deg; animation: jToken 16s linear infinite; filter: drop-shadow(0 6px 16px rgba(255,229,0,.4)); }
+  @keyframes jToken {
+    0% { offset-distance: 0%; opacity: 0; }
+    3% { opacity: 1; }
+    95% { offset-distance: 100%; opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+  .jnode { animation: jNode 16s linear infinite; }
+  @keyframes jNode {
+    0% { stroke: #FFE500; stroke-width: 3.4; }
+    10% { stroke: #FFE500; stroke-width: 3.4; }
+    16%, 100% { stroke: #3a3a44; stroke-width: 2; }
+  }
+  .jring { fill: none; stroke: #FFE500; stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center;
+    animation: jRing 16s ease-out infinite; }
+  @keyframes jRing { 0% { transform: scale(.7); opacity: .85; } 6% { transform: scale(1.9); opacity: 0; } 6.01%, 100% { opacity: 0; } }
+  /* --- Confort de lecture (CSS moderne, sans dépendance) --- */
+  @supports (animation-timeline: scroll()) {
+    .progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; z-index: 60;
+      background: linear-gradient(90deg, #FFE500, #ffb020); transform-origin: 0 50%; transform: scaleX(0);
+      animation: growX linear; animation-timeline: scroll(); }
+    @keyframes growX { to { transform: scaleX(1); } }
+  }
+  @supports (animation-timeline: view()) {
+    .reveal { animation: riseIn both; animation-timeline: view(); animation-range: entry 0% entry 55%; }
+    @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    h2 { animation: flagIn both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
+    @keyframes flagIn { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: none; } }
+  }
+  .totop { position: fixed; right: 18px; bottom: 18px; z-index: 40; width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; background: #0e0e14; border: 1px solid #3a3a44;
+    color: #FFE500; text-decoration: none; font-size: 18px; box-shadow: 0 10px 24px rgba(0,0,0,.45); }
+  .totop:hover { border-color: #FFE500; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .flowline, .halo, .flowmsg, .rc-node, .rc-ping, .rc-fill, .jdraw, .jtoken, .jnode, .jring,
+    .strip-inner, header.hero::after,
+    .reveal, h2, .progress, h1 em, .kpi .n span.done { animation: none !important; }
+    .jdraw { stroke-dashoffset: 0; opacity: .9; }
+  }
+  @media print {
+    body { background: #fff; color: #111; }
+    .feat, .kpi, .step, .map-card, .sess { border-color: #ddd; background: #fff; }
+    nav.toc, .totop, .progress, .hero-actions, .strip, header.hero::after { display: none; }
+    details.acc { break-inside: avoid; }
+    details.acc .acc-body { display: block; }
+  }
+
+  .back-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+  .note-link { color: #FFE500; text-decoration: none; border-bottom: 1px solid rgba(255,229,0,.35); }
+  .note-link:hover { border-bottom-color: #FFE500; }
+  .thread { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; }
+  .thread li { background: #0d0d12; border: 1px solid #26262e; border-left: 3px solid #FFE500; border-radius: 0 10px 10px 0; padding: 12px 16px; color: #c9c9d1; font-size: 13.5px; }
+  .thread b { color: #fff; }
+</style>
+</head>
+<body>
+<span class="progress" aria-hidden="true"></span>
+<a class="totop" href="#top" title="Revenir en haut" aria-label="Revenir en haut">↑</a>
+<div class="wrap" id="top">
+
+  <header class="hero">
+    <div class="kicker">Dossier de présentation — 24 septembre 2026</div>
+    <h1>CUC Sign — <em>la plateforme de gestion de l’école</em></h1>
+    <p class="meta">
+      CUC Sign est la <strong>seconde étape</strong> du projet : le suivi de l'élève après l'admission —
+      émargement conforme Qualiopi, rotations de groupes, sécurité, signalements terrain et fiche de casting.
+      Ce document lui est entièrement consacré.
+    </p>
+    <div class="hero-actions">
+      <button class="btn" onclick="window.print()">Imprimer / PDF</button>
+      <a class="btn ghost" href="./cuc-dossier-application.html">← Dossier de l'application</a>
+    </div>
+    <nav class="toc">
+      <a href="#quoi">Ce que c'est</a><a href="#parcours">Le parcours d'un élève</a><a href="#espaces">Un espace pour chacun</a>
+      <a href="#signalements">Signaler depuis son téléphone</a><a href="#passerelle">Les deux applications</a><a href="#avenir">Ce que cela change</a>
+    </nav>
+  </header>
+
+  <section id="quoi">
+    <h2>1. Ce que c'est</h2>
+    <p class="lead">
+      CUC Sign n'est pas un outil réservé aux élèves : c'est la <strong>plateforme de gestion de l'école</strong>,
+      avec un espace pour chacun. <strong>Les élèves</strong> s'émargent chaque jour, consultent leur planning,
+      suivent leur progression et repartent avec un profil de casting. <strong>Les coachs</strong> notent depuis leur
+      téléphone, délibèrent pour composer les groupes, assurent un remplacement au pied levé et voient avant le
+      cours qui revient de blessure. <strong>La direction et le secrétariat</strong> pilotent le planning, suivent
+      présences et absences, gèrent les comptes et les rôles, et sortent les preuves réclamées par les financeurs.
+    </p>
+    <p>
+      CUC Sign réutilise le travail déjà fait et les mêmes outils que le site, et surtout : le pont de données est
+      <strong>déjà en service</strong>. Les formations, les coachs et les lieux affichés publiquement viennent de
+      CUC Sign, en lecture seule. Les deux applications partagent <strong>la même base de données</strong> —
+      c'est volontaire : rien à dupliquer, rien à synchroniser le jour où la seconde étape démarrera.
+    </p>
+    <div class="callout">
+      <strong>Une seule école, une seule base.</strong> Ce qui est saisi d'un côté n'a jamais à être ressaisi de
+      l'autre : une candidature perdue ou une session annoncée à tort n'ont plus de raison d'exister.
+    </div>
+  </section>
+
+  <section id="parcours">
+    <h2>2. Le parcours d'un élève</h2>
+    <p>Le jeton relie les trois étages du projet : le site (candidature), le Cockpit (admission), puis CUC Sign (vie de l'élève).</p>
+    <div class="flow reveal">
+<svg viewBox="0 0 940 340" class="chart" role="img" aria-label="Parcours d'un élève : candidature en ligne, admission dans le Cockpit, dossier élève dans CUC Sign, émargement quotidien, validation des compétences, fiche composite envoyée aux castings">
+  <path d="M120 70 H820 V170 H120 V270 H820" stroke="#26262e" stroke-width="2" stroke-dasharray="6 8" fill="none"/>
+  <path class="jdraw" d="M120 70 H820 V170 H120 V270 H820"/>
+  
+    <circle class="jring" cx="120" cy="70" r="19" style="animation-delay:0s"/>
+    <circle class="jnode" cx="120" cy="70" r="19" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:0s"/>
+    <text x="120" y="75" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="700">1</text>
+    <text x="120" y="110" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">Il postule en ligne</text>
+    <text x="120" y="126" text-anchor="middle" fill="#9a9aa5" font-size="11">site public · deux minutes</text>
+    <circle class="jring" cx="470" cy="70" r="19" style="animation-delay:2.4s"/>
+    <circle class="jnode" cx="470" cy="70" r="19" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:2.4s"/>
+    <text x="470" y="75" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="700">2</text>
+    <text x="470" y="110" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">La demande arrive au Cockpit</text>
+    <text x="470" y="126" text-anchor="middle" fill="#9a9aa5" font-size="11">statut, notes, réponse</text>
+    <circle class="jring" cx="820" cy="70" r="19" style="animation-delay:4.9s"/>
+    <circle class="jnode" cx="820" cy="70" r="19" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:4.9s"/>
+    <text x="820" y="75" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="700">3</text>
+    <text x="820" y="110" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">Admission validée</text>
+    <text x="820" y="126" text-anchor="middle" fill="#9a9aa5" font-size="11">convention, convocation</text>
+    <circle class="jring" cx="820" cy="170" r="19" style="animation-delay:5.6s"/>
+    <circle class="jnode" cx="820" cy="170" r="19" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:5.6s"/>
+    <text x="820" y="175" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="700">4</text>
+    <text x="820" y="210" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">Le dossier élève naît dans CUC Sign</text>
+    <text x="820" y="226" text-anchor="middle" fill="#9a9aa5" font-size="11">même base · aucune double saisie</text>
+    <circle class="jring" cx="120" cy="170" r="19" style="animation-delay:10.4s"/>
+    <circle class="jnode" cx="120" cy="170" r="19" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:10.4s"/>
+    <text x="120" y="175" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="700">5</text>
+    <text x="120" y="210" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">Il émarge chaque jour</text>
+    <text x="120" y="226" text-anchor="middle" fill="#9a9aa5" font-size="11">tablette à l’entrée, même hors ligne</text>
+    <circle class="jring" cx="470" cy="270" r="19" style="animation-delay:12.9s"/>
+    <circle class="jnode" cx="470" cy="270" r="19" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:12.9s"/>
+    <text x="470" y="275" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="700">6</text>
+    <text x="470" y="310" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">Ses compétences se valident</text>
+    <text x="470" y="326" text-anchor="middle" fill="#9a9aa5" font-size="11">coachs, tests physiques</text>
+    <circle class="jring" cx="820" cy="270" r="19" style="animation-delay:15.4s"/>
+    <circle class="jnode" cx="820" cy="270" r="19" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:15.4s"/>
+    <text x="820" y="275" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="700">7</text>
+    <text x="820" y="310" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">Sa fiche part aux castings</text>
+    <text x="820" y="326" text-anchor="middle" fill="#9a9aa5" font-size="11">PDF composite prêt à envoyer</text>
+  <g class="jtoken" style="offset-path: path('M120 70 H820 V170 H120 V270 H820')">
+    <circle r="12" fill="#FFE500"/>
+    <circle r="5" fill="#111"/>
+  </g>
+</svg></div>
+    <p class="meta">
+      Suivez le jeton : une candidature envoyée depuis votre site traverse l'admission, crée le dossier élève, accompagne
+      l'émargement quotidien, puis ressort en fiche de casting. Chaque étape s'allume au passage.
+    </p>
+  </section>
+
+  <section id="espaces">
+    <h2>3. Un espace pour chacun</h2>
+    <p class="meta">Trois publics, une seule plateforme, des droits différents : chaque accès est nominatif et limité à son rôle.</p>
+    <div class="feat-grid">
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg></span><h3>Émargement conforme Qualiopi</h3><p>Feuilles de présence numériques horodatées et conservées : c'est la preuve que réclament les financeurs et les audits, produite au fil de l'année.</p><div class="tags"><span class="tag">Direction</span><span class="tag">Secrétariat</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 6.3"/><path d="M20 5v6h-6"/></svg></span><h3>La tablette à l’entrée, même sans réseau</h3><p>Mode borne : l'élève signe en quelques secondes par QR code, et le pointage continue de fonctionner si le réseau tombe au gymnase.</p><div class="tags"><span class="tag">Élèves</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><path d="M16 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-1.8-4.4-4.5-4.8"/></svg></span><h3>Les coachs notent et délibèrent sur le terrain</h3><p>Note de 0 à 10 depuis le téléphone, table de délibération pour composer les groupes de niveaux, remplacements gérés, et un coup d'œil avant le cours sur les élèves qui reviennent de blessure.</p><div class="tags"><span class="tag">Coachs</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></span><h3>La direction pilote l’école</h3><p>Planning des créneaux et des remplacements, présences et absences suivies, statistiques de fréquentation, gestion des comptes et des rôles (direction, secrétariat, coachs, élèves).</p><div class="tags"><span class="tag">Direction</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><h3>La sécurité des élèves, tracée</h3><p>Fiche médicale d’urgence à accès restreint, blessures suivies, matériel défectueux signalé avec photo : ce qui se perdait dans un carnet se retrouve en un écran.</p><div class="tags"><span class="tag">Coachs</span><span class="tag">Direction</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.3.9-4.5 4.4 1 6.1-5.5-3-5.5 3 1-6.1L3 9.5l6.3-.9L12 3z"/></svg></span><h3>Compétences validées, fiche de casting prête</h3><p>Chaque compétence validée et chaque test physique alimentent une fiche composite PDF — mensurations, skills, profil — directement envoyable aux productions.</p><div class="tags"><span class="tag">Élèves</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></span><h3>Pensé aussi pour l’international</h3><p>Les stagiaires étrangers s’émargent et consultent leur progression dans leur langue ; le lexique technique est bilingue.</p><div class="tags"><span class="tag">Élèves</span><span class="tag">Coachs</span></div></article></div>
+  </section>
+
+  <section id="signalements">
+    <h2>4. Signaler depuis son téléphone — et être prévenu à temps</h2>
+    <p>
+      C'est l'un des usages les plus concrets de CUC Sign : le terrain remonte l'information sans passer par un
+      cahier ni par un appel. Chacun déclare depuis son smartphone, avec une photo quand c'est utile, et la bonne
+      personne est prévenue — administrateurs comme coachs.
+    </p>
+    <div class="feat-grid">
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><h3>Déclarer un problème en une photo</h3><p>Matériel défectueux, équipement à réparer, zone mal rangée : depuis son téléphone, on prend une photo, on choisit le lieu et on envoie. Le signalement arrive directement sur le tableau de bord des administrateurs — plus de feuille volante ni de message oublié.</p><div class="tags"><span class="tag">Matériel</span><span class="tag">Rangement</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg></span><h3>Une blessure déclarée, tout le monde au courant</h3><p>Un élève se blesse pendant un cours : il le déclare depuis son téléphone. Le coach est prévenu avant le cours suivant, la direction et le secrétariat aussi — la blessure est suivie et documentée, jamais reconstituée de mémoire.</p><div class="tags"><span class="tag">Blessure</span><span class="tag">Coachs</span><span class="tag">Direction</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></span><h3>Du signalement à l’action, horodaté</h3><p>Chaque déclaration est datée, rattachée à un lieu et à un auteur, puis traitée puis archivée : la direction voit ce qui a été fait, par qui, et quand.</p><div class="tags"><span class="tag">Traçabilité</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><h3>Fiche médicale d’urgence, accès restreint</h3><p>Contacts d'urgence et informations médicales consultables uniquement par les personnes habilitées, au moment précis où elles en ont besoin — sans dossier papier qui traîne.</p><div class="tags"><span class="tag">Urgence</span></div></article></div>
+    <ul class="thread">
+      <li><b>Matériel défectueux ou rangement :</b> photo + lieu → le signalement apparaît sur le tableau de bord des administrateurs.</li>
+      <li><b>Blessure en cours :</b> l'élève déclare → le coach est informé au début du cours, les admins aussi.</li>
+      <li><b>Suivi :</b> chaque déclaration reste consultable, avec sa date et son auteur, jusqu'à sa résolution.</li>
+    </ul>
+  </section>
+
+  <section id="passerelle">
+    <h2>5. Les deux applications, main dans la main</h2>
+    <p>
+      C'est là que se joue l'intérêt des deux outils réunis : plus une donnée saisie deux fois, plus une session
+      annoncée sur le site qui contredirait le planning interne. L'état de chaque échange est indiqué : « en service »
+      se dit seulement pour ce qui fonctionne aujourd'hui.
+    </p>
+    
+    <table>
+      <thead><tr><th>Sens</th><th>Ce qui circule entre les deux applications</th><th>État</th></tr></thead>
+      <tbody><tr><td><strong>Site → CUC Sign</strong></td><td>Une candidature acceptée devient un dossier élève : identité, coordonnées, programme visé, session souhaitée. Aucune ressaisie.</td><td>En service</td></tr><tr><td><strong>Site → CUC Sign</strong></td><td>Les créneaux planifiés et les coachs qui les assurent : le site affiche les sessions réellement programmées.</td><td>À étendre</td></tr><tr><td><strong>CUC Sign → Site</strong></td><td>Les formations (dates, intitulés), les 12 coachs et les lieux du campus : le site les lit en direct, en lecture seule.</td><td>En service</td></tr><tr><td><strong>CUC Sign → Site</strong></td><td>Le passage d'une session de « ouvert » à « complet » répercuté aussitôt sur la page des stages.</td><td>À étendre</td></tr><tr><td><strong>Plus tard</strong></td><td>Les productions pourraient chercher un cascadeur sur ses compétences validées et ses mensurations, directement depuis le site.</td><td>À l'étude</td></tr></tbody>
+    </table>
+
+    <h3>Le pont aujourd'hui, chiffré</h3>
+    <p class="meta">Ces liens sont vérifiés en base : ils disent exactement ce que le site lit de CUC Sign, sans approximation.</p>
+    <div class="kpis">
+    <div class="kpi reveal"><div class="n"><span data-count="12">12</span></div><div class="l">formations CUC Sign</div><div class="s">référencées côté site</div></div>
+    <div class="kpi reveal"><div class="n"><span data-count="13">13</span></div><div class="l">profils CUC Sign</div><div class="s">coachs & direction</div></div>
+    <div class="kpi reveal"><div class="n"><span data-count="9">9</span></div><div class="l">lieux CUC Sign</div><div class="s">installations du campus</div></div>
+    <div class="kpi reveal"><div class="n">10/18</div><div class="l">sessions reliées</div><div class="s">les autres attendent leur formation CUC Sign</div></div>
+    <div class="kpi reveal"><div class="n">5/12</div><div class="l">coachs reliés</div><div class="s">les intervenants externes n’ont pas de compte</div></div>
+    <div class="kpi reveal"><div class="n">4/5</div><div class="l">zones du campus reliées</div><div class="s">liaisons vérifiées, jamais approximatives</div></div>
+  </div>
+  </section>
+
+  <section id="avenir">
+    <h2>6. Ce que cela change pour la suite du CUC</h2>
+    <div class="feat-grid">
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><h3>Chaque candidature devient un inscrit suivi</h3><p>Le site recrute, CUC Sign prend le relais : dossier, convocation, convention, certificat médical et autorisation d'image consignés au même endroit. Rien ne se perd entre le premier message et la rentrée.</p><div class="tags"><span class="tag">Recrutement</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg></span><h3>Les financeurs demandent des preuves : elles existent</h3><p>Émargements horodatés, absences justifiées, certificats médicaux : les pièces réclamées par l'AFDAS, les OPCO et un audit Qualiopi se constituent au fil de l'année au lieu d'être reconstituées la veille.</p><div class="tags"><span class="tag">Financements</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14a8 8 0 1 1 16 0"/><path d="M12 14l4-4"/></svg></span><h3>Le campus pilote avec ses propres chiffres</h3><p>Présences, blessures, progression, créneaux remplacés : l'équipe voit ce qui fonctionne et ajuste la pédagogie sur des faits, pas sur des impressions.</p><div class="tags"><span class="tag">Pilotage</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.3.9-4.5 4.4 1 6.1-5.5-3-5.5 3 1-6.1L3 9.5l6.3-.9L12 3z"/></svg></span><h3>Un vivier où les productions viennent chercher</h3><p>Compétences validées, tests physiques, mensurations et showreel composent un profil prêt à envoyer : le CUC ne se contente pas de former, il place ses élèves sur les tournages.</p><div class="tags"><span class="tag">Rayonnement</span></div></article></div>
+    <div class="callout">
+      <strong>Deux étapes, pas deux factures surprises.</strong> Le site public et le Cockpit sont livrés et en
+      service — ils ne dépendent pas de CUC Sign pour fonctionner. CUC Sign est en préparation : il sera présenté
+      avec son périmètre et son budget le moment venu, sans rien remettre en cause de ce qui est déjà en place.
+    </div>
+    <p class="back-row">
+      <a class="note-link" href="./cuc-dossier-application.html">← Revenir au dossier de l'application (site & Cockpit)</a>
+    </p>
+  </section>
+
+  <footer>
+    Dossier CUC Sign généré le 24/09/2026 16:09:13 pour le Campus Univers Cascades.
+    Document autonome (aucun accès internet requis) · régénérable via <code>npm run report:dossier</code>.
+    <span class="pill">FR</span><span class="pill">sans connexion</span><span class="pill">imprimable</span>
+  </footer>
+</div>
+</body>
+</html>
