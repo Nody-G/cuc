@@ -1,6 +1,6 @@
 # Audit général de l'application CUC
 
-**Généré le :** 2026-09-24T13:54:00.001Z
+**Généré le :** 2026-09-24T14:34:55.154Z
 
 > État des lieux factuel. Aucune correction appliquée.
 
@@ -9,7 +9,7 @@
 | Contrôle | Valeur |
 |---|---|
 | Routes détectées | 35 |
-| Fichiers source scannés | 766 |
+| Fichiers source scannés | 768 |
 | Liens internes cassés | 0 |
 | Ancres orphelines | 0 |
 | Doublons de liens | 0 |
@@ -23,7 +23,7 @@
 | Écarts de largeur (max-w-7xl/6xl) | 0 |
 | Canaux Realtime sans nettoyage | 0 |
 | Composants live sans Realtime | 6 |
-| Couverture Realtime (composants live) | 74 % |
+| Couverture Realtime (composants live) | 75 % |
 | Clés i18n fr → en manquantes | 0 |
 | Clés i18n en surnuméraires | 0 |
 | Routes publiques sans metadata | 1 |

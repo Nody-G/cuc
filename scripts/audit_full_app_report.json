@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-24T13:53:59.999Z",
+  "generatedAt": "2026-09-24T14:34:55.152Z",
   "summary": {
     "routes": 35,
-    "sourceFiles": 766,
+    "sourceFiles": 768,
     "errors": {
       "brokenLinks": 0,
       "orphanAnchors": 0,
@@ -23,7 +23,7 @@
     },
     "totalErrors": 0,
     "totalWarnings": 7,
-    "realtimeCoverageRatio": 74
+    "realtimeCoverageRatio": 75
   },
   "routes": [
     "/[locale]",
@@ -2120,6 +2120,9 @@
       "file": "src/components/sections/hall-of-fame/FilmDetailsModal.tsx"
     },
     {
+      "file": "src/components/sections/HallOfFame.tsx"
+    },
+    {
       "file": "src/components/sections/home/tournages/useHomeTournages.ts"
     },
     {
@@ -2136,8 +2139,8 @@
     }
   ],
   "i18nParity": {
-    "frKeys": 729,
-    "enKeys": 729,
+    "frKeys": 725,
+    "enKeys": 725,
     "missingInEn": [],
     "extraInEn": []
   },
