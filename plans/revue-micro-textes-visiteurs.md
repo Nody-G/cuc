@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-24T12:39:37.015Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-24T14:39:03.152Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -8,11 +8,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | Catégorie | Occurrences |
 | --- | ---: |
 | ANNOTÉ — éditable en place | 306 |
-| DONNÉES — éditable par un écran existant | 105 |
+| DONNÉES — éditable par un écran existant | 109 |
 | TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 15 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
-| HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 17 |
-| **Total** | **443** |
+| HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 16 |
+| **Total** | **446** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -163,8 +163,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\HallOfFame.tsx`
 
-- l.61 — `{t('hallOfFame.tag')}`
-- l.70 — `{t('hallOfFame.subtitle')}`
+- l.84 — `{t('hallOfFame.tag')}`
+- l.93 — `{t('hallOfFame.subtitle')}`
 
 ### `src\components\sections\application-modal\ApplicationFields.tsx`
 
@@ -268,27 +268,30 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.87 — `{chrome?.admission_title || tp('admissionTitle')}`
 - l.123 — `{chrome?.funding_title || tp('fundingTitle')}`
 
+### `src\components\sections\hall-of-fame\CelebrityCard.tsx`
+
+- l.125 — `{t('hallOfFame.filmsLabel')}`
+
 ### `src\components\sections\hall-of-fame\CelebrityDetailsModal.tsx`
 
-- l.39 — `{t('celebrityModal.title')}`
-- l.79 — `{t('celebrityModal.doublesLabel')}`
-- l.93 — `{t('celebrityModal.scenesLabel')}`
-- l.106 — `{t('celebrityModal.filmsLabel')}`
-- l.132 — `{t('celebrityModal.imdbCta')}`
-- l.149 — `{t('celebrityModal.close')}`
+- l.54 — `{t('celebrityModal.title')}`
+- l.94 — `{t('celebrityModal.doublesLabel')}`
+- l.121 — `{t('celebrityModal.scenesLabel')}`
+- l.134 — `{t('celebrityModal.filmsLabel')}`
+- l.160 — `{t('celebrityModal.imdbCta')}`
+- l.177 — `{t('celebrityModal.close')}`
 
 ### `src\components\sections\hall-of-fame\CelebrityDoublesGallery.tsx`
 
-- l.82 — `{t('hallOfFame.actorsBadge')}`
-- l.88 — `{t('hallOfFame.actorsTitle')}`
-- l.93 — `{t('hallOfFame.actorsIntro')}`
-- l.159 — `{t('hallOfFame.filmsLabel')}`
+- l.84 — `{t('hallOfFame.actorsBadge')}`
+- l.90 — `{t('hallOfFame.actorsTitle')}`
+- l.95 — `{t('hallOfFame.actorsIntro')}`
 
 ### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
 
-- l.137 — `{t('filmModal.doublesLabel')}`
-- l.158 — `{t('filmModal.teamLabel')}`
-- l.268 — `{t('filmModal.trailer')}`
+- l.143 — `{t('filmModal.doublesLabel')}`
+- l.164 — `{t('filmModal.teamLabel')}`
+- l.274 — `{t('filmModal.trailer')}`
 
 ### `src\components\sections\home\HomeAboutSection.tsx`
 
@@ -513,12 +516,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ## 2. DONNÉES — éditable par un écran existant
 
-### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachFilmography.tsx`
-
-- l.123 — `{film.title}`
-- l.135 — `{film.year}`
-- l.180 — `{film.title}`
-
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachOtherMembers.tsx`
 
 - l.68 — `{other.role}`
@@ -578,10 +575,10 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosReelsSection.tsx`
 
-- l.126 — `{labels.title}`
-- l.129 — `{labels.intro}`
-- l.204 — `{reel.title}`
-- l.208 — `{reel.description}`
+- l.80 — `{labels.title}`
+- l.83 — `{labels.intro}`
+- l.158 — `{reel.title}`
+- l.162 — `{reel.description}`
 
 ### `src\components\layout\AnnouncementBanner.tsx`
 
@@ -644,14 +641,15 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.112 — `{resolvedBadge}`
 - l.119 — `{resolvedTitle}`
 
-### `src\components\sections\films\FilmPosterCard.tsx`
+### `src\components\sections\films\FilmCard.tsx`
 
-- l.71 — `{film.title}`
-- l.77 — `{film.year}`
-- l.82 — `{film.title}`
-- l.96 — `{inner}`
-- l.104 — `{inner}`
-- l.111 — `{inner}`
+- l.113 — `{film.title}`
+- l.121 — `{film.year}`
+- l.147 — `{roleIcon}`
+- l.154 — `{film.title}`
+- l.177 — `{inner}`
+- l.185 — `{inner}`
+- l.192 — `{inner}`
 
 ### `src\components\sections\formation\FormationDisciplinesExplorer.tsx`
 
@@ -661,26 +659,32 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.135 — `{activeDiscipline.fullDesc}`
 - l.160 — `{item}`
 
+### `src\components\sections\hall-of-fame\CelebrityCard.tsx`
+
+- l.91 — `{actor.name}`
+- l.98 — `{doubledBy.prefix}`
+- l.106 — `{doubledBy.name}`
+- l.111 — `{doubledBy.suffix}`
+- l.118 — `{actor.stuntSpecialty}`
+- l.135 — `{production}`
+
 ### `src\components\sections\hall-of-fame\CelebrityDetailsModal.tsx`
 
-- l.70 — `{celebrity.name}`
-- l.83 — `{celebrity.stuntDoubles}`
-- l.97 — `{celebrity.stuntSpecialty}`
-- l.115 — `{p}`
-
-### `src\components\sections\hall-of-fame\CelebrityDoublesGallery.tsx`
-
-- l.136 — `{actor.name}`
-- l.150 — `{actor.stuntSpecialty}`
-- l.169 — `{prod}`
+- l.85 — `{celebrity.name}`
+- l.98 — `{doubledBy.prefix}`
+- l.106 — `{doubledBy.name}`
+- l.111 — `{doubledBy.suffix}`
+- l.125 — `{celebrity.stuntSpecialty}`
+- l.143 — `{p}`
 
 ### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
 
 - l.100 — `{movie.title}`
-- l.128 — `{movie.description}`
-- l.146 — `{actor}`
-- l.186 — `{member.name}`
-- l.221 — `{roleLabelText}`
+- l.118 — `{movie.year}`
+- l.134 — `{movie.description}`
+- l.152 — `{actor}`
+- l.192 — `{member.name}`
+- l.227 — `{roleLabelText}`
 
 ### `src\components\sections\home\HomeAboutSection.tsx`
 
@@ -772,7 +776,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
 
 - l.109 — `{filmValue('year', movie.year ?? '')}`
-- l.118 — `{movie.year}{movie.director ? ’ • ${t('filmModal.directedBy', { name: movie.director })}’ : ''}`
+- l.123 — `{t('filmModal.directedBy', { name: movie.director })}`
 
 ### `src\components\sections\partenaires\grid\AdditionalPartnerCard.tsx`
 
@@ -808,7 +812,7 @@ Aucune occurrence.
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosReelsSection.tsx`
 
-- l.122 — `INSTAGRAM @CAMPUS.UNIVERS.CASCADES`
+- l.76 — `INSTAGRAM @CAMPUS.UNIVERS.CASCADES`
 
 ### `src\components\sections\application-modal\ApplicationSuccessView.tsx`
 
@@ -823,14 +827,10 @@ Aucune occurrence.
 
 - l.143 — `720H`
 
-### `src\components\sections\hall-of-fame\CelebrityDoublesGallery.tsx`
-
-- l.188 — `IMDb`
-
 ### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
 
-- l.243 — `IMDb`
-- l.255 — `AlloCiné`
+- l.249 — `IMDb`
+- l.261 — `AlloCiné`
 
 ### `src\components\sections\team\TeamProductionServices.tsx`
 

@@ -22,7 +22,8 @@ describe('resolveDoubledBy', () => {
         const parts = resolveDoubledBy('Doublé par Vincent Bouillon', TEAM);
 
         expect(parts.member).toEqual({ id: 'vincent-bouillon', name: 'Vincent Bouillon' });
-        expect(parts.prefix).toBe('Doublé par');
+        // L'espace de liaison est conservé : le JSX n'écrit aucun caractère littéral.
+        expect(parts.prefix).toBe('Doublé par ');
         expect(parts.name).toBe('Vincent Bouillon');
         expect(parts.suffix).toBe('');
     });
@@ -31,7 +32,7 @@ describe('resolveDoubledBy', () => {
         const parts = resolveDoubledBy('Doubled by Vincent Bouillon', TEAM);
 
         expect(parts.member?.id).toBe('vincent-bouillon');
-        expect(parts.prefix).toBe('Doubled by');
+        expect(parts.prefix).toBe('Doubled by ');
     });
 
     it('conserve la ponctuation et la précision qui suivent le nom', () => {

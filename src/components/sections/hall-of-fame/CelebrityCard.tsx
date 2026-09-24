@@ -95,7 +95,7 @@ export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers
                     <div className="inline-flex items-start gap-1.5 self-start px-2 py-1 bg-[#FFE500]/10 border border-[#FFE500]/40 text-[10px] font-mono-tech text-[#FFE500] font-bold">
                         <UserCheck className="w-3 h-3 flex-shrink-0 mt-0.5" />
                         <span className="leading-tight">
-                            {doubledBy.prefix ? `${doubledBy.prefix} ` : ''}
+                            {doubledBy.prefix}
                             {doubledBy.member ? (
                                 <Link
                                     href={`/equipe-cascadeurs-pro/${doubledBy.member.id}`}

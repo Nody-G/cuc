@@ -18,7 +18,11 @@ export interface TeamNameRef {
 }
 
 export interface DoubledByParts {
-    /** Texte précédant le nom (« Doublé par », « Doubled by »…), espaces retirés. */
+    /**
+     * Texte précédant le nom (« Doublé par », « Doubled by »…), **espace de
+     * liaison conservé** : le rendu n'a ainsi aucun caractère littéral à écrire
+     * dans le JSX (aucune dette de micro-copie).
+     */
     prefix: string;
     /** Membre CUC reconnu, ou `null` si le texte ne désigne personne de l'équipe. */
     member: TeamNameRef | null;
@@ -53,7 +57,7 @@ export function resolveDoubledBy(text: string, members: readonly TeamNameRef[]):
         const index = haystack.indexOf(member.name.toLowerCase());
         if (index === -1) continue;
         return {
-            prefix: raw.slice(0, index).trimEnd(),
+            prefix: raw.slice(0, index),
             member: { id: member.id, name: member.name },
             name: raw.slice(index, index + member.name.length),
             suffix: raw.slice(index + member.name.length),

@@ -95,7 +95,7 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                     </span>
                   </span>
                   <span className="text-xs text-white font-mono-tech font-bold">
-                    {doubledBy.prefix ? `${doubledBy.prefix} ` : ''}
+                    {doubledBy.prefix}
                     {doubledBy.member ? (
                       <Link
                         href={`/equipe-cascadeurs-pro/${doubledBy.member.id}`}
