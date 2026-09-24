@@ -78,7 +78,7 @@ export const VideosPageEditor: React.FC<VideosPageEditorProps> = ({
             views: 0,
             viewsFormatted: '',
             date: new Date().toISOString().split('T')[0],
-            category: 'mecanique',
+            isFeatured: true,
         };
 
         updateReels([...reelsList, newReel]);

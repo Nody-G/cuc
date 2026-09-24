@@ -42,18 +42,11 @@ export interface VideosLabels {
     reelsWatchOnInsta: string;
     reelsPrev: string;
     reelsNext: string;
-    reelsExploreMore: string;
-    reelsHideExplorer: string;
-    reelsExplorerTitle: string;
-    reelsExplorerSubtitle: string;
+    reelsSeeMore: string;
+    reelsSortByFeatured: string;
     reelsSortByViews: string;
     reelsSortByDateDesc: string;
     reelsSortByDateAsc: string;
-    reelsFilterAll: string;
-    reelsFilterMecanique: string;
-    reelsFilterCombat: string;
-    reelsFilterSpectacle: string;
-    reelsFilterCampus: string;
 }
 
 export interface SelectedDmVideo {
@@ -185,18 +178,11 @@ export function useVideosPage(): UseVideosPageResult {
             reelsWatchOnInsta: t('reelsWatchOnInsta'),
             reelsPrev: t('reelsPrev'),
             reelsNext: t('reelsNext'),
-            reelsExploreMore: t('reelsExploreMore'),
-            reelsHideExplorer: t('reelsHideExplorer'),
-            reelsExplorerTitle: t('reelsExplorerTitle'),
-            reelsExplorerSubtitle: t('reelsExplorerSubtitle'),
+            reelsSeeMore: t('reelsSeeMore'),
+            reelsSortByFeatured: t('reelsSortByFeatured'),
             reelsSortByViews: t('reelsSortByViews'),
             reelsSortByDateDesc: t('reelsSortByDateDesc'),
             reelsSortByDateAsc: t('reelsSortByDateAsc'),
-            reelsFilterAll: t('reelsFilterAll'),
-            reelsFilterMecanique: t('reelsFilterMecanique'),
-            reelsFilterCombat: t('reelsFilterCombat'),
-            reelsFilterSpectacle: t('reelsFilterSpectacle'),
-            reelsFilterCampus: t('reelsFilterCampus'),
         },
         selectedDmVideo,
         openDmVideo: setSelectedDmVideo,

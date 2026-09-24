@@ -2,13 +2,14 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Play, ExternalLink, Eye, Sparkles, ChevronDown } from 'lucide-react';
+import { Play, ExternalLink, Eye, ChevronDown } from 'lucide-react';
 import { InstagramLogo } from '@/components/ui/logos/SocialLogos';
 import {
     ALL_INSTAGRAM_REELS,
     type InstagramReel,
-} from './instagram-reels.data';
-import { VideosReelsExplorer } from './VideosReelsExplorer';
+    type ReelSortOption,
+} from '@/data/instagram-reels';
+import { VideosReelsSortBar } from './VideosReelsSortBar';
 
 export interface VideosReelsSectionProps {
     reels: InstagramReel[];
@@ -20,25 +21,19 @@ export interface VideosReelsSectionProps {
         intro: string;
         play: string;
         socialInstagram: string;
-        exploreMore?: string;
-        hideExplorer?: string;
-        explorerTitle?: string;
-        explorerSubtitle?: string;
+        seeMore?: string;
+        sortByFeatured?: string;
         sortByViews?: string;
         sortByDateDesc?: string;
         sortByDateAsc?: string;
-        filterAll?: string;
-        filterMecanique?: string;
-        filterCombat?: string;
-        filterSpectacle?: string;
-        filterCampus?: string;
     };
 }
 
 /**
  * Section des vidéos & Reels verticaux officiels du CUC.
- * Présentation cinématique 9:16 — choix dynamique de 2 à 6 colonnes,
- * affichage du nombre de vues et explorateur étendu triable.
+ * Présentation cinématique 9:16 avec choix dynamique de 2 à 6 colonnes,
+ * affichage du nombre de vues certifié sur chaque vidéo,
+ * tri interactif (mis en avant, vues, dates) et pagination progressive "Voir plus".
  */
 export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
     reels,
@@ -47,13 +42,51 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
     onSelectReel,
     labels,
 }) => {
-    const [isExplorerOpen, setIsExplorerOpen] = React.useState(false);
+    const targetCols = columns ? Math.min(Math.max(columns, 2), 6) : 6;
+    const [sortBy, setSortBy] = React.useState<ReelSortOption>('featured');
+    const [visibleCount, setVisibleCount] = React.useState<number>(targetCols);
 
-    if (!reels || reels.length === 0) {
-        return null;
-    }
+    // Réinitialise le décompte si le nombre de colonnes change
+    React.useEffect(() => {
+        setVisibleCount((prev) => Math.max(prev, targetCols));
+    }, [targetCols]);
 
-    const targetCols = columns ? Math.min(Math.max(columns, 2), 6) : Math.min(Math.max(reels.length, 2), 6);
+    // Fusion des vidéos : les reels mis en avant (Cockpit) complétés par le catalogue complet
+    const combinedReels = React.useMemo(() => {
+        const featuredIds = new Set(reels.map((r) => r.shortcode));
+        const featuredList = reels.map((r) => ({ ...r, isFeatured: true }));
+        const others = allReels.filter((r) => !featuredIds.has(r.shortcode));
+        return [...featuredList, ...others];
+    }, [reels, allReels]);
+
+    // Tri dynamique selon l'option sélectionnée (s'applique à toutes les vidéos, y compris mises en avant)
+    const sortedReels = React.useMemo(() => {
+        const list = [...combinedReels];
+        if (sortBy === 'views') {
+            return list.sort((a, b) => (b.views || 0) - (a.views || 0));
+        }
+        if (sortBy === 'recent') {
+            return list.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+        }
+        if (sortBy === 'oldest') {
+            return list.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+        }
+        // 'featured' : ordre initial des vidéos mises en avant en priorité
+        return list;
+    }, [combinedReels, sortBy]);
+
+    const displayedReels = React.useMemo(() => {
+        return sortedReels.slice(0, visibleCount);
+    }, [sortedReels, visibleCount]);
+
+    const hasMore = visibleCount < sortedReels.length;
+
+    const handleLoadMore = () => {
+        // Charge une double rangée de colonnes supplémentaire
+        const step = Math.max(targetCols * 2, 6);
+        setVisibleCount((prev) => Math.min(prev + step, sortedReels.length));
+    };
+
     const gridClassName =
         targetCols === 2
             ? 'max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6'
@@ -69,7 +102,7 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
         <section id="reels" className="py-20 bg-[#060608] border-t border-zinc-800 scroll-mt-28 relative">
             <div className="page-shell">
                 {/* Header de section */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
                     <div>
                         <div className="flex items-center gap-2 mb-2">
                             <InstagramLogo className="w-4 h-4 text-[#FFE500]" />
@@ -96,9 +129,22 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                     </a>
                 </div>
 
-                {/* Grille principale configurée (2 à 6 colonnes) */}
+                {/* Barre de tri (Mis en avant, Vues, Plus récentes, Plus anciennes) */}
+                <VideosReelsSortBar
+                    sortBy={sortBy}
+                    onChangeSort={setSortBy}
+                    totalCount={sortedReels.length}
+                    labels={{
+                        sortByFeatured: labels.sortByFeatured,
+                        sortByViews: labels.sortByViews,
+                        sortByDateDesc: labels.sortByDateDesc,
+                        sortByDateAsc: labels.sortByDateAsc,
+                    }}
+                />
+
+                {/* Grille principale continue (2 à 6 colonnes) */}
                 <div className={gridClassName}>
-                    {reels.map((reel) => {
+                    {displayedReels.map((reel) => {
                         const hasDescription = !!(reel.description && reel.description.trim().length > 0);
                         return (
                             <article
@@ -124,7 +170,7 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                                 {/* Dégradé cinématique sombre */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none" />
 
-                                {/* Nombre de vues épuré en haut à droite */}
+                                {/* Nombre de vues certifié en haut à droite sur chaque vidéo */}
                                 {reel.viewsFormatted && (
                                     <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono-tech text-white">
                                         <Eye className="w-3 h-3 text-[#FFE500]" />
@@ -155,47 +201,22 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                     })}
                 </div>
 
-                {/* Bouton pour explorer toute la vidéothèque Instagram */}
-                <div className="mt-12 text-center">
-                    <button
-                        type="button"
-                        onClick={() => setIsExplorerOpen((prev) => !prev)}
-                        className="inline-flex items-center gap-2.5 px-6 py-3.5 border border-zinc-700 hover:border-[#FFE500] bg-[#0e0e14] hover:bg-[#14141c] text-xs font-mono-tech uppercase text-zinc-200 hover:text-white rounded-xl shadow-lg transition-all duration-200 group cursor-pointer"
-                    >
-                        <Sparkles className="w-4 h-4 text-[#FFE500] group-hover:rotate-12 transition-transform" />
-                        <span>
-                            {isExplorerOpen
-                                ? (labels.hideExplorer || 'Masquer la vidéothèque étendue')
-                                : (labels.exploreMore || `Explorer toute la vidéothèque Instagram (${allReels.length} vidéos)`)}
-                        </span>
-                        <ChevronDown
-                            className={`w-4 h-4 text-[#FFE500] transition-transform duration-300 ${
-                                isExplorerOpen ? 'rotate-180' : ''
-                            }`}
-                        />
-                    </button>
-                </div>
-
-                {/* Explorateur étendu interactif (Tri & Filtres) */}
-                {isExplorerOpen && (
-                    <VideosReelsExplorer
-                        allReels={allReels}
-                        onSelectReel={onSelectReel}
-                        labels={{
-                            title: labels.explorerTitle || 'Toutes les vidéos Instagram',
-                            subtitle:
-                                labels.explorerSubtitle ||
-                                'Triez et filtrez l’ensemble des Reels officiels du Campus Univers Cascades',
-                            sortByViews: labels.sortByViews || 'Nombre de vues',
-                            sortByDateDesc: labels.sortByDateDesc || 'Plus récentes',
-                            sortByDateAsc: labels.sortByDateAsc || 'Plus anciennes',
-                            filterAll: labels.filterAll || 'Toutes',
-                            filterMecanique: labels.filterMecanique || 'Cascades mécaniques',
-                            filterCombat: labels.filterCombat || 'Combats scéniques',
-                            filterSpectacle: labels.filterSpectacle || 'Spectacles & Scène',
-                            filterCampus: labels.filterCampus || 'Vie du campus',
-                        }}
-                    />
+                {/* Bouton Voir plus (charge la suite directement dans la même grille) */}
+                {hasMore && (
+                    <div className="mt-12 text-center">
+                        <button
+                            type="button"
+                            onClick={handleLoadMore}
+                            className="inline-flex items-center gap-2.5 px-8 py-3.5 border border-zinc-700 hover:border-[#FFE500] bg-[#0e0e14] hover:bg-[#14141c] text-xs font-mono-tech uppercase text-zinc-200 hover:text-white rounded-xl shadow-lg transition-all duration-200 group cursor-pointer"
+                        >
+                            <span>
+                                {labels.seeMore
+                                    ? labels.seeMore
+                                    : `Voir plus (${sortedReels.length - visibleCount} restantes)`}
+                            </span>
+                            <ChevronDown className="w-4 h-4 text-[#FFE500] group-hover:translate-y-0.5 transition-transform" />
+                        </button>
+                    </div>
                 )}
             </div>
         </section>

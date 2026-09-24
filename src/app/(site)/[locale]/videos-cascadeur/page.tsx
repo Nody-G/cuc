@@ -72,18 +72,11 @@ export default function VideosCascadeurPage() {
             intro: page.labels.reelsIntro,
             play: page.labels.reelsPlay,
             socialInstagram: page.labels.socialInstagram,
-            exploreMore: page.labels.reelsExploreMore,
-            hideExplorer: page.labels.reelsHideExplorer,
-            explorerTitle: page.labels.reelsExplorerTitle,
-            explorerSubtitle: page.labels.reelsExplorerSubtitle,
+            seeMore: page.labels.reelsSeeMore,
+            sortByFeatured: page.labels.reelsSortByFeatured,
             sortByViews: page.labels.reelsSortByViews,
             sortByDateDesc: page.labels.reelsSortByDateDesc,
             sortByDateAsc: page.labels.reelsSortByDateAsc,
-            filterAll: page.labels.reelsFilterAll,
-            filterMecanique: page.labels.reelsFilterMecanique,
-            filterCombat: page.labels.reelsFilterCombat,
-            filterSpectacle: page.labels.reelsFilterSpectacle,
-            filterCampus: page.labels.reelsFilterCampus,
           }}
         />
 
