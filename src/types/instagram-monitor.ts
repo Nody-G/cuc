@@ -55,7 +55,7 @@ export interface InstagramReelMetric {
     date?: string;
     isFeatured?: boolean;
     lastUpdated?: string;
-    stuntCategory?: 'fire' | 'car' | 'height' | 'combat' | 'parkour' | 'general';
+    stuntCategory?: 'fire' | 'car' | 'height' | 'combat' | 'parkour' | 'workshop' | 'general';
 }
 
 export interface InstagramMetaApiConfig {

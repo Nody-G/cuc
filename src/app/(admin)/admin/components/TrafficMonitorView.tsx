@@ -92,6 +92,28 @@ export const TrafficMonitorView: React.FC<TrafficMonitorViewProps> = ({ showToas
                 }
             />
 
+            {/* Statut d'hébergement Vercel & domaine */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 bg-zinc-900/60 border border-zinc-800 rounded-xl gap-3 text-xs font-mono-tech">
+                <div className="flex items-center gap-2.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-zinc-400">
+                        Hébergement actif : <strong className="text-white">Vercel Production</strong> (
+                        <a
+                            href="https://cuc-new.vercel.app/"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-[#FFE500] hover:underline"
+                        >
+                            https://cuc-new.vercel.app
+                        </a>
+                        )
+                    </span>
+                </div>
+                <div className="text-[11px] text-zinc-500">
+                    Bascule automatique prête pour le nom de domaine définitif du Campus
+                </div>
+            </div>
+
             {loading || !report ? (
                 <CockpitSkeletonList rows={6} />
             ) : (

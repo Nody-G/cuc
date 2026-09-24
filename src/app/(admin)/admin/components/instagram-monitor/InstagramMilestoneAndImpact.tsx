@@ -83,7 +83,7 @@ export const InstagramMilestoneAndImpact: React.FC<InstagramMilestoneAndImpactPr
                         </div>
                     </div>
                     <div className="text-[11px] font-mono-tech text-cyan-400">
-                        Sur l&apos;ensemble des 44 Reels
+                        Sur l&apos;ensemble des Reels répertoriés
                     </div>
                 </div>
 

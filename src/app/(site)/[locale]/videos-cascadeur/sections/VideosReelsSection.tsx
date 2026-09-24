@@ -98,6 +98,10 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
             ? 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4'
             : 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4';
 
+    const totalViews = React.useMemo(() => {
+        return combinedReels.reduce((sum, r) => sum + (r.views || 0), 0);
+    }, [combinedReels]);
+
     return (
         <section id="reels" className="py-20 bg-[#060608] border-t border-zinc-800 scroll-mt-28 relative">
             <div className="page-shell">
@@ -129,11 +133,12 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                     </a>
                 </div>
 
-                {/* Barre de tri (Mis en avant, Vues, Plus récentes, Plus anciennes) */}
+                {/* Barre de tri (Mis en avant, Vues, Plus récentes, Plus anciennes) & Total des vues */}
                 <VideosReelsSortBar
                     sortBy={sortBy}
                     onChangeSort={setSortBy}
                     totalCount={sortedReels.length}
+                    totalViews={totalViews}
                     labels={{
                         sortByFeatured: labels.sortByFeatured,
                         sortByViews: labels.sortByViews,

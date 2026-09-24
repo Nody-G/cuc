@@ -5,7 +5,11 @@
  * et les données structurées JSON-LD (schema.org).
  */
 
-export const SITE_URL = "https://www.campus-universcascades.com";
+export const SITE_URL =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+        ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+        : "https://cuc-new.vercel.app");
 
 export const SITE_NAME = "Campus Univers Cascades";
 

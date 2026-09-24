@@ -35,7 +35,7 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                         Monitoring Instagram en Temps Réel
                     </h2>
                     <p className="text-xs font-tech text-zinc-400 mt-1">
-                        Surveillance du compte @campus.univers.cascades, vrai classement national et performance des 44 Reels.
+                        Surveillance du compte @campus.univers.cascades, vrai classement national et calcul du total des vues des Reels.
                     </p>
                 </div>
 
@@ -145,7 +145,7 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                 onRemoveAccount={monitor.handleRemoveAccount}
             />
 
-            {/* Monitoring en direct des 44 Reels */}
+            {/* Monitoring en direct et calculatrice de vues de l'intégralité des Reels */}
             <InstagramReelsMonitor
                 reels={monitor.reels}
                 isRefreshingAll={monitor.isRefreshingAllReels}

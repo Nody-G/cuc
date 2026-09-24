@@ -8,6 +8,7 @@ export interface VideosReelsSortBarProps {
     sortBy: ReelSortOption;
     onChangeSort: (option: ReelSortOption) => void;
     totalCount: number;
+    totalViews?: number;
     labels: {
         sortByFeatured?: string;
         sortByViews?: string;
@@ -25,6 +26,7 @@ export const VideosReelsSortBar: React.FC<VideosReelsSortBarProps> = ({
     sortBy,
     onChangeSort,
     totalCount,
+    totalViews,
     labels,
 }) => {
     const sortButtons: Array<{
@@ -56,13 +58,20 @@ export const VideosReelsSortBar: React.FC<VideosReelsSortBarProps> = ({
 
     return (
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-4 border-b border-zinc-800/80">
-            {/* Décompte officiel */}
-            <div className="flex items-center gap-2">
+            {/* Décompte officiel & Calcul des vues cumulées */}
+            <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-xs font-mono-tech uppercase tracking-wider text-zinc-400">
                     Catalogue vidéo officiel :
                 </span>
-                <span className="px-2 py-0.5 rounded-full bg-[#FFE500]/10 border border-[#FFE500]/30 text-xs font-mono-tech text-[#FFE500] font-bold">
-                    {totalCount} Reels
+                <span className="px-2.5 py-0.5 rounded-full bg-[#FFE500]/10 border border-[#FFE500]/30 text-xs font-mono-tech text-[#FFE500] font-bold inline-flex items-center gap-1.5">
+                    <span>{totalCount} Reels</span>
+                    {totalViews && totalViews > 0 && (
+                        <>
+                            <span className="text-zinc-600">•</span>
+                            <Eye className="w-3 h-3 text-[#FFE500]" />
+                            <span>{(totalViews / 1000000).toFixed(0)}M+ vues cumulées</span>
+                        </>
+                    )}
                 </span>
             </div>
 

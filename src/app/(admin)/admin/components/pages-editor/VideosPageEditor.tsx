@@ -105,13 +105,24 @@ export const VideosPageEditor: React.FC<VideosPageEditorProps> = ({
         updateReels(copy);
     };
 
+    const totalViews = React.useMemo(() => {
+        return reelsList.reduce((sum, r) => sum + (r.views || 0), 0);
+    }, [reelsList]);
+
     return (
         <div className="space-y-6">
             {/* Section Header Editor */}
             <div className="p-6 rounded-2xl bg-[#0D0D12] border border-white/10 space-y-4">
-                <div className="flex items-center gap-2 pb-3 border-b border-white/10 text-sm font-semibold text-white">
-                    <InstagramLogo className="w-4 h-4 text-[#FFE500]" />
-                    <span>Configuration des Vidéos Instagram Reels ({reelsList.length})</span>
+                <div className="flex items-center justify-between pb-3 border-b border-white/10 text-sm font-semibold text-white">
+                    <div className="flex items-center gap-2">
+                        <InstagramLogo className="w-4 h-4 text-[#FFE500]" />
+                        <span>Configuration des Vidéos Instagram Reels ({reelsList.length})</span>
+                    </div>
+                    {totalViews > 0 && (
+                        <span className="text-xs font-mono-tech text-[#FFE500] font-normal">
+                            {(totalViews / 1000000).toFixed(1).replace('.', ',')} M vues cumulées
+                        </span>
+                    )}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
