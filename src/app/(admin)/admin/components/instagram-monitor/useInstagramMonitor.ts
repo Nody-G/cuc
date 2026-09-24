@@ -1,12 +1,14 @@
 'use client';
 
 import React from 'react';
-import { INITIAL_INSTAGRAM_LEADERBOARD } from '@/data/instagram-leaderboard';
+import { INITIAL_INSTAGRAM_LEADERBOARD, calculateNationalRank } from '@/data/instagram-leaderboard';
 import { ALL_INSTAGRAM_REELS } from '@/data/instagram-reels';
+import { calculateGrowthMilestone, calculateReelsAggregates } from '@/lib/instagram/instagram-service';
 import type {
     InstagramAccountStat,
     InstagramMetaApiConfig,
     InstagramReelMetric,
+    LeaderboardFilterMode,
 } from '@/types/instagram-monitor';
 import {
     refreshAccountAction,
@@ -17,6 +19,7 @@ import {
 export function useInstagramMonitor(showToast: (msg: string) => void) {
     const [leaderboard, setLeaderboard] = React.useState<InstagramAccountStat[]>(INITIAL_INSTAGRAM_LEADERBOARD);
     const [reels, setReels] = React.useState<InstagramReelMetric[]>(ALL_INSTAGRAM_REELS);
+    const [filterMode, setFilterMode] = React.useState<LeaderboardFilterMode>('direct_context');
     const [isRefreshingCuc, setIsRefreshingCuc] = React.useState(false);
     const [isRefreshingLeaderboard, setIsRefreshingLeaderboard] = React.useState(false);
     const [isRefreshingAllReels, setIsRefreshingAllReels] = React.useState(false);
@@ -31,17 +34,64 @@ export function useInstagramMonitor(showToast: (msg: string) => void) {
     const [lastSyncTime, setLastSyncTime] = React.useState<string>(new Date().toLocaleTimeString('fr-FR'));
 
     const cucAccount = React.useMemo(() => {
-        return leaderboard.find((a) => a.isCuc) || leaderboard[10];
+        return leaderboard.find((a) => a.isCuc) || leaderboard[8];
     }, [leaderboard]);
 
-    // Classement trié
+    // Vrai rang national dynamique du CUC
+    const cucNationalRank = React.useMemo(() => {
+        return calculateNationalRank(cucAccount.followersCount);
+    }, [cucAccount.followersCount]);
+
+    // Classement complet trié par abonnés décroissants
     const sortedLeaderboard = React.useMemo(() => {
         return [...leaderboard].sort((a, b) => b.followersCount - a.followersCount);
     }, [leaderboard]);
 
-    const cucRank = React.useMemo(() => {
-        return sortedLeaderboard.findIndex((a) => a.isCuc) + 1;
-    }, [sortedLeaderboard]);
+    // Concurrent direct juste au-dessus et poursuivant direct
+    const { aheadAccount, behindAccount, deltaAhead, deltaBehind } = React.useMemo(() => {
+        const cucIdx = sortedLeaderboard.findIndex((a) => a.isCuc);
+        const ahead = cucIdx > 0 ? sortedLeaderboard[cucIdx - 1] : null;
+        const behind = cucIdx >= 0 && cucIdx < sortedLeaderboard.length - 1 ? sortedLeaderboard[cucIdx + 1] : null;
+        return {
+            aheadAccount: ahead,
+            behindAccount: behind,
+            deltaAhead: ahead ? ahead.followersCount - cucAccount.followersCount : 0,
+            deltaBehind: behind ? cucAccount.followersCount - behind.followersCount : 0,
+        };
+    }, [sortedLeaderboard, cucAccount.followersCount]);
+
+    // Classement filtré selon le mode choisi
+    const filteredLeaderboard = React.useMemo(() => {
+        if (filterMode === 'top_france') {
+            return sortedLeaderboard.filter((a) => a.country === 'FR').slice(0, 15);
+        }
+        if (filterMode === 'action_stunt') {
+            return sortedLeaderboard.filter((a) =>
+                a.isCuc ||
+                a.category?.includes('Cascade') ||
+                a.category?.includes('Parkour') ||
+                a.category?.includes('Combat') ||
+                a.category?.includes('Extrême') ||
+                a.category?.includes('Cirque')
+            );
+        }
+        if (filterMode === 'direct_context') {
+            const cucIdx = sortedLeaderboard.findIndex((a) => a.isCuc);
+            const start = Math.max(0, cucIdx - 10);
+            const end = Math.min(sortedLeaderboard.length, cucIdx + 11);
+            return sortedLeaderboard.slice(start, end);
+        }
+        return sortedLeaderboard;
+    }, [sortedLeaderboard, filterMode]);
+
+    // Jalons et métriques cumulées
+    const milestone = React.useMemo(() => {
+        return calculateGrowthMilestone(cucAccount.followersCount);
+    }, [cucAccount.followersCount]);
+
+    const aggregates = React.useMemo(() => {
+        return calculateReelsAggregates(reels);
+    }, [reels]);
 
     // Rafraîchir le compte CUC seul
     const handleRefreshCuc = async () => {
@@ -53,7 +103,7 @@ export function useInstagramMonitor(showToast: (msg: string) => void) {
                 prev.map((acc) => (acc.isCuc ? { ...res.data!, isCuc: true } : acc))
             );
             setLastSyncTime(new Date().toLocaleTimeString('fr-FR'));
-            showToast(`Abonnés CUC actualisés : ${res.data.followersFormatted}`);
+            showToast(`Abonnés CUC actualisés : ${res.data.followersFormatted} (Rang #${calculateNationalRank(res.data.followersCount)} France)`);
         } else {
             showToast(res.error || 'Erreur lors du rafraîchissement CUC.');
         }
@@ -68,7 +118,7 @@ export function useInstagramMonitor(showToast: (msg: string) => void) {
         if (res.success && res.results.length > 0) {
             setLeaderboard(res.results);
             setLastSyncTime(new Date().toLocaleTimeString('fr-FR'));
-            showToast(`Classement de ${res.results.length} comptes actualisé en direct !`);
+            showToast(`Classement actualisé en direct avec données Instagram !`);
         } else {
             showToast('Erreur lors du rafraîchissement du classement.');
         }
@@ -166,8 +216,16 @@ export function useInstagramMonitor(showToast: (msg: string) => void) {
 
     return {
         cucAccount,
-        cucRank,
-        leaderboard: sortedLeaderboard,
+        cucNationalRank,
+        aheadAccount,
+        behindAccount,
+        deltaAhead,
+        deltaBehind,
+        filterMode,
+        setFilterMode,
+        leaderboard: filteredLeaderboard,
+        milestone,
+        aggregates,
         reels,
         lastSyncTime,
         isRefreshingCuc,
