@@ -42,13 +42,15 @@ COORDONNÉS PAR LE CUC », la section Accueil, la filmographie de la fiche coach
 `FilmGridCard` devenu orphelin.
 
 **Décision produit.** La présentation du showcase devient la **norme unique** :
-[`FilmPosterCard`](src/components/sections/films/FilmPosterCard.tsx:1) — affiche ratio 2/3, badge
-d'année en haut à gauche, titre sous l'affiche, repli visuel sans image cassée, **clic → fiche
-détaillée** (`FilmDetailsModal`, la navigation validée par le client).
+[`FilmCard`](src/components/sections/films/FilmCard.tsx:1) *(nommé `FilmPosterCard` à la date de
+cette décision, renommé et unifié le 2026-09-24 : la jaquette de la fiche coach devient la
+référence unique de toute la vitrine)* — affiche ratio 2/3, badge d'année en haut à gauche,
+titre sous l'affiche, repli visuel sans image cassée, **clic → fiche détaillée**
+(`FilmDetailsModal`, la navigation validée par le client).
 
 | Surface | Avant | Après |
 | --- | --- | --- |
-| Showcase « LES FILMS DOUBLÉS… » | carte inline (référence) | `FilmPosterCard` + modale |
+| Showcase « LES FILMS DOUBLÉS… » | carte inline (référence) | `FilmCard` + modale |
 | Accueil — bloc Tournages | `Link` vers l'ancre + affiches **codées en dur** | résolution live dans `site_films` par titre normalisé (`creditTitleKey`), carte + modale, repli linké si fiche absente ; abonnement Realtime `site_films` |
 | Fiche coach — filmographie | carte locale, badge d'année **en haut à droite** | même carte detail enrichie (rôles conservés), **badge d'année aligné en haut à gauche** comme la référence |
 | `FilmGridCard` | orphelin (jamais importé) | **supprimé** (plus aucun composant orphelin) |
