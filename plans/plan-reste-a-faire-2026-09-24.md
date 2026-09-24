@@ -45,7 +45,7 @@ Fichiers de code applicatif ≥ 280 lignes — chacun découpé en 4 couches (`T
 | B7 | [`team-building-cascades/page.tsx`](<src/app/(site)/[locale]/team-building-cascades/page.tsx:1>) | 283 | `team-building/sections/**` + `useTeamBuildingContent` |
 | B8 | [`traffic-data.ts`](<src/lib/traffic/traffic-data.ts:1>) | 283 | `lib/traffic/**` : types + fixtures + agrégats purs |
 | B9 | [`VideosPageEditor.tsx`](<src/app/(admin)/admin/components/pages-editor/VideosPageEditor.tsx:1>) | 282 | `pages-editor/videos-page/**` : liste, formulaire, hook |
-| B10 | [`home-blocks.ts`](<src/app/(admin)/admin/components/pages-editor/home-page/home-blocks.ts:1>) | 282 | `pages-editor/home-page/blocks/**` : schéma par bloc |
+| B10 | [`home-blocks.ts`](<src/app/(admin)/admin/components/pages-editor/home-page/home-blocks.ts:1>) | 282 | **conservé** — schéma déclaratif d'un seul tenant (282 l. < 300, lu verbatim par `audit:fields`) ; découper exigerait d'enseigner le suivi d'imports à l'audit pour un gain de lisibilité nul — cf. Journal |
 
 *Critère par fichier : cible ≤ 300 lignes (visée 150-200), `export`/types ré-exportés à l'identique, `typecheck` + `test` + `lint` + `audit:strict` verts, commit + push.*
 
@@ -74,6 +74,29 @@ Fichiers de code applicatif ≥ 280 lignes — chacun découpé en 4 couches (`T
 - **Planification de publication** (`publish_at` + cron) : exige une migration de base sur un projet déjà en incident de quota.
 - **Recette manuelle** : médiathèque (téléverser/déplacer/corbeille/restaurer) et contrôles du studio 3D (§ 10 de `revue-transformations-3d-flexibles.md`).
 - **Décisions éditoriales** : 12 œuvres sans catégorie (4ᵉ étiquette ou exclusion) ; contraste a11y à contrôler en navigateur (jsdom ne calcule pas les couleurs) ; 28 composants à copie FR en dur (lot éditorial, non bloquant).
+
+## Journal d'exécution
+
+| Étape | Résultat | Mesure |
+| :--- | :--- | :--- |
+| Plan | écrit, convention de push revue (5 jalons, pas de push par micro-étape) | — |
+| A1 | `no-explicit-any` : alias documenté `SitePageSectionsData`, `SiteInquiryMetadata`, `InstructorMetadata` | `lint` 3 → **0 avertissement** |
+| A2 | dérive documentaire de `audit-conformite-regles.md` corrigée + § 8 « Passe du 2026-09-24 » | — |
+| P1 | jalon 1 poussé (plan + lot A) | — |
+| B1 | [`PartnersView.tsx`](<src/app/(admin)/admin/components/PartnersView.tsx:1>) → `partners-view/**` (7 modules) | 300 → **65** |
+| B2 | [`FilmDetailsModal.tsx`](<src/components/sections/hall-of-fame/FilmDetailsModal.tsx:1>) → `film-details/**` (8 modules) | 297 → **109** |
+| B3 | [`VisiteFacilitiesDetail.tsx`](<src/components/sections/visite/VisiteFacilitiesDetail.tsx:1>) → `visite/facilities/**` (5 modules) | 295 → **45** |
+| B4 | [`EditorCoordinateInputs.tsx`](<src/components/3d/ui/EditorCoordinateInputs.tsx:1>) → `ui/editor-coordinates/**` (axes déclaratifs + 3 blocs) | 294 → **45** |
+| B5 | [`useInstagramMonitor.ts`](<src/app/(admin)/admin/components/instagram-monitor/useInstagramMonitor.ts:1>) → `instagram-monitor/**` (modèle pur + 2 hooks) | 290 → **22** |
+| P2 | jalon 2 poussé | typecheck · lint · **485 tests** · audit verts |
+| B6 | [`preview-protocol-core.ts`](<src/lib/preview/preview-protocol-core.ts:1>) → `preview/protocol/**` (canaux, messages, fabriques) | 287 → **48** |
+| B7 | [`team-building-cascades/page.tsx`](<src/app/(site)/[locale]/team-building-cascades/page.tsx:1>) → `sections/**` (copie, hook, 4 blocs) | 283 → **43** |
+| B7bis | **outils réparés** : `audit:fields` lit `CUC_FIELD_KINDS` dans le module qui le déclare (et non la façade) ; `audit:microcopy` filtre le bruit de code (`ReturnType`, appel de fonction, `{' '}`) | `audit:fields` OK · `audit:microcopy` **0 texte codé en dur** |
+| B8 | [`traffic-data.ts`](<src/lib/traffic/traffic-data.ts:1>) → `lib/traffic/**` (catalogue, fenêtres, répartitions, entonnoirs, série, rapport) | 283 → **21** |
+| B9 | [`VideosPageEditor.tsx`](<src/app/(admin)/admin/components/pages-editor/VideosPageEditor.tsx:1>) → `pages-editor/videos-page/**` (modèle, hook, panneau, carte) | 282 → **63** |
+| B10 | `home-blocks.ts` **conservé tel quel** (schéma déclaratif, 282 l. < 300, lu verbatim par l'audit) | décision documentée |
+
+**Enseignement de la vague B** : deux garde-fous ont signalé, à raison, que découper un module casse les outils qui le lisaient *en place* (`audit:fields` cherchant `CUC_FIELD_KINDS` dans le noyau, `audit:microcopy` comptant des fragments de code comme des textes). Les deux ont été corrigés à la source — un découpage ne doit jamais rendre un contrôle muet.
 
 ## Garde-fous non négociables
 
