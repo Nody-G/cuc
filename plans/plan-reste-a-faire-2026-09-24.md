@@ -11,7 +11,17 @@
 | `npm run test` | **485 tests / 70 fichiers** |
 | `node scripts/audit.mjs` | 0 problème · **plafond SRP : 0 violation, baseline `{}`** |
 
-**Convention d'exécution** : travail direct sur `master`, **un commit + un `git push origin master` par étape validée** (jamais un commit rouge : `typecheck` · `lint` · `test` · `audit:strict` verts avant chaque commit). Aucune étape ne s'arrête pour validation intermédiaire.
+**Convention d'exécution** : travail direct sur `master`. Un **commit local par sous-étape** validée (jamais un commit rouge : `typecheck` · `lint` · `test` · `audit:strict` verts avant chaque commit) et un **`git push origin master` seulement aux points de jalon** — inutile de pousser à chaque micro-étape.
+
+| Point de push | Contenu poussé |
+| :--- | :--- |
+| **P1** | Plan + Lot A (hygiène lint, vérité documentaire) |
+| **P2** | Lot B, moitié 1 (B1 → B5) |
+| **P3** | Lot B, moitié 2 (B6 → B10) |
+| **P4** | Lots C + D (quirk MediaExplorer, aperçu live) |
+| **P5** | Lot E (gates complets, rapports, hors périmètre) |
+
+Aucune sous-étape ne s'arrête pour validation intermédiaire : seuls les 5 jalons ci-dessus sont des points d'arrêt.
 
 ---
 
