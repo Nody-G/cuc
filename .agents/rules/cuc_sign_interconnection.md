@@ -46,8 +46,13 @@ et fonctionnent sans elle. Toute présentation (dossier client, script d'appel) 
 
 1. dire **ce que c'est** en langage métier — le suivi de l'élève après l'admission (émargement Qualiopi, rotations de
    groupes, sécurité, fiche de casting) — et jamais en langage technique ;
-2. prouver la valeur par ce que le campus y gagne : preuves de présence pour les financeurs, temps administratif
-   libéré, traçabilité des blessures, débouchés de casting pour les élèves ;
+2. prouver la valeur par ce que le campus y gagne **aujourd'hui et demain** : preuves de présence pour les
+   financeurs, temps administratif libéré, traçabilité des blessures, pilotage pédagogique sur des faits, et
+   placement des élèves sur les tournages (le CUC comme vivier des productions) ;
+2 bis. montrer les **relations entre les deux applications** — ce qui circule (candidature → dossier élève,
+   formations/coachs/lieux lus par le site) et **l'état de chaque échange** (« en service », « à étendre »,
+   « à l'étude »). C'est le cœur de l'intérêt des deux outils réunis : une candidature perdue ou une session
+   annoncée à tort n'ont plus de raison d'exister ;
 3. **ne jamais laisser croire à un coût caché** : périmètre et budget sont annoncés ensemble, le jour où la seconde
    étape est lancée, et rien de ce qui est déjà payé n'est remis en cause ;
 4. s'appuyer sur ce qui existe déjà (le pont de données est en service : formations, coachs, lieux lus depuis CUC Sign)

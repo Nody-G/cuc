@@ -629,6 +629,83 @@ const cucSignCards = [
   .map(featCard)
   .join('');
 
+/**
+ * Ce que CUC Sign change pour l'avenir du campus. Chaque carte s'appuie sur ce
+ * qui existe réellement dans le dépôt `Nody-G/cuc-sign` (émargements horodatés,
+ * absences, blessures, compétences, fiche composite) : aucune promesse creuse.
+ */
+const cucSignFutureCards = [
+  {
+    iconName: 'phone',
+    title: 'Chaque candidature devient un inscrit suivi',
+    desc: "Le site recrute, CUC Sign prend le relais : dossier, convocation, convention, certificat médical et autorisation d'image consignés au même endroit. Rien ne se perd entre le premier message et la rentrée.",
+    tags: ['Recrutement'],
+  },
+  {
+    iconName: 'shield',
+    title: 'Les financeurs demandent des preuves : elles existent',
+    desc: "Émargements horodatés, absences justifiées, certificats médicaux : les pièces réclamées par l'AFDAS, les OPCO et un audit Qualiopi se constituent au fil de l'année au lieu d'être reconstituées la veille.",
+    tags: ['Financements'],
+  },
+  {
+    iconName: 'gauge',
+    title: 'Le campus pilote avec ses propres chiffres',
+    desc: "Présences, blessures, progression, créneaux remplacés : l'équipe voit ce qui fonctionne et ajuste la pédagogie sur des faits, pas sur des impressions.",
+    tags: ['Pilotage'],
+  },
+  {
+    iconName: 'star',
+    title: 'Un vivier où les productions viennent chercher',
+    desc: "Compétences validées, tests physiques, mensurations et showreel composent un profil prêt à envoyer : le CUC ne se contente pas de former, il place ses élèves sur les tournages.",
+    tags: ['Rayonnement'],
+  },
+]
+  .map(featCard)
+  .join('');
+
+/**
+ * Circulation réelle entre le site public et CUC Sign. L'état est affiché :
+ * « En service » ne se dit que pour ce qui tourne aujourd'hui (le site lit les
+ * tables CUC Sign et convertit une candidature), le reste est annoncé pour ce
+ * qu'il est — à étendre ou à l'étude.
+ */
+const CUC_SIGN_BRIDGE_ROWS = [
+  [
+    'Site → CUC Sign',
+    "Une candidature acceptée devient un dossier élève : identité, coordonnées, programme visé, session souhaitée. Aucune ressaisie.",
+    'En service',
+  ],
+  [
+    'Site → CUC Sign',
+    'Les créneaux planifiés et les coachs qui les assurent : le site affiche les sessions réellement programmées.',
+    'À étendre',
+  ],
+  [
+    'CUC Sign → Site',
+    'Les formations (dates, intitulés), les 12 coachs et les lieux du campus : le site les lit en direct, en lecture seule.',
+    'En service',
+  ],
+  [
+    'CUC Sign → Site',
+    "Le passage d'une session de « ouvert » à « complet » répercuté aussitôt sur la page des stages.",
+    'À étendre',
+  ],
+  [
+    'Plus tard',
+    "Les productions pourraient chercher un cascadeur sur ses compétences validées et ses mensurations, directement depuis le site.",
+    "À l'étude",
+  ],
+];
+
+const cucSignBridgeTable = `
+    <table>
+      <thead><tr><th>Sens</th><th>Ce qui circule entre les deux applications</th><th>État</th></tr></thead>
+      <tbody>${CUC_SIGN_BRIDGE_ROWS.map(
+  ([direction, detail, state]) =>
+    `<tr><td><strong>${direction}</strong></td><td>${detail}</td><td>${state}</td></tr>`
+).join('')}</tbody>
+    </table>`;
+
 /* ================================================================== */
 /* Schémas SVG                                                         */
 /* ================================================================== */
@@ -1279,6 +1356,17 @@ const html = `<!DOCTYPE html>
     </p>
 
     <div class="feat-grid">${cucSignCards}</div>
+
+    <h3>Les deux applications, main dans la main <span class="meta">(ce qui circule déjà, et ce que la suite ouvrira)</span></h3>
+    <p>
+      C'est là que se joue l'intérêt des deux outils réunis : plus une donnée saisie deux fois, plus une session
+      annoncée sur le site qui contredirait le planning interne. L'état de chaque échange est indiqué : « en service »
+      se dit seulement pour ce qui fonctionne aujourd'hui.
+    </p>
+${cucSignBridgeTable}
+
+    <h3>Ce que cela change pour la suite du CUC</h3>
+    <div class="feat-grid">${cucSignFutureCards}</div>
 
     <div class="callout">
       <strong>Deux étapes, pas deux factures surprises.</strong> Le site public et le Cockpit sont livrés et en service — ils ne
