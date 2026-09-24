@@ -500,6 +500,14 @@ const SLOP_PATTERNS = [
  */
 const DOCTRINE_ENFORCER_RE = /^scripts\/(?:audit_|verify_|hunt_|check_|diagnose_)/;
 
+/**
+ * Données **citées** : le catalogue Reels reproduit mot pour mot les légendes
+ * du compte officiel (`title`/`description`). Les tournures « accrocheuses »
+ * qu'on y lit sont celles de l'auteur des Reels, pas une copie rédigée par
+ * l'agent — les compter comme du slop reviendrait à réécrire la source.
+ */
+const VERBATIM_SOURCE_RE = /^src\/data\/instagram-reels\.ts$/;
+
 /** Ligne de méta-programmation (mapping/regex) plutôt que de contenu servi. */
 const METAPROG_LINE_RE = /\.replace\s*\(|→|->\s*['"]|re\s*:\s*\/|label\s*:\s*['"]|SOURCE|MAP\b/;
 
@@ -536,9 +544,14 @@ for (const file of slopScanTargets) {
                 // Une occurrence y est une métadonnée de doctrine, pas une
                 // violation : l'action porte sur `src/**`.
                 slopDoctrineMeta.push(entry);
-            } else if (isEnforcer || METAPROG_LINE_RE.test(lineTextOf(content, m.index))) {
-                // Ligne de sanitisation (`replace`, mapping `→`, regex) : la
-                // mention du terme banni y est un OUTIL de correction.
+            } else if (
+                isEnforcer ||
+                VERBATIM_SOURCE_RE.test(relFile) ||
+                METAPROG_LINE_RE.test(lineTextOf(content, m.index))
+            ) {
+                // Sanitisation (`replace`, mapping `→`, regex) OU citation
+                // verbatim d'une source officielle : la mention du terme banni
+                // n'est pas une copie rédigée par l'agent.
                 slopDoctrineMeta.push(entry);
             } else {
                 slopHits.push(entry);

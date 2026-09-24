@@ -1,18 +1,17 @@
 {
-  "generatedAt": "2026-09-24T12:18:18.312Z",
-  "scannedFiles": 1137,
-  "total": 29,
+  "generatedAt": "2026-09-24T13:53:30.990Z",
+  "scannedFiles": 1141,
+  "total": 24,
   "byGroup": {
-    "badge": 17,
-    "terminologie": 1,
+    "superlatif": 5,
     "jargon": 8,
-    "superlatif": 3
+    "badge": 11
   },
   "byRule": [
     {
       "id": "badge-hollywood",
       "group": "badge",
-      "count": 5
+      "count": 3
     },
     {
       "id": "badge-worldwide",
@@ -23,11 +22,6 @@
       "id": "badge-box-office",
       "group": "badge",
       "count": 1
-    },
-    {
-      "id": "badge-tactique",
-      "group": "badge",
-      "count": 4
     },
     {
       "id": "badge-elite",
@@ -45,13 +39,13 @@
       "count": 2
     },
     {
-      "id": "superl-succès-mondial",
+      "id": "superl-plongez-au-coeur",
       "group": "superlatif",
-      "count": 1
+      "count": 2
     },
     {
-      "id": "termino-art-du-deplacement",
-      "group": "terminologie",
+      "id": "superl-succès-mondial",
+      "group": "superlatif",
       "count": 1
     },
     {
@@ -63,52 +57,17 @@
   "findings": [
     {
       "file": "src\\data\\instagram-reels.ts",
-      "line": 185,
-      "rule": "badge-hollywood",
-      "group": "badge",
-      "text": "description: \"He's back... 😇👌\\n© @campus.univers.cascades\\n\\n#cucteam #fire #stunt #action #hollywood\","
+      "line": 646,
+      "rule": "superl-plongez-au-coeur",
+      "group": "superlatif",
+      "text": "title: \"Plongez au cœur du métier de cascadeur ! 🎬🔥\","
     },
     {
       "file": "src\\data\\instagram-reels.ts",
-      "line": 285,
-      "rule": "termino-art-du-deplacement",
-      "group": "terminologie",
-      "text": "description: 'Saut de précision Yamakasi toit du campus 🏃 L’art du déplacement appliqué aux scènes d’action urbaines.',"
-    },
-    {
-      "file": "src\\data\\instagram-reels.ts",
-      "line": 662,
-      "rule": "badge-tactique",
-      "group": "badge",
-      "text": "title: 'Combat couteau et désarmement tactique 🔪',"
-    },
-    {
-      "file": "src\\data\\instagram-reels.ts",
-      "line": 663,
-      "rule": "badge-tactique",
-      "group": "badge",
-      "text": "description: 'Combat couteau et désarmement tactique 🔪 Fluidité martiale et précision chirurgicale.',"
-    },
-    {
-      "file": "src\\data\\instagram-reels.ts",
-      "line": 691,
-      "rule": "badge-hollywood",
-      "group": "badge",
-      "text": "description: 'Workshop international cascades AFDAS 🌍 Échanges techniques avec des régleurs venus d’Hollywood.',"
-    },
-    {
-      "file": "src\\data\\instagram-reels.ts",
-      "line": 1182,
-      "rule": "badge-tactique",
-      "group": "badge",
-      "text": "title: 'Session tirs et neutralisation tactique au dojo 🎯',"
-    },
-    {
-      "file": "src\\data\\instagram-reels.ts",
-      "line": 1183,
-      "rule": "badge-tactique",
-      "group": "badge",
-      "text": "description: 'Session tirs et neutralisation tactique au dojo 🎯 Réalisme balistique et coordination avec le cadreur.',"
+      "line": 647,
+      "rule": "superl-plongez-au-coeur",
+      "group": "superlatif",
+      "text": "description: \"Plongez au cœur du métier de cascadeur ! 🎬🔥\\n\\nRendez-vous chez @campus.univers.cascades , une école spécialisée dans la formation de cascadeurs. Entre combats, acrobaties, chutes et g"
     },
     {
       "file": "scripts\\fix_team_production_i18n.mjs",

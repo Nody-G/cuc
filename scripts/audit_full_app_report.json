@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-09-24T10:16:37.727Z",
+  "generatedAt": "2026-09-24T13:53:59.999Z",
   "summary": {
     "routes": 35,
-    "sourceFiles": 748,
+    "sourceFiles": 766,
     "errors": {
       "brokenLinks": 0,
       "orphanAnchors": 0,
       "duplicateLinks": 0,
       "orphanComponents": 0,
       "legacyUrls": 0,
-      "slopHits": 1,
+      "slopHits": 0,
       "socialConflicts": 0,
       "redirectIssues": 0,
       "widthViolations": 0,
@@ -21,7 +21,7 @@
       "i18nExtraInEn": 0,
       "metadataGaps": 1
     },
-    "totalErrors": 1,
+    "totalErrors": 0,
     "totalWarnings": 7,
     "realtimeCoverageRatio": 74
   },
@@ -137,15 +137,20 @@
       "count": 1
     }
   ],
-  "slopHits": [
+  "slopHits": [],
+  "slopDoctrineMeta": [
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 285,
-      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
-      "excerpt": "précision Yamakasi toit du campus 🏃 L’art du déplacement appliqué aux scènes d’action urbaines.'"
-    }
-  ],
-  "slopDoctrineMeta": [
+      "line": 646,
+      "label": "cliché: plongez au cœur",
+      "excerpt": "com/reel/C8FLLLjNfVP/\", title: \"Plongez au cœur du métier de cascadeur ! 🎬🔥\","
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 647,
+      "label": "cliché: plongez au cœur",
+      "excerpt": "ascadeur ! 🎬🔥\", description: \"Plongez au cœur du métier de cascadeur ! 🎬🔥\\n\\nRendez"
+    },
     {
       "file": "scripts/audit_and_sync_supabase_clean.mjs",
       "line": 15,
@@ -810,7 +815,7 @@
     },
     {
       "file": "src/app/(admin)/admin/components/pages-editor/VideosPageEditor.tsx",
-      "line": 181,
+      "line": 184,
       "platform": "instagram",
       "handle": "reel/DJW5wq0MIzt/...",
       "url": "https://www.instagram.com/reel/DJW5wq0MIzt/..."
@@ -845,7 +850,7 @@
     },
     {
       "file": "src/app/(site)/[locale]/videos-cascadeur/sections/VideosReelsSection.tsx",
-      "line": 126,
+      "line": 88,
       "platform": "instagram",
       "handle": "campus.univers.cascades",
       "url": "https://www.instagram.com/campus.univers.cascades/"
@@ -1377,605 +1382,430 @@
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 33,
+      "line": 40,
       "platform": "instagram",
       "handle": "reel/DdEoOcyM-We",
       "url": "https://www.instagram.com/reel/DdEoOcyM-We/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 47,
+      "line": 52,
       "platform": "instagram",
       "handle": "reel/Dc80NYLMv1Y",
       "url": "https://www.instagram.com/reel/Dc80NYLMv1Y/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 61,
+      "line": 64,
       "platform": "instagram",
       "handle": "reel/Dcqh0VisRnc",
       "url": "https://www.instagram.com/reel/Dcqh0VisRnc/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 75,
+      "line": 76,
       "platform": "instagram",
       "handle": "reel/DcjNkFxMRm9",
       "url": "https://www.instagram.com/reel/DcjNkFxMRm9/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 89,
+      "line": 88,
       "platform": "instagram",
       "handle": "reel/DbLJg18Mt7d",
       "url": "https://www.instagram.com/reel/DbLJg18Mt7d/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 103,
+      "line": 100,
       "platform": "instagram",
       "handle": "reel/DZNOYRBsuwv",
       "url": "https://www.instagram.com/reel/DZNOYRBsuwv/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 127,
+      "line": 119,
       "platform": "instagram",
       "handle": "reel/DQmgL2IjN-8",
       "url": "https://www.instagram.com/reel/DQmgL2IjN-8/"
     },
     {
       "file": "src/data/instagram-reels.ts",
+      "line": 130,
+      "platform": "instagram",
+      "handle": "reel/DQ9jAcIDJ7h",
+      "url": "https://www.instagram.com/reel/DQ9jAcIDJ7h/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
       "line": 141,
       "platform": "instagram",
-      "handle": "reel/DPmgK1LjO-9",
-      "url": "https://www.instagram.com/reel/DPmgK1LjO-9/"
+      "handle": "reel/DYujjtZscIH",
+      "url": "https://www.instagram.com/reel/DYujjtZscIH/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 155,
+      "line": 152,
       "platform": "instagram",
-      "handle": "reel/DOlkJ8MhP-4",
-      "url": "https://www.instagram.com/reel/DOlkJ8MhP-4/"
+      "handle": "reel/DLkeIQlM_KU",
+      "url": "https://www.instagram.com/reel/DLkeIQlM_KU/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 169,
+      "line": 163,
       "platform": "instagram",
-      "handle": "reel/DNkjH7NgQ-1",
-      "url": "https://www.instagram.com/reel/DNkjH7NgQ-1/"
+      "handle": "reel/DQE32hOjExX",
+      "url": "https://www.instagram.com/reel/DQE32hOjExX/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 183,
+      "line": 174,
       "platform": "instagram",
-      "handle": "reel/C7mgX1IjQ-2",
-      "url": "https://www.instagram.com/reel/C7mgX1IjQ-2/"
+      "handle": "reel/DVOpehKjAUp",
+      "url": "https://www.instagram.com/reel/DVOpehKjAUp/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 197,
+      "line": 185,
       "platform": "instagram",
-      "handle": "reel/C4lkY9OiR-3",
-      "url": "https://www.instagram.com/reel/C4lkY9OiR-3/"
+      "handle": "reel/DYPp6cTMhR-",
+      "url": "https://www.instagram.com/reel/DYPp6cTMhR-/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 211,
+      "line": 196,
       "platform": "instagram",
-      "handle": "reel/C3kjZ8NhS-5",
-      "url": "https://www.instagram.com/reel/C3kjZ8NhS-5/"
+      "handle": "reel/DX9p6_1s6PU",
+      "url": "https://www.instagram.com/reel/DX9p6_1s6PU/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 227,
+      "line": 207,
       "platform": "instagram",
-      "handle": "reel/C2jiA7MgT-7",
-      "url": "https://www.instagram.com/reel/C2jiA7MgT-7/"
+      "handle": "reel/DIwMtY0s5TK",
+      "url": "https://www.instagram.com/reel/DIwMtY0s5TK/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 241,
-      "platform": "instagram",
-      "handle": "reel/BA09C9KeY-6",
-      "url": "https://www.instagram.com/reel/BA09C9KeY-6/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 255,
-      "platform": "instagram",
-      "handle": "reel/BO43O3YsL-2",
-      "url": "https://www.instagram.com/reel/BO43O3YsL-2/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 269,
-      "platform": "instagram",
-      "handle": "reel/C1hgB6LfU-8",
-      "url": "https://www.instagram.com/reel/C1hgB6LfU-8/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 283,
-      "platform": "instagram",
-      "handle": "reel/C0gfC5KeV-9",
-      "url": "https://www.instagram.com/reel/C0gfC5KeV-9/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 297,
-      "platform": "instagram",
-      "handle": "reel/BT98J8DxQ-7",
-      "url": "https://www.instagram.com/reel/BT98J8DxQ-7/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 311,
-      "platform": "instagram",
-      "handle": "reel/BYedE3IcV-2",
-      "url": "https://www.instagram.com/reel/BYedE3IcV-2/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 325,
-      "platform": "instagram",
-      "handle": "reel/BI87U7SmG-8",
-      "url": "https://www.instagram.com/reel/BI87U7SmG-8/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 339,
-      "platform": "instagram",
-      "handle": "reel/BWcbG1GaT-4",
-      "url": "https://www.instagram.com/reel/BWcbG1GaT-4/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 353,
-      "platform": "instagram",
-      "handle": "reel/BZfeD4JdW-1",
-      "url": "https://www.instagram.com/reel/BZfeD4JdW-1/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 367,
-      "platform": "instagram",
-      "handle": "reel/BQ65M5AuN-0",
-      "url": "https://www.instagram.com/reel/BQ65M5AuN-0/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 381,
-      "platform": "instagram",
-      "handle": "reel/BG65W5QkE-0",
-      "url": "https://www.instagram.com/reel/BG65W5QkE-0/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 395,
-      "platform": "instagram",
-      "handle": "reel/BVbaH0FzS-5",
-      "url": "https://www.instagram.com/reel/BVbaH0FzS-5/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 409,
-      "platform": "instagram",
-      "handle": "reel/AX76F6HbU-9",
-      "url": "https://www.instagram.com/reel/AX76F6HbU-9/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 423,
-      "platform": "instagram",
-      "handle": "reel/BJ98T8TnH-7",
-      "url": "https://www.instagram.com/reel/BJ98T8TnH-7/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 437,
-      "platform": "instagram",
-      "handle": "reel/BXdcF2HbU-3",
-      "url": "https://www.instagram.com/reel/BXdcF2HbU-3/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 451,
-      "platform": "instagram",
-      "handle": "reel/BP54N4ZtM-1",
-      "url": "https://www.instagram.com/reel/BP54N4ZtM-1/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 465,
-      "platform": "instagram",
-      "handle": "reel/AZ98D8JdX-7",
-      "url": "https://www.instagram.com/reel/AZ98D8JdX-7/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 479,
-      "platform": "instagram",
-      "handle": "reel/BUa9I9EyR-6",
-      "url": "https://www.instagram.com/reel/BUa9I9EyR-6/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 493,
-      "platform": "instagram",
-      "handle": "reel/BF54X4PjD-1",
-      "url": "https://www.instagram.com/reel/BF54X4PjD-1/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 507,
-      "platform": "instagram",
-      "handle": "reel/BR76L6BvO-9",
-      "url": "https://www.instagram.com/reel/BR76L6BvO-9/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 521,
-      "platform": "instagram",
-      "handle": "reel/C2lkZ8NiS-4",
-      "url": "https://www.instagram.com/reel/C2lkZ8NiS-4/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 535,
+      "line": 218,
       "platform": "instagram",
       "handle": "reel/DdEoOcyM-We",
       "url": "https://www.instagram.com/reel/DdEoOcyM-We/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 549,
+      "line": 230,
       "platform": "instagram",
       "handle": "reel/DbLJg18Mt7d",
       "url": "https://www.instagram.com/reel/DbLJg18Mt7d/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 563,
+      "line": 242,
       "platform": "instagram",
-      "handle": "reel/BN32P2XrK-3",
-      "url": "https://www.instagram.com/reel/BN32P2XrK-3/"
+      "handle": "reel/DQuPd2zjHzI",
+      "url": "https://www.instagram.com/reel/DQuPd2zjHzI/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 577,
+      "line": 253,
       "platform": "instagram",
-      "handle": "reel/BE43Y3OiC-2",
-      "url": "https://www.instagram.com/reel/BE43Y3OiC-2/"
+      "handle": "reel/DL703ext17F",
+      "url": "https://www.instagram.com/reel/DL703ext17F/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 591,
+      "line": 264,
       "platform": "instagram",
-      "handle": "reel/BS87K7CwP-8",
-      "url": "https://www.instagram.com/reel/BS87K7CwP-8/"
+      "handle": "reel/DUiytfFDH9b",
+      "url": "https://www.instagram.com/reel/DUiytfFDH9b/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 605,
+      "line": 275,
       "platform": "instagram",
-      "handle": "reel/BL10R0VpI-5",
-      "url": "https://www.instagram.com/reel/BL10R0VpI-5/"
+      "handle": "reel/DLXkOOcMP3D",
+      "url": "https://www.instagram.com/reel/DLXkOOcMP3D/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 619,
+      "line": 286,
       "platform": "instagram",
-      "handle": "reel/BC21A1MgA-4",
-      "url": "https://www.instagram.com/reel/BC21A1MgA-4/"
+      "handle": "reel/DY_0Tncs_x1",
+      "url": "https://www.instagram.com/reel/DY_0Tncs_x1/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 633,
+      "line": 297,
       "platform": "instagram",
-      "handle": "reel/BM21Q1WqJ-4",
-      "url": "https://www.instagram.com/reel/BM21Q1WqJ-4/"
+      "handle": "reel/DKe-VMaMgHY",
+      "url": "https://www.instagram.com/reel/DKe-VMaMgHY/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 647,
+      "line": 308,
       "platform": "instagram",
-      "handle": "reel/BB10B0LfZ-5",
-      "url": "https://www.instagram.com/reel/BB10B0LfZ-5/"
+      "handle": "reel/DLxdDb9Knyp",
+      "url": "https://www.instagram.com/reel/DLxdDb9Knyp/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 661,
+      "line": 319,
       "platform": "instagram",
-      "handle": "reel/BH76V6RlF-9",
-      "url": "https://www.instagram.com/reel/BH76V6RlF-9/"
+      "handle": "reel/DLsRM5aswMD",
+      "url": "https://www.instagram.com/reel/DLsRM5aswMD/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 675,
+      "line": 330,
       "platform": "instagram",
-      "handle": "reel/AY87E7IcV-8",
-      "url": "https://www.instagram.com/reel/AY87E7IcV-8/"
+      "handle": "reel/DL5ECFtsv1v",
+      "url": "https://www.instagram.com/reel/DL5ECFtsv1v/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 689,
+      "line": 341,
       "platform": "instagram",
-      "handle": "reel/BK09S9UoH-6",
-      "url": "https://www.instagram.com/reel/BK09S9UoH-6/"
+      "handle": "reel/DXmeM8BDEea",
+      "url": "https://www.instagram.com/reel/DXmeM8BDEea/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 703,
+      "line": 352,
       "platform": "instagram",
-      "handle": "reel/BD32Z2NhB-3",
-      "url": "https://www.instagram.com/reel/BD32Z2NhB-3/"
+      "handle": "reel/DOtZXCWDPFa",
+      "url": "https://www.instagram.com/reel/DOtZXCWDPFa/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 719,
+      "line": 363,
+      "platform": "instagram",
+      "handle": "reel/DMA6l59sA_X",
+      "url": "https://www.instagram.com/reel/DMA6l59sA_X/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 374,
+      "platform": "instagram",
+      "handle": "reel/DJW5wq0MIzt",
+      "url": "https://www.instagram.com/reel/DJW5wq0MIzt/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 385,
+      "platform": "instagram",
+      "handle": "reel/DXuN8FMjG5V",
+      "url": "https://www.instagram.com/reel/DXuN8FMjG5V/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 396,
+      "platform": "instagram",
+      "handle": "reel/DPJs0c-DIp5",
+      "url": "https://www.instagram.com/reel/DPJs0c-DIp5/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 407,
+      "platform": "instagram",
+      "handle": "reel/DIrGmeGMman",
+      "url": "https://www.instagram.com/reel/DIrGmeGMman/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 418,
+      "platform": "instagram",
+      "handle": "reel/DNyNcfR2Eil",
+      "url": "https://www.instagram.com/reel/DNyNcfR2Eil/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 429,
+      "platform": "instagram",
+      "handle": "reel/DK2H4mZsH85",
+      "url": "https://www.instagram.com/reel/DK2H4mZsH85/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 440,
+      "platform": "instagram",
+      "handle": "reel/DKAFa9dsRVa",
+      "url": "https://www.instagram.com/reel/DKAFa9dsRVa/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 451,
+      "platform": "instagram",
+      "handle": "reel/DRH_x9jDGpl",
+      "url": "https://www.instagram.com/reel/DRH_x9jDGpl/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 462,
       "platform": "instagram",
       "handle": "reel/Dc80NYLMv1Y",
       "url": "https://www.instagram.com/reel/Dc80NYLMv1Y/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 733,
+      "line": 474,
       "platform": "instagram",
       "handle": "reel/DZNOYRBsuwv",
       "url": "https://www.instagram.com/reel/DZNOYRBsuwv/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 747,
+      "line": 486,
+      "platform": "instagram",
+      "handle": "reel/DQZkrrojKnU",
+      "url": "https://www.instagram.com/reel/DQZkrrojKnU/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 497,
+      "platform": "instagram",
+      "handle": "reel/DJZc6B6sHKV",
+      "url": "https://www.instagram.com/reel/DJZc6B6sHKV/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 508,
+      "platform": "instagram",
+      "handle": "reel/DN3GZIb2FyC",
+      "url": "https://www.instagram.com/reel/DN3GZIb2FyC/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 519,
       "platform": "instagram",
       "handle": "reel/Dcqh0VisRnc",
       "url": "https://www.instagram.com/reel/Dcqh0VisRnc/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 761,
+      "line": 531,
       "platform": "instagram",
       "handle": "reel/DcjNkFxMRm9",
       "url": "https://www.instagram.com/reel/DcjNkFxMRm9/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 775,
+      "line": 543,
       "platform": "instagram",
-      "handle": "reel/DF82kL9sM2a",
-      "url": "https://www.instagram.com/reel/DF82kL9sM2a/"
+      "handle": "reel/DRsAXWmjKj7",
+      "url": "https://www.instagram.com/reel/DRsAXWmjKj7/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 789,
+      "line": 554,
       "platform": "instagram",
-      "handle": "reel/DGa1pQ0tN3b",
-      "url": "https://www.instagram.com/reel/DGa1pQ0tN3b/"
+      "handle": "reel/DWjm2drDAXQ",
+      "url": "https://www.instagram.com/reel/DWjm2drDAXQ/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 803,
+      "line": 565,
       "platform": "instagram",
-      "handle": "reel/DHb2qR1uO4c",
-      "url": "https://www.instagram.com/reel/DHb2qR1uO4c/"
+      "handle": "reel/DXW7fBiDABZ",
+      "url": "https://www.instagram.com/reel/DXW7fBiDABZ/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 817,
-      "platform": "instagram",
-      "handle": "reel/DIc3sS2vP5d",
-      "url": "https://www.instagram.com/reel/DIc3sS2vP5d/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 831,
-      "platform": "instagram",
-      "handle": "reel/DJd4tT3wQ6e",
-      "url": "https://www.instagram.com/reel/DJd4tT3wQ6e/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 845,
-      "platform": "instagram",
-      "handle": "reel/DKe5uU4xR7f",
-      "url": "https://www.instagram.com/reel/DKe5uU4xR7f/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 859,
-      "platform": "instagram",
-      "handle": "reel/DLf6vV5yS8g",
-      "url": "https://www.instagram.com/reel/DLf6vV5yS8g/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 873,
-      "platform": "instagram",
-      "handle": "reel/DMg7wW6zT9h",
-      "url": "https://www.instagram.com/reel/DMg7wW6zT9h/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 887,
-      "platform": "instagram",
-      "handle": "reel/DNh8xX7aU0i",
-      "url": "https://www.instagram.com/reel/DNh8xX7aU0i/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 901,
-      "platform": "instagram",
-      "handle": "reel/DOi9yY8bV1j",
-      "url": "https://www.instagram.com/reel/DOi9yY8bV1j/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 915,
-      "platform": "instagram",
-      "handle": "reel/DPj0zZ9cW2k",
-      "url": "https://www.instagram.com/reel/DPj0zZ9cW2k/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 929,
-      "platform": "instagram",
-      "handle": "reel/DQk1aA0dX3l",
-      "url": "https://www.instagram.com/reel/DQk1aA0dX3l/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 943,
-      "platform": "instagram",
-      "handle": "reel/DRl2bB1eY4m",
-      "url": "https://www.instagram.com/reel/DRl2bB1eY4m/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 957,
-      "platform": "instagram",
-      "handle": "reel/DSm3cC2fZ5n",
-      "url": "https://www.instagram.com/reel/DSm3cC2fZ5n/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 971,
-      "platform": "instagram",
-      "handle": "reel/DTn4dD3ga6o",
-      "url": "https://www.instagram.com/reel/DTn4dD3ga6o/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 985,
-      "platform": "instagram",
-      "handle": "reel/DUo5eE4hb7p",
-      "url": "https://www.instagram.com/reel/DUo5eE4hb7p/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 999,
-      "platform": "instagram",
-      "handle": "reel/DVp6fF5ic8q",
-      "url": "https://www.instagram.com/reel/DVp6fF5ic8q/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 1013,
-      "platform": "instagram",
-      "handle": "reel/DWq7gG6jd9r",
-      "url": "https://www.instagram.com/reel/DWq7gG6jd9r/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 1027,
-      "platform": "instagram",
-      "handle": "reel/DXr8hH7ke0s",
-      "url": "https://www.instagram.com/reel/DXr8hH7ke0s/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 1041,
-      "platform": "instagram",
-      "handle": "reel/DYs9iI8lf1t",
-      "url": "https://www.instagram.com/reel/DYs9iI8lf1t/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 1055,
-      "platform": "instagram",
-      "handle": "reel/DZt0jJ9mg2u",
-      "url": "https://www.instagram.com/reel/DZt0jJ9mg2u/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 1069,
-      "platform": "instagram",
-      "handle": "reel/DAu1kK0nh3v",
-      "url": "https://www.instagram.com/reel/DAu1kK0nh3v/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 1083,
-      "platform": "instagram",
-      "handle": "reel/DBv2lL1oi4w",
-      "url": "https://www.instagram.com/reel/DBv2lL1oi4w/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 1097,
-      "platform": "instagram",
-      "handle": "reel/DCw3mM2pj5x",
-      "url": "https://www.instagram.com/reel/DCw3mM2pj5x/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 1111,
-      "platform": "instagram",
-      "handle": "reel/DDx4nN3qk6y",
-      "url": "https://www.instagram.com/reel/DDx4nN3qk6y/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 1125,
-      "platform": "instagram",
-      "handle": "reel/DEy5oO4rl7z",
-      "url": "https://www.instagram.com/reel/DEy5oO4rl7z/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 1139,
-      "platform": "instagram",
-      "handle": "reel/DFz6pP5sm8a",
-      "url": "https://www.instagram.com/reel/DFz6pP5sm8a/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 1153,
-      "platform": "instagram",
-      "handle": "reel/DG07qQ6tn9b",
-      "url": "https://www.instagram.com/reel/DG07qQ6tn9b/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 1167,
-      "platform": "instagram",
-      "handle": "reel/DH18rR7uo0c",
-      "url": "https://www.instagram.com/reel/DH18rR7uo0c/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 1181,
-      "platform": "instagram",
-      "handle": "reel/DI29sS8vp1d",
-      "url": "https://www.instagram.com/reel/DI29sS8vp1d/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 1195,
-      "platform": "instagram",
-      "handle": "reel/DYa9192kJJk",
-      "url": "https://www.instagram.com/reel/DYa9192kJJk/"
-    },
-    {
-      "file": "src/data/instagram-reels.ts",
-      "line": 1209,
+      "line": 576,
       "platform": "instagram",
       "handle": "reel/DXev9sSjJUq",
       "url": "https://www.instagram.com/reel/DXev9sSjJUq/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 1223,
+      "line": 587,
       "platform": "instagram",
       "handle": "reel/DSFpV_YDIj2",
       "url": "https://www.instagram.com/reel/DSFpV_YDIj2/"
     },
     {
       "file": "src/data/instagram-reels.ts",
-      "line": 1237,
+      "line": 598,
       "platform": "instagram",
       "handle": "reel/DTaoCvCjNE9",
       "url": "https://www.instagram.com/reel/DTaoCvCjNE9/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 609,
+      "platform": "instagram",
+      "handle": "reel/Cu9kyPaORuj",
+      "url": "https://www.instagram.com/reel/Cu9kyPaORuj/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 621,
+      "platform": "instagram",
+      "handle": "reel/C6lp8UPNvU_",
+      "url": "https://www.instagram.com/reel/C6lp8UPNvU_/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 633,
+      "platform": "instagram",
+      "handle": "reel/CxvORkltkWB",
+      "url": "https://www.instagram.com/reel/CxvORkltkWB/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 645,
+      "platform": "instagram",
+      "handle": "reel/C8FLLLjNfVP",
+      "url": "https://www.instagram.com/reel/C8FLLLjNfVP/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 657,
+      "platform": "instagram",
+      "handle": "reel/DR7CBj4CCuF",
+      "url": "https://www.instagram.com/reel/DR7CBj4CCuF/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 669,
+      "platform": "instagram",
+      "handle": "reel/DTaLSU3iGA2",
+      "url": "https://www.instagram.com/reel/DTaLSU3iGA2/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 681,
+      "platform": "instagram",
+      "handle": "reel/DBoFKYBtGgm",
+      "url": "https://www.instagram.com/reel/DBoFKYBtGgm/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 693,
+      "platform": "instagram",
+      "handle": "reel/DcJL2xXCjg1",
+      "url": "https://www.instagram.com/reel/DcJL2xXCjg1/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 705,
+      "platform": "instagram",
+      "handle": "reel/DEM26UdpFuK",
+      "url": "https://www.instagram.com/reel/DEM26UdpFuK/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 717,
+      "platform": "instagram",
+      "handle": "reel/Dc8IOjcC6Vd",
+      "url": "https://www.instagram.com/reel/Dc8IOjcC6Vd/"
+    },
+    {
+      "file": "src/data/instagram-reels.ts",
+      "line": 729,
+      "platform": "instagram",
+      "handle": "reel/DJmOS2tMQpk",
+      "url": "https://www.instagram.com/reel/DJmOS2tMQpk/"
     },
     {
       "file": "src/data/navigation.ts",
@@ -2119,14 +1949,14 @@
     },
     {
       "file": "src/lib/instagram/instagram-service.ts",
-      "line": 165,
+      "line": 170,
       "platform": "instagram",
       "handle": "reel",
       "url": "https://www.instagram.com/reel/"
     },
     {
       "file": "src/lib/instagram/instagram-service.ts",
-      "line": 167,
+      "line": 172,
       "platform": "facebook",
       "handle": "externalhit_uatext.php",
       "url": "http://www.facebook.com/externalhit_uatext.php"
