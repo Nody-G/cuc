@@ -15,7 +15,7 @@
 import type { FilmCredit, Instructor, ParsedCredit } from '@/types';
 import { parseCredit } from '@/types';
 import { creditTitleKey } from '@/lib/credit-title';
-import { normalizeRole } from '@/lib/credit-role';
+import { normalizeRole, type RoleSetSummary } from '@/lib/credit-role';
 import { renderRoleSet } from '@/lib/i18n/role-labels';
 
 export type FilmSort = 'year-desc' | 'year-asc' | 'title-asc' | 'title-desc';
@@ -136,6 +136,48 @@ export interface CoachFilmRole {
 export type RoleTranslator = Parameters<typeof renderRoleSet>[1];
 
 /**
+ * Rôles **sans langue** tenus par le coach sur un film, selon la priorité de
+ * sources canonique : rôle enregistré sur le film (`cuc_team_roles`), puis
+ * metadata du membre (`film_roles`), puis crédit parsé apparié par titre, puis
+ * déduction depuis le titre du coach.
+ *
+ * Source unique de [`createCoachFilmRoleResolver`](src/lib/coach-films.ts:1)
+ * (fiche/carte coach) et de
+ * [`selectCoordinatedFilms`](src/lib/coach-films.ts:1) (vitrine TOURNAGE) : la
+ * vitrine ne peut donc pas annoncer une coordination que la fiche ignore.
+ */
+function resolveRoleSet(
+    film: FilmCredit,
+    member: Instructor,
+    parsedCredits: ParsedCredit[]
+): RoleSetSummary {
+    const fromRaw = (raw: string): RoleSetSummary => normalizeRole(raw);
+
+    // 1. Rôle direct dans cuc_team_roles du film
+    if (film.cuc_team_roles && film.cuc_team_roles[member.id]) {
+        return fromRaw(film.cuc_team_roles[member.id]);
+    }
+    // 2. Rôle dans les metadata du membre
+    if (member.metadata?.film_roles && member.metadata.film_roles[film.id]) {
+        return fromRaw(member.metadata.film_roles[film.id]);
+    }
+    // 3. Correspondance dans les crédits parsés
+    const matched = parsedCredits.find(
+        (c) =>
+            c.title.toLowerCase().includes(film.title.toLowerCase()) ||
+            film.title.toLowerCase().includes(c.title.toLowerCase())
+    );
+    if (matched && matched.role) {
+        return fromRaw(matched.role);
+    }
+    // 4. Déduction basée sur le titre principal du coach
+    if (member.title.toLowerCase().includes('coordinateur')) {
+        return normalizeRole('Coordinateur des cascades');
+    }
+    return normalizeRole('Cascadeur');
+}
+
+/**
  * Résout le rôle précis du coach sur un film donné. Le libellé brut est
  * systématiquement ramené à un rôle canonique lisible (Coordinateur des
  * cascades · Doublure de X · Cascadeur · Parkour · Câblage), **rendu traduit**
@@ -151,44 +193,35 @@ export function createCoachFilmRoleResolver({
     tt: RoleTranslator;
 }) {
     return (film: FilmCredit): CoachFilmRole => {
-        const fromRaw = (raw: string): CoachFilmRole => {
-            const n = normalizeRole(raw);
-            return {
-                role: renderRoleSet({ roles: n.roles, doubledActors: n.doubledActors }, tt),
-                isCoord: n.roles.includes('Coordinateur des cascades'),
-                isDoublure: n.roles.includes('Doublure'),
-            };
-        };
-
-        // 1. Rôle direct dans cuc_team_roles du film
-        if (film.cuc_team_roles && film.cuc_team_roles[member.id]) {
-            return fromRaw(film.cuc_team_roles[member.id]);
-        }
-        // 2. Rôle dans les metadata du membre
-        if (member.metadata?.film_roles && member.metadata.film_roles[film.id]) {
-            return fromRaw(member.metadata.film_roles[film.id]);
-        }
-        // 3. Correspondance dans les crédits parsés
-        const matched = parsedCredits.find(
-            (c) =>
-                c.title.toLowerCase().includes(film.title.toLowerCase()) ||
-                film.title.toLowerCase().includes(c.title.toLowerCase())
-        );
-        if (matched && matched.role) {
-            return fromRaw(matched.role);
-        }
-        // 4. Déduction basée sur le titre principal du coach
-        if (member.title.toLowerCase().includes('coordinateur')) {
-            return {
-                role: renderRoleSet({ roles: ['Coordinateur des cascades'], doubledActors: [] }, tt),
-                isCoord: true,
-                isDoublure: false,
-            };
-        }
+        const summary = resolveRoleSet(film, member, parsedCredits);
         return {
-            role: renderRoleSet({ roles: ['Cascadeur'], doubledActors: [] }, tt),
-            isCoord: false,
-            isDoublure: false,
+            role: renderRoleSet(
+                { roles: summary.roles, doubledActors: summary.doubledActors },
+                tt
+            ),
+            isCoord: summary.roles.includes('Coordinateur des cascades'),
+            isDoublure: summary.roles.includes('Doublure'),
         };
     };
+}
+
+/**
+ * Films du catalogue sur lesquels le coach a tenu un **rôle de coordination**,
+ * dans l'ordre de sa fiche (mise en avant Cockpit puis tri par défaut).
+ *
+ * Sert la vitrine « LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC » de la page
+ * TOURNAGE : seuls les films coordonnés par le référent y sont exposés ; le
+ * reste de la filmographie se découvre au cas par cas sur la fiche du coach.
+ */
+export function selectCoordinatedFilms(
+    films: FilmCredit[],
+    member?: Instructor,
+    filmSort: FilmSort = DEFAULT_COACH_FILM_SORT
+): FilmCredit[] {
+    if (!member) return [];
+    const parsedCredits = (member.notableCredits || []).map(parseCredit);
+    const coordinated = findRelatedFilms(films, member).filter((film) =>
+        resolveRoleSet(film, member, parsedCredits).roles.includes('Coordinateur des cascades')
+    );
+    return sortCoachFilms(coordinated, filmSort, buildFeaturedOrder(member));
 }

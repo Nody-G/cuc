@@ -61,11 +61,6 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
   const tag = aboutData?.tag || t('tag');
   const subtag = aboutData?.subtag || t('subtag');
   const description = aboutData?.description || t('description');
-  const founderQuote = aboutData?.founder_quote || t('founderQuote');
-  const founderName = aboutData?.founder_name || t('founderName');
-  const founderRole = aboutData?.founder_role || t('founderRole');
-  const founderLabel = aboutData?.founder_label || t('founderLabel');
-  const badgeYear = aboutData?.badge_year || t('badgeYear');
   const imageUrl = aboutData?.image_url || 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg';
   const ctaPrimaryText = aboutData?.cta_primary_text || t('ctaPrimary');
   const ctaPrimaryLink = aboutData?.cta_primary_link || '/formation-de-cascadeur';
@@ -95,52 +90,6 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
               </div>
             </StudioParallaxLayer>
 
-            {/* Layer B: Founder Quote Card (Floating mid-plane) */}
-            <StudioParallaxLayer speed={0.08} className="absolute bottom-6 left-4 right-4 sm:left-6 sm:right-6 z-20">
-              <StudioParallaxCard maxTilt={5}>
-                <div className="bg-[#0a0a0e]/95 backdrop-blur-md border border-zinc-700/80 p-4 sm:p-5 shadow-2xl">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="w-2 h-2 rounded-full bg-[#FFE500]" />
-                    <span
-                      data-cuc-field="sections_data.about.founder_label"
-                      className="text-[10px] font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider"
-                    >
-                      {founderLabel}
-                    </span>
-                  </div>
-                  <p
-                    data-cuc-field="sections_data.about.founder_quote"
-                    className="text-xs sm:text-sm text-zinc-300 font-tech italic leading-relaxed"
-                  >
-                    {founderQuote}
-                  </p>
-                  <div className="mt-3 pt-2.5 border-t border-zinc-800 flex items-center justify-between text-[10px] font-mono-tech text-zinc-400">
-                    <span
-                      data-cuc-field="sections_data.about.founder_name"
-                      className="text-white font-bold"
-                    >
-                      {founderName}
-                    </span>
-                    <span
-                      data-cuc-field="sections_data.about.founder_role"
-                      className="text-[#FFE500]"
-                    >
-                      {founderRole}
-                    </span>
-                  </div>
-                </div>
-              </StudioParallaxCard>
-            </StudioParallaxLayer>
-
-            {/* Layer C: Year Tag Badge (Floating foreground plane) */}
-            <StudioParallaxLayer speed={0.16} className="absolute -top-4 -left-3 z-30">
-              <div
-                data-cuc-field="sections_data.about.badge_year"
-                className="bg-[#FFE500] text-black font-display text-sm tracking-widest px-4 py-1.5 font-bold shadow-[0_4px_25px_rgba(255,229,0,0.35)]"
-              >
-                {badgeYear}
-              </div>
-            </StudioParallaxLayer>
           </div>
 
           {/* Editorial Content Side */}

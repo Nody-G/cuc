@@ -6,7 +6,8 @@ import { Film, ArrowUpDown } from 'lucide-react';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getFilms } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
-import { FilmCredit } from '@/types';
+import { FilmCredit, Instructor } from '@/types';
+import { selectCoordinatedFilms } from '@/lib/coach-films';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
 import { FilmCard } from '@/components/sections/films/FilmCard';
@@ -26,6 +27,13 @@ export interface CucFilmsShowcaseProps {
     className?: string;
     /** Affiche le liseré supérieur séparateur (défaut : true). */
     divider?: boolean;
+    /**
+     * Référent de coordination. Fourni, il **restreint la vitrine aux seuls
+     * films coordonnés par ce coach** (page TOURNAGE : Lucas Dollfus) ; le reste
+     * de la filmographie demeure consultable au cas par cas sur la fiche du
+     * coach concerné.
+     */
+    coordinator?: Instructor;
 }
 
 /**
@@ -34,6 +42,9 @@ export interface CucFilmsShowcaseProps {
  * Composant partagé extrait de `/equipe-cascadeurs-pro` et réutilisé sur la page
  * TOURNAGE (`/cuc-team-cascadeur`) à la place de l'ancien bloc « FILMS & SÉRIES ».
  * Source live : Supabase `site_films` (+ Realtime), repli sur `FILMOGRAPHY_CREDITS`.
+ *
+ * Fourni un `coordinator`, la vitrine se limite aux films qu'il a **coordonnés**
+ * (sélecteur partagé [`selectCoordinatedFilms`](src/lib/coach-films.ts:1)).
  */
 export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
     id,
@@ -42,6 +53,7 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
     subtitle,
     className = '',
     divider = true,
+    coordinator,
 }) => {
     const tFilms = useTranslations('films');
     const tTeam = useTranslations('team');
@@ -72,6 +84,15 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
         [films, filmOverlays]
     );
 
+    /**
+     * Périmètre de la vitrine : sans référent, tout le catalogue ; avec un
+     * référent, uniquement les films où il est coordinateur.
+     */
+    const scopedFilms = React.useMemo(
+        () => (coordinator ? selectCoordinatedFilms(localizedFilms, coordinator) : localizedFilms),
+        [localizedFilms, coordinator]
+    );
+
     /** Rechargement du catalogue : état initial + synchronisation Realtime. */
     const loadFilms = React.useCallback(() => {
         getFilms().then(setFilms);
@@ -86,7 +107,7 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
 
     // Tri du catalogue (date ou nom, croissant/décroissant)
     const sortedFilms = React.useMemo(() => {
-        const list = [...localizedFilms];
+        const list = [...scopedFilms];
         const yearOf = (f: FilmCredit) => {
             const parsed = parseInt(String(f.year ?? '').replace(/\D/g, ''), 10);
             return Number.isFinite(parsed) ? parsed : 0;
@@ -102,7 +123,7 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
             default:
                 return list.sort((a, b) => yearOf(b) - yearOf(a));
         }
-    }, [localizedFilms, filmSort]);
+    }, [scopedFilms, filmSort]);
 
     return (
         <div id={id} className={`${divider ? 'border-t border-zinc-800 pt-16' : ''} ${className}`.trim()}>

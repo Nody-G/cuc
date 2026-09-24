@@ -233,24 +233,6 @@ export const HOME_BLOCKS: HomeBlockDef[] = [
         ],
     },
     {
-        id: 'partners',
-        title: 'Partenaires & Studios',
-        desc: 'Bandeau de confiance affichant les collaborations du campus.',
-        tag: 'partners',
-        rows: [
-            { fields: [{ key: 'badge', label: 'Badge', liveEdit: true }] },
-            { fields: [{ key: 'title', label: 'Titre', liveEdit: true }] },
-            {
-                fields: [
-                    { key: 'subtitle', label: 'Sous-titre', kind: 'textarea', rows: 2, liveEdit: true },
-                ],
-            },
-            {
-                fields: [{ key: 'view_all', label: 'Lien « tout voir » — libellé', liveEdit: true }],
-            },
-        ],
-    },
-    {
         id: 'social',
         title: 'Réseaux Sociaux & Communauté',
         desc: 'Textes du bloc de communauté. Les liens eux-mêmes se gèrent dans « Réseaux Sociaux ».',

@@ -4,6 +4,7 @@ import {
     buildFeaturedOrder,
     findRelatedFilms,
     selectCoachFilms,
+    selectCoordinatedFilms,
     sortCoachFilms,
 } from './coach-films';
 
@@ -99,5 +100,36 @@ describe('selectCoachFilms — sélecteur partagé carte / fiche', () => {
         selectCoachFilms(CATALOGUE, coach({ film_ids: ['a', 'b'] }), 'title-asc');
 
         expect(CATALOGUE.map((f) => f.id)).toEqual(initial);
+    });
+});
+
+describe('selectCoordinatedFilms — vitrine « FILMS COORDONNÉS »', () => {
+    const catalogue: FilmCredit[] = [
+        film('a', 'Bagarre', 2024, {
+            cuc_team_involved: ['lucas'],
+            cuc_team_roles: { lucas: 'Coordinateur des cascades & Action Designer' },
+        }),
+        film('b', 'Nouveaux Riches', 2023, {
+            cuc_team_involved: ['lucas'],
+            cuc_team_roles: { lucas: 'Coordinateur des cascades' },
+        }),
+        film('c', 'John Wick : Chapitre 4', 2023, {
+            cuc_team_involved: ['lucas'],
+            cuc_team_roles: { lucas: 'Cascadeur' },
+        }),
+        film('d', 'Athena', 2022, { cuc_team_involved: ['jerome'] }),
+    ];
+    const lucas = coach({ id: 'lucas' });
+
+    it('ne retient que les films coordonnés par le référent', () => {
+        expect(selectCoordinatedFilms(catalogue, lucas).map((f) => f.id)).toEqual(['a', 'b']);
+    });
+
+    it('exclut un film où le référent n’est que cascadeur', () => {
+        expect(selectCoordinatedFilms(catalogue, lucas).map((f) => f.id)).not.toContain('c');
+    });
+
+    it('sans référent, aucune vitrine', () => {
+        expect(selectCoordinatedFilms(catalogue, undefined)).toEqual([]);
     });
 });

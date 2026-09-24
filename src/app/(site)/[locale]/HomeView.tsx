@@ -10,7 +10,6 @@ import {
     HomeTournagesSection,
     HomeVirtualTourSection,
     HomeQualiopiSection,
-    HomePartnersSection,
     HomeSocialSection,
 } from '@/components/sections/home';
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
@@ -60,13 +59,6 @@ export const HomeView: React.FC = () => {
                         qualiopiData={content.sections_data?.qualiopi}
                     />
                 );
-            case 'partners':
-                return (
-                    <HomePartnersSection
-                        key="partners"
-                        partnersData={content.sections_data?.partners}
-                    />
-                );
             case 'social':
                 return (
                     <HomeSocialSection key="social" socialData={content.sections_data?.social} />
@@ -96,7 +88,6 @@ export const HomeView: React.FC = () => {
                             virtualTourData={content.sections_data?.virtual_tour}
                         />
                         <HomeQualiopiSection qualiopiData={content.sections_data?.qualiopi} />
-                        <HomePartnersSection partnersData={content.sections_data?.partners} />
                         <HomeSocialSection socialData={content.sections_data?.social} />
                     </>
                 )}

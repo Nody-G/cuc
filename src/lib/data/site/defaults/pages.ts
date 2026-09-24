@@ -27,8 +27,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       { id: 'about', name: 'Dossier Présentation & Piliers', order: 2, is_visible: true },
       { id: 'tournages', name: 'Tournages & Productions Cinéma', order: 3, is_visible: true },
       { id: 'qualiopi', name: 'Agrément Qualiopi & Financements', order: 4, is_visible: true },
-      { id: 'partners', name: 'Partenaires Studios & Labels', order: 5, is_visible: true },
-      { id: 'social', name: 'Réseaux Sociaux & Communauté', order: 6, is_visible: true },
+      { id: 'social', name: 'Réseaux Sociaux & Communauté', order: 5, is_visible: true },
     ],
     sections_data: {
       about: {

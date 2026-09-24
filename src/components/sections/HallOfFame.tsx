@@ -46,6 +46,19 @@ export const HallOfFame: React.FC = () => {
     [teamMembers]
   );
 
+  /**
+   * Référent de coordination de la vitrine « LES FILMS DOUBLÉS & COORDONNÉS PAR
+   * LE CUC » : Lucas Dollfus (fondateur). Sans lui, la vitrine retomberait sur
+   * tout le catalogue — la restriction est donc volontaire. Le reste de la
+   * filmographie CUC s'affiche au cas par cas sur la fiche de chaque coach.
+   */
+  const coordinator = useMemo(
+    () =>
+      teamMembers.find((member) => member.id === 'lucas-dollfus') ??
+      teamMembers.find((member) => member.name.toLowerCase().includes('dollfus')),
+    [teamMembers]
+  );
+
   // Fermeture des modales au clavier (Échap)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -99,7 +112,7 @@ export const HallOfFame: React.FC = () => {
         <CelebrityDoublesGallery onSelectCelebrity={setSelectedCelebrity} teamMembers={teamNames} />
 
         {/* SECTION FILMS : LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC */}
-        <CucFilmsShowcase className="mt-16" />
+        <CucFilmsShowcase className="mt-16" coordinator={coordinator} />
       </div>
 
       {/* Modale Acteurs doublés */}
