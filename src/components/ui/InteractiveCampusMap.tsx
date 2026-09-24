@@ -1,21 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
+import { Crosshair, Compass, Copy, Check } from 'lucide-react';
+import { TRAVEL_ROUTES } from './campus-map/campusMap.data';
 import {
-  Navigation,
-  Crosshair,
-  Compass,
-  Copy,
-  Check,
-} from 'lucide-react';
-import {
-  CAMPUS_POIS,
-  TRAVEL_ROUTES,
-  POI,
-} from './campus-map/campusMap.data';
-import {
-  getCampusPOIs,
   getSiteSettings,
   DEFAULT_SITE_SETTINGS,
   SiteSettings,
@@ -25,9 +14,6 @@ import { usePreviewSettings } from '@/lib/preview/use-preview-settings';
 import { cucSetting } from '@/lib/preview/cuc-chrome';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import { cucReach } from '@/lib/preview/cuc-field';
-import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
-import { applyPoiOverlay, applyPoiOverlays } from '@/lib/i18n/apply-poi-overlay';
-import { CampusRadarView } from './campus-map/CampusRadarView';
 import { CampusAppLaunchers } from './campus-map/CampusAppLaunchers';
 import { CampusTravelPlanner } from './campus-map/CampusTravelPlanner';
 
@@ -36,22 +22,9 @@ export const InteractiveCampusMap: React.FC = () => {
   /** Chrome commun : nom du campus affiché dans la barre d'état de la carte. */
   const chrome = useTranslations('commonChrome');
 
-  const [activeTab, setActiveTab] = useState<'radar' | 'map'>('radar');
-  const [pois, setPois] = useState<POI[]>(CAMPUS_POIS);
-  const [selectedPoi, setSelectedPoi] = useState<POI>(CAMPUS_POIS[0]);
   const [activeRoute, setActiveRoute] = useState<string>('paris');
   const [copied, setCopied] = useState<boolean>(false);
   const [settings, setSettings] = useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
-
-  /** Recharge les zones du campus (état initial + synchronisation Realtime). */
-  const loadPois = useCallback(() => {
-    getCampusPOIs().then((data) => {
-      if (data && data.length > 0) {
-        setPois(data);
-        setSelectedPoi((prev) => data.find((p) => p.id === prev.id) || data[0]);
-      }
-    });
-  }, []);
 
   /** Recharge les réglages (adresse du domaine, coordonnées du standard). */
   const loadSettings = useCallback(() => {
@@ -61,31 +34,14 @@ export const InteractiveCampusMap: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    loadPois();
     loadSettings();
-  }, [loadPois, loadSettings]);
+  }, [loadSettings]);
 
-  // Synchronisation Realtime Cockpit → Vitrine (zones du campus + réglages).
-  const reloadFromServer = useCallback(() => {
-    loadPois();
-    loadSettings();
-  }, [loadPois, loadSettings]);
-  useRealtimeRefresh(['site_campus_pois', 'site_settings'], reloadFromServer);
+  // Synchronisation Realtime Cockpit → Vitrine (réglages : adresse, standard).
+  useRealtimeRefresh(['site_settings'], loadSettings);
 
   /** Brouillon de réglages du Mode Studio : la surcharge locale prime. */
   const previewSettings = usePreviewSettings();
-
-  /**
-   * Noms, catégories et descriptions des zones du campus : DONNÉES de
-   * `site_campus_pois`, traduites par l'overlay `campus_poi` (semé par
-   * `scripts/seed_campus_pois_translations_en.mjs`), appliquées à l'affichage.
-   */
-  const poiOverlays = useEntityOverlays('campus_poi');
-  const localizedPois = useMemo(() => applyPoiOverlays(pois, poiOverlays), [pois, poiOverlays]);
-  const localizedSelectedPoi = useMemo(
-    () => applyPoiOverlay(selectedPoi, poiOverlays[selectedPoi.id]),
-    [selectedPoi, poiOverlays]
-  );
 
   const coordinates = '50.0909, 3.5374';
   /** Adresse servie par les réglages (`address`), éditable en place — jamais en dur. */
@@ -134,34 +90,8 @@ export const InteractiveCampusMap: React.FC = () => {
         {/* Left Column: Interactive Map / Radar View (8 cols) */}
         <div className="lg:col-span-8 p-4 sm:p-6 border-b lg:border-b-0 lg:border-r border-zinc-800 flex flex-col justify-between">
           <div>
-            {/* View Selector & Mode Switch */}
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setActiveTab('radar')}
-                  className={`px-3 py-1.5 text-xs font-mono-tech uppercase transition-all flex items-center gap-2 cursor-pointer ${activeTab === 'radar'
-                    ? 'bg-[#FFE500] text-black font-bold shadow-[0_0_15px_rgba(255,229,0,0.3)]'
-                    : 'bg-[#15151e] text-zinc-400 hover:text-white border border-zinc-800'
-                    }`}
-                >
-                  <Crosshair className="w-3.5 h-3.5" />
-                  <span>{t('radar')}</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveTab('map')}
-                  className={`px-3 py-1.5 text-xs font-mono-tech uppercase transition-all flex items-center gap-2 cursor-pointer ${activeTab === 'map'
-                    ? 'bg-[#FFE500] text-black font-bold shadow-[0_0_15px_rgba(255,229,0,0.3)]'
-                    : 'bg-[#15151e] text-zinc-400 hover:text-white border border-zinc-800'
-                    }`}
-                >
-                  <Navigation className="w-3.5 h-3.5" />
-                  <span>{t('roadMap')}</span>
-                </button>
-              </div>
-
-              {/* Copy GPS button */}
+            {/* Copie GPS — un seul affichage (vue satellite), plus de sélecteur. */}
+            <div className="flex items-center justify-end mb-4">
               <button
                 type="button"
                 onClick={() => copyToClipboard(coordinates)}
@@ -188,54 +118,42 @@ export const InteractiveCampusMap: React.FC = () => {
             </div>
 
             {/* View Content Area */}
-            <div className="relative w-full h-80 sm:h-96 md:h-[420px] bg-black border border-zinc-800 overflow-hidden group">
-              {activeTab === 'map' ? (
-                /* Vue satellite : imagerie aérienne Google Maps (`t=k`), sans
-                   filtre sombre — l'imagerie doit rester lisible telle quelle.
-                   Cette vue n'existe que sur la carte de la page contact. */
-                <div className="w-full h-full relative">
-                  <iframe
-                    title="Campus Univers Cascades — vue satellite"
-                    src="https://www.google.com/maps?q=50.0909,3.5374&t=k&z=17&output=embed"
-                    className="w-full h-full border-0"
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  />
-                  {/* Tactical Target Overlay — décoratif, mais il porte l'adresse
+            <div className="relative w-full h-80 sm:h-96 md:h-[420px] bg-black border border-zinc-800 overflow-hidden">
+              <div className="w-full h-full relative">
+                <iframe
+                  title="Campus Univers Cascades — vue satellite"
+                  src="https://www.google.com/maps?q=50.0909,3.5374&t=k&z=17&output=embed"
+                  className="w-full h-full border-0"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+                {/* Tactical Target Overlay — décoratif, mais il porte l'adresse
                       éditable : `cucReach()` rend le geste à ce seul texte. */}
-                  <div
-                    {...cucReach()}
-                    className="absolute top-4 left-4 bg-black/85 backdrop-blur-md border border-[#FFE500]/60 p-3 pointer-events-none max-w-xs"
-                  >
-                    <div className="flex items-center gap-2 text-[#FFE500] text-xs font-mono-tech font-bold mb-1">
-                      <Crosshair className="w-4 h-4 animate-spin-slow" />
-                      <span>{t('domain')}</span>
-                    </div>
-                    <p
-                      {...cucSetting('address')}
-                      className="text-[11px] font-tech text-zinc-300 leading-snug"
-                    >
-                      {fullAddress}
-                    </p>
-                    <div className="mt-1 text-[10px] font-mono-tech text-zinc-500">
-                      50°05&apos;27.2&quot;N 3°32&apos;14.6&quot;E
-                    </div>
+                <div
+                  {...cucReach()}
+                  className="absolute top-4 left-4 bg-black/85 backdrop-blur-md border border-[#FFE500]/60 p-3 pointer-events-none max-w-xs"
+                >
+                  <div className="flex items-center gap-2 text-[#FFE500] text-xs font-mono-tech font-bold mb-1">
+                    <Crosshair className="w-4 h-4 animate-spin-slow" />
+                    <span>{t('domain')}</span>
                   </div>
-
-                  {/* Adresse badge */}
-                  <div className="absolute bottom-3 right-3 bg-black/90 px-2 py-1 text-[10px] font-mono-tech text-zinc-400 border border-zinc-800 flex items-center gap-1.5">
-                    <Compass className="w-3 h-3 text-[#FFE500]" />
-                    <span {...cucSetting('address')}>{fullAddress}</span>
+                  <p
+                    {...cucSetting('address')}
+                    className="text-[11px] font-tech text-zinc-300 leading-snug"
+                  >
+                    {fullAddress}
+                  </p>
+                  <div className="mt-1 text-[10px] font-mono-tech text-zinc-500">
+                    50°05&apos;27.2&quot;N 3°32&apos;14.6&quot;E
                   </div>
                 </div>
-              ) : (
-                /* Tactical Radar Layout for the Campus Domain */
-                <CampusRadarView
-                  pois={localizedPois}
-                  selectedPoi={localizedSelectedPoi}
-                  onSelectPoi={setSelectedPoi}
-                />
-              )}
+
+                {/* Adresse badge */}
+                <div className="absolute bottom-3 right-3 bg-black/90 px-2 py-1 text-[10px] font-mono-tech text-zinc-400 border border-zinc-800 flex items-center gap-1.5">
+                  <Compass className="w-3 h-3 text-[#FFE500]" />
+                  <span {...cucSetting('address')}>{fullAddress}</span>
+                </div>
+              </div>
             </div>
           </div>
 
