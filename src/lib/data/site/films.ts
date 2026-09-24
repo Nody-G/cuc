@@ -8,7 +8,22 @@ import { DOUBLED_CELEBRITIES } from '@/data/celebrities';
 import { OFFICIAL_FILM_BANNERS, FilmBanner } from '@/data/filmBanners';
 import { FilmCredit, DoubledCelebrity } from '@/types';
 import { normalizeFilmCategory } from '@/lib/film-category';
+import { creditTitleKey } from '@/lib/credit-title';
 import { getSupabaseClient } from './client';
+
+/**
+ * Réalisateurs de référence du catalogue éditorial, indexés par titre normalisé.
+ *
+ * Repli de lecture : des fiches importées en base n'ont pas de réalisateur. On
+ * reprend alors la valeur **vérifiée** du catalogue du dépôt (aucune invention) —
+ * sinon le nom du réalisateur manquait sur les jaquettes et dans la fiche film.
+ */
+const STATIC_DIRECTORS = new Map(
+  FILMOGRAPHY_CREDITS.filter((f) => !!f.director).map((f) => [
+    creditTitleKey(f.title),
+    f.director as string,
+  ])
+);
 
 /**
  * Récupère la filmographie.
@@ -48,7 +63,7 @@ export async function getFilms(): Promise<FilmCredit[]> {
       // Garde-fou de lecture : tout reliquat de l'ancien vocabulaire marketing
       // en base est converti (ou vidé) — il ne peut donc jamais atteindre l'UI.
       category: normalizeFilmCategory(f.category),
-      director: f.director,
+      director: f.director || STATIC_DIRECTORS.get(creditTitleKey(f.title)),
       stuntRoles: f.stunt_roles || '',
       description: f.description || '',
       doubledActors: f.doubled_actors,

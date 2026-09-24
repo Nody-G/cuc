@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
-import { Award, Film, Maximize2, ShieldCheck, Users } from 'lucide-react';
+import { Award, Film, ShieldCheck, Users } from 'lucide-react';
 import { type CucMicroAttributes } from '@/lib/preview/cuc-micro';
 
 /**
@@ -127,13 +127,6 @@ export const FilmCard: React.FC<FilmCardProps> = ({
                             <span {...featured.micro}>{featured.label}</span>
                         </span>
                     ) : null}
-
-                    {/* Affordance d'ouverture — icône seule, aucun libellé */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
-                        <span aria-hidden="true" className="w-8 h-8 bg-[#FFE500] text-black flex items-center justify-center shadow-xl">
-                            <Maximize2 className="w-4 h-4" />
-                        </span>
-                    </div>
                 </div>
 
                 {/* Rôle & titre */}

@@ -20,7 +20,7 @@ interface TournagesPillarsCardProps {
     ctaProduction: string;
     ctaCatalog: string;
     filmsByTitle: Map<string, FilmCredit>;
-    captionFor: (film?: FilmCredit) => string | undefined;
+    directorFor: (film?: FilmCredit) => string | undefined;
     onOpenFilm: (film: FilmCredit) => void;
 }
 
@@ -41,7 +41,7 @@ export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
     ctaProduction,
     ctaCatalog,
     filmsByTitle,
-    captionFor,
+    directorFor,
     onOpenFilm,
 }) => (
     <StudioParallaxCard maxTilt={2}>
@@ -130,7 +130,7 @@ export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
                                         }
                                     }
                                     sizes="(max-width: 1024px) 50vw, 20vw"
-                                    caption={captionFor(match)}
+                                    footer={directorFor(match)}
                                     onOpen={match ? () => onOpenFilm(match) : undefined}
                                     href={match ? undefined : '/cuc-team-cascadeur#filmographie'}
                                 />

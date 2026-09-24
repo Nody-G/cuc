@@ -5,8 +5,6 @@ import { useTranslations } from 'next-intl';
 import { getFilms } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { creditTitleKey } from '@/lib/credit-title';
-import { summarizeFilmRoleSet } from '@/lib/credit-role';
-import { renderRoleSet } from '@/lib/i18n/role-labels';
 import type { FilmCredit } from '@/types';
 import type { HomeTournagesData } from './home-tournages-data';
 
@@ -35,7 +33,8 @@ export interface HomeTournagesController {
     filmsByTitle: Map<string, FilmCredit>;
     selectedFilm: FilmCredit | null;
     setSelectedFilm: React.Dispatch<React.SetStateAction<FilmCredit | null>>;
-    captionFor: (film?: FilmCredit) => string | undefined;
+    /** Pied de jaquette : nom du réalisateur (« Réal. X »), absent si inconnu. */
+    directorFor: (film?: FilmCredit) => string | undefined;
 }
 
 /**
@@ -91,17 +90,11 @@ export function useHomeTournages({ tournagesData }: UseHomeTournagesArgs): HomeT
     );
 
     /**
-     * Légende d'une jaquette : synthèse des rôles **réellement enregistrés** pour
-     * cette production (`metadata.cuc_team_roles`). Les libellés écrits en dur
-     * (« Cascadeurs CUC (tournage Paris) », « Équipe cascades CUC ») sont retirés :
-     * une auto-référence au campus n'est pas un rôle. Sans rôle en base, aucune
-     * légende n'est affichée — une affirmation fausse serait pire qu'une absence.
+     * Pied de jaquette : nom du réalisateur, comme sur la vitrine TOURNAGE et la
+     * fiche coach. Omis si la donnée n'est pas disponible dans le catalogue.
      */
-    const captionFor = (film?: FilmCredit): string | undefined => {
-        if (!film?.cuc_team_roles) return undefined;
-        const label = renderRoleSet(summarizeFilmRoleSet(film.cuc_team_roles), tTeam);
-        return label === '' ? undefined : label;
-    };
+    const directorFor = (film?: FilmCredit): string | undefined =>
+        film?.director ? tTeam('directorShort', { name: film.director }) : undefined;
 
-    return { labels, films, filmsByTitle, selectedFilm, setSelectedFilm, captionFor };
+    return { labels, films, filmsByTitle, selectedFilm, setSelectedFilm, directorFor };
 }
