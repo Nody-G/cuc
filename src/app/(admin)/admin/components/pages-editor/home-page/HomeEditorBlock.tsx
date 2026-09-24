@@ -1,5 +1,5 @@
 import React from 'react';
-import type { HomeBlockDef } from './home-blocks';
+import type { HomeBlockDef } from './home-blocks.types';
 import { HomeBlockFieldControl } from './HomeBlockFieldControl';
 
 /**

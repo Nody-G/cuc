@@ -12,7 +12,7 @@ import { CoachNotFound } from './coach-detail/CoachNotFound';
 import { CoachOtherMembers } from './coach-detail/CoachOtherMembers';
 import { CoachPortrait } from './coach-detail/CoachPortrait';
 import { CoachProfile } from './coach-detail/CoachProfile';
-import { createCoachFilmRoleResolver } from './coach-detail/coach-films';
+import { createCoachFilmRoleResolver } from '@/lib/coach-films';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import { useCoachDetailData } from './coach-detail/useCoachDetailData';
 

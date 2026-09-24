@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image as ImageIcon } from 'lucide-react';
-import type { HomeFieldDef } from './home-blocks';
+import type { HomeFieldDef } from './home-blocks.types';
 import { LinkField } from '../LinkField';
 
 const INPUT_CLASS =
@@ -25,10 +25,13 @@ export const HomeBlockFieldControl: React.FC<HomeBlockFieldControlProps> = ({
     /**
      * Attribut d'édition inline : permet à l'aperçu live de retrouver l'input
      * correspondant lorsqu'un élément est cliqué dans l'iframe.
+     *
+     * Posé sur **tous** les contrôles — texte, zone de texte, média et lien —
+     * sinon le clic d'inspection dans la page n'aurait rien à focaliser pour les
+     * images et les liens (ils sont pourtant cliquables là-bas).
      */
-    const fieldAttr = field.liveEdit
-        ? { 'data-cuc-field': `sections_data.${block}.${field.key}` }
-        : {};
+    const fieldPath = `sections_data.${block}.${field.key}`;
+    const fieldAttr = field.liveEdit ? { 'data-cuc-field': fieldPath } : {};
 
     if (field.media) {
         return (
@@ -40,10 +43,11 @@ export const HomeBlockFieldControl: React.FC<HomeBlockFieldControlProps> = ({
                         value={value}
                         onChange={(e) => onChange(e.target.value)}
                         className={INPUT_CLASS}
+                        {...fieldAttr}
                     />
                     <button
                         type="button"
-                        onClick={() => onPickMedia(`sections_data.${block}.${field.key}`)}
+                        onClick={() => onPickMedia(fieldPath)}
                         className="shrink-0 p-2 rounded bg-white/10 text-white hover:bg-white/20"
                         title="Choisir dans la médiathèque"
                     >

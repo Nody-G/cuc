@@ -111,6 +111,20 @@ export interface SiteTrafficReport {
     geography: GeoMetric[];
     funnels: ConversionFunnel[];
     realtimeVisitors: RealtimeVisitor[];
+    /**
+     * Origine des volumes.
+     *
+     * `modelled` = **modèle de démonstration** bâti sur des ratios de référence
+     * (aucune mesure d'audience n'est collectée côté serveur aujourd'hui) ;
+     * `measured` = relevés réels. L'écran doit l'afficher : présenter un modèle
+     * comme une mesure était le défaut corrigé le 2026-09-24.
+     */
+    dataSource: 'measured' | 'modelled';
+    /**
+     * Vrai quand `realtimeVisitors` ne contient **que** des sessions réellement
+     * observées. Aucun visiteur n'est fabriqué pour « remplir » le flux.
+     */
+    liveIsMeasured: boolean;
 }
 
 /** Événement de visite émis par le tracker vitrine. */

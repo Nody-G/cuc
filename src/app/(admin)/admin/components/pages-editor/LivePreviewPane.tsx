@@ -89,7 +89,7 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
 }) => {
     const pane = useLivePreviewPane({ previewUrl });
 
-    const { iframeRef, isReady, hoveredField } = usePreviewBridge({
+    const { iframeRef, isReady, hoveredField, reachability } = usePreviewBridge({
         draft,
         settings,
         microcopy,
@@ -107,6 +107,23 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
     /** Textes hors contenu de page modifiés dans l'aperçu (chrome + entités). */
     const chromeChanges =
         Object.keys(settings).length + Object.keys(microcopy).length + Object.keys(entities).length;
+
+    /**
+     * Diagnostic d'atteignabilité mesuré dans la page réelle par la sonde de
+     * l'aperçu : il liste noir sur blanc les textes annoncés éditables que le
+     * clic n'atteint pas — l'administrateur n'a plus à deviner pourquoi « rien
+     * ne se passe ».
+     */
+    const unreachable = reachability?.issues ?? [];
+    const unreachableDetail = unreachable
+        .map(
+            (issue) =>
+                `${issue.path} (${issue.kind}) — ${issue.reason === 'pointer-events'
+                    ? 'geste coupé par un calque décoratif'
+                    : 'recouvert par un autre élément'
+                }`
+        )
+        .join('\n');
 
     return (
         <div
@@ -153,6 +170,25 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
                             title="Des réglages ou micro-textes du site (CTA, coordonnées, libellés…) ont été modifiés dans l’aperçu : « Enregistrer » les publie."
                         >
                             {chromeChanges} modification(s) du site
+                        </span>
+                    )}
+                    {unreachable.length > 0 && (
+                        <span
+                            className="shrink-0 px-1.5 py-0.5 rounded border border-amber-400/50 text-amber-300 font-bold"
+                            title={`Textes annoncés éditables que le clic n’atteint pas :\n${unreachableDetail}`}
+                        >
+                            {unreachable.length} champ(s) non cliquable(s)
+                        </span>
+                    )}
+                    {reachability && unreachable.length === 0 && reachability.probed > 0 && (
+                        <span
+                            className="shrink-0 px-1.5 py-0.5 rounded border border-white/10 text-zinc-500"
+                            title={`Sonde d’atteignabilité : ${reachability.probed} champ(s) mesuré(s) dans la fenêtre, tous cliquables.${reachability.skipped > 0
+                                    ? ` ${reachability.skipped} hors fenêtre — faites défiler pour les mesurer.`
+                                    : ''
+                                }`}
+                        >
+                            {reachability.probed} champ(s) cliquable(s)
                         </span>
                     )}
                     {hoveredField && (

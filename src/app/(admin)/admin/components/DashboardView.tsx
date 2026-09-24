@@ -61,7 +61,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Module Candidatures & Demandes */}
         <DashboardModuleCard
-          label="Candidatures & Devis"
+          label="Contact"
           icon={Inbox}
           iconClass="bg-amber-500/10 text-[#FFE500]"
           subtitle="Dossiers & demandes de contact"

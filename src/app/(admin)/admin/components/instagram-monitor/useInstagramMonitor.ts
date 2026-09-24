@@ -1,9 +1,14 @@
 'use client';
 
 import React from 'react';
-import { INITIAL_INSTAGRAM_LEADERBOARD, calculateNationalRank } from '@/data/instagram-leaderboard';
+import { INITIAL_INSTAGRAM_LEADERBOARD } from '@/data/instagram-leaderboard';
 import { ALL_INSTAGRAM_REELS } from '@/data/instagram-reels';
 import { calculateGrowthMilestone, calculateReelsAggregates } from '@/lib/instagram/instagram-service';
+import {
+    neighbourAbove,
+    neighbourBelow,
+    rankAccountsByFollowers,
+} from '@/lib/instagram/instagram-ranking';
 import type {
     InstagramAccountStat,
     InstagramMetaApiConfig,
@@ -31,42 +36,65 @@ export function useInstagramMonitor(showToast: (msg: string) => void) {
         instagramAccountId: '',
     });
     const [newAccountInput, setNewAccountInput] = React.useState('');
-    const [lastSyncTime, setLastSyncTime] = React.useState<string>(new Date().toLocaleTimeString('fr-FR'));
+    /**
+     * Heure du dernier relevé réellement effectué. Vide à l'ouverture : afficher
+     * l'heure de montage du composant faisait croire à une synchronisation qui
+     * n'avait pas eu lieu (défaut corrigé le 2026-09-24).
+     */
+    const [lastSyncTime, setLastSyncTime] = React.useState<string>('');
 
-    const cucAccount = React.useMemo(() => {
-        return leaderboard.find((a) => a.isCuc) || leaderboard[8];
-    }, [leaderboard]);
+    /**
+     * Comparatif trié, **rang dérivé de la position** (`rankAccountsByFollowers`).
+     *
+     * Aucun rang n'est stocké ni interpolé : c'était le défaut corrigé le
+     * 2026-09-24 — une échelle écrite à la main donnait au CUC un « rang national »
+     * qui contredisait l'ordre affiché et sautait de 138 à 122 selon le palier
+     * d'abonnés, alors que les autres lignes ne bougeaient pas.
+     */
+    const rankedLeaderboard = React.useMemo(() => rankAccountsByFollowers(leaderboard), [leaderboard]);
 
-    // Vrai rang national dynamique du CUC
-    const cucNationalRank = React.useMemo(() => {
-        return calculateNationalRank(cucAccount.followersCount);
-    }, [cucAccount.followersCount]);
+    const cucUsername = React.useMemo(
+        () => leaderboard.find((a) => a.isCuc)?.username ?? 'campus.univers.cascades',
+        [leaderboard]
+    );
 
-    // Classement complet trié par abonnés décroissants
-    const sortedLeaderboard = React.useMemo(() => {
-        return [...leaderboard].sort((a, b) => b.followersCount - a.followersCount);
-    }, [leaderboard]);
+    const cucAccount = React.useMemo(
+        () => rankedLeaderboard.find((a) => a.isCuc) ?? rankedLeaderboard[0],
+        [rankedLeaderboard]
+    );
 
-    // Concurrent direct juste au-dessus et poursuivant direct
+    /**
+     * Rang du CUC **dans ce comparatif** (et non un rang national, faute de source
+     * mesurée) : il devient faux de le présenter autrement.
+     */
+    const cucNationalRank = cucAccount?.comparativeRank ?? 0;
+
+    /**
+     * Vrai seulement quand la clé Meta Graph est configurée : les nombres
+     * affichés sont alors synchronisés, sinon ce sont des **repères saisis** et
+     * l'interface comme les messages doivent le dire.
+     */
+    const isSynced = Boolean(metaConfig.enabled && metaConfig.accessToken);
+
+    // Concurrent direct juste au-dessus et poursuivant direct, écarts réels.
     const { aheadAccount, behindAccount, deltaAhead, deltaBehind } = React.useMemo(() => {
-        const cucIdx = sortedLeaderboard.findIndex((a) => a.isCuc);
-        const ahead = cucIdx > 0 ? sortedLeaderboard[cucIdx - 1] : null;
-        const behind = cucIdx >= 0 && cucIdx < sortedLeaderboard.length - 1 ? sortedLeaderboard[cucIdx + 1] : null;
+        const above = neighbourAbove(rankedLeaderboard, cucUsername);
+        const below = neighbourBelow(rankedLeaderboard, cucUsername);
         return {
-            aheadAccount: ahead,
-            behindAccount: behind,
-            deltaAhead: ahead ? ahead.followersCount - cucAccount.followersCount : 0,
-            deltaBehind: behind ? cucAccount.followersCount - behind.followersCount : 0,
+            aheadAccount: above.account,
+            behindAccount: below.account,
+            deltaAhead: above.delta,
+            deltaBehind: below.delta,
         };
-    }, [sortedLeaderboard, cucAccount.followersCount]);
+    }, [rankedLeaderboard, cucUsername]);
 
-    // Classement filtré selon le mode choisi
+    // Classement filtré selon le mode choisi (les rangs suivent la liste triée)
     const filteredLeaderboard = React.useMemo(() => {
         if (filterMode === 'top_france') {
-            return sortedLeaderboard.filter((a) => a.country === 'FR').slice(0, 15);
+            return rankedLeaderboard.filter((a) => a.country === 'FR').slice(0, 15);
         }
         if (filterMode === 'action_stunt') {
-            return sortedLeaderboard.filter((a) =>
+            return rankedLeaderboard.filter((a) =>
                 a.isCuc ||
                 a.category?.includes('Cascade') ||
                 a.category?.includes('Parkour') ||
@@ -76,13 +104,13 @@ export function useInstagramMonitor(showToast: (msg: string) => void) {
             );
         }
         if (filterMode === 'direct_context') {
-            const cucIdx = sortedLeaderboard.findIndex((a) => a.isCuc);
+            const cucIdx = rankedLeaderboard.findIndex((a) => a.isCuc);
             const start = Math.max(0, cucIdx - 10);
-            const end = Math.min(sortedLeaderboard.length, cucIdx + 11);
-            return sortedLeaderboard.slice(start, end);
+            const end = Math.min(rankedLeaderboard.length, cucIdx + 11);
+            return rankedLeaderboard.slice(start, end);
         }
-        return sortedLeaderboard;
-    }, [sortedLeaderboard, filterMode]);
+        return rankedLeaderboard;
+    }, [rankedLeaderboard, filterMode]);
 
     // Jalons et métriques cumulées
     const milestone = React.useMemo(() => {
@@ -103,7 +131,9 @@ export function useInstagramMonitor(showToast: (msg: string) => void) {
                 prev.map((acc) => (acc.isCuc ? { ...res.data!, isCuc: true } : acc))
             );
             setLastSyncTime(new Date().toLocaleTimeString('fr-FR'));
-            showToast(`Abonnés CUC actualisés : ${res.data.followersFormatted} (Rang #${calculateNationalRank(res.data.followersCount)} France)`);
+            showToast(
+                `Abonnés CUC relevés : ${res.data.followersFormatted}${isSynced ? ' (API Meta)' : ' (relevé public, clé Meta non configurée)'}`
+            );
         } else {
             showToast(res.error || 'Erreur lors du rafraîchissement CUC.');
         }
@@ -115,12 +145,23 @@ export function useInstagramMonitor(showToast: (msg: string) => void) {
         const usernames = leaderboard.map((a) => a.username);
         const res = await refreshLeaderboardBatchAction(usernames, metaConfig);
         setIsRefreshingLeaderboard(false);
-        if (res.success && res.results.length > 0) {
-            setLeaderboard(res.results);
+
+        // Fusion par pseudo : un compte dont le relevé échoue garde sa ligne
+        // précédente au lieu de disparaître du comparatif.
+        const fresh = new Map(res.results.map((stat) => [stat.username, stat]));
+        const merged = leaderboard.map((account) => fresh.get(account.username) ?? account);
+        const updatedCount = fresh.size;
+
+        if (updatedCount > 0) {
+            setLeaderboard(merged);
             setLastSyncTime(new Date().toLocaleTimeString('fr-FR'));
-            showToast(`Classement actualisé en direct avec données Instagram !`);
+            showToast(
+                isSynced
+                    ? `${updatedCount} compte(s) synchronisé(s) via l’API Meta Graph.`
+                    : `${updatedCount} compte(s) relevé(s) publiquement · repères mis à jour (clé Meta non configurée).`
+            );
         } else {
-            showToast('Erreur lors du rafraîchissement du classement.');
+            showToast('Aucun relevé n’a abouti : le comparatif affiché est inchangé.');
         }
     };
 
@@ -164,11 +205,11 @@ export function useInstagramMonitor(showToast: (msg: string) => void) {
                 prev.map((r) =>
                     r.id === id
                         ? {
-                              ...r,
-                              likes: res.data?.likes || r.likes,
-                              viewsFormatted: res.data?.viewsFormatted || r.viewsFormatted,
-                              lastUpdated: new Date().toISOString(),
-                          }
+                            ...r,
+                            likes: res.data?.likes || r.likes,
+                            viewsFormatted: res.data?.viewsFormatted || r.viewsFormatted,
+                            lastUpdated: new Date().toISOString(),
+                        }
                         : r
                 )
             );
@@ -191,10 +232,10 @@ export function useInstagramMonitor(showToast: (msg: string) => void) {
                     prev.map((item) =>
                         item.id === r.id
                             ? {
-                                  ...item,
-                                  likes: res.data?.likes || item.likes,
-                                  lastUpdated: new Date().toISOString(),
-                              }
+                                ...item,
+                                likes: res.data?.likes || item.likes,
+                                lastUpdated: new Date().toISOString(),
+                            }
                             : item
                     )
                 );
@@ -209,14 +250,15 @@ export function useInstagramMonitor(showToast: (msg: string) => void) {
         setIsMetaModalOpen(false);
         showToast(
             cfg.enabled && cfg.accessToken
-                ? 'Clés Meta Graph API activées pour la synchronisation !'
-                : 'Configuration Meta API enregistrée (Mode Scraper actif).'
+                ? 'Clés Meta Graph API activées : les nombres affichés sont désormais synchronisés.'
+                : 'Configuration enregistrée : sans clé Meta active, les nombres restent des repères.'
         );
     };
 
     return {
         cucAccount,
         cucNationalRank,
+        isSynced,
         aheadAccount,
         behindAccount,
         deltaAhead,

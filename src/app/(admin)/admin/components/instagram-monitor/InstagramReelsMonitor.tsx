@@ -14,6 +14,8 @@ interface InstagramReelsMonitorProps {
     refreshingReelId: string | null;
     onRefreshAll: () => void;
     onRefreshSingle: (shortcode: string, id: string) => void;
+    /** Vrai quand la clé Meta Graph est active : sinon les vues sont des repères saisis. */
+    isSynced: boolean;
 }
 
 const PAGE_SIZE = 18;
@@ -24,6 +26,7 @@ export const InstagramReelsMonitor: React.FC<InstagramReelsMonitorProps> = ({
     refreshingReelId,
     onRefreshAll,
     onRefreshSingle,
+    isSynced,
 }) => {
     const [search, setSearch] = React.useState('');
     const [selectedCategory, setSelectedCategory] = React.useState('all');
@@ -102,6 +105,7 @@ export const InstagramReelsMonitor: React.FC<InstagramReelsMonitorProps> = ({
                 onRefreshAll={onRefreshAll}
                 onExportCsv={handleExportCsv}
                 selectedCategory={selectedCategory}
+                isSynced={isSynced}
             />
 
             {/* Barre de filtres & recherche & tri */}

@@ -22,6 +22,7 @@ import {
     type PreviewListCommand,
     type PreviewMessage,
     type PreviewMode,
+    type PreviewReachabilityReport,
 } from './preview-protocol-core';
 import type { SitePageContent } from '@/lib/data/site-service';
 import { isEntityRef } from './entity-ref';
@@ -67,6 +68,21 @@ function isStringRecord(value: unknown): value is Record<string, string> {
     return Object.values(value).every((entry) => typeof entry === 'string');
 }
 
+/** Rapport d'atteignabilité : forme stricte, aucune entrée libre. */
+function isReachabilityReport(value: unknown): value is PreviewReachabilityReport {
+    if (!isRecord(value)) return false;
+    if (typeof value.probed !== 'number' || !Number.isFinite(value.probed)) return false;
+    if (typeof value.skipped !== 'number' || !Number.isFinite(value.skipped)) return false;
+    if (!Array.isArray(value.issues)) return false;
+    return value.issues.every(
+        (issue) =>
+            isRecord(issue) &&
+            isNonEmptyString(issue.path) &&
+            typeof issue.kind === 'string' &&
+            (issue.reason === 'pointer-events' || issue.reason === 'covered')
+    );
+}
+
 /** Vrai si la valeur est un message v2 strictement valide. */
 export function isPreviewMessage(value: unknown): value is PreviewMessage {
     if (!isRecord(value)) return false;
@@ -106,6 +122,8 @@ export function isPreviewMessage(value: unknown): value is PreviewMessage {
             );
         case 'media-commit':
             return isNonEmptyString(value.field) && isNonEmptyString(value.url);
+        case 'fields-audit':
+            return isReachabilityReport(value.payload);
         default:
             return false;
     }

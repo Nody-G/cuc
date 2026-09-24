@@ -351,6 +351,8 @@ const FAQ = [
   { q: 'Que se passe-t-il sur un téléphone ?', a: "Tout le site est conçu d'abord pour le mobile : les jaquettes de films passent en grille compacte, les menus se replient, un bouton d'appel direct apparaît en bas d'écran. Le plan 3D et la visite 360° fonctionnent aussi au doigt." },
   { q: 'Les chiffres de ce dossier sont-ils figés ?', a: "Non : ce dossier est régénéré à la demande, directement depuis la base de données. Chaque nouvelle version reflète l'état réel du site au jour de sa génération." },
   { q: 'Et si je veux un état des lieux technique complet ?', a: "Un rapport technique détaillé existe en parallèle de ce dossier : structure du code, performances, sécurité, référencement, qualité des liens et des traductions. Il est mis à jour avec la même méthode." },
+  { q: "Combien coûte l'exploitation du site, chaque mois ?", a: "Deux abonnements seulement : l'hébergement du site et la base de données avec ses médias. Le site n'utilise aucune fonctionnalité payante de Vercel : les pages sont préparées à l'avance, les images sont allégées automatiquement et aucun traitement planifié n'est nécessaire. L'offre gratuite de Vercel suffit donc techniquement ; son règlement la réserve à un usage non commercial, point à confirmer pour une structure qui facture des formations. La base de données, elle, exige une offre payante : les sauvegardes quotidiennes automatiques et la marge d'espace sont indispensables à un catalogue de cette taille. Le détail est au chapitre 9." },
+  { q: 'Le site tiendra-t-il si un reportage provoque un pic de visites ?', a: "Oui, et pour une raison simple : les pages du site sont générées à l'avance et servies depuis un cache réparti mondialement, elles ne sont pas recalculées à chaque visite. Un pic de lecture n'atteint donc pas la base de données, qui n'est sollicitée que par le Cockpit. Le suivi de fréquentation et les mesures de vitesse de chargement sont en place pour le vérifier sur des chiffres réels." },
 ];
 
 const PRACTICES = [
@@ -449,9 +451,36 @@ const rlsOn = metrics?.database?.rlsOn ?? dbState?.rlsOn ?? 0;
 const realtimeTables = metrics?.database?.realtimeTables ?? dbState?.realtimePublication?.length ?? 0;
 const pageWeights = metrics?.routes?.pageWeights ?? null;
 const bundleBytes = metrics?.bundle?.staticChunks ?? null;
-const tests = metrics?.tests ?? null;
+/**
+ * Le rapport de métriques range les tests sous `code.tests` ; la lecture racine
+ * seule renvoyait `null` en silence, et le dossier se rabattait sur un texte
+ * générique « des contrôles vérifient… » au lieu du nombre réellement mesuré.
+ * Défaut corrigé le 2026-09-24.
+ */
+const tests = metrics?.tests ?? metrics?.code?.tests ?? null;
 const securityHeaders = metrics?.security?.headers ?? [];
 const i18n = metrics?.i18n ?? null;
+
+/* ------------------------------------------------------------------ */
+/* Hébergement & exploitation : uniquement des usages mesurés          */
+/* ------------------------------------------------------------------ */
+
+/** Somme des tailles de tables relevées dans le rapport de métriques. */
+const dbTableRows = Array.isArray(metrics?.database?.tables) ? metrics.database.tables : [];
+const dbAppBytes = dbTableRows.reduce((a, r) => a + (Number(r.bytes) || 0), 0);
+const dbAppRows = dbTableRows.reduce((a, r) => a + (Number(r.rows) || 0), 0);
+
+/**
+ * Médias : mesure en direct si disponible, sinon repli sur le dernier
+ * rapport de métriques. Les plafonds cités sont nos propres garde-fous
+ * (`npm run audit:quotas`), pas des limites commerciales supposées.
+ */
+const mediaTotals = storageBytes
+  ? { bytes: storageBytes, files: storageFiles }
+  : {
+    bytes: (metrics?.database?.storage ?? []).reduce((a, s) => a + (Number(s.bytes) || 0), 0),
+    files: (metrics?.database?.storage ?? []).reduce((a, s) => a + (Number(s.files) || 0), 0),
+  };
 
 const decadeRows = live.filmsByDecade.map((r) => ({ label: `${r.decade}s`, value: r.n }));
 const coachRows = live.topCoaches.map((r) => ({ label: r.name, value: r.n }));
@@ -680,6 +709,86 @@ const techTable = `
     <thead><tr><th>Technologie</th><th>Son rôle dans votre application</th></tr></thead>
     <tbody>${TECH.map((x) => `<tr><td><code>${esc(x.name)}</code></td><td>${esc(x.role)}</td></tr>`).join('')}</tbody>
   </table>`;
+
+const hostingKpis = [
+  dbAppBytes
+    ? kpiHtml(mo(dbAppBytes), 'base de données', `${nf(dbAppRows)} enregistrements mesurés`)
+    : '',
+  mediaTotals.bytes
+    ? kpiHtml(mo(mediaTotals.bytes), 'médias hébergés', `${nf(mediaTotals.files)} fichiers allégés pour le web`)
+    : '',
+  kpiHtml('0 €', 'hébergement du site', 'offre gratuite (Hobby)'),
+]
+  .filter(Boolean)
+  .join('');
+
+const hostingBlock = `
+    <h3>Où vit votre site, et ce que cela coûte <span class="meta">(usages mesurés à la génération de ce dossier)</span></h3>
+    <p>
+      Deux services, deux rôles. <strong>Vercel</strong> héberge le site et le diffuse depuis un réseau de serveurs répartis dans le monde ;
+      <strong>Supabase</strong> héberge la base de données, les médias et la synchronisation des modifications faites dans le Cockpit.
+    </p>
+    <div class="kpis">${hostingKpis}</div>
+    <table>
+      <thead><tr><th>Poste</th><th>Ce que cela couvre</th><th>Coût mensuel</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Hébergement du site</strong><br/><span class="meta">Vercel</span></td>
+          <td>
+            Diffusion des pages depuis le cache : elles sont préparées à l'avance, allégées pour les téléphones et servies sans recalcul.
+            Aucune fonctionnalité payante n'est utilisée par le projet : ni tâche planifiée, ni fonction de longue durée, ni environnement réservé.
+          </td>
+          <td><strong>Offre gratuite (Hobby)</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Base de données et médias</strong><br/><span class="meta">Supabase</span></td>
+          <td>
+            Contenus, filmographies, traductions, affiches et documents. Les sauvegardes automatiques quotidiennes et la marge d'espace
+            sont indispensables à un catalogue de ${nf(t['site_films'] ?? 570)} films et de ${nf(mediaTotals.files)} fichiers.
+          </td>
+          <td><strong>≈ 25 $ / mois (offre Pro)</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="meta">
+      Deux règles accompagnent ce choix. D'abord, le règlement de l'offre gratuite de Vercel la réserve à un usage non commercial :
+      pour une structure qui facture des formations, ce point doit être confirmé auprès de Vercel ; s'il n'est pas accordé, l'offre professionnelle
+      représente environ 20 $ par mois. Ensuite, un contrôle automatique (<code>npm run audit:quotas</code>) vérifie à chaque publication que la base
+      reste sous 200 Mo et les médias sous 150 Mo, afin qu'aucune dérive de stockage ne passe inaperçue.
+    </p>`;
+
+/**
+ * Résistance du site : uniquement des contrôles réellement exécutés, avec leur
+ * résultat. Aucun score composite, aucune note inventée.
+ */
+const routesTotal = metrics?.routes?.total ?? null;
+const resilienceRows = [
+  tests?.available
+    ? {
+      label: 'Vérifications automatiques réussies',
+      value: tests.passed,
+      display: `${nf(tests.passed)} sur ${nf(tests.total)}`,
+    }
+    : null,
+  routesTotal
+    ? { label: 'Routes publiques et Cockpit vérifiées', value: routesTotal, display: nf(routesTotal) }
+    : null,
+  rlsOn ? { label: 'Espaces de données sous règles d’accès', value: rlsOn, display: nf(rlsOn) } : null,
+  securityHeaders.length
+    ? { label: 'En-têtes de sécurité actifs', value: securityHeaders.length, display: nf(securityHeaders.length) }
+    : null,
+].filter(Boolean);
+
+const resilienceBlock = resilienceRows.length
+  ? `
+    <h3>La résistance du site, chiffrée <span class="meta">(contrôles exécutés avant chaque mise en ligne)</span></h3>
+    ${barChart(resilienceRows, { color: '#81C784' })}
+    <p class="meta">
+      Ces vérifications passent <strong>avant</strong> publication : liens morts, traductions manquantes, poids des pages,
+      conformité des zones éditables, historique des versions. Un échec bloque la mise en ligne — c'est ce qui garantit
+      qu'aucune page ne parte en production avec un contenu incomplet.
+    </p>`
+  : '';
 
 const mechCardsHtml = MECHANISMS.map(featCard).join('');
 const workflowHtml = WORKFLOWS.map(featCard).join('');
@@ -1075,6 +1184,8 @@ const html = `<!DOCTYPE html>
     <p class="meta">Les deux pages les plus « lourdes » sont les galeries de films — logique : elles affichent le catalogue complet. Les autres tiennent dans un dixième de seconde.</p>`
     : ''
   }
+${hostingBlock}
+${resilienceBlock}
 
     <h3>Les garanties qui entourent votre site</h3>
     <div class="feat-grid">${guaranteesHtml}</div>
@@ -1174,7 +1285,7 @@ fs.writeFileSync(OUT, html, 'utf8');
 
 console.log('=== Dossier de présentation client généré (v4) ===');
 console.log(`Sections : 12 · accordéons : ${PUBLIC_PAGES.length + COCKPIT_APPS.length + GLOSSARY.length + FAQ.length + 1}`);
-console.log(`Graphiques : contenus(${contentRows.length}) · films(${filmsByCategory.length}) · sessions(${sessionsByStatus.length}) · décennies(${decadeRows.length}) · coachs(${coachRows.length}) · partenaires(${partnersRows.length}) · complétude(${q ? 3 : 0}) · traductions(${translationsByEntity.length}) · médias(${live.storage.length}) · pages(${pageWeights ? pageWeights.length : 0})`);
+console.log(`Graphiques : contenus(${contentRows.length}) · films(${filmsByCategory.length}) · sessions(${sessionsByStatus.length}) · décennies(${decadeRows.length}) · coachs(${coachRows.length}) · partenaires(${partnersRows.length}) · complétude(${q ? 3 : 0}) · traductions(${translationsByEntity.length}) · médias(${live.storage.length}) · pages(${pageWeights ? pageWeights.length : 0}) · résistance(${resilienceRows.length})`);
 console.log(`Sessions live : ${live.sessions.length} lignes datées`);
 console.log(`Qualité : ${q ? `${nf(q.films.with_image)}/${nf(q.films.total)} affiches · ${nf(q.filmsEn)} films EN · ${nf(q.team.with_imdb)} IMDb` : 'indisponible'}`);
 console.log(`Schémas : écosystème (flux animés) · carte du site(${SITE_MAP.length} thèmes) · anatomie de page · cycle de demande (carte voyageuse)`);

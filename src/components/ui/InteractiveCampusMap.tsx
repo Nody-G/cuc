@@ -24,6 +24,7 @@ import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { usePreviewSettings } from '@/lib/preview/use-preview-settings';
 import { cucSetting } from '@/lib/preview/cuc-chrome';
 import { cucMicro } from '@/lib/preview/cuc-micro';
+import { cucReach } from '@/lib/preview/cuc-field';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 import { applyPoiOverlay, applyPoiOverlays } from '@/lib/i18n/apply-poi-overlay';
 import { CampusRadarView } from './campus-map/CampusRadarView';
@@ -197,8 +198,12 @@ export const InteractiveCampusMap: React.FC = () => {
                     className="w-full h-full border-0 filter invert contrast-125 hue-rotate-180 brightness-90"
                     loading="lazy"
                   />
-                  {/* Tactical Target Overlay */}
-                  <div className="absolute top-4 left-4 bg-black/85 backdrop-blur-md border border-[#FFE500]/60 p-3 pointer-events-none max-w-xs">
+                  {/* Tactical Target Overlay — décoratif, mais il porte l'adresse
+                      éditable : `cucReach()` rend le geste à ce seul texte. */}
+                  <div
+                    {...cucReach()}
+                    className="absolute top-4 left-4 bg-black/85 backdrop-blur-md border border-[#FFE500]/60 p-3 pointer-events-none max-w-xs"
+                  >
                     <div className="flex items-center gap-2 text-[#FFE500] text-xs font-mono-tech font-bold mb-1">
                       <Crosshair className="w-4 h-4 animate-spin-slow" />
                       <span>{t('domain')}</span>

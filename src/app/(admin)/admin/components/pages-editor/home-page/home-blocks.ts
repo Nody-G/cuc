@@ -1,27 +1,7 @@
-export interface HomeFieldDef {
-    key: string;
-    label: string;
-    kind?: 'text' | 'textarea';
-    rows?: number;
-    /** Champ relié à l'aperçu live (attribut `data-cuc-field`). */
-    liveEdit?: boolean;
-    /** Rendu avec le bouton Médiathèque (cible `sections_data.<bloc>.<clé>`). */
-    media?: boolean;
-}
+import type { HomeBlockDef } from './home-blocks.types';
 
-export interface HomeRowDef {
-    /** Colonnes de la grille (2 ou 3 ; absent → champ(s) en bloc simple). */
-    columns?: 2 | 3;
-    fields: HomeFieldDef[];
-}
-
-export interface HomeBlockDef {
-    id: string;
-    title: string;
-    desc: string;
-    tag: string;
-    rows: HomeRowDef[];
-}
+/** Les contrats restent réexportés ici pour ne pas casser les appelants. */
+export type { HomeBlockDef, HomeFieldDef, HomeRowDef } from './home-blocks.types';
 
 /**
  * Description déclarative des six blocs `sections_data` de la page d'accueil.
@@ -53,6 +33,9 @@ export const HOME_BLOCKS: HomeBlockDef[] = [
                         liveEdit: true,
                     },
                 ],
+            },
+            {
+                fields: [{ key: 'founder_label', label: 'Fondateur — surtitre', liveEdit: true }],
             },
             {
                 fields: [
@@ -104,10 +87,59 @@ export const HOME_BLOCKS: HomeBlockDef[] = [
                 ],
             },
             {
+                fields: [{ key: 'team_tag', label: 'Étiquette d\'équipe', liveEdit: true }],
+            },
+            {
                 columns: 2,
                 fields: [
                     { key: 'cta_text', label: 'Bouton — libellé', liveEdit: true },
                     { key: 'cta_link', label: 'Bouton — lien' },
+                ],
+            },
+            {
+                columns: 2,
+                fields: [
+                    { key: 'pillar1_title', label: 'Pilier 1 — titre', liveEdit: true },
+                    {
+                        key: 'pillar1_desc',
+                        label: 'Pilier 1 — description',
+                        kind: 'textarea',
+                        rows: 2,
+                        liveEdit: true,
+                    },
+                ],
+            },
+            {
+                columns: 2,
+                fields: [
+                    { key: 'pillar2_title', label: 'Pilier 2 — titre', liveEdit: true },
+                    {
+                        key: 'pillar2_desc',
+                        label: 'Pilier 2 — description',
+                        kind: 'textarea',
+                        rows: 2,
+                        liveEdit: true,
+                    },
+                ],
+            },
+            {
+                columns: 2,
+                fields: [
+                    { key: 'pillar3_title', label: 'Pilier 3 — titre', liveEdit: true },
+                    {
+                        key: 'pillar3_desc',
+                        label: 'Pilier 3 — description',
+                        kind: 'textarea',
+                        rows: 2,
+                        liveEdit: true,
+                    },
+                ],
+            },
+            {
+                columns: 2,
+                fields: [
+                    { key: 'cta_production', label: 'CTA production — libellé', liveEdit: true },
+                    { key: 'cta_catalog', label: 'CTA catalogue — libellé', liveEdit: true },
                 ],
             },
         ],
@@ -126,11 +158,33 @@ export const HOME_BLOCKS: HomeBlockDef[] = [
                 ],
             },
             {
+                fields: [{ key: 'tag', label: 'Étiquette du bloc', liveEdit: true }],
+            },
+            {
                 columns: 2,
                 fields: [
                     { key: 'cta_text', label: 'Bouton — libellé', liveEdit: true },
                     { key: 'cta_link', label: 'Bouton — lien' },
                 ],
+            },
+            {
+                fields: [
+                    {
+                        key: 'installations_cta',
+                        label: 'Bouton installations — libellé',
+                        liveEdit: true,
+                    },
+                ],
+            },
+            {
+                columns: 2,
+                fields: [
+                    { key: 'hud_title', label: 'HUD visite 360° — titre', liveEdit: true },
+                    { key: 'hud_hint', label: 'HUD visite 360° — invitation', liveEdit: true },
+                ],
+            },
+            {
+                fields: [{ key: 'image_url', label: 'Visuel de la visite 360°', media: true }],
             },
         ],
     },
@@ -168,6 +222,14 @@ export const HOME_BLOCKS: HomeBlockDef[] = [
                     { key: 'opco_text', label: 'OPCO — texte' },
                 ],
             },
+            {
+                fields: [
+                    { key: 'cta_text', label: 'Bouton de contact — libellé', liveEdit: true },
+                ],
+            },
+            {
+                fields: [{ key: 'logo_url', label: 'Logo de certification', media: true }],
+            },
         ],
     },
     {
@@ -183,6 +245,9 @@ export const HOME_BLOCKS: HomeBlockDef[] = [
                     { key: 'subtitle', label: 'Sous-titre', kind: 'textarea', rows: 2, liveEdit: true },
                 ],
             },
+            {
+                fields: [{ key: 'view_all', label: 'Lien « tout voir » — libellé', liveEdit: true }],
+            },
         ],
     },
     {
@@ -197,6 +262,19 @@ export const HOME_BLOCKS: HomeBlockDef[] = [
                 fields: [
                     { key: 'subtitle', label: 'Sous-titre', kind: 'textarea', rows: 2, liveEdit: true },
                 ],
+            },
+            {
+                columns: 2,
+                fields: [
+                    { key: 'handle', label: 'Identifiant du réseau', liveEdit: true },
+                    { key: 'join_text', label: 'Bouton de suivi — libellé', liveEdit: true },
+                ],
+            },
+            {
+                fields: [{ key: 'see_instagram', label: 'Lien Instagram — libellé', liveEdit: true }],
+            },
+            {
+                fields: [{ key: 'avatar_url', label: 'Avatar du bloc', media: true }],
             },
         ],
     },

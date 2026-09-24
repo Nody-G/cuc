@@ -108,9 +108,16 @@ export function useTrafficMonitor({ showToast }: UseTrafficMonitorProps) {
         [loadReport]
     );
 
-    // Initial load
+    /**
+     * Chargement initial. L'appel est enveloppé dans une frontière asynchrone :
+     * `loadReport` ne met à jour l'état qu'après la réponse serveur, donc rien
+     * n'est modifié de façon synchrone dans l'effet (exigence de
+     * `react-hooks/set-state-in-effect`).
+     */
     useEffect(() => {
-        loadReport(windowState);
+        void (async () => {
+            await loadReport(windowState);
+        })();
     }, [loadReport, windowState]);
 
     // Polling temps réel automatique

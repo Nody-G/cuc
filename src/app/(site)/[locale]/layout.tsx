@@ -6,6 +6,7 @@ import { routing } from '@/i18n/routing';
 import { RootShell } from '@/components/layout/RootShell';
 import { SiteDataProvider } from '@/components/i18n/SiteDataProvider';
 import { SiteVisitTracker } from '@/components/analytics/SiteVisitTracker';
+import { VitalsReporter } from '@/components/analytics/VitalsReporter';
 import {
     getEntityOverlays,
     getLocalizedFooterChrome,
@@ -144,6 +145,9 @@ export default async function LocaleLayout({
                 }}
             >
                 <SiteVisitTracker />
+                {/* Performance réellement vécue : échantillonnée (1 visiteur sur
+                    20), une écriture par page vue, silencieuse et non bloquante. */}
+                <VitalsReporter />
                 {children}
             </SiteDataProvider>
         </RootShell>

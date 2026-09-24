@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 
 import { Compass } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
+import { cucReach } from '@/lib/preview/cuc-field';
 import {
   StudioParallaxScene,
   StudioParallaxLayer,
@@ -103,9 +104,13 @@ export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
               <div className="lg:col-span-5 relative">
                 <div className="relative h-64 sm:h-80 w-full border border-zinc-700/80 overflow-hidden bg-black group shadow-2xl">
                   {/* Sliding Internal 360 Photo (Layer Depth) */}
+                  {/* Le visuel est recouvert par le lien plein cadre de la carte :
+                      `cucReach()` le remonte au-dessus pendant la seule session
+                      de Studio, pour que la médiathèque reste atteignable. */}
                   <StudioParallaxLayer
                     speed={-0.12}
                     className="relative w-full h-[120%] -top-[10%]"
+                    {...cucReach()}
                     data-cuc-field="sections_data.virtual_tour.image_url"
                     data-cuc-kind="image"
                   >
@@ -118,8 +123,12 @@ export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
                     />
                   </StudioParallaxLayer>
 
-                  {/* Floating Compass Center HUD */}
-                  <div className="absolute inset-0 bg-black/45 flex flex-col items-center justify-center p-4 text-center z-10 pointer-events-none">
+                  {/* Floating Compass Center HUD — décoratif, mais porteur de deux
+                      textes éditables sous le lien plein cadre : `cucReach()`. */}
+                  <div
+                    {...cucReach()}
+                    className="absolute inset-0 bg-black/45 flex flex-col items-center justify-center p-4 text-center z-10 pointer-events-none"
+                  >
                     <StudioParallaxLayer speed={0.12}>
                       <div className="w-16 h-16 rounded-full bg-[#FFE500] text-black flex items-center justify-center mb-2.5 shadow-[0_0_30px_rgba(255,229,0,0.5)] group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(255,229,0,0.8)] transition-all duration-300">
                         <Compass className="w-8 h-8" />

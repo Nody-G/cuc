@@ -9,6 +9,7 @@ import {
     type PreviewListCommand,
     type PreviewMessage,
     type PreviewMode,
+    type PreviewReachabilityReport,
 } from '@/lib/preview/preview-protocol';
 
 /**
@@ -67,6 +68,11 @@ export interface UsePreviewBridgeResult {
     hoveredField: string | null;
     /** Champ actuellement sélectionné dans l'aperçu. */
     selectedField: string | null;
+    /**
+     * Diagnostic d'atteignabilité mesuré dans l'aperçu : champs annoncés mais
+     * que le clic n'atteint pas (`null` tant que la sonde n'a rien rapporté).
+     */
+    reachability: PreviewReachabilityReport | null;
     /** Force la re-publication du brouillon (bouton « Actualiser »). */
     pushDraft: () => void;
 }
@@ -89,6 +95,7 @@ export function usePreviewBridge({
     const [isReady, setIsReady] = useState(false);
     const [hoveredField, setHoveredField] = useState<string | null>(null);
     const [selectedField, setSelectedField] = useState<string | null>(null);
+    const [reachability, setReachability] = useState<PreviewReachabilityReport | null>(null);
 
     // Brouillon, mode et callbacks lus par ref : l'écouteur `message` reste
     // stable, y compris pendant une frappe continue dans un éditeur en place.
@@ -200,6 +207,9 @@ export function usePreviewBridge({
                 case 'list-command':
                     handlers.onListCommand?.(message.field, message.command, message.index);
                     break;
+                case 'fields-audit':
+                    setReachability(message.payload);
+                    break;
                 case 'media-request':
                     handlers.onMediaRequest?.(message.field);
                     break;
@@ -247,5 +257,5 @@ export function usePreviewBridge({
         post(previewMessage.mode(mode));
     }, [mode, isReady, post]);
 
-    return { iframeRef, isReady, hoveredField, selectedField, pushDraft };
+    return { iframeRef, isReady, hoveredField, selectedField, reachability, pushDraft };
 }

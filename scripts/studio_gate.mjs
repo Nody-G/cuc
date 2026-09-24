@@ -39,6 +39,18 @@ const steps = [
         blocking: true,
     },
     {
+        /**
+         * Quotas Supabase : mesure la base, le stockage objet et les tables qui
+         * grossissent seules, contre des budgets déclarés (leçon de l'incident du
+         * 2026-09-23, API coupée pour dépassement de quota). Sans chaîne de
+         * connexion, le script s'annonce « IGNORÉ » et sort en 0 : un contrôle
+         * manquant ne doit jamais ressembler à un contrôle vert.
+         */
+        name: 'Quotas Supabase (base, stockage, dérives)',
+        command: ['node', ['scripts/audit_quotas.mjs']],
+        blocking: true,
+    },
+    {
         name: 'Micro-textes visiteurs (dette mesurée)',
         command: ['node', ['scripts/audit_visible_microcopy.mjs']],
         blocking: false,

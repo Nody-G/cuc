@@ -187,27 +187,37 @@ export async function getReelLiveMetrics(
     }
 }
 
-/** Calcule les indicateurs du prochain palier d'abonnés CUC */
+/**
+ * Calcule les indicateurs du prochain palier d'abonnés CUC.
+ *
+ * Ne produit **que du mesurable** : palier, position dans le palier et restant.
+ * Aucune cadence quotidienne n'est déduite faute de variation observée ; une
+ * constante de « +1 420 abonnés / jour » était affichée jusqu'au 2026-09-24,
+ * avec une date d'atteinte qui n'avait aucune source.
+ */
 export function calculateGrowthMilestone(followers: number): InstagramGrowthMilestone {
     const nextTarget = Math.ceil((followers + 1000) / 100000) * 100000;
-    const baseTarget = nextTarget - 100000;
-    const progressInTier = Math.max(0, followers - baseTarget);
+    const tierFloor = nextTarget - 100000;
+    const progressInTier = Math.max(0, followers - tierFloor);
     const progressPercent = Math.min(100, Math.round((progressInTier / 100000) * 100));
     const remainingToTarget = Math.max(0, nextTarget - followers);
-    const dailyGrowthRate = 1420; // +1 420 abonnés / jour en moyenne CUC
-    const estimatedDaysToTarget = Math.max(1, Math.round(remainingToTarget / dailyGrowthRate));
 
     return {
         currentFollowers: followers,
         nextTarget,
+        tierFloor,
         progressPercent,
         remainingToTarget,
-        dailyGrowthRate,
-        estimatedDaysToTarget,
     };
 }
 
-/** Calcule les métriques cumulées sur l'ensemble des Reels CUC */
+/**
+ * Calcule les métriques cumulées sur l'ensemble des Reels CUC.
+ *
+ * Seuls des cumuls et des moyennes calculés sont renvoyés. Les faux agrégats
+ * (`totalLikesEstimated: '3,8 M'`, `avgEngagementRate: 5.4`) ont été supprimés
+ * le 2026-09-24 : ils étaient écrits à la main et se présentaient comme mesurés.
+ */
 export function calculateReelsAggregates(reels: InstagramReelMetric[]): InstagramReelsAggregates {
     const totalViews = reels.reduce((acc, r) => acc + (r.views || 0), 0);
     const avgViewsPerReel = reels.length > 0 ? Math.round(totalViews / reels.length) : 0;
@@ -218,8 +228,7 @@ export function calculateReelsAggregates(reels: InstagramReelMetric[]): Instagra
         totalViewsFormatted: formatFollowerCount(totalViews),
         avgViewsPerReel,
         avgViewsFormatted: formatFollowerCount(avgViewsPerReel),
-        totalLikesEstimated: '3,8 M',
-        avgEngagementRate: 5.4,
+        reelCount: reels.length,
         topReels: sorted.slice(0, 3),
     };
 }

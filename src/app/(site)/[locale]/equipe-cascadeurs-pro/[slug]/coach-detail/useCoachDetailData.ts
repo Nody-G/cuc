@@ -10,11 +10,12 @@ import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { parseCredit, type FilmCredit, type Instructor, type ParsedCredit } from '@/types';
 import {
+    DEFAULT_COACH_FILM_SORT,
     buildFeaturedOrder,
     findRelatedFilms,
     sortCoachFilms,
     type FilmSort,
-} from './coach-films';
+} from '@/lib/coach-films';
 
 export interface UseCoachDetailDataArgs {
     slug: string;
@@ -35,7 +36,7 @@ export function useCoachDetailData({ slug, teamOverlays }: UseCoachDetailDataArg
     );
     const [allFilms, setAllFilms] = useState<FilmCredit[]>(FILMOGRAPHY_CREDITS);
     const [selectedFilmModal, setSelectedFilmModal] = useState<FilmCredit | null>(null);
-    const [filmSort, setFilmSort] = useState<FilmSort>('year-desc');
+    const [filmSort, setFilmSort] = useState<FilmSort>(DEFAULT_COACH_FILM_SORT);
 
     /**
      * Overlays EN du catalogue films (entité `film`) : le synopsis de la modale

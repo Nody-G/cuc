@@ -6,7 +6,9 @@
  */
 
 import { createAdminClient } from '@/lib/supabase/admin';
+import { recordPageRevision } from '@/lib/data/site/page-revision-server';
 import { revalidateSite } from './revalidate';
+import { logAuditEvent } from './audit';
 
 /**
  * Met à jour ou insère le contenu détaillé d'une page (Hero, sections, emplacements, SEO).
@@ -76,9 +78,35 @@ export async function upsertPageContent(slug: string, pageData: {
 
     if (error) throw error;
 
+    /**
+     * Instantané d'historique, déposé **après** l'écriture réussie.
+     *
+     * C'est le seul écrivain de `site_page_revisions` (`recordPageRevision`,
+     * client admin — la policy d'écriture exige un rôle administrateur qu'un
+     * client public ne peut pas prouver). Il ne jette jamais : l'enregistrement
+     * du contenu est acquis, l'historique est un confort. La mesure de cet
+     * historique et sa rétention vivent dans `npm run audit:revisions`.
+     */
+    const revision = await recordPageRevision(cleanSlug, pageData, {
+      status: (pageData.is_published ?? true) ? 'published' : 'archived',
+    });
+
+    /**
+     * Journal d'audit : un enregistrement de page est une action éditoriale, et
+     * c'était **le seul geste du Cockpit qui n'y laissait aucune trace** (constat
+     * du 2026-09-24 : `site_audit_logs` vide alors que les pages sont éditées).
+     */
+    await logAuditEvent(
+      'page.save',
+      cleanSlug,
+      revision.recorded
+        ? `révision n°${revision.revisionNumber}`
+        : `instantané non enregistré${revision.error ? ` (${revision.error})` : ''}`
+    );
+
     const targetPath = cleanSlug === '/' ? '/' : `/${cleanSlug}`;
     await revalidateSite([targetPath, '/']);
-    return { success: true };
+    return { success: true, revision };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Erreur inconnue';
     return { success: false, error: message };
@@ -92,8 +120,8 @@ export async function upsertPageContent(slug: string, pageData: {
  * - `unpublish` : repasse la page en brouillon (`is_published = false`), elle
  *   n'est alors plus servie publiquement mais reste éditable dans le Cockpit.
  *
- * Un instantané de l'état précédent est créé automatiquement par le trigger
- * SQL `trg_snapshot_site_page_revision` avant l'écriture.
+ * L'instantané d'historique est déposé par `upsertPageContent` (seul écrivain de
+ * `site_page_revisions`) : ce basculement ne modifie que l'état de publication.
  */
 export async function setPagePublishState(
   slug: string,
@@ -111,6 +139,8 @@ export async function setPagePublishState(
       .eq('slug', cleanSlug);
 
     if (error) throw error;
+
+    await logAuditEvent(publish ? 'page.publish' : 'page.unpublish', cleanSlug);
 
     const targetPath = cleanSlug === '/' ? '/' : `/${cleanSlug}`;
     await revalidateSite([targetPath, '/']);

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { AlertCircle, Check, HelpCircle, Loader2, RefreshCw } from 'lucide-react';
 import { useMicrocopyEditor } from './microcopy-view/useMicrocopyEditor';
 import { MicrocopyToolbar } from './microcopy-view/MicrocopyToolbar';
@@ -47,12 +48,12 @@ export const MicrocopyView: React.FC<MicrocopyViewProps> = ({ showToast }) => {
                         <RefreshCw className="w-3.5 h-3.5" />
                         Réessayer
                     </button>
-                    <a
+                    <Link
                         href="/admin/login?next=/admin/microcopy"
                         className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg bg-amber-400 hover:bg-amber-300 text-zinc-950 transition"
                     >
                         Se reconnecter au Cockpit
-                    </a>
+                    </Link>
                 </div>
             </div>
         );

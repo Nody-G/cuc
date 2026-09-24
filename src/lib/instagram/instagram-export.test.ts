@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest';
 import { generateReelsCsv } from './instagram-export';
 import type { InstagramReelMetric } from '@/types/instagram-monitor';
 

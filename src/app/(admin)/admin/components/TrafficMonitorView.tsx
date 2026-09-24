@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Globe, RefreshCw, Download, Calendar } from 'lucide-react';
+import { Globe, RefreshCw, Download, Calendar, AlertTriangle } from 'lucide-react';
 import type { TrafficWindow } from '@/types/site-traffic';
 import { CockpitViewHeader, CockpitButton, CockpitSkeletonList } from './ui';
 import { useTrafficMonitor } from './traffic-monitor/useTrafficMonitor';
@@ -47,7 +47,7 @@ export const TrafficMonitorView: React.FC<TrafficMonitorViewProps> = ({ showToas
                 eyebrow="Trafic & Audience"
                 icon={Globe}
                 title="Monitoring des Visites & Fréquentation Web"
-                description="Audience en temps réel, provenance Instagram & Google, et suivi des parcours de conversion CUC (Formation, Stages, B2B)."
+                description="Visiteurs en direct réellement mesurés. Les volumes par période restent un modèle de démonstration, à ne pas lire comme des relevés."
                 actions={
                     <div className="flex items-center gap-2 flex-wrap">
                         {/* Sélecteur de période */}
@@ -57,11 +57,10 @@ export const TrafficMonitorView: React.FC<TrafficMonitorViewProps> = ({ showToas
                                     key={w}
                                     type="button"
                                     onClick={() => setWindow(w)}
-                                    className={`px-2.5 py-1 rounded-lg text-xs font-mono-tech transition-all cursor-pointer ${
-                                        window === w
+                                    className={`px-2.5 py-1 rounded-lg text-xs font-mono-tech transition-all cursor-pointer ${window === w
                                             ? 'bg-[#FFE500] text-black font-bold shadow-sm'
                                             : 'text-zinc-400 hover:text-white'
-                                    }`}
+                                        }`}
                                 >
                                     {WINDOW_LABELS[w]}
                                 </button>
@@ -91,6 +90,19 @@ export const TrafficMonitorView: React.FC<TrafficMonitorViewProps> = ({ showToas
                     </div>
                 }
             />
+
+            {/* Origine des chiffres — un modèle ne doit pas passer pour une mesure */}
+            {report?.dataSource === 'modelled' && (
+                <div className="flex items-start gap-2.5 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-xs font-tech text-amber-100">
+                    <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-amber-300" />
+                    <span>
+                        <strong>Volumes par période : modèle de démonstration.</strong> Les visiteurs uniques, pages vues,
+                        canaux, appareils et zones géographiques sont calculés sur des ratios de référence, pas sur une
+                        collecte d’audience : aucune adresse IP n’est conservée. Seuls les <strong>visiteurs en direct</strong>
+                        {' '}sont mesurés, à partir des sessions réellement reçues par le site.
+                    </span>
+                </div>
+            )}
 
             {/* Statut d'hébergement Vercel & domaine */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 bg-zinc-900/60 border border-zinc-800 rounded-xl gap-3 text-xs font-mono-tech">
@@ -151,7 +163,10 @@ export const TrafficMonitorView: React.FC<TrafficMonitorViewProps> = ({ showToas
 
                     {/* Pied de page informatif */}
                     <div className="text-center pt-2 pb-4 text-xs font-mono-tech text-zinc-500">
-                        Données de fréquentation CUC · Généré le {new Date(report.generatedAt).toLocaleString('fr-FR')} · Conforme RGPD (sans cookies tiers)
+                        {report.dataSource === 'modelled'
+                            ? 'Volumes modélisés (démonstration) · Visiteurs en direct mesurés'
+                            : 'Données de fréquentation mesurées'}{' '}
+                        · Généré le {new Date(report.generatedAt).toLocaleString('fr-FR')} · Sans cookie tiers, sans adresse IP conservée
                     </div>
                 </div>
             )}

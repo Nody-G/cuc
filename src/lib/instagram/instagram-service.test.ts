@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest';
 import { parseCount, formatFollowerCount } from './instagram-service';
 
 describe('instagram-service helpers', () => {

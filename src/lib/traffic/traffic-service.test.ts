@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest';
 import {
     recordSiteVisit,
     getSiteTrafficReport,
@@ -14,7 +13,7 @@ describe('traffic-service', () => {
         expect(formatDuration(184)).toBe('3m 04s');
     });
 
-    it('génère un rapport cohérent pour la fenêtre demandée', () => {
+    it('génère un rapport cohérent et déclare l’origine modélisée des volumes', () => {
         const report = getSiteTrafficReport('7d');
         expect(report.window).toBe('7d');
         expect(report.kpis.uniqueVisitors).toBeGreaterThan(0);
@@ -22,6 +21,25 @@ describe('traffic-service', () => {
         expect(report.topPages.length).toBeGreaterThan(0);
         expect(report.referrers.length).toBeGreaterThan(0);
         expect(report.funnels.length).toBe(3);
+        // Un modèle doit s'annoncer comme tel, jamais passer pour une mesure.
+        expect(report.dataSource).toBe('modelled');
+        expect(report.liveIsMeasured).toBe(true);
+    });
+
+    it('n’invente aucun visiteur : le flux « en direct » ne contient que des sessions réelles', () => {
+        const before = getSiteTrafficReport('24h');
+        expect(before.realtimeVisitors).toHaveLength(getRealtimeVisitors().count);
+
+        recordSiteVisit({
+            path: '/formation-de-cascadeur',
+            referrer: 'https://www.instagram.com/reel/CUC123',
+            locale: 'fr',
+            device: 'mobile',
+        });
+
+        const after = getSiteTrafficReport('24h');
+        expect(after.realtimeVisitors).toHaveLength(before.realtimeVisitors.length + 1);
+        expect(after.realtimeVisitors.every((v) => v.id.startsWith('vis-'))).toBe(true);
     });
 
     it('enregistre une visite et identifie correctement la source', () => {
@@ -35,6 +53,9 @@ describe('traffic-service', () => {
         expect(visit.currentPath).toBe('/formation-de-cascadeur');
         expect(visit.source).toContain('Instagram');
         expect(visit.device).toBe('mobile');
+        // Aucune géolocalisation n'est collectée : l'absence doit être visible.
+        expect(visit.city).toBe('Non géolocalisé');
+        expect(visit.country).toBe('—');
 
         const live = getRealtimeVisitors();
         expect(live.count).toBeGreaterThan(0);

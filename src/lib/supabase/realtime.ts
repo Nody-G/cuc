@@ -73,6 +73,39 @@ export function removeSafeChannel(
 }
 
 /* ------------------------------------------------------------------ *
+ * Qui a le droit d'ouvrir un canal ?
+ * ------------------------------------------------------------------ */
+
+/**
+ * Vrai si le chemin courant est une route du Cockpit (`/admin/...`).
+ *
+ * Décision d'architecture : **le Realtime est réservé au Cockpit**. C'est la
+ * seule chose dont le coût croît avec le nombre d'onglets ouverts (quota de
+ * connexions simultanées et de messages du service Realtime), alors que tout le
+ * reste de la vitrine est servi par le cache serveur sans toucher la base. Un
+ * visiteur anonyme n'a pas besoin d'une page qui se met à jour toute seule : il
+ * la verra fraîche à la navigation suivante, et le hook
+ * `useRealtimeRefresh` recharge aussi à la reprise d'onglet.
+ *
+ * Pure : la règle est testable sans navigateur, et un chemin vide (rendu
+ * serveur) ne donne jamais accès au canal.
+ */
+export function isCockpitRoute(pathname: string): boolean {
+    const clean = pathname.split('?')[0]?.split('#')[0] ?? '';
+    return clean === '/admin' || clean.startsWith('/admin/');
+}
+
+/** Chemin courant du navigateur, ou chaîne vide hors navigateur. */
+function currentPathname(): string {
+    if (typeof window === 'undefined') return '';
+    try {
+        return window.location.pathname;
+    } catch {
+        return '';
+    }
+}
+
+/* ------------------------------------------------------------------ *
  * Canal PARTAGÉ par client — un seul WebSocket pour toute la page
  * ------------------------------------------------------------------ */
 
@@ -115,6 +148,15 @@ export function subscribeTable(
     // Aperçu du Cockpit : le brouillon arrive déjà par `postMessage`, un
     // WebSocket supplémentaire ne servirait qu'à recevoir le même contenu.
     if (isPreviewFrame()) {
+        return () => {
+            /* Rien à retirer : aucun canal n'a été ouvert. */
+        };
+    }
+
+    // Vitrine publique : aucun abonnement. Le contenu reste frais par la
+    // navigation (cache serveur invalidé par tag) et, sur place, par la reprise
+    // d'onglet — le WebSocket est réservé aux routes du Cockpit.
+    if (!isCockpitRoute(currentPathname())) {
         return () => {
             /* Rien à retirer : aucun canal n'a été ouvert. */
         };

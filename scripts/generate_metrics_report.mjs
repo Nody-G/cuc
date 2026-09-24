@@ -27,7 +27,15 @@ dotenv.config({ path: '.env.local' });
 
 const ROOT = process.cwd();
 const REPORTS = path.join(ROOT, 'reports');
-const PROBE_BASE = process.env.METRICS_PROBE_URL || 'http://localhost:3000';
+/**
+ * Base sondée : les espaces de fin sont retirés (`set VAR=... &&` sous cmd.exe
+ * en ajoute un) et une barre finale ne doit pas produire de double slash.
+ * Sans ce nettoyage, la sonde échoue en silence et le tableau de bord annonce
+ * « 0 page sur 16 » alors que le serveur répond.
+ */
+const PROBE_BASE = (process.env.METRICS_PROBE_URL || 'http://localhost:3000')
+    .trim()
+    .replace(/\/+$/, '');
 
 const run = (cmd) => {
     try {
@@ -153,7 +161,27 @@ const testFiles = codeFiles.filter((f) => /\.(test|spec)\.tsx?$/.test(f));
 let tests = { available: false, total: 0, passed: 0, failed: 0 };
 const vitestReportPath = path.join(ROOT, '.cache', 'vitest-report.json');
 let vitest = readJson(vitestReportPath);
-if (!vitest) {
+
+/**
+ * Le rapport JSON est mis en cache pour ne pas relancer la suite à chaque
+ * génération — mais il ne doit pas vieillir : dès qu'un fichier de test est
+ * plus récent que le cache, la suite est relancée. Défaut corrigé le
+ * 2026-09-24 : le tableau de bord affichait 394 tests alors que la suite en
+ * comptait 469, parce qu'un cache périmé était repris tel quel.
+ */
+const newestTestMtime = testFiles.reduce((max, f) => {
+    try {
+        return Math.max(max, fs.statSync(f).mtimeMs);
+    } catch {
+        return max;
+    }
+}, 0);
+const cacheIsStale =
+    !vitest ||
+    !fs.existsSync(vitestReportPath) ||
+    fs.statSync(vitestReportPath).mtimeMs < newestTestMtime;
+
+if (cacheIsStale) {
     fs.mkdirSync(path.dirname(vitestReportPath), { recursive: true });
     run(`npx vitest run --reporter=json --outputFile="${vitestReportPath}"`);
     vitest = readJson(vitestReportPath);
@@ -219,6 +247,19 @@ const PUBLIC_ROUTES = [
     '/cuc-events-agence', '/admin',
 ];
 
+/**
+ * Les pages publiques sont servies sous une locale : sans préfixe, la
+ * redirection i18n répond 307 et plus aucune page n'est mesurable
+ * (constaté le 2026-09-24 : 0 page sur 16 répondait 200). L'étiquette
+ * affichée reste la route nue, l'URL sondée est celle réellement servie.
+ */
+const PROBE_LOCALE = 'fr';
+const probeUrl = (route) => {
+    if (route === '/admin') return route;
+    if (route === '/') return `/${PROBE_LOCALE}`;
+    return `/${PROBE_LOCALE}${route}`;
+};
+
 let pageWeights = null;
 try {
     const controller = new AbortController();
@@ -230,7 +271,7 @@ try {
         for (const route of PUBLIC_ROUTES) {
             const started = Date.now();
             try {
-                const res = await fetch(PROBE_BASE + route);
+                const res = await fetch(PROBE_BASE + probeUrl(route));
                 const body = await res.arrayBuffer();
                 pageWeights.push({
                     route,
@@ -592,7 +633,7 @@ ${barChart(
                 display: `${nf(p.bytes)} octets · ${p.ms} ms · HTTP ${p.status}`,
             }))
     )}
-<p class="meta">Site de production local (<code>npm run start</code>) — chaque page répond en 200 ; les deux pages les plus lourdes sont les galeries de films (contenu riche).</p>`
+<p class="meta">Mesure sur le site de production local (<code>npm run start</code>) : les pages du site public répondent en 200, l'entrée du Cockpit redirige vers la page de connexion. Les deux pages les plus lourdes sont les galeries de films, logique puisqu'elles affichent le catalogue complet.</p>`
     : `<p class="meta">Serveur local indisponible pendant la mesure — relancer <code>npm run start</code> puis <code>npm run report:metrics</code> pour mesurer poids et temps de réponse de chaque page.</p>`;
 
 const bundleSection = nextBuildExists

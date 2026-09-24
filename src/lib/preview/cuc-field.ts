@@ -16,11 +16,31 @@
  *    index faux écrirait la valeur d'un autre item.
  */
 
-import { CUC_FIELD_ATTRIBUTE, CUC_KIND_ATTRIBUTE, type CucFieldKind } from './preview-protocol';
+import {
+    CUC_FIELD_ATTRIBUTE,
+    CUC_KIND_ATTRIBUTE,
+    CUC_REACH_ATTRIBUTE,
+    type CucFieldKind,
+} from './preview-protocol';
 
 export interface CucFieldAttributes {
     [CUC_FIELD_ATTRIBUTE]?: string;
     [CUC_KIND_ATTRIBUTE]?: CucFieldKind;
+}
+
+export interface CucReachAttributes {
+    [CUC_REACH_ATTRIBUTE]?: string;
+}
+
+/**
+ * Attributs d'un **calque décoratif qui porte des champs éditables** : en Mode
+ * Studio seulement, la couche d'aperçu remonte ce calque au-dessus de ses
+ * frères et rend le geste à ses seuls champs annotés. À poser sur le conteneur
+ * (jamais sur le champ lui-même), quand un `pointer-events-none` ou un frère
+ * plein cadre empêcherait sinon tout clic d'atteindre le texte.
+ */
+export function cucReach(): CucReachAttributes {
+    return { [CUC_REACH_ATTRIBUTE]: '' };
 }
 
 /** Attributs d'un champ éditable — aucun si le chemin est indisponible. */

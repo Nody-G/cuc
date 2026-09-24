@@ -21,7 +21,7 @@ export const InquiriesHeader: React.FC<InquiriesHeaderProps> = ({
                 <Inbox className="w-3.5 h-3.5" /> Pôle Admissions & Relations Candidats
             </div>
             <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight uppercase">
-                Candidatures & Demandes de Contact
+                Contact
             </h1>
             <p className="text-sm text-gray-400 mt-1">
                 Gérez en temps réel les dossiers de sélection aux formations, inscriptions aux stages et devis d'entreprises.

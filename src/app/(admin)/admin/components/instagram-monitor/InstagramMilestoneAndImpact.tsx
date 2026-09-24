@@ -8,13 +8,17 @@ import type { InstagramGrowthMilestone, InstagramReelsAggregates } from '@/types
 interface InstagramMilestoneAndImpactProps {
     milestone: InstagramGrowthMilestone;
     aggregates: InstagramReelsAggregates;
+    /** Rang du CUC dans le comparatif affiché (jamais un rang national inventé). */
     cucNationalRank: number;
+    /** Vrai quand la clé Meta Graph est active : sinon les chiffres sont des repères. */
+    isSynced: boolean;
 }
 
 export const InstagramMilestoneAndImpact: React.FC<InstagramMilestoneAndImpactProps> = ({
     milestone,
     aggregates,
     cucNationalRank,
+    isSynced,
 }) => {
     return (
         <div className="space-y-6">
@@ -36,7 +40,7 @@ export const InstagramMilestoneAndImpact: React.FC<InstagramMilestoneAndImpactPr
                     <div className="flex items-center gap-2">
                         <span className="px-3 py-1 rounded-xl bg-emerald-500/10 text-emerald-400 font-mono-tech text-xs font-bold border border-emerald-500/30 flex items-center gap-1.5">
                             <TrendingUp className="w-3.5 h-3.5" />
-                            +{milestone.dailyGrowthRate.toLocaleString('fr-FR')} abonnés / jour
+                            {milestone.progressPercent}% du palier franchi
                         </span>
                     </div>
                 </div>
@@ -45,7 +49,7 @@ export const InstagramMilestoneAndImpact: React.FC<InstagramMilestoneAndImpactPr
                 <div className="mt-5 space-y-2">
                     <div className="flex justify-between items-center text-xs font-mono-tech">
                         <span className="text-zinc-400">
-                            Cap actuel : <strong className="text-white">1 000 000</strong>
+                            Palier en cours : <strong className="text-white">{milestone.tierFloor.toLocaleString('fr-FR')}</strong>
                         </span>
                         <span className="text-[#FFE500] font-bold text-sm">
                             {milestone.currentFollowers.toLocaleString('fr-FR')} abonnés ({milestone.progressPercent}% du palier)
@@ -62,19 +66,30 @@ export const InstagramMilestoneAndImpact: React.FC<InstagramMilestoneAndImpactPr
                         />
                     </div>
 
-                    <div className="flex justify-between items-center text-[11px] font-mono-tech text-zinc-500 pt-1">
+                    <div className="flex justify-between items-center gap-4 text-[11px] font-mono-tech text-zinc-500 pt-1">
                         <span>🎯 Plus que <strong>{milestone.remainingToTarget.toLocaleString('fr-FR')}</strong> abonnés restants</span>
-                        <span>⏱️ Atteinte estimée dans environ <strong>{milestone.estimatedDaysToTarget} jours</strong></span>
+                        <span className="text-right">
+                            {typeof milestone.dailyGrowthRate === 'number' &&
+                                typeof milestone.estimatedDaysToTarget === 'number' ? (
+                                <>
+                                    ⏱️ Cadence mesurée : <strong>{milestone.dailyGrowthRate.toLocaleString('fr-FR')} abonnés / jour</strong> — palier atteint dans environ <strong>{milestone.estimatedDaysToTarget} jours</strong>
+                                </>
+                            ) : (
+                                <>⏱️ Cadence quotidienne non mesurée : aucune date d’atteinte n’est affichée faute de relevés successifs</>
+                            )}
+                        </span>
                     </div>
                 </div>
             </div>
 
-            {/* 2. Statistiques Virales Globales & Top 3 Historique */}
+            {/* 2. Cumuls mesurés et Top 3 du répertoire */}
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
                 {/* Ratio Vues Totales */}
                 <div className="bg-[#0b0b10] border border-zinc-800 rounded-2xl p-5 shadow-lg flex flex-col justify-between">
                     <div className="flex items-center justify-between text-zinc-400">
-                        <span className="text-xs font-mono-tech uppercase">Vues Cumulées Reels</span>
+                        <span className="text-xs font-mono-tech uppercase">
+                            Vues Cumulées Reels {isSynced ? '' : '(repères)'}
+                        </span>
                         <Play className="w-4 h-4 text-cyan-400" />
                     </div>
                     <div className="my-2">
@@ -83,7 +98,9 @@ export const InstagramMilestoneAndImpact: React.FC<InstagramMilestoneAndImpactPr
                         </div>
                     </div>
                     <div className="text-[11px] font-mono-tech text-cyan-400">
-                        Sur l&apos;ensemble des Reels répertoriés
+                        {isSynced
+                            ? 'Cumul des Reels récupérés via l’API Meta'
+                            : 'Cumul des repères saisis : non synchronisé avec Instagram'}
                     </div>
                 </div>
 
@@ -106,42 +123,42 @@ export const InstagramMilestoneAndImpact: React.FC<InstagramMilestoneAndImpactPr
                 {/* Engagement moyen */}
                 <div className="bg-[#0b0b10] border border-zinc-800 rounded-2xl p-5 shadow-lg flex flex-col justify-between">
                     <div className="flex items-center justify-between text-zinc-400">
-                        <span className="text-xs font-mono-tech uppercase">Taux d&apos;Engagement</span>
+                        <span className="text-xs font-mono-tech uppercase">Reels Répertoriés</span>
                         <Heart className="w-4 h-4 text-rose-400" />
                     </div>
                     <div className="my-2">
                         <div className="text-2xl font-display text-white tracking-wide">
-                            {aggregates.avgEngagementRate}%
+                            {aggregates.reelCount}
                         </div>
                     </div>
-                    <div className="text-[11px] font-mono-tech text-emerald-400">
-                        3× supérieur à la moyenne 1M+
+                    <div className="text-[11px] font-mono-tech text-zinc-400">
+                        Pris en compte dans le cumul et la moyenne
                     </div>
                 </div>
 
-                {/* Rang Mondial Spécialité */}
+                {/* Rang comparatif (position réelle dans la liste suivie) */}
                 <div className="bg-[#0b0b10] border border-zinc-800 rounded-2xl p-5 shadow-lg flex flex-col justify-between">
                     <div className="flex items-center justify-between text-zinc-400">
-                        <span className="text-xs font-mono-tech uppercase">Statut Niche</span>
+                        <span className="text-xs font-mono-tech uppercase">Rang dans le Comparatif</span>
                         <Award className="w-4 h-4 text-amber-400" />
                     </div>
                     <div className="my-2">
                         <div className="text-2xl font-display text-amber-300 tracking-wide">
-                            #1 Mondial
+                            #{cucNationalRank}
                         </div>
                     </div>
-                    <div className="text-[11px] font-mono-tech text-zinc-400 truncate">
-                        Académie & École de Cascade
+                    <div className="text-[11px] font-mono-tech text-zinc-400">
+                        Parmi les comptes suivis par le Cockpit
                     </div>
                 </div>
             </div>
 
-            {/* 3. Top 3 des Cascades Records CUC */}
+            {/* 3. Top 3 des Reels les plus vus du répertoire */}
             <div className="bg-[#0b0b10] border border-zinc-800 rounded-2xl p-6 shadow-xl">
                 <div className="flex items-center gap-2 pb-4 border-b border-zinc-800">
                     <Flame className="w-5 h-5 text-amber-400" />
                     <h3 className="text-base font-display uppercase tracking-wider text-white">
-                        Top 3 des Cascades les Plus Virales de l&apos;Histoire du CUC
+                        Top 3 des Reels les Plus Vus du Répertoire CUC
                     </h3>
                 </div>
 

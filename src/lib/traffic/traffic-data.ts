@@ -19,78 +19,84 @@ export const CUC_PAGES_CATALOG: Array<{
     weight: number;
     conversionGoal: string;
 }> = [
-    {
-        path: '/formation-de-cascadeur',
-        title: 'Formation Cascadeur Pro (Qualiopi & AFDAS)',
-        category: 'formation',
-        weight: 0.28,
-        conversionGoal: 'Candidature Formation',
-    },
-    {
-        path: '/videos-cascadeur',
-        title: 'Vidéos & Reels Cascades CUC',
-        category: 'experience',
-        weight: 0.22,
-        conversionGoal: 'Visionnage Reels',
-    },
-    {
-        path: '/stages-cascades-parkour-2',
-        title: 'Stages Cascades & Parkour Découverte',
-        category: 'stages',
-        weight: 0.14,
-        conversionGoal: 'Réservation Stage',
-    },
-    {
-        path: '/visite-virtuelle',
-        title: 'Visite Virtuelle 3D du Campus',
-        category: 'experience',
-        weight: 0.11,
-        conversionGoal: 'Exploration 3D',
-    },
-    {
-        path: '/team-building-cascades',
-        title: 'Team Building & Événements Entreprises',
-        category: 'b2b',
-        weight: 0.08,
-        conversionGoal: 'Demande Devis B2B',
-    },
-    {
-        path: '/stunt-workshop-cuc',
-        title: 'Stunt Workshops Internationaux',
-        category: 'stages',
-        weight: 0.05,
-        conversionGoal: 'Inscription Workshop',
-    },
-    {
-        path: '/cuc-team-cascadeur',
-        title: "L'Équipe des Cascadeurs & Coachs",
-        category: 'vitrine',
-        weight: 0.04,
-        conversionGoal: 'Consultation Coachs',
-    },
-    {
-        path: '/spectacles-cascadeurs-yamakasi',
-        title: 'Spectacles Cascades & Yamakasi Live',
-        category: 'b2b',
-        weight: 0.03,
-        conversionGoal: 'Booking Spectacle',
-    },
-    {
-        path: '/contact-cuc',
-        title: 'Contact & Accès Campus CUC',
-        category: 'vitrine',
-        weight: 0.03,
-        conversionGoal: 'Formulaire Contact',
-    },
-    {
-        path: '/visite-guidee',
-        title: 'Infrastructures & 11 000 m² d’équipements',
-        category: 'vitrine',
-        weight: 0.02,
-        conversionGoal: 'Visite Campus',
-    },
-];
+        {
+            path: '/formation-de-cascadeur',
+            title: 'Formation Cascadeur Pro (Qualiopi & AFDAS)',
+            category: 'formation',
+            weight: 0.28,
+            conversionGoal: 'Candidature Formation',
+        },
+        {
+            path: '/videos-cascadeur',
+            title: 'Vidéos & Reels Cascades CUC',
+            category: 'experience',
+            weight: 0.22,
+            conversionGoal: 'Visionnage Reels',
+        },
+        {
+            path: '/stages-cascades-parkour-2',
+            title: 'Stages Cascades & Parkour Découverte',
+            category: 'stages',
+            weight: 0.14,
+            conversionGoal: 'Réservation Stage',
+        },
+        {
+            path: '/visite-virtuelle',
+            title: 'Visite Virtuelle 3D du Campus',
+            category: 'experience',
+            weight: 0.11,
+            conversionGoal: 'Exploration 3D',
+        },
+        {
+            path: '/team-building-cascades',
+            title: 'Team Building & Événements Entreprises',
+            category: 'b2b',
+            weight: 0.08,
+            conversionGoal: 'Demande Devis B2B',
+        },
+        {
+            path: '/stunt-workshop-cuc',
+            title: 'Stunt Workshops Internationaux',
+            category: 'stages',
+            weight: 0.05,
+            conversionGoal: 'Inscription Workshop',
+        },
+        {
+            path: '/cuc-team-cascadeur',
+            title: "L'Équipe des Cascadeurs & Coachs",
+            category: 'vitrine',
+            weight: 0.04,
+            conversionGoal: 'Consultation Coachs',
+        },
+        {
+            path: '/spectacles-cascadeurs-yamakasi',
+            title: 'Spectacles Cascades & Yamakasi Live',
+            category: 'b2b',
+            weight: 0.03,
+            conversionGoal: 'Booking Spectacle',
+        },
+        {
+            path: '/contact-cuc',
+            title: 'Contact & Accès Campus CUC',
+            category: 'vitrine',
+            weight: 0.03,
+            conversionGoal: 'Formulaire Contact',
+        },
+        {
+            path: '/visite-guidee',
+            title: 'Infrastructures & 11 000 m² d’équipements',
+            category: 'vitrine',
+            weight: 0.02,
+            conversionGoal: 'Visite Campus',
+        },
+    ];
 
+/**
+ * Volumes de référence par fenêtre : ce sont des **ordres de grandeur de
+ * démonstration**, pas des relevés. Ils restent utiles pour montrer la forme du
+ * tableau de bord avant la mise en place d'une collecte réelle, à condition de
+ * le dire à l'écran (`SiteTrafficReport.dataSource === 'modelled'`).
+ */
 const WINDOW_MULTIPLIERS: Record<TrafficWindow, { visits: number; prevVisits: number; points: number }> = {
     today: { visits: 3820, prevVisits: 3450, points: 24 },
     '24h': { visits: 4190, prevVisits: 3890, points: 24 },
@@ -107,7 +113,11 @@ export function generateReport(window: TrafficWindow, liveVisitorsOverride?: Rea
     const prevVisitors = config.prevVisits;
     const prevPageViews = Math.round(prevVisitors * 3.38);
 
-    const realtimeVisitors = liveVisitorsOverride || generateLiveVisitors();
+    /**
+     * Aucun visiteur n'est fabriqué ici : le flux « en direct » ne contient que
+     * les sessions réellement observées, transmises par `traffic-service`.
+     */
+    const realtimeVisitors = liveVisitorsOverride ?? [];
 
     const kpis: TrafficKpis = {
         uniqueVisitors: totalVisitors,
@@ -228,6 +238,8 @@ export function generateReport(window: TrafficWindow, liveVisitorsOverride?: Rea
         geography,
         funnels,
         realtimeVisitors,
+        dataSource: 'modelled',
+        liveIsMeasured: true,
     };
 }
 
@@ -264,27 +276,7 @@ function generateTimeSeries(window: TrafficWindow, total: number, points: number
     return list;
 }
 
-export function generateLiveVisitors(): RealtimeVisitor[] {
-    const sampleVisitors: Array<Omit<RealtimeVisitor, 'id' | 'startedAt' | 'lastActiveAt'>> = [
-        { currentPath: '/formation-de-cascadeur', pageTitle: 'Formation Cascadeur Pro', source: 'Instagram @campusuniverscascades', city: 'Paris', country: 'France', flag: '🇫🇷', device: 'mobile', locale: 'fr', activeSeconds: 42 },
-        { currentPath: '/videos-cascadeur', pageTitle: 'Vidéos & Reels Cascades CUC', source: 'Instagram Reel #torchehumaine', city: 'Lille', country: 'France', flag: '🇫🇷', device: 'mobile', locale: 'fr', activeSeconds: 88 },
-        { currentPath: '/formation-de-cascadeur', pageTitle: 'Formation Cascadeur Pro', source: 'Google: "ecole cascade afdas"', city: 'Bruxelles', country: 'Belgique', flag: '🇧🇪', device: 'desktop', locale: 'fr', activeSeconds: 195 },
-        { currentPath: '/team-building-cascades', pageTitle: 'Team Building Cascades', source: 'Accès Direct', city: 'Paris', country: 'France', flag: '🇫🇷', device: 'desktop', locale: 'fr', activeSeconds: 61 },
-        { currentPath: '/visite-virtuelle', pageTitle: 'Visite Virtuelle 3D', source: 'Instagram Stories', city: 'Lyon', country: 'France', flag: '🇫🇷', device: 'mobile', locale: 'fr', activeSeconds: 120 },
-        { currentPath: '/stages-cascades-parkour-2', pageTitle: 'Stages Cascades & Parkour', source: 'Google: "stage cascade cinema"', city: 'Marseille', country: 'France', flag: '🇫🇷', device: 'mobile', locale: 'fr', activeSeconds: 34 },
-        { currentPath: '/stunt-workshop-cuc', pageTitle: 'Stunt Workshop International', source: 'Instagram Bio', city: 'Genève', country: 'Suisse', flag: '🇨🇭', device: 'desktop', locale: 'en', activeSeconds: 240 },
-        { currentPath: '/cuc-team-cascadeur', pageTitle: 'Équipe & Coachs Pro', source: 'Instagram Reel Lucas Dollfus', city: 'Valenciennes', country: 'France', flag: '🇫🇷', device: 'mobile', locale: 'fr', activeSeconds: 15 },
-        { currentPath: '/spectacles-cascadeurs-yamakasi', pageTitle: 'Spectacles Yamakasi', source: 'YouTube CUC', city: 'Bordeaux', country: 'France', flag: '🇫🇷', device: 'desktop', locale: 'fr', activeSeconds: 73 },
-        { currentPath: '/formation-de-cascadeur', pageTitle: 'Formation Cascadeur Pro', source: 'Instagram Reel #percussionvoiture', city: 'Nantes', country: 'France', flag: '🇫🇷', device: 'mobile', locale: 'fr', activeSeconds: 110 },
-        { currentPath: '/videos-cascadeur', pageTitle: 'Vidéos & Reels Cascades CUC', source: 'Accès Direct', city: 'Montréal', country: 'Canada', flag: '🇨🇦', device: 'mobile', locale: 'fr', activeSeconds: 52 },
-        { currentPath: '/contact-cuc', pageTitle: 'Contact Campus', source: 'Google Recherche', city: 'Toulouse', country: 'France', flag: '🇫🇷', device: 'desktop', locale: 'fr', activeSeconds: 180 },
-    ];
-
-    const now = Date.now();
-    return sampleVisitors.map((v, i) => ({
-        ...v,
-        id: `vis-${i + 1}-${now}`,
-        startedAt: new Date(now - v.activeSeconds * 1000).toISOString(),
-        lastActiveAt: new Date(now - Math.floor(Math.random() * 10000)).toISOString(),
-    }));
-}
+/* `generateLiveVisitors` (douze faux visiteurs injectés dans le flux « en
+   direct ») a été supprimé le 2026-09-24 : un tableau de bord d'audience ne
+   peut pas inventer ses visiteurs. Le flux n'affiche que des sessions réelles,
+   transmises par `recordSiteVisit`. */

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Activity, RefreshCw, Key, ShieldCheck, Play, Users, Trophy } from 'lucide-react';
+import { RefreshCw, Key, ShieldCheck, Play, Users, Trophy } from 'lucide-react';
 import { InstagramLogo } from '@/components/ui/logos/SocialLogos';
 import { useInstagramMonitor } from './instagram-monitor/useInstagramMonitor';
 import { InstagramLeaderboard } from './instagram-monitor/InstagramLeaderboard';
@@ -35,16 +35,16 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                         Monitoring Instagram en Temps Réel
                     </h2>
                     <p className="text-xs font-tech text-zinc-400 mt-1">
-                        Surveillance du compte @campus.univers.cascades, vrai classement national et calcul du total des vues des Reels.
+                        Suivi du compte @campus.univers.cascades : comparatif d’audience avec des repères publics, cumul des vues des Reels répertoriés.
                     </p>
                 </div>
 
                 <div className="flex items-center gap-3 flex-wrap">
                     {/* Badge Mode Actuel */}
                     <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-700 text-xs font-mono-tech">
-                        <ShieldCheck className={`w-3.5 h-3.5 ${monitor.metaConfig.enabled ? 'text-emerald-400' : 'text-[#FFE500]'}`} />
+                        <ShieldCheck className={`w-3.5 h-3.5 ${monitor.isSynced ? 'text-emerald-400' : 'text-[#FFE500]'}`} />
                         <span className="text-zinc-300">
-                            {monitor.metaConfig.enabled ? 'Meta Graph API' : 'Scraper Intelligent'}
+                            {monitor.isSynced ? 'Synchronisé (Meta Graph)' : 'Repères non synchronisés'}
                         </span>
                     </div>
 
@@ -81,10 +81,10 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                     <div>
                         <div className="text-[11px] font-mono-tech uppercase text-zinc-400">Abonnés Instagram CUC</div>
                         <div className="text-2xl font-mono-tech font-bold text-white mt-0.5">
-                            {monitor.cucAccount?.followersFormatted || '1,05 M'}
+                            {monitor.cucAccount?.followersFormatted || '—'}
                         </div>
                         <div className="text-[10px] font-mono-tech text-emerald-400 mt-0.5">
-                            Dernière synchro : {monitor.lastSyncTime}
+                            Dernière synchro : {monitor.lastSyncTime || '—'}
                         </div>
                     </div>
                 </div>
@@ -94,12 +94,12 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                         <Trophy className="w-6 h-6" />
                     </div>
                     <div>
-                        <div className="text-[11px] font-mono-tech uppercase text-zinc-400">Vrai Rang France</div>
+                        <div className="text-[11px] font-mono-tech uppercase text-zinc-400">Rang Comparatif CUC</div>
                         <div className="text-2xl font-mono-tech font-bold text-[#FFE500] mt-0.5">
-                            #{monitor.cucNationalRank} National
+                            #{monitor.cucNationalRank}
                         </div>
                         <div className="text-[10px] font-mono-tech text-zinc-400 mt-0.5">
-                            Top 150 Créateurs & Médias FR
+                            Parmi les comptes suivis par le Cockpit
                         </div>
                     </div>
                 </div>
@@ -125,12 +125,14 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                 milestone={monitor.milestone}
                 aggregates={monitor.aggregates}
                 cucNationalRank={monitor.cucNationalRank}
+                isSynced={monitor.isSynced}
             />
 
-            {/* Vrai Classement Comparatif Instagram */}
+            {/* Comparatif Instagram — rangs dérivés de la position réelle */}
             <InstagramLeaderboard
                 leaderboard={monitor.leaderboard}
                 cucNationalRank={monitor.cucNationalRank}
+                isSynced={monitor.isSynced}
                 aheadAccount={monitor.aheadAccount}
                 behindAccount={monitor.behindAccount}
                 deltaAhead={monitor.deltaAhead}
@@ -152,6 +154,7 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                 refreshingReelId={monitor.refreshingReelId}
                 onRefreshAll={monitor.handleRefreshTopReels}
                 onRefreshSingle={monitor.handleRefreshReel}
+                isSynced={monitor.isSynced}
             />
 
             {/* Modal de Configuration Meta API */}

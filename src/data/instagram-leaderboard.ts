@@ -1,9 +1,21 @@
 import type { InstagramAccountStat } from '@/types/instagram-monitor';
 
 /**
- * Catalogue de référence du classement comparatif Instagram avec vrais rangs nationaux.
- * CUC se situe actuellement au rang #138 national en France (club des millionnaires Instagram)
- * et est classé #1 Mondial en Académie de Cascade & Action.
+ * ==============================================================================
+ * CUC — Comptes de repère du comparatif Instagram
+ * ==============================================================================
+ * Ce catalogue sert à **situer** le compte CUC face à des comptes publics connus.
+ * Il ne prétend pas à l'exactitude :
+ *
+ *  - les nombres d'abonnés sont des **ordres de grandeur** saisis à la main, pas
+ *    des mesures — la synchronisation officielle viendra de l'API Meta Graph
+ *    (`InstagramMetaConfigModal`, côté Cockpit), dès que la clé sera disponible ;
+ *  - **aucun rang n'est stocké ici** : le rang affiché est la **position réelle**
+ *    dans le comparatif, calculée à l'affichage par `rankAccountsByFollowers`
+ *    (`src/lib/instagram/instagram-ranking.ts`). Une échelle de rangs nationaux
+ *    avait été écrite à la main ; elle produisait un rang qui contredisait
+ *    l'ordre des abonnés et sautait d'un palier à l'autre (138 → 122). Elle a été
+ *    supprimée le 2026-09-24 : un rang se mesure ou ne s'affiche pas.
  */
 export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
     // --- TOP CRÉATEURS & MÉDIAS EN FRANCE (> 1M) ---
@@ -13,7 +25,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'HugoDécrypte',
         followersCount: 6000000,
         followersFormatted: '6 M',
-        nationalRank: 32,
         category: 'Média & Actualité',
         categoryRank: '#1 Média d\'Actu',
         country: 'FR',
@@ -26,7 +37,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'Jul',
         followersCount: 5000000,
         followersFormatted: '5 M',
-        nationalRank: 41,
         category: 'Musique & Rap',
         categoryRank: '#1 Rappeur Indé',
         country: 'FR',
@@ -39,7 +49,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: "L'Équipe",
         followersCount: 4000000,
         followersFormatted: '4 M',
-        nationalRank: 52,
         category: 'Média Sportif',
         categoryRank: '#1 Quotidien Sport',
         country: 'FR',
@@ -52,7 +61,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'Koba LaD',
         followersCount: 3000000,
         followersFormatted: '3 M',
-        nationalRank: 74,
         category: 'Musique & Rap',
         categoryRank: 'Top 10 Musique',
         country: 'FR',
@@ -65,7 +73,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'PLK',
         followersCount: 2500000,
         followersFormatted: '2,5 M',
-        nationalRank: 89,
         category: 'Musique & Rap',
         categoryRank: 'Top 15 Musique',
         country: 'FR',
@@ -78,7 +85,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'CANAL+',
         followersCount: 2000000,
         followersFormatted: '2 M',
-        nationalRank: 104,
         category: 'Cinéma & Télévision',
         categoryRank: '#1 Média Cinéma',
         country: 'FR',
@@ -91,7 +97,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'France Inter',
         followersCount: 2000000,
         followersFormatted: '2 M',
-        nationalRank: 106,
         category: 'Radio & Médias',
         categoryRank: '#1 Radio',
         country: 'FR',
@@ -104,7 +109,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'Cédric Doumbé',
         followersCount: 1200000,
         followersFormatted: '1,2 M',
-        nationalRank: 122,
         category: 'MMA & Combat',
         categoryRank: '#1 Athlète MMA',
         country: 'FR',
@@ -119,7 +123,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'Campus Univers Cascades',
         followersCount: 1050000,
         followersFormatted: '1,05 M',
-        nationalRank: 138,
         category: 'Cascade, Cinéma & Action',
         categoryRank: '#1 Mondial École de Cascade',
         country: 'FR',
@@ -135,7 +138,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'RMC Sport',
         followersCount: 980000,
         followersFormatted: '980 k',
-        nationalRank: 151,
         category: 'Média Sportif',
         categoryRank: 'Top 3 Média Sport',
         country: 'FR',
@@ -148,7 +150,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'Clique TV',
         followersCount: 955000,
         followersFormatted: '955 k',
-        nationalRank: 156,
         category: 'Culture & Médias',
         categoryRank: 'Top 10 Culture',
         country: 'FR',
@@ -161,7 +162,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'Red Bull France',
         followersCount: 847000,
         followersFormatted: '847 k',
-        nationalRank: 174,
         category: 'Sports Extrêmes & Action',
         categoryRank: '#1 Marque Extrême',
         country: 'FR',
@@ -174,7 +174,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: "Mouv'",
         followersCount: 460000,
         followersFormatted: '460 k',
-        nationalRank: 310,
         category: 'Radio & Musique',
         categoryRank: 'Top 20 Musique',
         country: 'FR',
@@ -187,7 +186,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'La Sueur',
         followersCount: 448000,
         followersFormatted: '448 k',
-        nationalRank: 322,
         category: 'MMA & Sports de Combat',
         categoryRank: 'Top 3 Média Combat',
         country: 'FR',
@@ -200,7 +198,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'CNEWS',
         followersCount: 394000,
         followersFormatted: '394 k',
-        nationalRank: 365,
         category: 'Chaîne Info',
         categoryRank: 'Top 15 Actualité',
         country: 'FR',
@@ -213,7 +210,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'Taratata',
         followersCount: 342000,
         followersFormatted: '342 k',
-        nationalRank: 410,
         category: 'Musique & Live TV',
         categoryRank: 'Top 15 Live TV',
         country: 'FR',
@@ -226,7 +222,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'Grazia France',
         followersCount: 233000,
         followersFormatted: '233 k',
-        nationalRank: 540,
         category: 'Mode & Lifestyle',
         categoryRank: 'Top 25 Mode',
         country: 'FR',
@@ -239,7 +234,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'GoPro France',
         followersCount: 214000,
         followersFormatted: '214 k',
-        nationalRank: 580,
         category: 'Caméras & Action Cam',
         categoryRank: 'Top 5 Tech Extrême',
         country: 'FR',
@@ -252,7 +246,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'Festival Cirque de Demain',
         followersCount: 31000,
         followersFormatted: '31 k',
-        nationalRank: 1820,
         category: 'Arts du Cirque & Performance',
         categoryRank: 'Top 5 Cirque Mondial',
         country: 'FR',
@@ -267,7 +260,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'STORROR® Parkour',
         followersCount: 2200000,
         followersFormatted: '2,2 M',
-        nationalRank: undefined,
         category: 'Parkour & Cascade',
         categoryRank: '#1 Mondial Parkour',
         country: 'UK',
@@ -280,7 +272,6 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         displayName: 'Cirque du Soleil',
         followersCount: 2100000,
         followersFormatted: '2,1 M',
-        nationalRank: undefined,
         category: 'Arts du Cirque & Spectacle',
         categoryRank: '#1 Mondial Cirque',
         country: 'CA',
@@ -289,30 +280,3 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
     },
 ];
 
-/** Calcule le vrai rang national français en fonction du nombre d'abonnés */
-export function calculateNationalRank(followers: number): number {
-    if (followers >= 6000000) return 32;
-    if (followers >= 5000000) return 41;
-    if (followers >= 4000000) return 52;
-    if (followers >= 3000000) return 74;
-    if (followers >= 2500000) return 89;
-    if (followers >= 2000000) return 104;
-    if (followers >= 1500000) return 118;
-    if (followers >= 1200000) return 122;
-    if (followers >= 1100000) return 129;
-    if (followers >= 1050000) {
-        // Entre 1 050 000 et 1 100 000, le rang passe de 138 à 129
-        const progress = (followers - 1050000) / 50000;
-        return Math.max(129, Math.round(138 - progress * 9));
-    }
-    if (followers >= 1000000) {
-        const progress = (followers - 1000000) / 50000;
-        return Math.max(138, Math.round(148 - progress * 10));
-    }
-    if (followers >= 980000) return 151;
-    if (followers >= 955000) return 156;
-    if (followers >= 847000) return 174;
-    if (followers >= 500000) return 280;
-    if (followers >= 448000) return 322;
-    return Math.min(2000, Math.round(1000 + (500000 - followers) / 500));
-}

@@ -9,6 +9,19 @@ import { entityRef } from '@/lib/preview/entity-ref';
 import { cucEntity } from '@/lib/preview/cuc-entity';
 import { resolveEntityOverride, usePreviewEntities } from '@/lib/preview/use-preview-entity';
 
+/**
+ * Sondage de secours du bandeau, **onglet visible seulement**.
+ *
+ * Décision assumée : c'est le seul contenu de la vitrine dont la fraîcheur
+ * justifie un aller-retour périodique (fermeture exceptionnelle, alerte météo).
+ * Cinq minutes est un compromis explicite — un visiteur qui revient sur l'onglet
+ * ou navigue voit l'alerte immédiatement, et un onglet laissé ouvert la reçoit
+ * au plus tard dans les cinq minutes, pour 12 lectures par heure et par onglet
+ * visible (au lieu d'un WebSocket tenu en permanence). Tout le reste de la page
+ * ne sonde rien du tout : la fraîcheur vient de la navigation.
+ */
+const ANNOUNCEMENT_POLL_MS = 5 * 60 * 1000;
+
 export const AnnouncementBanner: React.FC = () => {
   const [announcement, setAnnouncement] = useState<SiteAnnouncement | null>(null);
   /** Surcharges locales d'entités (édition en place dans l'aperçu). */
@@ -45,8 +58,11 @@ export const AnnouncementBanner: React.FC = () => {
     loadAnnouncement();
   }, [loadAnnouncement]);
 
-  // Synchronisation Realtime Cockpit → Vitrine (annonces + réglages d'urgence).
-  useRealtimeRefresh(['site_announcements', 'site_settings'], loadAnnouncement);
+  // Cockpit : canal partagé (instantané). Vitrine : reprise d'onglet + sondage
+  // de secours sur le seul contenu dont l'urgence justifie la fraîcheur.
+  useRealtimeRefresh(['site_announcements', 'site_settings'], loadAnnouncement, {
+    pollMs: ANNOUNCEMENT_POLL_MS,
+  });
 
   if (!announcement || !announcement.is_active) {
     return null;

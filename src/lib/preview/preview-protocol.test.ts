@@ -39,6 +39,7 @@ describe('protocole v2 — fabriques', () => {
             previewMessage.listCommand('sections_data.faq.items', 'move-up', 2),
             previewMessage.mediaRequest('sections_data.about.image'),
             previewMessage.mediaCommit('sections_data.about.image', 'https://cdn.test/a.jpg'),
+            previewMessage.fieldsAudit({ issues: [], probed: 3, skipped: 0 }),
         ];
 
         for (const message of messages) {
@@ -69,6 +70,18 @@ describe('parsePreviewMessage — v2 strict', () => {
         );
     });
 
+    it('transporte le diagnostic d’atteignabilité sans perte', () => {
+        const audit = previewMessage.fieldsAudit({
+            issues: [
+                { path: 'hero.hud_location', kind: 'text', reason: 'pointer-events' },
+                { path: 'sections_data.virtual_tour.hud_title', kind: 'text', reason: 'covered' },
+            ],
+            probed: 12,
+            skipped: 4,
+        });
+        expect(parsePreviewMessage(JSON.parse(JSON.stringify(audit)))).toEqual(audit);
+    });
+
     it('ignore tout message invalide, inconnu ou d’une version future', () => {
         const invalid: unknown[] = [
             null,
@@ -92,6 +105,30 @@ describe('parsePreviewMessage — v2 strict', () => {
                 field: 'liste',
                 command: 'remove-all',
                 index: 0,
+            },
+            { channel: PREVIEW_CHANNEL, v: 2, type: 'fields-audit', payload: null },
+            { channel: PREVIEW_CHANNEL, v: 2, type: 'fields-audit', payload: { issues: [] } },
+            {
+                channel: PREVIEW_CHANNEL,
+                v: 2,
+                type: 'fields-audit',
+                payload: {
+                    probed: 1,
+                    skipped: 0,
+                    issues: [{ path: 'hero.title', kind: 'text', reason: 'inconnu' }],
+                },
+            },
+            {
+                channel: PREVIEW_CHANNEL,
+                v: 2,
+                type: 'fields-audit',
+                payload: { probed: 1, skipped: 0, issues: [{ kind: 'text', reason: 'covered' }] },
+            },
+            {
+                channel: PREVIEW_CHANNEL,
+                v: 2,
+                type: 'fields-audit',
+                payload: { probed: '3', skipped: 0, issues: [] },
             },
             {
                 channel: PREVIEW_CHANNEL,

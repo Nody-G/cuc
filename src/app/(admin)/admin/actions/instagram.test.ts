@@ -1,4 +1,3 @@
-import { describe, it, expect } from 'vitest';
 import { extractInstagramShortcode, decodeInstagramEntities } from '@/lib/instagram-utils';
 
 describe('extractInstagramShortcode', () => {

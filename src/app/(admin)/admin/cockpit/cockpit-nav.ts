@@ -150,9 +150,9 @@ export function buildNavSections({
                 { id: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
                 {
                     id: 'inquiries',
-                    label: 'Candidatures & Devis',
+                    label: 'Contact',
                     icon: Inbox,
-                    badge: newInquiriesCount > 0 ? `${newInquiriesCount} new` : undefined,
+                    badge: newInquiriesCount > 0 ? `${newInquiriesCount} nouveau` : undefined,
                 },
                 {
                     id: 'sessions',

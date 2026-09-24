@@ -4,7 +4,8 @@
  */
 
 import { getSupabaseClient } from './client';
-import { PageRevisionStatus, SitePageContent, SitePageRevision } from './types';
+import { PAGE_REVISION_FIELDS } from './page-revision-snapshot';
+import { SitePageContent, SitePageRevision } from './types';
 
 /**
  * Liste l'historique des révisions d'une page, de la plus récente à la plus
@@ -50,54 +51,19 @@ export async function getPageRevision(id: string): Promise<SitePageRevision | nu
 }
 
 /**
- * Crée manuellement une révision (instantané) d'une page.
- * Utile pour marquer un jalon avant une modification importante.
- */
-export async function createPageRevision(
-  slug: string,
-  snapshot: Partial<SitePageContent>,
-  options: { label?: string; status?: PageRevisionStatus } = {}
-): Promise<SitePageRevision | null> {
-  try {
-    const supabase = getSupabaseClient();
-
-    const { data: last } = await supabase
-      .from('site_page_revisions')
-      .select('revision_number')
-      .eq('page_slug', slug)
-      .order('revision_number', { ascending: false })
-      .limit(1)
-      .maybeSingle();
-
-    const nextNumber = ((last?.revision_number as number | undefined) ?? 0) + 1;
-
-    const { data: auth } = await supabase.auth.getUser();
-    const authorId = auth?.user?.id ?? null;
-
-    const { data, error } = await supabase
-      .from('site_page_revisions')
-      .insert({
-        page_slug: slug,
-        revision_number: nextNumber,
-        snapshot,
-        status: options.status ?? 'draft',
-        label: options.label ?? null,
-        author_id: authorId,
-      })
-      .select('*')
-      .maybeSingle();
-
-    if (error || !data) return null;
-    return data as SitePageRevision;
-  } catch {
-    return null;
-  }
-}
-
-/**
  * Restaure une révision : réapplique son instantané sur `site_pages`.
- * L'état courant est automatiquement sauvegardé par le trigger SQL avant
- * l'écriture, ce qui rend la restauration elle-même réversible.
+ *
+ * Deux invariants tenus ici :
+ *  - **tout champ de l'instantané est réappliqué** (`PAGE_REVISION_FIELDS`) —
+ *    `sections_data` et `layout_sections` compris, dont l'oubli rendait la
+ *    « version précédente » partiellement fausse : les textes de sections
+ *    restaient dans leur état récent ;
+ *  - un champ **absent** de l'instantané n'est pas écrit (jamais écrasé par
+ *    `undefined`) — une révision antérieure au champ ne l'efface pas.
+ *
+ * L'écriture de l'état courant n'est plus supposée : c'est
+ * `recordPageRevision` (serveur) qui dépose l'instantané à chaque
+ * enregistrement, donc une restauration reste elle-même réversible.
  */
 export async function restorePageRevision(
   revisionId: string
@@ -107,20 +73,16 @@ export async function restorePageRevision(
     if (!revision) return null;
 
     const supabase = getSupabaseClient();
-    const snap = revision.snapshot ?? {};
+    const snap = (revision.snapshot ?? {}) as Record<string, unknown>;
+
+    const patch: Record<string, unknown> = { updated_at: new Date().toISOString() };
+    for (const field of PAGE_REVISION_FIELDS) {
+      if (field in snap) patch[field] = snap[field];
+    }
 
     const { data, error } = await supabase
       .from('site_pages')
-      .update({
-        title: snap.title,
-        meta_title: snap.meta_title,
-        meta_description: snap.meta_description,
-        og_image: snap.og_image,
-        hero: snap.hero,
-        sections: snap.sections,
-        is_published: snap.is_published,
-        updated_at: new Date().toISOString(),
-      })
+      .update(patch)
       .eq('slug', revision.page_slug)
       .select('*')
       .maybeSingle();

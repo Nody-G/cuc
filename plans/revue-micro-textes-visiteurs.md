@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-24T10:32:36.998Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-24T12:23:33.235Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -332,13 +332,13 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\home\HomeVirtualTourSection.tsx`
 
-- l.58 — `{badge}`
-- l.64 — `{tag}`
-- l.72 — `{title}`
-- l.79 — `{subtitle}`
-- l.95 — `{installationsCta}`
-- l.132 — `{hudTitle}`
-- l.138 — `{hudHint}`
+- l.59 — `{badge}`
+- l.65 — `{tag}`
+- l.73 — `{title}`
+- l.80 — `{subtitle}`
+- l.96 — `{installationsCta}`
+- l.141 — `{hudTitle}`
+- l.147 — `{hudHint}`
 
 ### `src\components\sections\home\tournages\TournagesHeader.tsx`
 
@@ -487,9 +487,9 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\InteractiveCampusMap.tsx`
 
-- l.114 — `{chrome('brandName')}`
-- l.177 — `{t('copied')}`
-- l.210 — `{fullAddress}`
+- l.115 — `{chrome('brandName')}`
+- l.178 — `{t('copied')}`
+- l.215 — `{fullAddress}`
 
 ### `src\components\ui\VirtualTourViewer.tsx`
 
@@ -508,8 +508,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\parallax-hero\HeroHudOverlay.tsx`
 
-- l.38 — `{location}`
-- l.42 — `{privateDomain}`
+- l.44 — `{location}`
+- l.48 — `{privateDomain}`
 
 ## 2. DONNÉES — éditable par un écran existant
 
@@ -535,11 +535,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\CoachCard.tsx`
 
-- l.52 — `{member.role}`
-- l.84 — `{member.name}`
-- l.88 — `{member.title}`
-- l.94 — `{member.bio}`
-- l.109 — `{spec}`
+- l.55 — `{member.role}`
+- l.87 — `{member.name}`
+- l.91 — `{member.title}`
+- l.97 — `{member.bio}`
+- l.112 — `{spec}`
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\CoachFilmThumbs.tsx`
 
@@ -547,7 +547,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\layout.tsx`
 
-- l.147 — `{children}`
+- l.151 — `{children}`
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\DmVideoModal.tsx`
 
@@ -578,15 +578,15 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosReelsSection.tsx`
 
-- l.118 — `{labels.title}`
-- l.121 — `{labels.intro}`
-- l.196 — `{reel.title}`
-- l.200 — `{reel.description}`
+- l.126 — `{labels.title}`
+- l.129 — `{labels.intro}`
+- l.204 — `{reel.title}`
+- l.208 — `{reel.description}`
 
 ### `src\components\layout\AnnouncementBanner.tsx`
 
-- l.93 — `{badgeText}`
-- l.98 — `{titleText}`
+- l.109 — `{badgeText}`
+- l.114 — `{titleText}`
 
 ### `src\components\layout\Navbar.tsx`
 
@@ -689,7 +689,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\home\HomeVirtualTourSection.tsx`
 
-- l.89 — `{ctaText}`
+- l.90 — `{ctaText}`
 
 ### `src\components\sections\home\tournages\TournagesHeader.tsx`
 
@@ -808,7 +808,7 @@ Aucune occurrence.
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosReelsSection.tsx`
 
-- l.114 — `INSTAGRAM @CAMPUS.UNIVERS.CASCADES`
+- l.122 — `INSTAGRAM @CAMPUS.UNIVERS.CASCADES`
 
 ### `src\components\sections\application-modal\ApplicationSuccessView.tsx`
 
@@ -838,7 +838,7 @@ Aucune occurrence.
 
 ### `src\components\ui\InteractiveCampusMap.tsx`
 
-- l.119 — `LAT 50.0909° N • LON 3.5374° E`
+- l.120 — `LAT 50.0909° N • LON 3.5374° E`
 
 ### `src\components\ui\campus-map\CampusAppLaunchers.tsx`
 

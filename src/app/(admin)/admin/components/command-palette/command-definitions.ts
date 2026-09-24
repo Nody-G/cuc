@@ -66,7 +66,7 @@ export function buildCommands({ selectTab, openBackup, openHealth }: CommandActi
         },
         {
             id: 'nav-inquiries',
-            label: 'Gérer les Candidatures & Demandes de Contact',
+            label: 'Ouvrir les demandes de contact',
             category: 'Navigation',
             icon: Inbox,
             action: () => selectTab('inquiries'),

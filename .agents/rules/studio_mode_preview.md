@@ -41,6 +41,27 @@
   langue (CTA mobile : réglage FR / catalogue EN), l'annotation suit la source
   réelle (`cucSetting` / `cucMicro` selon `locale`) — un nœud n'est jamais annoté
   pour une source qu'il n'affiche pas.
+- **Atteignabilité du clic** : annoncer un champ ne suffit pas, il doit **recevoir**
+  le geste. Un conteneur décoratif (`pointer-events-none`) ou un frère plein cadre
+  (`absolute inset-0` avec z-index supérieur — lien de carte, plan focal du hero)
+  qui porte malgré tout des champs éditables se déclare `cucReach()` /
+  `data-cuc-reach` **sur le conteneur** : pendant la seule session de Studio,
+  l'aperçu le remonte et rend le geste à ses seuls champs annotés ; hors Mode
+  Studio, la vitrine publique garde exactement son comportement (la parallaxe et
+  la navigation publiques sont intactes). Un contrôle interactif ne porte **qu'un**
+  champ éditable : deux annotations sous le même lien rendent le clic ambigu, donc
+  la cible de navigation (`*_url`, `*_link` — déjà hors promesse d'édition en
+  place) se règle au formulaire du Cockpit, pas dans la page.
+- **Mesure, jamais supposition** : la vitrine **mesure** l'atteignabilité dans la
+  page réelle (`src/lib/preview/field-reachability.ts` : `pointer-events` calculé
+  + `elementFromPoint` au centre de chaque champ) et publie le résultat au Cockpit
+  (`fields-audit`), qui l'affiche dans la barre de l'aperçu (« N champ(s) non
+  cliquable(s) », avec le détail par champ). Un champ hors fenêtre n'est pas jugé :
+  il est compté à part, jamais déclaré fautif.
+- **Formulaire et aperçu, même couverture** : tout texte annoté côté vitrine existe
+  aussi sous forme de contrôle porteur de `data-cuc-field` dans l'éditeur du
+  Cockpit — sinon le mode inspection (`focus-field.ts`) n'a rien à focaliser et le
+  texte reste hors de portée hors Mode Studio.
 - Listes : `data-cuc-index="<i>"` sur l'item, chemin du **tableau** dans `data-cuc-field`.
 - Rendu **data-first** obligatoire : `{donnée || t('clé')}` — le repli traduit reste en place.
 
@@ -86,9 +107,16 @@
 
 ## 4. Performance et publication
 
-- Realtime : **un seul WebSocket par client** (`subscribeTable`, canal partagé). La
-  navigation, le pied de page, les réseaux, la page, ses traductions, les annonces et les
-  films passent par ce canal.
+- Realtime : **réservé au Cockpit**. `subscribeTable` (`src/lib/supabase/realtime.ts`)
+  n'ouvre un canal que sur une route `/admin/...` (`isCockpitRoute`), et un **seul**
+  WebSocket partagé par client y suffit à toutes les tables. Sur la vitrine publique,
+  aucun canal : un visiteur n'a pas besoin d'une page qui se met à jour toute seule, et le
+  nombre de connexions simultanées est la seule charge qui croît avec le nombre d'onglets
+  ouverts. Sa fraîcheur vient de la navigation (cache serveur invalidé par tag) et, sur
+  place, de la **reprise d'onglet** (`focus` / `visibilitychange`, `useRealtimeRefresh`,
+  une fois par demi-minute au plus). Un sondage périodique reste possible, mais **opt-in**
+  et justifié par l'urgence — seul le bandeau d'annonce le demande (5 minutes, onglet
+  visible).
 - Aperçu : `?cuc-preview=1` coupe le Realtime et met les effets lourds en veille
   (`src/lib/preview/preview-context.ts`). La vitrine publique n'est
   **jamais** chargée avec ce paramètre.
@@ -105,8 +133,13 @@
 
 ## 5. Vérification obligatoire après toute modification
 
-- `npm run audit:fields` — couverture des champs page par page (code 2 si une page n'expose
-  aucun champ). Rapport : `plans/revue-couverture-champs-visuels.md`.
+- `npm run audit:fields` — couverture des champs page par page (code 2 si une page
+  n'expose aucun champ). Rapport : `plans/revue-couverture-champs-visuels.md`.
+- Atteignabilité : ouvrir l'aperçu de la page et lire la barre d'état — la sonde
+  affiche le nombre de champs mesurés cliquables, ou la liste des champs annoncés
+  mais hors de portée (calque décoratif ou recouvrement). Toute page qui affiche
+  « non cliquable(s) » se corrige par `cucReach()` ou par une seule annotation par
+  contrôle — jamais par un contournement CSS global.
 - `npm run audit:microcopy` — micro-textes visiteurs classés (annotés / données / traductions /
   codés en dur). Rapport : `plans/revue-micro-textes-visiteurs.md`.
 - `npm run audit:budget` — budget performance (canal partagé, zéro requête publique nominale,

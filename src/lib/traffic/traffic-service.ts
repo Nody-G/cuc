@@ -4,7 +4,7 @@ import type {
     RealtimeVisitor,
     IncomingVisitPayload,
 } from '@/types/site-traffic';
-import { generateReport, generateLiveVisitors, CUC_PAGES_CATALOG } from './traffic-data';
+import { generateReport, CUC_PAGES_CATALOG } from './traffic-data';
 
 interface LiveSessionStore {
     sessions: Map<string, RealtimeVisitor>;
@@ -57,14 +57,19 @@ export function recordSiteVisit(payload: IncomingVisitPayload): RealtimeVisitor 
     }
 
     const sessionId = `vis-${Math.random().toString(36).substring(2, 9)}`;
+    /**
+     * Aucune géolocalisation n'est collectée par le site (pas d'adresse IP
+     * conservée) : l'ancien « France (En ligne) » affirmait une localisation qui
+     * n'existait pas. Le lecteur voit désormais l'absence d'information.
+     */
     const visitor: RealtimeVisitor = {
         id: sessionId,
         currentPath: payload.path,
         pageTitle,
         source,
-        city: 'France (En ligne)',
-        country: 'France',
-        flag: '🇫🇷',
+        city: 'Non géolocalisé',
+        country: '—',
+        flag: '🌐',
         device: payload.device || 'mobile',
         locale: payload.locale || 'fr',
         activeSeconds: 1,
@@ -79,25 +84,28 @@ export function recordSiteVisit(payload: IncomingVisitPayload): RealtimeVisitor 
 export function getSiteTrafficReport(window: TrafficWindow): SiteTrafficReport {
     pruneExpiredSessions();
 
-    // S'il y a de vraies sessions en cours, on les combine avec les visiteurs synthétiques
+    /**
+     * Le flux « en direct » ne contient que des sessions réellement observées.
+     * Douze visiteurs synthétiques y étaient auparavant mélangés : le compteur
+     * affichait donc toujours du monde, même sur un site sans visiteur.
+     * Corrigé le 2026-09-24.
+     */
     const realSessions = Array.from(globalSessions.sessions.values());
-    const fallbackLive = generateLiveVisitors();
 
-    const combinedLive = [...realSessions, ...fallbackLive].slice(0, 16);
-
-    return generateReport(window, combinedLive);
+    return generateReport(window, realSessions);
 }
 
-/** Récupère la liste des visiteurs en direct et le nombre actif */
+/**
+ * Récupère la liste des visiteurs en direct et le nombre actif.
+ * Mesuré uniquement : une absence de visiteur se voit (compteur à 0).
+ */
 export function getRealtimeVisitors(): { count: number; visitors: RealtimeVisitor[] } {
     pruneExpiredSessions();
     const realSessions = Array.from(globalSessions.sessions.values());
-    const fallbackLive = generateLiveVisitors();
-    const list = [...realSessions, ...fallbackLive].slice(0, 14);
 
     return {
-        count: list.length,
-        visitors: list,
+        count: realSessions.length,
+        visitors: realSessions,
     };
 }
 
@@ -113,8 +121,14 @@ export function formatDuration(seconds: number): string {
 export function exportTrafficCsv(report: SiteTrafficReport): string {
     const lines: string[] = [];
 
-    // Header
+    // Header — l'origine des chiffres suit le fichier, sinon un CSV exporté
+    // laisserait croire à des relevés mesurés.
     lines.push(`Rapport d'audience CUC - Fenêtre: ${report.window} - Généré le: ${report.generatedAt}`);
+    lines.push(
+        report.dataSource === 'modelled'
+            ? 'Origine des volumes: modèle de démonstration (ratios de référence) - visiteurs en direct mesurés'
+            : 'Origine des volumes: relevés mesurés'
+    );
     lines.push('');
 
     // KPIs

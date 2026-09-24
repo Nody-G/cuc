@@ -11,6 +11,8 @@ interface InstagramReelsStatsHeaderProps {
     onRefreshAll: () => void;
     onExportCsv: () => void;
     selectedCategory: string;
+    /** Vrai quand la clé Meta Graph est active : sinon les vues sont des repères saisis. */
+    isSynced: boolean;
 }
 
 export const InstagramReelsStatsHeader: React.FC<InstagramReelsStatsHeaderProps> = ({
@@ -20,6 +22,7 @@ export const InstagramReelsStatsHeader: React.FC<InstagramReelsStatsHeaderProps>
     onRefreshAll,
     onExportCsv,
     selectedCategory,
+    isSynced,
 }) => {
     // Calcul dynamique de toutes les vues de la chaîne (exhaustivité)
     const grandTotalViews = React.useMemo(() => {
@@ -65,7 +68,7 @@ export const InstagramReelsStatsHeader: React.FC<InstagramReelsStatsHeaderProps>
                         </h3>
                     </div>
                     <p className="text-xs font-tech text-zinc-400 mt-1">
-                        Catalogue complet de la chaîne officielle @campus.univers.cascades avec calculatrice de vues cumulées en direct.
+                        Répertoire des Reels de la chaîne officielle @campus.univers.cascades, avec cumul des vues relevées.
                     </p>
                 </div>
 
@@ -111,7 +114,9 @@ export const InstagramReelsStatsHeader: React.FC<InstagramReelsStatsHeaderProps>
                     <p className="text-[11px] font-mono-tech text-zinc-400 mt-1">
                         {isFiltered
                             ? `${filteredTotalViews.toLocaleString('fr-FR')} vues sur la sélection (${formatMillions(grandTotalViews)} total)`
-                            : `${grandTotalViews.toLocaleString('fr-FR')} vues certifiées`}
+                            : isSynced
+                                ? `${grandTotalViews.toLocaleString('fr-FR')} vues synchronisées via l’API Meta`
+                                : `${grandTotalViews.toLocaleString('fr-FR')} vues cumulées, repères saisis`}
                     </p>
                 </div>
 
@@ -128,7 +133,7 @@ export const InstagramReelsStatsHeader: React.FC<InstagramReelsStatsHeaderProps>
                         <span className="text-xs font-mono-tech text-zinc-500">/ vidéo</span>
                     </div>
                     <p className="text-[11px] font-mono-tech text-emerald-400/90 mt-1">
-                        Excellence virale mondiale
+                        Moyenne calculée sur les Reels du répertoire
                     </p>
                 </div>
 
@@ -145,7 +150,7 @@ export const InstagramReelsStatsHeader: React.FC<InstagramReelsStatsHeaderProps>
                         <span className="text-xs font-mono-tech text-zinc-500">vidéos</span>
                     </div>
                     <p className="text-[11px] font-mono-tech text-zinc-400 mt-1">
-                        Cascades à portée planétaire
+                        Seuil symbolique des 10 M de vues
                     </p>
                 </div>
 

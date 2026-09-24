@@ -8,45 +8,44 @@ import type { InstagramAccountStat } from '@/types/instagram-monitor';
 
 interface InstagramLeaderboardRowProps {
     account: InstagramAccountStat;
-    cucNationalRank: number;
     cucFollowersCount: number;
     onRemoveAccount: (username: string) => void;
 }
 
 export const InstagramLeaderboardRow: React.FC<InstagramLeaderboardRowProps> = ({
     account,
-    cucNationalRank,
     cucFollowersCount,
     onRemoveAccount,
 }) => {
     const isCuc = account.isCuc || account.username === 'campus.univers.cascades';
-    const rankDisplay = isCuc
-        ? `#${cucNationalRank}`
-        : account.nationalRank
-        ? `#${account.nationalRank}`
-        : (account.country || 'Monde');
+    /**
+     * Rang affiché = rang **dans ce comparatif**, attribué par la position réelle
+     * (`rankAccountsByFollowers`). Aucun « rang national » n'est montré : il
+     * n'existe pas de source mesurée, et une valeur inventée finissait par
+     * contredire l'ordre des abonnés.
+     */
+    const rank = account.comparativeRank;
+    const rankDisplay = rank ? `#${rank}` : account.country || 'Monde';
 
     const diff = account.followersCount - cucFollowersCount;
 
     return (
         <tr
-            className={`transition-colors ${
-                isCuc
+            className={`transition-colors ${isCuc
                     ? 'bg-[#FFE500]/10 border-l-4 border-l-[#FFE500] font-bold'
                     : 'hover:bg-white/[0.02]'
-            }`}
+                }`}
         >
             {/* Vrai rang France */}
             <td className="py-3 px-3">
                 <div className="flex items-center gap-1.5">
                     <span
-                        className={`px-2 py-0.5 rounded-md text-xs font-mono-tech font-bold ${
-                            isCuc
+                        className={`px-2 py-0.5 rounded-md text-xs font-mono-tech font-bold ${isCuc
                                 ? 'bg-[#FFE500] text-black shadow-md shadow-[#FFE500]/20'
-                                : account.nationalRank && account.nationalRank <= 50
-                                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                                : 'bg-zinc-900 text-zinc-300 border border-zinc-800'
-                        }`}
+                                : rank && rank <= 3
+                                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                                    : 'bg-zinc-900 text-zinc-300 border border-zinc-800'
+                            }`}
                     >
                         {rankDisplay}
                     </span>
@@ -94,11 +93,10 @@ export const InstagramLeaderboardRow: React.FC<InstagramLeaderboardRowProps> = (
 
             {/* Position Niche */}
             <td className="py-3 px-3">
-                <span className={`text-[11px] font-mono-tech px-2 py-0.5 rounded-md ${
-                    isCuc
+                <span className={`text-[11px] font-mono-tech px-2 py-0.5 rounded-md ${isCuc
                         ? 'bg-[#FFE500]/20 text-[#FFE500] font-bold border border-[#FFE500]/30'
                         : 'text-zinc-400 bg-zinc-900 border border-zinc-800/80'
-                }`}>
+                    }`}>
                     {account.categoryRank || 'Créateur'}
                 </span>
             </td>
@@ -116,11 +114,10 @@ export const InstagramLeaderboardRow: React.FC<InstagramLeaderboardRowProps> = (
                     <span className="text-[10px] font-mono-tech text-[#FFE500] font-bold">Base Référence</span>
                 ) : (
                     <span
-                        className={`text-[10px] font-mono-tech px-2 py-0.5 rounded-full ${
-                            diff > 0
+                        className={`text-[10px] font-mono-tech px-2 py-0.5 rounded-full ${diff > 0
                                 ? 'bg-emerald-500/10 text-emerald-400'
                                 : 'bg-zinc-800 text-zinc-400'
-                        }`}
+                            }`}
                     >
                         {diff > 0 ? `+${(diff / 1000).toFixed(0)} k` : `${(diff / 1000).toFixed(0)} k`}
                     </span>

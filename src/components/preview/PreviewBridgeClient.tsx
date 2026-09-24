@@ -6,6 +6,7 @@ import {
     CUC_FIELD_ATTRIBUTE,
     CUC_FIELD_HOVER_ATTRIBUTE,
     CUC_KIND_ATTRIBUTE,
+    CUC_REACH_ATTRIBUTE,
     isSameOrigin,
     parsePreviewMessage,
     previewMessage,
@@ -13,7 +14,12 @@ import {
     type PreviewMessage,
     type PreviewMode,
 } from '@/lib/preview/preview-protocol';
-import { resolveFieldElement, resolveFieldTarget } from '@/lib/preview/field-hit';
+import {
+    CUC_FIELD_SELECTOR,
+    resolveFieldElement,
+    resolveFieldTarget,
+} from '@/lib/preview/field-hit';
+import { probeFieldReachability } from '@/lib/preview/field-reachability';
 import {
     clearPreviewEntities,
     clearPreviewMicrocopy,
@@ -50,6 +56,13 @@ import {
  * Sécurité : l'origine est vérifiée à la réception et chaque envoi est adressé
  * explicitement à l'origine du Cockpit — jamais `'*'`.
  */
+/**
+ * Délai de la sonde d'atteignabilité : on laisse le brouillon s'appliquer et la
+ * mise en page se stabiliser avant de mesurer (sinon le rapport décrirait un
+ * état intermédiaire, pas la page que l'administrateur voit).
+ */
+const REACHABILITY_DELAY_MS = 160;
+
 export const PreviewBridgeClient: React.FC = () => {
     useEffect(() => {
         const isEmbedded = typeof window !== 'undefined' && window.parent !== window;
@@ -64,6 +77,21 @@ export const PreviewBridgeClient: React.FC = () => {
             window.parent.postMessage(message, origin);
         };
 
+        /**
+         * Sonde d'atteignabilité : mesure, dans la page réelle, quels champs
+         * annotés ne reçoivent pas le geste d'édition (conteneur décoratif,
+         * frère plein cadre). Elle ne remplace aucune règle : elle **prouve** ce
+         * que l'administrateur constate, et alimente le diagnostic du Cockpit.
+         */
+        let reachabilityTimer: number | null = null;
+        const scheduleReachabilityProbe = () => {
+            if (reachabilityTimer !== null) window.clearTimeout(reachabilityTimer);
+            reachabilityTimer = window.setTimeout(() => {
+                reachabilityTimer = null;
+                post(previewMessage.fieldsAudit(probeFieldReachability(document)));
+            }, REACHABILITY_DELAY_MS);
+        };
+
         const handleMessage = (event: MessageEvent) => {
             if (!isSameOrigin(event.origin, origin)) return;
             const message = parsePreviewMessage(event.data);
@@ -72,6 +100,7 @@ export const PreviewBridgeClient: React.FC = () => {
             switch (message.type) {
                 case 'draft':
                     setPreviewDraft(message.payload);
+                    scheduleReachabilityProbe();
                     break;
                 case 'settings-draft':
                     setPreviewSettings(message.payload);
@@ -86,6 +115,9 @@ export const PreviewBridgeClient: React.FC = () => {
                     mode = message.payload;
                     document.documentElement.setAttribute('data-cuc-mode', mode);
                     setPreviewEditMode(mode);
+                    // Le mode pilote les affordances d'atteignabilité : on mesure
+                    // après bascule, quand la page est dans son état définitif.
+                    scheduleReachabilityProbe();
                     break;
                 }
                 default:
@@ -203,10 +235,27 @@ export const PreviewBridgeClient: React.FC = () => {
         outline-offset: 3px !important;
         background-color: rgba(255,229,0,.1) !important;
       }
+
+      /* Reprise d'atteignabilité : un calque décoratif porteur de champs
+         éditables se déclare avec l'attribut de reprise. Pendant la seule
+         session de Studio, il passe au-dessus de ses frères (lien plein cadre,
+         plan focal du hero) et rend le geste à ses SEULS champs annotés — le
+         reste du calque reste traversant, donc la parallaxe et la navigation
+         publiques sont intactes. Hors Mode Studio, aucune de ces règles ne
+         s'applique. */
+      html[data-cuc-mode] [${CUC_REACH_ATTRIBUTE}] {
+        z-index: 40 !important;
+        pointer-events: none !important;
+      }
+      html[data-cuc-mode] :is([${CUC_REACH_ATTRIBUTE}]):is(${CUC_FIELD_SELECTOR}),
+      html[data-cuc-mode] [${CUC_REACH_ATTRIBUTE}] :is(${CUC_FIELD_SELECTOR}) {
+        pointer-events: auto !important;
+      }
     `;
         document.head.appendChild(style);
 
         return () => {
+            if (reachabilityTimer !== null) window.clearTimeout(reachabilityTimer);
             window.removeEventListener('message', handleMessage);
             document.removeEventListener('mouseover', handleMouseOver, true);
             document.removeEventListener('mouseout', handleMouseOut, true);

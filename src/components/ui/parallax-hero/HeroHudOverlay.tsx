@@ -4,7 +4,7 @@ import React from 'react';
 import { MapPin, ExternalLink } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { SitePageHero } from '@/lib/data/site-service';
-import { cucField } from '@/lib/preview/cuc-field';
+import { cucField, cucReach } from '@/lib/preview/cuc-field';
 
 interface HeroHudOverlayProps {
   className?: string;
@@ -30,8 +30,14 @@ export const HeroHudOverlay: React.FC<HeroHudOverlayProps> = ({
   const mapUrl = heroData?.hud_map_url || DEFAULT_MAP_URL;
 
   return (
-    <div className={`absolute top-6 left-4 right-4 sm:left-8 sm:right-8 z-20 pointer-events-none flex items-center justify-between ${className}`}>
-      {/* Discreet Location Indicator */}
+    <div
+      {...cucReach()}
+      className={`absolute top-6 left-4 right-4 sm:left-8 sm:right-8 z-20 pointer-events-none flex items-center justify-between ${className}`}
+    >
+      {/* Discreet Location Indicator — le calque est décoratif (il ne doit pas
+          intercepter la parallaxe de la section), mais il porte trois textes
+          éditables : `cucReach()` donne au Mode Studio le droit de le remonter
+          et de rendre le geste à ces seuls textes. */}
       <div className="hidden sm:flex items-center gap-2 text-[11px] font-mono-tech uppercase tracking-widest text-zinc-400">
         <span className="w-1.5 h-1.5 rounded-full bg-[#FFE500]" />
         <span {...cucField('hero.hud_location')} className="text-zinc-300 font-medium">
@@ -43,11 +49,11 @@ export const HeroHudOverlay: React.FC<HeroHudOverlayProps> = ({
         </span>
       </div>
 
-      {/* Google Maps Quick Access Pill */}
+      {/* Google Maps Quick Access Pill — la cible de navigation (`hero.hud_map_url`)
+          n'est pas annotée en place : un contrôle ne porte qu'un champ cliquable,
+          sinon le geste est ambigu. L'URL se règle dans le formulaire du Cockpit. */}
       <a
         href={mapUrl}
-        data-cuc-field="hero.hud_map_url"
-        data-cuc-kind="link"
         target="_blank"
         rel="noopener noreferrer"
         title={t('hudMapTitle')}

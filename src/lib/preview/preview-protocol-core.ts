@@ -55,6 +55,17 @@ export const CUC_MICRO_ATTRIBUTE = 'data-cuc-micro';
  */
 export const CUC_ENTITY_ATTRIBUTE = 'data-cuc-entity';
 
+/**
+ * Attribut de **reprise d'atteignabilité** : déclaré sur un calque décoratif
+ * (`pointer-events-none`, ou recouvert par un frère plein cadre) qui contient
+ * malgré tout des champs éditables — HUD du hero, overlay de la visite 360°,
+ * carte tactique du campus. Pendant la seule session de Studio, la couche
+ * d'aperçu remonte ce calque au-dessus de ses frères et rend le geste à ses
+ * **seuls** champs annotés ; hors Mode Studio, aucune règle ne s'applique et la
+ * vitrine publique garde exactement son comportement.
+ */
+export const CUC_REACH_ATTRIBUTE = 'data-cuc-reach';
+
 /* ------------------------------------------------------------------ *
  * Modèle
  * ------------------------------------------------------------------ */
@@ -137,7 +148,37 @@ export type PreviewMessage =
         index: number;
     }
     | { channel: typeof PREVIEW_CHANNEL; v: 2; type: 'media-request'; field: string }
-    | { channel: typeof PREVIEW_CHANNEL; v: 2; type: 'media-commit'; field: string; url: string };
+    | { channel: typeof PREVIEW_CHANNEL; v: 2; type: 'media-commit'; field: string; url: string }
+    | {
+        channel: typeof PREVIEW_CHANNEL;
+        v: 2;
+        type: 'fields-audit';
+        /** Diagnostic d'atteignabilité mesuré dans la vitrine (sonde du Mode Studio). */
+        payload: PreviewReachabilityReport;
+    };
+
+/** Pourquoi un champ annoté échappe au geste d'édition. */
+export type PreviewReachabilityReason = 'pointer-events' | 'covered';
+
+/** Un champ annoncé mais non cliquable, tel que la vitrine le mesure. */
+export interface PreviewReachabilityIssue {
+    /** Chemin canonique (`hero.title`, `sections_data.about.title`, clé de réglage…). */
+    path: string;
+    /** Nature déclarée (`data-cuc-kind`). */
+    kind: string;
+    reason: PreviewReachabilityReason;
+}
+
+/**
+ * Rapport de la sonde d'atteignabilité : ce qui a été **mesuré** (`probed`), ce
+ * qui n'a pas pu l'être (`skipped`, hors fenêtre) et ce qui ne répond pas au
+ * geste (`issues`). Aucun verdict n'est inventé pour un champ non mesuré.
+ */
+export interface PreviewReachabilityReport {
+    issues: PreviewReachabilityIssue[];
+    probed: number;
+    skipped: number;
+}
 
 /**
  * Forme historique du pont (avant versionnage), encore émise par un bundle de
@@ -235,5 +276,11 @@ export const previewMessage = {
         type: 'media-commit',
         field,
         url,
+    }),
+    fieldsAudit: (payload: PreviewReachabilityReport): PreviewMessage => ({
+        channel: PREVIEW_CHANNEL,
+        v: PREVIEW_PROTOCOL_VERSION,
+        type: 'fields-audit',
+        payload,
     }),
 };

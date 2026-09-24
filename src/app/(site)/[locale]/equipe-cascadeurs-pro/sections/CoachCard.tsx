@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { ExternalLink, ArrowRight, Globe } from 'lucide-react';
 import type { Instructor, FilmCredit } from '@/types';
+import { selectCoachFilms } from '@/lib/coach-films';
 import { CoachCreditsList } from './CoachCreditsList';
 import { CoachFilmThumbs } from './CoachFilmThumbs';
 
@@ -23,11 +24,13 @@ interface CoachCardProps {
 export const CoachCard: React.FC<CoachCardProps> = ({ member, films, onSelectFilm }) => {
     const t = useTranslations('team');
 
-    const coachFilms = films.filter(
-        (f) =>
-            (member.film_ids && member.film_ids.includes(f.id)) ||
-            (f.cuc_team_involved && f.cuc_team_involved.includes(member.id))
-    );
+    /**
+     * Même sélecteur que la fiche du coach : mise en avant du Cockpit d'abord,
+     * puis tri par défaut. Auparavant la carte filtrait à sa façon, **sans tri**,
+     * et affichait donc trois films qui n'étaient pas les trois premiers de la
+     * fiche — l'incohérence que voyait le visiteur.
+     */
+    const coachFilms = selectCoachFilms(films, member);
 
     return (
         <div

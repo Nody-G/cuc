@@ -16,16 +16,23 @@ export async function logAuditEvent(action: string, target: string, details?: st
     const adminClient = createAdminClient();
     const userProfile = await getCurrentUserProfile();
 
-    try {
-      await adminClient.from('site_audit_logs').insert({
-        user_id: userProfile?.id || null,
-        user_name: userProfile?.full_name || userProfile?.email || 'Administrateur',
-        action,
-        target,
-        details: details || null,
-      });
-    } catch {
-      // Fallback site_settings key='audit_logs'
+    /**
+     * `supabase-js` **ne lève pas** sur une erreur d'écriture : elle revient dans
+     * `error`. Sans cette vérification, un journal cassé resterait invisible tout
+     * en ayant l'air correct — c'est exactement le piège relevé le 2026-09-24 en
+     * mesurant la base (`site_audit_logs` vide, aucun signal nulle part).
+     */
+    const { error } = await adminClient.from('site_audit_logs').insert({
+      user_id: userProfile?.id || null,
+      user_name: userProfile?.full_name || userProfile?.email || 'Administrateur',
+      action,
+      target,
+      details: details || null,
+    });
+
+    if (error) {
+      console.warn(`[audit] Journal non écrit (« ${action} ») : ${error.message}`);
+      // Repli : `site_settings` clé `audit_logs`, miroir lu par le Cockpit.
       const { data: row } = await adminClient
         .from('site_settings')
         .select('value')

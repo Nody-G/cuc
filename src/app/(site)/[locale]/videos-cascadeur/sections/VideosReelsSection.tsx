@@ -46,10 +46,18 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
     const [sortBy, setSortBy] = React.useState<ReelSortOption>('featured');
     const [visibleCount, setVisibleCount] = React.useState<number>(targetCols);
 
-    // Réinitialise le décompte si le nombre de colonnes change
-    React.useEffect(() => {
+    /**
+     * Rehausse le décompte visible quand le nombre de colonnes change.
+     *
+     * Ajustement en phase de rendu (motif recommandé par React) plutôt qu'en
+     * effet : un `setState` synchrone dans un effet provoque un rendu en
+     * cascade, ce que `react-hooks/set-state-in-effect` refuse.
+     */
+    const [syncedCols, setSyncedCols] = React.useState<number>(targetCols);
+    if (syncedCols !== targetCols) {
+        setSyncedCols(targetCols);
         setVisibleCount((prev) => Math.max(prev, targetCols));
-    }, [targetCols]);
+    }
 
     // Fusion des vidéos : les reels mis en avant (Cockpit) complétés par le catalogue complet
     const combinedReels = React.useMemo(() => {
@@ -91,12 +99,12 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
         targetCols === 2
             ? 'max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6'
             : targetCols === 3
-            ? 'max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6'
-            : targetCols === 4
-            ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5'
-            : targetCols === 5
-            ? 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4'
-            : 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4';
+                ? 'max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6'
+                : targetCols === 4
+                    ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5'
+                    : targetCols === 5
+                        ? 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4'
+                        : 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4';
 
     const totalViews = React.useMemo(() => {
         return combinedReels.reduce((sum, r) => sum + (r.views || 0), 0);

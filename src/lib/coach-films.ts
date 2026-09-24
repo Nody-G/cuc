@@ -1,8 +1,17 @@
 /**
- * Domaine de la fiche coach : appariement des crédits aux films du catalogue,
- * ordre de mise en avant, tri de la filmographie et résolution du rôle du coach
- * sur un film. Module pur (`AGENTS.md` § 1).
+ * ==============================================================================
+ * CUC — Domaine de la filmographie d'un coach
+ * ==============================================================================
+ * Appariement des crédits aux films du catalogue, ordre de mise en avant, tri de
+ * la filmographie et résolution du rôle du coach sur un film. Module **pur**
+ * (`AGENTS.md` § 1).
+ *
+ * Déplacé depuis `[slug]/coach-detail/` : la **carte** de la liste et la **fiche**
+ * du coach doivent lire la même vérité. Auparavant la carte filtrait à sa façon,
+ * sans tri, et affichait donc trois films différents des trois premiers de la
+ * fiche. Un seul sélecteur les sert désormais (`selectCoachFilms`).
  */
+
 import type { FilmCredit, Instructor, ParsedCredit } from '@/types';
 import { parseCredit } from '@/types';
 import { creditTitleKey } from '@/lib/credit-title';
@@ -10,6 +19,13 @@ import { normalizeRole } from '@/lib/credit-role';
 import { renderRoleSet } from '@/lib/i18n/role-labels';
 
 export type FilmSort = 'year-desc' | 'year-asc' | 'title-asc' | 'title-desc';
+
+/**
+ * Tri par défaut d'une filmographie. Les deux surfaces (carte et fiche)
+ * l'utilisent : c'est lui qui garantit que « les 3 mis en avant » sont les mêmes
+ * des deux côtés.
+ */
+export const DEFAULT_COACH_FILM_SORT: FilmSort = 'year-desc';
 
 /**
  * Clé canonique d'un titre de film : délègue au helper partagé `creditTitleKey`
@@ -92,6 +108,22 @@ export function sortCoachFilms(
         if (isFeaturedB) return 1;
         return compare(a, b);
     });
+}
+
+/**
+ * Filmographie d'un coach, **dans l'ordre exact de sa fiche** : mise en avant du
+ * Cockpit d'abord, puis tri par défaut.
+ *
+ * C'est le sélecteur partagé : la carte en affiche les trois premiers, la fiche
+ * les présente tous. Une seule source, donc aucune divergence possible entre ce
+ * qu'on annonce et ce qu'on montre.
+ */
+export function selectCoachFilms(
+    films: FilmCredit[],
+    member?: Instructor,
+    filmSort: FilmSort = DEFAULT_COACH_FILM_SORT
+): FilmCredit[] {
+    return sortCoachFilms(findRelatedFilms(films, member), filmSort, buildFeaturedOrder(member));
 }
 
 export interface CoachFilmRole {

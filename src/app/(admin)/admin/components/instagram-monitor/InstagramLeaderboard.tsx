@@ -8,7 +8,10 @@ import { InstagramLeaderboardRow } from './InstagramLeaderboardRow';
 
 interface InstagramLeaderboardProps {
     leaderboard: InstagramAccountStat[];
+    /** Rang du CUC **dans ce comparatif** (position réelle, jamais un rang inventé). */
     cucNationalRank: number;
+    /** Vrai quand la synchronisation Meta est active : sinon, chiffres de repère. */
+    isSynced: boolean;
     aheadAccount: InstagramAccountStat | null;
     behindAccount: InstagramAccountStat | null;
     deltaAhead: number;
@@ -26,6 +29,7 @@ interface InstagramLeaderboardProps {
 export const InstagramLeaderboard: React.FC<InstagramLeaderboardProps> = ({
     leaderboard,
     cucNationalRank,
+    isSynced,
     aheadAccount,
     behindAccount,
     deltaAhead,
@@ -47,18 +51,29 @@ export const InstagramLeaderboard: React.FC<InstagramLeaderboardProps> = ({
             {/* Header du Leaderboard avec vrai positionnement */}
             <div className="flex flex-col lg:flex-row lg:items-center justify-between pb-5 border-b border-zinc-800 gap-4">
                 <div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
                         <Trophy className="w-5 h-5 text-[#FFE500]" />
                         <h3 className="text-base font-display uppercase tracking-wider text-white">
-                            Classement Réel Instagram France & Monde
+                            Comparatif Instagram — repères publics
                         </h3>
                         <span className="px-2 py-0.5 rounded-full bg-[#FFE500]/20 text-[#FFE500] text-xs font-mono-tech font-bold border border-[#FFE500]/30">
-                            CUC Rang #{cucNationalRank} France
+                            CUC — rang #{cucNationalRank} du comparatif
+                        </span>
+                        <span
+                            className={`px-2 py-0.5 rounded-full text-xs font-mono-tech font-bold border ${isSynced
+                                    ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+                                    : 'bg-amber-500/15 text-amber-300 border-amber-500/30'
+                                }`}
+                            title={
+                                isSynced
+                                    ? 'Nombres synchronisés via l’API Meta Graph.'
+                                    : 'Les nombres d’abonnés sont des ordres de grandeur saisis à la main : aucun rang national n’est affiché tant que la synchronisation Meta n’est pas active.'
+                            }
+                        >
+                            {isSynced ? 'Synchronisé (Meta)' : 'Repères non synchronisés'}
                         </span>
                     </div>
-                    <p className="text-xs font-tech text-zinc-400 mt-1">
-                        Position réelle du Campus Univers Cascades parmi l&apos;ensemble des créateurs et médias français
-                    </p>
+                    <p className="text-xs font-tech text-zinc-400 mt-1">Le rang affiché est la <strong>position réelle</strong> dans cette liste comparée. Les abonnés restent des ordres de grandeur tant que la clé API Meta n’est pas configurée ; aucun rang national n’est affiché faute de source mesurée.</p>
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -89,44 +104,40 @@ export const InstagramLeaderboard: React.FC<InstagramLeaderboardProps> = ({
                     <button
                         type="button"
                         onClick={() => onSelectFilterMode('direct_context')}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-mono-tech transition-all cursor-pointer ${
-                            filterMode === 'direct_context'
-                                ? 'bg-[#FFE500] text-black font-bold shadow-sm'
-                                : 'text-zinc-400 hover:text-white'
-                        }`}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-mono-tech transition-all cursor-pointer ${filterMode === 'direct_context'
+                            ? 'bg-[#FFE500] text-black font-bold shadow-sm'
+                            : 'text-zinc-400 hover:text-white'
+                            }`}
                     >
                         🎯 Entourage CUC (±10)
                     </button>
                     <button
                         type="button"
                         onClick={() => onSelectFilterMode('top_france')}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-mono-tech transition-all cursor-pointer ${
-                            filterMode === 'top_france'
-                                ? 'bg-[#FFE500] text-black font-bold shadow-sm'
-                                : 'text-zinc-400 hover:text-white'
-                        }`}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-mono-tech transition-all cursor-pointer ${filterMode === 'top_france'
+                            ? 'bg-[#FFE500] text-black font-bold shadow-sm'
+                            : 'text-zinc-400 hover:text-white'
+                            }`}
                     >
                         🇫🇷 Top France Absolu
                     </button>
                     <button
                         type="button"
                         onClick={() => onSelectFilterMode('action_stunt')}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-mono-tech transition-all cursor-pointer ${
-                            filterMode === 'action_stunt'
-                                ? 'bg-[#FFE500] text-black font-bold shadow-sm'
-                                : 'text-zinc-400 hover:text-white'
-                        }`}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-mono-tech transition-all cursor-pointer ${filterMode === 'action_stunt'
+                            ? 'bg-[#FFE500] text-black font-bold shadow-sm'
+                            : 'text-zinc-400 hover:text-white'
+                            }`}
                     >
                         🥋 Cascades & Action
                     </button>
                     <button
                         type="button"
                         onClick={() => onSelectFilterMode('all')}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-mono-tech transition-all cursor-pointer ${
-                            filterMode === 'all'
-                                ? 'bg-[#FFE500] text-black font-bold shadow-sm'
-                                : 'text-zinc-400 hover:text-white'
-                        }`}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-mono-tech transition-all cursor-pointer ${filterMode === 'all'
+                            ? 'bg-[#FFE500] text-black font-bold shadow-sm'
+                            : 'text-zinc-400 hover:text-white'
+                            }`}
                     >
                         📋 Tous les comptes
                     </button>
@@ -158,10 +169,12 @@ export const InstagramLeaderboard: React.FC<InstagramLeaderboardProps> = ({
                 <table className="w-full text-left text-xs">
                     <thead>
                         <tr className="border-b border-zinc-800/80 text-[11px] font-mono-tech uppercase text-zinc-500">
-                            <th className="py-2.5 px-3 w-28">Rang France</th>
+                            <th className="py-2.5 px-3 w-28">Rang comparatif</th>
                             <th className="py-2.5 px-3">Compte & Spécialité</th>
                             <th className="py-2.5 px-3">Position Niche</th>
-                            <th className="py-2.5 px-3 text-right">Abonnés Réels</th>
+                            <th className="py-2.5 px-3 text-right">
+                                {isSynced ? 'Abonnés' : 'Abonnés (repères)'}
+                            </th>
                             <th className="py-2.5 px-3 text-center">Écart vs CUC</th>
                             <th className="py-2.5 px-3 text-right w-16">Actions</th>
                         </tr>
@@ -171,7 +184,6 @@ export const InstagramLeaderboard: React.FC<InstagramLeaderboardProps> = ({
                             <InstagramLeaderboardRow
                                 key={account.id}
                                 account={account}
-                                cucNationalRank={cucNationalRank}
                                 cucFollowersCount={cucFollowersCount}
                                 onRemoveAccount={onRemoveAccount}
                             />
