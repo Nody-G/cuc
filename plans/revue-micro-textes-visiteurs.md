@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-23T16:06:05.256Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-24T10:32:36.998Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -8,11 +8,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | Catégorie | Occurrences |
 | --- | ---: |
 | ANNOTÉ — éditable en place | 306 |
-| DONNÉES — éditable par un écran existant | 104 |
+| DONNÉES — éditable par un écran existant | 105 |
 | TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 15 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 17 |
-| **Total** | **442** |
+| **Total** | **443** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -547,7 +547,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\layout.tsx`
 
-- l.145 — `{children}`
+- l.147 — `{children}`
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\DmVideoModal.tsx`
 
@@ -574,13 +574,14 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosReelsModal.tsx`
 
 - l.63 — `{reel.title}`
+- l.93 — `{reel.description}`
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosReelsSection.tsx`
 
-- l.59 — `{labels.title}`
-- l.62 — `{labels.intro}`
-- l.115 — `{reel.title}`
-- l.119 — `{reel.description}`
+- l.118 — `{labels.title}`
+- l.121 — `{labels.intro}`
+- l.196 — `{reel.title}`
+- l.200 — `{reel.description}`
 
 ### `src\components\layout\AnnouncementBanner.tsx`
 
@@ -807,7 +808,7 @@ Aucune occurrence.
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosReelsSection.tsx`
 
-- l.55 — `INSTAGRAM @CAMPUS.UNIVERS.CASCADES`
+- l.114 — `INSTAGRAM @CAMPUS.UNIVERS.CASCADES`
 
 ### `src\components\sections\application-modal\ApplicationSuccessView.tsx`
 

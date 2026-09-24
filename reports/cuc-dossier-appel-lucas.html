@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Campus Univers Cascades — Dossier Stratégique & Guide d'Échange avec Lucas Dollfus</title>
+<style>
+  :root {
+    --bg-dark: #07070a;
+    --bg-card: #0f0f16;
+    --bg-card-hover: #151520;
+    --bg-card-alt: #12121b;
+    --border: #22222d;
+    --border-light: #2e2e3d;
+    --border-gold: rgba(255, 229, 0, 0.35);
+    --gold: #FFE500;
+    --gold-glow: rgba(255, 229, 0, 0.15);
+    --gold-subtle: rgba(255, 229, 0, 0.08);
+    --text-main: #f0f0f4;
+    --text-muted: #9c9ca8;
+    --text-sub: #c5c5d0;
+    --accent-blue: #38bdf8;
+    --accent-blue-bg: rgba(56, 189, 248, 0.1);
+    --accent-green: #34d399;
+    --accent-green-bg: rgba(52, 211, 153, 0.1);
+    --accent-orange: #fb923c;
+    --accent-orange-bg: rgba(251, 146, 60, 0.1);
+    --accent-red: #f87171;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; color-scheme: dark; }
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    padding-bottom: 90px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Focus & Scrollbar */
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #0a0a0f; }
+  ::-webkit-scrollbar-thumb { background: #262635; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #3c3c50; }
+
+  /* Layout Container */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  /* Top Progress Bar */
+  .progress-bar-container { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 100; background: rgba(255,255,255,0.05); }
+  .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #FFE500, #ff9900); }
+
+  /* Header Hero */
+  header.hero {
+    position: relative;
+    padding: 60px 0 40px;
+    border-bottom: 1px solid var(--border);
+    background: radial-gradient(circle at 80% 20%, rgba(255, 229, 0, 0.08) 0%, transparent 60%);
+  }
+  .badge-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold-subtle);
+    border: 1px solid var(--border-gold);
+    color: var(--gold);
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+  .badge-tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+  
+  h1 {
+    font-size: clamp(28px, 4.2vw, 46px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    color: #ffffff;
+  }
+  h1 span.highlight {
+    color: var(--gold);
+    background: linear-gradient(135deg, #FFE500 20%, #fff085 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  p.hero-lead {
+    font-size: 17px;
+    color: var(--text-sub);
+    max-width: 860px;
+    line-height: 1.6;
+    margin-bottom: 26px;
+  }
+  .hero-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 14px;
+    margin-top: 24px;
+  }
+  .hero-meta-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 14px 18px;
+    border-radius: 12px;
+  }
+  .hero-meta-label { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+  .hero-meta-val { font-size: 15px; font-weight: 700; color: #ffffff; margin-top: 4px; }
+  .hero-meta-val.gold { color: var(--gold); }
+
+  /* Sticky Navigation */
+  nav.sticky-toc {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    background: rgba(7, 7, 10, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 0;
+    margin-bottom: 40px;
+  }
+  .toc-items {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .toc-items::-webkit-scrollbar { display: none; }
+  .toc-link {
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+  }
+  .toc-link:hover { color: var(--gold); border-color: var(--border-light); background: rgba(255,255,255,0.02); }
+  .toc-link.active { color: #000; background: var(--gold); border-color: var(--gold); }
+
+  /* Sections */
+  section { margin-bottom: 64px; scroll-margin-top: 80px; }
+  .section-header { margin-bottom: 24px; }
+  .section-tag { font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.01em; color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+  p.section-intro { font-size: 15.5px; color: var(--text-sub); max-width: 900px; line-height: 1.6; }
+
+  /* Cards & Grids */
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 960px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .grid-4 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    position: relative;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .card:hover { border-color: var(--border-light); }
+  .card.highlighted {
+    border-color: var(--border-gold);
+    background: linear-gradient(180deg, rgba(255, 229, 0, 0.04) 0%, var(--bg-card) 100%);
+  }
+
+  /* Call Agenda & Timeline */
+  .agenda-timeline { display: flex; flex-direction: column; gap: 16px; margin-top: 20px; }
+  .agenda-step {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 22px;
+    align-items: flex-start;
+  }
+  .step-time {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 229, 0, 0.1);
+    color: var(--gold);
+    border: 1px solid var(--border-gold);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .step-content h3 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .step-content p { font-size: 14px; color: var(--text-sub); }
+
+  /* Question Cards */
+  .q-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 16px;
+    transition: all 0.2s ease;
+  }
+  .q-card:hover { border-color: #38384d; }
+  .q-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .q-num {
+    background: #1a1a24;
+    color: var(--gold);
+    border: 1px solid var(--border-gold);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 9px;
+    border-radius: 6px;
+    text-transform: uppercase;
+  }
+  .q-title { font-size: 16.5px; font-weight: 700; color: #ffffff; flex: 1; }
+  .q-priority {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .pri-critical { background: rgba(248, 113, 113, 0.15); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.3); }
+  .pri-strategic { background: rgba(251, 146, 60, 0.15); color: #fb923c; border: 1px solid rgba(251, 146, 60, 0.3); }
+  .pri-editorial { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+
+  .q-context { font-size: 13.5px; color: var(--text-muted); line-height: 1.5; }
+  .q-script-box {
+    background: #09090d;
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 14.5px;
+    color: #e6e6ee;
+    font-style: italic;
+  }
+  .q-script-box strong { color: var(--gold); font-style: normal; }
+
+  .q-options {
+    background: var(--bg-card-alt);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--text-sub);
+  }
+  .q-options-title { font-weight: 700; color: #fff; margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .q-options ul { padding-left: 18px; margin: 0; }
+  .q-options li { margin: 4px 0; }
+
+  /* Interactive Checkbox for Call */
+  .q-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer;
+    user-select: none;
+  }
+  .q-check input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--gold);
+    cursor: pointer;
+  }
+  .q-check span { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+  .q-check input:checked + span { color: var(--accent-green); text-decoration: line-through; }
+
+  /* Live Notes During Call */
+  .q-live-notes {
+    background: #09090e;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .q-live-notes-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .q-live-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .q-live-status {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: monospace;
+  }
+  .q-live-status.saved {
+    color: var(--accent-green);
+  }
+  .q-live-textarea {
+    width: 100%;
+    background: #060609;
+    border: 1px solid #282836;
+    border-radius: 6px;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 10px 12px;
+    resize: vertical;
+    min-height: 72px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .q-live-textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 10px rgba(255, 229, 0, 0.15);
+  }
+  .q-live-textarea::placeholder {
+    color: #555566;
+    font-style: italic;
+  }
+
+  .notes-summary-card {
+    background: linear-gradient(180deg, #13131c 0%, #0d0d14 100%);
+    border: 1px solid var(--border-gold);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 24px;
+  }
+  .notes-summary-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .notes-summary-desc {
+    font-size: 13.5px;
+    color: var(--text-sub);
+    margin-bottom: 18px;
+  }
+
+  /* Features Deep Dive */
+  .feature-pill-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .feat-tab-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .feat-tab-btn.active, .feat-tab-btn:hover { background: #1c1c28; color: var(--gold); border-color: var(--gold); }
+
+  .feature-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 14px;
+  }
+  .feature-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .feature-title { font-size: 17px; font-weight: 700; color: #fff; }
+  .feature-target { font-size: 11.5px; background: rgba(255,255,255,0.06); padding: 3px 8px; border-radius: 4px; color: var(--text-sub); }
+  .feature-dual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 12px;
+    background: #0a0a10;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+  }
+  @media (max-width: 768px) { .feature-dual { grid-template-columns: 1fr; } }
+  .dual-col h4 { font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .dual-col.visitor h4 { color: var(--accent-blue); }
+  .dual-col.admin h4 { color: var(--gold); }
+  .dual-col p { font-size: 13.5px; color: var(--text-sub); line-height: 1.5; }
+
+  /* Tech Dossier (Supabase & Vercel) */
+  .tech-banner {
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(52, 211, 153, 0.05) 50%, rgba(255, 229, 0, 0.05) 100%);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 26px;
+  }
+  .tech-banner h3 { font-size: 20px; color: #fff; margin-bottom: 10px; }
+  .tech-banner p { font-size: 15px; color: var(--text-sub); max-width: 900px; }
+
+  .comparison-table-wrap { overflow-x: auto; margin: 20px 0; border: 1px solid var(--border); border-radius: 12px; }
+  table.comp-table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: left; }
+  table.comp-table th { background: #111118; color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; padding: 14px 16px; border-bottom: 1px solid var(--border); }
+  table.comp-table td { padding: 14px 16px; border-bottom: 1px solid #1a1a24; vertical-align: top; }
+  table.comp-table tr:last-child td { border-bottom: none; }
+  table.comp-table tr:hover td { background: rgba(255,255,255,0.015); }
+  .td-bad { color: #fca5a5; }
+  .td-good { color: #86efac; font-weight: 600; }
+  .pill-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 4px; margin-right: 6px; }
+  .pill-bad { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+  .pill-good { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+
+  /* Callout Quote Boxes */
+  .quote-box {
+    background: #0f121d;
+    border-left: 4px solid var(--accent-blue);
+    padding: 16px 20px;
+    border-radius: 0 10px 10px 0;
+    margin: 18px 0;
+  }
+  .quote-box.gold { border-left-color: var(--gold); background: #16150e; }
+  .quote-box.green { border-left-color: var(--accent-green); background: #0c1813; }
+  .quote-box h4 { font-size: 14.5px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .quote-box p { font-size: 13.8px; color: #cfcfdc; line-height: 1.55; }
+
+  /* Action Bar for User */
+  .action-bar {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold);
+    color: #000;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+  }
+  .btn:hover { background: #fff; transform: translateY(-1px); }
+  .btn.secondary { background: #1f1f2c; color: #fff; border: 1px solid var(--border-light); }
+  .btn.secondary:hover { background: #2b2b3d; }
+
+  /* Toast Notification */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #111118;
+    color: #fff;
+    border: 1px solid var(--border-gold);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 200;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  /* Print Styles */
+  @media print {
+    body { background: #fff !important; color: #000 !important; font-size: 12pt; }
+    .progress-bar-container, nav.sticky-toc, .action-bar, .toast, .q-check input { display: none !important; }
+    header.hero { background: none; padding: 20px 0; border-bottom: 2px solid #000; }
+    h1, h2, h3, .q-title, .feature-title { color: #000 !important; }
+    p, .q-context, .feature-dual p { color: #333 !important; }
+    .card, .q-card, .feature-item, .agenda-step, .tech-banner {
+      background: #fff !important;
+      border: 1px solid #ccc !important;
+      color: #000 !important;
+      page-break-inside: avoid;
+      box-shadow: none !important;
+    }
+    .q-script-box { background: #f5f5f5 !important; color: #000 !important; border-left: 3px solid #000 !important; }
+    .q-options { background: #fafafa !important; border-color: #ddd !important; }
+    table.comp-table th { background: #eee !important; color: #000 !important; }
+    table.comp-table td { border-bottom: 1px solid #ddd !important; color: #000 !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<div class="container">
+
+  <!-- HERO SECTION -->
+  <header class="hero">
+    <div class="badge-tag">Document Préparatoire Stratégique · Direction CUC</div>
+    <h1>Guide d'Échange avec <span class="highlight">Lucas Dollfus</span></h1>
+    <p class="hero-lead">
+      Tout le nécessaire pour mener un appel fluide, valorisant et décisif avec le fondateur du Campus Univers Cascades :
+      les <strong>questions clés d'arbitrage</strong>, la <strong>visite guidée détaillée de chaque fonctionnalité</strong> du nouveau site,
+      et le <strong>dossier technique transparent sur Vercel & Supabase</strong> pour le rassurer sur la pérennité de son investissement.
+    </p>
+
+    <div class="hero-meta-grid">
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Interlocuteur</div>
+        <div class="hero-meta-val">Lucas Dollfus (Directeur CUC)</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">État du projet</div>
+        <div class="hero-meta-val gold">100% Prêt pour Déploiement</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Catalogue & Équipe</div>
+        <div class="hero-meta-val">570 Films · 12 Coachs IMDb</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Couverture & Tests</div>
+        <div class="hero-meta-val">FR/EN 100% · 394 Tests OK</div>
+      </div>
+    </div>
+
+    <div class="action-bar">
+      <button class="btn" style="background:#FFE500; color:#000;" onclick="copyLucasAnswers()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+        Copier les réponses de Lucas
+      </button>
+      <button class="btn secondary" onclick="window.print()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+        Imprimer / Exporter en PDF
+      </button>
+      <button class="btn secondary" onclick="copyCallScript()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        Copier la trame d'appel
+      </button>
+      <button class="btn secondary" onclick="resetCheckboxes()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        Réinitialiser les cases cochées
+      </button>
+    </div>
+  </header>
+
+  <!-- STICKY NAVIGATION BAR -->
+  <nav class="sticky-toc">
+    <div class="toc-items">
+      <a href="#agenda" class="toc-link active">1. Trame de l'Appel</a>
+      <a href="#questions" class="toc-link">2. Questions Stratégiques</a>
+      <a href="#fonctionnalites" class="toc-link">3. Fonctionnalités du Site</a>
+      <a href="#cockpit" class="toc-link">4. Le Cockpit Admin</a>
+      <a href="#tech" class="toc-link">5. Supabase & Vercel</a>
+      <a href="#faq" class="toc-link">6. FAQ Anticipée</a>
+    </div>
+  </nav>
+
+  <!-- SECTION 1 : TRAME DE L'APPEL -->
+  <section id="agenda">
+    <div class="section-header">
+      <div class="section-tag">Organisation · Durée estimée : 30 à 45 min</div>
+      <h2>1. Déroulé Chronologique de l'Appel</h2>
+      <p class="section-intro">
+        Une structure en 4 temps éprouvée pour valoriser le travail accompli, montrer concrètement la puissance de l'outil,
+        aborder les questions d'arbitrage sans détour, et sécuriser le feu vert pour le lancement.
+      </p>
+    </div>
+
+    <div class="agenda-timeline">
+      <div class="agenda-step">
+        <div class="step-time">00 - 05 min</div>
+        <div class="step-content">
+          <h3>Phase 1 : Introduction & Bilan enthousiasmant</h3>
+          <p>Remercier Lucas pour son temps, le féliciter pour la dynamique du CUC (1,05M d'abonnés, nouveaux tournages), et poser le cadre : <em>« Le nouveau site et le Cockpit sont terminés, testés et prêts à 100%. On fait le point ensemble pour te montrer les résultats et caler la bascule définitive. »</em></p>
+        </div>
+      </div>
+
+      <div class="agenda-step">
+        <div class="step-time">05 - 18 min</div>
+        <div class="step-content">
+          <h3>Phase 2 : Démonstration des résultats concrets</h3>
+          <p>Lui présenter le site sous ses yeux : la fluidité instantanée, le filmographie de 570 films avec les affiches HD, la mise en valeur des 12 coachs avec leurs crédits IMDb certifiés, le mur vidéo de 44 Reels avec compteurs de vues réelles, et le basculement instantané en anglais pour les productions internationales.</p>
+        </div>
+      </div>
+
+      <div class="agenda-step">
+        <div class="step-time">18 - 32 min</div>
+        <div class="step-content">
+          <h3>Phase 3 : Questions d'arbitrage & Déblocages indispensables</h3>
+          <p>Passer en revue les 7 questions stratégiques : la date de bascule du nom de domaine (DNS), le token Instagram Meta Graph API pour automatiser les stats, la confirmation des tarifs/sessions, et l'explication rassurante sur Vercel et Supabase.</p>
+        </div>
+      </div>
+
+      <div class="agenda-step">
+        <div class="step-time">32 - 40 min</div>
+        <div class="step-content">
+          <h3>Phase 4 : Feu vert, planning de lancement & Prochaines étapes</h3>
+          <p>Valider la date cible de mise en ligne publique, convenir de qui fait la manipulation DNS, et caler 20 minutes de prise en main du Cockpit ("Mode Studio") pour lui ou son équipe.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2 : QUESTIONS STRATÉGIQUES POUR LUCAS -->
+  <section id="questions">
+    <div class="section-header">
+      <div class="section-tag">Grille Interactive · Cochez au fur et à mesure de l'échange</div>
+      <h2>2. Les Questions Clés à Poser à Lucas</h2>
+      <p class="section-intro">
+        Ces questions sont formulées pour obtenir des réponses opérationnelles précises sans jamais submerger Lucas de jargon technique.
+        Chaque carte inclut le contexte, la formulation mot-à-mot suggérée et les options de décision.
+      </p>
+    </div>
+
+    <!-- QUESTION 1 -->
+    <div class="q-card" id="qc1">
+      <div class="q-header">
+        <span class="q-num">Question 01</span>
+        <div class="q-title">Bascule du Nom de Domaine & Accès Registrar (DNS)</div>
+        <span class="q-priority pri-critical">Bloquant Lancement</span>
+      </div>
+      <div class="q-context">
+        <strong>Contexte :</strong> L'adresse <code>campus-universcascades.com</code> pointe encore vers l'ancien WordPress hébergé sur un serveur traditionnel. Le nouveau site Next.js est prêt à être servi sur Vercel dès que l'enregistrement DNS (champ A / CNAME) sera mis à jour.
+      </div>
+      <div class="q-script-box">
+        <strong>Comment lui poser :</strong> « Lucas, le nouveau site est totalement prêt et validé. Pour que les visiteurs et les productions voient cette nouvelle version quand ils tapent <em>campus-universcascades.com</em>, il nous suffit de modifier un réglage DNS chez votre hébergeur (OVH, Gandi, etc.). Est-ce que tu as les accès à cet espace ou le contact de la personne qui gère le nom de domaine ? »
+      </div>
+      <div class="q-options">
+        <div class="q-options-title">Éléments à clarifier avec lui :</div>
+        <ul>
+          <li><strong>Où est le domaine ?</strong> OVH, Gandi, Ionos, Hostinger, autre ?</li>
+          <li><strong>Les emails de l'équipe :</strong> Le rassurer immédiatement que modifier l'affichage du site web <em>ne touche absolument pas</em> aux boîtes mails (les enregistrements MX restent inchangés).</li>
+          <li><strong>Date et heure idéales :</strong> Viser un créneau calme (ex: un lundi à 9h ou un mardi matin) pour surveiller en direct la propagation mondiale.</li>
+        </ul>
+      </div>
+      <label class="q-check">
+        <input type="checkbox" id="chk-q1" onchange="saveCheck(this)">
+        <span>Réponse obtenue / Accès DNS planifiés</span>
+      </label>
+      <div class="q-live-notes">
+        <div class="q-live-notes-bar">
+          <span class="q-live-label">📝 Réponse de Lucas au téléphone :</span>
+          <span class="q-live-status" id="status-note-q1">En attente</span>
+        </div>
+        <textarea
+          id="note-q1"
+          class="q-live-textarea"
+          placeholder="Notez ici les réponses de Lucas (hébergeur OVH/Gandi, identifiants, contact technique, date convenue)..."
+          oninput="saveNote(this)"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- QUESTION 2 -->
+    <div class="q-card" id="qc2">
+      <div class="q-header">
+        <span class="q-num">Question 02</span>
+        <div class="q-title">Connexion Officielle Instagram Meta Graph API</div>
+        <span class="q-priority pri-strategic">Valeur Forte</span>
+      </div>
+      <div class="q-context">
+        <strong>Contexte :</strong> Le compte Instagram officiel du CUC rassemble <strong>1,05 Million d'abonnés</strong> (@campus.univers.cascades, classé #138 national en France et #1 Mondial en Académie de Cascade). Le site intègre un mur vidéo de 44 Reels avec le nombre de vues et un moniteur dans le Cockpit. Pour que ces chiffres se mettent à jour automatiquement sans aucune intervention manuelle, l'API officielle Instagram (Meta) doit être connectée.
+      </div>
+      <div class="q-script-box">
+        <strong>Comment lui poser :</strong> « Vos chiffres Instagram sont gigantesques avec plus de 1,05 million d'abonnés et des Reels à plusieurs millions de vues. On a créé un espace vidéo direct sur le site qui met en avant vos meilleures cascades. Pour que chaque nouvelle vidéo et les compteurs de vues s'actualisent tout seuls, on a juste besoin de lier le compte Facebook/Instagram professionnel via l'API Meta. Peux-tu nous donner un accès temporaire ou générer le token en 2 minutes ensemble ? »
+      </div>
+      <div class="q-options">
+        <div class="q-options-title">Options techniques :</div>
+        <ul>
+          <li><strong>Option A (Idéale) :</strong> Connexion via Meta Business Suite en direct avec Lucas (User Access Token longue durée 60 jours renouvelable automatiquement).</li>
+          <li><strong>Option B (Autonome) :</strong> Le système actuel fonctionne déjà avec des données statiques vérifiées et synchronisées par scraper sans bloquer le site.</li>
+        </ul>
+      </div>
+      <label class="q-check">
+        <input type="checkbox" id="chk-q2" onchange="saveCheck(this)">
+        <span>Accès Meta validé / Procédure calée</span>
+      </label>
+      <div class="q-live-notes">
+        <div class="q-live-notes-bar">
+          <span class="q-live-label">📝 Réponse de Lucas au téléphone :</span>
+          <span class="q-live-status" id="status-note-q2">En attente</span>
+        </div>
+        <textarea
+          id="note-q2"
+          class="q-live-textarea"
+          placeholder="Notez ici les réponses de Lucas (accès Facebook/Meta, token, qui a la main sur la page)..."
+          oninput="saveNote(this)"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- QUESTION 3 -->
+    <div class="q-card" id="qc3">
+      <div class="q-header">
+        <span class="q-num">Question 03</span>
+        <div class="q-title">Validation de l'Équipe & Crédits Cinéma des 12 Coachs</div>
+        <span class="q-priority pri-editorial">Crédibilité Métier</span>
+      </div>
+      <div class="q-context">
+        <strong>Contexte :</strong> Conformément à notre doctrine de rigueur absolue (zéro faux crédit, adossement IMDb vérifié), nous avons nettoyé toutes les approximations passées : <strong>Michel Bouis</strong> (et non Michaël Troude) est confirmé avec ses <strong>244 productions vérifiées</strong> (le record de l'équipe devant Jérôme Gaspard à 202), Malik Diouf (terme Parkour rigoureux), David Genty, etc. Plus de 570 films sont rattachés aux coachs selon leurs rôles réels (coordination, régleur, doublure ou cascadeur).
+      </div>
+      <div class="q-script-box">
+        <strong>Comment lui poser :</strong> « On a passé au crible toute la filmographie du campus et de chaque coach sur IMDb. Résultat : plus de 570 films réels répertoriés avec affiches officielles, sans aucune fausse note, avec Michel Bouis en tête affichant 244 productions et Jérôme Gaspard à plus de 200. Peux-tu jeter un œil rapide sur la liste des 12 coachs permanents pour me confirmer qu'il n'y a pas d'oubli ou un nouveau venu pour la saison 2026/2027 ? As-tu également des tournages récents de 2025/2026 dont tu es particulièrement fier qu'on doit hisser en tête de gondole ? »
+      </div>
+      <div class="q-options">
+        <div class="q-options-title">Points de contrôle :</div>
+        <ul>
+          <li>Validation nominative des coachs permanents affichés sur <code>/equipe-cascadeurs-pro</code> (Michel Bouis : 244 films, Jérôme Gaspard : 202, Amédéo Cazzella : 112).</li>
+          <li>Sélection des 6 films à épingler en "À l'affiche" sur la page d'accueil (ex: <em>Braqueurs, Lucy, Taxi 5, Bac Nord, Novembre</em>).</li>
+          <li>Confirmation de la terminologie : "Parkour" validé pour Malik Diouf (conformément aux souhaits de la profession).</li>
+        </ul>
+      </div>
+      <label class="q-check">
+        <input type="checkbox" id="chk-q3" onchange="saveCheck(this)">
+        <span>Fiches coachs & Crédits validés par Lucas</span>
+      </label>
+      <div class="q-live-notes">
+        <div class="q-live-notes-bar">
+          <span class="q-live-label">📝 Réponse de Lucas au téléphone :</span>
+          <span class="q-live-status" id="status-note-q3">En attente</span>
+        </div>
+        <textarea
+          id="note-q3"
+          class="q-live-textarea"
+          placeholder="Notez ici les retours de Lucas (ajouts ou retraits de coachs, films phares à mettre en avant)..."
+          oninput="saveNote(this)"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- QUESTION 4 -->
+    <div class="q-card" id="qc4">
+      <div class="q-header">
+        <span class="q-num">Question 04</span>
+        <div class="q-title">Calendrier des Sessions 2026/2027 & Liaisons CUC Sign</div>
+        <div class="q-priority pri-strategic">Chiffre d'Affaires</div>
+      </div>
+      <div class="q-context">
+        <strong>Contexte :</strong> Le site affiche le calendrier des formations professionnelles, stages découverte et workshops. Il permet d'afficher en temps réel les statuts ("Places ouvertes", "Dernières places", "Session complète"). Ces données sont synchronisées avec la base CUC Sign.
+      </div>
+      <div class="q-script-box">
+        <strong>Comment lui poser :</strong> « Sur la page des formations et stages, les élèves voient désormais les dates exactes et le nombre de places restantes en temps réel. Est-ce que les dates actuelles et les tarifs pour la fin d'année et 2027 sont définitifs ? Y a-t-il des sessions déjà complètes qu'on marque comme telles pour créer de l'urgence d'inscription ? »
+      </div>
+      <div class="q-options">
+        <div class="q-options-title">Points d'arbitrage :</div>
+        <ul>
+          <li>Confirmation des tarifs affichés (formations longues vs stages courts week-end).</li>
+          <li>Mentions des financements : AFDAS, OPCO, France Travail (ex Pôle Emploi), aides régionales.</li>
+          <li>Passage en statut "Complet" sur certaines dates pour valoriser l'attractivité du centre.</li>
+        </ul>
+      </div>
+      <label class="q-check">
+        <input type="checkbox" id="chk-q4" onchange="saveCheck(this)">
+        <span>Calendrier & Tarifs 2026/2027 confirmés</span>
+      </label>
+      <div class="q-live-notes">
+        <div class="q-live-notes-bar">
+          <span class="q-live-label">📝 Réponse de Lucas au téléphone :</span>
+          <span class="q-live-status" id="status-note-q4">En attente</span>
+        </div>
+        <textarea
+          id="note-q4"
+          class="q-live-textarea"
+          placeholder="Notez ici les ajustements de dates, tarifs confirmés, sessions complètes..."
+          oninput="saveNote(this)"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- QUESTION 5 -->
+    <div class="q-card" id="qc5">
+      <div class="q-header">
+        <span class="q-num">Question 05</span>
+        <div class="q-title">Gestion des Vidéos Lourdes & Sauvegarde de la Base</div>
+        <div class="q-priority pri-strategic">Performance & Économie</div>
+      </div>
+      <div class="q-context">
+        <strong>Contexte :</strong> Le 23 septembre, un dépassement temporaire de quota a eu lieu sur Supabase parce que la base contenait 218 Mo de fichiers, dont 3 vidéos de reportages brutes de 127 Mo. En hébergeant les vidéos lourdes sur YouTube/Vimeo (en non répertorié ou public) avec lecture intégrée transparente sur le site, le site reste ultraléger et la base ne coûte quasiment rien.
+      </div>
+      <div class="q-script-box">
+        <strong>Comment lui poser :</strong> « Pour que le site se charge en une fraction de seconde sur smartphone même avec une mauvaise connexion 4G sur un tournage, on optimise chaque image. Pour les vidéos très lourdes de reportages TV (qui pèsent 50 Mo chacune), la meilleure pratique mondiale est de les diffuser via un lecteur YouTube ou Vimeo intégré sans publicité : c'est 100% transparent pour le visiteur, la qualité 4K est garantie par YouTube, et cela évite de payer du stockage serveur inutilement. Es-tu d'accord avec cette approche ? »
+      </div>
+      <div class="q-options">
+        <div class="q-options-title">Bénéfices pour le CUC :</div>
+        <ul>
+          <li>Temps de chargement divisé par 4 sur smartphone.</li>
+          <li>Aucun risque de dépassement de forfait serveur.</li>
+          <li>Vues supplémentaires comptabilisées sur la chaîne YouTube officielle du CUC.</li>
+        </ul>
+      </div>
+      <label class="q-check">
+        <input type="checkbox" id="chk-q5" onchange="saveCheck(this)">
+        <span>Stratégie vidéo validée</span>
+      </label>
+      <div class="q-live-notes">
+        <div class="q-live-notes-bar">
+          <span class="q-live-label">📝 Réponse de Lucas au téléphone :</span>
+          <span class="q-live-status" id="status-note-q5">En attente</span>
+        </div>
+        <textarea
+          id="note-q5"
+          class="q-live-textarea"
+          placeholder="Notez ici l'accord de Lucas (hébergement YouTube / Vimeo, liens des chaînes)..."
+          oninput="saveNote(this)"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- QUESTION 6 -->
+    <div class="q-card" id="qc6">
+      <div class="q-header">
+        <span class="q-num">Question 06</span>
+        <div class="q-title">Routage des Candidatures & Demandes de Devis (Formulaires)</div>
+        <div class="q-priority pri-strategic">Opérationnel</div>
+      </div>
+      <div class="q-context">
+        <strong>Contexte :</strong> Les formulaires de contact, de demande d'admission aux formations et de devis pour tournages/événements arrivent dans le Cockpit CUC (table <code>site_inquiries</code>).
+      </div>
+      <div class="q-script-box">
+        <strong>Comment lui poser :</strong> « Dès qu'un futur élève postule pour le cursus pro ou qu'un producteur demande un devis de cascadeurs, la demande s'enregistre dans votre Cockpit. Vers quelle(s) adresse(s) email veux-tu qu'une alerte immédiate soit envoyée en double ? Vers ta boîte personnelle, celle du secrétariat, ou une adresse dédiée comme <em>admissions@campus-universcascades.com</em> ? »
+      </div>
+      <div class="q-options">
+        <div class="q-options-title">Organisation recommandée :</div>
+        <ul>
+          <li>Demandes d'admission formation → Responsable pédagogique / secrétariat.</li>
+          <li>Demandes de tournages & prestations cinéma → Lucas Dollfus directement.</li>
+          <li>Team building & événements entreprises → Responsable événementiel.</li>
+        </ul>
+      </div>
+      <label class="q-check">
+        <input type="checkbox" id="chk-q6" onchange="saveCheck(this)">
+        <span>Adresses emails de notification confirmées</span>
+      </label>
+      <div class="q-live-notes">
+        <div class="q-live-notes-bar">
+          <span class="q-live-label">📝 Réponse de Lucas au téléphone :</span>
+          <span class="q-live-status" id="status-note-q6">En attente</span>
+        </div>
+        <textarea
+          id="note-q6"
+          class="q-live-textarea"
+          placeholder="Notez ici les adresses emails de destination données par Lucas..."
+          oninput="saveNote(this)"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- QUESTION 7 -->
+    <div class="q-card" id="qc7">
+      <div class="q-header">
+        <span class="q-num">Question 07</span>
+        <div class="q-title">Prise en Main du Cockpit ("Mode Studio") & Formation</div>
+        <div class="q-priority pri-editorial">Autonomie Équipe</div>
+      </div>
+      <div class="q-context">
+        <strong>Contexte :</strong> Le Cockpit CUC dispose d'un "Mode Studio" unique : Lucas ou son équipe naviguent sur le site, cliquent sur n'importe quel texte ou titre, le modifient en direct comme dans Word et enregistrent en un clic, en français et en anglais.
+      </div>
+      <div class="q-script-box">
+        <strong>Comment lui poser :</strong> « On a conçu l'administration pour que vous soyez 100% autonomes sans jamais avoir besoin d'un informaticien. Vous pouvez vous balader sur le site, cliquer sur un texte ou une photo et la changer directement. Qui dans ton équipe aura besoin d'un compte d'accès ? Je te propose qu'on prenne 15 minutes en visio la semaine prochaine pour te montrer comment ça marche : tu vas voir, c'est un jeu d'enfant. »
+      </div>
+      <div class="q-options">
+        <div class="q-options-title">Profils d'accès à créer :</div>
+        <ul>
+          <li>Lucas Dollfus (Accès Super-Admin total).</li>
+          <li>Chargé(e) de communication / réseaux sociaux (Pages, Reels, Annonces).</li>
+          <li>Secrétariat / Inscriptions (Gestion des sessions et candidatures).</li>
+        </ul>
+      </div>
+      <label class="q-check">
+        <input type="checkbox" id="chk-q7" onchange="saveCheck(this)">
+        <span>Session de formation calée & Profils identifiés</span>
+      </label>
+      <div class="q-live-notes">
+        <div class="q-live-notes-bar">
+          <span class="q-live-label">📝 Réponse de Lucas au téléphone :</span>
+          <span class="q-live-status" id="status-note-q7">En attente</span>
+        </div>
+        <textarea
+          id="note-q7"
+          class="q-live-textarea"
+          placeholder="Notez ici les personnes de l'équipe à inviter (prénoms, emails, date de visio)..."
+          oninput="saveNote(this)"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- CARTE DE SYNTHÈSE ET EXPORT DES NOTES -->
+    <div class="notes-summary-card" id="call-summary-card">
+      <div class="notes-summary-title">
+        <span>📋 Compte-Rendu & Export des Réponses de Lucas</span>
+      </div>
+      <p class="notes-summary-desc">
+        Toutes vos notes sont <strong>sauvegardées en temps réel dans votre navigateur (localStorage)</strong>.
+        Même si vous fermez votre onglet ou rechargez la page par mégarde, <strong>rien n'est perdu</strong>.
+        Utilisez les boutons ci-dessous pour copier ou exporter l'ensemble des réponses pour l'assistant IA ou pour archive.
+      </p>
+
+      <div class="q-live-notes" style="margin-bottom: 20px;">
+        <div class="q-live-notes-bar">
+          <span class="q-live-label">📌 Notes Générales / Autres Sujets Abordés avec Lucas :</span>
+          <span class="q-live-status" id="status-note-general">En attente</span>
+        </div>
+        <textarea
+          id="note-general"
+          class="q-live-textarea"
+          style="min-height: 90px;"
+          placeholder="Notez ici tout autre point abordé : impressions de Lucas sur le design, anecdotes, nouvelles idées, partenariats en cours..."
+          oninput="saveNote(this)"
+        ></textarea>
+      </div>
+
+      <div class="action-bar" style="margin: 0;">
+        <button class="btn" onclick="copyLucasAnswers()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+          📋 Copier les réponses pour l'assistant IA
+        </button>
+        <button class="btn secondary" onclick="downloadLucasReport()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          💾 Télécharger le Compte-Rendu (.txt / .md)
+        </button>
+        <button class="btn secondary" onclick="downloadHtmlWithNotes()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          📄 Sauvegarder dans le fichier HTML
+        </button>
+        <button class="btn secondary" style="color:#f87171; border-color: rgba(248,113,113,0.3);" onclick="clearAllNotes()">
+          🗑️ Tout effacer
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3 : FONCTIONNALITÉS DÉTAILLÉES DU SITE -->
+  <section id="fonctionnalites">
+    <div class="section-header">
+      <div class="section-tag">Tour Complet de l'Application · Ce que fait le site concrètement</div>
+      <h2>3. Les Fonctionnalités du Site Public (15 Pages)</h2>
+      <p class="section-intro">
+        Voici la description concrète de chaque page et fonctionnalité, avec la double vision :
+        ce que vit le visiteur (producteur, élève) et ce que cela apporte au Campus Univers Cascades en termes de business et de notoriété.
+      </p>
+    </div>
+
+    <!-- FEAT 1 : ACCUEIL -->
+    <div class="feature-item">
+      <div class="feature-header">
+        <div class="feature-title">Page d'Accueil Cinématique & Immersion Directe</div>
+        <span class="feature-target">Route : / et /en</span>
+      </div>
+      <p style="color:var(--text-sub); font-size:14px;">La vitrine principale conçue comme une bande-annonce de cinéma d'action. Dès la première seconde, le visiteur comprend l'envergure du lieu.</p>
+      <div class="feature-dual">
+        <div class="dual-col visitor">
+          <h4>Expérience Visiteur</h4>
+          <p>Vidéo cinématique en immersion, bandeau des chiffres officiels (18 ans d'expérience, 11 000 m² de hangars d'entraînement, 570+ films, 1,05M d'abonnés), carrousel des films majeurs récents, présentation des disciplines clés (combat, parkour, chutes, câblage) et avis vérifiés.</p>
+        </div>
+        <div class="dual-col admin">
+          <h4>Impact & Pilotage CUC</h4>
+          <p>Crédibilité foudroyante face aux productions internationales. Tous les chiffres clés, le slogan fondateur de Lucas, les films mis en avant et les bandeaux d'alertes urgentes sont éditables en direct depuis le Cockpit.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEAT 2 : CATALOGUE FILMS -->
+    <div class="feature-item">
+      <div class="feature-header">
+        <div class="feature-title">Le Catalogue de 570+ Films & Séries (Tournages)</div>
+        <span class="feature-target">Route : /cuc-team-cascadeur</span>
+      </div>
+      <p style="color:var(--text-sub); font-size:14px;">La plus grande base de données publique de cascades en France, reliant chaque film aux coachs ayant travaillé dessus.</p>
+      <div class="feature-dual">
+        <div class="dual-col visitor">
+          <h4>Expérience Visiteur</h4>
+          <p>Moteur de recherche instantané par titre ou par nom de coach, filtres par genre (Action, Thriller, Comédie) et par année. Chaque fiche affiche l'affiche haute définition officielle, le rôle précis de l'équipe (coordination, régleur, cascadeur) et un lien direct vers la fiche IMDb.</p>
+        </div>
+        <div class="dual-col admin">
+          <h4>Impact & Pilotage CUC</h4>
+          <p>Prouve aux élèves et aux producteurs la légitimité incontestable du CUC dans l'industrie cinématographique. Possibilité d'ajouter un nouveau film en 30 secondes depuis le Cockpit ou d'épingler un tournage en cours.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEAT 3 : EQUIPE ET COACHS -->
+    <div class="feature-item">
+      <div class="feature-header">
+        <div class="feature-title">Les Fiches Profils des 12 Coachs & Coordinateurs</div>
+        <span class="feature-target">Route : /equipe-cascadeurs-pro</span>
+      </div>
+      <p style="color:var(--text-sub); font-size:14px;">La mise en lumière des talents et des figures légendaires qui encadrent les élèves.</p>
+      <div class="feature-dual">
+        <div class="dual-col visitor">
+          <h4>Expérience Visiteur</h4>
+          <p>Photos professionnelles, biographie sobre et factuelle, spécialités techniques (ex: Parkour pour Malik Diouf, Combat & Chutes pour Michel Bouis), liens directs vers leurs profils Instagram et profils IMDb officiels.</p>
+        </div>
+        <div class="dual-col admin">
+          <h4>Impact & Pilotage CUC</h4>
+          <p>Fidélisation de l'équipe d'instructeurs, mise en valeur de Lucas en tant que fondateur et directeur. Tout le texte est modifiable en place sans toucher au code.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEAT 4 : FORMATIONS ET SESSIONS -->
+    <div class="feature-item">
+      <div class="feature-header">
+        <div class="feature-title">Le Module Formations Pro, Stages & Calendrier Live</div>
+        <span class="feature-target">Routes : /formation-de-cascadeur, /stages-cascades-parkour-2</span>
+      </div>
+      <p style="color:var(--text-sub); font-size:14px;">Le cœur économique du site : transformer les passionnés de cascades en candidats qualifiés.</p>
+      <div class="feature-dual">
+        <div class="dual-col visitor">
+          <h4>Expérience Visiteur</h4>
+          <p>Programme pédagogique détaillé (sécurité, chutes de hauteur, comédie physique, maniement des armes, torches humaines), calendrier dynamique des prochaines sessions avec badge "Places disponibles", "Dernières places" ou "Complet", et formulaire de candidature guidé.</p>
+        </div>
+        <div class="dual-col admin">
+          <h4>Impact & Pilotage CUC</h4>
+          <p>Remplissage optimisé des stages. Dès qu'une session est complète dans le Cockpit, le site se met à jour instantanément sans régénération de page grâce à Supabase Realtime.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEAT 5 : CAMPUS 3D ET INSTALLATIONS -->
+    <div class="feature-item">
+      <div class="feature-header">
+        <div class="feature-title">La Visite Virtuelle 3D & Découverte des 11 000 m²</div>
+        <span class="feature-target">Routes : /visite-virtuelle, /visite-guidee</span>
+      </div>
+      <p style="color:var(--text-sub); font-size:14px;">Un exploit technologique en 3D interactive (Three.js) qui permet de survoler les installations au Cateau-Cambrésis.</p>
+      <div class="feature-dual">
+        <div class="dual-col visitor">
+          <h4>Expérience Visiteur</h4>
+          <p>Survol interactif en 3D fluide, points d'intérêt cliquables (Le Grand Hangar, La Fosse de saut avec Airbag géant, Le Dojo de combat scénique, La Tour de câblage / Rigging, Le Circuit de cascades mécaniques), fiches techniques et équipements de sécurité.</p>
+        </div>
+        <div class="dual-col admin">
+          <h4>Impact & Pilotage CUC</h4>
+          <p>Positionne immédiatement le CUC comme le plus grand centre d'entraînement européen d'action. Les coordonnées des zones et descriptions se gèrent dans le Cockpit.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEAT 6 : VIDEOS ET REELS INSTAGRAM -->
+    <div class="feature-item">
+      <div class="feature-header">
+        <div class="feature-title">Le Mur Vidéo & Reels Officiels (44 Vidéos Réelles)</div>
+        <span class="feature-target">Route : /videos-cascadeur</span>
+      </div>
+      <p style="color:var(--text-sub); font-size:14px;">La vitrine virale qui capitalise sur les millions de vues générées par le CUC sur les réseaux.</p>
+      <div class="feature-dual">
+        <div class="dual-col visitor">
+          <h4>Expérience Visiteur</h4>
+          <p>Grille continue de 44 Reels officiels avec les miniatures réelles et le compteur exact de vues (jusqu'à 1,8M de vues sur certains entraînements), lecteur vidéo in-situ ultra-rapide sans quitter le site, tri par popularité ou date.</p>
+        </div>
+        <div class="dual-col admin">
+          <h4>Impact & Pilotage CUC</h4>
+          <p>Prouve la viralité du campus. Connecté au moniteur Instagram du Cockpit pour suivre l'évolution des performances et de la notoriété en direct.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEAT 7 : BILINGUISME FR / EN -->
+    <div class="feature-item">
+      <div class="feature-header">
+        <div class="feature-title">Bilinguisme Intégral Français / Anglais (100% Parité)</div>
+        <span class="feature-target">Toutes les routes en /fr et /en</span>
+      </div>
+      <p style="color:var(--text-sub); font-size:14px;">Indispensable pour attirer les coordinateurs de cascades américains, britanniques et européens.</p>
+      <div class="feature-dual">
+        <div class="dual-col visitor">
+          <h4>Expérience Visiteur</h4>
+          <p>Bascule instantanée en un clic entre Français et Anglais sur n'importe quelle page. Les textes anglais ont été rédigés dans un style professionnel dédié au cinéma d'action international (pas de traduction automatique Google approximative).</p>
+        </div>
+        <div class="dual-col admin">
+          <h4>Impact & Pilotage CUC</h4>
+          <p>Édition bilingue en face-à-face dans le Cockpit : on tape la version française à gauche, l'anglaise à droite. Référencement Google mondial (balises hreflang et Open Graph traduites).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 : LE COCKPIT D'ADMINISTRATION -->
+  <section id="cockpit">
+    <div class="section-header">
+      <div class="section-tag">L'Outil de Gestion Privé · Pour Lucas et son équipe</div>
+      <h2>4. Le Cockpit Admin : L'Autonomie Totale</h2>
+      <p class="section-intro">
+        Fini le temps où il fallait payer une agence web ou attendre 3 semaines pour corriger une faute d'orthographe ou changer une date de stage.
+        Le Cockpit CUC est un véritable centre de commandement sur-mesure.
+      </p>
+    </div>
+
+    <!-- ENCART IDENTIFIANTS LUCAS -->
+    <div style="background: linear-gradient(135deg, rgba(255, 229, 0, 0.12) 0%, rgba(18, 18, 27, 0.95) 100%); border: 1px solid var(--border-gold); border-radius: 14px; padding: 22px 26px; margin-bottom: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="background:var(--gold); color:#000; font-weight:800; font-size:11px; padding:4px 10px; border-radius:6px; text-transform:uppercase;">Accès Direct Démo</span>
+          <h3 style="color:#fff; font-size:18px; margin:0;">Identifiants de Test Cockpit pour Lucas DOLLFUS</h3>
+        </div>
+        <span style="font-size:12px; color:var(--accent-green); background:rgba(52, 211, 153, 0.1); border:1px solid rgba(52, 211, 153, 0.25); padding:3px 10px; border-radius:999px;">● Compte Actif & Validé (Rôle Admin)</span>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px; background:#08080d; border:1px solid var(--border); border-radius:10px; padding:16px;">
+        <div>
+          <div style="font-size:11px; text-transform:uppercase; color:var(--text-muted); letter-spacing:0.06em;">Lien de connexion</div>
+          <div style="font-size:14px; font-weight:700; color:#fff; margin-top:2px;">
+            <a href="http://localhost:3000/admin/login" target="_blank" style="color:var(--gold); text-decoration:underline;">/admin/login</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px; text-transform:uppercase; color:var(--text-muted); letter-spacing:0.06em;">Identifiant (au choix)</div>
+          <div style="font-size:14px; font-weight:700; color:#fff; margin-top:2px;">
+            <code style="background:#171722; color:#FFE500; padding:2px 8px; border-radius:4px; font-size:13px;">lucas</code>
+            <span style="color:var(--text-muted); font-size:12px;">ou</span>
+            <code style="background:#171722; color:#fff; padding:2px 8px; border-radius:4px; font-size:13px;">cuc@cuc.fr</code>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px; text-transform:uppercase; color:var(--text-muted); letter-spacing:0.06em;">Mot de passe</div>
+          <div style="font-size:14px; font-weight:700; color:#fff; margin-top:2px;">
+            <code style="background:#171722; color:#FFE500; padding:2px 8px; border-radius:4px; font-size:13px;">password</code>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px; text-transform:uppercase; color:var(--text-muted); letter-spacing:0.06em;">Compte Admin Général Secours</div>
+          <div style="font-size:12.5px; color:var(--text-sub); margin-top:2px;">
+            Identifiant: <code style="color:#fff;">admin</code> · Mdp: <code style="color:#FFE500;">password</code>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:12.5px; color:var(--text-muted); margin-top:12px; margin-bottom:0;">
+        💡 <em>Note : Lucas est automatiquement reconnu avec son profil complet <strong>Lucas DOLLFUS (Directeur & Fondateur)</strong> et dispose des droits administrateurs complets (Mode Studio, films, coachs, sessions, moniteur Instagram et visites en direct).</em>
+      </p>
+    </div>
+
+    <div class="grid-3">
+      <div class="card highlighted">
+        <h3 style="color:var(--gold); font-size:17px; margin-bottom:8px;">Le Mode Studio (Édition Visuelle)</h3>
+        <p style="font-size:13.5px; color:var(--text-sub); line-height:1.5;">
+          Une innovation majeure : Lucas ouvre le site dans le Cockpit, clique directement sur un titre, un badge ou un texte, tape sa modification et clique sur "Sauvegarder". La modification apparaît instantanément sur le site public en français et en anglais.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 style="color:#fff; font-size:17px; margin-bottom:8px;">Gestionnaire de Filmographie</h3>
+        <p style="font-size:13.5px; color:var(--text-sub); line-height:1.5;">
+          Ajoutez de nouveaux films en quelques clics, reliez-les aux cascadeurs de l'équipe qui y ont participé, choisissez les affiches et cochez l'étoile "Mis en avant" pour hisser les plus grands succès en page d'accueil.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 style="color:#fff; font-size:17px; margin-bottom:8px;">Suivi de Fréquentation en Direct</h3>
+        <p style="font-size:13.5px; color:var(--text-sub); line-height:1.5;">
+          Un écran dédié qui montre les visiteurs connectés en ce moment même sur le site : les pages qu'ils lisent, leur ville (Paris, Lille, Londres, Los Angeles), leur appareil (smartphone ou PC) et le taux de conversion vers les formulaires.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 style="color:#fff; font-size:17px; margin-bottom:8px;">Moniteur Instagram & Leaderboard</h3>
+        <p style="font-size:13.5px; color:var(--text-sub); line-height:1.5;">
+          Suivi de la courbe de croissance des 1,05M de followers, classement face aux autres acteurs de la cascade et du spectacle (Yamakasi, Cirque de Demain, Red Bull), et détection automatique des Reels qui font le buzz.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 style="color:#fff; font-size:17px; margin-bottom:8px;">Gestionnaire des Sessions de Stage</h3>
+        <p style="font-size:13.5px; color:var(--text-sub); line-height:1.5;">
+          Création de nouvelles dates de stages, ajustement des prix et changement du statut en un clic ("Ouvert", "Dernières places", "Complet"). Directement interconnecté avec la base élèves CUC Sign.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3 style="color:#fff; font-size:17px; margin-bottom:8px;">Boîte de Réception des Candidatures</h3>
+        <p style="font-size:13.5px; color:var(--text-sub); line-height:1.5;">
+          Toutes les demandes de devis et candidatures de futurs élèves sont centralisées dans un tableau propre avec coordonnées, messages et statuts de traitement ("Nouveau", "Contacté", "Inscrit").
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5 : SUPABASE & VERCEL -->
+  <section id="tech">
+    <div class="section-header">
+      <div class="section-tag">Infrastructure & Architecture · Explication transparente et rassurante</div>
+      <h2>5. Pourquoi Vercel & Supabase sont le Choix Idéal</h2>
+      <p class="section-intro">
+        Le but de cette section est de vous donner les arguments simples, honnêtes et percutants pour expliquer à Lucas
+        pourquoi son site repose sur les technologies les plus modernes et pérennes du marché mondial.
+      </p>
+    </div>
+
+    <div class="tech-banner">
+      <h3>La métaphore cinéma : Une régie technique invisible de niveau hollywoodien</h3>
+      <p>
+        Sur un tournage, il y a ce que voit la caméra (les cascadeurs, les décors) et toute la machinerie invisible qui garantit la sécurité (câbles testés, vérins pneumatiques, équipes de secours).
+        <strong>Vercel et Supabase sont la machinerie invisible du site du CUC</strong> : ils garantissent que même si un Reel Instagram de Lucas fait 5 millions de vues dans la nuit, le site ne plantera jamais.
+      </p>
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <div class="comparison-table-wrap">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Critère Stratégique</th>
+            <th>Ancien Modèle (WordPress / Serveur Classique)</th>
+            <th>Nouveau Modèle CUC (Next.js sur Vercel + Supabase)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Sécurité & Piratage</strong></td>
+            <td class="td-bad"><span class="pill-badge pill-bad">Vulnérable</span> Des dizaines de plugins tiers à mettre à jour chaque semaine. Première cible des hackers dans le monde.</td>
+            <td class="td-good"><span class="pill-badge pill-good">Bunker</span> Zéro plugin vulnérable. Code pré-compilé immuable. Base de données protégée au niveau de chaque ligne (RLS).</td>
+          </tr>
+          <tr>
+            <td><strong>Vitesse & Temps de chargement</strong></td>
+            <td class="td-bad"><span class="pill-badge pill-bad">Lent (2 à 5 s)</span> Serveur unique souvent saturé, base de données ralentie par le stockage des révisions WordPress.</td>
+            <td class="td-good"><span class="pill-badge pill-good">Éclair (&lt; 0.5 s)</span> Réseau mondial Edge (les pages sont servies depuis des serveurs à Paris, Londres ou New York au plus près du visiteur).</td>
+          </tr>
+          <tr>
+            <td><strong>Résistance aux pics de trafic (Buzz)</strong></td>
+            <td class="td-bad"><span class="pill-badge pill-bad">Risque de crash</span> Si un Reel perce et envoie 20 000 personnes en 1 heure, le serveur classique tombe en erreur 503.</td>
+            <td class="td-good"><span class="pill-badge pill-good">Illimitée</span> Architecture Serverless qui absorbe automatiquement des millions de visites sans ralentir.</td>
+          </tr>
+          <tr>
+            <td><strong>Pérennité & Propriété des Données</strong></td>
+            <td class="td-bad"><span class="pill-badge pill-bad">Enfermement</span> Données dispersées dans des tables WordPress complexes et polluées par des extensions obsolètes.</td>
+            <td class="td-good"><span class="pill-badge pill-good">100% Standard SQL</span> Le moteur Supabase est <strong>PostgreSQL</strong>, le standard mondial open-source depuis 30 ans. Exportable en 1 clic.</td>
+          </tr>
+          <tr>
+            <td><strong>Coûts d'entretien & Maintenance</strong></td>
+            <td class="td-bad"><span class="pill-badge pill-bad">Coûteux</span> Forfait mensuel d'infogérance pour appliquer les patchs de sécurité et réparer les conflits d'extensions.</td>
+            <td class="td-good"><span class="pill-badge pill-good">Quasi nul</span> Hébergement managé de pointe. Zéro maintenance serveur. Forfait prévisible et dérisoire (~45 $/mois).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TRANSPARENCE SUR L'INCIDENT QUOTA DU 23 SEPTEMBRE -->
+    <div class="quote-box gold">
+      <h4>Ce qu'il faut lui dire en toute transparence sur l'hébergement & l'incident quota :</h4>
+      <p>
+        « Lucas, pendant la phase de développement, nous étions sur l'offre gratuite de test de Supabase. Le 23 septembre, en important tout le catalogue de 570 films et des vidéos de reportages lourdes de 127 Mo, nous avons atteint la limite de l'offre d'essai gratuite (500 Mo). Nous sommes immédiatement passés sur l'offre professionnelle officielle Supabase Pro (25 $/mois) : la base dispose désormais de 100 Go d'espace, de sauvegardes quotidiennes automatiques et d'un support prioritaire. Avec Vercel Pro (20 $/mois), le coût total d'infrastructure pour faire tourner cette machine de guerre est de seulement 45 $/mois (environ 40 €). C'est dix fois moins cher qu'un serveur dédié classique, pour des performances dix fois supérieures. »
+      </p>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h4 style="color:#fff; font-size:16px; margin-bottom:8px;">Pourquoi Vercel est rassurant</h4>
+        <ul style="font-size:13.5px; color:var(--text-sub); padding-left:18px; line-height:1.6;">
+          <li>Vercel est la société créatrice de Next.js, le framework utilisé par le CUC mais aussi par <strong>Nike, TikTok, Porsche, Uber, Target et Netflix</strong>.</li>
+          <li>Chaque modification déployée fait l'objet d'un "Rollback" en 1 clic : si une erreur humaine survient, on remet l'ancienne version en 2 secondes chrono.</li>
+          <li>Certificats de sécurité SSL (HTTPS) renouvelés automatiquement à vie.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4 style="color:#fff; font-size:16px; margin-bottom:8px;">Pourquoi Supabase est rassurant</h4>
+        <ul style="font-size:13.5px; color:var(--text-sub); padding-left:18px; line-height:1.6;">
+          <li>Supabase n'est pas un système propriétaire obscur : c'est une interface ultra-moderne au-dessus de <strong>PostgreSQL</strong>, la base la plus réputée au monde.</li>
+          <li>Lucas et le CUC restent <strong>100% propriétaires de leurs données</strong> : on peut faire un export SQL complet à n'importe quel moment.</li>
+          <li>La base est partagée avec <strong>CUC Sign</strong> : vos élèves, sessions et formateurs sont synchronisés sans double saisie.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6 : FAQ ANTICIPÉE -->
+  <section id="faq">
+    <div class="section-header">
+      <div class="section-tag">Anticipation · Réponses prêtes à l'emploi</div>
+      <h2>6. Les Réponses aux Questions que Lucas Pourrait Poser</h2>
+      <p class="section-intro">
+        Lucas est un homme de terrain et d'action. Voici les réponses simples, directes et percutantes aux questions qu'il est susceptible de vous poser pendant l'appel.
+      </p>
+    </div>
+
+    <div class="q-card">
+      <div class="q-title">« Est-ce que mes adresses emails existantes vont continuer à fonctionner ? »</div>
+      <div class="q-script-box">
+        <strong>Votre réponse :</strong> « Absolument, à 100%. Le changement qu'on va faire sur le nom de domaine concerne uniquement l'affichage des pages web (enregistrement A / CNAME). Tes boîtes mails (les enregistrements MX) ne sont pas touchées d'un millimètre. Aucune coupure, aucun mail perdu. »
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-title">« Est-ce que je serai obligé de vous appeler à chaque fois que je veux changer un prix ou une photo ? »</div>
+      <div class="q-script-box">
+        <strong>Votre réponse :</strong> « Non, justement, c'est tout l'intérêt du Cockpit ! Tu as un accès administrateur où tu te balades sur ton site, tu cliques sur le texte ou la photo que tu veux changer, et c'est en ligne en 2 secondes. Tu es totalement autonome. Nous, on reste là en soutien pour les grosses évolutions techniques. »
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-title">« Pourquoi ne pas être resté sur un WordPress classique ? »</div>
+      <div class="q-script-box">
+        <strong>Votre réponse :</strong> « WordPress était très bien en 2012, mais aujourd'hui c'est une usine à gaz lente, qui exige des mises à jour constantes de plugins pour ne pas se faire pirater, et qui plante dès qu'il y a un pic de 5 000 visiteurs venant d'Instagram. Le CUC est aujourd'hui une référence internationale : il fallait un site digne de ce rang, ultra-rapide sur smartphone aux USA comme en France, et infaillible. »
+      </div>
+    </div>
+
+    <div class="q-card">
+      <div class="q-title">« Combien de temps va prendre la bascule une fois qu'on a modifié le domaine ? »</div>
+      <div class="q-script-box">
+        <strong>Votre réponse :</strong> « La manipulation technique prend 5 minutes. Ensuite, il y a un délai de propagation mondial de 2 à 4 heures pendant lequel les ordinateurs basculent progressivement sur la nouvelle version. C'est totalement transparent pour les visiteurs : il n'y a jamais de page blanche ou de site inaccessible. »
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="margin-top:60px; padding-top:24px; border-top:1px solid var(--border); color:var(--text-muted); font-size:13px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+    <div><strong>Campus Univers Cascades</strong> · Dossier Stratégique de Déploiement 2026</div>
+    <div>Document généré pour la préparation d'appel avec la Direction CUC</div>
+  </footer>
+
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast" id="toast">Trame copiée dans le presse-papier !</div>
+
+<script>
+  // Reading Progress Bar
+  window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById('progressBar').style.width = scrolled + '%';
+    
+    // Highlight TOC on scroll
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.toc-link');
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 120;
+      if (pageYOffset >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // LocalStorage for Call Checklist
+  function saveCheck(el) {
+    localStorage.setItem('cuc_call_' + el.id, el.checked ? '1' : '0');
+    showToast(el.checked ? 'Point validé !' : 'Point dé-coché');
+  }
+
+  function loadChecks() {
+    const checkboxes = document.querySelectorAll('.q-check input[type="checkbox"]');
+    checkboxes.forEach(cb => {
+      const val = localStorage.getItem('cuc_call_' + cb.id);
+      if (val === '1') cb.checked = true;
+    });
+  }
+
+  function resetCheckboxes() {
+    if (confirm('Voulez-vous réinitialiser toutes les cases cochées pour cet appel ?')) {
+      const checkboxes = document.querySelectorAll('.q-check input[type="checkbox"]');
+      checkboxes.forEach(cb => {
+        cb.checked = false;
+        localStorage.removeItem('cuc_call_' + cb.id);
+      });
+      showToast('Toutes les cases ont été réinitialisées');
+    }
+  }
+
+  // Toast Function
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.innerText = msg;
+    t.classList.add('show');
+    setTimeout(() => { t.classList.remove('show'); }, 2600);
+  }
+
+  // Copy Call Script to Clipboard
+  function copyCallScript() {
+    const scriptText = `TRICK-SHEET APPEL LUCAS DOLLFUS (CAMPUS UNIVERS CASCADES) :
+
+1. INTRODUCTION (00-05 min) :
+« Salut Lucas, le nouveau site et le Cockpit sont terminés, testés et prêts à 100%. On fait le point ensemble pour te montrer les résultats et caler la bascule définitive. »
+
+2. DÉMO DU SITE (05-18 min) :
+- Fluidité immédiate & Design cinéma
+- 570 films répertoriés avec affiches HD et liens IMDb certifiés
+- Fiches des 12 coachs avec leurs rôles réels (zéro faux crédit)
+- Mur vidéo de 44 Reels avec compteurs de vues réelles (1,05M communauté)
+- Bilinguisme natif FR/EN 100% pour les productions internationales
+
+3. LES 7 QUESTIONS CLÉS :
+Q1 (DNS) : Qui gère le nom de domaine campus-universcascades.com (OVH/Gandi) pour modifier le réglage de bascule sans toucher aux emails ?
+Q2 (Instagram) : Accès compte pro Meta pour synchronisation automatique des nouveaux Reels et des vues.
+Q3 (Coachs & Films) : Validation des 12 coachs et choix des 6 films à épingler en accueil (ex: Braqueurs, Lucy, Taxi 5, Bac Nord, Novembre).
+Q4 (Sessions) : Confirmation des dates/tarifs 2026/2027 et des sessions à marquer "Complet" pour créer l'urgence.
+Q5 (Vidéos) : Validation d'héberger les gros reportages TV sur YouTube/Vimeo intégré pour garder le site ultraléger sur smartphone.
+Q6 (Formulaires) : Quelles adresses emails pour recevoir les alertes des candidatures d'élèves et demandes de devis ?
+Q7 (Cockpit) : Qui a besoin d'un accès administrateur pour le Mode Studio ?
+
+4. VERCEL & SUPABASE EN 3 POINTS :
+- Zéro plugin WordPress vulnérable, site impossible à hacker.
+- Résistance totale aux pics de trafic (millions de vues sans crash).
+- Vos données sont 100% à vous (PostgreSQL exportable en 1 clic), partagées avec CUC Sign. Coût total : ~45$/mois.
+
+5. PROCHAINE ÉTAPE :
+Caler le jour J de la bascule DNS + 15 min de prise en main du Cockpit.`;
+
+    navigator.clipboard.writeText(scriptText).then(() => {
+      showToast('Trame d\'appel complète copiée dans le presse-papier !');
+    }).catch(() => {
+      showToast('Erreur lors de la copie');
+    });
+  }
+
+  /* --- GESTION DES NOTES ET SAUVEGARDE LOCALE PERSISTANTE --- */
+  const NOTE_IDS = ['note-q1', 'note-q2', 'note-q3', 'note-q4', 'note-q5', 'note-q6', 'note-q7', 'note-general'];
+
+  // Sauvegarde instantanée d'une note dans le localStorage
+  function saveNote(el) {
+    const val = el.value;
+    localStorage.setItem('cuc_call_' + el.id, val);
+    const ind = document.getElementById('status-' + el.id);
+    if (ind) {
+      const now = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      ind.textContent = '🟢 Enregistré à ' + now;
+      ind.classList.add('saved');
+    }
+  }
+
+  // Chargement automatique des notes sauvegardées au rafraîchissement
+  function loadNotes() {
+    NOTE_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        const saved = localStorage.getItem('cuc_call_' + id);
+        if (saved !== null && saved.length > 0) {
+          el.value = saved;
+          const ind = document.getElementById('status-' + id);
+          if (ind) {
+            ind.textContent = '🟢 Sauvegardé en mémoire locale';
+            ind.classList.add('saved');
+          }
+        }
+      }
+    });
+  }
+
+  // Formatage structuré de l'ensemble des réponses pour l'assistant IA
+  function generateReportText() {
+    const questions = [
+      { id: 'q1', num: 'Question 01', title: 'Bascule du Nom de Domaine & Accès Registrar (DNS)' },
+      { id: 'q2', num: 'Question 02', title: 'Connexion Officielle Instagram Meta Graph API' },
+      { id: 'q3', num: 'Question 03', title: 'Validation de l\'Équipe & Crédits Cinéma des 12 Coachs' },
+      { id: 'q4', num: 'Question 04', title: 'Calendrier des Sessions 2026/2027 & Liaisons CUC Sign' },
+      { id: 'q5', num: 'Question 05', title: 'Gestion des Vidéos Lourdes & Sauvegarde de la Base' },
+      { id: 'q6', num: 'Question 06', title: 'Routage des Candidatures & Demandes de Devis (Formulaires)' },
+      { id: 'q7', num: 'Question 07', title: 'Prise en Main du Cockpit ("Mode Studio") & Formation' },
+    ];
+
+    let output = `# COMPTE-RENDU D'ÉCHANGE AVEC LUCAS DOLLFUS (CAMPUS UNIVERS CASCADES)\n`;
+    output += `Date : ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}\n\n`;
+
+    let filledCount = 0;
+    questions.forEach(q => {
+      const noteEl = document.getElementById('note-' + q.id);
+      const chkEl = document.getElementById('chk-' + q.id);
+      const noteVal = noteEl ? noteEl.value.trim() : '';
+      const checked = chkEl && chkEl.checked ? '✅ Validé / Accord donné' : '⏳ En attente';
+      if (noteVal.length > 0) filledCount++;
+
+      output += `## ${q.num} : ${q.title}\n`;
+      output += `- **Statut :** ${checked}\n`;
+      output += `- **Réponse de Lucas :**\n${noteVal || '*(Aucune note saisie)*'}\n\n`;
+    });
+
+    const generalEl = document.getElementById('note-general');
+    const generalVal = generalEl ? generalEl.value.trim() : '';
+    if (generalVal) {
+      output += `## 📌 Notes Générales / Autres Sujets Abordés :\n${generalVal}\n\n`;
+    }
+
+    return { output, filledCount };
+  }
+
+  // Copie de toutes les réponses dans le presse-papier
+  function copyLucasAnswers() {
+    const { output, filledCount } = generateReportText();
+    navigator.clipboard.writeText(output).then(() => {
+      showToast(`📋 ${filledCount}/7 réponses de Lucas copiées ! Vous pouvez les coller dans le chat.`);
+    }).catch(() => {
+      showToast('Erreur lors de la copie dans le presse-papier');
+    });
+  }
+
+  // Téléchargement du compte-rendu sous forme de fichier Markdown
+  function downloadLucasReport() {
+    const { output } = generateReportText();
+    const blob = new Blob([output], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `compte-rendu-appel-lucas-${new Date().toISOString().slice(0, 10)}.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('💾 Fichier de compte-rendu téléchargé !');
+  }
+
+  // Sauvegarde directe des réponses dans le fichier HTML (téléchargement autonome)
+  function downloadHtmlWithNotes() {
+    const docClone = document.documentElement.cloneNode(true);
+
+    NOTE_IDS.forEach(id => {
+      const textarea = docClone.querySelector('#' + id);
+      const live = document.getElementById(id);
+      if (textarea && live) {
+        textarea.textContent = live.value;
+      }
+    });
+
+    for (let i = 1; i <= 7; i++) {
+      const chk = docClone.querySelector('#chk-q' + i);
+      const liveChk = document.getElementById('chk-q' + i);
+      if (chk && liveChk) {
+        if (liveChk.checked) chk.setAttribute('checked', 'checked');
+        else chk.removeAttribute('checked');
+      }
+    }
+
+    const htmlContent = '<!DOCTYPE html>\n<html lang="fr">\n' + docClone.innerHTML + '\n</html>';
+    const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `cuc-dossier-appel-lucas-sauvegarde-${new Date().toISOString().slice(0, 10)}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('📄 Fichier HTML sauvegardé et téléchargé avec vos notes !');
+  }
+
+  // Effacer toutes les notes après confirmation
+  function clearAllNotes() {
+    if (confirm('Attention : voulez-vous vraiment effacer toutes les notes prises pour cet appel ?')) {
+      NOTE_IDS.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+        localStorage.removeItem('cuc_call_' + id);
+        const ind = document.getElementById('status-' + id);
+        if (ind) {
+          ind.textContent = 'En attente';
+          ind.classList.remove('saved');
+        }
+      });
+      showToast('Toutes les notes ont été effacées.');
+    }
+  }
+
+  // Initialisation au chargement de la page
+  document.addEventListener('DOMContentLoaded', () => {
+    loadChecks();
+    loadNotes();
+  });
+</script>
+</body>
+</html>

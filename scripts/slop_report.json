@@ -1,17 +1,18 @@
 {
-  "generatedAt": "2026-09-23T14:47:18.571Z",
-  "scannedFiles": 1065,
-  "total": 22,
+  "generatedAt": "2026-09-24T10:16:38.610Z",
+  "scannedFiles": 1108,
+  "total": 29,
   "byGroup": {
+    "badge": 17,
+    "terminologie": 1,
     "jargon": 8,
-    "badge": 11,
     "superlatif": 3
   },
   "byRule": [
     {
       "id": "badge-hollywood",
       "group": "badge",
-      "count": 3
+      "count": 5
     },
     {
       "id": "badge-worldwide",
@@ -22,6 +23,11 @@
       "id": "badge-box-office",
       "group": "badge",
       "count": 1
+    },
+    {
+      "id": "badge-tactique",
+      "group": "badge",
+      "count": 4
     },
     {
       "id": "badge-elite",
@@ -44,12 +50,66 @@
       "count": 1
     },
     {
+      "id": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "count": 1
+    },
+    {
       "id": "jargon-tactical",
       "group": "jargon",
       "count": 8
     }
   ],
   "findings": [
+    {
+      "file": "src\\data\\instagram-reels.ts",
+      "line": 185,
+      "rule": "badge-hollywood",
+      "group": "badge",
+      "text": "description: \"He's back... 😇👌\\n© @campus.univers.cascades\\n\\n#cucteam #fire #stunt #action #hollywood\","
+    },
+    {
+      "file": "src\\data\\instagram-reels.ts",
+      "line": 285,
+      "rule": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "text": "description: 'Saut de précision Yamakasi toit du campus 🏃 L’art du déplacement appliqué aux scènes d’action urbaines.',"
+    },
+    {
+      "file": "src\\data\\instagram-reels.ts",
+      "line": 662,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "title: 'Combat couteau et désarmement tactique 🔪',"
+    },
+    {
+      "file": "src\\data\\instagram-reels.ts",
+      "line": 663,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "description: 'Combat couteau et désarmement tactique 🔪 Fluidité martiale et précision chirurgicale.',"
+    },
+    {
+      "file": "src\\data\\instagram-reels.ts",
+      "line": 691,
+      "rule": "badge-hollywood",
+      "group": "badge",
+      "text": "description: 'Workshop international cascades AFDAS 🌍 Échanges techniques avec des régleurs venus d’Hollywood.',"
+    },
+    {
+      "file": "src\\data\\instagram-reels.ts",
+      "line": 1182,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "title: 'Session tirs et neutralisation tactique au dojo 🎯',"
+    },
+    {
+      "file": "src\\data\\instagram-reels.ts",
+      "line": 1183,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "description: 'Session tirs et neutralisation tactique au dojo 🎯 Réalisme balistique et coordination avec le cadreur.',"
+    },
     {
       "file": "scripts\\fix_team_production_i18n.mjs",
       "line": 308,

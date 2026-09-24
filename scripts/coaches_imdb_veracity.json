@@ -150,24 +150,22 @@
       ]
     },
     {
-      "id": "michael-troude",
-      "name": "Michaël Troude",
-      "imdbId": "nm0873735",
-      "imdbName": "Michaël Troude",
+      "id": "michel-bouis",
+      "name": "Michel Bouis",
+      "imdbId": "nm0099365",
+      "imdbName": "Michel Bouis",
       "identityStatus": "RÉSOLU",
       "resolved": true,
       "nameMatch": true,
-      "declaredCreditsCount": 11,
-      "scrapedCreditsCount": 100,
+      "declaredCreditsCount": 200,
+      "scrapedCreditsCount": 244,
       "counts": {
-        "CONFIRMÉ": 10,
-        "NOUVEAU": 90,
+        "CONFIRMÉ": 244,
+        "NOUVEAU": 0,
         "CONTRADICTOIRE": 0,
-        "NON VÉRIFIABLE": 2
+        "NON VÉRIFIABLE": 0
       },
-      "flags": [
-        "2 crédit(s) non vérifiable(s)"
-      ]
+      "flags": []
     },
     {
       "id": "amedeo-cazzella",

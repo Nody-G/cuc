@@ -17,6 +17,8 @@ export interface MicrocopyEditorController {
     setQuery: React.Dispatch<React.SetStateAction<string>>;
     isLoading: boolean;
     isSaving: boolean;
+    error: string | null;
+    retry: () => void;
     dirtyCount: number;
     overrideCount: { fr: number; en: number };
     filtered: MicrocopyEntry[];
@@ -48,35 +50,53 @@ export function useMicrocopyEditor(
     const [query, setQuery] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [reloadKey, setReloadKey] = useState(0);
+
+    const retry = useCallback(() => {
+        setIsLoading(true);
+        setError(null);
+        setReloadKey((prev) => prev + 1);
+    }, []);
 
     useEffect(() => {
         let cancelled = false;
 
-        loadMicrocopyCatalog().then((result) => {
-            if (cancelled) return;
-            if (!result.success) {
-                showToast?.(result.error);
+        loadMicrocopyCatalog()
+            .then((result) => {
+                if (cancelled) return;
+                if (!result.success) {
+                    setError(result.error);
+                    showToast?.(result.error);
+                    setIsLoading(false);
+                    return;
+                }
+
+                setEntries(result.entries);
+                setGroups(result.groups);
+                setOverrides(result.overrides);
+
+                const next: Record<string, string> = {};
+                for (const entry of result.entries) {
+                    next[`fr:${entry.key}`] = result.overrides.fr?.[entry.key] ?? entry.fr;
+                    next[`en:${entry.key}`] = result.overrides.en?.[entry.key] ?? entry.en;
+                }
+                setValues(next);
+                setError(null);
                 setIsLoading(false);
-                return;
-            }
-
-            setEntries(result.entries);
-            setGroups(result.groups);
-            setOverrides(result.overrides);
-
-            const next: Record<string, string> = {};
-            for (const entry of result.entries) {
-                next[`fr:${entry.key}`] = result.overrides.fr?.[entry.key] ?? entry.fr;
-                next[`en:${entry.key}`] = result.overrides.en?.[entry.key] ?? entry.en;
-            }
-            setValues(next);
-            setIsLoading(false);
-        });
+            })
+            .catch((err) => {
+                if (cancelled) return;
+                const message = err instanceof Error ? err.message : 'Erreur de chargement du catalogue';
+                setError(message);
+                showToast?.(message);
+                setIsLoading(false);
+            });
 
         return () => {
             cancelled = true;
         };
-    }, [showToast]);
+    }, [showToast, reloadKey]);
 
     const catalogValue = useCallback(
         (entry: MicrocopyEntry, target: EditorLocale): string =>
@@ -192,6 +212,8 @@ export function useMicrocopyEditor(
         setQuery,
         isLoading,
         isSaving,
+        error,
+        retry,
         dirtyCount,
         overrideCount,
         filtered,

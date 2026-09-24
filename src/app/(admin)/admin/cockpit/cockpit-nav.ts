@@ -129,9 +129,23 @@ export function buildNavSections({
     const isSecretaire = userRole === 'secretaire';
     const isCoach = userRole === 'coach';
 
+    // Vue Coach simplifiée et focalisée sur ses interventions
+    if (isCoach) {
+        return [
+            {
+                title: 'Mes Activités & Fiche',
+                items: [
+                    { id: 'sessions', label: 'Sessions Encadrées', icon: Calendar },
+                    { id: 'team', label: 'Ma Fiche Formateur', icon: Users },
+                    { id: 'films', label: 'Mes Films & Crédits', icon: Film },
+                ],
+            },
+        ];
+    }
+
     return [
         {
-            title: "Vue d'ensemble",
+            title: '1. Pilotage & Quotidien',
             items: [
                 { id: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
                 {
@@ -140,140 +154,89 @@ export function buildNavSections({
                     icon: Inbox,
                     badge: newInquiriesCount > 0 ? `${newInquiriesCount} new` : undefined,
                 },
-                ...(isDirecteurOrAdmin
-                    ? [
-                        { id: 'traffic' as TabType, label: 'Visites & Fréquentation', icon: Globe, badge: 'Live' },
-                        { id: 'instagram' as TabType, label: 'Monitoring Instagram', icon: Activity, badge: 'Live' },
-                        { id: 'analytics' as TabType, label: 'Analytique Candidatures', icon: BarChart3 },
-                    ]
-                    : []),
-            ],
-        },
-        ...(!isCoach
-            ? [
-                {
-                    title: "CMS & Vitrine",
-                    items: [
-                        {
-                            id: 'pages' as TabType,
-                            label: 'Éditeur de Pages & Structure',
-                            icon: FileText,
-                            badge: '15',
-                        },
-                        {
-                            id: 'navigation' as TabType,
-                            label: 'Navigation & Menus',
-                            icon: Menu,
-                        },
-                        {
-                            id: 'footer' as TabType,
-                            label: 'Pied de Page',
-                            icon: PanelBottom,
-                        },
-                        {
-                            id: 'social' as TabType,
-                            label: 'Réseaux Sociaux',
-                            icon: Share2,
-                        },
-                        {
-                            id: 'translations' as TabType,
-                            label: 'Traductions EN',
-                            icon: Globe,
-                            badge: 'i18n',
-                        },
-                        {
-                            id: 'microcopy' as TabType,
-                            label: 'Micro-textes du site',
-                            icon: Globe,
-                            badge: 'studio',
-                        },
-                        {
-                            id: 'media' as TabType,
-                            label: 'Médiathèque Storage',
-                            icon: ImageIcon,
-                            badge: 'CDN',
-                        },
-                    ],
-                },
-            ]
-            : []),
-        {
-            title: "Pédagogie & Campus",
-            items: [
-                {
-                    id: 'disciplines',
-                    label: 'Modules & Disciplines',
-                    icon: Shield,
-                    badge: '10 Disciplines',
-                },
-                {
-                    id: 'campus',
-                    label: 'Infrastructures',
-                    icon: Compass,
-                    badge: 'Radar',
-                },
-                {
-                    id: 'campus-3d',
-                    label: 'Plan 3D du Campus',
-                    icon: Boxes,
-                    badge: 'Studio',
-                },
-            ],
-        },
-        {
-            title: isCoach ? "Mes Activités" : "Contenus Spécifiques",
-            items: [
                 {
                     id: 'sessions',
-                    label: isCoach ? 'Sessions Encadrées' : 'Sessions & Stages',
+                    label: 'Sessions & Stages',
                     icon: Calendar,
+                },
+            ],
+        },
+        {
+            title: '2. Contenu & Vitrine (Outils Phares)',
+            items: [
+                {
+                    id: 'pages',
+                    label: 'Éditeur Mode Studio',
+                    icon: FileText,
+                    badge: 'Visuel',
+                },
+                {
+                    id: 'films',
+                    label: 'Filmographie Cascades',
+                    icon: Film,
+                    badge: '570',
                 },
                 ...(!isSecretaire
                     ? [
                         {
                             id: 'team' as TabType,
-                            label: isCoach ? 'Ma Fiche Formateur' : 'Équipe & Coachs',
+                            label: 'Équipe & Coachs',
                             icon: Users,
-                        },
-                        {
-                            id: 'films' as TabType,
-                            label: isCoach ? 'Mes Films & Crédits' : 'Filmographie',
-                            icon: Film,
+                            badge: '12',
                         },
                     ]
                     : []),
+                {
+                    id: 'campus-3d',
+                    label: 'Campus & Visite 3D',
+                    icon: Boxes,
+                    badge: '3D',
+                },
+            ],
+        },
+        ...(isDirecteurOrAdmin
+            ? [
+                {
+                    title: '3. Notoriété & Audience',
+                    items: [
+                        { id: 'instagram' as TabType, label: 'Instagram & Reels', icon: Activity, badge: '1,05M' },
+                        { id: 'traffic' as TabType, label: 'Visites en Direct', icon: Globe, badge: 'Live' },
+                        { id: 'media' as TabType, label: 'Médiathèque Cloud', icon: ImageIcon, badge: 'CDN' },
+                    ],
+                },
+            ]
+            : [
+                {
+                    title: '3. Médias & Ressources',
+                    items: [
+                        { id: 'media' as TabType, label: 'Médiathèque Cloud', icon: ImageIcon, badge: 'CDN' },
+                    ],
+                },
+            ]),
+        {
+            title: '4. Configuration & Réglages',
+            items: [
+                {
+                    id: 'announcements',
+                    label: 'Bandeau Flash Urgent',
+                    icon: Bell,
+                    badge: announcementActive ? 'Actif' : undefined,
+                },
+                {
+                    id: 'navigation',
+                    label: 'Menus & Navigation',
+                    icon: Menu,
+                },
                 ...(isDirecteurOrAdmin
                     ? [
-                        // « Prestations Events » n'est plus exposé : le site vitrine
-                        // se gère ici, pas les offres. La route `/admin/events`
-                        // reste fonctionnelle en accès direct (aucune donnée perdue).
                         { id: 'partners' as TabType, label: 'Partenaires & Labels', icon: Handshake },
+                        { id: 'disciplines' as TabType, label: 'Disciplines & Référentiel', icon: Shield },
+                        { id: 'microcopy' as TabType, label: 'Dictionnaire Libellés (Avancé)', icon: Globe },
+                        { id: 'users' as TabType, label: 'Équipe Cockpit & Rôles', icon: Shield },
+                        { id: 'settings' as TabType, label: 'Paramètres Globaux', icon: Settings },
                     ]
                     : []),
             ],
         },
-        ...(!isCoach
-            ? [
-                {
-                    title: "Configuration",
-                    items: [
-                        {
-                            id: 'announcements' as TabType,
-                            label: 'Bandeau Flash',
-                            icon: Bell,
-                            badge: announcementActive ? 'Live' : undefined,
-                        },
-                        ...(isDirecteurOrAdmin
-                            ? [
-                                { id: 'users' as TabType, label: 'Utilisateurs & Rôles', icon: Shield },
-                                { id: 'audit' as TabType, label: 'Journal d’Audit', icon: Activity },
-                                { id: 'health' as TabType, label: 'Diagnostic de Contenu', icon: Stethoscope },
-                                { id: 'settings' as TabType, label: 'Paramètres Globaux', icon: Settings },
-                            ]
-                            : []),
-                    ],
-                },
-            ]
-            : []),
     ];
 }

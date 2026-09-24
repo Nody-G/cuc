@@ -52,9 +52,9 @@ export const NavActionsBar: React.FC = () => {
 
   return (
     <div className="hidden sm:flex items-center gap-2.5 shrink-0">
-      {/* Quick Official Social Icons — pilotés par site_social_links */}
+      {/* Quick Official Social Icons — pilotés par site_social_links (affichés sur très grand écran 2xl) */}
       {navbarSocials.length > 0 && (
-        <div className="hidden xl:flex items-center gap-1 border-r border-zinc-800 pr-2">
+        <div className="hidden 2xl:flex items-center gap-1 border-r border-zinc-800 pr-2">
           {navbarSocials.map((social) => (
             <a
               key={social.id}

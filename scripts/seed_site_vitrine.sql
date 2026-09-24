@@ -550,8 +550,8 @@ INSERT INTO public.site_team (
     id, name, role, title, specialties, bio, notable_credits,
     avatar_url, instagram, imdb, external_url, order_index, is_published
 ) VALUES (
-    'michael-troude',
-    'Michaël Troude',
+    'michel-bouis',
+    'Michel Bouis',
     'Formateur Combat',
     'Spécialiste Actions & Réactions',
     ARRAY['Combat de contact', 'Crédibilité des impacts', 'Chutes de sa hauteur', 'Bagarre urbaine']::text[],

@@ -1,6 +1,6 @@
 # Audit général de l'application CUC
 
-**Généré le :** 2026-09-23T14:47:17.765Z
+**Généré le :** 2026-09-24T10:16:37.729Z
 
 > État des lieux factuel. Aucune correction appliquée.
 
@@ -8,15 +8,15 @@
 
 | Contrôle | Valeur |
 |---|---|
-| Routes détectées | 32 |
-| Fichiers source scannés | 709 |
+| Routes détectées | 35 |
+| Fichiers source scannés | 748 |
 | Liens internes cassés | 0 |
 | Ancres orphelines | 0 |
 | Doublons de liens | 0 |
 | Composants orphelins | 0 |
 | URLs legacy WordPress (vivantes) | 0 |
 | URLs legacy (registres/scripts obsolètes) | 4389 |
-| Occurrences doctrine (actionnables) | 0 |
+| Occurrences doctrine (actionnables) | 1 |
 | Occurrences doctrine (métadonnées de scripts) | 104 |
 | Conflits de handles sociaux | 0 |
 | Redirections invalides/chaînées | 0 |
@@ -50,7 +50,7 @@ Aucune anomalie détectée.
 
 ## Occurrences doctrine (actionnables)
 
-Aucune anomalie détectée.
+- **doctrine: Art du Déplacement (utiliser Parkour)** — src/data/instagram-reels.ts:285
 
 ## Conflits de handles sociaux
 
@@ -111,6 +111,7 @@ Aucune anomalie détectée.
 - `/admin/events`
 - `/admin/films`
 - `/admin/inquiries`
+- `/admin/instagram`
 - `/admin/login`
 - `/admin/media`
 - `/admin/pages`
@@ -118,4 +119,6 @@ Aucune anomalie détectée.
 - `/admin/sessions`
 - `/admin/settings`
 - `/admin/team`
+- `/admin/traffic`
 - `/admin/translations`
+- `/admin/visites`

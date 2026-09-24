@@ -19,7 +19,10 @@ export default function AdminLoginPage() {
     setLoading(true);
     setErrorMessage(null);
 
-    const cleanInput = email.trim().toLowerCase();
+    let cleanInput = email.trim().toLowerCase();
+    if (cleanInput === 'lucas' || cleanInput === 'lucas.dollfus' || cleanInput === 'lucas-dollfus') {
+      cleanInput = 'cuc';
+    }
     const normalizedEmail = cleanInput.includes('@') ? cleanInput : `${cleanInput}@cuc.fr`;
     const cleanPassword = password.trim();
 
@@ -31,17 +34,24 @@ export default function AdminLoginPage() {
         password: cleanPassword,
       });
 
+      const getDestinationUrl = () => {
+        if (typeof window === 'undefined') return '/admin';
+        const searchParams = new URLSearchParams(window.location.search);
+        const nextParam = searchParams.get('next');
+        return (nextParam && nextParam.startsWith('/admin')) ? nextParam : '/admin';
+      };
+
       if (error) {
         // En cas d'échec côté client (ex: restriction de cookies tiers, extensions, etc.), tentative via Server Action
         const serverResult = await loginAdminAction(cleanInput, cleanPassword);
         if (serverResult.success) {
-          window.location.href = '/admin';
+          window.location.href = getDestinationUrl();
           return;
         }
 
         setErrorMessage(
           error.message === 'Invalid login credentials'
-            ? 'Identifiant ou mot de passe incorrect. Assurez-vous d\'utiliser "admin" et le mot de passe "password".'
+            ? 'Identifiant ou mot de passe incorrect. Assurez-vous d\'utiliser "admin" ou "lucas" et le mot de passe "password".'
             : error.message
         );
         setLoading(false);
@@ -49,30 +59,32 @@ export default function AdminLoginPage() {
       }
 
       if (data.user) {
-        // 2. Vérification du rôle administrateur dans la table profiles
+        // 2. Vérification du rôle d'accès dans la table profiles
         const { data: profile, error: profError } = await supabase
           .from('profiles')
           .select('role')
           .eq('id', data.user.id)
           .single();
 
-        if (profError || profile?.role !== 'admin') {
-          // Si le profil n'a pas le rôle admin, déconnexion immédiate
+        if (profError || !['admin', 'directeur', 'coach', 'secretaire'].includes(profile?.role || '')) {
+          // Si le profil n'a pas les droits nécessaires, déconnexion immédiate
           await supabase.auth.signOut();
           setErrorMessage('Accès refusé : ce compte ne possède pas les privilèges administrateur.');
           setLoading(false);
           return;
         }
 
-        // 3. Redirection ferme vers le Cockpit
-        window.location.href = '/admin';
+        // 3. Redirection ferme vers le Cockpit ou la page ciblée
+        window.location.href = getDestinationUrl();
       }
     } catch {
       // Fallback ultime : appel de la Server Action
       try {
         const serverResult = await loginAdminAction(cleanInput, cleanPassword);
         if (serverResult.success) {
-          window.location.href = '/admin';
+          const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+          const nextParam = searchParams?.get('next');
+          window.location.href = (nextParam && nextParam.startsWith('/admin')) ? nextParam : '/admin';
           return;
         }
         setErrorMessage(serverResult.error || 'Erreur lors de la connexion.');

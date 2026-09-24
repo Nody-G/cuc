@@ -77,7 +77,13 @@ export function useCockpitData() {
     // Chargement initial : profil + catalogue complet (repli : copie certifiée locale).
     useEffect(() => {
         getCurrentUserProfile().then((prof) => {
-            if (prof) setCurrentUserProfile(prof);
+            if (prof) {
+                setCurrentUserProfile(prof);
+            } else if (typeof window !== 'undefined' && !window.location.pathname.startsWith('/admin/login')) {
+                const currentPath = window.location.pathname + window.location.search;
+                const nextParam = currentPath && currentPath !== '/admin' ? `?next=${encodeURIComponent(currentPath)}` : '';
+                window.location.href = `/admin/login${nextParam}`;
+            }
         });
 
         Promise.all([

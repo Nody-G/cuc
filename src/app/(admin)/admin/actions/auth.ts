@@ -58,6 +58,9 @@ export async function loginAdminAction(identifier: string, pass: string) {
   try {
     const supabase = await createClient();
     let email = identifier.trim().toLowerCase();
+    if (email === 'lucas' || email === 'lucas.dollfus' || email === 'lucas-dollfus') {
+      email = 'cuc';
+    }
     if (!email.includes('@')) {
       email = `${email}@cuc.fr`;
     }
