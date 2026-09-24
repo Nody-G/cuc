@@ -5,8 +5,8 @@ import { useTranslations } from 'next-intl';
 import { getFilms } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { creditTitleKey } from '@/lib/credit-title';
-import { buildCucRoleBlock } from '@/components/sections/films/film-role-block';
-import type { FilmCardRole } from '@/components/sections/films/FilmCard';
+import { summarizeFilmRoleSet } from '@/lib/credit-role';
+import { renderRoleSet } from '@/lib/i18n/role-labels';
 import type { FilmCredit } from '@/types';
 import type { HomeTournagesData } from './home-tournages-data';
 
@@ -35,10 +35,7 @@ export interface HomeTournagesController {
     filmsByTitle: Map<string, FilmCredit>;
     selectedFilm: FilmCredit | null;
     setSelectedFilm: React.Dispatch<React.SetStateAction<FilmCredit | null>>;
-    /** Bloc de rôle d'une jaquette (rôles CUC réellement enregistrés), ou null. */
-    roleFor: (film?: FilmCredit) => FilmCardRole | null;
-    /** Pied de jaquette : réalisateur, repli « Production » (comme la fiche coach). */
-    footerFor: (film?: FilmCredit) => string;
+    captionFor: (film?: FilmCredit) => string | undefined;
 }
 
 /**
@@ -94,19 +91,17 @@ export function useHomeTournages({ tournagesData }: UseHomeTournagesArgs): HomeT
     );
 
     /**
-     * Bloc de rôle d'une jaquette : rôles CUC **réellement enregistrés** sur la
-     * production (`metadata.cuc_team_roles`). Même objet que la fiche coach, donc
-     * rendu `FilmCard` identique. Aucun rôle en base → aucun bloc (une affirmation
-     * fausse serait pire qu'une absence).
+     * Légende d'une jaquette : synthèse des rôles **réellement enregistrés** pour
+     * cette production (`metadata.cuc_team_roles`). Les libellés écrits en dur
+     * (« Cascadeurs CUC (tournage Paris) », « Équipe cascades CUC ») sont retirés :
+     * une auto-référence au campus n'est pas un rôle. Sans rôle en base, aucune
+     * légende n'est affichée — une affirmation fausse serait pire qu'une absence.
      */
-    const roleFor = (film?: FilmCredit): FilmCardRole | null =>
-        buildCucRoleBlock(film?.cuc_team_roles, tTeam('roleOnProduction'), tTeam);
+    const captionFor = (film?: FilmCredit): string | undefined => {
+        if (!film?.cuc_team_roles) return undefined;
+        const label = renderRoleSet(summarizeFilmRoleSet(film.cuc_team_roles), tTeam);
+        return label === '' ? undefined : label;
+    };
 
-    /** Pied de jaquette : réalisateur, repli « Production » (comme la fiche coach). */
-    const footerFor = (film?: FilmCredit): string =>
-        film?.director
-            ? tTeam('directorShort', { name: film.director })
-            : tTeam('productionFallback');
-
-    return { labels, films, filmsByTitle, selectedFilm, setSelectedFilm, roleFor, footerFor };
+    return { labels, films, filmsByTitle, selectedFilm, setSelectedFilm, captionFor };
 }

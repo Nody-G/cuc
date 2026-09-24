@@ -21,8 +21,9 @@ interface HomeTournagesSectionProps {
  * Toute la logique vit dans `useHomeTournages` ; les sous-vues sont déclaratives.
  */
 export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({ tournagesData }) => {
-  const { labels, filmsByTitle, selectedFilm, setSelectedFilm, roleFor, footerFor } =
-    useHomeTournages({ tournagesData });
+  const { labels, filmsByTitle, selectedFilm, setSelectedFilm, captionFor } = useHomeTournages({
+    tournagesData,
+  });
 
   return (
     <StudioParallaxScene className="py-24 sm:py-28 bg-[#08080c] border-b border-zinc-800/80 relative overflow-hidden">
@@ -52,8 +53,7 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({ tour
           ctaProduction={labels.ctaProduction}
           ctaCatalog={labels.ctaCatalog}
           filmsByTitle={filmsByTitle}
-          roleFor={roleFor}
-          footerFor={footerFor}
+          captionFor={captionFor}
           onOpenFilm={setSelectedFilm}
         />
       </div>

@@ -6,7 +6,7 @@ import { Film, ShieldCheck, ChevronRight, Sparkles } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { StudioParallaxCard } from '@/components/ui/parallax';
 import { creditTitleKey } from '@/lib/credit-title';
-import { FilmCard, type FilmCardRole } from '@/components/sections/films/FilmCard';
+import { FilmCard } from '@/components/sections/films/FilmCard';
 import type { FilmCredit } from '@/types';
 import { FEATURED_PRODUCTIONS } from './home-tournages-data';
 
@@ -20,8 +20,7 @@ interface TournagesPillarsCardProps {
     ctaProduction: string;
     ctaCatalog: string;
     filmsByTitle: Map<string, FilmCredit>;
-    roleFor: (film?: FilmCredit) => FilmCardRole | null;
-    footerFor: (film?: FilmCredit) => string;
+    captionFor: (film?: FilmCredit) => string | undefined;
     onOpenFilm: (film: FilmCredit) => void;
 }
 
@@ -42,8 +41,7 @@ export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
     ctaProduction,
     ctaCatalog,
     filmsByTitle,
-    roleFor,
-    footerFor,
+    captionFor,
     onOpenFilm,
 }) => (
     <StudioParallaxCard maxTilt={2}>
@@ -132,8 +130,7 @@ export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
                                         }
                                     }
                                     sizes="(max-width: 1024px) 50vw, 20vw"
-                                    role={roleFor(match)}
-                                    footer={footerFor(match)}
+                                    caption={captionFor(match)}
                                     onOpen={match ? () => onOpenFilm(match) : undefined}
                                     href={match ? undefined : '/cuc-team-cascadeur#filmographie'}
                                 />

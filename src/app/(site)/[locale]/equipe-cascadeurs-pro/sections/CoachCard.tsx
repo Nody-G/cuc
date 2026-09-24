@@ -4,12 +4,11 @@ import React from 'react';
 import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { ExternalLink, ArrowRight, Film, Globe } from 'lucide-react';
-import { parseCredit, type Instructor, type FilmCredit } from '@/types';
-import { createCoachFilmRoleResolver, selectCoachFilms } from '@/lib/coach-films';
-import { cucMicro } from '@/lib/preview/cuc-micro';
-import { FilmCard } from '@/components/sections/films/FilmCard';
+import { ExternalLink, ArrowRight, Globe } from 'lucide-react';
+import type { Instructor, FilmCredit } from '@/types';
+import { selectCoachFilms } from '@/lib/coach-films';
 import { CoachCreditsList } from './CoachCreditsList';
+import { CoachFilmThumbs } from './CoachFilmThumbs';
 
 interface CoachCardProps {
     member: Instructor;
@@ -32,16 +31,6 @@ export const CoachCard: React.FC<CoachCardProps> = ({ member, films, onSelectFil
      * fiche — l'incohérence que voyait le visiteur.
      */
     const coachFilms = selectCoachFilms(films, member);
-
-    /**
-     * Résolution du rôle du coach sur chaque film : même module pur que la fiche
-     * (`coach-films.ts`), donc exactement le même badge de rôle sur les jaquettes.
-     */
-    const parsedCredits = React.useMemo(
-        () => (member.notableCredits || []).map(parseCredit),
-        [member.notableCredits]
-    );
-    const getFilmRole = createCoachFilmRoleResolver({ member, parsedCredits, tt: t });
 
     return (
         <div
@@ -131,45 +120,9 @@ export const CoachCard: React.FC<CoachCardProps> = ({ member, films, onSelectFil
                             <CoachCreditsList credits={member.notableCredits} />
                         )}
 
-                        {/* Projets & Tournages Cinéma — jaquettes canoniques `FilmCard`,
-                            identiques à celles de la fiche du coach. */}
+                        {/* Projets & Tournages Cinéma */}
                         {coachFilms.length > 0 && (
-                            <div className="pt-3 border-t border-zinc-800/80">
-                                <div className="flex items-center gap-1.5 mb-2">
-                                    <Film className="w-3.5 h-3.5 text-[#FFE500]" />
-                                    <span className="text-[11px] font-mono-tech text-[#FFE500] uppercase font-bold">
-                                        {t('projectsLabel')} ({coachFilms.length})
-                                    </span>
-                                </div>
-                                <div className="grid grid-cols-2 gap-3">
-                                    {coachFilms.slice(0, 3).map((film) => {
-                                        const { role, isCoord, isDoublure } = getFilmRole(film);
-                                        return (
-                                            <FilmCard
-                                                key={film.id}
-                                                film={film}
-                                                sizes="(max-width: 768px) 50vw, 33vw"
-                                                role={{
-                                                    label: t('roleOnProduction'),
-                                                    value: role,
-                                                    variant: isCoord
-                                                        ? 'coord'
-                                                        : isDoublure
-                                                            ? 'doublure'
-                                                            : 'other',
-                                                    micro: cucMicro('team.roleOnProduction'),
-                                                }}
-                                                footer={
-                                                    film.director
-                                                        ? t('directorShort', { name: film.director })
-                                                        : t('productionFallback')
-                                                }
-                                                onOpen={() => onSelectFilm(film)}
-                                            />
-                                        );
-                                    })}
-                                </div>
-                            </div>
+                            <CoachFilmThumbs films={coachFilms} onSelect={onSelectFilm} />
                         )}
                     </div>
                 </div>
