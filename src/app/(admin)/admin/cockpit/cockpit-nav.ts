@@ -51,7 +51,8 @@ export type TabType =
     | 'analytics'
     | 'translations'
     | 'microcopy'
-    | 'settings';
+    | 'settings'
+    | 'instagram';
 
 /**
  * Source de vérité unique de la correspondance onglet ↔ segment d'URL.
@@ -59,6 +60,7 @@ export type TabType =
  * Précédent/Suivant et le rafraîchissement direct d'une URL restent cohérents.
  */
 export const TAB_ROUTES: ReadonlyArray<{ tab: TabType; segment: string }> = [
+    { tab: 'instagram', segment: 'instagram' },
     { tab: 'inquiries', segment: 'inquiries' },
     { tab: 'pages', segment: 'pages' },
     { tab: 'navigation', segment: 'navigation' },
@@ -137,7 +139,10 @@ export function buildNavSections({
                     badge: newInquiriesCount > 0 ? `${newInquiriesCount} new` : undefined,
                 },
                 ...(isDirecteurOrAdmin
-                    ? [{ id: 'analytics' as TabType, label: 'Analytique', icon: BarChart3 }]
+                    ? [
+                        { id: 'analytics' as TabType, label: 'Analytique', icon: BarChart3 },
+                        { id: 'instagram' as TabType, label: 'Monitoring Instagram', icon: Activity, badge: 'Live' },
+                    ]
                     : []),
             ],
         },

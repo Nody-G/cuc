@@ -19,6 +19,7 @@ import { AuditLogView } from '../components/AuditLogView';
 import { ContentHealthView } from '../components/ContentHealthView';
 import { AnalyticsView } from '../components/AnalyticsView';
 import { InquiriesView } from '../components/InquiriesView';
+import { InstagramMonitorView } from '../components/InstagramMonitorView';
 
 /**
  * Onglets « vitrine & exploitation » : bandeau flash, i18n, CMS de pages,
@@ -156,6 +157,11 @@ export const CockpitCmsTabs: React.FC<CockpitTabContentProps> = (props) => (
                     programs={props.programs}
                 />
             </div>
+        )}
+
+        {/* 21. MONITORING INSTAGRAM TEMPS RÉEL & LEADERBOARD */}
+        {props.activeTab === 'instagram' && (
+            <InstagramMonitorView showToast={props.showToast} />
         )}
     </>
 );
