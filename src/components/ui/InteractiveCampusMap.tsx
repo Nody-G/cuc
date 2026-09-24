@@ -190,13 +190,16 @@ export const InteractiveCampusMap: React.FC = () => {
             {/* View Content Area */}
             <div className="relative w-full h-80 sm:h-96 md:h-[420px] bg-black border border-zinc-800 overflow-hidden group">
               {activeTab === 'map' ? (
-                /* Interactive OpenStreetMap Dark / Live Map Embed */
+                /* Vue satellite : imagerie aérienne Google Maps (`t=k`), sans
+                   filtre sombre — l'imagerie doit rester lisible telle quelle.
+                   Cette vue n'existe que sur la carte de la page contact. */
                 <div className="w-full h-full relative">
                   <iframe
-                    title="Campus Univers Cascades Location Map"
-                    src="https://www.openstreetmap.org/export/embed.html?bbox=3.5250%2C50.0840%2C3.5500%2C50.0980&layer=mapnik&marker=50.0909%2C3.5374"
-                    className="w-full h-full border-0 filter invert contrast-125 hue-rotate-180 brightness-90"
+                    title="Campus Univers Cascades — vue satellite"
+                    src="https://www.google.com/maps?q=50.0909,3.5374&t=k&z=17&output=embed"
+                    className="w-full h-full border-0"
                     loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
                   />
                   {/* Tactical Target Overlay — décoratif, mais il porte l'adresse
                       éditable : `cucReach()` rend le geste à ce seul texte. */}

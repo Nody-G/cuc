@@ -430,7 +430,7 @@
         },
         "map": {
             "radar": "Radar Satellite",
-            "roadMap": "Carte Routière",
+            "roadMap": "Vue Satellite",
             "copyGps": "COPIER GPS",
             "copied": "GPS COPIÉ !",
             "copyGpsTitle": "Copier les coordonnées GPS",
