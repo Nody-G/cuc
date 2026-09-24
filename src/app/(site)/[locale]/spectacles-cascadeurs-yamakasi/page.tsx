@@ -17,6 +17,7 @@ import {
 
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 import { cucMicro } from '@/lib/preview/cuc-micro';
+import { withContactIntent } from '@/lib/contact-intent';
 
 export default function SpectaclesCascadeursYamakasiPage() {
   const t = useTranslations('spectacles');
@@ -30,7 +31,11 @@ export default function SpectaclesCascadeursYamakasiPage() {
     content.hero?.bg_image ||
     'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg';
   const ctaPrimaryText = content.hero?.cta_primary_text || t('ctaPrimaryText');
-  const ctaPrimaryLink = content.hero?.cta_primary_link || '/contact-cuc';
+  /** CTA spectacles → page contact, pré-remplie « devis CUC Events ». */
+  const ctaPrimaryLink = withContactIntent(
+    content.hero?.cta_primary_link || '/contact-cuc',
+    'cuc-events'
+  );
   const ctaSecondaryText = content.hero?.cta_secondary_text || t('ctaSecondaryText');
   const ctaSecondaryLink = content.hero?.cta_secondary_link || '/videos-cascadeur';
 

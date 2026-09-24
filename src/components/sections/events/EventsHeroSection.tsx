@@ -9,6 +9,7 @@ import { StuntBadge } from '@/components/ui/StuntBadge';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { cucField } from '@/lib/preview/cuc-field';
 import { cucMicro } from '@/lib/preview/cuc-micro';
+import { withContactIntent } from '@/lib/contact-intent';
 import { Sparkles, ChevronRight } from 'lucide-react';
 
 import { SitePageHero } from '@/lib/data/site-service';
@@ -28,7 +29,11 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
     hero?.bg_image ||
     'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Image1-scaled.jpg';
   const ctaPrimaryText = hero?.cta_primary_text || t('heroCtaPrimary');
-  const ctaPrimaryLink = hero?.cta_primary_link || '/contact-cuc';
+  /** CTA du hero ÉVÉNEMENTS → page contact, pré-remplie « devis CUC Events ». */
+  const ctaPrimaryLink = withContactIntent(
+    hero?.cta_primary_link || '/contact-cuc',
+    'cuc-events'
+  );
   const ctaSecondaryText = hero?.cta_secondary_text || t('heroCtaSecondary');
   const ctaSecondaryLink = hero?.cta_secondary_link || '/videos-cascadeur';
 

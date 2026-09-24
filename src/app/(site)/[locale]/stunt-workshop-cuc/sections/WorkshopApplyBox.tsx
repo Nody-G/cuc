@@ -2,6 +2,7 @@ import { Link } from '@/i18n/navigation';
 import React from 'react';
 import Image from 'next/image';
 import { TacticalButton } from '@/components/ui/TacticalButton';
+import { withContactIntent } from '@/lib/contact-intent';
 import type { WorkshopCtaCopy } from './useWorkshopContent';
 
 export interface WorkshopApplyBoxProps {
@@ -37,7 +38,7 @@ export const WorkshopApplyBox: React.FC<WorkshopApplyBoxProps> = ({ cta, onApply
             <TacticalButton variant="primary" size="lg" onClick={onApply}>
                 <span data-cuc-field="sections_data.workshop.cta_primary">{cta.primary}</span>
             </TacticalButton>
-            <Link href="/contact-cuc">
+            <Link href={withContactIntent('/contact-cuc', 'workshop-international')}>
                 <TacticalButton variant="secondary" size="lg">
                     <span data-cuc-field="sections_data.workshop.cta_secondary">{cta.secondary}</span>
                 </TacticalButton>

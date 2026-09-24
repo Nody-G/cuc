@@ -44,6 +44,22 @@ const CONTACT_INTENTS: ReadonlyArray<Omit<LinkOption, 'group'>> = [
         value: '/contact-cuc?demande=tournage-production',
         label: 'Contact → tournage & production',
     },
+    {
+        value: '/contact-cuc?demande=pro-longue-duree',
+        label: 'Contact → formation professionnelle (2 ans)',
+    },
+    {
+        value: '/contact-cuc?demande=stage-decouverte',
+        label: 'Contact → stage découverte',
+    },
+    {
+        value: '/contact-cuc?demande=weekend-immersion',
+        label: 'Contact → week-end immersion',
+    },
+    {
+        value: '/contact-cuc?demande=workshop-international',
+        label: 'Contact → workshop international',
+    },
 ];
 
 /** Slug éditorial → chemin public (« / », « /visite-guidee »). */

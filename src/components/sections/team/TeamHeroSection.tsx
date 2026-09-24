@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { cucField } from '@/lib/preview/cuc-field';
 import { cucMicro } from '@/lib/preview/cuc-micro';
+import { withContactIntent } from '@/lib/contact-intent';
 import { Film, ChevronRight } from 'lucide-react';
 import { SitePageHero } from '@/lib/data/site-service';
 
@@ -24,7 +25,14 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
     hero?.bg_image ||
     'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg';
   const ctaPrimaryText = hero?.cta_primary_text || t('hero.ctaPrimary');
-  const ctaPrimaryLink = hero?.cta_primary_link || '/contact-cuc';
+  /**
+   * CTA du hero TOURNAGE → page contact, pré-remplie « tournage & production »
+   * (même si le lien est configuré en `/contact-cuc` dans le Cockpit).
+   */
+  const ctaPrimaryLink = withContactIntent(
+    hero?.cta_primary_link || '/contact-cuc',
+    'tournage-production'
+  );
 
   return (
     <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
