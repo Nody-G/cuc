@@ -149,6 +149,17 @@ export interface DoubledCelebrity {
   imdbUrl: string;
 }
 
+/**
+ * Métadonnées libres d'un formateur (`site_team.metadata`).
+ * Les clés exploitées par l'application sont typées ; les clés inconnues
+ * restent `unknown` et exigent un narrowing — plus aucun `any`.
+ */
+export interface InstructorMetadata {
+  /** Rôle de chaque membre CUC dans un film, indexé par identifiant de film. */
+  film_roles?: Record<string, string>;
+  [key: string]: unknown;
+}
+
 export interface Instructor {
   id: string;
   name: string;
@@ -177,10 +188,7 @@ export interface Instructor {
   film_ids?: string[];
   discipline_ids?: string[];
   profile_id?: string | null;
-  metadata?: {
-    film_roles?: Record<string, string>;
-    [key: string]: any;
-  };
+  metadata?: InstructorMetadata;
 }
 
 export interface InfrastructureSpot {

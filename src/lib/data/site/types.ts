@@ -31,6 +31,21 @@ export interface LayoutSection {
   is_visible: boolean;
 }
 
+/**
+ * Contenu de sections d'une page (`site_pages.sections_data`).
+ *
+ * La forme **varie d'une page à l'autre** (blocs `about`, `tournages`,
+ * `virtual_tour`, `qualiopi`, `partners`, `social`, `formules`,
+ * `stages_catalogue`, `workshops`, `overview`, `reels`…) et aucun schéma
+ * exhaustif n'existe à ce jour. Le type reste donc volontairement permissif :
+ * chaque consommateur narrow au point d'usage (`sections_data?.about?.title`),
+ * ce que 25 sites de lecture exploitent déjà. Le typer strictement sans contrat
+ * global casserait ces lectures — un alias unique et documenté vaut mieux que
+ * des `any` dispersés.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- JSON CMS de forme libre (cf. justification ci-dessus)
+export type SitePageSectionsData = any;
+
 export interface SitePageHero {
   badge?: string;
   /** Ligne de métadonnées du hero (« AFDAS 100% • FRANCE TRAVAIL », « TF1 • FRANCE 2 »…). */
@@ -73,7 +88,7 @@ export interface SitePageContent {
   hero: SitePageHero;
   sections?: SitePageSection[];
   layout_sections?: LayoutSection[];
-  sections_data?: Record<string, any>;
+  sections_data?: SitePageSectionsData;
   is_published: boolean;
   updated_at?: string;
 }
@@ -183,6 +198,21 @@ export interface SiteSettings {
  * elles ne sont pas dupliquées ici pour éviter deux chemins de lecture.
  */
 
+/**
+ * Métadonnées libres d'une candidature (`site_inquiries.metadata`).
+ * Les clés réellement exploitées par l'application sont typées ; toute clé
+ * inconnue reste `unknown` (jamais `any`) et exige un narrowing au point d'usage.
+ */
+export interface SiteInquiryMetadata {
+  /** Identifiant du profil CUC Sign créé à l'admission. */
+  cuc_sign_student_id?: string;
+  /** Identifiant de la promotion CUC Sign rattachée (`null` si CUC Sign n'en renvoie aucune). */
+  cuc_sign_formation_id?: string | null;
+  /** Horodatage ISO de la conversion de la candidature en élève. */
+  converted_at?: string;
+  [key: string]: unknown;
+}
+
 export interface SiteInquiry {
   id: string;
   full_name: string;
@@ -197,7 +227,7 @@ export interface SiteInquiry {
   message: string;
   status: 'nouveau' | 'en_cours' | 'admis' | 'refuse' | 'archive';
   admin_notes?: string;
-  metadata?: Record<string, any>;
+  metadata?: SiteInquiryMetadata;
   created_at: string;
   updated_at?: string;
 }
