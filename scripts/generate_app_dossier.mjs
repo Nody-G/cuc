@@ -3,13 +3,12 @@
  * DOSSIER DE PRÉSENTATION CLIENT — L'APPLICATION DU CAMPUS UNIVERS CASCADES
  * =========================================================================
  *
- * Version 5 : deux sorties — le dossier de l'application et la page dédiée à
- * CUC Sign (signalements terrain inclus) ; échelle du projet (lignes de code) et
- * comparaison avec l'ancien site réintroduites.
- * Le tout autonome et imprimable.
+ * Version 5 : CUC Sign devient un chapitre à part entière du dossier ; échelle
+ * du projet (lignes de code), stack technique visible et comparaison avec
+ * l'ancien site réintroduites. Le tout autonome et imprimable.
  *
  * Régénération : `npm run report:dossier`
- * Sorties : reports/cuc-dossier-application.html · reports/cuc-sign.html
+ * Sortie : reports/cuc-dossier-application.html
  *
  * Sources :
  *   - Supabase de production (lecture seule) — via DATABASE_URL, repli silencieux ;
@@ -22,13 +21,12 @@ import path from 'node:path';
 import * as dotenv from 'dotenv';
 import pg from 'pg';
 
-import { buildCucSignDossier } from './lib/cuc-sign-dossier.mjs';
+import { buildCucSignContent } from './lib/cuc-sign-dossier.mjs';
 
 dotenv.config({ path: '.env.local' });
 
 const ROOT = process.cwd();
 const OUT = path.join(ROOT, 'reports', 'cuc-dossier-application.html');
-const OUT_SIGN = path.join(ROOT, 'reports', 'cuc-sign.html');
 
 const readJson = (p) => {
   try {
@@ -50,9 +48,7 @@ const t = Array.isArray(metrics?.database?.tables)
 /* ------------------------------------------------------------------ */
 
 const live = {
-  filmsByDecade: [],
   storage: metrics?.database?.storage ?? [],
-  partnersByCategory: [],
   sessions: [],
   programNames: {},
   quality: null,
@@ -63,15 +59,6 @@ async function collectLive() {
   if (!databaseUrl || /\[YOUR-PASSWORD\]|\[MOT_DE_PASSE\]/.test(databaseUrl)) return;
   const client = new pg.Client({ connectionString: databaseUrl, ssl: { rejectUnauthorized: false } });
   await client.connect();
-  try {
-    const decades = await client.query(
-      `SELECT (left(year, 4)::int / 10 * 10)::text AS decade, COUNT(*)::int AS n
-             FROM site_films
-             WHERE is_published = true AND year ~ '^[0-9]{4}'
-             GROUP BY 1 ORDER BY 1`
-    );
-    live.filmsByDecade = decades.rows.map((r) => ({ decade: r.decade, n: r.n }));
-  } catch { }
   try {
     const storage = await client.query(
       `SELECT bucket_id, COUNT(*)::int AS files,
@@ -85,13 +72,6 @@ async function collectLive() {
         bytes: Number(r.bytes),
       }));
     }
-  } catch { }
-  try {
-    const partners = await client.query(
-      `SELECT category, COUNT(*)::int AS n FROM site_partners
-             WHERE is_published = true GROUP BY 1 ORDER BY n DESC`
-    );
-    live.partnersByCategory = partners.rows;
   } catch { }
   try {
     const sessions = await client.query(
@@ -388,33 +368,8 @@ const contentRows = Object.entries(t)
   .map(([k, v]) => ({ label: TABLE_LABELS[k] ?? k, value: v }))
   .sort((a, b) => b.value - a.value);
 
-const CATEGORY_LABELS = { Film: 'Films', film: 'Films', Serie: 'Séries', Série: 'Séries', serie: 'Séries', 'Court métrage': 'Courts métrages' };
-const filmsByCategory = (metrics?.database?.filmsByCategory ?? dbState?.filmsByCategory ?? []).map((r) => ({
-  label: CATEGORY_LABELS[r.category] ?? r.category ?? 'Non classé',
-  value: r.n,
-}));
-
-const SESSION_LABELS = { ouvert: 'Ouvertes aux inscriptions', complet: 'Complètes', 'dernières places': 'Dernières places', bientôt: 'Annoncées prochainement' };
-const sessionsByStatus = (metrics?.database?.sessionsByStatus ?? dbState?.sessionsByStatus ?? []).map((r) => ({
-  label: SESSION_LABELS[r.status] ?? r.status,
-  value: r.n,
-}));
-
-const ENTITY_LABELS = { film: 'Films', team: 'Coachs', event: 'Événements', discipline: 'Disciplines', campus_poi: 'Zones du campus', campus_facility: 'Installations', page: 'Pages', partner: 'Partenaires', video: 'Vidéos', celebrity: 'Comédiens doublés' };
-const translationsByEntity = (metrics?.database?.translationsByEntity ?? dbState?.translationsByEntity ?? [])
-  .slice(0, 10)
-  .map((r) => ({ label: ENTITY_LABELS[r.entity] ?? r.entity ?? 'Autre', value: r.n }));
-
-const PARTNER_LABELS = {
-  cinema: 'Cinéma & production',
-  materiel: 'Matériel & équipements',
-  institutionnel: 'Institutions & financeurs',
-  media: 'Médias & presse',
-};
-const partnersRows = live.partnersByCategory.map((r) => ({
-  label: PARTNER_LABELS[r.category] ?? r.category ?? 'Autres',
-  value: r.n,
-}));
+/* Les répartitions par catégorie / statut / entité (et leurs libellés) ont été
+   retirées avec le bloc « Quelques repères du catalogue » (2026-09-24). */
 
 const cucSign = metrics?.database?.cucSign ?? dbState?.cucSign;
 const rlsOn = metrics?.database?.rlsOn ?? dbState?.rlsOn ?? 0;
@@ -451,8 +406,6 @@ const mediaTotals = storageBytes
     bytes: (metrics?.database?.storage ?? []).reduce((a, s) => a + (Number(s.bytes) || 0), 0),
     files: (metrics?.database?.storage ?? []).reduce((a, s) => a + (Number(s.files) || 0), 0),
   };
-
-const decadeRows = live.filmsByDecade.map((r) => ({ label: `${r.decade}s`, value: r.n }));
 
 /* ------------------------------------------------------------------ */
 /* Sessions live — telles qu'affichées sur le site                     */
@@ -529,36 +482,10 @@ const contentTable = contentRows.length
     </table>`
   : '<p class="meta">Données indisponibles pour le moment.</p>';
 
-const sumValues = (rows) => rows.reduce((a, r) => a + (Number(r.value) || 0), 0);
-
-/**
- * Repères du catalogue, choisis pour ce qu'ils racontent vraiment.
- *
- * Le classement « coach le plus présent » a été retiré : le décompte brut issu
- * de `cuc_team_involved` ne reflète pas la filmographie vérifiée crédit par
- * crédit (un intervenant peut apparaître des dizaines de fois sans être le plus
- * présent au regard des crédits validés). Une valeur non fiable n'a pas sa place
- * dans un dossier client — décision du 2026-09-24.
- */
-const catalogTraits = [
-  decadeRows.length
-    ? kpiHtml(
-      decadeRows.length,
-      'décennies couvertes par les films',
-      `de ${decadeRows[0].label} à ${decadeRows[decadeRows.length - 1].label}`
-    )
-    : '',
-  filmsByCategory.length
-    ? kpiHtml(filmsByCategory[0].label, 'catégorie la plus fournie', `${nf(filmsByCategory[0].value)} films publiés`)
-    : '',
-  translationsByEntity.length
-    ? kpiHtml(sumValues(translationsByEntity), 'traductions éditoriales en base', 'film, équipe, événements, disciplines, campus')
-    : '',
-  partnersRows.length ? kpiHtml(sumValues(partnersRows), 'partenaires affichés', 'équipementiers, marques, institutions') : '',
-  sessionsByStatus.length ? kpiHtml(sumValues(sessionsByStatus), 'sessions publiées', 'datées et suivies par statut') : '',
-].filter(Boolean);
-
-const catalogTraitsHtml = catalogTraits.join('');
+/* Le bloc « Quelques repères du catalogue » a été retiré sur demande client
+   (2026-09-24) : ses repères étaient décoratifs et l'un d'eux — le classement
+   des coachs — s'appuyait sur un décompte non fiable. Les volumes utiles
+   restent dans le tableau des contenus et la complétude des fiches. */
 
 /** Poids des pages : trois chiffres suffisent, la liste complète n'apprend rien de plus. */
 const pageWeightSummary = (() => {
@@ -574,34 +501,8 @@ const pageWeightSummary = (() => {
   ].join('');
 })();
 
-/**
- * Accroche CUC Sign affichée dans le dossier de l'application : trois cartes,
- * puis un renvoi vers la page dédiée [`scripts/lib/cuc-sign-dossier.mjs`], qui
- * porte tout le détail (espaces, signalements, passerelle, avenir).
- */
-const cucSignTeaserCards = [
-  {
-    iconName: 'users',
-    title: 'Les élèves',
-    desc: 'Ils s’émargent, consultent leur planning, suivent leur progression, signalent une blessure ou un matériel défectueux depuis leur téléphone, et repartent avec un profil de casting.',
-    tags: ['Élèves'],
-  },
-  {
-    iconName: 'phone',
-    title: 'Les coachs',
-    desc: 'Ils notent depuis le téléphone, composent les groupes, assurent les remplacements, et voient avant le cours qui revient de blessure — ou qui a signalé un problème.',
-    tags: ['Coachs'],
-  },
-  {
-    iconName: 'gauge',
-    title: 'La direction & le secrétariat',
-    desc: 'Planning, présences, signalements, comptes et rôles, preuves réclamées par les financeurs : tout se pilote depuis un seul écran.',
-    tags: ['Direction'],
-  },
-].map(featCard);
-
-/* Les cartes « avenir », la passerelle et le parcours élève vivent désormais
-   dans `scripts/lib/cuc-sign-dossier.mjs` : une seule source pour la page CUC Sign. */
+/* Le chapitre CUC Sign (cartes, signalements, passerelle, parcours élève) est
+   produit par `scripts/lib/cuc-sign-dossier.mjs` : une seule source de contenu. */
 
 /* ================================================================== */
 /* Schémas SVG                                                         */
@@ -918,6 +819,9 @@ const journeyHtml = JOURNEY.map(
   (s, i) => `<div class="step reveal"><span class="num">${i + 1}</span><h4>${esc(s.title)}</h4><p>${esc(s.text)}</p></div>`
 ).join('');
 
+/** Contenu du chapitre CUC Sign (module dédié, une seule source). */
+const cucSignContent = buildCucSignContent({ esc, nf, icon, featCard, kpiHtml, cucSign });
+
 const generated = new Date();
 const today = generated.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -1033,6 +937,9 @@ const html = `<!DOCTYPE html>
   footer { margin-top: 76px; border-top: 1px solid #26262e; padding-top: 20px; color: #8a8a95; font-size: 12.5px; }
   .pill { display: inline-block; font-size: 11px; padding: 2px 9px; border: 1px solid #3a3a44; border-radius: 999px; color: #c9c9d1; margin-right: 6px; }
   code { color: #ffe9a8; }
+  .thread { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; }
+  .thread li { background: #0d0d12; border: 1px solid #26262e; border-left: 3px solid #FFE500; border-radius: 0 10px 10px 0; padding: 12px 16px; color: #c9c9d1; font-size: 13.5px; }
+  .thread b { color: #fff; }
   /* --- Animations (natives, sans dépendance) --- */
   .flowline { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 3 12; animation: march 1.5s linear infinite; }
   @keyframes march { to { stroke-dashoffset: -15; } }
@@ -1125,9 +1032,8 @@ const html = `<!DOCTYPE html>
     <nav class="toc">
       <a href="#vue">Vue d'ensemble</a><a href="#ecosysteme">Comment ça marche</a><a href="#carte">La carte du site</a>
       <a href="#site">Le site public</a><a href="#cockpit">Le Cockpit</a><a href="#quotidien">Au quotidien</a>
-      <a href="#chiffres">Chiffres clés</a><a href="#contenus">Les contenus</a><a href="#capot">Sous le capot</a>
-      <a href="#pratiques">Bonnes pratiques</a><a href="#glossaire">Glossaire</a><a href="#faq">FAQ</a>
-      <a href="./cuc-sign.html">CUC Sign ↗</a>
+      <a href="#chiffres">Chiffres clés</a><a href="#contenus">Les contenus</a><a href="#cuc-sign">CUC Sign</a>
+      <a href="#capot">Sous le capot</a><a href="#pratiques">Bonnes pratiques</a><a href="#glossaire">Glossaire</a><a href="#faq">FAQ</a>
     </nav>
   </header>
 
@@ -1244,32 +1150,19 @@ const html = `<!DOCTYPE html>
       </div>
     </div>
 
-    ${catalogTraitsHtml
-    ? `<h3>Quelques repères du catalogue <span class="meta">(choisis pour ce qu'ils racontent)</span></h3>
-    <div class="kpis">${catalogTraitsHtml}</div>`
-    : ''
-  }
-
-    <h3 id="cuc-sign">CUC Sign — <a href="./cuc-sign.html">la plateforme de gestion de l'école</a></h3>
-    <p>
-      Le site public et le Cockpit que vous avez entre les mains sont la <strong>première étape</strong>. La seconde
-      existe déjà et s'appelle <strong>CUC Sign</strong> : ce n'est pas un outil réservé aux élèves, c'est la
-      <strong>plateforme de gestion de l'école</strong>, avec un espace pour chacun — élèves, coachs, direction.
-      Les formations, les coachs et les lieux affichés publiquement viennent déjà de CUC Sign, en lecture seule.
-    </p>
-    <div class="feat-grid">${cucSignTeaserCards}</div>
     <div class="callout">
-      <strong>CUC Sign a sa propre page.</strong> Le détail complet — espaces élèves, coachs et direction, circulation
-      entre les deux applications, et les signalements terrain (matériel défectueux, rangement, blessure déclarés
-      depuis un téléphone) — y est présenté.
-      <div class="hero-actions">
-        <a class="btn" href="./cuc-sign.html">Ouvrir la page CUC Sign →</a>
-      </div>
+      <strong>CUC Sign</strong> — la plateforme de gestion de l'école — fait l'objet du
+      <a href="#cuc-sign">chapitre 9 : CUC Sign</a>, dans les pages qui suivent.
     </div>
   </section>
 
+  <section id="cuc-sign">
+    <h2>9. CUC Sign — la plateforme de gestion de l'école</h2>
+${cucSignContent}
+  </section>
+
   <section id="capot">
-    <h2>9. Sous le capot — en toute transparence</h2>
+    <h2>10. Sous le capot — en toute transparence</h2>
     <p>
       Cette partie s'adresse aux curieux : ce que votre site « pèse », la vitesse à laquelle il répond,
       et les garanties qui l'entourent. Aucune connaissance technique n'est nécessaire pour la lire.
@@ -1305,19 +1198,19 @@ ${techTable}
   </section>
 
   <section id="pratiques">
-    <h2>10. Les bonnes pratiques de votre équipe</h2>
+    <h2>11. Les bonnes pratiques de votre équipe</h2>
     <p>Six réflexes simples qui gardent le site impeccable :</p>
     <div class="feat-grid">${practicesHtml}</div>
   </section>
 
   <section id="glossaire">
-    <h2>11. Glossaire — les mots du projet, en clair</h2>
+    <h2>12. Glossaire — les mots du projet, en clair</h2>
     <p>Huit termes que vous croiserez dans les échanges sur le projet, expliqués sans jargon.</p>
     ${glossaryAccordions}
   </section>
 
   <section id="faq">
-    <h2>12. Questions fréquentes</h2>
+    <h2>13. Questions fréquentes</h2>
     ${faqAccordions}
   </section>
 
@@ -1383,27 +1276,12 @@ ${techTable}
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, html, 'utf8');
 
-/**
- * La feuille de style est capturée depuis le dossier déjà assemblé : la page
- * CUC Sign hérite de la même identité visuelle sans en dupliquer une ligne.
- */
-const sharedCss = (html.match(/<style>([\s\S]*?)<\/style>/) || [, ''])[1];
-const cucSignHtml = buildCucSignDossier({
-  css: sharedCss,
-  today,
-  generated,
-  kit: { esc, nf, icon, featCard, kpiHtml },
-  cucSign,
-});
-fs.writeFileSync(OUT_SIGN, cucSignHtml, 'utf8');
-
-console.log('=== Dossiers de présentation client générés (v5) ===');
-console.log(`Dossier application — 12 sections · accordéons : ${PUBLIC_PAGES.length + COCKPIT_APPS.length + GLOSSARY.length + FAQ.length + 1}`);
-console.log(`Repères chiffrés : contenus(tablo ${contentRows.length}) · complétude(${q ? 3 : 0}) · catalogue(${catalogTraits.length}) · résistance(${resilienceRows.length}) · pages(${pageWeights ? pageWeights.length : 0}) · échelle(${codeTotals ? 2 : 0}) · comparaison(${OLD_SITE_ROWS.length})`);
+console.log('=== Dossier de présentation client généré (v5) ===');
+console.log(`Dossier application — 13 sections · accordéons : ${PUBLIC_PAGES.length + COCKPIT_APPS.length + GLOSSARY.length + FAQ.length + 1}`);
+console.log(`Repères chiffrés : contenus(tablo ${contentRows.length}) · complétude(${q ? 3 : 0}) · résistance(${resilienceRows.length}) · pages(${pageWeights ? pageWeights.length : 0}) · échelle(${codeTotals ? 2 : 0}) · comparaison(${OLD_SITE_ROWS.length})`);
 console.log(`Sessions live : ${live.sessions.length} lignes datées`);
 console.log(`Qualité : ${q ? `${nf(q.films.with_image)}/${nf(q.films.total)} affiches · ${nf(q.filmsEn)} films EN · ${nf(q.team.with_imdb)} IMDb` : 'indisponible'}`);
 console.log(`Schémas : écosystème (flux animés) · carte du site(${SITE_MAP.length} thèmes) · anatomie de page · cycle de demande (carte voyageuse)`);
-console.log('Page CUC Sign — 6 sections · signalements smartphone (matériel, rangement, blessure)');
-console.log('Sorties :');
+console.log('Chapitre 9 « CUC Sign » — signalements smartphone (matériel, rangement, blessure) inclus');
+console.log('Sortie :');
 console.log('  - reports/cuc-dossier-application.html');
-console.log('  - reports/cuc-sign.html');
