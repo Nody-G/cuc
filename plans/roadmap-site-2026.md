@@ -98,12 +98,36 @@ Détail et preuves : [`revue-rls-site-pages.md`](plans/revue-rls-site-pages.md:1
 
 ## Priorité 5 — outillage éditorial (confort, pas urgence)
 
-1. **Brouillons multiples nommés** : le filet local n'en garde qu'un par page et par langue ;
-   un historique local (3 versions) éviterait les regrets.
-2. **Planification de publication** : `is_published` est binaire ; une date de publication
-   éviterait les republications manuelles (cron + champ `publish_at`).
-3. **Aperçu multi-appareils synchronisé** : le sélecteur PC/tablette/smartphone est déjà là ;
-   un défilement synchronisé entre tailles serait le confort suivant.
+1. **Brouillons multiples nommés** — ⏳ ouvert : le filet local n'en garde qu'un par page et par
+   langue ; un historique local (3 versions) éviterait les regrets.
+2. **Planification de publication** — ⏳ ouvert : `is_published` est binaire ; une date de
+   publication éviterait les republications manuelles (cron + champ `publish_at`). Exige une
+   migration de base, à mener hors incident de quota.
+3. **Aperçu multi-appareils synchronisé** — ⛔ **reporté, motif chiffré (2026-09-24)** : l'aperçu
+   **simule un appareil à la fois** (`PreviewFrame` monte un seul `<iframe>`). Un défilement
+   synchronisé suppose N iframes simultanées (N chargements réels de la vitrine, à mesurer dans le
+   budget « poids JS par route ») **et** un nouveau message du protocole pour mirer les positions.
+   C'est une fonctionnalité, pas une retouche : à ouvrir en lot dédié, avec recette manuelle —
+   la livrer sans session navigateur installerait un contrôle non vérifié.
+
+   *Rappel de ce qui reste à contrôler à l'œil (non mesurable ici)* : contraste des surfaces
+   publiques (jsdom ne calcule pas les couleurs), recette médiathèque (téléverser/déplacer/
+   corbeille/restaurer), et les contrôles du studio 3D listés dans
+   [`revue-transformations-3d-flexibles.md`](plans/revue-transformations-3d-flexibles.md:479).
+
+## Passe du 2026-09-24 — ce qui a bougé
+
+- **Dette SRP résorbée** : 9 fichiers applicatifs découpés en 4 couches (300 → 65, 297 → 109,
+  295 → 45, 294 → 45, 290 → 22, 287 → 48, 283 → 43, 283 → 21, 282 → 63). Plafond de 300 lignes :
+  **0 violation**, baseline du ratchet `{}` (vide).
+- **Hygiène de typage** : plus aucun `any` signalé par `lint` (alias documenté + métadonnées typées).
+- **Correctif fonctionnel** : la corbeille du panneau détail de la médiathèque supprime au premier
+  clic (cibles explicites) — quirk hérité soldé.
+- **Outils** : `audit:fields` suit la déclaration des natures de champ ; `audit:microcopy` ne compte
+  plus le bruit de code comme du texte.
+- **Gates rejoués** : `studio:gate:full` **OK** (champs, budget, quotas, micro-textes, poids JS par
+  route, typecheck, 485 tests). Détail et écarts assumés :
+  [`plan-reste-a-faire-2026-09-24.md`](plans/plan-reste-a-faire-2026-09-24.md:1).
 
 ## Règles de conduite pour la suite (non négociables)
 

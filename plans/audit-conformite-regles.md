@@ -565,6 +565,10 @@ Dernier état connu : 157/157 tests passés, 681/681 clés i18n, 0 erreur sur le
 | `npm run lint` | ✅ **0 erreur, 0 avertissement** (les 3 `no-explicit-any` restants sont traités, voir ci-dessous) |
 | `npm run test` | ✅ **485 tests / 70 fichiers** |
 | `node scripts/audit.mjs` | ✅ 0 problème (liens, ancres, hrefs suspects) — plafond SRP : **0 violation**, baseline `scripts/size-baseline.json` = `{}` |
+| `npm run studio:gate:full` | ✅ **Gate OK** — champs, budget, quotas, micro-textes, poids JS par route, typecheck, tests |
+| `npm run audit:fields` | ✅ couverture et promesses complètes (15 pages) |
+| `npm run audit:microcopy` | ✅ **0 texte codé en dur** (431 éditables : 309 annotés, 107 données, 15 traduction) |
+| `npm run audit:slop` | ✅ occurrences limitées aux garde-fous de `scripts/` |
 
 **Hygiène de typage (Lot A du plan de suite)**
 
@@ -572,19 +576,35 @@ Dernier état connu : 157/157 tests passés, 681/681 clés i18n, 0 erreur sur le
 - `SiteInquiry.metadata` → `SiteInquiryMetadata` : clés CUC Sign réellement utilisées typées (`cuc_sign_student_id`, `cuc_sign_formation_id` nullable, `converted_at`), reste en `unknown`.
 - `Instructor.metadata` → `InstructorMetadata` : `film_roles` typé `Record<string, string>`, reste en `unknown`.
 
-**Dette SRP résiduelle — vague suivante** (code applicatif proche du plafond de 300 lignes, aucun God Component recréé)
+**Vague B/C du 2026-09-24 — 9 fichiers résorbés** (tous désormais très en deçà du plafond)
 
-| Fichier | Lignes |
-| :--- | ---: |
-| [`PartnersView.tsx`](src/app/(admin)/admin/components/PartnersView.tsx:1) | 300 |
-| [`FilmDetailsModal.tsx`](src/components/sections/hall-of-fame/FilmDetailsModal.tsx:1) | 297 |
-| [`VisiteFacilitiesDetail.tsx`](src/components/sections/visite/VisiteFacilitiesDetail.tsx:1) | 295 |
-| [`EditorCoordinateInputs.tsx`](src/components/3d/ui/EditorCoordinateInputs.tsx:1) | 294 |
-| [`useInstagramMonitor.ts`](src/app/(admin)/admin/components/instagram-monitor/useInstagramMonitor.ts:1) | 290 |
-| [`preview-protocol-core.ts`](src/lib/preview/preview-protocol-core.ts:1) | 287 |
-| [`team-building-cascades/page.tsx`](src/app/(site)/[locale]/team-building-cascades/page.tsx:1) | 283 |
-| [`traffic-data.ts`](src/lib/traffic/traffic-data.ts:1) | 283 |
-| [`VideosPageEditor.tsx`](src/app/(admin)/admin/components/pages-editor/VideosPageEditor.tsx:1) | 282 |
-| [`home-blocks.ts`](src/app/(admin)/admin/components/pages-editor/home-page/home-blocks.ts:1) | 282 |
+| Fichier | Avant | Après | Découpage |
+| :--- | ---: | ---: | :--- |
+| [`PartnersView.tsx`](src/app/(admin)/admin/components/PartnersView.tsx:1) | 300 | **65** | `partners-view/**` (modèle, hook, 5 blocs) |
+| [`FilmDetailsModal.tsx`](src/components/sections/hall-of-fame/FilmDetailsModal.tsx:1) | 297 | **109** | `film-details/**` (rôle pur, hook, 5 blocs) |
+| [`VisiteFacilitiesDetail.tsx`](src/components/sections/visite/VisiteFacilitiesDetail.tsx:1) | 295 | **45** | `visite/facilities/**` (modèle, hook, 3 blocs) |
+| [`EditorCoordinateInputs.tsx`](src/components/3d/ui/EditorCoordinateInputs.tsx:1) | 294 | **45** | `ui/editor-coordinates/**` (axes déclaratifs, 3 blocs) |
+| [`useInstagramMonitor.ts`](src/app/(admin)/admin/components/instagram-monitor/useInstagramMonitor.ts:1) | 290 | **22** | `instagram-monitor/**` (modèle + 2 hooks) |
+| [`preview-protocol-core.ts`](src/lib/preview/preview-protocol-core.ts:1) | 287 | **48** | `preview/protocol/**` (canaux, messages, fabriques) |
+| [`team-building-cascades/page.tsx`](src/app/(site)/[locale]/team-building-cascades/page.tsx:1) | 283 | **43** | `sections/**` (copie, hook, 4 blocs) |
+| [`traffic-data.ts`](src/lib/traffic/traffic-data.ts:1) | 283 | **21** | `lib/traffic/**` (6 modules purs) |
+| [`VideosPageEditor.tsx`](src/app/(admin)/admin/components/pages-editor/VideosPageEditor.tsx:1) | 282 | **63** | `pages-editor/videos-page/**` (modèle, hook, 2 blocs) |
 
-Pilotage et jalons : [`plans/plan-reste-a-faire-2026-09-24.md`](plans/plan-reste-a-faire-2026-09-24.md:1).
+**Dette SRP résiduelle** (aucune violation : tout est sous le plafond dur de 300 ; ces fichiers ne sont plus que les plus proches de la cible douce de 150-200)
+
+| Fichier | Lignes | Nature |
+| :--- | ---: | :--- |
+| [`home-blocks.ts`](src/app/(admin)/admin/components/pages-editor/home-page/home-blocks.ts:1) | 282 | schéma déclaratif — **conservé** (lu verbatim par `audit:fields`) |
+| [`admin/actions/campus.ts`](src/app/(admin)/admin/actions/campus.ts:1) | 281 | Server Actions (studio 3D) |
+| [`PagesEditorView.tsx`](src/app/(admin)/admin/components/PagesEditorView.tsx:1) | 278 | façade d'édition de pages |
+| [`usePageDynamicContent.ts`](src/lib/hooks/usePageDynamicContent.ts:1) | 277 | hook de contenu vitrine |
+| [`useVideosPage.ts`](src/app/(site)/[locale]/videos-cascadeur/sections/useVideosPage.ts:1) | 276 | hook de page vitrine |
+| [`PreviewBridgeClient.tsx`](src/components/preview/PreviewBridgeClient.tsx:1) | 276 | pont d'aperçu (vitrine) |
+| [`UsersRolesView.tsx`](src/app/(admin)/admin/components/UsersRolesView.tsx:1) | 272 | onglet Cockpit |
+| [`ContactForm.tsx`](src/components/sections/contact/ContactForm.tsx:1) | 271 | formulaire de contact |
+
+**Outils corrigés au passage** (un découpage ne doit jamais rendre un contrôle muet) : `audit:fields` lit désormais `CUC_FIELD_KINDS` dans le module qui le **déclare** (et non dans la façade de ré-export) ; `audit:microcopy` filtre le bruit de code (`ReturnType<…>`, appel de fonction isolé, `{' '}` de mise en page).
+
+**Correctif fonctionnel de la même passe** : la corbeille du panneau détail de la médiathèque supprime **au premier clic** (cibles explicites, modèle pur `src/lib/media-library/media-selection.ts`) — le quirk hérité documenté en § 7 (P0.f) est soldé.
+
+Pilotage et jalons : [`plans/plan-reste-a-faire-2026-09-24.md`](plans/plan-reste-a-faire-2026-09-24.md:1) (journal + écarts au plan assumés).

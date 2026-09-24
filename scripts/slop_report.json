@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-24T13:53:30.990Z",
-  "scannedFiles": 1141,
+  "generatedAt": "2026-09-24T15:14:49.534Z",
+  "scannedFiles": 1194,
   "total": 24,
   "byGroup": {
     "superlatif": 5,
@@ -71,7 +71,7 @@
     },
     {
       "file": "scripts\\fix_team_production_i18n.mjs",
-      "line": 308,
+      "line": 304,
       "rule": "jargon-tactical",
       "group": "jargon",
       "text": "specialty: 'Close-quarters fights and tactical gunfire.',"

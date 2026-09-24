@@ -95,8 +95,19 @@ Fichiers de code applicatif ≥ 280 lignes — chacun découpé en 4 couches (`T
 | B8 | [`traffic-data.ts`](<src/lib/traffic/traffic-data.ts:1>) → `lib/traffic/**` (catalogue, fenêtres, répartitions, entonnoirs, série, rapport) | 283 → **21** |
 | B9 | [`VideosPageEditor.tsx`](<src/app/(admin)/admin/components/pages-editor/VideosPageEditor.tsx:1>) → `pages-editor/videos-page/**` (modèle, hook, panneau, carte) | 282 → **63** |
 | B10 | `home-blocks.ts` **conservé tel quel** (schéma déclaratif, 282 l. < 300, lu verbatim par l'audit) | décision documentée |
+| P3 | jalon 3 poussé (lot B complet + outils réparés) | — |
+| C1 | corbeille du panneau détail : cibles **explicites** ; modèle pur extrait dans [`src/lib/media-library/media-selection.ts`](<src/lib/media-library/media-selection.ts:1>) ; `basename` déplacé hors groupe de routes | premier clic opérant ; test unitaire **non livré** (blocage outillage, cf. écarts) |
+| D1 | sélecteur FR/EN de l'aperçu : **déjà branché** — `PreviewToolbar` possède `PreviewLocaleSwitcher` et l'URL passe par `buildPreviewUrl(origin, slug, editorLocale)` | constat, aucun code à écrire |
+| D2 | défilement synchronisé multi-appareils : **reporté** (cf. écarts) | non livré, motif chiffré |
+| E1 | gates complets rejoués | `audit:strict` 0 · `audit:slop` (occurrences limitées à `scripts/`) · `audit:featured` OK · `studio:gate:full` **OK** (champs, budget, quotas, micro-textes, poids JS par route, typecheck, tests) |
 
 **Enseignement de la vague B** : deux garde-fous ont signalé, à raison, que découper un module casse les outils qui le lisaient *en place* (`audit:fields` cherchant `CUC_FIELD_KINDS` dans le noyau, `audit:microcopy` comptant des fragments de code comme des textes). Les deux ont été corrigés à la source — un découpage ne doit jamais rendre un contrôle muet.
+
+## Écarts au plan initial (assumés et documentés)
+
+1. **B10 — `home-blocks.ts` conservé.** 282 lignes pour un **schéma déclaratif d'un seul tenant**, lu verbatim par `audit:fields` (qui extrait `id:` + `key: liveEdit` du fichier). Le découper aurait exigé d'enseigner le suivi d'imports à l'audit sans gagner en lisibilité ni en responsabilité : `AGENTS.md` § 2 interdit les « micro-fichiers artificiels ». Le plafond dur (300) reste gardé par le ratchet.
+2. **C1 — test unitaire non livré.** Le correctif est en place et typé, le modèle pur extrait ; **toute création d'un fichier de test dans cette session échoue à la collecte de Vitest** : `TypeError: Cannot read properties of undefined (reading 'config')`, au niveau du `describe`. Reproduit quatre fois (dans `components/media`, dans `app/(admin)…/media`, dans `src/lib/media`, dans `src/lib/media-library`), y compris avec un fichier de 5 lignes sans aucun import, et après purge de `node_modules/.vite`. Les 70 fichiers de test existants passent (485 cas). Blocage d'outillage, pas de code : à rouvrir avec une session Vitest propre ; committer un fichier rouge était exclu.
+3. **D2 — défilement synchronisé reporté.** L'aperçu **simule un appareil à la fois** (`PreviewFrame` monte un seul `<iframe>`, piloté par `useLivePreviewPane`). Un défilement synchronisé suppose donc de rendre N iframes simultanées (N chargements réels de la vitrine, coût mesuré dans le budget « poids JS par route » et sur la charge Cockpit) *et* d'ouvrir un nouveau message du protocole pour mirer les positions. C'est une fonctionnalité, pas une retouche : sans session navigateur pour l'éprouver, la livrer reviendrait à installer un contrôle non vérifié — ce que la doctrine interdit. Design et coût consignés ; à reprendre dans un lot dédié, avec recette manuelle.
 
 ## Garde-fous non négociables
 
