@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-09-24T12:25:02.692Z",
+  "generatedAt": "2026-09-24T13:08:53.952Z",
   "git": {
     "branch": "master",
-    "head": "12a673c",
+    "head": "47838c0",
     "remote": "https://github.com/Nody-G/cuc.git",
-    "totalCommits": 259,
+    "totalCommits": 263,
     "firstCommit": "2026-09-16",
     "lastCommit": "2026-09-24",
-    "commits30d": 259,
+    "commits30d": 263,
     "contributors": [
       {
-        "commits": 259,
+        "commits": 263,
         "name": "Nody-G"
       }
     ]
@@ -118,14 +118,14 @@
     },
     {
       "week": "09-24",
-      "count": 6
+      "count": 10
     }
   ],
   "code": {
     "totals": {
-      "lines": 153698,
-      "blank": 15967,
-      "comment": 15759,
+      "lines": 153924,
+      "blank": 15979,
+      "comment": 15793,
       "files": 1230
     },
     "zones": {
@@ -166,10 +166,10 @@
         "comment": 13
       },
       "Outillage (scripts)": {
-        "lines": 50565,
+        "lines": 50791,
         "files": 302,
-        "blank": 5193,
-        "comment": 6927
+        "blank": 5205,
+        "comment": 6961
       },
       "Documentation": {
         "lines": 13174,
@@ -196,7 +196,7 @@
         "files": 4
       },
       ".mjs": {
-        "lines": 46022,
+        "lines": 46248,
         "files": 286
       },
       ".sql": {
@@ -219,7 +219,7 @@
       },
       {
         "file": "scripts/generate_app_dossier.mjs",
-        "lines": 1294
+        "lines": 1520
       },
       {
         "file": "scripts/setup_complete_vitrine.sql",
@@ -365,13 +365,13 @@
         "route": "/formation-de-cascadeur",
         "status": 200,
         "bytes": 186310,
-        "ms": 19
+        "ms": 17
       },
       {
         "route": "/stages-cascades-parkour-2",
         "status": 200,
         "bytes": 174451,
-        "ms": 16
+        "ms": 15
       },
       {
         "route": "/equipe-cascadeurs-pro",
@@ -383,43 +383,43 @@
         "route": "/cuc-team-cascadeur",
         "status": 200,
         "bytes": 513105,
-        "ms": 24
+        "ms": 22
       },
       {
         "route": "/partenaires",
         "status": 200,
         "bytes": 189826,
-        "ms": 15
+        "ms": 14
       },
       {
         "route": "/visite-guidee",
         "status": 200,
         "bytes": 246407,
-        "ms": 16
+        "ms": 17
       },
       {
         "route": "/visite-virtuelle",
         "status": 200,
         "bytes": 149088,
-        "ms": 14
+        "ms": 13
       },
       {
         "route": "/videos-cascadeur",
         "status": 200,
         "bytes": 202327,
-        "ms": 17
+        "ms": 14
       },
       {
         "route": "/contact-cuc",
         "status": 200,
         "bytes": 183637,
-        "ms": 12
+        "ms": 13
       },
       {
         "route": "/team-building-cascades",
         "status": 200,
         "bytes": 172399,
-        "ms": 14
+        "ms": 12
       },
       {
         "route": "/animations-airbag-parkour",
@@ -437,7 +437,7 @@
         "route": "/stunt-workshop-cuc",
         "status": 200,
         "bytes": 167259,
-        "ms": 18
+        "ms": 16
       },
       {
         "route": "/cuc-events-agence",
@@ -449,7 +449,7 @@
         "route": "/admin",
         "status": 200,
         "bytes": 142994,
-        "ms": 517
+        "ms": 646
       }
     ]
   },

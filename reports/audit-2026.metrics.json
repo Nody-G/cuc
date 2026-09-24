@@ -1,64 +1,64 @@
 {
-  "generatedAt": "2026-09-23T08:45:22.667Z",
+  "generatedAt": "2026-09-24T13:09:21.371Z",
   "git": {
-    "head": "38fc977",
-    "date": "2026-09-23T10:44:57+02:00",
-    "changed": 0
+    "head": "47838c0",
+    "date": "2026-09-24T14:59:02+02:00",
+    "changed": 6
   },
-  "globalScore": 97,
+  "globalScore": 95,
   "scores": {
-    "Intégrité technique": 100,
-    "Synchronisation Realtime": 81,
+    "Intégrité technique": 95,
+    "Synchronisation Realtime": 74,
     "Interconnexion CUC Sign": 100,
     "Parité français / anglais": 100,
     "Sécurité": 100,
     "Tests": 100
   },
   "code": {
-    "totalLines": 139298,
-    "totalFiles": 1143,
+    "totalLines": 149846,
+    "totalFiles": 1218,
     "zones": {
       "Cockpit (admin)": {
-        "files": 315,
-        "lines": 30721
+        "files": 349,
+        "lines": 35091
       },
       "Vitrine (pages)": {
-        "files": 94,
-        "lines": 7490
+        "files": 97,
+        "lines": 7836
       },
       "Composants UI": {
-        "files": 189,
-        "lines": 20806
+        "files": 191,
+        "lines": 21079
       },
       "i18n, données & types": {
-        "files": 17,
-        "lines": 5861
+        "files": 20,
+        "lines": 6859
       },
       "Bibliothèques & données": {
-        "files": 158,
-        "lines": 15897
+        "files": 184,
+        "lines": 19054
       },
       "Autres": {
         "files": 1,
         "lines": 40
       },
       "Outillage (scripts)": {
-        "files": 286,
-        "lines": 45419
+        "files": 290,
+        "lines": 46713
       },
       "Documentation (plans)": {
-        "files": 83,
-        "lines": 13064
+        "files": 86,
+        "lines": 13174
       }
     },
     "byExt": {
       ".ts": {
-        "files": 366,
-        "lines": 41068
+        "files": 405,
+        "lines": 46802
       },
       ".tsx": {
-        "files": 401,
-        "lines": 38192
+        "files": 431,
+        "lines": 42374
       },
       ".css": {
         "files": 7,
@@ -69,16 +69,16 @@
         "lines": 978
       },
       ".mjs": {
-        "files": 282,
-        "lines": 44954
+        "files": 286,
+        "lines": 46248
       },
       ".js": {
         "files": 1,
         "lines": 63
       },
       ".md": {
-        "files": 80,
-        "lines": 12347
+        "files": 83,
+        "lines": 12457
       }
     },
     "largest": [
@@ -87,12 +87,16 @@
         "lines": 2243
       },
       {
-        "file": "src/data/filmography.ts",
-        "lines": 1202
+        "file": "scripts/generate_app_dossier.mjs",
+        "lines": 1520
       },
       {
-        "file": "scripts/generate_app_dossier.mjs",
-        "lines": 1183
+        "file": "src/data/instagram-reels.ts",
+        "lines": 1249
+      },
+      {
+        "file": "src/data/filmography.ts",
+        "lines": 1202
       },
       {
         "file": "scripts/audit_full_app.mjs",
@@ -100,48 +104,44 @@
       },
       {
         "file": "scripts/generate_metrics_report.mjs",
-        "lines": 956
+        "lines": 997
       },
       {
         "file": "scripts/generate_audit_report.mjs",
         "lines": 841
       },
       {
-        "file": "src/data/team.ts.bak",
-        "lines": 772
+        "file": "src/lib/data/site/defaults/pages.ts",
+        "lines": 677
       },
       {
         "file": "scripts/sync_all_coach_credits_supabase.mjs",
         "lines": 611
       },
       {
-        "file": "src/lib/data/site/defaults/pages.ts",
-        "lines": 596
-      },
-      {
         "file": "src/data/navigation.ts",
         "lines": 583
       }
     ],
-    "routes": 30,
-    "sourceFilesScanned": 690
+    "routes": 35,
+    "sourceFilesScanned": 748
   },
   "tests": {
     "available": true,
-    "total": 394,
-    "passed": 394,
+    "total": 470,
+    "passed": 470,
     "failed": 0,
-    "testFiles": 55
+    "testFiles": 68
   },
   "i18n": {
-    "fr": 717,
-    "en": 717,
+    "fr": 729,
+    "en": 729,
     "missingInEn": 0
   },
   "realtime": {
-    "coverageRatio": 81,
+    "coverageRatio": 74,
     "covered": 17,
-    "gaps": 4
+    "gaps": 6
   },
   "database": {
     "tables": {
@@ -221,7 +221,7 @@
     "duplicateLinks": 0,
     "orphanComponents": 0,
     "legacyUrls": 0,
-    "slopHits": 0,
+    "slopHits": 1,
     "socialConflicts": 0,
     "redirectIssues": 0,
     "widthViolations": 0,

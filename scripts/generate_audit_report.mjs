@@ -433,7 +433,7 @@ const MECHANISMS = [
   { iconName: 'globe', title: 'Bilingue français / anglais', desc: 'Chaque page existe dans les deux langues, avec des textes adaptés (pas de traduction automatique). La parité est vérifiée automatiquement à chaque contrôle.', tags: ['FR / EN'] },
   { iconName: 'film', title: 'Catalogue films unifié', desc: '570 films, affiches au format 2:3, fiche détaillée au clic avec les rôles du CUC — la même présentation partout, de l’accueil à la fiche coach.', tags: ['570 films'] },
   { iconName: 'database', title: 'Médias centralisés & optimisés', desc: "Images et documents servis par la base du projet (aucune dépendance à l'ancien site), convertis automatiquement en formats légers (AVIF/WebP).", tags: ['221 fichiers'] },
-  { iconName: 'shield', title: 'Interconnexion CUC Sign', desc: 'Sessions de formation, coachs et lieux du site reflètent la plateforme élèves — en lecture seule : le site ne peut jamais altérer les données pédagogiques.', tags: ['CUC Sign'] },
+  { iconName: 'shield', title: 'Interconnexion CUC Sign', desc: "Sessions de formation, coachs et lieux du site reflètent la plateforme de gestion de l'école — en lecture seule : le site ne peut jamais altérer les données pédagogiques.", tags: ['CUC Sign'] },
   { iconName: 'users', title: 'Sécurité & rôles', desc: 'Accès administrateur nominatif, permissions par rôle (direction, secrétariat, coachs), sécurité par ligne en base de données et en-têtes HTTP renforcés.', tags: ['RLS'] },
   { iconName: 'search', title: 'Recherche instantanée (Cockpit)', desc: 'Palette de commandes au clavier (Ctrl/⌘ + K) : accès direct à n’importe quel écran ou contenu en quelques lettres.', tags: ['Productivité'] },
   { iconName: 'phone', title: 'Du formulaire à l’élève', desc: 'Une demande envoyée depuis le site arrive dans le Cockpit : l’équipe la qualifie, l’annote et peut la convertir en compte CUC Sign.', tags: ['Parcours'] },
@@ -465,7 +465,7 @@ const ecosystemSvg = `
   ${svgTile(210, 40, 224, 84, 'Site vitrine', '15 pages • FR / EN')}
   ${svgTile(210, 230, 224, 84, 'Cockpit admin', '15 écrans • rôles')}
   ${svgTile(540, 135, 190, 100, 'Supabase', 'base + temps réel')}
-  ${svgTile(800, 135, 120, 100, 'CUC Sign', 'plateforme élèves')}
+  ${svgTile(800, 135, 120, 100, 'CUC Sign', 'gestion de l’école')}
   <circle class="flowdot" r="3.5" fill="#FFE500" style="offset-path: path('M430 272 C 480 272, 500 250, 556 240'); animation-duration: 2.6s"/>
   <circle class="flowdot" r="3.5" fill="#FFE500" style="offset-path: path('M430 272 C 480 272, 500 250, 556 240'); animation-duration: 2.6s; animation-delay: -1.3s"/>
   <circle class="flowdot" r="3.5" fill="#7bd88f" style="offset-path: path('M540 165 C 492 165, 484 112, 434 102'); animation-duration: 2.2s"/>

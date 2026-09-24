@@ -714,14 +714,14 @@ ${storageSection}`
 
 const intercoSection = db.cucSign
     ? `<div class="grid">
-${kpi(nf(db.cucSign.formations), 'Formations CUC Sign', 'référentiel de la plateforme élèves')}
+${kpi(nf(db.cucSign.formations), 'Formations CUC Sign', "référentiel de la plateforme de gestion de l'école")}
 ${kpi(nf(db.cucSign.profiles), 'Profils CUC Sign', 'coachs & direction')}
 ${kpi(nf(db.cucSign.locations), 'Lieux CUC Sign', 'installations référencées')}
 ${kpi(`${db.cucSign.linkedSessions}/${db.cucSign.totalSessions}`, 'Sessions reliées', 'les non-liées attendent leur formation')}
 ${kpi(`${db.cucSign.linkedTeam}/${db.cucSign.totalTeam}`, 'Coachs reliés', 'externes sans compte = volontaire')}
 ${kpi(`${db.cucSign.linkedPois}/${db.cucSign.totalPois}`, 'Zones du campus reliées', 'aucune liaison fausse')}
 </div>
-<p class="meta">Règle permanente : « un lien faux est pire qu'aucun lien ». Toutes les clés étrangères vers CUC Sign sont en <code>ON DELETE SET NULL</code> — la plateforme élèves ne peut jamais être corrompue par la vitrine.</p>`
+<p class="meta">Règle permanente : « un lien faux est pire qu'aucun lien ». Toutes les clés étrangères vers CUC Sign sont en <code>ON DELETE SET NULL</code> — la plateforme de gestion (élèves, coachs, direction) ne peut jamais être corrompue par la vitrine.</p>`
     : `<p class="meta">Données d'interconnexion indisponibles (base non accessible).</p>`;
 
 const html = `<!DOCTYPE html>

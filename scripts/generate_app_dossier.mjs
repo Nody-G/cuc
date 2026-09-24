@@ -300,7 +300,7 @@ const MECHANISMS = [
   { iconName: 'globe', title: 'Bilingue français / anglais', desc: 'Chaque page existe dans les deux langues, avec des textes adaptés (pas de traduction automatique). La parité est vérifiée automatiquement à chaque contrôle.', tags: ['FR / EN'] },
   { iconName: 'film', title: 'Catalogue films unifié', desc: 'Affiches au format affiche de cinéma, fiche détaillée au clic avec les rôles du CUC — la même présentation partout, de l’accueil à la fiche coach.', tags: ['570 films'] },
   { iconName: 'database', title: 'Médias centralisés & optimisés', desc: "Images et documents servis par la base du projet (aucune dépendance à l'ancien site), convertis automatiquement en formats légers.", tags: ['Optimisé'] },
-  { iconName: 'shield', title: 'Interconnexion CUC Sign', desc: 'Sessions de formation, coachs et lieux du site reflètent la plateforme élèves — en lecture seule : le site ne peut jamais altérer les données pédagogiques.', tags: ['CUC Sign'] },
+  { iconName: 'shield', title: 'Interconnexion CUC Sign', desc: "Sessions de formation, coachs et lieux du site reflètent la plateforme de gestion de l'école — en lecture seule : le site ne peut jamais altérer les données pédagogiques.", tags: ['CUC Sign'] },
   { iconName: 'users', title: 'Sécurité & rôles', desc: 'Accès administrateur nominatif, permissions par rôle (direction, secrétariat, coachs) et sécurité par ligne en base de données.', tags: ['Rôles'] },
   { iconName: 'search', title: 'Recherche instantanée (Cockpit)', desc: 'Palette de commandes au clavier (Ctrl/⌘ + K) : accès direct à n’importe quel écran ou contenu en quelques lettres.', tags: ['Productivité'] },
   { iconName: 'phone', title: 'Du formulaire à l’élève', desc: 'Une demande envoyée depuis le site arrive dans le Cockpit : l’équipe la qualifie, l’annote et peut la convertir en compte CUC Sign.', tags: ['Parcours'] },
@@ -592,38 +592,44 @@ const cucSignCards = [
   {
     iconName: 'shield',
     title: 'Émargement conforme Qualiopi',
-    desc: "Feuilles de présence numériques horodatées et conservées : c'est la preuve que demandent les financeurs et les audits.",
-    tags: ['Conformité'],
+    desc: "Feuilles de présence numériques horodatées et conservées : c'est la preuve que réclament les financeurs et les audits, produite au fil de l'année.",
+    tags: ['Direction', 'Secrétariat'],
   },
   {
     iconName: 'refresh',
-    title: 'Tablette à l’entrée, même sans réseau',
+    title: 'La tablette à l’entrée, même sans réseau',
     desc: "Mode borne : l'élève signe en quelques secondes par QR code, et le pointage continue de fonctionner si le réseau tombe au gymnase.",
-    tags: ['Zéro friction'],
+    tags: ['Élèves'],
   },
   {
     iconName: 'users',
-    title: 'Rotations et délibérations à l’écran',
-    desc: "Groupes de niveaux, coachs volants, notation par les coachs, table de délibération : les groupes se composent à l'écran, puis le planning se publie aux élèves.",
-    tags: ['Pédagogie'],
+    title: 'Les coachs notent et délibèrent sur le terrain',
+    desc: "Note de 0 à 10 depuis le téléphone, table de délibération pour composer les groupes de niveaux, remplacements gérés, et un coup d'œil avant le cours sur les élèves qui reviennent de blessure.",
+    tags: ['Coachs'],
+  },
+  {
+    iconName: 'sliders',
+    title: 'La direction pilote l’école',
+    desc: "Planning des créneaux et des remplacements, présences et absences suivies, statistiques de fréquentation, gestion des comptes et des rôles (direction, secrétariat, coachs, élèves).",
+    tags: ['Direction'],
+  },
+  {
+    iconName: 'database',
+    title: 'La sécurité des élèves, tracée',
+    desc: 'Fiche médicale d’urgence à accès restreint, blessures suivies, matériel défectueux signalé avec photo : ce qui se perdait dans un carnet se retrouve en un écran.',
+    tags: ['Coachs', 'Direction'],
   },
   {
     iconName: 'star',
     title: 'Compétences validées, fiche de casting prête',
     desc: "Chaque compétence validée et chaque test physique alimentent une fiche composite PDF — mensurations, skills, profil — directement envoyable aux productions.",
-    tags: ['Employabilité'],
-  },
-  {
-    iconName: 'database',
-    title: 'La sécurité des élèves, tracée',
-    desc: 'Fiche médicale d’urgence à accès restreint, suivi des blessures, signalement du matériel défectueux : ce qui se perdait dans un carnet se retrouve en un écran.',
-    tags: ['Santé & sécurité'],
+    tags: ['Élèves'],
   },
   {
     iconName: 'globe',
     title: 'Pensé aussi pour l’international',
     desc: 'Les stagiaires étrangers s’émargent et consultent leur progression dans leur langue ; le lexique technique est bilingue.',
-    tags: ['FR / EN'],
+    tags: ['Élèves', 'Coachs'],
   },
 ]
   .map(featCard)
@@ -730,7 +736,7 @@ const ecosystemSvg = `
   ${svgTile(210, 40, 224, 84, 'Site vitrine', '15 pages • FR / EN')}
   ${svgTile(210, 230, 224, 84, 'Cockpit admin', '15 écrans • rôles')}
   ${svgTile(540, 135, 190, 100, 'Supabase', 'base + temps réel')}
-  ${svgTile(800, 135, 120, 100, 'CUC Sign', 'plateforme élèves')}
+  ${svgTile(800, 135, 120, 100, 'CUC Sign', 'gestion de l’école')}
   <circle class="halo" cx="635" cy="185" r="72" fill="none" stroke="#FFE500" stroke-width="1.4" opacity="0.25"/>
   <text x="500" y="300" text-anchor="middle" fill="#7c7c88" font-size="11">Le Cockpit écrit dans la base ; le site la lit — rien ne transite par la machine du visiteur.</text>
 </svg>`;
@@ -1236,7 +1242,7 @@ const html = `<!DOCTYPE html>
     </p>
     <div class="callout">
       <strong>Le principe en une phrase :</strong> vous écrivez une fois dans le Cockpit, le site s'occupe de tout —
-      affichage public, version anglaise, cohérence avec la plateforme élèves CUC Sign.
+      affichage public, version anglaise, cohérence avec la plateforme de gestion de l'école (CUC Sign).
     </div>
   </section>
 
@@ -1248,7 +1254,7 @@ const html = `<!DOCTYPE html>
     <div class="legend-row">
       <span><span class="key" style="background:#FFE500"></span>Cockpit → base : vos modifications</span>
       <span><span class="key" style="background:#7bd88f"></span>base → site : rafraîchissement temps réel</span>
-      <span><span class="key" style="background:#4FC3F7"></span>liaison lecture seule ↔ plateforme élèves CUC Sign</span>
+      <span><span class="key" style="background:#4FC3F7"></span>liaison lecture seule ↔ plateforme de gestion CUC Sign</span>
     </div>
 
     <h3>Le parcours d'un visiteur</h3>
@@ -1344,11 +1350,17 @@ const html = `<!DOCTYPE html>
     <h3 id="cuc-sign">CUC Sign — la seconde étape, déjà en chantier</h3>
     <p>
       Le site public et le Cockpit que vous avez entre les mains sont la <strong>première étape</strong>. La seconde existe déjà
-      et s'appelle <strong>CUC Sign</strong> : c'est l'application qui suit l'élève <em>après</em> son admission — présence
-      quotidienne, progression technique, sécurité, vie de promotion. Elle réutilise le travail déjà fait et les mêmes outils
-      que votre site ; surtout, le pont de données est <strong>déjà en service</strong> : les formations, les coachs et les lieux
-      affichés publiquement viennent de CUC Sign, en lecture seule. Les deux applications partagent <strong>la même base de
-      données</strong> — c'est volontaire : rien à dupliquer, rien à synchroniser le jour où la seconde étape démarrera.
+      et s'appelle <strong>CUC Sign</strong> : ce n'est pas un outil réservé aux élèves, c'est la <strong>plateforme de gestion
+      de l'école</strong>, avec un espace pour chacun.
+      <strong>Les élèves</strong> s'émargent chaque jour, consultent leur planning, suivent leur progression et repartent avec un
+      profil de casting. <strong>Les coachs</strong> notent les élèves depuis leur téléphone, délibèrent pour composer les
+      groupes, assurent un remplacement au pied levé et voient avant le cours qui revient de blessure.
+      <strong>La direction et le secrétariat</strong> pilotent le planning, suivent présences et absences, gèrent les comptes et
+      les rôles, et sortent les preuves réclamées par les financeurs.
+      Elle réutilise le travail déjà fait et les mêmes outils que votre site ; surtout, le pont de données est
+      <strong>déjà en service</strong> : les formations, les coachs et les lieux affichés publiquement viennent de CUC Sign,
+      en lecture seule. Les deux applications partagent <strong>la même base de données</strong> — c'est volontaire : rien à
+      dupliquer, rien à synchroniser le jour où la seconde étape démarrera.
     </p>
     <div class="flow reveal">${studentJourneySvg}</div>
     <p class="meta">
@@ -1356,6 +1368,10 @@ const html = `<!DOCTYPE html>
       l'émargement quotidien, puis ressort en fiche de casting. Chaque étape s'allume au passage.
     </p>
 
+    <h3>Un espace pour chacun : les élèves, les coachs, la direction</h3>
+    <p class="meta">
+      Trois publics, une seule plateforme, des droits différents : chaque accès est nominatif et limité à son rôle.
+    </p>
     <div class="feat-grid">${cucSignCards}</div>
 
     <h3>Les deux applications, main dans la main <span class="meta">(ce qui circule déjà, et ce que la suite ouvrira)</span></h3>
