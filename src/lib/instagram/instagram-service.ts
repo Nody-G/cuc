@@ -147,12 +147,17 @@ export async function getInstagramProfile(
 }
 
 /**
- * Récupère les métriques en direct d'un Reel Instagram spécifique.
+ * Récupère les mentions publiques d'un Reel Instagram (likes).
+ *
+ * Instagram n'expose **pas** le nombre de vues dans `og:description` sans l'API
+ * Meta Graph : la fonction ne renvoie donc que ce qui est réellement lisible.
+ * Le contrat incluait auparavant `views`/`viewsFormatted` jamais renseignés, ce
+ * qui laissait croire à une vue « temps réel » inexistante.
  */
 export async function getReelLiveMetrics(
     shortcode: string,
     forceRefresh = false
-): Promise<{ views?: number; viewsFormatted?: string; likes?: string } | null> {
+): Promise<{ likes?: string } | null> {
     const now = Date.now();
     if (!forceRefresh) {
         const cached = REEL_CACHE.get(shortcode);
@@ -174,7 +179,7 @@ export async function getReelLiveMetrics(
         const ogDesc = html.match(/<meta\s+property=["']og:description["']\s+content=["']([^"']+)["']/i)?.[1] || '';
 
         const likesMatch = ogDesc.match(/^([0-9.,KMBkmb]+)\s+likes/i);
-        const result: { views?: number; viewsFormatted?: string; likes?: string } = {};
+        const result: { likes?: string } = {};
 
         if (likesMatch) {
             result.likes = likesMatch[1];

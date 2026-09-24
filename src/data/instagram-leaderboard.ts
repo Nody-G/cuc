@@ -1,6 +1,13 @@
 import type { InstagramAccountStat } from '@/types/instagram-monitor';
 
 /**
+ * Date du dernier relevé manuel des comptes de repère. Volontairement figée :
+ * afficher `new Date()` faisait passer cette donnée statique pour une
+ * synchronisation à l'instant présent.
+ */
+export const LEADERBOARD_SNAPSHOT = '2026-09-24T00:00:00.000Z';
+
+/**
  * ==============================================================================
  * CUC — Comptes de repère du comparatif Instagram
  * ==============================================================================
@@ -26,9 +33,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 6000000,
         followersFormatted: '6 M',
         category: 'Média & Actualité',
-        categoryRank: '#1 Média d\'Actu',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -38,9 +44,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 5000000,
         followersFormatted: '5 M',
         category: 'Musique & Rap',
-        categoryRank: '#1 Rappeur Indé',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -50,9 +55,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 4000000,
         followersFormatted: '4 M',
         category: 'Média Sportif',
-        categoryRank: '#1 Quotidien Sport',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -62,9 +66,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 3000000,
         followersFormatted: '3 M',
         category: 'Musique & Rap',
-        categoryRank: 'Top 10 Musique',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -74,9 +77,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 2500000,
         followersFormatted: '2,5 M',
         category: 'Musique & Rap',
-        categoryRank: 'Top 15 Musique',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -86,9 +88,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 2000000,
         followersFormatted: '2 M',
         category: 'Cinéma & Télévision',
-        categoryRank: '#1 Média Cinéma',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -98,9 +99,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 2000000,
         followersFormatted: '2 M',
         category: 'Radio & Médias',
-        categoryRank: '#1 Radio',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -110,9 +110,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 1200000,
         followersFormatted: '1,2 M',
         category: 'MMA & Combat',
-        categoryRank: '#1 Athlète MMA',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
 
@@ -124,10 +123,9 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 1050000,
         followersFormatted: '1,05 M',
         category: 'Cascade, Cinéma & Action',
-        categoryRank: '#1 Mondial École de Cascade',
         country: 'FR',
         isCuc: true,
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
 
@@ -139,9 +137,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 980000,
         followersFormatted: '980 k',
         category: 'Média Sportif',
-        categoryRank: 'Top 3 Média Sport',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -151,9 +148,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 955000,
         followersFormatted: '955 k',
         category: 'Culture & Médias',
-        categoryRank: 'Top 10 Culture',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -163,9 +159,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 847000,
         followersFormatted: '847 k',
         category: 'Sports Extrêmes & Action',
-        categoryRank: '#1 Marque Extrême',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -175,9 +170,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 460000,
         followersFormatted: '460 k',
         category: 'Radio & Musique',
-        categoryRank: 'Top 20 Musique',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -187,9 +181,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 448000,
         followersFormatted: '448 k',
         category: 'MMA & Sports de Combat',
-        categoryRank: 'Top 3 Média Combat',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -199,9 +192,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 394000,
         followersFormatted: '394 k',
         category: 'Chaîne Info',
-        categoryRank: 'Top 15 Actualité',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -211,9 +203,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 342000,
         followersFormatted: '342 k',
         category: 'Musique & Live TV',
-        categoryRank: 'Top 15 Live TV',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -223,9 +214,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 233000,
         followersFormatted: '233 k',
         category: 'Mode & Lifestyle',
-        categoryRank: 'Top 25 Mode',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -235,9 +225,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 214000,
         followersFormatted: '214 k',
         category: 'Caméras & Action Cam',
-        categoryRank: 'Top 5 Tech Extrême',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -247,9 +236,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 31000,
         followersFormatted: '31 k',
         category: 'Arts du Cirque & Performance',
-        categoryRank: 'Top 5 Cirque Mondial',
         country: 'FR',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
 
@@ -261,9 +249,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 2200000,
         followersFormatted: '2,2 M',
         category: 'Parkour & Cascade',
-        categoryRank: '#1 Mondial Parkour',
         country: 'UK',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
     {
@@ -273,9 +260,8 @@ export const INITIAL_INSTAGRAM_LEADERBOARD: InstagramAccountStat[] = [
         followersCount: 2100000,
         followersFormatted: '2,1 M',
         category: 'Arts du Cirque & Spectacle',
-        categoryRank: '#1 Mondial Cirque',
         country: 'CA',
-        lastUpdated: new Date().toISOString(),
+        lastUpdated: LEADERBOARD_SNAPSHOT,
         verified: true,
     },
 ];

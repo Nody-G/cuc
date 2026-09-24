@@ -4,111 +4,65 @@ import React from 'react';
 import Image from 'next/image';
 import { Play, ExternalLink, Eye, ChevronDown } from 'lucide-react';
 import { InstagramLogo } from '@/components/ui/logos/SocialLogos';
-import {
-    ALL_INSTAGRAM_REELS,
-    type InstagramReel,
-    type ReelSortOption,
-} from '@/data/instagram-reels';
+import type { InstagramReel, ReelSortOption } from '@/data/instagram-reels';
 import { VideosReelsSortBar } from './VideosReelsSortBar';
+import { clampReelColumns } from './reels-list';
 
 export interface VideosReelsSectionProps {
+    /** Tranche de Reels à rendre (état et pagination gérés par `useVideosPage`). */
     reels: InstagramReel[];
-    allReels?: InstagramReel[];
     columns?: number;
+    sortBy: ReelSortOption;
+    onChangeSort: (option: ReelSortOption) => void;
+    totalCount: number;
+    totalViews: number;
+    /** Nombre de Reels non encore affichés (pagination « Voir plus »). */
+    remaining: number;
+    hasMore: boolean;
+    onLoadMore: () => void;
     onSelectReel: (reel: InstagramReel) => void;
     labels: {
         title: string;
         intro: string;
-        play: string;
         socialInstagram: string;
-        seeMore?: string;
-        sortByFeatured?: string;
-        sortByViews?: string;
-        sortByDateDesc?: string;
-        sortByDateAsc?: string;
+        seeMore: string;
+        sortByFeatured: string;
+        sortByViews: string;
+        sortByDateDesc: string;
+        sortByDateAsc: string;
     };
 }
 
+const GRID_CLASSNAMES: Record<number, string> = {
+    2: 'max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6',
+    3: 'max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6',
+    4: 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5',
+    5: 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4',
+    6: 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4',
+};
+
 /**
  * Section des vidéos & Reels verticaux officiels du CUC.
- * Présentation cinématique 9:16 avec choix dynamique de 2 à 6 colonnes,
- * affichage du nombre de vues certifié sur chaque vidéo,
- * tri interactif (mis en avant, vues, dates) et pagination progressive "Voir plus".
+ * Composant de présentation pur : l'ordre, le tri et la pagination proviennent de
+ * `useVideosPage` — la vue ne fait que rendre la liste reçue.
  */
 export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
     reels,
-    allReels = ALL_INSTAGRAM_REELS,
     columns,
+    sortBy,
+    onChangeSort,
+    totalCount,
+    totalViews,
+    remaining,
+    hasMore,
+    onLoadMore,
     onSelectReel,
     labels,
 }) => {
-    const targetCols = columns ? Math.min(Math.max(columns, 2), 6) : 6;
-    const [sortBy, setSortBy] = React.useState<ReelSortOption>('featured');
-    const [visibleCount, setVisibleCount] = React.useState<number>(targetCols);
+    // Section masquée (aucun Reel rendu) : on ne réserve pas d'espace.
+    if (totalCount === 0) return null;
 
-    /**
-     * Rehausse le décompte visible quand le nombre de colonnes change.
-     *
-     * Ajustement en phase de rendu (motif recommandé par React) plutôt qu'en
-     * effet : un `setState` synchrone dans un effet provoque un rendu en
-     * cascade, ce que `react-hooks/set-state-in-effect` refuse.
-     */
-    const [syncedCols, setSyncedCols] = React.useState<number>(targetCols);
-    if (syncedCols !== targetCols) {
-        setSyncedCols(targetCols);
-        setVisibleCount((prev) => Math.max(prev, targetCols));
-    }
-
-    // Fusion des vidéos : les reels mis en avant (Cockpit) complétés par le catalogue complet
-    const combinedReels = React.useMemo(() => {
-        const featuredIds = new Set(reels.map((r) => r.shortcode));
-        const featuredList = reels.map((r) => ({ ...r, isFeatured: true }));
-        const others = allReels.filter((r) => !featuredIds.has(r.shortcode));
-        return [...featuredList, ...others];
-    }, [reels, allReels]);
-
-    // Tri dynamique selon l'option sélectionnée (s'applique à toutes les vidéos, y compris mises en avant)
-    const sortedReels = React.useMemo(() => {
-        const list = [...combinedReels];
-        if (sortBy === 'views') {
-            return list.sort((a, b) => (b.views || 0) - (a.views || 0));
-        }
-        if (sortBy === 'recent') {
-            return list.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-        }
-        if (sortBy === 'oldest') {
-            return list.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
-        }
-        // 'featured' : ordre initial des vidéos mises en avant en priorité
-        return list;
-    }, [combinedReels, sortBy]);
-
-    const displayedReels = React.useMemo(() => {
-        return sortedReels.slice(0, visibleCount);
-    }, [sortedReels, visibleCount]);
-
-    const hasMore = visibleCount < sortedReels.length;
-
-    const handleLoadMore = () => {
-        // Charge une double rangée de colonnes supplémentaire
-        const step = Math.max(targetCols * 2, 6);
-        setVisibleCount((prev) => Math.min(prev + step, sortedReels.length));
-    };
-
-    const gridClassName =
-        targetCols === 2
-            ? 'max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6'
-            : targetCols === 3
-                ? 'max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6'
-                : targetCols === 4
-                    ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5'
-                    : targetCols === 5
-                        ? 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4'
-                        : 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4';
-
-    const totalViews = React.useMemo(() => {
-        return combinedReels.reduce((sum, r) => sum + (r.views || 0), 0);
-    }, [combinedReels]);
+    const targetCols = clampReelColumns(columns);
 
     return (
         <section id="reels" className="py-20 bg-[#060608] border-t border-zinc-800 scroll-mt-28 relative">
@@ -144,8 +98,8 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                 {/* Barre de tri (Mis en avant, Vues, Plus récentes, Plus anciennes) & Total des vues */}
                 <VideosReelsSortBar
                     sortBy={sortBy}
-                    onChangeSort={setSortBy}
-                    totalCount={sortedReels.length}
+                    onChangeSort={onChangeSort}
+                    totalCount={totalCount}
                     totalViews={totalViews}
                     labels={{
                         sortByFeatured: labels.sortByFeatured,
@@ -156,8 +110,8 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                 />
 
                 {/* Grille principale continue (2 à 6 colonnes) */}
-                <div className={gridClassName}>
-                    {displayedReels.map((reel) => {
+                <div className={GRID_CLASSNAMES[targetCols]}>
+                    {reels.map((reel) => {
                         const hasDescription = !!(reel.description && reel.description.trim().length > 0);
                         return (
                             <article
@@ -183,7 +137,7 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                                 {/* Dégradé cinématique sombre */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none" />
 
-                                {/* Nombre de vues certifié en haut à droite sur chaque vidéo */}
+                                {/* Nombre de vues relevé en haut à droite (masqué si non renseigné) */}
                                 {reel.viewsFormatted && (
                                     <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono-tech text-white">
                                         <Eye className="w-3 h-3 text-[#FFE500]" />
@@ -219,14 +173,10 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                     <div className="mt-12 text-center">
                         <button
                             type="button"
-                            onClick={handleLoadMore}
+                            onClick={onLoadMore}
                             className="inline-flex items-center gap-2.5 px-8 py-3.5 border border-zinc-700 hover:border-[#FFE500] bg-[#0e0e14] hover:bg-[#14141c] text-xs font-mono-tech uppercase text-zinc-200 hover:text-white rounded-xl shadow-lg transition-all duration-200 group cursor-pointer"
                         >
-                            <span>
-                                {labels.seeMore
-                                    ? labels.seeMore
-                                    : `Voir plus (${sortedReels.length - visibleCount} restantes)`}
-                            </span>
+                            <span>{`${labels.seeMore} (${remaining} restants)`}</span>
                             <ChevronDown className="w-4 h-4 text-[#FFE500] group-hover:translate-y-0.5 transition-transform" />
                         </button>
                     </div>

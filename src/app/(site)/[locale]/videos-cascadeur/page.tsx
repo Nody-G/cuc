@@ -63,14 +63,19 @@ export default function VideosCascadeurPage() {
 
         {/* Real CUC Action & Stunt Reels (Instagram) — Zéro badge */}
         <VideosReelsSection
-          reels={page.localizedReels}
-          allReels={page.allReels}
+          reels={page.reels}
           columns={page.reelsColumns}
+          sortBy={page.reelsSortBy}
+          onChangeSort={page.onChangeReelsSort}
+          totalCount={page.reelsTotalCount}
+          totalViews={page.reelsTotalViews}
+          remaining={page.reelsRemaining}
+          hasMore={page.reelsHasMore}
+          onLoadMore={page.onLoadMoreReels}
           onSelectReel={page.openReel}
           labels={{
             title: page.labels.reelsTitle,
             intro: page.labels.reelsIntro,
-            play: page.labels.reelsPlay,
             socialInstagram: page.labels.socialInstagram,
             seeMore: page.labels.reelsSeeMore,
             sortByFeatured: page.labels.reelsSortByFeatured,

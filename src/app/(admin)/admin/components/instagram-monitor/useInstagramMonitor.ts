@@ -207,7 +207,6 @@ export function useInstagramMonitor(showToast: (msg: string) => void) {
                         ? {
                             ...r,
                             likes: res.data?.likes || r.likes,
-                            viewsFormatted: res.data?.viewsFormatted || r.viewsFormatted,
                             lastUpdated: new Date().toISOString(),
                         }
                         : r

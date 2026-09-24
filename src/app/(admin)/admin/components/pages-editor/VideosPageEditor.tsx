@@ -14,7 +14,7 @@ import {
 import { InstagramLogo } from '@/components/ui/logos/SocialLogos';
 import type { SitePageContent } from '@/lib/data/site-service';
 import {
-    INSTAGRAM_REELS,
+    ALL_INSTAGRAM_REELS,
     type InstagramReel,
 } from '@/app/(site)/[locale]/videos-cascadeur/sections/instagram-reels.data';
 import { fetchInstagramMetadata } from '@/app/(admin)/admin/actions/instagram';
@@ -41,9 +41,9 @@ export const VideosPageEditor: React.FC<VideosPageEditorProps> = ({
     const reelsSection = formData.sections_data?.reels || {};
     const reelsList: InstagramReel[] = Array.isArray(reelsSection.items)
         ? reelsSection.items
-        : INSTAGRAM_REELS;
+        : ALL_INSTAGRAM_REELS;
 
-    const updateReelsSection = (patch: Record<string, any>) => {
+    const updateReelsSection = (patch: Record<string, unknown>) => {
         setFormData((prev) => ({
             ...prev,
             sections_data: {
@@ -99,7 +99,11 @@ export const VideosPageEditor: React.FC<VideosPageEditorProps> = ({
         updateReels(copy);
     };
 
-    const handleUpdateReelField = (index: number, field: keyof InstagramReel, value: any) => {
+    const handleUpdateReelField = (
+        index: number,
+        field: keyof InstagramReel,
+        value: InstagramReel[keyof InstagramReel],
+    ) => {
         const copy = [...reelsList];
         copy[index] = { ...copy[index], [field]: value };
         updateReels(copy);
@@ -158,11 +162,10 @@ export const VideosPageEditor: React.FC<VideosPageEditorProps> = ({
                                 key={cols}
                                 type="button"
                                 onClick={() => updateReelsSection({ columns: cols })}
-                                className={`px-3 py-1.5 rounded-lg text-xs font-mono-tech uppercase font-bold transition-all cursor-pointer ${
-                                    (reelsSection.columns || 6) === cols
-                                        ? 'bg-[#FFE500] text-black shadow-[0_0_15px_rgba(255,229,0,0.3)]'
-                                        : 'bg-black/50 border border-white/10 text-gray-400 hover:text-white'
-                                }`}
+                                className={`px-3 py-1.5 rounded-lg text-xs font-mono-tech uppercase font-bold transition-all cursor-pointer ${(reelsSection.columns || 6) === cols
+                                    ? 'bg-[#FFE500] text-black shadow-[0_0_15px_rgba(255,229,0,0.3)]'
+                                    : 'bg-black/50 border border-white/10 text-gray-400 hover:text-white'
+                                    }`}
                             >
                                 {cols} cols
                             </button>

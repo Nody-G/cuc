@@ -7,6 +7,5 @@ export {
     type InstagramReel,
     type ReelSortOption,
     DEFAULT_FEATURED_REELS,
-    INSTAGRAM_REELS,
     ALL_INSTAGRAM_REELS,
 } from '@/data/instagram-reels';

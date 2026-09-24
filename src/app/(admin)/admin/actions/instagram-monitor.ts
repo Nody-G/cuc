@@ -54,11 +54,12 @@ export async function refreshLeaderboardBatchAction(
 }
 
 /**
- * Rafraîchit les métriques d'un Reel en direct.
+ * Rafraîchit les mentions publiques d'un Reel (likes).
+ * Les vues ne sont pas exposées par Instagram hors API Meta Graph.
  */
 export async function refreshReelLiveMetricsAction(
     shortcode: string
-): Promise<{ success: boolean; data?: { views?: number; viewsFormatted?: string; likes?: string }; error?: string }> {
+): Promise<{ success: boolean; data?: { likes?: string }; error?: string }> {
     try {
         const data = await getReelLiveMetrics(shortcode, true);
         if (!data) {
