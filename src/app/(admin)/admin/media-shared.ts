@@ -52,10 +52,13 @@ export function formatBytes(bytes: number): string {
     return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} Go`;
 }
 
-/** Dernier segment d'un chemin (`media/cuc-visual/001.jpg` → `001.jpg`). */
-export function basename(path: string): string {
-    return path.split('/').pop() || path;
-}
+/**
+ * Dernier segment d'un chemin (`media/cuc-visual/001.jpg` → `001.jpg`).
+ * Ré-export de `lib/media-library/media-paths` : la définition vit hors groupe
+ * de routes et hors dossier `media/`, deux chemins qui cassent la collecte des
+ * tests sous Vitest (cf. en-tête de `media-paths.ts`).
+ */
+export { basename } from '@/lib/media-library/media-paths';
 
 /** Dossier parent d'un chemin. */
 export function dirname(path: string): string {

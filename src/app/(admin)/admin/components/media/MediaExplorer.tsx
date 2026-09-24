@@ -164,11 +164,13 @@ export const MediaExplorer: React.FC<MediaExplorerProps> = ({
                         mode={mode}
                         onCopy={sel.copyToClipboard}
                         onPick={pickUrl}
+                        // Cible explicite : la fiche du panneau est supprimée au
+                        // premier clic, sans dépendre d'une sélection mise à jour
+                        // au rendu suivant (défaut corrigé le 2026-09-24).
                         onTrash={() => {
                             const file = nav.detail;
                             if (!file) return;
-                            sel.setSelection([file.path]);
-                            void sel.handleDelete(false);
+                            void sel.handleDelete(false, [file.path]);
                         }}
                     />
                 </div>

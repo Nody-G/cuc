@@ -8,7 +8,13 @@ import {
     moveMediaObjects,
     uploadMediaFile,
 } from '@/app/(admin)/admin/actions';
-import { basename, type MediaObject } from '@/app/(admin)/admin/media-shared';
+import { type MediaObject } from '@/app/(admin)/admin/media-shared';
+import {
+    countReferences,
+    removePaths,
+    resolveDeleteTargets,
+    summarizeDeleteTargets,
+} from '@/lib/media-library/media-selection';
 
 export interface UseMediaSelectionArgs {
     /** Fichiers réellement affichés (recherche et filtres appliqués). */
@@ -155,28 +161,38 @@ export function useMediaSelection({
         }
     };
 
-    const handleDelete = async (permanent: boolean) => {
-        if (!selection.length) return;
-        const names = selectedObjects.map((file) => basename(file.path)).slice(0, 3).join(', ');
-        const suffix = selectedObjects.length > 3 ? ` (+${selectedObjects.length - 3})` : '';
+    /**
+     * Suppression (corbeille ou définitive).
+     *
+     * `explicitPaths` permet au panneau détail de viser **sa** fiche sans
+     * dépendre de `setSelection` : la sélection du rendu précédent était vide au
+     * premier clic, donc la corbeille du détail ne supprimait qu'au second
+     * (défaut corrigé le 2026-09-24).
+     */
+    const handleDelete = async (permanent: boolean, explicitPaths?: string[]) => {
+        const targets = resolveDeleteTargets(selection, explicitPaths);
+        if (targets.length === 0) return;
+
+        const { count, names, suffix } = summarizeDeleteTargets(targets);
+        const referencesToDelete = countReferences(targets, references);
 
         const message = permanent
-            ? `Supprimer DÉFINITIVEMENT ${selection.length} fichier(s) : ${names}${suffix} ?`
-            : `Mettre ${selection.length} fichier(s) à la corbeille (_trash) : ${names}${suffix} ?`;
+            ? `Supprimer DÉFINITIVEMENT ${count} fichier(s) : ${names}${suffix} ?`
+            : `Mettre ${count} fichier(s) à la corbeille (_trash) : ${names}${suffix} ?`;
         const warning =
-            selectedReferences > 0
-                ? `\n\n⚠️ ${selectedReferences} référence(s) en base pointent vers ces fichiers : le site affichera une image cassée.`
+            referencesToDelete > 0
+                ? `\n\n⚠️ ${referencesToDelete} référence(s) en base pointent vers ces fichiers : le site affichera une image cassée.`
                 : '';
         if (!confirm(`${message}${warning}`)) return;
 
-        const res = await deleteMediaObjects(selection, { permanent });
+        const res = await deleteMediaObjects(targets, { permanent });
         if (res.success) {
             showToast(
                 permanent
                     ? `${res.deleted ?? 0} fichier(s) supprimé(s) définitivement`
                     : `${res.trashed ?? 0} fichier(s) déplacé(s) dans ${res.trashFolder}`
             );
-            setSelection([]);
+            setSelection((prev) => removePaths(prev, targets));
             setDetail(null);
             resetCatalogue();
             await Promise.all([loadFolder(prefix, { offset: 0 }), refreshTree()]);
