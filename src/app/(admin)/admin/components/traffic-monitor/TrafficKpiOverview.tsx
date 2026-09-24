@@ -10,17 +10,11 @@ interface TrafficKpiOverviewProps {
     windowLabel: string;
 }
 
-export const TrafficKpiOverview: React.FC<TrafficKpiOverviewProps> = ({ kpis, windowLabel }) => {
+export const TrafficKpiOverview: React.FC<TrafficKpiOverviewProps> = ({ kpis }) => {
     // Calcul de l'évolution des visiteurs uniques
     const diffVisitors = kpis.uniqueVisitors - kpis.prevPeriodUniqueVisitors;
     const pctVisitors = kpis.prevPeriodUniqueVisitors > 0
         ? Math.round((diffVisitors / kpis.prevPeriodUniqueVisitors) * 1000) / 10
-        : 0;
-
-    // Calcul de l'évolution des pages vues
-    const diffPages = kpis.pageViews - kpis.prevPeriodPageViews;
-    const pctPages = kpis.prevPeriodPageViews > 0
-        ? Math.round((diffPages / kpis.prevPeriodPageViews) * 1000) / 10
         : 0;
 
     const pagesPerVisitor = kpis.uniqueVisitors > 0

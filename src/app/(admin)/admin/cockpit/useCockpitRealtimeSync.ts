@@ -95,7 +95,6 @@ export function useCockpitRealtimeSync({
                         'postgres_changes',
                         { event: '*', schema: 'public', table: 'group_memberships' },
                         async () => {
-                            console.log('[Realtime CUC Sign] Changement détecté dans group_memberships, auto-synchronisation...');
                             await syncSessionsSeatCountsFromCucSign();
                             const p = await getPrograms();
                             if (p && p.length > 0) setPrograms(p);

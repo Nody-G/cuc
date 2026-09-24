@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Globe, RefreshCw, Download, Calendar, AlertTriangle } from 'lucide-react';
+import { Globe, RefreshCw, Download, AlertTriangle } from 'lucide-react';
 import type { TrafficWindow } from '@/types/site-traffic';
 import { CockpitViewHeader, CockpitButton, CockpitSkeletonList } from './ui';
 import { useTrafficMonitor } from './traffic-monitor/useTrafficMonitor';
@@ -58,8 +58,8 @@ export const TrafficMonitorView: React.FC<TrafficMonitorViewProps> = ({ showToas
                                     type="button"
                                     onClick={() => setWindow(w)}
                                     className={`px-2.5 py-1 rounded-lg text-xs font-mono-tech transition-all cursor-pointer ${window === w
-                                            ? 'bg-[#FFE500] text-black font-bold shadow-sm'
-                                            : 'text-zinc-400 hover:text-white'
+                                        ? 'bg-[#FFE500] text-black font-bold shadow-sm'
+                                        : 'text-zinc-400 hover:text-white'
                                         }`}
                                 >
                                     {WINDOW_LABELS[w]}

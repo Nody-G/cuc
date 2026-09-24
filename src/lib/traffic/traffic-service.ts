@@ -17,6 +17,16 @@ const globalSessions: LiveSessionStore = {
     lastPruned: Date.now(),
 };
 
+/**
+ * Retire un préfixe de locale de tête (`/en`, `/en/...`) sans toucher au reste.
+ * L'ancien `replace(/^\/(fr|en)/, '')` amputait aussi des routes FR comme
+ * `/entreprise` (→ `/treprise`).
+ */
+function stripLocalePrefix(path: string): string {
+    const stripped = path.replace(/^\/(en|fr)(?=\/|$)/, '');
+    return stripped || '/';
+}
+
 /** Nettoie les sessions inactives depuis plus de 5 minutes */
 function pruneExpiredSessions() {
     const now = Date.now();
@@ -37,7 +47,7 @@ export function recordSiteVisit(payload: IncomingVisitPayload): RealtimeVisitor 
     pruneExpiredSessions();
 
     const now = Date.now();
-    const cleanPath = payload.path.replace(/^\/(fr|en)/, '') || '/';
+    const cleanPath = stripLocalePrefix(payload.path);
     const catalogItem = CUC_PAGES_CATALOG.find((p) => p.path === cleanPath);
     const pageTitle = catalogItem ? catalogItem.title : `Page ${cleanPath}`;
 
@@ -53,7 +63,12 @@ export function recordSiteVisit(payload: IncomingVisitPayload): RealtimeVisitor 
     } else if (ref.includes('tiktok.com')) {
         source = 'TikTok Cascades';
     } else if (ref) {
-        source = `Lien externe: ${new URL(payload.referrer!).hostname}`;
+        try {
+            source = `Lien externe: ${new URL(payload.referrer!).hostname}`;
+        } catch {
+            // Referrer non absolu (ex. valeur tronquée) : on n'échoue pas la visite.
+            source = 'Lien externe';
+        }
     }
 
     const sessionId = `vis-${Math.random().toString(36).substring(2, 9)}`;

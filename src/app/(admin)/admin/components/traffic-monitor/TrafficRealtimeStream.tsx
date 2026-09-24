@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Radio, Smartphone, Monitor, Tablet, ExternalLink, Sparkles, RefreshCw } from 'lucide-react';
+import { Smartphone, Monitor, Tablet, ExternalLink, Sparkles, RefreshCw } from 'lucide-react';
 import type { RealtimeVisitor } from '@/types/site-traffic';
 import { formatDuration } from '@/lib/traffic/traffic-service';
 
@@ -144,15 +144,14 @@ export const TrafficRealtimeStream: React.FC<TrafficRealtimeStreamProps> = ({
                                     {/* Source */}
                                     <td className="py-3 px-3">
                                         <span
-                                            className={`inline-block px-2 py-0.5 rounded-md text-[10px] font-mono-tech ${
-                                                visitor.source.includes('Instagram')
+                                            className={`inline-block px-2 py-0.5 rounded-md text-[10px] font-mono-tech ${visitor.source.includes('Instagram')
                                                     ? 'bg-fuchsia-950/40 text-fuchsia-300 border border-fuchsia-800/40'
                                                     : visitor.source.includes('Google')
-                                                    ? 'bg-blue-950/40 text-blue-300 border border-blue-800/40'
-                                                    : visitor.source.includes('YouTube')
-                                                    ? 'bg-red-950/40 text-red-300 border border-red-800/40'
-                                                    : 'bg-zinc-800/60 text-zinc-300'
-                                            }`}
+                                                        ? 'bg-blue-950/40 text-blue-300 border border-blue-800/40'
+                                                        : visitor.source.includes('YouTube')
+                                                            ? 'bg-red-950/40 text-red-300 border border-red-800/40'
+                                                            : 'bg-zinc-800/60 text-zinc-300'
+                                                }`}
                                         >
                                             {visitor.source}
                                         </span>

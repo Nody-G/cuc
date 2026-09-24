@@ -4,6 +4,12 @@ import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { recordSiteVisitAction } from '@/app/(admin)/admin/actions/traffic-monitor';
 
+/** Vrai uniquement pour `/en` ou `/en/...` — évite les faux positifs d'un préfixe
+ * textuel (une route FR comme `/entreprise` n'est pas anglophone). */
+function isEnglishPath(pathname: string): boolean {
+    return pathname === '/en' || pathname.startsWith('/en/');
+}
+
 /**
  * Tracker d'audience léger, anonyme et conforme RGPD.
  * - Ne dépose aucun cookie traceur tiers.
@@ -31,7 +37,7 @@ export function SiteVisitTracker() {
                 width < 768 ? 'mobile' : width < 1024 ? 'tablet' : 'desktop';
 
             const referrer = typeof document !== 'undefined' ? document.referrer : '';
-            const locale = pathname.startsWith('/en') ? 'en' : 'fr';
+            const locale = isEnglishPath(pathname) ? 'en' : 'fr';
 
             recordSiteVisitAction({
                 path: pathname,

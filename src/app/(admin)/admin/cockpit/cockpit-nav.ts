@@ -6,11 +6,9 @@
  */
 import {
     Activity,
-    BarChart3,
     Bell,
     Boxes,
     Calendar,
-    Compass,
     FileText,
     Film,
     Globe,
@@ -19,10 +17,7 @@ import {
     Inbox,
     LayoutDashboard,
     Menu,
-    PanelBottom,
     Settings,
-    Share2,
-    Stethoscope,
     Users,
     Shield,
     type LucideIcon,

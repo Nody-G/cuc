@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import type { TrafficWindow, SiteTrafficReport, RealtimeVisitor } from '@/types/site-traffic';
+import { useState, useEffect, useCallback } from 'react';
+import type { TrafficWindow, SiteTrafficReport } from '@/types/site-traffic';
 import {
     getSiteTrafficReportAction,
     getRealtimeVisitorsAction,

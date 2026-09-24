@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Share2, MapPin, Smartphone, Monitor, Tablet, Globe } from 'lucide-react';
+import { Share2, MapPin, Smartphone, Monitor, Tablet } from 'lucide-react';
 import type { ReferrerMetric, GeoMetric, DeviceMetric, BrowserMetric } from '@/types/site-traffic';
 
 interface TrafficSourcesAndGeoProps {
@@ -55,13 +55,12 @@ export const TrafficSourcesAndGeo: React.FC<TrafficSourcesAndGeoProps> = ({
                                     <div className="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden">
                                         <div
                                             style={{ width: `${ref.percentage}%` }}
-                                            className={`h-full rounded-full ${
-                                                isIg
+                                            className={`h-full rounded-full ${isIg
                                                     ? 'bg-gradient-to-r from-fuchsia-500 to-pink-500'
                                                     : isGoogle
-                                                    ? 'bg-blue-400'
-                                                    : 'bg-[#FFE500]'
-                                            }`}
+                                                        ? 'bg-blue-400'
+                                                        : 'bg-[#FFE500]'
+                                                }`}
                                         />
                                     </div>
                                 </div>

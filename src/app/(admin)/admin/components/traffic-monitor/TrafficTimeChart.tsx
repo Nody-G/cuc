@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { BarChart3, TrendingUp } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
 import type { TrafficTimeSeriesPoint } from '@/types/site-traffic';
 
 interface TrafficTimeChartProps {
@@ -37,22 +37,20 @@ export const TrafficTimeChart: React.FC<TrafficTimeChartProps> = ({ data, window
                     <button
                         type="button"
                         onClick={() => setMetric('visitors')}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-mono-tech uppercase transition-all cursor-pointer ${
-                            metric === 'visitors'
+                        className={`px-3 py-1.5 rounded-lg text-xs font-mono-tech uppercase transition-all cursor-pointer ${metric === 'visitors'
                                 ? 'bg-[#FFE500] text-black font-bold shadow-md'
                                 : 'text-zinc-400 hover:text-white'
-                        }`}
+                            }`}
                     >
                         Visiteurs
                     </button>
                     <button
                         type="button"
                         onClick={() => setMetric('pageViews')}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-mono-tech uppercase transition-all cursor-pointer ${
-                            metric === 'pageViews'
+                        className={`px-3 py-1.5 rounded-lg text-xs font-mono-tech uppercase transition-all cursor-pointer ${metric === 'pageViews'
                                 ? 'bg-cyan-400 text-black font-bold shadow-md'
                                 : 'text-zinc-400 hover:text-white'
-                        }`}
+                            }`}
                     >
                         Pages Vues
                     </button>
@@ -88,15 +86,14 @@ export const TrafficTimeChart: React.FC<TrafficTimeChartProps> = ({ data, window
                                 {/* Barre verticale */}
                                 <div
                                     style={{ height: `${heightPct}%` }}
-                                    className={`w-full rounded-t-md transition-all duration-300 ${
-                                        metric === 'visitors'
+                                    className={`w-full rounded-t-md transition-all duration-300 ${metric === 'visitors'
                                             ? isHovered
                                                 ? 'bg-[#FFE500]'
                                                 : 'bg-[#FFE500]/70 hover:bg-[#FFE500]'
                                             : isHovered
-                                            ? 'bg-cyan-400'
-                                            : 'bg-cyan-500/70 hover:bg-cyan-400'
-                                    }`}
+                                                ? 'bg-cyan-400'
+                                                : 'bg-cyan-500/70 hover:bg-cyan-400'
+                                        }`}
                                 />
                             </div>
                         );

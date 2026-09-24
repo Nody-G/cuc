@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
     getPrograms,
     getTeam,
@@ -40,6 +41,7 @@ import { useCockpitRealtimeSync } from './useCockpitRealtimeSync';
  * consommer ce contrat — plus aucun client Supabase dans le composant.
  */
 export function useCockpitData() {
+    const router = useRouter();
     const [currentUserProfile, setCurrentUserProfile] = useState<{
         id?: string;
         email?: string;
@@ -82,7 +84,7 @@ export function useCockpitData() {
             } else if (typeof window !== 'undefined' && !window.location.pathname.startsWith('/admin/login')) {
                 const currentPath = window.location.pathname + window.location.search;
                 const nextParam = currentPath && currentPath !== '/admin' ? `?next=${encodeURIComponent(currentPath)}` : '';
-                window.location.href = `/admin/login${nextParam}`;
+                router.replace(`/admin/login${nextParam}`);
             }
         });
 
@@ -119,7 +121,7 @@ export function useCockpitData() {
             .catch((err) => {
                 console.warn('[CockpitApp] sync warning:', err);
             });
-    }, []);
+    }, [router]);
 
     // Écoute Realtime (canal partagé `cockpit:all_changes`) — hook dédié.
     useCockpitRealtimeSync({
