@@ -63,11 +63,13 @@ Le chemin canonique existe (`useRealtimeRefresh`, utilisé par 13 fichiers : `In
 3. **Realtime 90 %** (2 tables non couvertes selon les métriques) — vérifier avec `npm run audit:supabase` / `audit:doctrine`. **Résolu (P2) : `audit:supabase` → Realtime publiées 24/24 (0 manquante), dérives de miroirs 0 ; `audit:doctrine` → 0 violation sur 14 tables.**
 4. **localStorage restant = préférences UI uniquement** (`soundFx` son, thème Cockpit, repli groupes/épingles sidebar, récents palette, placements 3D en repli public) — **conforme** : aucun contenu critique n'y vit (le Cockpit écrit dans `site_settings`).
 5. **Anciens orphelins (M1 du vieil audit) : résolus** — `TelemetryHUD`, `CareerSimulatorModal`, `TowerPhysicsWidget`, `TimecodeHUD` : 0 occurrence ; `soundFx` est bien utilisé (5 fichiers).
-6. **Ordre 404 → RLS** : le 404 n'est pas encore posé et la policy reste `FOR SELECT USING (true)` — exactement l'ordre imposé par la règle durabilité. La garde actuelle (sitemap + rendu + `noindex`) est documentée dans `plans/revue-diffusion-brouillons.md`.
+6. **Ordre 404 → RLS : LIVRÉ (2026-09-23).** Le 404 de brouillon est posé **d'abord** (`getPublicPageContent()`, aperçu déplacé sur `/[locale]/preview` et gardé par la session admin, `buildPreviewUrl()` reciblé) **puis** la policy RLS de `site_pages` a été durcie à `is_published = true` (migration appliquée ; sonde Postgres : 0 brouillon visible, 15 pages publiées intactes). Preuves : `plans/revue-diffusion-brouillons.md` § 6 et `plans/revue-rls-site-pages.md`.
 
 ---
 
 ## 5. Plan de remédiation (ordre protocole : contrats → hooks → UI)
+
+> **Statut au 2026-09-24 : intégralement livré.** P0 → § 7 (P0.a → P0.g.47) ; P1 → § 7 « P1 — Garde-fou SRP » ; P2 → § 7 « P2 — TERMINÉ ». Cette section est conservée comme trace du raisonnement initial, plus comme liste de travail.
 
 **P0 — Structurel (God Components / God Modules)**
 
@@ -550,3 +552,39 @@ Dernier état connu : 157/157 tests passés, 681/681 clés i18n, 0 erreur sur le
 **Validation de fin de vague P0.d (modal + hooks + grille) :** typecheck OK · **308 tests OK** · **`lint` : 0 erreur** · `audit:strict` 0 problème (TeamView ≤ 300, hors dette) · `studio:gate` OK · `build` 93/93 pages · `audit:slop` : occurrences uniquement dans `scripts/`.
 
 **Bonus lint — 8 erreurs préexistantes ou induites, toutes corrigées :** `TranslationsView` remis sur le patron async-dans-effet (règle `react-hooks/set-state-in-effect`) ; déps de mémoïsation élargies à `[block]` (`TeamBannersSection`, `TeamProductionGalleries` ×3) ; `UnpublishedPageGate` passé à `useSyncExternalStore` + `next/link` (hydratation identique, 4 tests verts) ; imports morts de `films.ts` retirés après extraction.
+
+---
+
+## 8. Passe du 2026-09-24 — statut vérifié (arbre git propre)
+
+**Gates rejoués ce jour** (les § 4.6 et § 5 ci-dessus, rédigés le 2026-09-22, ne décrivent plus l'état réel) :
+
+| Contrôle | Résultat |
+| :--- | :--- |
+| `npm run typecheck` | ✅ 0 erreur |
+| `npm run lint` | ✅ **0 erreur, 0 avertissement** (les 3 `no-explicit-any` restants sont traités, voir ci-dessous) |
+| `npm run test` | ✅ **485 tests / 70 fichiers** |
+| `node scripts/audit.mjs` | ✅ 0 problème (liens, ancres, hrefs suspects) — plafond SRP : **0 violation**, baseline `scripts/size-baseline.json` = `{}` |
+
+**Hygiène de typage (Lot A du plan de suite)**
+
+- `SitePageSectionsData` : alias **unique et documenté** pour `site_pages.sections_data` (JSON CMS dont la forme varie par page et que 25 sites de lecture exploitent en accès libre). Un seul `eslint-disable` justifié remplace le `any` de contrat, au lieu d'un `any` laissé sans explication.
+- `SiteInquiry.metadata` → `SiteInquiryMetadata` : clés CUC Sign réellement utilisées typées (`cuc_sign_student_id`, `cuc_sign_formation_id` nullable, `converted_at`), reste en `unknown`.
+- `Instructor.metadata` → `InstructorMetadata` : `film_roles` typé `Record<string, string>`, reste en `unknown`.
+
+**Dette SRP résiduelle — vague suivante** (code applicatif proche du plafond de 300 lignes, aucun God Component recréé)
+
+| Fichier | Lignes |
+| :--- | ---: |
+| [`PartnersView.tsx`](src/app/(admin)/admin/components/PartnersView.tsx:1) | 300 |
+| [`FilmDetailsModal.tsx`](src/components/sections/hall-of-fame/FilmDetailsModal.tsx:1) | 297 |
+| [`VisiteFacilitiesDetail.tsx`](src/components/sections/visite/VisiteFacilitiesDetail.tsx:1) | 295 |
+| [`EditorCoordinateInputs.tsx`](src/components/3d/ui/EditorCoordinateInputs.tsx:1) | 294 |
+| [`useInstagramMonitor.ts`](src/app/(admin)/admin/components/instagram-monitor/useInstagramMonitor.ts:1) | 290 |
+| [`preview-protocol-core.ts`](src/lib/preview/preview-protocol-core.ts:1) | 287 |
+| [`team-building-cascades/page.tsx`](src/app/(site)/[locale]/team-building-cascades/page.tsx:1) | 283 |
+| [`traffic-data.ts`](src/lib/traffic/traffic-data.ts:1) | 283 |
+| [`VideosPageEditor.tsx`](src/app/(admin)/admin/components/pages-editor/VideosPageEditor.tsx:1) | 282 |
+| [`home-blocks.ts`](src/app/(admin)/admin/components/pages-editor/home-page/home-blocks.ts:1) | 282 |
+
+Pilotage et jalons : [`plans/plan-reste-a-faire-2026-09-24.md`](plans/plan-reste-a-faire-2026-09-24.md:1).
