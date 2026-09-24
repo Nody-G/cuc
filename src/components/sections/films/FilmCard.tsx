@@ -40,11 +40,9 @@ export interface FilmCardProps {
     sizes?: string;
     /** Badge « Mis en avant » (ordre piloté depuis le Cockpit). */
     featured?: { label: string; micro?: CucMicroAttributes } | null;
-    /** Rôle du membre sur cette production. */
+    /** Rôle sur cette production (bloc identique à celui de la fiche coach). */
     role?: FilmCardRole | null;
-    /** Ligne factuelle sous le titre (repli contextuel). */
-    caption?: string | null;
-    /** Ligne de pied factuelle (réalisateur). */
+    /** Ligne de pied factuelle (réalisateur, repli « Production »). */
     footer?: string | null;
 }
 
@@ -72,7 +70,6 @@ export const FilmCard: React.FC<FilmCardProps> = ({
     sizes = '(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw',
     featured,
     role,
-    caption,
     footer,
 }) => {
     const titleAttr = film.year ? `${film.title} — ${film.year}` : film.title;
@@ -153,10 +150,6 @@ export const FilmCard: React.FC<FilmCardProps> = ({
                     <h3 className="text-lg font-display uppercase text-white group-hover:text-[#FFE500] transition-colors leading-tight">
                         {film.title}
                     </h3>
-
-                    {caption ? (
-                        <p className="text-[10px] font-tech text-zinc-500">{caption}</p>
-                    ) : null}
                 </div>
             </div>
 

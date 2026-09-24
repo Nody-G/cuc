@@ -11,6 +11,7 @@ import { selectCoordinatedFilms } from '@/lib/coach-films';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
 import { FilmCard } from '@/components/sections/films/FilmCard';
+import { buildCucRoleBlock } from '@/components/sections/films/film-role-block';
 import { applyFilmOverlays } from '@/lib/i18n/apply-film-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 import { cucMicro } from '@/lib/preview/cuc-micro';
@@ -168,7 +169,16 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
                         key={film.id}
                         film={film}
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
-                        footer={film.director ? tTeam('directorShort', { name: film.director }) : null}
+                        role={buildCucRoleBlock(
+                            film.cuc_team_roles,
+                            tTeam('roleOnProduction'),
+                            tTeam
+                        )}
+                        footer={
+                            film.director
+                                ? tTeam('directorShort', { name: film.director })
+                                : tTeam('productionFallback')
+                        }
                         onOpen={() => setSelectedFilm(film)}
                     />
                 ))}

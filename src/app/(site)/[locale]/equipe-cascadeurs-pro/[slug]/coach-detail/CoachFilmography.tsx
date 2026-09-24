@@ -28,9 +28,10 @@ export interface CoachFilmographyProps {
  * affiches cliquables et rôle précis sur chaque production.
  *
  * Les jaquettes sont rendues par [`FilmCard`](src/components/sections/films/FilmCard.tsx),
- * la présentation canonique partagée par toute la vitrine. Seul le bloc de rôle
- * est spécifique à la fiche coach — les libellés d'appel (« Fiche film »,
- * « Détails ») ont été retirés.
+ * la présentation canonique de toute la vitrine : affiche 2/3, badge d'année,
+ * bloc de rôle puis titre, pied réalisateur — exactement ce que reprennent la
+ * vitrine TOURNAGE et l'accueil (bloc CUC via `film-role-block.ts`). Aucun
+ * libellé d'appel (« Fiche film », « Détails »).
  */
 export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
     member,
