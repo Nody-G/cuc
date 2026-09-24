@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { ApplicationModal } from '@/components/sections/ApplicationModal';
+import { useRouter } from '@/i18n/navigation';
 import {
   FormationHeroSection,
   FormationFormulesSection,
@@ -13,15 +13,18 @@ import {
 import { courseJsonLd } from '@/lib/seo';
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 
+/**
+ * Page Formation — la candidature ne s'ouvre plus dans une fenêtre : chaque CTA
+ * mène à la page contact, **pré-remplie** avec l'intention du visiteur
+ * (`?demande=<programme>` alimente le sélecteur « Votre Demande Concerne »), puis
+ * cale la vue sur le formulaire (`#contact-form`).
+ */
 export default function FormationDeCascadeurPage() {
-  const [isApplicationOpen, setIsApplicationOpen] = useState(false);
-  const [selectedProgramId, setSelectedProgramId] = useState('pro-longue-duree');
+  const router = useRouter();
   const { content } = usePageDynamicContent('formation-de-cascadeur');
 
-  const handleOpenApplication = (programId: string) => {
-    setSelectedProgramId(programId);
-    setIsApplicationOpen(true);
-  };
+  const handleOpenApplication = (programId: string) =>
+    router.push(`/contact-cuc?demande=${programId}#contact-form`);
 
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
@@ -61,12 +64,6 @@ export default function FormationDeCascadeurPage() {
       </main>
 
       <Footer />
-
-      <ApplicationModal
-        isOpen={isApplicationOpen}
-        onClose={() => setIsApplicationOpen(false)}
-        defaultProgramId={selectedProgramId}
-      />
     </div>
   );
 }
