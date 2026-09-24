@@ -145,6 +145,14 @@ const CODE_NOISE_PATTERNS = [
     // Fragment de type TS capturé par `>Texte<` dans une signature :
     // `(e: FormEvent) => Promise<void>` n'est pas un libellé visiteur.
     /^(?:Promise|void|string|number|boolean|unknown|any|never|object|null|undefined|true|false)$/,
+    // Utilitaires de type TS capturés par `>ReturnType<typeof f>` (le `>` de `=>`
+    // et le `<` du générique encadrent le mot) : jamais du texte visible.
+    /^(?:ReturnType|Parameters|Awaited|Partial|Required|Readonly|InstanceType|NonNullable)$/,
+    // Appel de fonction seul sur sa ligne, capturé parce qu'un voisin contient
+    // `=>` : `resolveInitialFacilityId(CAMPUS_FACILITIES)` n'est pas un libellé.
+    /^[A-Za-z_$][\w$.]*\([^()]*\)$/,
+    // Espace insécable de mise en page JSX (`{' '}`) : ce n'est pas un texte.
+    /\{\s*['"`]\s*['"`]\s*\}/,
 ];
 
 function isCodeNoise(text) {

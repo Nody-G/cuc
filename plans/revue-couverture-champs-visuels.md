@@ -1,6 +1,6 @@
 # Revue — Couverture des champs éditables (Mode Studio)
 
-Généré le 2026-09-24T12:39:36.037Z par `scripts/audit_cuc_fields.mjs`.
+Généré le 2026-09-24T15:05:01.808Z par `scripts/audit_cuc_fields.mjs`.
 
 ## 1. Couverture par page
 
@@ -13,11 +13,11 @@ Généré le 2026-09-24T12:39:36.037Z par `scripts/audit_cuc_fields.mjs`.
 | `equipe-cascadeurs-pro` | 5 | 0 | 0 | `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\EquipeHeroSection.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
 | `cuc-team-cascadeur` | 28 | 2 | 4 | `src\components\sections\team\TeamHeroSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\team\TeamProductionGalleries.tsx`, `src\components\sections\team\TeamBannersSection.tsx`, `src\components\sections\team\TeamProductionServices.tsx` | ✅ |
 | `cuc-events-agence` | 20 | 6 | 0 | `src\components\sections\events\EventsHeroSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\events\pillars\StaticPillarCard.tsx`, `src\components\sections\events\EventsGuaranteesSection.tsx` | ✅ |
-| `team-building-cascades` | 14 | 0 | 4 | `src\app\(site)\[locale]\team-building-cascades\page.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
+| `team-building-cascades` | 14 | 0 | 4 | `src\app\(site)\[locale]\team-building-cascades\sections\TeamBuildingHero.tsx`, `src\app\(site)\[locale]\team-building-cascades\sections\TeamBuildingOverview.tsx`, `src\lib\preview\cuc-field.ts`, `src\app\(site)\[locale]\team-building-cascades\sections\TeamBuildingWorkshops.tsx` | ✅ |
 | `spectacles-cascadeurs-yamakasi` | 6 | 0 | 0 | `src\app\(site)\[locale]\spectacles-cascadeurs-yamakasi\page.tsx` | ✅ |
 | `animations-airbag-parkour` | 6 | 0 | 0 | `src\app\(site)\[locale]\animations-airbag-parkour\page.tsx` | ✅ |
 | `visite-virtuelle` | 5 | 0 | 0 | `src\app\(site)\[locale]\visite-virtuelle\page.tsx`, `src\lib\preview\cuc-field.ts` | ✅ |
-| `visite-guidee` | 42 | 0 | 6 | `src\components\sections\visite\VisiteHeroSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\visite\VisiteFacilitiesDetail.tsx`, `src\components\sections\visite\VisiteAccessTransport.tsx` | ✅ |
+| `visite-guidee` | 42 | 0 | 6 | `src\components\sections\visite\VisiteHeroSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\visite\facilities\FacilityDetailPanel.tsx`, `src\components\sections\visite\facilities\FacilitiesHeader.tsx`, `src\components\sections\visite\facilities\FacilitiesSelector.tsx`, `src\components\sections\visite\VisiteAccessTransport.tsx` | ✅ |
 | `videos-cascadeur` | 4 | 0 | 0 | `src\app\(site)\[locale]\videos-cascadeur\sections\VideosHero.tsx` | ✅ |
 | `partenaires` | 10 | 0 | 0 | `src\components\sections\partenaires\PartenairesHeroSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\partenaires\PartenairesGridSection.tsx`, `src\components\sections\partenaires\grid\AdditionalPartnerCard.tsx`, `src\components\sections\partenaires\grid\StaticPartnerCard.tsx` | ✅ |
 | `contact-cuc` | 8 | 0 | 0 | `src\lib\preview\cuc-field.ts`, `src\components\sections\contact\ContactHeroSection.tsx`, `src\components\sections\contact\ContactCoordinatesSidebar.tsx` | ✅ |

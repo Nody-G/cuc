@@ -37,6 +37,13 @@ const HOME_BLOCKS = join(ADMIN, 'pages-editor', 'home-page', 'home-blocks.ts');
 const PROTOCOL = join(SRC, 'lib', 'preview', 'preview-protocol.ts');
 /** Découpage SRP : les natures (`CUC_FIELD_KINDS`) vivent dans le noyau. */
 const PROTOCOL_CORE = join(SRC, 'lib', 'preview', 'preview-protocol-core.ts');
+/**
+ * Découpage SRP du 2026-09-24 : le noyau est devenu une **façade de ré-export**
+ * et la déclaration des natures a déménagé dans `preview/protocol/`. Sans ce
+ * chemin, l'audit ne trouvait plus aucune nature autorisée et déclarait
+ * « natures inconnues » pour des valeurs parfaitement valides.
+ */
+const PROTOCOL_KINDS = join(SRC, 'lib', 'preview', 'protocol', 'protocol-messages.ts');
 const REPORT = join(ROOT, 'plans', 'revue-couverture-champs-visuels.md');
 
 /** Profondeur maximale du graphe d'imports suivi depuis la route. */
@@ -101,14 +108,21 @@ function extractPages() {
 
 /**
  * Natures autorisées, lues dans le protocole (aucune liste dupliquée).
- * Le noyau `preview-protocol-core` fait foi ; la façade reste lue pour un
- * dépôt antérieur au découpage SRP.
+ *
+ * Ordre de lecture : le module qui **déclare** la liste, puis le noyau, puis la
+ * façade historique d'un dépôt antérieur au découpage SRP. Une façade qui se
+ * contente de ré-exporter ne porte plus la déclaration : la chercher d'abord
+ * faisait échouer l'audit sur des natures pourtant valides.
  */
 function extractFieldKinds() {
-    const source = read(existsSync(PROTOCOL_CORE) ? PROTOCOL_CORE : PROTOCOL);
-    const match = source.match(/CUC_FIELD_KINDS[^=]*=\s*\[([\s\S]*?)\]/);
-    if (!match) return [];
-    return [...match[1].matchAll(/'([^']+)'/g)].map((entry) => entry[1]);
+    for (const file of [PROTOCOL_KINDS, PROTOCOL_CORE, PROTOCOL]) {
+        if (!existsSync(file)) continue;
+        const match = read(file).match(/CUC_FIELD_KINDS[^=]*=\s*\[([\s\S]*?)\]/);
+        if (!match) continue;
+        const kinds = [...match[1].matchAll(/'([^']+)'/g)].map((entry) => entry[1]);
+        if (kinds.length > 0) return kinds;
+    }
+    return [];
 }
 
 /** Champs `liveEdit: true` de l'accueil — promesse d'édition en place. */

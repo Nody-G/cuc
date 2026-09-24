@@ -1,279 +1,40 @@
 'use client';
-import { Link } from '@/i18n/navigation';
 
 import React from 'react';
-import { useTranslations } from 'next-intl';
-
-import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { StuntBadge } from '@/components/ui/StuntBadge';
-import { TacticalButton } from '@/components/ui/TacticalButton';
-import {
-  Users,
-  ChevronRight
-} from 'lucide-react';
+import { TeamBuildingCustomCta } from './sections/TeamBuildingCustomCta';
+import { TeamBuildingHero } from './sections/TeamBuildingHero';
+import { TeamBuildingOverview } from './sections/TeamBuildingOverview';
+import { TeamBuildingWorkshops } from './sections/TeamBuildingWorkshops';
+import { useTeamBuildingPage } from './sections/useTeamBuildingPage';
 
-import { cucField } from '@/lib/preview/cuc-field';
-import { cucMicro } from '@/lib/preview/cuc-micro';
-import {
-  TEAM_BUILDING_WORKSHOPS,
-  type TeamBuildingWorkshop,
-} from './team-building-workshops.data';
-
-import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
-
+/**
+ * Page Team Building — **façade de composition**.
+ *
+ * Contenu et replis dans `sections/` : `team-building-copy.ts` (replis
+ * certifiés, découpe du titre), `useTeamBuildingPage` (page + ateliers) et
+ * quatre blocs de présentation (`TeamBuildingHero`, `TeamBuildingOverview`,
+ * `TeamBuildingWorkshops`, `TeamBuildingCustomCta`).
+ */
 export default function TeamBuildingCascadesPage() {
-  const t = useTranslations('teamBuilding');
-  /** Chrome commun : fil d'Ariane et enseigne de l'agence événements. */
-  const chrome = useTranslations('commonChrome');
-  const { content } = usePageDynamicContent('team-building-cascades');
-
-  /** Liste d'ateliers servie par les données tant qu'elle existe (repli statique sinon). */
-  const workshopsFromContent = (content.sections_data?.workshops?.length ?? 0) > 0;
-  /**
-   * Annotation d'atelier écrite **au site d'appel**, en gabarit littéral
-   * (`cucField(\`sections_data.workshops.${idx}.title\`)`) : clé comprise, donc
-   * auditable par `audit:fields` — et jamais de champ fantôme sur la liste de
-   * repli statique.
-   */
-
-  const heroBadge = content.hero?.badge || 'SÉMINAIRES & ENTREPRISES';
-  const heroTitle = content.hero?.title || "TEAM BUILDING D'EXCEPTION";
-  const heroSubtitle =
-    content.hero?.subtitle ||
-    "Offrez à vos équipes une immersion inoubliable dans l'univers du cinéma d'action et des cascadeurs professionnels. Ateliers modulables de 10 à 300 personnes sur notre campus ou sur le lieu de votre séminaire.";
-  const heroBg =
-    content.hero?.bg_image ||
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg';
-  const ctaPrimaryText = content.hero?.cta_primary_text || 'Construire votre Projet Team Building';
-  const ctaPrimaryLink = content.hero?.cta_primary_link || '/contact-cuc';
-  const ctaSecondaryText = content.hero?.cta_secondary_text || 'Découvrir CUC Events';
-  const ctaSecondaryLink = content.hero?.cta_secondary_link || '/cuc-events-agence';
+  const page = useTeamBuildingPage();
 
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
       <Navbar />
 
       <main id="contenu-principal" className="flex-grow pt-28">
-        {/* Hero Header */}
-        <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
-          <div className="absolute inset-0 z-0">
-            <Image
-              src={heroBg}
-              alt={t('heroMeta')}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-center brightness-35 contrast-125"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/80 to-transparent" />
-          </div>
+        <TeamBuildingHero copy={page.hero} meta={page.heroMeta} />
 
-          <div className="relative z-10 page-shell">
-            <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
-              <Link href="/" className="hover:text-[#FFE500] transition-colors">
-                <span {...cucMicro('commonChrome.breadcrumbHome')}>{chrome('breadcrumbHome')}</span>
-              </Link>
-              <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-              <Link href="/cuc-events-agence" className="hover:text-[#FFE500] transition-colors">
-                <span {...cucMicro('commonChrome.siteEvents')}>{chrome('siteEvents')}</span>
-              </Link>
-              <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-              <span className="text-[#FFE500]" {...cucMicro('teamBuilding.breadcrumbCurrent')}>
-                {t('breadcrumbCurrent')}
-              </span>
-            </div>
+        <TeamBuildingOverview overview={page.overview} />
 
-            <div className="inline-flex items-center gap-2 mb-4">
-              <StuntBadge variant="yellow" icon={<Users className="w-3.5 h-3.5" />}>
-                <span data-cuc-field="hero.badge" data-cuc-kind="text">
-                  {heroBadge}
-                </span>
-              </StuntBadge>
-              <span
-                data-cuc-field="hero.meta"
-                data-cuc-kind="text"
-                className="text-xs font-mono-tech text-zinc-400"
-              >
-                {content.hero?.meta || t('heroMeta')}
-              </span>
-            </div>
+        <TeamBuildingWorkshops
+          workshops={page.workshops}
+          editable={page.workshopsFromContent}
+        />
 
-            <h1
-              data-cuc-field="hero.title"
-              data-cuc-kind="text"
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
-            >
-              {heroTitle.includes(' ') ? (
-                <>
-                  {heroTitle.substring(0, heroTitle.lastIndexOf(' '))}{' '}
-                  <span className="text-[#FFE500]">
-                    {heroTitle.substring(heroTitle.lastIndexOf(' ') + 1)}
-                  </span>
-                </>
-              ) : (
-                heroTitle
-              )}
-            </h1>
-
-            <p
-              data-cuc-field="hero.subtitle"
-              data-cuc-kind="textarea"
-              className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
-            >
-              {heroSubtitle}
-            </p>
-
-            <div className="flex flex-wrap gap-4 mt-8">
-              <Link href={ctaPrimaryLink}>
-                <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
-                  <span data-cuc-field="hero.cta_primary_text" data-cuc-kind="text">
-                    {ctaPrimaryText}
-                  </span>
-                </TacticalButton>
-              </Link>
-              {ctaSecondaryText && (
-                <Link href={ctaSecondaryLink}>
-                  <TacticalButton variant="secondary" size="lg">
-                    <span data-cuc-field="hero.cta_secondary_text" data-cuc-kind="text">
-                      {ctaSecondaryText}
-                    </span>
-                  </TacticalButton>
-                </Link>
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* Intro */}
-        <section className="py-14 bg-[#09090d] border-b border-zinc-800">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <div className="mb-4 flex flex-col items-center justify-center gap-2">
-              <Image
-                src="/images/logos/cuc-logo-yellow.png"
-                alt="CUC Events Team Building"
-                width={52}
-                height={52}
-                className="w-13 h-13 object-contain drop-shadow-[0_0_12px_rgba(255,229,0,0.35)]"
-              />
-              <span
-                {...cucField('sections_data.overview.badge')}
-                className="text-xs font-mono-tech text-[#FFE500] font-bold tracking-widest uppercase"
-              >
-                {content.sections_data?.overview?.badge || t('overviewBadge')}
-              </span>
-            </div>
-            <h2
-              {...cucField('sections_data.overview.title')}
-              className="text-3xl sm:text-4xl font-display uppercase text-white mb-4"
-            >
-              {content.sections_data?.overview?.title || t('overviewTitle')}
-            </h2>
-            <p
-              {...cucField('sections_data.overview.description', 'textarea')}
-              className="text-sm font-tech text-zinc-300 leading-relaxed"
-            >
-              {content.sections_data?.overview?.description || t('overviewDescription')}
-            </p>
-          </div>
-        </section>
-
-        {/* Ateliers Dynamiques & Adaptatifs */}
-        <section className="py-16">
-          <div className="page-shell">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
-              {((content.sections_data?.workshops && content.sections_data.workshops.length > 0)
-                ? content.sections_data.workshops
-                : TEAM_BUILDING_WORKSHOPS
-              ).map((workshop: TeamBuildingWorkshop, idx: number) => (
-                <div
-                  key={workshop.id || idx}
-                  className="bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/60 p-5 group transition-all flex flex-col justify-between"
-                >
-                  <div>
-                    <div
-                      {...(workshopsFromContent
-                        ? cucField(`sections_data.workshops.${idx}.img`, 'image')
-                        : {})}
-                      className="relative h-56 w-full mb-4 border border-zinc-800 overflow-hidden bg-black"
-                    >
-                      {workshop.img ? (
-                        <Image
-                          src={workshop.img}
-                          alt={workshop.title || t('workshopFallbackTitle')}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-xs font-mono-tech text-zinc-500">
-                          <span {...cucMicro('teamBuilding.workshopFallbackLabel')}>
-                            {t('workshopFallbackLabel')}
-                          </span>
-                        </div>
-                      )}
-                      {workshop.category && (
-                        <div
-                          {...(workshopsFromContent
-                            ? cucField(`sections_data.workshops.${idx}.category`)
-                            : {})}
-                          className="absolute top-3 left-3 bg-black/85 px-2.5 py-0.5 text-[10px] font-mono-tech text-[#FFE500] border border-white/20"
-                        >
-                          {workshop.category}
-                        </div>
-                      )}
-                    </div>
-
-                    <h3
-                      {...(workshopsFromContent
-                        ? cucField(`sections_data.workshops.${idx}.title`)
-                        : {})}
-                      className="text-xl font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors mb-2"
-                    >
-                      {workshop.title}
-                    </h3>
-                    <p
-                      {...(workshopsFromContent
-                        ? cucField(`sections_data.workshops.${idx}.desc`, 'textarea')
-                        : {})}
-                      className="text-xs font-tech text-zinc-400 leading-relaxed"
-                    >
-                      {workshop.desc}
-                    </p>
-                  </div>
-
-                  <div className="pt-4 mt-4 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono-tech text-zinc-500">
-                    <span {...cucMicro('teamBuilding.workshopChoice')}>{t('workshopChoice')}</span>
-                    <span className="text-[#FFE500]" {...cucMicro('teamBuilding.workshopModular')}>
-                      {t('workshopModular')}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Formule personnalisée CTA */}
-        <section className="py-16 bg-[#0c0c10] border-t border-zinc-800">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <StuntBadge variant="yellow" icon={<Users className="w-3.5 h-3.5" />}>
-              <span {...cucMicro('teamBuilding.customBadge')}>{t('customBadge')}</span>
-            </StuntBadge>
-            <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mt-3 mb-4">
-              <span {...cucMicro('teamBuilding.customTitle')}>{t('customTitle')}</span>
-            </h2>
-            <p className="text-xs sm:text-sm font-tech text-zinc-400 leading-relaxed mb-8 max-w-2xl mx-auto">
-              <span {...cucMicro('teamBuilding.customDescription')}>{t('customDescription')}</span>
-            </p>
-            <Link href="/contact-cuc?demande=cuc-events">
-              <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
-                <span {...cucMicro('teamBuilding.customCta')}>{t('customCta')}</span>
-              </TacticalButton>
-            </Link>
-          </div>
-        </section>
+        <TeamBuildingCustomCta />
       </main>
 
       <Footer />
