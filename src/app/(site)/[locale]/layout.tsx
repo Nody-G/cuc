@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { RootShell } from '@/components/layout/RootShell';
 import { SiteDataProvider } from '@/components/i18n/SiteDataProvider';
+import { SiteVisitTracker } from '@/components/analytics/SiteVisitTracker';
 import {
     getEntityOverlays,
     getLocalizedFooterChrome,
@@ -142,6 +143,7 @@ export default async function LocaleLayout({
                     },
                 }}
             >
+                <SiteVisitTracker />
                 {children}
             </SiteDataProvider>
         </RootShell>
