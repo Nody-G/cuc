@@ -1158,8 +1158,7 @@
             "actorsIntro": "Les formateurs et cascadeurs du Campus Univers Cascades interviennent sur les scènes d'action des tournages français et internationaux.",
             "photoAlt": "Comédien doublé {name}",
             "imdbTitle": "Voir la filmographie IMDb de {name}",
-            "filmsLabel": "Films :",
-            "detailLabel": "Fiche détaillée"
+            "filmsLabel": "Films :"
         },
         "celebrityModal": {
             "title": "Fiche Tournage & Cascades",

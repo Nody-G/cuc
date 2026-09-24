@@ -66,7 +66,6 @@ const FR = {
         photoAlt: 'Comédien doublé {name}',
         imdbTitle: 'Voir la filmographie IMDb de {name}',
         filmsLabel: 'Films :',
-        detailLabel: 'Fiche détaillée',
     },
     celebrityModal: {
         title: 'Fiche Tournage & Cascades',
@@ -221,7 +220,6 @@ const EN = {
         photoAlt: 'Doubled actor {name}',
         imdbTitle: "View {name}'s IMDb filmography",
         filmsLabel: 'Films:',
-        detailLabel: 'Full details',
     },
     celebrityModal: {
         title: 'Shoot & Stunt Details',

@@ -1,23 +1,38 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import Image from 'next/image';
+import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import { DoubledCelebrity } from '@/types';
 import { X, Clapperboard, ExternalLink } from 'lucide-react';
 import { ImdbLogo } from '@/components/ui/BrandLogos';
 import { cucMicro } from '@/lib/preview/cuc-micro';
+import { resolveDoubledBy, type TeamNameRef } from '@/lib/celebrity-double';
 
 interface CelebrityDetailsModalProps {
   celebrity: DoubledCelebrity | null;
+  /** Référentiel de l'équipe CUC, pour rendre le nom du doubleur cliquable. */
+  teamMembers: TeamNameRef[];
   onClose: () => void;
 }
 
 export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
   celebrity,
+  teamMembers,
   onClose,
 }) => {
   const t = useTranslations('teamProduction');
+
+  /**
+   * Découpe « Doublé par X » et reconnaît l'éventuel membre de l'équipe : le
+   * nom devient un lien vers sa fiche coach, comme sur les jaquettes de films.
+   * Calculé avant le retour anticipé — les hooks gardent le même ordre.
+   */
+  const doubledBy = useMemo(
+    () => resolveDoubledBy(celebrity?.stuntDoubles ?? '', teamMembers),
+    [celebrity?.stuntDoubles, teamMembers]
+  );
 
   if (!celebrity) return null;
 
@@ -80,7 +95,20 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                     </span>
                   </span>
                   <span className="text-xs text-white font-mono-tech font-bold">
-                    {celebrity.stuntDoubles}
+                    {doubledBy.prefix ? `${doubledBy.prefix} ` : ''}
+                    {doubledBy.member ? (
+                      <Link
+                        href={`/equipe-cascadeurs-pro/${doubledBy.member.id}`}
+                        onClick={onClose}
+                        title={doubledBy.member.name}
+                        className="text-[#FFE500] underline decoration-dotted underline-offset-2 hover:text-white transition-colors"
+                      >
+                        {doubledBy.name}
+                      </Link>
+                    ) : (
+                      doubledBy.name
+                    )}
+                    {doubledBy.suffix}
                   </span>
                 </div>
               ) : null}

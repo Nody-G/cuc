@@ -1,9 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { DoubledCelebrity } from '@/types';
+import { DoubledCelebrity, Instructor } from '@/types';
+import { CUC_TEAM } from '@/data/team';
+import { getTeam } from '@/lib/data/site-service';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
+import type { TeamNameRef } from '@/lib/celebrity-double';
 import { StuntBadge } from '../ui/StuntBadge';
 import { Clapperboard } from 'lucide-react';
 import { CelebrityDoublesGallery } from './hall-of-fame/CelebrityDoublesGallery';
@@ -22,6 +26,25 @@ import { cucMicro } from '@/lib/preview/cuc-micro';
 export const HallOfFame: React.FC = () => {
   const t = useTranslations('teamProduction');
   const [selectedCelebrity, setSelectedCelebrity] = useState<DoubledCelebrity | null>(null);
+  const [teamMembers, setTeamMembers] = useState<Instructor[]>(CUC_TEAM);
+
+  /** Charge l'équipe : elle porte les doubleurs cités sur les fiches comédiens. */
+  const loadTeam = useCallback(() => {
+    getTeam().then(setTeamMembers);
+  }, []);
+
+  useEffect(() => {
+    loadTeam();
+  }, [loadTeam]);
+
+  // Synchronisation Realtime Cockpit → Vitrine (un coach cité comme doubleur).
+  useRealtimeRefresh(['site_team'], loadTeam);
+
+  /** Référentiel réduit (id + nom) transmis aux vignettes et à la fiche. */
+  const teamNames = useMemo<TeamNameRef[]>(
+    () => teamMembers.map((member) => ({ id: member.id, name: member.name })),
+    [teamMembers]
+  );
 
   // Fermeture des modales au clavier (Échap)
   useEffect(() => {
@@ -73,7 +96,7 @@ export const HallOfFame: React.FC = () => {
         </div>
 
         {/* SECTION VEDETTE : LES ACTEURS ET COMÉDIENS DOUBLÉS */}
-        <CelebrityDoublesGallery onSelectCelebrity={setSelectedCelebrity} />
+        <CelebrityDoublesGallery onSelectCelebrity={setSelectedCelebrity} teamMembers={teamNames} />
 
         {/* SECTION FILMS : LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC */}
         <CucFilmsShowcase className="mt-16" />
@@ -82,6 +105,7 @@ export const HallOfFame: React.FC = () => {
       {/* Modale Acteurs doublés */}
       <CelebrityDetailsModal
         celebrity={selectedCelebrity}
+        teamMembers={teamNames}
         onClose={() => setSelectedCelebrity(null)}
       />
     </section>

@@ -1158,8 +1158,7 @@
             "actorsIntro": "Campus Univers Cascades instructors and stunt performers work on the action scenes of French and international productions.",
             "photoAlt": "Doubled actor {name}",
             "imdbTitle": "View {name}'s IMDb filmography",
-            "filmsLabel": "Films:",
-            "detailLabel": "Full details"
+            "filmsLabel": "Films:"
         },
         "celebrityModal": {
             "title": "Shoot & Stunt Details",
