@@ -3,9 +3,9 @@
  * DOSSIER DE PRÉSENTATION CLIENT — L'APPLICATION DU CAMPUS UNIVERS CASCADES
  * =========================================================================
  *
- * Version 5 : CUC Sign devient un chapitre à part entière du dossier ; échelle
- * du projet (lignes de code), stack technique visible et comparaison avec
- * l'ancien site réintroduites. Le tout autonome et imprimable.
+ * Version 5 : réorganisation des chapitres (comparaison avec l'ancien site en
+ * chapitre 2), CUC Sign en chapitre dédié ; échelle du projet (lignes de code)
+ * et stack technique visibles. Le tout autonome et imprimable.
  *
  * Régénération : `npm run report:dossier`
  * Sortie : reports/cuc-dossier-application.html
@@ -301,7 +301,7 @@ const FAQ = [
   { q: 'Que se passe-t-il sur un téléphone ?', a: "Tout le site est conçu d'abord pour le mobile : les jaquettes de films passent en grille compacte, les menus se replient, un bouton d'appel direct apparaît en bas d'écran. Le plan 3D et la visite 360° fonctionnent aussi au doigt." },
   { q: 'Les chiffres de ce dossier sont-ils figés ?', a: "Non : ce dossier est régénéré à la demande, directement depuis la base de données. Chaque nouvelle version reflète l'état réel du site au jour de sa génération." },
   { q: 'Et si je veux un état des lieux technique complet ?', a: "Un rapport technique détaillé existe en parallèle de ce dossier : structure du code, performances, sécurité, référencement, qualité des liens et des traductions. Il est mis à jour avec la même méthode." },
-  { q: "Combien coûte l'exploitation du site, chaque mois ?", a: "Deux abonnements seulement : l'hébergement du site et la base de données avec ses médias. Le site n'utilise aucune fonctionnalité payante de Vercel : les pages sont préparées à l'avance, les images sont allégées automatiquement et aucun traitement planifié n'est nécessaire. L'offre gratuite de Vercel suffit donc techniquement ; son règlement la réserve à un usage non commercial, point à confirmer pour une structure qui facture des formations. La base de données, elle, exige une offre payante : les sauvegardes quotidiennes automatiques et la marge d'espace sont indispensables à un catalogue de cette taille. Le détail est au chapitre 9." },
+  { q: "Combien coûte l'exploitation du site, chaque mois ?", a: "Deux abonnements seulement : l'hébergement du site et la base de données avec ses médias. Le site n'utilise aucune fonctionnalité payante de Vercel : les pages sont préparées à l'avance, les images sont allégées automatiquement et aucun traitement planifié n'est nécessaire. L'offre gratuite de Vercel suffit donc techniquement ; son règlement la réserve à un usage non commercial, point à confirmer pour une structure qui facture des formations. La base de données, elle, exige une offre payante : les sauvegardes quotidiennes automatiques et la marge d'espace sont indispensables à un catalogue de cette taille. Le détail est au chapitre 11." },
   { q: 'Le site tiendra-t-il si un reportage provoque un pic de visites ?', a: "Oui, et pour une raison simple : les pages du site sont générées à l'avance et servies depuis un cache réparti mondialement, elles ne sont pas recalculées à chaque visite. Un pic de lecture n'atteint donc pas la base de données, qui n'est sollicitée que par le Cockpit. Le suivi de fréquentation et les mesures de vitesse de chargement sont en place pour le vérifier sur des chiffres réels." },
 ];
 
@@ -784,11 +784,6 @@ const OLD_SITE_ROWS = [
 ];
 
 const oldSiteBlock = `
-    <h3>La nouvelle application face à l'ancien site</h3>
-    <p>
-      L'ancien site du campus était un WordPress hébergé sur un serveur classique. La nouvelle application en change
-      la nature — sans rien perdre de ce qui faisait sa valeur.
-    </p>
     <table>
       <thead><tr><th>Critère</th><th>Ancien site (WordPress)</th><th>Nouvelle application</th></tr></thead>
       <tbody>${OLD_SITE_ROWS.map(
@@ -1030,7 +1025,7 @@ const html = `<!DOCTYPE html>
     </div>
     <div class="strip" aria-hidden="true"><div class="strip-inner">${stripHtml}</div></div>
     <nav class="toc">
-      <a href="#vue">Vue d'ensemble</a><a href="#ecosysteme">Comment ça marche</a><a href="#carte">La carte du site</a>
+      <a href="#vue">Vue d'ensemble</a><a href="#comparaison">Ancien site</a><a href="#ecosysteme">Comment ça marche</a><a href="#carte">La carte du site</a>
       <a href="#site">Le site public</a><a href="#cockpit">Le Cockpit</a><a href="#quotidien">Au quotidien</a>
       <a href="#chiffres">Chiffres clés</a><a href="#contenus">Les contenus</a><a href="#cuc-sign">CUC Sign</a>
       <a href="#capot">Sous le capot</a><a href="#pratiques">Bonnes pratiques</a><a href="#glossaire">Glossaire</a><a href="#faq">FAQ</a>
@@ -1055,8 +1050,18 @@ const html = `<!DOCTYPE html>
     </div>
   </section>
 
+  <section id="comparaison">
+    <h2>2. Ce qui change par rapport à l'ancien site</h2>
+    <p class="lead">
+      L'ancien site du campus était un WordPress hébergé sur un serveur classique. La nouvelle application en change
+      la nature — sans rien perdre de ce qui faisait sa valeur. Ce comparatif ne décrit que ce qui tourne
+      réellement aujourd'hui.
+    </p>
+${oldSiteBlock}
+  </section>
+
   <section id="ecosysteme">
-    <h2>2. Comment ça marche, en un schéma</h2>
+    <h2>3. Comment ça marche, en un schéma</h2>
     <p>Le visiteur consulte le site ; votre équipe modifie le contenu depuis le Cockpit ; la base fait le pont — en temps réel.
     Les flux animés matérialisent les échanges : chaque pointillé qui défile est un transfert d'information réel.</p>
     <div class="flow reveal">${ecosystemSvg}</div>
@@ -1074,7 +1079,7 @@ const html = `<!DOCTYPE html>
   </section>
 
   <section id="carte">
-    <h2>3. La carte du site</h2>
+    <h2>4. La carte du site</h2>
     <p>Les 15 pages publiques, organisées comme vos visiteurs les découvrent — et sous elles, les films qui font la réputation du campus.</p>
     <div class="map-grid">${siteMapHtml}</div>
     <div class="callout">
@@ -1084,13 +1089,13 @@ const html = `<!DOCTYPE html>
   </section>
 
   <section id="site">
-    <h2>4. Le site public — page par page</h2>
+    <h2>5. Le site public — page par page</h2>
     <p>Dépliez chaque entrée pour voir son rôle exact. Toutes les pages existent en français et en anglais.</p>
     ${publicAccordions}
   </section>
 
   <section id="cockpit">
-    <h2>5. Le Cockpit d'administration — les 15 écrans</h2>
+    <h2>6. Le Cockpit d'administration — les 15 écrans</h2>
     <p>
       Accessible avec un compte nominatif, le Cockpit se pilote entièrement à la souris. Chaque écran se déplie ci-dessous.
     </p>
@@ -1102,7 +1107,7 @@ const html = `<!DOCTYPE html>
   </section>
 
   <section id="quotidien">
-    <h2>6. Au quotidien — comment je fais…</h2>
+    <h2>7. Au quotidien — comment je fais…</h2>
     <p>Les gestes les plus courants, en une ligne chacun :</p>
     <div class="feat-grid">${workflowHtml}</div>
 
@@ -1121,7 +1126,7 @@ const html = `<!DOCTYPE html>
   </section>
 
   <section id="chiffres">
-    <h2>7. L'application en un coup d'œil</h2>
+    <h2>8. L'application en un coup d'œil</h2>
     <div class="kpis">${figuresHtml}</div>
     <p class="meta" style="margin-top:14px">Chiffres relevés automatiquement depuis la base de données du projet, au moment de la génération de ce dossier.</p>
 
@@ -1135,7 +1140,7 @@ const html = `<!DOCTYPE html>
   </section>
 
   <section id="contenus">
-    <h2>8. Tout ce que contient votre application</h2>
+    <h2>9. Tout ce que contient votre application</h2>
     <p>Les volumes réels du site, relevés dans la base au moment de la génération de ce dossier.</p>
 
     <div class="two-col">
@@ -1152,24 +1157,23 @@ const html = `<!DOCTYPE html>
 
     <div class="callout">
       <strong>CUC Sign</strong> — la plateforme de gestion de l'école — fait l'objet du
-      <a href="#cuc-sign">chapitre 9 : CUC Sign</a>, dans les pages qui suivent.
+      <a href="#cuc-sign">chapitre 10 : CUC Sign</a>, dans les pages qui suivent.
     </div>
   </section>
 
   <section id="cuc-sign">
-    <h2>9. CUC Sign — la plateforme de gestion de l'école</h2>
+    <h2>10. CUC Sign — la plateforme de gestion de l'école</h2>
 ${cucSignContent}
   </section>
 
   <section id="capot">
-    <h2>10. Sous le capot — en toute transparence</h2>
+    <h2>11. Sous le capot — en toute transparence</h2>
     <p>
       Cette partie s'adresse aux curieux : ce que votre site « pèse », la vitesse à laquelle il répond,
       et les garanties qui l'entourent. Aucune connaissance technique n'est nécessaire pour la lire.
     </p>
 
 ${projectScaleBlock}
-${oldSiteBlock}
 
     ${pageWeightSummary
     ? `<h3>Poids et temps de réponse <span class="meta">(mesurés sur la version de production)</span></h3>
@@ -1198,19 +1202,19 @@ ${techTable}
   </section>
 
   <section id="pratiques">
-    <h2>11. Les bonnes pratiques de votre équipe</h2>
+    <h2>12. Les bonnes pratiques de votre équipe</h2>
     <p>Six réflexes simples qui gardent le site impeccable :</p>
     <div class="feat-grid">${practicesHtml}</div>
   </section>
 
   <section id="glossaire">
-    <h2>12. Glossaire — les mots du projet, en clair</h2>
+    <h2>13. Glossaire — les mots du projet, en clair</h2>
     <p>Huit termes que vous croiserez dans les échanges sur le projet, expliqués sans jargon.</p>
     ${glossaryAccordions}
   </section>
 
   <section id="faq">
-    <h2>13. Questions fréquentes</h2>
+    <h2>14. Questions fréquentes</h2>
     ${faqAccordions}
   </section>
 
@@ -1277,11 +1281,11 @@ fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, html, 'utf8');
 
 console.log('=== Dossier de présentation client généré (v5) ===');
-console.log(`Dossier application — 13 sections · accordéons : ${PUBLIC_PAGES.length + COCKPIT_APPS.length + GLOSSARY.length + FAQ.length + 1}`);
+console.log(`Dossier application — 14 sections · accordéons : ${PUBLIC_PAGES.length + COCKPIT_APPS.length + GLOSSARY.length + FAQ.length + 1}`);
 console.log(`Repères chiffrés : contenus(tablo ${contentRows.length}) · complétude(${q ? 3 : 0}) · résistance(${resilienceRows.length}) · pages(${pageWeights ? pageWeights.length : 0}) · échelle(${codeTotals ? 2 : 0}) · comparaison(${OLD_SITE_ROWS.length})`);
 console.log(`Sessions live : ${live.sessions.length} lignes datées`);
 console.log(`Qualité : ${q ? `${nf(q.films.with_image)}/${nf(q.films.total)} affiches · ${nf(q.filmsEn)} films EN · ${nf(q.team.with_imdb)} IMDb` : 'indisponible'}`);
 console.log(`Schémas : écosystème (flux animés) · carte du site(${SITE_MAP.length} thèmes) · anatomie de page · cycle de demande (carte voyageuse)`);
-console.log('Chapitre 9 « CUC Sign » — signalements smartphone (matériel, rangement, blessure) inclus');
+console.log('Chapitre 10 « CUC Sign » — signalements smartphone (matériel, rangement, blessure) inclus');
 console.log('Sortie :');
 console.log('  - reports/cuc-dossier-application.html');

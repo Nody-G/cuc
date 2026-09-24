@@ -203,7 +203,7 @@
     </div>
     <div class="strip" aria-hidden="true"><div class="strip-inner"><span>570 films au catalogue</span><span class="sep">◆</span><span>12 coachs & direction</span><span class="sep">◆</span><span>15 pages · FR / EN</span><span class="sep">◆</span><span>579 traductions éditoriales</span><span class="sep">◆</span><span>24 tables synchronisées en temps réel</span><span class="sep">◆</span><span>185 images & documents hébergés</span><span class="sep">◆</span><span>18 sessions de formation</span><span class="sep">◆</span><span>570 films au catalogue</span><span class="sep">◆</span><span>12 coachs & direction</span><span class="sep">◆</span><span>15 pages · FR / EN</span><span class="sep">◆</span><span>579 traductions éditoriales</span><span class="sep">◆</span><span>24 tables synchronisées en temps réel</span><span class="sep">◆</span><span>185 images & documents hébergés</span><span class="sep">◆</span><span>18 sessions de formation</span><span class="sep">◆</span></div></div>
     <nav class="toc">
-      <a href="#vue">Vue d'ensemble</a><a href="#ecosysteme">Comment ça marche</a><a href="#carte">La carte du site</a>
+      <a href="#vue">Vue d'ensemble</a><a href="#comparaison">Ancien site</a><a href="#ecosysteme">Comment ça marche</a><a href="#carte">La carte du site</a>
       <a href="#site">Le site public</a><a href="#cockpit">Le Cockpit</a><a href="#quotidien">Au quotidien</a>
       <a href="#chiffres">Chiffres clés</a><a href="#contenus">Les contenus</a><a href="#cuc-sign">CUC Sign</a>
       <a href="#capot">Sous le capot</a><a href="#pratiques">Bonnes pratiques</a><a href="#glossaire">Glossaire</a><a href="#faq">FAQ</a>
@@ -228,8 +228,26 @@
     </div>
   </section>
 
+  <section id="comparaison">
+    <h2>2. Ce qui change par rapport à l'ancien site</h2>
+    <p class="lead">
+      L'ancien site du campus était un WordPress hébergé sur un serveur classique. La nouvelle application en change
+      la nature — sans rien perdre de ce qui faisait sa valeur. Ce comparatif ne décrit que ce qui tourne
+      réellement aujourd'hui.
+    </p>
+
+    <table>
+      <thead><tr><th>Critère</th><th>Ancien site (WordPress)</th><th>Nouvelle application</th></tr></thead>
+      <tbody><tr><td><strong>Diffusion des pages</strong></td><td>Serveur unique ; chaque visite repasse par WordPress.</td><td>Pages préparées à l’avance et servies depuis un cache réparti dans le monde.</td></tr><tr><td><strong>Mise à jour du contenu</strong></td><td>Éditeur WordPress et extensions tierces.</td><td>Cockpit dédié : édition sans code, aperçu avant publication, historique de versions.</td></tr><tr><td><strong>Images & documents</strong></td><td>Hébergés sur l’ancien site (wp-content).</td><td>Rapatriés dans la base du projet et convertis automatiquement en formats légers.</td></tr><tr><td><strong>Sécurité</strong></td><td>Des dizaines d’extensions tierces à tenir à jour.</td><td>Aucune extension exposée ; accès nominatif par rôle et règles par ligne en base (19 espaces protégés).</td></tr><tr><td><strong>Adresses & référencement</strong></td><td>Adresses WordPress historiques.</td><td>Adresses clés conservées (19 redirections), titre et description par page, données structurées, plan du site automatique.</td></tr><tr><td><strong>Langues</strong></td><td>Contenu en français.</td><td>Les 15 pages existent en français et en anglais, textes rédigés — jamais traduits automatiquement.</td></tr><tr><td><strong>Propriété des données</strong></td><td>Tables WordPress et extensions.</td><td>PostgreSQL standard, export complet du contenu depuis le Cockpit.</td></tr></tbody>
+    </table>
+    <div class="callout">
+      <strong>Rien n'est perdu au passage :</strong> les adresses historiques continuent de mener vers la bonne page,
+      pour ne pas abandonner le référencement déjà acquis sur Google.
+    </div>
+  </section>
+
   <section id="ecosysteme">
-    <h2>2. Comment ça marche, en un schéma</h2>
+    <h2>3. Comment ça marche, en un schéma</h2>
     <p>Le visiteur consulte le site ; votre équipe modifie le contenu depuis le Cockpit ; la base fait le pont — en temps réel.
     Les flux animés matérialisent les échanges : chaque pointillé qui défile est un transfert d'information réel.</p>
     <div class="flow reveal">
@@ -288,7 +306,7 @@
   </section>
 
   <section id="carte">
-    <h2>3. La carte du site</h2>
+    <h2>4. La carte du site</h2>
     <p>Les 15 pages publiques, organisées comme vos visiteurs les découvrent — et sous elles, les films qui font la réputation du campus.</p>
     <div class="map-grid">
   <article class="map-card reveal">
@@ -323,7 +341,7 @@
   </section>
 
   <section id="site">
-    <h2>4. Le site public — page par page</h2>
+    <h2>5. Le site public — page par page</h2>
     <p>Dépliez chaque entrée pour voir son rôle exact. Toutes les pages existent en français et en anglais.</p>
     
   <details class="acc reveal">
@@ -425,7 +443,7 @@
   </section>
 
   <section id="cockpit">
-    <h2>5. Le Cockpit d'administration — les 15 écrans</h2>
+    <h2>6. Le Cockpit d'administration — les 15 écrans</h2>
     <p>
       Accessible avec un compte nominatif, le Cockpit se pilote entièrement à la souris. Chaque écran se déplie ci-dessous.
     </p>
@@ -551,7 +569,7 @@
   </section>
 
   <section id="quotidien">
-    <h2>6. Au quotidien — comment je fais…</h2>
+    <h2>7. Au quotidien — comment je fais…</h2>
     <p>Les gestes les plus courants, en une ligne chacun :</p>
     <div class="feat-grid">
   <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L20 8l-4-4L4 16v4z"/><path d="M14 6l4 4"/></svg></span><h3>Modifier un texte du site</h3><p>Cockpit → Pages & héros → choisir la page → modifier → Aperçu → Enregistrer.</p></article>
@@ -658,7 +676,7 @@
   </section>
 
   <section id="chiffres">
-    <h2>7. L'application en un coup d'œil</h2>
+    <h2>8. L'application en un coup d'œil</h2>
     <div class="kpis"><div class="kpi reveal"><div class="n"><span data-count="15">15</span></div><div class="l">pages publiques</div><div class="s">chacune en français et en anglais</div></div><div class="kpi reveal"><div class="n"><span data-count="570">570</span></div><div class="l">films au catalogue</div><div class="s">affiches et fiches détaillées</div></div><div class="kpi reveal"><div class="n"><span data-count="12">12</span></div><div class="l">coachs</div><div class="s">filmographies vérifiées</div></div><div class="kpi reveal"><div class="n"><span data-count="579">579</span></div><div class="l">traductions</div><div class="s">contenus bilingues en base</div></div><div class="kpi reveal"><div class="n"><span data-count="18">18</span></div><div class="l">sessions de formation</div><div class="s">dates et statuts en direct</div></div><div class="kpi reveal"><div class="n"><span data-count="10">10</span></div><div class="l">disciplines enseignées</div><div class="s">référentiel complet</div></div><div class="kpi reveal"><div class="n"><span data-count="21">21</span></div><div class="l">partenaires</div><div class="s">marques & institutions</div></div><div class="kpi reveal"><div class="n"><span data-count="185">185</span></div><div class="l">images & documents</div><div class="s">centralisés et optimisés</div></div></div>
     <p class="meta" style="margin-top:14px">Chiffres relevés automatiquement depuis la base de données du projet, au moment de la génération de ce dossier.</p>
 
@@ -669,7 +687,7 @@
   </section>
 
   <section id="contenus">
-    <h2>8. Tout ce que contient votre application</h2>
+    <h2>9. Tout ce que contient votre application</h2>
     <p>Les volumes réels du site, relevés dans la base au moment de la génération de ce dossier.</p>
 
     <div class="two-col">
@@ -694,12 +712,12 @@
 
     <div class="callout">
       <strong>CUC Sign</strong> — la plateforme de gestion de l'école — fait l'objet du
-      <a href="#cuc-sign">chapitre 9 : CUC Sign</a>, dans les pages qui suivent.
+      <a href="#cuc-sign">chapitre 10 : CUC Sign</a>, dans les pages qui suivent.
     </div>
   </section>
 
   <section id="cuc-sign">
-    <h2>9. CUC Sign — la plateforme de gestion de l'école</h2>
+    <h2>10. CUC Sign — la plateforme de gestion de l'école</h2>
 
     <p class="lead">
       CUC Sign n'est pas un outil réservé aux élèves : c'est la <strong>plateforme de gestion de l'école</strong>,
@@ -838,7 +856,7 @@
   </section>
 
   <section id="capot">
-    <h2>10. Sous le capot — en toute transparence</h2>
+    <h2>11. Sous le capot — en toute transparence</h2>
     <p>
       Cette partie s'adresse aux curieux : ce que votre site « pèse », la vitesse à laquelle il répond,
       et les garanties qui l'entourent. Aucune connaissance technique n'est nécessaire pour la lire.
@@ -856,20 +874,6 @@
       Ces chiffres comptent le code réellement écrit pour votre application — pages, Cockpit, composants,
       outillage et documentation. Ils sont mesurés, jamais estimés, et recalculés à chaque génération.
     </p>
-
-    <h3>La nouvelle application face à l'ancien site</h3>
-    <p>
-      L'ancien site du campus était un WordPress hébergé sur un serveur classique. La nouvelle application en change
-      la nature — sans rien perdre de ce qui faisait sa valeur.
-    </p>
-    <table>
-      <thead><tr><th>Critère</th><th>Ancien site (WordPress)</th><th>Nouvelle application</th></tr></thead>
-      <tbody><tr><td><strong>Diffusion des pages</strong></td><td>Serveur unique ; chaque visite repasse par WordPress.</td><td>Pages préparées à l’avance et servies depuis un cache réparti dans le monde.</td></tr><tr><td><strong>Mise à jour du contenu</strong></td><td>Éditeur WordPress et extensions tierces.</td><td>Cockpit dédié : édition sans code, aperçu avant publication, historique de versions.</td></tr><tr><td><strong>Images & documents</strong></td><td>Hébergés sur l’ancien site (wp-content).</td><td>Rapatriés dans la base du projet et convertis automatiquement en formats légers.</td></tr><tr><td><strong>Sécurité</strong></td><td>Des dizaines d’extensions tierces à tenir à jour.</td><td>Aucune extension exposée ; accès nominatif par rôle et règles par ligne en base (19 espaces protégés).</td></tr><tr><td><strong>Adresses & référencement</strong></td><td>Adresses WordPress historiques.</td><td>Adresses clés conservées (19 redirections), titre et description par page, données structurées, plan du site automatique.</td></tr><tr><td><strong>Langues</strong></td><td>Contenu en français.</td><td>Les 15 pages existent en français et en anglais, textes rédigés — jamais traduits automatiquement.</td></tr><tr><td><strong>Propriété des données</strong></td><td>Tables WordPress et extensions.</td><td>PostgreSQL standard, export complet du contenu depuis le Cockpit.</td></tr></tbody>
-    </table>
-    <div class="callout">
-      <strong>Rien n'est perdu au passage :</strong> les adresses historiques continuent de mener vers la bonne page,
-      pour ne pas abandonner le référencement déjà acquis sur Google.
-    </div>
 
     <h3>Poids et temps de réponse <span class="meta">(mesurés sur la version de production)</span></h3>
     <div class="kpis"><div class="kpi reveal"><div class="n">597 Ko</div><div class="l">page la plus lourde</div><div class="s">/equipe-cascadeurs-pro · 26 ms</div></div><div class="kpi reveal"><div class="n">15 ms</div><div class="l">temps de réponse médian</div><div class="s">sur 15 pages mesurées</div></div><div class="kpi reveal"><div class="n">140 Ko</div><div class="l">page la plus légère</div><div class="s">/admin · 646 ms</div></div></div>
@@ -946,7 +950,7 @@
   </section>
 
   <section id="pratiques">
-    <h2>11. Les bonnes pratiques de votre équipe</h2>
+    <h2>12. Les bonnes pratiques de votre équipe</h2>
     <p>Six réflexes simples qui gardent le site impeccable :</p>
     <div class="feat-grid">
   <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg></span><h3>Relisez l’aperçu avant d’enregistrer</h3><p>Le Cockpit affiche un aperçu fidèle de la page : dix secondes de relecture évitent 90 % des coquilles.</p></article>
@@ -958,7 +962,7 @@
   </section>
 
   <section id="glossaire">
-    <h2>12. Glossaire — les mots du projet, en clair</h2>
+    <h2>13. Glossaire — les mots du projet, en clair</h2>
     <p>Huit termes que vous croiserez dans les échanges sur le projet, expliqués sans jargon.</p>
     
   <details class="acc reveal">
@@ -1012,7 +1016,7 @@
   </section>
 
   <section id="faq">
-    <h2>13. Questions fréquentes</h2>
+    <h2>14. Questions fréquentes</h2>
     
   <details class="acc reveal">
     <summary><span>Le site est-il vraiment disponible en anglais ?</span>
@@ -1078,7 +1082,7 @@
     <summary><span>Combien coûte l'exploitation du site, chaque mois ?</span>
       <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     </summary>
-    <div class="acc-body">Deux abonnements seulement : l'hébergement du site et la base de données avec ses médias. Le site n'utilise aucune fonctionnalité payante de Vercel : les pages sont préparées à l'avance, les images sont allégées automatiquement et aucun traitement planifié n'est nécessaire. L'offre gratuite de Vercel suffit donc techniquement ; son règlement la réserve à un usage non commercial, point à confirmer pour une structure qui facture des formations. La base de données, elle, exige une offre payante : les sauvegardes quotidiennes automatiques et la marge d'espace sont indispensables à un catalogue de cette taille. Le détail est au chapitre 9.</div>
+    <div class="acc-body">Deux abonnements seulement : l'hébergement du site et la base de données avec ses médias. Le site n'utilise aucune fonctionnalité payante de Vercel : les pages sont préparées à l'avance, les images sont allégées automatiquement et aucun traitement planifié n'est nécessaire. L'offre gratuite de Vercel suffit donc techniquement ; son règlement la réserve à un usage non commercial, point à confirmer pour une structure qui facture des formations. La base de données, elle, exige une offre payante : les sauvegardes quotidiennes automatiques et la marge d'espace sont indispensables à un catalogue de cette taille. Le détail est au chapitre 11.</div>
   </details>
   <details class="acc reveal">
     <summary><span>Le site tiendra-t-il si un reportage provoque un pic de visites ?</span>
@@ -1089,7 +1093,7 @@
   </section>
 
   <footer>
-    Dossier de présentation généré le 24/09/2026 16:14:45 pour le Campus Univers Cascades.
+    Dossier de présentation généré le 24/09/2026 16:18:12 pour le Campus Univers Cascades.
     Document autonome (aucun accès internet requis) · régénérable à tout moment via <code>npm run report:dossier</code>.
     <span class="pill">FR / EN</span><span class="pill">sans connexion</span><span class="pill">imprimable</span>
   </footer>

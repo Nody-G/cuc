@@ -4,7 +4,6 @@ import React from 'react';
 
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { CucFilmsShowcase } from '@/components/sections/films/CucFilmsShowcase';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
 import { useEquipeCascadeursData } from './sections/useEquipeCascadeursData';
 import { EquipeHeroSection } from './sections/EquipeHeroSection';
@@ -48,8 +47,8 @@ export default function EquipeCascadeursProPage() {
               ))}
             </div>
 
-            {/* FILMOGRAPHIE & TOURNAGES DE L'ÉQUIPE — composant partagé avec la page TOURNAGE */}
-            <CucFilmsShowcase className="mt-20" />
+            {/* La liste des films et le bloc « LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC »
+                ne sont PAS répétés ici : ils vivent sur la page TOURNAGE (CUC Stunt Team). */}
 
             {/* Bottom Callout */}
             <EquipeCallout />
