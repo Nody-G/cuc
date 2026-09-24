@@ -1,58 +1,43 @@
 'use client';
-import { Link } from '@/i18n/navigation';
 
 import React from 'react';
-import Image from 'next/image';
 
+import { Clapperboard, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { FilmCredit, Instructor } from '@/types';
-import { CUC_TEAM } from '@/data/team';
-import { getTeam } from '@/lib/data/site-service';
-import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
-import { normalizeRole } from '@/lib/credit-role';
-import { renderRoleSet } from '@/lib/i18n/role-labels';
-import { ImdbLogo, AllocineLogo, YouTubeLogo } from '@/components/ui/BrandLogos';
+import { cucEntity } from '@/lib/preview/cuc-entity';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import { entityRef } from '@/lib/preview/entity-ref';
-import { cucEntity } from '@/lib/preview/cuc-entity';
-import { resolveEntityOverride, usePreviewEntities } from '@/lib/preview/use-preview-entity';
-import { X, Clapperboard, ExternalLink, ChevronRight, Film } from 'lucide-react';
+import { resolveEntityOverride } from '@/lib/preview/use-preview-entity';
+import type { FilmCredit } from '@/types';
+import { FilmDoublesList } from './film-details/FilmDoublesList';
+import { FilmExternalLinks } from './film-details/FilmExternalLinks';
+import { FilmDescription, FilmIdentityBlock } from './film-details/FilmIdentityBlock';
+import { FilmPoster } from './film-details/FilmPoster';
+import { FilmTeamList } from './film-details/FilmTeamList';
+import { useFilmDetailsTeam } from './film-details/useFilmDetailsTeam';
 
 interface FilmDetailsModalProps {
   movie: FilmCredit | null;
   onClose: () => void;
 }
 
-export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
-  movie,
-  onClose,
-}) => {
+/**
+ * Descriptif d'un film — **façade de composition**.
+ *
+ * Logique et blocs vivent dans `film-details/` : rapprochement film ↔ équipe et
+ * overlays (`useFilmDetailsTeam`), résolution du rôle (`role-resolution.ts`) et
+ * présentation (`FilmPoster`, `FilmIdentityBlock`, `FilmDoublesList`,
+ * `FilmTeamList`, `FilmExternalLinks`).
+ */
+export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({ movie, onClose }) => {
   const t = useTranslations('teamProduction');
-  /** Namespace `team` : libellés de rôle déjà traduits (FR/EN). */
-  const tTeam = useTranslations('team');
-  const [teamMembers, setTeamMembers] = React.useState<Instructor[]>(CUC_TEAM);
-  /** Édition en place de la fiche film (`site_films`) — titré et année. */
-  const entityOverrides = usePreviewEntities();
-
-  const loadTeam = React.useCallback(() => {
-    getTeam().then(setTeamMembers);
-  }, []);
-
-  React.useEffect(() => {
-    loadTeam();
-  }, [loadTeam]);
-
-  // Synchronisation Realtime Cockpit → Vitrine (coachs référencés par le film).
-  useRealtimeRefresh(['site_team'], loadTeam);
+  const { involvedTeamMembers, entityOverrides } = useFilmDetailsTeam(movie);
 
   if (!movie) return null;
 
   const filmAttr = (field: 'title' | 'year') => cucEntity('site_films', movie.id, field);
   const filmValue = (field: 'title' | 'year', base: string) =>
     resolveEntityOverride(entityOverrides, entityRef('site_films', movie.id, field)) ?? base;
-
-  const involvedIds = movie.cuc_team_involved || [];
-  const involvedTeamMembers = teamMembers.filter((m) => involvedIds.includes(m.id));
 
   return (
     <div
@@ -68,7 +53,9 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
           <div className="flex items-center gap-2">
             <Clapperboard className="w-4 h-4 text-[#FFE500]" />
             <span className="text-xs font-mono-tech text-zinc-300 font-bold uppercase tracking-wider">
-              <span {...cucMicro('teamProduction.filmModal.title')}>{t('filmModal.title')}</span>
+              <span {...cucMicro('teamProduction.filmModal.title')}>
+                {t('filmModal.title')}
+              </span>
             </span>
           </div>
           <button
@@ -83,200 +70,22 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
         {/* Content */}
         <div className="p-6 overflow-y-auto space-y-5">
           <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-start">
-            {/* Poster */}
-            <div className="sm:col-span-5 relative h-64 sm:h-72 w-full border border-zinc-800 bg-zinc-900 overflow-hidden">
-              {movie.image ? (
-                <Image
-                  src={movie.image}
-                  alt={movie.title}
-                  fill
-                  sizes="(max-width: 640px) 100vw, 250px"
-                  className="object-cover object-center"
-                />
-              ) : (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-zinc-900 to-black">
-                  <Film className="w-10 h-10 text-zinc-700" />
-                  <span className="text-[10px] font-mono-tech uppercase tracking-wider text-zinc-600 px-4 text-center">
-                    {movie.title}
-                  </span>
-                </div>
-              )}
-              <div className="absolute top-2 right-2">
-                <span
-                  className="bg-[#FFE500] text-black text-[10px] font-mono-tech font-bold px-2 py-0.5"
-                  {...filmAttr('year')}
-                >
-                  {filmValue('year', movie.year ?? '')}
-                </span>
-              </div>
-            </div>
+            <FilmPoster movie={movie} filmAttr={filmAttr} filmValue={filmValue} />
 
-            {/* Details */}
             <div className="sm:col-span-7 space-y-4">
-              <div>
-                <div className="text-[11px] font-mono-tech text-zinc-500 uppercase">
-                  {movie.year}
-                </div>
-                {/* Réalisateur — ligne dédiée, visible à l'ouverture du descriptif */}
-                {movie.director ? (
-                  <div className="text-[11px] font-mono-tech text-zinc-400 mt-0.5">
-                    {t('filmModal.directedBy', { name: movie.director })}
-                  </div>
-                ) : null}
-                <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white mt-0.5">
-                  <span {...filmAttr('title')}>{filmValue('title', movie.title)}</span>
-                </h3>
-              </div>
+              <FilmIdentityBlock movie={movie} filmAttr={filmAttr} filmValue={filmValue} />
 
-              {/* Description factuelle de la fiche film */}
-              {movie.description && (
-                <p className="text-xs text-zinc-300 font-tech leading-relaxed">
-                  {movie.description}
-                </p>
-              )}
+              <FilmDescription movie={movie} />
 
-              {/* Doublures */}
-              {movie.doubledActors && movie.doubledActors.length > 0 && (
-                <div className="space-y-1">
-                  <span className="text-[11px] font-mono-tech text-zinc-500 uppercase font-bold block">
-                    <span {...cucMicro('teamProduction.filmModal.doublesLabel')}>
-                      {t('filmModal.doublesLabel')}
-                    </span>
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {movie.doubledActors.map((actor, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2 py-0.5 bg-[#141419] border border-zinc-800 text-xs font-mono-tech text-zinc-300"
-                      >
-                        {actor}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
+              <FilmDoublesList movie={movie} />
 
-              {/* Équipe CUC */}
-              {involvedTeamMembers.length > 0 && (
-                <div className="space-y-1.5">
-                  <span className="text-[11px] font-mono-tech text-zinc-500 uppercase font-bold block">
-                    <span {...cucMicro('teamProduction.filmModal.teamLabel')}>
-                      {t('filmModal.teamLabel')}
-                    </span>
-                  </span>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {involvedTeamMembers.map((member) => (
-                      <Link
-                        key={member.id}
-                        href={`/equipe-cascadeurs-pro/${member.id}`}
-                        onClick={onClose}
-                        className="flex items-center gap-2.5 p-1.5 bg-[#141419] border border-zinc-800 hover:border-zinc-600 transition-colors"
-                      >
-                        <div className="relative w-7 h-7 rounded-full overflow-hidden bg-zinc-800 shrink-0">
-                          {member.avatarUrl ? (
-                            <Image
-                              src={member.avatarUrl}
-                              alt={member.name}
-                              fill
-                              sizes="28px"
-                              className="object-cover"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-zinc-400">
-                              {member.name.charAt(0)}
-                            </div>
-                          )}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="text-xs font-mono-tech text-white truncate font-bold">
-                            {member.name}
-                          </div>
-                          {(() => {
-                            const rawRole =
-                              movie.cuc_team_roles?.[member.id] ||
-                              member.metadata?.film_roles?.[movie.id] ||
-                              (() => {
-                                const matchingCredit = member.notableCredits?.find((c) =>
-                                  c.toLowerCase().includes(movie.title.toLowerCase())
-                                );
-                                if (matchingCredit && matchingCredit.includes(' — ')) {
-                                  return matchingCredit.split(' — ')[1].trim();
-                                }
-                                return member.role;
-                              })();
+              <FilmTeamList
+                movie={movie}
+                members={involvedTeamMembers}
+                onNavigate={onClose}
+              />
 
-                            // Rôle ramené à un libellé canonique, puis **traduit** :
-                            // un libellé français (« Cascadeur », « Doublure de X »)
-                            // s'affichait tel quel sur les pages anglaises.
-                            const normalized = normalizeRole(rawRole);
-                            const isCoord = normalized.roles.includes('Coordinateur des cascades');
-                            const roleLabelText = renderRoleSet(
-                              {
-                                roles: normalized.roles,
-                                doubledActors: normalized.doubledActors,
-                              },
-                              tTeam
-                            );
-
-                            return (
-                              <div
-                                className={`text-[10px] font-mono-tech truncate ${isCoord ? 'text-[#FFE500] font-semibold' : 'text-zinc-400'
-                                  }`}
-                                title={normalized.detail || roleLabelText}
-                              >
-                                {roleLabelText}
-                              </div>
-                            );
-                          })()}
-                        </div>
-                        <ChevronRight className="w-3.5 h-3.5 text-zinc-600 shrink-0" />
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Liens externes */}
-              <div className="pt-2 flex flex-wrap gap-2">
-                {movie.imdbUrl && (
-                  <a
-                    href={movie.imdbUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#f5c518] hover:bg-[#ffe500] text-black font-bold font-mono-tech text-xs transition-colors"
-                  >
-                    <ImdbLogo className="h-3.5 w-auto" />
-                    <span>IMDb</span>
-                    <ExternalLink className="w-3 h-3 ml-0.5" />
-                  </a>
-                )}
-                {movie.allocineUrl && (
-                  <a
-                    href={movie.allocineUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#141419] hover:bg-zinc-800 text-[#fecc00] border border-zinc-700 font-mono-tech text-xs transition-colors"
-                  >
-                    <AllocineLogo className="h-3.5 w-auto" />
-                    <span>AlloCiné</span>
-                    <ExternalLink className="w-3 h-3 ml-0.5" />
-                  </a>
-                )}
-                {movie.trailerUrl && (
-                  <a
-                    href={movie.trailerUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#141419] hover:bg-zinc-800 text-red-400 border border-zinc-700 font-mono-tech text-xs transition-colors"
-                  >
-                    <YouTubeLogo className="w-3.5 h-3.5" variant="color" />
-                    <span {...cucMicro('teamProduction.filmModal.trailer')}>
-                      {t('filmModal.trailer')}
-                    </span>
-                    <ExternalLink className="w-3 h-3 ml-0.5" />
-                  </a>
-                )}
-              </div>
+              <FilmExternalLinks movie={movie} />
             </div>
           </div>
         </div>
@@ -287,10 +96,12 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
             onClick={onClose}
             className="text-zinc-400 hover:text-white uppercase font-bold cursor-pointer transition-colors"
           >
-            <span {...cucMicro('teamProduction.filmModal.close')}>{t('filmModal.close')}</span>
+            <span {...cucMicro('teamProduction.filmModal.close')}>
+              {t('filmModal.close')}
+            </span>
           </button>
         </div>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 };
