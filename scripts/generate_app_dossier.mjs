@@ -220,26 +220,9 @@ const kpiHtml = (value, label, sub = '') => {
   return `<div class="kpi reveal"><div class="n">${inner}</div><div class="l">${esc(label)}</div>${sub ? `<div class="s">${esc(sub)}</div>` : ''}</div>`;
 };
 
-/** Barres horizontales (SVG maison) — les barres poussent à l'entrée dans l'écran. */
-function barChart(rows, { color = '#FFE500' } = {}) {
-  if (!rows.length) return '<p class="meta">Données indisponibles pour le moment.</p>';
-  const width = 760;
-  const barH = 24;
-  const gap = 10;
-  const max = Math.max(1, ...rows.map((r) => r.value));
-  const labelW = 265;
-  const height = rows.length * (barH + gap) + gap;
-  const bars = rows
-    .map((r, i) => {
-      const w = Math.max(3, ((width - labelW - 110) * r.value) / max);
-      const y = gap + i * (barH + gap);
-      return `<text x="0" y="${y + barH * 0.72}" class="chart-label">${esc(r.label)}</text>
-        <rect class="bar-grow" x="${labelW}" y="${y}" width="${w}" height="${barH}" rx="4" fill="${r.color || color}" opacity="0.92"/>
-        <text x="${labelW + w + 9}" y="${y + barH * 0.72}" class="chart-value">${esc(r.display ?? nf(r.value))}</text>`;
-    })
-    .join('');
-  return `<svg viewBox="0 0 ${width} ${height}" class="chart" role="img">${bars}</svg>`;
-}
+/* Le diagramme à barres maison (`barChart`) a été retiré le 2026-09-24 :
+   il décorait plus qu'il n'informait. Les volumes se lisent dans un tableau,
+   et le seul graphique conservé est le camembert de complétude des fiches. */
 
 /** Camembert + légende. */
 function donut(entries, { size = 224, unit = 'lignes' } = {}) {
@@ -543,6 +526,109 @@ const completenessDonut = q
   )
   : '<p class="meta">Données indisponibles.</p>';
 
+/* ------------------------------------------------------------------ */
+/* Repères sobres — les graphiques à barres ont été retirés le         */
+/* 2026-09-24 : ils décoraient plus qu'ils n'informaient. Un tableau   */
+/* et quelques chiffres choisis disent la même chose, en mieux.        */
+/* ------------------------------------------------------------------ */
+
+/** Volumes publiés, en tableau : lisible, imprimable, sans décoration. */
+const contentTable = contentRows.length
+  ? `<table>
+      <thead><tr><th>Contenu</th><th>Publié</th></tr></thead>
+      <tbody>${contentRows
+    .slice(0, 12)
+    .map((r) => `<tr><td>${esc(r.label)}</td><td><strong>${nf(r.value)}</strong></td></tr>`)
+    .join('')}</tbody>
+    </table>`
+  : '<p class="meta">Données indisponibles pour le moment.</p>';
+
+const sumValues = (rows) => rows.reduce((a, r) => a + (Number(r.value) || 0), 0);
+
+/** Six repères du catalogue, choisis pour ce qu'ils racontent vraiment. */
+const catalogTraits = [
+  coachRows.length
+    ? kpiHtml(coachRows[0].label, 'coach le plus présent au catalogue', `${nf(coachRows[0].value)} films publiés`)
+    : '',
+  decadeRows.length
+    ? kpiHtml(
+      decadeRows.length,
+      'décennies couvertes par les films',
+      `de ${decadeRows[0].label} à ${decadeRows[decadeRows.length - 1].label}`
+    )
+    : '',
+  filmsByCategory.length
+    ? kpiHtml(filmsByCategory[0].label, 'catégorie la plus fournie', `${nf(filmsByCategory[0].value)} films publiés`)
+    : '',
+  translationsByEntity.length
+    ? kpiHtml(sumValues(translationsByEntity), 'traductions éditoriales en base', 'film, équipe, événements, disciplines, campus')
+    : '',
+  partnersRows.length ? kpiHtml(sumValues(partnersRows), 'partenaires affichés', 'équipementiers, marques, institutions') : '',
+  sessionsByStatus.length ? kpiHtml(sumValues(sessionsByStatus), 'sessions publiées', 'datées et suivies par statut') : '',
+].filter(Boolean);
+
+const catalogTraitsHtml = catalogTraits.join('');
+
+/** Poids des pages : trois chiffres suffisent, la liste complète n'apprend rien de plus. */
+const pageWeightSummary = (() => {
+  const served = (pageWeights ?? []).filter((p) => p.status === 200).sort((a, b) => b.bytes - a.bytes);
+  if (!served.length) return '';
+  const heaviest = served[0];
+  const lightest = served[served.length - 1];
+  const medianMs = [...served].map((p) => p.ms).sort((a, b) => a - b)[Math.floor(served.length / 2)];
+  return [
+    kpiHtml(kb(heaviest.bytes), 'page la plus lourde', `${heaviest.route} · ${heaviest.ms} ms`),
+    kpiHtml(`${medianMs} ms`, 'temps de réponse médian', `sur ${nf(served.length)} pages mesurées`),
+    kpiHtml(kb(lightest.bytes), 'page la plus légère', `${lightest.route} · ${lightest.ms} ms`),
+  ].join('');
+})();
+
+/**
+ * Ce que CUC Sign apporte au campus — rédigé à partir de son dépôt
+ * (`Nody-G/cuc-sign`) : émargement Qualiopi, kiosque hors ligne, rotations et
+ * casting assistant, sécurité des élèves, fiche de casting.
+ */
+const cucSignCards = [
+  {
+    iconName: 'shield',
+    title: 'Émargement conforme Qualiopi',
+    desc: "Feuilles de présence numériques horodatées et conservées : c'est la preuve que demandent les financeurs et les audits.",
+    tags: ['Conformité'],
+  },
+  {
+    iconName: 'refresh',
+    title: 'Tablette à l’entrée, même sans réseau',
+    desc: "Mode borne : l'élève signe en quelques secondes par QR code, et le pointage continue de fonctionner si le réseau tombe au gymnase.",
+    tags: ['Zéro friction'],
+  },
+  {
+    iconName: 'users',
+    title: 'Rotations et délibérations à l’écran',
+    desc: "Groupes de niveaux, coachs volants, notation par les coachs, table de délibération : les groupes se composent à l'écran, puis le planning se publie aux élèves.",
+    tags: ['Pédagogie'],
+  },
+  {
+    iconName: 'star',
+    title: 'Compétences validées, fiche de casting prête',
+    desc: "Chaque compétence validée et chaque test physique alimentent une fiche composite PDF — mensurations, skills, profil — directement envoyable aux productions.",
+    tags: ['Employabilité'],
+  },
+  {
+    iconName: 'database',
+    title: 'La sécurité des élèves, tracée',
+    desc: 'Fiche médicale d’urgence à accès restreint, suivi des blessures, signalement du matériel défectueux : ce qui se perdait dans un carnet se retrouve en un écran.',
+    tags: ['Santé & sécurité'],
+  },
+  {
+    iconName: 'globe',
+    title: 'Pensé aussi pour l’international',
+    desc: 'Les stagiaires étrangers s’émargent et consultent leur progression dans leur langue ; le lexique technique est bilingue.',
+    tags: ['FR / EN'],
+  },
+]
+  .map(featCard)
+  .join('');
+
 /* ================================================================== */
 /* Schémas SVG                                                         */
 /* ================================================================== */
@@ -625,6 +711,45 @@ const requestCycleSvg = `
   <g class="flowmsg" style="offset-path: path('M120 62 H 820')">
     <rect x="-17" y="-13" width="34" height="26" rx="7" fill="#FFE500"/>
     <path d="M-11 -5 L0 3 L11 -5" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>`;
+
+/**
+ * Parcours d'un élève — le schéma qui relie les trois étages du projet :
+ * le site (candidature), le Cockpit (admission) puis CUC Sign (vie de l'élève),
+ * jusqu'à l'émargement Qualiopi et à la fiche composite envoyée aux castings.
+ *
+ * Animation 100 % native (CSS `offset-path` et SVG), sans aucune dépendance :
+ * le chemin se dessine, un jeton le parcourt et chaque étape s'allume à son
+ * passage. `at` = seconde d'arrivée du jeton sur l'étape, dans une boucle de 16 s.
+ */
+const JOURNEY_PATH = 'M120 70 H820 V170 H120 V270 H820';
+const JOURNEY_STEPS = [
+  { x: 120, y: 70, n: '1', t: 'Il postule en ligne', s: 'site public · deux minutes', at: 0 },
+  { x: 470, y: 70, n: '2', t: 'La demande arrive au Cockpit', s: 'statut, notes, réponse', at: 2.4 },
+  { x: 820, y: 70, n: '3', t: 'Admission validée', s: 'convention, convocation', at: 4.9 },
+  { x: 820, y: 170, n: '4', t: 'Le dossier élève naît dans CUC Sign', s: 'même base · aucune double saisie', at: 5.6 },
+  { x: 120, y: 170, n: '5', t: 'Il émarge chaque jour', s: 'tablette à l’entrée, même hors ligne', at: 10.4 },
+  { x: 470, y: 270, n: '6', t: 'Ses compétences se valident', s: 'coachs, tests physiques', at: 12.9 },
+  { x: 820, y: 270, n: '7', t: 'Sa fiche part aux castings', s: 'PDF composite prêt à envoyer', at: 15.4 },
+];
+
+const studentJourneySvg = `
+<svg viewBox="0 0 940 340" class="chart" role="img" aria-label="Parcours d'un élève : candidature en ligne, admission dans le Cockpit, dossier élève dans CUC Sign, émargement quotidien, validation des compétences, fiche composite envoyée aux castings">
+  <path d="${JOURNEY_PATH}" stroke="#26262e" stroke-width="2" stroke-dasharray="6 8" fill="none"/>
+  <path class="jdraw" d="${JOURNEY_PATH}"/>
+  ${JOURNEY_STEPS.map(
+  (p) => `
+    <circle class="jring" cx="${p.x}" cy="${p.y}" r="19" style="animation-delay:${p.at}s"/>
+    <circle class="jnode" cx="${p.x}" cy="${p.y}" r="19" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:${p.at}s"/>
+    <text x="${p.x}" y="${p.y + 5}" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="700">${p.n}</text>
+    <text x="${p.x}" y="${p.y + 40}" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">${p.t}</text>
+    <text x="${p.x}" y="${p.y + 56}" text-anchor="middle" fill="#9a9aa5" font-size="11">${p.s}</text>`
+)
+    .join('')}
+  <g class="jtoken" style="offset-path: path('${JOURNEY_PATH}')">
+    <circle r="12" fill="#FFE500"/>
+    <circle r="5" fill="#111"/>
   </g>
 </svg>`;
 
@@ -782,7 +907,7 @@ const resilienceRows = [
 const resilienceBlock = resilienceRows.length
   ? `
     <h3>La résistance du site, chiffrée <span class="meta">(contrôles exécutés avant chaque mise en ligne)</span></h3>
-    ${barChart(resilienceRows, { color: '#81C784' })}
+    <div class="kpis">${resilienceRows.map((r) => kpiHtml(r.value, r.label, r.display)).join('')}</div>
     <p class="meta">
       Ces vérifications passent <strong>avant</strong> publication : liens morts, traductions manquantes, poids des pages,
       conformité des zones éditables, historique des versions. Un échec bloque la mise en ligne — c'est ce qui garantit
@@ -942,6 +1067,26 @@ const html = `<!DOCTYPE html>
   @keyframes pingOut { 0% { transform: scale(.6); opacity: .8; } 10% { transform: scale(1.7); opacity: 0; } 10.01%, 100% { opacity: 0; } }
   .rc-fill { fill: none; stroke: #FFE500; stroke-width: 2; stroke-dasharray: 700; stroke-dashoffset: 700; animation: lineFill 10.5s linear infinite; }
   @keyframes lineFill { 0% { stroke-dashoffset: 700; opacity: .85; } 88% { stroke-dashoffset: 0; opacity: .85; } 92% { opacity: 0; } 92.01%, 100% { stroke-dashoffset: 700; opacity: 0; } }
+  /* Parcours d'un élève : le chemin se dessine, le jeton avance, chaque étape s'allume à son passage */
+  .jdraw { fill: none; stroke: #FFE500; stroke-width: 2.6; stroke-linecap: round; stroke-dasharray: 2300; stroke-dashoffset: 2300;
+    animation: jDraw 16s linear infinite; }
+  @keyframes jDraw { 0% { stroke-dashoffset: 2300; opacity: .9; } 94% { stroke-dashoffset: 0; opacity: .9; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+  .jtoken { offset-rotate: 0deg; animation: jToken 16s linear infinite; filter: drop-shadow(0 6px 16px rgba(255,229,0,.4)); }
+  @keyframes jToken {
+    0% { offset-distance: 0%; opacity: 0; }
+    3% { opacity: 1; }
+    95% { offset-distance: 100%; opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+  .jnode { animation: jNode 16s linear infinite; }
+  @keyframes jNode {
+    0% { stroke: #FFE500; stroke-width: 3.4; }
+    10% { stroke: #FFE500; stroke-width: 3.4; }
+    16%, 100% { stroke: #3a3a44; stroke-width: 2; }
+  }
+  .jring { fill: none; stroke: #FFE500; stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center;
+    animation: jRing 16s ease-out infinite; }
+  @keyframes jRing { 0% { transform: scale(.7); opacity: .85; } 6% { transform: scale(1.9); opacity: 0; } 6.01%, 100% { opacity: 0; } }
   /* --- Confort de lecture (CSS moderne, sans dépendance) --- */
   @supports (animation-timeline: scroll()) {
     .progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; z-index: 60;
@@ -954,8 +1099,6 @@ const html = `<!DOCTYPE html>
     @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
     h2 { animation: flagIn both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
     @keyframes flagIn { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: none; } }
-    .bar-grow { transform-box: fill-box; transform-origin: left center; animation: barIn both; animation-timeline: view(); animation-range: entry 12% entry 62%; }
-    @keyframes barIn { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   }
   .totop { position: fixed; right: 18px; bottom: 18px; z-index: 40; width: 42px; height: 42px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center; background: #0e0e14; border: 1px solid #3a3a44;
@@ -963,8 +1106,10 @@ const html = `<!DOCTYPE html>
   .totop:hover { border-color: #FFE500; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .flowline, .halo, .flowmsg, .rc-node, .rc-ping, .rc-fill, .strip-inner, header.hero::after,
-    .reveal, h2, .bar-grow, .progress, h1 em, .kpi .n span.done { animation: none !important; }
+    .flowline, .halo, .flowmsg, .rc-node, .rc-ping, .rc-fill, .jdraw, .jtoken, .jnode, .jring,
+    .strip-inner, header.hero::after,
+    .reveal, h2, .progress, h1 em, .kpi .n span.done { animation: none !important; }
+    .jdraw { stroke-dashoffset: 0; opacity: .9; }
   }
   @media print {
     body { background: #fff; color: #111; }
@@ -1099,40 +1244,12 @@ const html = `<!DOCTYPE html>
 
   <section id="contenus">
     <h2>8. Tout ce que contient votre application</h2>
-    <p>La vie du site, en volumes réels — le dossier se met à jour à chaque régénération.</p>
-
-    <h3>Les contenus publiés</h3>
-    ${barChart(contentRows)}
+    <p>Les volumes réels du site, relevés dans la base au moment de la génération de ce dossier.</p>
 
     <div class="two-col">
       <div>
-        <h3>Les films par catégorie</h3>
-        ${filmsByCategory.length ? barChart(filmsByCategory, { color: '#FFB020' }) : '<p class="meta">Données indisponibles.</p>'}
-      </div>
-      <div>
-        <h3>Les sessions par statut</h3>
-        ${sessionsByStatus.length ? barChart(sessionsByStatus, { color: '#4FC3F7' }) : '<p class="meta">Données indisponibles.</p>'}
-      </div>
-    </div>
-
-    ${decadeRows.length
-    ? `<h3>Le catalogue films, décennie par décennie <span class="meta">(année de production des œuvres)</span></h3>
-    ${barChart(decadeRows, { color: '#FF7043' })}
-    <p class="meta">Votre catalogue couvre toutes les époques du cinéma et des séries — une profondeur rare qui parle aux productions.</p>`
-    : ''
-  }
-
-    ${coachRows.length
-    ? `<h3>Les coachs les plus présents au catalogue <span class="meta">(nombre de films publiés où ils apparaissent)</span></h3>
-    ${barChart(coachRows, { color: '#BA68C8' })}`
-    : ''
-  }
-
-    <div class="two-col">
-      <div>
-        <h3>Les partenaires par famille</h3>
-        ${partnersRows.length ? barChart(partnersRows, { color: '#F06292' }) : '<p class="meta">Données indisponibles.</p>'}
-        <p class="meta">Qui accompagne le campus : équipementiers, marques, institutions et médias.</p>
+        <h3>Les contenus publiés</h3>
+        ${contentTable}
       </div>
       <div>
         <h3>La complétude des fiches films</h3>
@@ -1141,27 +1258,36 @@ const html = `<!DOCTYPE html>
       </div>
     </div>
 
-    <h3>Les traductions, entité par entité</h3>
-    ${translationsByEntity.length ? barChart(translationsByEntity, { color: '#81C784' }) : '<p class="meta">Données indisponibles.</p>'}
-
-    ${live.storage.length
-    ? `<h3>Les médias hébergés par le projet</h3>
-    ${barChart(
-      live.storage.map((s) => ({
-        label: 'Bibliothèque d’images & documents',
-        value: s.bytes,
-        display: `${nf(s.files)} fichiers · ${mo(s.bytes)}`,
-      })),
-      { color: '#90A4AE' }
-    )}`
+    ${catalogTraitsHtml
+    ? `<h3>Quelques repères du catalogue <span class="meta">(choisis pour ce qu'ils racontent)</span></h3>
+    <div class="kpis">${catalogTraitsHtml}</div>`
     : ''
   }
 
-    <h3>Le pont avec CUC Sign (application élèves)</h3>
+    <h3 id="cuc-sign">CUC Sign — la seconde étape, déjà en chantier</h3>
     <p>
-      Le site s'appuie sur CUC Sign pour rester cohérent : dates des formations, noms des coachs et lieux du campus.
-      Il lit ces informations — il ne les modifie jamais.
+      Le site public et le Cockpit que vous avez entre les mains sont la <strong>première étape</strong>. La seconde existe déjà
+      et s'appelle <strong>CUC Sign</strong> : c'est l'application qui suit l'élève <em>après</em> son admission — présence
+      quotidienne, progression technique, sécurité, vie de promotion. Elle réutilise le travail déjà fait et les mêmes outils
+      que votre site ; surtout, le pont de données est <strong>déjà en service</strong> : les formations, les coachs et les lieux
+      affichés publiquement viennent de CUC Sign, en lecture seule.
     </p>
+    <div class="flow reveal">${studentJourneySvg}</div>
+    <p class="meta">
+      Suivez le jeton : une candidature envoyée depuis votre site traverse l'admission, crée le dossier élève, accompagne
+      l'émargement quotidien, puis ressort en fiche de casting. Chaque étape s'allume au passage.
+    </p>
+
+    <div class="feat-grid">${cucSignCards}</div>
+
+    <div class="callout">
+      <strong>Deux étapes, pas deux factures surprises.</strong> Le site public et le Cockpit sont livrés et en service — ils ne
+      dépendent pas de CUC Sign pour fonctionner. CUC Sign est en préparation : il sera présenté avec son périmètre et son budget
+      le moment venu, sans rien remettre en cause de ce qui est déjà en place.
+    </div>
+
+    <h3>Le pont aujourd'hui, chiffré</h3>
+    <p class="meta">Ces liens sont vérifiés en base : ils disent exactement ce que le site lit de CUC Sign, sans approximation.</p>
     ${connectionHtml}
   </section>
 
@@ -1172,16 +1298,10 @@ const html = `<!DOCTYPE html>
       et les garanties qui l'entourent. Aucune connaissance technique n'est nécessaire pour la lire.
     </p>
 
-    ${pageWeights
-    ? `<h3>Chaque page, son poids et son temps de réponse <span class="meta">(mesurés sur la version de production)</span></h3>
-    ${barChart(
-      [...pageWeights]
-        .filter((p) => p.status === 200)
-        .sort((a, b) => b.bytes - a.bytes)
-        .map((p) => ({ label: p.route, value: p.bytes, display: `${kb(p.bytes)} · ${p.ms} ms` })),
-      { color: '#4FC3F7' }
-    )}
-    <p class="meta">Les deux pages les plus « lourdes » sont les galeries de films — logique : elles affichent le catalogue complet. Les autres tiennent dans un dixième de seconde.</p>`
+    ${pageWeightSummary
+    ? `<h3>Poids et temps de réponse <span class="meta">(mesurés sur la version de production)</span></h3>
+    <div class="kpis">${pageWeightSummary}</div>
+    <p class="meta">Les pages les plus « lourdes » sont les galeries de films — logique : elles affichent le catalogue complet. Les autres tiennent dans un dixième de seconde.</p>`
     : ''
   }
 ${hostingBlock}
@@ -1285,7 +1405,8 @@ fs.writeFileSync(OUT, html, 'utf8');
 
 console.log('=== Dossier de présentation client généré (v4) ===');
 console.log(`Sections : 12 · accordéons : ${PUBLIC_PAGES.length + COCKPIT_APPS.length + GLOSSARY.length + FAQ.length + 1}`);
-console.log(`Graphiques : contenus(${contentRows.length}) · films(${filmsByCategory.length}) · sessions(${sessionsByStatus.length}) · décennies(${decadeRows.length}) · coachs(${coachRows.length}) · partenaires(${partnersRows.length}) · complétude(${q ? 3 : 0}) · traductions(${translationsByEntity.length}) · médias(${live.storage.length}) · pages(${pageWeights ? pageWeights.length : 0}) · résistance(${resilienceRows.length})`);
+console.log(`Repères chiffrés : contenus(tablo ${contentRows.length}) · complétude(${q ? 3 : 0}) · catalogue(${catalogTraits.length}) · résistance(${resilienceRows.length}) · pages(${pageWeights ? pageWeights.length : 0})`);
+console.log('Animation : parcours élève (7 étapes, chemin + jeton, 100 % CSS/SVG)');
 console.log(`Sessions live : ${live.sessions.length} lignes datées`);
 console.log(`Qualité : ${q ? `${nf(q.films.with_image)}/${nf(q.films.total)} affiches · ${nf(q.filmsEn)} films EN · ${nf(q.team.with_imdb)} IMDb` : 'indisponible'}`);
 console.log(`Schémas : écosystème (flux animés) · carte du site(${SITE_MAP.length} thèmes) · anatomie de page · cycle de demande (carte voyageuse)`);

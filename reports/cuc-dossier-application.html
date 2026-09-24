@@ -129,6 +129,26 @@
   @keyframes pingOut { 0% { transform: scale(.6); opacity: .8; } 10% { transform: scale(1.7); opacity: 0; } 10.01%, 100% { opacity: 0; } }
   .rc-fill { fill: none; stroke: #FFE500; stroke-width: 2; stroke-dasharray: 700; stroke-dashoffset: 700; animation: lineFill 10.5s linear infinite; }
   @keyframes lineFill { 0% { stroke-dashoffset: 700; opacity: .85; } 88% { stroke-dashoffset: 0; opacity: .85; } 92% { opacity: 0; } 92.01%, 100% { stroke-dashoffset: 700; opacity: 0; } }
+  /* Parcours d'un élève : le chemin se dessine, le jeton avance, chaque étape s'allume à son passage */
+  .jdraw { fill: none; stroke: #FFE500; stroke-width: 2.6; stroke-linecap: round; stroke-dasharray: 2300; stroke-dashoffset: 2300;
+    animation: jDraw 16s linear infinite; }
+  @keyframes jDraw { 0% { stroke-dashoffset: 2300; opacity: .9; } 94% { stroke-dashoffset: 0; opacity: .9; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+  .jtoken { offset-rotate: 0deg; animation: jToken 16s linear infinite; filter: drop-shadow(0 6px 16px rgba(255,229,0,.4)); }
+  @keyframes jToken {
+    0% { offset-distance: 0%; opacity: 0; }
+    3% { opacity: 1; }
+    95% { offset-distance: 100%; opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
+  .jnode { animation: jNode 16s linear infinite; }
+  @keyframes jNode {
+    0% { stroke: #FFE500; stroke-width: 3.4; }
+    10% { stroke: #FFE500; stroke-width: 3.4; }
+    16%, 100% { stroke: #3a3a44; stroke-width: 2; }
+  }
+  .jring { fill: none; stroke: #FFE500; stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center;
+    animation: jRing 16s ease-out infinite; }
+  @keyframes jRing { 0% { transform: scale(.7); opacity: .85; } 6% { transform: scale(1.9); opacity: 0; } 6.01%, 100% { opacity: 0; } }
   /* --- Confort de lecture (CSS moderne, sans dépendance) --- */
   @supports (animation-timeline: scroll()) {
     .progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; z-index: 60;
@@ -141,8 +161,6 @@
     @keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
     h2 { animation: flagIn both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
     @keyframes flagIn { from { opacity: 0; transform: translateX(-12px); } to { opacity: 1; transform: none; } }
-    .bar-grow { transform-box: fill-box; transform-origin: left center; animation: barIn both; animation-timeline: view(); animation-range: entry 12% entry 62%; }
-    @keyframes barIn { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   }
   .totop { position: fixed; right: 18px; bottom: 18px; z-index: 40; width: 42px; height: 42px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center; background: #0e0e14; border: 1px solid #3a3a44;
@@ -150,8 +168,10 @@
   .totop:hover { border-color: #FFE500; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .flowline, .halo, .flowmsg, .rc-node, .rc-ping, .rc-fill, .strip-inner, header.hero::after,
-    .reveal, h2, .bar-grow, .progress, h1 em, .kpi .n span.done { animation: none !important; }
+    .flowline, .halo, .flowmsg, .rc-node, .rc-ping, .rc-fill, .jdraw, .jtoken, .jnode, .jring,
+    .strip-inner, header.hero::after,
+    .reveal, h2, .progress, h1 em, .kpi .n span.done { animation: none !important; }
+    .jdraw { stroke-dashoffset: 0; opacity: .9; }
   }
   @media print {
     body { background: #fff; color: #111; }
@@ -647,120 +667,15 @@
 
   <section id="contenus">
     <h2>8. Tout ce que contient votre application</h2>
-    <p>La vie du site, en volumes réels — le dossier se met à jour à chaque régénération.</p>
-
-    <h3>Les contenus publiés</h3>
-    <svg viewBox="0 0 760 520" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Traductions éditoriales</text>
-        <rect class="bar-grow" x="265" y="10" width="385" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
-        <text x="659" y="27.28" class="chart-value">579</text><text x="0" y="61.28" class="chart-label">Films au catalogue</text>
-        <rect class="bar-grow" x="265" y="44" width="379.01554404145077" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
-        <text x="653.0155440414508" y="61.28" class="chart-value">570</text><text x="0" y="95.28" class="chart-label">Partenaires</text>
-        <rect class="bar-grow" x="265" y="78" width="13.963730569948186" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
-        <text x="287.9637305699482" y="95.28" class="chart-value">21</text><text x="0" y="129.28" class="chart-label">Sessions de formation</text>
-        <rect class="bar-grow" x="265" y="112" width="11.968911917098445" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
-        <text x="285.96891191709847" y="129.28" class="chart-value">18</text><text x="0" y="163.28" class="chart-label">Pages du site</text>
-        <rect class="bar-grow" x="265" y="146" width="9.974093264248705" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
-        <text x="283.9740932642487" y="163.28" class="chart-value">15</text><text x="0" y="197.28" class="chart-label">Coachs & direction</text>
-        <rect class="bar-grow" x="265" y="180" width="7.979274611398964" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
-        <text x="281.979274611399" y="197.28" class="chart-value">12</text><text x="0" y="231.28" class="chart-label">Réglages du site</text>
-        <rect class="bar-grow" x="265" y="214" width="7.31433506044905" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
-        <text x="281.314335060449" y="231.28" class="chart-value">11</text><text x="0" y="265.28" class="chart-label">Disciplines</text>
-        <rect class="bar-grow" x="265" y="248" width="6.649395509499136" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
-        <text x="280.64939550949913" y="265.28" class="chart-value">10</text><text x="0" y="299.28" class="chart-label">Programmes de formation</text>
-        <rect class="bar-grow" x="265" y="282" width="3.989637305699482" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
-        <text x="277.9896373056995" y="299.28" class="chart-value">6</text><text x="0" y="333.28" class="chart-label">Zones du campus</text>
-        <rect class="bar-grow" x="265" y="316" width="3.324697754749568" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
-        <text x="277.3246977547496" y="333.28" class="chart-value">5</text><text x="0" y="367.28" class="chart-label">Réseaux sociaux</text>
-        <rect class="bar-grow" x="265" y="350" width="3.324697754749568" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
-        <text x="277.3246977547496" y="367.28" class="chart-value">5</text><text x="0" y="401.28" class="chart-label">Événements</text>
-        <rect class="bar-grow" x="265" y="384" width="3" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
-        <text x="277" y="401.28" class="chart-value">3</text><text x="0" y="435.28" class="chart-label">Annonces</text>
-        <rect class="bar-grow" x="265" y="418" width="3" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
-        <text x="277" y="435.28" class="chart-value">2</text><text x="0" y="469.28" class="chart-label">Pied de page</text>
-        <rect class="bar-grow" x="265" y="452" width="3" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
-        <text x="277" y="469.28" class="chart-value">1</text><text x="0" y="503.28" class="chart-label">Menu de navigation</text>
-        <rect class="bar-grow" x="265" y="486" width="3" height="24" rx="4" fill="#FFE500" opacity="0.92"/>
-        <text x="277" y="503.28" class="chart-value">1</text></svg>
+    <p>Les volumes réels du site, relevés dans la base au moment de la génération de ce dossier.</p>
 
     <div class="two-col">
       <div>
-        <h3>Les films par catégorie</h3>
-        <svg viewBox="0 0 760 146" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Films</text>
-        <rect class="bar-grow" x="265" y="10" width="385" height="24" rx="4" fill="#FFB020" opacity="0.92"/>
-        <text x="659" y="27.28" class="chart-value">363</text><text x="0" y="61.28" class="chart-label">Séries</text>
-        <rect class="bar-grow" x="265" y="44" width="156.96969696969697" height="24" rx="4" fill="#FFB020" opacity="0.92"/>
-        <text x="430.969696969697" y="61.28" class="chart-value">148</text><text x="0" y="95.28" class="chart-label">Courts métrages</text>
-        <rect class="bar-grow" x="265" y="78" width="48.78787878787879" height="24" rx="4" fill="#FFB020" opacity="0.92"/>
-        <text x="322.7878787878788" y="95.28" class="chart-value">46</text><text x="0" y="129.28" class="chart-label">Non classé</text>
-        <rect class="bar-grow" x="265" y="112" width="12.727272727272727" height="24" rx="4" fill="#FFB020" opacity="0.92"/>
-        <text x="286.72727272727275" y="129.28" class="chart-value">12</text></svg>
-      </div>
-      <div>
-        <h3>Les sessions par statut</h3>
-        <svg viewBox="0 0 760 146" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Complètes</text>
-        <rect class="bar-grow" x="265" y="10" width="385" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="659" y="27.28" class="chart-value">7</text><text x="0" y="61.28" class="chart-label">Ouvertes aux inscriptions</text>
-        <rect class="bar-grow" x="265" y="44" width="330" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="604" y="61.28" class="chart-value">6</text><text x="0" y="95.28" class="chart-label">Annoncées prochainement</text>
-        <rect class="bar-grow" x="265" y="78" width="165" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="439" y="95.28" class="chart-value">3</text><text x="0" y="129.28" class="chart-label">Dernières places</text>
-        <rect class="bar-grow" x="265" y="112" width="110" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="384" y="129.28" class="chart-value">2</text></svg>
-      </div>
-    </div>
-
-    <h3>Le catalogue films, décennie par décennie <span class="meta">(année de production des œuvres)</span></h3>
-    <svg viewBox="0 0 760 214" class="chart" role="img"><text x="0" y="27.28" class="chart-label">1970s</text>
-        <rect class="bar-grow" x="265" y="10" width="3" height="24" rx="4" fill="#FF7043" opacity="0.92"/>
-        <text x="277" y="27.28" class="chart-value">1</text><text x="0" y="61.28" class="chart-label">1980s</text>
-        <rect class="bar-grow" x="265" y="44" width="3.0078125" height="24" rx="4" fill="#FF7043" opacity="0.92"/>
-        <text x="277.0078125" y="61.28" class="chart-value">2</text><text x="0" y="95.28" class="chart-label">1990s</text>
-        <rect class="bar-grow" x="265" y="78" width="15.0390625" height="24" rx="4" fill="#FF7043" opacity="0.92"/>
-        <text x="289.0390625" y="95.28" class="chart-value">10</text><text x="0" y="129.28" class="chart-label">2000s</text>
-        <rect class="bar-grow" x="265" y="112" width="141.3671875" height="24" rx="4" fill="#FF7043" opacity="0.92"/>
-        <text x="415.3671875" y="129.28" class="chart-value">94</text><text x="0" y="163.28" class="chart-label">2010s</text>
-        <rect class="bar-grow" x="265" y="146" width="297.7734375" height="24" rx="4" fill="#FF7043" opacity="0.92"/>
-        <text x="571.7734375" y="163.28" class="chart-value">198</text><text x="0" y="197.28" class="chart-label">2020s</text>
-        <rect class="bar-grow" x="265" y="180" width="385" height="24" rx="4" fill="#FF7043" opacity="0.92"/>
-        <text x="659" y="197.28" class="chart-value">256</text></svg>
-    <p class="meta">Votre catalogue couvre toutes les époques du cinéma et des séries — une profondeur rare qui parle aux productions.</p>
-
-    <h3>Les coachs les plus présents au catalogue <span class="meta">(nombre de films publiés où ils apparaissent)</span></h3>
-    <svg viewBox="0 0 760 350" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Jérôme Gaspard</text>
-        <rect class="bar-grow" x="265" y="10" width="385" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
-        <text x="659" y="27.28" class="chart-value">201</text><text x="0" y="61.28" class="chart-label">Amédéo Cazzella</text>
-        <rect class="bar-grow" x="265" y="44" width="214.5273631840796" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
-        <text x="488.5273631840796" y="61.28" class="chart-value">112</text><text x="0" y="95.28" class="chart-label">Michel Bouis</text>
-        <rect class="bar-grow" x="265" y="78" width="174.30348258706468" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
-        <text x="448.30348258706465" y="95.28" class="chart-value">91</text><text x="0" y="129.28" class="chart-label">Kefi Abrikh</text>
-        <rect class="bar-grow" x="265" y="112" width="155.1492537313433" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
-        <text x="429.14925373134326" y="129.28" class="chart-value">81</text><text x="0" y="163.28" class="chart-label">Vincent Bouillon</text>
-        <rect class="bar-grow" x="265" y="146" width="155.1492537313433" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
-        <text x="429.14925373134326" y="163.28" class="chart-value">81</text><text x="0" y="197.28" class="chart-label">Malik Diouf</text>
-        <rect class="bar-grow" x="265" y="180" width="149.40298507462686" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
-        <text x="423.4029850746268" y="197.28" class="chart-value">78</text><text x="0" y="231.28" class="chart-label">Franck Blanc</text>
-        <rect class="bar-grow" x="265" y="214" width="132.16417910447763" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
-        <text x="406.1641791044776" y="231.28" class="chart-value">69</text><text x="0" y="265.28" class="chart-label">Maurice Chan</text>
-        <rect class="bar-grow" x="265" y="248" width="120.67164179104478" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
-        <text x="394.67164179104475" y="265.28" class="chart-value">63</text><text x="0" y="299.28" class="chart-label">Bastien Trouvé</text>
-        <rect class="bar-grow" x="265" y="282" width="68.95522388059702" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
-        <text x="342.95522388059703" y="299.28" class="chart-value">36</text><text x="0" y="333.28" class="chart-label">Lucas Dollfus</text>
-        <rect class="bar-grow" x="265" y="316" width="55.54726368159204" height="24" rx="4" fill="#BA68C8" opacity="0.92"/>
-        <text x="329.547263681592" y="333.28" class="chart-value">29</text></svg>
-
-    <div class="two-col">
-      <div>
-        <h3>Les partenaires par famille</h3>
-        <svg viewBox="0 0 760 146" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Cinéma & production</text>
-        <rect class="bar-grow" x="265" y="10" width="385" height="24" rx="4" fill="#F06292" opacity="0.92"/>
-        <text x="659" y="27.28" class="chart-value">7</text><text x="0" y="61.28" class="chart-label">Matériel & équipements</text>
-        <rect class="bar-grow" x="265" y="44" width="385" height="24" rx="4" fill="#F06292" opacity="0.92"/>
-        <text x="659" y="61.28" class="chart-value">7</text><text x="0" y="95.28" class="chart-label">Institutions & financeurs</text>
-        <rect class="bar-grow" x="265" y="78" width="275" height="24" rx="4" fill="#F06292" opacity="0.92"/>
-        <text x="549" y="95.28" class="chart-value">5</text><text x="0" y="129.28" class="chart-label">Médias & presse</text>
-        <rect class="bar-grow" x="265" y="112" width="110" height="24" rx="4" fill="#F06292" opacity="0.92"/>
-        <text x="384" y="129.28" class="chart-value">2</text></svg>
-        <p class="meta">Qui accompagne le campus : équipementiers, marques, institutions et médias.</p>
+        <h3>Les contenus publiés</h3>
+        <table>
+      <thead><tr><th>Contenu</th><th>Publié</th></tr></thead>
+      <tbody><tr><td>Traductions éditoriales</td><td><strong>579</strong></td></tr><tr><td>Films au catalogue</td><td><strong>570</strong></td></tr><tr><td>Partenaires</td><td><strong>21</strong></td></tr><tr><td>Sessions de formation</td><td><strong>18</strong></td></tr><tr><td>Pages du site</td><td><strong>15</strong></td></tr><tr><td>Coachs & direction</td><td><strong>12</strong></td></tr><tr><td>Réglages du site</td><td><strong>11</strong></td></tr><tr><td>Disciplines</td><td><strong>10</strong></td></tr><tr><td>Programmes de formation</td><td><strong>6</strong></td></tr><tr><td>Zones du campus</td><td><strong>5</strong></td></tr><tr><td>Réseaux sociaux</td><td><strong>5</strong></td></tr><tr><td>Événements</td><td><strong>3</strong></td></tr></tbody>
+    </table>
       </div>
       <div>
         <h3>La complétude des fiches films</h3>
@@ -774,43 +689,83 @@
       </div>
     </div>
 
-    <h3>Les traductions, entité par entité</h3>
-    <svg viewBox="0 0 760 350" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Films</text>
-        <rect class="bar-grow" x="265" y="10" width="385" height="24" rx="4" fill="#81C784" opacity="0.92"/>
-        <text x="659" y="27.28" class="chart-value">501</text><text x="0" y="61.28" class="chart-label">Pages</text>
-        <rect class="bar-grow" x="265" y="44" width="11.52694610778443" height="24" rx="4" fill="#81C784" opacity="0.92"/>
-        <text x="285.52694610778445" y="61.28" class="chart-value">15</text><text x="0" y="95.28" class="chart-label">Partenaires</text>
-        <rect class="bar-grow" x="265" y="78" width="10.758483033932135" height="24" rx="4" fill="#81C784" opacity="0.92"/>
-        <text x="284.7584830339321" y="95.28" class="chart-value">14</text><text x="0" y="129.28" class="chart-label">Coachs</text>
-        <rect class="bar-grow" x="265" y="112" width="9.221556886227544" height="24" rx="4" fill="#81C784" opacity="0.92"/>
-        <text x="283.2215568862275" y="129.28" class="chart-value">12</text><text x="0" y="163.28" class="chart-label">Disciplines</text>
-        <rect class="bar-grow" x="265" y="146" width="7.684630738522954" height="24" rx="4" fill="#81C784" opacity="0.92"/>
-        <text x="281.68463073852297" y="163.28" class="chart-value">10</text><text x="0" y="197.28" class="chart-label">Installations</text>
-        <rect class="bar-grow" x="265" y="180" width="6.916167664670659" height="24" rx="4" fill="#81C784" opacity="0.92"/>
-        <text x="280.91616766467064" y="197.28" class="chart-value">9</text><text x="0" y="231.28" class="chart-label">program</text>
-        <rect class="bar-grow" x="265" y="214" width="4.610778443113772" height="24" rx="4" fill="#81C784" opacity="0.92"/>
-        <text x="278.61077844311376" y="231.28" class="chart-value">6</text><text x="0" y="265.28" class="chart-label">Zones du campus</text>
-        <rect class="bar-grow" x="265" y="248" width="3.842315369261477" height="24" rx="4" fill="#81C784" opacity="0.92"/>
-        <text x="277.8423153692615" y="265.28" class="chart-value">5</text><text x="0" y="299.28" class="chart-label">Événements</text>
-        <rect class="bar-grow" x="265" y="282" width="3" height="24" rx="4" fill="#81C784" opacity="0.92"/>
-        <text x="277" y="299.28" class="chart-value">3</text><text x="0" y="333.28" class="chart-label">social_link</text>
-        <rect class="bar-grow" x="265" y="316" width="3" height="24" rx="4" fill="#81C784" opacity="0.92"/>
-        <text x="277" y="333.28" class="chart-value">2</text></svg>
+    <h3>Quelques repères du catalogue <span class="meta">(choisis pour ce qu'ils racontent)</span></h3>
+    <div class="kpis"><div class="kpi reveal"><div class="n">Jérôme Gaspard</div><div class="l">coach le plus présent au catalogue</div><div class="s">201 films publiés</div></div><div class="kpi reveal"><div class="n"><span data-count="6">6</span></div><div class="l">décennies couvertes par les films</div><div class="s">de 1970s à 2020s</div></div><div class="kpi reveal"><div class="n">Films</div><div class="l">catégorie la plus fournie</div><div class="s">363 films publiés</div></div><div class="kpi reveal"><div class="n"><span data-count="577">577</span></div><div class="l">traductions éditoriales en base</div><div class="s">film, équipe, événements, disciplines, campus</div></div><div class="kpi reveal"><div class="n"><span data-count="21">21</span></div><div class="l">partenaires affichés</div><div class="s">équipementiers, marques, institutions</div></div><div class="kpi reveal"><div class="n"><span data-count="18">18</span></div><div class="l">sessions publiées</div><div class="s">datées et suivies par statut</div></div></div>
 
-    <h3>Les médias hébergés par le projet</h3>
-    <svg viewBox="0 0 760 112" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Bibliothèque d’images & documents</text>
-        <rect class="bar-grow" x="265" y="10" width="385" height="24" rx="4" fill="#90A4AE" opacity="0.92"/>
-        <text x="659" y="27.28" class="chart-value">178 fichiers · 90,5 Mo</text><text x="0" y="61.28" class="chart-label">Bibliothèque d’images & documents</text>
-        <rect class="bar-grow" x="265" y="44" width="3" height="24" rx="4" fill="#90A4AE" opacity="0.92"/>
-        <text x="277" y="61.28" class="chart-value">6 fichiers · 0,4 Mo</text><text x="0" y="95.28" class="chart-label">Bibliothèque d’images & documents</text>
-        <rect class="bar-grow" x="265" y="78" width="3" height="24" rx="4" fill="#90A4AE" opacity="0.92"/>
-        <text x="277" y="95.28" class="chart-value">1 fichiers · 0,0 Mo</text></svg>
-
-    <h3>Le pont avec CUC Sign (application élèves)</h3>
+    <h3 id="cuc-sign">CUC Sign — la seconde étape, déjà en chantier</h3>
     <p>
-      Le site s'appuie sur CUC Sign pour rester cohérent : dates des formations, noms des coachs et lieux du campus.
-      Il lit ces informations — il ne les modifie jamais.
+      Le site public et le Cockpit que vous avez entre les mains sont la <strong>première étape</strong>. La seconde existe déjà
+      et s'appelle <strong>CUC Sign</strong> : c'est l'application qui suit l'élève <em>après</em> son admission — présence
+      quotidienne, progression technique, sécurité, vie de promotion. Elle réutilise le travail déjà fait et les mêmes outils
+      que votre site ; surtout, le pont de données est <strong>déjà en service</strong> : les formations, les coachs et les lieux
+      affichés publiquement viennent de CUC Sign, en lecture seule.
     </p>
+    <div class="flow reveal">
+<svg viewBox="0 0 940 340" class="chart" role="img" aria-label="Parcours d'un élève : candidature en ligne, admission dans le Cockpit, dossier élève dans CUC Sign, émargement quotidien, validation des compétences, fiche composite envoyée aux castings">
+  <path d="M120 70 H820 V170 H120 V270 H820" stroke="#26262e" stroke-width="2" stroke-dasharray="6 8" fill="none"/>
+  <path class="jdraw" d="M120 70 H820 V170 H120 V270 H820"/>
+  
+    <circle class="jring" cx="120" cy="70" r="19" style="animation-delay:0s"/>
+    <circle class="jnode" cx="120" cy="70" r="19" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:0s"/>
+    <text x="120" y="75" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="700">1</text>
+    <text x="120" y="110" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">Il postule en ligne</text>
+    <text x="120" y="126" text-anchor="middle" fill="#9a9aa5" font-size="11">site public · deux minutes</text>
+    <circle class="jring" cx="470" cy="70" r="19" style="animation-delay:2.4s"/>
+    <circle class="jnode" cx="470" cy="70" r="19" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:2.4s"/>
+    <text x="470" y="75" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="700">2</text>
+    <text x="470" y="110" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">La demande arrive au Cockpit</text>
+    <text x="470" y="126" text-anchor="middle" fill="#9a9aa5" font-size="11">statut, notes, réponse</text>
+    <circle class="jring" cx="820" cy="70" r="19" style="animation-delay:4.9s"/>
+    <circle class="jnode" cx="820" cy="70" r="19" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:4.9s"/>
+    <text x="820" y="75" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="700">3</text>
+    <text x="820" y="110" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">Admission validée</text>
+    <text x="820" y="126" text-anchor="middle" fill="#9a9aa5" font-size="11">convention, convocation</text>
+    <circle class="jring" cx="820" cy="170" r="19" style="animation-delay:5.6s"/>
+    <circle class="jnode" cx="820" cy="170" r="19" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:5.6s"/>
+    <text x="820" y="175" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="700">4</text>
+    <text x="820" y="210" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">Le dossier élève naît dans CUC Sign</text>
+    <text x="820" y="226" text-anchor="middle" fill="#9a9aa5" font-size="11">même base · aucune double saisie</text>
+    <circle class="jring" cx="120" cy="170" r="19" style="animation-delay:10.4s"/>
+    <circle class="jnode" cx="120" cy="170" r="19" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:10.4s"/>
+    <text x="120" y="175" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="700">5</text>
+    <text x="120" y="210" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">Il émarge chaque jour</text>
+    <text x="120" y="226" text-anchor="middle" fill="#9a9aa5" font-size="11">tablette à l’entrée, même hors ligne</text>
+    <circle class="jring" cx="470" cy="270" r="19" style="animation-delay:12.9s"/>
+    <circle class="jnode" cx="470" cy="270" r="19" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:12.9s"/>
+    <text x="470" y="275" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="700">6</text>
+    <text x="470" y="310" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">Ses compétences se valident</text>
+    <text x="470" y="326" text-anchor="middle" fill="#9a9aa5" font-size="11">coachs, tests physiques</text>
+    <circle class="jring" cx="820" cy="270" r="19" style="animation-delay:15.4s"/>
+    <circle class="jnode" cx="820" cy="270" r="19" fill="#12121a" stroke="#3a3a44" stroke-width="2" style="animation-delay:15.4s"/>
+    <text x="820" y="275" text-anchor="middle" fill="#fff" font-size="13.5" font-weight="700">7</text>
+    <text x="820" y="310" text-anchor="middle" fill="#fff" font-size="12.5" font-weight="600">Sa fiche part aux castings</text>
+    <text x="820" y="326" text-anchor="middle" fill="#9a9aa5" font-size="11">PDF composite prêt à envoyer</text>
+  <g class="jtoken" style="offset-path: path('M120 70 H820 V170 H120 V270 H820')">
+    <circle r="12" fill="#FFE500"/>
+    <circle r="5" fill="#111"/>
+  </g>
+</svg></div>
+    <p class="meta">
+      Suivez le jeton : une candidature envoyée depuis votre site traverse l'admission, crée le dossier élève, accompagne
+      l'émargement quotidien, puis ressort en fiche de casting. Chaque étape s'allume au passage.
+    </p>
+
+    <div class="feat-grid">
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg></span><h3>Émargement conforme Qualiopi</h3><p>Feuilles de présence numériques horodatées et conservées : c'est la preuve que demandent les financeurs et les audits.</p><div class="tags"><span class="tag">Conformité</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 6.3"/><path d="M20 5v6h-6"/></svg></span><h3>Tablette à l’entrée, même sans réseau</h3><p>Mode borne : l'élève signe en quelques secondes par QR code, et le pointage continue de fonctionner si le réseau tombe au gymnase.</p><div class="tags"><span class="tag">Zéro friction</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><path d="M16 11a3 3 0 1 0 0-6"/><path d="M21 20c0-2.5-1.8-4.4-4.5-4.8"/></svg></span><h3>Rotations et délibérations à l’écran</h3><p>Groupes de niveaux, coachs volants, notation par les coachs, table de délibération : les groupes se composent à l'écran, puis le planning se publie aux élèves.</p><div class="tags"><span class="tag">Pédagogie</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.3.9-4.5 4.4 1 6.1-5.5-3-5.5 3 1-6.1L3 9.5l6.3-.9L12 3z"/></svg></span><h3>Compétences validées, fiche de casting prête</h3><p>Chaque compétence validée et chaque test physique alimentent une fiche composite PDF — mensurations, skills, profil — directement envoyable aux productions.</p><div class="tags"><span class="tag">Employabilité</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><h3>La sécurité des élèves, tracée</h3><p>Fiche médicale d’urgence à accès restreint, suivi des blessures, signalement du matériel défectueux : ce qui se perdait dans un carnet se retrouve en un écran.</p><div class="tags"><span class="tag">Santé & sécurité</span></div></article>
+  <article class="feat reveal"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></span><h3>Pensé aussi pour l’international</h3><p>Les stagiaires étrangers s’émargent et consultent leur progression dans leur langue ; le lexique technique est bilingue.</p><div class="tags"><span class="tag">FR / EN</span></div></article></div>
+
+    <div class="callout">
+      <strong>Deux étapes, pas deux factures surprises.</strong> Le site public et le Cockpit sont livrés et en service — ils ne
+      dépendent pas de CUC Sign pour fonctionner. CUC Sign est en préparation : il sera présenté avec son périmètre et son budget
+      le moment venu, sans rien remettre en cause de ce qui est déjà en place.
+    </div>
+
+    <h3>Le pont aujourd'hui, chiffré</h3>
+    <p class="meta">Ces liens sont vérifiés en base : ils disent exactement ce que le site lit de CUC Sign, sans approximation.</p>
     <div class="kpis">
     <div class="kpi reveal"><div class="n"><span data-count="12">12</span></div><div class="l">formations CUC Sign</div><div class="s">référencées côté site</div></div>
     <div class="kpi reveal"><div class="n"><span data-count="13">13</span></div><div class="l">profils CUC Sign</div><div class="s">coachs & direction</div></div>
@@ -828,39 +783,9 @@
       et les garanties qui l'entourent. Aucune connaissance technique n'est nécessaire pour la lire.
     </p>
 
-    <h3>Chaque page, son poids et son temps de réponse <span class="meta">(mesurés sur la version de production)</span></h3>
-    <svg viewBox="0 0 760 520" class="chart" role="img"><text x="0" y="27.28" class="chart-label">/equipe-cascadeurs-pro</text>
-        <rect class="bar-grow" x="265" y="10" width="385" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="659" y="27.28" class="chart-value">597 Ko · 26 ms</text><text x="0" y="61.28" class="chart-label">/cuc-team-cascadeur</text>
-        <rect class="bar-grow" x="265" y="44" width="323.37526969025316" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="597.3752696902532" y="61.28" class="chart-value">501 Ko · 24 ms</text><text x="0" y="95.28" class="chart-label">/</text>
-        <rect class="bar-grow" x="265" y="78" width="160.43567866999734" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="434.43567866999734" y="95.28" class="chart-value">249 Ko · 25 ms</text><text x="0" y="129.28" class="chart-label">/visite-guidee</text>
-        <rect class="bar-grow" x="265" y="112" width="155.29361452054883" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="429.29361452054883" y="129.28" class="chart-value">241 Ko · 16 ms</text><text x="0" y="163.28" class="chart-label">/videos-cascadeur</text>
-        <rect class="bar-grow" x="265" y="146" width="127.5129811454183" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="401.5129811454183" y="163.28" class="chart-value">198 Ko · 17 ms</text><text x="0" y="197.28" class="chart-label">/partenaires</text>
-        <rect class="bar-grow" x="265" y="180" width="119.63444898066088" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="393.63444898066086" y="197.28" class="chart-value">185 Ko · 15 ms</text><text x="0" y="231.28" class="chart-label">/formation-de-cascadeur</text>
-        <rect class="bar-grow" x="265" y="214" width="117.41855272505836" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="391.41855272505836" y="231.28" class="chart-value">182 Ko · 19 ms</text><text x="0" y="265.28" class="chart-label">/contact-cuc</text>
-        <rect class="bar-grow" x="265" y="248" width="115.73394217579057" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="389.73394217579056" y="265.28" class="chart-value">179 Ko · 12 ms</text><text x="0" y="299.28" class="chart-label">/stages-cascades-parkour-2</text>
-        <rect class="bar-grow" x="265" y="282" width="109.94462960355942" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="383.9446296035594" y="299.28" class="chart-value">170 Ko · 16 ms</text><text x="0" y="333.28" class="chart-label">/team-building-cascades</text>
-        <rect class="bar-grow" x="265" y="316" width="108.65139322230334" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="382.65139322230334" y="333.28" class="chart-value">168 Ko · 14 ms</text><text x="0" y="367.28" class="chart-label">/cuc-events-agence</text>
-        <rect class="bar-grow" x="265" y="350" width="106.23823430230846" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="380.23823430230846" y="367.28" class="chart-value">165 Ko · 14 ms</text><text x="0" y="401.28" class="chart-label">/stunt-workshop-cuc</text>
-        <rect class="bar-grow" x="265" y="384" width="105.41199994761706" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="379.41199994761706" y="401.28" class="chart-value">163 Ko · 18 ms</text><text x="0" y="435.28" class="chart-label">/animations-airbag-parkour</text>
-        <rect class="bar-grow" x="265" y="418" width="96.23897093729435" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="370.23897093729437" y="435.28" class="chart-value">149 Ko · 12 ms</text><text x="0" y="469.28" class="chart-label">/visite-virtuelle</text>
-        <rect class="bar-grow" x="265" y="452" width="93.96005146623102" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="367.960051466231" y="469.28" class="chart-value">146 Ko · 14 ms</text><text x="0" y="503.28" class="chart-label">/admin</text>
-        <rect class="bar-grow" x="265" y="486" width="90.11941671604849" height="24" rx="4" fill="#4FC3F7" opacity="0.92"/>
-        <text x="364.1194167160485" y="503.28" class="chart-value">140 Ko · 517 ms</text></svg>
-    <p class="meta">Les deux pages les plus « lourdes » sont les galeries de films — logique : elles affichent le catalogue complet. Les autres tiennent dans un dixième de seconde.</p>
+    <h3>Poids et temps de réponse <span class="meta">(mesurés sur la version de production)</span></h3>
+    <div class="kpis"><div class="kpi reveal"><div class="n">597 Ko</div><div class="l">page la plus lourde</div><div class="s">/equipe-cascadeurs-pro · 26 ms</div></div><div class="kpi reveal"><div class="n">16 ms</div><div class="l">temps de réponse médian</div><div class="s">sur 15 pages mesurées</div></div><div class="kpi reveal"><div class="n">140 Ko</div><div class="l">page la plus légère</div><div class="s">/admin · 517 ms</div></div></div>
+    <p class="meta">Les pages les plus « lourdes » sont les galeries de films — logique : elles affichent le catalogue complet. Les autres tiennent dans un dixième de seconde.</p>
 
     <h3>Où vit votre site, et ce que cela coûte <span class="meta">(usages mesurés à la génération de ce dossier)</span></h3>
     <p>
@@ -897,15 +822,7 @@
     </p>
 
     <h3>La résistance du site, chiffrée <span class="meta">(contrôles exécutés avant chaque mise en ligne)</span></h3>
-    <svg viewBox="0 0 760 146" class="chart" role="img"><text x="0" y="27.28" class="chart-label">Vérifications automatiques réussies</text>
-        <rect class="bar-grow" x="265" y="10" width="385" height="24" rx="4" fill="#81C784" opacity="0.92"/>
-        <text x="659" y="27.28" class="chart-value">470 sur 470</text><text x="0" y="61.28" class="chart-label">Routes publiques et Cockpit vérifiées</text>
-        <rect class="bar-grow" x="265" y="44" width="24.574468085106382" height="24" rx="4" fill="#81C784" opacity="0.92"/>
-        <text x="298.5744680851064" y="61.28" class="chart-value">30</text><text x="0" y="95.28" class="chart-label">Espaces de données sous règles d’accès</text>
-        <rect class="bar-grow" x="265" y="78" width="15.563829787234043" height="24" rx="4" fill="#81C784" opacity="0.92"/>
-        <text x="289.56382978723406" y="95.28" class="chart-value">19</text><text x="0" y="129.28" class="chart-label">En-têtes de sécurité actifs</text>
-        <rect class="bar-grow" x="265" y="112" width="6.553191489361702" height="24" rx="4" fill="#81C784" opacity="0.92"/>
-        <text x="280.5531914893617" y="129.28" class="chart-value">8</text></svg>
+    <div class="kpis"><div class="kpi reveal"><div class="n"><span data-count="470">470</span></div><div class="l">Vérifications automatiques réussies</div><div class="s">470 sur 470</div></div><div class="kpi reveal"><div class="n"><span data-count="30">30</span></div><div class="l">Routes publiques et Cockpit vérifiées</div><div class="s">30</div></div><div class="kpi reveal"><div class="n"><span data-count="19">19</span></div><div class="l">Espaces de données sous règles d’accès</div><div class="s">19</div></div><div class="kpi reveal"><div class="n"><span data-count="8">8</span></div><div class="l">En-têtes de sécurité actifs</div><div class="s">8</div></div></div>
     <p class="meta">
       Ces vérifications passent <strong>avant</strong> publication : liens morts, traductions manquantes, poids des pages,
       conformité des zones éditables, historique des versions. Un échec bloque la mise en ligne — c'est ce qui garantit
@@ -1084,7 +1001,7 @@
   </section>
 
   <footer>
-    Dossier de présentation généré le 24/09/2026 14:25:06 pour le Campus Univers Cascades.
+    Dossier de présentation généré le 24/09/2026 14:38:43 pour le Campus Univers Cascades.
     Document autonome (aucun accès internet requis) · régénérable à tout moment via <code>npm run report:dossier</code>.
     <span class="pill">FR / EN</span><span class="pill">sans connexion</span><span class="pill">imprimable</span>
   </footer>

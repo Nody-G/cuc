@@ -38,3 +38,17 @@
 4. **Aperçu** — l'iframe du Cockpit (`?cuc-preview=1`) neutralise la garde pour continuer à éditer un brouillon.
 
 Reste à faire : le **statut HTTP 404** — deux voies chiffrées dans `plans/revue-diffusion-brouillons.md`. **Ordre imposé** : 404 d'abord, policy RLS `site_pages` ensuite.
+
+## 5. Présentation client de CUC Sign (positionnement, pas fonctionnalité)
+
+CUC Sign est la **seconde étape** du projet, en chantier, indépendante du site : la vitrine et le Cockpit sont livrés
+et fonctionnent sans elle. Toute présentation (dossier client, script d'appel) doit donc :
+
+1. dire **ce que c'est** en langage métier — le suivi de l'élève après l'admission (émargement Qualiopi, rotations de
+   groupes, sécurité, fiche de casting) — et jamais en langage technique ;
+2. prouver la valeur par ce que le campus y gagne : preuves de présence pour les financeurs, temps administratif
+   libéré, traçabilité des blessures, débouchés de casting pour les élèves ;
+3. **ne jamais laisser croire à un coût caché** : périmètre et budget sont annoncés ensemble, le jour où la seconde
+   étape est lancée, et rien de ce qui est déjà payé n'est remis en cause ;
+4. s'appuyer sur ce qui existe déjà (le pont de données est en service : formations, coachs, lieux lus depuis CUC Sign)
+   plutôt que sur des promesses. Toute fonctionnalité citée doit exister dans `Nody-G/cuc-sign` — sinon elle se tait.
