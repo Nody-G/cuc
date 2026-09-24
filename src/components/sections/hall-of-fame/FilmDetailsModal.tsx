@@ -115,8 +115,14 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({
             <div className="sm:col-span-7 space-y-4">
               <div>
                 <div className="text-[11px] font-mono-tech text-zinc-500 uppercase">
-                  {movie.year}{movie.director ? ` • ${t('filmModal.directedBy', { name: movie.director })}` : ''}
+                  {movie.year}
                 </div>
+                {/* Réalisateur — ligne dédiée, visible à l'ouverture du descriptif */}
+                {movie.director ? (
+                  <div className="text-[11px] font-mono-tech text-zinc-400 mt-0.5">
+                    {t('filmModal.directedBy', { name: movie.director })}
+                  </div>
+                ) : null}
                 <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white mt-0.5">
                   <span {...filmAttr('title')}>{filmValue('title', movie.title)}</span>
                 </h3>

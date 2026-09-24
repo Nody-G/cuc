@@ -77,14 +77,13 @@ const FR = {
         closeAria: 'Fermer',
     },
     filmModal: {
-        title: 'Détails du Film',
+        title: 'FILM',
         directedBy: 'Réalisé par {name}',
         doublesLabel: 'Doublures & comédiens :',
         teamLabel: 'Équipe CUC :',
         trailer: 'Bande-annonce',
         close: 'Fermer',
         closeAria: 'Fermer',
-        openHint: 'Cliquez pour voir la fiche',
     },
     showcase: {
         sortLabel: 'Trier :',
@@ -231,14 +230,13 @@ const EN = {
         closeAria: 'Close',
     },
     filmModal: {
-        title: 'Film Details',
+        title: 'FILM',
         directedBy: 'Directed by {name}',
         doublesLabel: 'Doubles & actors:',
         teamLabel: 'CUC Team:',
         trailer: 'Trailer',
         close: 'Close',
         closeAria: 'Close',
-        openHint: 'Click to view the details',
     },
     showcase: {
         sortLabel: 'Sort:',

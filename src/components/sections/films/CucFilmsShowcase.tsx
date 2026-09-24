@@ -9,7 +9,7 @@ import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { FilmCredit } from '@/types';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
-import { FilmPosterCard } from '@/components/sections/films/FilmPosterCard';
+import { FilmCard } from '@/components/sections/films/FilmCard';
 import { applyFilmOverlays } from '@/lib/i18n/apply-film-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 import { cucMicro } from '@/lib/preview/cuc-micro';
@@ -137,16 +137,17 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
             </div>
 
             {/*
-              * Grille des affiches — cartes partagées `FilmPosterCard`.
+              * Grille des affiches — jaquettes canoniques `FilmCard`.
               * Source unique de la présentation et de la navigation des
-              * jaquettes sur toute la vitrine (décision 2026-09-21).
+              * jaquettes sur toute la vitrine (décision 2026-09-24).
               */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
                 {sortedFilms.map((film) => (
-                    <FilmPosterCard
+                    <FilmCard
                         key={film.id}
                         film={film}
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
+                        footer={film.director ? tTeam('directorShort', { name: film.director }) : null}
                         onOpen={() => setSelectedFilm(film)}
                     />
                 ))}

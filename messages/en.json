@@ -339,8 +339,6 @@
         "directorShort": "Dir. {name}",
         "productionFallback": "Production",
         "featuredBadge": "Featured",
-        "filmCardHover": "Film file",
-        "detailsCta": "Details →",
         "campusFacultyTag": "CAMPUS FACULTY",
         "seeWholeTeam": "See the whole team",
         "cardCta": "Full profile",
@@ -1170,14 +1168,13 @@
             "closeAria": "Close"
         },
         "filmModal": {
-            "title": "Film Details",
+            "title": "FILM",
             "directedBy": "Directed by {name}",
             "doublesLabel": "Doubles & actors:",
             "teamLabel": "CUC Team:",
             "trailer": "Trailer",
             "close": "Close",
-            "closeAria": "Close",
-            "openHint": "Click to view the details"
+            "closeAria": "Close"
         },
         "showcase": {
             "sortLabel": "Sort:",

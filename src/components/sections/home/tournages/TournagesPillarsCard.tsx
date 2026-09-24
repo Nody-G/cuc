@@ -6,7 +6,7 @@ import { Film, ShieldCheck, ChevronRight, Sparkles } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { StudioParallaxCard } from '@/components/ui/parallax';
 import { creditTitleKey } from '@/lib/credit-title';
-import { FilmPosterCard } from '@/components/sections/films/FilmPosterCard';
+import { FilmCard } from '@/components/sections/films/FilmCard';
 import type { FilmCredit } from '@/types';
 import { FEATURED_PRODUCTIONS } from './home-tournages-data';
 
@@ -26,9 +26,9 @@ interface TournagesPillarsCardProps {
 
 /**
  * Carte studio : les 3 piliers éditoriaux et la sélection de productions.
- * Jaquettes canoniques `FilmPosterCard` — présentation et navigation
- * IDENTIQUES au showcase « LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC »
- * (affiche 2/3, badge d'année, clic → fiche détaillée). Repli vers le
+ * Jaquettes canoniques `FilmCard` — présentation et navigation IDENTIQUES
+ * au showcase « LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC » et à la fiche
+ * coach (affiche 2/3, badge d'année, clic → fiche détaillée). Repli vers le
  * catalogue si la production n'a pas encore de fiche.
  */
 export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
@@ -119,7 +119,7 @@ export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
                         {FEATURED_PRODUCTIONS.map((prod, idx) => {
                             const match = filmsByTitle.get(creditTitleKey(prod.title));
                             return (
-                                <FilmPosterCard
+                                <FilmCard
                                     key={match?.id ?? `home-${prod.title}`}
                                     film={
                                         match ?? {

@@ -339,8 +339,6 @@
         "directorShort": "Réal. {name}",
         "productionFallback": "Production",
         "featuredBadge": "Mis en avant",
-        "filmCardHover": "Fiche film",
-        "detailsCta": "Détails →",
         "campusFacultyTag": "FACULTÉ DU CAMPUS",
         "seeWholeTeam": "Voir toute l'équipe",
         "cardCta": "Fiche complète",
@@ -1170,14 +1168,13 @@
             "closeAria": "Fermer"
         },
         "filmModal": {
-            "title": "Détails du Film",
+            "title": "FILM",
             "directedBy": "Réalisé par {name}",
             "doublesLabel": "Doublures & comédiens :",
             "teamLabel": "Équipe CUC :",
             "trailer": "Bande-annonce",
             "close": "Fermer",
-            "closeAria": "Fermer",
-            "openHint": "Cliquez pour voir la fiche"
+            "closeAria": "Fermer"
         },
         "showcase": {
             "sortLabel": "Trier :",

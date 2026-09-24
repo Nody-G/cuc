@@ -1,12 +1,12 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
-import { Award, ArrowUpDown, Film, Maximize2, ShieldCheck, Users } from 'lucide-react';
+import { ArrowUpDown, Film } from 'lucide-react';
 import type { useTranslations } from 'next-intl';
 import type { FilmCredit, Instructor } from '@/types';
 import { type CoachFilmRole, type FilmSort, normalizeTitleKey } from '@/lib/coach-films';
 import { cucMicro } from '@/lib/preview/cuc-micro';
+import { FilmCard, type FilmCardRole } from '@/components/sections/films/FilmCard';
 
 export interface CoachFilmographyProps {
     member: Instructor;
@@ -26,6 +26,11 @@ export interface CoachFilmographyProps {
 /**
  * Filmographie du coach : tri (mise en avant d'abord, puis critère choisi),
  * affiches cliquables et rôle précis sur chaque production.
+ *
+ * Les jaquettes sont rendues par [`FilmCard`](src/components/sections/films/FilmCard.tsx),
+ * la présentation canonique partagée par toute la vitrine. Seul le bloc de rôle
+ * est spécifique à la fiche coach — les libellés d'appel (« Fiche film »,
+ * « Détails ») ont été retirés.
  */
 export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
     member,
@@ -98,100 +103,31 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
                     const { role, isCoord, isDoublure } = getFilmRole(film);
                     const isFeatured = featuredOrder.has(normalizeTitleKey(film.title));
 
+                    const roleBlock: FilmCardRole = {
+                        label: tt('roleOnProduction'),
+                        value: translateRole(role),
+                        variant: isCoord ? 'coord' : isDoublure ? 'doublure' : 'other',
+                        micro: cucMicro('team.roleOnProduction'),
+                    };
+
                     return (
-                        <div
+                        <FilmCard
                             key={film.id}
-                            onClick={() => onSelectFilm(film)}
-                            className={`bg-[#0e0e14] border-2 transition-all flex flex-col justify-between group overflow-hidden cursor-pointer shadow-lg hover:shadow-[0_10px_30px_rgba(255,229,0,0.1)] ${isFeatured ? 'border-[#FFE500]/60 hover:border-[#FFE500]' : 'border-zinc-800 hover:border-[#FFE500]'}`}
-                            title={`Cliquez pour voir les détails de ${film.title}`}
-                        >
-                            <div>
-                                {/* Affiche du film */}
-                                <div className="relative aspect-[2/3] w-full bg-black overflow-hidden">
-                                    {film.image ? (
-                                        <Image
-                                            src={film.image}
-                                            alt={film.title}
-                                            fill
-                                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                                            className="object-cover group-hover:scale-105 transition-transform duration-300"
-                                        />
-                                    ) : (
-                                        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-zinc-900 to-black">
-                                            <Film className="w-10 h-10 text-zinc-700" />
-                                            <span className="text-[10px] font-mono-tech uppercase tracking-wider text-zinc-600 px-4 text-center">
-                                                {film.title}
-                                            </span>
-                                        </div>
-                                    )}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e14] via-transparent to-transparent opacity-90" />
-
-                                    {/*
-                    * Badge d'année en haut à GAUCHE : position canonique
-                    * de la vitrine (`FilmPosterCard`) — la fiche coach
-                    * aligne sa jaquette sur le showcase des films.
-                    */}
-                                    <span className="absolute top-2.5 left-2.5 px-2 py-0.5 bg-black/85 backdrop-blur-xs text-[10px] font-mono-tech text-[#FFE500] border border-zinc-800 font-bold shadow-md">
-                                        {film.year}
-                                    </span>
-
-                                    {/* Mise en avant (définie dans le cockpit) */}
-                                    {isFeatured && (
-                                        <span className="absolute top-2.5 right-2.5 px-2 py-0.5 bg-[#FFE500] text-black text-[9px] font-mono-tech font-bold uppercase tracking-wider shadow-md">
-                                            <span {...cucMicro('team.featuredBadge')}>{tt('featuredBadge')}</span>
-                                        </span>
-                                    )}
-
-                                    {/* Hover action icon */}
-                                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
-                                        <span className="px-3 py-1.5 bg-[#FFE500] text-black font-mono-tech text-xs uppercase font-bold flex items-center gap-1.5 shadow-xl">
-                                            <Maximize2 className="w-3.5 h-3.5" />
-                                            <span {...cucMicro('team.filmCardHover')}>{tt('filmCardHover')}</span>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                {/* Informations & Rôle spécifique */}
-                                <div className="p-4 space-y-3">
-                                    {/* RÔLE DU COACH SUR CE FILM */}
-                                    <div>
-                                        <span className="text-[9px] font-mono-tech text-zinc-500 uppercase block mb-1">
-                                            <span {...cucMicro('team.roleOnProduction')}>{tt('roleOnProduction')}</span>
-                                        </span>
-                                        {isCoord ? (
-                                            <div className="px-2.5 py-1 bg-[#FFE500]/15 border border-[#FFE500]/50 text-[#FFE500] text-[11px] font-mono-tech font-bold uppercase flex items-center gap-1.5 rounded-xs">
-                                                <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
-                                                <span className="truncate">{translateRole(role)}</span>
-                                            </div>
-                                        ) : isDoublure ? (
-                                            <div className="px-2.5 py-1 bg-sky-500/15 border border-sky-500/40 text-sky-300 text-[11px] font-mono-tech font-bold uppercase flex items-center gap-1.5 rounded-xs">
-                                                <Users className="w-3.5 h-3.5 shrink-0" />
-                                                <span className="truncate">{translateRole(role)}</span>
-                                            </div>
-                                        ) : (
-                                            <div className="px-2.5 py-1 bg-zinc-900 border border-zinc-700 text-zinc-200 text-[11px] font-mono-tech font-semibold uppercase flex items-center gap-1.5 rounded-xs">
-                                                <Award className="w-3.5 h-3.5 shrink-0 text-zinc-400" />
-                                                <span className="truncate">{translateRole(role)}</span>
-                                            </div>
-                                        )}
-                                    </div>
-
-                                    <h3 className="text-lg font-display uppercase text-white group-hover:text-[#FFE500] transition-colors leading-tight">
-                                        {film.title}
-                                    </h3>
-
-                                </div>
-                            </div>
-
-                            <div className="p-4 pt-0 border-t border-zinc-800/80 mt-2 flex items-center justify-between text-[10px] font-mono-tech text-zinc-500">
-                                <span>
-                                    {film.director
-                                        ? tt('directorShort', { name: film.director })
-                                        : tt('productionFallback')}
-                                </span>
-                                <span className="text-[#FFE500] group-hover:underline">{tt('detailsCta')}</span>
-                            </div>
-                        </div>
+                            film={film}
+                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
+                            featured={
+                                isFeatured
+                                    ? { label: tt('featuredBadge'), micro: cucMicro('team.featuredBadge') }
+                                    : null
+                            }
+                            role={roleBlock}
+                            footer={
+                                film.director
+                                    ? tt('directorShort', { name: film.director })
+                                    : tt('productionFallback')
+                            }
+                            onOpen={() => onSelectFilm(film)}
+                        />
                     );
                 })}
             </div>
