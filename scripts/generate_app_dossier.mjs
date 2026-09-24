@@ -1347,7 +1347,8 @@ const html = `<!DOCTYPE html>
       et s'appelle <strong>CUC Sign</strong> : c'est l'application qui suit l'élève <em>après</em> son admission — présence
       quotidienne, progression technique, sécurité, vie de promotion. Elle réutilise le travail déjà fait et les mêmes outils
       que votre site ; surtout, le pont de données est <strong>déjà en service</strong> : les formations, les coachs et les lieux
-      affichés publiquement viennent de CUC Sign, en lecture seule.
+      affichés publiquement viennent de CUC Sign, en lecture seule. Les deux applications partagent <strong>la même base de
+      données</strong> — c'est volontaire : rien à dupliquer, rien à synchroniser le jour où la seconde étape démarrera.
     </p>
     <div class="flow reveal">${studentJourneySvg}</div>
     <p class="meta">

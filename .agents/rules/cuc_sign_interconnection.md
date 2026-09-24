@@ -6,7 +6,13 @@
 
 ## 1. Principe directeur
 
-- Site vitrine / Cockpit CUC et CUC Sign partagent la même instance Supabase (`https://xkbkcsypftvspmkfnrfm.supabase.co`).
+- Site vitrine / Cockpit CUC et CUC Sign partagent **une seule base de données** : instance Supabase
+  `https://xkbkcsypftvspmkfnrfm.supabase.co`, projet nommé **« cuc sign »**. C'est un **choix délibéré** :
+  l'interconnexion (sessions, coachs, lieux, candidatures → dossier élève) ne demandera aucun pont à construire
+  le jour où CUC Sign sera lancé.
+  *Vérifié le 2026-09-24 :* les deux `.env` (vitrine et CUC Sign) pointent bien vers la même instance. La
+  documentation du dépôt `Nody-G/cuc-sign` a été alignée en conséquence — elle citait une référence de projet
+  obsolète, ce qui laissait croire à deux bases séparées.
 - **Zéro Texte ni Valeur Orpheline** : tout ce qui est modifiable dans le Cockpit (sessions, formateurs, disciplines, zones du campus, pages vitrine, formulaires, candidatures) est persisté en base. Aucun contenu critique uniquement en `localStorage` ou en constante locale non synchronisée.
 - **Interconnexion bidirectionnelle maximale** dès que c'est utile et pertinent.
 
