@@ -95,20 +95,30 @@ export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers
                     <div className="inline-flex items-start gap-1 self-start px-2 py-0.5 bg-[#FFE500]/10 border border-[#FFE500]/40 text-[9px] font-mono-tech text-[#FFE500] font-bold">
                         <UserCheck className="w-2.5 h-2.5 flex-shrink-0 mt-0.5" />
                         <span className="leading-tight">
-                            {doubledBy.prefix}
-                            {doubledBy.member ? (
-                                <Link
-                                    href={`/equipe-cascadeurs-pro/${doubledBy.member.id}`}
-                                    onClick={(e) => e.stopPropagation()}
-                                    title={doubledBy.member.name}
-                                    className="underline decoration-dotted underline-offset-2 hover:text-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#FFE500] transition-colors"
-                                >
-                                    {doubledBy.name}
-                                </Link>
+                            {doubledBy.segments.length > 0 ? (
+                                doubledBy.segments.map((seg, sIdx) => {
+                                    if (seg.type === 'member' && seg.member) {
+                                        return (
+                                            <Link
+                                                key={sIdx}
+                                                href={`/equipe-cascadeurs-pro/${seg.member.id}`}
+                                                onClick={(e) => e.stopPropagation()}
+                                                title={seg.member.name}
+                                                className="underline decoration-dotted underline-offset-2 hover:text-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#FFE500] transition-colors"
+                                            >
+                                                {seg.text}
+                                            </Link>
+                                        );
+                                    }
+                                    return <React.Fragment key={sIdx}>{seg.text}</React.Fragment>;
+                                })
                             ) : (
-                                doubledBy.name
+                                <>
+                                    {doubledBy.prefix}
+                                    {doubledBy.name}
+                                    {doubledBy.suffix}
+                                </>
                             )}
-                            {doubledBy.suffix}
                         </span>
                     </div>
                 ) : null}

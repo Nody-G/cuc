@@ -113,21 +113,26 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                     DOUBLURE & TOURNAGES :
                   </span>
                   <div className="text-xs text-white font-mono-tech leading-relaxed">
-                    Doublé par{' '}
-                    <span className="text-[#FFE500] font-bold">
-                      {doubledBy.member ? (
-                        <Link
-                          href={`/equipe-cascadeurs-pro/${doubledBy.member.id}`}
-                          onClick={onClose}
-                          title={doubledBy.member.name}
-                          className="underline decoration-dotted underline-offset-2 hover:text-white transition-colors"
-                        >
-                          {doubledBy.name}
-                        </Link>
-                      ) : (
-                        doubledBy.name
-                      )}
-                    </span>
+                    {doubledBy.segments.length > 0 ? (
+                      doubledBy.segments.map((seg, sIdx) => {
+                        if (seg.type === 'member' && seg.member) {
+                          return (
+                            <Link
+                              key={sIdx}
+                              href={`/equipe-cascadeurs-pro/${seg.member.id}`}
+                              onClick={onClose}
+                              title={seg.member.name}
+                              className="text-[#FFE500] font-bold underline decoration-dotted underline-offset-2 hover:text-white transition-colors"
+                            >
+                              {seg.text}
+                            </Link>
+                          );
+                        }
+                        return <span key={sIdx} className="text-zinc-200">{seg.text}</span>;
+                      })
+                    ) : (
+                      <span>{doubledBy.name}</span>
+                    )}
                     {celebrity.productions.length > 0 && (
                       <>
                         {' '}dans{' '}

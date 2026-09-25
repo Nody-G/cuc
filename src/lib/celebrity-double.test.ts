@@ -59,8 +59,22 @@ describe('resolveDoubledBy', () => {
     });
 
     it('renvoie une structure vide pour un texte vide', () => {
-        expect(resolveDoubledBy('', TEAM)).toEqual({ prefix: '', member: null, name: '', suffix: '' });
-        expect(resolveDoubledBy('   ', TEAM)).toEqual({ prefix: '', member: null, name: '', suffix: '' });
+        expect(resolveDoubledBy('', TEAM)).toEqual({
+            prefix: '',
+            member: null,
+            name: '',
+            suffix: '',
+            segments: [],
+            allMembers: [],
+        });
+        expect(resolveDoubledBy('   ', TEAM)).toEqual({
+            prefix: '',
+            member: null,
+            name: '',
+            suffix: '',
+            segments: [],
+            allMembers: [],
+        });
     });
 
     it('tolère un référentiel d’équipe vide', () => {
@@ -68,5 +82,34 @@ describe('resolveDoubledBy', () => {
 
         expect(parts.member).toBeNull();
         expect(parts.name).toBe('Doublé par Vincent Bouillon');
+    });
+
+    it('reconnaît plusieurs coachs dans une même phrase (ex: Vincent Cassel)', () => {
+        const teamWithKefi: TeamNameRef[] = [
+            { id: 'jerome-gaspard', name: 'Jérôme Gaspard' },
+            { id: 'kefi-abrikh', name: 'Kefi Abrikh' },
+        ];
+        const parts = resolveDoubledBy('Doublé par Jérôme Gaspard & Kefi Abrikh', teamWithKefi);
+
+        expect(parts.allMembers).toHaveLength(2);
+        expect(parts.allMembers[0].id).toBe('jerome-gaspard');
+        expect(parts.allMembers[1].id).toBe('kefi-abrikh');
+        expect(parts.segments).toEqual([
+            { type: 'text', text: 'Doublé par ' },
+            { type: 'member', text: 'Jérôme Gaspard', member: { id: 'jerome-gaspard', name: 'Jérôme Gaspard' } },
+            { type: 'text', text: ' & ' },
+            { type: 'member', text: 'Kefi Abrikh', member: { id: 'kefi-abrikh', name: 'Kefi Abrikh' } },
+        ]);
+    });
+
+    it('reconnaît la variante orthographique Kefy pour Kefi Abrikh', () => {
+        const teamWithKefi: TeamNameRef[] = [
+            { id: 'jerome-gaspard', name: 'Jérôme Gaspard' },
+            { id: 'kefi-abrikh', name: 'Kefi Abrikh' },
+        ];
+        const parts = resolveDoubledBy('Doublé par Jérôme Gaspard et Kefy', teamWithKefi);
+
+        expect(parts.allMembers).toHaveLength(2);
+        expect(parts.segments.find((s) => s.type === 'member' && s.member?.id === 'kefi-abrikh')).toBeDefined();
     });
 });

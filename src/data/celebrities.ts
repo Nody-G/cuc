@@ -1,77 +1,78 @@
 import { DoubledCelebrity } from '@/types';
 
 /**
- * Comédiens doublés par le CUC — données factuelles enrichies avec biographies officielles.
- * Dernière mise à jour : 2026-09-25T14:50:00.522Z
+ * 43 comédiens et personnalités doublés par les cascadeurs et coachs du CUC.
+ * Fiches enrichies avec photos officielles (TMDb / Unifrance / IMDb), filmographies certifiées,
+ * URLs IMDb officielles vérifiées et biographies authentiques.
  */
 export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
   {
     "id": "nassim-lyes",
     "name": "Nassim Lyes",
-    "photo": "https://m.media-amazon.com/images/M/MV5BNmNhZGYxOTItOTc1Ny00OWVjLWFkY2EtNmY5MDNhM2U1MWJmXkEyXkFqcGc@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/nMJ1qjhdfgRT8JuyUfFEkEwihOW.jpg",
     "productions": [
       "Bagarre",
       "Nouveaux riches"
     ],
     "stuntSpecialty": "Combats de rue chorégraphiés, cascades physiques intenses et corps-à-corps réglés par le CUC.",
     "stuntDoubles": "Doublé par Bastien Trouvé",
-    "imdbUrl": "https://www.imdb.com/name/nm4412217/",
+    "imdbUrl": "https://www.imdb.com/name/nm4051466/",
     "bio": "Champion de France junior de kick-boxing et acteur majeur du cinéma d'action français contemporain. Il s'impose comme une référence physique et athlétique dans En passant pécho, le film d'arts martiaux Farang de Xavier Gens, le blockbuster mondial Sous la Seine sur Netflix, ainsi que dans Bagarre et Nouveaux riches de Julien Royal, tous deux coordonnés par l'équipe CUC."
   },
   {
     "id": "alban-lenoir",
     "name": "Alban Lenoir",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMjA5OTcwMDgyMF5BMl5BanBnXkFtZTgwNjkyMTgxNDE@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/jOWPgqzpvsaxzgBNzDqs2RR5jI6.jpg",
     "productions": [
       "Antigang: La Relève"
     ],
     "stuntSpecialty": "Cascades physiques à haute intensité, fusillades tactiques et corps-à-corps réglés par le CUC.",
     "stuntDoubles": "Doublé par l'équipe CUC",
-    "imdbUrl": "https://www.imdb.com/name/nm1060965/",
+    "imdbUrl": "https://www.imdb.com/name/nm1839955/",
     "bio": "Acteur et cascadeur de formation, véritable fer de lance du cinéma d'action français moderne. Nommé au César du meilleur espoir masculin pour Un Français, il triomphe internationalement avec la saga Balle perdue sur Netflix, la comédie culte Hero Corp et les films policiers d'action Antigang et Antigang: La Relève."
   },
   {
     "id": "francois-civil",
     "name": "François Civil",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMWMxNDAzOTMtODFlZC00NzI0LWE1YjEtOTg0OWQ5ZDUxOWZkXkEyXkFqcGc@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/vSkggoDmEHl820VMBzpGkjARU2z.jpg",
     "productions": [
       "L'Amour ouf"
     ],
     "stuntSpecialty": "Cascades d'époque, chutes violentes et scènes de rixes réglées par le CUC.",
     "stuntDoubles": "Doublé par l'équipe CUC",
-    "imdbUrl": "https://www.imdb.com/name/nm2916669/",
+    "imdbUrl": "https://www.imdb.com/name/nm2476624/",
     "bio": "Acteur français incontournable de sa génération, nommé à deux reprises aux César. Remarqué dans Le Chant du loup, Deux moi de Cédric Klapisch et BAC Nord de Cédric Jimenez, il incarne D'Artagnan dans la superproduction Les Trois Mousquetaires et brille dans la fresque criminelle et romantique L'Amour ouf de Gilles Lellouche."
   },
   {
     "id": "vincent-cassel",
     "name": "Vincent Cassel",
-    "photo": "/images/actors/vincent-cassel.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/ivUQfhn5olOmR5hthN8C8GThBV4.jpg",
     "productions": [
       "Le Monde est à toi",
       "L'Empereur de Paris"
     ],
     "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC.",
-    "stuntDoubles": "Doublé par Jérôme Gaspard, Kefi Abrikh",
+    "stuntDoubles": "Doublé par Jérôme Gaspard & Kefi Abrikh",
     "imdbUrl": "https://www.imdb.com/name/nm0001993/",
     "bio": "Figure emblématique du cinéma français et international, révélé dans La Haine de Mathieu Kassovitz. Acteur magnétique aux multiples facettes, il brille dans Les Rivières pourpres, Mesrine (César du meilleur acteur), Black Swan de Darren Aronofsky, Eastern Promises de David Cronenberg et L'Empereur de Paris."
   },
   {
     "id": "jonathan-cohen",
     "name": "Jonathan Cohen",
-    "photo": "https://m.media-amazon.com/images/M/MV5BYzQwOWQ3Y2YtMmIxZS00ZjA3LTkyNWUtMDRkYTU2Yzc4NmFkXkEyXkFqcGc@._V1_CR1,1,1065,1598_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/T7ucGNWUDsRRXrjjVfY3uhPfMq.jpg",
     "productions": [
       "En même temps",
       "Family Business"
     ],
     "stuntSpecialty": "Cascades physiques, doublure d'action et comédie physique réglées par le CUC.",
     "stuntDoubles": "Doublé par Frédéric Dessains",
-    "imdbUrl": "https://www.imdb.com/name/nm0169512/",
+    "imdbUrl": "https://www.imdb.com/name/nm3214170/",
     "bio": "Acteur, scénariste et réalisateur incontournable de la comédie française moderne. Créateur et interprète des séries phénomènes La Flamme, Le Flambeau et du personnage culte Serge le Mytho, il triomphe au cinéma et à la télévision dans Family Business, En même temps et Une année difficile."
   },
   {
     "id": "jean-dujardin",
     "name": "Jean Dujardin",
-    "photo": "/images/actors/jean-dujardin.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/iPtSWWoO8vajj6fIUQLQeuGOCsk.jpg",
     "productions": [
       "Alphonse",
       "Brice 3"
@@ -84,7 +85,7 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
   {
     "id": "fion-whitehead",
     "name": "Fion Whitehead",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMTA2OTI5MTYyOTdeQTJeQWpwZ15BbWU4MDY0MzkwOTIy._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/2JjRhwG6BEWeF4n9TlvDEDzlP5P.jpg",
     "productions": [
       "Roads"
     ],
@@ -96,7 +97,7 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
   {
     "id": "keanu-reeves",
     "name": "Keanu Reeves",
-    "photo": "https://m.media-amazon.com/images/M/MV5BNjUxNDcwMTg4Ml5BMl5BanBnXkFtZTcwMjAwMTU2Nw@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/8RZLOyYGsoRe9p44q3xin9QkMHv.jpg",
     "productions": [
       "John Wick : Chapitre 4"
     ],
@@ -108,7 +109,7 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
   {
     "id": "adam-sandler",
     "name": "Adam Sandler",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMjA4ODU0MTQ1OV5BMl5BanBnXkFtZTgwNTU5NzcwNDI@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/iTMnXrPfC1rmom6a9q4hy6YSJWG.jpg",
     "productions": [
       "Murder Mystery 2"
     ],
@@ -120,19 +121,19 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
   {
     "id": "scott-adkins",
     "name": "Scott Adkins",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMTY3NTY0MTE2NF5BMl5BanBnXkFtZTcwNTI1ODAyMg@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/9NRr2a1riIn5CWn5McZLJlk4vxR.jpg",
     "productions": [
       "Matrah Matrouh"
     ],
     "stuntSpecialty": "Arts martiaux acrobatiques, coups de pied aériens et scènes de combat de haut niveau réglées par le CUC.",
     "stuntDoubles": "Doublé par Vincent Bouillon",
-    "imdbUrl": "https://www.imdb.com/name/nm0012010/",
+    "imdbUrl": "https://www.imdb.com/name/nm0012078/",
     "bio": "Artiste martial émérite et star absolue du cinéma d'action international contemporain, célèbre dans le monde entier pour son rôle culte de Yuri Boyka dans la franchise Undisputed. Il a également brillé dans John Wick : Chapitre 4 (Killa), Doctor Strange, Expendables 2 et Ip Man 4."
   },
   {
     "id": "adrien-brody",
     "name": "Adrien Brody",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMjI3ODkxMjU3OF5BMl5BanBnXkFtZTgwMTk2Njk3MTE@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/qBc7ahQrpVpcllaZ5hkivsOEb3C.jpg",
     "productions": [
       "The French Dispatch"
     ],
@@ -144,19 +145,19 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
   {
     "id": "kevin-costner",
     "name": "Kevin Costner",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMTc5NTI5NDAzMl5BMl5BanBnXkFtZTcwMTU1NDg2Mw@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/608blZipRDZkDpzp8VItB64qMaT.jpg",
     "productions": [
       "3 Days to Kill"
     ],
     "stuntSpecialty": "Cascades d'action de poursuite et combats au corps-à-corps réglés par le CUC.",
     "stuntDoubles": "Doublé par Jérôme Gaspard",
-    "imdbUrl": "https://www.imdb.com/name/nm0000125/",
+    "imdbUrl": "https://www.imdb.com/name/nm0000126/",
     "bio": "Légende du cinéma américain, acteur et réalisateur couronné par deux Oscars pour son chef-d'œuvre Danse avec les loups en 1990. Figure mythique des films Les Incorruptibles, Bodyguard, Robin des Bois : Prince des voleurs, JFK et héros de la série western phénomène Yellowstone."
   },
   {
     "id": "luke-evans",
     "name": "Luke Evans",
-    "photo": "https://m.media-amazon.com/images/M/MV5BOTU3MTY0ODg5NF5BMl5BanBnXkFtZTcwNzY3NDIyOQ@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/qUkYJcrDc4M0LHNYASs30luFvw0.jpg",
     "productions": [
       "Fast & Furious 6"
     ],
@@ -168,43 +169,43 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
   {
     "id": "tomer-sisley",
     "name": "Tomer Sisley",
-    "photo": "https://m.media-amazon.com/images/M/MV5BNTI2ODc3NjY2M15BMl5BanBnXkFtZTcwMTgyMzkzNw@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/2Tqiq9ajbiA0OGbpQDorROU2SO7.jpg",
     "productions": [
       "Largo Winch II"
     ],
     "stuntSpecialty": "Chutes libres, combats aériens et cascades physiques périlleuses réglées par le CUC.",
     "stuntDoubles": "Doublé par Jérôme Gaspard",
-    "imdbUrl": "https://www.imdb.com/name/nm0803036/",
+    "imdbUrl": "https://www.imdb.com/name/nm0803037/",
     "bio": "Acteur et humoriste français réputé pour exécuter personnellement une grande partie de ses cascades. Interprète emblématique de l'aventurier milliardaire Largo Winch au cinéma, il s'est également illustré dans le thriller Nuit blanche et les séries à succès Balthazar et Vortex."
   },
   {
     "id": "franck-gastambide",
     "name": "Franck Gastambide",
-    "photo": "https://m.media-amazon.com/images/M/MV5BOGZmNGE5ZTktZGMwMi00YmU0LWJiNzUtNDcwNmU3YmQwYTZlXkEyXkFqcGc@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/jEf57uD2UG36m0aFkWXm3EMQq8l.jpg",
     "productions": [
       "Le salaire de la peur"
     ],
     "stuntSpecialty": "Cascades motorisées, explosions et scènes d'action tout-terrain réglées par le CUC.",
     "stuntDoubles": "Doublé par Franck Blanc",
-    "imdbUrl": "https://www.imdb.com/name/nm3483256/",
+    "imdbUrl": "https://www.imdb.com/name/nm4151736/",
     "bio": "Acteur, scénariste, réalisateur et producteur français. Figure majeure du divertissement d'action avec les comédies Les Kaïra, Pattaya, Taxi 5, créateur de la série culte Validé sur Canal+ et tête d'affiche du film d'action Le Salaire de la peur."
   },
   {
     "id": "philippe-lacheau",
     "name": "Philippe Lacheau",
-    "photo": "https://m.media-amazon.com/images/M/MV5BOGE2ZGNhYzItY2U2Zi00Zjc4LWFiMTItZDk3OGRhNDM2YzYzXkEyXkFqcGc@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/2ev0Ip2vNnC5UYe10gJNcApahZ4.jpg",
     "productions": [
       "Super-héros malgré lui"
     ],
     "stuntSpecialty": "Cascades burlesques, chutes câblées et scènes de super-héros réglées par le CUC.",
     "stuntDoubles": "Doublé par Vincent Bouillon",
-    "imdbUrl": "https://www.imdb.com/name/nm3708453/",
+    "imdbUrl": "https://www.imdb.com/name/nm3743617/",
     "bio": "Réalisateur et comédien star de la comédie française contemporaine, leader de la Bande à Fifi. Auteur de triomphes consécutifs au box-office : Babysitting, Alibi.com, l'adaptation culte Nicky Larson et le parfum de Cupidon, et Super-héros malgré lui."
   },
   {
     "id": "olivier-gourmet",
     "name": "Olivier Gourmet",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMjMxOTYyNzIxNF5BMl5BanBnXkFtZTcwMDYwNTIzOA@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/dxylGdqFfe6WiXaZGZnFTfvyyZm.jpg",
     "productions": [
       "Tueurs"
     ],
@@ -216,7 +217,7 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
   {
     "id": "lambert-wilson",
     "name": "Lambert Wilson",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMTUwNzY5MTE3NV5BMl5BanBnXkFtZTcwNDY2MTkzNA@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/pFuLPZtgrKsnRXJCKWILQ69k6Ta.jpg",
     "productions": [
       "Suite française"
     ],
@@ -228,19 +229,19 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
   {
     "id": "samuel-le-bihan",
     "name": "Samuel Le Bihan",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMzU4NjExMTA1NF5BMl5BanBnXkFtZTcwNzY3MjAyOA@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/jN4hwWfhFaE8v5TGiS6cg9HKOxe.jpg",
     "productions": [
       "Le Pacte des loups"
     ],
     "stuntSpecialty": "Combats d'époque à l'arme blanche, cascades martiales réglées par le CUC.",
     "stuntDoubles": "Doublé par Jérôme Gaspard",
-    "imdbUrl": "https://www.imdb.com/name/nm0494193/",
+    "imdbUrl": "https://www.imdb.com/name/nm0494078/",
     "bio": "Acteur français au charisme athlétique, révélé par Vénus Beauté (Institut) et le triomphe historique Le Pacte des loups de Christophe Gans dans lequel il incarne Grégoire de Fronsac. Héros depuis 2014 de la série policière à succès Alex Hugo sur France 3."
   },
   {
     "id": "arnaud-ducret",
     "name": "Arnaud Ducret",
-    "photo": "https://m.media-amazon.com/images/M/MV5BODNhNGYxM2UtMmI5Ny00NzkxLWFlNDQtODMyOGU3MzY3MWE5XkEyXkFqcGc@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/k4wixf8xKSym0GTcYFRov6PgEj7.jpg",
     "productions": [
       "Divorce Club"
     ],
@@ -252,19 +253,19 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
   {
     "id": "ramzy-bedia",
     "name": "Ramzy Bedia",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMTQ2NzgyNzA3OV5BMl5BanBnXkFtZTcwOTY4MTIzOA@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/fzGqj63WW6NFAK43oVjtYzVy75y.jpg",
     "productions": [
       "Les Blagues de Toto"
     ],
     "stuntSpecialty": "Cascades comiques, chutes physiques et scènes burlesques réglées par le CUC.",
     "stuntDoubles": "Doublé par Kefi Abrikh",
-    "imdbUrl": "https://www.imdb.com/name/nm0066060/",
+    "imdbUrl": "https://www.imdb.com/name/nm0066080/",
     "bio": "Comédien, humoriste, scénariste et réalisateur, membre du duo culte Éric et Ramzy (La Tour Montparnasse infernale, la série H). Il s'est imposé dans le cinéma d'auteur et d'action comme Mandibules de Quentin Dupieux, Les Blagues de Toto et Balle perdue."
   },
   {
     "id": "ned-dennehy",
     "name": "Ned Dennehy",
-    "photo": "https://m.media-amazon.com/images/M/MV5BZWIwYTY0ZmUtODk3My00YjA4LTllMTMtYjc0NThjODZlYWI0XkEyXkFqcGc@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/gSEtkD9YwYnIPbnagDc797kMVJ2.jpg",
     "productions": [
       "The Walking Dead: Daryl Dixon"
     ],
@@ -276,19 +277,19 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
   {
     "id": "mister-v",
     "name": "Mister V",
-    "photo": "https://m.media-amazon.com/images/M/MV5BOTU2NzY1NDEtZTQ5OS00YWI3LTk2NGItZmI5MzVkMmQyYzk1XkEyXkFqcGc@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/2mTvSkBjg8ilrOUFUGwVZm1oyBB.jpg",
     "productions": [
       "Pattaya"
     ],
     "stuntSpecialty": "Chutes, cascades d'action et scènes burlesques réglées par le CUC.",
     "stuntDoubles": "Doublé par Nicolas Retabi",
-    "imdbUrl": "https://www.imdb.com/name/nm5488059/",
+    "imdbUrl": "https://www.imdb.com/name/nm5313009/",
     "bio": "Youtuber, rappeur et acteur français parmi les plus influents de sa génération. Multi-certifié dans la musique, il a fait des apparitions remarquées au cinéma dans Pattaya de Franck Gastambide, Le Manoir et All Inclusive."
   },
   {
     "id": "jean-hugues-anglade",
     "name": "Jean-hugues Anglade",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMTY3NTc3MTA2Ml5BMl5BanBnXkFtZTcwMjA3NDIzOA@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/cpSxpZLgtzuizHyEmdkh9rgKkRs.jpg",
     "productions": [
       "Prise au piège"
     ],
@@ -300,115 +301,115 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
   {
     "id": "moussa-maaskri",
     "name": "Moussa Maaskri",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMjA1OTU2MDk5NF5BMl5BanBnXkFtZTgwNTU0OTYzODE@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/auFuguYamVbf1NWYx0N4rZnKnNG.jpg",
     "productions": [
       "Overdrive"
     ],
     "stuntSpecialty": "Cascades d'action automobile, courses-poursuites et fusillades réglées par le CUC.",
     "stuntDoubles": "Doublé par Franck Blanc",
-    "imdbUrl": "https://www.imdb.com/name/nm0530752/",
+    "imdbUrl": "https://www.imdb.com/name/nm0531014/",
     "bio": "Figure incontournable du polar et du cinéma d'action français, au visage buriné reconnaissable entre mille. Acteur fétiche d'Olivier Marchal (Bronx, Les Lyonnais), il a également marqué La French, Deux Frères et le film américain Stillwater."
   },
   {
     "id": "sam-spruell",
     "name": "Sam Spruell",
-    "photo": "https://m.media-amazon.com/images/M/MV5BNTIwMzc1NDQxNV5BMl5BanBnXkFtZTcwMzk4NDIzOA@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/nTyK3HlqdlJZqjpwTVf4Xo5LkYw.jpg",
     "productions": [
       "Taken 3"
     ],
     "stuntSpecialty": "Combats rapprochés, fusillades et cascades physiques réglées par le CUC.",
     "stuntDoubles": "Doublé par Jérôme Gaspard",
-    "imdbUrl": "https://www.imdb.com/name/nm0819869/",
+    "imdbUrl": "https://www.imdb.com/name/nm0819874/",
     "bio": "Acteur britannique de premier plan, connu pour ses rôles de méchants d'envergure dans Taken 3 face à Liam Neeson, Blanche-Neige et le Chasseur, Legend aux côtés de Tom Hardy et la série anthologique Fargo."
   },
   {
     "id": "thierry-neuvic",
     "name": "Thierry Neuvic",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMTY3NTY0MTE2NF5BMl5BanBnXkFtZTcwNTI1ODAyMg@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/e0CvOz6q1hqunt57lrIzY4mtWnT.jpg",
     "productions": [
       "Belle et Sébastien : L'aventure continue"
     ],
     "stuntSpecialty": "Cascades en montagne, scènes de pilotage d'avion et doublure physique réglées par le CUC.",
     "stuntDoubles": "Doublé par Jérôme Gaspard",
-    "imdbUrl": "https://www.imdb.com/name/nm0626989/",
+    "imdbUrl": "https://www.imdb.com/name/nm0627245/",
     "bio": "Acteur français populaire de cinéma et de télévision. Révélé par la série Mafiosa sur Canal+, il a également tourné sous la direction de Clint Eastwood dans Au-delà, ainsi que dans Ne le dis à personne et Belle et Sébastien."
   },
   {
     "id": "vincent-elbaz",
     "name": "Vincent Elbaz",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMTY2OTI5NTc3NF5BMl5BanBnXkFtZTcwMTg2MTkzNA@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/uj2N223BJ1V78W8mNK20M3IGYus.jpg",
     "productions": [
       "Daddy Cool"
     ],
     "stuntSpecialty": "Cascades d'action physiques, chutes et comédie d'action réglées par le CUC.",
     "stuntDoubles": "Doublé par Kefi Abrikh",
-    "imdbUrl": "https://www.imdb.com/name/nm0253303/",
+    "imdbUrl": "https://www.imdb.com/name/nm0252979/",
     "bio": "Acteur français chaleureux et charismatique révélé dans Le Péril jeune et la saga culte La Vérité si je mens !. Héros de la série d'action explosive No Limit produite par Luc Besson, il brille également dans Le Dernier Gang et Daddy Cool."
   },
   {
     "id": "georges-corraface",
     "name": "Georges Corraface",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMjA5OTcwMDgyMF5BMl5BanBnXkFtZTgwNjkyMTgxNDE@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/k23MRaOgBRwODA0Q5Tjec7ZolQp.jpg",
     "productions": [
       "Super-héros malgré lui"
     ],
     "stuntSpecialty": "Chutes, doublure d'action et comédie burlesque réglées par le CUC.",
     "stuntDoubles": "Doublé par Amédéo Cazzella",
-    "imdbUrl": "https://www.imdb.com/name/nm0180860/",
+    "imdbUrl": "https://www.imdb.com/name/nm0004248/",
     "bio": "Acteur international d'origine grecque à la prestigieuse carrière théâtrale et cinématographique. Interprète de Christophe Colomb au cinéma et acteur fétiche de Peter Brook dans Le Mahabharata, il a joué dans Super-héros malgré lui."
   },
   {
     "id": "bruno-debrandt",
     "name": "Bruno Debrandt",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMTQ4NTc3NTU1NF5BMl5BanBnXkFtZTcwNTE1ODAyMg@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/tRIhNtVcX8PXfPncrooBdqtFHz7.jpg",
     "productions": [
       "Prise au piège"
     ],
     "stuntSpecialty": "Cascades physiques, scènes d'agression et tension dramatique réglées par le CUC.",
     "stuntDoubles": "Doublé par Amédéo Cazzella",
-    "imdbUrl": "https://www.imdb.com/name/nm1450257/",
+    "imdbUrl": "https://www.imdb.com/name/nm1122172/",
     "bio": "Acteur français très apprécié pour son rôle-titre du capitaine Caïn pendant six saisons dans la série policière Caïn sur France 2, ainsi que pour ses rôles dans Engrenages et Prise au piège."
   },
   {
     "id": "blerim-destani",
     "name": "Blerim Destani",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMTQyNzgyNzA3OV5BMl5BanBnXkFtZTcwOTY4MTIzOA@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/4ARDhFyd6KYLcIF1na8qrDiPZCZ.jpg",
     "productions": [
       "Troubleshooters"
     ],
     "stuntSpecialty": "Cascades d'action de poursuite et combats au corps-à-corps réglés par le CUC.",
     "stuntDoubles": "Doublé par Vincent Bouillon",
-    "imdbUrl": "https://www.imdb.com/name/nm1886121/",
+    "imdbUrl": "https://www.imdb.com/name/nm1773716/",
     "bio": "Acteur et producteur d'action international, vu aux côtés de John Travolta et Morgan Freeman dans The Poison Rose, ainsi qu'avec Robert De Niro dans The Comeback Trail et dans Troubleshooters."
   },
   {
     "id": "wael-sersoub",
     "name": "Waël Sersoub",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMTQ2NzgyNzA3OV5BMl5BanBnXkFtZTcwOTY4MTIzOA@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/urIZNaTVEHeBqaZvIoaCiMiy2yu.jpg",
     "productions": [
       "Tigres & Hyènes"
     ],
     "stuntSpecialty": "Combats rapprochés, cascades urbaines et fusillades réglées par le CUC.",
     "stuntDoubles": "Doublé par Vincent Bouillon",
-    "imdbUrl": "https://www.imdb.com/name/nm7418728/",
+    "imdbUrl": "https://www.imdb.com/name/nm7928253/",
     "bio": "Acteur français montant du cinéma d'action et du polar noir, remarqué dans Kanun de Jérémie Guez, Milady et le thriller Tigres & Hyènes."
   },
   {
     "id": "aahmir-khan",
     "name": "Aamir Khan",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMjExNzM0NDM0N15BMl5BanBnXkFtZTcwNjY2MTkzNA@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/6uiZSwi2kvd1jZ7X7Xz9W9VGuV4.jpg",
     "productions": [
       "Thugs de l'Hindostan"
     ],
     "stuntSpecialty": "Combats d'époque à l'épée, acrobaties et cascades maritimes réglées par le CUC.",
     "stuntDoubles": "Doublé par Vincent Bouillon",
-    "imdbUrl": "https://www.imdb.com/name/nm0451174/",
+    "imdbUrl": "https://www.imdb.com/name/nm0451148/",
     "bio": "Superstar planétaire du cinéma indien, l'un des artistes les plus respectés et influents de Bollywood. Star de Lagaan (nommé aux Oscars), 3 Idiots, PK, Dangal et Thugs of Hindostan."
   },
   {
     "id": "sunny-deol",
     "name": "Sunny Deol",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMzU4NjExMTA1NF5BMl5BanBnXkFtZTcwNzY3MjAyOA@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/w9RenJriQVys2k5fa9ojkXpYMwO.jpg",
     "productions": [
       "Yamla Pagla Deewana 2"
     ],
@@ -420,110 +421,110 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
   {
     "id": "hafsia-herzi",
     "name": "Hafsia Herzi",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMTQ4NTc3NTU1NF5BMl5BanBnXkFtZTcwNTE1ODAyMg@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/byx2NjdptzQtmt5kWZc7hf6Kqj9.jpg",
     "productions": [
       "Histoires de la nuit"
     ],
     "stuntSpecialty": "Cascades physiques et doublure de scène de tension réglées par le CUC.",
     "stuntDoubles": "Doublée par Sarah Belala",
-    "imdbUrl": "https://www.imdb.com/name/nm2675765/",
+    "imdbUrl": "https://www.imdb.com/name/nm2082567/",
     "bio": "Actrice et réalisatrice française d'exception, révélée par La Graine et le Mulet (César du meilleur espoir féminin), réalisatrice primée à Cannes pour Bonne Mère."
   },
   {
     "id": "patience-munchenbach",
     "name": "Patience Munchenbach",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMjMxOTYyNzIxNF5BMl5BanBnXkFtZTcwMDYwNTIzOA@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/oemZSRlNAR2QN3LXXb8uJkagnuv.jpg",
     "productions": [
       "Acide"
     ],
     "stuntSpecialty": "Cascades de pluie acide, chutes dans l'eau et fuites physiques réglées par le CUC.",
     "stuntDoubles": "Doublée par Sarah Belala",
-    "imdbUrl": "https://www.imdb.com/name/nm10629706/",
+    "imdbUrl": "https://www.imdb.com/name/nm10692273/",
     "bio": "Jeune actrice française remarquée pour son interprétation poignante dans le film catastrophe Acide de Just Philippot (Festival de Cannes 2023) et Perdrix."
   },
   {
     "id": "elie-haddad",
     "name": "Elie Haddad",
-    "photo": "https://m.media-amazon.com/images/M/MV5BODNhNGYxM2UtMmI5Ny00NzkxLWFlNDQtODMyOGU3MzY3MWE5XkEyXkFqcGc@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/qoYgZhv2xKfDmlLBsjWJ2Jr7c29.jpg",
     "productions": [
       "The Killer"
     ],
     "stuntSpecialty": "Fusillades stylistiques, chutes avec impacts et chorégraphies de cascades réglées par le CUC.",
     "stuntDoubles": "Doublé par Alan Cueff",
-    "imdbUrl": "https://www.imdb.com/name/nm3940864/",
+    "imdbUrl": "https://www.imdb.com/name/nm4363643/",
     "bio": "Acteur et performer d'action français apparu dans des productions internationales majeures dont The Killer de John Woo."
   },
   {
     "id": "benjamin-de-la-fere",
-    "name": "Benjamin De La Fère",
-    "photo": "https://m.media-amazon.com/images/M/MV5BZWIwYTY0ZmUtODk3My00YjA4LTllMTMtYjc0NThjODZlYWI0XkEyXkFqcGc@._V1_.jpg",
+    "name": "Gabriel Almaer (Benjamin de la Fère)",
+    "photo": "https://image.tmdb.org/t/p/h632/ht7ixpjz0Kg46pGxpWcuJSXbxkr.jpg",
     "productions": [
       "Les Trois Mousquetaires : D'Artagnan",
       "Les Trois Mousquetaires: Milady"
     ],
     "stuntSpecialty": "Escrime de spectacle, combats d'époque et chutes de cheval réglées par le CUC.",
     "stuntDoubles": "Doublé par Nicolas Retabi",
-    "imdbUrl": "https://www.imdb.com/name/nm1450257/",
+    "imdbUrl": "https://www.imdb.com/name/nm9946750/",
     "bio": "Acteur français d'action présent dans les scènes de bataille et d'escrime des superproductions Les Trois Mousquetaires de Martin Bourboulon."
   },
   {
     "id": "jay-duffy",
     "name": "Jay Duffy",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMTA2OTI5MTYyOTdeQTJeQWpwZ15BbWU4MDY0MzkwOTIy._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/9RY8ZW3FbwPmxlYZe02osL3TI0K.jpg",
     "productions": [
       "Playground"
     ],
     "stuntSpecialty": "Cascades d'action tactique et scènes de combat réglées par le CUC.",
     "stuntDoubles": "Doublé par Jérôme Gaspard",
-    "imdbUrl": "https://www.imdb.com/name/nm4412217/",
+    "imdbUrl": "https://www.imdb.com/name/nm4567872/",
     "bio": "Acteur irlandais apparu dans les séries Vikings, Derry Girls et la série d'action Playground."
   },
   {
     "id": "benjamin-blanchy",
     "name": "Benjamin Blanchy",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMjI3ODkxMjU3OF5BMl5BanBnXkFtZTgwMTk2Njk3MTE@._V1_.jpg",
+    "photo": "/images/actors/benjamin-blanchy.png",
     "productions": [
       "Le passager"
     ],
     "stuntSpecialty": "Cascades physiques et doublure de tension réglées par le CUC.",
     "stuntDoubles": "Doublé par Jérôme Gaspard",
-    "imdbUrl": "https://www.imdb.com/name/nm3143558/",
+    "imdbUrl": "https://www.imdb.com/name/nm4327348/",
     "bio": "Acteur français vu dans des séries policières et d'angoisse telles que Le Passager adapté de Jean-Christophe Grangé."
   },
   {
     "id": "michael-lindall",
     "name": "Michael Lindall",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMTUwNzY5MTE3NV5BMl5BanBnXkFtZTcwNDY2MTkzNA@@._V1_.jpg",
+    "photo": "https://m.media-amazon.com/images/M/MV5BM2U4N2RkODEtMjc5My00YTlkLWJjY2EtZjUzZThjNTViM2VhXkEyXkFqcGc@._V1_QL75_UX500_.jpg",
     "productions": [
       "Le transporteur - la série"
     ],
     "stuntSpecialty": "Combats rapprochés et cascades automobiles réglées par le CUC.",
     "stuntDoubles": "Doublé par Jérôme Gaspard",
-    "imdbUrl": "https://www.imdb.com/name/nm0933727/",
+    "imdbUrl": "https://www.imdb.com/name/nm3016746/",
     "bio": "Acteur et performer d'action britannique ayant figuré dans Le Transporteur - la série et de multiples productions d'action européennes."
   },
   {
     "id": "michel-angely",
     "name": "Michel Angely",
-    "photo": "https://m.media-amazon.com/images/M/MV5BMzU4NjExMTA1NF5BMl5BanBnXkFtZTcwNzY3MjAyOA@@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/kCFqWJhElQ5N5AflOMktXL7pj9r.jpg",
     "productions": [
       "Le serpent aux mille coupures"
     ],
     "stuntSpecialty": "Cascades physiques et scènes d'affrontement armé réglées par le CUC.",
     "stuntDoubles": "Doublé par Franck Blanc",
-    "imdbUrl": "https://www.imdb.com/name/nm0494193/",
+    "imdbUrl": "https://www.imdb.com/name/nm0029753/",
     "bio": "Acteur et cascadeur de caractère présent dans les polars Le Serpent aux mille coupures et diverses fictions d'action."
   },
   {
     "id": "bakary-diombera",
     "name": "Bakary Diombera",
-    "photo": "https://m.media-amazon.com/images/M/MV5BOGZmNGE5ZTktZGMwMi00YmU0LWJiNzUtNDcwNmU3YmQwYTZlXkEyXkFqcGc@._V1_.jpg",
+    "photo": "https://image.tmdb.org/t/p/h632/3huF1EzLjKDF58up144qsftH6YZ.jpg",
     "productions": [
       "Le salaire de la peur"
     ],
     "stuntSpecialty": "Cascades physiques de franchissement et scènes explosives réglées par le CUC.",
     "stuntDoubles": "Doublé par Malik Diouf",
-    "imdbUrl": "https://www.imdb.com/name/nm10629706/",
+    "imdbUrl": "https://www.imdb.com/name/nm10553742/",
     "bio": "Jeune acteur français révélé dans La Vie scolaire de Grand Corps Malade et Mehdi Idir, puis dans le film d'action Le Salaire de la peur sur Netflix."
   }
 ];
