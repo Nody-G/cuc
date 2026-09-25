@@ -7,7 +7,6 @@ import { useTranslations } from 'next-intl';
 import { DoubledCelebrity } from '@/types';
 import { ImdbLogo } from '@/components/ui/BrandLogos';
 import { UserCheck, Maximize2 } from 'lucide-react';
-import { cucMicro } from '@/lib/preview/cuc-micro';
 import { resolveDoubledBy, type TeamNameRef } from '@/lib/celebrity-double';
 
 interface CelebrityCardProps {
@@ -129,29 +128,7 @@ export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers
                     </p>
                 ) : null}
 
-                <div className="mt-auto pt-1">
-                    <div className="text-[8px] font-mono-tech text-zinc-500 uppercase tracking-wider mb-1 font-bold">
-                        <span {...cucMicro('teamProduction.hallOfFame.filmsLabel')}>
-                            {t('hallOfFame.filmsLabel')}
-                        </span>
-                    </div>
-                    <div className="flex flex-wrap gap-1">
-                        {actor.productions.slice(0, 2).map((production, index) => (
-                            <span
-                                key={index}
-                                className="px-1.5 py-0.5 bg-[#1a1a24] border border-zinc-800 text-[9px] font-mono-tech text-zinc-300 truncate max-w-full"
-                                title={production}
-                            >
-                                {production}
-                            </span>
-                        ))}
-                        {actor.productions.length > 2 ? (
-                            <span className="px-1.5 py-0.5 bg-[#141419] text-[9px] font-mono-tech text-zinc-500">
-                                +{actor.productions.length - 2}
-                            </span>
-                        ) : null}
-                    </div>
-                </div>
+
             </div>
 
             <div className="h-[2px] w-full bg-zinc-800 group-hover:bg-[#FFE500] transition-colors" />

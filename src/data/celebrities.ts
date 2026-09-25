@@ -27,7 +27,7 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
       "Antigang: La Relève"
     ],
     "stuntSpecialty": "Cascades physiques à haute intensité, fusillades tactiques et corps-à-corps réglés par le CUC.",
-    "stuntDoubles": "Doublé par l'équipe CUC",
+    "stuntDoubles": "Doublé par Jérôme Gaspard",
     "imdbUrl": "https://www.imdb.com/name/nm1839955/",
     "bio": "Acteur et cascadeur de formation, véritable fer de lance du cinéma d'action français moderne. Nommé au César du meilleur espoir masculin pour Un Français, il triomphe internationalement avec la saga Balle perdue sur Netflix, la comédie culte Hero Corp et les films policiers d'action Antigang et Antigang: La Relève."
   },
@@ -39,7 +39,7 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
       "L'Amour ouf"
     ],
     "stuntSpecialty": "Cascades d'époque, chutes violentes et scènes de rixes réglées par le CUC.",
-    "stuntDoubles": "Doublé par l'équipe CUC",
+    "stuntDoubles": "Doublé par Bastien Trouvé",
     "imdbUrl": "https://www.imdb.com/name/nm2476624/",
     "bio": "Acteur français incontournable de sa génération, nommé à deux reprises aux César. Remarqué dans Le Chant du loup, Deux moi de Cédric Klapisch et BAC Nord de Cédric Jimenez, il incarne D'Artagnan dans la superproduction Les Trois Mousquetaires et brille dans la fresque criminelle et romantique L'Amour ouf de Gilles Lellouche."
   },

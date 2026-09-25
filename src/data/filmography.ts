@@ -3603,7 +3603,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "stuntRoles": "",
     "doubledActors": [],
     "highlight": false,
-    "image": "/images/films/sorority.jpg",
+    "image": "",
     "tag": "",
     "imdbUrl": "https://www.imdb.com/title/tt40188328/",
     "allocineUrl": "",
