@@ -53,13 +53,13 @@ export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers
             onKeyDown={openFromKeyboard}
             className="group bg-[#121218] border border-zinc-800 hover:border-[#FFE500] focus-visible:border-[#FFE500] transition-all duration-300 flex flex-col overflow-hidden cursor-pointer relative hover:shadow-[0_12px_35px_rgba(255,229,0,0.18)] luxury-metric-card"
         >
-            {/* Portrait */}
-            <div className="relative h-64 w-full overflow-hidden bg-black">
+            {/* Portrait — ratio 3/4 harmonisé avec la grille 6 colonnes */}
+            <div className="relative aspect-[3/4] w-full overflow-hidden bg-black">
                 <Image
                     src={actor.photo}
                     alt={t('hallOfFame.photoAlt', { name: actor.name })}
                     fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
                     className="object-cover object-top brightness-90 contrast-105 group-hover:scale-105 group-hover:brightness-100 transition-all duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#121218] via-[#121218]/25 to-transparent" />
@@ -70,30 +70,30 @@ export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="absolute top-3 right-3 z-10 px-2 py-1 bg-[#f5c518] hover:bg-[#ffe500] text-black font-black text-[10px] font-mono-tech rounded-xs shadow-md flex items-center transition-colors"
+                    className="absolute top-2.5 right-2.5 z-10 px-1.5 py-0.5 bg-[#f5c518] hover:bg-[#ffe500] text-black font-black text-[9px] font-mono-tech rounded-xs shadow-md flex items-center transition-colors"
                     title={t('hallOfFame.imdbTitle', { name: actor.name })}
                 >
-                    <ImdbLogo className="h-3 w-auto" />
+                    <ImdbLogo className="h-2.5 w-auto" />
                 </a>
 
                 {/* Affordance d'ouverture (icône, sans texte) */}
                 <span
                     aria-hidden="true"
-                    className="absolute bottom-3 right-3 flex items-center justify-center w-7 h-7 bg-[#FFE500] text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    className="absolute bottom-2.5 right-2.5 flex items-center justify-center w-6 h-6 bg-[#FFE500] text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 >
-                    <Maximize2 className="w-3.5 h-3.5" />
+                    <Maximize2 className="w-3 h-3" />
                 </span>
             </div>
 
             {/* Contenu */}
-            <div className="p-5 flex-1 flex flex-col gap-3">
-                <h4 className="text-xl font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors leading-tight">
+            <div className="p-3.5 flex-1 flex flex-col gap-2">
+                <h4 className="text-base sm:text-lg font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors leading-tight">
                     {actor.name}
                 </h4>
 
                 {hasDoubles ? (
-                    <div className="inline-flex items-start gap-1.5 self-start px-2 py-1 bg-[#FFE500]/10 border border-[#FFE500]/40 text-[10px] font-mono-tech text-[#FFE500] font-bold">
-                        <UserCheck className="w-3 h-3 flex-shrink-0 mt-0.5" />
+                    <div className="inline-flex items-start gap-1 self-start px-2 py-0.5 bg-[#FFE500]/10 border border-[#FFE500]/40 text-[9px] font-mono-tech text-[#FFE500] font-bold">
+                        <UserCheck className="w-2.5 h-2.5 flex-shrink-0 mt-0.5" />
                         <span className="leading-tight">
                             {doubledBy.prefix}
                             {doubledBy.member ? (
@@ -114,27 +114,32 @@ export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers
                 ) : null}
 
                 {actor.stuntSpecialty ? (
-                    <p className="text-[11px] text-zinc-300 font-tech leading-relaxed line-clamp-2">
+                    <p className="text-[10px] text-zinc-400 font-tech leading-relaxed line-clamp-2">
                         {actor.stuntSpecialty}
                     </p>
                 ) : null}
 
-                <div className="mt-auto">
-                    <div className="text-[9px] font-mono-tech text-zinc-500 uppercase tracking-wider mb-1.5 font-bold">
+                <div className="mt-auto pt-1">
+                    <div className="text-[8px] font-mono-tech text-zinc-500 uppercase tracking-wider mb-1 font-bold">
                         <span {...cucMicro('teamProduction.hallOfFame.filmsLabel')}>
                             {t('hallOfFame.filmsLabel')}
                         </span>
                     </div>
-                    <div className="flex flex-wrap gap-1.5">
-                        {actor.productions.slice(0, 3).map((production, index) => (
+                    <div className="flex flex-wrap gap-1">
+                        {actor.productions.slice(0, 2).map((production, index) => (
                             <span
                                 key={index}
-                                className="px-1.5 py-0.5 bg-[#1a1a24] border border-zinc-800 text-[10px] font-mono-tech text-zinc-300 truncate max-w-full"
+                                className="px-1.5 py-0.5 bg-[#1a1a24] border border-zinc-800 text-[9px] font-mono-tech text-zinc-300 truncate max-w-full"
                                 title={production}
                             >
                                 {production}
                             </span>
                         ))}
+                        {actor.productions.length > 2 ? (
+                            <span className="px-1.5 py-0.5 bg-[#141419] text-[9px] font-mono-tech text-zinc-500">
+                                +{actor.productions.length - 2}
+                            </span>
+                        ) : null}
                     </div>
                 </div>
             </div>

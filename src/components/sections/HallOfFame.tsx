@@ -1,38 +1,47 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import type { Instructor } from '@/types';
+import type { DoubledCelebrity, FilmCredit, Instructor } from '@/types';
 import { CUC_TEAM } from '@/data/team';
-import { getTeam } from '@/lib/data/site-service';
+import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
+import { getFilms, getTeam } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
+import { selectCoordinatedFilms } from '@/lib/coach-films';
+import type { TeamNameRef } from '@/lib/celebrity-double';
 import { CucFilmsShowcase } from './films/CucFilmsShowcase';
+import { CelebrityDoublesGallery } from './hall-of-fame/CelebrityDoublesGallery';
+import { CelebrityDetailsModal } from './hall-of-fame/CelebrityDetailsModal';
+import { FilmDetailsModal } from './hall-of-fame/FilmDetailsModal';
 
 /**
- * Bloc « LES FILMS COORDONNÉS PAR LE CUC » de la page TOURNAGE (`/cuc-team-cascadeur`).
- *
- * Décision produit : la page Tournage s'articule autour de 4 blocs majeurs :
- *   1. Le Studio & la Salle d'action
- *   2. Les Cascadeurs en action
- *   3. Les Équipements de tournage
- *   4. Les Films coordonnés par le CUC (Lucas Dollfus)
+ * Pôle Crédits & Tournages de la page TOURNAGE (`/cuc-team-cascadeur`) :
+ *   - Les Films coordonnés par le CUC (Lucas Dollfus)
+ *   - Les Comédiens doublés par l'équipe CUC (grille 6 colonnes)
+ *   - Interconnexion bidirectionnelle : cliquer sur un film coordonné depuis la fiche comédien ouvre la fiche du film.
  */
 export const HallOfFame: React.FC = () => {
   const [teamMembers, setTeamMembers] = useState<Instructor[]>(CUC_TEAM);
+  const [films, setFilms] = useState<FilmCredit[]>(FILMOGRAPHY_CREDITS);
+  const [selectedCelebrity, setSelectedCelebrity] = useState<DoubledCelebrity | null>(null);
+  const [selectedFilm, setSelectedFilm] = useState<FilmCredit | null>(null);
 
-  const loadTeam = useCallback(() => {
+  const loadData = useCallback(() => {
     getTeam().then(setTeamMembers);
+    getFilms().then(setFilms);
   }, []);
 
   useEffect(() => {
-    loadTeam();
-  }, [loadTeam]);
+    loadData();
+  }, [loadData]);
 
   // Synchronisation Realtime Cockpit → Vitrine
-  useRealtimeRefresh(['site_team'], loadTeam);
+  useRealtimeRefresh(['site_team', 'site_films'], loadData);
 
-  /**
-   * Référent de coordination de la vitrine : Lucas Dollfus.
-   */
+  const teamNames = useMemo<TeamNameRef[]>(
+    () => teamMembers.map((member) => ({ id: member.id, name: member.name })),
+    [teamMembers]
+  );
+
   const coordinator = useMemo(
     () =>
       teamMembers.find((member) => member.id === 'lucas-dollfus') ??
@@ -40,7 +49,41 @@ export const HallOfFame: React.FC = () => {
     [teamMembers]
   );
 
-  return <CucFilmsShowcase coordinator={coordinator} id="filmographie" divider={false} />;
+  const coordinatedFilms = useMemo(
+    () => (coordinator ? selectCoordinatedFilms(films, coordinator) : []),
+    [films, coordinator]
+  );
+
+  return (
+    <>
+      {/* 4. LES FILMS COORDONNÉS PAR LE CUC */}
+      <CucFilmsShowcase coordinator={coordinator} id="filmographie" divider={false} />
+
+      {/* 5. LES COMÉDIENS DOUBLÉS PAR LE CUC — GRILLE 6 COLONNES */}
+      <CelebrityDoublesGallery
+        onSelectCelebrity={setSelectedCelebrity}
+        teamMembers={teamNames}
+      />
+
+      {/* Modale Comédien doublé */}
+      <CelebrityDetailsModal
+        celebrity={selectedCelebrity}
+        teamMembers={teamNames}
+        coordinatedFilms={coordinatedFilms}
+        onSelectFilm={(film) => {
+          setSelectedCelebrity(null);
+          setSelectedFilm(film);
+        }}
+        onClose={() => setSelectedCelebrity(null)}
+      />
+
+      {/* Modale Film coordonné par Lucas (ouverte depuis un comédien) */}
+      <FilmDetailsModal
+        movie={selectedFilm}
+        onClose={() => setSelectedFilm(null)}
+      />
+    </>
+  );
 };
 
 export default HallOfFame;

@@ -4,35 +4,48 @@ import React, { useMemo } from 'react';
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
-import { DoubledCelebrity } from '@/types';
+import type { DoubledCelebrity, FilmCredit } from '@/types';
 import { X, Clapperboard, ExternalLink } from 'lucide-react';
 import { ImdbLogo } from '@/components/ui/BrandLogos';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import { resolveDoubledBy, type TeamNameRef } from '@/lib/celebrity-double';
+import { creditTitleKey } from '@/lib/credit-title';
 
 interface CelebrityDetailsModalProps {
   celebrity: DoubledCelebrity | null;
   /** Référentiel de l'équipe CUC, pour rendre le nom du doubleur cliquable. */
   teamMembers: TeamNameRef[];
   onClose: () => void;
+  /** Ouvre la fiche d'un film coordonné par Lucas Dollfus */
+  onSelectFilm?: (film: FilmCredit) => void;
+  /** Liste des films coordonnés par Lucas */
+  coordinatedFilms?: FilmCredit[];
 }
 
 export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
   celebrity,
   teamMembers,
   onClose,
+  onSelectFilm,
+  coordinatedFilms = [],
 }) => {
   const t = useTranslations('teamProduction');
 
   /**
    * Découpe « Doublé par X » et reconnaît l'éventuel membre de l'équipe : le
    * nom devient un lien vers sa fiche coach, comme sur les jaquettes de films.
-   * Calculé avant le retour anticipé — les hooks gardent le même ordre.
    */
   const doubledBy = useMemo(
     () => resolveDoubledBy(celebrity?.stuntDoubles ?? '', teamMembers),
     [celebrity?.stuntDoubles, teamMembers]
   );
+
+  /** Vérifie si un film de la production correspond à un film coordonné par Lucas */
+  const findMatchingLucasFilm = (prodName: string): FilmCredit | undefined => {
+    if (!coordinatedFilms || coordinatedFilms.length === 0) return undefined;
+    const key = creditTitleKey(prodName);
+    return coordinatedFilms.find((f) => creditTitleKey(f.title) === key);
+  };
 
   if (!celebrity) return null;
 
@@ -86,30 +99,67 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                 </h3>
               </div>
 
-              {/* Doublure cascades - Uniquement si une doublure dédiée est renseignée */}
+              {/* Biographie originale du comédien */}
+              {celebrity.bio ? (
+                <p className="text-xs text-zinc-300 font-tech leading-relaxed">
+                  {celebrity.bio}
+                </p>
+              ) : null}
+
+              {/* Doublé par (coach du CUC) dans (nom du ou des films) */}
               {celebrity.stuntDoubles ? (
-                <div className="space-y-1">
-                  <span className="text-[11px] font-mono-tech text-[#FFE500] uppercase font-bold block">
-                    <span {...cucMicro('teamProduction.celebrityModal.doublesLabel')}>
-                      {t('celebrityModal.doublesLabel')}
+                <div className="p-3 bg-[#141419] border border-zinc-800/80 rounded-xs space-y-1.5">
+                  <span className="text-[10px] font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block">
+                    DOUBLURE & TOURNAGES :
+                  </span>
+                  <div className="text-xs text-white font-mono-tech leading-relaxed">
+                    Doublé par{' '}
+                    <span className="text-[#FFE500] font-bold">
+                      {doubledBy.member ? (
+                        <Link
+                          href={`/equipe-cascadeurs-pro/${doubledBy.member.id}`}
+                          onClick={onClose}
+                          title={doubledBy.member.name}
+                          className="underline decoration-dotted underline-offset-2 hover:text-white transition-colors"
+                        >
+                          {doubledBy.name}
+                        </Link>
+                      ) : (
+                        doubledBy.name
+                      )}
                     </span>
-                  </span>
-                  <span className="text-xs text-white font-mono-tech font-bold">
-                    {doubledBy.prefix}
-                    {doubledBy.member ? (
-                      <Link
-                        href={`/equipe-cascadeurs-pro/${doubledBy.member.id}`}
-                        onClick={onClose}
-                        title={doubledBy.member.name}
-                        className="text-[#FFE500] underline decoration-dotted underline-offset-2 hover:text-white transition-colors"
-                      >
-                        {doubledBy.name}
-                      </Link>
-                    ) : (
-                      doubledBy.name
+                    {celebrity.productions.length > 0 && (
+                      <>
+                        {' '}dans{' '}
+                        {celebrity.productions.map((p, pIdx) => {
+                          const matchingFilm = findMatchingLucasFilm(p);
+                          return (
+                            <React.Fragment key={pIdx}>
+                              {pIdx > 0 && ', '}
+                              {matchingFilm ? (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    onClose();
+                                    onSelectFilm?.(matchingFilm);
+                                  }}
+                                  className="text-[#FFE500] underline font-bold hover:text-white transition-colors cursor-pointer inline-flex items-center gap-1 group"
+                                  title={`Voir la fiche du film « ${matchingFilm.title} » coordonné par Lucas Dollfus`}
+                                >
+                                  <span>{p}</span>
+                                  <span className="text-[9px] bg-[#FFE500] text-black px-1 py-0.2 rounded-xs font-bold font-mono-tech group-hover:bg-white">
+                                    CUC
+                                  </span>
+                                </button>
+                              ) : (
+                                <span className="text-zinc-300">{p}</span>
+                              )}
+                            </React.Fragment>
+                          );
+                        })}
+                      </>
                     )}
-                    {doubledBy.suffix}
-                  </span>
+                  </div>
                 </div>
               ) : null}
 
@@ -127,7 +177,7 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                 </div>
               ) : null}
 
-              {/* Films */}
+              {/* Films / Productions */}
               <div className="space-y-1.5">
                 <span className="text-[11px] font-mono-tech text-zinc-500 uppercase font-bold block">
                   <span {...cucMicro('teamProduction.celebrityModal.filmsLabel')}>
@@ -135,14 +185,34 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                   </span>
                 </span>
                 <div className="flex flex-wrap gap-1.5">
-                  {celebrity.productions.map((p, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2.5 py-1 bg-[#141419] border border-zinc-800 text-xs font-mono-tech text-zinc-300"
-                    >
-                      {p}
-                    </span>
-                  ))}
+                  {celebrity.productions.map((p, idx) => {
+                    const matchingFilm = findMatchingLucasFilm(p);
+                    if (matchingFilm) {
+                      return (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => {
+                            onClose();
+                            onSelectFilm?.(matchingFilm);
+                          }}
+                          className="px-2.5 py-1 bg-[#FFE500]/15 border border-[#FFE500]/60 text-xs font-mono-tech text-[#FFE500] font-bold hover:bg-[#FFE500] hover:text-black transition-all cursor-pointer flex items-center gap-1.5 rounded-xs"
+                          title={`Voir la fiche du film « ${matchingFilm.title} » coordonné par Lucas Dollfus`}
+                        >
+                          <Clapperboard className="w-3 h-3 shrink-0" />
+                          <span>{p}</span>
+                        </button>
+                      );
+                    }
+                    return (
+                      <span
+                        key={idx}
+                        className="px-2.5 py-1 bg-[#141419] border border-zinc-800 text-xs font-mono-tech text-zinc-300 rounded-xs"
+                      >
+                        {p}
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
 

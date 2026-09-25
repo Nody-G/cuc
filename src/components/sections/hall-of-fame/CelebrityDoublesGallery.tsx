@@ -72,43 +72,39 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
   useRealtimeRefresh(['site_settings'], loadCelebrities);
 
   return (
-    <div className="mb-20 bg-[#0c0c10] border-2 border-zinc-800 p-6 sm:p-8 relative shadow-2xl">
-
-      {/* Section Header */}
-      <div className="pb-6 border-b border-zinc-800">
-        <div>
-          <div className="flex items-center gap-2 mb-2">
-            <UserCheck className="w-5 h-5 text-[#FFE500]" />
-            <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
-              <span {...cucMicro('teamProduction.hallOfFame.actorsBadge')}>
-                {t('hallOfFame.actorsBadge')}
-              </span>
+    <section id="comediens-doubles" className="py-14 bg-[#09090d] border-b border-zinc-800">
+      <div className="page-shell">
+        {/* Section Header harmonisé */}
+        <div className="text-center max-w-3xl mx-auto mb-8">
+          <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1.5">
+            <span {...cucMicro('teamProduction.hallOfFame.actorsBadge')}>
+              {t('hallOfFame.actorsBadge')}
             </span>
-          </div>
-          <h3 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-tight text-white">
+          </span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wide text-white">
             <span {...cucMicro('teamProduction.hallOfFame.actorsTitle')}>
               {t('hallOfFame.actorsTitle')}
             </span>
-          </h3>
-          <p className="text-xs sm:text-sm text-zinc-400 font-tech mt-1 max-w-2xl">
+          </h2>
+          <p className="text-xs sm:text-sm text-zinc-400 font-tech mt-2">
             <span {...cucMicro('teamProduction.hallOfFame.actorsIntro')}>
               {t('hallOfFame.actorsIntro')}
             </span>
           </p>
         </div>
-      </div>
 
-      {/* Grille des comédiens doublés */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-8">
-        {localizedCelebrities.map((actor) => (
-          <CelebrityCard
-            key={actor.id}
-            actor={actor}
-            teamMembers={teamMembers}
-            onSelect={() => onSelectCelebrity(actor)}
-          />
-        ))}
+        {/* Grille des comédiens doublés — 6 colonnes */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+          {localizedCelebrities.map((actor) => (
+            <CelebrityCard
+              key={actor.id}
+              actor={actor}
+              teamMembers={teamMembers}
+              onSelect={() => onSelectCelebrity(actor)}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };

@@ -147,6 +147,8 @@ export interface DoubledCelebrity {
   stuntSpecialty: string;
   stuntDoubles: string;
   imdbUrl: string;
+  /** Biographie / description officielle de l'acteur */
+  bio?: string;
 }
 
 /**
