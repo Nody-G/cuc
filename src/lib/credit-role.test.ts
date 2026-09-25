@@ -18,6 +18,14 @@ const FR: RoleTranslator = (key, values) => {
     switch (key) {
         case 'roleCoordination':
             return 'Coordination';
+        case 'roleAssistantCoordination':
+            return 'Assistant coordination';
+        case 'roleRiggingCoordination':
+            return 'Coordination rigging';
+        case 'roleRigger':
+            return 'Rigger';
+        case 'roleMechanicalStunt':
+            return 'Cascade mécanique';
         case 'roleDouble':
             return 'Doublure';
         case 'roleDoubleOf':
@@ -32,6 +40,14 @@ const EN: RoleTranslator = (key, values) => {
     switch (key) {
         case 'roleCoordination':
             return 'Coordination';
+        case 'roleAssistantCoordination':
+            return 'Assistant coordination';
+        case 'roleRiggingCoordination':
+            return 'Rigging coordination';
+        case 'roleRigger':
+            return 'Stunt rigger';
+        case 'roleMechanicalStunt':
+            return 'Mechanical stunt';
         case 'roleDouble':
             return 'Stunt double';
         case 'roleDoubleOf':
@@ -47,10 +63,18 @@ describe('summarizeFilmRoleSet', () => {
             a: 'Cascadeur',
             b: 'Coordinateur des cascades',
             c: 'Doublure',
+            d: 'Assistant coordinateur des cascades',
+            e: 'Coordinateur de rigging',
+            f: 'Rigger',
+            g: 'Cascadeur mécanique',
         });
 
         expect(summary.roles).toEqual([
             'Coordinateur des cascades',
+            'Assistant coordinateur des cascades',
+            'Coordinateur de rigging',
+            'Rigger',
+            'Cascadeur mécanique',
             'Doublure',
             'Cascadeur',
         ]);
@@ -93,22 +117,46 @@ describe('renderRoleSet', () => {
 });
 
 describe('normalizeRole', () => {
-    it('ramène toute précision technique aux trois libellés autorisés', () => {
-        expect(normalizeRole('Cascadeur & Câblage').roles).toEqual(['Cascadeur']);
+    it('associe action director, action designer, fight arranger et fight choreographer à Coordinateur des cascades', () => {
+        expect(normalizeRole('action director').roles).toEqual(['Coordinateur des cascades']);
+        expect(normalizeRole('Action Designer').roles).toEqual(['Coordinateur des cascades']);
+        expect(normalizeRole('fight arranger').roles).toEqual(['Coordinateur des cascades']);
+        expect(normalizeRole('fight choreographer').roles).toEqual(['Coordinateur des cascades']);
+        expect(normalizeRole('Coordinateur des cascades & Action Designer').roles).toEqual([
+            'Coordinateur des cascades',
+        ]);
+    });
 
-        // « Coordinateur des cascades & Action Designer » cumule bien deux rôles
-        // réels : coordination et intervention cascade sur le plateau.
-        const coord = normalizeRole('Coordinateur des cascades & Action Designer');
-        expect(coord.roles).toEqual(['Coordinateur des cascades', 'Cascadeur']);
+    it('associe assistant fight choreographer et assistant stunt coordinator à Assistant coordinateur des cascades', () => {
+        expect(normalizeRole('assistant stunt coordinator').roles).toEqual([
+            'Assistant coordinateur des cascades',
+        ]);
+        expect(normalizeRole('assistant fight choreographer').roles).toEqual([
+            'Assistant coordinateur des cascades',
+        ]);
+        expect(normalizeRole('Assistant régleur').roles).toEqual([
+            'Assistant coordinateur des cascades',
+        ]);
+    });
 
-        expect(normalizeRole('Cascadeur & Doublure Keanu Reeves').label).toBe(
-            'Doublure de Keanu Reeves · Cascadeur'
-        );
+    it('associe human torch et fire stunt à Cascadeur', () => {
+        expect(normalizeRole('human torch').roles).toEqual(['Cascadeur']);
+        expect(normalizeRole('fire stunt').roles).toEqual(['Cascadeur']);
+    });
+
+    it('gère les catégories Coordinateur de rigging, Rigger et Cascadeur mécanique', () => {
+        expect(normalizeRole('stunt rigging coordinator').roles).toEqual([
+            'Coordinateur de rigging',
+        ]);
+        expect(normalizeRole('Coordinateur de rigging').roles).toEqual([
+            'Coordinateur de rigging',
+        ]);
+        expect(normalizeRole('stunt rigger').roles).toEqual(['Rigger']);
+        expect(normalizeRole('stunt driver').roles).toEqual(['Cascadeur mécanique']);
+        expect(normalizeRole('precision driver').roles).toEqual(['Cascadeur mécanique']);
     });
 
     it('reconnaît « Doublure » capitalisé — forme canonique en base', () => {
-        // Régression corrigée : le motif était sensible à la casse et ne
-        // reconnaissait pas la forme capitalisée, donc jamais le comédien doublé.
         expect(normalizeRole('Doublure Keanu Reeves').doubledActors).toEqual(['Keanu Reeves']);
         expect(normalizeRole('Doublure de Tomer Sisley').doubledActors).toEqual(['Tomer Sisley']);
         // « Doublure combats » ne nomme personne : aucun comédien inventé.

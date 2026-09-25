@@ -47,6 +47,7 @@ export function findRelatedFilms(films: FilmCredit[], member?: Instructor): Film
     return films.filter((f) => {
         if (member.film_ids && member.film_ids.includes(f.id)) return true;
         if (f.cuc_team_involved && f.cuc_team_involved.includes(member.id)) return true;
+        if (f.cuc_team_roles && f.cuc_team_roles[member.id]) return true;
         if (!member.notableCredits) return false;
         const filmKey = normalizeTitleKey(f.title);
         return member.notableCredits.some((c) => {

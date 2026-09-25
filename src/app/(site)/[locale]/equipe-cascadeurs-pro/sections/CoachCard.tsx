@@ -4,33 +4,22 @@ import React from 'react';
 import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { ExternalLink, ArrowRight, Globe } from 'lucide-react';
+import { ExternalLink, ArrowRight, Globe, Users } from 'lucide-react';
 import type { Instructor, FilmCredit } from '@/types';
-import { selectCoachFilms } from '@/lib/coach-films';
-import { CoachCreditsList } from './CoachCreditsList';
-import { CoachFilmThumbs } from './CoachFilmThumbs';
 
 interface CoachCardProps {
     member: Instructor;
-    /** Catalogue localisé (FR + overlays EN) pour filtrer les films du coach. */
-    films: FilmCredit[];
-    onSelectFilm: (film: FilmCredit) => void;
+    /** Catalogue localisé conservé pour rétro-compatibilité de signature. */
+    films?: FilmCredit[];
+    onSelectFilm?: (film: FilmCredit) => void;
 }
 
 /**
- * Carte coach : portrait pleine hauteur, rôle, bio, spécialités, crédits et
- * tournages. L'ancre `#{member.id}` alimente les liens de la navbar.
+ * Carte coach : portrait pleine hauteur, rôle, bio, spécialités et comédiens doublés.
+ * L'ancre `#{member.id}` alimente les liens de la navbar.
  */
-export const CoachCard: React.FC<CoachCardProps> = ({ member, films, onSelectFilm }) => {
+export const CoachCard: React.FC<CoachCardProps> = ({ member }) => {
     const t = useTranslations('team');
-
-    /**
-     * Même sélecteur que la fiche du coach : mise en avant du Cockpit d'abord,
-     * puis tri par défaut. Auparavant la carte filtrait à sa façon, **sans tri**,
-     * et affichait donc trois films qui n'étaient pas les trois premiers de la
-     * fiche — l'incohérence que voyait le visiteur.
-     */
-    const coachFilms = selectCoachFilms(films, member);
 
     return (
         <div
@@ -115,14 +104,17 @@ export const CoachCard: React.FC<CoachCardProps> = ({ member, films, onSelectFil
                             </div>
                         </div>
 
-                        {/* Références & Tournages Qualifiés */}
-                        {member.notableCredits && member.notableCredits.length > 0 && (
-                            <CoachCreditsList credits={member.notableCredits} />
-                        )}
-
-                        {/* Projets & Tournages Cinéma */}
-                        {coachFilms.length > 0 && (
-                            <CoachFilmThumbs films={coachFilms} onSelect={onSelectFilm} />
+                        {/* Acteurs doublés */}
+                        {member.doubledActors && member.doubledActors.length > 0 && (
+                            <div className="pt-3 border-t border-zinc-800/80">
+                                <strong className="text-[11px] font-mono-tech text-[#FFE500] uppercase block mb-1.5 flex items-center gap-1.5">
+                                    <Users className="w-3.5 h-3.5 text-[#FFE500]" />
+                                    <span>Acteurs doublés :</span>
+                                </strong>
+                                <p className="text-xs font-tech text-zinc-300 leading-relaxed">
+                                    {member.doubledActors.join(' • ')}
+                                </p>
+                            </div>
                         )}
                     </div>
                 </div>

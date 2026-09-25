@@ -3,7 +3,7 @@ import { DoubledCelebrity } from '@/types';
 /**
  * Comédiens doublés par le CUC — données factuelles issues du scraping IMDb officiel.
  * Uniquement les acteurs ayant été effectivement doublés par un ou plusieurs coachs du CUC.
- * Dernière mise à jour : 2026-09-25T10:31:39.291Z
+ * Dernière mise à jour : 2026-09-25T12:55:39.262Z
  */
 export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
   {

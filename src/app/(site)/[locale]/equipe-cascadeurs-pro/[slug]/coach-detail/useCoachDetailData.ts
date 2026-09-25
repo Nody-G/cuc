@@ -74,7 +74,24 @@ export function useCoachDetailData({ slug, teamOverlays }: UseCoachDetailDataArg
         return member.notableCredits.map(parseCredit);
     }, [member]);
 
-    const relatedFilms = useMemo(() => findRelatedFilms(films, member), [films, member]);
+    /**
+     * Règle CUC : on n'affiche sur le site que les jaquettes de films où
+     * Lucas Dollfus a été coordinateur des cascades. Pour un autre coach,
+     * seuls les tournages coordonnés par Lucas auxquels il a participé
+     * s'affichent en bas de sa fiche.
+     */
+    const relatedFilms = useMemo(() => {
+        if (!member) return [];
+        const lucasFilms = films.filter((f) => {
+            const roles = f.cuc_team_roles || {};
+            const lucasRole = roles['lucas-dollfus'] || roles['lucas'];
+            return (
+                lucasRole === 'Coordinateur des cascades' ||
+                lucasRole === 'Coordinateur'
+            );
+        });
+        return findRelatedFilms(lucasFilms, member);
+    }, [films, member]);
 
     const featuredOrder = useMemo(() => buildFeaturedOrder(member), [member]);
 

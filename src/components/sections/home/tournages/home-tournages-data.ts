@@ -59,23 +59,23 @@ export interface HomeVirtualTourData {
  */
 export const FEATURED_PRODUCTIONS: HighlightProject[] = [
     {
-        title: 'Le Comte de Monte-Cristo',
-        year: '2024',
-        poster: 'https://m.media-amazon.com/images/M/MV5BZWI4NTlhM2UtZmMxZS00ZTg0LThmNTEtYjM3MTEyYTU4NGRmXkEyXkFqcGc@._V1_.jpg',
-    },
-    {
-        title: 'John Wick : Chapitre 4',
-        year: '2023',
-        poster: 'https://m.media-amazon.com/images/M/MV5BNDI3OWNiMGItZmVkMS00Mjg3LWJhNzUtNDViMWU3OTJiODAyXkEyXkFqcGc@._V1_.jpg',
-    },
-    {
-        title: 'The Substance',
-        year: '2024',
-        poster: 'https://m.media-amazon.com/images/M/MV5BZDQ1NGE5MGMtYzdlZC00ODExLWJlMDMtNWU4NjA5OWYwMDEwXkEyXkFqcGc@._V1_.jpg',
-    },
-    {
-        title: "L'Amour Ouf",
+        title: "L'Amour ouf",
         year: '2024',
         poster: 'https://m.media-amazon.com/images/M/MV5BNjY0NGU4NDMtYWI2ZS00NDE2LWE5MzUtM2UyODUyNmFmN2ZhXkEyXkFqcGc@._V1_.jpg',
+    },
+    {
+        title: 'Nouveaux riches',
+        year: '2023',
+        poster: 'https://m.media-amazon.com/images/M/MV5BNTNkOTYzZjgtYzE0Yy00NGY1LThjNmQtMjFkMWZiMTNmMmZlXkEyXkFqcGc@._V1_.jpg',
+    },
+    {
+        title: 'Chien 51',
+        year: '2025',
+        poster: 'https://m.media-amazon.com/images/M/MV5BMzgxMjMyZDUtOTA5Yy00ODYyLWJhMDEtNDBhMDc1YjQwNGE4XkEyXkFqcGc@._V1_.jpg',
+    },
+    {
+        title: 'Le négociateur',
+        year: '2023',
+        poster: 'https://m.media-amazon.com/images/M/MV5BY2Y2MTViMWItYTgyOS00ZGRhLWE0YzItNzQ3ZmM5MjA1NjE3XkEyXkFqcGc@._V1_.jpg',
     },
 ];

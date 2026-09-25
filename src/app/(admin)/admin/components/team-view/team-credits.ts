@@ -14,6 +14,10 @@ export const ROLE_OPTIONS = [
     'Cascadeur',
     'Doublure',
     'Coordinateur des cascades',
+    'Assistant coordinateur des cascades',
+    'Coordinateur de rigging',
+    'Rigger',
+    'Cascadeur mécanique',
 ] as const;
 
 export type CanonicalRoleOption = (typeof ROLE_OPTIONS)[number];

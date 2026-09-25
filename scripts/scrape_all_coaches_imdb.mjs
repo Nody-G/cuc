@@ -61,52 +61,91 @@ function extractActorFromJob(jobText) {
   return null;
 }
 
-// Classification d'un crédit selon les règles utilisateur
+// Classification d'un crédit selon les règles utilisateur (7 catégories canoniques)
 function classifyCredit(credit) {
   const cat = (credit.category || '').toLowerCase();
   const jobs = (credit.jobs || []).map(j => (j || '').trim());
-  const allTexts = [cat, ...jobs].join(' | ').toLowerCase();
+  const allTexts = [cat, ...jobs].join(' | ');
+  const f = allTexts
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+
+  const has = (...needles) => needles.some(n => f.includes(n));
 
   let category = 'Cascadeur';
+  let roleLabel = 'Cascadeur';
   let doubledActor = null;
-  let specificJob = '';
+  let specificJob = jobs[0] || 'Cascadeur';
 
-  // 1. Détection Doublure
-  for (const job of jobs) {
-    if (/stunt\s+double|doublure/i.test(job)) {
-      category = 'Doublure';
-      specificJob = job;
-      doubledActor = extractActorFromJob(job);
-      break;
-    }
+  // 1. Rigging Coordinator
+  if (
+    (f.includes('rigg') && (f.includes('coordinat') || f.includes('regleur'))) ||
+    (f.includes('coordinat') && f.includes('rigg'))
+  ) {
+    category = 'Coordinateur de rigging';
+    roleLabel = 'Coordinateur de rigging';
+    specificJob = jobs.find(j => /rigg/i.test(j)) || 'Coordinateur de rigging';
   }
-  if (!doubledActor && (cat.includes('stunt double') || cat.includes('doublure'))) {
-    category = 'Doublure';
-    doubledActor = extractActorFromJob(cat);
+  // 2. Rigger
+  else if (has('rigger', 'cablage', 'accrochage') || (f.includes('rigg') && !f.includes('coordinat'))) {
+    category = 'Rigger';
+    roleLabel = 'Rigger';
+    specificJob = jobs.find(j => /rigg|c[aâ]bl/i.test(j)) || 'Rigger';
   }
-
-  // 2. Détection Coordinateur (si pas doublure ou si coordination mentionnée)
-  const isCoord = /coordinat|supervis|régleur|regleur/i.test(allTexts);
-  if (isCoord && category !== 'Doublure') {
+  // 3. Cascadeur mécanique
+  else if ((has('driver', 'pilot', 'precision driver', 'scooter') || f.includes('mecanique')) && !has('fight', 'coordinat')) {
+    category = 'Cascadeur mécanique';
+    roleLabel = 'Cascadeur mécanique';
+    specificJob = jobs.find(j => /driver|pilot|pr[eé]cision/i.test(j)) || 'Cascadeur mécanique';
+  }
+  // 4. Assistant coordination (y compris assistant fight)
+  else if (
+    (f.includes('assistant') && (has('coordinat', 'regleur', 'fight', 'combat') || f.includes('stunt'))) ||
+    f.includes('co-stunt')
+  ) {
+    category = 'Assistant coordinateur';
+    roleLabel = 'Assistant coordinateur des cascades';
+    specificJob = jobs.find(j => /assistant/i.test(j)) || 'Assistant coordinateur des cascades';
+  }
+  // 5. Coordinateur en chef (y compris fight choreographer, action director/designer, fight arranger)
+  else if (
+    !f.includes('assistant') &&
+    !f.includes('rigg') &&
+    (has('action director', 'action designer', 'fight choreographer', 'fight choregrapher', 'fight arranger', 'fight coordinator', 'chef cascade', 'stunt manager') ||
+      has('coordinat', 'regleur', 'supervis'))
+  ) {
     category = 'Coordinateur';
-    specificJob = jobs.find(j => /coordinat|supervis|régleur|regleur/i.test(j)) || 'Coordinateur des cascades';
-  } else if (isCoord && category === 'Doublure') {
-    // Si la personne a fait les deux sur le même film, on garde la doublure pour la détection acteur
-    // mais on note aussi la coordination
+    roleLabel = 'Coordinateur des cascades';
+    specificJob = jobs.find(j => /coordinat|supervis|action|fight/i.test(j)) || 'Coordinateur des cascades';
   }
-
-  // 3. Sinon Cascadeur (stunt, stunt performer, cascade...)
-  if (category !== 'Doublure' && category !== 'Coordinateur') {
+  // 6. Doublure
+  else if (has('doublure', 'double lumiere', 'doubleur') || f.includes('stunt doub') || f.includes('double for')) {
+    category = 'Doublure';
+    for (const j of jobs) {
+      doubledActor = extractActorFromJob(j);
+      if (doubledActor) {
+        specificJob = j;
+        break;
+      }
+    }
+    roleLabel = doubledActor ? `Doublure de ${doubledActor}` : 'Doublure';
+  }
+  // 7. Cascadeur (fire stunt, human torch, cascades physiques générales)
+  else {
     category = 'Cascadeur';
+    roleLabel = 'Cascadeur';
     specificJob = jobs[0] || 'Cascadeur';
   }
 
-  // Rôle formaté
-  let roleLabel = 'Cascadeur';
-  if (category === 'Coordinateur') {
-    roleLabel = 'Coordinateur des cascades';
-  } else if (category === 'Doublure') {
-    roleLabel = doubledActor ? `Doublure de ${doubledActor}` : 'Doublure';
+  // Vérifier également si un comédien a été doublé même sur un rôle multi-casquettes
+  if (!doubledActor) {
+    for (const j of jobs) {
+      if (/stunt\s+double|doublure/i.test(j)) {
+        doubledActor = extractActorFromJob(j);
+        if (doubledActor) break;
+      }
+    }
   }
 
   return {
@@ -114,8 +153,9 @@ function classifyCredit(credit) {
     roleLabel,
     doubledActor,
     specificJob,
-    isCoordination: isCoord,
-    isDoublure: category === 'Doublure',
+    isCoordination: category === 'Coordinateur',
+    isAssistantCoordination: category === 'Assistant coordinateur',
+    isDoublure: category === 'Doublure' || !!doubledActor,
     isCascadeur: category === 'Cascadeur' || /stunt|cascade/i.test(allTexts),
   };
 }

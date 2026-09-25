@@ -76,43 +76,46 @@ export const HallOfFame: React.FC = () => {
       <div className="absolute top-1/4 right-0 w-96 h-96 rounded-full lens-flare-gold opacity-30 pointer-events-none" />
 
       <div className="page-shell relative z-10">
-        {/* Header Principal */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="flex justify-center mb-4">
-            <div className="relative w-14 h-14 drop-shadow-[0_0_20px_rgba(255,229,0,0.4)]">
-              <Image
-                src="/images/logos/cuc-logo-yellow.png"
-                alt={t('hallOfFame.emblemAlt')}
-                fill
-                sizes="56px"
-                className="object-contain"
-              />
-            </div>
-          </div>
-          <div className="inline-flex items-center gap-2 mb-3">
-            <StuntBadge variant="yellow" icon={<Clapperboard className="w-3.5 h-3.5" />}>
-              <span {...cucMicro('teamProduction.hallOfFame.badge')}>{t('hallOfFame.badge')}</span>
-            </StuntBadge>
-            <span className="text-xs font-mono-tech text-zinc-500" {...cucMicro('teamProduction.hallOfFame.tag')}>
-              {t('hallOfFame.tag')}
-            </span>
-          </div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-display uppercase tracking-tight text-white">
-            <span {...cucMicro('teamProduction.hallOfFame.title')}>{t('hallOfFame.title')}</span>
-          </h2>
-          <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-[#FFE500] to-transparent mx-auto my-3" />
-          <p className="text-sm sm:text-base text-zinc-400 font-tech mt-2">
-            <span {...cucMicro('teamProduction.hallOfFame.subtitle')}>
-              {t('hallOfFame.subtitle')}
-            </span>
-          </p>
-        </div>
-
-        {/* SECTION VEDETTE : LES ACTEURS ET COMÉDIENS DOUBLÉS */}
-        <CelebrityDoublesGallery onSelectCelebrity={setSelectedCelebrity} teamMembers={teamNames} />
-
         {/* SECTION FILMS : LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC */}
-        <CucFilmsShowcase className="mt-16" coordinator={coordinator} />
+        <CucFilmsShowcase coordinator={coordinator} divider={false} />
+
+        {/* SÉPARATEUR & SECTION HALL OF FAME : LES ACTEURS ET COMÉDIENS DOUBLÉS */}
+        <div className="pt-24 border-t border-zinc-800/80 mt-24">
+          {/* Header Principal Hall of Fame */}
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="flex justify-center mb-4">
+              <div className="relative w-14 h-14 drop-shadow-[0_0_20px_rgba(255,229,0,0.4)]">
+                <Image
+                  src="/images/logos/cuc-logo-yellow.png"
+                  alt={t('hallOfFame.emblemAlt')}
+                  fill
+                  sizes="56px"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+            <div className="inline-flex items-center gap-2 mb-3">
+              <StuntBadge variant="yellow" icon={<Clapperboard className="w-3.5 h-3.5" />}>
+                <span {...cucMicro('teamProduction.hallOfFame.badge')}>{t('hallOfFame.badge')}</span>
+              </StuntBadge>
+              <span className="text-xs font-mono-tech text-zinc-500" {...cucMicro('teamProduction.hallOfFame.tag')}>
+                {t('hallOfFame.tag')}
+              </span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-display uppercase tracking-tight text-white">
+              <span {...cucMicro('teamProduction.hallOfFame.title')}>{t('hallOfFame.title')}</span>
+            </h2>
+            <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-[#FFE500] to-transparent mx-auto my-3" />
+            <p className="text-sm sm:text-base text-zinc-400 font-tech mt-2">
+              <span {...cucMicro('teamProduction.hallOfFame.subtitle')}>
+                {t('hallOfFame.subtitle')}
+              </span>
+            </p>
+          </div>
+
+          {/* SECTION VEDETTE : LES ACTEURS ET COMÉDIENS DOUBLÉS */}
+          <CelebrityDoublesGallery onSelectCelebrity={setSelectedCelebrity} teamMembers={teamNames} />
+        </div>
       </div>
 
       {/* Modale Acteurs doublés */}

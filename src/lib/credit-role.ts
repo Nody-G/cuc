@@ -18,11 +18,19 @@
 /** Rôles canoniques affichables (3 exactement, ordre = priorité décroissante). */
 export type CanonicalRole =
     | 'Coordinateur des cascades'
+    | 'Assistant coordinateur des cascades'
+    | 'Coordinateur de rigging'
+    | 'Rigger'
+    | 'Cascadeur mécanique'
     | 'Doublure'
     | 'Cascadeur';
 
 export const CANONICAL_ROLE_ORDER: CanonicalRole[] = [
     'Coordinateur des cascades',
+    'Assistant coordinateur des cascades',
+    'Coordinateur de rigging',
+    'Rigger',
+    'Cascadeur mécanique',
     'Doublure',
     'Cascadeur',
 ];
@@ -96,25 +104,71 @@ export function normalizeRole(role: string): NormalizedRole {
 
     const has = (...needles: string[]) => needles.some((n) => f.includes(n));
 
-    // Coordination : coordinateur, régisseur, superviseur, action designer
-    if (has('coordinat', 'regleur', 'régleur', 'supervis', 'action designer', 'chef cascade')) {
+    // 1. Rigging Coordinator : coordinateur de rigging, rigging coordinator, stunt rigging coordinator
+    if (
+        (f.includes('rigg') && (f.includes('coordinat') || f.includes('regleur'))) ||
+        (f.includes('coordinat') && f.includes('rigg'))
+    ) {
+        roles.push('Coordinateur de rigging');
+    }
+    // 2. Rigger : stunt rigger, rigger, câblage, rigging
+    else if (has('rigger', 'cablage', 'accrochage') || (f.includes('rigg') && !f.includes('coordinat'))) {
+        roles.push('Rigger');
+    }
+
+    // 3. Cascadeur mécanique : stunt driver, precision driver, pilote, cascade mécanique, scooter
+    if (
+        (has('driver', 'pilot', 'precision driver', 'scooter') || f.includes('mecanique')) &&
+        !has('fight', 'coordinat')
+    ) {
+        roles.push('Cascadeur mécanique');
+    }
+
+    // 4. Assistant coordination : assistant coordinateur, assistant stunt coordinator, assistant fight choreographer
+    if (
+        (f.includes('assistant') && (has('coordinat', 'regleur', 'fight', 'combat') || f.includes('stunt'))) ||
+        f.includes('co-stunt')
+    ) {
+        roles.push('Assistant coordinateur des cascades');
+    }
+
+    // 5. Coordinateur des cascades : coordination, action director, action designer, fight arranger, fight choreographer, superviseur
+    const isHeadCoord =
+        !f.includes('assistant') &&
+        !f.includes('rigg') &&
+        (has('action director', 'action designer', 'fight choreographer', 'fight choregrapher', 'fight arranger', 'fight coordinator', 'chef cascade', 'stunt manager') ||
+            has('coordinat', 'regleur', 'supervis'));
+
+    if (isHeadCoord && !roles.includes('Coordinateur des cascades')) {
         roles.push('Coordinateur des cascades');
     }
 
-    // Doublure : doublure, double lumière, doubleur
-    if (has('doublure', 'double lumiere', 'double lumière', 'doubleur')) {
+    // 6. Doublure : doublure, stunt double, double for
+    if (has('doublure', 'double lumiere', 'doubleur') || f.includes('stunt doub') || f.includes('double for')) {
         roles.push('Doublure');
     }
 
-    // Cascadeur : rôle par défaut si rien d'autre n'a été détecté, ou si
-    // explicitement mentionné (« Cascadeur & Câblage » → Cascadeur).
-    if (has('cascadeur', 'cascade', 'stunt', 'chute', 'combat', 'acrobat', 'chorégraph', 'choregraph', 'parkour', 'cablage', 'câblage', 'wire')) {
-        if (!roles.includes('Cascadeur')) roles.push('Cascadeur');
+    // 7. Cascadeur : human torch, fire stunt, cascadeur, stunt performer, utility stunts
+    const isExplicitStunt =
+        has('human torch', 'fire stunt', 'cascadeur', 'chute', 'acrobat') ||
+        f.includes('stunt performer') ||
+        f.includes('utility stunt') ||
+        (f.includes('stunt') &&
+            !roles.some(
+                (r) =>
+                    r === 'Coordinateur des cascades' ||
+                    r === 'Assistant coordinateur des cascades' ||
+                    r === 'Coordinateur de rigging' ||
+                    r === 'Rigger' ||
+                    r === 'Cascadeur mécanique' ||
+                    r === 'Doublure'
+            ));
+
+    if (isExplicitStunt && !roles.includes('Cascadeur')) {
+        roles.push('Cascadeur');
     }
 
-    // Aucun signal reconnu → on considère « Cascadeur » comme rôle générique
-    // uniquement si le libellé est vide ou purement technique. Sinon on ne
-    // force rien pour ne pas inventer.
+    // Fallback : si aucun rôle détecté et chaîne non vide
     if (roles.length === 0 && f.length > 0) {
         roles.push('Cascadeur');
     }
@@ -150,20 +204,7 @@ export interface RoleSetSummary {
 }
 
 /**
- * Synthèse **sans langue** des rôles tenus par le CUC sur une production.
- *
- * Les légendes de jaquettes étaient écrites à la main dans les catalogues de
- * messages (« Cascadeurs CUC (tournage Paris) », « Équipe cascades CUC »…) :
- * des auto-références au campus, sans fait vérifiable, affichées comme un rôle.
- * Elles sont désormais dérivées des rôles **réellement enregistrés** en base
- * (`site_films.metadata.cuc_team_roles`).
- *
- * Le rendu textuel est délégué à la couche i18n
- * (`@/lib/i18n/role-labels`) : un libellé « Cascadeur » écrit en dur ici
- * s'affichait tel quel sur les pages anglaises.
- *
- * Sans rôle enregistré, l'ensemble est vide : mieux vaut aucune légende qu'une
- * affirmation inventée.
+ * Synthèse sans langue des rôles tenus par le CUC sur une production.
  */
 export function summarizeFilmRoleSet(
     roles: Record<string, string> | null | undefined
@@ -205,6 +246,14 @@ export function roleAccent(role: CanonicalRole): string {
     switch (role) {
         case 'Coordinateur des cascades':
             return 'text-[#FFE500]';
+        case 'Assistant coordinateur des cascades':
+            return 'text-amber-400';
+        case 'Coordinateur de rigging':
+            return 'text-purple-400';
+        case 'Rigger':
+            return 'text-indigo-300';
+        case 'Cascadeur mécanique':
+            return 'text-orange-400';
         case 'Doublure':
             return 'text-sky-300';
         default:

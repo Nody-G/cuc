@@ -16,7 +16,15 @@ import type { CanonicalRole, RoleSetSummary } from '@/lib/credit-role';
 
 /** Signature minimale d'un traducteur `next-intl` du namespace `team`. */
 export type RoleTranslator = (
-    key: 'roleCoordination' | 'roleDouble' | 'roleStunt' | 'roleDoubleOf',
+    key:
+        | 'roleCoordination'
+        | 'roleAssistantCoordination'
+        | 'roleRiggingCoordination'
+        | 'roleRigger'
+        | 'roleMechanicalStunt'
+        | 'roleDouble'
+        | 'roleStunt'
+        | 'roleDoubleOf',
     values?: { names: string }
 ) => string;
 
@@ -29,6 +37,14 @@ export function roleLabel(
     switch (role) {
         case 'Coordinateur des cascades':
             return t('roleCoordination');
+        case 'Assistant coordinateur des cascades':
+            return t('roleAssistantCoordination');
+        case 'Coordinateur de rigging':
+            return t('roleRiggingCoordination');
+        case 'Rigger':
+            return t('roleRigger');
+        case 'Cascadeur mécanique':
+            return t('roleMechanicalStunt');
         case 'Doublure':
             return doubledActors.length > 0
                 ? t('roleDoubleOf', { names: doubledActors.join(', ') })
