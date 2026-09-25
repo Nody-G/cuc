@@ -126,56 +126,55 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
     }, [scopedFilms, filmSort]);
 
     return (
-        <div id={id} className={`${divider ? 'border-t border-zinc-800 pt-16' : ''} ${className}`.trim()}>
-            <div className="text-center max-w-3xl mx-auto mb-10">
-                <div className="inline-flex items-center gap-2 mb-3">
-                    <StuntBadge variant="yellow" icon={<Film className="w-3.5 h-3.5" />}>
+        <section id={id} className={`py-14 bg-[#060608] border-b border-zinc-800 ${className}`.trim()}>
+            <div className="page-shell">
+                <div className="text-center max-w-3xl mx-auto mb-8">
+                    <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1.5">
                         {resolvedBadge}
-                    </StuntBadge>
-                    <span className="text-xs font-mono-tech text-zinc-400">
-                        <span {...cucMicro('team.showcaseTag')}>{tTeam('showcaseTag')}</span>
                     </span>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wide text-white">
+                        {resolvedTitle}
+                    </h2>
+                    {resolvedSubtitle ? (
+                        <p className="text-xs sm:text-sm font-tech text-zinc-400 mt-2">{resolvedSubtitle}</p>
+                    ) : null}
+                    <label className="mt-4 inline-flex items-center gap-2 text-[11px] font-mono-tech text-zinc-400">
+                        <ArrowUpDown className="w-3.5 h-3.5 text-[#FFE500]" />
+                        <span className="uppercase tracking-wider">{tProduction('showcase.sortLabel')}</span>
+                        <select
+                            value={filmSort}
+                            onChange={(e) => setFilmSort(e.target.value as FilmSort)}
+                            className="bg-black/60 border border-zinc-700 text-zinc-200 text-[11px] font-mono-tech px-2 py-1 focus:outline-none focus:border-[#FFE500]"
+                            aria-label={tProduction('showcase.sortAria')}
+                        >
+                            <option value="year-desc">{tFilms('sortYearDesc')}</option>
+                            <option value="year-asc">{tFilms('sortYearAsc')}</option>
+                            <option value="title-asc">{tFilms('sortTitleAsc')}</option>
+                            <option value="title-desc">{tFilms('sortTitleDesc')}</option>
+                        </select>
+                    </label>
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mb-3">
-                    {resolvedTitle}
-                </h2>
-                <p className="text-xs sm:text-sm font-tech text-zinc-400">{resolvedSubtitle}</p>
-                <label className="mt-5 inline-flex items-center gap-2 text-[11px] font-mono-tech text-zinc-400">
-                    <ArrowUpDown className="w-3.5 h-3.5 text-[#FFE500]" />
-                    <span className="uppercase tracking-wider">{tProduction('showcase.sortLabel')}</span>
-                    <select
-                        value={filmSort}
-                        onChange={(e) => setFilmSort(e.target.value as FilmSort)}
-                        className="bg-black/60 border border-zinc-700 text-zinc-200 text-[11px] font-mono-tech px-2 py-1 focus:outline-none focus:border-[#FFE500]"
-                        aria-label={tProduction('showcase.sortAria')}
-                    >
-                        <option value="year-desc">{tFilms('sortYearDesc')}</option>
-                        <option value="year-asc">{tFilms('sortYearAsc')}</option>
-                        <option value="title-asc">{tFilms('sortTitleAsc')}</option>
-                        <option value="title-desc">{tFilms('sortTitleDesc')}</option>
-                    </select>
-                </label>
-            </div>
 
-            {/*
-              * Grille des affiches — jaquettes canoniques `FilmCard`.
-              * Source unique de la présentation et de la navigation des
-              * jaquettes sur toute la vitrine (décision 2026-09-24).
-              */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-                {sortedFilms.map((film) => (
-                    <FilmCard
-                        key={film.id}
-                        film={film}
-                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
-                        footer={film.director ? tTeam('directorShort', { name: film.director }) : null}
-                        onOpen={() => setSelectedFilm(film)}
-                    />
-                ))}
-            </div>
+                {/*
+                  * Grille des affiches — jaquettes canoniques `FilmCard`.
+                  * Source unique de la présentation et de la navigation des
+                  * jaquettes sur toute la vitrine (décision 2026-09-24).
+                  */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                    {sortedFilms.map((film) => (
+                        <FilmCard
+                            key={film.id}
+                            film={film}
+                            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
+                            footer={film.director ? tTeam('directorShort', { name: film.director }) : null}
+                            onOpen={() => setSelectedFilm(film)}
+                        />
+                    ))}
+                </div>
 
-            <FilmDetailsModal movie={selectedFilm} onClose={() => setSelectedFilm(null)} />
-        </div>
+                <FilmDetailsModal movie={selectedFilm} onClose={() => setSelectedFilm(null)} />
+            </div>
+        </section>
     );
 };
 

@@ -156,19 +156,25 @@ async function main() {
 
     const items = navCheck?.structure?.items ?? [];
     const campus = items.find((i) => i.id === 'campus');
+    const formations = items.find((i) => i.id === 'formations');
     const equipe = items.find((i) => i.id === 'equipe');
     const tournages = items.find((i) => i.id === 'tournages');
+    const hasWorkshopChild = formations?.children?.some((c) => c.id === 'workshop');
+    const hasNoRootWorkshop = !items.some((i) => i.id === 'workshop');
 
     console.log('\n— Contrôle de non-régression —');
     console.log(`  campus   : type=${campus?.type} href=${campus?.href} (attendu: link /visite-guidee)`);
-    console.log(`  equipe   : label="${equipe?.label}" (attendu: L’équipe)`);
-    console.log(`  tournages: label="${tournages?.label}" (attendu: Tournage)`);
+    console.log(`  equipe   : label="${equipe?.label}" (attendu: L’ÉQUIPE)`);
+    console.log(`  tournages: label="${tournages?.label}" (attendu: TOURNAGE)`);
+    console.log(`  workshop : dans formations=${hasWorkshopChild}, hors racine=${hasNoRootWorkshop} (attendu: true, true)`);
 
     const ok =
         campus?.type === 'link' &&
         campus?.href === '/visite-guidee' &&
-        equipe?.label === 'L’équipe' &&
-        tournages?.label === 'Tournage';
+        equipe?.label === 'L’ÉQUIPE' &&
+        tournages?.label === 'TOURNAGE' &&
+        hasWorkshopChild &&
+        hasNoRootWorkshop;
 
     if (!ok) {
         console.error('\n❌ Régression détectée : la base ne reflète pas les constantes.');

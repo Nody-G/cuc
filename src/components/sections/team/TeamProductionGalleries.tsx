@@ -74,13 +74,13 @@ export const TeamProductionGalleries: React.FC<TeamProductionGalleriesProps> = (
           <div className="text-center max-w-3xl mx-auto mb-8">
             <span
               data-cuc-field="sections_data.galeries_production.studio_badge"
-              className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1"
+              className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1.5"
             >
               {studioBadge}
             </span>
             <h2
               data-cuc-field="sections_data.galeries_production.studio_title"
-              className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white"
+              className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wide text-white"
             >
               {studioTitle}
             </h2>
@@ -120,13 +120,13 @@ export const TeamProductionGalleries: React.FC<TeamProductionGalleriesProps> = (
           <div className="text-center max-w-3xl mx-auto mb-8">
             <span
               data-cuc-field="sections_data.galeries_production.doubles_badge"
-              className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1"
+              className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1.5"
             >
               {doublesBadge}
             </span>
             <h2
               data-cuc-field="sections_data.galeries_production.doubles_title"
-              className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white"
+              className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wide text-white"
             >
               {doublesTitle}
             </h2>
@@ -169,13 +169,13 @@ export const TeamProductionGalleries: React.FC<TeamProductionGalleriesProps> = (
           <div className="text-center max-w-3xl mx-auto mb-8">
             <span
               data-cuc-field="sections_data.galeries_production.equipment_badge"
-              className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1"
+              className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1.5"
             >
               {equipmentBadge}
             </span>
             <h2
               data-cuc-field="sections_data.galeries_production.equipment_title"
-              className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white"
+              className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wide text-white"
             >
               {equipmentTitle}
             </h2>

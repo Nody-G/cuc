@@ -24,13 +24,5 @@ export const FilmPoster: React.FC<FilmBindingProps> = ({ movie, filmAttr, filmVa
                 </span>
             </div>
         )}
-        <div className="absolute top-2 right-2">
-            <span
-                className="bg-[#FFE500] text-black text-[10px] font-mono-tech font-bold px-2 py-0.5"
-                {...filmAttr('year')}
-            >
-                {filmValue('year', movie.year ?? '')}
-            </span>
-        </div>
     </div>
 );

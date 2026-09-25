@@ -9,7 +9,6 @@ import { cucMicro } from '@/lib/preview/cuc-micro';
 import { entityRef } from '@/lib/preview/entity-ref';
 import { resolveEntityOverride } from '@/lib/preview/use-preview-entity';
 import type { FilmCredit } from '@/types';
-import { FilmDoublesList } from './film-details/FilmDoublesList';
 import { FilmExternalLinks } from './film-details/FilmExternalLinks';
 import { FilmDescription, FilmIdentityBlock } from './film-details/FilmIdentityBlock';
 import { FilmPoster } from './film-details/FilmPoster';
@@ -76,8 +75,6 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({ movie, onClo
               <FilmIdentityBlock movie={movie} filmAttr={filmAttr} filmValue={filmValue} />
 
               <FilmDescription movie={movie} />
-
-              <FilmDoublesList movie={movie} />
 
               <FilmTeamList
                 movie={movie}

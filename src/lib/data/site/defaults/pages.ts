@@ -292,10 +292,8 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     layout_sections: [
       { id: 'hero', name: 'En-tête Tournages & Régie', order: 1, is_visible: true },
       { id: 'galleries', name: 'Galeries Photos des Tournages HD', order: 2, is_visible: true },
-      // La section `banners` (6 affiches statiques) a été retirée : elle faisait
-      // doublon avec `hall_of_fame` (catalogue complet site_films, 570 films).
-      { id: 'hall_of_fame', name: 'Affiches de films', order: 3, is_visible: true },
-      { id: 'services', name: 'Prestations de Coordination & Devis', order: 4, is_visible: true },
+      { id: 'hall_of_fame', name: 'Films coordonnés par le CUC', order: 3, is_visible: true },
+      { id: 'services', name: 'Prestations de Coordination & Devis', order: 4, is_visible: false },
     ],
     sections_data: {},
     sections: [],

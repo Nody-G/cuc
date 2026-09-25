@@ -154,7 +154,7 @@ export const FilmCard: React.FC<FilmCardProps> = ({
             </div>
 
             {footer ? (
-                <div className="p-4 pt-0 mt-2 border-t border-zinc-800/80 text-[10px] font-mono-tech text-zinc-500">
+                <div className="px-4 py-2.5 border-t border-zinc-800/80 text-[11px] font-mono-tech text-zinc-400">
                     <span>{footer}</span>
                 </div>
             ) : null}

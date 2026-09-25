@@ -40,13 +40,13 @@ export const TeamProductionServices: React.FC = () => {
           <div>
             <span
               {...cucField('sections_data.services_production.badge')}
-              className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-2"
+              className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1.5"
             >
               {block?.badge || t('services.badge')}
             </span>
             <h2
               {...cucField('sections_data.services_production.title')}
-              className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white mb-4"
+              className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wide text-white mb-4"
             >
               {block?.title || t('services.title')}
             </h2>
