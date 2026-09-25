@@ -47,6 +47,30 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
     return coordinatedFilms.find((f) => creditTitleKey(f.title) === key);
   };
 
+  /** Seuls les films coordonnés par le CUC associés à ce comédien */
+  const lucasCoordinatedFilms = useMemo<FilmCredit[]>(() => {
+    if (!celebrity || !coordinatedFilms || coordinatedFilms.length === 0) return [];
+    const matched: FilmCredit[] = [];
+    const prods = celebrity.productions || [];
+    for (const prod of prods) {
+      const match = findMatchingLucasFilm(prod);
+      if (match && !matched.some((m) => m.id === match.id)) {
+        matched.push(match);
+      }
+    }
+    for (const film of coordinatedFilms) {
+      if (
+        film.doubledActors &&
+        film.doubledActors.some((d) => d.toLowerCase().includes(celebrity.name.toLowerCase()))
+      ) {
+        if (!matched.some((m) => m.id === film.id)) {
+          matched.push(film);
+        }
+      }
+    }
+    return matched;
+  }, [celebrity, coordinatedFilms]);
+
   if (!celebrity) return null;
 
   return (
@@ -168,58 +192,38 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                 </div>
               ) : null}
 
-              {/* Scènes d'action */}
-              {celebrity.stuntSpecialty ? (
-                <div className="space-y-1">
-                  <span className="text-[11px] font-mono-tech text-zinc-400 uppercase font-bold block">
-                    <span {...cucMicro('teamProduction.celebrityModal.scenesLabel')}>
-                      {t('celebrityModal.scenesLabel')}
+              {/* Films coordonnés par le CUC (seuls films affichés en bas) */}
+              {lucasCoordinatedFilms.length > 0 && (
+                <div className="space-y-2 pt-2 border-t border-zinc-800/80">
+                  <span className="text-[10px] font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block">
+                    <span {...cucMicro('teamProduction.celebrityModal.cucCoordinatedFilmsLabel')}>
+                      {lucasCoordinatedFilms.length > 1
+                        ? t('celebrityModal.cucCoordinatedFilmsPlural')
+                        : t('celebrityModal.cucCoordinatedFilmsSingular')}
                     </span>
                   </span>
-                  <p className="text-xs text-zinc-300 font-tech leading-relaxed">
-                    {celebrity.stuntSpecialty}
-                  </p>
-                </div>
-              ) : null}
-
-              {/* Films / Productions */}
-              <div className="space-y-1.5">
-                <span className="text-[11px] font-mono-tech text-zinc-500 uppercase font-bold block">
-                  <span {...cucMicro('teamProduction.celebrityModal.filmsLabel')}>
-                    {t('celebrityModal.filmsLabel')}
-                  </span>
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {celebrity.productions.map((p, idx) => {
-                    const matchingFilm = findMatchingLucasFilm(p);
-                    if (matchingFilm) {
-                      return (
-                        <button
-                          key={idx}
-                          type="button"
-                          onClick={() => {
-                            onClose();
-                            onSelectFilm?.(matchingFilm);
-                          }}
-                          className="px-2.5 py-1 bg-[#FFE500]/15 border border-[#FFE500]/60 text-xs font-mono-tech text-[#FFE500] font-bold hover:bg-[#FFE500] hover:text-black transition-all cursor-pointer flex items-center gap-1.5 rounded-xs"
-                          title={`Voir la fiche du film « ${matchingFilm.title} » coordonné par Lucas Dollfus`}
-                        >
-                          <Clapperboard className="w-3 h-3 shrink-0" />
-                          <span>{p}</span>
-                        </button>
-                      );
-                    }
-                    return (
-                      <span
-                        key={idx}
-                        className="px-2.5 py-1 bg-[#141419] border border-zinc-800 text-xs font-mono-tech text-zinc-300 rounded-xs"
+                  <div className="flex flex-wrap gap-2">
+                    {lucasCoordinatedFilms.map((film) => (
+                      <button
+                        key={film.id}
+                        type="button"
+                        onClick={() => {
+                          onClose();
+                          onSelectFilm?.(film);
+                        }}
+                        className="px-3 py-1.5 bg-[#FFE500]/15 border border-[#FFE500]/60 text-xs font-mono-tech text-[#FFE500] font-bold hover:bg-[#FFE500] hover:text-black transition-all cursor-pointer flex items-center gap-1.5 rounded-xs group"
+                        title={`Voir la fiche du film « ${film.title} » coordonné par le CUC`}
                       >
-                        {p}
-                      </span>
-                    );
-                  })}
+                        <Clapperboard className="w-3.5 h-3.5 shrink-0" />
+                        <span>{film.title}</span>
+                        {film.year && (
+                          <span className="text-[10px] opacity-80 font-normal">({film.year})</span>
+                        )}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* IMDb Button */}
               {celebrity.imdbUrl && (

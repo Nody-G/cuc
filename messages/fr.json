@@ -1167,6 +1167,8 @@
             "doublesLabel": "Doublure cascades :",
             "scenesLabel": "Cascades & scènes d'action :",
             "filmsLabel": "Films :",
+            "cucCoordinatedFilmsSingular": "Film coordonné par le CUC :",
+            "cucCoordinatedFilmsPlural": "Films coordonnés par le CUC :",
             "imdbCta": "Fiche IMDb",
             "close": "Fermer",
             "closeAria": "Fermer"

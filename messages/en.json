@@ -1167,6 +1167,8 @@
             "doublesLabel": "Stunt double:",
             "scenesLabel": "Stunts & action scenes:",
             "filmsLabel": "Films:",
+            "cucCoordinatedFilmsSingular": "Film coordinated by CUC:",
+            "cucCoordinatedFilmsPlural": "Films coordinated by CUC:",
             "imdbCta": "IMDb page",
             "close": "Close",
             "closeAria": "Close"

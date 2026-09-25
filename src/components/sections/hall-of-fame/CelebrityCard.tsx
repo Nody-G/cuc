@@ -121,14 +121,6 @@ export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers
                         </span>
                     </div>
                 ) : null}
-
-                {actor.stuntSpecialty ? (
-                    <p className="text-[10px] text-zinc-400 font-tech leading-relaxed line-clamp-2">
-                        {actor.stuntSpecialty}
-                    </p>
-                ) : null}
-
-
             </div>
 
             <div className="h-[2px] w-full bg-zinc-800 group-hover:bg-[#FFE500] transition-colors" />
