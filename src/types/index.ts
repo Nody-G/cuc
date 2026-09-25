@@ -188,6 +188,7 @@ export interface Instructor {
   film_ids?: string[];
   discipline_ids?: string[];
   profile_id?: string | null;
+  order_index?: number;
   metadata?: InstructorMetadata;
 }
 

@@ -28,9 +28,6 @@
 /** @type {CoachIdentity[]} */
 export const COACH_REGISTRY = [
     {
-        // IMDb corrigé : nm8686683 pointait vers « Sigismund Payne Best »
-        // (Archive Footage, 1998). Le vrai profil est nm9598200
-        // (Stunt Coordinator / Stunts, 34 crédits dont John Wick: Chapter 4).
         id: 'lucas-dollfus',
         name: 'Lucas Dollfus',
         imdbId: 'nm9598200',
@@ -45,17 +42,6 @@ export const COACH_REGISTRY = [
         tmdbId: null,
         nameVariants: ['Jérôme Gaspard', 'Jerome Gaspard', 'Jérôme Gaspard (cascadeur)'],
         discipline: 'Coordination de cascades',
-    },
-    {
-        // IMDb corrigé : nm3763784 pointait vers « Skyler Sprague »
-        // (Actor, 2011). Le vrai profil est nm4933991
-        // (Stunts / Actor / Director, 92 crédits dont John Wick: Chapter 4).
-        id: 'vincent-bouillon',
-        name: 'Vincent Bouillon',
-        imdbId: 'nm4933991',
-        tmdbId: null,
-        nameVariants: ['Vincent Bouillon'],
-        discipline: 'Cascadeur & doublure',
     },
     {
         id: 'malik-diouf',
@@ -74,12 +60,36 @@ export const COACH_REGISTRY = [
         discipline: 'Câblage & pyrotechnie',
     },
     {
-        id: 'kefi-abrikh',
-        name: 'Kefi Abrikh',
-        imdbId: 'nm3768608',
+        id: 'frederic-dessains',
+        name: 'Frédéric Dessains',
+        imdbId: 'nm1178395',
         tmdbId: null,
-        nameVariants: ['Kefi Abrikh', 'Kefi Abrik', 'Kefi Abrikh (stunts)'],
-        discipline: 'Action design & chorégraphie',
+        nameVariants: ['Frédéric Dessains', 'Frederic Dessains'],
+        discipline: 'Acrobatie, combat & comédie',
+    },
+    {
+        id: 'niels-dalery',
+        name: 'Niels Dalery',
+        imdbId: null,
+        tmdbId: null,
+        nameVariants: ['Niels Dalery', 'Niels Daléry'],
+        discipline: 'Acrobatie & freerun',
+    },
+    {
+        id: 'amedeo-cazzella',
+        name: 'Amédéo Cazzella',
+        imdbId: 'nm1000561',
+        tmdbId: null,
+        nameVariants: ['Amédéo Cazzella', 'Amedeo Cazzella', 'Amédéo Cazzella (stunts)'],
+        discipline: 'Armes & combats',
+    },
+    {
+        id: 'vincent-bouillon',
+        name: 'Vincent Bouillon',
+        imdbId: 'nm4933991',
+        tmdbId: null,
+        nameVariants: ['Vincent Bouillon'],
+        discipline: 'Cascadeur & doublure',
     },
     {
         id: 'maurice-chan',
@@ -90,15 +100,30 @@ export const COACH_REGISTRY = [
         discipline: 'Combats & arts martiaux',
     },
     {
-        // CORRECTION D'IDENTITÉ (vérifiée sur 3 sources indépendantes) :
-        // la fiche portait « Michaël Troude » / nm0873735, mais l'avatar
-        // officiel du campus est `14-michel.png` et le site du campus
-        // (campus-universcascades.com/equipe/) nomme explicitement ce coach
-        // « Michel Bouis » (title="Michel Bouis - Campus Univers Cascades")
-        // avec le rôle « Spécialiste Chutes et Maniement d'armes ».
-        // IMDb : nm0099365 (Stunts, 244 crédits cascades dont Lupin, Elyas,
-        // L'Amour ouf, Loin du périph, L'Empereur de Paris).
-        // nm0873735 est une AUTRE personne (Michaël Troude, 100 crédits).
+        id: 'kefi-abrikh',
+        name: 'Kefi Abrikh',
+        imdbId: 'nm3768608',
+        tmdbId: null,
+        nameVariants: ['Kefi Abrikh', 'Kefi Abrik', 'Kefi Abrikh (stunts)'],
+        discipline: 'Action design & chorégraphie',
+    },
+    {
+        id: 'anthony-pho',
+        name: 'Anthony Pho',
+        imdbId: 'nm4131136',
+        tmdbId: null,
+        nameVariants: ['Anthony Pho'],
+        discipline: 'Chorégraphie de combat',
+    },
+    {
+        id: 'alex-vu',
+        name: 'Alex Vu',
+        imdbId: 'nm4842137',
+        tmdbId: null,
+        nameVariants: ['Alex Vu', 'Alexandre Vu'],
+        discipline: 'Tricks, chutes & combats',
+    },
+    {
         id: 'michel-bouis',
         name: 'Michel Bouis',
         imdbId: 'nm0099365',
@@ -107,44 +132,60 @@ export const COACH_REGISTRY = [
         discipline: 'Chutes & maniement d\'armes',
     },
     {
-        // IMDb corrigé : nm5449764 était erroné (aucune fiche). Le vrai profil
-        // stunt est nm1000561 (119 crédits, dont John Wick: Chapter 4).
-        id: 'amedeo-cazzella',
-        name: 'Amédéo Cazzella',
-        imdbId: 'nm1000561',
+        id: 'sarah-belala',
+        name: 'Sarah Belala',
+        imdbId: 'nm5404934',
         tmdbId: null,
-        nameVariants: ['Amédéo Cazzella', 'Amedeo Cazzella', 'Amédéo Cazzella (stunts)'],
-        discipline: 'Armes & combats',
+        nameVariants: ['Sarah Belala'],
+        discipline: 'Combats & chutes',
     },
     {
-        // Aucune fiche IMDb publique identifiée pour ce coach (recherche
-        // nominative infructueuse). Résolution manuelle requise.
-        // Participation confirmée par la direction : « Sous la Seine » (2024)
-        // uniquement. Aucun autre crédit de tournage à recenser.
-        id: 'niels-dalery',
-        name: 'Niels Dalery',
-        imdbId: null,
+        id: 'pierre-toubas',
+        name: 'Pierre Toubas',
+        imdbId: 'nm4947290',
         tmdbId: null,
-        nameVariants: ['Niels Dalery', 'Niels Daléry'],
-        discipline: 'Acrobatie & freerun',
+        nameVariants: ['Pierre Toubas'],
+        discipline: 'Combats & acrobaties',
     },
     {
-        // IMDb identifié via l'API de suggestion : nm9687362 (Stunts, Anna).
+        id: 'jonathan-bernard',
+        name: 'Jonathan Bernard',
+        imdbId: 'nm6788253',
+        tmdbId: null,
+        nameVariants: ['Jonathan Bernard'],
+        discipline: 'Combats & chutes',
+    },
+    {
         id: 'bastien-trouve',
         name: 'Bastien Trouvé',
         imdbId: 'nm9687362',
         tmdbId: null,
         nameVariants: ['Bastien Trouvé', 'Bastien Trouve'],
-        discipline: 'Cascadeur',
+        discipline: 'Combats & maniement d\'armes',
     },
     {
-        // IMDb identifié via l'API de suggestion : nm10995720 (Stunts, Anna).
+        id: 'teddy-ponceau',
+        name: 'Teddy Ponceau',
+        imdbId: 'nm12249560',
+        tmdbId: null,
+        nameVariants: ['Teddy Ponceau'],
+        discipline: 'Parkour, combats & chutes',
+    },
+    {
         id: 'alan-cueff',
         name: 'Alan Cueff',
         imdbId: 'nm10995720',
         tmdbId: null,
         nameVariants: ['Alan Cueff', 'Allan Cueff'],
-        discipline: 'Cascadeur & acrobatie',
+        discipline: 'Acrobatie & chutes',
+    },
+    {
+        id: 'nicolas-retabi',
+        name: 'Nicolas Retabi',
+        imdbId: 'nm6912508',
+        tmdbId: null,
+        nameVariants: ['Nicolas Retabi', 'Nicolas Rertabi'],
+        discipline: 'Chutes, acrobaties & airbag',
     },
 ];
 

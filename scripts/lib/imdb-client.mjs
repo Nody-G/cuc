@@ -359,6 +359,9 @@ export class ImdbClient {
                                         titleType { id text }
                                     }
                                     category { id text }
+                                    ... on Crew {
+                                        jobs { text }
+                                    }
                                 }
                             }
                         }
@@ -396,6 +399,9 @@ export class ImdbClient {
                     titleTypeLabel: title.titleType?.text ?? null,
                     category: node.category?.text ?? null,
                     categoryId: node.category?.id ?? null,
+                    jobs: Array.isArray(node.jobs)
+                        ? node.jobs.map((j) => j.text).filter(Boolean)
+                        : [],
                 });
             }
 

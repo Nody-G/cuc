@@ -21,17 +21,18 @@ async function syncLocalFilmography() {
     id: f.id,
     title: f.title,
     year: f.year || '',
-    category: f.category || 'Cinéma',
-    director: f.director,
+    category: (f.category === 'Série' || f.category === 'Court métrage') ? f.category : 'Film',
+    ...(f.director ? { director: f.director } : {}),
     stuntRoles: f.stunt_roles || '',
-    doubledActors: f.doubled_actors,
+    doubledActors: f.doubled_actors || [],
     highlight: !!f.highlight,
     image: f.image || '',
     tag: f.tag || '',
     imdbUrl: f.imdb_url || '',
     allocineUrl: f.allocine_url || '',
     trailerUrl: f.trailer_url || '',
-    cuc_team_involved: f.cuc_team_involved || []
+    cuc_team_involved: f.cuc_team_involved || [],
+    cuc_team_roles: f.metadata?.cuc_team_roles || {},
   }));
 
   const fileHeader = `import { FilmCredit } from '@/types';

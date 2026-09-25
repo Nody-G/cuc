@@ -1,0 +1,620 @@
+[
+  {
+    "id": "vincent-cassel",
+    "name": "Vincent Cassel",
+    "photo": "/images/actors/vincent-cassel.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMTc1NDUzMzM5MV5BMl5BanBnXkFtZTcwNzY1OTYyOQ@@._V1_.jpg",
+    "productions": [
+      "Le Monde est à toi",
+      "L'Empereur de Paris"
+    ],
+    "stuntDoubles": "Doublé par Jérôme Gaspard, Kefi Abrikh",
+    "coaches": [
+      "Jérôme Gaspard",
+      "Kefi Abrikh"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0001993/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "jonathan-cohen",
+    "name": "Jonathan Cohen",
+    "photo": "https://m.media-amazon.com/images/M/MV5BYzQwOWQ3Y2YtMmIxZS00ZjA3LTkyNWUtMDRkYTU2Yzc4NmFkXkEyXkFqcGc@._V1_CR1,1,1065,1598_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BYzQwOWQ3Y2YtMmIxZS00ZjA3LTkyNWUtMDRkYTU2Yzc4NmFkXkEyXkFqcGc@._V1_CR1,1,1065,1598_.jpg",
+    "productions": [
+      "En même temps",
+      "Family Business"
+    ],
+    "stuntDoubles": "Doublé par Frédéric Dessains",
+    "coaches": [
+      "Frédéric Dessains"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0169512/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "jean-dujardin",
+    "name": "Jean Dujardin",
+    "photo": "/images/actors/jean-dujardin.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMzExNjY1OTU5OF5BMl5BanBnXkFtZTgwMTc3OTc3NjE@._V1_.jpg",
+    "productions": [
+      "Alphonse",
+      "Brice 3"
+    ],
+    "stuntDoubles": "Doublé par Vincent Bouillon",
+    "coaches": [
+      "Vincent Bouillon"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0241121/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "fion-whitehead",
+    "name": "Fion Whitehead",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMTA2OTI5MTYyOTdeQTJeQWpwZ15BbWU4MDY0MzkwOTIy._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMTA2OTI5MTYyOTdeQTJeQWpwZ15BbWU4MDY0MzkwOTIy._V1_.jpg",
+    "productions": [
+      "Roads"
+    ],
+    "stuntDoubles": "Doublé par Lucas Dollfus",
+    "coaches": [
+      "Lucas Dollfus"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm7887725/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "ned-dennehy",
+    "name": "Ned Dennehy",
+    "photo": "https://m.media-amazon.com/images/M/MV5BZWIwYTY0ZmUtODk3My00YjA4LTllMTMtYjc0NThjODZlYWI0XkEyXkFqcGc@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BZWIwYTY0ZmUtODk3My00YjA4LTllMTMtYjc0NThjODZlYWI0XkEyXkFqcGc@._V1_.jpg",
+    "productions": [
+      "The Walking Dead: Daryl Dixon"
+    ],
+    "stuntDoubles": "Doublé par Jérôme Gaspard",
+    "coaches": [
+      "Jérôme Gaspard"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0219329/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "adrien-brody",
+    "name": "Adrien Brody",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMjI3ODkxMjU3OF5BMl5BanBnXkFtZTgwMTk2Njk3MTE@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMjI3ODkxMjU3OF5BMl5BanBnXkFtZTgwMTk2Njk3MTE@._V1_.jpg",
+    "productions": [
+      "The French Dispatch"
+    ],
+    "stuntDoubles": "Doublé par Jérôme Gaspard",
+    "coaches": [
+      "Jérôme Gaspard"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0004778/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "arnaud-ducret",
+    "name": "Arnaud Ducret",
+    "photo": "https://m.media-amazon.com/images/M/MV5BODNhNGYxM2UtMmI5Ny00NzkxLWFlNDQtODMyOGU3MzY3MWE5XkEyXkFqcGc@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BODNhNGYxM2UtMmI5Ny00NzkxLWFlNDQtODMyOGU3MzY3MWE5XkEyXkFqcGc@._V1_.jpg",
+    "productions": [
+      "Divorce Club"
+    ],
+    "stuntDoubles": "Doublé par Jérôme Gaspard",
+    "coaches": [
+      "Jérôme Gaspard"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm3143558/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "olivier-gourmet",
+    "name": "Olivier Gourmet",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMjMxOTYyNzIxNF5BMl5BanBnXkFtZTcwMDYwNTIzOA@@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMjMxOTYyNzIxNF5BMl5BanBnXkFtZTcwMDYwNTIzOA@@._V1_.jpg",
+    "productions": [
+      "Tueurs"
+    ],
+    "stuntDoubles": "Doublé par Jérôme Gaspard",
+    "coaches": [
+      "Jérôme Gaspard"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0332709/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "jay-duffy",
+    "name": "Jay Duffy",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMzgxYzUyYzYtMDRjMS00YjdhLWJmM2YtZmJjNDMxZDdmMjExXkEyXkFqcGc@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMzgxYzUyYzYtMDRjMS00YjdhLWJmM2YtZmJjNDMxZDdmMjExXkEyXkFqcGc@._V1_.jpg",
+    "productions": [
+      "Playground"
+    ],
+    "stuntDoubles": "Doublé par Jérôme Gaspard",
+    "coaches": [
+      "Jérôme Gaspard"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm4567872/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "thierry-neuvic",
+    "name": "Thierry Neuvic",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMTc3MTQ0NzQ2Nl5BMl5BanBnXkFtZTcwNDE1NTY5Mw@@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMTc3MTQ0NzQ2Nl5BMl5BanBnXkFtZTcwNDE1NTY5Mw@@._V1_.jpg",
+    "productions": [
+      "Belle et Sébastien : L'aventure continue"
+    ],
+    "stuntDoubles": "Doublé par Jérôme Gaspard",
+    "coaches": [
+      "Jérôme Gaspard"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0627245/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "benjamin-blanchy",
+    "name": "Benjamin Blanchy",
+    "photo": "/images/actors/benjamin-blanchy.jpg",
+    "photoRemote": "",
+    "productions": [
+      "Le passager"
+    ],
+    "stuntDoubles": "Doublé par Jérôme Gaspard",
+    "coaches": [
+      "Jérôme Gaspard"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm4327348/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "sam-spruell",
+    "name": "Sam Spruell",
+    "photo": "https://m.media-amazon.com/images/M/MV5BZWQwYjdmYTItMzkzZS00ZTM1LTliNGYtYjBiZGMzZTRmODljXkEyXkFqcGc@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BZWQwYjdmYTItMzkzZS00ZTM1LTliNGYtYjBiZGMzZTRmODljXkEyXkFqcGc@._V1_.jpg",
+    "productions": [
+      "Taken 3"
+    ],
+    "stuntDoubles": "Doublé par Jérôme Gaspard",
+    "coaches": [
+      "Jérôme Gaspard"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0819874/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "lambert-wilson",
+    "name": "Lambert Wilson",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMTU3NDQ5MjYzOF5BMl5BanBnXkFtZTcwMzU5OTEzMw@@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMTU3NDQ5MjYzOF5BMl5BanBnXkFtZTcwMzU5OTEzMw@@._V1_.jpg",
+    "productions": [
+      "Suite française"
+    ],
+    "stuntDoubles": "Doublé par Jérôme Gaspard",
+    "coaches": [
+      "Jérôme Gaspard"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0933727/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "michael-lindall",
+    "name": "Michael Lindall",
+    "photo": "https://m.media-amazon.com/images/M/MV5BM2U4N2RkODEtMjc5My00YTlkLWJjY2EtZjUzZThjNTViM2VhXkEyXkFqcGc@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BM2U4N2RkODEtMjc5My00YTlkLWJjY2EtZjUzZThjNTViM2VhXkEyXkFqcGc@._V1_.jpg",
+    "productions": [
+      "Le transporteur - la série"
+    ],
+    "stuntDoubles": "Doublé par Jérôme Gaspard",
+    "coaches": [
+      "Jérôme Gaspard"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm3016746/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "kevin-costner",
+    "name": "Kevin Costner",
+    "photo": "/images/actors/kevin-costner.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMTY1ODkwMTQxOF5BMl5BanBnXkFtZTcwNzkwNDcyMw@@._V1_.jpg",
+    "productions": [
+      "3 Days to Kill"
+    ],
+    "stuntDoubles": "Doublé par Jérôme Gaspard",
+    "coaches": [
+      "Jérôme Gaspard"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0000126/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "tomer-sisley",
+    "name": "Tomer Sisley",
+    "photo": "/images/actors/tomer-sisley.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BYjAyN2RkM2QtNTJiYS00NzQ5LTk0NWYtNWM3YWIwNzU5NDczXkEyXkFqcGc@._V1_.jpg",
+    "productions": [
+      "Largo Winch II"
+    ],
+    "stuntDoubles": "Doublé par Jérôme Gaspard",
+    "coaches": [
+      "Jérôme Gaspard"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0803037/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "samuel-le-bihan",
+    "name": "Samuel Le Bihan",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMTM5MDc2MzQwNF5BMl5BanBnXkFtZTYwNzU2NjY3._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMTM5MDc2MzQwNF5BMl5BanBnXkFtZTYwNzU2NjY3._V1_.jpg",
+    "productions": [
+      "Le Pacte des loups"
+    ],
+    "stuntDoubles": "Doublé par Jérôme Gaspard",
+    "coaches": [
+      "Jérôme Gaspard"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0494078/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "bakary-diombera",
+    "name": "Bakary Diombera",
+    "photo": "/images/actors/bakary-diombera.jpg",
+    "photoRemote": "",
+    "productions": [
+      "Le salaire de la peur"
+    ],
+    "stuntDoubles": "Doublé par Malik Diouf",
+    "coaches": [
+      "Malik Diouf"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm10553742/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "franck-gastambide",
+    "name": "Franck Gastambide",
+    "photo": "https://m.media-amazon.com/images/M/MV5BYmEyMDdmZjMtN2VmZS00OWZhLTk1YjUtZjIxYWQ0ODY3MWJjXkEyXkFqcGc@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BYmEyMDdmZjMtN2VmZS00OWZhLTk1YjUtZjIxYWQ0ODY3MWJjXkEyXkFqcGc@._V1_.jpg",
+    "productions": [
+      "Le salaire de la peur"
+    ],
+    "stuntDoubles": "Doublé par Franck Blanc",
+    "coaches": [
+      "Franck Blanc"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm4151736/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "moussa-maaskri",
+    "name": "Moussa Maaskri",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMTcwNTU5NzI2MF5BMl5BanBnXkFtZTcwNDc5NTc2OQ@@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMTcwNTU5NzI2MF5BMl5BanBnXkFtZTcwNDc5NTc2OQ@@._V1_.jpg",
+    "productions": [
+      "Overdrive"
+    ],
+    "stuntDoubles": "Doublé par Franck Blanc",
+    "coaches": [
+      "Franck Blanc"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0531014/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "michel-angely",
+    "name": "Michel Angely",
+    "photo": "/images/actors/michel-angely.jpg",
+    "photoRemote": "",
+    "productions": [
+      "Le serpent aux mille coupures"
+    ],
+    "stuntDoubles": "Doublé par Franck Blanc",
+    "coaches": [
+      "Franck Blanc"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0029753/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "jean-hugues-anglade",
+    "name": "Jean-hugues Anglade",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMTczMDYwNDI3MF5BMl5BanBnXkFtZTcwOTE1MzM4OA@@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMTczMDYwNDI3MF5BMl5BanBnXkFtZTcwOTE1MzM4OA@@._V1_.jpg",
+    "productions": [
+      "Prise au piège"
+    ],
+    "stuntDoubles": "Doublé par Frédéric Dessains",
+    "coaches": [
+      "Frédéric Dessains"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0000767/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "georges-corraface",
+    "name": "Georges Corraface",
+    "photo": "https://m.media-amazon.com/images/M/MV5BNmI3ZmJlNjMtOWE0Yi00NDhjLTgyNWUtNzM2YzkwYmJmYjE4XkEyXkFqcGc@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BNmI3ZmJlNjMtOWE0Yi00NDhjLTgyNWUtNzM2YzkwYmJmYjE4XkEyXkFqcGc@._V1_.jpg",
+    "productions": [
+      "Super-héros malgré lui"
+    ],
+    "stuntDoubles": "Doublé par Amédéo Cazzella",
+    "coaches": [
+      "Amédéo Cazzella"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0004248/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "bruno-debrandt",
+    "name": "Bruno Debrandt",
+    "photo": "https://m.media-amazon.com/images/M/MV5BM2M3YTU3OTktNjRhYS00ZWZlLWExZDQtNzc0ZGNkYmRhOTM4XkEyXkFqcGc@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BM2M3YTU3OTktNjRhYS00ZWZlLWExZDQtNzc0ZGNkYmRhOTM4XkEyXkFqcGc@._V1_.jpg",
+    "productions": [
+      "Prise au piège"
+    ],
+    "stuntDoubles": "Doublé par Amédéo Cazzella",
+    "coaches": [
+      "Amédéo Cazzella"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm1122172/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "blerim-destani",
+    "name": "Blerim Destani",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMTQ1NzE4MzYxNl5BMl5BanBnXkFtZTgwMDkyMzM1NzE@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMTQ1NzE4MzYxNl5BMl5BanBnXkFtZTgwMDkyMzM1NzE@._V1_.jpg",
+    "productions": [
+      "Troubleshooters"
+    ],
+    "stuntDoubles": "Doublé par Vincent Bouillon",
+    "coaches": [
+      "Vincent Bouillon"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm1773716/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "wael-sersoub",
+    "name": "Waël Sersoub",
+    "photo": "/images/actors/wael-sersoub.jpg",
+    "photoRemote": "",
+    "productions": [
+      "Tigres & Hyènes"
+    ],
+    "stuntDoubles": "Doublé par Vincent Bouillon",
+    "coaches": [
+      "Vincent Bouillon"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm7928253/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "scott-adkins",
+    "name": "Scott Adkins",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMWZkMWRmM2MtYmYwNy00M2FlLWJmY2EtNWU1NjJkYWUyMzAwXkEyXkFqcGc@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMWZkMWRmM2MtYmYwNy00M2FlLWJmY2EtNWU1NjJkYWUyMzAwXkEyXkFqcGc@._V1_.jpg",
+    "productions": [
+      "Matrah Matrouh"
+    ],
+    "stuntDoubles": "Doublé par Vincent Bouillon",
+    "coaches": [
+      "Vincent Bouillon"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0012078/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "adam-sandler",
+    "name": "Adam Sandler",
+    "photo": "https://m.media-amazon.com/images/M/MV5BNjk5Mzg3NzkxM15BMl5BanBnXkFtZTgwOTE4NDU3NTM@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BNjk5Mzg3NzkxM15BMl5BanBnXkFtZTgwOTE4NDU3NTM@._V1_.jpg",
+    "productions": [
+      "Murder Mystery 2"
+    ],
+    "stuntDoubles": "Doublé par Vincent Bouillon",
+    "coaches": [
+      "Vincent Bouillon"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0001191/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "keanu-reeves",
+    "name": "Keanu Reeves",
+    "photo": "/images/actors/keanu-reeves.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BNDEzOTdhNDUtY2EyMy00YTNmLWE5MjItZmRjMmQzYTRlMGRkXkEyXkFqcGc@._V1_.jpg",
+    "productions": [
+      "John Wick : Chapitre 4"
+    ],
+    "stuntDoubles": "Doublé par Vincent Bouillon",
+    "coaches": [
+      "Vincent Bouillon"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0000206/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "philippe-lacheau",
+    "name": "Philippe Lacheau",
+    "photo": "https://m.media-amazon.com/images/M/MV5BNjZlY2U1MGItYWVkNS00YTlkLTg3NzgtMDg4ZmQxNzcyMDI3XkEyXkFqcGc@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BNjZlY2U1MGItYWVkNS00YTlkLTg3NzgtMDg4ZmQxNzcyMDI3XkEyXkFqcGc@._V1_.jpg",
+    "productions": [
+      "Super-héros malgré lui"
+    ],
+    "stuntDoubles": "Doublé par Vincent Bouillon",
+    "coaches": [
+      "Vincent Bouillon"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm3743617/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "aahmir-khan",
+    "name": "Aahmir Khan",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMjAwMjk3NDUzN15BMl5BanBnXkFtZTcwNjI4MTY0NA@@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMjAwMjk3NDUzN15BMl5BanBnXkFtZTcwNjI4MTY0NA@@._V1_.jpg",
+    "productions": [
+      "Thugs de l'Hindostan"
+    ],
+    "stuntDoubles": "Doublé par Vincent Bouillon",
+    "coaches": [
+      "Vincent Bouillon"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0451148/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "sunny-deol",
+    "name": "Sunny Deol",
+    "photo": "https://m.media-amazon.com/images/M/MV5BNzk3NDg3NjEtNTg4ZS00NGRkLWJlYjktYTMwNDJiYjUwNDQzXkEyXkFqcGc@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BNzk3NDg3NjEtNTg4ZS00NGRkLWJlYjktYTMwNDJiYjUwNDQzXkEyXkFqcGc@._V1_.jpg",
+    "productions": [
+      "Yamla Pagla Deewana 2"
+    ],
+    "stuntDoubles": "Doublé par Vincent Bouillon",
+    "coaches": [
+      "Vincent Bouillon"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0219971/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "vincent-elbaz",
+    "name": "Vincent Elbaz",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMTYyMjY2MTM0OV5BMl5BanBnXkFtZTgwNTE2NTc1NzM@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMTYyMjY2MTM0OV5BMl5BanBnXkFtZTgwNTE2NTc1NzM@._V1_.jpg",
+    "productions": [
+      "Daddy Cool"
+    ],
+    "stuntDoubles": "Doublé par Kefi Abrikh",
+    "coaches": [
+      "Kefi Abrikh"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0252979/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "luke-evans",
+    "name": "Luke Evans",
+    "photo": "https://m.media-amazon.com/images/M/MV5BNDU1MDI2OTUyNV5BMl5BanBnXkFtZTcwNTA1OTY1OQ@@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BNDU1MDI2OTUyNV5BMl5BanBnXkFtZTcwNTA1OTY1OQ@@._V1_.jpg",
+    "productions": [
+      "Fast & Furious 6"
+    ],
+    "stuntDoubles": "Doublé par Kefi Abrikh",
+    "coaches": [
+      "Kefi Abrikh"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm1812656/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "hafsia-herzi",
+    "name": "Hafsia Herzi",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMTU4OTAzMjQ2N15BMl5BanBnXkFtZTcwMjEyMTY1Mg@@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMTU4OTAzMjQ2N15BMl5BanBnXkFtZTcwMjEyMTY1Mg@@._V1_.jpg",
+    "productions": [
+      "Histoires de la nuit"
+    ],
+    "stuntDoubles": "Doublé par Sarah Belala",
+    "coaches": [
+      "Sarah Belala"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm2082567/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "patience-munchenbach",
+    "name": "Patience Munchenbach",
+    "photo": "/images/actors/patience-munchenbach.jpg",
+    "photoRemote": "",
+    "productions": [
+      "Acide"
+    ],
+    "stuntDoubles": "Doublé par Sarah Belala",
+    "coaches": [
+      "Sarah Belala"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm10692273/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "elie-haddad",
+    "name": "Elie Haddad",
+    "photo": "https://m.media-amazon.com/images/M/MV5BZGVkYWU0YmEtNzU3Ni00Y2E0LWI4NjUtYTZmZjg4NWUzZmM5XkEyXkFqcGc@._V1_CR396,0,639,959_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BZGVkYWU0YmEtNzU3Ni00Y2E0LWI4NjUtYTZmZjg4NWUzZmM5XkEyXkFqcGc@._V1_CR396,0,639,959_.jpg",
+    "productions": [
+      "The Killer"
+    ],
+    "stuntDoubles": "Doublé par Alan Cueff",
+    "coaches": [
+      "Alan Cueff"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm4363643/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "benjamin-de-la-fere",
+    "name": "Benjamin De LA Fere",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMjI2NTc0ZDItNDBiMi00NDc4LWFkMWQtZWQwYWRmZTM4ZmJjXkEyXkFqcGc@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMjI2NTc0ZDItNDBiMi00NDc4LWFkMWQtZWQwYWRmZTM4ZmJjXkEyXkFqcGc@._V1_.jpg",
+    "productions": [
+      "Les Trois Mousquetaires: Milady"
+    ],
+    "stuntDoubles": "Doublé par Nicolas Retabi",
+    "coaches": [
+      "Nicolas Retabi"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm3118835/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "benjamin-de-la-fere",
+    "name": "Benjamin De LA Fère",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMjI2NTc0ZDItNDBiMi00NDc4LWFkMWQtZWQwYWRmZTM4ZmJjXkEyXkFqcGc@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMjI2NTc0ZDItNDBiMi00NDc4LWFkMWQtZWQwYWRmZTM4ZmJjXkEyXkFqcGc@._V1_.jpg",
+    "productions": [
+      "Les Trois Mousquetaires : D'Artagnan"
+    ],
+    "stuntDoubles": "Doublé par Nicolas Retabi",
+    "coaches": [
+      "Nicolas Retabi"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm3118835/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "mister-v",
+    "name": "Mister V",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMTg3NDUzOTc3MV5BMl5BanBnXkFtZTcwNjcxMDkxNw@@._V1_.jpg",
+    "photoRemote": "https://m.media-amazon.com/images/M/MV5BMTg3NDUzOTc3MV5BMl5BanBnXkFtZTcwNjcxMDkxNw@@._V1_.jpg",
+    "productions": [
+      "Pattaya"
+    ],
+    "stuntDoubles": "Doublé par Nicolas Retabi",
+    "coaches": [
+      "Nicolas Retabi"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0000100/",
+    "stuntSpecialty": "Cascades physiques, doublure d'action et combats chorégraphiés réglés par le CUC."
+  },
+  {
+    "id": "ramzy-bedia",
+    "name": "Ramzy Bedia",
+    "photo": "https://m.media-amazon.com/images/M/MV5BMTgzMDkyNzE1M15BMl5BanBnXkFtZTcwNzY3MTY1OA@@._V1_.jpg",
+    "productions": [
+      "Les Blagues de Toto"
+    ],
+    "stuntDoubles": "Doublé par Kefi Abrikh",
+    "coaches": [
+      "Kefi Abrikh"
+    ],
+    "imdbUrl": "https://www.imdb.com/name/nm0066060/",
+    "stuntSpecialty": "Cascades physiques et comédie d'action."
+  }
+]
