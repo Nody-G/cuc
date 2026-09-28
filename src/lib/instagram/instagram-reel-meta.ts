@@ -26,14 +26,12 @@ interface CachedMediaMap {
 let cachedMediaMap: CachedMediaMap | null = null;
 const MAP_TTL_MS = 10 * 60 * 1000; // 10 minutes
 
+import { extractInstagramShortcode } from '@/lib/instagram-utils';
+
 /**
- * Extrait le shortcode d'un permalien Instagram (ex: https://www.instagram.com/reel/DdEoOcyM-We/).
+ * Extrait le shortcode d'un permalien Instagram (alias réexporté depuis instagram-utils).
  */
-export function extractShortcode(permalink: string): string | null {
-    if (!permalink) return null;
-    const match = permalink.match(/instagram\.com\/(?:reel|p|tv)\/([A-Za-z0-9_-]+)/);
-    return match ? match[1] : null;
-}
+export const extractShortcode = extractInstagramShortcode;
 
 /**
  * Récupère et met en cache la cartographie shortcode -> media_id pour le compte CUC.

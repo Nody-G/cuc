@@ -70,12 +70,13 @@ export async function getInstagramProfile(
         }
     }
 
-    // Bascule automatique vers Meta Graph API si configurée (ou variables d'environnement)
+    // Bascule automatique vers Meta Graph API pour le compte CUC officiel
+    const isCuc = cleanUsername === 'campus.univers.cascades';
     const activeToken = metaConfig?.accessToken || process.env.INSTAGRAM_ACCESS_TOKEN || process.env.META_ACCESS_TOKEN;
     const activeAccountId = metaConfig?.instagramAccountId || process.env.INSTAGRAM_ACCOUNT_ID || process.env.META_INSTAGRAM_ACCOUNT_ID;
     const isMetaActive = metaConfig ? (metaConfig.enabled && Boolean(activeToken && activeAccountId)) : Boolean(activeToken && activeAccountId);
 
-    if (isMetaActive && activeToken) {
+    if (isCuc && isMetaActive && activeToken) {
         try {
             const isInstagramToken = activeToken.startsWith('IG');
             const url = isInstagramToken
@@ -86,15 +87,15 @@ export async function getInstagramProfile(
                 const json = await res.json();
                 const stat: InstagramAccountStat = {
                     id: json.id || `acc-${cleanUsername}`,
-                    username: json.username || cleanUsername,
-                    displayName: json.username || cleanUsername,
+                    username: 'campus.univers.cascades',
+                    displayName: 'Campus Univers Cascades',
                     followersCount: json.followers_count || 0,
                     followersFormatted: formatFollowerCount(json.followers_count || 0),
                     followingCount: json.follows_count,
                     postsCount: json.media_count,
                     avatarUrl: json.profile_picture_url,
                     lastUpdated: new Date().toISOString(),
-                    isCuc: cleanUsername === 'campus.univers.cascades',
+                    isCuc: true,
                 };
                 PROFILE_CACHE.set(cleanUsername, { data: stat, timestamp: now });
                 return stat;
