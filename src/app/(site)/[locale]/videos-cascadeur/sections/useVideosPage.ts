@@ -95,7 +95,6 @@ export function useVideosPage(): UseVideosPageResult {
     const [selectedDmVideo, setSelectedDmVideo] = React.useState<SelectedDmVideo | null>(null);
     const [selectedReel, setSelectedReel] = React.useState<InstagramReel | null>(null);
     const [tvPrograms, setTvPrograms] = React.useState(PROGRAMMES_TV);
-    const [reelsSortBy, setReelsSortBy] = React.useState<ReelSortOption>('featured');
     const { content } = usePageDynamicContent('videos-cascadeur');
     const videoCopy = t.raw('programs') as VideoCopy[];
     const mediaItems = t.raw('mediaItems') as MediaItem[];

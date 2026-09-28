@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Eye, ThumbsUp, MessageCircle, ExternalLink, Film, Image as ImageIcon, Star, Zap, Copy, Check, ChevronDown, ChevronUp } from 'lucide-react';
+import { Eye, ThumbsUp, MessageCircle, ExternalLink, Film, Image as ImageIcon, Star, Zap, Copy, Check } from 'lucide-react';
 import type { InstagramReelMetric } from '@/types/instagram-monitor';
 
 interface InstagramMediaTableProps {

@@ -29,11 +29,10 @@ const DEFAULT_METRICS: PublicInstagramFollowersResult = {
  */
 export function useInstagramFollowers(): UseInstagramFollowersResult {
     const [metrics, setMetrics] = useState<PublicInstagramFollowersResult>(DEFAULT_METRICS);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         let isMounted = true;
-        setIsLoading(true);
         getPublicInstagramFollowersAction()
             .then((res) => {
                 if (isMounted && res.success) {

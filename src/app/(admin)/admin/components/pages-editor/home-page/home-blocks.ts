@@ -34,28 +34,6 @@ export const HOME_BLOCKS: HomeBlockDef[] = [
                     },
                 ],
             },
-            {
-                fields: [{ key: 'founder_label', label: 'Fondateur — surtitre', liveEdit: true }],
-            },
-            {
-                fields: [
-                    {
-                        key: 'founder_quote',
-                        label: 'Citation du fondateur',
-                        kind: 'textarea',
-                        rows: 2,
-                        liveEdit: true,
-                    },
-                ],
-            },
-            {
-                columns: 3,
-                fields: [
-                    { key: 'founder_name', label: 'Nom du fondateur', liveEdit: true },
-                    { key: 'founder_role', label: 'Rôle du fondateur', liveEdit: true },
-                    { key: 'badge_year', label: 'Badge année', liveEdit: true },
-                ],
-            },
             { fields: [{ key: 'image_url', label: 'Image de présentation', media: true }] },
             {
                 columns: 2,

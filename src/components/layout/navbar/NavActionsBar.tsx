@@ -6,6 +6,7 @@ import { Link } from '@/i18n/navigation';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { SocialIcon } from '@/components/ui/logos/SocialLogos';
+import { InstagramFollowerBadge } from '@/components/ui/InstagramFollowerBadge';
 import { useSocialLinks } from '@/lib/hooks/useNavigation';
 import { usePreviewSettings } from '@/lib/preview/use-preview-settings';
 import { cucSetting } from '@/lib/preview/cuc-chrome';
@@ -52,6 +53,11 @@ export const NavActionsBar: React.FC = () => {
 
   return (
     <div className="hidden sm:flex items-center gap-2.5 shrink-0">
+      {/* Badge officiel certifié Instagram CUC */}
+      <div className="hidden lg:flex items-center">
+        <InstagramFollowerBadge variant="header" />
+      </div>
+
       {/* Quick Official Social Icons — pilotés par site_social_links (affichés sur très grand écran 2xl) */}
       {navbarSocials.length > 0 && (
         <div className="hidden 2xl:flex items-center gap-1 border-r border-zinc-800 pr-2">

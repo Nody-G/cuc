@@ -1,30 +1,30 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-24T15:14:53.685Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-28T13:32:49.792Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 309 |
-| DONNÉES — éditable par un écran existant | 107 |
-| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 15 |
-| CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
-| HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 16 |
-| **Total** | **447** |
+| ANNOTÉ — éditable en place | 288 |
+| DONNÉES — éditable par un écran existant | 99 |
+| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 14 |
+| CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 9 |
+| HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 14 |
+| **Total** | **424** |
 
 ## 1. ANNOTÉ — éditable en place
 
 ### `src\app\(site)\[locale]\animations-airbag-parkour\page.tsx`
 
-- l.69 — `{t('breadcrumbCurrent')}`
-- l.76 — `{heroBadge}`
-- l.84 — `{content.hero?.meta || t('heroMeta')}`
-- l.108 — `{heroSubtitle}`
-- l.115 — `{ctaPrimaryText}`
-- l.123 — `{ctaSecondaryText}`
-- l.184 — `{chrome('eventsAnimationsBadge')}`
+- l.74 — `{t('breadcrumbCurrent')}`
+- l.81 — `{heroBadge}`
+- l.89 — `{content.hero?.meta || t('heroMeta')}`
+- l.113 — `{heroSubtitle}`
+- l.120 — `{ctaPrimaryText}`
+- l.128 — `{ctaSecondaryText}`
+- l.189 — `{chrome('eventsAnimationsBadge')}`
 
 ### `src\app\(site)\[locale]\contact-cuc\page.tsx`
 
@@ -49,17 +49,17 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\spectacles-cascadeurs-yamakasi\page.tsx`
 
-- l.67 — `{t('breadcrumbCurrent')}`
-- l.74 — `{heroBadge}`
-- l.82 — `{content.hero?.meta || t('heroMeta')}`
-- l.106 — `{heroSubtitle}`
-- l.113 — `{ctaPrimaryText}`
-- l.121 — `{ctaSecondaryText}`
+- l.72 — `{t('breadcrumbCurrent')}`
+- l.79 — `{heroBadge}`
+- l.87 — `{content.hero?.meta || t('heroMeta')}`
+- l.111 — `{heroSubtitle}`
+- l.118 — `{ctaPrimaryText}`
+- l.126 — `{ctaSecondaryText}`
 
 ### `src\app\(site)\[locale]\stunt-workshop-cuc\sections\WorkshopApplyBox.tsx`
 
-- l.28 — `{cta.title}`
-- l.34 — `{cta.body}`
+- l.29 — `{cta.title}`
+- l.35 — `{cta.body}`
 
 ### `src\app\(site)\[locale]\stunt-workshop-cuc\sections\WorkshopHero.tsx`
 
@@ -157,39 +157,19 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\footer-sections\FooterDirectContacts.tsx`
 
-- l.59 — `{t('directLines')}`
-- l.70 — `{phone}`
-- l.81 — `{email}`
-- l.103 — `{t('networksTitle')}`
+- l.60 — `{t('directLines')}`
+- l.71 — `{phone}`
+- l.82 — `{email}`
+- l.105 — `{t('networksTitle')}`
 
 ### `src\components\layout\navbar\NavActionsBar.tsx`
 
-- l.87 — `{phone}`
+- l.93 — `{phone}`
 
 ### `src\components\layout\navbar\NavMobileDrawer.tsx`
 
-- l.147 — `{chrome('brandName')}`
-- l.153 — `{chrome('brandTagline')}`
-
-### `src\components\sections\HallOfFame.tsx`
-
-- l.84 — `{t('hallOfFame.tag')}`
-- l.93 — `{t('hallOfFame.subtitle')}`
-
-### `src\components\sections\application-modal\ApplicationFields.tsx`
-
-- l.26 — `{t('labels.fullName')}`
-- l.41 — `{t('labels.age')}`
-- l.61 — `{t('labels.email')}`
-- l.76 — `{t('labels.phone')}`
-
-### `src\components\sections\application-modal\ApplicationFormBody.tsx`
-
-- l.67 — `{t('titleAccent')}`
-- l.100 — `{t('labels.afdasStatus')}`
-- l.120 — `{t('labels.sport')}`
-- l.135 — `{t('labels.session')}`
-- l.152 — `{t('safetyTitle')}`
+- l.148 — `{chrome('brandName')}`
+- l.154 — `{chrome('brandTagline')}`
 
 ### `src\components\sections\contact\ContactCoordinatesSidebar.tsx`
 
@@ -216,9 +196,9 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\events\EventsHeroSection.tsx`
 
-- l.56 — `{t('breadcrumbCurrent')}`
-- l.65 — `{hero?.meta || 'SPECTACLES • ANIMATIONS • TEAM BUILDING'}`
-- l.87 — `{subtitle}`
+- l.61 — `{t('breadcrumbCurrent')}`
+- l.70 — `{hero?.meta || 'SPECTACLES • ANIMATIONS • TEAM BUILDING'}`
+- l.92 — `{subtitle}`
 
 ### `src\components\sections\events\pillars\DbEventPillarCard.tsx`
 
@@ -278,29 +258,22 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.87 — `{chrome?.admission_title || tp('admissionTitle')}`
 - l.123 — `{chrome?.funding_title || tp('fundingTitle')}`
 
-### `src\components\sections\hall-of-fame\CelebrityCard.tsx`
-
-- l.125 — `{t('hallOfFame.filmsLabel')}`
-
 ### `src\components\sections\hall-of-fame\CelebrityDetailsModal.tsx`
 
-- l.54 — `{t('celebrityModal.title')}`
-- l.94 — `{t('celebrityModal.doublesLabel')}`
-- l.121 — `{t('celebrityModal.scenesLabel')}`
-- l.134 — `{t('celebrityModal.filmsLabel')}`
-- l.160 — `{t('celebrityModal.imdbCta')}`
-- l.177 — `{t('celebrityModal.close')}`
+- l.91 — `{t('celebrityModal.title')}`
+- l.239 — `{t('celebrityModal.imdbCta')}`
+- l.256 — `{t('celebrityModal.close')}`
 
 ### `src\components\sections\hall-of-fame\CelebrityDoublesGallery.tsx`
 
-- l.84 — `{t('hallOfFame.actorsBadge')}`
-- l.90 — `{t('hallOfFame.actorsTitle')}`
-- l.95 — `{t('hallOfFame.actorsIntro')}`
+- l.81 — `{t('hallOfFame.actorsBadge')}`
+- l.86 — `{t('hallOfFame.actorsTitle')}`
+- l.91 — `{t('hallOfFame.actorsIntro')}`
 
 ### `src\components\sections\hall-of-fame\FilmDetailsModal.tsx`
 
-- l.57 — `{t('filmModal.title')}`
-- l.100 — `{t('filmModal.close')}`
+- l.56 — `{t('filmModal.title')}`
+- l.97 — `{t('filmModal.close')}`
 
 ### `src\components\sections\hall-of-fame\film-details\FilmDoublesList.tsx`
 
@@ -316,18 +289,13 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\home\HomeAboutSection.tsx`
 
-- l.108 — `{founderLabel}`
-- l.115 — `{founderQuote}`
-- l.122 — `{founderName}`
-- l.128 — `{founderRole}`
-- l.141 — `{badgeYear}`
-- l.159 — `{tag}`
-- l.165 — `{subtag}`
-- l.173 — `{title}`
-- l.180 — `{description}`
-- l.196 — `{pillar.title}`
-- l.202 — `{pillar.tag}`
-- l.209 — `{pillar.desc}`
+- l.108 — `{tag}`
+- l.114 — `{subtag}`
+- l.122 — `{title}`
+- l.129 — `{description}`
+- l.145 — `{pillar.title}`
+- l.151 — `{pillar.tag}`
+- l.158 — `{pillar.desc}`
 
 ### `src\components\sections\home\HomePartnersSection.tsx`
 
@@ -345,14 +313,14 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\home\HomeSocialSection.tsx`
 
-- l.125 — `{badge}`
-- l.131 — `{handle}`
-- l.138 — `{title}`
-- l.144 — `{subtitle}`
-- l.215 — `{post.tag}`
-- l.223 — `{post.title}`
-- l.229 — `{post.desc}`
-- l.235 — `{seeInstagram}`
+- l.126 — `{badge}`
+- l.132 — `{handle}`
+- l.139 — `{title}`
+- l.145 — `{subtitle}`
+- l.219 — `{post.tag}`
+- l.227 — `{post.title}`
+- l.233 — `{post.desc}`
+- l.239 — `{seeInstagram}`
 
 ### `src\components\sections\home\HomeVirtualTourSection.tsx`
 
@@ -431,9 +399,9 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\team\TeamHeroSection.tsx`
 
-- l.49 — `{t('hero.breadcrumbHome')}`
-- l.54 — `{t('hero.breadcrumbCurrent')}`
-- l.81 — `{subtitle}`
+- l.57 — `{t('hero.breadcrumbHome')}`
+- l.62 — `{t('hero.breadcrumbCurrent')}`
+- l.89 — `{subtitle}`
 
 ### `src\components\sections\team\TeamProductionGalleries.tsx`
 
@@ -517,9 +485,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\InteractiveCampusMap.tsx`
 
-- l.115 — `{chrome('brandName')}`
-- l.178 — `{t('copied')}`
-- l.215 — `{fullAddress}`
+- l.69 — `{chrome('brandName')}`
+- l.106 — `{t('copied')}`
 
 ### `src\components\ui\VirtualTourViewer.tsx`
 
@@ -559,11 +526,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\CoachCard.tsx`
 
-- l.55 — `{member.role}`
-- l.87 — `{member.name}`
-- l.91 — `{member.title}`
-- l.97 — `{member.bio}`
-- l.112 — `{spec}`
+- l.44 — `{member.role}`
+- l.76 — `{member.name}`
+- l.80 — `{member.title}`
+- l.86 — `{member.bio}`
+- l.101 — `{spec}`
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\CoachFilmThumbs.tsx`
 
@@ -602,10 +569,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosReelsSection.tsx`
 
-- l.80 — `{labels.title}`
-- l.83 — `{labels.intro}`
-- l.158 — `{reel.title}`
-- l.162 — `{reel.description}`
+- l.57 — `{labels.title}`
+- l.60 — `{labels.intro}`
+- l.115 — `{reel.date}`
+- l.129 — `{reel.title}`
+- l.133 — `{reel.description}`
 
 ### `src\components\layout\AnnouncementBanner.tsx`
 
@@ -644,13 +612,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\navbar\NavMobileDrawer.tsx`
 
-- l.97 — `{item.label}`
-- l.168 — `{cta.label}`
-
-### `src\components\sections\application-modal\ApplicationFormBody.tsx`
-
-- l.87 — `{tab.label}`
-- l.161 — `{submitError}`
+- l.98 — `{item.label}`
+- l.169 — `{cta.label}`
 
 ### `src\components\sections\contact\ContactForm.tsx`
 
@@ -665,18 +628,18 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\films\CucFilmsShowcase.tsx`
 
-- l.112 — `{resolvedBadge}`
-- l.119 — `{resolvedTitle}`
+- l.133 — `{resolvedBadge}`
+- l.136 — `{resolvedTitle}`
 
 ### `src\components\sections\films\FilmCard.tsx`
 
 - l.113 — `{film.title}`
 - l.121 — `{film.year}`
-- l.147 — `{roleIcon}`
-- l.154 — `{film.title}`
-- l.177 — `{inner}`
+- l.140 — `{roleIcon}`
+- l.147 — `{film.title}`
+- l.170 — `{inner}`
+- l.178 — `{inner}`
 - l.185 — `{inner}`
-- l.192 — `{inner}`
 
 ### `src\components\sections\formation\FormationDisciplinesExplorer.tsx`
 
@@ -688,21 +651,17 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\hall-of-fame\CelebrityCard.tsx`
 
-- l.91 — `{actor.name}`
-- l.98 — `{doubledBy.prefix}`
-- l.106 — `{doubledBy.name}`
-- l.111 — `{doubledBy.suffix}`
-- l.118 — `{actor.stuntSpecialty}`
-- l.135 — `{production}`
+- l.90 — `{actor.name}`
+- l.108 — `{seg.text}`
+- l.116 — `{doubledBy.prefix}`
+- l.117 — `{doubledBy.name}`
+- l.118 — `{doubledBy.suffix}`
 
 ### `src\components\sections\hall-of-fame\CelebrityDetailsModal.tsx`
 
-- l.85 — `{celebrity.name}`
-- l.98 — `{doubledBy.prefix}`
-- l.106 — `{doubledBy.name}`
-- l.111 — `{doubledBy.suffix}`
-- l.125 — `{celebrity.stuntSpecialty}`
-- l.143 — `{p}`
+- l.122 — `{celebrity.name}`
+- l.129 — `{celebrity.bio}`
+- l.151 — `{seg.text}`
 
 ### `src\components\sections\hall-of-fame\film-details\FilmDoublesList.tsx`
 
@@ -719,8 +678,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\home\HomeAboutSection.tsx`
 
-- l.222 — `{ctaPrimaryText}`
-- l.227 — `{ctaSecondaryText}`
+- l.171 — `{ctaPrimaryText}`
+- l.176 — `{ctaSecondaryText}`
 
 ### `src\components\sections\home\HomeVirtualTourSection.tsx`
 
@@ -748,19 +707,16 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.126 — `{stat.value}`
 
+### `src\components\ui\InstagramFollowerBadge.tsx`
+
+- l.35 — `{followersFormatted}`
+- l.75 — `{exactFollowersFormatted}`
+- l.114 — `{exactFollowersFormatted}`
+
 ### `src\components\ui\LightboxModal.tsx`
 
 - l.84 — `{currentImage.title}`
 - l.150 — `{currentImage.title}`
-
-### `src\components\ui\campus-map\CampusRadarView.tsx`
-
-- l.119 — `{poi.name}`
-- l.131 — `{selectedPoi.badge}`
-- l.134 — `{selectedPoi.category}`
-- l.137 — `{selectedPoi.name}`
-- l.141 — `{selectedPoi.coordinates}`
-- l.146 — `{selectedPoi.description}`
 
 ### `src\components\ui\campus-map\CampusTravelPlanner.tsx`
 
@@ -784,13 +740,13 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ## 3. TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n)
 
+### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\CoachFilmThumbs.tsx`
+
+- l.56 — `{t('directorShort', { name: f.director })}`
+
 ### `src\app\(site)\[locale]\error.tsx`
 
 - l.71 — `{t('errorReference', { digest: error.digest })}`
-
-### `src\components\sections\application-modal\ApplicationFormBody.tsx`
-
-- l.110 — `{afdasLabels[index] ?? value}`
 
 ### `src\components\sections\contact\ContactForm.tsx`
 
@@ -807,10 +763,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\components\sections\hall-of-fame\film-details\FilmIdentityBlock.tsx`
 
 - l.17 — `{t('filmModal.directedBy', { name: movie.director })}`
-
-### `src\components\sections\hall-of-fame\film-details\FilmPoster.tsx`
-
-- l.32 — `{filmValue('year', movie.year ?? '')}`
 
 ### `src\components\sections\partenaires\grid\AdditionalPartnerCard.tsx`
 
@@ -834,7 +786,26 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ## 4. CODÉ EN DUR — dette (aucune prise en charge par le Cockpit)
 
-Aucune occurrence.
+### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\CoachCard.tsx`
+
+- l.112 — `Acteurs doublés :`
+
+### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosReelsSection.tsx`
+
+- l.151 — `Découvrir toutes nos vidéos sur Instagram`
+
+### `src\components\sections\hall-of-fame\CelebrityDetailsModal.tsx`
+
+- l.180 — `CUC`
+
+### `src\components\ui\InstagramFollowerBadge.tsx`
+
+- l.38 — `abonnés`
+- l.60 — `Instagram Officiel`
+- l.78 — `abonnés`
+- l.84 — `Communauté officielle certifiée`
+- l.87 — `Rejoindre`
+- l.117 — `abonnés`
 
 ## 5. HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées)
 
@@ -843,14 +814,6 @@ Aucune occurrence.
 - l.79 — `Allociné`
 - l.92 — `Instagram`
 - l.104 — `Portfolio`
-
-### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosReelsSection.tsx`
-
-- l.76 — `INSTAGRAM @CAMPUS.UNIVERS.CASCADES`
-
-### `src\components\sections\application-modal\ApplicationSuccessView.tsx`
-
-- l.44 — `contact@campus-universcascades.com`
 
 ### `src\components\sections\contact\ContactCoordinatesSidebar.tsx`
 
@@ -872,7 +835,7 @@ Aucune occurrence.
 
 ### `src\components\ui\InteractiveCampusMap.tsx`
 
-- l.120 — `LAT 50.0909° N • LON 3.5374° E`
+- l.74 — `LAT 50.0909° N • LON 3.5374° E`
 
 ### `src\components\ui\campus-map\CampusAppLaunchers.tsx`
 

@@ -1,6 +1,6 @@
 # Revue — Poids JS par route (budget)
 
-Généré le 2026-09-24T15:14:54.387Z par `scripts/audit_route_weight.mjs`.
+Généré le 2026-09-28T13:33:02.051Z par `scripts/audit_route_weight.mjs`.
 
 Mesure : somme **gzip** des chunks JS référencés par le HTML prérendu de chaque
 route publique (`fr/*`, `en/*`) — c’est ce que reçoit le navigateur au premier
@@ -10,9 +10,9 @@ avertissement **> +2 %**. Régénérer la baseline (après revue) :
 
 ## Verdict
 
-**OK** — 56 routes mesurées, aucune au-dessus de +5 %.
+**OK** — 72 routes mesurées, aucune au-dessus de +5 %.
 
-- avertissements (> +2 %) : 2
+- avertissements (> +2 %) : 0
 - améliorations (< −2 %) : 0
 - nouvelles routes (hors baseline) : 2
 - routes absentes du build : 0
@@ -21,21 +21,16 @@ avertissement **> +2 %**. Régénérer la baseline (après revue) :
 
 | Route | Poids | Baseline | Δ |
 | --- | ---: | ---: | ---: |
-| `/en` | 442.2 Ko | 435.4 Ko | +1.6 % |
-| `/fr` | 442.2 Ko | 435.4 Ko | +1.6 % |
-| `/en/cuc-team-cascadeur` | 431.5 Ko | 423.5 Ko | +1.9 % |
-| `/fr/cuc-team-cascadeur` | 431.5 Ko | 423.5 Ko | +1.9 % |
-| `/en/formation-de-cascadeur` | 428.3 Ko | 422.6 Ko | +1.4 % |
-| `/fr/formation-de-cascadeur` | 428.3 Ko | 422.6 Ko | +1.4 % |
-| `/en/visite-guidee` | 426.9 Ko | 421.1 Ko | +1.4 % |
-| `/fr/visite-guidee` | 426.9 Ko | 421.1 Ko | +1.4 % |
-| `/en/videos-cascadeur` | 426.5 Ko | 409.3 Ko | +4.2 % |
-| `/fr/videos-cascadeur` | 426.5 Ko | 409.3 Ko | +4.2 % |
-
-## Avertissements (> +2 %)
-
-- `/en/videos-cascadeur` — 426.5 Ko (baseline 409.3 Ko, +4.2 %)
-- `/fr/videos-cascadeur` — 426.5 Ko (baseline 409.3 Ko, +4.2 %)
+| `/en` | 564.8 Ko | 564.8 Ko | +0.0 % |
+| `/fr` | 564.8 Ko | 564.8 Ko | +0.0 % |
+| `/en/cuc-team-cascadeur` | 556.7 Ko | 556.7 Ko | +0.0 % |
+| `/fr/cuc-team-cascadeur` | 556.7 Ko | 556.7 Ko | +0.0 % |
+| `/en/visite-guidee` | 551.9 Ko | 551.9 Ko | +0.0 % |
+| `/fr/visite-guidee` | 551.9 Ko | 551.9 Ko | +0.0 % |
+| `/en/contact-cuc` | 546.3 Ko | 546.3 Ko | +0.0 % |
+| `/fr/contact-cuc` | 546.3 Ko | 546.3 Ko | +0.0 % |
+| `/en/formation-de-cascadeur` | 546.1 Ko | 546.1 Ko | +0.0 % |
+| `/fr/formation-de-cascadeur` | 546.1 Ko | 546.1 Ko | +0.0 % |
 
 ## Nouvelles routes (hors baseline — régénérer la baseline après revue)
 

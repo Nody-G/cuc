@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { SocialIcon } from '@/components/ui/logos/SocialLogos';
+import { InstagramFollowerBadge } from '@/components/ui/InstagramFollowerBadge';
 import { useNavigation, useSocialLinks } from '@/lib/hooks/useNavigation';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import type { NavItem } from '@/data/navigation';
@@ -173,6 +174,11 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
               <a href="tel:+33672849492" className="text-[#FFE500]">
                 06 72 84 94 92
               </a>
+            </div>
+
+            {/* Compteur officiel certifié Instagram CUC */}
+            <div className="flex justify-center pb-2">
+              <InstagramFollowerBadge variant="pill" />
             </div>
 
             {/* Réseaux : logos seuls (aucun libellé visible), piloté par

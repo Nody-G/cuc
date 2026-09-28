@@ -145,7 +145,7 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
                 {subtitle}
               </p>
               <div className="mt-3.5">
-                <InstagramFollowerBadge variant="pill" showViews />
+                <InstagramFollowerBadge variant="pill" />
               </div>
             </div>
           </div>

@@ -39,7 +39,6 @@ export interface VideosReelsSectionProps {
 export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
     reels,
     totalCount,
-    totalViews,
     onSelectReel,
     labels,
 }) => {
@@ -52,7 +51,7 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
                     <div>
                         <div className="flex items-center gap-2 mb-3 flex-wrap">
-                            <InstagramFollowerBadge variant="pill" showViews />
+                            <InstagramFollowerBadge variant="pill" />
                         </div>
                         <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-wide text-white">
                             {labels.title}

@@ -85,6 +85,7 @@ export function useLiveInstagramMonitor(
     // Chargement initial
     React.useEffect(() => {
         let isMounted = true;
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         loadData(false).finally(() => {
             if (isMounted) setIsLoading(false);
         });

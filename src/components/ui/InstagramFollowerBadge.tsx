@@ -1,36 +1,34 @@
 'use client';
 
 import React from 'react';
-import { Users, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { InstagramLogo } from '@/components/ui/logos/SocialLogos';
 import { useInstagramFollowers } from '@/lib/instagram/useInstagramFollowers';
 
 export interface InstagramFollowerBadgeProps {
-    variant?: 'pill' | 'card' | 'compact';
-    showViews?: boolean;
+    variant?: 'pill' | 'card' | 'compact' | 'header';
     className?: string;
 }
 
 /**
  * Composant de présentation du compteur d'abonnés officiel CUC.
- * Design premium sombre, accents dorés CUC, indicateur direct certifié Meta.
+ * Design premium sombre, accents dorés CUC, indicateur certifié Meta.
  */
 export const InstagramFollowerBadge: React.FC<InstagramFollowerBadgeProps> = ({
     variant = 'pill',
-    showViews = false,
     className = '',
 }) => {
-    const { exactFollowersFormatted, followersFormatted, totalVideoViewsFormatted } = useInstagramFollowers();
+    const { exactFollowersFormatted, followersFormatted } = useInstagramFollowers();
     const instagramUrl = 'https://www.instagram.com/campus.univers.cascades/';
 
-    if (variant === 'compact') {
+    if (variant === 'header' || variant === 'compact') {
         return (
             <a
                 href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                title="Consulter le compte Instagram officiel @campus.univers.cascades"
-                className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0c0c12]/90 border border-zinc-800 hover:border-[#FFE500]/50 transition-all text-xs font-mono-tech group shadow-sm ${className}`}
+                title="Consulter le compte Instagram officiel @campus.univers.cascades (1,1M+ abonnés)"
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/70 transition-all text-xs font-mono-tech group shadow-xs ${className}`}
             >
                 <InstagramLogo className="w-3.5 h-3.5 text-[#FFE500]" />
                 <span className="font-bold text-white group-hover:text-[#FFE500] transition-colors">
@@ -83,7 +81,7 @@ export const InstagramFollowerBadge: React.FC<InstagramFollowerBadgeProps> = ({
 
                 <div className="mt-3 pt-3 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono-tech text-zinc-400">
                     <span className="text-[11px] text-zinc-400">
-                        {showViews ? `${totalVideoViewsFormatted}+ vues certifiées` : '1ère communauté cascade'}
+                        Communauté officielle certifiée
                     </span>
                     <span className="inline-flex items-center gap-1 text-[#FFE500] font-bold text-[11px] group-hover:translate-x-0.5 transition-transform">
                         <span>Rejoindre</span>
@@ -119,15 +117,6 @@ export const InstagramFollowerBadge: React.FC<InstagramFollowerBadgeProps> = ({
                     abonnés
                 </span>
             </div>
-
-            {showViews && (
-                <>
-                    <span className="text-zinc-600 hidden sm:inline">•</span>
-                    <span className="text-[11px] font-mono-tech text-[#FFE500] font-semibold hidden sm:inline">
-                        {totalVideoViewsFormatted}+ vues
-                    </span>
-                </>
-            )}
 
             <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-[#FFE500] group-hover:translate-x-0.5 transition-all" />
         </a>
