@@ -7,14 +7,15 @@ import { useLiveInstagramMonitor } from './instagram-monitor/useLiveInstagramMon
 import { useInstagramFeaturedReels } from './instagram-monitor/useInstagramFeaturedReels';
 import { InstagramMediaFilterBar } from './instagram-monitor/InstagramMediaFilterBar';
 import { InstagramMediaCard } from './instagram-monitor/InstagramMediaCard';
+import { InstagramMediaTable } from './instagram-monitor/InstagramMediaTable';
 
 interface InstagramMonitorViewProps {
     showToast: (msg: string) => void;
 }
 
 export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ showToast }) => {
-    const monitor = useLiveInstagramMonitor(showToast);
     const featured = useInstagramFeaturedReels(showToast);
+    const monitor = useLiveInstagramMonitor(showToast, featured.featuredShortcodes);
 
     return (
         <div className="space-y-6 animate-in fade-in duration-200">
@@ -67,7 +68,7 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                         <div className="text-2xl sm:text-3xl font-mono-tech font-bold text-white mt-0.5 tracking-tight truncate">
                             {monitor.profile?.followersCount
                                 ? monitor.profile.followersCount.toLocaleString('fr-FR')
-                                : '1 120 687'}
+                                : '1 120 678'}
                         </div>
                         <div className="text-[10px] font-mono-tech text-emerald-400 mt-1">
                             {monitor.profile?.followingCount
@@ -114,7 +115,7 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                 </div>
             </div>
 
-            {/* Panneau de monitoring : Filtres réels & Grille des publications */}
+            {/* Panneau de monitoring : Filtres réels & Affichage Grille / Tableau */}
             <div className="bg-[#0b0b10] border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-5">
                 <InstagramMediaFilterBar
                     search={monitor.search}
@@ -123,13 +124,16 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                     onSelectTab={monitor.setActiveTab}
                     sortOption={monitor.sortOption}
                     onSortChange={monitor.setSortOption}
+                    viewMode={monitor.viewMode}
+                    onViewModeChange={monitor.setViewMode}
                     totalCount={monitor.publications.length}
                     videoCount={monitor.videoCount}
                     photoCount={monitor.photoCount}
+                    featuredCount={featured.featuredShortcodes.size}
                     filteredCount={monitor.publications.length}
                 />
 
-                {/* Grille des publications */}
+                {/* Contenu des publications */}
                 {monitor.isLoading ? (
                     <div className="py-16 text-center text-xs font-mono-tech text-zinc-500">
                         Chargement des publications Instagram...
@@ -138,8 +142,15 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                     <div className="py-16 text-center rounded-xl bg-[#121218] border border-dashed border-zinc-800 text-zinc-500 text-xs font-mono-tech">
                         Aucune publication ne correspond à vos critères de recherche.
                     </div>
+                ) : monitor.viewMode === 'table' ? (
+                    <InstagramMediaTable
+                        items={monitor.displayedPublications}
+                        featuredShortcodes={featured.featuredShortcodes}
+                        onToggleFeatured={featured.handleToggleFeatured}
+                        showToast={showToast}
+                    />
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {monitor.displayedPublications.map((item) => (
                             <InstagramMediaCard
                                 key={item.id || item.shortcode}

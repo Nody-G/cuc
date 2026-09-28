@@ -18,9 +18,10 @@ import { fetchLiveInstagramDashboard } from '@/lib/instagram/instagram-feed';
 import type { InstagramReelMetric } from '@/types/instagram-monitor';
 
 /**
- * Récupère les 6 vidéos les plus récentes publiées sur Instagram.
- * Interroge la Meta Graph API officielle en direct avec les vues certifiées,
- * et retombe sur DEFAULT_FEATURED_REELS en cas d'indisponibilité.
+ * Récupère les vidéos Instagram pour la vidéothèque publique :
+ * 1. Si Lucas a personnalisé la sélection dans le Cockpit (site_settings), on affiche ses choix.
+ * 2. Sinon, on affiche automatiquement les 6 dernières vidéos publiées en temps réel via Meta Graph API.
+ * 3. En cas d'indisponibilité réseau, retombe sur DEFAULT_FEATURED_REELS.
  */
 export async function getLatestInstagramReelsAction(limit = 6): Promise<{
     success: boolean;
@@ -30,6 +31,33 @@ export async function getLatestInstagramReelsAction(limit = 6): Promise<{
         const configRes = await getInstagramMetaConfigAction();
         const token = configRes.config.accessToken;
 
+        // 1. D'abord vérifier si des Reels personnalisés sont spécifiquement mis en avant dans Supabase
+        const adminClient = createAdminClient();
+        const { data: featuredRow } = await adminClient
+            .from('site_settings')
+            .select('value')
+            .eq('key', 'instagram_featured_reels')
+            .maybeSingle();
+
+        const val = featuredRow?.value as { items?: InstagramReelMetric[]; shortcodes?: string[] } | undefined;
+        if (val?.items && Array.isArray(val.items) && val.items.length > 0) {
+            const mappedFeatured: InstagramReel[] = val.items.slice(0, limit).map((p, idx) => ({
+                id: p.id || `featured-reel-${p.shortcode || idx}`,
+                shortcode: p.shortcode,
+                url: p.url,
+                title: p.title,
+                description: p.description,
+                coverImage: p.coverImage || (p.shortcode ? `/images/reels/${p.shortcode}.jpg` : ''),
+                views: p.views || 0,
+                viewsFormatted: p.viewsFormatted || (p.views ? p.views.toLocaleString('fr-FR') : '—'),
+                likes: p.likes,
+                date: p.date,
+                isFeatured: true,
+            }));
+            return { success: true, reels: mappedFeatured };
+        }
+
+        // 2. Sinon, récupérer en direct les 6 dernières vidéos réelles publiées via Meta Graph API
         if (token) {
             const dashboard = await fetchLiveInstagramDashboard(token, false);
             if (dashboard?.publications) {
@@ -41,9 +69,9 @@ export async function getLatestInstagramReelsAction(limit = 6): Promise<{
                         url: p.url,
                         title: p.title,
                         description: p.description,
-                        coverImage: `/images/reels/${p.shortcode}.jpg` || p.coverImage || '',
+                        coverImage: p.coverImage || (p.shortcode ? `/images/reels/${p.shortcode}.jpg` : ''),
                         views: p.views || 0,
-                        viewsFormatted: p.viewsFormatted || (p.views ? p.views.toLocaleString('fr-FR') : '—'),
+                        viewsFormatted: p.viewsFormatted || (p.views ? p.views.toLocaleString('fr-FR') : '0'),
                         likes: p.likes,
                         date: p.date,
                         isFeatured: true,
@@ -59,8 +87,8 @@ export async function getLatestInstagramReelsAction(limit = 6): Promise<{
 }
 
 /**
- * Charge les Reels Instagram mis en avant depuis Supabase (site_settings),
- * avec repli sur la sélection par défaut du catalogue CUC.
+ * Charge les Reels Instagram mis en avant depuis Supabase (site_settings).
+ * Renvoie [] si aucune sélection personnalisée n'est enregistrée.
  */
 export async function getFeaturedReelsAction(): Promise<{
     success: boolean;
@@ -75,7 +103,7 @@ export async function getFeaturedReelsAction(): Promise<{
             .maybeSingle();
 
         if (error || !data?.value) {
-            return { success: true, reels: DEFAULT_FEATURED_REELS as InstagramReelMetric[] };
+            return { success: true, reels: [] };
         }
 
         const val = data.value as { items?: InstagramReelMetric[]; shortcodes?: string[] };
@@ -89,9 +117,9 @@ export async function getFeaturedReelsAction(): Promise<{
             if (resolved.length > 0) return { success: true, reels: resolved };
         }
 
-        return { success: true, reels: DEFAULT_FEATURED_REELS as InstagramReelMetric[] };
+        return { success: true, reels: [] };
     } catch {
-        return { success: true, reels: DEFAULT_FEATURED_REELS as InstagramReelMetric[] };
+        return { success: true, reels: [] };
     }
 }
 
@@ -176,12 +204,7 @@ export async function syncFeaturedReelsMetaAction(
         }
 
         await saveFeaturedReelsAction(updatedReels);
-
-        return {
-            success: true,
-            updatedReels,
-            syncedCount,
-        };
+        return { success: true, updatedReels, syncedCount };
     } catch (err) {
         return {
             success: false,
@@ -194,87 +217,71 @@ export async function syncFeaturedReelsMetaAction(
 
 /**
  * Importe un Reel via son lien ou shortcode en utilisant l'API Meta Graph officielle.
- * Récupère le titre, la légende, la couverture et les vues réelles certifiées.
  */
 export async function importReelViaMetaAction(
     urlOrShortcode: string
-): Promise<{
-    success: boolean;
-    reel?: InstagramReelMetric;
-    error?: string;
-}> {
+): Promise<{ success: boolean; reel?: InstagramReelMetric; error?: string }> {
     const shortcode = extractInstagramShortcode(urlOrShortcode);
     if (!shortcode) {
-        return {
-            success: false,
-            error: 'Lien Instagram invalide. Exemple : https://www.instagram.com/reel/DQmgL2IjN-8/',
-        };
+        return { success: false, error: 'Lien Instagram invalide. Exemple : https://www.instagram.com/reel/DQmgL2IjN-8/' };
     }
 
-    // 1. Vérifier si le Reel est déjà répertorié dans le catalogue CUC
     const catalogEntry = ALL_INSTAGRAM_REELS.find((r) => r.shortcode === shortcode);
     if (catalogEntry) {
-        const reel: InstagramReelMetric = {
-            ...catalogEntry,
-            id: catalogEntry.id || `reel-${shortcode}`,
-            isFeatured: true,
-            lastUpdated: new Date().toISOString(),
+        return {
+            success: true,
+            reel: { ...catalogEntry, id: catalogEntry.id || `reel-${shortcode}`, isFeatured: true, lastUpdated: new Date().toISOString() },
         };
-        return { success: true, reel };
     }
 
     try {
         const configRes = await getInstagramMetaConfigAction();
         const token = configRes.config.accessToken;
 
-        // 2. Tenter la récupération certifiée Meta Graph API directe
         if (token) {
             const official = await getOfficialReelDetails(shortcode, token);
             if (official) {
-                const reel: InstagramReelMetric = {
-                    id: `reel-${shortcode}`,
-                    shortcode: official.shortcode,
-                    url: official.url,
-                    title: official.title,
-                    description: official.description,
-                    coverImage: official.coverImage,
-                    views: official.views,
-                    viewsFormatted: official.viewsFormatted,
-                    likes: official.likes,
-                    date: official.date,
-                    isFeatured: true,
-                    lastUpdated: new Date().toISOString(),
+                return {
+                    success: true,
+                    reel: {
+                        id: `reel-${shortcode}`,
+                        shortcode: official.shortcode,
+                        url: official.url,
+                        title: official.title,
+                        description: official.description,
+                        coverImage: official.coverImage,
+                        views: official.views,
+                        viewsFormatted: official.viewsFormatted,
+                        likes: official.likes,
+                        date: official.date,
+                        isFeatured: true,
+                        lastUpdated: new Date().toISOString(),
+                    },
                 };
-                return { success: true, reel };
             }
         }
 
-        // 3. Repli : Scraper OpenGraph public
         const metaScrape = await fetchInstagramMetadata(`https://www.instagram.com/reel/${shortcode}/`);
         if (metaScrape.success && metaScrape.data) {
-            const reel: InstagramReelMetric = {
-                id: `reel-${shortcode}`,
-                shortcode,
-                url: metaScrape.data.url,
-                title: metaScrape.data.title,
-                description: metaScrape.data.description,
-                coverImage: metaScrape.data.coverImage,
-                views: 0,
-                viewsFormatted: '0',
-                isFeatured: true,
-                lastUpdated: new Date().toISOString(),
+            return {
+                success: true,
+                reel: {
+                    id: `reel-${shortcode}`,
+                    shortcode,
+                    url: metaScrape.data.url,
+                    title: metaScrape.data.title,
+                    description: metaScrape.data.description,
+                    coverImage: metaScrape.data.coverImage,
+                    views: 0,
+                    viewsFormatted: '0',
+                    isFeatured: true,
+                    lastUpdated: new Date().toISOString(),
+                },
             };
-            return { success: true, reel };
         }
 
-        return {
-            success: false,
-            error: `Impossible de récupérer le Reel #${shortcode}. Vérifiez que la publication existe et est publique.`,
-        };
+        return { success: false, error: `Impossible de récupérer le Reel #${shortcode}. Vérifiez que la publication existe et est publique.` };
     } catch (err) {
-        return {
-            success: false,
-            error: err instanceof Error ? err.message : 'Erreur inconnue lors de l’importation.',
-        };
+        return { success: false, error: err instanceof Error ? err.message : 'Erreur inconnue lors de l’importation.' };
     }
 }

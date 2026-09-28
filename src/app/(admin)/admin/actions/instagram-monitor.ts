@@ -239,7 +239,22 @@ export async function getLiveInstagramDashboardAction(
             };
         }
 
-        const data = await fetchLiveInstagramDashboard(token, forceRefresh);
+        const adminClient = createAdminClient();
+        const { data: featuredRow } = await adminClient
+            .from('site_settings')
+            .select('value')
+            .eq('key', 'instagram_featured_reels')
+            .maybeSingle();
+
+        const featuredShortcodes = new Set<string>();
+        const val = featuredRow?.value as { items?: { shortcode: string }[]; shortcodes?: string[] } | undefined;
+        if (Array.isArray(val?.shortcodes)) {
+            val.shortcodes.forEach((s) => featuredShortcodes.add(s));
+        } else if (Array.isArray(val?.items)) {
+            val.items.forEach((item) => item.shortcode && featuredShortcodes.add(item.shortcode));
+        }
+
+        const data = await fetchLiveInstagramDashboard(token, forceRefresh, featuredShortcodes);
         if (!data) {
             return {
                 success: false,

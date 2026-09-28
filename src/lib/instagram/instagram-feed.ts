@@ -8,7 +8,6 @@
  */
 
 import { extractInstagramShortcode } from '@/lib/instagram-utils';
-import { ALL_INSTAGRAM_REELS } from '@/data/instagram-reels';
 import { formatFollowerCount } from './instagram-service';
 import type {
     InstagramAccountStat,
@@ -33,7 +32,8 @@ const CACHE_TTL_MS = 60 * 1000; // 1 minute de cache anti rate-limiting
  */
 export async function fetchLiveInstagramDashboard(
     accessToken: string,
-    forceRefresh = false
+    forceRefresh = false,
+    featuredShortcodes?: Set<string>
 ): Promise<LiveInstagramDashboardData | null> {
     const now = Date.now();
     if (!forceRefresh && cachedDashboard && now - cachedDashboard.timestamp < CACHE_TTL_MS) {
@@ -77,8 +77,6 @@ export async function fetchLiveInstagramDashboard(
             verified: true,
         };
 
-        const catalogueByShortcode = new Map(ALL_INSTAGRAM_REELS.map((r) => [r.shortcode, r]));
-
         const publications: InstagramReelMetric[] = [];
         const seenShortcodes = new Set<string>();
 
@@ -113,12 +111,13 @@ export async function fetchLiveInstagramDashboard(
                 const firstLine = rawCaption.split('\n')[0].replace(/#\w+/g, '').trim();
                 const title = firstLine.length > 60 ? `${firstLine.slice(0, 57)}…` : firstLine || `Publication #${finalShortcode}`;
 
-                // Vues : insights Meta Graph API certifiées en priorité, repli sur catalogue
+                // Vues : issues à 100% de la Meta Graph API officielle (aucun croisement avec d'anciennes données statiques)
                 const apiViews = item.insights?.data?.find((d) => d.name === 'views')?.values?.[0]?.value;
-                const catalogEntry = shortcode ? catalogueByShortcode.get(shortcode) : undefined;
-                const isVideo = item.media_type === 'VIDEO';
-                const views = typeof apiViews === 'number' ? apiViews : isVideo ? (catalogEntry?.views ?? 0) : 0;
-                const viewsFormatted = views > 0 ? formatFollowerCount(views) : '—';
+                const views = typeof apiViews === 'number' ? apiViews : 0;
+                const viewsFormatted = views > 0 ? formatFollowerCount(views) : '0';
+
+                // Miniature : URL en direct issue de l'API (avec fallback local si disponible)
+                const coverImage = item.thumbnail_url || item.media_url || (shortcode ? `/images/reels/${shortcode}.jpg` : '');
 
                 publications.push({
                     id: item.id,
@@ -126,34 +125,21 @@ export async function fetchLiveInstagramDashboard(
                     url: item.permalink || `https://www.instagram.com/reel/${finalShortcode}/`,
                     title,
                     description: rawCaption,
-                    coverImage: item.thumbnail_url || item.media_url || (catalogEntry?.coverImage ?? ''),
+                    coverImage,
                     mediaType: item.media_type,
                     views,
                     viewsFormatted,
                     likesCount: item.like_count,
-                    likes: item.like_count ? item.like_count.toLocaleString('fr-FR') : undefined,
+                    likes: typeof item.like_count === 'number' ? formatFollowerCount(item.like_count) : undefined,
                     commentsCount: item.comments_count,
                     date: item.timestamp ? item.timestamp.slice(0, 10) : undefined,
-                    isFeatured: catalogEntry?.isFeatured ?? false,
+                    isFeatured: Boolean(featuredShortcodes?.has(finalShortcode)),
                     lastUpdated: new Date().toISOString(),
                 });
             }
         }
 
-        // Complète avec le catalogue historique de vidéos non présentes dans les 100 récents
-        for (const catReel of ALL_INSTAGRAM_REELS) {
-            if (!seenShortcodes.has(catReel.shortcode)) {
-                seenShortcodes.add(catReel.shortcode);
-                publications.push({
-                    ...catReel,
-                    mediaType: 'VIDEO',
-                    likesCount: undefined,
-                    commentsCount: undefined,
-                });
-            }
-        }
-
-        // Calcul exact de la somme des vues de toutes les vidéos
+        // Calcul exact de la somme des vues de toutes les vidéos officielles réelles
         const totalVideoViews = publications
             .filter((p) => p.mediaType === 'VIDEO')
             .reduce((sum, p) => sum + (p.views || 0), 0);
