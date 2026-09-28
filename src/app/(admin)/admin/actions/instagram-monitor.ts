@@ -7,6 +7,8 @@ import { getOfficialReelMetrics } from '@/lib/instagram/instagram-reel-meta';
 import {
     fetchLiveInstagramDashboard,
     fetchMoreLiveInstagramMedia,
+    mergeFreshPublications,
+    computeDashboardMetrics,
     type LiveInstagramDashboardData,
 } from '@/lib/instagram/instagram-feed';
 import { createAdminClient } from '@/lib/supabase/admin';
@@ -97,16 +99,16 @@ export async function saveInstagramMetaConfigAction(
                 updated_at: new Date().toISOString(),
             });
 
-        if (error) {
-            return { success: false, error: error.message };
-        }
-        return { success: true };
+        return error ? { success: false, error: error.message } : { success: true };
     } catch (err) {
-        return {
-            success: false,
-            error: err instanceof Error ? err.message : 'Erreur inconnue lors de la sauvegarde.',
-        };
+        return { success: false, error: err instanceof Error ? err.message : 'Erreur inconnue lors de la sauvegarde.' };
     }
+}
+
+async function resolveActiveConfig(metaConfig?: InstagramMetaApiConfig) {
+    if (metaConfig?.accessToken) return metaConfig;
+    const loaded = await getInstagramMetaConfigAction();
+    return loaded.config.enabled && loaded.config.accessToken ? loaded.config : metaConfig;
 }
 
 /**
@@ -117,14 +119,7 @@ export async function refreshAccountAction(
     metaConfig?: InstagramMetaApiConfig
 ): Promise<{ success: boolean; data?: InstagramAccountStat; error?: string }> {
     try {
-        let activeConfig = metaConfig;
-        if (!activeConfig?.accessToken) {
-            const loaded = await getInstagramMetaConfigAction();
-            if (loaded.config.enabled && loaded.config.accessToken) {
-                activeConfig = loaded.config;
-            }
-        }
-
+        const activeConfig = await resolveActiveConfig(metaConfig);
         const stat = await getInstagramProfile(username, activeConfig, true);
         if (!stat) {
             return {
@@ -141,7 +136,6 @@ export async function refreshAccountAction(
     }
 }
 
-
 /**
  * Rafraîchit les métriques d'un Reel (vues certifiées et likes).
  * Utilise la Meta Graph API officielle en priorité, avec repli sur le scraper public.
@@ -155,13 +149,7 @@ export async function refreshReelLiveMetricsAction(
     error?: string;
 }> {
     try {
-        let activeConfig = metaConfig;
-        if (!activeConfig?.accessToken) {
-            const loaded = await getInstagramMetaConfigAction();
-            if (loaded.config.enabled && loaded.config.accessToken) {
-                activeConfig = loaded.config;
-            }
-        }
+        const activeConfig = await resolveActiveConfig(metaConfig);
 
         // Si le jeton Meta Graph officiel est présent, interroger l'API Insights certifiée
         if (activeConfig?.enabled && activeConfig.accessToken) {
@@ -191,60 +179,94 @@ export async function refreshReelLiveMetricsAction(
     }
 }
 
+async function loadFeaturedShortcodes(adminClient: ReturnType<typeof createAdminClient>): Promise<Set<string>> {
+    const { data: row } = await adminClient
+        .from('site_settings')
+        .select('value')
+        .eq('key', 'instagram_featured_reels')
+        .maybeSingle();
+
+    const set = new Set<string>();
+    const val = row?.value as { items?: { shortcode: string }[]; shortcodes?: string[] } | undefined;
+    if (Array.isArray(val?.shortcodes)) {
+        val.shortcodes.forEach((s) => set.add(s));
+    } else if (Array.isArray(val?.items)) {
+        val.items.forEach((item) => item.shortcode && set.add(item.shortcode));
+    }
+    return set;
+}
+
 /**
- * Récupère les données exhaustives en direct du compte CUC (abonnés exacts + vidéos et photos réelles).
+ * Récupère les données exhaustives du compte CUC (abonnés exacts + 262 vidéos + 706M+ vues).
  */
 export async function getLiveInstagramDashboardAction(
     forceRefresh = false
-): Promise<{
-    success: boolean;
-    data?: LiveInstagramDashboardData;
-    error?: string;
-}> {
+): Promise<{ success: boolean; data?: LiveInstagramDashboardData; error?: string }> {
     try {
+        const adminClient = createAdminClient();
+        const featuredShortcodes = await loadFeaturedShortcodes(adminClient);
+
+        // 1. Lecture de l'instantané complet en base (300 publications, 262 vidéos, 706M+ vues)
+        const { data: row } = await adminClient
+            .from('site_settings')
+            .select('value')
+            .eq('key', 'instagram_feed_snapshot')
+            .maybeSingle();
+
+        const snapshot = row?.value as LiveInstagramDashboardData | undefined;
+
+        if (snapshot && !forceRefresh) {
+            if (featuredShortcodes.size > 0) {
+                snapshot.publications = snapshot.publications.map((p) => ({
+                    ...p,
+                    isFeatured: featuredShortcodes.has(p.shortcode),
+                }));
+            }
+            return { success: true, data: snapshot };
+        }
+
+        // 2. Rafraîchissement direct depuis Meta Graph API
         const configRes = await getInstagramMetaConfigAction();
         const token = configRes.config.accessToken;
         if (!token) {
-            return {
-                success: false,
-                error: 'Jeton Meta Graph API non configuré.',
+            return snapshot ? { success: true, data: snapshot } : { success: false, error: 'Jeton Meta non configuré.' };
+        }
+
+        const freshData = await fetchLiveInstagramDashboard(token, true, featuredShortcodes);
+        if (!freshData) {
+            return snapshot ? { success: true, data: snapshot } : { success: false, error: 'Impossible de joindre Meta.' };
+        }
+
+        let finalData = freshData;
+        if (snapshot?.publications && snapshot.publications.length > 0) {
+            const merged = mergeFreshPublications(snapshot.publications, freshData.publications);
+            const m = computeDashboardMetrics(merged);
+            finalData = {
+                profile: freshData.profile,
+                publications: merged,
+                totalVideoViews: m.totalVideoViews,
+                videoCount: m.videoCount,
+                photoCount: m.photoCount,
+                totalAccountPosts: freshData.totalAccountPosts || snapshot.totalAccountPosts,
+                nextCursor: snapshot.nextCursor,
+                lastSyncedAt: freshData.lastSyncedAt,
             };
         }
 
-        const adminClient = createAdminClient();
-        const { data: featuredRow } = await adminClient
-            .from('site_settings')
-            .select('value')
-            .eq('key', 'instagram_featured_reels')
-            .maybeSingle();
+        await adminClient.from('site_settings').upsert({
+            key: 'instagram_feed_snapshot',
+            value: finalData,
+            updated_at: new Date().toISOString(),
+        });
 
-        const featuredShortcodes = new Set<string>();
-        const val = featuredRow?.value as { items?: { shortcode: string }[]; shortcodes?: string[] } | undefined;
-        if (Array.isArray(val?.shortcodes)) {
-            val.shortcodes.forEach((s) => featuredShortcodes.add(s));
-        } else if (Array.isArray(val?.items)) {
-            val.items.forEach((item) => item.shortcode && featuredShortcodes.add(item.shortcode));
-        }
-
-        const data = await fetchLiveInstagramDashboard(token, forceRefresh, featuredShortcodes);
-        if (!data) {
-            return {
-                success: false,
-                error: 'Impossible de joindre Meta Graph API.',
-            };
-        }
-
-        return { success: true, data };
+        return { success: true, data: finalData };
     } catch (err) {
-        return {
-            success: false,
-            error: err instanceof Error ? err.message : 'Erreur inconnue.',
-        };
+        return { success: false, error: err instanceof Error ? err.message : 'Erreur inconnue.' };
     }
 }
 
 /**
- * Récupère le lot suivant de publications antérieures (par tranches de 100) via curseur Meta.
+ * Récupère le lot suivant de publications antérieures via curseur Meta.
  */
 export async function fetchMoreLiveInstagramPublicationsAction(
     afterCursor: string
@@ -257,39 +279,16 @@ export async function fetchMoreLiveInstagramPublicationsAction(
     try {
         const configRes = await getInstagramMetaConfigAction();
         const token = configRes.config.accessToken;
-        if (!token) {
-            return { success: false, error: 'Jeton Meta Graph API non configuré.' };
-        }
+        if (!token) return { success: false, error: 'Jeton Meta non configuré.' };
 
         const adminClient = createAdminClient();
-        const { data: featuredRow } = await adminClient
-            .from('site_settings')
-            .select('value')
-            .eq('key', 'instagram_featured_reels')
-            .maybeSingle();
-
-        const featuredShortcodes = new Set<string>();
-        const val = featuredRow?.value as { items?: { shortcode: string }[]; shortcodes?: string[] } | undefined;
-        if (Array.isArray(val?.shortcodes)) {
-            val.shortcodes.forEach((s) => featuredShortcodes.add(s));
-        } else if (Array.isArray(val?.items)) {
-            val.items.forEach((item) => item.shortcode && featuredShortcodes.add(item.shortcode));
-        }
+        const featuredShortcodes = await loadFeaturedShortcodes(adminClient);
 
         const res = await fetchMoreLiveInstagramMedia(token, afterCursor, featuredShortcodes);
-        if (!res) {
-            return { success: false, error: 'Impossible de récupérer les publications antérieures.' };
-        }
+        if (!res) return { success: false, error: 'Impossible de récupérer les publications antérieures.' };
 
-        return {
-            success: true,
-            publications: res.publications,
-            nextCursor: res.nextCursor,
-        };
+        return { success: true, publications: res.publications, nextCursor: res.nextCursor };
     } catch (err) {
-        return {
-            success: false,
-            error: err instanceof Error ? err.message : 'Erreur inconnue.',
-        };
+        return { success: false, error: err instanceof Error ? err.message : 'Erreur inconnue.' };
     }
 }

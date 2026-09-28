@@ -100,6 +100,48 @@ function parseMediaItems(
 }
 
 /**
+ * Fusionne intelligemment un lot de publications fraîches dans un catalogue existant.
+ */
+export function mergeFreshPublications(
+    existing: InstagramReelMetric[],
+    fresh: InstagramReelMetric[]
+): InstagramReelMetric[] {
+    const freshMap = new Map(fresh.map((p) => [p.id, p]));
+    const existingIds = new Set(existing.map((p) => p.id));
+    const brandNew = fresh.filter((p) => !existingIds.has(p.id));
+    return [
+        ...brandNew,
+        ...existing.map((item) => {
+            const updated = freshMap.get(item.id);
+            if (!updated) return item;
+            return {
+                ...item,
+                views: updated.views,
+                viewsFormatted: updated.viewsFormatted,
+                likes: updated.likes,
+                likesCount: updated.likesCount,
+                commentsCount: updated.commentsCount,
+                title: updated.title || item.title,
+                coverImage: updated.coverImage || item.coverImage,
+                lastUpdated: updated.lastUpdated,
+            };
+        }),
+    ];
+}
+
+/**
+ * Calcule les métriques cumulées exactes sur l'ensemble du catalogue.
+ */
+export function computeDashboardMetrics(
+    publications: InstagramReelMetric[]
+): { totalVideoViews: number; videoCount: number; photoCount: number } {
+    const videos = publications.filter((p) => p.mediaType === 'VIDEO');
+    const photoCount = publications.filter((p) => p.mediaType !== 'VIDEO').length;
+    const totalVideoViews = videos.reduce((sum, p) => sum + (p.views || 0), 0);
+    return { totalVideoViews, videoCount: videos.length, photoCount };
+}
+
+/**
  * Récupère les données temps réel exactes du compte officiel CUC et ses 100 premières publications.
  */
 export async function fetchLiveInstagramDashboard(

@@ -21,8 +21,6 @@ export interface UseLiveInstagramMonitorResult {
     totalAccountPosts: number;
     nextCursor: string | null;
     isLoadingMoreBatch: boolean;
-    autoRefresh: boolean;
-    toggleAutoRefresh: () => void;
     lastSyncedAt: string;
     isLoading: boolean;
     isRefreshing: boolean;
@@ -42,7 +40,6 @@ export interface UseLiveInstagramMonitorResult {
 }
 
 const PAGE_SIZE = 24;
-const AUTO_REFRESH_INTERVAL_MS = 30000;
 
 export function useLiveInstagramMonitor(
     showToast: (msg: string) => void,
@@ -56,7 +53,6 @@ export function useLiveInstagramMonitor(
     const [totalAccountPosts, setTotalAccountPosts] = React.useState(744);
     const [nextCursor, setNextCursor] = React.useState<string | null>(null);
     const [isLoadingMoreBatch, setIsLoadingMoreBatch] = React.useState(false);
-    const [autoRefresh, setAutoRefresh] = React.useState(true);
     const [lastSyncedAt, setLastSyncedAt] = React.useState('');
     const [isLoading, setIsLoading] = React.useState(true);
     const [isRefreshing, setIsRefreshing] = React.useState(false);
@@ -72,30 +68,13 @@ export function useLiveInstagramMonitor(
             const res = await getLiveInstagramDashboardAction(forceRefresh);
             if (res.success && res.data) {
                 setProfile(res.data.profile);
+                setPublications(res.data.publications);
+                setTotalVideoViews(res.data.totalVideoViews);
+                setVideoCount(res.data.videoCount);
+                setPhotoCount(res.data.photoCount);
                 setTotalAccountPosts(res.data.totalAccountPosts || 744);
+                setNextCursor(res.data.nextCursor);
                 setLastSyncedAt(res.data.lastSyncedAt);
-
-                setPublications((prev) => {
-                    // Si on a déjà chargé des publications supplémentaires antérieures, fusionner intelligemment
-                    if (prev.length > res.data!.publications.length) {
-                        const updatedMap = new Map(res.data!.publications.map((p) => [p.id, p]));
-                        const merged = prev.map((oldItem) => updatedMap.get(oldItem.id) || oldItem);
-                        const views = merged
-                            .filter((p) => p.mediaType === 'VIDEO')
-                            .reduce((sum, p) => sum + (p.views || 0), 0);
-                        setTotalVideoViews(views);
-                        setVideoCount(merged.filter((p) => p.mediaType === 'VIDEO').length);
-                        setPhotoCount(merged.filter((p) => p.mediaType !== 'VIDEO').length);
-                        return merged;
-                    }
-
-                    // Premier chargement ou rafraîchissement normal
-                    setTotalVideoViews(res.data!.totalVideoViews);
-                    setVideoCount(res.data!.videoCount);
-                    setPhotoCount(res.data!.photoCount);
-                    setNextCursor(res.data!.nextCursor);
-                    return res.data!.publications;
-                });
             } else if (res.error && !forceRefresh) {
                 showToast(`Erreur Instagram : ${res.error}`);
             }
@@ -114,26 +93,11 @@ export function useLiveInstagramMonitor(
         };
     }, [loadData]);
 
-    // Surveillance temps réel automatique toutes les 30s (en arrière-plan silencieux)
-    React.useEffect(() => {
-        if (!autoRefresh) return;
-
-        const intervalId = setInterval(() => {
-            // Protège les quotas Meta & Supabase si Lucas change d'onglet
-            if (typeof document !== 'undefined' && document.visibilityState !== 'visible') {
-                return;
-            }
-            loadData(true);
-        }, AUTO_REFRESH_INTERVAL_MS);
-
-        return () => clearInterval(intervalId);
-    }, [autoRefresh, loadData]);
-
     const handleRefresh = async () => {
         setIsRefreshing(true);
         try {
             await loadData(true);
-            showToast('Données Instagram actualisées en direct depuis Meta Graph API.');
+            showToast('Statistiques et vues Instagram actualisées en direct.');
         } finally {
             setIsRefreshing(false);
         }
@@ -228,14 +192,6 @@ export function useLiveInstagramMonitor(
         }
     };
 
-    const toggleAutoRefresh = () => {
-        setAutoRefresh((prev) => {
-            const next = !prev;
-            showToast(next ? 'Actualisation temps réel activée (30s).' : 'Actualisation temps réel en pause.');
-            return next;
-        });
-    };
-
     return {
         profile,
         publications: sorted,
@@ -246,8 +202,6 @@ export function useLiveInstagramMonitor(
         totalAccountPosts,
         nextCursor,
         isLoadingMoreBatch,
-        autoRefresh,
-        toggleAutoRefresh,
         lastSyncedAt,
         isLoading,
         isRefreshing,
