@@ -15,14 +15,14 @@ describe('instagram-export', () => {
                 viewsFormatted: '5,2 M',
                 likes: '120 k',
                 date: '2024-01-15',
-                stuntCategory: 'fire',
+                mediaType: 'VIDEO',
             },
         ];
 
         const csv = generateReelsCsv(dummyReels);
         expect(csv.startsWith('\uFEFF')).toBe(true);
-        expect(csv).toContain('"Shortcode";"Titre";"Catégorie";"Vues Exactes"');
-        expect(csv).toContain('"ABC123xyz";"Cascade ""torche humaine""";"fire";"5200000";"5,2 M";"120 k"');
+        expect(csv).toContain('"Shortcode";"Titre";"Type de Média";"Vues Exactes"');
+        expect(csv).toContain('"ABC123xyz";"Cascade ""torche humaine""";"VIDEO";"5200000";"5,2 M";"120 k"');
     });
 
     it('gère les champs vides ou indéfinis sans planter', () => {
@@ -38,6 +38,6 @@ describe('instagram-export', () => {
         };
 
         const csv = generateReelsCsv([minimalReel]);
-        expect(csv).toContain('"EMPTY123";"Test";"general";"0"');
+        expect(csv).toContain('"EMPTY123";"Test";"VIDEO";"0"');
     });
 });

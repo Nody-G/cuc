@@ -4,6 +4,10 @@ import { revalidatePath } from 'next/cache';
 import { getInstagramProfile, getReelLiveMetrics } from '@/lib/instagram/instagram-service';
 import { isTokenRefreshDue, refreshInstagramToken } from '@/lib/instagram/instagram-token-refresh';
 import { getOfficialReelMetrics } from '@/lib/instagram/instagram-reel-meta';
+import {
+    fetchLiveInstagramDashboard,
+    type LiveInstagramDashboardData,
+} from '@/lib/instagram/instagram-feed';
 import { createAdminClient } from '@/lib/supabase/admin';
 import type {
     InstagramAccountStat,
@@ -212,6 +216,43 @@ export async function refreshReelLiveMetricsAction(
         return { success: true, data };
     } catch (err) {
         return { success: false, error: err instanceof Error ? err.message : 'Erreur inconnue.' };
+    }
+}
+
+/**
+ * Récupère les données exhaustives en direct du compte CUC (abonnés exacts + vidéos et photos réelles).
+ */
+export async function getLiveInstagramDashboardAction(
+    forceRefresh = false
+): Promise<{
+    success: boolean;
+    data?: LiveInstagramDashboardData;
+    error?: string;
+}> {
+    try {
+        const configRes = await getInstagramMetaConfigAction();
+        const token = configRes.config.accessToken;
+        if (!token) {
+            return {
+                success: false,
+                error: 'Jeton Meta Graph API non configuré.',
+            };
+        }
+
+        const data = await fetchLiveInstagramDashboard(token, forceRefresh);
+        if (!data) {
+            return {
+                success: false,
+                error: 'Impossible de joindre Meta Graph API.',
+            };
+        }
+
+        return { success: true, data };
+    } catch (err) {
+        return {
+            success: false,
+            error: err instanceof Error ? err.message : 'Erreur inconnue.',
+        };
     }
 }
 

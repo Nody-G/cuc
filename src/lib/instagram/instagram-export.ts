@@ -19,7 +19,7 @@ export function generateReelsCsv(reels: InstagramReelMetric[]): string {
     const headers = [
         'Shortcode',
         'Titre',
-        'Catégorie',
+        'Type de Média',
         'Vues Exactes',
         'Vues Formatées',
         'Likes',
@@ -31,7 +31,7 @@ export function generateReelsCsv(reels: InstagramReelMetric[]): string {
     const rows = reels.map((reel) => [
         reel.shortcode,
         reel.title,
-        reel.stuntCategory || 'general',
+        reel.mediaType || 'VIDEO',
         reel.views,
         reel.viewsFormatted || `${reel.views}`,
         reel.likes || '',

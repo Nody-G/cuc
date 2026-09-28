@@ -63,6 +63,8 @@ export interface InstagramReelsAggregates {
     topReels: InstagramReelMetric[];
 }
 
+export type InstagramMediaType = 'VIDEO' | 'IMAGE' | 'CAROUSEL_ALBUM';
+
 export interface InstagramReelMetric {
     id: string;
     shortcode: string;
@@ -73,11 +75,15 @@ export interface InstagramReelMetric {
     views: number;
     viewsFormatted: string;
     likes?: string;
+    likesCount?: number;
+    commentsCount?: number;
     date?: string;
     isFeatured?: boolean;
     lastUpdated?: string;
-    stuntCategory?: 'fire' | 'car' | 'height' | 'combat' | 'parkour' | 'workshop' | 'general';
+    mediaType?: InstagramMediaType;
 }
+
+export type InstagramMediaPublication = InstagramReelMetric;
 
 export interface InstagramMetaApiConfig {
     enabled: boolean;
