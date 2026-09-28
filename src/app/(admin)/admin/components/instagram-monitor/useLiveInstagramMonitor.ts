@@ -1,7 +1,10 @@
 'use client';
 
 import React from 'react';
-import { getLiveInstagramDashboardAction } from '@/app/(admin)/admin/actions/instagram-monitor';
+import {
+    getLiveInstagramDashboardAction,
+    fetchMoreLiveInstagramPublicationsAction,
+} from '@/app/(admin)/admin/actions/instagram-monitor';
 import type {
     InstagramAccountStat,
     InstagramReelMetric,
@@ -15,6 +18,11 @@ export interface UseLiveInstagramMonitorResult {
     totalVideoViews: number;
     videoCount: number;
     photoCount: number;
+    totalAccountPosts: number;
+    nextCursor: string | null;
+    isLoadingMoreBatch: boolean;
+    autoRefresh: boolean;
+    toggleAutoRefresh: () => void;
     lastSyncedAt: string;
     isLoading: boolean;
     isRefreshing: boolean;
@@ -27,12 +35,14 @@ export interface UseLiveInstagramMonitorResult {
     viewMode: MediaViewMode;
     setViewMode: (mode: MediaViewMode) => void;
     handleRefresh: () => Promise<void>;
+    handleLoadNextBatch: () => Promise<void>;
     hasMore: boolean;
     handleLoadMore: () => void;
     remainingCount: number;
 }
 
 const PAGE_SIZE = 24;
+const AUTO_REFRESH_INTERVAL_MS = 30000;
 
 export function useLiveInstagramMonitor(
     showToast: (msg: string) => void,
@@ -43,6 +53,10 @@ export function useLiveInstagramMonitor(
     const [totalVideoViews, setTotalVideoViews] = React.useState(0);
     const [videoCount, setVideoCount] = React.useState(0);
     const [photoCount, setPhotoCount] = React.useState(0);
+    const [totalAccountPosts, setTotalAccountPosts] = React.useState(744);
+    const [nextCursor, setNextCursor] = React.useState<string | null>(null);
+    const [isLoadingMoreBatch, setIsLoadingMoreBatch] = React.useState(false);
+    const [autoRefresh, setAutoRefresh] = React.useState(true);
     const [lastSyncedAt, setLastSyncedAt] = React.useState('');
     const [isLoading, setIsLoading] = React.useState(true);
     const [isRefreshing, setIsRefreshing] = React.useState(false);
@@ -58,18 +72,38 @@ export function useLiveInstagramMonitor(
             const res = await getLiveInstagramDashboardAction(forceRefresh);
             if (res.success && res.data) {
                 setProfile(res.data.profile);
-                setPublications(res.data.publications);
-                setTotalVideoViews(res.data.totalVideoViews);
-                setVideoCount(res.data.videoCount);
-                setPhotoCount(res.data.photoCount);
+                setTotalAccountPosts(res.data.totalAccountPosts || 744);
                 setLastSyncedAt(res.data.lastSyncedAt);
-            } else if (res.error) {
+
+                setPublications((prev) => {
+                    // Si on a déjà chargé des publications supplémentaires antérieures, fusionner intelligemment
+                    if (prev.length > res.data!.publications.length) {
+                        const updatedMap = new Map(res.data!.publications.map((p) => [p.id, p]));
+                        const merged = prev.map((oldItem) => updatedMap.get(oldItem.id) || oldItem);
+                        const views = merged
+                            .filter((p) => p.mediaType === 'VIDEO')
+                            .reduce((sum, p) => sum + (p.views || 0), 0);
+                        setTotalVideoViews(views);
+                        setVideoCount(merged.filter((p) => p.mediaType === 'VIDEO').length);
+                        setPhotoCount(merged.filter((p) => p.mediaType !== 'VIDEO').length);
+                        return merged;
+                    }
+
+                    // Premier chargement ou rafraîchissement normal
+                    setTotalVideoViews(res.data!.totalVideoViews);
+                    setVideoCount(res.data!.videoCount);
+                    setPhotoCount(res.data!.photoCount);
+                    setNextCursor(res.data!.nextCursor);
+                    return res.data!.publications;
+                });
+            } else if (res.error && !forceRefresh) {
                 showToast(`Erreur Instagram : ${res.error}`);
             }
         },
         [showToast]
     );
 
+    // Chargement initial
     React.useEffect(() => {
         let isMounted = true;
         loadData(false).finally(() => {
@@ -79,6 +113,21 @@ export function useLiveInstagramMonitor(
             isMounted = false;
         };
     }, [loadData]);
+
+    // Surveillance temps réel automatique toutes les 30s (en arrière-plan silencieux)
+    React.useEffect(() => {
+        if (!autoRefresh) return;
+
+        const intervalId = setInterval(() => {
+            // Protège les quotas Meta & Supabase si Lucas change d'onglet
+            if (typeof document !== 'undefined' && document.visibilityState !== 'visible') {
+                return;
+            }
+            loadData(true);
+        }, AUTO_REFRESH_INTERVAL_MS);
+
+        return () => clearInterval(intervalId);
+    }, [autoRefresh, loadData]);
 
     const handleRefresh = async () => {
         setIsRefreshing(true);
@@ -151,6 +200,42 @@ export function useLiveInstagramMonitor(
         setVisibleCount((prev) => Math.min(prev + PAGE_SIZE, sorted.length));
     };
 
+    const handleLoadNextBatch = async () => {
+        if (!nextCursor || isLoadingMoreBatch) return;
+        setIsLoadingMoreBatch(true);
+        try {
+            const res = await fetchMoreLiveInstagramPublicationsAction(nextCursor);
+            if (res.success && res.publications) {
+                setPublications((prev) => {
+                    const existingIds = new Set(prev.map((p) => p.id));
+                    const newItems = res.publications!.filter((p) => !existingIds.has(p.id));
+                    const combined = [...prev, ...newItems];
+                    const newViews = combined
+                        .filter((p) => p.mediaType === 'VIDEO')
+                        .reduce((sum, p) => sum + (p.views || 0), 0);
+                    setTotalVideoViews(newViews);
+                    setVideoCount(combined.filter((p) => p.mediaType === 'VIDEO').length);
+                    setPhotoCount(combined.filter((p) => p.mediaType !== 'VIDEO').length);
+                    return combined;
+                });
+                setNextCursor(res.nextCursor || null);
+                showToast(`${res.publications.length} publications antérieures chargées.`);
+            } else {
+                showToast(res.error || 'Erreur lors du chargement.');
+            }
+        } finally {
+            setIsLoadingMoreBatch(false);
+        }
+    };
+
+    const toggleAutoRefresh = () => {
+        setAutoRefresh((prev) => {
+            const next = !prev;
+            showToast(next ? 'Actualisation temps réel activée (30s).' : 'Actualisation temps réel en pause.');
+            return next;
+        });
+    };
+
     return {
         profile,
         publications: sorted,
@@ -158,6 +243,11 @@ export function useLiveInstagramMonitor(
         totalVideoViews,
         videoCount,
         photoCount,
+        totalAccountPosts,
+        nextCursor,
+        isLoadingMoreBatch,
+        autoRefresh,
+        toggleAutoRefresh,
         lastSyncedAt,
         isLoading,
         isRefreshing,
@@ -176,8 +266,10 @@ export function useLiveInstagramMonitor(
         viewMode,
         setViewMode,
         handleRefresh,
+        handleLoadNextBatch,
         hasMore,
         handleLoadMore,
         remainingCount,
     };
 }
+

@@ -6,6 +6,7 @@ import { isTokenRefreshDue, refreshInstagramToken } from '@/lib/instagram/instag
 import { getOfficialReelMetrics } from '@/lib/instagram/instagram-reel-meta';
 import {
     fetchLiveInstagramDashboard,
+    fetchMoreLiveInstagramMedia,
     type LiveInstagramDashboardData,
 } from '@/lib/instagram/instagram-feed';
 import { createAdminClient } from '@/lib/supabase/admin';
@@ -242,3 +243,53 @@ export async function getLiveInstagramDashboardAction(
     }
 }
 
+/**
+ * Récupère le lot suivant de publications antérieures (par tranches de 100) via curseur Meta.
+ */
+export async function fetchMoreLiveInstagramPublicationsAction(
+    afterCursor: string
+): Promise<{
+    success: boolean;
+    publications?: import('@/types/instagram-monitor').InstagramReelMetric[];
+    nextCursor?: string | null;
+    error?: string;
+}> {
+    try {
+        const configRes = await getInstagramMetaConfigAction();
+        const token = configRes.config.accessToken;
+        if (!token) {
+            return { success: false, error: 'Jeton Meta Graph API non configuré.' };
+        }
+
+        const adminClient = createAdminClient();
+        const { data: featuredRow } = await adminClient
+            .from('site_settings')
+            .select('value')
+            .eq('key', 'instagram_featured_reels')
+            .maybeSingle();
+
+        const featuredShortcodes = new Set<string>();
+        const val = featuredRow?.value as { items?: { shortcode: string }[]; shortcodes?: string[] } | undefined;
+        if (Array.isArray(val?.shortcodes)) {
+            val.shortcodes.forEach((s) => featuredShortcodes.add(s));
+        } else if (Array.isArray(val?.items)) {
+            val.items.forEach((item) => item.shortcode && featuredShortcodes.add(item.shortcode));
+        }
+
+        const res = await fetchMoreLiveInstagramMedia(token, afterCursor, featuredShortcodes);
+        if (!res) {
+            return { success: false, error: 'Impossible de récupérer les publications antérieures.' };
+        }
+
+        return {
+            success: true,
+            publications: res.publications,
+            nextCursor: res.nextCursor,
+        };
+    } catch (err) {
+        return {
+            success: false,
+            error: err instanceof Error ? err.message : 'Erreur inconnue.',
+        };
+    }
+}
