@@ -33,12 +33,12 @@ const GROUPS: ShortcutGroup[] = [
         title: 'Navigation rapide',
         shortcuts: [
             { keys: ['Alt', '1'], label: 'Tableau de bord' },
-            { keys: ['Alt', '2'], label: 'Candidatures & contact' },
-            { keys: ['Alt', '3'], label: 'Éditeur Mode Studio' },
-            { keys: ['Alt', '4'], label: 'Sessions & calendrier' },
-            { keys: ['Alt', '5'], label: 'Équipe & coachs' },
-            { keys: ['Alt', '6'], label: 'Filmographie cascades' },
-            { keys: ['Alt', '7'], label: 'Instagram Live' },
+            { keys: ['Alt', '2'], label: 'Candidatures & inscriptions' },
+            { keys: ['Alt', '3'], label: 'Pages du site' },
+            { keys: ['Alt', '4'], label: 'Sessions de formation' },
+            { keys: ['Alt', '5'], label: 'Coachs & formateurs' },
+            { keys: ['Alt', '6'], label: 'Filmographie & cascades' },
+            { keys: ['Alt', '7'], label: 'Instagram & vidéos' },
         ],
     },
     {

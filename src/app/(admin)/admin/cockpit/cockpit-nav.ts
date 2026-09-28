@@ -143,44 +143,41 @@ export function buildNavSections({
 
     return [
         {
-            title: '1. Pilotage & Inscriptions',
+            title: '1. Inscriptions & Planning',
             items: [
                 { id: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
                 {
                     id: 'inquiries',
-                    label: 'Candidatures & Contacts',
+                    label: 'Candidatures & Inscriptions',
                     icon: Inbox,
                     badge: newInquiriesCount > 0 ? `${newInquiriesCount} nouveau` : undefined,
                 },
                 {
                     id: 'sessions',
-                    label: 'Sessions & Calendrier',
+                    label: 'Sessions de Formation',
                     icon: Calendar,
                 },
             ],
         },
         {
-            title: '2. Métier & Contenus du Campus',
+            title: '2. Formations, Coachs & Films',
             items: [
                 {
                     id: 'pages',
-                    label: 'Éditeur Mode Studio',
+                    label: 'Pages du Site',
                     icon: FileText,
-                    badge: 'Visuel',
                 },
                 {
                     id: 'films',
-                    label: 'Filmographie Cascades',
+                    label: 'Filmographie & Cascades',
                     icon: Film,
-                    badge: '570+',
                 },
                 ...(!isSecretaire
                     ? [
                         {
                             id: 'team' as TabType,
-                            label: 'Équipe & Coachs',
+                            label: 'Coachs & Formateurs',
                             icon: Users,
-                            badge: '20',
                         },
                     ]
                     : []),
@@ -188,13 +185,12 @@ export function buildNavSections({
                     id: 'campus-3d',
                     label: 'Campus & Installations',
                     icon: Boxes,
-                    badge: '3D + POI',
                 },
                 ...(isDirecteurOrAdmin
                     ? [
-                        { id: 'disciplines' as TabType, label: 'Disciplines & Modules', icon: Shield },
-                        { id: 'events' as TabType, label: 'Agence & Events B2B', icon: Briefcase },
-                        { id: 'partners' as TabType, label: 'Partenaires & Marques', icon: Handshake },
+                        { id: 'disciplines' as TabType, label: 'Disciplines Enseignées', icon: Shield },
+                        { id: 'events' as TabType, label: 'Agence & Événements Pro', icon: Briefcase },
+                        { id: 'partners' as TabType, label: 'Partenaires', icon: Handshake },
                     ]
                     : []),
             ],
@@ -202,42 +198,42 @@ export function buildNavSections({
         ...(isDirecteurOrAdmin
             ? [
                 {
-                    title: '3. Notoriété & Médias',
+                    title: '3. Réseaux & Visites',
                     items: [
-                        { id: 'instagram' as TabType, label: 'Instagram Live', icon: Activity, badge: '1,12M' },
-                        { id: 'traffic' as TabType, label: 'Fréquentation Web', icon: Globe, badge: 'Live' },
-                        { id: 'media' as TabType, label: 'Médiathèque Cloud', icon: ImageIcon, badge: 'CDN' },
+                        { id: 'instagram' as TabType, label: 'Instagram & Vidéos', icon: Activity },
+                        { id: 'traffic' as TabType, label: 'Visites du Site', icon: Globe },
+                        { id: 'media' as TabType, label: 'Médiathèque (Photos & Médias)', icon: ImageIcon },
                     ],
                 },
             ]
             : [
                 {
-                    title: '3. Médias & Ressources',
+                    title: '3. Réseaux & Médias',
                     items: [
-                        { id: 'media' as TabType, label: 'Médiathèque Cloud', icon: ImageIcon, badge: 'CDN' },
+                        { id: 'media' as TabType, label: 'Médiathèque (Photos & Médias)', icon: ImageIcon },
                     ],
                 },
             ]),
         {
-            title: '4. Configuration & Site',
+            title: '4. Réglages du Site',
             items: [
                 {
                     id: 'announcements',
-                    label: 'Bandeau Flash Urgent',
+                    label: 'Bandeau d\'Alerte',
                     icon: Bell,
                     badge: announcementActive ? 'Actif' : undefined,
                 },
                 {
                     id: 'navigation',
-                    label: 'Menus & Navigation',
+                    label: 'Menus du Site',
                     icon: Menu,
                 },
                 ...(isDirecteurOrAdmin
                     ? [
-                        { id: 'footer' as TabType, label: 'Pied de Page (Footer)', icon: PanelBottom },
+                        { id: 'footer' as TabType, label: 'Bas de Page (Footer)', icon: PanelBottom },
                         { id: 'social' as TabType, label: 'Réseaux Sociaux', icon: Share2 },
-                        { id: 'settings' as TabType, label: 'Paramètres Globaux', icon: Settings },
-                        { id: 'users' as TabType, label: 'Équipe Cockpit & Rôles', icon: Users },
+                        { id: 'settings' as TabType, label: 'Coordonnées & Paramètres', icon: Settings },
+                        { id: 'users' as TabType, label: 'Comptes & Accès', icon: Users },
                     ]
                     : []),
             ],
@@ -252,31 +248,31 @@ export interface TabMetadata {
 }
 
 const TAB_METADATA_MAP: Record<TabType, TabMetadata> = {
-    dashboard: { label: 'Tableau de Bord', sectionTitle: 'Pilotage', icon: LayoutDashboard },
-    inquiries: { label: 'Candidatures & Contacts', sectionTitle: 'Pilotage', icon: Inbox },
-    sessions: { label: 'Sessions & Calendrier', sectionTitle: 'Pilotage', icon: Calendar },
-    pages: { label: 'Éditeur Mode Studio', sectionTitle: 'Campus & Contenus', icon: FileText },
-    films: { label: 'Filmographie Cascades', sectionTitle: 'Campus & Contenus', icon: Film },
-    team: { label: 'Équipe & Coachs', sectionTitle: 'Campus & Contenus', icon: Users },
-    campus: { label: 'Campus & Installations', sectionTitle: 'Campus & Contenus', icon: Boxes },
-    'campus-3d': { label: 'Campus & Installations', sectionTitle: 'Campus & Contenus', icon: Boxes },
-    disciplines: { label: 'Disciplines & Modules', sectionTitle: 'Campus & Contenus', icon: Shield },
-    events: { label: 'Agence & Events B2B', sectionTitle: 'Campus & Contenus', icon: Briefcase },
-    partners: { label: 'Partenaires & Marques', sectionTitle: 'Campus & Contenus', icon: Handshake },
-    instagram: { label: 'Instagram Live', sectionTitle: 'Notoriété & Médias', icon: Activity },
-    traffic: { label: 'Fréquentation Web', sectionTitle: 'Notoriété & Médias', icon: Globe },
-    media: { label: 'Médiathèque Cloud', sectionTitle: 'Notoriété & Médias', icon: ImageIcon },
-    announcements: { label: 'Bandeau Flash Urgent', sectionTitle: 'Configuration & Site', icon: Bell },
-    navigation: { label: 'Menus & Navigation', sectionTitle: 'Configuration & Site', icon: Menu },
-    footer: { label: 'Pied de Page (Footer)', sectionTitle: 'Configuration & Site', icon: PanelBottom },
-    social: { label: 'Réseaux Sociaux', sectionTitle: 'Configuration & Site', icon: Share2 },
-    settings: { label: 'Paramètres Globaux', sectionTitle: 'Configuration & Site', icon: Settings },
-    users: { label: 'Équipe Cockpit & Rôles', sectionTitle: 'Configuration & Site', icon: Users },
+    dashboard: { label: 'Tableau de Bord', sectionTitle: 'Inscriptions & Planning', icon: LayoutDashboard },
+    inquiries: { label: 'Candidatures & Inscriptions', sectionTitle: 'Inscriptions & Planning', icon: Inbox },
+    sessions: { label: 'Sessions de Formation', sectionTitle: 'Inscriptions & Planning', icon: Calendar },
+    pages: { label: 'Pages du Site', sectionTitle: 'Formations & Films', icon: FileText },
+    films: { label: 'Filmographie & Cascades', sectionTitle: 'Formations & Films', icon: Film },
+    team: { label: 'Coachs & Formateurs', sectionTitle: 'Formations & Films', icon: Users },
+    campus: { label: 'Campus & Installations', sectionTitle: 'Formations & Films', icon: Boxes },
+    'campus-3d': { label: 'Campus & Installations', sectionTitle: 'Formations & Films', icon: Boxes },
+    disciplines: { label: 'Disciplines Enseignées', sectionTitle: 'Formations & Films', icon: Shield },
+    events: { label: 'Agence & Événements Pro', sectionTitle: 'Formations & Films', icon: Briefcase },
+    partners: { label: 'Partenaires', sectionTitle: 'Formations & Films', icon: Handshake },
+    instagram: { label: 'Instagram & Vidéos', sectionTitle: 'Réseaux & Visites', icon: Activity },
+    traffic: { label: 'Visites du Site', sectionTitle: 'Réseaux & Visites', icon: Globe },
+    media: { label: 'Médiathèque (Photos & Médias)', sectionTitle: 'Réseaux & Visites', icon: ImageIcon },
+    announcements: { label: 'Bandeau d\'Alerte', sectionTitle: 'Réglages du Site', icon: Bell },
+    navigation: { label: 'Menus du Site', sectionTitle: 'Réglages du Site', icon: Menu },
+    footer: { label: 'Bas de Page (Footer)', sectionTitle: 'Réglages du Site', icon: PanelBottom },
+    social: { label: 'Réseaux Sociaux', sectionTitle: 'Réglages du Site', icon: Share2 },
+    settings: { label: 'Coordonnées & Paramètres', sectionTitle: 'Réglages du Site', icon: Settings },
+    users: { label: 'Comptes & Accès', sectionTitle: 'Réglages du Site', icon: Users },
     audit: { label: 'Journal d’Audit', sectionTitle: 'Outils Système', icon: Activity },
-    health: { label: 'Diagnostic de Santé', sectionTitle: 'Outils Système', icon: Activity },
-    analytics: { label: 'Tableau Analytique', sectionTitle: 'Pilotage', icon: Activity },
-    translations: { label: 'Traductions Multilingues', sectionTitle: 'Configuration & Site', icon: Globe },
-    microcopy: { label: 'Micro-textes du Site', sectionTitle: 'Configuration & Site', icon: FileText },
+    health: { label: 'Diagnostic du Site', sectionTitle: 'Outils Système', icon: Activity },
+    analytics: { label: 'Statistiques & Conversion', sectionTitle: 'Inscriptions & Planning', icon: Activity },
+    translations: { label: 'Traductions Anglaises', sectionTitle: 'Réglages du Site', icon: Globe },
+    microcopy: { label: 'Textes & Boutons du Site', sectionTitle: 'Réglages du Site', icon: FileText },
 };
 
 export function getTabMetadata(tab: TabType): TabMetadata {

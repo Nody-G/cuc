@@ -60,9 +60,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
       {/* Grille des modules Cockpit — 9 modules opérationnels majeurs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* 1. Candidatures & Demandes */}
+        {/* 1. Candidatures & Inscriptions */}
         <DashboardModuleCard
-          label="Candidatures & Contacts"
+          label="Candidatures & Inscriptions"
           icon={Inbox}
           iconClass="bg-amber-500/10 text-[#FFE500]"
           subtitle="Dossiers & demandes de contact"
@@ -80,13 +80,13 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
         </DashboardModuleCard>
 
-        {/* 2. Instagram Live Certifié Meta */}
+        {/* 2. Instagram & Vidéos */}
         <DashboardModuleCard
-          label="Instagram Live"
+          label="Instagram & Vidéos"
           icon={Activity}
           iconClass="bg-fuchsia-500/10 text-fuchsia-400"
-          subtitle="706M+ vues cumulées réelles"
-          cta="Superviser les métriques"
+          subtitle="Abonnés certifiés & total des vues"
+          cta="Voir les métriques"
           onClick={() => switchTab('instagram')}
         >
           <div className="text-3xl font-black text-white flex items-center gap-2">
@@ -97,33 +97,33 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
         </DashboardModuleCard>
 
-        {/* 3. Éditeur Mode Studio */}
+        {/* 3. Pages du Site */}
         <DashboardModuleCard
-          label="Éditeur Mode Studio"
+          label="Pages du Site"
           icon={FileText}
           iconClass="bg-amber-500/10 text-[#FFE500]"
-          subtitle="15 pages vitrines éditables"
-          cta="Éditer en direct"
+          subtitle="Textes et images du site vitrine"
+          cta="Modifier les pages"
           onClick={() => switchTab('pages')}
         >
-          <div className="text-3xl font-black text-white">Studio</div>
+          <div className="text-3xl font-black text-white">Édition</div>
         </DashboardModuleCard>
 
-        {/* 4. Filmographie Cascades */}
+        {/* 4. Filmographie & Cascades */}
         <DashboardModuleCard
-          label="Filmographie Cascades"
+          label="Filmographie & Cascades"
           icon={Film}
           iconClass="bg-purple-500/10 text-purple-400"
           subtitle="Films, blockbusters & séries"
-          cta="Mettre à jour"
+          cta="Gérer la filmographie"
           onClick={() => switchTab('films')}
         >
           <div className="text-3xl font-black text-white">{filmsLength}</div>
         </DashboardModuleCard>
 
-        {/* 5. Sessions & Calendrier */}
+        {/* 5. Sessions de Formation */}
         <DashboardModuleCard
-          label="Sessions & Calendrier"
+          label="Sessions de Formation"
           icon={Calendar}
           iconClass="bg-yellow-500/10 text-[#FFE500]"
           subtitle={
@@ -137,45 +137,45 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           <div className="text-3xl font-black text-white">{totalSessions}</div>
         </DashboardModuleCard>
 
-        {/* 6. Équipe & Coachs */}
+        {/* 6. Coachs & Formateurs */}
         <DashboardModuleCard
-          label="Équipe & Coachs"
+          label="Coachs & Formateurs"
           icon={Users}
           iconClass="bg-blue-500/10 text-blue-400"
-          subtitle="20 instructeurs professionnels"
+          subtitle="20 cascadeurs professionnels"
           cta="Gérer les formateurs"
           onClick={() => switchTab('team')}
         >
           <div className="text-3xl font-black text-white">{teamLength}</div>
         </DashboardModuleCard>
 
-        {/* 7. Campus & Installations */}
+        {/* 7. Campus & Lieux d'Entraînement */}
         <DashboardModuleCard
-          label="Campus & Installations"
+          label="Campus & Lieux d'Entraînement"
           icon={Boxes}
           iconClass="bg-cyan-500/10 text-cyan-400"
-          subtitle="Studio Plan 3D & zones POI"
+          subtitle="Plan 3D & zones d'entraînement"
           cta="Ouvrir le Campus"
           onClick={() => switchTab('campus-3d')}
         >
-          <div className="text-3xl font-black text-white">3D + POI</div>
+          <div className="text-3xl font-black text-white">3D + Zones</div>
         </DashboardModuleCard>
 
-        {/* 8. Partenaires & Marques */}
+        {/* 8. Partenaires */}
         <DashboardModuleCard
-          label="Partenaires & Marques"
+          label="Partenaires"
           icon={Handshake}
           iconClass="bg-emerald-500/10 text-emerald-400"
-          subtitle="Partenaires cinéma & agence"
+          subtitle="Marques & partenaires cinéma"
           cta="Gérer les partenaires"
           onClick={() => switchTab('partners')}
         >
           <div className="text-3xl font-black text-white">{partnersLength}</div>
         </DashboardModuleCard>
 
-        {/* 9. Paramètres Globaux */}
+        {/* 9. Coordonnées & Paramètres */}
         <DashboardModuleCard
-          label="Paramètres Globaux"
+          label="Coordonnées & Paramètres"
           icon={Settings}
           iconClass="bg-rose-500/10 text-rose-400"
           subtitle="Standard, adresse, Qualiopi"
