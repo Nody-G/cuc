@@ -98,3 +98,54 @@ export async function fetchInstagramMetadata(url: string): Promise<InstagramMeta
         };
     }
 }
+
+export interface PublicInstagramFollowersResult {
+    success: boolean;
+    followersCount: number;
+    followersFormatted: string;
+    totalVideoViews: number;
+    totalVideoViewsFormatted: string;
+}
+
+/**
+ * Récupère le compteur d'abonnés et les vues certifiées pour le site vitrine.
+ * Issu du snapshot persistant Supabase (site_settings key='instagram_feed_snapshot').
+ */
+export async function getPublicInstagramFollowersAction(): Promise<PublicInstagramFollowersResult> {
+    const fallback: PublicInstagramFollowersResult = {
+        success: true,
+        followersCount: 1120672,
+        followersFormatted: '1,1M',
+        totalVideoViews: 706828446,
+        totalVideoViewsFormatted: '706M',
+    };
+    try {
+        const { createAdminClient } = await import('@/lib/supabase/admin');
+        const adminClient = createAdminClient();
+        const { data: row } = await adminClient
+            .from('site_settings')
+            .select('value')
+            .eq('key', 'instagram_feed_snapshot')
+            .maybeSingle();
+
+        if (row?.value) {
+            const val = row.value as {
+                profile?: { followersCount?: number };
+                totalVideoViews?: number;
+            };
+            const count = val.profile?.followersCount || fallback.followersCount;
+            const views = val.totalVideoViews || fallback.totalVideoViews;
+            return {
+                success: true,
+                followersCount: count,
+                followersFormatted: count >= 1000000 ? `${(count / 1000000).toFixed(1).replace('.', ',')}M` : count.toLocaleString('fr-FR'),
+                totalVideoViews: views,
+                totalVideoViewsFormatted: views >= 1000000 ? `${Math.round(views / 1000000)}M` : views.toLocaleString('fr-FR'),
+            };
+        }
+        return fallback;
+    } catch {
+        return fallback;
+    }
+}
+

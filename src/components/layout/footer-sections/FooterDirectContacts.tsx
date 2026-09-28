@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Phone, Mail, ExternalLink } from 'lucide-react';
 import { SocialIcon } from '@/components/ui/logos/SocialLogos';
+import { InstagramFollowerBadge } from '@/components/ui/InstagramFollowerBadge';
 import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { useSocialLinks } from '@/lib/hooks/useNavigation';
@@ -96,12 +97,15 @@ export const FooterDirectContacts: React.FC = () => {
 
       {/* Socials & Networks — pilotés par site_social_links */}
       <div className="space-y-3">
-        <h4
-          {...cucMicro('footer.networksTitle')}
-          className="text-base font-display uppercase tracking-wider text-white border-b border-zinc-800 pb-2"
-        >
-          {t('networksTitle')}
-        </h4>
+        <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
+          <h4
+            {...cucMicro('footer.networksTitle')}
+            className="text-base font-display uppercase tracking-wider text-white"
+          >
+            {t('networksTitle')}
+          </h4>
+          <InstagramFollowerBadge variant="compact" />
+        </div>
 
         <p className="text-xs text-zinc-400 font-tech">
           <span {...cucMicro('footer.networksText')}>{t('networksText')}</span>

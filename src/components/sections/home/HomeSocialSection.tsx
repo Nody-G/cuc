@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { ExternalLink } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { SocialIcon } from '@/components/ui/logos/SocialLogos';
+import { InstagramFollowerBadge } from '@/components/ui/InstagramFollowerBadge';
 import { useSocialLinks } from '@/lib/hooks/useNavigation';
 import {
   StudioParallaxScene,
@@ -143,6 +144,9 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
               >
                 {subtitle}
               </p>
+              <div className="mt-3.5">
+                <InstagramFollowerBadge variant="pill" showViews />
+              </div>
             </div>
           </div>
 

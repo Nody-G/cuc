@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Play, ExternalLink, Eye } from 'lucide-react';
+import { InstagramFollowerBadge } from '@/components/ui/InstagramFollowerBadge';
 import { InstagramLogo } from '@/components/ui/logos/SocialLogos';
 import type { InstagramReel, ReelSortOption } from '@/data/instagram-reels';
 
@@ -50,16 +51,8 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                 {/* Header de section */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
                     <div>
-                        <div className="flex items-center gap-2 mb-2 flex-wrap">
-                            <InstagramLogo className="w-4 h-4 text-[#FFE500]" />
-                            <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider">
-                                INSTAGRAM @CAMPUS.UNIVERS.CASCADES
-                            </span>
-                            {totalViews > 0 && (
-                                <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-[10px] font-mono-tech text-zinc-400">
-                                    <span className="text-[#FFE500] font-bold">{totalViews.toLocaleString('fr-FR')}</span> vues sur ces vidéos
-                                </span>
-                            )}
+                        <div className="flex items-center gap-2 mb-3 flex-wrap">
+                            <InstagramFollowerBadge variant="pill" showViews />
                         </div>
                         <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-wide text-white">
                             {labels.title}
