@@ -6,6 +6,7 @@ import type { FilmCredit, Instructor } from '@/types';
 import {
     resolveCoordinators,
     resolveFilmTeamRoles,
+    resolveFilmDoublings,
     isLucasCoordinated,
 } from './film-filters-domain';
 
@@ -24,12 +25,12 @@ export const FilmTeamRolesBadge: React.FC<FilmTeamRolesBadgeProps> = ({ film, te
     const isLucas = isLucasCoordinated(film);
     const coordinators = resolveCoordinators(film, team);
     const teamRoles = resolveFilmTeamRoles(film, team);
-    const doubledActors = film.doubledActors || [];
+    const doublings = resolveFilmDoublings(film, team);
 
     const hasAnyContent =
         coordinators.length > 0 ||
         teamRoles.length > 0 ||
-        doubledActors.length > 0;
+        doublings.length > 0;
 
     if (!hasAnyContent) return null;
 
@@ -53,15 +54,32 @@ export const FilmTeamRolesBadge: React.FC<FilmTeamRolesBadgeProps> = ({ film, te
                 </div>
             )}
 
-            {/* 2. Mise en avant des comédiens doublés */}
-            {doubledActors.length > 0 && (
-                <div className="flex items-start gap-1.5 bg-purple-950/30 border border-purple-800/30 rounded p-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-purple-400 shrink-0 mt-0.5" />
-                    <div className="min-w-0 flex-1">
-                        <span className="font-bold text-purple-300 mr-1">Doublures :</span>
-                        <span className="text-zinc-300 leading-snug">
-                            {Array.isArray(doubledActors) ? doubledActors.join(', ') : doubledActors}
-                        </span>
+            {/* 2. Mise en avant des comédiens doublés par l'équipe CUC */}
+            {doublings.length > 0 && (
+                <div className="bg-purple-950/25 border border-purple-800/40 rounded-md p-2 space-y-1.5">
+                    <div className="flex items-center gap-1.5 text-[10px] font-bold text-purple-300 uppercase tracking-wide">
+                        <Sparkles className="w-3 h-3 text-purple-400 shrink-0" />
+                        <span>Comédiens doublés par l'équipe CUC :</span>
+                    </div>
+                    <div className="space-y-1">
+                        {doublings.map((d, idx) => (
+                            <div key={idx} className="flex items-center flex-wrap gap-1.5 text-[11px] leading-tight">
+                                <span className="font-semibold text-white">
+                                    {d.actorName}
+                                </span>
+                                {d.stuntDoubleName && (
+                                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-purple-900/60 border border-purple-600/50 text-purple-200">
+                                        <span className="text-purple-300">➔ doublé par</span>
+                                        <strong className="text-[#FFE500] font-bold">{d.stuntDoubleName}</strong>
+                                    </span>
+                                )}
+                                {d.note && (
+                                    <span className="text-[10px] text-zinc-400 italic">
+                                        ({d.note})
+                                    </span>
+                                )}
+                            </div>
+                        ))}
                     </div>
                 </div>
             )}

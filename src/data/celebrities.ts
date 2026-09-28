@@ -171,7 +171,8 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
     "name": "Tomer Sisley",
     "photo": "https://image.tmdb.org/t/p/h632/2Tqiq9ajbiA0OGbpQDorROU2SO7.jpg",
     "productions": [
-      "Largo Winch II"
+      "Largo Winch II",
+      "Largo Winch: Le prix de l'argent"
     ],
     "stuntSpecialty": "",
     "stuntDoubles": "Doublé par Jérôme Gaspard",

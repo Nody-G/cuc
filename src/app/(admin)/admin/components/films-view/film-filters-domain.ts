@@ -161,6 +161,18 @@ export function resolveCoordinators(film: FilmCredit, team: Instructor[] = []): 
     return coords;
 }
 
+import {
+    resolveFilmDoublings,
+    enrichTeamRoleWithDoubling,
+    type ResolvedFilmDoubling,
+} from './film-doublings-domain';
+
+export {
+    resolveFilmDoublings,
+    enrichTeamRoleWithDoubling,
+    type ResolvedFilmDoubling,
+};
+
 export interface ResolvedTeamRole {
     coachId: string;
     coachName: string;
@@ -185,16 +197,18 @@ export function resolveFilmTeamRoles(
         Object.keys(film.cuc_team_roles).forEach((id) => involvedIds.add(id));
     }
 
+    const doublings = resolveFilmDoublings(film, team);
     const result: ResolvedTeamRole[] = [];
 
     for (const coachId of involvedIds) {
         const member = team.find((t) => t.id === coachId);
         const name = member?.name || (coachId === LUCAS_DOLLFUS_ID ? 'Lucas Dollfus' : coachId);
-        const role =
+        const rawRole =
             film.cuc_team_roles?.[coachId] ||
             (member?.title.toLowerCase().includes('coordinateur')
                 ? 'Coordinateur des cascades'
                 : 'Cascadeur');
+        const role = enrichTeamRoleWithDoubling(rawRole, coachId, doublings, team);
 
         const isCoordinator = hasCoordinationKeyword(role);
         const isDouble = role.toLowerCase().includes('doublure');

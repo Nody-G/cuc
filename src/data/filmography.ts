@@ -64,7 +64,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "category": "Film",
     "stuntRoles": "",
     "doubledActors": [
-      "Tomer Sisley",
+      "Tomer Sisley (doublé par Jérôme Gaspard)",
       "Ezio Burntwood (doublé par Frédéric Dessains)"
     ],
     "highlight": true,
@@ -132,9 +132,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "year": "2001",
     "category": "Film",
     "stuntRoles": "",
-    "doubledActors": [
-      "Malik Diouf"
-    ],
+    "doubledActors": [],
     "highlight": true,
     "image": "https://m.media-amazon.com/images/M/MV5BNGU4ZTg1M2QtZDNkOS00ZThmLTg5NDQtMWMwYzBkMzhjYzAyXkEyXkFqcGc@._V1_.jpg",
     "tag": "ORIGINES DU PARKOUR",
@@ -181,7 +179,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "category": "Film",
     "stuntRoles": "",
     "doubledActors": [
-      "François Civil",
+      "François Civil (doublé par Bastien Trouvé)",
       "Adèle Exarchopoulos (Cascades Action)"
     ],
     "highlight": true,
@@ -208,7 +206,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
       "michel-bouis": "Coordinateur de rigging",
       "lucas-dollfus": "Coordinateur des cascades",
       "teddy-ponceau": "Cascadeur",
-      "bastien-trouve": "Cascadeur",
+      "bastien-trouve": "Doublure de François Civil",
       "nicolas-retabi": "Cascadeur",
       "amedeo-cazzella": "Coordinateur des cascades"
     },
@@ -310,7 +308,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "category": "Film",
     "stuntRoles": "",
     "doubledActors": [
-      "Pierre Niney"
+      "Pierre Niney (Combats & Cascades CUC)"
     ],
     "highlight": true,
     "image": "https://m.media-amazon.com/images/M/MV5BZWI4NTlhM2UtZmMxZS00ZTg0LThmNTEtYjM3MTEyYTU4NGRmXkEyXkFqcGc@._V1_.jpg",
@@ -1722,7 +1720,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "category": "Film",
     "stuntRoles": "",
     "doubledActors": [
-      "Nassim Lyes"
+      "Nassim Lyes (doublé par Bastien Trouvé)"
     ],
     "highlight": false,
     "image": "https://m.media-amazon.com/images/M/MV5BNWQyOTZjZGYtZjFlZC00NzI2LTg3ZmItYjJhYjM2YmFjNDZmXkEyXkFqcGc@._V1_.jpg",
@@ -1744,7 +1742,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
       "malik-diouf": "Cascadeur",
       "lucas-dollfus": "Coordinateur des cascades",
       "teddy-ponceau": "Cascadeur",
-      "bastien-trouve": "Doublure",
+      "bastien-trouve": "Doublure de Nassim Lyes",
       "nicolas-retabi": "Cascadeur",
       "jonathan-bernard": "Cascadeur"
     },
@@ -1758,7 +1756,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "category": "Film",
     "stuntRoles": "",
     "doubledActors": [
-      "Nassim Lyes"
+      "Nassim Lyes (doublé par Bastien Trouvé)"
     ],
     "highlight": false,
     "image": "https://m.media-amazon.com/images/M/MV5BNTNkOTYzZjgtYzE0Yy00NGY1LThjNmQtMjFkMWZiMTNmMmZlXkEyXkFqcGc@._V1_.jpg",
@@ -1784,7 +1782,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
       "sarah-belala": "Cascadeur",
       "lucas-dollfus": "Coordinateur des cascades",
       "teddy-ponceau": "Cascadeur",
-      "bastien-trouve": "Doublure",
+      "bastien-trouve": "Doublure de Nassim Lyes",
       "amedeo-cazzella": "Coordinateur des cascades",
       "frederic-dessains": "Cascadeur"
     },
