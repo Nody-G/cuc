@@ -6,10 +6,8 @@ import type { SiteSettings } from '@/lib/data/site-service';
 import { CertificationsSection } from './settings-view/CertificationsSection';
 import { ContactSection } from './settings-view/ContactSection';
 import { CtaSection } from './settings-view/CtaSection';
-import { EmergencySection } from './settings-view/EmergencySection';
 import { IdentitySection } from './settings-view/IdentitySection';
 import { SettingsHeader } from './settings-view/SettingsHeader';
-import { SocialLinksRedirectSection } from './settings-view/SocialLinksRedirectSection';
 import { SETTINGS_SECTIONS } from './settings-view/settings-sections';
 import { useSettingsForm } from './settings-view/useSettingsForm';
 
@@ -24,7 +22,7 @@ interface SettingsViewProps {
  * État du formulaire et écriture serveur dans `useSettingsForm` ; le rendu est
  * réparti dans `settings-view/**` (une section par sujet, en-tête partagé).
  */
-export function SettingsView({ initialSettings, onNavigateToTab }: SettingsViewProps) {
+export function SettingsView({ initialSettings }: SettingsViewProps) {
   const form = useSettingsForm({ initialSettings });
 
   return (
@@ -79,19 +77,9 @@ export function SettingsView({ initialSettings, onNavigateToTab }: SettingsViewP
           <CtaSection settings={form.settings} onChange={form.handleChange} />
         )}
 
-        {/* 4. Bandeau d'Urgence / Alertes Globales */}
-        {(form.activeSection === 'all' || form.activeSection === 'emergency') && (
-          <EmergencySection settings={form.settings} onChange={form.handleChange} />
-        )}
-
-        {/* 5. Standard, Horaires & Accès */}
+        {/* 4. Standard, Horaires & Accès */}
         {(form.activeSection === 'all' || form.activeSection === 'contact') && (
           <ContactSection settings={form.settings} onChange={form.handleChange} />
-        )}
-
-        {/* 6. Renvoi vers les éditeurs canoniques (anti-doublon) */}
-        {(form.activeSection === 'all' || form.activeSection === 'social') && (
-          <SocialLinksRedirectSection onNavigateToTab={onNavigateToTab} />
         )}
       </div>
 

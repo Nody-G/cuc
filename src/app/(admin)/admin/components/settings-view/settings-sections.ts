@@ -9,9 +9,7 @@ export type SettingsSectionId =
     | 'identity'
     | 'certifs'
     | 'cta'
-    | 'emergency'
-    | 'contact'
-    | 'social';
+    | 'contact';
 
 /** Onglets de filtrage des réglages (filtre d'affichage uniquement). */
 export const SETTINGS_SECTIONS: Array<{ id: SettingsSectionId; label: string }> = [
@@ -19,9 +17,7 @@ export const SETTINGS_SECTIONS: Array<{ id: SettingsSectionId; label: string }> 
     { id: 'identity', label: 'Identité & Campus' },
     { id: 'certifs', label: 'Qualiopi & Financements' },
     { id: 'cta', label: 'Actions Vitrine (CTA)' },
-    { id: 'emergency', label: 'Alerte Urgence' },
-    { id: 'contact', label: 'Standard & Horaires' },
-    { id: 'social', label: 'Réseaux Sociaux' },
+    { id: 'contact', label: 'Standard, Horaires & Accès' },
 ];
 
 /** Teintes d'accent proposées (pastilles du bloc CTA). */

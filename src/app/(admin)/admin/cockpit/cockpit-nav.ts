@@ -8,6 +8,7 @@ import {
     Activity,
     Bell,
     Boxes,
+    Briefcase,
     Calendar,
     FileText,
     Film,
@@ -17,7 +18,9 @@ import {
     Inbox,
     LayoutDashboard,
     Menu,
+    PanelBottom,
     Settings,
+    Share2,
     Users,
     Shield,
     type LucideIcon,
@@ -140,24 +143,24 @@ export function buildNavSections({
 
     return [
         {
-            title: '1. Pilotage & Quotidien',
+            title: '1. Pilotage & Inscriptions',
             items: [
                 { id: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
                 {
                     id: 'inquiries',
-                    label: 'Contact',
+                    label: 'Candidatures & Contacts',
                     icon: Inbox,
                     badge: newInquiriesCount > 0 ? `${newInquiriesCount} nouveau` : undefined,
                 },
                 {
                     id: 'sessions',
-                    label: 'Sessions & Stages',
+                    label: 'Sessions & Calendrier',
                     icon: Calendar,
                 },
             ],
         },
         {
-            title: '2. Contenu & Vitrine (Outils Phares)',
+            title: '2. Métier & Contenus du Campus',
             items: [
                 {
                     id: 'pages',
@@ -169,7 +172,7 @@ export function buildNavSections({
                     id: 'films',
                     label: 'Filmographie Cascades',
                     icon: Film,
-                    badge: '570',
+                    badge: '570+',
                 },
                 ...(!isSecretaire
                     ? [
@@ -183,19 +186,26 @@ export function buildNavSections({
                     : []),
                 {
                     id: 'campus-3d',
-                    label: 'Campus & Visite 3D',
+                    label: 'Campus & Installations',
                     icon: Boxes,
-                    badge: '3D',
+                    badge: '3D + POI',
                 },
+                ...(isDirecteurOrAdmin
+                    ? [
+                        { id: 'disciplines' as TabType, label: 'Disciplines & Modules', icon: Shield },
+                        { id: 'events' as TabType, label: 'Agence & Events B2B', icon: Briefcase },
+                        { id: 'partners' as TabType, label: 'Partenaires & Marques', icon: Handshake },
+                    ]
+                    : []),
             ],
         },
         ...(isDirecteurOrAdmin
             ? [
                 {
-                    title: '3. Notoriété & Audience',
+                    title: '3. Notoriété & Médias',
                     items: [
-                        { id: 'instagram' as TabType, label: 'Instagram & Reels', icon: Activity, badge: '1,05M' },
-                        { id: 'traffic' as TabType, label: 'Visites en Direct', icon: Globe, badge: 'Live' },
+                        { id: 'instagram' as TabType, label: 'Instagram Live', icon: Activity, badge: '1,12M' },
+                        { id: 'traffic' as TabType, label: 'Fréquentation Web', icon: Globe, badge: 'Live' },
                         { id: 'media' as TabType, label: 'Médiathèque Cloud', icon: ImageIcon, badge: 'CDN' },
                     ],
                 },
@@ -209,7 +219,7 @@ export function buildNavSections({
                 },
             ]),
         {
-            title: '4. Configuration & Réglages',
+            title: '4. Configuration & Site',
             items: [
                 {
                     id: 'announcements',
@@ -224,11 +234,10 @@ export function buildNavSections({
                 },
                 ...(isDirecteurOrAdmin
                     ? [
-                        { id: 'partners' as TabType, label: 'Partenaires & Labels', icon: Handshake },
-                        { id: 'disciplines' as TabType, label: 'Disciplines & Référentiel', icon: Shield },
-                        { id: 'microcopy' as TabType, label: 'Dictionnaire Libellés (Avancé)', icon: Globe },
-                        { id: 'users' as TabType, label: 'Équipe Cockpit & Rôles', icon: Shield },
+                        { id: 'footer' as TabType, label: 'Pied de Page (Footer)', icon: PanelBottom },
+                        { id: 'social' as TabType, label: 'Réseaux Sociaux', icon: Share2 },
                         { id: 'settings' as TabType, label: 'Paramètres Globaux', icon: Settings },
+                        { id: 'users' as TabType, label: 'Équipe Cockpit & Rôles', icon: Users },
                     ]
                     : []),
             ],

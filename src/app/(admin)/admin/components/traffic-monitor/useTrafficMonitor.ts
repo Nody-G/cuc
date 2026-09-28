@@ -5,7 +5,6 @@ import type { TrafficWindow, SiteTrafficReport } from '@/types/site-traffic';
 import {
     getSiteTrafficReportAction,
     getRealtimeVisitorsAction,
-    simulateVisitorAction,
 } from '@/app/(admin)/admin/actions/traffic-monitor';
 import { exportTrafficCsv } from '@/lib/traffic/traffic-service';
 
@@ -19,7 +18,6 @@ export function useTrafficMonitor({ showToast }: UseTrafficMonitorProps) {
     const [loading, setLoading] = useState<boolean>(true);
     const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
     const [pollingInterval, setPollingInterval] = useState<number>(10000); // 10s par défaut
-    const [isSimulating, setIsSimulating] = useState<boolean>(false);
 
     // Charge le rapport complet pour la fenêtre sélectionnée
     const loadReport = useCallback(
@@ -65,24 +63,6 @@ export function useTrafficMonitor({ showToast }: UseTrafficMonitorProps) {
             // Silencieux pour le polling
         }
     }, []);
-
-    // Simule un visiteur pour tester le pulse en direct
-    const handleSimulateVisitor = useCallback(async () => {
-        setIsSimulating(true);
-        try {
-            const res = await simulateVisitorAction();
-            if (res.success && res.data) {
-                showToast(`Visiteur simulé sur ${res.data.currentPath}`);
-                await refreshRealtime();
-            } else {
-                showToast('Échec de la simulation');
-            }
-        } catch {
-            showToast('Erreur lors de la simulation');
-        } finally {
-            setIsSimulating(false);
-        }
-    }, [showToast, refreshRealtime]);
 
     // Export CSV
     const handleExportCsv = useCallback(() => {
@@ -138,8 +118,6 @@ export function useTrafficMonitor({ showToast }: UseTrafficMonitorProps) {
         pollingInterval,
         setPollingInterval,
         refresh: () => loadReport(windowState, true),
-        simulateVisitor: handleSimulateVisitor,
-        isSimulating,
         exportCsv: handleExportCsv,
     };
 }

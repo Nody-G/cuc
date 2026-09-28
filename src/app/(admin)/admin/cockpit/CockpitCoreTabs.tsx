@@ -4,8 +4,7 @@ import React from 'react';
 import type { CockpitTabContentProps } from './CockpitTabContent';
 import { DashboardView } from '../components/DashboardView';
 import { DisciplinesView } from '../components/DisciplinesView';
-import { CampusZonesView } from '../components/CampusZonesView';
-import { CampusPlan3DView } from '../components/CampusPlan3DView';
+import { CampusManagerView } from '../components/CampusManagerView';
 import { SessionsView } from '../components/SessionsView';
 import { TeamView } from '../components/TeamView';
 import { FilmsView } from '../components/FilmsView';
@@ -45,18 +44,17 @@ export const CockpitCoreTabs: React.FC<CockpitTabContentProps> = (props) => (
             />
         )}
 
-        {/* 3. INFRASTRUCTURES & ZONES CAMPUS */}
-        {props.activeTab === 'campus' && (
-            <CampusZonesView
+        {/* 3. CAMPUS & INSTALLATIONS (PLAN 3D + BÂTIMENTS & ZONES) */}
+        {(props.activeTab === 'campus' || props.activeTab === 'campus-3d') && (
+            <CampusManagerView
+                activeSubTab={props.activeTab === 'campus' ? 'zones' : '3d'}
                 campusPOIs={props.campusPOIs}
                 setCampusPOIs={props.setCampusPOIs}
                 disciplines={props.disciplines}
                 showToast={props.showToast}
+                onSubTabChange={(sub) => props.switchTab(sub === 'zones' ? 'campus' : 'campus-3d')}
             />
         )}
-
-        {/* 3bis. PLAN 3D DU CAMPUS (STUDIO DE PLACEMENT) */}
-        {props.activeTab === 'campus-3d' && <CampusPlan3DView />}
 
         {/* 4. SESSIONS & STAGES */}
         {props.activeTab === 'sessions' && (

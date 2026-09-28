@@ -42,7 +42,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
 
     const renderItem = (item: CockpitNavItem) => {
         const Icon = item.icon;
-        const isActive = activeTab === item.id;
+        const isActive = activeTab === item.id || (item.id === 'campus-3d' && activeTab === 'campus');
         const isPinned = pins.includes(item.id);
         return (
             <div key={item.id} className="group/item relative">

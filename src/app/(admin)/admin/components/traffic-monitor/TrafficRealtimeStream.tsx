@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Smartphone, Monitor, Tablet, ExternalLink, Sparkles, RefreshCw } from 'lucide-react';
+import { Smartphone, Monitor, Tablet, ExternalLink, RefreshCw } from 'lucide-react';
 import type { RealtimeVisitor } from '@/types/site-traffic';
 import { formatDuration } from '@/lib/traffic/traffic-service';
 
@@ -9,8 +9,6 @@ interface TrafficRealtimeStreamProps {
     visitors: RealtimeVisitor[];
     isRefreshing: boolean;
     onRefresh: () => void;
-    onSimulate: () => void;
-    isSimulating: boolean;
     pollingInterval: number;
     onChangePolling: (interval: number) => void;
 }
@@ -19,8 +17,6 @@ export const TrafficRealtimeStream: React.FC<TrafficRealtimeStreamProps> = ({
     visitors,
     isRefreshing,
     onRefresh,
-    onSimulate,
-    isSimulating,
     pollingInterval,
     onChangePolling,
 }) => {
@@ -62,17 +58,6 @@ export const TrafficRealtimeStream: React.FC<TrafficRealtimeStreamProps> = ({
                             <option value={0} className="bg-zinc-900">Pause</option>
                         </select>
                     </div>
-
-                    <button
-                        type="button"
-                        onClick={onSimulate}
-                        disabled={isSimulating}
-                        title="Simuler un visiteur réel pour tester la détection en direct"
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-700 hover:border-[#FFE500] text-xs font-mono-tech uppercase text-zinc-200 hover:text-white transition-all cursor-pointer"
-                    >
-                        <Sparkles className="w-3.5 h-3.5 text-[#FFE500]" />
-                        <span>{isSimulating ? 'Simulation...' : 'Simuler visite'}</span>
-                    </button>
 
                     <button
                         type="button"
