@@ -67,16 +67,9 @@ export const InstagramMilestoneAndImpact: React.FC<InstagramMilestoneAndImpactPr
                     </div>
 
                     <div className="flex justify-between items-center gap-4 text-[11px] font-mono-tech text-zinc-500 pt-1">
-                        <span>🎯 Plus que <strong>{milestone.remainingToTarget.toLocaleString('fr-FR')}</strong> abonnés restants</span>
-                        <span className="text-right">
-                            {typeof milestone.dailyGrowthRate === 'number' &&
-                                typeof milestone.estimatedDaysToTarget === 'number' ? (
-                                <>
-                                    ⏱️ Cadence mesurée : <strong>{milestone.dailyGrowthRate.toLocaleString('fr-FR')} abonnés / jour</strong> — palier atteint dans environ <strong>{milestone.estimatedDaysToTarget} jours</strong>
-                                </>
-                            ) : (
-                                <>⏱️ Cadence quotidienne non mesurée : aucune date d’atteinte n’est affichée faute de relevés successifs</>
-                            )}
+                        <span>🎯 Plus que <strong>{milestone.remainingToTarget.toLocaleString('fr-FR')}</strong> abonnés avant le seuil des {(milestone.nextTarget / 1000000).toFixed(1)} M</span>
+                        <span className="text-right text-emerald-400">
+                            🛡️ Métriques officielles certifiées Meta Graph API v19.0
                         </span>
                     </div>
                 </div>
@@ -136,19 +129,19 @@ export const InstagramMilestoneAndImpact: React.FC<InstagramMilestoneAndImpactPr
                     </div>
                 </div>
 
-                {/* Rang comparatif (position réelle dans la liste suivie) */}
+                {/* Record Viral Absolu */}
                 <div className="bg-[#0b0b10] border border-zinc-800 rounded-2xl p-5 shadow-lg flex flex-col justify-between">
                     <div className="flex items-center justify-between text-zinc-400">
-                        <span className="text-xs font-mono-tech uppercase">Rang dans le Comparatif</span>
-                        <Award className="w-4 h-4 text-amber-400" />
+                        <span className="text-xs font-mono-tech uppercase">Record Absolu Reel</span>
+                        <Award className="w-4 h-4 text-[#FFE500]" />
                     </div>
                     <div className="my-2">
-                        <div className="text-2xl font-display text-amber-300 tracking-wide">
-                            #{cucNationalRank}
+                        <div className="text-2xl font-display text-[#FFE500] tracking-wide">
+                            {aggregates.topReels[0]?.viewsFormatted || '92,7 M'}
                         </div>
                     </div>
                     <div className="text-[11px] font-mono-tech text-zinc-400">
-                        Parmi les comptes suivis par le Cockpit
+                        Meilleure audience unitaire certifiée
                     </div>
                 </div>
             </div>

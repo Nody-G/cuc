@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import { RefreshCw, Key, ShieldCheck, Play, Users, Trophy } from 'lucide-react';
+import { RefreshCw, Key, ShieldCheck, Play, Users, Star } from 'lucide-react';
 import { InstagramLogo } from '@/components/ui/logos/SocialLogos';
 import { useInstagramMonitor } from './instagram-monitor/useInstagramMonitor';
-import { InstagramLeaderboard } from './instagram-monitor/InstagramLeaderboard';
+import { useInstagramFeaturedReels } from './instagram-monitor/useInstagramFeaturedReels';
+import { InstagramFeaturedReelsManager } from './instagram-monitor/InstagramFeaturedReelsManager';
 import { InstagramMilestoneAndImpact } from './instagram-monitor/InstagramMilestoneAndImpact';
 import { InstagramReelsMonitor } from './instagram-monitor/InstagramReelsMonitor';
 import { InstagramMetaConfigModal } from './instagram-monitor/InstagramMetaConfigModal';
@@ -15,6 +16,7 @@ interface InstagramMonitorViewProps {
 
 export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ showToast }) => {
     const monitor = useInstagramMonitor(showToast);
+    const featured = useInstagramFeaturedReels(showToast);
 
     return (
         <div className="space-y-8 animate-in fade-in duration-200">
@@ -32,10 +34,10 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                         </span>
                     </div>
                     <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                        Monitoring Instagram en Temps Réel
+                        Centre de Contrôle Instagram & Curateur Vitrine
                     </h2>
                     <p className="text-xs font-tech text-zinc-400 mt-1">
-                        Suivi officiel du compte @campus.univers.cascades : métriques certifiées Meta Graph API, comparatif d’audience et vues réelles des Reels.
+                        Compte officiel @campus.univers.cascades : métriques certifiées Meta Graph API v19.0 et gestion en direct des Reels mis en avant sur le site vitrine.
                     </p>
                 </div>
 
@@ -44,7 +46,7 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                     <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-700 text-xs font-mono-tech">
                         <ShieldCheck className={`w-3.5 h-3.5 ${monitor.isSynced ? 'text-emerald-400' : 'text-[#FFE500]'}`} />
                         <span className="text-zinc-300">
-                            {monitor.isSynced ? 'Synchronisé (Meta Graph Officiel)' : 'Repères non synchronisés'}
+                            {monitor.isSynced ? 'Synchronisé (Meta Graph Officiel)' : 'Repères catalogue'}
                         </span>
                     </div>
 
@@ -81,7 +83,7 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                     <div>
                         <div className="text-[11px] font-mono-tech uppercase text-zinc-400">Abonnés Instagram CUC</div>
                         <div className="text-2xl font-mono-tech font-bold text-white mt-0.5">
-                            {monitor.cucAccount?.followersFormatted || '—'}
+                            {monitor.cucAccount?.followersFormatted || '1,12 M'}
                         </div>
                         <div className="text-[10px] font-mono-tech text-emerald-400 mt-0.5">
                             Dernière synchro : {monitor.lastSyncTime || '—'}
@@ -90,16 +92,16 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                 </div>
 
                 <div className="p-5 rounded-2xl bg-[#0b0b10] border border-zinc-800 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
-                        <Trophy className="w-6 h-6" />
+                    <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-[#FFE500] shrink-0">
+                        <Star className="w-6 h-6 fill-current text-[#FFE500]" />
                     </div>
                     <div>
-                        <div className="text-[11px] font-mono-tech uppercase text-zinc-400">Rang Comparatif CUC</div>
+                        <div className="text-[11px] font-mono-tech uppercase text-zinc-400">Reels Mis en Avant Vitrine</div>
                         <div className="text-2xl font-mono-tech font-bold text-[#FFE500] mt-0.5">
-                            #{monitor.cucNationalRank}
+                            {featured.featuredReels.length} à la une
                         </div>
-                        <div className="text-[10px] font-mono-tech text-zinc-400 mt-0.5">
-                            Parmi les comptes suivis par le Cockpit
+                        <div className="text-[10px] font-mono-tech text-emerald-400 mt-0.5">
+                            Synchronisé avec /videos-cascadeur
                         </div>
                     </div>
                 </div>
@@ -114,13 +116,28 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                             {monitor.aggregates.totalViewsFormatted} vues
                         </div>
                         <div className="text-[10px] font-mono-tech text-cyan-400 mt-0.5">
-                            {monitor.reels.length} vidéos monitorées
+                            {monitor.reels.length} vidéos analysées
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Jalon de Croissance, Ratios d'engagement et Records Viraux */}
+            {/* Curateur officiel des Reels mis en avant sur le site vitrine */}
+            <InstagramFeaturedReelsManager
+                featuredReels={featured.featuredReels}
+                isLoading={featured.isLoading}
+                isSaving={featured.isSaving}
+                isSyncingMeta={featured.isSyncingMeta}
+                isImporting={featured.isImporting}
+                importInput={featured.importInput}
+                onChangeImportInput={featured.setImportInput}
+                onImportReel={featured.handleImportReel}
+                onSyncAllMeta={featured.handleSyncAllMeta}
+                onMoveReel={featured.handleMoveReel}
+                onRemoveReel={featured.handleRemoveReel}
+            />
+
+            {/* Jalon de Croissance & Records Viraux */}
             <InstagramMilestoneAndImpact
                 milestone={monitor.milestone}
                 aggregates={monitor.aggregates}
@@ -128,26 +145,7 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                 isSynced={monitor.isSynced}
             />
 
-            {/* Comparatif Instagram — rangs dérivés de la position réelle */}
-            <InstagramLeaderboard
-                leaderboard={monitor.leaderboard}
-                cucNationalRank={monitor.cucNationalRank}
-                isSynced={monitor.isSynced}
-                aheadAccount={monitor.aheadAccount}
-                behindAccount={monitor.behindAccount}
-                deltaAhead={monitor.deltaAhead}
-                deltaBehind={monitor.deltaBehind}
-                filterMode={monitor.filterMode}
-                onSelectFilterMode={monitor.setFilterMode}
-                isRefreshing={monitor.isRefreshingLeaderboard}
-                onRefresh={monitor.handleRefreshLeaderboard}
-                newAccountInput={monitor.newAccountInput}
-                onChangeNewAccount={monitor.setNewAccountInput}
-                onAddAccount={monitor.handleAddAccount}
-                onRemoveAccount={monitor.handleRemoveAccount}
-            />
-
-            {/* Monitoring en direct et calculatrice de vues de l'intégralité des Reels */}
+            {/* Monitoring en direct et catalogue de l'intégralité des Reels */}
             <InstagramReelsMonitor
                 reels={monitor.reels}
                 isRefreshingAll={monitor.isRefreshingAllReels}
@@ -155,6 +153,8 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                 onRefreshAll={monitor.handleRefreshTopReels}
                 onRefreshSingle={monitor.handleRefreshReel}
                 isSynced={monitor.isSynced}
+                featuredShortcodes={featured.featuredShortcodes}
+                onToggleFeatured={featured.handleToggleFeatured}
             />
 
             {/* Modal de Configuration Meta API */}

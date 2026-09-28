@@ -97,3 +97,9 @@ export interface InstagramMonitorSummary {
     milestone: InstagramGrowthMilestone;
     aggregates: InstagramReelsAggregates;
 }
+
+export interface FeaturedReelsSetting {
+    shortcodes: string[];
+    updatedAt: string;
+    items?: InstagramReelMetric[];
+}

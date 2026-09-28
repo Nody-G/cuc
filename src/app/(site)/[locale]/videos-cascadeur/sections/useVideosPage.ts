@@ -9,7 +9,7 @@ import {
     type InstagramReel,
     type ReelSortOption,
 } from '@/data/instagram-reels';
-import { getVideos } from '@/lib/data/site-service';
+import { getVideos, getFeaturedInstagramReels } from '@/lib/data/site-service';
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import {
@@ -116,6 +116,20 @@ export function useVideosPage(): UseVideosPageResult {
     // Synchronisation Realtime Cockpit → Vitrine (clé `videos` de site_settings).
     useRealtimeRefresh(['site_settings'], loadVideos);
 
+    const [featuredReels, setFeaturedReels] = React.useState<InstagramReel[]>(DEFAULT_FEATURED_REELS);
+
+    /** Recharge les Reels mis en avant (état initial + synchronisation Realtime). */
+    const loadFeaturedReels = React.useCallback(() => {
+        getFeaturedInstagramReels().then(setFeaturedReels);
+    }, []);
+
+    React.useEffect(() => {
+        loadFeaturedReels();
+    }, [loadFeaturedReels]);
+
+    // Synchronisation Realtime Cockpit → Vitrine (clé `instagram_featured_reels` de site_settings).
+    useRealtimeRefresh(['site_settings'], loadFeaturedReels);
+
     /**
      * Titres et sous-titres des programmes : les DONNÉES (`site_videos` /
      * `PROGRAMMES_TV`) fournissent `dmId` et l'image, la copie éditoriale vient du
@@ -172,12 +186,13 @@ export function useVideosPage(): UseVideosPageResult {
     const combinedReels = React.useMemo<InstagramReel[]>(() => {
         if (!isReelsVisible) return [];
         if (dynamicItems) return mergeReels(dynamicItems, []);
-        const featured = DEFAULT_FEATURED_REELS.map((reel, index) => {
+        const baseFeatured = featuredReels && featuredReels.length > 0 ? featuredReels : DEFAULT_FEATURED_REELS;
+        const featured = baseFeatured.map((reel, index) => {
             const copy = reelsCopy[index];
             return copy ? { ...reel, title: copy.title, description: copy.description } : reel;
         });
         return mergeReels(featured, ALL_INSTAGRAM_REELS);
-    }, [isReelsVisible, dynamicItems, reelsCopy]);
+    }, [isReelsVisible, dynamicItems, featuredReels, reelsCopy]);
 
     const sortedReels = React.useMemo(
         () => sortReels(combinedReels, reelsSortBy),

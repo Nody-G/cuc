@@ -16,6 +16,8 @@ interface InstagramReelsMonitorProps {
     onRefreshSingle: (shortcode: string, id: string) => void;
     /** Vrai quand la clé Meta Graph est active : sinon les vues sont des repères saisis. */
     isSynced: boolean;
+    featuredShortcodes?: Set<string>;
+    onToggleFeatured?: (reel: InstagramReelMetric) => void;
 }
 
 const PAGE_SIZE = 18;
@@ -27,6 +29,8 @@ export const InstagramReelsMonitor: React.FC<InstagramReelsMonitorProps> = ({
     onRefreshAll,
     onRefreshSingle,
     isSynced,
+    featuredShortcodes,
+    onToggleFeatured,
 }) => {
     const [search, setSearch] = React.useState('');
     const [selectedCategory, setSelectedCategory] = React.useState('all');
@@ -140,6 +144,8 @@ export const InstagramReelsMonitor: React.FC<InstagramReelsMonitorProps> = ({
                             reel={reel}
                             isRefreshing={refreshingReelId === reel.id}
                             onRefresh={() => onRefreshSingle(reel.shortcode, reel.id)}
+                            isFeatured={featuredShortcodes?.has(reel.shortcode)}
+                            onToggleFeatured={onToggleFeatured ? () => onToggleFeatured(reel) : undefined}
                         />
                     ))}
                 </div>

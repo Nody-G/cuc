@@ -2,13 +2,15 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Eye, ThumbsUp, RefreshCw, ExternalLink } from 'lucide-react';
+import { Eye, ThumbsUp, RefreshCw, ExternalLink, Star } from 'lucide-react';
 import type { InstagramReelMetric } from '@/types/instagram-monitor';
 
 interface InstagramReelCardProps {
     reel: InstagramReelMetric;
     isRefreshing: boolean;
     onRefresh: () => void;
+    isFeatured?: boolean;
+    onToggleFeatured?: () => void;
 }
 
 const CATEGORY_LABELS: Record<string, { label: string; icon: string }> = {
@@ -25,6 +27,8 @@ export const InstagramReelCard: React.FC<InstagramReelCardProps> = ({
     reel,
     isRefreshing,
     onRefresh,
+    isFeatured,
+    onToggleFeatured,
 }) => {
     const isMegaViral = (reel.views || 0) >= 10000000;
     const isViral = (reel.views || 0) >= 1000000 && !isMegaViral;
@@ -33,7 +37,9 @@ export const InstagramReelCard: React.FC<InstagramReelCardProps> = ({
     return (
         <div
             className={`p-3 rounded-xl border flex gap-3 items-center bg-[#101017] transition-all duration-200 group hover:bg-[#14141e] ${
-                isMegaViral
+                isFeatured
+                    ? 'border-[#FFE500]/60 shadow-[0_0_15px_rgba(255,229,0,0.12)]'
+                    : isMegaViral
                     ? 'border-yellow-500/50 shadow-[0_0_15px_rgba(255,229,0,0.08)] hover:border-yellow-400'
                     : isViral
                     ? 'border-zinc-700/80 hover:border-zinc-600'
@@ -69,13 +75,19 @@ export const InstagramReelCard: React.FC<InstagramReelCardProps> = ({
                         {categoryInfo.icon} {categoryInfo.label}
                     </span>
 
-                    {isMegaViral && (
+                    {isFeatured && (
+                        <span className="px-1.5 py-0.2 rounded bg-[#FFE500] text-black text-[9px] font-mono-tech font-bold uppercase shadow-sm">
+                            ★ En Vitrine
+                        </span>
+                    )}
+
+                    {isMegaViral && !isFeatured && (
                         <span className="px-1.5 py-0.2 rounded bg-[#FFE500] text-black text-[9px] font-mono-tech font-bold uppercase shadow-sm">
                             🔥 Méga Hit
                         </span>
                     )}
 
-                    {isViral && (
+                    {isViral && !isFeatured && (
                         <span className="px-1.5 py-0.2 rounded bg-amber-400/20 text-amber-300 border border-amber-500/30 text-[9px] font-mono-tech uppercase">
                             ⚡ 1M+
                         </span>
@@ -113,6 +125,21 @@ export const InstagramReelCard: React.FC<InstagramReelCardProps> = ({
 
             {/* Actions */}
             <div className="flex flex-col items-center gap-1.5 shrink-0">
+                {onToggleFeatured && (
+                    <button
+                        type="button"
+                        onClick={onToggleFeatured}
+                        className={`p-2 rounded-lg transition-colors cursor-pointer ${
+                            isFeatured
+                                ? 'bg-[#FFE500] text-black hover:bg-yellow-400 font-bold'
+                                : 'bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-[#FFE500]'
+                        }`}
+                        title={isFeatured ? 'Retirer de la vitrine' : 'Mettre en avant sur la vitrine'}
+                    >
+                        <Star className={`w-3.5 h-3.5 ${isFeatured ? 'fill-current' : ''}`} />
+                    </button>
+                )}
+
                 <button
                     type="button"
                     onClick={onRefresh}
