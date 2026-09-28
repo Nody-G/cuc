@@ -4,7 +4,6 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import { PROGRAMMES_TV } from '@/data/videos';
 import {
-    ALL_INSTAGRAM_REELS,
     DEFAULT_FEATURED_REELS,
     type InstagramReel,
     type ReelSortOption,

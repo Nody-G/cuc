@@ -6,7 +6,7 @@
 
 import type { SitePageContent } from '@/lib/data/site-service';
 import type { InstagramReel } from '@/app/(site)/[locale]/videos-cascadeur/sections/instagram-reels.data';
-import { ALL_INSTAGRAM_REELS } from '@/app/(site)/[locale]/videos-cascadeur/sections/instagram-reels.data';
+import { DEFAULT_FEATURED_REELS } from '@/app/(site)/[locale]/videos-cascadeur/sections/instagram-reels.data';
 
 /** Titre par défaut proposé tant que le Cockpit n'a rien écrit. */
 export const DEFAULT_REELS_TITLE = "SESSIONS D'ACTION EN FORMAT COURT";
@@ -29,11 +29,11 @@ export function readReelsSection(formData: SitePageContent): {
     return formData.sections_data?.reels || {};
 }
 
-/** Liste éditée : les items de la page priment, sinon le catalogue embarqué. */
+/** Liste éditée : les items de la page priment, sinon la sélection officielle. */
 export function readReelsList(formData: SitePageContent): InstagramReel[] {
     const section = readReelsSection(formData);
 
-    return Array.isArray(section.items) ? section.items : ALL_INSTAGRAM_REELS;
+    return Array.isArray(section.items) ? section.items : DEFAULT_FEATURED_REELS;
 }
 
 /** Reel créé depuis un import Instagram réussi (id horodaté, mis en avant). */

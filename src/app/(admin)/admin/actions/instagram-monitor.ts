@@ -140,35 +140,6 @@ export async function refreshAccountAction(
     }
 }
 
-/**
- * Rafraîchit un lot de comptes pour le classement comparatif.
- */
-export async function refreshLeaderboardBatchAction(
-    usernames: string[],
-    metaConfig?: InstagramMetaApiConfig
-): Promise<{ success: boolean; results: InstagramAccountStat[] }> {
-    let activeConfig = metaConfig;
-    if (!activeConfig?.accessToken) {
-        const loaded = await getInstagramMetaConfigAction();
-        if (loaded.config.enabled && loaded.config.accessToken) {
-            activeConfig = loaded.config;
-        }
-    }
-
-    const results: InstagramAccountStat[] = [];
-
-    for (const u of usernames) {
-        const stat = await getInstagramProfile(u, activeConfig, false);
-        if (stat) {
-            results.push(stat);
-        }
-    }
-
-    // Trie par nombre d'abonnés décroissant
-    results.sort((a, b) => b.followersCount - a.followersCount);
-
-    return { success: true, results };
-}
 
 /**
  * Rafraîchit les métriques d'un Reel (vues certifiées et likes).
