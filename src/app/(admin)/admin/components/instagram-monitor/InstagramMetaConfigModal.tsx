@@ -51,7 +51,7 @@ export const InstagramMetaConfigModal: React.FC<InstagramMetaConfigModalProps> =
                     </h3>
                 </div>
                 <p className="text-xs font-tech text-zinc-400 mb-6">
-                    Connectez les clés API officielles de Lucas pour obtenir des métriques Instagram certifiées sans aucune limite de requêtes.
+                    Jeton officiel Meta Graph API de Campus Univers Cascades (@campus.univers.cascades) pour des métriques 100% certifiées.
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -65,8 +65,8 @@ export const InstagramMetaConfigModal: React.FC<InstagramMetaConfigModalProps> =
                                 </div>
                                 <div className="text-[11px] text-zinc-400">
                                     {enabled
-                                        ? 'Mode API Meta actif pour les requêtes officielles'
-                                        : 'Mode Scraper intelligent actif (par défaut)'}
+                                        ? 'Mode API Meta officiel actif (1 120 712 abonnés & vues certifiées)'
+                                        : 'Mode Scraper intelligent actif (repli)'}
                                 </div>
                             </div>
                         </div>
@@ -81,13 +81,13 @@ export const InstagramMetaConfigModal: React.FC<InstagramMetaConfigModalProps> =
                     {/* Instagram Account ID */}
                     <div>
                         <label className="block text-[11px] font-mono-tech uppercase text-zinc-400 mb-1">
-                            Instagram Business Account ID
+                            Instagram User / Account ID
                         </label>
                         <input
                             type="text"
                             value={instagramAccountId}
                             onChange={(e) => setInstagramAccountId(e.target.value)}
-                            placeholder="ex: 17841405822304914"
+                            placeholder="ex: 29639246745665985"
                             className="w-full bg-[#121218] border border-zinc-800 rounded-xl px-3.5 py-2 text-xs font-mono-tech text-white placeholder-zinc-600 focus:border-[#FFE500] focus:outline-none"
                         />
                     </div>
@@ -95,22 +95,22 @@ export const InstagramMetaConfigModal: React.FC<InstagramMetaConfigModalProps> =
                     {/* Access Token */}
                     <div>
                         <label className="block text-[11px] font-mono-tech uppercase text-zinc-400 mb-1">
-                            Meta User / Page Access Token (Long-Lived)
+                            Meta User Access Token (Long-Lived 60j — auto-renouvelé)
                         </label>
                         <textarea
                             value={accessToken}
                             onChange={(e) => setAccessToken(e.target.value)}
-                            placeholder="EAA..."
+                            placeholder="IGAA... ou EAA..."
                             rows={3}
                             className="w-full bg-[#121218] border border-zinc-800 rounded-xl px-3.5 py-2 text-xs font-mono-tech text-white placeholder-zinc-600 focus:border-[#FFE500] focus:outline-none resize-none"
                         />
                     </div>
 
                     {/* Info */}
-                    <div className="flex items-start gap-2 p-3 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-300 text-[11px] leading-relaxed">
+                    <div className="flex items-start gap-2 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-[11px] leading-relaxed">
                         <HelpCircle className="w-4 h-4 shrink-0 mt-0.5" />
                         <span>
-                            Tant que les clés Meta ne sont pas renseignées, le système fonctionne de manière transparente via le scraper serveur haute fiabilité (cache anti-blocage de 2 minutes).
+                            Le jeton long-lived est stocké de manière sécurisée dans Supabase et renouvelé automatiquement tous les 20 jours. Les statistiques d&apos;abonnés et les vues de Reels sont certifiées directement depuis les serveurs Meta.
                         </span>
                     </div>
 

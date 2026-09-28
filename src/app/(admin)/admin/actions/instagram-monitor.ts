@@ -2,6 +2,8 @@
 
 import { revalidatePath } from 'next/cache';
 import { getInstagramProfile, getReelLiveMetrics } from '@/lib/instagram/instagram-service';
+import { isTokenRefreshDue, refreshInstagramToken } from '@/lib/instagram/instagram-token-refresh';
+import { getOfficialReelMetrics } from '@/lib/instagram/instagram-reel-meta';
 import { createAdminClient } from '@/lib/supabase/admin';
 import type {
     InstagramAccountStat,
@@ -10,7 +12,7 @@ import type {
 
 /**
  * Récupère la configuration Meta Graph API stockée dans Supabase (site_settings),
- * avec repli automatique sur les variables d'environnement.
+ * avec auto-renouvellement transparent si le jeton long-lived a plus de 20 jours.
  */
 export async function getInstagramMetaConfigAction(): Promise<{
     success: boolean;
@@ -26,7 +28,7 @@ export async function getInstagramMetaConfigAction(): Promise<{
         const adminClient = createAdminClient();
         const { data, error } = await adminClient
             .from('site_settings')
-            .select('value')
+            .select('value, updated_at')
             .eq('key', 'instagram_meta_config')
             .maybeSingle();
 
@@ -35,11 +37,28 @@ export async function getInstagramMetaConfigAction(): Promise<{
         }
 
         const saved = data.value as InstagramMetaApiConfig;
+        let activeToken = saved.accessToken || fallback.accessToken || '';
+
+        // Auto-renouvellement perpétuel : prolonge de 60 jours supplémentaires si le jeton > 20 jours
+        if (activeToken.startsWith('IG') && isTokenRefreshDue(data.updated_at)) {
+            const refreshRes = await refreshInstagramToken(activeToken);
+            if (refreshRes.success && refreshRes.accessToken) {
+                activeToken = refreshRes.accessToken;
+                await adminClient
+                    .from('site_settings')
+                    .update({
+                        value: { ...saved, accessToken: activeToken },
+                        updated_at: new Date().toISOString(),
+                    })
+                    .eq('key', 'instagram_meta_config');
+            }
+        }
+
         return {
             success: true,
             config: {
                 enabled: saved.enabled ?? fallback.enabled,
-                accessToken: saved.accessToken || fallback.accessToken,
+                accessToken: activeToken,
                 instagramAccountId: saved.instagramAccountId || fallback.instagramAccountId,
                 appId: saved.appId || fallback.appId,
                 appSecret: saved.appSecret || fallback.appSecret,
@@ -148,13 +167,43 @@ export async function refreshLeaderboardBatchAction(
 }
 
 /**
- * Rafraîchit les mentions publiques d'un Reel (likes).
- * Les vues ne sont pas exposées par Instagram hors API Meta Graph.
+ * Rafraîchit les métriques d'un Reel (vues certifiées et likes).
+ * Utilise la Meta Graph API officielle en priorité, avec repli sur le scraper public.
  */
 export async function refreshReelLiveMetricsAction(
-    shortcode: string
-): Promise<{ success: boolean; data?: { likes?: string }; error?: string }> {
+    shortcode: string,
+    metaConfig?: InstagramMetaApiConfig
+): Promise<{
+    success: boolean;
+    data?: { likes?: string; views?: number; viewsFormatted?: string };
+    error?: string;
+}> {
     try {
+        let activeConfig = metaConfig;
+        if (!activeConfig?.accessToken) {
+            const loaded = await getInstagramMetaConfigAction();
+            if (loaded.config.enabled && loaded.config.accessToken) {
+                activeConfig = loaded.config;
+            }
+        }
+
+        // Si le jeton Meta Graph officiel est présent, interroger l'API Insights certifiée
+        if (activeConfig?.enabled && activeConfig.accessToken) {
+            const official = await getOfficialReelMetrics(shortcode, activeConfig.accessToken);
+            if (official) {
+                revalidatePath('/[locale]/videos-cascadeur');
+                return {
+                    success: true,
+                    data: {
+                        likes: official.likes,
+                        views: official.views,
+                        viewsFormatted: official.viewsFormatted,
+                    },
+                };
+            }
+        }
+
+        // Repli sur le scraper public (likes uniquement)
         const data = await getReelLiveMetrics(shortcode, true);
         if (!data) {
             return { success: false, error: 'Reel introuvable ou métadonnées non accessibles.' };
@@ -165,3 +214,4 @@ export async function refreshReelLiveMetricsAction(
         return { success: false, error: err instanceof Error ? err.message : 'Erreur inconnue.' };
     }
 }
+

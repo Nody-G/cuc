@@ -2,9 +2,8 @@
  * Service de récupération des métriques Instagram temps réel.
  * Couche « Domaine & Services » (AGENTS.md § 1).
  *
- * Utilise le scraper serveur haute fiabilité (User-Agent officiel facebookexternalhit)
- * avec cache anti-blocage (SWR 2 minutes).
- * Bascule automatiquement sur la Meta Graph API officielle dès que le token de Lucas est configuré.
+ * Utilise la Meta Graph API officielle de Campus Univers Cascades (@campus.univers.cascades)
+ * avec cache anti-blocage (SWR 2 minutes) et repli transparent en cas d'incident réseau.
  */
 
 import type {

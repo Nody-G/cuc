@@ -192,6 +192,18 @@ async function discoverShortcodes() {
 // Mode 3 — Meta Graph API (exhaustif)
 // ---------------------------------------------------------------------------
 
+function formatMetricCount(count) {
+    if (count >= 1000000) {
+        const val = (count / 1000000).toFixed(1).replace('.', ',');
+        return `${val.endsWith(',0') ? val.slice(0, -2) : val} M`;
+    }
+    if (count >= 1000) {
+        const val = (count / 1000).toFixed(count >= 100000 ? 0 : 1).replace('.', ',');
+        return `${val.endsWith(',0') ? val.slice(0, -2) : val} k`;
+    }
+    return count.toLocaleString('fr-FR');
+}
+
 async function harvestWithGraph(token, igUserId) {
     const fields = 'id,caption,media_type,media_product_type,permalink,thumbnail_url,media_url,timestamp,like_count,comments_count';
     const host = token.startsWith('IG') ? 'https://graph.instagram.com' : 'https://graph.facebook.com';
@@ -208,13 +220,36 @@ async function harvestWithGraph(token, igUserId) {
             if (item.media_product_type !== 'REELS' && item.media_type !== 'VIDEO') continue;
             const shortcode = shortcodeFromPermalink(item.permalink);
             if (!shortcode) continue;
+
+            let views = 0;
+            let viewsFormatted = '';
+            let likes = item.like_count != null ? formatMetricCount(item.like_count) : undefined;
+
+            try {
+                const insRes = await fetch(`${host}/v19.0/${item.id}/insights?metric=views,likes&access_token=${token}`);
+                if (insRes.ok) {
+                    const insJson = await insRes.json();
+                    const metrics = Object.fromEntries((insJson.data || []).map((m) => [m.name, m.values?.[0]?.value]));
+                    if (typeof metrics.views === 'number') {
+                        views = metrics.views;
+                        viewsFormatted = formatMetricCount(views);
+                    }
+                    if (typeof metrics.likes === 'number') {
+                        likes = formatMetricCount(metrics.likes);
+                    }
+                }
+            } catch {
+                // Ignore l'erreur d'insights sur un média particulier
+            }
+
             out.push({
                 shortcode,
                 title: (item.caption || '').split('\n')[0].slice(0, 120) || `Reel ${shortcode}`,
                 caption: item.caption || '',
                 date: item.timestamp ? item.timestamp.slice(0, 10) : undefined,
-                likes: item.like_count != null ? String(item.like_count) : undefined,
-                views: 0,
+                likes,
+                views,
+                viewsFormatted,
                 ogImage: item.thumbnail_url || item.media_url || '',
             });
         }

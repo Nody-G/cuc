@@ -35,7 +35,7 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                         Monitoring Instagram en Temps Réel
                     </h2>
                     <p className="text-xs font-tech text-zinc-400 mt-1">
-                        Suivi du compte @campus.univers.cascades : comparatif d’audience avec des repères publics, cumul des vues des Reels répertoriés.
+                        Suivi officiel du compte @campus.univers.cascades : métriques certifiées Meta Graph API, comparatif d’audience et vues réelles des Reels.
                     </p>
                 </div>
 
@@ -44,7 +44,7 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                     <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-700 text-xs font-mono-tech">
                         <ShieldCheck className={`w-3.5 h-3.5 ${monitor.isSynced ? 'text-emerald-400' : 'text-[#FFE500]'}`} />
                         <span className="text-zinc-300">
-                            {monitor.isSynced ? 'Synchronisé (Meta Graph)' : 'Repères non synchronisés'}
+                            {monitor.isSynced ? 'Synchronisé (Meta Graph Officiel)' : 'Repères non synchronisés'}
                         </span>
                     </div>
 
@@ -53,10 +53,10 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                         type="button"
                         onClick={() => monitor.setIsMetaModalOpen(true)}
                         className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#14141e] hover:bg-zinc-800 border border-zinc-700 hover:border-[#FFE500] text-xs font-mono-tech uppercase text-zinc-200 hover:text-white transition-all cursor-pointer"
-                        title="Configurer les clés Meta API de Lucas"
+                        title="Configurer l'accès Meta Graph API de Campus Univers Cascades"
                     >
                         <Key className="w-3.5 h-3.5 text-[#FFE500]" />
-                        <span>Clés Meta API</span>
+                        <span>Clé Meta API</span>
                     </button>
 
                     {/* Bouton Actualisation CUC */}

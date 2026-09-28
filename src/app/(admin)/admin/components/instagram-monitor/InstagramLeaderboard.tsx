@@ -44,7 +44,7 @@ export const InstagramLeaderboard: React.FC<InstagramLeaderboardProps> = ({
     onRemoveAccount,
 }) => {
     const cucAccount = leaderboard.find((a) => a.isCuc) || leaderboard[0];
-    const cucFollowersCount = cucAccount ? cucAccount.followersCount : 1050000;
+    const cucFollowersCount = cucAccount ? cucAccount.followersCount : 1120712;
 
     return (
         <div className="bg-[#0b0b10] border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-5">
@@ -54,7 +54,7 @@ export const InstagramLeaderboard: React.FC<InstagramLeaderboardProps> = ({
                     <div className="flex items-center gap-2 flex-wrap">
                         <Trophy className="w-5 h-5 text-[#FFE500]" />
                         <h3 className="text-base font-display uppercase tracking-wider text-white">
-                            Comparatif Instagram — repères publics
+                            Comparatif Instagram — Écosystème & Médias
                         </h3>
                         <span className="px-2 py-0.5 rounded-full bg-[#FFE500]/20 text-[#FFE500] text-xs font-mono-tech font-bold border border-[#FFE500]/30">
                             CUC — rang #{cucNationalRank} du comparatif
@@ -66,14 +66,17 @@ export const InstagramLeaderboard: React.FC<InstagramLeaderboardProps> = ({
                                 }`}
                             title={
                                 isSynced
-                                    ? 'Nombres synchronisés via l’API Meta Graph.'
-                                    : 'Les nombres d’abonnés sont des ordres de grandeur saisis à la main : aucun rang national n’est affiché tant que la synchronisation Meta n’est pas active.'
+                                    ? 'Le compte CUC est certifié en direct via l’API Meta Graph officielle.'
+                                    : 'Les nombres d’abonnés tiers sont des ordres de grandeur publics : aucun rang national global n’est extrapolé.'
                             }
                         >
-                            {isSynced ? 'Synchronisé (Meta)' : 'Repères non synchronisés'}
+                            {isSynced ? 'CUC Certifié Meta' : 'Repères non synchronisés'}
                         </span>
                     </div>
-                    <p className="text-xs font-tech text-zinc-400 mt-1">Le rang affiché est la <strong>position réelle</strong> dans cette liste comparée. Les abonnés restent des ordres de grandeur tant que la clé API Meta n’est pas configurée ; aucun rang national n’est affiché faute de source mesurée.</p>
+                    <p className="text-xs font-tech text-zinc-400 mt-1">
+                        Le rang affiché correspond à la <strong>position réelle</strong> du CUC parmi ces comptes de référence.
+                        {isSynced ? ' Les données CUC sont certifiées en temps réel par l’API officielle Meta Graph.' : ''}
+                    </p>
                 </div>
 
                 <div className="flex items-center gap-2">

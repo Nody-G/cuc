@@ -18,15 +18,17 @@ export function useInstagramReels(showToast: (msg: string) => void) {
 
     const aggregates = React.useMemo(() => calculateReelsAggregates(reels), [reels]);
 
-    /** Applique les métriques fraîches à un Reel : les valeurs absentes restent. */
+    /** Applique les métriques fraîches à un Reel (vues réelles et likes). */
     const applyReelMetrics = React.useCallback(
-        (reelId: string, likes: InstagramReelMetric['likes']) => {
+        (reelId: string, data: { likes?: string; views?: number; viewsFormatted?: string }) => {
             setReels((prev) =>
                 prev.map((item) =>
                     item.id === reelId
                         ? {
                             ...item,
-                            likes: likes || item.likes,
+                            likes: data.likes || item.likes,
+                            views: typeof data.views === 'number' ? data.views : item.views,
+                            viewsFormatted: data.viewsFormatted || item.viewsFormatted,
                             lastUpdated: new Date().toISOString(),
                         }
                         : item
@@ -42,8 +44,9 @@ export function useInstagramReels(showToast: (msg: string) => void) {
         const res = await refreshReelLiveMetricsAction(shortcode);
         setRefreshingReelId(null);
         if (res.success && res.data) {
-            applyReelMetrics(id, res.data.likes);
-            showToast(`Métriques du Reel #${shortcode} actualisées !`);
+            applyReelMetrics(id, res.data);
+            const viewsMsg = res.data.viewsFormatted ? ` (${res.data.viewsFormatted} vues)` : '';
+            showToast(`Métriques du Reel #${shortcode} actualisées${viewsMsg} !`);
         } else {
             showToast(res.error || `Erreur d'actualisation du Reel #${shortcode}`);
         }
@@ -58,11 +61,11 @@ export function useInstagramReels(showToast: (msg: string) => void) {
             const res = await refreshReelLiveMetricsAction(reel.shortcode);
             if (res.success && res.data) {
                 updatedCount++;
-                applyReelMetrics(reel.id, res.data.likes);
+                applyReelMetrics(reel.id, res.data);
             }
         }
         setIsRefreshingAllReels(false);
-        showToast(`${updatedCount} Reels phares actualisés en direct !`);
+        showToast(`${updatedCount} Reels phares actualisés en direct (Meta API) !`);
     };
 
     return {
