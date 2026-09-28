@@ -179,8 +179,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "category": "Film",
     "stuntRoles": "",
     "doubledActors": [
-      "François Civil (doublé par Bastien Trouvé)",
-      "Adèle Exarchopoulos (Cascades Action)"
+      "François Civil (doublé par Bastien Trouvé)"
     ],
     "highlight": true,
     "image": "https://m.media-amazon.com/images/M/MV5BNjY0NGU4NDMtYWI2ZS00NDE2LWE5MzUtM2UyODUyNmFmN2ZhXkEyXkFqcGc@._V1_.jpg",
