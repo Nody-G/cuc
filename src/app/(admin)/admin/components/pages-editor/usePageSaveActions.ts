@@ -11,7 +11,7 @@ import {
     upsertPageContent,
 } from '@/app/(admin)/admin/actions';
 import type { UseEntityTranslationResult } from '@/lib/hooks/useEntityTranslation';
-import type { EditorLocaleOption } from '@/app/(admin)/admin/components/ui/LocaleToggle';
+import type { EditorLocaleOption } from '../ui';
 
 export interface UsePageSaveActionsArgs {
     formData: SitePageContent;

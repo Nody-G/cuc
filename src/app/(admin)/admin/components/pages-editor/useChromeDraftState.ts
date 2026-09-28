@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import type { EditorLocaleOption } from '@/app/(admin)/admin/components/ui/LocaleToggle';
+import type { EditorLocaleOption } from '../ui';
 import { useChromeDraftPersistence } from './useChromeDraftPersistence';
 
 export interface ChromeDraftState {

@@ -9,7 +9,7 @@ import {
     writeDraftSnapshot,
 } from '@/lib/preview/draft-storage';
 import type { SitePageContent } from '@/lib/data/site-service';
-import type { EditorLocaleOption } from '@/app/(admin)/admin/components/ui/LocaleToggle';
+import type { EditorLocaleOption } from '../ui';
 
 export interface UseDraftPersistenceArgs {
     slug: string;

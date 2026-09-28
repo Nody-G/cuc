@@ -1,7 +1,7 @@
 'use client';
 
 import { normalizeSlug, type SitePageContent } from '@/lib/data/site-service';
-import type { EditorLocaleOption } from '@/app/(admin)/admin/components/ui/LocaleToggle';
+import type { EditorLocaleOption } from '../ui';
 import { composePageDraft } from './page-draft';
 
 export interface UseEditorNavigationArgs {

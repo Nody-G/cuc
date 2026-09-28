@@ -3,7 +3,7 @@
 import type { Dispatch, SetStateAction } from 'react';
 import type { SitePageContent } from '@/lib/data/site-service';
 import { setFieldValue } from '@/lib/preview/field-path';
-import type { EditorLocaleOption } from '@/app/(admin)/admin/components/ui/LocaleToggle';
+import type { EditorLocaleOption } from '../ui';
 
 export interface UsePreviewMediaPickerArgs {
     editorLocale: EditorLocaleOption;

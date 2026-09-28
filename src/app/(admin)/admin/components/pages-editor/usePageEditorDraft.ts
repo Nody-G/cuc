@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { DEFAULT_PAGE_CONTENTS, normalizeSlug, type SitePageContent } from '@/lib/data/site-service';
 import { useEntityTranslation } from '@/lib/hooks/useEntityTranslation';
-import type { EditorLocaleOption } from '@/app/(admin)/admin/components/ui/LocaleToggle';
+import type { EditorLocaleOption } from '../ui';
 import { collectDraftChanges, revertDraftField } from '@/lib/preview/draft-diff';
 import { setFieldValue } from '@/lib/preview/field-path';
 import { applyListCommand, type ListCommand } from '@/lib/preview/list-command';

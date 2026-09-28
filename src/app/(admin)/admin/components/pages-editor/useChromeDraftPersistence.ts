@@ -9,7 +9,7 @@ import {
     writeChromeDraftSnapshot,
     type ChromeDraftSnapshot,
 } from '@/lib/preview/chrome-draft-storage';
-import type { EditorLocaleOption } from '@/app/(admin)/admin/components/ui/LocaleToggle';
+import type { EditorLocaleOption } from '../ui';
 
 export interface UseChromeDraftPersistenceArgs {
     locale: EditorLocaleOption;
