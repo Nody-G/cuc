@@ -107,10 +107,12 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
       <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
         {/* Barre Supérieure du Cockpit */}
         <CockpitTopbar
+          activeTab={activeTab}
           onOpenMobileNav={() => setIsMobileNavOpen(true)}
           onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
           onOpenHealth={() => setIsHealthModalOpen(true)}
           onOpenBackup={() => setIsBackupModalOpen(true)}
+          onOpenShortcutsHelp={() => setIsShortcutsHelpOpen(true)}
           theme={theme}
           onToggleTheme={toggleTheme}
         />

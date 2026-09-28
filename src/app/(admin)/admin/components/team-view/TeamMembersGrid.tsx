@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
-import { Plus, Edit2, Trash2, ExternalLink, Film, Shield } from 'lucide-react';
+import { Plus, Edit2, Trash2, ExternalLink, Film, Search, Shield, Users, X } from 'lucide-react';
 import { InstagramLogo, ImdbLogo } from '@/components/ui/BrandLogos';
 import type { Instructor, FilmCredit, Discipline } from '@/types';
 import { CockpitLoadMore, useProgressiveList } from '../ui';
@@ -19,9 +19,9 @@ export interface TeamMembersGridProps {
 }
 
 /**
- * Cockpit — grille des formateurs (barre d'outils + cartes + pagination).
+ * Cockpit — grille des formateurs (barre d'outils + recherche + cartes + pagination).
  *
- * Composant de présentation : il ne détient que l'état de pagination locale
+ * Composant de présentation : il ne détient que l'état de filtre et de pagination locale
  * (`useProgressiveList`) ; toute écriture remonte via `onAdd`/`onEdit`/`onDelete`.
  */
 export const TeamMembersGrid: React.FC<TeamMembersGridProps> = ({
@@ -32,30 +32,86 @@ export const TeamMembersGrid: React.FC<TeamMembersGridProps> = ({
     onEdit,
     onDelete,
 }) => {
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const filteredTeam = useMemo(() => {
+        if (!searchTerm.trim()) return team;
+        const q = searchTerm.toLowerCase();
+        return team.filter((m) =>
+            m.name.toLowerCase().includes(q) ||
+            m.role?.toLowerCase().includes(q) ||
+            m.title?.toLowerCase().includes(q) ||
+            m.specialties?.some((s) => s.toLowerCase().includes(q))
+        );
+    }, [team, searchTerm]);
+
     const {
         visibleItems: visibleTeam,
         visibleCount: visibleTeamCount,
         total: totalTeam,
         loadMore: loadMoreTeam,
-    } = useProgressiveList(team, {
+    } = useProgressiveList(filteredTeam, {
         step: 24,
         initial: 24,
     });
 
     return (
         <>
-            <div className="flex justify-between items-center">
-                <div className="text-xs font-mono text-gray-400">{team.length} FORMATEURS</div>
-                <button
-                    onClick={onAdd}
-                    className="px-4 py-2 rounded-lg bg-[#FFE500] text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 hover:bg-[#ffe600e6]"
-                >
-                    <Plus className="w-4 h-4" />
-                    Ajouter un formateur
-                </button>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#0D0D12] p-3 rounded-xl border border-white/10">
+                <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono text-gray-400">
+                        {filteredTeam.length} / {team.length} FORMATEURS
+                    </span>
+                    {searchTerm && (
+                        <span className="text-[10px] font-mono text-[#FFE500] bg-[#FFE500]/10 px-2 py-0.5 rounded-full border border-[#FFE500]/20">
+                            Filtre actif
+                        </span>
+                    )}
+                </div>
+
+                <div className="flex items-center gap-2">
+                    <div className="relative w-full sm:w-64">
+                        <Search className="w-3.5 h-3.5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="Rechercher par nom, spécialité..."
+                            className="w-full bg-[#14141c] border border-white/10 rounded-lg pl-8 pr-7 py-1.5 text-xs text-white placeholder-gray-500 focus:border-[#FFE500] focus:outline-hidden"
+                        />
+                        {searchTerm && (
+                            <button
+                                type="button"
+                                onClick={() => setSearchTerm('')}
+                                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                                aria-label="Effacer la recherche"
+                            >
+                                <X className="w-3.5 h-3.5" />
+                            </button>
+                        )}
+                    </div>
+
+                    <button
+                        type="button"
+                        onClick={onAdd}
+                        className="px-3.5 py-1.5 rounded-lg bg-[#FFE500] text-black text-xs font-black uppercase tracking-wider flex items-center gap-1.5 hover:bg-[#ffe600e6] shrink-0 cursor-pointer"
+                    >
+                        <Plus className="w-4 h-4" />
+                        <span className="hidden sm:inline">Nouveau formateur</span>
+                        <span className="sm:hidden">Ajouter</span>
+                    </button>
+                </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredTeam.length === 0 ? (
+                <div className="p-12 text-center text-gray-400 space-y-2 bg-[#0D0D12] border border-white/10 rounded-xl">
+                    <Users className="w-8 h-8 mx-auto text-gray-600" />
+                    <p className="text-sm font-semibold text-white">Aucun formateur trouvé pour "{searchTerm}"</p>
+                    <p className="text-xs text-gray-500">Essayez un autre nom ou une spécialité (ex: Parkour, Combat, Cascadeur...)</p>
+                </div>
+            ) : (
+                <>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {visibleTeam.map((member) => (
                     <div
                         key={member.id}
@@ -226,12 +282,14 @@ export const TeamMembersGrid: React.FC<TeamMembersGridProps> = ({
                 ))}
             </div>
 
-            <CockpitLoadMore
-                visibleCount={visibleTeamCount}
-                total={totalTeam}
-                onLoadMore={loadMoreTeam}
-                label="Afficher plus de formateurs"
-            />
+                    <CockpitLoadMore
+                        visibleCount={visibleTeamCount}
+                        total={totalTeam}
+                        onLoadMore={loadMoreTeam}
+                        label="Afficher plus de formateurs"
+                    />
+                </>
+            )}
         </>
     );
 };

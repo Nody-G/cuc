@@ -53,6 +53,7 @@ export function useCockpitShortcuts({
             'sessions',
             'team',
             'films',
+            'instagram',
         ];
 
         const isTypingTarget = (target: EventTarget | null): boolean => {

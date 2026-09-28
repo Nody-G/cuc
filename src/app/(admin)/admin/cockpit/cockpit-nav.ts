@@ -244,3 +244,41 @@ export function buildNavSections({
         },
     ];
 }
+
+export interface TabMetadata {
+    label: string;
+    sectionTitle: string;
+    icon: LucideIcon;
+}
+
+const TAB_METADATA_MAP: Record<TabType, TabMetadata> = {
+    dashboard: { label: 'Tableau de Bord', sectionTitle: 'Pilotage', icon: LayoutDashboard },
+    inquiries: { label: 'Candidatures & Contacts', sectionTitle: 'Pilotage', icon: Inbox },
+    sessions: { label: 'Sessions & Calendrier', sectionTitle: 'Pilotage', icon: Calendar },
+    pages: { label: 'Éditeur Mode Studio', sectionTitle: 'Campus & Contenus', icon: FileText },
+    films: { label: 'Filmographie Cascades', sectionTitle: 'Campus & Contenus', icon: Film },
+    team: { label: 'Équipe & Coachs', sectionTitle: 'Campus & Contenus', icon: Users },
+    campus: { label: 'Campus & Installations', sectionTitle: 'Campus & Contenus', icon: Boxes },
+    'campus-3d': { label: 'Campus & Installations', sectionTitle: 'Campus & Contenus', icon: Boxes },
+    disciplines: { label: 'Disciplines & Modules', sectionTitle: 'Campus & Contenus', icon: Shield },
+    events: { label: 'Agence & Events B2B', sectionTitle: 'Campus & Contenus', icon: Briefcase },
+    partners: { label: 'Partenaires & Marques', sectionTitle: 'Campus & Contenus', icon: Handshake },
+    instagram: { label: 'Instagram Live', sectionTitle: 'Notoriété & Médias', icon: Activity },
+    traffic: { label: 'Fréquentation Web', sectionTitle: 'Notoriété & Médias', icon: Globe },
+    media: { label: 'Médiathèque Cloud', sectionTitle: 'Notoriété & Médias', icon: ImageIcon },
+    announcements: { label: 'Bandeau Flash Urgent', sectionTitle: 'Configuration & Site', icon: Bell },
+    navigation: { label: 'Menus & Navigation', sectionTitle: 'Configuration & Site', icon: Menu },
+    footer: { label: 'Pied de Page (Footer)', sectionTitle: 'Configuration & Site', icon: PanelBottom },
+    social: { label: 'Réseaux Sociaux', sectionTitle: 'Configuration & Site', icon: Share2 },
+    settings: { label: 'Paramètres Globaux', sectionTitle: 'Configuration & Site', icon: Settings },
+    users: { label: 'Équipe Cockpit & Rôles', sectionTitle: 'Configuration & Site', icon: Users },
+    audit: { label: 'Journal d’Audit', sectionTitle: 'Outils Système', icon: Activity },
+    health: { label: 'Diagnostic de Santé', sectionTitle: 'Outils Système', icon: Activity },
+    analytics: { label: 'Tableau Analytique', sectionTitle: 'Pilotage', icon: Activity },
+    translations: { label: 'Traductions Multilingues', sectionTitle: 'Configuration & Site', icon: Globe },
+    microcopy: { label: 'Micro-textes du Site', sectionTitle: 'Configuration & Site', icon: FileText },
+};
+
+export function getTabMetadata(tab: TabType): TabMetadata {
+    return TAB_METADATA_MAP[tab] || { label: tab, sectionTitle: 'Cockpit', icon: LayoutDashboard };
+}
