@@ -43,7 +43,7 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                 <div className="flex flex-wrap items-center gap-3">
                     {monitor.lastSyncedAt && (
                         <span className="text-[11px] font-mono-tech text-zinc-400 hidden sm:inline-block">
-                            Synchro : {monitor.lastSyncedAt}
+                            Dernière actualisation : {monitor.lastSyncedAt}
                         </span>
                     )}
 

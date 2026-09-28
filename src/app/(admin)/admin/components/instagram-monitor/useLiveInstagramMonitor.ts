@@ -82,12 +82,18 @@ export function useLiveInstagramMonitor(
         [showToast]
     );
 
-    // Chargement initial
+    // Chargement initial : affichage instantané du cache puis rafraîchissement en direct depuis Meta
     React.useEffect(() => {
         let isMounted = true;
         // eslint-disable-next-line react-hooks/set-state-in-effect
-        loadData(false).finally(() => {
-            if (isMounted) setIsLoading(false);
+        loadData(false).then(() => {
+            if (isMounted) {
+                setIsLoading(false);
+                setIsRefreshing(true);
+                loadData(true).finally(() => {
+                    if (isMounted) setIsRefreshing(false);
+                });
+            }
         });
         return () => {
             isMounted = false;

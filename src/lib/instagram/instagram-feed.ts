@@ -217,6 +217,7 @@ export async function fetchLiveInstagramDashboard(
             totalAccountPosts,
             nextCursor,
             lastSyncedAt: new Date().toLocaleTimeString('fr-FR', {
+                timeZone: 'Europe/Paris',
                 hour: '2-digit',
                 minute: '2-digit',
                 second: '2-digit',
