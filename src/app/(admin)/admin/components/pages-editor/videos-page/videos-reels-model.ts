@@ -11,6 +11,18 @@ import { DEFAULT_FEATURED_REELS } from '@/app/(site)/[locale]/videos-cascadeur/s
 /** Titre par défaut proposé tant que le Cockpit n'a rien écrit. */
 export const DEFAULT_REELS_TITLE = "SESSIONS D'ACTION EN FORMAT COURT";
 
+/** Mode d'affichage des Reels : automatique (dernières vidéos) ou sélection manuelle. */
+export type ReelsDisplayMode = 'latest' | 'curated';
+
+/** Nombre de rangées configurables (1 à 3 rangées de 6 colonnes). */
+export type ReelsRowsCount = 1 | 2 | 3;
+
+export const REEL_ROWS_OPTIONS: ReadonlyArray<{ rows: ReelsRowsCount; label: string; count: number }> = [
+    { rows: 1, label: '1 rangée', count: 6 },
+    { rows: 2, label: '2 rangées', count: 12 },
+    { rows: 3, label: '3 rangées', count: 18 },
+];
+
 /** Largeurs de grille proposées (2 à 6 colonnes). */
 export const REEL_COLUMNS = [2, 3, 4, 5, 6] as const;
 
@@ -19,14 +31,29 @@ export function resolveColumns(columns: unknown): number {
     return typeof columns === 'number' ? columns : 6;
 }
 
-/** Section `sections_data.reels` telle qu'écrite par l'éditeur. */
-export function readReelsSection(formData: SitePageContent): {
+/** Résout le mode d'affichage, repli 'latest' (par défaut les dernières). */
+export function resolveMode(mode: unknown): ReelsDisplayMode {
+    return mode === 'curated' ? 'curated' : 'latest';
+}
+
+/** Résout le nombre de rangées (1, 2 ou 3), repli 1 (par défaut 1 rangée). */
+export function resolveRows(rows: unknown): ReelsRowsCount {
+    return rows === 2 ? 2 : rows === 3 ? 3 : 1;
+}
+
+/** Structure de sections_data.reels */
+export interface ReelsSectionData {
     title?: string;
     intro?: string;
+    mode?: ReelsDisplayMode;
+    rows?: ReelsRowsCount;
     columns?: number;
     items?: InstagramReel[];
-} {
-    return formData.sections_data?.reels || {};
+}
+
+/** Section `sections_data.reels` telle qu'écrite par l'éditeur. */
+export function readReelsSection(formData: SitePageContent): ReelsSectionData {
+    return (formData.sections_data?.reels as ReelsSectionData) || {};
 }
 
 /** Liste éditée : les items de la page priment, sinon la sélection officielle. */

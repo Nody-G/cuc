@@ -72,8 +72,8 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                     </a>
                 </div>
 
-                {/* Grille des 6 vidéos : 3 colonnes desktop, 2 colonnes tablette, 1 colonne mobile */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 max-w-6xl mx-auto">
+                {/* Grille des vidéos : 6 colonnes desktop, 4 tablette, 2 mobile */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 max-w-[1720px] mx-auto">
                     {reels.map((reel) => {
                         const hasDescription = Boolean(reel.description && reel.description.trim().length > 0);
                         return (
@@ -88,13 +88,13 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                                         src={reel.coverImage}
                                         alt={reel.title}
                                         fill
-                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
                                         unoptimized={reel.coverImage.startsWith('http')}
                                         className="object-cover object-center group-hover:scale-105 transition-transform duration-500 brightness-90 group-hover:brightness-100"
                                     />
                                 ) : (
                                     <div className="absolute inset-0 bg-gradient-to-b from-[#121218] to-black flex items-center justify-center">
-                                        <InstagramLogo className="w-12 h-12 text-zinc-800" />
+                                        <InstagramLogo className="w-10 h-10 text-zinc-800" />
                                     </div>
                                 )}
 
@@ -103,33 +103,33 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
 
                                 {/* Vues certifiées relevées en direct */}
                                 {reel.viewsFormatted && (
-                                    <div className="absolute top-3 right-3 z-20 flex items-center gap-1 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md border border-white/10 text-xs font-mono-tech text-white">
-                                        <Eye className="w-3.5 h-3.5 text-[#FFE500]" />
+                                    <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/10 text-[11px] font-mono-tech text-white">
+                                        <Eye className="w-3 h-3 text-[#FFE500]" />
                                         <span>{reel.viewsFormatted}</span>
                                     </div>
                                 )}
 
                                 {/* Date de publication */}
                                 {reel.date && (
-                                    <div className="absolute top-3 left-3 z-20 px-2 py-0.5 rounded bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-mono-tech text-zinc-400">
+                                    <div className="absolute top-2.5 left-2.5 z-20 px-1.5 py-0.5 rounded bg-black/60 backdrop-blur-md border border-white/10 text-[9px] font-mono-tech text-zinc-400">
                                         {reel.date}
                                     </div>
                                 )}
 
                                 {/* Bouton Play central avec halo */}
                                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                    <div className="w-14 h-14 rounded-full bg-black/60 backdrop-blur-md border border-white/20 group-hover:border-[#FFE500] group-hover:scale-110 flex items-center justify-center transition-all duration-300 text-white group-hover:text-[#FFE500] shadow-[0_0_25px_rgba(0,0,0,0.8)]">
-                                        <Play className="w-6 h-6 fill-current translate-x-0.5" />
+                                    <div className="w-11 h-11 rounded-full bg-black/60 backdrop-blur-md border border-white/20 group-hover:border-[#FFE500] group-hover:scale-110 flex items-center justify-center transition-all duration-300 text-white group-hover:text-[#FFE500] shadow-[0_0_20px_rgba(0,0,0,0.8)]">
+                                        <Play className="w-4 h-4 fill-current translate-x-0.5" />
                                     </div>
                                 </div>
 
                                 {/* Métadonnées */}
-                                <div className="relative z-10 p-5">
-                                    <h3 className="text-base font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors mb-1.5 line-clamp-2">
+                                <div className="relative z-10 p-3 sm:p-3.5">
+                                    <h3 className="text-xs sm:text-sm font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors mb-1 line-clamp-2">
                                         {reel.title}
                                     </h3>
                                     {hasDescription && (
-                                        <p className="text-xs font-tech text-zinc-300 leading-relaxed line-clamp-2">
+                                        <p className="text-[11px] font-tech text-zinc-300 leading-snug line-clamp-2 opacity-90">
                                             {reel.description}
                                         </p>
                                     )}

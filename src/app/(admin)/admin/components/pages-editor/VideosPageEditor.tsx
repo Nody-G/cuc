@@ -43,32 +43,40 @@ export const VideosPageEditor: React.FC<VideosPageEditorProps> = ({
                 onImport={editor.importReel}
             />
 
-            {/* Liste des Reels enregistrés */}
-            <div className="space-y-4">
-                {editor.reelsList.length === 0 ? (
-                    <div className="p-8 text-center rounded-2xl bg-[#0D0D12] border border-dashed border-white/10 text-gray-500 text-xs">
-                        Aucun Reel Instagram configuré. La section sera automatiquement masquée sur la vitrine.
+            {/* Liste des Reels enregistrés (affichée en mode sélection manuelle) */}
+            {editor.reelsSection.mode === 'curated' && (
+                <div className="space-y-4">
+                    <div className="flex items-center justify-between text-xs font-mono-tech text-gray-400">
+                        <span>Vidéos ordonnées de la sélection ({editor.reelsList.length}) :</span>
+                        <span className="text-[#FFE500]">
+                            Les {Math.min(editor.reelsList.length, (editor.reelsSection.rows || 1) * 6)} premières seront affichées sur la vitrine
+                        </span>
                     </div>
-                ) : (
-                    editor.reelsList.map((reel, idx) => (
-                        <ReelEditorCard
-                            key={reel.id || idx}
-                            reel={reel}
-                            index={idx}
-                            isFirst={idx === 0}
-                            isLast={idx === editor.reelsList.length - 1}
-                            onMove={editor.handleMoveReel}
-                            onRemove={editor.handleRemoveReel}
-                            onFieldChange={editor.handleUpdateReelField}
-                            onPickCover={(reelIndex) =>
-                                setMediaPickerTarget(
-                                    `sections_data.reels.items.${reelIndex}.coverImage`
-                                )
-                            }
-                        />
-                    ))
-                )}
-            </div>
+                    {editor.reelsList.length === 0 ? (
+                        <div className="p-8 text-center rounded-2xl bg-[#0D0D12] border border-dashed border-white/10 text-gray-500 text-xs">
+                            Aucun Reel Instagram sélectionné. Ajoutez un lien ci-dessus pour composer votre sélection personnalisée.
+                        </div>
+                    ) : (
+                        editor.reelsList.map((reel, idx) => (
+                            <ReelEditorCard
+                                key={reel.id || idx}
+                                reel={reel}
+                                index={idx}
+                                isFirst={idx === 0}
+                                isLast={idx === editor.reelsList.length - 1}
+                                onMove={editor.handleMoveReel}
+                                onRemove={editor.handleRemoveReel}
+                                onFieldChange={editor.handleUpdateReelField}
+                                onPickCover={(reelIndex) =>
+                                    setMediaPickerTarget(
+                                        `sections_data.reels.items.${reelIndex}.coverImage`
+                                    )
+                                }
+                            />
+                        ))
+                    )}
+                </div>
+            )}
         </div>
     );
 };

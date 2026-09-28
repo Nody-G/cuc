@@ -180,7 +180,7 @@ export function buildNavSections({
                             id: 'team' as TabType,
                             label: 'Équipe & Coachs',
                             icon: Users,
-                            badge: '12',
+                            badge: '20',
                         },
                     ]
                     : []),

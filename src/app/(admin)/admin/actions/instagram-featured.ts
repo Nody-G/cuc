@@ -23,7 +23,10 @@ import type { InstagramReelMetric } from '@/types/instagram-monitor';
  * 2. Sinon, on affiche automatiquement les 6 dernières vidéos publiées en temps réel via Meta Graph API.
  * 3. En cas d'indisponibilité réseau, retombe sur DEFAULT_FEATURED_REELS.
  */
-export async function getLatestInstagramReelsAction(limit = 6): Promise<{
+export async function getLatestInstagramReelsAction(
+    limit = 6,
+    forceLatest = false
+): Promise<{
     success: boolean;
     reels: InstagramReel[];
 }> {
@@ -32,29 +35,32 @@ export async function getLatestInstagramReelsAction(limit = 6): Promise<{
         const token = configRes.config.accessToken;
 
         // 1. D'abord vérifier si des Reels personnalisés sont spécifiquement mis en avant dans Supabase
-        const adminClient = createAdminClient();
-        const { data: featuredRow } = await adminClient
-            .from('site_settings')
-            .select('value')
-            .eq('key', 'instagram_featured_reels')
-            .maybeSingle();
+        // (Uniquement si forceLatest n'est pas activé, pour respecter le choix 'latest' par défaut)
+        if (!forceLatest) {
+            const adminClient = createAdminClient();
+            const { data: featuredRow } = await adminClient
+                .from('site_settings')
+                .select('value')
+                .eq('key', 'instagram_featured_reels')
+                .maybeSingle();
 
-        const val = featuredRow?.value as { items?: InstagramReelMetric[]; shortcodes?: string[] } | undefined;
-        if (val?.items && Array.isArray(val.items) && val.items.length > 0) {
-            const mappedFeatured: InstagramReel[] = val.items.slice(0, limit).map((p, idx) => ({
-                id: p.id || `featured-reel-${p.shortcode || idx}`,
-                shortcode: p.shortcode,
-                url: p.url,
-                title: p.title,
-                description: p.description,
-                coverImage: p.coverImage || (p.shortcode ? `/images/reels/${p.shortcode}.jpg` : ''),
-                views: p.views || 0,
-                viewsFormatted: p.viewsFormatted || (p.views ? p.views.toLocaleString('fr-FR') : '—'),
-                likes: p.likes,
-                date: p.date,
-                isFeatured: true,
-            }));
-            return { success: true, reels: mappedFeatured };
+            const val = featuredRow?.value as { items?: InstagramReelMetric[]; shortcodes?: string[] } | undefined;
+            if (val?.items && Array.isArray(val.items) && val.items.length > 0) {
+                const mappedFeatured: InstagramReel[] = val.items.slice(0, limit).map((p, idx) => ({
+                    id: p.id || `featured-reel-${p.shortcode || idx}`,
+                    shortcode: p.shortcode,
+                    url: p.url,
+                    title: p.title,
+                    description: p.description,
+                    coverImage: p.coverImage || (p.shortcode ? `/images/reels/${p.shortcode}.jpg` : ''),
+                    views: p.views || 0,
+                    viewsFormatted: p.viewsFormatted || (p.views ? p.views.toLocaleString('fr-FR') : '—'),
+                    likes: p.likes,
+                    date: p.date,
+                    isFeatured: true,
+                }));
+                return { success: true, reels: mappedFeatured };
+            }
         }
 
         // 2. Sinon, récupérer en direct les 6 dernières vidéos réelles publiées via Meta Graph API

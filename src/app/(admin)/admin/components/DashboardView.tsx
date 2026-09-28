@@ -142,7 +142,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           label="Équipe & Coachs"
           icon={Users}
           iconClass="bg-blue-500/10 text-blue-400"
-          subtitle="12 instructeurs professionnels"
+          subtitle="20 instructeurs professionnels"
           cta="Gérer les formateurs"
           onClick={() => switchTab('team')}
         >

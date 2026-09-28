@@ -111,18 +111,24 @@ export function useVideosPage(): UseVideosPageResult {
     // Synchronisation Realtime Cockpit → Vitrine (clé `videos` de site_settings).
     useRealtimeRefresh(['site_settings'], loadVideos);
 
+    // --- Section Reels : Mode sélectionnable ('latest' par défaut) et 1 à 3 rangées de 6 colonnes ---
+    const reelsSection = content.sections_data?.reels;
+    const reelsMode = (reelsSection?.mode === 'curated' ? 'curated' : 'latest') as 'latest' | 'curated';
+    const reelsRows = (reelsSection?.rows === 2 ? 2 : reelsSection?.rows === 3 ? 3 : 1) as 1 | 2 | 3;
+    const targetCount = reelsRows * 6;
+
     const [featuredReels, setFeaturedReels] = React.useState<InstagramReel[]>(DEFAULT_FEATURED_REELS);
 
-    /** Recharge les 6 Reels les plus récents (Meta Graph API en direct + Realtime). */
+    /** Recharge les Reels (Meta Graph API en direct + Realtime). */
     const loadFeaturedReels = React.useCallback(() => {
-        getLatestInstagramReelsAction(6).then((res) => {
+        getLatestInstagramReelsAction(targetCount, reelsMode === 'latest').then((res) => {
             if (res.success && res.reels.length > 0) {
                 setFeaturedReels(res.reels);
             } else {
-                getFeaturedInstagramReels().then((reels) => setFeaturedReels(reels.slice(0, 6)));
+                getFeaturedInstagramReels().then((reels) => setFeaturedReels(reels.slice(0, targetCount)));
             }
         });
-    }, []);
+    }, [targetCount, reelsMode]);
 
     React.useEffect(() => {
         loadFeaturedReels();
@@ -144,9 +150,6 @@ export function useVideosPage(): UseVideosPageResult {
         });
     }, [tvPrograms, videoCopy]);
 
-    // --- Section Reels : 6 vidéos les plus récentes en temps réel ---------
-
-    const reelsSection = content.sections_data?.reels;
     const dynamicReelItems = reelsSection?.items;
     const dynamicItems = React.useMemo<InstagramReel[] | null>(() => {
         return Array.isArray(dynamicReelItems) && dynamicReelItems.length > 0
@@ -159,21 +162,23 @@ export function useVideosPage(): UseVideosPageResult {
         : true;
 
     const reelsColumns = clampReelColumns(
-        typeof reelsSection?.columns === 'number' ? reelsSection.columns : undefined,
+        typeof reelsSection?.columns === 'number' ? reelsSection.columns : 6,
     );
 
     /**
-     * Liste des 6 vidéos les plus récentes affichées :
+     * Liste des vidéos affichées :
      * - section masquée → liste vide ;
-     * - Reels dynamiques Cockpit → les 6 premiers ;
-     * - sinon → les 6 vidéos les plus récentes récupérées en direct via Meta API (ou fallback).
+     * - mode 'curated' avec sélection Cockpit → les targetCount premières ;
+     * - mode 'latest' (défaut) → les targetCount dernières vidéos récupérées en direct via Meta API (ou fallback).
      */
     const displayedReels = React.useMemo<InstagramReel[]>(() => {
         if (!isReelsVisible) return [];
-        if (dynamicItems && dynamicItems.length > 0) return dynamicItems.slice(0, 6);
+        if (reelsMode === 'curated' && dynamicItems && dynamicItems.length > 0) {
+            return dynamicItems.slice(0, targetCount);
+        }
         const baseFeatured = featuredReels && featuredReels.length > 0 ? featuredReels : DEFAULT_FEATURED_REELS;
-        return baseFeatured.slice(0, 6);
-    }, [isReelsVisible, dynamicItems, featuredReels]);
+        return baseFeatured.slice(0, targetCount);
+    }, [isReelsVisible, reelsMode, dynamicItems, featuredReels, targetCount]);
 
     const reelsTotalViews = React.useMemo(() => sumReelsViews(displayedReels), [displayedReels]);
 
