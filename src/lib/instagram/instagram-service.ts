@@ -71,10 +71,17 @@ export async function getInstagramProfile(
         }
     }
 
-    // Bascule automatique vers Meta Graph API si configurée
-    if (metaConfig?.enabled && metaConfig.accessToken && metaConfig.instagramAccountId) {
+    // Bascule automatique vers Meta Graph API si configurée (ou variables d'environnement)
+    const activeToken = metaConfig?.accessToken || process.env.INSTAGRAM_ACCESS_TOKEN || process.env.META_ACCESS_TOKEN;
+    const activeAccountId = metaConfig?.instagramAccountId || process.env.INSTAGRAM_ACCOUNT_ID || process.env.META_INSTAGRAM_ACCOUNT_ID;
+    const isMetaActive = metaConfig ? (metaConfig.enabled && Boolean(activeToken && activeAccountId)) : Boolean(activeToken && activeAccountId);
+
+    if (isMetaActive && activeToken) {
         try {
-            const url = `https://graph.facebook.com/v19.0/${metaConfig.instagramAccountId}?fields=biography,id,username,followers_count,follows_count,media_count,profile_picture_url&access_token=${metaConfig.accessToken}`;
+            const isInstagramToken = activeToken.startsWith('IG');
+            const url = isInstagramToken
+                ? `https://graph.instagram.com/v19.0/me?fields=id,username,followers_count,follows_count,media_count,profile_picture_url&access_token=${activeToken}`
+                : `https://graph.facebook.com/v19.0/${activeAccountId}?fields=biography,id,username,followers_count,follows_count,media_count,profile_picture_url&access_token=${activeToken}`;
             const res = await fetch(url, { next: { revalidate: 120 } });
             if (res.ok) {
                 const json = await res.json();

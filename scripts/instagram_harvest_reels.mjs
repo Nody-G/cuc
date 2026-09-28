@@ -194,7 +194,9 @@ async function discoverShortcodes() {
 
 async function harvestWithGraph(token, igUserId) {
     const fields = 'id,caption,media_type,media_product_type,permalink,thumbnail_url,media_url,timestamp,like_count,comments_count';
-    let url = `https://graph.facebook.com/v19.0/${igUserId}/media?fields=${fields}&limit=100&access_token=${token}`;
+    const host = token.startsWith('IG') ? 'https://graph.instagram.com' : 'https://graph.facebook.com';
+    const endpoint = token.startsWith('IG') ? `${host}/v19.0/me/media` : `${host}/v19.0/${igUserId}/media`;
+    let url = `${endpoint}?fields=${fields}&limit=100&access_token=${token}`;
     const out = [];
     let page = 0;
     while (url && page < 200) {

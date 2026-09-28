@@ -25,6 +25,8 @@ import type {
 import {
     refreshAccountAction,
     refreshLeaderboardBatchAction,
+    getInstagramMetaConfigAction,
+    saveInstagramMetaConfigAction,
 } from '@/app/(admin)/admin/actions/instagram-monitor';
 import { filterLeaderboard, mergeLeaderboardStats } from './instagram-monitor.model';
 
@@ -48,6 +50,21 @@ export function useInstagramLeaderboard(showToast: (msg: string) => void) {
      * n'avait pas eu lieu (défaut corrigé le 2026-09-24).
      */
     const [lastSyncTime, setLastSyncTime] = React.useState<string>('');
+
+    // Charge la configuration persistée dans Supabase (site_settings) au montage
+    React.useEffect(() => {
+        let isMounted = true;
+        getInstagramMetaConfigAction()
+            .then((res) => {
+                if (isMounted && res.success && res.config.accessToken) {
+                    setMetaConfig(res.config);
+                }
+            })
+            .catch(() => {});
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     /** Comparatif trié : **rang dérivé de la position**. */
     const rankedLeaderboard = React.useMemo(
@@ -174,14 +191,19 @@ export function useInstagramLeaderboard(showToast: (msg: string) => void) {
         showToast(`@${username} retiré du classement.`);
     };
 
-    const handleSaveMetaConfig = (cfg: InstagramMetaApiConfig) => {
+    const handleSaveMetaConfig = async (cfg: InstagramMetaApiConfig) => {
         setMetaConfig(cfg);
         setIsMetaModalOpen(false);
-        showToast(
-            cfg.enabled && cfg.accessToken
-                ? 'Clés Meta Graph API activées : les nombres affichés sont désormais synchronisés.'
-                : 'Configuration enregistrée : sans clé Meta active, les nombres restent des repères.'
-        );
+        const res = await saveInstagramMetaConfigAction(cfg);
+        if (res.success) {
+            showToast(
+                cfg.enabled && cfg.accessToken
+                    ? 'Clés Meta API enregistrées dans Supabase : les statistiques sont synchronisées.'
+                    : 'Configuration enregistrée dans Supabase.'
+            );
+        } else {
+            showToast(`Configuration appliquée localement (erreur Supabase : ${res.error || 'inconnue'}).`);
+        }
     };
 
     return {
