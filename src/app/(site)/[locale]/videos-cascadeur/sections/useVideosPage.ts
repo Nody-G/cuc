@@ -10,6 +10,7 @@ import {
     type ReelSortOption,
 } from '@/data/instagram-reels';
 import { getVideos, getFeaturedInstagramReels } from '@/lib/data/site-service';
+import { getLatestInstagramReelsAction } from '@/app/(admin)/admin/actions/instagram-featured';
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import {
@@ -20,10 +21,6 @@ import {
 } from './videos-copy';
 import {
     clampReelColumns,
-    initialVisibleCount,
-    loadMoreStep,
-    mergeReels,
-    sortReels,
     sumReelsViews,
 } from './reels-list';
 
@@ -118,16 +115,22 @@ export function useVideosPage(): UseVideosPageResult {
 
     const [featuredReels, setFeaturedReels] = React.useState<InstagramReel[]>(DEFAULT_FEATURED_REELS);
 
-    /** Recharge les Reels mis en avant (état initial + synchronisation Realtime). */
+    /** Recharge les 6 Reels les plus récents (Meta Graph API en direct + Realtime). */
     const loadFeaturedReels = React.useCallback(() => {
-        getFeaturedInstagramReels().then(setFeaturedReels);
+        getLatestInstagramReelsAction(6).then((res) => {
+            if (res.success && res.reels.length > 0) {
+                setFeaturedReels(res.reels);
+            } else {
+                getFeaturedInstagramReels().then((reels) => setFeaturedReels(reels.slice(0, 6)));
+            }
+        });
     }, []);
 
     React.useEffect(() => {
         loadFeaturedReels();
     }, [loadFeaturedReels]);
 
-    // Synchronisation Realtime Cockpit → Vitrine (clé `instagram_featured_reels` de site_settings).
+    // Synchronisation Realtime Cockpit → Vitrine.
     useRealtimeRefresh(['site_settings'], loadFeaturedReels);
 
     /**
@@ -143,7 +146,7 @@ export function useVideosPage(): UseVideosPageResult {
         });
     }, [tvPrograms, videoCopy]);
 
-    // --- Section Reels : source de vérité unique (état + composition) ---------
+    // --- Section Reels : 6 vidéos les plus récentes en temps réel ---------
 
     const reelsSection = content.sections_data?.reels;
     const dynamicReelItems = reelsSection?.items;
@@ -161,70 +164,35 @@ export function useVideosPage(): UseVideosPageResult {
         typeof reelsSection?.columns === 'number' ? reelsSection.columns : undefined,
     );
 
-    /** Copies éditoriales FR/EN des 6 Reels mis en avant (ordre = catalogue i18n). */
-    const reelsCopy = React.useMemo(
-        () => (t.raw('reelsItems') as { title: string; description: string }[] | undefined) ?? [],
-        [t],
-    );
-
-    const [visibleCount, setVisibleCount] = React.useState<number>(() =>
-        initialVisibleCount(reelsColumns),
-    );
-    // Ajustement en phase de rendu (motif React) plutôt qu'en effet en cascade.
-    const [syncedColumns, setSyncedColumns] = React.useState<number>(reelsColumns);
-    if (syncedColumns !== reelsColumns) {
-        setSyncedColumns(reelsColumns);
-        setVisibleCount((prev) => Math.max(prev, initialVisibleCount(reelsColumns)));
-    }
-
     /**
-     * Liste combinée affichée :
-     * - section masquée → liste vide (le composant ne rend alors rien) ;
-     * - Reels édités dans le Cockpit → uniquement ceux-ci ;
-     * - sinon → 6 Reels mis en avant + catalogue complet, dédoublonnés.
+     * Liste des 6 vidéos les plus récentes affichées :
+     * - section masquée → liste vide ;
+     * - Reels dynamiques Cockpit → les 6 premiers ;
+     * - sinon → les 6 vidéos les plus récentes récupérées en direct via Meta API (ou fallback).
      */
-    const combinedReels = React.useMemo<InstagramReel[]>(() => {
+    const displayedReels = React.useMemo<InstagramReel[]>(() => {
         if (!isReelsVisible) return [];
-        if (dynamicItems) return mergeReels(dynamicItems, []);
+        if (dynamicItems && dynamicItems.length > 0) return dynamicItems.slice(0, 6);
         const baseFeatured = featuredReels && featuredReels.length > 0 ? featuredReels : DEFAULT_FEATURED_REELS;
-        const featured = baseFeatured.map((reel, index) => {
-            const copy = reelsCopy[index];
-            return copy ? { ...reel, title: copy.title, description: copy.description } : reel;
-        });
-        return mergeReels(featured, ALL_INSTAGRAM_REELS);
-    }, [isReelsVisible, dynamicItems, featuredReels, reelsCopy]);
+        return baseFeatured.slice(0, 6);
+    }, [isReelsVisible, dynamicItems, featuredReels]);
 
-    const sortedReels = React.useMemo(
-        () => sortReels(combinedReels, reelsSortBy),
-        [combinedReels, reelsSortBy],
-    );
+    const reelsTotalViews = React.useMemo(() => sumReelsViews(displayedReels), [displayedReels]);
 
-    const displayedReels = React.useMemo(
-        () => sortedReels.slice(0, visibleCount),
-        [sortedReels, visibleCount],
-    );
-
-    const reelsTotalViews = React.useMemo(() => sumReelsViews(combinedReels), [combinedReels]);
-
-    const handleLoadMoreReels = React.useCallback(() => {
-        setVisibleCount((prev) => Math.min(prev + loadMoreStep(reelsColumns), sortedReels.length));
-    }, [reelsColumns, sortedReels.length]);
-
-    // --- Navigation modale : indexée sur la MÊME liste que la grille ----------
-
+    // --- Navigation modale : indexée sur les 6 vidéos affichées ----------
     const activeReelIndex = selectedReel
-        ? sortedReels.findIndex((reel) => reel.id === selectedReel.id)
+        ? displayedReels.findIndex((reel) => reel.id === selectedReel.id)
         : -1;
     const hasPrevReel = activeReelIndex > 0;
-    const hasNextReel = activeReelIndex >= 0 && activeReelIndex < sortedReels.length - 1;
+    const hasNextReel = activeReelIndex >= 0 && activeReelIndex < displayedReels.length - 1;
 
     const prevReel = React.useCallback(() => {
-        if (hasPrevReel) setSelectedReel(sortedReels[activeReelIndex - 1]);
-    }, [hasPrevReel, activeReelIndex, sortedReels]);
+        if (hasPrevReel) setSelectedReel(displayedReels[activeReelIndex - 1]);
+    }, [hasPrevReel, activeReelIndex, displayedReels]);
 
     const nextReel = React.useCallback(() => {
-        if (hasNextReel) setSelectedReel(sortedReels[activeReelIndex + 1]);
-    }, [hasNextReel, activeReelIndex, sortedReels]);
+        if (hasNextReel) setSelectedReel(displayedReels[activeReelIndex + 1]);
+    }, [hasNextReel, activeReelIndex, displayedReels]);
 
     const heroBadge = content.hero?.badge || t('heroBadge');
     const heroTitle = content.hero?.title || t('heroTitle');
@@ -272,13 +240,13 @@ export function useVideosPage(): UseVideosPageResult {
         mediaItems,
         reels: displayedReels,
         reelsColumns,
-        reelsSortBy,
-        reelsTotalCount: sortedReels.length,
+        reelsSortBy: 'featured' as ReelSortOption,
+        reelsTotalCount: displayedReels.length,
         reelsTotalViews,
-        reelsRemaining: Math.max(sortedReels.length - displayedReels.length, 0),
-        reelsHasMore: displayedReels.length < sortedReels.length,
-        onChangeReelsSort: setReelsSortBy,
-        onLoadMoreReels: handleLoadMoreReels,
+        reelsRemaining: 0,
+        reelsHasMore: false,
+        onChangeReelsSort: () => {},
+        onLoadMoreReels: () => {},
         selectedReel,
         openReel: setSelectedReel,
         closeReel: () => setSelectedReel(null),

@@ -12,8 +12,51 @@ import { fetchInstagramMetadata } from './instagram';
 import {
     DEFAULT_FEATURED_REELS,
     ALL_INSTAGRAM_REELS,
+    type InstagramReel,
 } from '@/data/instagram-reels';
+import { fetchLiveInstagramDashboard } from '@/lib/instagram/instagram-feed';
 import type { InstagramReelMetric } from '@/types/instagram-monitor';
+
+/**
+ * Récupère les 6 vidéos les plus récentes publiées sur Instagram.
+ * Interroge la Meta Graph API officielle en direct avec les vues certifiées,
+ * et retombe sur DEFAULT_FEATURED_REELS en cas d'indisponibilité.
+ */
+export async function getLatestInstagramReelsAction(limit = 6): Promise<{
+    success: boolean;
+    reels: InstagramReel[];
+}> {
+    try {
+        const configRes = await getInstagramMetaConfigAction();
+        const token = configRes.config.accessToken;
+
+        if (token) {
+            const dashboard = await fetchLiveInstagramDashboard(token, false);
+            if (dashboard?.publications) {
+                const videoItems = dashboard.publications.filter((p) => p.mediaType === 'VIDEO').slice(0, limit);
+                if (videoItems.length > 0) {
+                    const mapped: InstagramReel[] = videoItems.map((p, idx) => ({
+                        id: `latest-reel-${p.shortcode || idx}`,
+                        shortcode: p.shortcode,
+                        url: p.url,
+                        title: p.title,
+                        description: p.description,
+                        coverImage: `/images/reels/${p.shortcode}.jpg` || p.coverImage || '',
+                        views: p.views || 0,
+                        viewsFormatted: p.viewsFormatted || (p.views ? p.views.toLocaleString('fr-FR') : '—'),
+                        likes: p.likes,
+                        date: p.date,
+                        isFeatured: true,
+                    }));
+                    return { success: true, reels: mapped };
+                }
+            }
+        }
+        return { success: true, reels: DEFAULT_FEATURED_REELS.slice(0, limit) };
+    } catch {
+        return { success: true, reels: DEFAULT_FEATURED_REELS.slice(0, limit) };
+    }
+}
 
 /**
  * Charge les Reels Instagram mis en avant depuis Supabase (site_settings),
@@ -32,10 +75,7 @@ export async function getFeaturedReelsAction(): Promise<{
             .maybeSingle();
 
         if (error || !data?.value) {
-            return {
-                success: true,
-                reels: DEFAULT_FEATURED_REELS as InstagramReelMetric[],
-            };
+            return { success: true, reels: DEFAULT_FEATURED_REELS as InstagramReelMetric[] };
         }
 
         const val = data.value as { items?: InstagramReelMetric[]; shortcodes?: string[] };
@@ -45,23 +85,13 @@ export async function getFeaturedReelsAction(): Promise<{
 
         if (val.shortcodes && Array.isArray(val.shortcodes) && val.shortcodes.length > 0) {
             const byShortcode = new Map(ALL_INSTAGRAM_REELS.map((r) => [r.shortcode, r]));
-            const resolved = val.shortcodes
-                .map((sc) => byShortcode.get(sc))
-                .filter((r): r is InstagramReelMetric => Boolean(r));
-            if (resolved.length > 0) {
-                return { success: true, reels: resolved };
-            }
+            const resolved = val.shortcodes.map((sc) => byShortcode.get(sc)).filter((r): r is InstagramReelMetric => Boolean(r));
+            if (resolved.length > 0) return { success: true, reels: resolved };
         }
 
-        return {
-            success: true,
-            reels: DEFAULT_FEATURED_REELS as InstagramReelMetric[],
-        };
+        return { success: true, reels: DEFAULT_FEATURED_REELS as InstagramReelMetric[] };
     } catch {
-        return {
-            success: true,
-            reels: DEFAULT_FEATURED_REELS as InstagramReelMetric[],
-        };
+        return { success: true, reels: DEFAULT_FEATURED_REELS as InstagramReelMetric[] };
     }
 }
 

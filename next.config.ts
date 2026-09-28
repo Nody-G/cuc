@@ -77,6 +77,15 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images-na.ssl-images-amazon.com",
       },
+      // Médias et vignettes Instagram (Meta Graph API).
+      {
+        protocol: "https",
+        hostname: "**.cdninstagram.com",
+      },
+      {
+        protocol: "https",
+        hostname: "**.fbcdn.net",
+      },
     ],
   },
   // --- Sécurité ---
