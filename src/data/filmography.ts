@@ -51,7 +51,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
       "jerome-gaspard": "Coordinateur des cascades",
       "amedeo-cazzella": "Cascadeur",
       "jonathan-bernard": "Cascadeur",
-      "vincent-bouillon": "Coordinateur des cascades",
+      "vincent-bouillon": "Cascadeur",
       "frederic-dessains": "Cascadeur"
     },
     "director": "John Woo",
@@ -2125,7 +2125,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
       "anthony-pho": "Cascadeur",
       "malik-diouf": "Coordinateur des cascades",
       "pierre-toubas": "Doublure",
-      "jerome-gaspard": "Coordinateur des cascades"
+      "jerome-gaspard": "Cascadeur"
     },
     "director": "Giordano Gederlini",
     "description": "Un thriller urbain contemporain sur le parcours sanglant d'un chauffeur de métro bruxellois."
@@ -2922,7 +2922,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     ],
     "cuc_team_roles": {
       "alan-cueff": "Cascadeur",
-      "malik-diouf": "Coordinateur des cascades",
+      "malik-diouf": "Cascadeur",
       "lucas-dollfus": "Coordinateur des cascades",
       "teddy-ponceau": "Cascadeur",
       "amedeo-cazzella": "Cascadeur"
@@ -6063,7 +6063,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
       "pierre-toubas"
     ],
     "cuc_team_roles": {
-      "anthony-pho": "Coordinateur des cascades",
+      "anthony-pho": "Cascadeur",
       "pierre-toubas": "Doublure de Père Xavier",
       "jerome-gaspard": "Coordinateur des cascades"
     },
@@ -6471,7 +6471,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
       "teddy-ponceau"
     ],
     "cuc_team_roles": {
-      "alex-vu": "Coordinateur des cascades",
+      "alex-vu": "Cascadeur",
       "teddy-ponceau": "Cascadeur",
       "vincent-bouillon": "Coordinateur des cascades"
     },
