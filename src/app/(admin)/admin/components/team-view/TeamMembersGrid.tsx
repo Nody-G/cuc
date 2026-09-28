@@ -134,13 +134,8 @@ export const TeamMembersGrid: React.FC<TeamMembersGridProps> = ({
                                 )}
                             </div>
                             <div className="min-w-0 flex-1">
-                                <div className="text-sm font-bold text-white truncate flex items-center justify-between gap-1">
+                                <div className="text-sm font-bold text-white truncate">
                                     <span className="truncate">{member.name}</span>
-                                    {member.profile_id && (
-                                        <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shrink-0">
-                                            ✓ CUC Sign
-                                        </span>
-                                    )}
                                 </div>
                                 <div className="text-xs text-[#FFE500] font-medium truncate">{member.role}</div>
                                 <div className="text-[11px] text-gray-400 truncate mt-0.5">{member.title}</div>

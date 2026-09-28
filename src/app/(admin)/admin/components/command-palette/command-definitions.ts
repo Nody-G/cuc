@@ -59,7 +59,7 @@ export function buildCommands({ selectTab, openBackup, openHealth }: CommandActi
     return [
         // Navigation — Pôle 1 : Inscriptions & Planning
         { id: 'nav-dashboard', label: 'Tableau de Bord', category: 'Navigation', icon: LayoutDashboard, action: () => selectTab('dashboard'), keywords: ['accueil', 'stats', 'kpi', 'home', 'vue'] },
-        { id: 'nav-inquiries', label: 'Candidatures & Inscriptions', category: 'Navigation', icon: Inbox, action: () => selectTab('inquiries'), keywords: ['leads', 'candidats', 'inscriptions', 'devis', 'contact'] },
+        { id: 'nav-inquiries', label: 'Contact', category: 'Navigation', icon: Inbox, action: () => selectTab('inquiries'), keywords: ['leads', 'candidats', 'inscriptions', 'devis', 'contact', 'candidatures', 'messages'] },
         { id: 'nav-sessions', label: 'Sessions de Formation', category: 'Navigation', icon: Calendar, action: () => selectTab('sessions'), keywords: ['dates', 'planning', 'calendrier', 'stages'] },
 
         // Navigation — Pôle 2 : Formations, Coachs & Films

@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-28T14:36:08.840Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-28T15:07:04.131Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -8,11 +8,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | Catégorie | Occurrences |
 | --- | ---: |
 | ANNOTÉ — éditable en place | 288 |
-| DONNÉES — éditable par un écran existant | 99 |
+| DONNÉES — éditable par un écran existant | 100 |
 | TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 14 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 9 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 14 |
-| **Total** | **424** |
+| **Total** | **425** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -164,7 +164,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\navbar\NavActionsBar.tsx`
 
-- l.93 — `{phone}`
+- l.60 — `{phone}`
 
 ### `src\components\layout\navbar\NavMobileDrawer.tsx`
 
@@ -710,8 +710,9 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\components\ui\InstagramFollowerBadge.tsx`
 
 - l.35 — `{followersFormatted}`
-- l.75 — `{exactFollowersFormatted}`
-- l.114 — `{exactFollowersFormatted}`
+- l.52 — `{followersFormatted}`
+- l.92 — `{exactFollowersFormatted}`
+- l.131 — `{exactFollowersFormatted}`
 
 ### `src\components\ui\LightboxModal.tsx`
 
@@ -800,12 +801,12 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\InstagramFollowerBadge.tsx`
 
-- l.38 — `abonnés`
-- l.60 — `Instagram Officiel`
-- l.78 — `abonnés`
-- l.84 — `Communauté officielle certifiée`
-- l.87 — `Rejoindre`
-- l.117 — `abonnés`
+- l.55 — `abonnés`
+- l.77 — `Instagram Officiel`
+- l.95 — `abonnés`
+- l.101 — `Communauté officielle certifiée`
+- l.104 — `Rejoindre`
+- l.134 — `abonnés`
 
 ## 5. HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées)
 

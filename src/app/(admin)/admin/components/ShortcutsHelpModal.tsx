@@ -33,7 +33,7 @@ const GROUPS: ShortcutGroup[] = [
         title: 'Navigation rapide',
         shortcuts: [
             { keys: ['Alt', '1'], label: 'Tableau de bord' },
-            { keys: ['Alt', '2'], label: 'Candidatures & inscriptions' },
+            { keys: ['Alt', '2'], label: 'Contact' },
             { keys: ['Alt', '3'], label: 'Pages du site' },
             { keys: ['Alt', '4'], label: 'Sessions de formation' },
             { keys: ['Alt', '5'], label: 'Coachs & formateurs' },

@@ -5,7 +5,6 @@ import type { StuntProgram } from '@/types';
 import {
     STATUS_COLORS,
     countSessionCandidates,
-    seatBarColor,
     type ProgramSession,
     type SessionStatus,
 } from './session-form';
@@ -56,38 +55,7 @@ export const SessionCard: React.FC<SessionCardProps> = ({
                             {candidates.admitted > 0 && ` (${candidates.admitted} admis)`}
                         </span>
                     )}
-
-                    {session.cuc_sign_formation_id && (
-                        <span
-                            className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 flex items-center gap-1"
-                            title="Session connectée et synchronisée avec CUC Sign"
-                        >
-                            ✓ CUC Sign
-                        </span>
-                    )}
                 </div>
-
-                {session.booked_seats !== undefined && session.max_seats ? (
-                    <div className="mt-2 text-[11px] font-mono text-zinc-400 max-w-xs">
-                        <div className="flex items-center justify-between gap-2">
-                            <span>Inscrits CUC Sign :</span>
-                            <span className="font-bold text-white">
-                                {session.booked_seats} / {session.max_seats} élèves
-                            </span>
-                        </div>
-                        <div className="w-full h-1.5 bg-black/60 rounded-full overflow-hidden mt-1 border border-white/10">
-                            <div
-                                className={`h-full transition-all ${seatBarColor(session.booked_seats, session.max_seats)}`}
-                                style={{
-                                    width: `${Math.min(
-                                        100,
-                                        (session.booked_seats / session.max_seats) * 100
-                                    )}%`,
-                                }}
-                            />
-                        </div>
-                    </div>
-                ) : null}
             </div>
 
             <div className="flex items-center gap-1.5">

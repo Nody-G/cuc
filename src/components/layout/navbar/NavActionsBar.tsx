@@ -5,9 +5,7 @@ import { PhoneCall, ChevronRight } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
-import { SocialIcon } from '@/components/ui/logos/SocialLogos';
 import { InstagramFollowerBadge } from '@/components/ui/InstagramFollowerBadge';
-import { useSocialLinks } from '@/lib/hooks/useNavigation';
 import { usePreviewSettings } from '@/lib/preview/use-preview-settings';
 import { cucSetting } from '@/lib/preview/cuc-chrome';
 import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data/site-service';
@@ -23,11 +21,6 @@ import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
  */
 export const NavActionsBar: React.FC = () => {
   const [settings, setSettings] = useState<SiteSettings>(DEFAULT_SITE_SETTINGS);
-  const socialLinks = useSocialLinks();
-  /**
-   * Brouillon de réglages du Mode Studio : la surcharge locale prime sur la
-   * valeur serveur, sans écriture en base (le Cockpit pousse le brouillon).
-   */
   const previewSettings = usePreviewSettings();
   const ctaText =
     previewSettings.hero_primary_cta_text || settings.hero_primary_cta_text || 'Contact & Projets';
@@ -49,38 +42,12 @@ export const NavActionsBar: React.FC = () => {
   // Synchronisation Realtime Cockpit → Vitrine (coordonnées et libellés).
   useRealtimeRefresh(['site_settings'], loadSettings);
 
-  const navbarSocials = socialLinks.filter((s) => s.show_in_navbar);
-
   return (
     <div className="hidden sm:flex items-center gap-2.5 shrink-0">
       {/* Badge officiel certifié Instagram CUC */}
       <div className="hidden lg:flex items-center">
         <InstagramFollowerBadge variant="header" />
       </div>
-
-      {/* Quick Official Social Icons — pilotés par site_social_links (affichés sur très grand écran 2xl) */}
-      {navbarSocials.length > 0 && (
-        <div className="hidden 2xl:flex items-center gap-1 border-r border-zinc-800 pr-2">
-          {navbarSocials.map((social) => (
-            <a
-              key={social.id}
-              href={social.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ ['--brand' as string]: social.brand_color || '#FFE500' } as React.CSSProperties}
-              aria-label={social.handle ? `${social.label} · ${social.handle}` : social.label}
-              className="p-1.5 border border-transparent hover:border-[color:var(--brand)] hover:bg-white/[0.06] transition-colors group/soc"
-              title={social.handle ? `${social.label} ${social.handle}` : social.label}
-            >
-              <SocialIcon
-                platform={social.platform}
-                className="w-3.5 h-3.5 group-soc:scale-110 transition-transform"
-                variant="color"
-              />
-            </a>
-          ))}
-        </div>
-      )}
 
       <a
         href={`tel:${phone.replace(/\s/g, '')}`}

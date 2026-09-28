@@ -26,6 +26,7 @@ export const FilmGrid: React.FC<FilmGridProps> = ({
                 (t) =>
                     film.cuc_team_involved?.includes(t.id) ||
                     film.instructor_ids?.includes(t.id) ||
+                    Boolean(film.cuc_team_roles?.[t.id]) ||
                     t.film_ids?.includes(film.id)
             );
             const linkedDisc = disciplines.filter((d) => d.film_ids?.includes(film.id));

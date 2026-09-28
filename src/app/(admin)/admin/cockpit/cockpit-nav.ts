@@ -148,7 +148,7 @@ export function buildNavSections({
                 { id: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
                 {
                     id: 'inquiries',
-                    label: 'Candidatures & Inscriptions',
+                    label: 'Contact',
                     icon: Inbox,
                     badge: newInquiriesCount > 0 ? `${newInquiriesCount} nouveau` : undefined,
                 },
@@ -249,7 +249,7 @@ export interface TabMetadata {
 
 const TAB_METADATA_MAP: Record<TabType, TabMetadata> = {
     dashboard: { label: 'Tableau de Bord', sectionTitle: 'Inscriptions & Planning', icon: LayoutDashboard },
-    inquiries: { label: 'Candidatures & Inscriptions', sectionTitle: 'Inscriptions & Planning', icon: Inbox },
+    inquiries: { label: 'Contact', sectionTitle: 'Inscriptions & Planning', icon: Inbox },
     sessions: { label: 'Sessions de Formation', sectionTitle: 'Inscriptions & Planning', icon: Calendar },
     pages: { label: 'Pages du Site', sectionTitle: 'Formations & Films', icon: FileText },
     films: { label: 'Filmographie & Cascades', sectionTitle: 'Formations & Films', icon: Film },

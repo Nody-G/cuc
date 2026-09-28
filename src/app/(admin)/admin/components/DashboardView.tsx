@@ -60,13 +60,13 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
       {/* Grille des modules Cockpit — 9 modules opérationnels majeurs */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* 1. Candidatures & Inscriptions */}
+        {/* 1. Contact */}
         <DashboardModuleCard
-          label="Candidatures & Inscriptions"
+          label="Contact"
           icon={Inbox}
           iconClass="bg-amber-500/10 text-[#FFE500]"
           subtitle="Dossiers & demandes de contact"
-          cta="Gérer les candidatures"
+          cta="Gérer les demandes de contact"
           overflowHidden
           onClick={() => switchTab('inquiries' as TabType)}
         >

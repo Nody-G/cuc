@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, RefreshCw } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import type { StuntProgram } from '@/types';
 import type { SiteInquiry } from '@/lib/data/site-service';
 import { SessionCard } from './SessionCard';
@@ -8,8 +8,8 @@ import type { ProgramSession, SessionStatus } from './session-form';
 export interface ProgramSessionsPanelProps {
     program: StuntProgram;
     inquiries?: SiteInquiry[];
-    isSyncingSeats: boolean;
-    onSyncSeats: () => void;
+    isSyncingSeats?: boolean;
+    onSyncSeats?: () => void;
     onAddSession: () => void;
     onStatusChange: (session: ProgramSession, status: SessionStatus) => void;
     onDuplicate: (session: ProgramSession) => void;
@@ -19,8 +19,6 @@ export interface ProgramSessionsPanelProps {
 export const ProgramSessionsPanel: React.FC<ProgramSessionsPanelProps> = ({
     program,
     inquiries,
-    isSyncingSeats,
-    onSyncSeats,
     onAddSession,
     onStatusChange,
     onDuplicate,
@@ -39,26 +37,10 @@ export const ProgramSessionsPanel: React.FC<ProgramSessionsPanelProps> = ({
             </div>
 
             <div className="flex items-center gap-2 flex-wrap">
-                <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-mono">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                    <span className="font-bold">CUC Sign Realtime</span>
-                </div>
-
-                <button
-                    type="button"
-                    onClick={onSyncSeats}
-                    disabled={isSyncingSeats}
-                    className="px-3.5 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition disabled:opacity-50 cursor-pointer"
-                    title="Met à jour les places restantes depuis les effectifs réels CUC Sign"
-                >
-                    <RefreshCw className={`w-3.5 h-3.5 text-[#FFE500] ${isSyncingSeats ? 'animate-spin' : ''}`} />
-                    <span>{isSyncingSeats ? 'Sync en cours...' : 'Sync Manuel'}</span>
-                </button>
-
                 <button
                     type="button"
                     onClick={onAddSession}
-                    className="px-4 py-2 rounded-lg bg-[#FFE500] hover:bg-[#ffe600e6] text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-transform active:scale-95 cursor-pointer"
+                    className="px-4 py-2 rounded-lg bg-[#FFE500] hover:bg-[#ffe600e6] text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-transform active:scale-95 cursor-pointer shadow-xs"
                 >
                     <Plus className="w-4 h-4" />
                     Ajouter une session

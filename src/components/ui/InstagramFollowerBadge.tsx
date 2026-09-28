@@ -21,7 +21,24 @@ export const InstagramFollowerBadge: React.FC<InstagramFollowerBadgeProps> = ({
     const { exactFollowersFormatted, followersFormatted } = useInstagramFollowers();
     const instagramUrl = 'https://www.instagram.com/campus.univers.cascades/';
 
-    if (variant === 'header' || variant === 'compact') {
+    if (variant === 'header') {
+        return (
+            <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Consulter le compte Instagram officiel @campus.univers.cascades (1,1M+ abonnés)"
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/70 transition-all text-xs font-mono-tech group shadow-xs ${className}`}
+            >
+                <InstagramLogo className="w-3.5 h-3.5 text-[#FFE500]" />
+                <span className="font-bold text-white group-hover:text-[#FFE500] transition-colors">
+                    {followersFormatted}
+                </span>
+            </a>
+        );
+    }
+
+    if (variant === 'compact') {
         return (
             <a
                 href={instagramUrl}

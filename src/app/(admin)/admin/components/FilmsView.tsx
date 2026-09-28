@@ -42,6 +42,12 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
       <FilmsHeader
         count={films.length}
         filteredCount={filters.filteredFilms.length}
+        preset={filters.preset}
+        onPresetChange={filters.setPreset}
+        counts={filters.counts}
+        team={team}
+        selectedCoachId={filters.selectedCoachId}
+        onCoachChange={filters.setSelectedCoachId}
         searchTerm={filters.searchTerm}
         onSearchChange={filters.setSearchTerm}
         onCreate={editor.openCreate}

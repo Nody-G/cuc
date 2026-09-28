@@ -39,11 +39,6 @@ export const ZoneCard: React.FC<ZoneCardProps> = ({
                         <span className="px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-[10px] font-bold uppercase tracking-wider">
                             {poi.badge || poi.category}
                         </span>
-                        {poi.location_id && (
-                            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 shrink-0">
-                                ✓ CUC Sign lié
-                            </span>
-                        )}
                         <span
                             className={`text-[9px] font-mono px-1.5 py-0.5 rounded border shrink-0 ${poi.is_active === false
                                 ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'

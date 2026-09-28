@@ -2,9 +2,10 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Edit2, Shield, Star, Trash2, Users } from 'lucide-react';
+import { Edit2, Shield, Star, Trash2 } from 'lucide-react';
 import { ImdbLogo, AllocineLogo, YouTubeLogo } from '@/components/ui/BrandLogos';
 import type { Discipline, FilmCredit, Instructor } from '@/types';
+import { FilmTeamRolesBadge } from './FilmTeamRolesBadge';
 
 export interface FilmCardProps {
     film: FilmCredit;
@@ -66,52 +67,26 @@ export const FilmCard: React.FC<FilmCardProps> = ({
                         </span>
                     )}
                 </div>
-                {film.doubledActors && film.doubledActors.length > 0 && (
-                    <div className="text-[11px] text-gray-400 line-clamp-1">
-                        <span className="text-gray-500 font-medium">Doublures :</span>{' '}
-                        {Array.isArray(film.doubledActors)
-                            ? film.doubledActors.join(', ')
-                            : film.doubledActors}
-                    </div>
-                )}
                 <p className="text-xs text-gray-400 line-clamp-2 leading-relaxed">
                     {film.stuntRoles}
                 </p>
 
-                {/* Interconnexions : Formateurs et Modules Liés */}
-                {(linkedStaff.length > 0 || linkedDisc.length > 0) && (
-                    <div className="pt-2 border-t border-white/5 space-y-1 text-[10px]">
-                        {linkedStaff.length > 0 && (
-                            <div className="flex items-center gap-1.5 flex-wrap">
-                                <Users className="w-3 h-3 text-sky-400 shrink-0" />
-                                <span className="text-zinc-500">Staff CUC :</span>
-                                {linkedStaff.slice(0, 2).map((t) => (
-                                    <span
-                                        key={t.id}
-                                        className="px-1.5 py-0.2 bg-sky-950/40 text-sky-300 border border-sky-800/30 rounded"
-                                    >
-                                        {t.name.split(' ')[0]}
-                                    </span>
-                                ))}
-                                {linkedStaff.length > 2 && (
-                                    <span className="text-zinc-500 font-mono">+{linkedStaff.length - 2}</span>
-                                )}
-                            </div>
-                        )}
-                        {linkedDisc.length > 0 && (
-                            <div className="flex items-center gap-1.5 flex-wrap">
-                                <Shield className="w-3 h-3 text-[#FFE500] shrink-0" />
-                                <span className="text-zinc-500">Modules :</span>
-                                {linkedDisc.slice(0, 2).map((d) => (
-                                    <span
-                                        key={d.id}
-                                        className="px-1.5 py-0.2 bg-[#FFE500]/10 text-[#FFE500] border border-[#FFE500]/20 rounded font-mono"
-                                    >
-                                        {d.number}
-                                    </span>
-                                ))}
-                            </div>
-                        )}
+                {/* Coordination, Comédiens doublés & Équipe CUC qualifiée */}
+                <FilmTeamRolesBadge film={film} team={linkedStaff} />
+
+                {/* Modules de cascade liés */}
+                {linkedDisc.length > 0 && (
+                    <div className="pt-2 border-t border-white/5 flex items-center gap-1.5 flex-wrap text-[10px]">
+                        <Shield className="w-3 h-3 text-[#FFE500] shrink-0" />
+                        <span className="text-zinc-500">Modules :</span>
+                        {linkedDisc.slice(0, 3).map((d) => (
+                            <span
+                                key={d.id}
+                                className="px-1.5 py-0.2 bg-[#FFE500]/10 text-[#FFE500] border border-[#FFE500]/20 rounded font-mono"
+                            >
+                                {d.number}
+                            </span>
+                        ))}
                     </div>
                 )}
             </div>
