@@ -1,14 +1,12 @@
 'use client';
 
 import React from 'react';
-import { RefreshCw, Key, ShieldCheck, Play, Users, Star } from 'lucide-react';
+import { Play, Users, Star } from 'lucide-react';
 import { InstagramLogo } from '@/components/ui/logos/SocialLogos';
 import { useInstagramMonitor } from './instagram-monitor/useInstagramMonitor';
 import { useInstagramFeaturedReels } from './instagram-monitor/useInstagramFeaturedReels';
 import { InstagramFeaturedReelsManager } from './instagram-monitor/InstagramFeaturedReelsManager';
-import { InstagramMilestoneAndImpact } from './instagram-monitor/InstagramMilestoneAndImpact';
 import { InstagramReelsMonitor } from './instagram-monitor/InstagramReelsMonitor';
-import { InstagramMetaConfigModal } from './instagram-monitor/InstagramMetaConfigModal';
 
 interface InstagramMonitorViewProps {
     showToast: (msg: string) => void;
@@ -20,61 +18,23 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
 
     return (
         <div className="space-y-8 animate-in fade-in duration-200">
-            {/* Header supérieur du monitoring */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 p-6 bg-[#0b0b10] border border-zinc-800 rounded-2xl shadow-xl">
-                <div>
-                    <div className="flex items-center gap-2 mb-2">
-                        <InstagramLogo className="w-5 h-5 text-[#FFE500]" />
-                        <span className="text-xs font-mono-tech uppercase font-bold tracking-wider text-[#FFE500]">
-                            INSTAGRAM PULSE & METRICS
-                        </span>
-                        <span className="flex h-2 w-2 relative">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-                        </span>
-                    </div>
-                    <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                        Centre de Contrôle Instagram & Curateur Vitrine
-                    </h2>
-                    <p className="text-xs font-tech text-zinc-400 mt-1">
-                        Compte officiel @campus.univers.cascades : métriques certifiées Meta Graph API v19.0 et gestion en direct des Reels mis en avant sur le site vitrine.
-                    </p>
+            {/* Header épuré du module Instagram */}
+            <div className="p-6 bg-[#0b0b10] border border-zinc-800 rounded-2xl shadow-xl">
+                <div className="flex items-center gap-2 mb-2">
+                    <InstagramLogo className="w-5 h-5 text-[#FFE500]" />
+                    <span className="text-xs font-mono-tech uppercase font-bold tracking-wider text-[#FFE500]">
+                        INSTAGRAM @CAMPUS.UNIVERS.CASCADES
+                    </span>
                 </div>
-
-                <div className="flex items-center gap-3 flex-wrap">
-                    {/* Badge Mode Actuel */}
-                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-700 text-xs font-mono-tech">
-                        <ShieldCheck className={`w-3.5 h-3.5 ${monitor.isSynced ? 'text-emerald-400' : 'text-[#FFE500]'}`} />
-                        <span className="text-zinc-300">
-                            {monitor.isSynced ? 'Synchronisé (Meta Graph Officiel)' : 'Repères catalogue'}
-                        </span>
-                    </div>
-
-                    {/* Bouton Config Meta */}
-                    <button
-                        type="button"
-                        onClick={() => monitor.setIsMetaModalOpen(true)}
-                        className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#14141e] hover:bg-zinc-800 border border-zinc-700 hover:border-[#FFE500] text-xs font-mono-tech uppercase text-zinc-200 hover:text-white transition-all cursor-pointer"
-                        title="Configurer l'accès Meta Graph API de Campus Univers Cascades"
-                    >
-                        <Key className="w-3.5 h-3.5 text-[#FFE500]" />
-                        <span>Clé Meta API</span>
-                    </button>
-
-                    {/* Bouton Actualisation CUC */}
-                    <button
-                        type="button"
-                        onClick={monitor.handleRefreshCuc}
-                        disabled={monitor.isRefreshingCuc}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#FFE500] hover:bg-yellow-400 text-black font-bold text-xs font-mono-tech uppercase transition-all disabled:opacity-50 cursor-pointer"
-                    >
-                        <RefreshCw className={`w-3.5 h-3.5 ${monitor.isRefreshingCuc ? 'animate-spin' : ''}`} />
-                        <span>{monitor.isRefreshingCuc ? 'Actualisation...' : 'Actualiser CUC'}</span>
-                    </button>
-                </div>
+                <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
+                    Gestion des Reels & Vitrine
+                </h2>
+                <p className="text-xs font-tech text-zinc-400 mt-1 max-w-2xl">
+                    Sélectionnez les Reels mis en avant sur le site vitrine (page Vidéos) et suivez les métriques officielles certifiées via l&apos;API Meta.
+                </p>
             </div>
 
-            {/* Cartes métriques CUC en direct */}
+            {/* Cartes métriques réelles certifiées */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="p-5 rounded-2xl bg-[#0b0b10] border border-zinc-800 flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-[#FFE500]/10 border border-[#FFE500]/30 flex items-center justify-center text-[#FFE500] shrink-0">
@@ -86,7 +46,7 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                             {monitor.cucAccount?.followersFormatted || '1,12 M'}
                         </div>
                         <div className="text-[10px] font-mono-tech text-emerald-400 mt-0.5">
-                            Dernière synchro : {monitor.lastSyncTime || '—'}
+                            Compte officiel certifié Meta
                         </div>
                     </div>
                 </div>
@@ -137,15 +97,7 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                 onRemoveReel={featured.handleRemoveReel}
             />
 
-            {/* Jalon de Croissance & Records Viraux */}
-            <InstagramMilestoneAndImpact
-                milestone={monitor.milestone}
-                aggregates={monitor.aggregates}
-                cucNationalRank={monitor.cucNationalRank}
-                isSynced={monitor.isSynced}
-            />
-
-            {/* Monitoring en direct et catalogue de l'intégralité des Reels */}
+            {/* Catalogue complet et explorateur des Reels CUC */}
             <InstagramReelsMonitor
                 reels={monitor.reels}
                 isRefreshingAll={monitor.isRefreshingAllReels}
@@ -155,14 +107,6 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                 isSynced={monitor.isSynced}
                 featuredShortcodes={featured.featuredShortcodes}
                 onToggleFeatured={featured.handleToggleFeatured}
-            />
-
-            {/* Modal de Configuration Meta API */}
-            <InstagramMetaConfigModal
-                isOpen={monitor.isMetaModalOpen}
-                onClose={() => monitor.setIsMetaModalOpen(false)}
-                config={monitor.metaConfig}
-                onSave={monitor.handleSaveMetaConfig}
             />
         </div>
     );

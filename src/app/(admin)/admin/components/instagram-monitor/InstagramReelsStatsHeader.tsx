@@ -90,7 +90,7 @@ export const InstagramReelsStatsHeader: React.FC<InstagramReelsStatsHeaderProps>
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900 border border-zinc-700 hover:border-[#FFE500] text-xs font-mono-tech uppercase text-zinc-200 hover:text-white transition-all disabled:opacity-50 cursor-pointer"
                     >
                         <RefreshCw className={`w-3.5 h-3.5 ${isRefreshingAll ? 'animate-spin text-[#FFE500]' : ''}`} />
-                        <span>{isRefreshingAll ? 'Actualisation...' : 'Actualiser les phares'}</span>
+                        <span>{isRefreshingAll ? 'Actualisation...' : 'Actualiser les vues'}</span>
                     </button>
                 </div>
             </div>
