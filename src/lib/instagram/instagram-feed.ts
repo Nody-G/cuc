@@ -9,6 +9,7 @@
 
 import { extractInstagramShortcode } from '@/lib/instagram-utils';
 import { ALL_INSTAGRAM_REELS } from '@/data/instagram-reels';
+import { formatFollowerCount } from './instagram-service';
 import type {
     InstagramAccountStat,
     InstagramReelMetric,
@@ -42,11 +43,11 @@ export async function fetchLiveInstagramDashboard(
     try {
         const host = accessToken.startsWith('IG') ? 'https://graph.instagram.com' : 'https://graph.facebook.com';
         const profileUrl = `${host}/v19.0/me?fields=id,username,followers_count,follows_count,media_count,profile_picture_url&access_token=${accessToken}`;
-        const mediaUrl = `${host}/v19.0/me/media?fields=id,caption,media_type,media_product_type,media_url,permalink,thumbnail_url,timestamp,like_count,comments_count&limit=100&access_token=${accessToken}`;
+        const mediaUrl = `${host}/v19.0/me/media?fields=id,caption,media_type,media_product_type,media_url,permalink,thumbnail_url,timestamp,like_count,comments_count,insights.metric(views)&limit=100&access_token=${accessToken}`;
 
         const [profileRes, mediaRes] = await Promise.all([
-            fetch(profileUrl, { cache: 'no-store', signal: AbortSignal.timeout(5000) }),
-            fetch(mediaUrl, { cache: 'no-store', signal: AbortSignal.timeout(5000) }),
+            fetch(profileUrl, { cache: 'no-store', signal: AbortSignal.timeout(6000) }),
+            fetch(mediaUrl, { cache: 'no-store', signal: AbortSignal.timeout(6000) }),
         ]);
 
         if (!profileRes.ok) return null;
@@ -94,6 +95,12 @@ export async function fetchLiveInstagramDashboard(
                     timestamp?: string;
                     like_count?: number;
                     comments_count?: number;
+                    insights?: {
+                        data?: Array<{
+                            name: string;
+                            values?: Array<{ value: number }>;
+                        }>;
+                    };
                 }>;
             };
 
@@ -106,11 +113,12 @@ export async function fetchLiveInstagramDashboard(
                 const firstLine = rawCaption.split('\n')[0].replace(/#\w+/g, '').trim();
                 const title = firstLine.length > 60 ? `${firstLine.slice(0, 57)}…` : firstLine || `Publication #${finalShortcode}`;
 
-                // Vues : croisées avec le catalogue d'insights certifiés si vidéo
+                // Vues : insights Meta Graph API certifiées en priorité, repli sur catalogue
+                const apiViews = item.insights?.data?.find((d) => d.name === 'views')?.values?.[0]?.value;
                 const catalogEntry = shortcode ? catalogueByShortcode.get(shortcode) : undefined;
                 const isVideo = item.media_type === 'VIDEO';
-                const views = isVideo ? (catalogEntry?.views ?? 0) : 0;
-                const viewsFormatted = isVideo && catalogEntry?.viewsFormatted ? catalogEntry.viewsFormatted : views > 0 ? views.toLocaleString('fr-FR') : '—';
+                const views = typeof apiViews === 'number' ? apiViews : isVideo ? (catalogEntry?.views ?? 0) : 0;
+                const viewsFormatted = views > 0 ? formatFollowerCount(views) : '—';
 
                 publications.push({
                     id: item.id,

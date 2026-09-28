@@ -48,6 +48,14 @@ describe('fetchLiveInstagramDashboard', () => {
                                 timestamp: '2026-03-20T12:00:00Z',
                                 like_count: 12500,
                                 comments_count: 320,
+                                insights: {
+                                    data: [
+                                        {
+                                            name: 'views',
+                                            values: [{ value: 14349507 }],
+                                        },
+                                    ],
+                                },
                             },
                             {
                                 id: 'media_photo_1',
@@ -84,6 +92,8 @@ describe('fetchLiveInstagramDashboard', () => {
         expect(video).toBeDefined();
         expect(video?.likesCount).toBe(12500);
         expect(video?.commentsCount).toBe(320);
+        expect(video?.views).toBe(14349507);
+        expect(video?.viewsFormatted).toBe('14,3 M');
 
         expect(photo).toBeDefined();
         expect(photo?.likesCount).toBe(4500);
