@@ -11,11 +11,10 @@ interface DashboardActivityLogProps {
 /** Journal d'activités récentes (entrées d'audit, heure locale). */
 export const DashboardActivityLog: React.FC<DashboardActivityLogProps> = ({ logs }) => (
     <div className="lg:col-span-2 bg-[#0D0D12] border border-white/10 rounded-xl p-5 space-y-4">
-        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+        <div className="border-b border-white/10 pb-3">
             <div className="text-xs font-mono text-white font-bold uppercase flex items-center gap-2">
                 <Clock className="w-4 h-4 text-[#FFE500]" /> Historique d'Activités Récentes
             </div>
-            <span className="text-[10px] font-mono text-gray-400">Temps réel</span>
         </div>
 
         <div className="space-y-3">

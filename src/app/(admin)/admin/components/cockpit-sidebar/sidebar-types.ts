@@ -18,7 +18,6 @@ export interface CockpitSidebarProps {
     activeTab: TabType;
     onSelectTab: (tab: TabType) => void;
     userRole: string;
-    realtimeStatus: 'connected' | 'connecting';
     userName: string;
     onLogout: () => void;
     onOpenBackup: () => void;

@@ -30,7 +30,6 @@ interface DashboardViewProps {
   fullSessions: number;
   siteSettings: SiteSettings;
   inquiriesCount?: number;
-  newInquiriesCount?: number;
   onOpenBackupModal?: () => void;
 }
 
@@ -49,7 +48,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   fullSessions,
   siteSettings,
   inquiriesCount = 3,
-  newInquiriesCount = 1,
   onOpenBackupModal,
 }) => {
   const logs = useAuditLogs();
@@ -70,14 +68,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           overflowHidden
           onClick={() => switchTab('inquiries' as TabType)}
         >
-          <div className="text-3xl font-black text-white flex items-center gap-2">
-            {inquiriesCount}
-            {newInquiriesCount > 0 && (
-              <span className="text-xs px-2 py-0.5 rounded-full bg-[#FFE500] text-black font-mono font-bold animate-pulse">
-                {newInquiriesCount} new
-              </span>
-            )}
-          </div>
+          <div className="text-3xl font-black text-white">{inquiriesCount}</div>
         </DashboardModuleCard>
 
         {/* 2. Instagram & Vidéos */}
@@ -89,12 +80,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           cta="Voir les métriques"
           onClick={() => switchTab('instagram')}
         >
-          <div className="text-3xl font-black text-white flex items-center gap-2">
-            1,12M
-            <span className="text-xs px-2 py-0.5 rounded-full bg-fuchsia-500/20 text-fuchsia-300 font-mono font-bold border border-fuchsia-500/30">
-              Certifié
-            </span>
-          </div>
+          <div className="text-3xl font-black text-white">1,12M</div>
         </DashboardModuleCard>
 
         {/* 3. Pages du Site */}

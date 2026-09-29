@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { KeyRound, Trash2, UserCheck, UserX } from 'lucide-react';
-import { CockpitBadge, CockpitIconButton, CockpitSelect } from '../ui';
+import { CockpitIconButton, CockpitSelect } from '../ui';
 import { ROLE_CATALOG, type CockpitRole, type CockpitUser } from './users-model';
 
 const DATE_FORMAT = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'medium', timeStyle: 'short' });
@@ -47,10 +47,6 @@ export const UserRoleRow: React.FC<UserRoleRowProps> = ({
                         <span className="text-sm font-bold text-white uppercase tracking-tight truncate">
                             {displayName}
                         </span>
-                        {isSelf && <CockpitBadge tone="accent">Vous</CockpitBadge>}
-                        <CockpitBadge tone={user.isActive ? 'success' : 'danger'}>
-                            {user.isActive ? 'Actif' : 'Inactif'}
-                        </CockpitBadge>
                     </div>
                     <div className="text-xs font-mono text-gray-400 mt-0.5 truncate">{user.email}</div>
                     <div className="text-[11px] text-gray-500 mt-0.5">

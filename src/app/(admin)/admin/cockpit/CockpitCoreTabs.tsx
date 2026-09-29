@@ -26,7 +26,6 @@ export const CockpitCoreTabs: React.FC<CockpitTabContentProps> = (props) => (
                 fullSessions={props.fullSessions}
                 siteSettings={props.siteSettings}
                 inquiriesCount={props.inquiriesCount}
-                newInquiriesCount={props.newInquiriesCount}
                 onOpenBackupModal={props.onOpenBackupModal}
             />
         )}

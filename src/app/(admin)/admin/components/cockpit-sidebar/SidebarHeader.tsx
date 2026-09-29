@@ -1,18 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
 import { X } from 'lucide-react';
-import { cx } from '../ui';
 
 export interface SidebarHeaderProps {
     roleLabel: string;
-    realtimeStatus: 'connected' | 'connecting';
     onSelectDashboard: () => void;
     onCloseMobile: () => void;
 }
 
 export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
     roleLabel,
-    realtimeStatus,
     onSelectDashboard,
     onCloseMobile,
 }) => (
@@ -42,29 +39,6 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
             </div>
         </button>
         <div className="flex items-center gap-1.5 shrink-0">
-            <span
-                title={
-                    realtimeStatus === 'connected'
-                        ? 'Flux Supabase Realtime actif (synchronisation instantanée)'
-                        : 'Connexion au flux Realtime...'
-                }
-                className={cx(
-                    'inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-mono font-medium border',
-                    realtimeStatus === 'connected'
-                        ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                        : 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
-                )}
-            >
-                <span
-                    className={cx(
-                        'w-1.5 h-1.5 rounded-full',
-                        realtimeStatus === 'connected'
-                            ? 'bg-emerald-400 animate-pulse'
-                            : 'bg-yellow-400',
-                    )}
-                />
-                {realtimeStatus === 'connected' ? 'Realtime' : 'Syncing'}
-            </span>
             <button
                 type="button"
                 onClick={onCloseMobile}

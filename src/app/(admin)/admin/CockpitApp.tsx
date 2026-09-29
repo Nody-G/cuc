@@ -91,7 +91,6 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
         activeTab={activeTab}
         onSelectTab={switchTab}
         userRole={data.userRole}
-        realtimeStatus={data.realtimeStatus === 'connected' ? 'connected' : 'connecting'}
         userName={
           data.currentUserProfile?.full_name ||
           [data.currentUserProfile?.first_name, data.currentUserProfile?.last_name].filter(Boolean).join(' ') ||
@@ -103,8 +102,11 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
         onCloseMobile={() => setIsMobileNavOpen(false)}
       />
 
-      {/* Contenu principal avec Barre Supérieure d'accès rapide */}
-      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+      {/* Contenu principal avec Barre Supérieure d'accès rapide.
+          Le défilement vit au niveau du document (plus de `h-screen
+          overflow-hidden`) : chaque page prend sa hauteur réelle et la
+          molette fonctionne partout, sans dépendre de la zone survolée. */}
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen">
         {/* Barre Supérieure du Cockpit */}
         <CockpitTopbar
           activeTab={activeTab}

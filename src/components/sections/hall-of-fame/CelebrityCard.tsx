@@ -6,8 +6,9 @@ import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import { DoubledCelebrity } from '@/types';
 import { ImdbLogo } from '@/components/ui/BrandLogos';
-import { UserCheck, Maximize2 } from 'lucide-react';
+import { UserCheck } from 'lucide-react';
 import { resolveDoubledBy, type TeamNameRef } from '@/lib/celebrity-double';
+import { shortActorDescription } from '@/lib/celebrity-copy';
 
 interface CelebrityCardProps {
     actor: DoubledCelebrity;
@@ -25,8 +26,11 @@ interface CelebrityCardProps {
  * doubleur appartient à l'équipe du campus, son nom mène à sa fiche coach —
  * la même interconnexion que sur les jaquettes de films.
  *
- * La mention « voir la fiche » a été retirée : l'affordance est désormais
- * visuelle (icône au survol, curseur, bordure jaune), pas textuelle.
+ * La mention « voir la fiche » a été retirée : l'affordance est portée par le
+ * curseur, la bordure jaune et le survol de la carte, pas par un badge.
+ *
+ * La description courte est dérivée de la donnée publiée (spécialité, sinon
+ * biographie) : voir [`shortActorDescription`].
  */
 export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers, onSelect }) => {
     const t = useTranslations('teamProduction');
@@ -36,6 +40,11 @@ export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers
         [actor.stuntDoubles, teamMembers]
     );
     const hasDoubles = doubledBy.name.trim().length > 0;
+
+    const description = shortActorDescription({
+        specialty: actor.stuntSpecialty,
+        bio: actor.bio,
+    });
 
     const openFromKeyboard = (event: React.KeyboardEvent) => {
         if (event.key !== 'Enter' && event.key !== ' ') return;
@@ -75,13 +84,6 @@ export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers
                     <ImdbLogo className="h-2.5 w-auto" />
                 </a>
 
-                {/* Affordance d'ouverture (icône, sans texte) */}
-                <span
-                    aria-hidden="true"
-                    className="absolute bottom-2.5 right-2.5 flex items-center justify-center w-6 h-6 bg-[#FFE500] text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                >
-                    <Maximize2 className="w-3 h-3" />
-                </span>
             </div>
 
             {/* Contenu */}
@@ -89,6 +91,14 @@ export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers
                 <h4 className="text-base sm:text-lg font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors leading-tight">
                     {actor.name}
                 </h4>
+
+                {/* Description courte — spécialité publiée, sinon première phrase
+                    de la biographie vérifiée. Hauteur bornée pour aligner la grille. */}
+                {description ? (
+                    <p className="text-[11px] font-tech text-zinc-400 leading-snug line-clamp-2 min-h-[2.25rem]">
+                        {description}
+                    </p>
+                ) : null}
 
                 {hasDoubles ? (
                     <div className="inline-flex items-start gap-1 self-start px-2 py-0.5 bg-[#FFE500]/10 border border-[#FFE500]/40 text-[9px] font-mono-tech text-[#FFE500] font-bold">

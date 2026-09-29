@@ -15,14 +15,13 @@ interface PreviewToolbarProps {
     onLocaleChange?: (locale: PreviewLocale) => void;
     mode: PreviewMode;
     onModeChange?: (mode: PreviewMode) => void;
-    isReady: boolean;
     isFullscreen: boolean;
     onRefresh: () => void;
     onOpenExternal: () => void;
     onToggleFullscreen: () => void;
 }
 
-/** Barre d'outils de l'aperçu : appareil, langue, mode, état Live, actions. */
+/** Barre d'outils de l'aperçu : appareil, langue, mode, actions. */
 export const PreviewToolbar: React.FC<PreviewToolbarProps> = ({
     device,
     onSelectDevice,
@@ -30,7 +29,6 @@ export const PreviewToolbar: React.FC<PreviewToolbarProps> = ({
     onLocaleChange,
     mode,
     onModeChange,
-    isReady,
     isFullscreen,
     onRefresh,
     onOpenExternal,
@@ -65,28 +63,6 @@ export const PreviewToolbar: React.FC<PreviewToolbarProps> = ({
                     </span>
                 </button>
             )}
-
-            <span
-                className={cx(
-                    'hidden sm:inline-flex items-center gap-1.5 text-[11px] font-mono-tech px-2 py-1 rounded-md border',
-                    isReady
-                        ? 'text-emerald-300 border-emerald-500/30 bg-emerald-500/10'
-                        : 'text-zinc-400 border-white/10 bg-black/40'
-                )}
-                title={
-                    isReady
-                        ? 'Le brouillon est synchronisé avec l’aperçu'
-                        : 'En attente de la page d’aperçu'
-                }
-            >
-                <span
-                    className={cx(
-                        'w-1.5 h-1.5 rounded-full',
-                        isReady ? 'bg-emerald-400' : 'bg-zinc-500'
-                    )}
-                />
-                {isReady ? 'Live' : 'Connexion…'}
-            </span>
 
             {!isFullscreen && (
                 <>

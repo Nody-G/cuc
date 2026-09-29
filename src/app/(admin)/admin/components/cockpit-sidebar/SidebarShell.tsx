@@ -19,7 +19,7 @@ export const SidebarShell: React.FC<SidebarShellProps> = ({
         {/* Sidebar desktop (repliable en rail via Ctrl/Cmd+B) */}
         <aside
             className={cx(
-                'hidden md:flex bg-[#0D0D12] border-r border-white/10 flex-col shrink-0 transition-[width] duration-200 overflow-hidden',
+                'hidden md:flex sticky top-0 h-screen bg-[#0D0D12] border-r border-white/10 flex-col shrink-0 transition-[width] duration-200 overflow-hidden',
                 isRail ? 'w-0 border-r-0' : 'w-64',
             )}
             aria-hidden={isRail}

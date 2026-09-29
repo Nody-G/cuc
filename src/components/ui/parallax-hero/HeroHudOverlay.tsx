@@ -1,16 +1,16 @@
 'use client';
 
 import React from 'react';
-import { MapPin, ExternalLink } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { SitePageHero } from '@/lib/data/site-service';
-import { cucField, cucReach } from '@/lib/preview/cuc-field';
 
 interface HeroHudOverlayProps {
   className?: string;
   /**
-   * Données éditoriales du hero (`hero.*`). Chaque micro-texte retombe sur sa
-   * traduction quand la clé est vide : le repli reste la source par défaut.
+   * Données éditoriales du hero (`hero.*`). La cible de la carte retombe sur
+   * l'adresse du campus quand la clé est vide : le repli reste la source par
+   * défaut.
    */
   heroData?: Partial<SitePageHero>;
 }
@@ -18,50 +18,36 @@ interface HeroHudOverlayProps {
 const DEFAULT_MAP_URL =
   'https://www.google.com/maps/search/?api=1&query=Campus+Univers+Cascades+70+Rue+Faidherbe+59360+Le+Cateau-Cambr%C3%A9sis';
 
+/**
+ * Accès rapide à la carte du campus, en haut à droite du hero.
+ *
+ * Les repères textuels (région, nature du domaine, libellé de la pilule) ont
+ * été retirés : ils doublonnaient des informations déjà présentes ailleurs sur
+ * la page. Il ne reste que l'épingle, dont la cible se règle dans le Cockpit
+ * (`hero.hud_map_url`).
+ */
 export const HeroHudOverlay: React.FC<HeroHudOverlayProps> = ({
   className = '',
   heroData,
 }) => {
   const t = useTranslations('home.hero');
-
-  const location = heroData?.hud_location || t('hudLocation');
-  const privateDomain = heroData?.hud_private_domain || t('hudPrivateDomain');
-  const mapLabel = heroData?.hud_map_label || t('hudMapLabel');
   const mapUrl = heroData?.hud_map_url || DEFAULT_MAP_URL;
 
   return (
     <div
-      {...cucReach()}
-      className={`absolute top-6 left-4 right-4 sm:left-8 sm:right-8 z-20 pointer-events-none flex items-center justify-between ${className}`}
+      className={`absolute top-6 left-4 right-4 sm:left-8 sm:right-8 z-20 pointer-events-none flex items-center justify-end ${className}`}
     >
-      {/* Discreet Location Indicator — le calque est décoratif (il ne doit pas
-          intercepter la parallaxe de la section), mais il porte trois textes
-          éditables : `cucReach()` donne au Mode Studio le droit de le remonter
-          et de rendre le geste à ces seuls textes. */}
-      <div className="hidden sm:flex items-center gap-2 text-[11px] font-mono-tech uppercase tracking-widest text-zinc-400">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#FFE500]" />
-        <span {...cucField('hero.hud_location')} className="text-zinc-300 font-medium">
-          {location}
-        </span>
-        <span className="text-zinc-600">•</span>
-        <span {...cucField('hero.hud_private_domain')} className="text-zinc-400">
-          {privateDomain}
-        </span>
-      </div>
-
-      {/* Google Maps Quick Access Pill — la cible de navigation (`hero.hud_map_url`)
-          n'est pas annotée en place : un contrôle ne porte qu'un champ cliquable,
-          sinon le geste est ambigu. L'URL se règle dans le formulaire du Cockpit. */}
+      {/* Épingle seule : le calque reste décoratif (il ne doit pas intercepter
+          la parallaxe), l'ancre est la seule zone sensible. */}
       <a
         href={mapUrl}
         target="_blank"
         rel="noopener noreferrer"
         title={t('hudMapTitle')}
-        className="pointer-events-auto ml-auto inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 hover:bg-black/70 border border-white/10 hover:border-[#FFE500]/50 text-[11px] font-mono-tech text-zinc-300 hover:text-white transition-all backdrop-blur-md cursor-pointer group shadow-sm"
+        aria-label={t('hudMapTitle')}
+        className="pointer-events-auto inline-flex items-center justify-center w-9 h-9 rounded-full bg-black/40 hover:bg-black/70 border border-white/10 hover:border-[#FFE500]/50 text-zinc-300 hover:text-white transition-all backdrop-blur-md cursor-pointer group shadow-sm"
       >
-        <MapPin className="w-3.5 h-3.5 text-[#FFE500] group-hover:scale-110 transition-transform" />
-        <span {...cucField('hero.hud_map_label')}>{mapLabel}</span>
-        <ExternalLink className="w-3 h-3 text-zinc-500 group-hover:text-[#FFE500] transition-colors" />
+        <MapPin className="w-4 h-4 text-[#FFE500] group-hover:scale-110 transition-transform" />
       </a>
     </div>
   );

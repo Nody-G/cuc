@@ -89,7 +89,7 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
 }) => {
     const pane = useLivePreviewPane({ previewUrl });
 
-    const { iframeRef, isReady, hoveredField, reachability } = usePreviewBridge({
+    const { iframeRef, hoveredField, reachability } = usePreviewBridge({
         draft,
         settings,
         microcopy,
@@ -142,7 +142,6 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
                 onLocaleChange={onLocaleChange}
                 mode={mode}
                 onModeChange={onModeChange}
-                isReady={isReady}
                 isFullscreen={pane.isFullscreen}
                 onRefresh={pane.handleRefresh}
                 onOpenExternal={pane.handleOpenExternal}
@@ -184,8 +183,8 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
                         <span
                             className="shrink-0 px-1.5 py-0.5 rounded border border-white/10 text-zinc-500"
                             title={`Sonde d’atteignabilité : ${reachability.probed} champ(s) mesuré(s) dans la fenêtre, tous cliquables.${reachability.skipped > 0
-                                    ? ` ${reachability.skipped} hors fenêtre — faites défiler pour les mesurer.`
-                                    : ''
+                                ? ` ${reachability.skipped} hors fenêtre — faites défiler pour les mesurer.`
+                                : ''
                                 }`}
                         >
                             {reachability.probed} champ(s) cliquable(s)

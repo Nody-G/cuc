@@ -29,7 +29,6 @@ export const CockpitSidebar: React.FC<CockpitSidebarProps> = ({
     activeTab,
     onSelectTab,
     userRole,
-    realtimeStatus,
     userName,
     onLogout,
     onOpenBackup,
@@ -42,7 +41,6 @@ export const CockpitSidebar: React.FC<CockpitSidebarProps> = ({
         <>
             <SidebarHeader
                 roleLabel={sidebar.roleLabel}
-                realtimeStatus={realtimeStatus}
                 onSelectDashboard={() => {
                     onSelectTab('dashboard');
                     onCloseMobile();

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Users, Eye, Radio, Clock, TrendingDown, Target, ArrowUpRight, ArrowDownRight } from 'lucide-react';
+import { Users, Eye, Clock, TrendingDown, Target, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 import type { TrafficKpis } from '@/types/site-traffic';
 import { formatDuration } from '@/lib/traffic/traffic-service';
 
@@ -65,17 +65,13 @@ export const TrafficKpiOverview: React.FC<TrafficKpiOverviewProps> = ({ kpis }) 
                 </div>
             </div>
 
-            {/* 3. Visiteurs en Ligne (Live) */}
+            {/* 3. Visiteurs actifs */}
             <div className="bg-[#0b0b10] border border-emerald-500/30 bg-emerald-950/10 rounded-2xl p-4 shadow-lg hover:border-emerald-500/50 transition-all flex flex-col justify-between relative overflow-hidden">
                 <div className="flex items-center justify-between text-emerald-400">
-                    <span className="text-[11px] font-mono-tech uppercase tracking-wider flex items-center gap-1.5">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                        </span>
-                        En Direct
+                    <span className="text-[11px] font-mono-tech uppercase tracking-wider">
+                        Visiteurs actifs
                     </span>
-                    <Radio className="w-4 h-4 text-emerald-400 animate-pulse" />
+                    <Users className="w-4 h-4 text-emerald-400" />
                 </div>
                 <div className="my-2">
                     <div className="text-2xl font-display text-emerald-300 tracking-wide flex items-baseline gap-2">

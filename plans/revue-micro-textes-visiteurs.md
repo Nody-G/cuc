@@ -1,18 +1,18 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-28T15:36:50.195Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-29T08:29:42.845Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 288 |
-| DONNÉES — éditable par un écran existant | 100 |
+| ANNOTÉ — éditable en place | 286 |
+| DONNÉES — éditable par un écran existant | 101 |
 | TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 14 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 9 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 14 |
-| **Total** | **425** |
+| **Total** | **424** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -503,11 +503,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.160 — `{heroData?.cta_secondary_text || tHero('ctaVisit')}`
 - l.176 — `{heroData?.cta_tertiary_text || tHero('ctaStuntTeam')}`
 
-### `src\components\ui\parallax-hero\HeroHudOverlay.tsx`
-
-- l.44 — `{location}`
-- l.48 — `{privateDomain}`
-
 ## 2. DONNÉES — éditable par un écran existant
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachOtherMembers.tsx`
@@ -651,11 +646,12 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\hall-of-fame\CelebrityCard.tsx`
 
-- l.90 — `{actor.name}`
-- l.108 — `{seg.text}`
-- l.116 — `{doubledBy.prefix}`
-- l.117 — `{doubledBy.name}`
-- l.118 — `{doubledBy.suffix}`
+- l.92 — `{actor.name}`
+- l.99 — `{description}`
+- l.118 — `{seg.text}`
+- l.126 — `{doubledBy.prefix}`
+- l.127 — `{doubledBy.name}`
+- l.128 — `{doubledBy.suffix}`
 
 ### `src\components\sections\hall-of-fame\CelebrityDetailsModal.tsx`
 

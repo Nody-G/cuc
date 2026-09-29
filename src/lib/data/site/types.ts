@@ -60,10 +60,7 @@ export interface SitePageHero {
   cta_tertiary_link?: string;
   bg_image?: string;
   video_url?: string;
-  /** Micro-textes du HUD (localisation, domaine privé, libellé et cible de la carte). */
-  hud_location?: string;
-  hud_private_domain?: string;
-  hud_map_label?: string;
+  /** Cible de l'épingle de localisation affichée en surimpression du hero. */
   hud_map_url?: string;
   /** Mention « depuis » du badge ; métriques rapides fusionnées par index. */
   since?: string;

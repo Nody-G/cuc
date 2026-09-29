@@ -64,7 +64,7 @@ export const CockpitTabContent: React.FC<CockpitTabContentProps> = (props) => (
         id="cockpit-main"
         tabIndex={-1}
         aria-label="Contenu du Cockpit"
-        className="flex-1 p-6 md:p-10 max-w-7xl mx-auto w-full overflow-y-auto focus:outline-none"
+        className="flex-1 p-6 md:p-10 max-w-7xl mx-auto w-full focus:outline-none"
     >
         <CockpitCoreTabs {...props} />
         <CockpitCmsTabs {...props} />
