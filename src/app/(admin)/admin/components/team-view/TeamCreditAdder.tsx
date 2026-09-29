@@ -61,11 +61,6 @@ export const TeamCreditAdder: React.FC<TeamCreditAdderProps> = ({
             </span>
         </div>
 
-        <p className="text-[11px] text-zinc-400 leading-relaxed">
-            Recherchez un film du catalogue pour l'ajouter à la filmographie de ce
-            formateur, puis précisez son rôle.
-        </p>
-
         <div className="relative">
             <Search className="w-3 h-3 text-zinc-500 absolute left-2 top-1/2 -translate-y-1/2" />
             <input

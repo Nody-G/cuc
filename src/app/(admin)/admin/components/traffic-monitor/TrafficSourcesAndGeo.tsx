@@ -56,10 +56,10 @@ export const TrafficSourcesAndGeo: React.FC<TrafficSourcesAndGeoProps> = ({
                                         <div
                                             style={{ width: `${ref.percentage}%` }}
                                             className={`h-full rounded-full ${isIg
-                                                    ? 'bg-gradient-to-r from-fuchsia-500 to-pink-500'
-                                                    : isGoogle
-                                                        ? 'bg-blue-400'
-                                                        : 'bg-[#FFE500]'
+                                                ? 'bg-gradient-to-r from-fuchsia-500 to-pink-500'
+                                                : isGoogle
+                                                    ? 'bg-blue-400'
+                                                    : 'bg-[#FFE500]'
                                                 }`}
                                         />
                                     </div>
@@ -67,10 +67,6 @@ export const TrafficSourcesAndGeo: React.FC<TrafficSourcesAndGeoProps> = ({
                             );
                         })}
                     </div>
-                </div>
-
-                <div className="mt-6 pt-3 border-t border-zinc-800/80 text-[11px] font-mono-tech text-zinc-500">
-                    💡 <strong className="text-zinc-300">Instagram</strong> génère ~49% du trafic global grâce à la communauté d&apos;1M+ abonnés.
                 </div>
             </div>
 

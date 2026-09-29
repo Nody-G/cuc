@@ -144,9 +144,6 @@ export const PageLayoutManager: React.FC<PageLayoutManagerProps> = ({
             <div className="text-white font-bold uppercase tracking-wider">
               Disposition &amp; Agencement des Blocs
             </div>
-            <div className="text-gray-400 text-[11px] mt-0.5">
-              Utilisez les flèches pour modifier l&apos;ordre d&apos;apparition des sections sur le site.
-            </div>
           </div>
         </div>
 

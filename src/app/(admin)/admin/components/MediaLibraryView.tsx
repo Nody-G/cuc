@@ -29,8 +29,7 @@ export const MediaLibraryView: React.FC<MediaLibraryViewProps> = ({ showToast })
           Médiathèque & Fichiers
         </h1>
         <p className="text-sm text-gray-400 mt-1 max-w-3xl">
-          Tout le bucket, dossier par dossier : recherche globale, filtres par type, tri, aperçu
-          détaillé, sélection multiple, déplacement, copie d'URL et suppression réversible
+          Tout le bucket : recherche, filtres, aperçu, déplacement et suppression réversible
           (corbeille <code className="text-[#FFE500]">_trash</code>).
         </p>
       </div>

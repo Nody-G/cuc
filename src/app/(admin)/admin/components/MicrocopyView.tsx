@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { AlertCircle, Check, HelpCircle, Loader2, RefreshCw } from 'lucide-react';
+import { AlertCircle, Check, Loader2, RefreshCw } from 'lucide-react';
 import { useMicrocopyEditor } from './microcopy-view/useMicrocopyEditor';
 import { MicrocopyToolbar } from './microcopy-view/MicrocopyToolbar';
 import { MicrocopyEntryRow } from './microcopy-view/MicrocopyEntryRow';
@@ -61,18 +61,6 @@ export const MicrocopyView: React.FC<MicrocopyViewProps> = ({ showToast }) => {
 
     return (
         <div className="space-y-5 animate-in fade-in duration-200">
-            {/* Guide d'orientation clair pour l'équipe */}
-            <div className="flex items-start gap-3 p-3.5 rounded-lg border border-amber-500/20 bg-amber-500/5 text-xs text-zinc-300">
-                <HelpCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                <div className="space-y-1">
-                    <p>
-                        <strong className="text-amber-300">💡 Conseil d'utilisation :</strong> Pour modifier le texte d'une page (titres, paragraphes, photos) avec prévisualisation en direct, utilisez plutôt le <strong className="text-zinc-100">Mode Studio</strong> dans l'onglet <em>« Éditeur de Pages »</em>.
-                    </p>
-                    <p className="text-zinc-400">
-                        Cette page sert de <strong>dictionnaire technique</strong> pour ajuster les libellés génériques récurrents (boutons d'action, mentions de navigation, messages d'état FR/EN).
-                    </p>
-                </div>
-            </div>
             <MicrocopyToolbar
                 entriesCount={editor.entries.length}
                 groupsCount={editor.groups.length}

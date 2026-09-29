@@ -28,6 +28,7 @@ import {
     ExternalLink,
     Globe,
     ScrollText,
+    BookOpen,
 } from 'lucide-react';
 import type { TabType } from '../../CockpitApp';
 
@@ -95,6 +96,9 @@ export function buildCommands({ selectTab, openBackup, openHealth }: CommandActi
         { id: 'action-new-page', label: 'Créer / Éditer une Page Vitrine', category: 'Actions Rapides', icon: FileText, action: () => selectTab('pages'), keywords: ['ajouter', 'nouvelle', 'creer', 'page', 'contenu'] },
         { id: 'action-new-partner', label: 'Ajouter un Partenaire', category: 'Actions Rapides', icon: Handshake, action: () => selectTab('partners'), keywords: ['ajouter', 'nouveau', 'creer', 'partenaire', 'sponsor'] },
         { id: 'action-upload-media', label: 'Téléverser un Média', category: 'Actions Rapides', icon: ImageIcon, action: () => selectTab('media'), keywords: ['upload', 'ajouter', 'image', 'photo', 'video', 'fichier'] },
+
+        // Aide
+        { id: 'nav-help', label: 'Aide & Guide', category: 'Navigation', icon: BookOpen, action: () => selectTab('help'), keywords: ['aide', 'guide', 'help', 'tuto', 'documentation', 'comment faire', 'explication'] },
 
         // Outils Système
         { id: 'nav-logs', label: 'Journal & Activité', category: 'Navigation', icon: ScrollText, action: () => selectTab('logs'), keywords: ['journal', 'logs', 'activite', 'erreurs', 'incidents', 'tracabilite', 'diagnostic', 'audit'] },

@@ -35,7 +35,7 @@ export const ContentHealthView: React.FC<ContentHealthViewProps> = ({
                 icon={Stethoscope}
                 eyebrow="Intégrité du Contenu"
                 title="Diagnostic de Santé"
-                description="Détection automatique des liens internes cassés, images manquantes, contenus orphelins et métadonnées SEO incomplètes sur l’ensemble de la vitrine — plus la liste des rôles et doublures CUC restés à préciser dans la filmographie."
+                description="Liens cassés, images manquantes, contenus orphelins, SEO incomplet, rôles et doublures à préciser."
                 actions={
                     <CockpitButton
                         variant="secondary"

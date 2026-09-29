@@ -5,6 +5,7 @@
  * la correspondance onglet ↔ URL et la construction des sections du menu.
  */
 import { SYSTEM_TOOLS_SECTION } from './cockpit-system-section';
+import { HELP_NAV_SECTION } from './cockpit-help-section';
 import {
     Activity,
     Bell,
@@ -53,7 +54,8 @@ export type TabType =
     | 'microcopy'
     | 'settings'
     | 'instagram'
-    | 'traffic';
+    | 'traffic'
+    | 'help';
 
 /**
  * Source de vérité unique de la correspondance onglet ↔ segment d'URL.
@@ -86,6 +88,7 @@ export const TAB_ROUTES: ReadonlyArray<{ tab: TabType; segment: string }> = [
     { tab: 'settings', segment: 'settings' },
     { tab: 'translations', segment: 'translations' },
     { tab: 'microcopy', segment: 'microtextes' },
+    { tab: 'help', segment: 'aide' },
 ];
 
 /** Résout un chemin d'URL vers l'onglet correspondant (ou `null` si inconnu). */
@@ -154,6 +157,7 @@ export function buildNavSections({
                     { id: 'films', label: 'Mes Films & Crédits', icon: Film },
                 ],
             },
+            HELP_NAV_SECTION,
         ];
     }
 
@@ -255,44 +259,12 @@ export function buildNavSections({
                     : []),
             ],
         },
+        // Aide : accessible à tous les rôles (cf. cockpit-help-section.ts).
+        HELP_NAV_SECTION,
     ];
 }
 
-export interface TabMetadata {
-    label: string;
-    sectionTitle: string;
-    icon: LucideIcon;
-}
-
-const TAB_METADATA_MAP: Record<TabType, TabMetadata> = {
-    dashboard: { label: 'Tableau de Bord', sectionTitle: 'Inscriptions & Planning', icon: LayoutDashboard },
-    inquiries: { label: 'Contact', sectionTitle: 'Inscriptions & Planning', icon: Inbox },
-    sessions: { label: 'Sessions de Formation', sectionTitle: 'Inscriptions & Planning', icon: Calendar },
-    pages: { label: 'Pages du Site', sectionTitle: 'Formations & Films', icon: FileText },
-    films: { label: 'Filmographie & Cascades', sectionTitle: 'Formations & Films', icon: Film },
-    team: { label: 'Coachs & Formateurs', sectionTitle: 'Formations & Films', icon: Users },
-    campus: { label: 'Campus & Installations', sectionTitle: 'Formations & Films', icon: Boxes },
-    'campus-3d': { label: 'Campus & Installations', sectionTitle: 'Formations & Films', icon: Boxes },
-    disciplines: { label: 'Disciplines Enseignées', sectionTitle: 'Formations & Films', icon: Shield },
-    events: { label: 'Agence & Événements Pro', sectionTitle: 'Formations & Films', icon: Briefcase },
-    partners: { label: 'Partenaires', sectionTitle: 'Formations & Films', icon: Handshake },
-    instagram: { label: 'Instagram & Vidéos', sectionTitle: 'Réseaux & Visites', icon: Activity },
-    traffic: { label: 'Visites du Site', sectionTitle: 'Réseaux & Visites', icon: Globe },
-    media: { label: 'Médiathèque (Photos & Médias)', sectionTitle: 'Réseaux & Visites', icon: ImageIcon },
-    announcements: { label: 'Bandeau d\'Alerte', sectionTitle: 'Réglages du Site', icon: Bell },
-    navigation: { label: 'Menus du Site', sectionTitle: 'Réglages du Site', icon: Menu },
-    footer: { label: 'Bas de Page (Footer)', sectionTitle: 'Réglages du Site', icon: PanelBottom },
-    social: { label: 'Réseaux Sociaux', sectionTitle: 'Réglages du Site', icon: Share2 },
-    settings: { label: 'Coordonnées & Paramètres', sectionTitle: 'Réglages du Site', icon: Settings },
-    users: { label: 'Comptes & Accès', sectionTitle: 'Réglages du Site', icon: Users },
-    logs: { label: 'Journal & Activité', sectionTitle: 'Outils Système', icon: Activity },
-    audit: { label: 'Journal d’Audit', sectionTitle: 'Outils Système', icon: Activity },
-    health: { label: 'Diagnostic du Site', sectionTitle: 'Outils Système', icon: Activity },
-    analytics: { label: 'Statistiques & Conversion', sectionTitle: 'Inscriptions & Planning', icon: Activity },
-    translations: { label: 'Traductions Anglaises', sectionTitle: 'Réglages du Site', icon: Globe },
-    microcopy: { label: 'Textes & Boutons du Site', sectionTitle: 'Réglages du Site', icon: FileText },
-};
-
-export function getTabMetadata(tab: TabType): TabMetadata {
-    return TAB_METADATA_MAP[tab] || { label: tab, sectionTitle: 'Cockpit', icon: LayoutDashboard };
-}
+// Métadonnées d'affichage des onglets (libellé, section, icône) déportées dans
+// `cockpit-tab-metadata.ts` pour tenir sous le plafond de 300 lignes (§ 2).
+export type { TabMetadata } from './cockpit-tab-metadata';
+export { getTabMetadata } from './cockpit-tab-metadata';

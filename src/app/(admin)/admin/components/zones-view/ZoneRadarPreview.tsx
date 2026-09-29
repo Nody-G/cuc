@@ -44,9 +44,5 @@ export const ZoneRadarPreview: React.FC<ZoneRadarPreviewProps> = ({ pois, onEdit
                 </div>
             ))}
         </div>
-
-        <div className="relative z-10 text-[11px] text-zinc-500">
-            Cliquez sur un point pour l'éditer directement sur le radar.
-        </div>
     </div>
 );

@@ -154,8 +154,8 @@ export const LivePreviewPane: React.FC<LivePreviewPaneProps> = ({
                     <MousePointerClick className="w-3.5 h-3.5 text-[#FFE500]" />
                     <span>
                         {mode === 'edit'
-                            ? 'Cliquez un texte ou un lien dans l’aperçu, saisissez, puis Entrée pour valider (Ctrl+Entrée en multi-lignes). Échap annule.'
-                            : 'Mode inspection : un clic désigne le champ et l’ouvre dans le formulaire. Activez « Édition en place » pour saisir ici.'}
+                            ? 'Édition en place : cliquez un texte, saisissez, Entrée pour valider.'
+                            : 'Inspection : un clic désigne le champ dans le formulaire.'}
                     </span>
                     <span
                         className="shrink-0 px-1.5 py-0.5 rounded border border-[#FFE500]/40 text-[#FFE500] font-bold"

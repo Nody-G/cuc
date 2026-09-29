@@ -15,7 +15,7 @@ export const DashboardBackupPanel: React.FC<DashboardBackupPanelProps> = ({ onOp
                 <Database className="w-4 h-4 text-emerald-400" /> Sauvegarde Intégrale
             </div>
             <p className="text-xs text-gray-400 leading-relaxed">
-                Téléchargez un instantané complet de votre site CUC (15 pages, ateliers, dates, instructeurs et partenaires) ou restaurez une configuration précédente.
+                Instantané complet du site, ou restauration d’une configuration antérieure.
             </p>
         </div>
 

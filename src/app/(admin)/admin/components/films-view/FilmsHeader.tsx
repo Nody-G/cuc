@@ -81,7 +81,7 @@ export const FilmsHeader: React.FC<FilmsHeaderProps> = ({
                         Projets Cinéma & Cascades
                     </h1>
                     <p className="text-xs sm:text-sm text-gray-400 mt-1">
-                        Vue par défaut centrée sur les productions coordonnées par Lucas DOLLFUS. Toutes les participations et doublures d'acteurs de l'équipe restent tracées en base.
+                        Productions coordonnées par Lucas DOLLFUS et toutes les participations de l’équipe.
                     </p>
                 </div>
 

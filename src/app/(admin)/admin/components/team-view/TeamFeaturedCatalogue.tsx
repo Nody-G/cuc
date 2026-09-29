@@ -39,12 +39,6 @@ export const TeamFeaturedCatalogue: React.FC<TeamFeaturedCatalogueProps> = ({
             </span>
         </div>
 
-        <p className="text-[11px] text-zinc-400 leading-relaxed">
-            Films mis en avant sur la fiche publique, dans cet ordre. Réordonnez-les
-            avec les flèches, retirez-en un avec l'étoile. Le rôle se choisit dans
-            « Tous les crédits » ci-dessous.
-        </p>
-
         {items.length > 0 ? (
             <ol className="max-h-[22rem] overflow-y-auto pr-1 divide-y divide-white/5 border border-[#FFE500]/25 rounded-lg overflow-hidden">
                 {items.map(({ entry, film }, idx) => (

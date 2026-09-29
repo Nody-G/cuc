@@ -77,7 +77,7 @@ export const LogsView: React.FC<LogsViewProps> = ({ showToast }) => {
                 icon={ScrollText}
                 eyebrow="Traçabilité & Exploitation"
                 title="Journal & Activité"
-                description="Tout ce qui se passe, rangé par nature : modifications métier du Cockpit d’un côté, erreurs techniques classées, dégradations d’outils et synchronisations de l’autre."
+                description="Modifications métier, erreurs techniques classées, dégradations d’outils et synchronisations."
                 actions={
                     <div className="flex items-center gap-2">
                         <CockpitButton

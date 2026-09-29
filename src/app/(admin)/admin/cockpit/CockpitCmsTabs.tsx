@@ -22,6 +22,7 @@ import { AnalyticsView } from '../components/AnalyticsView';
 import { InquiriesView } from '../components/InquiriesView';
 import { InstagramMonitorView } from '../components/InstagramMonitorView';
 import { TrafficMonitorView } from '../components/TrafficMonitorView';
+import { HelpView } from '../components/HelpView';
 
 /**
  * Onglets « vitrine & exploitation » : bandeau flash, i18n, CMS de pages,
@@ -209,6 +210,9 @@ export const CockpitCmsTabs: React.FC<CockpitTabContentProps> = (props) => {
             {props.activeTab === 'traffic' && (
                 <TrafficMonitorView showToast={props.showToast} />
             )}
+
+            {/* 23. AIDE & GUIDE — la pédagogie de l'application, centralisée */}
+            {props.activeTab === 'help' && <HelpView />}
         </>
     );
 };

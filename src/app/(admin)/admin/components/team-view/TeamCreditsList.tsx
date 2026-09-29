@@ -71,11 +71,6 @@ export const TeamCreditsList: React.FC<TeamCreditsListProps> = ({
             </div>
         </div>
 
-        <p className="text-[11px] text-zinc-400 leading-relaxed">
-            Cliquez sur l'étoile pour mettre un crédit en avant. Le rôle se choisit
-            directement sur chaque ligne.
-        </p>
-
         {sortedRows.length > 0 ? (
             <div className="space-y-1 max-h-[26rem] overflow-y-auto pr-1">
                 {sortedRows.map(({ raw, title, role, key, year, inCatalogue }) => {

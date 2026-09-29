@@ -109,8 +109,8 @@ export const TranslationsView: React.FC<TranslationsViewProps> = ({ showToast })
                         Traductions EN
                     </h1>
                     <p className="text-sm text-zinc-400 mt-1">
-                        Overlay de traduction (table <code className="text-zinc-300">site_translations</code>) fusionné
-                        par-dessus le contenu FR. Aucune traduction absente ne casse la vitrine : repli FR automatique.
+                        Surcharge de traduction (table <code className="text-zinc-300">site_translations</code>) : le
+                        contenu français sert de repli automatique.
                     </p>
                 </div>
                 <button

@@ -18,7 +18,6 @@ import { DashboardHeader } from './dashboard-view/DashboardHeader';
 import { DashboardModuleCard } from './dashboard-view/DashboardModuleCard';
 import { DashboardActivityLog } from './dashboard-view/DashboardActivityLog';
 import { DashboardBackupPanel } from './dashboard-view/DashboardBackupPanel';
-import { DashboardPerformanceNote } from './dashboard-view/DashboardPerformanceNote';
 import { useAuditLogs } from './dashboard-view/useAuditLogs';
 
 interface DashboardViewProps {
@@ -182,8 +181,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         {/* Panneau Sécurité & Sauvegardes */}
         <DashboardBackupPanel onOpenBackupModal={onOpenBackupModal} />
       </div>
-
-      <DashboardPerformanceNote />
     </div>
   );
 };
