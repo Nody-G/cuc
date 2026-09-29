@@ -7,7 +7,7 @@ import { CockpitLoadMore } from '../ui';
 import { InquiryRow } from './InquiryRow';
 
 export interface InquiryListProps {
-    /** Nombre de candidatures après filtres (pour l'état vide). */
+    /** Nombre de dossiers après filtres (pour l'état vide). */
     totalFiltered: number;
     /** Fenêtre visible (rendu progressif). */
     inquiries: SiteInquiry[];
@@ -16,10 +16,16 @@ export interface InquiryListProps {
     hasMore: boolean;
     onLoadMore: () => void;
     onOpen: (inquiry: SiteInquiry) => void;
-    onStatusChange: (id: string, status: SiteInquiry['status']) => void;
+    onStageChange: (id: string, stage: string) => void;
+    /**
+     * Nombre de dossiers par email normalisé. Calculé sur **toute** la file (et
+     * non sur la fenêtre rendue), sinon une re-candidature serait invisible
+     * quand le dossier antérieur est hors de la pagination.
+     */
+    applicantDossierCounts?: ReadonlyMap<string, number>;
 }
 
-/** Liste des candidatures : état vide, lignes et pagination progressive. */
+/** Liste des dossiers Contact : état vide, lignes et pagination progressive. */
 export const InquiryList: React.FC<InquiryListProps> = ({
     totalFiltered,
     inquiries,
@@ -28,14 +34,17 @@ export const InquiryList: React.FC<InquiryListProps> = ({
     hasMore,
     onLoadMore,
     onOpen,
-    onStatusChange,
+    onStageChange,
+    applicantDossierCounts,
 }) => (
     <div className="bg-[#0D0D12] border border-white/10 rounded-xl overflow-hidden">
         {totalFiltered === 0 ? (
             <div className="p-12 text-center text-gray-500 space-y-2">
                 <Inbox className="w-8 h-8 mx-auto text-gray-600" />
-                <p className="text-sm text-gray-400">Aucune demande trouvée.</p>
-                <p className="text-xs">Les candidatures du site vitrine apparaîtront ici en temps réel.</p>
+                <p className="text-sm text-gray-400">Aucun dossier trouvé.</p>
+                <p className="text-xs">
+                    Les demandes du site vitrine apparaîtront ici en temps réel.
+                </p>
             </div>
         ) : (
             <div className="divide-y divide-white/5">
@@ -44,7 +53,8 @@ export const InquiryList: React.FC<InquiryListProps> = ({
                         key={inq.id}
                         inquiry={inq}
                         onOpen={onOpen}
-                        onStatusChange={onStatusChange}
+                        onStageChange={onStageChange}
+                        applicantDossierCount={applicantDossierCounts?.get(inq.id) ?? 1}
                     />
                 ))}
                 {hasMore && (
@@ -53,7 +63,7 @@ export const InquiryList: React.FC<InquiryListProps> = ({
                             visibleCount={visibleCount}
                             total={totalCount}
                             onLoadMore={onLoadMore}
-                            label="Afficher plus de candidatures"
+                            label="Afficher plus de dossiers"
                         />
                     </div>
                 )}

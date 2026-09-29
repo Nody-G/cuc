@@ -20,6 +20,7 @@ import { useEditorNavigation } from './pages-editor/useEditorNavigation';
 import { usePageEditorDraft } from './pages-editor/usePageEditorDraft';
 import { usePageSaveActions } from './pages-editor/usePageSaveActions';
 import { usePreviewMediaPicker } from './pages-editor/usePreviewMediaPicker';
+import { usePageEditorCatalog } from './pages-editor/usePageEditorCatalog';
 import { useSectionHandlers } from './pages-editor/useSectionHandlers';
 
 interface PagesEditorViewProps {
@@ -62,6 +63,12 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
 
   const cleanSelectedSlug = normalizeSlug(selectedSlug);
   const draft = usePageEditorDraft({ pages, selectedSlug: cleanSelectedSlug, editorLocale });
+
+  /** Pages réellement en base + pages qui honorent la structure des blocs. */
+  const { pageGroups, defaultLayoutSections, blockStructureSupported } = usePageEditorCatalog(
+    pages,
+    cleanSelectedSlug
+  );
 
   const bumpPreview = () => setPreviewKey((prev) => prev + 1);
 
@@ -169,6 +176,7 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
       <PageEditorTopBar
         selectedSlug={selectedSlug}
         onSelectPage={navigation.handleSelectPage}
+        pageGroups={pageGroups}
         editorLocale={editorLocale}
         onLocaleChange={navigation.handleLocaleChange}
         localeCoverage={
@@ -206,6 +214,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
             }))
           }
           onReset={handleResetLayout}
+          structureSupported={blockStructureSupported}
+          availableSections={defaultLayoutSections}
         />
       )}
 

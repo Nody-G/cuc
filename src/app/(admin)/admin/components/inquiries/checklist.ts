@@ -1,18 +1,24 @@
 /**
- * Suivi opérationnel candidat : étapes du parcours et sérialisation dans
- * `admin_notes` sous forme de commentaire HTML `<!-- CUC_CHECKLIST:... -->`.
+ * Suivi opérationnel d'un dossier Contact : sérialisation dans `admin_notes`
+ * sous forme de commentaire HTML `<!-- CUC_CHECKLIST:... -->`.
+ *
+ * Les **étapes** ne sont plus figées ici : elles vivent dans le catalogue des
+ * pipelines (`@/lib/inquiries/pipelines`), une seule source par sujet. Ce module
+ * ne porte plus que la (dé)sérialisation, et ré-exporte la checklist du pipeline
+ * Formation pour les lectures historiques.
  *
  * Couche « Domaine » (`AGENTS.md` § 1) : fonctions pures, déterministes.
  */
 
-export const CHECKLIST_STEPS = [
-    { id: 'contact', label: '1. Premier contact téléphonique effectué' },
-    { id: 'dossier', label: '2. Dossier & certificat médical reçus' },
-    { id: 'financement', label: '3. Financement validé (AFDAS / Personnel)' },
-    { id: 'convocation', label: '4. Convocation / Contrat officiel envoyé' },
-];
+import { getPipeline } from '@/lib/inquiries/pipelines';
 
-export function parseNotesAndChecklist(raw: string): { checklist: Record<string, boolean>; notes: string } {
+/** Étapes du parcours Formation (compatibilité des lectures existantes). */
+export const CHECKLIST_STEPS = getPipeline('formation').checklist;
+
+export function parseNotesAndChecklist(raw: string): {
+    checklist: Record<string, boolean>;
+    notes: string;
+} {
     const match = raw.match(/<!-- CUC_CHECKLIST:([a-z,]+) -->/);
     if (!match) {
         return { checklist: {}, notes: raw };
@@ -26,7 +32,10 @@ export function parseNotesAndChecklist(raw: string): { checklist: Record<string,
     return { checklist, notes };
 }
 
-export function serializeNotesAndChecklist(checklist: Record<string, boolean>, notes: string): string {
+export function serializeNotesAndChecklist(
+    checklist: Record<string, boolean>,
+    notes: string
+): string {
     const completed = Object.entries(checklist)
         .filter(([, v]) => v)
         .map(([k]) => k)

@@ -119,3 +119,24 @@ export function authRedirectTo(): string | undefined {
 export function adminClient(): AdminClient {
     return createAdminClient();
 }
+
+/**
+ * Identifiant du profil CUC Sign porté par une adresse email, ou `null`.
+ *
+ * C'est la clé de la règle « participation ⇒ profil » : on ne crée jamais un
+ * profil depuis la vitrine, on constate seulement s'il existe déjà.
+ */
+export async function findProfileIdByEmail(email: string): Promise<string | null> {
+    const key = email.trim().toLowerCase();
+    if (!key) return null;
+    try {
+        const { data } = await adminClient()
+            .from('profiles')
+            .select('id')
+            .eq('email', key)
+            .maybeSingle();
+        return data?.id ?? null;
+    } catch {
+        return null;
+    }
+}

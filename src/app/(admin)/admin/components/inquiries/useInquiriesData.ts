@@ -5,8 +5,10 @@ import {
     convertInquiryToCucSignStudent,
     deleteInquiry,
     fetchInquiriesAction,
+    reclassifyInquiry,
+    setDiscoveryVerdict,
     updateInquiryNotes,
-    updateInquiryStatus,
+    updateInquiryStage,
 } from '@/app/(admin)/admin/actions';
 import { getInquiries, type SiteInquiry } from '@/lib/data/site-service';
 
@@ -83,16 +85,54 @@ export function useInquiriesData({ showToast, onInquiriesCountChange }: UseInqui
         };
     }, [loadInquiries, syncCount]);
 
-    const changeStatus = async (id: string, newStatus: SiteInquiry['status']) => {
-        const res = await updateInquiryStatus(id, newStatus);
+    /**
+     * Change l'étape du dossier. Le refus éventuel (verrou Découverte → Cursus
+     * Pro) vient du serveur : le toast explique pourquoi l'étape est refusée.
+     */
+    const changeStage = async (id: string, stage: string) => {
+        const res = await updateInquiryStage(id, stage);
         if (res.success) {
-            const next = inquiries.map((item) => (item.id === id ? { ...item, status: newStatus } : item));
+            const next = inquiries.map((item) => (item.id === id ? { ...item, status: stage } : item));
             setInquiries(next);
             syncCount(next);
-            showToast(`Statut mis à jour : ${newStatus.toUpperCase()}`);
+            showToast('Étape mise à jour.');
         } else {
             showToast(`Erreur : ${res.error}`);
         }
+        return res;
+    };
+
+    /** Déplace un dossier vers un autre pipeline (erreur de catégorie du visiteur). */
+    const reclassify = async (id: string, targetPipeline: string, reason: string) => {
+        const res = await reclassifyInquiry(id, targetPipeline, reason);
+        if (res.success) {
+            await fetchInquiries();
+            showToast('Demande re-catégorisée.');
+        } else {
+            showToast(`Erreur : ${res.error}`);
+        }
+        return res;
+    };
+
+    /** Enregistre le verdict de la session Découverte (cursus long). */
+    const recordDiscoveryVerdict = async (
+        id: string,
+        verdict: 'en_attente' | 'favorable' | 'defavorable'
+    ) => {
+        const res = await setDiscoveryVerdict(id, verdict);
+        if (res.success) {
+            setInquiries((prev) =>
+                prev.map((item) =>
+                    item.id === id
+                        ? { ...item, metadata: { ...(item.metadata ?? {}), discovery_verdict: verdict } }
+                        : item
+                )
+            );
+            showToast('Verdict Découverte enregistré.');
+        } else {
+            showToast(`Erreur : ${res.error}`);
+        }
+        return res;
     };
 
     const persistNotes = async (id: string, serialized: string): Promise<PersistNotesResult> => {
@@ -152,7 +192,9 @@ export function useInquiriesData({ showToast, onInquiriesCountChange }: UseInqui
         inquiries,
         loading,
         fetchInquiries,
-        changeStatus,
+        changeStage,
+        reclassify,
+        recordDiscoveryVerdict,
         persistNotes,
         removeInquiry,
         convertInquiry,

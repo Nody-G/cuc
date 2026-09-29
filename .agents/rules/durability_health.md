@@ -80,3 +80,13 @@
    `traffic-data.generateLiveVisitors` ont été supprimés, la localisation non collectée
    est affichée comme telle). Même règle que pour Instagram : **un chiffre sans source
    mesurée s'affiche comme un repère, ou ne s'affiche pas.**
+9. **Migrations de base : l'agent les applique lui-même, à une condition explicite** (consigne client du
+   2026-09-29 : « fais-le automatiquement, ma base de données est très précieuse »). Le protocole est
+   celui des scripts `db:migrate:*` : **essai à blanc d'abord** (aucune écriture), puis `:write`. Une
+   migration est réputée **non destructive** si elle se limite à `ADD COLUMN IF NOT EXISTS`,
+   `CREATE TABLE IF NOT EXISTS`, `CREATE INDEX IF NOT EXISTS`, `COMMENT` ou l'ajout d'une policy. Elle
+   ne l'est **pas** dès qu'elle comporte `DROP`, `ALTER COLUMN … TYPE`, `DELETE`, `UPDATE` de masse, ou
+   une contrainte ajoutée à des données existantes : dans ce cas, l'accord du client précède
+   l'application. L'applier relève le **nombre de lignes avant/après** et échoue si le compte change —
+   c'est la preuve d'innocuité, pas une formalité (`apply_applicant_history_migration.mjs` en est le
+   modèle).

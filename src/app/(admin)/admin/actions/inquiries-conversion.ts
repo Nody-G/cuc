@@ -9,6 +9,7 @@ import { createAdminClient } from '@/lib/supabase/admin';
 import { revalidateSite } from './revalidate';
 import { logAuditEvent } from './audit';
 import { syncSessionsSeatCountsFromCucSign } from './sessions-sync';
+import { syncApplicantHistoryToProfile } from './applicant-history';
 
 /** Candidature telle que lue (table `site_inquiries` ou miroir `site_settings`). */
 type InquiryRecord = {
@@ -230,6 +231,13 @@ export async function convertInquiryToCucSignStudent(inquiryId: string) {
         formation_id: linkedFormationId,
       })
     );
+
+    // 7. Historique de candidature versé au profil : la personne participe
+    //    désormais, son passé (refus, Découverte non retenue) la suit.
+    const synced = await syncApplicantHistoryToProfile(email);
+    if (!synced.success && synced.error) {
+      console.warn(`[inquiries] Historique non versé au profil (${email}) : ${synced.error}`);
+    }
 
     await revalidateSite(['/admin']);
 

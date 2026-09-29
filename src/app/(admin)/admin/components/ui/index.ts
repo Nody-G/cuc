@@ -54,3 +54,6 @@ export type { ProgressiveListOptions, ProgressiveListResult } from './useProgres
 
 export { LocaleToggle } from './LocaleToggle';
 export type { LocaleToggleProps, EditorLocaleOption } from './LocaleToggle';
+
+export { CommaListField } from './CommaListField';
+export type { CommaListFieldProps } from './CommaListField';

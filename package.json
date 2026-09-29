@@ -41,6 +41,8 @@
     "db:migrate:settings-revisions:write": "node scripts/apply_settings_realtime_and_revisions_migration.mjs --write",
     "db:migrate:site-pages-rls": "node scripts/apply_site_pages_rls_migration.mjs",
     "db:migrate:site-pages-rls:write": "node scripts/apply_site_pages_rls_migration.mjs --write",
+    "db:migrate:applicant-history": "node scripts/apply_applicant_history_migration.mjs",
+    "db:migrate:applicant-history:write": "node scripts/apply_applicant_history_migration.mjs --write",
     "report:audit": "node scripts/generate_audit_report.mjs",
     "report:metrics": "node scripts/generate_metrics_report.mjs",
     "report:dossier": "node scripts/generate_app_dossier.mjs",

@@ -59,9 +59,12 @@ export function analyzeCockpit(input: AnalyticsInput): AnalyticsReport {
     const auditTrend = buildDailySeries(auditDates, windowDays, now);
 
     // --- Entonnoir de conversion -------------------------------------------
+    // « En traitement » = tout dossier sorti de l'étape d'entrée de son pipeline.
+    // On ne teste plus un statut nommé (`en_cours`) : le catalogue d'étapes est
+    // la source unique (un dossier de tournage n'a pas de statut « en examen »).
     const funnel = buildFunnel({
         received: inquiriesTotal,
-        processing: statusCounts.en_cours + inquiriesAdmitted + inquiriesRefused,
+        processing: Math.max(inquiriesTotal - inquiriesNew, 0),
         decided,
         admitted: inquiriesAdmitted,
     });

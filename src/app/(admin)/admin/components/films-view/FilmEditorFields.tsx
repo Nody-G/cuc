@@ -5,6 +5,8 @@ import { Image as ImageIcon } from 'lucide-react';
 import { ImdbLogo, AllocineLogo, YouTubeLogo } from '@/components/ui/BrandLogos';
 import type { FilmCredit } from '@/types';
 import { FILM_CATEGORIES } from '@/lib/film-category';
+import { coerceStringList } from '@/lib/comma-list';
+import { CommaListField } from '../ui';
 
 export interface FilmEditorFieldsProps {
     value: FilmCredit;
@@ -111,20 +113,13 @@ export const FilmEditorFields: React.FC<FilmEditorFieldsProps> = ({
             <label className={labelClass}>
                 Comédiens doublés (séparés par des virgules)
             </label>
-            <input
-                type="text"
+            <CommaListField
+                key={`film-doubled-${value.id}`}
+                value={coerceStringList(value.doubledActors)}
+                onChange={(doubledActors) => onChange({ doubledActors })}
                 placeholder="ex: Tomer Sisley, Pierre Niney, Keanu Reeves"
-                value={
-                    Array.isArray(value.doubledActors)
-                        ? value.doubledActors.join(', ')
-                        : (value.doubledActors as unknown as string) || ''
-                }
-                onChange={(e) =>
-                    onChange({
-                        doubledActors: e.target.value.split(',').map((s) => s.trim()).filter(Boolean),
-                    })
-                }
                 className={inputClass}
+                aria-label="Comédiens doublés"
             />
         </div>
 

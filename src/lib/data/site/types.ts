@@ -210,8 +210,43 @@ export interface SiteInquiryMetadata {
   cuc_sign_formation_id?: string | null;
   /** Horodatage ISO de la conversion de la candidature en élève. */
   converted_at?: string;
+
+  /**
+   * Pipeline du dossier : `formation` (défaut), `production`, `evenement` ou
+   * `presse`. Stocké ici plutôt que dans une colonne dédiée : `site_inquiries`
+   * est partagée avec CUC Sign et aucune migration n'est requise. Catalogue
+   * canonique : `@/lib/inquiries/pipelines`.
+   */
+  pipeline?: string;
+  /** Verdict de la session Découverte (12 jours), qui conditionne le cursus long. */
+  discovery_verdict?: 'en_attente' | 'favorable' | 'defavorable';
+  /** Horodatage ISO du verdict Découverte. */
+  discovery_decided_at?: string;
+  /**
+   * Qualification des demandes non-formation (production, événementiel,
+   * presse) : ce qu'un devis exige et qu'un dossier d'admission n'a pas.
+   */
+  brief?: {
+    budget?: string;
+    date?: string;
+    location?: string;
+    headcount?: string;
+  };
+  /** Historique des re-catégorisations (pipeline d'origine → cible, motif). */
+  reclassifications?: Array<{ at: string; from: string; to: string; reason: string }>;
+
   [key: string]: unknown;
 }
+
+/**
+ * Étape d'un dossier dans son pipeline (`site_inquiries.status`).
+ *
+ * Chaîne libre : la colonne est un `TEXT` sans contrainte SQL, et le catalogue
+ * des étapes vit dans le code (`@/lib/inquiries/pipelines`). Les anciennes
+ * valeurs (`nouveau`, `en_cours`, `admis`, `refuse`, `archive`) restent
+ * résolues vers les étapes courantes par `resolveStage()`.
+ */
+export type InquiryStageId = string;
 
 export interface SiteInquiry {
   id: string;
@@ -225,9 +260,12 @@ export interface SiteInquiry {
   session_date?: string;
   afdas_status?: string;
   message: string;
-  status: 'nouveau' | 'en_cours' | 'admis' | 'refuse' | 'archive';
+  /** Étape courante dans le pipeline du dossier (voir `SiteInquiryMetadata.pipeline`). */
+  status: InquiryStageId;
   admin_notes?: string;
   metadata?: SiteInquiryMetadata;
+  /** Pipeline résolu (`formation` par défaut) — renseigné à la lecture. */
+  pipeline?: string;
   created_at: string;
   updated_at?: string;
 }

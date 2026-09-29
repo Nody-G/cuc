@@ -4,16 +4,35 @@
  */
 
 import type { SiteInquiry } from '@/lib/data/site-service';
+import { PIPELINE_CATALOG } from '@/lib/inquiries/pipelines';
 import type { DistributionSlice, FunnelStage } from './types';
 import { buildDistribution } from './distribution';
 
-export const INQUIRY_STATUS_LABELS: Record<SiteInquiry['status'], string> = {
-    nouveau: 'Nouveau',
-    en_cours: 'En cours',
-    admis: 'Admis',
-    refuse: 'Refusé',
-    archive: 'Archivé',
-};
+/**
+ * Libellés d'étapes pour les décompositions.
+ *
+ * Les étapes vivent dans le catalogue des pipelines : on y lit leurs libellés
+ * plutôt que de figer une liste de statuts ici (un dossier de tournage n'a ni
+ * « Admis » ni « Refusé »). Les identifiants partagés entre pipelines
+ * (`recue`, `qualification`, `archive`…) gardent la première définition.
+ */
+const STAGE_LABELS: Record<string, string> = (() => {
+    const labels: Record<string, string> = {};
+    for (const pipeline of PIPELINE_CATALOG) {
+        for (const stage of pipeline.stages) {
+            if (!labels[stage.id]) labels[stage.id] = stage.label;
+        }
+    }
+    return labels;
+})();
+
+/** Libellé d'une étape, ou son identifiant brut si le catalogue l'ignore. */
+export function inquiryStageLabel(stage: string): string {
+    return STAGE_LABELS[stage] ?? stage;
+}
+
+/** Conservé pour les appelants historiques : libellés des étapes connues. */
+export const INQUIRY_STATUS_LABELS = STAGE_LABELS;
 
 export interface FunnelCounts {
     received: number;
@@ -50,12 +69,12 @@ export function buildFunnel(counts: FunnelCounts): FunnelStage[] {
 }
 
 export function buildStatusDistribution(
-    statusCounts: Record<SiteInquiry['status'], number>
+    statusCounts: Record<string, number>
 ): DistributionSlice[] {
     return buildDistribution(
-        (Object.keys(statusCounts) as Array<SiteInquiry['status']>).map((status) => ({
-            label: INQUIRY_STATUS_LABELS[status],
-            value: statusCounts[status],
+        Object.keys(statusCounts).map((stage) => ({
+            label: inquiryStageLabel(stage),
+            value: statusCounts[stage],
         }))
     );
 }

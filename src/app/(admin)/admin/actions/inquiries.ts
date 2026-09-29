@@ -16,14 +16,14 @@
 
 import { logAuditEvent } from './audit';
 import {
-  deleteInquiryRow,
   insertInquiryRow,
   readInquiryMirror,
   selectInquiriesRows,
-  updateInquiryRow,
   writeInquiryMirror,
   type InquiryMirrorEntry,
 } from './inquiries-mirror';
+import { mutateInquiry } from './inquiries-mutations';
+import { firstStageOf, getPipeline } from '@/lib/inquiries/pipelines';
 import type { SiteInquiry } from '@/lib/data/site-service';
 
 const MIRROR_DESCRIPTION = 'Registre des candidatures et devis CUC';
@@ -60,7 +60,9 @@ export async function submitInquiry(data: {
       session_date: data.session_date?.trim(),
       afdas_status: data.afdas_status?.trim(),
       message: data.message?.trim() || '',
-      status: 'nouveau',
+      // Première étape du pipeline : un dossier entre toujours « reçu ».
+      status: firstStageOf(getPipeline('formation')).id,
+      metadata: { pipeline: 'formation' },
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     };
@@ -119,67 +121,28 @@ export async function submitInquiry(data: {
 }
 
 /**
- * Applique une modification sur les deux dépôts et n'annonce le succès que si au
- * moins un a accepté. Mutualise le motif commun aux trois opérations du Cockpit.
+ * Met à jour l'étape d'un dossier dans son pipeline (écriture bas niveau).
+ *
+ * Le garde-fou métier — verrou Découverte → Cursus Pro — est appliqué par
+ * `updateInquiryStage` (`inquiries-pipeline.ts`), qui lit le dossier avant
+ * d'écrire. Cette fonction ne fait que persister l'étape choisie.
  */
-async function mutateInquiry(
-  id: string,
-  patch: Record<string, unknown>,
-  applyToMirror: (entry: InquiryMirrorEntry) => InquiryMirrorEntry,
-  operation: {
-    action: string;
-    failureAction: string;
-    failureMessage: string;
-    details?: Record<string, unknown>;
-  },
-  removeFromMirror = false
-) {
-  const tableError = removeFromMirror ? await deleteInquiryRow(id) : await updateInquiryRow(id, patch);
-
-  const mirror = await readInquiryMirror();
-  let mirrorError = mirror.error;
-  if (!mirrorError) {
-    const entries = removeFromMirror
-      ? mirror.entries.filter((entry) => entry.id !== id)
-      : mirror.entries.map((entry) => (entry.id === id ? applyToMirror(entry) : entry));
-    mirrorError = await writeInquiryMirror(entries);
-  }
-
-  if (tableError && mirrorError) {
-    console.error(`[inquiries] ${operation.failureAction} (${id}) : ${tableError} · ${mirrorError}`);
-    await logAuditEvent(
-      operation.failureAction,
-      `inquiry:${id}`,
-      JSON.stringify({ tableError, mirrorError, ...(operation.details ?? {}) })
-    );
-    return { success: false, error: operation.failureMessage };
-  }
-
-  await logAuditEvent(operation.action, `inquiry:${id}`, JSON.stringify(operation.details ?? {}));
-  return { success: true };
-}
-
-/**
- * Met à jour le statut d'une candidature (nouveau, en_cours, admis, refuse, archive).
- */
-export async function updateInquiryStatus(
-  id: string,
-  status: 'nouveau' | 'en_cours' | 'admis' | 'refuse' | 'archive'
-) {
+export async function updateInquiryStatus(id: string, stage: string) {
   try {
+    const stamp = new Date().toISOString();
     return await mutateInquiry(
       id,
-      { status, updated_at: new Date().toISOString() },
-      (entry) => ({ ...entry, status, updated_at: new Date().toISOString() }),
+      { status: stage, updated_at: stamp },
+      (entry) => ({ ...entry, status: stage, updated_at: stamp }),
       {
-        action: 'inquiry.status',
-        failureAction: 'inquiry.status.failed',
-        failureMessage: 'Le statut n’a pas pu être enregistré.',
-        details: { status },
+        action: 'inquiry.stage',
+        failureAction: 'inquiry.stage.failed',
+        failureMessage: 'L’étape n’a pas pu être enregistrée.',
+        details: { stage },
       }
     );
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : 'Erreur mise à jour statut';
+    const message = err instanceof Error ? err.message : 'Erreur mise à jour étape';
     return { success: false, error: message };
   }
 }

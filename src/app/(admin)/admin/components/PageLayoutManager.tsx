@@ -19,6 +19,11 @@ interface PageLayoutManagerProps {
   onChange: (sections: LayoutSection[]) => void;
   onEditSection?: (sectionId: string) => void;
   onReset?: () => void;
+  /**
+   * Catalogue des blocs que la page sait rendre (issu de sa configuration par
+   * défaut). Sert à **réintégrer** un bloc retiré de l'agencement.
+   */
+  availableSections?: LayoutSection[];
 }
 
 export const PageLayoutManager: React.FC<PageLayoutManagerProps> = ({
@@ -26,11 +31,25 @@ export const PageLayoutManager: React.FC<PageLayoutManagerProps> = ({
   onChange,
   onEditSection,
   onReset,
+  availableSections,
 }) => {
   // Tri des sections par ordre croissant
   const sortedSections = [...(layoutSections || [])].sort(
     (a, b) => (a.order ?? 0) - (b.order ?? 0)
   );
+
+  /** Blocs que la page sait rendre mais qui manquent à l'agencement enregistré. */
+  const missingSections = (availableSections ?? []).filter(
+    (candidate) => !sortedSections.some((section) => section.id === candidate.id)
+  );
+
+  const addSection = (section: LayoutSection) => {
+    const appended = [
+      ...sortedSections,
+      { ...section, is_visible: section.is_visible !== false, order: sortedSections.length + 1 },
+    ];
+    onChange(appended.map((item, idx) => ({ ...item, order: idx + 1 })));
+  };
 
   const moveUp = (index: number) => {
     if (index === 0) return;
@@ -72,7 +91,32 @@ export const PageLayoutManager: React.FC<PageLayoutManagerProps> = ({
     onChange(updated);
   };
 
-  if (!sortedSections || sortedSections.length === 0) {
+  const addPanel =
+    missingSections.length > 0 ? (
+      <div className="p-4 rounded-xl bg-[#0D0D12] border border-white/10 space-y-2">
+        <div className="text-xs font-bold uppercase tracking-wider text-white">
+          Blocs disponibles non utilisés
+        </div>
+        <p className="text-[11px] text-gray-400">
+          Ces blocs appartiennent à cette page mais ne figurent pas dans l'agencement
+          enregistré. Réintégrez-les : ils reprendront place en fin de liste.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {missingSections.map((section) => (
+            <button
+              key={section.id}
+              type="button"
+              onClick={() => addSection(section)}
+              className="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] font-medium text-gray-200 hover:text-white transition-colors cursor-pointer"
+            >
+              + {section.name || section.id}
+            </button>
+          ))}
+        </div>
+      </div>
+    ) : null;
+
+  if (sortedSections.length === 0 && !addPanel) {
     return (
       <div className="p-8 text-center border border-dashed border-white/10 rounded-xl space-y-2 bg-[#0A0A0E]">
         <MoveVertical className="w-8 h-8 text-gray-500 mx-auto" />
@@ -124,6 +168,8 @@ export const PageLayoutManager: React.FC<PageLayoutManagerProps> = ({
         </div>
       </div>
 
+      {addPanel}
+
       {/* Liste des sections ordonnées */}
       <div className="space-y-2.5">
         {sortedSections.map((section, idx) => {
@@ -134,20 +180,18 @@ export const PageLayoutManager: React.FC<PageLayoutManagerProps> = ({
           return (
             <div
               key={section.id}
-              className={`flex items-center justify-between p-3.5 sm:p-4 rounded-xl border transition-all ${
-                isVisible
-                  ? 'bg-[#0D0D12] border-white/10 hover:border-white/20'
-                  : 'bg-black/40 border-white/5 opacity-60'
-              }`}
+              className={`flex items-center justify-between p-3.5 sm:p-4 rounded-xl border transition-all ${isVisible
+                ? 'bg-[#0D0D12] border-white/10 hover:border-white/20'
+                : 'bg-black/40 border-white/5 opacity-60'
+                }`}
             >
               {/* Gauche : Numéro + Nom du bloc */}
               <div className="flex items-center gap-3.5 min-w-0">
                 <span
-                  className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-mono font-black ${
-                    isVisible
-                      ? 'bg-[#FFE500] text-black shadow-xs shadow-yellow-500/20'
-                      : 'bg-white/10 text-gray-500'
-                  }`}
+                  className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs font-mono font-black ${isVisible
+                    ? 'bg-[#FFE500] text-black shadow-xs shadow-yellow-500/20'
+                    : 'bg-white/10 text-gray-500'
+                    }`}
                 >
                   #{idx + 1}
                 </span>
@@ -194,11 +238,10 @@ export const PageLayoutManager: React.FC<PageLayoutManagerProps> = ({
                   type="button"
                   onClick={() => toggleVisibility(section.id)}
                   title={isVisible ? 'Masquer cette section' : 'Rendre visible'}
-                  className={`p-2 rounded-lg text-xs font-bold transition-colors border ${
-                    isVisible
-                      ? 'bg-white/5 hover:bg-white/10 text-emerald-400 border-emerald-500/20'
-                      : 'bg-red-500/10 hover:bg-red-500/20 text-red-400 border-red-500/20'
-                  }`}
+                  className={`p-2 rounded-lg text-xs font-bold transition-colors border ${isVisible
+                    ? 'bg-white/5 hover:bg-white/10 text-emerald-400 border-emerald-500/20'
+                    : 'bg-red-500/10 hover:bg-red-500/20 text-red-400 border-red-500/20'
+                    }`}
                 >
                   {isVisible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                 </button>

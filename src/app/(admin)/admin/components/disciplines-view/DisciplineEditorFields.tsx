@@ -4,6 +4,8 @@ import React from 'react';
 import { Image as ImageIcon } from 'lucide-react';
 import type { Discipline } from '@/types';
 import type { POI } from '@/components/ui/campus-map/campusMap.data';
+import { coerceStringList } from '@/lib/comma-list';
+import { CommaListField } from '../ui';
 
 export interface DisciplineEditorFieldsProps {
     value: Discipline;
@@ -115,18 +117,13 @@ export const DisciplineEditorFields: React.FC<DisciplineEditorFieldsProps> = ({
             </div>
             <div>
                 <label className={labelClass}>Matériel Spécifique (séparé par des virgules)</label>
-                <input
-                    type="text"
-                    value={
-                        Array.isArray(value.equipment)
-                            ? value.equipment.join(', ')
-                            : value.equipment || ''
-                    }
-                    onChange={(e) =>
-                        onChange({ equipment: e.target.value.split(',').map((s) => s.trim()) })
-                    }
+                <CommaListField
+                    key={`discipline-equipment-${value.id}`}
+                    value={coerceStringList(value.equipment)}
+                    onChange={(equipment) => onChange({ equipment })}
                     placeholder="Airbag géant, Harnais, Nomex..."
                     className={inputClass}
+                    aria-label="Matériel spécifique"
                 />
             </div>
         </div>

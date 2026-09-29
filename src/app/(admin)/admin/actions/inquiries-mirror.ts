@@ -102,6 +102,23 @@ export async function readInquiryMirror(): Promise<{
     }
 }
 
+/** Lit un dossier précis (table dédiée, puis miroir). `null` s'il n'existe pas. */
+export async function findInquiryRow(id: string): Promise<SiteInquiry | null> {
+    try {
+        const { data } = await createAdminClient()
+            .from('site_inquiries')
+            .select('*')
+            .eq('id', id)
+            .maybeSingle();
+        if (data) return data as SiteInquiry;
+    } catch {
+        // Repli sur le miroir ci-dessous.
+    }
+
+    const mirror = await readInquiryMirror();
+    return mirror.entries.find((entry) => entry.id === id) ?? null;
+}
+
 /** Réécrit le miroir `site_settings.inquiries`. */
 export async function writeInquiryMirror(
     entries: InquiryMirrorEntry[],

@@ -3,6 +3,8 @@
 import React from 'react';
 import { Layers, Image as ImageIcon } from 'lucide-react';
 import type { Instructor } from '@/types';
+import { coerceStringList } from '@/lib/comma-list';
+import { CommaListField } from '../ui';
 
 export interface TeamMemberIdentityFieldsProps {
     member: Instructor;
@@ -85,21 +87,13 @@ export const TeamMemberIdentityFields: React.FC<TeamMemberIdentityFieldsProps> =
             <label className="block text-xs font-mono text-gray-400 mb-1">
                 Domaines d'expertise & Disciplines enseignées (séparés par des virgules)
             </label>
-            <input
-                type="text"
+            <CommaListField
+                key={`member-specialties-${member.id}`}
+                value={coerceStringList(member.specialties)}
+                onChange={(specialties) => onMemberChange({ ...member, specialties })}
                 placeholder="ex: Combat, Action Design, Chutes, Torches"
-                value={
-                    Array.isArray(member.specialties)
-                        ? member.specialties.join(', ')
-                        : (member as unknown as { specialties?: string }).specialties || ''
-                }
-                onChange={(e) =>
-                    onMemberChange({
-                        ...member,
-                        specialties: e.target.value.split(',').map((s) => s.trim()).filter(Boolean),
-                    })
-                }
                 className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500]"
+                aria-label="Domaines d’expertise et disciplines enseignées"
             />
         </div>
 
@@ -107,21 +101,13 @@ export const TeamMemberIdentityFields: React.FC<TeamMemberIdentityFieldsProps> =
             <label className="block text-xs font-mono text-gray-400 mb-1">
                 Comédiens doublés (séparés par des virgules)
             </label>
-            <input
-                type="text"
+            <CommaListField
+                key={`member-doubled-${member.id}`}
+                value={coerceStringList(member.doubledActors)}
+                onChange={(doubledActors) => onMemberChange({ ...member, doubledActors })}
                 placeholder="ex: Tomer Sisley, Pierre Niney, Keanu Reeves"
-                value={
-                    Array.isArray(member.doubledActors)
-                        ? member.doubledActors.join(', ')
-                        : (member as unknown as { doubledActors?: string }).doubledActors || ''
-                }
-                onChange={(e) =>
-                    onMemberChange({
-                        ...member,
-                        doubledActors: e.target.value.split(',').map((s) => s.trim()).filter(Boolean),
-                    })
-                }
                 className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500]"
+                aria-label="Comédiens doublés"
             />
         </div>
 

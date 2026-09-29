@@ -4,11 +4,17 @@ import React from 'react';
 import { Eye, EyeOff, Rocket, RotateCcw, Save } from 'lucide-react';
 import { LocaleToggle, type EditorLocaleOption } from '@/app/(admin)/admin/components/ui/LocaleToggle';
 import type { TranslationCoverage } from '@/lib/i18n/localized-merge';
+import type { PageChoiceGroup } from '@/lib/data/site/page-options';
 import { SITE_PAGES_OPTIONS } from './pages-options';
 
 export interface PageEditorTopBarProps {
     selectedSlug: string;
     onSelectPage: (slug: string) => void;
+    /**
+     * Pages réellement en base, regroupées « au menu » / « hors menu ». Vide
+     * avant chargement : on retombe alors sur le catalogue complet.
+     */
+    pageGroups: PageChoiceGroup[];
     editorLocale: EditorLocaleOption;
     onLocaleChange: (locale: EditorLocaleOption) => void;
     /** Couverture EN affichée (`null` si non mesurée ou hors anglais). */
@@ -32,6 +38,7 @@ export interface PageEditorTopBarProps {
 export const PageEditorTopBar: React.FC<PageEditorTopBarProps> = ({
     selectedSlug,
     onSelectPage,
+    pageGroups,
     editorLocale,
     onLocaleChange,
     localeCoverage,
@@ -57,11 +64,25 @@ export const PageEditorTopBar: React.FC<PageEditorTopBarProps> = ({
                 onChange={(e) => onSelectPage(e.target.value)}
                 className="bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-xs text-white font-medium focus:border-[#FFE500] focus:outline-none min-w-[280px]"
             >
-                {SITE_PAGES_OPTIONS.map((opt) => (
-                    <option key={opt.value} value={opt.value} className="bg-zinc-900 text-white">
-                        {opt.label}
-                    </option>
-                ))}
+                {pageGroups.length > 0
+                    ? pageGroups.map((group) => (
+                        <optgroup key={group.id} label={group.label}>
+                            {group.options.map((opt) => (
+                                <option
+                                    key={opt.value}
+                                    value={opt.value}
+                                    className="bg-zinc-900 text-white"
+                                >
+                                    {opt.label}
+                                </option>
+                            ))}
+                        </optgroup>
+                    ))
+                    : SITE_PAGES_OPTIONS.map((opt) => (
+                        <option key={opt.value} value={opt.value} className="bg-zinc-900 text-white">
+                            {opt.label}
+                        </option>
+                    ))}
             </select>
         </div>
 
