@@ -8,6 +8,7 @@ import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetails
 import { useEquipeCascadeursData } from './sections/useEquipeCascadeursData';
 import { EquipeHeroSection } from './sections/EquipeHeroSection';
 import { CoachCard } from './sections/CoachCard';
+import { CelebritySheetProvider } from './sections/celebrity-sheet/CelebritySheetProvider';
 import { EquipeCallout } from './sections/EquipeCallout';
 
 /**
@@ -36,14 +37,20 @@ export default function EquipeCascadeursProPage() {
         {/* Team Roster Grid with Grand High-Impact Portraits */}
         <section className="py-16">
           <div className="page-shell">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-              {data.displayTeam.map((member) => (
-                <CoachCard
-                  key={member.id}
-                  member={member}
-                />
-              ))}
-            </div>
+            <CelebritySheetProvider
+              teamMembers={data.teamMembers}
+              coordinatedFilms={data.coordinatedFilms}
+            >
+            {/* Catalogue comédiens + modale : montés une seule fois pour toute la grille. */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+                  {data.displayTeam.map((member) => (
+                    <CoachCard
+                      key={member.id}
+                      member={member}
+                    />
+                  ))}
+                </div>
+            </CelebritySheetProvider>
 
             {/* La liste des films et le bloc « LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC »
                 ne sont PAS répétés ici : ils vivent sur la page TOURNAGE (CUC Stunt Team). */}
