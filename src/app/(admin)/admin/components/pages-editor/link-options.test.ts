@@ -20,11 +20,12 @@ describe('link-options', () => {
         expect(pages.every((option) => option.value.startsWith('/'))).toBe(true);
     });
 
-    it('nettoie les libellés du sélecteur (sans le chemin entre parenthèses)', () => {
+    it('affiche le nom canonique de la page, sans slug collé', () => {
         const visite = INTERNAL_LINK_OPTIONS.find(
             (option) => option.value === '/visite-guidee'
         );
-        expect(visite?.label).toBe('Visite Guidée Campus');
+        expect(visite?.label).toBe('Visite guidée du campus');
+        expect(visite?.label).not.toContain('/');
     });
 
     it('reconnaît une page connue, refuse un chemin inconnu ou vide', () => {
@@ -46,7 +47,7 @@ describe('link-options', () => {
     });
 
     it('décrit une page, un lien externe, une ancre et une cible vide', () => {
-        expect(describeLink('/contact-cuc')).toBe('Contact & Accès');
+        expect(describeLink('/contact-cuc')).toBe('Contact & accès');
         expect(describeLink('https://example.com')).toContain('Lien externe');
         expect(describeLink('mailto:contact@campus-universcascades.com')).toContain(
             'Lien externe'

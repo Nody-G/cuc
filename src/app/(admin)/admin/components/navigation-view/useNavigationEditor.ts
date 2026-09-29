@@ -37,6 +37,8 @@ export interface UseNavigationEditorResult {
     removeItem: (id: string) => void;
     addItem: () => void;
     toggleExpanded: (id: string) => void;
+    /** Déplie une entrée sans la refermer si elle l'était déjà. */
+    expandItem: (id: string) => void;
     updateChild: (parentId: string, childId: string, updates: Partial<NavChildItem>) => void;
     moveChild: (parentId: string, index: number, direction: -1 | 1) => void;
     removeChild: (parentId: string, childId: string) => void;
@@ -104,6 +106,11 @@ export function useNavigationEditor({
 
     const toggleExpanded = useCallback((id: string) => {
         setExpandedId((prev) => (prev === id ? null : id));
+    }, []);
+
+    /** Dépliage ciblé : révèle une page demandée depuis un autre écran. */
+    const expandItem = useCallback((id: string) => {
+        setExpandedId(id);
     }, []);
 
     // --- Sous-entrées (enfants de dropdown) ---
@@ -179,6 +186,7 @@ export function useNavigationEditor({
         removeItem,
         addItem,
         toggleExpanded,
+        expandItem,
         updateChild,
         moveChild,
         removeChild,

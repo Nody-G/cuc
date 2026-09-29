@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { DEFAULT_PAGE_CONTENTS, normalizeSlug, type SitePageContent } from '@/lib/data/site-service';
+import { findPageTreeEntry } from '@/lib/data/site/page-tree';
 import { buildPreviewUrl } from '@/lib/preview/preview-url';
 import type { PreviewMode } from '@/lib/preview/preview-protocol';
 import type { EditorLocaleOption } from '@/app/(admin)/admin/components/ui/LocaleToggle';
@@ -22,11 +23,17 @@ import { usePageSaveActions } from './pages-editor/usePageSaveActions';
 import { usePreviewMediaPicker } from './pages-editor/usePreviewMediaPicker';
 import { usePageEditorCatalog } from './pages-editor/usePageEditorCatalog';
 import { useSectionHandlers } from './pages-editor/useSectionHandlers';
+import { PageContextBanner } from './site-tree/PageContextBanner';
+import { usePageTree } from './site-tree/usePageTree';
 
 interface PagesEditorViewProps {
   pages: SitePageContent[];
   onPageSaved: (updatedPage: SitePageContent) => void;
   showToast: (msg: string) => void;
+  /** Page demandée par un autre écran (menu du site) à l'ouverture de l'onglet. */
+  initialSlug?: string | null;
+  /** Ouvre l'onglet « Menu du Site » sur la page éditée (interconnexion). */
+  onOpenMenu?: (pageKey: string) => void;
 }
 
 /**
@@ -40,8 +47,10 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   pages,
   onPageSaved,
   showToast,
+  initialSlug,
+  onOpenMenu,
 }) => {
-  const [selectedSlug, setSelectedSlug] = useState<string>(pages[0]?.slug || '/');
+  const [selectedSlug, setSelectedSlug] = useState<string>(initialSlug || pages[0]?.slug || '/');
   const [activeTab, setActiveTab] = useState<PageEditorTab>('content');
   const [mediaPickerTarget, setMediaPickerTarget] = useState<string | null>(null);
   const [previewKey, setPreviewKey] = useState<number>(0);
@@ -64,11 +73,15 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   const cleanSelectedSlug = normalizeSlug(selectedSlug);
   const draft = usePageEditorDraft({ pages, selectedSlug: cleanSelectedSlug, editorLocale });
 
-  /** Pages réellement en base + pages qui honorent la structure des blocs. */
-  const { pageGroups, defaultLayoutSections, blockStructureSupported } = usePageEditorCatalog(
-    pages,
-    cleanSelectedSlug
-  );
+  /**
+   * Arborescence canonique : navigation **publiée** + pied de page publié +
+   * pages réellement en base. Le sélecteur et le bandeau d'identité en dérivent.
+   */
+  const { tree, isLoading: isTreeLoading } = usePageTree(pages);
+  /** Blocs que cette page peut réellement porter. */
+  const { defaultLayoutSections, blockStructureSupported } =
+    usePageEditorCatalog(cleanSelectedSlug);
+  const currentPageEntry = findPageTreeEntry(tree, cleanSelectedSlug);
 
   const bumpPreview = () => setPreviewKey((prev) => prev + 1);
 
@@ -176,7 +189,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
       <PageEditorTopBar
         selectedSlug={selectedSlug}
         onSelectPage={navigation.handleSelectPage}
-        pageGroups={pageGroups}
+        tree={tree}
+        isTreeLoading={isTreeLoading}
         editorLocale={editorLocale}
         onLocaleChange={navigation.handleLocaleChange}
         localeCoverage={
@@ -195,6 +209,13 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
         isSaving={save.isSaving}
         onSave={() => void save.handleSave()}
         previewUrl={previewUrl}
+      />
+
+      <PageContextBanner
+        entry={currentPageEntry}
+        blockCount={draft.formData.layout_sections?.length || 0}
+        blockStructureSupported={blockStructureSupported}
+        onOpenMenu={onOpenMenu}
       />
 
       <EditorTabsBar

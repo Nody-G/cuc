@@ -9,9 +9,11 @@ import {
     Trash2,
 } from 'lucide-react';
 import type { NavChildItem, NavItem, NavItemType } from '@/data/navigation';
+import type { PageTreeEntry } from '@/lib/data/site/page-tree';
 import { NAV_INPUT_CLASS } from './navigation-ui';
 import { LinkField } from '../pages-editor/LinkField';
 import { TYPE_LABELS } from './navigation-form';
+import { LinkedPageChip } from './LinkedPageChip';
 import { NavChildRow } from './NavChildRow';
 
 export interface NavItemCardProps {
@@ -28,6 +30,10 @@ export interface NavItemCardProps {
     onUpdateChild: (parentId: string, childId: string, updates: Partial<NavChildItem>) => void;
     onRemoveChild: (parentId: string, childId: string) => void;
     onAddChild: (parentId: string) => void;
+    /** Résout la page vitrine liée à un href (nom canonique + emplacement). */
+    resolvePage?: (href: string | undefined) => PageTreeEntry | null;
+    /** Ouvre la page liée dans l'éditeur de pages. */
+    onEditPage?: (slug: string) => void;
 }
 
 export const NavItemCard: React.FC<NavItemCardProps> = ({
@@ -44,8 +50,13 @@ export const NavItemCard: React.FC<NavItemCardProps> = ({
     onUpdateChild,
     onRemoveChild,
     onAddChild,
+    resolvePage,
+    onEditPage,
 }) => (
-    <div className="bg-[#0D0D12] border border-white/10 rounded-xl overflow-hidden">
+    <div
+        id={`nav-entry-${item.id}`}
+        className="bg-[#0D0D12] border border-white/10 rounded-xl overflow-hidden"
+    >
         {/* Ligne principale */}
         <div className="p-4 flex flex-col lg:flex-row lg:items-center gap-3">
             <div className="flex items-center gap-1 shrink-0">
@@ -111,6 +122,10 @@ export const NavItemCard: React.FC<NavItemCardProps> = ({
                         value={item.href || ''}
                         onChange={(href) => onUpdateItem(item.id, { href })}
                     />
+                    <LinkedPageChip
+                        entry={resolvePage?.(item.href) ?? null}
+                        onEditPage={onEditPage}
+                    />
                 </div>
             </div>
 
@@ -162,6 +177,8 @@ export const NavItemCard: React.FC<NavItemCardProps> = ({
                         onMoveChild={onMoveChild}
                         onUpdateChild={onUpdateChild}
                         onRemoveChild={onRemoveChild}
+                        resolvePage={resolvePage}
+                        onEditPage={onEditPage}
                     />
                 ))}
 

@@ -6,17 +6,9 @@ import {
     normalizeSlug,
     type SitePageContent,
 } from '@/lib/data/site-service';
-import { DEFAULT_NAVIGATION } from '@/data/navigation';
-import {
-    buildPageGroups,
-    collectMenuSlugs,
-    readsBlockStructure,
-    type PageChoiceGroup,
-} from '@/lib/data/site/page-options';
+import { readsBlockStructure } from '@/lib/data/site/page-options';
 
 export interface PageEditorCatalog {
-    /** Pages réellement en base, groupées « au menu » / « hors menu ». */
-    pageGroups: PageChoiceGroup[];
     /** Catalogue de blocs de la page — sert à réintégrer un bloc retiré. */
     defaultLayoutSections: NonNullable<SitePageContent['layout_sections']>;
     /** `false` si la vitrine n'applique pas `layout_sections` sur cette page. */
@@ -24,30 +16,23 @@ export interface PageEditorCatalog {
 }
 
 /**
- * Contexte de l'éditeur de pages : quelles pages existent, et lesquelles
- * honorent réellement la structure des blocs.
+ * Catalogue de blocs de la page éditée.
  *
- * Couche « Hooks & Orchestration » (`AGENTS.md` § 1) : dérivations pures, aucune
- * requête réseau — la liste des pages vient de ce que la base a renvoyé.
+ * Couche « Hooks & Orchestration » (`AGENTS.md` § 1) : dérivation pure, aucune
+ * requête réseau. L'arborescence des pages ne vit plus ici — elle vient de la
+ * navigation publiée (`site-tree/usePageTree`) : ce hook ne répond que d'une
+ * question, « quels blocs cette page peut-elle réellement porter ».
  */
-export function usePageEditorCatalog(
-    pages: SitePageContent[],
-    selectedSlug: string
-): PageEditorCatalog {
+export function usePageEditorCatalog(selectedSlug: string): PageEditorCatalog {
     const cleanSlug = normalizeSlug(selectedSlug);
 
-    const pageGroups = useMemo(
-        () =>
-            buildPageGroups({
-                availableSlugs: pages.map((page) => page.slug),
-                menuSlugs: collectMenuSlugs(DEFAULT_NAVIGATION),
-            }),
-        [pages]
+    const defaultLayoutSections = useMemo(
+        () => DEFAULT_PAGE_CONTENTS[cleanSlug]?.layout_sections ?? [],
+        [cleanSlug]
     );
 
     return {
-        pageGroups,
-        defaultLayoutSections: DEFAULT_PAGE_CONTENTS[cleanSlug]?.layout_sections ?? [],
+        defaultLayoutSections,
         blockStructureSupported: readsBlockStructure(cleanSlug),
     };
 }

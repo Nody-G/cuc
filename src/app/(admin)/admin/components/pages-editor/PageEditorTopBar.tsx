@@ -4,17 +4,19 @@ import React from 'react';
 import { Eye, EyeOff, Rocket, RotateCcw, Save } from 'lucide-react';
 import { LocaleToggle, type EditorLocaleOption } from '@/app/(admin)/admin/components/ui/LocaleToggle';
 import type { TranslationCoverage } from '@/lib/i18n/localized-merge';
-import type { PageChoiceGroup } from '@/lib/data/site/page-options';
-import { SITE_PAGES_OPTIONS } from './pages-options';
+import type { PageTree } from '@/lib/data/site/page-tree';
+import { PageTreeSelect } from '../site-tree/PageTreeSelect';
 
 export interface PageEditorTopBarProps {
     selectedSlug: string;
     onSelectPage: (slug: string) => void;
     /**
-     * Pages réellement en base, regroupées « au menu » / « hors menu ». Vide
-     * avant chargement : on retombe alors sur le catalogue complet.
+     * Arborescence canonique des pages (navigation publiée). Vide avant
+     * chargement : le sélecteur affiche alors un état d'attente.
      */
-    pageGroups: PageChoiceGroup[];
+    tree: PageTree;
+    /** `true` tant que la navigation publiée est en cours de lecture. */
+    isTreeLoading?: boolean;
     editorLocale: EditorLocaleOption;
     onLocaleChange: (locale: EditorLocaleOption) => void;
     /** Couverture EN affichée (`null` si non mesurée ou hors anglais). */
@@ -38,7 +40,8 @@ export interface PageEditorTopBarProps {
 export const PageEditorTopBar: React.FC<PageEditorTopBarProps> = ({
     selectedSlug,
     onSelectPage,
-    pageGroups,
+    tree,
+    isTreeLoading,
     editorLocale,
     onLocaleChange,
     localeCoverage,
@@ -58,32 +61,15 @@ export const PageEditorTopBar: React.FC<PageEditorTopBarProps> = ({
 }) => (
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-xl bg-[#0D0D12] border border-white/10">
         <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-            <label className="text-xs font-mono uppercase text-gray-400">Page Vitrine à éditer :</label>
-            <select
-                value={selectedSlug}
-                onChange={(e) => onSelectPage(e.target.value)}
-                className="bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-xs text-white font-medium focus:border-[#FFE500] focus:outline-none min-w-[280px]"
-            >
-                {pageGroups.length > 0
-                    ? pageGroups.map((group) => (
-                        <optgroup key={group.id} label={group.label}>
-                            {group.options.map((opt) => (
-                                <option
-                                    key={opt.value}
-                                    value={opt.value}
-                                    className="bg-zinc-900 text-white"
-                                >
-                                    {opt.label}
-                                </option>
-                            ))}
-                        </optgroup>
-                    ))
-                    : SITE_PAGES_OPTIONS.map((opt) => (
-                        <option key={opt.value} value={opt.value} className="bg-zinc-900 text-white">
-                            {opt.label}
-                        </option>
-                    ))}
-            </select>
+            <label className="text-xs font-mono uppercase text-gray-400">
+                Page Vitrine à éditer :
+            </label>
+            <PageTreeSelect
+                tree={tree}
+                selectedSlug={selectedSlug}
+                onSelectPage={onSelectPage}
+                isLoading={isTreeLoading}
+            />
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">

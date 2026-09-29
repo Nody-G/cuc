@@ -67,15 +67,12 @@ function pageValue(raw: string): string {
     return raw === '/' ? '/' : `/${raw}`;
 }
 
-/** Libellé lisible : « Formation Pro 2 Ans (/…) » → « Formation Pro 2 Ans ». */
-function pageLabel(raw: string): string {
-    return raw.replace(/\s*\([^)]*\)\s*$/, '').trim();
-}
-
 export const INTERNAL_LINK_OPTIONS: ReadonlyArray<LinkOption> = [
+    // Le catalogue porte déjà le nom canonique de la page : plus besoin de
+    // retirer un slug entre parenthèses, il n'y en a plus.
     ...SITE_PAGES_OPTIONS.map((option) => ({
         value: pageValue(option.value),
-        label: pageLabel(option.label),
+        label: option.label,
         group: 'page' as const,
     })),
     ...CONTACT_INTENTS.map((intent) => ({ ...intent, group: 'intention' as const })),

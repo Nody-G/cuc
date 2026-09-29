@@ -157,7 +157,8 @@
 
 [data-cockpit-root][data-cockpit-theme='light'] .hover\:border-white\/20:hover,
 [data-cockpit-root][data-cockpit-theme='light'] .hover\:border-white\/25:hover,
-[data-cockpit-root][data-cockpit-theme='light'] .hover\:border-white\/30:hover {
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:border-white\/30:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:border-white\/40:hover {
     border-color: var(--cockpit-border-strong);
 }
 

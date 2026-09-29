@@ -1,12 +1,11 @@
 /**
- * Tests des options de pages et de la structure de blocs.
+ * Tests du catalogue de pages et de la structure de blocs.
  */
 
-import { DEFAULT_NAVIGATION } from '@/data/navigation';
 import {
     BLOCK_STRUCTURE_PAGES,
-    buildPageGroups,
-    collectMenuSlugs,
+    SITE_PAGE_CATALOG,
+    catalogPageLabel,
     readsBlockStructure,
     toPageKey,
 } from './page-options';
@@ -32,45 +31,33 @@ describe('readsBlockStructure', () => {
     });
 });
 
-describe('collectMenuSlugs', () => {
-    it('collecte les liens et sous-liens du menu principal', () => {
-        const slugs = collectMenuSlugs(DEFAULT_NAVIGATION);
-        expect(slugs.has('contact-cuc')).toBe(true);
-        expect(slugs.has('visite-guidee')).toBe(true);
-        // Sous-lien de menu déroulant
-        expect(slugs.has('spectacles-cascadeurs-yamakasi')).toBe(true);
+describe('catalogPageLabel', () => {
+    it('retourne le nom canonique, quel que soit le format du slug', () => {
+        expect(catalogPageLabel('/contact-cuc')).toBe('Contact & accès');
+        expect(catalogPageLabel('contact-cuc#acces')).toBe('Contact & accès');
+        expect(catalogPageLabel('/')).toBe('Accueil');
     });
 
-    it('tolère une navigation absente', () => {
-        expect(collectMenuSlugs(null).size).toBe(0);
-        expect(collectMenuSlugs(undefined).size).toBe(0);
+    it('ne fabrique aucun nom pour une page hors catalogue', () => {
+        expect(catalogPageLabel('/page-inconnue')).toBeNull();
     });
 });
 
-describe('buildPageGroups', () => {
-    const menuSlugs = collectMenuSlugs(DEFAULT_NAVIGATION);
-
-    it('sépare les pages du menu des pages hors menu', () => {
-        // `visite-virtuelle` n'est pas citée par la navigation principale
-        // (elle vit dans le pied de page) : elle doit donc tomber « hors menu ».
-        const groups = buildPageGroups({
-            availableSlugs: ['/', 'contact-cuc', 'visite-virtuelle'],
-            menuSlugs,
-        });
-        const menuGroup = groups.find((g) => g.id === 'menu');
-        const otherGroup = groups.find((g) => g.id === 'other');
-        expect(menuGroup?.options.map((o) => o.value)).toEqual(['/', 'contact-cuc']);
-        expect(otherGroup?.options.map((o) => o.value)).toEqual(['visite-virtuelle']);
+describe('SITE_PAGE_CATALOG', () => {
+    it('porte des noms de page lisibles, jamais un slug collé', () => {
+        for (const entry of SITE_PAGE_CATALOG) {
+            expect(entry.label.trim().length).toBeGreaterThan(0);
+            // Le défaut visé : « Formation Pro 2 Ans (/formation-de-cascadeur) ».
+            // Une précision entre parenthèses reste légitime, un chemin non.
+            expect(entry.label).not.toMatch(/\(\s*\//);
+            expect(entry.label).not.toContain('/');
+        }
     });
 
-    it('ne propose jamais une page absente de la base', () => {
-        const groups = buildPageGroups({ availableSlugs: ['/'], menuSlugs });
-        const values = groups.flatMap((g) => g.options.map((o) => o.value));
-        expect(values).toEqual(['/']);
-    });
-
-    it('accepte un slug d’URL avec slash initial', () => {
-        const groups = buildPageGroups({ availableSlugs: ['/contact-cuc'], menuSlugs });
-        expect(groups[0].options[0].value).toBe('contact-cuc');
+    it('n’a ni doublon de slug, ni doublon de nom', () => {
+        const keys = SITE_PAGE_CATALOG.map((entry) => toPageKey(entry.value));
+        const labels = SITE_PAGE_CATALOG.map((entry) => entry.label);
+        expect(new Set(keys).size).toBe(keys.length);
+        expect(new Set(labels).size).toBe(labels.length);
     });
 });

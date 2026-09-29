@@ -24,8 +24,8 @@ import VisiteVirtuellePage from '../visite-virtuelle/page';
  * « route fantôme » : un aperçu qui rejouait les sections de l'accueil). Un slug
  * absent d'ici est un 404 : aucune page qui n'existe pas.
  *
- * Contrat de couverture : chaque page proposée par l'éditeur
- * (`SITE_PAGES_OPTIONS`) doit avoir son entrée — vérifié par
+ * Contrat de couverture : chaque page du catalogue canonique
+ * (`SITE_PAGE_CATALOG`) doit avoir son entrée — vérifié par
  * `preview-url.test.ts`.
  */
 export const PREVIEW_SCREENS: Record<string, ComponentType> = {

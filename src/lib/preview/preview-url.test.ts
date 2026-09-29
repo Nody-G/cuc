@@ -28,17 +28,10 @@ import {
 
 const SRC = join(process.cwd(), 'src');
 const SITE_DIR = join(SRC, 'app', '(site)', '[locale]');
-// Le sélecteur de pages a été extrait du God Component : il vit dans le module
-// de contrats de l'éditeur (`pages-editor/pages-options.ts`).
-const PAGES_EDITOR = join(
-    SRC,
-    'app',
-    '(admin)',
-    'admin',
-    'components',
-    'pages-editor',
-    'pages-options.ts'
-);
+// Source unique des pages vitrine : le catalogue canonique. Le sélecteur de
+// l'éditeur ne liste plus de slugs en dur — il rend l'arborescence du menu publié
+// (`site-tree/PageTreeSelect`), adossée à ce même catalogue.
+const PAGE_CATALOG = join(SRC, 'lib', 'data', 'site', 'page-options.ts');
 /** Registre des écrans de la route d'aperçu dédiée. */
 const PREVIEW_SCREENS_FILE = join(SITE_DIR, 'preview', 'screens.ts');
 const ALLOWED_EXT = new Set(['.ts', '.tsx', '.js', '.jsx']);
@@ -55,15 +48,14 @@ function walk(dir: string, out: string[] = []): string[] {
     return out;
 }
 
-/** Slugs `value:` du sélecteur de pages de l'éditeur (bloc `SITE_PAGES_OPTIONS`). */
+/** Slugs du catalogue canonique des pages (`SITE_PAGE_CATALOG`). */
 function editorSlugs(): string[] {
-    const source = readFileSync(PAGES_EDITOR, 'utf8');
-    // Extraction limitée au bloc `SITE_PAGES_OPTIONS` : ailleurs dans le
-    // fichier, des `value:` éditoriaux existent (ex. « 100% ») et ne
-    // correspondent évidemment à aucune route.
-    const blockStart = source.indexOf('const SITE_PAGES_OPTIONS');
-    const source_block = source.slice(blockStart, source.indexOf('];', blockStart));
-    return [...source_block.matchAll(/value:\s*'([^']+)'/g)].map((m) => m[1]);
+    const source = readFileSync(PAGE_CATALOG, 'utf8');
+    // Extraction limitée au bloc `SITE_PAGE_CATALOG` : ailleurs dans le fichier,
+    // des chaînes citent des routes sans décrire une page éditable.
+    const blockStart = source.indexOf('const SITE_PAGE_CATALOG');
+    const block = source.slice(blockStart, source.indexOf('\n];', blockStart));
+    return [...block.matchAll(/value:\s*'([^']*)'/g)].map((m) => m[1]);
 }
 
 describe('Aperçu live — URL de la route d’aperçu dédiée', () => {
@@ -115,7 +107,7 @@ describe('Aperçu live — aucune page fantôme', () => {
     it('chaque page proposée dans l’éditeur correspond à une route réelle', () => {
         const slugs = editorSlugs();
 
-        expect(slugs.length, 'Aucune page détectée dans SITE_PAGES_OPTIONS').toBeGreaterThan(10);
+        expect(slugs.length, 'Aucune page détectée dans SITE_PAGE_CATALOG').toBeGreaterThan(10);
 
         const missing = slugs.filter((slug) => {
             if (slug === '/') return !existsSync(join(SITE_DIR, 'page.tsx'));

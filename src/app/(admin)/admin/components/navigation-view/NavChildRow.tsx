@@ -1,8 +1,10 @@
 import React from 'react';
 import { ChevronDown, ChevronUp, CornerDownRight, Eye, EyeOff, Trash2 } from 'lucide-react';
 import type { NavChildItem } from '@/data/navigation';
+import type { PageTreeEntry } from '@/lib/data/site/page-tree';
 import { NAV_INPUT_CLASS } from './navigation-ui';
 import { LinkField } from '../pages-editor/LinkField';
+import { LinkedPageChip } from './LinkedPageChip';
 
 export interface NavChildRowProps {
     parentId: string;
@@ -12,6 +14,10 @@ export interface NavChildRowProps {
     onMoveChild: (parentId: string, index: number, direction: -1 | 1) => void;
     onUpdateChild: (parentId: string, childId: string, updates: Partial<NavChildItem>) => void;
     onRemoveChild: (parentId: string, childId: string) => void;
+    /** Résout la page vitrine liée à un href (nom canonique + emplacement). */
+    resolvePage?: (href: string | undefined) => PageTreeEntry | null;
+    /** Ouvre la page liée dans l'éditeur de pages. */
+    onEditPage?: (slug: string) => void;
 }
 
 export const NavChildRow: React.FC<NavChildRowProps> = ({
@@ -22,8 +28,13 @@ export const NavChildRow: React.FC<NavChildRowProps> = ({
     onMoveChild,
     onUpdateChild,
     onRemoveChild,
+    resolvePage,
+    onEditPage,
 }) => (
-    <div className="flex flex-col lg:flex-row lg:items-center gap-3 pl-4 border-l-2 border-[#FFE500]/30">
+    <div
+        id={`nav-entry-${child.id}`}
+        className="flex flex-col lg:flex-row lg:items-center gap-3 pl-4 border-l-2 border-[#FFE500]/30"
+    >
         <CornerDownRight className="w-4 h-4 text-gray-600 shrink-0 hidden lg:block" />
         <div className="flex items-center gap-1 shrink-0">
             <button
@@ -67,6 +78,10 @@ export const NavChildRow: React.FC<NavChildRowProps> = ({
                 <LinkField
                     value={child.href}
                     onChange={(href) => onUpdateChild(parentId, child.id, { href })}
+                />
+                <LinkedPageChip
+                    entry={resolvePage?.(child.href) ?? null}
+                    onEditPage={onEditPage}
                 />
             </div>
         </div>

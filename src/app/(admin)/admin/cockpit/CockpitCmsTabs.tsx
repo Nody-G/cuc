@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import type { CockpitTabContentProps } from './CockpitTabContent';
 import type { TabType } from './cockpit-nav';
 import { AnnouncementsView } from '../components/AnnouncementsView';
@@ -27,148 +27,179 @@ import { TrafficMonitorView } from '../components/TrafficMonitorView';
  * navigation, réseaux, médiathèque, events, partenaires, réglages,
  * utilisateurs, audit, santé, analytique, candidatures.
  */
-export const CockpitCmsTabs: React.FC<CockpitTabContentProps> = (props) => (
-    <>
-        {/* 7. BANDEAU FLASH */}
-        {props.activeTab === 'announcements' && (
-            <AnnouncementsView
-                announcement={props.announcement}
-                setAnnouncement={props.setAnnouncement}
-                showToast={props.showToast}
-            />
-        )}
+export const CockpitCmsTabs: React.FC<CockpitTabContentProps> = (props) => {
+    /**
+     * Interconnexion « Pages du Site » ↔ « Menu du Site ».
+     *
+     * Chaque écran peut demander à l'autre d'ouvrir une page précise. Les vues
+     * étant montées à la demande, la valeur mémorisée sert d'état initial au
+     * moment où l'onglet visé s'ouvre — aucun couplage direct entre les deux.
+     */
+    const [pageToEdit, setPageToEdit] = useState<string | null>(null);
+    const [pageToLocateInMenu, setPageToLocateInMenu] = useState<string | null>(null);
 
-        {/* 7bis. TRADUCTIONS EN (i18n) */}
-        {props.activeTab === 'translations' && <TranslationsView showToast={props.showToast} />}
+    const openPageEditor = (slug: string) => {
+        setPageToEdit(slug);
+        props.switchTab('pages');
+    };
 
-        {/* 7ter. MICRO-TEXTES DU SITE (surcharges du catalogue i18n) */}
-        {props.activeTab === 'microcopy' && <MicrocopyView showToast={props.showToast} />}
+    const openPageInMenu = (pageKey: string) => {
+        setPageToLocateInMenu(pageKey);
+        props.switchTab('navigation');
+    };
 
-        {/* 8. CMS ÉDITEUR DE PAGES */}
-        {props.activeTab === 'pages' && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-                <PagesEditorView
+    return (
+        <>
+            {/* 7. BANDEAU FLASH */}
+            {props.activeTab === 'announcements' && (
+                <AnnouncementsView
+                    announcement={props.announcement}
+                    setAnnouncement={props.setAnnouncement}
+                    showToast={props.showToast}
+                />
+            )}
+
+            {/* 7bis. TRADUCTIONS EN (i18n) */}
+            {props.activeTab === 'translations' && <TranslationsView showToast={props.showToast} />}
+
+            {/* 7ter. MICRO-TEXTES DU SITE (surcharges du catalogue i18n) */}
+            {props.activeTab === 'microcopy' && <MicrocopyView showToast={props.showToast} />}
+
+            {/* 8. CMS ÉDITEUR DE PAGES */}
+            {props.activeTab === 'pages' && (
+                <div className="space-y-6 animate-in fade-in duration-200">
+                    <PagesEditorView
+                        pages={props.pagesList}
+                        onPageSaved={(updated) => {
+                            props.setPagesList((prev) =>
+                                prev.map((p) => (p.slug === updated.slug ? updated : p))
+                            );
+                        }}
+                        showToast={props.showToast}
+                        initialSlug={pageToEdit}
+                        onOpenMenu={openPageInMenu}
+                    />
+                </div>
+            )}
+
+            {/* 9. NAVIGATION & MENUS */}
+            {props.activeTab === 'navigation' && (
+                <NavigationView
+                    showToast={props.showToast}
                     pages={props.pagesList}
-                    onPageSaved={(updated) => {
-                        props.setPagesList((prev) =>
-                            prev.map((p) => (p.slug === updated.slug ? updated : p))
-                        );
-                    }}
-                    showToast={props.showToast}
+                    focusSlug={pageToLocateInMenu}
+                    onEditPage={openPageEditor}
                 />
-            </div>
-        )}
+            )}
 
-        {/* 9. NAVIGATION & MENUS */}
-        {props.activeTab === 'navigation' && <NavigationView showToast={props.showToast} />}
+            {/* 10. PIED DE PAGE */}
+            {props.activeTab === 'footer' && <FooterView showToast={props.showToast} />}
 
-        {/* 10. PIED DE PAGE */}
-        {props.activeTab === 'footer' && <FooterView showToast={props.showToast} />}
+            {/* 11. RÉSEAUX SOCIAUX */}
+            {props.activeTab === 'social' && <SocialLinksView showToast={props.showToast} />}
 
-        {/* 11. RÉSEAUX SOCIAUX */}
-        {props.activeTab === 'social' && <SocialLinksView showToast={props.showToast} />}
+            {/* 12. MÉDIATHÈQUE STORAGE */}
+            {props.activeTab === 'media' && (
+                <div className="space-y-6 animate-in fade-in duration-200">
+                    <MediaLibraryView showToast={props.showToast} />
+                </div>
+            )}
 
-        {/* 12. MÉDIATHÈQUE STORAGE */}
-        {props.activeTab === 'media' && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-                <MediaLibraryView showToast={props.showToast} />
-            </div>
-        )}
+            {/* 13. PRESTATIONS EVENTS */}
+            {props.activeTab === 'events' && (
+                <div className="space-y-6 animate-in fade-in duration-200">
+                    <EventsView
+                        events={props.eventsList}
+                        onEventSaved={(saved) => {
+                            props.setEventsList((prev) =>
+                                prev.some((e) => e.id === saved.id)
+                                    ? prev.map((e) => (e.id === saved.id ? saved : e))
+                                    : [...prev, saved]
+                            );
+                        }}
+                        onEventDeleted={(id) => {
+                            props.setEventsList((prev) => prev.filter((e) => e.id !== id));
+                        }}
+                        showToast={props.showToast}
+                    />
+                </div>
+            )}
 
-        {/* 13. PRESTATIONS EVENTS */}
-        {props.activeTab === 'events' && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-                <EventsView
-                    events={props.eventsList}
-                    onEventSaved={(saved) => {
-                        props.setEventsList((prev) =>
-                            prev.some((e) => e.id === saved.id)
-                                ? prev.map((e) => (e.id === saved.id ? saved : e))
-                                : [...prev, saved]
-                        );
-                    }}
-                    onEventDeleted={(id) => {
-                        props.setEventsList((prev) => prev.filter((e) => e.id !== id));
-                    }}
+            {/* 14. PARTENAIRES */}
+            {props.activeTab === 'partners' && (
+                <div className="space-y-6 animate-in fade-in duration-200">
+                    <PartnersView
+                        partners={props.partnersList}
+                        onPartnerSaved={(saved) => {
+                            props.setPartnersList((prev) =>
+                                prev.some((p) => p.id === saved.id)
+                                    ? prev.map((p) => (p.id === saved.id ? saved : p))
+                                    : [...prev, saved]
+                            );
+                        }}
+                        onPartnerDeleted={(id) => {
+                            props.setPartnersList((prev) => prev.filter((p) => p.id !== id));
+                        }}
+                        showToast={props.showToast}
+                    />
+                </div>
+            )}
+
+            {/* 15. PARAMÈTRES GLOBAUX */}
+            {props.activeTab === 'settings' && (
+                <div className="space-y-6 animate-in fade-in duration-200">
+                    <SettingsView initialSettings={props.siteSettings} onNavigateToTab={props.switchTab} />
+                </div>
+            )}
+
+            {/* 16. COMPTES & ACCÈS (UTILISATEURS & RÔLES) */}
+            {props.activeTab === 'users' && (
+                <div className="space-y-6 animate-in fade-in duration-200">
+                    <UsersRolesView
+                        showToast={props.showToast}
+                        currentUserRole={props.userRole}
+                        currentUserId={props.currentUserId}
+                    />
+                </div>
+            )}
+
+            {/* 17. JOURNAL D'AUDIT */}
+            {props.activeTab === 'audit' && <AuditLogView showToast={props.showToast} />}
+
+            {/* 18. DIAGNOSTIC DE SANTÉ DU CONTENU */}
+            {props.activeTab === 'health' && (
+                <ContentHealthView
+                    pages={props.pagesList}
                     showToast={props.showToast}
+                    onNavigateToTab={(tab) => props.switchTab(tab as TabType)}
                 />
-            </div>
-        )}
+            )}
 
-        {/* 14. PARTENAIRES */}
-        {props.activeTab === 'partners' && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-                <PartnersView
-                    partners={props.partnersList}
-                    onPartnerSaved={(saved) => {
-                        props.setPartnersList((prev) =>
-                            prev.some((p) => p.id === saved.id)
-                                ? prev.map((p) => (p.id === saved.id ? saved : p))
-                                : [...prev, saved]
-                        );
-                    }}
-                    onPartnerDeleted={(id) => {
-                        props.setPartnersList((prev) => prev.filter((p) => p.id !== id));
-                    }}
-                    showToast={props.showToast}
-                />
-            </div>
-        )}
+            {/* 19. TABLEAU DE BORD ANALYTIQUE */}
+            {props.activeTab === 'analytics' && (
+                <AnalyticsView programs={props.programs} pages={props.pagesList} showToast={props.showToast} />
+            )}
 
-        {/* 15. PARAMÈTRES GLOBAUX */}
-        {props.activeTab === 'settings' && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-                <SettingsView initialSettings={props.siteSettings} onNavigateToTab={props.switchTab} />
-            </div>
-        )}
+            {/* 20. CANDIDATURES & DEMANDES DE CONTACT */}
+            {props.activeTab === 'inquiries' && (
+                <div className="space-y-6 animate-in fade-in duration-200">
+                    <InquiriesView
+                        showToast={props.showToast}
+                        onInquiriesCountChange={(count) => props.setNewInquiriesCount(count)}
+                        programs={props.programs}
+                    />
+                </div>
+            )}
 
-        {/* 16. COMPTES & ACCÈS (UTILISATEURS & RÔLES) */}
-        {props.activeTab === 'users' && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-                <UsersRolesView
-                    showToast={props.showToast}
-                    currentUserRole={props.userRole}
-                    currentUserId={props.currentUserId}
-                />
-            </div>
-        )}
+            {/* 21. MONITORING INSTAGRAM TEMPS RÉEL & LEADERBOARD */}
+            {props.activeTab === 'instagram' && (
+                <InstagramMonitorView showToast={props.showToast} />
+            )}
 
-        {/* 17. JOURNAL D'AUDIT */}
-        {props.activeTab === 'audit' && <AuditLogView showToast={props.showToast} />}
-
-        {/* 18. DIAGNOSTIC DE SANTÉ DU CONTENU */}
-        {props.activeTab === 'health' && (
-            <ContentHealthView
-                pages={props.pagesList}
-                showToast={props.showToast}
-                onNavigateToTab={(tab) => props.switchTab(tab as TabType)}
-            />
-        )}
-
-        {/* 19. TABLEAU DE BORD ANALYTIQUE */}
-        {props.activeTab === 'analytics' && (
-            <AnalyticsView programs={props.programs} pages={props.pagesList} showToast={props.showToast} />
-        )}
-
-        {/* 20. CANDIDATURES & DEMANDES DE CONTACT */}
-        {props.activeTab === 'inquiries' && (
-            <div className="space-y-6 animate-in fade-in duration-200">
-                <InquiriesView
-                    showToast={props.showToast}
-                    onInquiriesCountChange={(count) => props.setNewInquiriesCount(count)}
-                    programs={props.programs}
-                />
-            </div>
-        )}
-
-        {/* 21. MONITORING INSTAGRAM TEMPS RÉEL & LEADERBOARD */}
-        {props.activeTab === 'instagram' && (
-            <InstagramMonitorView showToast={props.showToast} />
-        )}
-
-        {/* 22. MONITORING DES VISITES & AUDIENCE DU SITE */}
-        {props.activeTab === 'traffic' && (
-            <TrafficMonitorView showToast={props.showToast} />
-        )}
-    </>
-);
+            {/* 22. MONITORING DES VISITES & AUDIENCE DU SITE */}
+            {props.activeTab === 'traffic' && (
+                <TrafficMonitorView showToast={props.showToast} />
+            )}
+        </>
+    );
+};

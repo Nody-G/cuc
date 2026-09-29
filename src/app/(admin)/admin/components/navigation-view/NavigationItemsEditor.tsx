@@ -1,6 +1,7 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
 import type { NavChildItem, NavItem } from '@/data/navigation';
+import type { PageTreeEntry } from '@/lib/data/site/page-tree';
 import { CockpitSkeletonList } from '../ui';
 import { sortedChildren } from './navigation-form';
 import { NavItemCard } from './NavItemCard';
@@ -18,6 +19,10 @@ export interface NavigationItemsEditorProps {
     onRemoveChild: (parentId: string, childId: string) => void;
     onAddChild: (parentId: string) => void;
     onAddItem: () => void;
+    /** Résout la page vitrine liée à un href (nom canonique + emplacement). */
+    resolvePage?: (href: string | undefined) => PageTreeEntry | null;
+    /** Ouvre la page liée dans l'éditeur de pages. */
+    onEditPage?: (slug: string) => void;
 }
 
 export const NavigationItemsEditor: React.FC<NavigationItemsEditorProps> = ({
@@ -33,6 +38,8 @@ export const NavigationItemsEditor: React.FC<NavigationItemsEditorProps> = ({
     onRemoveChild,
     onAddChild,
     onAddItem,
+    resolvePage,
+    onEditPage,
 }) =>
     isLoading ? (
         <CockpitSkeletonList rows={5} />
@@ -54,6 +61,8 @@ export const NavigationItemsEditor: React.FC<NavigationItemsEditorProps> = ({
                     onUpdateChild={onUpdateChild}
                     onRemoveChild={onRemoveChild}
                     onAddChild={onAddChild}
+                    resolvePage={resolvePage}
+                    onEditPage={onEditPage}
                 />
             ))}
 
