@@ -45,20 +45,12 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
     onSelectFilm,
 }) => {
     /**
-     * Le normaliseur de rôles (`credit-role.ts`) renvoie des libellés canoniques
-     * FRANÇAIS (« Coordinateur des cascades », « Doublure », « Cascadeur ») : on les
-     * traduit ici, à l'affichage, sans toucher à la logique métier.
+     * Le rôle affiché est **déjà traduit** par `createCoachFilmRoleResolver`
+     * (`renderRoleSet`, namespace `team`) : on l'affiche tel quel. L'ancien
+     * mapping local ne couvrait que 3 rôles sur les 7 canoniques et refaisait
+     * une traduction sur une chaîne déjà traduite — supprimé au profit de la
+     * source unique `@/lib/i18n/role-labels`.
      */
-    const roleLabels: Record<string, string> = {
-        'Coordinateur des cascades': tt('roleCoordination'),
-        Doublure: tt('roleDouble'),
-        Cascadeur: tt('roleStunt'),
-    };
-    const translateRole = (role: string) =>
-        role
-            .split('·')
-            .map((part) => roleLabels[part.trim()] ?? part.trim())
-            .join(' · ');
 
     return (
         <div className="mb-20 pt-12 border-t border-zinc-800">
@@ -105,7 +97,7 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
 
                     const roleBlock: FilmCardRole = {
                         label: tt('roleOnProduction'),
-                        value: translateRole(role),
+                        value: role,
                         variant: isCoord ? 'coord' : isDoublure ? 'doublure' : 'other',
                         micro: cucMicro('team.roleOnProduction'),
                     };

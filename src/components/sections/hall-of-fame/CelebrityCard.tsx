@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import { DoubledCelebrity } from '@/types';
-import { ImdbLogo } from '@/components/ui/BrandLogos';
+import { ImdbLogo, LogoLink } from '@/components/ui/BrandLogos';
 import { UserCheck } from 'lucide-react';
 import { resolveDoubledBy, type TeamNameRef } from '@/lib/celebrity-double';
 import { shortActorDescription } from '@/lib/celebrity-copy';
@@ -72,17 +72,15 @@ export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#121218] via-[#121218]/25 to-transparent" />
 
-                {/* IMDb — lien direct, hors clic de carte */}
-                <a
+                {/* IMDb — lien direct, hors clic de carte : logo seul */}
+                <LogoLink
                     href={actor.imdbUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    label={t('hallOfFame.imdbTitle', { name: actor.name })}
                     onClick={(e) => e.stopPropagation()}
-                    className="absolute top-2.5 right-2.5 z-10 px-1.5 py-0.5 bg-[#f5c518] hover:bg-[#ffe500] text-black font-black text-[9px] font-mono-tech rounded-xs shadow-md flex items-center transition-colors"
-                    title={t('hallOfFame.imdbTitle', { name: actor.name })}
+                    className="absolute top-2.5 right-2.5 z-10 drop-shadow-md"
                 >
-                    <ImdbLogo className="h-2.5 w-auto" />
-                </a>
+                    <ImdbLogo className="h-5 w-auto" />
+                </LogoLink>
 
             </div>
 

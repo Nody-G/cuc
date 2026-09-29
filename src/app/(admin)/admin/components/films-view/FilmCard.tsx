@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Edit2, Shield, Star, Trash2 } from 'lucide-react';
-import { ImdbLogo, AllocineLogo, YouTubeLogo } from '@/components/ui/BrandLogos';
+import { ImdbLogo, AllocineLogo, YouTubeLogo, LogoLink } from '@/components/ui/BrandLogos';
 import type { Discipline, FilmCredit, Instructor } from '@/types';
 import { FilmTeamRolesBadge } from './FilmTeamRolesBadge';
 
@@ -92,39 +92,21 @@ export const FilmCard: React.FC<FilmCardProps> = ({
             </div>
 
             <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1.5 flex-wrap">
+                <div className="flex items-center gap-2.5 flex-wrap">
                     {film.imdbUrl && (
-                        <a
-                            href={film.imdbUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="px-1.5 py-1 rounded bg-[#f5c518]/15 hover:bg-[#f5c518]/30 text-[#f5c518] flex items-center transition-colors"
-                            title="Fiche IMDb"
-                        >
-                            <ImdbLogo className="h-3 w-auto shrink-0" />
-                        </a>
+                        <LogoLink href={film.imdbUrl} label="Fiche IMDb">
+                            <ImdbLogo className="h-4 w-auto shrink-0" />
+                        </LogoLink>
                     )}
                     {film.allocineUrl && (
-                        <a
-                            href={film.allocineUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="px-1.5 py-1 rounded bg-[#fecc00]/15 hover:bg-[#fecc00]/30 text-[#fecc00] flex items-center transition-colors"
-                            title="Fiche AlloCiné"
-                        >
-                            <AllocineLogo className="h-3 w-auto shrink-0" />
-                        </a>
+                        <LogoLink href={film.allocineUrl} label="Fiche AlloCiné">
+                            <AllocineLogo className="h-4 w-auto shrink-0" />
+                        </LogoLink>
                     )}
                     {film.trailerUrl && (
-                        <a
-                            href={film.trailerUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="px-1.5 py-1 rounded bg-red-600/15 hover:bg-red-600/30 text-red-400 flex items-center transition-colors"
-                            title="Bande-annonce"
-                        >
-                            <YouTubeLogo className="w-3 h-3 shrink-0" variant="color" />
-                        </a>
+                        <LogoLink href={film.trailerUrl} label="Bande-annonce">
+                            <YouTubeLogo className="h-5 w-5 shrink-0" variant="color" />
+                        </LogoLink>
                     )}
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">

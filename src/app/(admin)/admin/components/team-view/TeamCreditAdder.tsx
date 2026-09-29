@@ -7,6 +7,7 @@ import { creditTitleKey } from '@/lib/credit-title';
 import { FILM_CATEGORIES } from '@/lib/film-category';
 import {
     ROLE_OPTIONS,
+    roleShortLabel,
     type NewFilmDraft,
     type TeamCreditIndexEntry,
 } from './team-credits';
@@ -142,8 +143,9 @@ export const TeamCreditAdder: React.FC<TeamCreditAdderProps> = ({
                                                     ? 'bg-[#FFE500]/20 border-[#FFE500] text-[#FFE500] font-bold'
                                                     : 'bg-black/60 border-white/10 text-zinc-400 hover:border-white/25'
                                                     }`}
+                                                title={role}
                                             >
-                                                {role}
+                                                {roleShortLabel(role)}
                                             </button>
                                         );
                                     })}

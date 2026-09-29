@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { ImdbLogo } from '@/components/ui/BrandLogos';
+import { AllocineLogo, ImdbLogo, InstagramLogo, LogoLink } from '@/components/ui/BrandLogos';
 import { Globe } from 'lucide-react';
 import type { useTranslations } from 'next-intl';
 import type { Instructor } from '@/types';
@@ -53,58 +53,31 @@ export const CoachPortrait: React.FC<CoachPortraitProps> = ({ member, tt }) => (
                 <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0e0e14] via-[#0e0e14]/70 to-transparent pointer-events-none" />
             </div>
 
-            {/* Liens Officiels & Profils en pied de photo */}
-            <div className="p-4 bg-[#0a0a0f] flex items-center gap-2 border-t border-zinc-800/80">
-                <div className="flex items-center gap-2">
-                    {member.imdb && (
-                        <a
-                            href={member.imdb}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-3 py-1.5 bg-[#14141e] hover:bg-[#F5C518] border border-zinc-800 hover:border-[#F5C518] transition-colors flex items-center"
-                            title={tt('coachImdbTitle')}
-                        >
-                            <ImdbLogo className="h-4 w-auto" />
-                        </a>
-                    )}
+            {/* Liens Officiels & Profils en pied de photo — logos seuls */}
+            <div className="p-4 bg-[#0a0a0f] flex items-center gap-4 border-t border-zinc-800/80">
+                {member.imdb && (
+                    <LogoLink href={member.imdb} label={tt('coachImdbTitle')}>
+                        <ImdbLogo className="h-5 w-auto" />
+                    </LogoLink>
+                )}
 
-                    {member.allocine && (
-                        <a
-                            href={member.allocine}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-3 py-1.5 bg-[#14141e] hover:bg-[#FECC00] hover:text-black border border-zinc-800 hover:border-[#FECC00] text-xs font-mono-tech font-bold uppercase transition-colors"
-                            title={tt('coachAllocineTitle')}
-                        >
-                            Allociné
-                        </a>
-                    )}
+                {member.allocine && (
+                    <LogoLink href={member.allocine} label={tt('coachAllocineTitle')}>
+                        <AllocineLogo className="h-5 w-auto" />
+                    </LogoLink>
+                )}
 
-                    {member.instagram && (
-                        <a
-                            href={member.instagram}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-3 py-1.5 bg-[#14141e] hover:bg-white hover:text-black border border-zinc-800 transition-colors flex items-center gap-1.5 text-xs font-mono-tech font-bold"
-                            title="Instagram"
-                        >
-                            <Globe className="w-3.5 h-3.5" />
-                            <span>Instagram</span>
-                        </a>
-                    )}
+                {member.instagram && (
+                    <LogoLink href={member.instagram} label="Instagram">
+                        <InstagramLogo className="w-6 h-6" variant="color" />
+                    </LogoLink>
+                )}
 
-                    {member.externalUrl && !member.imdb && (
-                        <a
-                            href={member.externalUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-3 py-1.5 bg-[#14141e] hover:bg-[#FFE500] hover:text-black border border-zinc-800 transition-colors text-xs font-mono-tech font-bold"
-                            title={tt('coachExternalTitle')}
-                        >
-                            Portfolio
-                        </a>
-                    )}
-                </div>
+                {member.externalUrl && !member.imdb && (
+                    <LogoLink href={member.externalUrl} label={tt('coachExternalTitle')}>
+                        <Globe className="w-5 h-5" />
+                    </LogoLink>
+                )}
             </div>
         </div>
     </div>

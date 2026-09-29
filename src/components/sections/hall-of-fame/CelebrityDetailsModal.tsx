@@ -5,8 +5,8 @@ import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import type { DoubledCelebrity, FilmCredit } from '@/types';
-import { X, Clapperboard, ExternalLink } from 'lucide-react';
-import { ImdbLogo } from '@/components/ui/BrandLogos';
+import { X, Clapperboard } from 'lucide-react';
+import { ImdbLogo, LogoLink } from '@/components/ui/BrandLogos';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import { resolveDoubledBy, type TeamNameRef } from '@/lib/celebrity-double';
 import { creditTitleKey } from '@/lib/credit-title';
@@ -225,21 +225,16 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                 </div>
               )}
 
-              {/* IMDb Button */}
+              {/* IMDb — logo seul */}
               {celebrity.imdbUrl && (
                 <div className="pt-2">
-                  <a
+                  <LogoLink
                     href={celebrity.imdbUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-3 py-2 bg-[#f5c518] hover:bg-[#ffe500] text-black font-bold font-mono-tech text-xs transition-colors"
+                    label={t('celebrityModal.imdbCta')}
+                    micro="teamProduction.celebrityModal.imdbCta"
                   >
-                    <ImdbLogo className="h-3.5 w-auto" />
-                    <span {...cucMicro('teamProduction.celebrityModal.imdbCta')}>
-                      {t('celebrityModal.imdbCta')}
-                    </span>
-                    <ExternalLink className="w-3 h-3 ml-0.5" />
-                  </a>
+                    <ImdbLogo className="h-6 w-auto" />
+                  </LogoLink>
                 </div>
               )}
             </div>

@@ -1,59 +1,55 @@
 'use client';
 
 import React from 'react';
-import { ExternalLink } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { AllocineLogo, ImdbLogo, YouTubeLogo } from '@/components/ui/BrandLogos';
-import { cucMicro } from '@/lib/preview/cuc-micro';
+import { AllocineLogo, ImdbLogo, LogoLink, YouTubeLogo } from '@/components/ui/BrandLogos';
 import type { FilmCredit } from '@/types';
 
 interface FilmExternalLinksProps {
     movie: FilmCredit;
 }
 
-/** Liens externes de la fiche (IMDb, AlloCiné, bande-annonce). */
+/**
+ * Liens externes de la fiche (IMDb, AlloCiné, bande-annonce).
+ *
+ * Rendu épuré : un logo seul par destination, sans texte ni encart rempli. Le
+ * nom de la destination reste accessible (`aria-label`) et révélé au survol
+ * (`title`) ; le libellé « bande-annonce » demeure éditable (Mode Studio).
+ */
 export const FilmExternalLinks: React.FC<FilmExternalLinksProps> = ({ movie }) => {
     const t = useTranslations('teamProduction');
+    const trailerLabel = t('filmModal.trailer');
+
+    if (!movie.imdbUrl && !movie.allocineUrl && !movie.trailerUrl) return null;
 
     return (
-        <div className="pt-2 flex flex-wrap gap-2">
+        <div className="pt-2 flex flex-wrap items-center gap-4">
             {movie.imdbUrl && (
-                <a
+                <LogoLink
                     href={movie.imdbUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#f5c518] hover:bg-[#ffe500] text-black font-bold font-mono-tech text-xs transition-colors"
+                    label="IMDb"
+                    title={`${movie.title} — IMDb`}
                 >
-                    <ImdbLogo className="h-3.5 w-auto" />
-                    <span>IMDb</span>
-                    <ExternalLink className="w-3 h-3 ml-0.5" />
-                </a>
+                    <ImdbLogo className="h-4 w-auto" />
+                </LogoLink>
             )}
             {movie.allocineUrl && (
-                <a
+                <LogoLink
                     href={movie.allocineUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#141419] hover:bg-zinc-800 text-[#fecc00] border border-zinc-700 font-mono-tech text-xs transition-colors"
+                    label="AlloCiné"
+                    title={`${movie.title} — AlloCiné`}
                 >
-                    <AllocineLogo className="h-3.5 w-auto" />
-                    <span>AlloCiné</span>
-                    <ExternalLink className="w-3 h-3 ml-0.5" />
-                </a>
+                    <AllocineLogo className="h-4 w-auto" />
+                </LogoLink>
             )}
             {movie.trailerUrl && (
-                <a
+                <LogoLink
                     href={movie.trailerUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#141419] hover:bg-zinc-800 text-red-400 border border-zinc-700 font-mono-tech text-xs transition-colors"
+                    label={trailerLabel}
+                    micro="teamProduction.filmModal.trailer"
                 >
-                    <YouTubeLogo className="w-3.5 h-3.5" variant="color" />
-                    <span {...cucMicro('teamProduction.filmModal.trailer')}>
-                        {t('filmModal.trailer')}
-                    </span>
-                    <ExternalLink className="w-3 h-3 ml-0.5" />
-                </a>
+                    <YouTubeLogo className="h-5 w-5" variant="color" />
+                </LogoLink>
             )}
         </div>
     );

@@ -22,6 +22,30 @@ export const ROLE_OPTIONS = [
 
 export type CanonicalRoleOption = (typeof ROLE_OPTIONS)[number];
 
+/**
+ * Libellés courts des rôles, pour les sélecteurs compacts de la ligne de crédit.
+ *
+ * Source unique de vérité : chaque rôle possède un libellé **distinct**. Avant,
+ * le rendu retombait sur `« Casc. »` dès qu'un rôle n'était ni « Coordinateur
+ * des cascades » ni « Doublure », d'où l'affichage « casc. casc. casc. ».
+ * Le libellé complet reste porté par l'attribut `title` (tooltip) et n'est donc
+ * jamais perdu.
+ */
+export const ROLE_SHORT_LABELS: Record<CanonicalRoleOption, string> = {
+    'Cascadeur': 'Casc.',
+    'Doublure': 'Doubl.',
+    'Coordinateur des cascades': 'Coord.',
+    'Assistant coordinateur des cascades': 'Assist.',
+    'Coordinateur de rigging': 'Coord. rig.',
+    'Rigger': 'Rigg.',
+    'Cascadeur mécanique': 'Méca.',
+};
+
+/** Libellé court d'un rôle ; repli sur le libellé complet si le rôle est inconnu. */
+export function roleShortLabel(role: string): string {
+    return (ROLE_SHORT_LABELS as Record<string, string>)[role] ?? role;
+}
+
 /** Construit la chaîne "Titre — Rôle" persistée dans notable_credits. */
 export function buildCreditString(title: string, role: string): string {
     const cleanTitle = title.trim();

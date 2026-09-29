@@ -4,6 +4,7 @@ import React from 'react';
 import { Star, Trash2 } from 'lucide-react';
 import {
     ROLE_OPTIONS,
+    roleShortLabel,
     type TeamCreditRow,
     type TeamFeaturedEntry,
 } from './team-credits';
@@ -121,11 +122,7 @@ export const TeamCreditsList: React.FC<TeamCreditsListProps> = ({
                                                 }`}
                                             title={option}
                                         >
-                                            {option === 'Coordinateur des cascades'
-                                                ? 'Coord.'
-                                                : option === 'Doublure'
-                                                    ? 'Doubl.'
-                                                    : 'Casc.'}
+                                            {roleShortLabel(option)}
                                         </button>
                                     );
                                 })}
