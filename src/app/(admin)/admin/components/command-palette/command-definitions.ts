@@ -27,6 +27,7 @@ import {
     Briefcase,
     ExternalLink,
     Globe,
+    ScrollText,
 } from 'lucide-react';
 import type { TabType } from '../../CockpitApp';
 
@@ -96,6 +97,7 @@ export function buildCommands({ selectTab, openBackup, openHealth }: CommandActi
         { id: 'action-upload-media', label: 'Téléverser un Média', category: 'Actions Rapides', icon: ImageIcon, action: () => selectTab('media'), keywords: ['upload', 'ajouter', 'image', 'photo', 'video', 'fichier'] },
 
         // Outils Système
+        { id: 'nav-logs', label: 'Journal & Activité', category: 'Navigation', icon: ScrollText, action: () => selectTab('logs'), keywords: ['journal', 'logs', 'activite', 'erreurs', 'incidents', 'tracabilite', 'diagnostic', 'audit'] },
         { id: 'tool-backup', label: 'Sauvegarder / Restaurer le Site', category: 'Outils Système', icon: Database, action: () => openBackup(), keywords: ['backup', 'export', 'import', 'restauration', 'sauvegarde'] },
         { id: 'tool-health', label: 'Diagnostic Système & Santé', category: 'Outils Système', icon: Activity, action: () => openHealth(), keywords: ['sante', 'diagnostic', 'statut', 'monitoring', 'performance'] },
     ];

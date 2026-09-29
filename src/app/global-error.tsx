@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
+import { reportClientError } from '@/app/(admin)/admin/actions/logs-ingest';
 
 /**
  * Frontière d'erreur racine (global-error).
@@ -23,6 +24,22 @@ export default function GlobalError({
 }) {
     useEffect(() => {
         console.error('[CUC] Erreur racine interceptée :', error);
+        /**
+         * Trace persistée dans le journal du Cockpit.
+         *
+         * Sans elle, un incident vécu par un visiteur n'existait que dans les
+         * journaux Vercel — inaccessibles depuis le Cockpit, et perdus à la
+         * rotation. L'appel est **non attendu** et son échec est ignoré : un
+         * incident d'observabilité ne doit jamais dégrader l'écran d'erreur
+         * lui-même (règle n°2 de `src/lib/logging/write.ts`).
+         */
+        void reportClientError({
+            message: error.message || 'Erreur racine sans message',
+            digest: error.digest,
+            path: typeof window === 'undefined' ? undefined : window.location.pathname,
+        }).catch(() => {
+            /* Le repli visuel reste la seule responsabilité de cette frontière. */
+        });
     }, [error]);
 
     // `global-error` REMPLACE le layout racine : aucun provider next-intl n'est

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { DEFAULT_PAGE_CONTENTS, normalizeSlug, type SitePageContent } from '@/lib/data/site-service';
+import { normalizeSlug, type SitePageContent } from '@/lib/data/site-service';
 import { findPageTreeEntry } from '@/lib/data/site/page-tree';
 import { buildPreviewUrl } from '@/lib/preview/preview-url';
 import type { PreviewMode } from '@/lib/preview/preview-protocol';
@@ -19,6 +19,7 @@ import { SeoTabPanel } from './pages-editor/SeoTabPanel';
 import { useChromeDraftState } from './pages-editor/useChromeDraftState';
 import { useEditorNavigation } from './pages-editor/useEditorNavigation';
 import { usePageEditorDraft } from './pages-editor/usePageEditorDraft';
+import { usePageEditorCommitHandlers } from './pages-editor/usePageEditorCommitHandlers';
 import { usePageSaveActions } from './pages-editor/usePageSaveActions';
 import { usePreviewMediaPicker } from './pages-editor/usePreviewMediaPicker';
 import { usePageEditorCatalog } from './pages-editor/usePageEditorCatalog';
@@ -131,37 +132,16 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     onWorkshopImage: (index, url) => handlers.handleUpdateWorkshop(index, { img: url }),
   });
 
-  /**
-   * Entités (coachs, films, annonces) : elles se traduisent depuis leurs écrans
-   * dédiés — en anglais, on l'annonce au lieu d'écrire une valeur française qui
-   * resterait invisible sous l'overlay EN.
-   */
-  const handleEntityCommit = (ref: string, value: string) => {
-    if (editorLocale === 'en') {
-      showToast(
-        'Les fiches (coachs, films, annonces) se traduisent depuis leurs écrans : modifiez-les en français (FR).'
-      );
-      return;
-    }
-    chrome.commitEntity(ref, value);
-  };
-
-  const handleResetLayout = () => {
-    const defaultData = DEFAULT_PAGE_CONTENTS[draft.formData.slug];
-    if (defaultData?.layout_sections) {
-      draft.setFormData((prev) => ({
-        ...prev,
-        layout_sections: defaultData.layout_sections,
-      }));
-      showToast('Disposition des blocs réinitialisée à sa configuration d’origine.');
-    }
-  };
-
-  const handleRestored = (restored: SitePageContent) => {
-    draft.setFormData(restored);
-    onPageSaved(restored);
-    bumpPreview();
-  };
+  /** Gestes de validation (entités, disposition, restauration) — voir le hook. */
+  const commits = usePageEditorCommitHandlers({
+    editorLocale,
+    showToast,
+    slug: draft.formData.slug,
+    setFormData: draft.setFormData,
+    commitEntity: chrome.commitEntity,
+    onPageSaved,
+    bumpPreview,
+  });
 
   // URL d'aperçu construite à partir de l'origine résolue côté client.
   // Tant que `previewOrigin` est vide (rendu serveur / premier rendu), on ne
@@ -234,7 +214,7 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
               layout_sections: updatedSections,
             }))
           }
-          onReset={handleResetLayout}
+          onReset={commits.handleResetLayout}
           structureSupported={blockStructureSupported}
           availableSections={defaultLayoutSections}
         />
@@ -260,7 +240,7 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
           microcopy={chrome.microcopy}
           onMicrocopyCommit={chrome.commitMicrocopy}
           entities={chrome.entities}
-          onEntityCommit={handleEntityCommit}
+          onEntityCommit={commits.handleEntityCommit}
           onFieldSelect={focusCucField}
           locale={editorLocale}
           onLocaleChange={navigation.handleLocaleChange}
@@ -291,7 +271,7 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
         slug={cleanSelectedSlug}
         currentPage={draft.currentPage}
         showToast={showToast}
-        onRestored={handleRestored}
+        onRestored={commits.handleRestored}
         translationUpdatedAt={draft.translation.updatedAt}
       />
 

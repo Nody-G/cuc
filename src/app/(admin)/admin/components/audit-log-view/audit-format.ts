@@ -1,61 +1,18 @@
 import type { AuditLogEntry } from '@/lib/data/site-service';
 import { toCsv } from '@/lib/csv-export';
+import { dayKey, formatDayLabel, formatFullDate } from '@/lib/format/date';
 
-export type RangeFilter = 'all' | '24h' | '7d' | '30d';
-
-export const RANGE_LABELS: Record<RangeFilter, string> = {
-    all: 'Tout l’historique',
-    '24h': 'Dernières 24 h',
-    '7d': '7 derniers jours',
-    '30d': '30 derniers jours',
-};
-
-export const RANGE_MS: Record<Exclude<RangeFilter, 'all'>, number> = {
-    '24h': 24 * 60 * 60 * 1000,
-    '7d': 7 * 24 * 60 * 60 * 1000,
-    '30d': 30 * 24 * 60 * 60 * 1000,
-};
-
-export function formatFullDate(iso: string): string {
-    const d = new Date(iso);
-    if (Number.isNaN(d.getTime())) return '—';
-    return d.toLocaleString('fr-FR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-    });
-}
-
-export function formatDayLabel(iso: string): string {
-    const d = new Date(iso);
-    if (Number.isNaN(d.getTime())) return 'Date inconnue';
-    const today = new Date();
-    const yesterday = new Date();
-    yesterday.setDate(today.getDate() - 1);
-
-    const sameDay = (a: Date, b: Date) =>
-        a.getFullYear() === b.getFullYear() &&
-        a.getMonth() === b.getMonth() &&
-        a.getDate() === b.getDate();
-
-    if (sameDay(d, today)) return 'Aujourd’hui';
-    if (sameDay(d, yesterday)) return 'Hier';
-    return d.toLocaleDateString('fr-FR', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-    });
-}
-
-export function dayKey(iso: string): string {
-    const d = new Date(iso);
-    if (Number.isNaN(d.getTime())) return 'unknown';
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-}
+/**
+ * Plages et formateurs de date : la définition n'est plus ici.
+ *
+ * Le hub Journal partage désormais ces utilitaires, or « une seule source par
+ * sujet » (`durability_health.md` § 4) interdit deux jeux de seuils. Ils vivent
+ * dans `src/lib/time-range.ts` et `src/lib/format/date.ts` ; ce module les
+ * ré-exporte pour ne rompre aucun import existant de la vue d'audit.
+ */
+export type { RangeFilter } from '@/lib/time-range';
+export { RANGE_LABELS, RANGE_MS, RANGE_OPTIONS } from '@/lib/time-range';
+export { dayKey, formatDayLabel, formatFullDate, formatTime } from '@/lib/format/date';
 
 export interface AuditDayGroup {
     key: string;

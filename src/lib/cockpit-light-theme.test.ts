@@ -21,7 +21,16 @@ import { join, relative } from 'node:path';
 const ADMIN_DIR = join(process.cwd(), 'src', 'app', '(admin)');
 /** La page de connexion vit hors du `[data-cockpit-root]` : hors périmètre. */
 const OUT_OF_SCOPE_DIRS = [join(ADMIN_DIR, 'login')];
-const CSS_PATH = join(process.cwd(), 'src', 'app', 'styles', 'globals-cockpit-light.css');
+/**
+ * Le thème clair est réparti en deux feuilles pour rester sous le plafond de
+ * 300 lignes par fichier (`AGENTS.md` § 2) : la base (jetons, surfaces, textes,
+ * accent) et les états (statuts, interrupteurs, dégradés, exclusions). Le garde
+ * lit **les deux** — sinon une contrepartie déplacée échapperait au contrôle,
+ * ce qui viderait l'invariant de sa substance.
+ */
+const CSS_STYLES_DIR = join(process.cwd(), 'src', 'app', 'styles');
+const CSS_FILES = ['globals-cockpit-light.css', 'globals-cockpit-light-states.css'];
+const CSS_PATHS = CSS_FILES.map((name) => join(CSS_STYLES_DIR, name));
 
 /** Classes de couleur : utilitaires Tailwind et valeurs arbitraires `[#hex]`. */
 const COLOR_UTIL =
@@ -106,7 +115,7 @@ function isDeclaredInSheet(cssWithoutEscapes: string, token: string): boolean {
 }
 
 describe('Thème clair du Cockpit', () => {
-    const sheet = readFileSync(CSS_PATH, 'utf8');
+    const sheet = CSS_PATHS.map((file) => readFileSync(file, 'utf8')).join('\n');
     const sheetWithoutEscapes = sheet.replace(/\\/g, '');
 
     it('remappe toutes les classes sombres du Cockpit', () => {
@@ -136,7 +145,9 @@ describe('Thème clair du Cockpit', () => {
 
     it('est chargé par la feuille globale', () => {
         const globals = readFileSync(join(process.cwd(), 'src', 'app', 'globals.css'), 'utf8');
-        expect(globals).toContain('globals-cockpit-light.css');
+        // Toutes les feuilles du thème clair doivent être importées : une feuille
+        // créée mais non chargée ne produirait aucun remap, silencieusement.
+        for (const name of CSS_FILES) expect(globals).toContain(name);
     });
 });
 

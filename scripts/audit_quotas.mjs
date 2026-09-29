@@ -60,7 +60,13 @@ const BUDGETS = {
 };
 
 /** Tables dont la croissance est attendue (et donc à surveiller explicitement). */
-const GROWTH_TABLES = ['site_page_revisions', 'site_vitals', 'site_audit_logs', 'site_inquiries'];
+const GROWTH_TABLES = [
+    'site_page_revisions',
+    'site_vitals',
+    'site_audit_logs',
+    'site_activity_logs',
+    'site_inquiries',
+];
 
 const databaseUrl = process.env.DATABASE_URL || process.env.SUPABASE_DB_URL;
 if (!databaseUrl || /\[YOUR-PASSWORD\]|\[MOT_DE_PASSE\]/.test(databaseUrl)) {
@@ -180,7 +186,8 @@ async function main() {
     const retention = {
         site_page_revisions: '`npm run cms:purge:revisions`',
         site_vitals: '`npm run cms:purge:vitals`',
-        site_audit_logs: 'à cadrer (journal d’audit)',
+        site_activity_logs: '`npm run cms:purge:logs` (90/180/365 j selon la gravité)',
+        site_audit_logs: '`npm run cms:purge:logs` (rétention à cadrer séparément)',
         site_inquiries: 'à cadrer (demandes de contact)',
     };
     for (const entry of growth) {

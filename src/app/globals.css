@@ -18,4 +18,7 @@
 @import "./styles/globals-visuals.css";
 @import "./styles/globals-overlays.css";
 @import "./styles/globals-cockpit-light.css";
+/* États du thème clair (statuts, interrupteurs, dégradés, exclusions) — importés
+   APRÈS la feuille principale : l'ordre de cascade d'origine est préservé. */
+@import "./styles/globals-cockpit-light-states.css";
 @import "./styles/globals-page-shell.css";

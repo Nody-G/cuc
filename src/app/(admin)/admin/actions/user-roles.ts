@@ -7,6 +7,7 @@
  * journalisées par `logAuditEvent()`, et explicites sur leurs erreurs.
  */
 
+import { writeActivityLog } from '@/lib/logging/write';
 import { logAuditEvent } from './audit';
 import {
     evaluateRoleChange,
@@ -80,6 +81,23 @@ export async function inviteCockpitUser(input: {
     if (createdId) {
         await applyProfile(admin, createdId, email, role, fullName);
     }
+
+    /**
+     * Invitation dégradée : le collaborateur ne recevra aucun e-mail et
+     * l'invitant devra transmettre le lien lui-même. Sans cette trace, la
+     * dégradation se découvrait par un « je n'ai rien reçu » plusieurs jours
+     * plus tard, sans qu'aucun écran ne l'ait signalée.
+     */
+    void writeActivityLog({
+        level: 'warning',
+        source: 'email',
+        category: 'email.smtp_failed',
+        message: 'Invitation créée sans envoi d’e-mail : lien copiable généré en repli.',
+        target: email,
+        origin: 'inviteCockpitUser',
+        actorId: guard.actorId,
+    });
+
     await logAuditEvent('user.invite', email, `role=${role} · lien généré (SMTP indisponible)`);
     return { success: true, emailSent: false, inviteLink: link.properties.action_link };
 }

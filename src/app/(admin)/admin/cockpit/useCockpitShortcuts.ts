@@ -54,6 +54,9 @@ export function useCockpitShortcuts({
             'team',
             'films',
             'instagram',
+            // Ajouté en fin de liste : les raccourcis numériques déjà connus
+            // (1 à 7) restent assignés aux mêmes écrans.
+            'logs',
         ];
 
         const isTypingTarget = (target: EventTarget | null): boolean => {

@@ -1,4 +1,8 @@
-import { describe, expect, it } from 'vitest';
+/**
+ * Aucun import de `vitest` : `globals: true` est activé (`vitest.config.mts`).
+ * L'import explicite résolvait une seconde instance du paquet, sans
+ * configuration — la suite échouait au chargement, avant tout test.
+ */
 import type { FilmCredit, Instructor } from '@/types';
 import {
     isLucasCoordinated,

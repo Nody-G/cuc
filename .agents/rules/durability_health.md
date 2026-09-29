@@ -90,3 +90,23 @@
    l'application. L'applier relève le **nombre de lignes avant/après** et échoue si le compte change —
    c'est la preuve d'innocuité, pas une formalité (`apply_applicant_history_migration.mjs` en est le
    modèle).
+10. **Le journal d'activité — ce qui n'est pas écrit n'a pas eu lieu** (2026-09-29) : le Cockpit expose un
+    hub « Journal & Activité » (`/admin/journal`, `src/app/(admin)/admin/components/LogsView.tsx`) à trois
+    onglets — **métier** (le journal d'audit historique, `site_audit_logs`, rendu par la vue d'audit
+    existante), **système** (`site_activity_logs` : erreurs classées, dégradations, jobs, e-mails refusés)
+    et **rétention**. Une seule porte d'écriture, `src/lib/logging/write.ts` : elle **lit le champ `error`**
+    (un `try/catch` seul laisserait passer une table absente, cf. § 8), ne lève jamais — un incident
+    d'observabilité ne devient pas un incident fonctionnel — et applique `redact.ts` (jetons, clés et
+    adresses masquées) puis `throttle.ts` (regroupement anti-inondation, le compte réel étant reporté dans
+    `repeat_count`). Depuis un navigateur, deux portes distinctes : `reportClientError` (frontière
+    d'erreur, `critical`, sans trace d'appel) et `reportClientIncident` (liste **fermée** de domaines et
+    catégories, gravité imposée à `warning` — un navigateur n'est pas une autorité sur la gravité). La
+    classification des erreurs vit dans `classify.ts` et s'appuie sur les **codes** PostgREST, jamais sur
+    les messages traduits. Lecture réservée aux rôles `admin` et `directeur` (policy SQL) ; **aucune policy
+    `DELETE`** : le journal est en ajout seul, la rétention passe par la clé de service
+    (`npm run audit:logs` mesure, `npm run cms:purge:logs` applique — 90 j pour l'information, 180 j pour
+    les signaux, 365 j pour un incident critique, plafond 20 000 lignes). En base, la colonne s'appelle
+    `target` alors que le domaine l'appelle `entity` : la traduction est faite une seule fois, en lecture,
+    par `src/lib/data/site/audit-mapper.ts` (sans quoi le filtre « Entité » restait vide à jamais). Règle
+    courte : **une erreur non journalisée est une erreur invisible ; un journal qui fuit est pire qu'un
+    journal absent.**

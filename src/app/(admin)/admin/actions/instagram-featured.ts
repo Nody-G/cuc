@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { writeActivityLog } from '@/lib/logging/write';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { extractInstagramShortcode } from '@/lib/instagram-utils';
 import {
@@ -86,6 +87,25 @@ export async function getLatestInstagramReelsAction(
                 }
             }
         }
+
+        /**
+         * Repli silencieux : sans jeton configuré, la vidéothèque publique
+         * affichait la sélection par défaut du dépôt — ce qui ressemble à un site
+         * qui fonctionne, alors que les Reels récents ne sont plus alimentés. Le
+         * journal distingue désormais ce repli d'une absence de contenu.
+         */
+        if (!token) {
+            void writeActivityLog({
+                level: 'warning',
+                source: 'instagram',
+                category: 'instagram.token_missing',
+                message:
+                    'Aucun jeton Meta configuré : la vidéothèque affiche la sélection par défaut, pas les Reels récents.',
+                target: 'instagram_meta_config',
+                origin: 'getLatestInstagramReelsAction',
+            });
+        }
+
         return { success: true, reels: DEFAULT_FEATURED_REELS.slice(0, limit) };
     } catch {
         return { success: true, reels: DEFAULT_FEATURED_REELS.slice(0, limit) };

@@ -21,6 +21,7 @@ import {
     type SiteInquiry,
 } from '@/lib/data/site-service';
 import { syncSessionsSeatCountsFromCucSign } from '@/app/(admin)/admin/actions';
+import { reportClientIncident } from '@/app/(admin)/admin/actions/logs-ingest';
 import type { StuntProgram, Instructor, FilmCredit, Discipline } from '@/types';
 import type { POI } from '@/components/ui/campus-map/campusMap.data';
 import { createClient } from '@/lib/supabase/client';
@@ -208,16 +209,49 @@ export function useCockpitRealtimeSync({
                         setRealtimeStatus('connected');
                     } else if (status === 'CLOSED' || status === 'CHANNEL_ERROR') {
                         setRealtimeStatus('offline');
+                        /**
+                         * Le Cockpit bascule en rafraîchissement manuel : sans cette
+                         * trace, la dégradation était **invisible** — le canal se
+                         * taisait, et rien ne distinguait « aucune modification » de
+                         * « plus aucune écoute ». Appel non attendu (l'indicateur
+                         * d'état ne doit pas attendre le journal), et regroupé par
+                         * l'anti-inondation quand la reconnexion boucle.
+                         */
+                        void reportClientIncident({
+                            source: 'realtime',
+                            category: status === 'CHANNEL_ERROR' ? 'channel.error' : 'channel.removed',
+                            message:
+                                status === 'CHANNEL_ERROR'
+                                    ? 'Canal temps réel en erreur — le Cockpit ne reçoit plus les modifications en direct.'
+                                    : 'Canal temps réel fermé — le Cockpit est repassé en actualisation manuelle.',
+                            target: 'cockpit:all_changes',
+                            origin: 'useCockpitRealtimeSync',
+                        });
                     }
                 });
             } else {
+                void reportClientIncident({
+                    source: 'realtime',
+                    category: 'channel.error',
+                    message: 'Canal temps réel indisponible : deux onglets du Cockpit se sont heurtés sur le même canal.',
+                    target: 'cockpit:all_changes',
+                    origin: 'useCockpitRealtimeSync',
+                });
                 queueMicrotask(() => setRealtimeStatus('offline'));
             }
 
             return () => {
                 removeSafeChannel(supabase, channel);
             };
-        } catch {
+        } catch (error) {
+            void reportClientIncident({
+                source: 'realtime',
+                category: 'channel.error',
+                message: `Souscription temps réel impossible : ${error instanceof Error ? error.message : 'erreur inconnue'
+                    }`,
+                target: 'cockpit:all_changes',
+                origin: 'useCockpitRealtimeSync',
+            });
             queueMicrotask(() => setRealtimeStatus('offline'));
         }
         // Les setters d'état sont stables (useState) : la souscription ne se rejoue pas.

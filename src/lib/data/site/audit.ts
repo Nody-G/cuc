@@ -4,6 +4,7 @@
  */
 
 import { getSupabaseClient } from './client';
+import { toAuditLogEntries } from './audit-mapper';
 import { SAMPLE_AUDIT_LOGS } from './defaults/samples';
 import { AuditLogEntry } from './types';
 
@@ -20,7 +21,9 @@ export async function getAuditLogs(): Promise<AuditLogEntry[]> {
       .limit(20);
 
     if (!error && data && data.length > 0) {
-      return data as AuditLogEntry[];
+      // La base nomme la colonne `target`, le domaine l'appelle `entity` :
+      // sans cette traduction, le filtre « Entité » resterait vide à jamais.
+      return toAuditLogEntries(data);
     }
 
     // Fallback Supabase site_settings key='audit_logs'
@@ -31,7 +34,7 @@ export async function getAuditLogs(): Promise<AuditLogEntry[]> {
       .maybeSingle();
 
     if (row?.value?.list && Array.isArray(row.value.list)) {
-      return row.value.list as AuditLogEntry[];
+      return toAuditLogEntries(row.value.list);
     }
   } catch {
     // Ignore
@@ -54,7 +57,7 @@ export async function getAuditLogsExtended(limit = 500): Promise<AuditLogEntry[]
       .limit(limit);
 
     if (!error && data && data.length > 0) {
-      return data as AuditLogEntry[];
+      return toAuditLogEntries(data);
     }
 
     const { data: row } = await supabase
@@ -64,7 +67,7 @@ export async function getAuditLogsExtended(limit = 500): Promise<AuditLogEntry[]
       .maybeSingle();
 
     if (row?.value?.list && Array.isArray(row.value.list)) {
-      return row.value.list as AuditLogEntry[];
+      return toAuditLogEntries(row.value.list);
     }
   } catch {
     // Ignore

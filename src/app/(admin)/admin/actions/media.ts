@@ -5,6 +5,8 @@
  * Règle SRP : `AGENTS.md` § 1-2. Server Actions : docs Next.js (`use server`).
  */
 
+import { reportMediaFailure } from './media-failures';
+
 import { createAdminClient } from '@/lib/supabase/admin';
 import {
   FOLDER_PLACEHOLDER,
@@ -63,6 +65,17 @@ export async function uploadMediaFile(formData: FormData) {
       folder,
     };
   } catch (err: unknown) {
+    /**
+     * Un téléversement refusé (bucket absent, fichier trop lourd, réseau) rendait
+     * la médiathèque inutilisable **sans que rien ne l'explique** : l'appelant
+     * recevait une erreur, le serveur un message, et l'exploitant rien.
+     */
+    reportMediaFailure(
+      'media.upload.failed',
+      String(formData.get('folder') || 'uploads'),
+      err,
+      'uploadMediaFile',
+    );
     const message = err instanceof Error ? err.message : 'Erreur upload';
     return { success: false, error: message };
   }

@@ -6,6 +6,7 @@
  */
 
 import { createAdminClient } from '@/lib/supabase/admin';
+import { reportMediaFailure } from './media-failures';
 import {
   FOLDER_PLACEHOLDER,
   MEDIA_BUCKET,
@@ -35,6 +36,7 @@ export async function createMediaFolder(path: string) {
     await logAuditEvent('media.folder.create', clean);
     return { success: true, path: clean };
   } catch (err: unknown) {
+    reportMediaFailure('media.folder.create.failed', path, err, 'createMediaFolder');
     const message = err instanceof Error ? err.message : 'Erreur de création du dossier';
     return { success: false, error: message };
   }
@@ -70,6 +72,7 @@ export async function moveMediaObjects(paths: string[], targetFolder: string) {
     await logAuditEvent('media.move', folder, `${moved} fichier(s)`);
     return { success: true, moved };
   } catch (err: unknown) {
+    reportMediaFailure('media.move.failed', targetFolder, err, 'moveMediaObjects');
     const message = err instanceof Error ? err.message : 'Erreur de déplacement';
     return { success: false, error: message };
   }
@@ -101,6 +104,7 @@ export async function deleteMediaObjects(
     await logAuditEvent('media.trash', `${TRASH_ROOT}/${stamp}`, `${paths.length} fichier(s)`);
     return { success: true, deleted: 0, trashed: result.moved ?? 0, trashFolder: `${TRASH_ROOT}/${stamp}` };
   } catch (err: unknown) {
+    reportMediaFailure('media.delete.failed', paths[0] ?? '', err, 'deleteMediaObjects');
     const message = err instanceof Error ? err.message : 'Erreur de suppression';
     return { success: false, error: message };
   }

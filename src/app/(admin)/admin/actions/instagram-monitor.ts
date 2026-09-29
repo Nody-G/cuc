@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { getInstagramProfile, getReelLiveMetrics } from '@/lib/instagram/instagram-service';
-import { isTokenRefreshDue, refreshInstagramToken } from '@/lib/instagram/instagram-token-refresh';
+import { resolveRefreshedInstagramToken } from '@/lib/instagram/instagram-config-refresh';
 import { getOfficialReelMetrics } from '@/lib/instagram/instagram-reel-meta';
 import {
     fetchLiveInstagramDashboard,
@@ -44,22 +44,17 @@ export async function getInstagramMetaConfigAction(): Promise<{
         }
 
         const saved = data.value as InstagramMetaApiConfig;
-        let activeToken = saved.accessToken || fallback.accessToken || '';
-
-        // Auto-renouvellement perpétuel : prolonge de 60 jours supplémentaires si le jeton > 20 jours
-        if (activeToken.startsWith('IG') && isTokenRefreshDue(data.updated_at)) {
-            const refreshRes = await refreshInstagramToken(activeToken);
-            if (refreshRes.success && refreshRes.accessToken) {
-                activeToken = refreshRes.accessToken;
-                await adminClient
-                    .from('site_settings')
-                    .update({
-                        value: { ...saved, accessToken: activeToken },
-                        updated_at: new Date().toISOString(),
-                    })
-                    .eq('key', 'instagram_meta_config');
-            }
-        }
+        /**
+         * Renouvellement, décision comprise : le service
+         * `instagram-config-refresh.ts` décide s'il faut prolonger le jeton,
+         * l'écrit s'il est accepté, et journalise un refus de Meta. Cette fonction
+         * n'en garde que le résultat — c'est ce qui permet de rester sous le
+         * plafond de 300 lignes (`AGENTS.md` § 2).
+         */
+        const activeToken =
+            (await resolveRefreshedInstagramToken(adminClient, saved, data.updated_at)) ||
+            fallback.accessToken ||
+            '';
 
         return {
             success: true,

@@ -5,6 +5,8 @@
  * Règle SRP : `AGENTS.md` § 1-2. Server Actions : docs Next.js (`use server`).
  */
 
+import { classifyError } from '@/lib/logging/classify';
+import { writeActivityLog } from '@/lib/logging/write';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { revalidateSite } from './revalidate';
 import { logAuditEvent } from './audit';
@@ -81,6 +83,27 @@ export async function syncSessionsSeatCountsFromCucSign() {
     };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Erreur synchronisation effectifs';
+
+    /**
+     * Un échec de synchronisation CUC Sign n'était visible nulle part : l'écran
+     * affichait simplement des compteurs inchangés, impossibles à distinguer
+     * d'une absence réelle d'inscrits. La dégradation est désormais classée
+     * (table absente, RLS, réseau) et journalisée avant d'être retournée.
+     */
+    const classified = classifyError(err, {
+      source: 'supabase',
+      category: 'sync.sessions.failed',
+    });
+    void writeActivityLog({
+      level: classified.level,
+      source: classified.source,
+      category: classified.category,
+      message: classified.message,
+      target: 'site_sessions',
+      context: classified.context,
+      origin: 'syncSessionsSeatCountsFromCucSign',
+    });
+
     return { success: false, error: message };
   }
 }

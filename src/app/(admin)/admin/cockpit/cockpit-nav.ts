@@ -4,6 +4,7 @@
  * Couche « Types & Contrats » (`AGENTS.md` § 1) : aucune React ici, seulement
  * la correspondance onglet ↔ URL et la construction des sections du menu.
  */
+import { SYSTEM_TOOLS_SECTION } from './cockpit-system-section';
 import {
     Activity,
     Bell,
@@ -28,6 +29,7 @@ import {
 
 export type TabType =
     | 'dashboard'
+    | 'logs'
     | 'inquiries'
     | 'pages'
     | 'navigation'
@@ -77,6 +79,7 @@ export const TAB_ROUTES: ReadonlyArray<{ tab: TabType; segment: string }> = [
     { tab: 'media', segment: 'media' },
     { tab: 'announcements', segment: 'announcements' },
     { tab: 'users', segment: 'users' },
+    { tab: 'logs', segment: 'journal' },
     { tab: 'audit', segment: 'audit' },
     { tab: 'health', segment: 'health' },
     { tab: 'analytics', segment: 'analytics' },
@@ -227,6 +230,7 @@ export function buildNavSections({
                     ],
                 },
             ]),
+        ...(isDirecteurOrAdmin ? [SYSTEM_TOOLS_SECTION] : []), // outils système (cf. cockpit-system-section.ts)
         {
             title: '4. Réglages du Site',
             items: [
@@ -281,6 +285,7 @@ const TAB_METADATA_MAP: Record<TabType, TabMetadata> = {
     social: { label: 'Réseaux Sociaux', sectionTitle: 'Réglages du Site', icon: Share2 },
     settings: { label: 'Coordonnées & Paramètres', sectionTitle: 'Réglages du Site', icon: Settings },
     users: { label: 'Comptes & Accès', sectionTitle: 'Réglages du Site', icon: Users },
+    logs: { label: 'Journal & Activité', sectionTitle: 'Outils Système', icon: Activity },
     audit: { label: 'Journal d’Audit', sectionTitle: 'Outils Système', icon: Activity },
     health: { label: 'Diagnostic du Site', sectionTitle: 'Outils Système', icon: Activity },
     analytics: { label: 'Statistiques & Conversion', sectionTitle: 'Inscriptions & Planning', icon: Activity },

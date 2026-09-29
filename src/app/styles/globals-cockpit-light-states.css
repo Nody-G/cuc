@@ -1,0 +1,129 @@
+/* ===================================================
+   ÉTATS DU THÈME CLAIR DU COCKPIT
+   ===================================================
+   Deuxième partie du thème clair, extraite de
+   `globals-cockpit-light.css` pour rester sous le plafond de 300 lignes par
+   fichier (`AGENTS.md` § 2).
+
+   Contenu : statuts colorés, interrupteurs et pastilles d'état, dégradés et
+   barres de défilement, puis les **exclusions volontaires** — les surfaces qui
+   restent sombres en thème clair, chacune avec sa raison.
+
+   Importée par `src/app/globals.css` **après** la feuille principale : l'ordre
+   de cascade d'origine est ainsi strictement conservé.
+   =================================================== */
+
+/* ------------------------------------------------------------------
+   7. Statuts — recolorés pour rester lisibles sur fond clair
+   ------------------------------------------------------------------ */
+[data-cockpit-root][data-cockpit-theme='light'] .text-emerald-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-emerald-400,
+[data-cockpit-root][data-cockpit-theme='light'] .text-emerald-400\/80,
+[data-cockpit-root][data-cockpit-theme='light'] .text-emerald-500 {
+    color: #047857;
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .text-amber-200,
+[data-cockpit-root][data-cockpit-theme='light'] .text-amber-200\/80,
+[data-cockpit-root][data-cockpit-theme='light'] .text-amber-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-amber-400,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:text-amber-300:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:text-amber-400:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .text-yellow-400 {
+    color: #b45309;
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .text-cyan-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-cyan-400,
+[data-cockpit-root][data-cockpit-theme='light'] .text-sky-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-sky-400,
+[data-cockpit-root][data-cockpit-theme='light'] .text-blue-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-blue-400 {
+    color: #0369a1;
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .text-purple-200,
+[data-cockpit-root][data-cockpit-theme='light'] .text-purple-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-purple-400,
+[data-cockpit-root][data-cockpit-theme='light'] .text-fuchsia-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-fuchsia-400 {
+    color: #7e22ce;
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .text-red-200,
+[data-cockpit-root][data-cockpit-theme='light'] .text-red-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-red-400,
+[data-cockpit-root][data-cockpit-theme='light'] .text-red-400\/80,
+[data-cockpit-root][data-cockpit-theme='light'] .text-rose-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-rose-400,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:text-red-300:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:text-red-400:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:text-rose-300:hover {
+    color: #b91c1c;
+}
+
+/* Aperçu Google (maquette de résultat) : blanc comme un vrai SERP. */
+[data-cockpit-root][data-cockpit-theme='light'] .text-\[\#8ab4f8\] {
+    color: #1a73e8;
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .text-\[\#bdc1c6\] {
+    color: #5f6368;
+}
+
+/* Marques IMDb / AlloCiné : teintes conservées mais assombries sur clair. */
+[data-cockpit-root][data-cockpit-theme='light'] .text-\[\#f5c518\],
+[data-cockpit-root][data-cockpit-theme='light'] .text-\[\#fecc00\] {
+    color: #7a5600;
+}
+
+/* ------------------------------------------------------------------
+   8. Interrupteurs et pastilles d'état
+   ------------------------------------------------------------------ */
+[data-cockpit-root][data-cockpit-theme='light'] .bg-gray-700 {
+    background-color: #cfcfd8;
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-400 {
+    background-color: #a1a1ad;
+}
+
+/* ------------------------------------------------------------------
+   9. Dégradés et listes
+   ------------------------------------------------------------------ */
+[data-cockpit-root][data-cockpit-theme='light'] .from-zinc-900\/90,
+[data-cockpit-root][data-cockpit-theme='light'] .from-zinc-950 {
+    --tw-gradient-from: var(--cockpit-surface) var(--tw-gradient-from-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .to-zinc-950 {
+    --tw-gradient-to: var(--cockpit-bg) var(--tw-gradient-to-position);
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .via-zinc-950\/40 {
+    --tw-gradient-via: var(--cockpit-surface-2) var(--tw-gradient-via-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-via), var(--tw-gradient-to);
+}
+
+/* Barres de défilement claires (sinon piste sombre sur fond blanc). */
+[data-cockpit-root][data-cockpit-theme='light'] * {
+    scrollbar-color: rgba(0, 0, 0, 0.28) transparent;
+}
+
+/* ------------------------------------------------------------------
+   10. EXCLUSIONS VOLONTAIRES — restent sombres en thème clair
+   ------------------------------------------------------------------
+   · `.bg-black/70|/80|/85|/90` : voiles de modales (scrim). Un voile clair
+     ne détacherait plus la boîte de dialogue du fond.
+   · `.bg-\[\#050608\]` : viewport du plan 3D (rendu WebGL, pas une surface
+     de travail).
+   · Contenus d'aperçu Studio (iframe de la vitrine) : la vitrine est sombre
+     par nature, on n'éclaircit pas son rendu.
+   · `.text-black`, `.bg-\[\#FFE500\]`, `.selection\:bg-\[\#FFE500\]`,
+     `.border-\[\#FFE500\]`, `.after\:bg-white`, `.fill-black` : identité CUC
+     et libellés posés sur l'aplat jaune.
+   · Pastilles de statut pleines (`bg-emerald-500`, `bg-red-500`,
+     `bg-rose-500`, `bg-blue-600`, `bg-purple-500`, `bg-red-600`) et leurs
+     fonds translucides sombres : elles se lisent très bien sur blanc.
+*/

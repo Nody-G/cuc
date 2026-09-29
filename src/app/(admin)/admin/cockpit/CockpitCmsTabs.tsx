@@ -16,6 +16,7 @@ import { PartnersView } from '../components/PartnersView';
 import { SettingsView } from '../components/SettingsView';
 import { UsersRolesView } from '../components/UsersRolesView';
 import { AuditLogView } from '../components/AuditLogView';
+import { LogsView } from '../components/LogsView';
 import { ContentHealthView } from '../components/ContentHealthView';
 import { AnalyticsView } from '../components/AnalyticsView';
 import { InquiriesView } from '../components/InquiriesView';
@@ -163,7 +164,15 @@ export const CockpitCmsTabs: React.FC<CockpitTabContentProps> = (props) => {
                 </div>
             )}
 
-            {/* 17. JOURNAL D'AUDIT */}
+            {/* 17. JOURNAL & ACTIVITÉ — hub unifié (métier, système, rétention) */}
+            {props.activeTab === 'logs' && <LogsView showToast={props.showToast} />}
+
+            {/*
+              * Journal d'audit conservé tel quel : l'URL `/admin/audit` reste
+              * valide (favoris et deep-links), et son rendu sert d'onglet
+              * « Métier » au hub. Le supprimer aurait cassé des liens existants
+              * pour aucun gain.
+              */}
             {props.activeTab === 'audit' && <AuditLogView showToast={props.showToast} />}
 
             {/* 18. DIAGNOSTIC DE SANTÉ DU CONTENU */}

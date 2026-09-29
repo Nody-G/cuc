@@ -8,6 +8,7 @@
  * remontées explicitement — `supabase-js` ne lève pas (cf. `durability_health.md` § 8).
  */
 
+import { writeActivityLog } from '@/lib/logging/write';
 import { createClient } from '@/lib/supabase/server';
 import { logAuditEvent } from './audit';
 import {
@@ -145,6 +146,21 @@ export async function sendUserPasswordReset(userId: string): Promise<PasswordRes
     if (linkError || !link?.properties?.action_link) {
         return { success: false, error: linkError?.message || mailError.message };
     }
+
+    /**
+     * Repli assumé mais **visible** : l'e-mail n'est pas parti, l'utilisateur
+     * devra être prévenu autrement. Ce cas n'existait nulle part hors des
+     * journaux serveur, alors qu'il change ce que l'exploitant doit faire.
+     */
+    void writeActivityLog({
+        level: 'warning',
+        source: 'email',
+        category: 'email.smtp_failed',
+        message: 'Réinitialisation de mot de passe sans envoi d’e-mail : lien copiable généré en repli.',
+        target: target.email,
+        origin: 'sendUserPasswordReset',
+        actorId: guard.actorId,
+    });
 
     await logAuditEvent('user.password.reset', target.email, 'lien généré (SMTP indisponible)');
     return { success: true, emailSent: false, resetLink: link.properties.action_link };

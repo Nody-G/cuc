@@ -1,4 +1,11 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+/**
+ * Aucun import de `vitest` : `globals: true` est activé (`vitest.config.mts`).
+ *
+ * L'import explicite de `'vitest'` résolvait ici une **seconde instance** du
+ * paquet, dont la configuration interne est vide — la suite échouait au
+ * chargement (`Cannot read properties of undefined (reading 'config')`) avant
+ * même le premier test. La convention du dépôt est de s'appuyer sur les globals.
+ */
 import { fetchLiveInstagramDashboard } from './instagram-feed';
 
 describe('fetchLiveInstagramDashboard', () => {

@@ -279,23 +279,10 @@ export interface AuditLogEntry {
 /* ============================================================================
  * HISTORIQUE DE VERSIONS DES PAGES (site_page_revisions)
  * ----------------------------------------------------------------------------
- * Chaque révision est un instantané immuable du contenu d'une page. Le trigger
- * SQL `trg_snapshot_site_page_revision` crée automatiquement un instantané
- * avant chaque UPDATE de `site_pages`. Les fonctions ci-dessous permettent au
- * Cockpit de lister, comparer et restaurer ces versions.
+ * Les contrats de révision vivent désormais dans `./types-revisions` : le sujet
+ * (instantané immuable d'une page, lu et restauré par le Cockpit) est distinct
+ * des types de contenu, et ce fichier dépassait le plafond de 300 lignes
+ * (`AGENTS.md` § 2). Ré-export conservé : aucun import existant ne change.
  * ========================================================================== */
 
-export type PageRevisionStatus = 'draft' | 'published' | 'archived';
-
-export interface SitePageRevision {
-  id: string;
-  page_slug: string;
-  revision_number: number;
-  snapshot: Partial<SitePageContent>;
-  status: PageRevisionStatus;
-  label: string | null;
-  author_id: string | null;
-  author_name: string | null;
-  metadata: Record<string, unknown>;
-  created_at: string;
-}
+export type { PageRevisionStatus, SitePageRevision } from './types-revisions';
