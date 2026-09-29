@@ -8,6 +8,9 @@ import {
     getPartners,
     getEvents,
     getSiteSettings,
+    getFilms,
+    getTeam,
+    getCelebrities,
     type SitePageContent,
     type SitePartner,
     type SiteEvent,
@@ -18,6 +21,7 @@ import type {
     FooterStructure,
     SiteSocialLink,
 } from '@/data/navigation';
+import type { DoubledCelebrity, FilmCredit, Instructor } from '@/types';
 import {
     analyzeContentHealth,
     type ContentHealthReport,
@@ -48,8 +52,10 @@ export interface ContentHealthController {
 }
 
 /**
- * Orchestration du diagnostic : collecte des 6 sources de la vitrine,
- * analyse de santé mémoïsée et filtres de lecture.
+ * Orchestration du diagnostic : collecte des sources de la vitrine (pages,
+ * navigation, pied de page, réseaux, partenaires, événements, réglages) plus les
+ * trois référentiels nécessaires aux compléments éditoriaux (films, équipe,
+ * catalogue des comédiens), puis analyse mémoïsée et filtres de lecture.
  */
 export function useContentHealth({
     pages,
@@ -65,14 +71,19 @@ export function useContentHealth({
     const runDiagnostic = async (showSpinner = false) => {
         if (showSpinner) setRefreshing(true);
 
-        const [navigation, footer, socialLinks, partners, events, settings] = await Promise.all([
-            getNavigation('main'),
-            getFooter('main'),
-            getSocialLinks(),
-            getPartners(),
-            getEvents(),
-            getSiteSettings(),
-        ]);
+        const [navigation, footer, socialLinks, partners, events, settings, films, team, celebrities] =
+            await Promise.all([
+                getNavigation('main'),
+                getFooter('main'),
+                getSocialLinks(),
+                getPartners(),
+                getEvents(),
+                getSiteSettings(),
+                // Référentiels des compléments éditoriaux (famille incomplete-roles).
+                getFilms(),
+                getTeam(),
+                getCelebrities(),
+            ]);
 
         const navStructure: NavigationStructure | null = navigation?.structure ?? null;
         const footerStructure: FooterStructure | null = footer?.structure ?? null;
@@ -85,6 +96,9 @@ export function useContentHealth({
             partners: partners as SitePartner[],
             events: events as SiteEvent[],
             settings: settings as SiteSettings,
+            films: films as FilmCredit[],
+            team: team as Instructor[],
+            celebrities: celebrities as DoubledCelebrity[],
         });
 
         setReport(result);

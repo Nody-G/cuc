@@ -8,13 +8,21 @@ import {
     ImageOff,
     Unlink,
     SearchCheck,
+    ClipboardList,
     AlertTriangle,
     AlertOctagon,
     Info,
 } from 'lucide-react';
 import type { ContentIssueKind, ContentIssueSeverity } from '@/lib/content-health';
 
-export type HealthTab = 'pages' | 'navigation' | 'footer' | 'social' | 'partners' | 'events';
+export type HealthTab =
+    | 'pages'
+    | 'navigation'
+    | 'footer'
+    | 'social'
+    | 'partners'
+    | 'events'
+    | 'films';
 
 export const KIND_META: Record<
     ContentIssueKind,
@@ -24,6 +32,12 @@ export const KIND_META: Record<
     'missing-image': { label: 'Images manquantes', icon: ImageOff, tab: 'pages' },
     orphan: { label: 'Contenu orphelin', icon: Unlink, tab: 'navigation' },
     seo: { label: 'Métadonnées SEO', icon: SearchCheck, tab: 'pages' },
+    // Compléments éditoriaux : rôles CUC et doublures à saisir par la direction.
+    'incomplete-roles': {
+        label: 'Rôles & doublures à compléter',
+        icon: ClipboardList,
+        tab: 'films',
+    },
 };
 
 export const SEVERITY_META: Record<

@@ -10,13 +10,13 @@ interface HealthKindFiltersProps {
     onToggleKind: (kind: ContentIssueKind) => void;
 }
 
-/** Répartition par catégorie : 4 tuiles filtrantes (liens, images, orphelins, SEO). */
+/** Répartition par catégorie : une tuile filtrante par famille de `KIND_META`. */
 export const HealthKindFilters: React.FC<HealthKindFiltersProps> = ({
     report,
     kindFilter,
     onToggleKind,
 }) => (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         {(Object.keys(KIND_META) as ContentIssueKind[]).map((kind) => {
             const meta = KIND_META[kind];
             const Icon = meta.icon;
