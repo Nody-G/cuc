@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import {
     convertInquiryToCucSignStudent,
     deleteInquiry,
+    fetchInquiriesAction,
     updateInquiryNotes,
     updateInquiryStatus,
 } from '@/app/(admin)/admin/actions';
@@ -49,18 +50,28 @@ export function useInquiriesData({ showToast, onInquiriesCountChange }: UseInqui
         [onInquiriesCountChange]
     );
 
+    const loadInquiries = useCallback(async (): Promise<SiteInquiry[]> => {
+        try {
+            const serverData = await fetchInquiriesAction();
+            if (serverData && serverData.length > 0) return serverData;
+        } catch {
+            // Repli sur le service client/isomorphe
+        }
+        return await getInquiries();
+    }, []);
+
     const fetchInquiries = useCallback(async () => {
         setLoading(true);
-        const data = await getInquiries();
+        const data = await loadInquiries();
         setInquiries(data);
         setLoading(false);
         syncCount(data);
-    }, [syncCount]);
+    }, [loadInquiries, syncCount]);
 
     // Chargement initial : drapeau `active` pour ignorer une réponse après démontage.
     useEffect(() => {
         let active = true;
-        getInquiries().then((data) => {
+        loadInquiries().then((data) => {
             if (active) {
                 setInquiries(data);
                 setLoading(false);
@@ -70,7 +81,7 @@ export function useInquiriesData({ showToast, onInquiriesCountChange }: UseInqui
         return () => {
             active = false;
         };
-    }, [syncCount]);
+    }, [loadInquiries, syncCount]);
 
     const changeStatus = async (id: string, newStatus: SiteInquiry['status']) => {
         const res = await updateInquiryStatus(id, newStatus);

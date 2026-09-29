@@ -65,6 +65,23 @@ export async function deleteInquiryRow(id: string): Promise<string | null> {
     }
 }
 
+/** Lit l'ensemble des candidatures depuis la table dédiée site_inquiries. */
+export async function selectInquiriesRows(): Promise<{
+    entries: SiteInquiry[];
+    error: string | null;
+}> {
+    try {
+        const { data, error } = await createAdminClient()
+            .from('site_inquiries')
+            .select('*')
+            .order('created_at', { ascending: false });
+        if (error) return { entries: [], error: error.message };
+        return { entries: (data as SiteInquiry[]) || [], error: null };
+    } catch (e) {
+        return { entries: [], error: e instanceof Error ? e.message : 'Erreur de lecture site_inquiries' };
+    }
+}
+
 /** Lit le miroir `site_settings.inquiries`. */
 export async function readInquiryMirror(): Promise<{
     entries: InquiryMirrorEntry[];

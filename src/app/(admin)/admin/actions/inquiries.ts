@@ -19,6 +19,7 @@ import {
   deleteInquiryRow,
   insertInquiryRow,
   readInquiryMirror,
+  selectInquiriesRows,
   updateInquiryRow,
   writeInquiryMirror,
   type InquiryMirrorEntry,
@@ -225,4 +226,29 @@ export async function deleteInquiry(id: string) {
     const message = err instanceof Error ? err.message : 'Erreur suppression candidature';
     return { success: false, error: message };
   }
+}
+
+/**
+ * Récupère l'intégralité des candidatures et demandes de contact via le client d'administration.
+ * Priorité : table dédiée `site_inquiries`, puis miroir `site_settings.inquiries`.
+ */
+export async function fetchInquiriesAction(): Promise<SiteInquiry[]> {
+  try {
+    const tableRes = await selectInquiriesRows();
+    if (!tableRes.error && tableRes.entries.length > 0) {
+      return tableRes.entries;
+    }
+
+    const mirror = await readInquiryMirror();
+    if (mirror.entries && mirror.entries.length > 0) {
+      return mirror.entries;
+    }
+
+    if (!tableRes.error) {
+      return tableRes.entries;
+    }
+  } catch (err) {
+    console.error('[inquiries] Erreur fetchInquiriesAction:', err);
+  }
+  return [];
 }
