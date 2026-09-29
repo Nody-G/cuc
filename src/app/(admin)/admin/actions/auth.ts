@@ -30,6 +30,18 @@ export async function checkIsAdmin(): Promise<boolean> {
 }
 
 /**
+ * Vérifie que l'utilisateur connecté peut administrer les comptes du Cockpit.
+ *
+ * Distinct de `checkIsAdmin()` : celui-ci ouvre le Cockpit aux secrétaires et
+ * coachs, mais la gestion des comptes (rôles, invitations, désactivation,
+ * suppression) est réservée à la Direction et aux administrateurs système.
+ */
+export async function checkIsUserManager(): Promise<boolean> {
+  const profile = await getCurrentUserProfile();
+  return ['admin', 'directeur'].includes(profile?.role || '');
+}
+
+/**
  * Récupère le profil et rôle de l'utilisateur connecté dans le Cockpit.
  */
 export async function getCurrentUserProfile() {
@@ -99,43 +111,7 @@ export async function loginAdminAction(identifier: string, pass: string) {
 }
 
 /**
- * Liste les collaborateurs du Cockpit (Admin, Directeur, Secrétaire, Coach).
+ * La gestion des comptes (`listCockpitUsers`, `updateUserRole`, invitation,
+ * réinitialisation, désactivation, suppression) vit désormais dans `./users`,
+ * gardes d'autorisation et journal d'audit inclus.
  */
-export async function listCockpitUsers() {
-  try {
-    const adminClient = createAdminClient();
-    const { data, error } = await adminClient
-      .from('profiles')
-      .select('id, email, full_name, first_name, last_name, role, updated_at, created_at')
-      .in('role', ['admin', 'directeur', 'secretaire', 'coach'])
-      .order('created_at', { ascending: false });
-
-    if (error) throw error;
-    return { success: true, users: data || [] };
-  } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : 'Erreur liste utilisateurs';
-    return { success: false, error: message, users: [] };
-  }
-}
-
-/**
- * Met à jour le rôle d'un collaborateur (Directeur, Secrétaire, Coach, Admin).
- */
-export async function updateUserRole(userId: string, newRole: string) {
-  try {
-    const allowed = ['admin', 'directeur', 'secretaire', 'coach', 'student'];
-    if (!allowed.includes(newRole)) throw new Error('Rôle non autorisé');
-
-    const adminClient = createAdminClient();
-    const { error } = await adminClient
-      .from('profiles')
-      .update({ role: newRole, updated_at: new Date().toISOString() })
-      .eq('id', userId);
-
-    if (error) throw error;
-    return { success: true };
-  } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : 'Erreur modification rôle';
-    return { success: false, error: message };
-  }
-}

@@ -67,8 +67,8 @@ export const TAB_ROUTES: ReadonlyArray<{ tab: TabType; segment: string }> = [
     { tab: 'footer', segment: 'footer' },
     { tab: 'social', segment: 'social' },
     { tab: 'disciplines', segment: 'disciplines' },
-    { tab: 'campus', segment: 'campus' },
     { tab: 'campus-3d', segment: 'campus-3d' },
+    { tab: 'campus', segment: 'campus' },
     { tab: 'sessions', segment: 'sessions' },
     { tab: 'team', segment: 'team' },
     { tab: 'films', segment: 'films' },
@@ -89,6 +89,19 @@ export const TAB_ROUTES: ReadonlyArray<{ tab: TabType; segment: string }> = [
 export function resolveTabFromPath(path: string): TabType | null {
     const match = TAB_ROUTES.find(({ segment }) => path.includes(`/${segment}`));
     return match ? match.tab : null;
+}
+
+/**
+ * Résout l'URL canonique d'un onglet depuis `TAB_ROUTES`.
+ *
+ * Source unique : `switchTab` et le deep-linking ne peuvent plus diverger
+ * (l'ancien code composait `/admin/${tab}`, ce qui envoyait « Visites » vers
+ * `/admin/traffic` alors que l'URL canonique est `/admin/visites`).
+ */
+export function routeForTab(tab: TabType): string {
+    if (tab === 'dashboard') return '/admin';
+    const match = TAB_ROUTES.find((entry) => entry.tab === tab);
+    return match ? `/admin/${match.segment}` : `/admin/${tab}`;
 }
 
 /* ------------------------------------------------------------------ */

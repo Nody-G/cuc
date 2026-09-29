@@ -121,6 +121,7 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
           activeTab={activeTab}
           switchTab={switchTab}
           showToast={showToast}
+          currentUserId={data.currentUserProfile?.id ?? ''}
           onOpenBackupModal={() => setIsBackupModalOpen(true)}
           {...data}
         />

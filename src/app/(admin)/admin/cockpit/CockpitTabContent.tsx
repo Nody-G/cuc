@@ -20,6 +20,8 @@ export interface CockpitTabContentProps {
     switchTab: (tab: TabType) => void;
     showToast: (msg: string) => void;
     userRole: string;
+    /** Identifiant de la session courante — protège l'auto-édition des comptes. */
+    currentUserId: string;
     totalSessions: number;
     fullSessions: number;
     /* Données du Cockpit (useCockpitData). */

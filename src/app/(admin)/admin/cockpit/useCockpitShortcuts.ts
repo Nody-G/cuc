@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useCallback, useEffect } from 'react';
-import { resolveTabFromPath, type TabType } from './cockpit-nav';
+import { resolveTabFromPath, routeForTab, type TabType } from './cockpit-nav';
 
 export interface UseCockpitShortcutsArgs {
     setActiveTab: React.Dispatch<React.SetStateAction<TabType>>;
@@ -37,7 +37,7 @@ export function useCockpitShortcuts({
     const switchTab = useCallback(
         (tab: TabType) => {
             setActiveTab(tab);
-            const targetUrl = tab === 'dashboard' ? '/admin' : `/admin/${tab}`;
+            const targetUrl = routeForTab(tab);
             if (window.location.pathname !== targetUrl) {
                 window.history.pushState(null, '', targetUrl);
             }

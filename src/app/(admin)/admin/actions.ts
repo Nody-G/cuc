@@ -10,7 +10,14 @@
  * est résolue à la source pour les composants clients.
  */
 
-export { checkIsAdmin, getCurrentUserProfile, loginAdminAction, listCockpitUsers, updateUserRole } from './actions/auth';
+export { checkIsAdmin, checkIsUserManager, getCurrentUserProfile, loginAdminAction } from './actions/auth';
+export {
+    listCockpitUsers,
+    sendUserPasswordReset,
+    setCockpitUserActive,
+    deleteCockpitUser,
+} from './actions/user-accounts';
+export { inviteCockpitUser, updateUserRole } from './actions/user-roles';
 export { revalidateSite } from './actions/revalidate';
 export { updateSessionStatus, createSession, deleteSession, upsertProgram, deleteProgram } from './actions/sessions';
 export { updateAnnouncement } from './actions/announcements';

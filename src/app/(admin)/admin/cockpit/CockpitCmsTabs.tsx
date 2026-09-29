@@ -122,12 +122,13 @@ export const CockpitCmsTabs: React.FC<CockpitTabContentProps> = (props) => (
             </div>
         )}
 
-        {/* 16. UTILISATEURS & RÔLES */}
+        {/* 16. COMPTES & ACCÈS (UTILISATEURS & RÔLES) */}
         {props.activeTab === 'users' && (
             <div className="space-y-6 animate-in fade-in duration-200">
                 <UsersRolesView
                     showToast={props.showToast}
                     currentUserRole={props.userRole}
+                    currentUserId={props.currentUserId}
                 />
             </div>
         )}
