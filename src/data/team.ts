@@ -119,14 +119,11 @@ export const CUC_TEAM: Instructor[] = [
     "order_index": 2,
     "doubledActors": [
       "Ned Dennehy",
-      "Tony",
       "Adrien Brody",
       "Arnaud Ducret",
       "Vincent Cassel",
-      "Ronan",
       "Olivier Gourmet",
       "Jay Duffy",
-      "Fabrice",
       "Thierry Neuvic",
       "Benjamin Blanchy",
       "Sam Spruell",
@@ -561,8 +558,7 @@ export const CUC_TEAM: Instructor[] = [
     "instagram": "https://www.instagram.com/malikdiouf_yamakasi/",
     "order_index": 3,
     "doubledActors": [
-      "Bakary Diombera",
-      "Jojo"
+      "Bakary Diombera"
     ],
     "notableCredits": [
       "Full Phil (2026) — Cascadeur",
@@ -912,12 +908,8 @@ export const CUC_TEAM: Instructor[] = [
     "instagram": "https://www.instagram.com/fredericdessains/",
     "order_index": 5,
     "doubledActors": [
-      "Ezio Burntwood",
-      "Sentinelle",
       "Jonathan Cohen",
-      "Jean-hugues Anglade",
-      "Matthieu",
-      "Christophe"
+      "Jean-hugues Anglade"
     ],
     "notableCredits": [
       "GIGN (2026) — Cascadeur",
@@ -1203,10 +1195,7 @@ export const CUC_TEAM: Instructor[] = [
     "order_index": 7,
     "doubledActors": [
       "Georges Corraface",
-      "Bruno Debrandt",
-      "Policier En Civil",
-      "Kamel",
-      "Marc Laroche"
+      "Bruno Debrandt"
     ],
     "notableCredits": [
       "Father Joe (2026) — Coordinateur des cascades",
@@ -1471,7 +1460,7 @@ export const CUC_TEAM: Instructor[] = [
       "Adam Sandler",
       "Keanu Reeves",
       "Philippe Lacheau",
-      "Aahmir Khan",
+      "Aamir Khan",
       "Sunny Deol"
     ],
     "notableCredits": [
@@ -1528,7 +1517,7 @@ export const CUC_TEAM: Instructor[] = [
       "Anna (2019) — Cascadeur",
       "Nicky Larson et le parfum de Cupidon (2018) — Cascadeur",
       "Patriot (2015) — Cascadeur",
-      "Thugs de l'Hindostan (2018) — Doublure de Aahmir Khan",
+      "Thugs de l'Hindostan (2018) — Doublure de Aamir Khan",
       "L'Empereur de Paris (2018) — Cascadeur",
       "Ad Vitam (2018) — Doublure",
       "Victor Hugo, ennemi d'État (2018) — Cascadeur",
@@ -1617,7 +1606,7 @@ export const CUC_TEAM: Instructor[] = [
         "anna": "Cascadeur",
         "nicky-larson-et-le-parfum-de-cupidon": "Cascadeur",
         "patriot": "Cascadeur",
-        "thugs-de-l-hindostan": "Doublure de Aahmir Khan",
+        "thugs-de-l-hindostan": "Doublure de Aamir Khan",
         "l-empereur-de-paris": "Cascadeur",
         "ad-vitam": "Doublure",
         "victor-hugo-ennemi-d-etat": "Cascadeur",
@@ -1830,14 +1819,9 @@ export const CUC_TEAM: Instructor[] = [
     "instagram": "https://www.instagram.com/kefi_abrikh/",
     "order_index": 10,
     "doubledActors": [
-      "Joseph Bellegarde",
-      "Ramzy",
       "Vincent Cassel",
       "Vincent Elbaz",
-      "Manu",
-      "Adolescent",
-      "Luke Evans",
-      "Kenji Sakaguchi"
+      "Luke Evans"
     ],
     "notableCredits": [
       "The Thomas Crown Affair (2027) — Coordinateur des cascades",
@@ -2049,11 +2033,7 @@ export const CUC_TEAM: Instructor[] = [
     "externalUrl": "https://www.anthonypho.com/",
     "instagram": "https://www.instagram.com/anthony_pho/",
     "order_index": 11,
-    "doubledActors": [
-      "Liu",
-      "Myo Leong",
-      "Samir"
-    ],
+    "doubledActors": [],
     "notableCredits": [
       "Marave (2026) — Coordinateur des cascades",
       "Le Sang des Loups (2026) — Cascadeur",
@@ -2637,13 +2617,7 @@ export const CUC_TEAM: Instructor[] = [
     "externalUrl": "https://www.michel-bouis-cascade.fr/",
     "instagram": "https://www.instagram.com/michelbouis/",
     "order_index": 13,
-    "doubledActors": [
-      "Harold",
-      "Joseph",
-      "JP",
-      "Laurent Le Suicidé",
-      "Hakan"
-    ],
+    "doubledActors": [],
     "notableCredits": [
       "Impacts (2026) — Coordinateur des cascades",
       "Deep (2026) — Coordinateur des cascades",
@@ -3193,13 +3167,7 @@ export const CUC_TEAM: Instructor[] = [
     "order_index": 14,
     "doubledActors": [
       "Hafsia Herzi",
-      "Patience Munchenbach",
-      "Cara",
-      "Albana",
-      "Selma",
-      "Christa",
-      "Cléa",
-      "Loïe"
+      "Patience Munchenbach"
     ],
     "notableCredits": [
       "La Cible (2026) — Cascadeur",
@@ -3389,10 +3357,7 @@ export const CUC_TEAM: Instructor[] = [
     "externalUrl": "https://www.instagram.com/pierretoubas/",
     "instagram": "https://www.instagram.com/pierretoubas/",
     "order_index": 15,
-    "doubledActors": [
-      "Père Xavier",
-      "José"
-    ],
+    "doubledActors": [],
     "notableCredits": [
       "Néro (2025) — Cascadeur",
       "Le Signal (2025) — Coordinateur des cascades",
@@ -3566,9 +3531,7 @@ export const CUC_TEAM: Instructor[] = [
     "externalUrl": "https://www.instagram.com/jonathan_bernard_stunt/",
     "instagram": "https://www.instagram.com/jonathan_bernard_stunt/",
     "order_index": 16,
-    "doubledActors": [
-      "Porte"
-    ],
+    "doubledActors": [],
     "notableCredits": [
       "GIGN (2026) — Cascadeur",
       "Bagarre (2026) — Cascadeur",
@@ -3786,9 +3749,7 @@ export const CUC_TEAM: Instructor[] = [
     "externalUrl": "https://www.instagram.com/teddyponceau/",
     "instagram": "https://www.instagram.com/teddyponceau/",
     "order_index": 18,
-    "doubledActors": [
-      "Adil"
-    ],
+    "doubledActors": [],
     "notableCredits": [
       "Sous la Seine 2 (2027) — Doublure de Adil",
       "Les Profs 3 - Retour vers le passé (2027) — Cascadeur",
@@ -4045,10 +4006,7 @@ export const CUC_TEAM: Instructor[] = [
     "instagram": "https://www.instagram.com/nicolasretabi/",
     "order_index": 20,
     "doubledActors": [
-      "Benjamin De LA Fere",
-      "Benjamin De LA Fère",
-      "Nacim Beliouz",
-      "Malik",
+      "Benjamin de la Fère",
       "Mister V"
     ],
     "notableCredits": [

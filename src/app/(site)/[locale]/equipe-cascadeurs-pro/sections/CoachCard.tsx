@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { ExternalLink, ArrowRight, Globe, Users } from 'lucide-react';
 import type { Instructor, FilmCredit } from '@/types';
+import { CoachDoubledActors } from './CoachDoubledActors';
 
 interface CoachCardProps {
     member: Instructor;
@@ -111,9 +112,10 @@ export const CoachCard: React.FC<CoachCardProps> = ({ member }) => {
                                     <Users className="w-3.5 h-3.5 text-[#FFE500]" />
                                     <span>Acteurs doublés :</span>
                                 </strong>
-                                <p className="text-xs font-tech text-zinc-300 leading-relaxed">
-                                    {member.doubledActors.join(' • ')}
-                                </p>
+                                <CoachDoubledActors
+                                    actorNames={member.doubledActors}
+                                    textClassName="text-xs font-tech text-zinc-300 leading-relaxed"
+                                />
                             </div>
                         )}
                     </div>

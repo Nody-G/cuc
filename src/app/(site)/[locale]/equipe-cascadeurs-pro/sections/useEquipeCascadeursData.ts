@@ -9,6 +9,8 @@ import { applyTeamOverlay } from '@/lib/i18n/apply-team-overlay';
 import { applyFilmOverlays } from '@/lib/i18n/apply-film-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
+import { selectCoordinatedFilms } from '@/lib/coach-films';
+import type { TeamNameRef } from '@/lib/celebrity-double';
 import type { Instructor, FilmCredit } from '@/types';
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 
@@ -18,6 +20,10 @@ const HERO_BG_FALLBACK =
 export interface EquipeCascadeursData {
     displayTeam: Instructor[];
     displayFilms: FilmCredit[];
+    /** Référentiel de l'équipe, pour l'interconnexion des fiches comédiens. */
+    teamMembers: TeamNameRef[];
+    /** Films coordonnés par le CUC, liés depuis une fiche comédien. */
+    coordinatedFilms: FilmCredit[];
     selectedFilm: FilmCredit | null;
     setSelectedFilm: React.Dispatch<React.SetStateAction<FilmCredit | null>>;
     heroBadge: string;
@@ -80,9 +86,28 @@ export function useEquipeCascadeursData(): EquipeCascadeursData {
         [films, filmOverlays]
     );
 
+    /** Annuaire de l'équipe : alimente les liens « doublé par » des fiches comédiens. */
+    const teamMembers = React.useMemo<TeamNameRef[]>(
+        () => displayTeam.map((member) => ({ id: member.id, name: member.name })),
+        [displayTeam]
+    );
+
+    /**
+     * Films coordonnés par le CUC : la fiche comédien ouverte depuis une carte
+     * coach doit renvoyer vers les mêmes films que la galerie de la page Tournage.
+     */
+    const coordinatedFilms = React.useMemo(() => {
+        const coordinator =
+            displayTeam.find((member) => member.id === 'lucas-dollfus') ??
+            displayTeam.find((member) => member.name.toLowerCase().includes('dollfus'));
+        return coordinator ? selectCoordinatedFilms(displayFilms, coordinator) : [];
+    }, [displayTeam, displayFilms]);
+
     return {
         displayTeam,
         displayFilms,
+        teamMembers,
+        coordinatedFilms,
         selectedFilm,
         setSelectedFilm,
         heroBadge,

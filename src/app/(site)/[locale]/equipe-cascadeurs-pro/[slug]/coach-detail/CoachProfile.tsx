@@ -11,6 +11,7 @@ import { cucMicro } from '@/lib/preview/cuc-micro';
 import { entityRef } from '@/lib/preview/entity-ref';
 import { cucEntity } from '@/lib/preview/cuc-entity';
 import { resolveEntityOverride, usePreviewEntities } from '@/lib/preview/use-preview-entity';
+import { CoachDoubledActors } from '../../sections/CoachDoubledActors';
 
 export interface CoachProfileProps {
     member: Instructor;
@@ -93,9 +94,10 @@ export const CoachProfile: React.FC<CoachProfileProps> = ({ member, chrome, tt }
                         <Users className="w-4 h-4" />
                         <span {...cucMicro('team.doubledLabel')}>{tt('doubledLabel')}</span>
                     </h2>
-                    <p className="text-sm font-tech text-zinc-300">
-                        {member.doubledActors.join(' • ')}
-                    </p>
+                    <CoachDoubledActors
+                        actorNames={member.doubledActors}
+                        textClassName="text-sm font-tech text-zinc-300"
+                    />
                 </div>
             )}
 

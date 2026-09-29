@@ -12,6 +12,7 @@ import { CoachNotFound } from './coach-detail/CoachNotFound';
 import { CoachOtherMembers } from './coach-detail/CoachOtherMembers';
 import { CoachPortrait } from './coach-detail/CoachPortrait';
 import { CoachProfile } from './coach-detail/CoachProfile';
+import { CelebritySheetProvider } from '../sections/celebrity-sheet/CelebritySheetProvider';
 import { createCoachFilmRoleResolver } from '@/lib/coach-films';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import { useCoachDetailData } from './coach-detail/useCoachDetailData';
@@ -78,13 +79,19 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
           </div>
 
           {/* Profil Principal — Hero Showcase */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16">
-            {/* Colonne Gauche : Grande Photo Portrait Immersive */}
-            <CoachPortrait member={member} tt={tt} />
+          {/* Catalogue comédiens + modale : montés une fois pour la fiche. */}
+          <CelebritySheetProvider
+            teamMembers={data.teamMembers}
+            coordinatedFilms={data.coordinatedFilms}
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16">
+              {/* Colonne Gauche : Grande Photo Portrait Immersive */}
+              <CoachPortrait member={member} tt={tt} />
 
-            {/* Colonne Droite : Informations Détaillées, Trajectoire & Compétences */}
-            <CoachProfile member={member} chrome={chrome} tt={tt} />
-          </div>
+              {/* Colonne Droite : Informations Détaillées, Trajectoire & Compétences */}
+              <CoachProfile member={member} chrome={chrome} tt={tt} />
+            </div>
+          </CelebritySheetProvider>
 
           {/* Section Filmographie & Tournages Associés (Affiches & Rôles Spécifiques) */}
           {data.relatedFilms.length > 0 && (

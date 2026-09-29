@@ -7742,7 +7742,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "category": "Film",
     "stuntRoles": "",
     "doubledActors": [
-      "Aahmir Khan (doublé par Vincent Bouillon)"
+      "Aamir Khan (doublé par Vincent Bouillon)"
     ],
     "highlight": false,
     "image": "https://m.media-amazon.com/images/M/MV5BNTZmYmQ3NjQtZDc3My00OTU0LWJiOTctOTFiMTMxZjYxYThjXkEyXkFqcGc@._V1_.jpg",
@@ -7754,7 +7754,7 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
       "vincent-bouillon"
     ],
     "cuc_team_roles": {
-      "vincent-bouillon": "Doublure de Aahmir Khan"
+      "vincent-bouillon": "Doublure de Aamir Khan"
     },
     "director": "Vijay Krishna Acharya",
     "description": "Un voyou envoyé par Lord Clive pour espionner une bande de pirates révolutionnaires indiens les rejoint à l'improviste, ce qui aboutit, entre 1790 et 1805, à une saga épique de révolte et de guerre pour la liberté."

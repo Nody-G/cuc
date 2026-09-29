@@ -43,6 +43,8 @@
     "db:migrate:site-pages-rls:write": "node scripts/apply_site_pages_rls_migration.mjs --write",
     "db:migrate:applicant-history": "node scripts/apply_applicant_history_migration.mjs",
     "db:migrate:applicant-history:write": "node scripts/apply_applicant_history_migration.mjs --write",
+    "db:migrate:actor-names": "tsx scripts/apply_actor_name_alignment_migration.ts",
+    "db:migrate:actor-names:write": "tsx scripts/apply_actor_name_alignment_migration.ts --write",
     "report:audit": "node scripts/generate_audit_report.mjs",
     "report:metrics": "node scripts/generate_metrics_report.mjs",
     "report:dossier": "node scripts/generate_app_dossier.mjs",

@@ -13,9 +13,11 @@ import {
     DEFAULT_COACH_FILM_SORT,
     buildFeaturedOrder,
     findRelatedFilms,
+    selectCoordinatedFilms,
     sortCoachFilms,
     type FilmSort,
 } from '@/lib/coach-films';
+import type { TeamNameRef } from '@/lib/celebrity-double';
 
 export interface UseCoachDetailDataArgs {
     slug: string;
@@ -106,6 +108,20 @@ export function useCoachDetailData({ slug, teamOverlays }: UseCoachDetailDataArg
         [allTeam, member]
     );
 
+    /** Annuaire de l'équipe : alimente les liens « doublé par » de la fiche comédien. */
+    const teamMembers = useMemo<TeamNameRef[]>(
+        () => allTeam.map((m) => ({ id: m.id, name: m.name })),
+        [allTeam]
+    );
+
+    /** Films coordonnés par le CUC, liés depuis une fiche comédien ouverte ici. */
+    const coordinatedFilms = useMemo(() => {
+        const coordinator =
+            allTeam.find((m) => m.id === 'lucas-dollfus') ??
+            allTeam.find((m) => m.name.toLowerCase().includes('dollfus'));
+        return coordinator ? selectCoordinatedFilms(films, coordinator) : [];
+    }, [allTeam, films]);
+
     return {
         member,
         parsedCredits,
@@ -117,5 +133,7 @@ export function useCoachDetailData({ slug, teamOverlays }: UseCoachDetailDataArg
         selectedFilmModal,
         setSelectedFilmModal,
         otherMembers,
+        teamMembers,
+        coordinatedFilms,
     };
 }
