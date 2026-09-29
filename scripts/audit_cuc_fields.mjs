@@ -28,7 +28,17 @@ import { fileURLToPath } from 'node:url';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = join(ROOT, 'src');
 const ADMIN = join(SRC, 'app', '(admin)', 'admin', 'components');
-/** Source de vérité des 15 pages : le sélecteur de l'éditeur de pages. */
+/**
+ * Déclaration des 15 pages : le catalogue canonique.
+ *
+ * C'est la **déclaration** qu'il faut lire, pas sa projection : depuis que
+ * `pages-options.ts` se contente de dériver `SITE_PAGES_OPTIONS` du catalogue
+ * (`.map(...)`), il ne contient plus de liste littérale — l'audit ne trouvait
+ * donc plus aucune page et échouait sur un dépôt pourtant sain. Même leçon que
+ * pour `CUC_FIELD_KINDS` : une façade qui ré-exporte ne porte pas la source.
+ */
+const PAGE_CATALOG = join(SRC, 'lib', 'data', 'site', 'page-options.ts');
+/** Projection historique du catalogue, si elle contenait encore la liste. */
 const PAGES_OPTIONS = join(ADMIN, 'pages-editor', 'pages-options.ts');
 /** Forme héritée : le sélecteur a vécu dans la façade `PagesEditorView`. */
 const PAGES_EDITOR_LEGACY = join(ADMIN, 'PagesEditorView.tsx');
@@ -92,18 +102,30 @@ function read(file) {
     return readFileSync(file, 'utf8');
 }
 
-/** Les 15 slugs de pages déclarés par le Cockpit (source de vérité unique). */
+/**
+ * Les 15 slugs de pages déclarés par le Cockpit.
+ *
+ * Ordre de lecture : la **déclaration** (`SITE_PAGE_CATALOG`), puis sa projection
+ * (`SITE_PAGES_OPTIONS`), puis la forme héritée de la façade. Chercher d'abord la
+ * projection faisait échouer l'audit dès que la liste n'était plus littérale —
+ * un contrôle rouge sur un dépôt sain, exactement ce qu'un gate ne doit pas faire.
+ */
 function extractPages() {
-    const source = existsSync(PAGES_OPTIONS)
-        ? read(PAGES_OPTIONS)
-        : existsSync(PAGES_EDITOR_LEGACY)
-            ? read(PAGES_EDITOR_LEGACY)
-            : null;
-    if (!source) return [];
-    const start = source.indexOf('const SITE_PAGES_OPTIONS');
-    if (start < 0) return [];
-    const block = source.slice(start, source.indexOf('];', start));
-    return [...block.matchAll(/value:\s*'([^']+)'/g)].map((match) => match[1]);
+    for (const file of [PAGE_CATALOG, PAGES_OPTIONS, PAGES_EDITOR_LEGACY]) {
+        if (!existsSync(file)) continue;
+        const source = read(file);
+        for (const marker of ['const SITE_PAGE_CATALOG', 'const SITE_PAGES_OPTIONS']) {
+            const start = source.indexOf(marker);
+            if (start < 0) continue;
+            const end = source.indexOf('];', start);
+            if (end < 0) continue;
+            const slugs = [...source.slice(start, end).matchAll(/value:\s*'([^']+)'/g)].map(
+                (match) => match[1],
+            );
+            if (slugs.length > 0) return slugs;
+        }
+    }
+    return [];
 }
 
 /**

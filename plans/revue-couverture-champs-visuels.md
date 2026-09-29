@@ -1,12 +1,12 @@
 # Revue — Couverture des champs éditables (Mode Studio)
 
-Généré le 2026-09-28T15:36:49.085Z par `scripts/audit_cuc_fields.mjs`.
+Généré le 2026-09-29T14:50:13.974Z par `scripts/audit_cuc_fields.mjs`.
 
 ## 1. Couverture par page
 
 | Page | Champs | Dont listes | Dont gabarits | Fichiers porteurs | Statut |
 | --- | ---: | ---: | ---: | --- | --- |
-| `/` | 71 | 0 | 13 | `src\components\ui\parallax-hero\HeroHudOverlay.tsx`, `src\components\ui\parallax-hero\HeroFocalContent.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\home\HomeAboutSection.tsx`, `src\components\sections\home\tournages\TournagesHeader.tsx`, `src\components\sections\home\tournages\TournagesPillarsCard.tsx`, `src\components\sections\home\HomeVirtualTourSection.tsx`, `src\components\sections\home\HomeQualiopiSection.tsx`, `src\components\sections\home\HomePartnersSection.tsx`, `src\components\sections\home\HomeSocialSection.tsx` | ✅ |
+| `/` | 68 | 0 | 13 | `src\components\ui\parallax-hero\HeroFocalContent.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\home\HomeAboutSection.tsx`, `src\components\sections\home\tournages\TournagesHeader.tsx`, `src\components\sections\home\tournages\TournagesPillarsCard.tsx`, `src\components\sections\home\HomeVirtualTourSection.tsx`, `src\components\sections\home\HomeQualiopiSection.tsx`, `src\components\sections\home\HomePartnersSection.tsx`, `src\components\sections\home\HomeSocialSection.tsx` | ✅ |
 | `formation-de-cascadeur` | 24 | 9 | 0 | `src\components\sections\formation\FormationHeroSection.tsx`, `src\components\sections\formation\FormationFormulesSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\formation\FormationDisciplinesExplorer.tsx`, `src\components\sections\formation\FormationPedagogyModalities.tsx` | ✅ |
 | `stages-cascades-parkour-2` | 15 | 0 | 9 | `src\components\sections\stages\StagesHeroSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\stages\grid\StageGridCard.tsx` | ✅ |
 | `stunt-workshop-cuc` | 29 | 0 | 4 | `src\app\(site)\[locale]\stunt-workshop-cuc\sections\WorkshopHero.tsx`, `src\app\(site)\[locale]\stunt-workshop-cuc\sections\WorkshopHighlights.tsx`, `src\app\(site)\[locale]\stunt-workshop-cuc\sections\WorkshopProgram.tsx`, `src\app\(site)\[locale]\stunt-workshop-cuc\sections\WorkshopInfoCards.tsx`, `src\app\(site)\[locale]\stunt-workshop-cuc\sections\WorkshopApplyBox.tsx` | ✅ |

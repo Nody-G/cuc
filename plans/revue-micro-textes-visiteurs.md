@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-09-29T08:29:42.845Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-09-29T14:50:15.034Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -8,11 +8,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | Catégorie | Occurrences |
 | --- | ---: |
 | ANNOTÉ — éditable en place | 286 |
-| DONNÉES — éditable par un écran existant | 101 |
+| DONNÉES — éditable par un écran existant | 103 |
 | TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 14 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 9 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 14 |
-| **Total** | **424** |
+| **Total** | **426** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -36,7 +36,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachProfile.tsx`
 
-- l.62 — `{chrome('trainingPathTitle')}`
+- l.63 — `{chrome('trainingPathTitle')}`
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\EquipeHeroSection.tsx`
 
@@ -516,20 +516,28 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\[slug]\coach-detail\CoachProfile.tsx`
 
-- l.49 — `{member.name}`
-- l.83 — `{spec}`
+- l.50 — `{member.name}`
+- l.84 — `{spec}`
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\CoachCard.tsx`
 
-- l.44 — `{member.role}`
-- l.76 — `{member.name}`
-- l.80 — `{member.title}`
-- l.86 — `{member.bio}`
-- l.101 — `{spec}`
+- l.45 — `{member.role}`
+- l.77 — `{member.name}`
+- l.81 — `{member.title}`
+- l.87 — `{member.bio}`
+- l.102 — `{spec}`
+
+### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\CoachDoubledActors.tsx`
+
+- l.48 — `{name}`
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\CoachFilmThumbs.tsx`
 
 - l.51 — `{f.title}`
+
+### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\celebrity-sheet\CelebritySheetProvider.tsx`
+
+- l.75 — `{children}`
 
 ### `src\app\(site)\[locale]\layout.tsx`
 
@@ -785,7 +793,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\equipe-cascadeurs-pro\sections\CoachCard.tsx`
 
-- l.112 — `Acteurs doublés :`
+- l.113 — `Acteurs doublés :`
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosReelsSection.tsx`
 
