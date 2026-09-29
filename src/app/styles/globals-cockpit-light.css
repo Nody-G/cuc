@@ -1,90 +1,388 @@
 /* ===================================================
-   THÈME CLAIR DU COCKPIT (Phase 2 — confort de travail)
+   THÈME CLAIR DU COCKPIT
    ===================================================
-   Strictement scopé à `[data-cockpit-root][data-cockpit-theme="light"]` :
-   la vitrine publique n'est jamais affectée. On remappe les surfaces
-   sombres du Cockpit vers des équivalents clairs à fort contraste
-   (WCAG 2.2 AA) tout en conservant l'accent jaune CUC. */
+   Périmètre STRICT : `[data-cockpit-root][data-cockpit-theme="light"]`.
+   La vitrine publique n'est jamais concernée — elle reste sombre en
+   permanence, quel que soit le thème choisi dans le Cockpit.
 
+   Principe : les composants du Cockpit portent des couleurs codées en dur
+   (`bg-[#0D0D12]`, `text-white`, `border-white/10`…). Plutôt que de réécrire
+   des centaines de classes, on REMAPPE chaque classe sombre vers un équivalent
+   clair ici, en une seule table. Toute classe sombre utilisée dans
+   `src/app/(admin)` doit avoir sa contrepartie ci-dessous : le test
+   `src/lib/cockpit-light-theme.test.ts` échoue sinon (garde-fou anti-régression).
+
+   Contraste visé : WCAG 2.2 AA (texte ≥ 4,5:1, éléments d'interface ≥ 3:1).
+   L'accent jaune CUC est conservé, mais son usage en TEXTE est assombri :
+   #FFE500 sur blanc ne dépasse pas 1,4:1.
+*/
+
+/* ------------------------------------------------------------------
+   1. Jetons
+   ------------------------------------------------------------------ */
 [data-cockpit-root][data-cockpit-theme='light'] {
-    --cockpit-bg: #f4f4f7;
+    --cockpit-bg: #f2f2f5;
     --cockpit-surface: #ffffff;
-    --cockpit-surface-2: #fafafc;
-    --cockpit-border: rgba(0, 0, 0, 0.1);
-    --cockpit-text: #16161c;
-    --cockpit-text-muted: #4b4b57;
+    --cockpit-surface-2: #f7f7fa;
+    --cockpit-surface-3: #ececf1;
+    --cockpit-hover: rgba(0, 0, 0, 0.05);
+    --cockpit-hover-strong: rgba(0, 0, 0, 0.09);
+    --cockpit-border: rgba(0, 0, 0, 0.12);
+    --cockpit-border-soft: rgba(0, 0, 0, 0.07);
+    --cockpit-border-strong: rgba(0, 0, 0, 0.22);
+    --cockpit-divider: rgba(0, 0, 0, 0.08);
+    --cockpit-text: #14141a;
+    --cockpit-text-muted: #55555f;
+    --cockpit-text-faint: #7a7a85;
+    /* Jaune lisible en texte (AA) tout en gardant l'identité CUC. */
+    --cockpit-accent-text: #7a5f00;
+
     background-color: var(--cockpit-bg);
     color: var(--cockpit-text);
 }
 
-/* Fonds sombres → clairs */
+/* ------------------------------------------------------------------
+   2. Surfaces — fonds d'application et cartes
+   ------------------------------------------------------------------ */
 [data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#070709\],
 [data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#060608\],
-[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#08080C\] {
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#08080C\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#0A0A0E\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#0a0a0f\] {
     background-color: var(--cockpit-bg);
 }
 
 [data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#0D0D12\],
-[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#121218\] {
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#0D0D12\]\/90,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#0D0D12\]\/95,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#0F0F14\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#121218\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#12121A\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#12121a\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#16161F\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#0b0b10\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#0c0c12\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#0e0e15\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#09090e\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#07070b\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-900,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-950 {
     background-color: var(--cockpit-surface);
 }
 
-[data-cockpit-root][data-cockpit-theme='light'] .bg-black\/60,
-[data-cockpit-root][data-cockpit-theme='light'] .bg-black\/50,
-[data-cockpit-root][data-cockpit-theme='light'] .bg-black\/40 {
+/* Panneaux secondaires, champs, en-têtes de tableaux, bandeaux. */
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#14141c\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#12121c\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#151520\],
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-950\/40,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-950\/60,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-950\/70,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-950\/80,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-900\/20,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-900\/40,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-900\/50,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-900\/60,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-900\/80,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-900\/90,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-800,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-800\/60,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-800\/80,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-black {
     background-color: var(--cockpit-surface-2);
 }
 
-[data-cockpit-root][data-cockpit-theme='light'] .bg-white\/5 {
-    background-color: rgba(0, 0, 0, 0.04);
+/* Superpositions légères (champs, pastilles) — les voiles de modales sont
+   volontairement exclus (voir section 10). */
+[data-cockpit-root][data-cockpit-theme='light'] .bg-black\/20,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-black\/30,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-black\/40,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-black\/50,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-black\/60 {
+    background-color: var(--cockpit-surface-3);
 }
 
-[data-cockpit-root][data-cockpit-theme='light'] .bg-white\/10 {
-    background-color: rgba(0, 0, 0, 0.07);
+/* Surfaces d'état personnalisées du Cockpit. */
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#202124\] {
+    background-color: var(--cockpit-surface);
 }
 
-/* Bordures */
+/* ------------------------------------------------------------------
+   3. Survols — sans eux, aucun retour visuel sur fond clair
+   ------------------------------------------------------------------ */
+[data-cockpit-root][data-cockpit-theme='light'] .bg-white\/5,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-white\/10,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-white\/15,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:bg-white\/5:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:bg-white\/10:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:bg-white\/20:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .disabled\:hover\:bg-white\/5:disabled:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:bg-zinc-800:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:bg-zinc-700:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:bg-zinc-800\/60:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:bg-zinc-900\/40:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:bg-\[\#12121c\]:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:bg-\[\#151520\]:hover {
+    background-color: var(--cockpit-hover);
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:bg-white:hover {
+    background-color: var(--cockpit-hover-strong);
+}
+
+/* ------------------------------------------------------------------
+   4. Bordures et séparateurs
+   ------------------------------------------------------------------ */
+[data-cockpit-root][data-cockpit-theme='light'] .border-white\/5,
 [data-cockpit-root][data-cockpit-theme='light'] .border-white\/10,
-[data-cockpit-root][data-cockpit-theme='light'] .border-white\/15,
-[data-cockpit-root][data-cockpit-theme='light'] .border-white\/20,
-[data-cockpit-root][data-cockpit-theme='light'] .border-white\/5 {
+[data-cockpit-root][data-cockpit-theme='light'] .border-zinc-800,
+[data-cockpit-root][data-cockpit-theme='light'] .border-zinc-800\/60,
+[data-cockpit-root][data-cockpit-theme='light'] .border-zinc-800\/70,
+[data-cockpit-root][data-cockpit-theme='light'] .border-zinc-800\/80,
+[data-cockpit-root][data-cockpit-theme='light'] .border-zinc-700,
+[data-cockpit-root][data-cockpit-theme='light'] .border-zinc-700\/50,
+[data-cockpit-root][data-cockpit-theme='light'] .border-zinc-700\/80 {
     border-color: var(--cockpit-border);
 }
 
-/* Textes */
+[data-cockpit-root][data-cockpit-theme='light'] .border-white\/15,
+[data-cockpit-root][data-cockpit-theme='light'] .border-white\/20,
+[data-cockpit-root][data-cockpit-theme='light'] .border-white\/25,
+[data-cockpit-root][data-cockpit-theme='light'] .border-white\/30,
+[data-cockpit-root][data-cockpit-theme='light'] .border-zinc-600,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:border-zinc-700:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:border-zinc-600:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:border-zinc-500:hover {
+    border-color: var(--cockpit-border-strong);
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:border-white\/20:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:border-white\/25:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:border-white\/30:hover {
+    border-color: var(--cockpit-border-strong);
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .divide-white\/5>*+*,
+[data-cockpit-root][data-cockpit-theme='light'] .divide-white\/10>*+*,
+[data-cockpit-root][data-cockpit-theme='light'] .divide-zinc-800>*+*,
+[data-cockpit-root][data-cockpit-theme='light'] .divide-zinc-800\/60>*+* {
+    border-color: var(--cockpit-divider);
+}
+
+/* ------------------------------------------------------------------
+   5. Textes
+   ------------------------------------------------------------------ */
 [data-cockpit-root][data-cockpit-theme='light'] .text-white {
     color: var(--cockpit-text);
 }
 
+[data-cockpit-root][data-cockpit-theme='light'] .group:hover .group-hover\:text-white {
+    color: var(--cockpit-text);
+}
+
 [data-cockpit-root][data-cockpit-theme='light'] .text-gray-100,
-[data-cockpit-root][data-cockpit-theme='light'] .text-gray-300 {
-    color: #2b2b34;
+[data-cockpit-root][data-cockpit-theme='light'] .text-gray-200,
+[data-cockpit-root][data-cockpit-theme='light'] .text-gray-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-zinc-100,
+[data-cockpit-root][data-cockpit-theme='light'] .text-zinc-200,
+[data-cockpit-root][data-cockpit-theme='light'] .text-zinc-300,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:text-white:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:text-zinc-200:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:text-zinc-300:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:text-gray-300:hover {
+    color: var(--cockpit-text);
 }
 
 [data-cockpit-root][data-cockpit-theme='light'] .text-gray-400,
+[data-cockpit-root][data-cockpit-theme='light'] .text-gray-500,
+[data-cockpit-root][data-cockpit-theme='light'] .text-gray-600,
 [data-cockpit-root][data-cockpit-theme='light'] .text-zinc-400,
-[data-cockpit-root][data-cockpit-theme='light'] .text-zinc-500 {
+[data-cockpit-root][data-cockpit-theme='light'] .text-zinc-500,
+[data-cockpit-root][data-cockpit-theme='light'] .text-zinc-600,
+[data-cockpit-root][data-cockpit-theme='light'] .text-zinc-700 {
     color: var(--cockpit-text-muted);
 }
 
-[data-cockpit-root][data-cockpit-theme='light'] .text-gray-500,
-[data-cockpit-root][data-cockpit-theme='light'] .text-gray-600 {
-    color: #6b6b78;
+[data-cockpit-root][data-cockpit-theme='light'] .text-zinc-950 {
+    color: var(--cockpit-text);
 }
 
-/* Champs de saisie */
+[data-cockpit-root][data-cockpit-theme='light'] .placeholder-gray-500::placeholder,
+[data-cockpit-root][data-cockpit-theme='light'] .placeholder-zinc-500::placeholder,
+[data-cockpit-root][data-cockpit-theme='light'] .placeholder\:text-gray-500::placeholder,
+[data-cockpit-root][data-cockpit-theme='light'] .placeholder\:text-gray-600::placeholder,
+[data-cockpit-root][data-cockpit-theme='light'] .placeholder\:text-zinc-500::placeholder,
+[data-cockpit-root][data-cockpit-theme='light'] .placeholder\:text-zinc-600::placeholder {
+    color: var(--cockpit-text-faint);
+}
+
+/* Champs de saisie : le texte doit suivre le thème. */
 [data-cockpit-root][data-cockpit-theme='light'] input,
 [data-cockpit-root][data-cockpit-theme='light'] textarea,
 [data-cockpit-root][data-cockpit-theme='light'] select {
     color: var(--cockpit-text);
+    color-scheme: light;
 }
 
-[data-cockpit-root][data-cockpit-theme='light'] input::placeholder,
-[data-cockpit-root][data-cockpit-theme='light'] textarea::placeholder {
-    color: #8a8a96;
+/* ------------------------------------------------------------------
+   6. Accent jaune CUC — lisible sur clair
+   ------------------------------------------------------------------ */
+/* Le jaune en TEXTE devient un doré sombre : #FFE500 sur blanc ≈ 1,4:1. */
+[data-cockpit-root][data-cockpit-theme='light'] .text-\[\#FFE500\],
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:text-\[\#FFE500\]:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .group:hover .group-hover\:text-\[\#FFE500\] {
+    color: var(--cockpit-accent-text);
 }
 
-/* Le jaune CUC reste lisible : on assombrit le texte posé dessus */
+/* Pastilles dorées (fonds translucides) : teinte un peu plus dense pour
+   rester visible sur blanc. */
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#FFE500\]\/5,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#FFE500\]\/10,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#FFE500\]\/15 {
+    background-color: rgba(255, 229, 0, 0.22);
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#FFE500\]\/20,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#FFE500\]\/25,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:bg-\[\#FFE500\]\/10:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:bg-\[\#FFE500\]\/15:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:bg-\[\#FFE500\]\/20:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:bg-\[\#FFE500\]\/25:hover {
+    background-color: rgba(255, 229, 0, 0.32);
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .border-\[\#FFE500\]\/20,
+[data-cockpit-root][data-cockpit-theme='light'] .border-\[\#FFE500\]\/25,
+[data-cockpit-root][data-cockpit-theme='light'] .border-\[\#FFE500\]\/30,
+[data-cockpit-root][data-cockpit-theme='light'] .border-\[\#FFE500\]\/40,
+[data-cockpit-root][data-cockpit-theme='light'] .border-\[\#FFE500\]\/50,
+[data-cockpit-root][data-cockpit-theme='light'] .border-\[\#FFE500\]\/60 {
+    border-color: rgba(122, 95, 0, 0.45);
+}
+
+/* Texte posé sur un aplat jaune (boutons) : noir, jamais blanc. */
 [data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#FFE500\] {
     color: #000000;
 }
+
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#FFE500\] .text-white,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#FFE500\]\/10 .text-white,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#FFE500\]\/15 .text-white,
+[data-cockpit-root][data-cockpit-theme='light'] .bg-\[\#FFE500\]\/20 .text-white,
+[data-cockpit-root][data-cockpit-theme='light'] .peer:checked~.peer-checked\:text-white {
+    color: #000000;
+}
+
+/* ------------------------------------------------------------------
+   7. Statuts — recolorés pour rester lisibles sur fond clair
+   ------------------------------------------------------------------ */
+[data-cockpit-root][data-cockpit-theme='light'] .text-emerald-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-emerald-400,
+[data-cockpit-root][data-cockpit-theme='light'] .text-emerald-400\/80,
+[data-cockpit-root][data-cockpit-theme='light'] .text-emerald-500 {
+    color: #047857;
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .text-amber-200,
+[data-cockpit-root][data-cockpit-theme='light'] .text-amber-200\/80,
+[data-cockpit-root][data-cockpit-theme='light'] .text-amber-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-amber-400,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:text-amber-300:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:text-amber-400:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .text-yellow-400 {
+    color: #b45309;
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .text-cyan-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-cyan-400,
+[data-cockpit-root][data-cockpit-theme='light'] .text-sky-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-sky-400,
+[data-cockpit-root][data-cockpit-theme='light'] .text-blue-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-blue-400 {
+    color: #0369a1;
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .text-purple-200,
+[data-cockpit-root][data-cockpit-theme='light'] .text-purple-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-purple-400,
+[data-cockpit-root][data-cockpit-theme='light'] .text-fuchsia-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-fuchsia-400 {
+    color: #7e22ce;
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .text-red-200,
+[data-cockpit-root][data-cockpit-theme='light'] .text-red-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-red-400,
+[data-cockpit-root][data-cockpit-theme='light'] .text-red-400\/80,
+[data-cockpit-root][data-cockpit-theme='light'] .text-rose-300,
+[data-cockpit-root][data-cockpit-theme='light'] .text-rose-400,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:text-red-300:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:text-red-400:hover,
+[data-cockpit-root][data-cockpit-theme='light'] .hover\:text-rose-300:hover {
+    color: #b91c1c;
+}
+
+/* Aperçu Google (maquette de résultat) : blanc comme un vrai SERP. */
+[data-cockpit-root][data-cockpit-theme='light'] .text-\[\#8ab4f8\] {
+    color: #1a73e8;
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .text-\[\#bdc1c6\] {
+    color: #5f6368;
+}
+
+/* Marques IMDb / AlloCiné : teintes conservées mais assombries sur clair. */
+[data-cockpit-root][data-cockpit-theme='light'] .text-\[\#f5c518\],
+[data-cockpit-root][data-cockpit-theme='light'] .text-\[\#fecc00\] {
+    color: #7a5600;
+}
+
+/* ------------------------------------------------------------------
+   8. Interrupteurs et pastilles d'état
+   ------------------------------------------------------------------ */
+[data-cockpit-root][data-cockpit-theme='light'] .bg-gray-700 {
+    background-color: #cfcfd8;
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .bg-zinc-400 {
+    background-color: #a1a1ad;
+}
+
+/* ------------------------------------------------------------------
+   9. Dégradés et listes
+   ------------------------------------------------------------------ */
+[data-cockpit-root][data-cockpit-theme='light'] .from-zinc-900\/90,
+[data-cockpit-root][data-cockpit-theme='light'] .from-zinc-950 {
+    --tw-gradient-from: var(--cockpit-surface) var(--tw-gradient-from-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .to-zinc-950 {
+    --tw-gradient-to: var(--cockpit-bg) var(--tw-gradient-to-position);
+}
+
+[data-cockpit-root][data-cockpit-theme='light'] .via-zinc-950\/40 {
+    --tw-gradient-via: var(--cockpit-surface-2) var(--tw-gradient-via-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-via), var(--tw-gradient-to);
+}
+
+/* Barres de défilement claires (sinon piste sombre sur fond blanc). */
+[data-cockpit-root][data-cockpit-theme='light'] * {
+    scrollbar-color: rgba(0, 0, 0, 0.28) transparent;
+}
+
+/* ------------------------------------------------------------------
+   10. EXCLUSIONS VOLONTAIRES — restent sombres en thème clair
+   ------------------------------------------------------------------
+   · `.bg-black/70|/80|/85|/90` : voiles de modales (scrim). Un voile clair
+     ne détacherait plus la boîte de dialogue du fond.
+   · `.bg-\[\#050608\]` : viewport du plan 3D (rendu WebGL, pas une surface
+     de travail).
+   · Contenus d'aperçu Studio (iframe de la vitrine) : la vitrine est sombre
+     par nature, on n'éclaircit pas son rendu.
+   · `.text-black`, `.bg-\[\#FFE500\]`, `.selection\:bg-\[\#FFE500\]`,
+     `.border-\[\#FFE500\]`, `.after\:bg-white`, `.fill-black` : identité CUC
+     et libellés posés sur l'aplat jaune.
+   · Pastilles de statut pleines (`bg-emerald-500`, `bg-red-500`,
+     `bg-rose-500`, `bg-blue-600`, `bg-purple-500`, `bg-red-600`) et leurs
+     fonds translucides sombres : elles se lisent très bien sur blanc.
+*/
