@@ -13,7 +13,9 @@
  * Sources :
  *   - Supabase de production (lecture seule) — via DATABASE_URL, repli silencieux ;
  *   - scripts/audit_supabase_state_report.json (volumétrie) ;
- *   - reports/cuc-metriques-2026.metrics.json (poids de pages, garanties).
+ *   - reports/cuc-metriques-2026.metrics.json (poids de pages, garanties) ;
+ *   - scripts/media_recompression_report.json et scripts/media_rewrite_report.json
+ *     (gain mesuré de la filière média).
  */
 
 import fs from 'node:fs';
@@ -38,6 +40,8 @@ const readJson = (p) => {
 
 const dbState = readJson(path.join(ROOT, 'scripts', 'audit_supabase_state_report.json'));
 const metrics = readJson(path.join(ROOT, 'reports', 'cuc-metriques-2026.metrics.json'));
+const mediaRecompression = readJson(path.join(ROOT, 'scripts', 'media_recompression_report.json'));
+const mediaRewrite = readJson(path.join(ROOT, 'scripts', 'media_rewrite_report.json'));
 
 const t = Array.isArray(metrics?.database?.tables)
   ? Object.fromEntries(metrics.database.tables.map((r) => [r.name, r.rows]))
@@ -133,6 +137,7 @@ const storageBytes = live.storage.reduce((a, s) => a + (s.bytes ?? 0), 0);
 const esc = (s) => String(s).replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"');
 const nf = (n) => Number(n).toLocaleString('fr-FR');
 const mo = (bytes) => `${(bytes / 1024 / 1024).toFixed(1).replace('.', ',')} Mo`;
+const mo2 = (bytes) => `${(bytes / 1024 / 1024).toFixed(2).replace('.', ',')} Mo`;
 const kb = (bytes) => `${Math.round(bytes / 1024)} Ko`;
 const pct = (a, b) => (b ? Math.round((100 * a) / b) : 0);
 
@@ -244,29 +249,46 @@ const PUBLIC_PAGES = [
   { iconName: 'phone', title: 'Contact', role: 'formulaire & carte', desc: "Formulaire guidé (projet, formation, événement) et carte interactive d'accès au campus.", tags: [] },
 ];
 
+/* Les écrans sont listés selon le menu réel du Cockpit (`cockpit-nav.ts` : 27
+   onglets déclarés, sections « Inscriptions & Planning », « Formations, Coachs
+   & Films », « Réseaux & Visites », « Outils Système », « Réglages du Site » et
+   « Aide »). Les libellés et rôles proviennent de ce contrat et de l'aide
+   intégrée (`help-view/help-content*.ts`). */
 const COCKPIT_APPS = [
-  { iconName: 'layers', title: 'Tableau de bord', role: 'vue d’ensemble', desc: 'Synthèse des contenus, dernière activité et état général du site.', tags: [] },
-  { iconName: 'edit', title: 'Pages & héros', role: 'édition directe', desc: "Chaque page se modifie sans code : titres, badges, textes, référencement — avec aperçu en direct et historique de versions (restauration en un clic).", tags: ['Révisions'] },
-  { iconName: 'film', title: 'Films', role: 'catalogue', desc: 'Gérer les films : affiches, catégories, rôles de l’équipe, publication ou retrait.', tags: [] },
-  { iconName: 'users', title: 'Équipe', role: 'coachs', desc: "Rôle, biographie, crédits, mise en avant, ordre d'affichage — et liaison vers le compte CUC Sign du coach.", tags: [] },
-  { iconName: 'calendar', title: 'Sessions de formation', role: 'calendrier', desc: 'Dates, statut (ouvert, complet, dernières places), liaison vers la formation correspondante dans CUC Sign.', tags: [] },
+  { iconName: 'layers', title: 'Tableau de bord', role: 'vue d’ensemble', desc: 'Synthèse des contenus, dernière activité, remplissage des sessions et état général du site.', tags: [] },
+  { iconName: 'phone', title: 'Contact & candidatures', role: 'boîte de réception', desc: 'Chaque demande reçue via le site suit le circuit de son projet : statut, notes internes, réponse — puis conversion possible en compte élève CUC Sign.', tags: ['Suivi'] },
+  { iconName: 'calendar', title: 'Sessions de formation', role: 'calendrier', desc: 'Dates, statut (ouvert, dernières places, complet) et liaison vers la formation correspondante dans CUC Sign.', tags: [] },
+  { iconName: 'edit', title: 'Pages du site', role: 'édition directe', desc: 'Chaque page se modifie sans code : titres, badges, textes, référencement — avec aperçu en direct et historique de versions restaurable en un clic.', tags: ['Révisions'] },
+  { iconName: 'film', title: 'Filmographie & crédits', role: 'catalogue', desc: 'Le catalogue des films : affiches, catégories, rôles exacts de l’équipe, mise en avant des crédits, publication ou retrait.', tags: [] },
+  { iconName: 'users', title: 'Coachs & formateurs', role: 'fiches', desc: 'Rôle, biographie, disciplines, filmographie et mise en avant — chaque fiche se compose à partir du catalogue des films.', tags: [] },
+  { iconName: 'map', title: 'Campus & installations — zones', role: 'carte', desc: 'Créer et éditer les bâtiments et points d’intérêt du plan interactif du campus.', tags: [] },
+  { iconName: 'cpu', title: 'Campus & installations — plan 3D', role: 'studio du plan', desc: 'Placer, déplacer, tourner et redimensionner les bâtiments du plan 3D visible en visite virtuelle.', tags: ['3D'] },
+  { iconName: 'book', title: 'Disciplines enseignées', role: 'référentiel', desc: 'Les 10 disciplines du campus : niveaux, équipements et contexte cinéma.', tags: [] },
+  { iconName: 'star', title: 'Agence & événements', role: 'activités pro', desc: 'Les événements d’agence présentés sur les pages d’activité du site.', tags: [] },
   { iconName: 'users', title: 'Partenaires', role: 'logos & liens', desc: 'Ajouter, retirer ou réordonner les partenaires affichés sur le site.', tags: [] },
-  { iconName: 'star', title: 'Événements', role: 'agence', desc: "Événements d'agence présentés sur les pages d'activité.", tags: [] },
-  { iconName: 'book', title: 'Disciplines', role: 'référentiel', desc: 'Les 10 disciplines enseignées : niveaux, équipements, contexte cinéma.', tags: [] },
-  { iconName: 'cpu', title: 'Campus 3D', role: 'studio du plan', desc: 'Placer et ajuster les bâtiments du plan 3D visible en visite virtuelle.', tags: ['3D'] },
-  { iconName: 'database', title: 'Médias', role: 'bibliothèque', desc: 'Toutes les images et documents centralisés et servis par la base du projet.', tags: [] },
-  { iconName: 'globe', title: 'Traductions', role: 'FR → EN', desc: 'Les traductions éditoriales (films, équipe, événements, disciplines, campus) consultables et éditables.', tags: [] },
-  { iconName: 'bell', title: 'Annonces', role: 'bandeau d’alerte', desc: 'Message exceptionnel affiché en haut du site public (fermeture, information urgente).', tags: [] },
-  { iconName: 'phone', title: 'Candidatures', role: 'boîte de réception', desc: 'Demandes reçues via le site : statut, notes internes, réponse — puis conversion en compte élève CUC Sign.', tags: ['Suivi'] },
-  { iconName: 'sliders', title: 'Réglages & navigation', role: 'identité du site', desc: 'Coordonnées, boutons d’appel à l’action, réseaux sociaux, structure du menu et du pied de page.', tags: [] },
-  { iconName: 'database', title: 'Traçabilité & sauvegarde', role: 'sécurité éditoriale', desc: 'Journal des actions (qui a modifié quoi) et export / restauration complète du contenu.', tags: [] },
+  { iconName: 'star', title: 'Instagram & vidéos', role: 'métriques Meta', desc: 'Abonnés et portée relevés via l’API Meta, et choix des Reels mis en avant sur la page vidéos. Les chiffres sont mesurés, jamais estimés.', tags: [] },
+  { iconName: 'globe', title: 'Visites du site', role: 'audience', desc: 'Fréquentation et consultation des pages, par période. Le flux « en direct » ne montre que des sessions réellement observées.', tags: [] },
+  { iconName: 'database', title: 'Médiathèque', role: 'photos & documents', desc: 'Toutes les images et tous les documents du site, déposés depuis l’application elle-même en quelques secondes — recherche, dossiers, corbeille réversible, image allégée à l’import.', tags: ['Dépôt direct'] },
+  { iconName: 'bell', title: 'Bandeau d’alerte', role: 'message exceptionnel', desc: 'Message unique affiché en haut du site public (fermeture, information urgente), à activer puis à retirer.', tags: [] },
+  { iconName: 'edit', title: 'Menus du site', role: 'navigation', desc: 'Entrées de la barre de navigation et bouton d’appel à l’action, pilotés depuis le Cockpit.', tags: [] },
+  { iconName: 'layout', title: 'Bas de page', role: 'footer', desc: 'Colonnes de liens, marque et mentions légales du pied de page.', tags: [] },
+  { iconName: 'globe', title: 'Réseaux sociaux', role: 'liens', desc: 'Une seule source réutilisée par la barre, le menu mobile et le pied de page.', tags: [] },
+  { iconName: 'sliders', title: 'Coordonnées & paramètres', role: 'identité du site', desc: 'Coordonnées, libellés et réglages d’identité du site, en un seul endroit.', tags: [] },
+  { iconName: 'shield', title: 'Comptes & accès', role: 'rôles', desc: 'Inviter un collaborateur, régler son rôle et réinitialiser un mot de passe. Chaque accès est nominatif et limité à son périmètre.', tags: ['Rôles'] },
+  { iconName: 'globe', title: 'Traductions anglaises', role: 'FR → EN', desc: 'Surcharge anglaise par entité (films, coachs, événements, disciplines, campus) : consultable et éditable.', tags: [] },
+  { iconName: 'edit', title: 'Textes & boutons du site', role: 'micro-textes', desc: 'Libellés génériques réutilisés partout (boutons, messages d’état), modifiables sans toucher au code.', tags: [] },
+  { iconName: 'bell', title: 'Journal & activité', role: 'métier · système · rétention', desc: 'Un seul écran pour trois journaux : les modifications de contenu (métier), les erreurs et incidents classés (système) et ce qui sera purgé (rétention). Lecture réservée à la Direction ; le journal est en ajout seul.', tags: ['Direction'] },
+  { iconName: 'check', title: 'Journal d’audit', role: 'traçabilité', desc: 'Historique des actions : qui a créé, modifié, publié ou supprimé quoi, filtrable et exportable.', tags: ['Direction'] },
+  { iconName: 'gauge', title: 'Diagnostic du site', role: 'liens, images, SEO', desc: 'Ce qui est cassé ou incomplet, détecté automatiquement : liens internes morts, images manquantes, contenus orphelins, métadonnées SEO à préciser — chaque anomalie renvoie à l’endroit à corriger.', tags: ['Direction'] },
+  { iconName: 'gauge', title: 'Statistiques & conversion', role: 'indicateurs', desc: 'Entonnoir de conversion et pression sur les sessions. Aucun chiffre n’est estimé : tout provient de la base ou du journal d’audit.', tags: ['Direction'] },
+  { iconName: 'book', title: 'Aide & guide', role: 'guide intégré', desc: 'La marche à suivre, écran par écran, directement dans le Cockpit — accessible à tous les rôles.', tags: [] },
 ];
 
 const MECHANISMS = [
   { iconName: 'refresh', title: 'Synchronisation en temps réel', desc: "Une modification dans le Cockpit apparaît sur le site en moins d'une seconde, sans rechargement — sessions, films, équipe, partenaires, réglages, annonces.", tags: ['Temps réel'] },
   { iconName: 'globe', title: 'Bilingue français / anglais', desc: 'Chaque page existe dans les deux langues, avec des textes adaptés (pas de traduction automatique). La parité est vérifiée automatiquement à chaque contrôle.', tags: ['FR / EN'] },
   { iconName: 'film', title: 'Catalogue films unifié', desc: 'Affiches au format affiche de cinéma, fiche détaillée au clic avec les rôles du CUC — la même présentation partout, de l’accueil à la fiche coach.', tags: ['570 films'] },
-  { iconName: 'database', title: 'Médias centralisés & optimisés', desc: "Images et documents servis par la base du projet (aucune dépendance à l'ancien site), convertis automatiquement en formats légers.", tags: ['Optimisé'] },
+  { iconName: 'database', title: 'Médias déposés depuis l’application', desc: "Une image ou un document se dépose depuis le Cockpit en quelques secondes : le navigateur l’allège, puis il est rangé dans la bibliothèque du projet — sans hébergement tiers ni ancien site.", tags: ['Sans tiers'] },
   { iconName: 'shield', title: 'Interconnexion CUC Sign', desc: "Sessions de formation, coachs et lieux du site reflètent la plateforme de gestion de l'école — en lecture seule : le site ne peut jamais altérer les données pédagogiques.", tags: ['CUC Sign'] },
   { iconName: 'users', title: 'Sécurité & rôles', desc: 'Accès administrateur nominatif, permissions par rôle (direction, secrétariat, coachs) et sécurité par ligne en base de données.', tags: ['Rôles'] },
   { iconName: 'search', title: 'Recherche instantanée (Cockpit)', desc: 'Palette de commandes au clavier (Ctrl/⌘ + K) : accès direct à n’importe quel écran ou contenu en quelques lettres.', tags: ['Productivité'] },
@@ -301,8 +323,9 @@ const FAQ = [
   { q: 'Que se passe-t-il sur un téléphone ?', a: "Tout le site est conçu d'abord pour le mobile : les jaquettes de films passent en grille compacte, les menus se replient, un bouton d'appel direct apparaît en bas d'écran. Le plan 3D et la visite 360° fonctionnent aussi au doigt." },
   { q: 'Les chiffres de ce dossier sont-ils figés ?', a: "Non : ce dossier est régénéré à la demande, directement depuis la base de données. Chaque nouvelle version reflète l'état réel du site au jour de sa génération." },
   { q: 'Et si je veux un état des lieux technique complet ?', a: "Un rapport technique détaillé existe en parallèle de ce dossier : structure du code, performances, sécurité, référencement, qualité des liens et des traductions. Il est mis à jour avec la même méthode." },
-  { q: "Combien coûte l'exploitation du site, chaque mois ?", a: "Deux abonnements seulement : l'hébergement du site et la base de données avec ses médias. Le site n'utilise aucune fonctionnalité payante de Vercel : les pages sont préparées à l'avance, les images sont allégées automatiquement et aucun traitement planifié n'est nécessaire. L'offre gratuite de Vercel suffit donc techniquement ; son règlement la réserve à un usage non commercial, point à confirmer pour une structure qui facture des formations. La base de données, elle, exige une offre payante : les sauvegardes quotidiennes automatiques et la marge d'espace sont indispensables à un catalogue de cette taille. Le détail est au chapitre 11." },
+  { q: "Combien coûte l'exploitation du site, chaque mois ?", a: "Deux abonnements seulement : l'hébergement du site et la base de données avec ses médias. Le site n'utilise aucune fonctionnalité payante de Vercel : les pages sont préparées à l'avance, les images sont allégées automatiquement et aucun traitement planifié n'est nécessaire. L'offre gratuite de Vercel suffit donc techniquement ; son règlement la réserve à un usage non commercial, point à confirmer pour une structure qui facture des formations. La base de données, elle, exige une offre payante : les sauvegardes quotidiennes automatiques et la marge d'espace sont indispensables à un catalogue de cette taille. Le détail est au chapitre 10." },
   { q: 'Le site tiendra-t-il si un reportage provoque un pic de visites ?', a: "Oui, et pour une raison simple : les pages du site sont générées à l'avance et servies depuis un cache réparti mondialement, elles ne sont pas recalculées à chaque visite. Un pic de lecture n'atteint donc pas la base de données, qui n'est sollicitée que par le Cockpit. Le suivi de fréquentation et les mesures de vitesse de chargement sont en place pour le vérifier sur des chiffres réels." },
+  { q: 'Comment ajouter une photo ou un document au site ?', a: "Directement depuis le Cockpit : on choisit le fichier, il est allégé dans le navigateur puis rangé dans la bibliothèque du projet — quelques secondes, sans hébergement tiers ni ancien site. Le site se charge ensuite de servir le format adapté à chaque écran." },
 ];
 
 const PRACTICES = [
@@ -406,6 +429,37 @@ const mediaTotals = storageBytes
     bytes: (metrics?.database?.storage ?? []).reduce((a, s) => a + (Number(s.bytes) || 0), 0),
     files: (metrics?.database?.storage ?? []).reduce((a, s) => a + (Number(s.files) || 0), 0),
   };
+
+/* ------------------------------------------------------------------ */
+/* Filière média — gain mesuré (rapports du dépôt, valeurs vérifiables) */
+/* ------------------------------------------------------------------ */
+
+/** Images réellement recompressées (scripts/media_recompression_report.json). */
+const recompressed = (mediaRecompression?.entries ?? []).filter((e) => e.applied);
+const recompression = {
+  count: recompressed.length,
+  before: recompressed.reduce((a, e) => a + (Number(e.bytesBefore) || 0), 0),
+  after: recompressed.reduce((a, e) => a + (Number(e.bytesAfter) || 0), 0),
+  saved: recompressed.reduce((a, e) => a + (Number(e.savedBytes) || 0), 0),
+};
+
+/** Anciens objets supprimés et octets libérés (scripts/media_rewrite_report.json). */
+const purgeRemoved = mediaRewrite?.purge?.removed ?? [];
+const purge = {
+  count: purgeRemoved.length,
+  freed: purgeRemoved.reduce((a, e) => a + (Number(e.savedBytes) || 0), 0),
+};
+
+/** Bucket vitrine : mesure en direct ; avant = constat de la règle média (90,54 Mo / 178 objets). */
+const vitrineBucket = (live.storage ?? []).find((s) => s.bucket === 'cuc-vitrine-assets') ?? null;
+const MEDIA_BUCKET_BEFORE = { mo: '90,54', files: 178 };
+const mediaGainPct = vitrineBucket?.bytes
+  ? Math.max(0, Math.round(100 - (100 * vitrineBucket.bytes) / (90.54 * 1024 * 1024)))
+  : null;
+
+/** Cas parlant : l'affiche la plus lourde ramenée à quelques centaines de Ko. */
+const showcaseCase =
+  (mediaRecompression?.entries ?? []).find((e) => /Bandes-affiches-film-2/.test(e.path ?? '')) ?? null;
 
 /* ------------------------------------------------------------------ */
 /* Sessions live — telles qu'affichées sur le site                     */
@@ -526,7 +580,7 @@ const ecosystemSvg = `
   <path class="flowline" style="stroke:#4FC3F7; opacity:.55" d="M798 210 H 732"/>
   ${svgTile(30, 125, 120, 84, 'Visiteur', 'web & mobile')}
   ${svgTile(210, 40, 224, 84, 'Site vitrine', '15 pages • FR / EN')}
-  ${svgTile(210, 230, 224, 84, 'Cockpit admin', '15 écrans • rôles')}
+  ${svgTile(210, 230, 224, 84, 'Cockpit admin', `${COCKPIT_APPS.length} écrans • rôles`)}
   ${svgTile(540, 135, 190, 100, 'Supabase', 'base + temps réel')}
   ${svgTile(800, 135, 120, 100, 'CUC Sign', 'gestion de l’école')}
   <circle class="halo" cx="635" cy="185" r="72" fill="none" stroke="#FFE500" stroke-width="1.4" opacity="0.25"/>
@@ -666,7 +720,7 @@ const techTable = `
 
 const hostingKpis = [
   dbAppBytes
-    ? kpiHtml(mo(dbAppBytes), 'base de données', `${nf(dbAppRows)} enregistrements mesurés`)
+    ? kpiHtml(mo(dbAppBytes), 'contenus en base', `${nf(dbAppRows)} enregistrements dans les tables de contenu suivies`)
     : '',
   mediaTotals.bytes
     ? kpiHtml(mo(mediaTotals.bytes), 'médias hébergés', `${nf(mediaTotals.files)} fichiers allégés pour le web`)
@@ -709,7 +763,136 @@ const hostingBlock = `
       pour une structure qui facture des formations, ce point doit être confirmé auprès de Vercel ; s'il n'est pas accordé, l'offre professionnelle
       représente environ 20 $ par mois. Ensuite, un contrôle automatique (<code>npm run audit:quotas</code>) vérifie à chaque publication que la base
       reste sous 200 Mo et les médias sous 150 Mo, afin qu'aucune dérive de stockage ne passe inaperçue.
+    </p>
+    <p class="meta">
+      À noter : le repère « contenus en base » ci-dessus n'additionne que les tables de contenu suivies par le projet — il ne compte
+      ni les index, ni l'historique des versions, ni les journaux, qui vivent dans la même base sans figurer dans ce total.
     </p>`;
+
+/* ------------------------------------------------------------------ */
+/* Filière média — sous-section du chapitre « Sous le capot »          */
+/* ------------------------------------------------------------------ */
+
+const mediaBlock = recompression.count
+  ? `
+    <h3>Les médias — déposer une image en quelques secondes</h3>
+    <p>
+      Toute image ou tout document se dépose <strong>depuis l'application elle-même</strong>, en quelques secondes, sans
+      hébergement tiers ni ancien site : on choisit le fichier, la compression se fait dans le navigateur, et le média
+      rejoint directement la bibliothèque du projet. Rien à installer, rien à publier à la main.
+    </p>
+    <p>
+      Le mécanisme est volontairement sobre. Le serveur refuse tout envoi de plus d'un mégaoctet — une photo d'appareil
+      n'atteint donc jamais le serveur : c'est le navigateur qui la convertit en format léger (WebP) selon le dossier de
+      destination (2560 px en général, 3200 px pour un visuel plein écran, 1600 px pour un portrait, 512 px pour un logo).
+      Le serveur délivre ensuite une <strong>autorisation signée</strong> : il vérifie la nature du fichier, son type, son
+      poids et son chemin, puis le navigateur dépose le média directement dans le stockage du projet. Le gain est journalisé.
+    </p>
+    <p>
+      Les garde-fous sont explicites : plafond de 8 Mo pour une image, 20 Mo pour un document, 45 Mo pour une vidéo ;
+      douze types de fichiers autorisés (JPEG, PNG, WebP, AVIF, GIF, SVG, PDF, CSV, TXT, MP4, WebM, MOV) ; une seule
+      version « master » par image, le site dérivant lui-même les tailles adaptées à chaque écran ; et, quand un visuel de
+      référence haute qualité est conservé, il est rangé à part (<code>_originals</code>) sans jamais être servi au
+      visiteur. La vidéo n'est pas recompressée au dépôt — le format ne s'y prête pas — et un reportage trop lourd passe
+      par un outil local dédié.
+    </p>
+    <p class="meta">
+      Effet mesuré de la recompression de septembre 2026 : ${nf(recompression.count)} images ont remplacé
+      ${mo2(recompression.before)} par ${mo2(recompression.after)} de fichiers légers, soit un gain net de
+      ${mo2(recompression.saved)}. ${nf(purge.count)} anciens fichiers ont ensuite été supprimés, libérant
+      ${mo2(purge.freed)}.${vitrineBucket ? ` Le dossier vitrine est passé de ${MEDIA_BUCKET_BEFORE.mo} Mo /
+      ${nf(MEDIA_BUCKET_BEFORE.files)} objets à ${mo2(vitrineBucket.bytes)} / ${nf(vitrineBucket.files)} objets, soit
+      −${mediaGainPct} %.` : ''}${showcaseCase ? ` Exemple parlant : une affiche de film de ${mo2(showcaseCase.bytesBefore)}
+      a été ramenée à ${kb(showcaseCase.bytesAfter)} (${showcaseCase.gain}).` : ''}
+    </p>`
+  : '';
+
+/* ------------------------------------------------------------------ */
+/* Chapitre 11 — gestion, risques et trajectoire                       */
+/* ------------------------------------------------------------------ */
+
+const governanceBlock = `
+    <p class="lead">
+      Un site vivant ne tient pas seulement à ses fonctionnalités : il tient à ce qui le protège, le surveille et le
+      répare. Cette partie rassemble les garanties en place, les mesures de terrain et ce qui reste ouvert — sans
+      promesse qui ne soit vérifiable dans le dépôt du projet.
+    </p>
+
+    <h3>La sécurité des données, par ligne</h3>
+    <p>
+      Les ${nf(rlsOn)} tables du site sont protégées par des règles d'accès par rôle (sécurité « par ligne ») : un compte
+      ne lit et n'écrit que dans son périmètre. La lecture publique de la table des pages a été resserrée le
+      23 septembre 2026 — un brouillon n'est plus lisible par un visiteur anonyme. La liaison avec la plateforme de
+      gestion de l'école est en lecture seule et protégée par « ON DELETE SET NULL » : une action côté vitrine ne peut
+      jamais altérer une donnée pédagogique.
+    </p>
+
+    <h3>Sauvegarde et restauration</h3>
+    <p>
+      Le Cockpit exporte un instantané complet du contenu — programmes, pages, équipe, films, sessions, partenaires,
+      événements, réglages, disciplines, zones du campus et demandes reçues — dans un fichier unique, et sait le
+      restaurer. La restauration écrase les données actuelles : elle demande confirmation, puis rediffuse les pages
+      concernées pour que le site serve immédiatement la version restaurée.
+    </p>
+
+    <h3>Journal d'activité — ce qui n'est pas écrit n'a pas eu lieu</h3>
+    <p>
+      Deux journaux cohabitent dans un même écran. Le <strong>journal métier</strong> conserve qui a créé, modifié, publié
+      ou supprimé quoi. Le <strong>journal technique</strong> classe les erreurs par gravité et par source (base de
+      données, e-mails, Instagram, temps réel, médias). Un troisième onglet montre la <strong>rétention</strong> : ce qui
+      sera purgé et quand. Le journal est en ajout seul — aucune suppression depuis le Cockpit — et sa lecture est
+      réservée à la Direction. Les secrets (jetons, clés, adresses) sont masqués avant écriture, et une purge plafonnée
+      (90 jours pour l'information, 180 pour les signaux, 365 pour un incident critique) l'empêche de grossir sans fin.
+    </p>
+
+    <h3>Mesurer ce que le visiteur ressent</h3>
+    <p>
+      Deux mesures de terrain tournent sur le site public, sans déposer de cookie traceur tiers : un compteur d'audience
+      anonyme (page, provenance, langue, type d'appareil) et un relevé des temps de chargement réellement vécus (LCP, INP,
+      CLS). Le relevé est <strong>échantillonné à un visiteur sur vingt</strong> et n'écrit qu'une fois par page vue, à la
+      sortie — la vitrine continue de ne faire aucune lecture de base par visiteur. Les mesures sont conservées 180 jours.
+    </p>
+
+    <h3>Budgets et seuils, vérifiés automatiquement</h3>
+    <p>
+      Trois garde-fous chiffrés encadrent chaque mise en ligne : le poids JavaScript par route (une référence enregistrée,
+      échec au-delà de +5 % et alerte à +2 %), le budget de charge du Cockpit (le temps réel est réservé au Cockpit :
+      aucun canal n'est ouvert par un visiteur) et le contrôle des quotas de stockage (base sous 200 Mo, médias sous
+      150 Mo). Un contrôle qui échoue bloque la publication.
+    </p>
+
+    <h3>Accessibilité mesurée</h3>
+    <p>
+      Trois surfaces publiques (accueil, formation, contact) sont auditées automatiquement à chaque exécution des tests :
+      zéro violation de niveau « sérieux » ou « critique » est exigée. Limite assumée : la mesure automatique ne calcule
+      pas les couleurs ; le contraste des surfaces publiques reste vérifié à l'œil, en navigateur.
+    </p>
+
+    <h3>Ce qui reste ouvert</h3>
+    <p>
+      La feuille de route du projet est datée et publique. Trois chantiers sont assumés comme non livrés à ce jour :
+      plusieurs brouillons nommés par page et par langue (aujourd'hui un seul filet local), la
+      <strong>planification de publication</strong> (le statut est binaire « publié / brouillon » ; une date de
+      publication exige une évolution de base), et l'<strong>aperçu multi-appareils synchronisé</strong> (l'aperçu
+      simule aujourd'hui un appareil à la fois). S'y ajoutent deux points à contrôler à l'œil : le contraste des
+      couleurs et la recette manuelle de la médiathèque (téléverser, déplacer, corbeille, restaurer).
+    </p>
+
+    <h3>Incidents passés, et ce qu'ils ont changé</h3>
+    <ul class="thread">
+      <li><b>23 septembre 2026 — quota de stockage dépassé.</b> L'API de données a été coupée quelques heures (erreur
+      402) ; résolu par la mise à jour du plan Supabase et un allègement du stockage (les trois vidéos de reportages,
+      127 Mo, ont été retirées du stockage et conservées localement). Depuis, un contrôle automatique
+      (<code>npm run audit:quotas</code>) compare base, stockage et tables qui grossissent seules à des budgets déclarés,
+      et échoue au-delà.</li>
+      <li><b>20 septembre 2026 — site inaccessible en production.</b> Une exception JavaScript, née d'un canal temps réel
+      mal nommé, remplaçait toute la page côté navigateur. Corrigé et vérifié en production ; une sonde automatique
+      surveille désormais les routes publiques et signale toute régression.</li>
+      <li><b>Septembre 2026 — incidents au démarrage.</b> Deux défauts signalés au lancement : un client d'authentification
+      dupliqué (avertissement sans conséquence) et une feuille de styles globale non importée (site non stylé). Tous deux
+      corrigés et vérifiés. Le second mérite d'être noté : un import de style manquant ne fait échouer ni le typage, ni
+      les tests, ni la compilation — d'où l'ajout de contrôles sur les routes réellement servies.</li>
+    </ul>`;
 
 /**
  * Résistance du site : uniquement des contrôles réellement exécutés, avec leur
@@ -1027,8 +1210,8 @@ const html = `<!DOCTYPE html>
     <nav class="toc">
       <a href="#vue">Vue d'ensemble</a><a href="#comparaison">Ancien site</a><a href="#ecosysteme">Comment ça marche</a><a href="#carte">La carte du site</a>
       <a href="#site">Le site public</a><a href="#cockpit">Le Cockpit</a><a href="#quotidien">Au quotidien</a>
-      <a href="#chiffres">Chiffres clés</a><a href="#contenus">Les contenus</a><a href="#cuc-sign">CUC Sign</a>
-      <a href="#capot">Sous le capot</a><a href="#pratiques">Bonnes pratiques</a><a href="#glossaire">Glossaire</a><a href="#faq">FAQ</a>
+      <a href="#chiffres">Chiffres clés</a><a href="#contenus">Les contenus</a>
+      <a href="#capot">Sous le capot</a><a href="#gestion">Gestion & risques</a><a href="#pratiques">Bonnes pratiques</a><a href="#glossaire">Glossaire</a><a href="#faq">FAQ</a><a href="#cuc-sign">CUC Sign</a>
     </nav>
   </header>
 
@@ -1095,7 +1278,7 @@ ${oldSiteBlock}
   </section>
 
   <section id="cockpit">
-    <h2>6. Le Cockpit d'administration — les 15 écrans</h2>
+    <h2>6. Le Cockpit d'administration — les ${COCKPIT_APPS.length} écrans</h2>
     <p>
       Accessible avec un compte nominatif, le Cockpit se pilote entièrement à la souris. Chaque écran se déplie ci-dessous.
     </p>
@@ -1157,17 +1340,12 @@ ${oldSiteBlock}
 
     <div class="callout">
       <strong>CUC Sign</strong> — la plateforme de gestion de l'école — fait l'objet du
-      <a href="#cuc-sign">chapitre 10 : CUC Sign</a>, dans les pages qui suivent.
+      <a href="#cuc-sign">chapitre 15 : CUC Sign</a>, dans les pages qui suivent.
     </div>
   </section>
 
-  <section id="cuc-sign">
-    <h2>10. CUC Sign — la plateforme de gestion de l'école</h2>
-${cucSignContent}
-  </section>
-
   <section id="capot">
-    <h2>11. Sous le capot — en toute transparence</h2>
+    <h2>10. Sous le capot — en toute transparence</h2>
     <p>
       Cette partie s'adresse aux curieux : ce que votre site « pèse », la vitesse à laquelle il répond,
       et les garanties qui l'entourent. Aucune connaissance technique n'est nécessaire pour la lire.
@@ -1182,6 +1360,7 @@ ${projectScaleBlock}
     : ''
   }
 ${hostingBlock}
+${mediaBlock}
 ${resilienceBlock}
 
     <h3>Les garanties qui entourent votre site</h3>
@@ -1201,6 +1380,11 @@ ${techTable}
     ${i18n ? `<p class="meta">Langues : ${nf(i18n.fr)} clés éditoriales en français, ${nf(i18n.en)} en anglais — parité contrôlée automatiquement à chaque mise à jour.</p>` : ''}
   </section>
 
+  <section id="gestion">
+    <h2>11. Gestion, risques et trajectoire</h2>
+${governanceBlock}
+  </section>
+
   <section id="pratiques">
     <h2>12. Les bonnes pratiques de votre équipe</h2>
     <p>Six réflexes simples qui gardent le site impeccable :</p>
@@ -1216,6 +1400,11 @@ ${techTable}
   <section id="faq">
     <h2>14. Questions fréquentes</h2>
     ${faqAccordions}
+  </section>
+
+  <section id="cuc-sign">
+    <h2>15. CUC Sign — la plateforme de gestion de l'école</h2>
+${cucSignContent}
   </section>
 
   <footer>
@@ -1281,11 +1470,12 @@ fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, html, 'utf8');
 
 console.log('=== Dossier de présentation client généré (v5) ===');
-console.log(`Dossier application — 14 sections · accordéons : ${PUBLIC_PAGES.length + COCKPIT_APPS.length + GLOSSARY.length + FAQ.length + 1}`);
+console.log(`Dossier application — 15 sections · accordéons : ${PUBLIC_PAGES.length + COCKPIT_APPS.length + GLOSSARY.length + FAQ.length + 1}`);
 console.log(`Repères chiffrés : contenus(tablo ${contentRows.length}) · complétude(${q ? 3 : 0}) · résistance(${resilienceRows.length}) · pages(${pageWeights ? pageWeights.length : 0}) · échelle(${codeTotals ? 2 : 0}) · comparaison(${OLD_SITE_ROWS.length})`);
 console.log(`Sessions live : ${live.sessions.length} lignes datées`);
 console.log(`Qualité : ${q ? `${nf(q.films.with_image)}/${nf(q.films.total)} affiches · ${nf(q.filmsEn)} films EN · ${nf(q.team.with_imdb)} IMDb` : 'indisponible'}`);
 console.log(`Schémas : écosystème (flux animés) · carte du site(${SITE_MAP.length} thèmes) · anatomie de page · cycle de demande (carte voyageuse)`);
-console.log('Chapitre 10 « CUC Sign » — signalements smartphone (matériel, rangement, blessure) inclus');
+console.log(`Filière média : ${recompression.count} images recompressées · ${mo2(recompression.saved)} de gain net · bucket vitrine ${vitrineBucket ? mo2(vitrineBucket.bytes) : '—'}`);
+console.log('Chapitre 15 « CUC Sign » — signalements smartphone (matériel, rangement, blessure) inclus');
 console.log('Sortie :');
 console.log('  - reports/cuc-dossier-application.html');

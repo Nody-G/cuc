@@ -16,6 +16,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { detectRouteInventory } from './lib/route-inventory.mjs';
 
 const ROOT = process.cwd();
 const SRC = path.join(ROOT, 'src');
@@ -49,24 +50,11 @@ const rel = (p) => path.relative(ROOT, p).replace(/\\/g, '/');
 /* ------------------------------------------------------------------ */
 /* 1. Routes détectées depuis l'App Router                            */
 /* ------------------------------------------------------------------ */
-function detectRoutes(dir = APP, base = '', acc = []) {
-    if (!fs.existsSync(dir)) return acc;
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-        if (entry.isDirectory()) {
-            const isGroup = entry.name.startsWith('(') || entry.name.startsWith('_');
-            detectRoutes(
-                path.join(dir, entry.name),
-                isGroup ? base : `${base}/${entry.name}`,
-                acc
-            );
-        } else if (entry.name === 'page.tsx' || entry.name === 'page.ts') {
-            acc.push(base === '' ? '/' : base);
-        }
-    }
-    return acc;
-}
-
-const routes = [...new Set(detectRoutes())].sort();
+// Détection UNIQUE et partagée (règles : scripts/lib/route-inventory.mjs).
+// Publiques = `(site)/**`, administration = `(admin)/**`, une route = un
+// `page.tsx`. Aucune copie locale ne doit subsister.
+const { pages: routeEntries } = detectRouteInventory({ appDir: APP });
+const routes = routeEntries.map((r) => r.route);
 
 /* ------------------------------------------------------------------ */
 /* 2. Collecte des liens internes + ancres                            */
@@ -128,6 +116,34 @@ for (const link of internalLinks) {
     if (route.length > 1 && route.endsWith('/')) route = route.slice(0, -1);
     if (!routeSet.has(route)) invalidRoutes.push(link);
 }
+
+/* ------------------------------------------------------------------ */
+/* 3bis. Onglets du Cockpit ↔ routes déclarées                        */
+/* ------------------------------------------------------------------ */
+// `TAB_ROUTES` (cockpit-nav.ts) est la source unique de l'URL d'un onglet :
+// `routeForTab` compose `/admin/${segment}`. Un segment sans `page.tsx`
+// renvoie un vrai 404 à l'entrée dure (F5, favori, `?next=` après
+// reconnexion) — l'onglet Journal (`journal`) a motivé ce contrôle. Le
+// contrat est lu dans le source, jamais exécuté ni recopié.
+const COCKPIT_NAV_PATH = path.join(APP, '(admin)', 'admin', 'cockpit', 'cockpit-nav.ts');
+const TAB_ROUTE_RE =
+    /\{\s*tab:\s*['"]([^'"]+)['"](?:\s*,\s*segment:\s*['"]([^'"]+)['"])?\s*\}/g;
+
+const declaredTabRoutes = [];
+if (fs.existsSync(COCKPIT_NAV_PATH)) {
+    for (const m of fs.readFileSync(COCKPIT_NAV_PATH, 'utf8').matchAll(TAB_ROUTE_RE)) {
+        const tab = m[1];
+        const segment = m[2] ?? null;
+        // `dashboard` n'a pas de segment : il est servi par la racine `/admin`.
+        const route = tab === 'dashboard' ? '/admin' : segment ? `/admin/${segment}` : null;
+        if (route) declaredTabRoutes.push({ tab, segment, route });
+    }
+}
+
+// Seul l'onglet sans route est une erreur : une route sans onglet reste
+// légitime (`/admin/traffic` est un alias historique, `/admin/login` est la
+// porte d'entrée), le croisement n'est donc pas exigé dans l'autre sens.
+const missingTabRoutes = declaredTabRoutes.filter((entry) => !routeSet.has(entry.route));
 
 /* ------------------------------------------------------------------ */
 /* 4. Validation des ancres (#id)                                     */
@@ -237,6 +253,13 @@ section('ANCRES MANQUANTES');
 line(`  Ancres non résolues : ${missingAnchors.length}`);
 missingAnchors.forEach((l) => line(`    ✗ ${l.file} → ${l.href}`));
 
+section('ONGLETS COCKPIT SANS ROUTE');
+line(`  Onglets déclarés dans TAB_ROUTES : ${declaredTabRoutes.length}`);
+line(`  Sans page.tsx : ${missingTabRoutes.length}`);
+missingTabRoutes.forEach((e) =>
+    line(`    ✗ onglet « ${e.tab} » → ${e.route} (dossier de route manquant)`)
+);
+
 section('HREFS SUSPECTS (#, vide, javascript:)');
 line(`  Total : ${suspicious.length}`);
 suspicious.forEach((s) => line(`    ⚠ ${s.file} → "${s.href}"`));
@@ -255,7 +278,11 @@ line(`  Violations : ${sizeViolations.length}`);
 sizeViolations.forEach((f) => line(`    ✗ ${f.reason} | ${f.path}`));
 
 const problems =
-    invalidRoutes.length + missingAnchors.length + suspicious.length + sizeViolations.length;
+    invalidRoutes.length +
+    missingAnchors.length +
+    missingTabRoutes.length +
+    suspicious.length +
+    sizeViolations.length;
 section('RÉSULTAT');
 line(`  ${problems === 0 ? '✓ Aucun problème détecté.' : `✗ ${problems} problème(s) détecté(s).`}`);
 

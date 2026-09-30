@@ -10,13 +10,16 @@ import {
 } from '@/lib/instagram/instagram-reel-meta';
 import { getInstagramMetaConfigAction } from './instagram-monitor';
 import { fetchInstagramMetadata } from './instagram';
-import {
-    DEFAULT_FEATURED_REELS,
-    ALL_INSTAGRAM_REELS,
-    type InstagramReel,
-} from '@/data/instagram-reels';
+import { DEFAULT_FEATURED_REELS, type InstagramReel } from '@/data/instagram-reels';
 import { fetchLiveInstagramDashboard } from '@/lib/instagram/instagram-feed';
 import type { InstagramReelMetric } from '@/types/instagram-monitor';
+import {
+    mapStoredItemsToReels,
+    mapLiveVideosToReels,
+    resolveShortcodesFromCatalog,
+    findCatalogReel,
+    formatOfficialReelDetails,
+} from './instagram-featured-helpers';
 
 /**
  * Récupère les vidéos Instagram pour la vidéothèque publique :
@@ -36,7 +39,6 @@ export async function getLatestInstagramReelsAction(
         const token = configRes.config.accessToken;
 
         // 1. D'abord vérifier si des Reels personnalisés sont spécifiquement mis en avant dans Supabase
-        // (Uniquement si forceLatest n'est pas activé, pour respecter le choix 'latest' par défaut)
         if (!forceLatest) {
             const adminClient = createAdminClient();
             const { data: featuredRow } = await adminClient
@@ -47,52 +49,24 @@ export async function getLatestInstagramReelsAction(
 
             const val = featuredRow?.value as { items?: InstagramReelMetric[]; shortcodes?: string[] } | undefined;
             if (val?.items && Array.isArray(val.items) && val.items.length > 0) {
-                const mappedFeatured: InstagramReel[] = val.items.slice(0, limit).map((p, idx) => ({
-                    id: p.id || `featured-reel-${p.shortcode || idx}`,
-                    shortcode: p.shortcode,
-                    url: p.url,
-                    title: p.title,
-                    description: p.description,
-                    coverImage: p.coverImage || (p.shortcode ? `/images/reels/${p.shortcode}.jpg` : ''),
-                    views: p.views || 0,
-                    viewsFormatted: p.viewsFormatted || (p.views ? p.views.toLocaleString('fr-FR') : '—'),
-                    likes: p.likes,
-                    date: p.date,
-                    isFeatured: true,
-                }));
-                return { success: true, reels: mappedFeatured };
+                return { success: true, reels: mapStoredItemsToReels(val.items, limit) };
             }
         }
 
-        // 2. Sinon, récupérer en direct les 6 dernières vidéos réelles publiées via Meta Graph API
+        // 2. Sinon, récupérer en direct les dernières vidéos réelles publiées via Meta Graph API
         if (token) {
             const dashboard = await fetchLiveInstagramDashboard(token, false);
             if (dashboard?.publications) {
                 const videoItems = dashboard.publications.filter((p) => p.mediaType === 'VIDEO').slice(0, limit);
                 if (videoItems.length > 0) {
-                    const mapped: InstagramReel[] = videoItems.map((p, idx) => ({
-                        id: `latest-reel-${p.shortcode || idx}`,
-                        shortcode: p.shortcode,
-                        url: p.url,
-                        title: p.title,
-                        description: p.description,
-                        coverImage: p.coverImage || (p.shortcode ? `/images/reels/${p.shortcode}.jpg` : ''),
-                        views: p.views || 0,
-                        viewsFormatted: p.viewsFormatted || (p.views ? p.views.toLocaleString('fr-FR') : '0'),
-                        likes: p.likes,
-                        date: p.date,
-                        isFeatured: true,
-                    }));
-                    return { success: true, reels: mapped };
+                    return { success: true, reels: mapLiveVideosToReels(videoItems, limit) };
                 }
             }
         }
 
         /**
-         * Repli silencieux : sans jeton configuré, la vidéothèque publique
-         * affichait la sélection par défaut du dépôt — ce qui ressemble à un site
-         * qui fonctionne, alors que les Reels récents ne sont plus alimentés. Le
-         * journal distingue désormais ce repli d'une absence de contenu.
+         * Repli silencieux tracé : sans jeton configuré, la vidéothèque publique
+         * affiche la sélection par défaut du catalogue.
          */
         if (!token) {
             void writeActivityLog({
@@ -138,8 +112,7 @@ export async function getFeaturedReelsAction(): Promise<{
         }
 
         if (val.shortcodes && Array.isArray(val.shortcodes) && val.shortcodes.length > 0) {
-            const byShortcode = new Map(ALL_INSTAGRAM_REELS.map((r) => [r.shortcode, r]));
-            const resolved = val.shortcodes.map((sc) => byShortcode.get(sc)).filter((r): r is InstagramReelMetric => Boolean(r));
+            const resolved = resolveShortcodesFromCatalog(val.shortcodes);
             if (resolved.length > 0) return { success: true, reels: resolved };
         }
 
@@ -252,12 +225,9 @@ export async function importReelViaMetaAction(
         return { success: false, error: 'Lien Instagram invalide. Exemple : https://www.instagram.com/reel/DQmgL2IjN-8/' };
     }
 
-    const catalogEntry = ALL_INSTAGRAM_REELS.find((r) => r.shortcode === shortcode);
-    if (catalogEntry) {
-        return {
-            success: true,
-            reel: { ...catalogEntry, id: catalogEntry.id || `reel-${shortcode}`, isFeatured: true, lastUpdated: new Date().toISOString() },
-        };
+    const catalogReel = findCatalogReel(shortcode);
+    if (catalogReel) {
+        return { success: true, reel: catalogReel };
     }
 
     try {
@@ -267,23 +237,7 @@ export async function importReelViaMetaAction(
         if (token) {
             const official = await getOfficialReelDetails(shortcode, token);
             if (official) {
-                return {
-                    success: true,
-                    reel: {
-                        id: `reel-${shortcode}`,
-                        shortcode: official.shortcode,
-                        url: official.url,
-                        title: official.title,
-                        description: official.description,
-                        coverImage: official.coverImage,
-                        views: official.views,
-                        viewsFormatted: official.viewsFormatted,
-                        likes: official.likes,
-                        date: official.date,
-                        isFeatured: true,
-                        lastUpdated: new Date().toISOString(),
-                    },
-                };
+                return { success: true, reel: formatOfficialReelDetails(official, shortcode) };
             }
         }
 

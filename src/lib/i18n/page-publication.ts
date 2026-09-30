@@ -1,3 +1,4 @@
+import { cacheLife, cacheTag } from 'next/cache';
 import { createAdminClient, hasServiceRoleKey } from '@/lib/supabase/admin';
 import { normalizeSlug } from '@/lib/data/site-service';
 
@@ -22,6 +23,15 @@ import { normalizeSlug } from '@/lib/data/site-service';
 export type PagePublicationState = 'published' | 'unpublished' | 'unknown';
 
 export async function getPagePublicationState(slug: string): Promise<PagePublicationState> {
+    // Lecture CACHÉE : sans `'use cache'`, cette requête service-role était une
+    // donnée runtime consommée pendant le prérendu — le contrat Cache Components
+    // refusait alors toute page absente de `site_pages` (erreur E1428 au build).
+    // Mêmes tags que `getLocalizedPageContent` : le Cockpit invalide via
+    // `revalidateSite()` → `updateTag('site_pages')`.
+    'use cache';
+    cacheLife('max');
+    cacheTag('site_pages', `page:${normalizeSlug(slug)}`);
+
     if (!hasServiceRoleKey()) return 'unknown';
 
     try {

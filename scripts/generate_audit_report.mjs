@@ -35,6 +35,7 @@ const SKIP_TESTS = process.argv.includes('--skip-tests');
 const REPORTS_DIR = path.join(ROOT, 'reports');
 const AUDIT_JSON = path.join(ROOT, 'scripts', 'audit_full_app_report.json');
 const DB_JSON = path.join(ROOT, 'scripts', 'audit_supabase_state_report.json');
+const METRICS_JSON = path.join(ROOT, 'reports', 'cuc-metriques-2026.metrics.json');
 
 const readJson = (p) => {
   try {
@@ -60,6 +61,16 @@ const run = (cmd) => {
 
 const codeAudit = readJson(AUDIT_JSON);
 const dbAudit = readJson(DB_JSON);
+
+/**
+ * Comptage UNIQUE des routes : le tableau de bord métriques
+ * (`reports/cuc-metriques-2026.metrics.json`, écrit par
+ * `scripts/generate_metrics_report.mjs` à partir de
+ * `scripts/lib/route-inventory.mjs`) porte la mesure. Aucune valeur figée :
+ * régénérer `npm run report:metrics` avant ce rapport.
+ */
+const metricsReport = readJson(METRICS_JSON);
+const routeTotals = metricsReport?.routes ?? { total: 0, public: 0, admin: 0 };
 
 const pkg = readJson(path.join(ROOT, 'package.json')) ?? {};
 
@@ -235,7 +246,7 @@ const metrics = {
     zones: Object.fromEntries(zones),
     byExt: Object.fromEntries(byExt),
     largest,
-    routes: codeAudit?.summary?.routes ?? 0,
+    routes: routeTotals.total,
     sourceFilesScanned: codeAudit?.summary?.sourceFiles ?? 0,
   },
   tests: { ...tests, testFiles: testFiles.length },
@@ -462,8 +473,8 @@ const ecosystemSvg = `
   <path d="M730 170 H 798" fill="none" stroke="#3a3a44" stroke-width="2"/>
   <path d="M798 210 H 732" fill="none" stroke="#3a3a44" stroke-width="2"/>
   ${svgTile(30, 125, 120, 84, 'Visiteur', 'web & mobile')}
-  ${svgTile(210, 40, 224, 84, 'Site vitrine', '15 pages • FR / EN')}
-  ${svgTile(210, 230, 224, 84, 'Cockpit admin', '15 écrans • rôles')}
+  ${svgTile(210, 40, 224, 84, 'Site vitrine', `${routeTotals.public} pages • FR / EN`)}
+  ${svgTile(210, 230, 224, 84, 'Cockpit admin', `${routeTotals.admin} écrans • rôles`)}
   ${svgTile(540, 135, 190, 100, 'Supabase', 'base + temps réel')}
   ${svgTile(800, 135, 120, 100, 'CUC Sign', 'gestion de l’école')}
   <circle class="flowdot" r="3.5" fill="#FFE500" style="offset-path: path('M430 272 C 480 272, 500 250, 556 240'); animation-duration: 2.6s"/>
@@ -504,10 +515,10 @@ const featuresSection = `
     <h3>Les mécanismes invisibles qui font tourner le site</h3>
     <div class="feat-grid">${mechCardsHtml}</div>
 
-    <h3>Le site public — les 15 pages (+ le catalogue films) <span class="meta">(dépliez chaque entrée pour son rôle exact)</span></h3>
+    <h3>Le site public — les ${routeTotals.public} pages (+ le catalogue films) <span class="meta">(dépliez chaque entrée pour son rôle exact)</span></h3>
     ${publicAccordions}
 
-    <h3>Le Cockpit — les 15 écrans d'administration</h3>
+    <h3>Le Cockpit — les ${routeTotals.admin} écrans d'administration</h3>
     ${cockpitAccordions}
 
     <div class="callout">
@@ -638,7 +649,7 @@ const html = `<!DOCTYPE html>
     <h2>2. Ce qui a été corrigé durant cet audit</h2>
     <div class="grid cols-2">
       <div class="ba"><div class="n"><span class="bad">55</span> → <span class="ok">0</span></div>
-        <div class="l">Écarts de largeur de page. Toute la vitrine (15 pages, en-tête, pied de page) adopte désormais un conteneur unique de 1600&nbsp;px — la disposition de la page Équipe, retenue comme référence.</div></div>
+        <div class="l">Écarts de largeur de page. Toute la vitrine (${routeTotals.public} pages, en-tête, pied de page) adopte désormais un conteneur unique de 1600&nbsp;px — la disposition de la page Équipe, retenue comme référence.</div></div>
       <div class="ba"><div class="n"><span class="warn">26&nbsp;%</span> → <span class="ok">92&nbsp;%</span></div>
         <div class="l">Couverture temps réel des composants à données vivantes : 12 surfaces supplémentaires (fiche coach, partenaires, événements, disciplines, campus, vidéos, contacts) se mettent à jour instantanément quand le Cockpit écrit.</div></div>
       <div class="ba"><div class="n"><span class="bad">absente</span> → <span class="ok">publiée</span></div>
@@ -658,7 +669,7 @@ ${featuresSection}
     <h2>4. Méthode & périmètre</h2>
     <p>
       L'audit couvre <strong>${frNumber(codeAudit?.summary?.sourceFiles ?? 0)} fichiers source</strong>,
-      <strong>${frNumber(metrics.code.routes)} routes</strong> (${frNumber(metrics.code.routes - 15)} côté Cockpit),
+      <strong>${frNumber(metrics.code.routes)} routes</strong> (${frNumber(routeTotals.admin)} côté Cockpit),
       la base Supabase de production (${frNumber(Object.values(dbAudit?.tables ?? {}).filter((n) => n !== null).length)} tables <code>site_*</code>)
       et l'interconnexion avec l'application <strong>CUC&nbsp;Sign</strong>.
       Les vérifications sont automatisées et rejouables&nbsp;:
@@ -675,7 +686,7 @@ ${featuresSection}
     <div class="grid cols-3">
       <div class="card"><div class="stat">${frNumber(totalLines)}<small>lignes de code (src + scripts + documentation)</small></div></div>
       <div class="card"><div class="stat">${frNumber(totalFiles)}<small>fichiers suivis dans ces périmètres</small></div></div>
-      <div class="card"><div class="stat">${frNumber(metrics.code.routes)}<small>routes applicatives (${frNumber(metrics.code.routes - 15)} Cockpit · 15 vitrine)</small></div></div>
+      <div class="card"><div class="stat">${frNumber(metrics.code.routes)}<small>routes applicatives (${frNumber(routeTotals.admin)} Cockpit · ${frNumber(routeTotals.public)} vitrine)</small></div></div>
       <div class="card"><div class="stat">${frNumber(testFiles.length)}<small>fichiers de tests automatisés</small></div></div>
     </div>
 

@@ -54,6 +54,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { detectRouteInventory } from './lib/route-inventory.mjs';
 
 const ROOT = process.cwd();
 const SRC = path.join(ROOT, 'src');
@@ -116,23 +117,10 @@ function lineTextOf(text, index) {
 /* ------------------------------------------------------------------ */
 /* 1. Routes de l'App Router — locale normalisée                       */
 /* ------------------------------------------------------------------ */
-
-function detectRoutes(dir = APP, base = '', acc = []) {
-    if (!fs.existsSync(dir)) return acc;
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-        if (entry.isDirectory()) {
-            const isGroup = entry.name.startsWith('(') || entry.name.startsWith('_');
-            detectRoutes(
-                path.join(dir, entry.name),
-                isGroup ? base : `${base}/${entry.name}`,
-                acc
-            );
-        } else if (entry.name === 'page.tsx' || entry.name === 'page.ts') {
-            acc.push({ route: base === '' ? '/' : base, dir });
-        }
-    }
-    return acc;
-}
+// Détection UNIQUE et partagée (règles : scripts/lib/route-inventory.mjs).
+// Publiques = `(site)/**`, administration = `(admin)/**`, une route = un
+// `page.tsx`. Aucune copie locale ne doit subsister.
+const { pages } = detectRouteInventory({ appDir: APP });
 
 /**
  * Retire un éventuel segment de locale racine (`/[locale]`, `/[lang]`…) :
@@ -148,8 +136,9 @@ function stripLocaleHref(href) {
     return href.replace(/^\/(fr|en)(?=\/|$)/, '') || '/';
 }
 
-const routeEntries = [...new Map(detectRoutes().map((r) => [r.route, r])).values()]
-    .sort((a, b) => a.route.localeCompare(b.route));
+const routeEntries = [...pages]
+    .sort((a, b) => a.route.localeCompare(b.route))
+    .map((r) => ({ route: r.route, dir: r.dir }));
 const routes = routeEntries.map((r) => r.route);
 const routeDirs = new Map(routeEntries.map((r) => [r.route, r.dir]));
 

@@ -22,6 +22,7 @@ import path from 'node:path';
 import { execSync } from 'node:child_process';
 import * as dotenv from 'dotenv';
 import pg from 'pg';
+import { detectRouteInventory } from './lib/route-inventory.mjs';
 
 dotenv.config({ path: '.env.local' });
 
@@ -239,13 +240,21 @@ const publicDir = dirSize(path.join(ROOT, 'public'));
 /* 3. ROUTES & POIDS DE PAGES (sonde optionnelle)                      */
 /* ================================================================== */
 
-const PUBLIC_ROUTES = [
-    '/', '/formation-de-cascadeur', '/stages-cascades-parkour-2', '/equipe-cascadeurs-pro',
-    '/cuc-team-cascadeur', '/partenaires', '/visite-guidee', '/visite-virtuelle',
-    '/videos-cascadeur', '/contact-cuc', '/team-building-cascades',
-    '/animations-airbag-parkour', '/spectacles-cascadeurs-yakamasi', '/stunt-workshop-cuc',
-    '/cuc-events-agence', '/admin',
-];
+// Comptage UNIQUE des routes (règles : scripts/lib/route-inventory.mjs) :
+// une route = un `page.tsx`, `[locale]` compte une fois (servie FR + EN),
+// total = publiques (`(site)`) + administration (`(admin)`), API à part.
+const routeInventory = detectRouteInventory();
+
+/**
+ * Liste de sondage HTTP = routes publiques STATIQUES mesurées depuis
+ * l'arborescence, locale retirée (`/[locale]/x` → `/x`). Les routes
+ * dynamiques (`[slug]`) ne sont pas sondables sans identifiant.
+ * L'ancienne liste figée (16 entrées) divergeait de la mesure : elle
+ * incluait `/admin` (administration, pas publique) et omettait `/preview`.
+ */
+const PUBLIC_ROUTES = routeInventory.pages
+    .filter((r) => r.group === 'public' && !r.normalized.includes('['))
+    .map((r) => r.normalized);
 
 /**
  * Les pages publiques sont servies sous une locale : sans préfixe, la
@@ -868,9 +877,9 @@ const html = `<!DOCTYPE html>
     <h2>3. Interface & pages</h2>
     ${pagesSection}
     <div class="grid">
-      ${kpi(nf(30), 'Routes applicatives', '15 vitrine × 2 langues + 15 Cockpit')}
-      ${kpi(nf(15), 'Pages vitrine', 'toutes bilingues FR/EN')}
-      ${kpi(nf(15), 'Écrans Cockpit', 'administration complète')}
+      ${kpi(nf(routeInventory.totals.total), 'Routes applicatives', `${nf(routeInventory.totals.public)} publiques + ${nf(routeInventory.totals.admin)} administration — une route = un page.tsx`)}
+      ${kpi(nf(routeInventory.totals.public), 'Routes publiques', 'servies en français et en anglais')}
+      ${kpi(nf(routeInventory.totals.admin), 'Routes d\'administration', 'Cockpit complet, connexion incluse')}
       ${kpi(nf(16), 'Images de partage (OG)', 'une par page, générées automatiquement')}
       ${kpi('1', 'Conteneur de largeur', '1600 px — vitrine alignée')}
       ${kpi(nf(redirectsCount), 'Redirections historiques', 'URLs de l\'ancien site')}
@@ -962,7 +971,13 @@ const metricsJson = {
         tests: { ...tests, files: testFiles.length },
         plans: planFiles.length,
     },
-    routes: { total: 30, public: 15, admin: 15, pageWeights },
+    routes: {
+        total: routeInventory.totals.total,
+        public: routeInventory.totals.public,
+        admin: routeInventory.totals.admin,
+        api: routeInventory.totals.api,
+        pageWeights,
+    },
     bundle: nextBuildExists
         ? {
             staticChunks: staticChunks.bytes,
