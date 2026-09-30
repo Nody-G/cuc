@@ -1,163 +1,163 @@
 {
-  "generatedAt": "2026-09-24T13:08:53.952Z",
+  "generatedAt": "2026-09-29T16:59:04.021Z",
   "git": {
     "branch": "master",
-    "head": "47838c0",
+    "head": "dff31d3",
     "remote": "https://github.com/Nody-G/cuc.git",
-    "totalCommits": 263,
+    "totalCommits": 345,
     "firstCommit": "2026-09-16",
-    "lastCommit": "2026-09-24",
-    "commits30d": 263,
+    "lastCommit": "2026-09-29",
+    "commits30d": 345,
     "contributors": [
       {
-        "commits": 263,
+        "commits": 345,
         "name": "Nody-G"
       }
     ]
   },
   "weekly": [
     {
-      "week": "04-02",
+      "week": "04-07",
       "count": 0
     },
     {
-      "week": "04-09",
+      "week": "04-14",
       "count": 0
     },
     {
-      "week": "04-16",
+      "week": "04-21",
       "count": 0
     },
     {
-      "week": "04-23",
+      "week": "04-28",
       "count": 0
     },
     {
-      "week": "04-30",
+      "week": "05-05",
       "count": 0
     },
     {
-      "week": "05-07",
+      "week": "05-12",
       "count": 0
     },
     {
-      "week": "05-14",
+      "week": "05-19",
       "count": 0
     },
     {
-      "week": "05-21",
+      "week": "05-26",
       "count": 0
     },
     {
-      "week": "05-28",
+      "week": "06-02",
       "count": 0
     },
     {
-      "week": "06-04",
+      "week": "06-09",
       "count": 0
     },
     {
-      "week": "06-11",
+      "week": "06-16",
       "count": 0
     },
     {
-      "week": "06-18",
+      "week": "06-23",
       "count": 0
     },
     {
-      "week": "06-25",
+      "week": "06-30",
       "count": 0
     },
     {
-      "week": "07-02",
+      "week": "07-07",
       "count": 0
     },
     {
-      "week": "07-09",
+      "week": "07-14",
       "count": 0
     },
     {
-      "week": "07-16",
+      "week": "07-21",
       "count": 0
     },
     {
-      "week": "07-23",
+      "week": "07-28",
       "count": 0
     },
     {
-      "week": "07-30",
+      "week": "08-04",
       "count": 0
     },
     {
-      "week": "08-06",
+      "week": "08-11",
       "count": 0
     },
     {
-      "week": "08-13",
+      "week": "08-18",
       "count": 0
     },
     {
-      "week": "08-20",
+      "week": "08-25",
       "count": 0
     },
     {
-      "week": "08-27",
+      "week": "09-01",
       "count": 0
     },
     {
-      "week": "09-03",
+      "week": "09-08",
       "count": 0
     },
     {
-      "week": "09-10",
-      "count": 14
+      "week": "09-15",
+      "count": 168
     },
     {
-      "week": "09-17",
-      "count": 239
+      "week": "09-22",
+      "count": 164
     },
     {
-      "week": "09-24",
-      "count": 10
+      "week": "09-29",
+      "count": 13
     }
   ],
   "code": {
     "totals": {
-      "lines": 153924,
-      "blank": 15979,
-      "comment": 15793,
-      "files": 1230
+      "lines": 191937,
+      "blank": 18854,
+      "comment": 19759,
+      "files": 1441
     },
     "zones": {
       "Cockpit": {
-        "lines": 35091,
-        "files": 349,
-        "blank": 3147,
-        "comment": 2167
+        "lines": 43511,
+        "files": 436,
+        "blank": 4073,
+        "comment": 3407
       },
       "Vitrine (pages)": {
-        "lines": 7836,
-        "files": 97,
-        "blank": 797,
-        "comment": 623
+        "lines": 8568,
+        "files": 108,
+        "blank": 883,
+        "comment": 806
       },
       "Composants UI": {
-        "lines": 21079,
-        "files": 191,
-        "blank": 2022,
-        "comment": 1978
+        "lines": 21047,
+        "files": 204,
+        "blank": 2063,
+        "comment": 2128
       },
       "i18n, données & types": {
-        "lines": 6859,
-        "files": 20,
-        "blank": 107,
-        "comment": 208
+        "lines": 21203,
+        "files": 19,
+        "blank": 102,
+        "comment": 198
       },
       "Bibliothèques & données": {
-        "lines": 19054,
-        "files": 184,
-        "blank": 2179,
-        "comment": 3373
+        "lines": 27493,
+        "files": 260,
+        "blank": 3158,
+        "comment": 4947
       },
       "Autres": {
         "lines": 40,
@@ -166,72 +166,68 @@
         "comment": 13
       },
       "Outillage (scripts)": {
-        "lines": 50791,
-        "files": 302,
-        "blank": 5205,
-        "comment": 6961
+        "lines": 55331,
+        "files": 320,
+        "blank": 5681,
+        "comment": 7708
       },
       "Documentation": {
-        "lines": 13174,
-        "files": 86,
-        "blank": 2516,
-        "comment": 470
+        "lines": 14744,
+        "files": 93,
+        "blank": 2888,
+        "comment": 552
       }
     },
     "byExt": {
       ".ts": {
-        "lines": 46802,
-        "files": 405
+        "lines": 76684,
+        "files": 537
       },
       ".tsx": {
-        "lines": 42374,
-        "files": 431
+        "lines": 44521,
+        "files": 485
       },
       ".css": {
-        "lines": 727,
-        "files": 7
+        "lines": 1051,
+        "files": 8
       },
       ".json": {
-        "lines": 978,
+        "lines": 994,
         "files": 4
       },
       ".mjs": {
-        "lines": 46248,
-        "files": 286
+        "lines": 50157,
+        "files": 301
       },
       ".sql": {
-        "lines": 4078,
-        "files": 12
+        "lines": 4259,
+        "files": 14
       },
       ".js": {
         "lines": 63,
         "files": 1
       },
       ".md": {
-        "lines": 12457,
-        "files": 83
+        "lines": 14011,
+        "files": 90
       }
     },
     "largest": [
       {
+        "file": "src/data/filmography.ts",
+        "lines": 14022
+      },
+      {
         "file": "src/data/team.ts",
-        "lines": 2243
+        "lines": 4101
       },
       {
         "file": "scripts/generate_app_dossier.mjs",
-        "lines": 1520
+        "lines": 1482
       },
       {
         "file": "scripts/setup_complete_vitrine.sql",
         "lines": 1292
-      },
-      {
-        "file": "src/data/instagram-reels.ts",
-        "lines": 1249
-      },
-      {
-        "file": "src/data/filmography.ts",
-        "lines": 1202
       },
       {
         "file": "plans/revue-credits-coachs-curated.md",
@@ -247,19 +243,23 @@
       },
       {
         "file": "scripts/audit_full_app.mjs",
-        "lines": 1031
+        "lines": 1033
       },
       {
         "file": "scripts/generate_metrics_report.mjs",
-        "lines": 997
+        "lines": 1012
       },
       {
         "file": "plans/revue-micro-textes-visiteurs.md",
-        "lines": 850
+        "lines": 852
       },
       {
         "file": "scripts/generate_audit_report.mjs",
-        "lines": 841
+        "lines": 846
+      },
+      {
+        "file": "src/data/instagram-reels.ts",
+        "lines": 756
       },
       {
         "file": "plans/revue-affiches-films.md",
@@ -267,19 +267,19 @@
       },
       {
         "file": "src/lib/data/site/defaults/pages.ts",
-        "lines": 677
+        "lines": 674
       },
       {
         "file": "scripts/sync_all_coach_credits_supabase.mjs",
         "lines": 611
       },
       {
-        "file": "src/data/navigation.ts",
-        "lines": 583
+        "file": "plans/audit-conformite-regles.md",
+        "lines": 611
       },
       {
-        "file": "plans/audit-conformite-regles.md",
-        "lines": 553
+        "file": "src/data/navigation.ts",
+        "lines": 583
       },
       {
         "file": "plans/audit-categories-films.json",
@@ -290,8 +290,28 @@
         "lines": 542
       },
       {
+        "file": "src/data/celebrities.ts",
+        "lines": 532
+      },
+      {
+        "file": "plans/rapport-scraping-20-coachs-imdb.md",
+        "lines": 517
+      },
+      {
+        "file": "scripts/rewrite_recompressed_urls.mjs",
+        "lines": 510
+      },
+      {
+        "file": "scripts/audit_cuc_fields.mjs",
+        "lines": 501
+      },
+      {
         "file": "plans/revue-transformations-3d-flexibles.md",
         "lines": 490
+      },
+      {
+        "file": "scripts/lib/imdb-client.mjs",
+        "lines": 472
       },
       {
         "file": "scripts/rewrite_media_urls.mjs",
@@ -299,203 +319,184 @@
       },
       {
         "file": "scripts/fix_team_production_i18n.mjs",
-        "lines": 468
+        "lines": 464
       },
       {
-        "file": "scripts/lib/imdb-client.mjs",
-        "lines": 466
+        "file": "scripts/apply_actor_name_alignment_migration.ts",
+        "lines": 450
       },
       {
-        "file": "scripts/audit_cuc_fields.mjs",
-        "lines": 465
+        "file": "scripts/apply_all_coaches_and_actors.mjs",
+        "lines": 439
       },
       {
-        "file": "scripts/purge_marketing_film_categories.mjs",
-        "lines": 419
-      },
-      {
-        "file": "scripts/audit_en_pages_french.mjs",
-        "lines": 415
-      },
-      {
-        "file": "scripts/seed_pages_content.sql",
-        "lines": 405
-      },
-      {
-        "file": "scripts/verify_page_translation_invariants.mjs",
-        "lines": 397
-      },
-      {
-        "file": "scripts/scrape_coach_credits_imdb.mjs",
-        "lines": 388
-      },
-      {
-        "file": "scripts/curated_film_data.mjs",
-        "lines": 384
+        "file": "scripts/instagram_harvest_reels.mjs",
+        "lines": 435
       }
     ],
     "tsx": {
-      "files": 431,
-      "clientComponents": 290,
-      "componentExports": 365
+      "files": 485,
+      "clientComponents": 330,
+      "componentExports": 407
     },
-    "hooks": 78,
+    "hooks": 95,
     "dynamicImports": 3,
     "tests": {
       "available": true,
-      "total": 470,
-      "passed": 470,
+      "total": 789,
+      "passed": 789,
       "failed": 0,
-      "files": 68
+      "files": 103
     },
-    "plans": 86
+    "plans": 93
   },
   "routes": {
-    "total": 30,
-    "public": 15,
-    "admin": 15,
+    "total": 47,
+    "public": 18,
+    "admin": 29,
+    "api": 1,
     "pageWeights": [
       {
         "route": "/",
         "status": 200,
-        "bytes": 254566,
-        "ms": 25
-      },
-      {
-        "route": "/formation-de-cascadeur",
-        "status": 200,
-        "bytes": 186310,
-        "ms": 17
-      },
-      {
-        "route": "/stages-cascades-parkour-2",
-        "status": 200,
-        "bytes": 174451,
-        "ms": 15
-      },
-      {
-        "route": "/equipe-cascadeurs-pro",
-        "status": 200,
-        "bytes": 610886,
-        "ms": 26
-      },
-      {
-        "route": "/cuc-team-cascadeur",
-        "status": 200,
-        "bytes": 513105,
-        "ms": 22
-      },
-      {
-        "route": "/partenaires",
-        "status": 200,
-        "bytes": 189826,
-        "ms": 14
-      },
-      {
-        "route": "/visite-guidee",
-        "status": 200,
-        "bytes": 246407,
-        "ms": 17
-      },
-      {
-        "route": "/visite-virtuelle",
-        "status": 200,
-        "bytes": 149088,
-        "ms": 13
-      },
-      {
-        "route": "/videos-cascadeur",
-        "status": 200,
-        "bytes": 202327,
-        "ms": 14
-      },
-      {
-        "route": "/contact-cuc",
-        "status": 200,
-        "bytes": 183637,
-        "ms": 13
-      },
-      {
-        "route": "/team-building-cascades",
-        "status": 200,
-        "bytes": 172399,
-        "ms": 12
+        "bytes": 246807,
+        "ms": 292
       },
       {
         "route": "/animations-airbag-parkour",
         "status": 200,
-        "bytes": 152704,
-        "ms": 12
+        "bytes": 164184,
+        "ms": 345
       },
       {
-        "route": "/spectacles-cascadeurs-yakamasi",
-        "status": 404,
-        "bytes": 7732,
-        "ms": 8
-      },
-      {
-        "route": "/stunt-workshop-cuc",
+        "route": "/contact-cuc",
         "status": 200,
-        "bytes": 167259,
-        "ms": 16
+        "bytes": 183448,
+        "ms": 349
       },
       {
         "route": "/cuc-events-agence",
         "status": 200,
-        "bytes": 168570,
-        "ms": 14
+        "bytes": 179995,
+        "ms": 368
       },
       {
-        "route": "/admin",
+        "route": "/cuc-team-cascadeur",
         "status": 200,
-        "bytes": 142994,
-        "ms": 646
+        "bytes": 498430,
+        "ms": 691
+      },
+      {
+        "route": "/equipe-cascadeurs-pro",
+        "status": 200,
+        "bytes": 333332,
+        "ms": 445
+      },
+      {
+        "route": "/formation-de-cascadeur",
+        "status": 200,
+        "bytes": 197583,
+        "ms": 348
+      },
+      {
+        "route": "/partenaires",
+        "status": 200,
+        "bytes": 201243,
+        "ms": 363
+      },
+      {
+        "route": "/preview",
+        "status": 404,
+        "bytes": 9,
+        "ms": 18
+      },
+      {
+        "route": "/spectacles-cascadeurs-yamakasi",
+        "status": 200,
+        "bytes": 166516,
+        "ms": 1734
+      },
+      {
+        "route": "/stages-cascades-parkour-2",
+        "status": 200,
+        "bytes": 185918,
+        "ms": 349
+      },
+      {
+        "route": "/stunt-workshop-cuc",
+        "status": 200,
+        "bytes": 178736,
+        "ms": 389
+      },
+      {
+        "route": "/team-building-cascades",
+        "status": 200,
+        "bytes": 183848,
+        "ms": 369
+      },
+      {
+        "route": "/videos-cascadeur",
+        "status": 200,
+        "bytes": 217715,
+        "ms": 437
+      },
+      {
+        "route": "/visite-guidee",
+        "status": 200,
+        "bytes": 278344,
+        "ms": 512
+      },
+      {
+        "route": "/visite-virtuelle",
+        "status": 200,
+        "bytes": 160607,
+        "ms": 382
       }
     ]
   },
   "bundle": {
-    "staticChunks": 4904154,
-    "server": 66324524,
+    "staticChunks": 5294342,
+    "server": 79303187,
     "publicAssets": {
-      "bytes": 59408545,
-      "files": 92
+      "bytes": 60741457,
+      "files": 105
     },
     "topChunks": [
       {
-        "file": ".next/static/chunks/3-virkn3ekrdn.js",
-        "bytes": 866481
+        "file": ".next/static/chunks/1xt94yr268_tq.js",
+        "bytes": 949043
       },
       {
-        "file": ".next/static/chunks/2o1ja3gajz-b-.js",
-        "bytes": 652617
+        "file": ".next/static/chunks/0scews0v5ty1y.js",
+        "bytes": 666874
       },
       {
-        "file": ".next/static/chunks/0jk3f8vqzkrpw.js",
-        "bytes": 246318
+        "file": ".next/static/chunks/2m599-tv6qmyz.js",
+        "bytes": 652280
       },
       {
-        "file": ".next/static/chunks/0vssptn6r_8zu.js",
-        "bytes": 234202
+        "file": ".next/static/chunks/1t6i-ea-n5ksu.js",
+        "bytes": 262067
       },
       {
-        "file": ".next/static/chunks/0iaos0er1ea7q.js",
-        "bytes": 192460
+        "file": ".next/static/chunks/2ke0l_wyyf-k9.js",
+        "bytes": 234332
       },
       {
-        "file": ".next/static/chunks/0i5uenz-nfq-d.js",
-        "bytes": 182989
+        "file": ".next/static/chunks/12lpti4eb2iwt.js",
+        "bytes": 216088
       },
       {
-        "file": ".next/static/chunks/22b5kjfdkk1wt.js",
-        "bytes": 177161
+        "file": ".next/static/chunks/0na09ziqfx3yf.js",
+        "bytes": 177499
       },
       {
-        "file": ".next/static/chunks/11_kpz1nfy2_j.css",
-        "bytes": 162177
+        "file": ".next/static/chunks/1xh-7_z4r_os-.css",
+        "bytes": 170680
       },
       {
-        "file": ".next/static/chunks/2mydplpupl_3l.js",
-        "bytes": 143132
+        "file": ".next/static/chunks/2afkidnpajn5d.js",
+        "bytes": 143562
       },
       {
         "file": ".next/static/chunks/0cz1d0mv5g_q7.js",
@@ -509,7 +510,17 @@
       {
         "name": "site_films",
         "rows": 570,
-        "bytes": 671744
+        "bytes": 917504
+      },
+      {
+        "name": "site_settings",
+        "rows": 15,
+        "bytes": 884736
+      },
+      {
+        "name": "site_team",
+        "rows": 20,
+        "bytes": 425984
       },
       {
         "name": "site_translations",
@@ -517,24 +528,24 @@
         "bytes": 417792
       },
       {
-        "name": "site_team",
-        "rows": 12,
-        "bytes": 270336
-      },
-      {
-        "name": "site_settings",
-        "rows": 11,
-        "bytes": 253952
-      },
-      {
         "name": "site_pages",
         "rows": 15,
-        "bytes": 229376
+        "bytes": 237568
+      },
+      {
+        "name": "site_page_revisions",
+        "rows": 3,
+        "bytes": 114688
       },
       {
         "name": "site_programs",
         "rows": 6,
         "bytes": 106496
+      },
+      {
+        "name": "site_activity_logs",
+        "rows": 1,
+        "bytes": 98304
       },
       {
         "name": "site_campus_pois",
@@ -547,13 +558,23 @@
         "bytes": 81920
       },
       {
+        "name": "site_footer",
+        "rows": 1,
+        "bytes": 81920
+      },
+      {
+        "name": "site_inquiries",
+        "rows": 1,
+        "bytes": 65536
+      },
+      {
         "name": "site_partners",
         "rows": 21,
         "bytes": 65536
       },
       {
         "name": "site_sessions",
-        "rows": 18,
+        "rows": 17,
         "bytes": 65536
       },
       {
@@ -562,8 +583,8 @@
         "bytes": 49152
       },
       {
-        "name": "site_footer",
-        "rows": 1,
+        "name": "site_audit_logs",
+        "rows": 11,
         "bytes": 49152
       },
       {
@@ -582,31 +603,16 @@
         "bytes": 32768
       },
       {
-        "name": "site_inquiries",
-        "rows": 0,
-        "bytes": 32768
-      },
-      {
-        "name": "site_page_revisions",
-        "rows": 0,
-        "bytes": 32768
-      },
-      {
         "name": "site_vitals",
         "rows": 0,
         "bytes": 32768
-      },
-      {
-        "name": "site_audit_logs",
-        "rows": 0,
-        "bytes": 24576
       }
     ],
     "storage": [
       {
         "bucket": "cuc-vitrine-assets",
-        "files": 178,
-        "bytes": 94940911
+        "files": 182,
+        "bytes": 32784739
       },
       {
         "bucket": "reports",
@@ -622,7 +628,7 @@
     "filmsByCategory": [
       {
         "category": "Film",
-        "n": 363
+        "n": 375
       },
       {
         "category": "Série",
@@ -631,21 +637,17 @@
       {
         "category": "Court métrage",
         "n": 46
-      },
-      {
-        "category": null,
-        "n": 12
       }
     ],
     "filmsPublished": 569,
     "filmsUnpublished": 1,
     "sessionsByStatus": [
       {
-        "status": "complet",
-        "n": 7
+        "status": "ouvert",
+        "n": 6
       },
       {
-        "status": "ouvert",
+        "status": "complet",
         "n": 6
       },
       {
@@ -708,22 +710,22 @@
       }
     ],
     "realtimeTables": 24,
-    "rlsOn": 19,
+    "rlsOn": 20,
     "cucSign": {
       "formations": 12,
       "profiles": 13,
       "locations": 9,
-      "linkedSessions": 10,
-      "totalSessions": 18,
+      "linkedSessions": 9,
+      "totalSessions": 17,
       "linkedTeam": 5,
-      "totalTeam": 12,
+      "totalTeam": 20,
       "linkedPois": 4,
       "totalPois": 5
     }
   },
   "i18n": {
-    "fr": 729,
-    "en": 729,
+    "fr": 727,
+    "en": 727,
     "namespaces": 24
   },
   "security": {
@@ -789,6 +791,11 @@
       {
         "name": "react-dom",
         "version": "19.2.8",
+        "kind": "production"
+      },
+      {
+        "name": "sharp",
+        "version": "^0.35.4",
         "kind": "production"
       },
       {

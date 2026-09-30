@@ -84,8 +84,12 @@ Deux reportages TV dépassent la taille maximale autorisée par Supabase Storage
 - `20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4` (120 Mo)
 
 Ils restent **volontairement servis par le site d'origine** et sont déclarés
-dans `INTENTIONALLY_EXTERNAL` (`scripts/verify_media_url_coverage.mjs`). Toute
-décision d'hébergement (compression, CDN vidéo dédié) reste ouverte.
+dans `INTENTIONALLY_EXTERNAL` (`scripts/verify_media_url_coverage.mjs`).
+
+La compression est désormais tranchée : plafond vidéo de 45 Mo appliqué par le
+ticket serveur, vidéo non recompressée côté serveur (`sharp` ne traite pas la
+vidéo, `ffmpeg` est absent d'un runtime serverless). Un CDN vidéo dédié reste
+une option ouverte si le volume augmente.
 
 ### Cas particulier — URLs mortes
 
@@ -151,7 +155,33 @@ de la table de correspondance.
 
 ---
 
-## 8. Règle permanente
+## 8. Compression des médias téléversés
+
+La source canonique du sujet est [`media_compression.md`](../.agents/rules/media_compression.md) :
+le média servi est un dérivé WebP dont le bord long suit le profil du dossier,
+compressé dans le navigateur puis déposé via un ticket signé côté serveur ; un
+seul master par image, les négatifs rangés sous `_originals` et jamais servis.
+Plafonds appliqués par le ticket serveur : image 8 Mo, document 20 Mo, vidéo 45 Mo.
+
+**Ordre de migration canonique :** mesurer → déposer le dérivé → vérifier qu'il
+répond 200 → réécrire les références (code + base) → alors seulement supprimer
+l'ancien objet. Aucune suppression n'est automatique.
+
+| Commande | Rôle |
+| --- | --- |
+| `npm run media:policy` | Liste blanche des types MIME du bucket ; lecture seule par défaut (`media:policy:write` applique). |
+| `npm run media:recompress` · `media:recompress:write` | Mesure les dérivés WebP, puis les dépose sans rien supprimer. |
+| `npm run media:rewrite` · `media:rewrite:write` | Réécrit les références (code + base) vers les dérivés vérifiés. |
+| `npm run media:rewrite:purge` | Supprime les anciens objets une fois la réécriture confirmée. |
+
+**Résultat mesuré (2026-09-29) :** 100 images remplacées — 76,79 Mo de fichiers
+d'origine par 15,93 Mo de dérivés, gain net 60,86 Mo ; 97 anciens objets
+supprimés, 60,30 Mo libérés. Le bucket vitrine passe de 90,54 Mo / 178 objets à
+31,27 Mo / 182 objets (−65 %).
+
+---
+
+## 9. Règle permanente
 
 > **Tout nouveau média doit être téléversé dans `cuc-vitrine-assets/media/`
 > et référencé par son URL Supabase. Aucune URL `wp-content/uploads` ne doit

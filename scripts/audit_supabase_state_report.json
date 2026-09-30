@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-09-22T03:29:42.430Z",
+  "generatedAt": "2026-09-29T16:33:37.015Z",
   "tables": {
     "site_pages": 15,
-    "site_page_revisions": 0,
-    "site_team": 12,
+    "site_page_revisions": 2,
+    "site_team": 20,
     "site_films": 570,
     "site_partners": 21,
     "site_events": 3,
     "site_disciplines": 10,
     "site_sessions": 18,
     "site_programs": 6,
-    "site_inquiries": 0,
-    "site_audit_logs": 0,
+    "site_inquiries": 1,
+    "site_audit_logs": 10,
     "site_announcements": 2,
-    "site_settings": 11,
+    "site_settings": 15,
     "site_navigation": 1,
     "site_footer": 1,
     "site_social_links": 5,
@@ -51,6 +51,7 @@
   ],
   "realtimeMissing": [],
   "rls": {
+    "site_activity_logs": true,
     "site_announcements": true,
     "site_audit_logs": true,
     "site_campus_pois": true,
@@ -68,9 +69,16 @@
     "site_settings": true,
     "site_social_links": true,
     "site_team": true,
-    "site_translations": true
+    "site_translations": true,
+    "site_vitals": true
   },
   "foreignKeys": [
+    {
+      "name": "site_activity_logs_actor_id_fkey",
+      "from": "site_activity_logs",
+      "to": "profiles",
+      "onDelete": "SET NULL"
+    },
     {
       "name": "site_audit_logs_user_id_fkey",
       "from": "site_audit_logs",
@@ -164,7 +172,7 @@
     "duplicates": []
   },
   "team": {
-    "total": 12,
+    "total": 20,
     "linked": 5,
     "withoutProfile": [
       {
@@ -173,34 +181,74 @@
         "role": "Responsable Pédagogique"
       },
       {
-        "id": "vincent-bouillon",
-        "name": "Vincent Bouillon",
-        "role": "Spécialiste Combats & Chutes"
-      },
-      {
-        "id": "kefi-abrikh",
-        "name": "Kefi Abrikh",
-        "role": "Action Designer & Chorégraphe"
-      },
-      {
-        "id": "maurice-chan",
-        "name": "Maurice Chan",
-        "role": "Instructeur Référent"
-      },
-      {
-        "id": "michel-bouis",
-        "name": "Michel Bouis",
-        "role": "Formateur Chutes & Armes"
+        "id": "frederic-dessains",
+        "name": "Frédéric Dessains",
+        "role": "Spécialiste Acrobaties, Combat et Comédie"
       },
       {
         "id": "amedeo-cazzella",
         "name": "Amédéo Cazzella",
-        "role": "Formateur Armes & Combats"
+        "role": "Spécialiste Combats & Maniement d'Armes"
+      },
+      {
+        "id": "vincent-bouillon",
+        "name": "Vincent Bouillon",
+        "role": "Spécialiste Combats, Acrobaties et Chutes"
+      },
+      {
+        "id": "maurice-chan",
+        "name": "Maurice Chan",
+        "role": "Spécialiste Acrobaties, Chutes et Combats"
+      },
+      {
+        "id": "kefi-abrikh",
+        "name": "Kefi Abrikh",
+        "role": "Spécialiste Chorégraphies de Combat"
+      },
+      {
+        "id": "anthony-pho",
+        "name": "Anthony Pho",
+        "role": "Spécialiste Chorégraphie de combat"
+      },
+      {
+        "id": "alex-vu",
+        "name": "Alex Vu",
+        "role": "Spécialiste Tricks Chutes et Combats"
+      },
+      {
+        "id": "michel-bouis",
+        "name": "Michel Bouis",
+        "role": "Spécialiste Chutes et Maniement d'armes"
+      },
+      {
+        "id": "sarah-belala",
+        "name": "Sarah Belala",
+        "role": "Spécialiste Combats, Chutes"
+      },
+      {
+        "id": "pierre-toubas",
+        "name": "Pierre Toubas",
+        "role": "Spécialiste Combats, Acrobaties"
+      },
+      {
+        "id": "jonathan-bernard",
+        "name": "Jonathan Bernard",
+        "role": "Spécialiste Combats et Chute"
+      },
+      {
+        "id": "teddy-ponceau",
+        "name": "Teddy Ponceau",
+        "role": "Spécialiste Parkour Combats et Chutes"
       },
       {
         "id": "alan-cueff",
         "name": "Alan Cueff",
-        "role": "Instructeur & Cascadeur"
+        "role": "Spécialiste Acrobatie et Chutes"
+      },
+      {
+        "id": "nicolas-retabi",
+        "name": "Nicolas Retabi",
+        "role": "Spécialiste Chutes Acrobaties et Airbag"
       }
     ]
   },
@@ -257,31 +305,27 @@
     },
     "films": {
       "shape": "array",
-      "length": 63
+      "length": 570
     },
     "film_banners": {
       "shape": "list",
       "length": 0
     },
-    "celebrities": {
-      "shape": "list",
-      "length": 11
-    },
-    "videos": {
-      "shape": "list",
-      "length": 6
-    },
-    "programs": {
+    "team": {
       "shape": "array",
-      "length": 6
+      "length": 20
     },
     "campus_facilities": {
       "shape": "list",
       "length": 9
     },
-    "team": {
+    "programs": {
       "shape": "array",
-      "length": 12
+      "length": 6
+    },
+    "celebrities": {
+      "shape": "array",
+      "length": 43
     },
     "general": {
       "shape": "object",
@@ -321,11 +365,49 @@
         "hero_secondary_cta_url",
         "hero_secondary_cta_text"
       ]
+    },
+    "instagram_meta_config": {
+      "shape": "object",
+      "keys": [
+        "enabled",
+        "username",
+        "accessToken",
+        "lastUpdated",
+        "instagramAccountId"
+      ]
+    },
+    "instagram_featured_reels": {
+      "shape": "object",
+      "keys": [
+        "items",
+        "updatedAt",
+        "shortcodes"
+      ]
+    },
+    "inquiries": {
+      "shape": "list",
+      "length": 1
+    },
+    "instagram_feed_snapshot": {
+      "shape": "object",
+      "keys": [
+        "profile",
+        "photoCount",
+        "videoCount",
+        "lastSyncedAt",
+        "publications",
+        "totalVideoViews",
+        "totalAccountPosts"
+      ]
+    },
+    "videos": {
+      "shape": "list",
+      "length": 6
     }
   },
   "mirrorsDrift": [],
-  "inquiries": 0,
-  "auditLogs": 0,
+  "inquiries": 1,
+  "auditLogs": 10,
   "cucSign": {
     "formations": 12,
     "profiles": 13,

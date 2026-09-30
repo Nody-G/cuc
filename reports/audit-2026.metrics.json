@@ -1,118 +1,118 @@
 {
-  "generatedAt": "2026-09-24T13:09:21.371Z",
+  "generatedAt": "2026-09-29T17:01:38.155Z",
   "git": {
-    "head": "47838c0",
-    "date": "2026-09-24T14:59:02+02:00",
-    "changed": 6
+    "head": "dff31d3",
+    "date": "2026-09-29T17:22:50+02:00",
+    "changed": 88
   },
-  "globalScore": 95,
+  "globalScore": 96,
   "scores": {
-    "Intégrité technique": 95,
-    "Synchronisation Realtime": 74,
+    "Intégrité technique": 100,
+    "Synchronisation Realtime": 75,
     "Interconnexion CUC Sign": 100,
     "Parité français / anglais": 100,
     "Sécurité": 100,
     "Tests": 100
   },
   "code": {
-    "totalLines": 149846,
-    "totalFiles": 1218,
+    "totalLines": 187684,
+    "totalFiles": 1427,
     "zones": {
       "Cockpit (admin)": {
-        "files": 349,
-        "lines": 35091
+        "files": 436,
+        "lines": 43511
       },
       "Vitrine (pages)": {
-        "files": 97,
-        "lines": 7836
+        "files": 108,
+        "lines": 8568
       },
       "Composants UI": {
-        "files": 191,
-        "lines": 21079
+        "files": 204,
+        "lines": 21047
       },
       "i18n, données & types": {
-        "files": 20,
-        "lines": 6859
+        "files": 19,
+        "lines": 21203
       },
       "Bibliothèques & données": {
-        "files": 184,
-        "lines": 19054
+        "files": 260,
+        "lines": 27493
       },
       "Autres": {
         "files": 1,
         "lines": 40
       },
       "Outillage (scripts)": {
-        "files": 290,
-        "lines": 46713
+        "files": 306,
+        "lines": 51078
       },
       "Documentation (plans)": {
-        "files": 86,
-        "lines": 13174
+        "files": 93,
+        "lines": 14744
       }
     },
     "byExt": {
       ".ts": {
-        "files": 405,
-        "lines": 46802
+        "files": 537,
+        "lines": 76684
       },
       ".tsx": {
-        "files": 431,
-        "lines": 42374
+        "files": 485,
+        "lines": 44521
       },
       ".css": {
-        "files": 7,
-        "lines": 727
+        "files": 8,
+        "lines": 1051
       },
       ".json": {
         "files": 4,
-        "lines": 978
+        "lines": 994
       },
       ".mjs": {
-        "files": 286,
-        "lines": 46248
+        "files": 301,
+        "lines": 50163
       },
       ".js": {
         "files": 1,
         "lines": 63
       },
       ".md": {
-        "files": 83,
-        "lines": 12457
+        "files": 90,
+        "lines": 14011
       }
     },
     "largest": [
       {
+        "file": "src/data/filmography.ts",
+        "lines": 14022
+      },
+      {
         "file": "src/data/team.ts",
-        "lines": 2243
+        "lines": 4101
       },
       {
         "file": "scripts/generate_app_dossier.mjs",
-        "lines": 1520
-      },
-      {
-        "file": "src/data/instagram-reels.ts",
-        "lines": 1249
-      },
-      {
-        "file": "src/data/filmography.ts",
-        "lines": 1202
+        "lines": 1482
       },
       {
         "file": "scripts/audit_full_app.mjs",
-        "lines": 1031
+        "lines": 1033
       },
       {
         "file": "scripts/generate_metrics_report.mjs",
-        "lines": 997
+        "lines": 1012
       },
       {
         "file": "scripts/generate_audit_report.mjs",
-        "lines": 841
+        "lines": 852
+      },
+      {
+        "file": "src/data/instagram-reels.ts",
+        "lines": 756
       },
       {
         "file": "src/lib/data/site/defaults/pages.ts",
-        "lines": 677
+        "lines": 674
       },
       {
         "file": "scripts/sync_all_coach_credits_supabase.mjs",
@@ -123,41 +123,41 @@
         "lines": 583
       }
     ],
-    "routes": 35,
-    "sourceFilesScanned": 748
+    "routes": 47,
+    "sourceFilesScanned": 768
   },
   "tests": {
     "available": true,
-    "total": 470,
-    "passed": 470,
+    "total": 789,
+    "passed": 789,
     "failed": 0,
-    "testFiles": 68
+    "testFiles": 103
   },
   "i18n": {
-    "fr": 729,
-    "en": 729,
+    "fr": 727,
+    "en": 727,
     "missingInEn": 0
   },
   "realtime": {
-    "coverageRatio": 74,
-    "covered": 17,
+    "coverageRatio": 75,
+    "covered": 18,
     "gaps": 6
   },
   "database": {
     "tables": {
       "site_pages": 15,
-      "site_page_revisions": 0,
-      "site_team": 12,
+      "site_page_revisions": 2,
+      "site_team": 20,
       "site_films": 570,
       "site_partners": 21,
       "site_events": 3,
       "site_disciplines": 10,
       "site_sessions": 18,
       "site_programs": 6,
-      "site_inquiries": 0,
-      "site_audit_logs": 0,
+      "site_inquiries": 1,
+      "site_audit_logs": 10,
       "site_announcements": 2,
-      "site_settings": 11,
+      "site_settings": 15,
       "site_navigation": 1,
       "site_footer": 1,
       "site_social_links": 5,
@@ -172,6 +172,12 @@
     "translations": 579,
     "films": 570,
     "fk": [
+      {
+        "name": "site_activity_logs_actor_id_fkey",
+        "from": "site_activity_logs",
+        "to": "profiles",
+        "onDelete": "SET NULL"
+      },
       {
         "name": "site_audit_logs_user_id_fkey",
         "from": "site_audit_logs",
@@ -221,7 +227,7 @@
     "duplicateLinks": 0,
     "orphanComponents": 0,
     "legacyUrls": 0,
-    "slopHits": 1,
+    "slopHits": 0,
     "socialConflicts": 0,
     "redirectIssues": 0,
     "widthViolations": 0,
@@ -238,6 +244,7 @@
     "next-intl": "^4.14.5",
     "react": "19.2.8",
     "react-dom": "19.2.8",
+    "sharp": "^0.35.4",
     "tailwind-merge": "^3.7.0",
     "three": "^0.186.0"
   }
