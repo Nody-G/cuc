@@ -7,6 +7,7 @@
  */
 
 import { createAdminClient } from '@/lib/supabase/admin';
+import { ORIGINALS_ROOT, TRASH_ROOT, isReservedPrefix } from '@/lib/media-library/media-policy';
 import { mediaKind, MediaObject } from '../media-shared';
 
 /* ------------------------------------------------------------------ *
@@ -23,8 +24,23 @@ import { mediaKind, MediaObject } from '../media-shared';
 export const MEDIA_BUCKET = 'cuc-vitrine-assets';
 /** Objet sentinelle qui matérialise un dossier (vide aux yeux de l'UI). */
 export const FOLDER_PLACEHOLDER = '.emptyFolderPlaceholder';
-/** Racine de la corbeille logique : suppression réversible par défaut. */
-export const TRASH_ROOT = '_trash';
+/**
+ * Racines réservées, ré-exportées depuis `media-policy` — une seule source par
+ * sujet : `_trash` (corbeille réversible) et `_originals` (négatifs haute
+ * résolution, jamais référencés par la vitrine).
+ */
+export { ORIGINALS_ROOT, TRASH_ROOT, isReservedPrefix };
+
+/**
+ * Un dossier technique apparaît-il dans la navigation du catalogue ?
+ *
+ * Seuls les négatifs sont masqués côté serveur : `_trash` reste atteignable
+ * (restauration d'un fichier supprimé) et l'arborescence continue de compter
+ * les deux préfixes — un poids masqué serait un quota menti.
+ */
+export function isHiddenCatalogEntry(prefix: string, name: string): boolean {
+    return prefix === '' && name === ORIGINALS_ROOT;
+}
 /** Taille de page du parcours récursif. */
 export const MEDIA_PAGE_SIZE = 100;
 /** Profondeur maximale explorée (garde-fou anti-boucle). */

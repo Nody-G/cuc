@@ -6,7 +6,6 @@ import {
     deleteMediaObjects,
     getMediaReferences,
     moveMediaObjects,
-    uploadMediaFile,
 } from '@/app/(admin)/admin/actions';
 import { type MediaObject } from '@/app/(admin)/admin/media-shared';
 import {
@@ -15,6 +14,7 @@ import {
     resolveDeleteTargets,
     summarizeDeleteTargets,
 } from '@/lib/media-library/media-selection';
+import { useMediaUpload } from './useMediaUpload';
 
 export interface UseMediaSelectionArgs {
     /** Fichiers réellement affichés (recherche et filtres appliqués). */
@@ -60,9 +60,22 @@ export function useMediaSelection({
     const [moveTarget, setMoveTarget] = useState('');
     const [newFolder, setNewFolder] = useState('');
 
-    const [uploading, setUploading] = useState(false);
-    const [uploadCount, setUploadCount] = useState({ done: 0, total: 0 });
     const [dragActive, setDragActive] = useState(false);
+
+    /**
+     * Import délégué à `useMediaUpload` : compression navigateur, ticket signé,
+     * dépôt direct dans Storage. Ce hook-ci ne garde que la sélection, le
+     * glisser-déposer et les actions de dossier — l'import y était une
+     * responsabilité de plus, et le fichier frôlait le plafond de taille.
+     */
+    const upload = useMediaUpload({
+        prefix: prefix || 'uploads',
+        showToast,
+        onUploaded: async () => {
+            resetCatalogue();
+            await Promise.all([loadFolder(prefix, { offset: 0 }), refreshTree()]);
+        },
+    });
 
     const selectionSet = useMemo(() => new Set(selection), [selection]);
 
@@ -105,27 +118,6 @@ export function useMediaSelection({
         } catch {
             showToast('Copie impossible (navigateur)');
         }
-    };
-
-    const handleUpload = async (fileList: FileList | null) => {
-        if (!fileList || fileList.length === 0) return;
-        setUploading(true);
-        setUploadCount({ done: 0, total: fileList.length });
-
-        let done = 0;
-        for (const file of Array.from(fileList)) {
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('folder', prefix || 'uploads');
-            const res = await uploadMediaFile(formData);
-            if (res.success) done += 1;
-            setUploadCount({ done, total: fileList.length });
-        }
-
-        setUploading(false);
-        showToast(`${done}/${fileList.length} fichier(s) téléversé(s) dans ${prefix || 'uploads'}`);
-        resetCatalogue();
-        await Promise.all([loadFolder(prefix, { offset: 0 }), refreshTree()]);
     };
 
     const handleCreateFolder = async () => {
@@ -230,11 +222,12 @@ export function useMediaSelection({
         handleCreateFolder,
         handleMove,
         handleDelete,
-        uploading,
-        uploadCount,
+        uploading: upload.uploading,
+        uploadCount: { done: upload.progress.processed, total: upload.progress.total },
         dragActive,
         setDragActive,
-        handleUpload,
+        handleUpload: upload.handleUpload,
+        upload,
         openDetail,
         detailReferences,
     };

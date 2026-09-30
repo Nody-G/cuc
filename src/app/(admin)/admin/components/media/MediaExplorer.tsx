@@ -2,6 +2,7 @@
 
 import React from 'react';
 import type { MediaKind } from '@/app/(admin)/admin/media-shared';
+import { ORIGINALS_ROOT, TRASH_ROOT } from '@/lib/media-library/media-policy';
 import { MediaBulkActions } from './MediaBulkActions';
 import { MediaBrowser } from './MediaBrowser';
 import { MediaDetailPanel } from './MediaDetailPanel';
@@ -35,7 +36,7 @@ export const MediaExplorer: React.FC<MediaExplorerProps> = ({
     showToast,
     onSelect,
     acceptKinds,
-    hiddenPrefixes = ['_trash'],
+    hiddenPrefixes = [TRASH_ROOT, ORIGINALS_ROOT],
 }) => {
     const nav = useMediaNavigation({ mode, acceptKinds, hiddenPrefixes, showToast });
     const sel = useMediaSelection({
@@ -151,6 +152,7 @@ export const MediaExplorer: React.FC<MediaExplorerProps> = ({
                         dragActive={sel.dragActive}
                         onDragActiveChange={sel.setDragActive}
                         onUpload={(files) => void sel.handleUpload(files)}
+                        upload={sel.upload}
                         hasMore={nav.hasMore}
                         loadingMore={nav.loadingMore}
                         onLoadMore={() =>

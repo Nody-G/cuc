@@ -55,4 +55,5 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 | Édition bilingue du Cockpit FR → EN | [`cockpit_bilingual_editing.md`](.agents/rules/cockpit_bilingual_editing.md:1) |
 | Mode Studio — édition visuelle en place | [`studio_mode_preview.md`](.agents/rules/studio_mode_preview.md:1) |
 | Micro-textes éditables | [`site_microcopy.md`](.agents/rules/site_microcopy.md:1) |
+| Compression des médias téléversés, négatifs `_originals` | [`media_compression.md`](.agents/rules/media_compression.md:1) |
 | Durabilité, CI, roadmap, RLS | [`durability_health.md`](.agents/rules/durability_health.md:1) |

@@ -5,6 +5,8 @@ import { FolderTree, Upload } from 'lucide-react';
 import { formatBytes, type MediaObject } from '@/app/(admin)/admin/media-shared';
 import { KIND_ICON, PAGE_SIZE, type ExplorerView } from './media-explorer-shared';
 import { MediaTile } from './MediaTile';
+import { MediaUploadPanel } from './MediaUploadPanel';
+import type { UseMediaUploadReturn } from './useMediaUpload';
 
 export interface MediaBrowserProps {
     mode: 'manage' | 'pick';
@@ -28,6 +30,8 @@ export interface MediaBrowserProps {
     dragActive: boolean;
     onDragActiveChange: (active: boolean) => void;
     onUpload: (files: FileList | null) => void;
+    /** État et actions d'import, fournis par `useMediaUpload` (aucun calcul ici). */
+    upload: UseMediaUploadReturn;
     hasMore: boolean;
     loadingMore: boolean;
     onLoadMore: () => void;
@@ -60,6 +64,7 @@ export const MediaBrowser: React.FC<MediaBrowserProps> = ({
     dragActive,
     onDragActiveChange,
     onUpload,
+    upload,
     hasMore,
     loadingMore,
     onLoadMore,
@@ -103,6 +108,9 @@ export const MediaBrowser: React.FC<MediaBrowserProps> = ({
                 />
             </label>
         )}
+
+        {/* Bilan d'import : poids avant, poids après, refus motivés */}
+        {mode === 'manage' && <MediaUploadPanel upload={upload} />}
 
         {/* Sous-dossiers */}
         {!searching && folders.length > 0 && (

@@ -6,6 +6,7 @@
  */
 
 import { reportMediaFailure } from './media-failures';
+import { finalizeMediaUpload } from './media-upload-ticket';
 
 import { createAdminClient } from '@/lib/supabase/admin';
 import {
@@ -15,38 +16,54 @@ import {
   MEDIA_PAGE_SIZE,
   StorageEntry,
   isFolderEntry,
+  isHiddenCatalogEntry,
+  isReservedPrefix,
   joinPath,
   toMediaObject,
 } from './media-internals';
 import { MediaFolderStat } from '../media-shared';
+import { describeCeilingRefusal, mediaNature, profileForPath, uploadCeilingBytes } from '@/lib/media-library/media-policy';
+import { sanitizeFileName, stampedPath } from '@/lib/media-library/image-compression.plan';
 
 /**
- * Téléverse un fichier média vers Supabase Storage (`cuc-vitrine-assets`).
- * Le dossier de destination est optionnel (`folder` dans le FormData), il
- * vaut `uploads` par défaut — contrat historique conservé.
+ * Repli de téléversement sous 1 Mo — le parcours normal est le dépôt direct
+ * autorisé par `createMediaUploadTicket` (`.agents/rules/media_compression.md` § 2).
+ * Mêmes plafonds, même nommage et même journalisation que ce parcours, sinon la
+ * politique média dépendrait du chemin emprunté. `folder` reste optionnel.
  */
 export async function uploadMediaFile(formData: FormData) {
+  const rawFolder = String(formData.get('folder') || 'uploads').trim();
   try {
     const file = formData.get('file') as File;
     if (!file) throw new Error('Aucun fichier fourni');
 
-    const rawFolder = String(formData.get('folder') || 'uploads').trim();
     const folder = rawFolder.replace(/^\/+|\/+$/g, '').replace(/\.\./g, '');
+    if (isReservedPrefix(folder)) {
+      return { success: false, error: 'Ce dossier est réservé à la médiathèque interne.' };
+    }
+
+    const contentType = (file.type || 'image/jpeg').toLowerCase();
+    const nature = mediaNature(contentType, file.name);
+    if (!nature) {
+      return { success: false, error: 'Type de fichier non pris en charge par la médiathèque.' };
+    }
+
+    const ceiling = uploadCeilingBytes(nature, false);
+    if (file.size > ceiling) {
+      return { success: false, error: describeCeilingRefusal(file.size, ceiling, false) };
+    }
 
     const adminClient = createAdminClient();
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
     const timestamp = Date.now();
-    const cleanName = file.name
-      .toLowerCase()
-      .replace(/[^a-z0-9.-]/g, '_');
-    const filePath = joinPath(folder, `${timestamp}_${cleanName}`);
+    const filePath = stampedPath(folder, sanitizeFileName(file.name), timestamp);
 
     const { data, error } = await adminClient.storage
       .from(MEDIA_BUCKET)
       .upload(filePath, buffer, {
-        contentType: file.type || 'image/jpeg',
+        contentType,
         upsert: true,
       });
 
@@ -56,20 +73,32 @@ export async function uploadMediaFile(formData: FormData) {
       .from(MEDIA_BUCKET)
       .getPublicUrl(filePath);
 
+    const path = data.path ?? filePath;
+    // Journalisation partagée avec le dépôt direct : une seule source des gains.
+    void finalizeMediaUpload({
+      path,
+      folder,
+      fileName: file.name,
+      contentType,
+      profileId: profileForPath(folder).id,
+      bytesBefore: file.size,
+      bytesAfter: file.size,
+      compressed: false,
+      keptOriginal: false,
+      originalPath: null,
+    });
+
     return {
       success: true,
       url: publicUrlData.publicUrl,
-      path: data.path,
+      path,
       name: file.name,
       size: file.size,
       folder,
     };
   } catch (err: unknown) {
-    /**
-     * Un téléversement refusé (bucket absent, fichier trop lourd, réseau) rendait
-     * la médiathèque inutilisable **sans que rien ne l'explique** : l'appelant
-     * recevait une erreur, le serveur un message, et l'exploitant rien.
-     */
+    // Un refus (bucket absent, fichier trop lourd, réseau) restait invisible pour
+    // l'exploitant : le motif est journalisé, jamais étouffé.
     reportMediaFailure(
       'media.upload.failed',
       String(formData.get('folder') || 'uploads'),
@@ -111,8 +140,10 @@ export async function listMediaFolder(options: {
       (entry) => entry.name !== FOLDER_PLACEHOLDER
     );
 
+    // `_originals/` n'est pas du contenu éditorial : jamais proposé à la navigation.
     const folders = entries
       .filter(isFolderEntry)
+      .filter((entry) => !isHiddenCatalogEntry(prefix, entry.name))
       .map((entry) => ({ name: entry.name, path: joinPath(prefix, entry.name) }));
 
     const files = entries.filter((entry) => !isFolderEntry(entry)).map((entry) => toMediaObject(prefix, entry));
@@ -161,6 +192,9 @@ export async function listMediaTree() {
 
         for (const entry of entries) {
           if (isFolderEntry(entry)) {
+            // `_originals` et `_trash` restent comptés ici : ce parcours alimente
+            // le tableau de bord de stockage, où masquer un poids serait mentir
+            // sur le quota réellement consommé.
             await walk(joinPath(prefix, entry.name), depth + 1);
             continue;
           }
