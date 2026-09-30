@@ -60,8 +60,6 @@ export interface SitePageHero {
   cta_tertiary_link?: string;
   bg_image?: string;
   video_url?: string;
-  /** Cible de l'épingle de localisation affichée en surimpression du hero. */
-  hud_map_url?: string;
   /** Mention « depuis » du badge ; métriques rapides fusionnées par index. */
   since?: string;
   metrics?: Array<{ val?: string; label?: string }>;

@@ -4,7 +4,6 @@ import React from 'react';
 import type { SitePageContent, SitePageHero } from '@/lib/data/site-service';
 import { HeroMetadataEditor } from './hero-editor/HeroMetadataEditor';
 import { HeroBannerEditor } from './hero-editor/HeroBannerEditor';
-import { HeroHudEditor } from './hero-editor/HeroHudEditor';
 
 interface HeroSeoEditorProps {
   formData: SitePageContent;
@@ -13,8 +12,8 @@ interface HeroSeoEditorProps {
 }
 
 /**
- * Façade des éditeurs du haut de page : métadonnées (SEO/OpenGraph), bannière
- * d'accroche, puis bandeau technique du hero.
+ * Façade des éditeurs du haut de page : métadonnées (SEO/OpenGraph) et
+ * bannière d'accroche du hero.
  *
  * Découpage SRP (`AGENTS.md` § 1 et § 2) : ce fichier ne compose que les blocs
  * et normalise les écritures ; chaque bloc vit dans `./hero-editor/**`. Une
@@ -41,8 +40,6 @@ export const HeroSeoEditor: React.FC<HeroSeoEditorProps> = ({
       />
 
       <HeroBannerEditor hero={formData.hero} onChange={updateHero} />
-
-      <HeroHudEditor hero={formData.hero} onChange={updateHero} />
     </div>
   );
 };

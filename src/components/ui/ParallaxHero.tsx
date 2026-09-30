@@ -6,7 +6,6 @@ import { mergeSectionItems } from '@/lib/hooks/usePageSectionData';
 import {
   HERO_SLIDES,
   HeroBottomControls,
-  HeroHudOverlay,
   HeroTechDepth,
 } from './parallax-hero';
 import { HeroBackground3D } from './parallax-hero/HeroBackground3D';
@@ -79,10 +78,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
         simplified={heroMotion.isCalmMode}
       />
 
-      {/* 3. Subtle Location & Campus Header Overlay */}
-      <HeroHudOverlay heroData={heroData} />
-
-      {/* 4. Central Text Content: Rock-Solid Focal Plane (NO text displacement!) */}
+      {/* 3. Central Text Content: Rock-Solid Focal Plane (NO text displacement!) */}
       <HeroFocalContent
         heroData={heroData}
         currentSlide={heroMotion.currentSlide}
@@ -91,7 +87,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
         focalTextOpacity={heroMotion.focalTextOpacity}
       />
 
-      {/* 5. Modern Segmented Slide Navigation & Smooth Scroll Cue */}
+      {/* 4. Modern Segmented Slide Navigation & Smooth Scroll Cue */}
       <HeroBottomControls
         slides={HERO_SLIDES}
         currentSlide={heroMotion.currentSlide}
