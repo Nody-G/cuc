@@ -10,7 +10,7 @@ VALUES
     'Accueil',
     'Campus Univers Cascades | 1ère École de Cascadeurs Professionnels d''Europe',
     'Centre d''entraînement de cascadeurs professionnels fondé en 2008 par Lucas Dollfus. 11 000 m² d''infrastructures dédiées au cinéma d''action, parkour, combat et cascades.',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/1-lucas.png',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/1-lucas.webp',
     '{
         "badge": "PREMIER CENTRE EUROPÉEN • ACTION DESIGN & CASCADE CINÉMA",
         "title": "CAMPUS UNIVERS CASCADES",
@@ -19,7 +19,7 @@ VALUES
         "cta_primary_link": "/formation-de-cascadeur",
         "cta_secondary_text": "Visite guidée du campus",
         "cta_secondary_link": "/visite-guidee",
-        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg"
+        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp"
     }'::jsonb,
     '[
         {"id": "stat_years", "title": "Années d''expérience", "value": "18 Ans", "description": "Fondé en 2008 par Lucas Dollfus"},
@@ -34,7 +34,7 @@ VALUES
     'Formation Professionnelle',
     'Formation de Cascadeur Pro en 2 Ans | Campus Univers Cascades',
     'Formation professionnelle longue durée de 2 ans. 720h à 800h d''entraînement intensif aux combats, chutes, câblerie, feu et torche humaine.',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.webp',
     '{
         "badge": "CURSUS DIPLÔMANT • 2 ANS",
         "title": "FORMATION PROFESSIONNELLE DE CASCADEUR",
@@ -43,7 +43,7 @@ VALUES
         "cta_primary_link": "/stages-cascades-parkour-2",
         "cta_secondary_text": "Télécharger la brochure",
         "cta_secondary_link": "/contact-cuc",
-        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg"
+        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.webp"
     }'::jsonb,
     '[
         {"id": "duration", "title": "Durée du cursus", "value": "2 Ans", "description": "Cursus structuré de 9 à 10 modules intensifs"},
@@ -57,7 +57,7 @@ VALUES
     'Stages & Initiations',
     'Stages de Cascade & Parkour | Campus Univers Cascades',
     'Découvrez nos stages de cascade physique, parkour et cascades cinéma ouverts dès 16 ans. Initiations débutants et perfectionnements intensifs.',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     '{
         "badge": "STAGES INTENSIFS TOUS NIVEAUX • DÈS 16 ANS",
         "title": "STAGES DE CASCADE & PARKOUR",
@@ -66,7 +66,7 @@ VALUES
         "cta_primary_link": "#dates",
         "cta_secondary_text": "Modalités d''inscription",
         "cta_secondary_link": "/contact-cuc",
-        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg"
+        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp"
     }'::jsonb,
     '[]'::jsonb,
     true
@@ -76,7 +76,7 @@ VALUES
     'Stunt Workshops',
     'Workshops Cascades & Masterclasses Spécialisées | CUC',
     'Workshops techniques avancés pour professionnels : torche humaine, chutes de hauteur, câblerie 3D, maniement d''armes et combats chorégraphiés.',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     '{
         "badge": "MASTERCLASSES & ATELIERS TECHNIQUES AVANCÉS",
         "title": "STUNT WORKSHOPS CUC",
@@ -85,7 +85,7 @@ VALUES
         "cta_primary_link": "/contact-cuc",
         "cta_secondary_text": "Consulter les prérequis",
         "cta_secondary_link": "/formation-de-cascadeur",
-        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg"
+        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp"
     }'::jsonb,
     '[]'::jsonb,
     true
@@ -95,7 +95,7 @@ VALUES
     'Équipe & Instructeurs',
     'Instructeurs & Coordinateurs de Cascades | Campus Univers Cascades',
     'Découvrez les formateurs et coordinateurs du CUC : Lucas Dollfus, Jérôme Gaspard et les plus grands professionnels de l''action design.',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.webp',
     '{
         "badge": "L''ÉQUIPE PÉDAGOGIQUE & PROFESSIONNELLE",
         "title": "COORDINATEURS & FORMATEURS CUC",
@@ -104,7 +104,7 @@ VALUES
         "cta_primary_link": "/formation-de-cascadeur",
         "cta_secondary_text": "Découvrir la filmographie",
         "cta_secondary_link": "/cuc-team-cascadeur",
-        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg"
+        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.webp"
     }'::jsonb,
     '[]'::jsonb,
     true
@@ -114,7 +114,7 @@ VALUES
     'CUC Team & Action Design',
     'CUC Stunt Team | Action Design & Cascades Cinéma',
     'L''équipe professionnelle de cascadeurs du CUC au service des réalisateurs et productions internationales.',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     '{
         "badge": "ACTION DESIGN & SUPERVISION TOURNAGES",
         "title": "CUC STUNT TEAM",
@@ -123,7 +123,7 @@ VALUES
         "cta_primary_link": "/contact-cuc",
         "cta_secondary_text": "Voir nos crédits cinéma",
         "cta_secondary_link": "/#filmographie",
-        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg"
+        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp"
     }'::jsonb,
     '[]'::jsonb,
     true
@@ -133,7 +133,7 @@ VALUES
     'CUC Events',
     'CUC Events | Agence Événementielle & Spectacles de Cascade',
     'Prestations sensationnelles pour entreprises et collectivités : team building cascade, shows en direct, animations airbag et cascadeurs.',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     '{
         "badge": "L''AGENCE ÉVÉNEMENTIELLE DU CUC",
         "title": "CUC EVENTS & PRESTATIONS",
@@ -142,7 +142,7 @@ VALUES
         "cta_primary_link": "/contact-cuc",
         "cta_secondary_text": "Nos formules entreprises",
         "cta_secondary_link": "/team-building-cascades",
-        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg"
+        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp"
     }'::jsonb,
     '[]'::jsonb,
     true
@@ -152,7 +152,7 @@ VALUES
     'Team Building',
     'Team Building Cascade & Sensations | CUC Events',
     'Offrez à vos collaborateurs un séminaire inoubliable : combats chorégraphiés, chutes sur airbag et dépassement de soi sécurisé.',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     '{
         "badge": "SÉMINAIRES & COHÉSION D''ÉQUIPE",
         "title": "TEAM BUILDING CASCADE D''ENTREPRISE",
@@ -161,7 +161,7 @@ VALUES
         "cta_primary_link": "/contact-cuc",
         "cta_secondary_text": "Voir la brochure",
         "cta_secondary_link": "/cuc-events-agence",
-        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg"
+        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp"
     }'::jsonb,
     '[]'::jsonb,
     true
@@ -171,7 +171,7 @@ VALUES
     'Spectacles & Shows',
     'Spectacles de Cascadeurs & Yamakasi | CUC Live',
     'Shows live spectaculaires pour parcs d''attractions, festivals et galas : cascades de combat, voltige et parkour acrobatique.',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     '{
         "badge": "SPECTACLES LIVE",
         "title": "SPECTACLES DE CASCADEURS & YAMAKASI",
@@ -180,7 +180,7 @@ VALUES
         "cta_primary_link": "/contact-cuc",
         "cta_secondary_text": "Nos réalisations",
         "cta_secondary_link": "/videos-cascadeur",
-        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg"
+        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp"
     }'::jsonb,
     '[]'::jsonb,
     true
@@ -190,7 +190,7 @@ VALUES
     'Animations Airbag',
     'Location Airbag Cascade & Animations Mobiles | CUC',
     'Airbag géant professionnel pour sauts de hauteur et animations grand public sécurisées. Déploiement partout en France.',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     '{
         "badge": "INSTALLATION MOBILE SÉCURISÉE",
         "title": "ANIMATIONS AIRBAG GÉANT & PARKOUR",
@@ -199,7 +199,7 @@ VALUES
         "cta_primary_link": "/contact-cuc",
         "cta_secondary_text": "Fiche technique",
         "cta_secondary_link": "/contact-cuc",
-        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg"
+        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp"
     }'::jsonb,
     '[]'::jsonb,
     true
@@ -209,7 +209,7 @@ VALUES
     'Visite Guidée',
     'Visite Guidée du Campus CUC | 11 000 m² Dédiés à la Cascade',
     'Venez découvrir les infrastructures du Campus Univers Cascades au Cateau-Cambrésis : dojos, fosse de réception, studio câbles.',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     '{
         "badge": "11 000 M² D''INFRASTRUCTURES AU CATEAU-CAMBRÉSIS",
         "title": "VISITE GUIDÉE DU CAMPUS CUC",
@@ -218,7 +218,7 @@ VALUES
         "cta_primary_link": "/contact-cuc",
         "cta_secondary_text": "Visite virtuelle 3D",
         "cta_secondary_link": "/visite-virtuelle",
-        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg"
+        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp"
     }'::jsonb,
     '[]'::jsonb,
     true
@@ -228,7 +228,7 @@ VALUES
     'Visite Virtuelle 3D',
     'Visite Virtuelle 3D Interactive du Campus | CUC 3D',
     'Explorez le Campus Univers Cascades en 3D interactive : dojos, fosse, studio câbles et parcours extérieur.',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     '{
         "badge": "EXPLORATION 3D EN TEMPS RÉEL",
         "title": "VISITE VIRTUELLE INTERACTIVE 3D",
@@ -237,7 +237,7 @@ VALUES
         "cta_primary_link": "#3d-scene",
         "cta_secondary_text": "Venir sur place",
         "cta_secondary_link": "/visite-guidee",
-        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg"
+        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp"
     }'::jsonb,
     '[]'::jsonb,
     true
@@ -247,7 +247,7 @@ VALUES
     'Vidéothèque',
     'Vidéos & Démonstrations de Cascade | CUC TV',
     'Retrouvez les vidéos officielles du Campus Univers Cascades : entraînements, chorégraphies d''action, tournages et démonstrations.',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     '{
         "badge": "ACTION REELS & CLIPS OFFICIELS",
         "title": "VIDÉOTHÈQUE & DÉMONSTRATIONS CASCADE",
@@ -256,7 +256,7 @@ VALUES
         "cta_primary_link": "https://www.youtube.com/@campusuniverscascades",
         "cta_secondary_text": "Postuler aux stages",
         "cta_secondary_link": "/stages-cascades-parkour-2",
-        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg"
+        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp"
     }'::jsonb,
     '[]'::jsonb,
     true
@@ -266,7 +266,7 @@ VALUES
     'Partenaires',
     'Nos Partenaires Cinéma & Institutionnels | Campus Univers Cascades',
     'Découvrez les partenaires du CUC : productions de cinéma, marques d''équipement de protection et partenaires institutionnels officiels.',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     '{
         "badge": "RÉSEAU DE CONFIANCE DE L''INDUSTRIE",
         "title": "NOS PARTENAIRES DE L''ACTION",
@@ -275,7 +275,7 @@ VALUES
         "cta_primary_link": "/contact-cuc",
         "cta_secondary_text": "Contacter la direction",
         "cta_secondary_link": "/contact-cuc",
-        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg"
+        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp"
     }'::jsonb,
     '[]'::jsonb,
     true
@@ -285,7 +285,7 @@ VALUES
     'Contact & Accès',
     'Contactez le Campus Univers Cascades | Le Cateau-Cambrésis',
     'Toutes les coordonnées pour contacter l''équipe du CUC : inscriptions, partenariats, tournages et plan d''accès au campus.',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     '{
         "badge": "LE CATEAU-CAMBRÉSIS (59) • FRANCE",
         "title": "CONTACTEZ LE CAMPUS CUC",
@@ -294,7 +294,7 @@ VALUES
         "cta_primary_link": "#formulaire",
         "cta_secondary_text": "Plan d''accès",
         "cta_secondary_link": "#acces",
-        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg"
+        "bg_image": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp"
     }'::jsonb,
     '[]'::jsonb,
     true
@@ -337,7 +337,7 @@ VALUES
     ARRAY['Encadrement par des cascadeurs professionnels', 'Accessible à tous les niveaux physiques', 'Dojos et structures privatisés', 'Reportage vidéo souvenir inclus'],
     'À partir de 120€ / participant',
     'Demander un devis team building',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     1,
     true
 ),
@@ -350,7 +350,7 @@ VALUES
     ARRAY['Mise en scène et scénarisation sur-mesure', 'Équipe de 2 à 15 performeurs', 'Matériel et sécurité autonome', 'Intérieur ou plein air'],
     'Sur devis selon cahier des charges',
     'Réserver un show live',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.webp',
     2,
     true
 ),
@@ -363,7 +363,7 @@ VALUES
     ARRAY['Homologué et certifié sécurité cinéma', 'Opérateurs qualifiés CUC inclus', 'Montage et démontage rapide', 'Capacité jusqu''à 120 sauts / heure'],
     'Forfaits journée et week-end',
     'Louer l''airbag géant',
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     3,
     true
 )

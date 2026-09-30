@@ -64,19 +64,19 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
     {
       link: 'https://www.instagram.com/reel/DJW5wq0MIzt/',
       image:
-        'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/001.jpg',
+        'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/001.webp',
       speed: -0.05,
     },
     {
       link: 'https://www.instagram.com/reel/DKAFa9dsRVa/',
       image:
-        'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/002.jpg',
+        'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/002.webp',
       speed: 0.05,
     },
     {
       link: 'https://www.instagram.com/reel/DJmOS2tMQpk/',
       image:
-        'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/defenestration.jpg',
+        'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/defenestration.webp',
       speed: -0.04,
     },
   ];

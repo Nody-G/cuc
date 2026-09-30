@@ -81,7 +81,7 @@ export function useStagesGrid(customStages?: unknown[]): StagesGridController {
                 image: cs.image?.src
                     ? ({ ...cs.image, src: cs.image.src } as StageData['image'])
                     : (match?.image || {
-                        src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Stage-WE-Immersion.png',
+                        src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Stage-WE-Immersion.webp',
                         alt: cs.title || t('fallbackBadge'),
                     }),
             };

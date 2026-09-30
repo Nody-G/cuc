@@ -35,7 +35,7 @@ export const HomeVirtualTourSection: React.FC<HomeVirtualTourSectionProps> = ({
   const hudHint = virtualTourData?.hud_hint || t('hudHint');
   const imageUrl =
     virtualTourData?.image_url ||
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Zoe-Bell-Hall.jpg';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Zoe-Bell-Hall.webp';
 
   return (
     <StudioParallaxScene className="py-28 bg-[#08080c] border-b border-zinc-800/80 relative overflow-hidden">

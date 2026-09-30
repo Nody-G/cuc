@@ -47,7 +47,7 @@ export function initCampusScene(
     let aerialTexture: THREE.Texture | null = null;
     try {
         const texLoader = new THREE.TextureLoader();
-        aerialTexture = texLoader.load('/images/cuc_campus_aerial_real_z19.jpg');
+        aerialTexture = texLoader.load('/images/cuc_campus_aerial_real_z19.webp');
         aerialTexture.generateMipmaps = true;
         aerialTexture.minFilter = THREE.LinearMipmapLinearFilter;
         aerialTexture.magFilter = THREE.LinearFilter;

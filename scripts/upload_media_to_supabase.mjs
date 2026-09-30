@@ -9,7 +9,7 @@
  *   media/<categorie>/<nom-de-fichier>
  *
  * Exemple :
- *   media/cuc-visual/CUC-5.0-586.jpg
+ *   media/cuc-visual/CUC-5.0-586.webp
  *   media/film-poster/John-Wick-4.jpg
  *   media/document/Presentation-Campus-Univers-Cascades.pdf
  *

@@ -63,7 +63,7 @@ export function useSectionHandlers({
                 title: 'Nouvel Atelier Cascade',
                 category: 'Initiation & Action',
                 desc: 'Description des exercices et sensations proposées aux équipes.',
-                img: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg',
+                img: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.webp',
             });
             return {
                 ...prev,

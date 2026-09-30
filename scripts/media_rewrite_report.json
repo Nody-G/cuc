@@ -1,14 +1,40 @@
 {
-  "generatedAt": "2026-09-20T21:49:08.551Z",
-  "dryRun": false,
-  "mappingEntries": 221,
+  "generatedAt": "2026-09-29T16:20:15.370Z",
+  "write": true,
+  "eligible": 100,
+  "unverified": 0,
+  "source": {
+    "files": 0,
+    "changes": []
+  },
   "database": {
     "tables": [
       {
         "table": "site_pages",
         "scanned": 15,
         "updated": 0,
-        "replacements": 36,
+        "replacements": 0,
+        "skipped": null
+      },
+      {
+        "table": "site_team",
+        "scanned": 20,
+        "updated": 0,
+        "replacements": 0,
+        "skipped": null
+      },
+      {
+        "table": "site_events",
+        "scanned": 3,
+        "updated": 0,
+        "replacements": 0,
+        "skipped": null
+      },
+      {
+        "table": "site_settings",
+        "scanned": 15,
+        "updated": 0,
+        "replacements": 0,
         "skipped": null
       },
       {
@@ -19,250 +45,436 @@
         "skipped": null
       },
       {
-        "table": "site_team",
-        "scanned": 12,
-        "updated": 12,
-        "replacements": 12,
+        "table": "site_campus_pois",
+        "scanned": 5,
+        "updated": 0,
+        "replacements": 0,
         "skipped": null
       },
       {
         "table": "site_partners",
-        "scanned": 8,
+        "scanned": 21,
         "updated": 0,
         "replacements": 0,
         "skipped": null
       },
       {
-        "table": "site_events",
-        "scanned": 3,
-        "updated": 3,
-        "replacements": 3,
+        "table": "site_sessions",
+        "scanned": 18,
+        "updated": 0,
+        "replacements": 0,
         "skipped": null
-      },
-      {
-        "table": "site_settings",
-        "scanned": 10,
-        "updated": 0,
-        "replacements": 110,
-        "skipped": null
-      },
-      {
-        "table": "site_disciplines",
-        "scanned": 0,
-        "updated": 0,
-        "replacements": 0,
-        "skipped": "Could not find the table 'public.site_disciplines' in the schema cache"
-      },
-      {
-        "table": "site_campus_pois",
-        "scanned": 0,
-        "updated": 0,
-        "replacements": 0,
-        "skipped": "Could not find the table 'public.site_campus_pois' in the schema cache"
-      },
-      {
-        "table": "site_navigation",
-        "scanned": 0,
-        "updated": 0,
-        "replacements": 0,
-        "skipped": "Could not find the table 'public.site_navigation' in the schema cache"
-      },
-      {
-        "table": "site_footer",
-        "scanned": 0,
-        "updated": 0,
-        "replacements": 0,
-        "skipped": "Could not find the table 'public.site_footer' in the schema cache"
-      },
-      {
-        "table": "site_social_links",
-        "scanned": 0,
-        "updated": 0,
-        "replacements": 0,
-        "skipped": "Could not find the table 'public.site_social_links' in the schema cache"
       }
     ],
-    "rowsUpdated": 15,
-    "replacements": 161,
-    "errors": [
-      "site_pages#undefined : column site_pages.id does not exist",
-      "site_pages#undefined : column site_pages.id does not exist",
-      "site_pages#undefined : column site_pages.id does not exist",
-      "site_pages#undefined : column site_pages.id does not exist",
-      "site_pages#undefined : column site_pages.id does not exist",
-      "site_pages#undefined : column site_pages.id does not exist",
-      "site_pages#undefined : column site_pages.id does not exist",
-      "site_pages#undefined : column site_pages.id does not exist",
-      "site_pages#undefined : column site_pages.id does not exist",
-      "site_pages#undefined : column site_pages.id does not exist",
-      "site_pages#undefined : column site_pages.id does not exist",
-      "site_pages#undefined : column site_pages.id does not exist",
-      "site_pages#undefined : column site_pages.id does not exist",
-      "site_pages#undefined : column site_pages.id does not exist",
-      "site_pages#undefined : column site_pages.id does not exist",
-      "site_settings#undefined : column site_settings.id does not exist",
-      "site_settings#undefined : column site_settings.id does not exist",
-      "site_settings#undefined : column site_settings.id does not exist",
-      "site_settings#undefined : column site_settings.id does not exist",
-      "site_settings#undefined : column site_settings.id does not exist",
-      "site_settings#undefined : column site_settings.id does not exist",
-      "site_settings#undefined : column site_settings.id does not exist",
-      "site_settings#undefined : column site_settings.id does not exist"
-    ]
+    "rowsUpdated": 0,
+    "replacements": 0,
+    "errors": [],
+    "reversals": []
   },
-  "source": {
-    "files": [
+  "purge": {
+    "removed": [
       {
-        "file": "src\\app\\admin\\components\\PagesEditorView.tsx",
-        "replacements": 1
+        "path": "media/cuc-visual/001.jpg",
+        "savedBytes": 79775
       },
       {
-        "file": "src\\app\\animations-airbag-parkour\\page.tsx",
-        "replacements": 2
+        "path": "media/cuc-visual/002.jpg",
+        "savedBytes": 81158
       },
       {
-        "file": "src\\app\\equipe-cascadeurs-pro\\page.tsx",
-        "replacements": 1
+        "path": "media/cuc-visual/003.jpg",
+        "savedBytes": 87998
       },
       {
-        "file": "src\\app\\spectacles-cascadeurs-yamakasi\\page.tsx",
-        "replacements": 3
+        "path": "media/cuc-visual/004.jpg",
+        "savedBytes": 78218
       },
       {
-        "file": "src\\app\\stunt-workshop-cuc\\page.tsx",
-        "replacements": 5
+        "path": "media/cuc-visual/005.jpg",
+        "savedBytes": 82128
       },
       {
-        "file": "src\\app\\team-building-cascades\\page.tsx",
-        "replacements": 6
+        "path": "media/cuc-visual/1-lucas.png",
+        "savedBytes": 194086
       },
       {
-        "file": "src\\app\\videos-cascadeur\\page.tsx",
-        "replacements": 3
+        "path": "media/cuc-visual/10-kefi.png",
+        "savedBytes": 230173
       },
       {
-        "file": "src\\components\\layout\\footer-sections\\FooterBrandAndSites.tsx",
-        "replacements": 1
+        "path": "media/cuc-visual/12-alex.png",
+        "savedBytes": 746176
       },
       {
-        "file": "src\\components\\sections\\contact\\ContactCoordinatesSidebar.tsx",
-        "replacements": 2
+        "path": "media/cuc-visual/13-vincent-OK.png",
+        "savedBytes": 162097
       },
       {
-        "file": "src\\components\\sections\\contact\\ContactHeroSection.tsx",
-        "replacements": 1
+        "path": "media/cuc-visual/14-michel.png",
+        "savedBytes": 213087
       },
       {
-        "file": "src\\components\\sections\\events\\EventsHeroSection.tsx",
-        "replacements": 1
+        "path": "media/cuc-visual/15-sarah.png",
+        "savedBytes": 223682
       },
       {
-        "file": "src\\components\\sections\\events\\EventsPillarsSection.tsx",
-        "replacements": 3
+        "path": "media/cuc-visual/16-pierre.png",
+        "savedBytes": 205474
       },
       {
-        "file": "src\\components\\sections\\formation\\FormationHeroSection.tsx",
-        "replacements": 3
+        "path": "media/cuc-visual/17-anthony.png",
+        "savedBytes": 234441
       },
       {
-        "file": "src\\components\\sections\\home\\HomeAboutSection.tsx",
-        "replacements": 1
+        "path": "media/cuc-visual/18-jonathan.png",
+        "savedBytes": 222975
       },
       {
-        "file": "src\\components\\sections\\home\\HomeQualiopiSection.tsx",
-        "replacements": 1
+        "path": "media/cuc-visual/19-bastien.png",
+        "savedBytes": 212429
       },
       {
-        "file": "src\\components\\sections\\home\\HomeSocialSection.tsx",
-        "replacements": 4
+        "path": "media/cuc-visual/2-jerome.png",
+        "savedBytes": 193410
       },
       {
-        "file": "src\\components\\sections\\home\\HomeTournagesSection.tsx",
-        "replacements": 4
+        "path": "media/cuc-visual/20221222_095652.jpg",
+        "savedBytes": 1102915
       },
       {
-        "file": "src\\components\\sections\\home\\HomeVirtualTourSection.tsx",
-        "replacements": 1
+        "path": "media/cuc-visual/21-alan-cueff.png",
+        "savedBytes": 231306
       },
       {
-        "file": "src\\components\\sections\\partenaires\\partenaires.data.tsx",
-        "replacements": 1
+        "path": "media/cuc-visual/22-nicolas-rertabi.png",
+        "savedBytes": 240060
       },
       {
-        "file": "src\\components\\sections\\partenaires\\PartenairesHeroSection.tsx",
-        "replacements": 1
+        "path": "media/cuc-visual/23-teddy-ponceau.png",
+        "savedBytes": 237744
       },
       {
-        "file": "src\\components\\sections\\stages\\stages.data.ts",
-        "replacements": 6
+        "path": "media/cuc-visual/3-malik.png",
+        "savedBytes": 182179
       },
       {
-        "file": "src\\components\\sections\\stages\\StagesGridSection.tsx",
-        "replacements": 1
+        "path": "media/cuc-visual/4-franck.png",
+        "savedBytes": 196653
       },
       {
-        "file": "src\\components\\sections\\stages\\StagesHeroSection.tsx",
-        "replacements": 2
+        "path": "media/cuc-visual/5-frederic.png",
+        "savedBytes": 188479
       },
       {
-        "file": "src\\components\\sections\\team\\teamGalleries.data.ts",
-        "replacements": 21
+        "path": "media/cuc-visual/6-niels.png",
+        "savedBytes": 198470
       },
       {
-        "file": "src\\components\\sections\\team\\TeamHeroSection.tsx",
-        "replacements": 1
+        "path": "media/cuc-visual/7-amadeo.png",
+        "savedBytes": 173321
       },
       {
-        "file": "src\\components\\sections\\visite\\VisiteHeroSection.tsx",
-        "replacements": 1
+        "path": "media/cuc-visual/9-maurice.png",
+        "savedBytes": 201161
       },
       {
-        "file": "src\\components\\sections\\visite\\visitePhotos.data.ts",
-        "replacements": 16
+        "path": "media/cuc-visual/A7409066-scaled.jpeg",
+        "savedBytes": 196443
       },
       {
-        "file": "src\\components\\ui\\parallax-hero\\parallaxHero.data.ts",
-        "replacements": 4
+        "path": "media/cuc-visual/Airbag-vert.jpg",
+        "savedBytes": 109425
       },
       {
-        "file": "src\\data\\all_official_films.ts",
-        "replacements": 63
+        "path": "media/cuc-visual/Bandes-affiches-film-2.png",
+        "savedBytes": 10844137
       },
       {
-        "file": "src\\data\\campus.ts",
-        "replacements": 9
+        "path": "media/cuc-visual/bg-equipe.jpg",
+        "savedBytes": 38153
       },
       {
-        "file": "src\\data\\disciplines.ts",
-        "replacements": 10
+        "path": "media/cuc-visual/City-Stade-CUC-2.0.jpg",
+        "savedBytes": 86283
       },
       {
-        "file": "src\\data\\filmBanners.ts",
-        "replacements": 6
+        "path": "media/cuc-visual/coeur-de-cascadeurs.jpeg",
+        "savedBytes": 120852
       },
       {
-        "file": "src\\data\\filmography.ts",
-        "replacements": 63
+        "path": "media/cuc-visual/CUC-5.0-320-e1671701864164.jpg",
+        "savedBytes": 125712
       },
       {
-        "file": "src\\data\\programs.ts",
-        "replacements": 3
+        "path": "media/cuc-visual/CUC-5.0-371-e1671702083907.jpg",
+        "savedBytes": 89845
       },
       {
-        "file": "src\\data\\team.ts",
-        "replacements": 12
+        "path": "media/cuc-visual/CUC-5.0-462-e1671701953374.jpg",
+        "savedBytes": 114954
       },
       {
-        "file": "src\\data\\videos.ts",
-        "replacements": 6
+        "path": "media/cuc-visual/CUC-5.0-51.jpg",
+        "savedBytes": 430215
       },
       {
-        "file": "src\\lib\\data\\site-service.ts",
-        "replacements": 41
+        "path": "media/cuc-visual/CUC-5.0-554.jpg",
+        "savedBytes": 156492
+      },
+      {
+        "path": "media/cuc-visual/CUC-5.0-586.jpg",
+        "savedBytes": 413250
+      },
+      {
+        "path": "media/cuc-visual/CUC-BRI-1-scaled.jpg",
+        "savedBytes": 115099
+      },
+      {
+        "path": "media/cuc-visual/CUC-BRI.jpg",
+        "savedBytes": 713447
+      },
+      {
+        "path": "media/cuc-visual/CUC-Ecole-de-cascade.jpg",
+        "savedBytes": 399469
+      },
+      {
+        "path": "media/cuc-visual/CUC-PROD.jpg",
+        "savedBytes": 1176931
+      },
+      {
+        "path": "media/cuc-visual/CUC-session-Aout-2017.jpeg",
+        "savedBytes": 109865
+      },
+      {
+        "path": "media/cuc-visual/CUC-Tower-1-scaled.jpg",
+        "savedBytes": 116061
+      },
+      {
+        "path": "media/cuc-visual/CUC-TOWER-Team-scaled.jpg",
+        "savedBytes": 121551
+      },
+      {
+        "path": "media/cuc-visual/defenestration.jpg",
+        "savedBytes": 287050
+      },
+      {
+        "path": "media/cuc-visual/Dos-CUC-TOWER-scaled.jpeg",
+        "savedBytes": 105967
+      },
+      {
+        "path": "media/cuc-visual/ecole-de-cascade.jpg",
+        "savedBytes": 745324
+      },
+      {
+        "path": "media/cuc-visual/Encart-plaquette.png",
+        "savedBytes": 156961
+      },
+      {
+        "path": "media/cuc-visual/Espace-mecanique-campus.jpg",
+        "savedBytes": 149585
+      },
+      {
+        "path": "media/cuc-visual/Image1-scaled.jpg",
+        "savedBytes": 68648
+      },
+      {
+        "path": "media/cuc-visual/img-campus-2.jpg",
+        "savedBytes": 1601724
+      },
+      {
+        "path": "media/cuc-visual/img-campus.jpg",
+        "savedBytes": 222663
+      },
+      {
+        "path": "media/cuc-visual/img-equipe.jpg",
+        "savedBytes": 94848
+      },
+      {
+        "path": "media/cuc-visual/img-spectacles.png",
+        "savedBytes": 3265846
+      },
+      {
+        "path": "media/cuc-visual/IMG_20190820_154249.jpg",
+        "savedBytes": 2125075
+      },
+      {
+        "path": "media/cuc-visual/IMG_6928.jpg",
+        "savedBytes": 5761427
+      },
+      {
+        "path": "media/cuc-visual/Matelas.png",
+        "savedBytes": 716708
+      },
+      {
+        "path": "media/cuc-visual/Page-Campus-Manege-equestre2-2.jpg",
+        "savedBytes": 70721
+      },
+      {
+        "path": "media/cuc-visual/Page-Campus-site-tournage.jpg",
+        "savedBytes": 93820
+      },
+      {
+        "path": "media/cuc-visual/parkour-1.png",
+        "savedBytes": 7414351
+      },
+      {
+        "path": "media/cuc-visual/QG-STAFF-CUC-5.0-Copie.jpg",
+        "savedBytes": 199672
+      },
+      {
+        "path": "media/cuc-visual/ReportageBFMTV-Alecoledescascadeurs.jpeg",
+        "savedBytes": 116348
+      },
+      {
+        "path": "media/cuc-visual/Rigging.jpg",
+        "savedBytes": 89703
+      },
+      {
+        "path": "media/cuc-visual/salle-3.jpg",
+        "savedBytes": 996105
+      },
+      {
+        "path": "media/cuc-visual/slider-5-scaled.jpg",
+        "savedBytes": 138995
+      },
+      {
+        "path": "media/cuc-visual/slider-6-scaled.jpg",
+        "savedBytes": 161448
+      },
+      {
+        "path": "media/cuc-visual/slider-7-scaled.jpg",
+        "savedBytes": 163040
+      },
+      {
+        "path": "media/cuc-visual/slider-8-scaled.jpg",
+        "savedBytes": 110747
+      },
+      {
+        "path": "media/cuc-visual/Spectacles-entete-logo-830x198.png",
+        "savedBytes": 163742
+      },
+      {
+        "path": "media/cuc-visual/SSE-4web.jpg",
+        "savedBytes": 1046847
+      },
+      {
+        "path": "media/cuc-visual/Stage-Cascadeur-Pro.png",
+        "savedBytes": 280018
+      },
+      {
+        "path": "media/cuc-visual/Stage-Summer-Camp-2.png",
+        "savedBytes": 586009
+      },
+      {
+        "path": "media/cuc-visual/Stage-WE-Immersion.png",
+        "savedBytes": 597185
+      },
+      {
+        "path": "media/cuc-visual/Stage-Workshop-2.png",
+        "savedBytes": 545320
+      },
+      {
+        "path": "media/cuc-visual/StuntRider-CampusLife.jpeg",
+        "savedBytes": 113542
+      },
+      {
+        "path": "media/cuc-visual/Team-building-brigade-1.jpg",
+        "savedBytes": 405776
+      },
+      {
+        "path": "media/cuc-visual/Team-building-chute-hauteur-1.jpg",
+        "savedBytes": 417681
+      },
+      {
+        "path": "media/cuc-visual/Team-building-combat-cinema-1.jpg",
+        "savedBytes": 362654
+      },
+      {
+        "path": "media/cuc-visual/Team-building-doublage-voix.jpg",
+        "savedBytes": 192596
+      },
+      {
+        "path": "media/cuc-visual/Team-building-maniement-armes.jpg",
+        "savedBytes": 277538
+      },
+      {
+        "path": "media/cuc-visual/Team-building-maquillage.jpg",
+        "savedBytes": 237977
+      },
+      {
+        "path": "media/cuc-visual/Team-building-parkour-1.jpg",
+        "savedBytes": 451417
+      },
+      {
+        "path": "media/cuc-visual/Team-building-tournage.jpg",
+        "savedBytes": 356842
+      },
+      {
+        "path": "media/cuc-visual/xtrem-jump-1.png",
+        "savedBytes": 5599800
+      },
+      {
+        "path": "media/cuc-visual/Zoe-Bell-Hall-sol-1.jpg",
+        "savedBytes": 874578
+      },
+      {
+        "path": "media/cuc-visual/Zoe-Bell-Hall.jpg",
+        "savedBytes": 1072572
+      },
+      {
+        "path": "media/partner-logo/Bandes-logos-1.png",
+        "savedBytes": 446140
+      },
+      {
+        "path": "media/partner-logo/Bandes-logos-2.png",
+        "savedBytes": 1034612
+      },
+      {
+        "path": "media/partner-logo/Bandes-logos-3.png",
+        "savedBytes": 549184
+      },
+      {
+        "path": "media/partner-logo/logo-CUC.jpg",
+        "savedBytes": 53914
+      },
+      {
+        "path": "media/partner-logo/Logos-stages-3-768x139.png",
+        "savedBytes": 37905
+      },
+      {
+        "path": "media/partner-logo/mfr-le-cateau.jpg",
+        "savedBytes": 20547
+      },
+      {
+        "path": "media/partner-logo/Stage-AFDAS.png",
+        "savedBytes": 525000
+      },
+      {
+        "path": "media/partner-logo/studiocanal.png",
+        "savedBytes": 11927
+      },
+      {
+        "path": "media/partner-logo/taffcoeur.jpg",
+        "savedBytes": 35232
+      },
+      {
+        "path": "uploads/1790696416136_circular_emblem_logo_for_cuc_20260929173931.jpg",
+        "savedBytes": 392908
       }
     ],
-    "filesUpdated": 37,
-    "replacements": 310,
-    "errors": []
+    "kept": [
+      {
+        "path": "media/cuc-visual/006.jpg",
+        "reason": "encore référencé par 1 fichier(s) du dépôt"
+      },
+      {
+        "path": "media/cuc-visual/CUC-5.0-203-e1671702096970.jpg",
+        "reason": "encore référencé par 1 fichier(s) du dépôt"
+      },
+      {
+        "path": "media/cuc-visual/MG_5464-1.jpg",
+        "reason": "encore référencé par 1 fichier(s) du dépôt"
+      }
+    ]
   }
 }

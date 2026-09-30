@@ -35,7 +35,7 @@ export const TEAM_BUILDING_HERO_DEFAULTS = {
     subtitle:
         "Offrez à vos équipes une immersion inoubliable dans l'univers du cinéma d'action et des cascadeurs professionnels. Ateliers modulables de 10 à 300 personnes sur notre campus ou sur le lieu de votre séminaire.",
     bgImage:
-        'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg',
+        'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.webp',
     ctaPrimaryText: 'Construire votre Projet Team Building',
     ctaPrimaryLink: '/contact-cuc',
     ctaSecondaryText: 'Découvrir CUC Events',

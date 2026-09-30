@@ -48,7 +48,7 @@ export const STAGES_LIST: StageData[] = [
       label: 'Télécharger la Plaquette Week-end (PDF)',
     },
     image: {
-      src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Stage-WE-Immersion.png',
+      src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Stage-WE-Immersion.webp',
       alt: 'Affiche Stage Week-end Immersion CUC',
     },
   },
@@ -69,7 +69,7 @@ export const STAGES_LIST: StageData[] = [
     ],
     buttonLabel: 'Demander ma Prise en Charge AFDAS',
     image: {
-      src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/Stage-AFDAS.png',
+      src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/Stage-AFDAS.webp',
       alt: 'Affiche Stage AFDAS Artistes Interprètes CUC',
     },
   },
@@ -94,7 +94,7 @@ export const STAGES_LIST: StageData[] = [
       label: 'Télécharger la Plaquette Summer Camp (PDF)',
     },
     image: {
-      src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Stage-Summer-Camp-2.png',
+      src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Stage-Summer-Camp-2.webp',
       alt: 'Affiche Stunt Summer Camp CUC',
     },
   },
@@ -113,7 +113,7 @@ export const STAGES_LIST: StageData[] = [
     ],
     buttonLabel: 'Contacter pour les Sessions Pro',
     image: {
-      src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Stage-Cascadeur-Pro.png',
+      src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Stage-Cascadeur-Pro.webp',
       alt: 'Affiche Stage Cascadeur Pro CUC Provence Studios',
     },
   },

@@ -22,7 +22,7 @@ export const PartenairesHeroSection: React.FC<PartenairesHeroSectionProps> = ({ 
   const subtitle = hero?.subtitle || t('heroSubtitle');
   const bgImage =
     hero?.bg_image ||
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-6-scaled.jpg';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-6-scaled.webp';
 
   return (
     <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">

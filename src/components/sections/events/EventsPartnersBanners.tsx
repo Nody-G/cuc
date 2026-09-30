@@ -37,7 +37,7 @@ export const EventsPartnersBanners: React.FC = () => {
             </div>
             <div className="bg-[#121218] border border-zinc-800 p-4 flex justify-center">
               <Image
-                src="/images/partenaires/bandes-logos-2.png"
+                src="/images/partenaires/bandes-logos-2.webp"
                 alt="Partenaires CUC Bande 2"
                 width={800}
                 height={120}
@@ -46,7 +46,7 @@ export const EventsPartnersBanners: React.FC = () => {
             </div>
             <div className="bg-[#121218] border border-zinc-800 p-4 flex justify-center">
               <Image
-                src="/images/partenaires/bandes-logos-3.png"
+                src="/images/partenaires/bandes-logos-3.webp"
                 alt="Partenaires CUC Bande 3"
                 width={800}
                 height={120}
@@ -74,7 +74,7 @@ export const EventsPartnersBanners: React.FC = () => {
           <div className="space-y-6 max-w-5xl mx-auto">
             <div className="border border-zinc-800 p-2 bg-[#0e0e14]">
               <Image
-                src="/images/events/bandeau-images-films.png"
+                src="/images/events/bandeau-images-films.webp"
                 alt="Bandeau images tournages films"
                 width={1000}
                 height={250}
@@ -84,7 +84,7 @@ export const EventsPartnersBanners: React.FC = () => {
             </div>
             <div className="border border-zinc-800 p-2 bg-[#0e0e14]">
               <Image
-                src="/images/events/bandes-affiches-film-1.png"
+                src="/images/events/bandes-affiches-film-1.webp"
                 alt={t('bannerAlt1')}
                 width={1000}
                 height={200}
@@ -93,7 +93,7 @@ export const EventsPartnersBanners: React.FC = () => {
             </div>
             <div className="border border-zinc-800 p-2 bg-[#0e0e14]">
               <Image
-                src="/images/events/bandes-affiches-film-2.png"
+                src="/images/events/bandes-affiches-film-2.webp"
                 alt={t('bannerAlt2')}
                 width={1000}
                 height={200}
@@ -102,7 +102,7 @@ export const EventsPartnersBanners: React.FC = () => {
             </div>
             <div className="border border-zinc-800 p-2 bg-[#0e0e14]">
               <Image
-                src="/images/events/bandes-affiches-film-3.png"
+                src="/images/events/bandes-affiches-film-3.webp"
                 alt={t('bannerAlt3')}
                 width={1000}
                 height={200}
@@ -111,7 +111,7 @@ export const EventsPartnersBanners: React.FC = () => {
             </div>
             <div className="border border-zinc-800 p-2 bg-[#0e0e14]">
               <Image
-                src="/images/events/bandes-affiches-film-4.png"
+                src="/images/events/bandes-affiches-film-4.webp"
                 alt={t('bannerAlt4')}
                 width={1000}
                 height={200}

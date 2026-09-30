@@ -9,13 +9,13 @@ export const PROGRAMMES_TV: ProgrammeTvItem[] = [
   {
     title: 'COEUR DE CASCADEURS',
     sub: 'Série TV France 2 & CUC',
-    img: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/coeur-de-cascadeurs.jpeg',
+    img: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/coeur-de-cascadeurs.webp',
     dmId: 'x9uewe0',
   },
   {
     title: 'REPORTAGE BFM TV',
     sub: "« À l'école des cascadeurs »",
-    img: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/ReportageBFMTV-Alecoledescascadeurs.jpeg',
+    img: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/ReportageBFMTV-Alecoledescascadeurs.webp',
     dmId: 'x8581s9',
   },
   {
@@ -27,7 +27,7 @@ export const PROGRAMMES_TV: ProgrammeTvItem[] = [
   {
     title: "SESSION D'AOÛT 2017",
     sub: 'Promotion CUC en formation',
-    img: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/CUC-session-Aout-2017.jpeg',
+    img: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/CUC-session-Aout-2017.webp',
     dmId: 'x8583in',
   },
   {
@@ -39,7 +39,7 @@ export const PROGRAMMES_TV: ProgrammeTvItem[] = [
   {
     title: 'STUNT RIDER — CAMPUS LIFE',
     sub: 'La vie au CUC au quotidien',
-    img: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/StuntRider-CampusLife.jpeg',
+    img: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/StuntRider-CampusLife.webp',
     dmId: 'x8583u3',
   },
 ];

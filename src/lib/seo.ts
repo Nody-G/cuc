@@ -28,7 +28,7 @@ export const SITE_LOCALE = "fr_FR";
  * (doctrine « Zéro Texte ni Valeur Orpheline »).
  */
 export const DEFAULT_OG_IMAGE = {
-    url: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg",
+    url: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp",
     width: 1200,
     height: 630,
     alt: "Campus Univers Cascades — Cascadeurs professionnels",

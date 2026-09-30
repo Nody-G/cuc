@@ -29,7 +29,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
       <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
         <div data-cuc-field="hero.bg_image" data-cuc-kind="image" className="absolute inset-0 z-0">
           <Image
-            src={heroData?.bg_image || "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-7-scaled.jpg"}
+            src={heroData?.bg_image || "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-7-scaled.webp"}
             alt={t('hero.imageAlt')}
             fill
             priority
@@ -123,7 +123,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
               title={t('hero.certificateTitle')}
             >
               <Image
-                src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Encart-plaquette.png"
+                src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Encart-plaquette.webp"
                 alt={t('hero.brochureAlt')}
                 width={240}
                 height={50}

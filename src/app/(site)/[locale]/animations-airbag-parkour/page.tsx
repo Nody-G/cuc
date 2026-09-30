@@ -31,7 +31,7 @@ export default function AnimationsAirbagParkourPage() {
   const heroSubtitle = content.hero?.subtitle || t('heroSubtitle');
   const heroBg =
     content.hero?.bg_image ||
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/xtrem-jump-1.png';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/xtrem-jump-1.webp';
   const ctaPrimaryText = content.hero?.cta_primary_text || t('ctaPrimaryText');
   /** CTA animations → page contact, pré-remplie « devis CUC Events ». */
   const ctaPrimaryLink = withContactIntent(
@@ -224,7 +224,7 @@ export default function AnimationsAirbagParkourPage() {
                 <div className="lg:col-span-5 relative">
                   <div className="relative h-80 sm:h-[450px] w-full border border-zinc-800 overflow-hidden bg-black shadow-2xl">
                     <Image
-                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/xtrem-jump-1.png"
+                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/xtrem-jump-1.webp"
                       alt={t('panelImageAlt')}
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"

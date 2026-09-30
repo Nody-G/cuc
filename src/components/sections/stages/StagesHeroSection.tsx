@@ -25,7 +25,7 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
       <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
         <div data-cuc-field="hero.bg_image" data-cuc-kind="image" className="absolute inset-0 z-0">
           <Image
-            src={heroData?.bg_image || "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg"}
+            src={heroData?.bg_image || "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.webp"}
             alt={t('hero.bgAlt')}
             fill
             priority
@@ -79,7 +79,7 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
       <section className="py-6 bg-[#09090d] border-b border-zinc-800">
         <div className="max-w-4xl mx-auto px-4 flex justify-center">
           <Image
-            src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/Logos-stages-3-768x139.png"
+            src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/Logos-stages-3-768x139.webp"
             alt={t('hero.logosAlt')}
             width={768}
             height={139}

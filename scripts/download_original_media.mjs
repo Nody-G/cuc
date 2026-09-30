@@ -9,7 +9,7 @@
  * Le nom de fichier local est **déterministe** et dérivé de l'URL d'origine :
  *   <categorie>/<nom-de-fichier-original-assaini>
  * Exemple :
- *   .staging/media/cuc-visual/CUC-5.0-586.jpg
+ *   .staging/media/cuc-visual/CUC-5.0-586.webp
  *   .staging/media/film-poster/John-Wick-4.jpg
  *
  * Un manifeste `scripts/media_download_manifest.json` est produit : il associe

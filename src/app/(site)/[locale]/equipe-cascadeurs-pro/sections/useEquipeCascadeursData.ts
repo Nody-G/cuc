@@ -15,7 +15,7 @@ import type { Instructor, FilmCredit } from '@/types';
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 
 const HERO_BG_FALLBACK =
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.webp';
 
 export interface EquipeCascadeursData {
     displayTeam: Instructor[];

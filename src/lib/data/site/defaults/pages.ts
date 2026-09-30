@@ -11,7 +11,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Accueil',
     meta_title: "Campus Univers Cascades | 1ère École de Cascadeurs Professionnels d'Europe",
     meta_description: "Centre d'entraînement de cascadeurs professionnels fondé en 2008 par Lucas Dollfus. 11 000 m² d'infrastructures dédiées au cinéma d'action, parkour, combat et cascades.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/1-lucas.png',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/1-lucas.webp',
     hero: {
       badge: 'PREMIER CENTRE EUROPÉEN • ACTION DESIGN & CASCADE CINÉMA',
       title: 'CAMPUS UNIVERS CASCADES',
@@ -20,7 +20,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/formation-de-cascadeur',
       cta_secondary_text: 'Visite guidée du campus',
       cta_secondary_link: '/visite-guidee',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'Section Héros Parallaxe', order: 1, is_visible: true },
@@ -39,7 +39,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
         founder_name: 'LUCAS DOLLFUS',
         founder_role: 'FONDATEUR & RÉGLEUR',
         badge_year: 'DEPUIS 2008',
-        image_url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg',
+        image_url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.webp',
         cta_primary_text: 'Découvrir la Formation Pro',
         cta_primary_link: '/formation-de-cascadeur',
         cta_secondary_text: "L'Équipe des Cascadeurs",
@@ -94,7 +94,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Formation Professionnelle',
     meta_title: 'Formation de Cascadeur Pro en 2 Ans | Campus Univers Cascades',
     meta_description: "Formation professionnelle longue durée de 2 ans. 720h à 800h d'entraînement intensif aux combats, chutes, câblerie, feu et torche humaine.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.webp',
     hero: {
       badge: '2 ANS • 720H À 800H',
       title: 'FORMATION PROFESSIONNELLE DE CASCADEUR',
@@ -103,7 +103,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/stages-cascades-parkour-2',
       cta_secondary_text: 'Télécharger la brochure',
       cta_secondary_link: '/contact-cuc',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête & Titre Programme', order: 1, is_visible: true },
@@ -160,7 +160,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Stages & Initiations',
     meta_title: 'Stages de Cascade & Parkour | Campus Univers Cascades',
     meta_description: 'Découvrez nos stages de cascade physique, parkour et cascades cinéma ouverts dès 16 ans. Initiations débutants et perfectionnements intensifs.',
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     hero: {
       badge: 'TOUS NIVEAUX • DÈS 16 ANS',
       title: 'STAGES DE CASCADE & PARKOUR',
@@ -169,7 +169,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '#dates',
       cta_secondary_text: "Modalités d'inscription",
       cta_secondary_link: '/contact-cuc',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête des Stages', order: 1, is_visible: true },
@@ -226,7 +226,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Stunt Workshops Masterclass',
     meta_title: 'International Stunt Workshop | Campus Univers Cascades',
     meta_description: "Stage international de cascade en anglais et français. 2 semaines résidentielles d'immersion au Cateau-Cambrésis.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp',
     hero: {
       badge: 'STAGE INTERNATIONAL',
       title: 'INTERNATIONAL STUNT WORKSHOP',
@@ -235,7 +235,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '#apply',
       cta_secondary_text: 'Inquire & Information',
       cta_secondary_link: '/contact-cuc',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête International Workshop', order: 1, is_visible: true },
@@ -253,7 +253,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: "L'équipe",
     meta_title: "L'équipe | Coachs & Professionnels du Cinéma — Campus Univers Cascades",
     meta_description: "Découvrez les instructeurs, coordinateurs de cascades et cascadeurs professionnels qui enseignent au CUC.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.webp',
     hero: {
       badge: 'COACHS & PROFESSIONNELS DU CINÉMA',
       title: "L'ÉQUIPE",
@@ -262,7 +262,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/formation-de-cascadeur',
       cta_secondary_text: 'Prendre contact',
       cta_secondary_link: '/contact-cuc',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Équipe & Instructeurs', order: 1, is_visible: true },
@@ -278,7 +278,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Tournage',
     meta_title: 'Tournage | CUC Stunt Team & Coordination de Cascades',
     meta_description: "La CUC Stunt Team accompagne réalisateurs et productions cinéma de la conception des cascades jusqu'au tournage en plateau.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp',
     hero: {
       badge: 'COORDINATION DE CASCADES • CINÉMA',
       title: 'TOURNAGE',
@@ -287,7 +287,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Voir les affiches',
       cta_secondary_link: '#filmographie',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Tournages & Régie', order: 1, is_visible: true },
@@ -304,7 +304,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'CUC Events Agence',
     meta_title: 'CUC Events | Agence de Spectacles & Cascades en Direct',
     meta_description: "Spectacles vivants, animations airbag géant et team building d'entreprise orchestrés par les cascadeurs professionnels du CUC.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Image1-scaled.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Image1-scaled.webp',
     hero: {
       badge: 'AGENCE ÉVÉNEMENTIELLE D’ACTION • SHOWS CLÉ EN MAIN',
       title: 'CUC EVENTS : SPECTACLES & ANIMATIONS',
@@ -313,7 +313,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Toutes nos vidéos de shows',
       cta_secondary_link: '/videos-cascadeur',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Image1-scaled.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Image1-scaled.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Agence CUC Events', order: 1, is_visible: true },
@@ -330,7 +330,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Team Building',
     meta_title: 'Team Building Cinéma & Cascades | CUC Events',
     meta_description: "Séminaires d'entreprise et cohésion d'équipe dans les coulisses du cinéma : combat chorégraphié, doublage voix et dépassement de soi.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.webp',
     hero: {
       badge: 'SÉMINAIRES & ENTREPRISES',
       title: 'TEAM BUILDING D’EXCEPTION',
@@ -339,7 +339,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Toutes les Offres CUC Events',
       cta_secondary_link: '/cuc-events-agence',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Team Building Entreprise', order: 1, is_visible: true },
@@ -362,35 +362,35 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
           title: "Chute de Hauteur sur Airbag",
           category: "Adrénaline & Confiance",
           desc: "En intérieur comme en extérieur, faites goûter à vos collaborateurs les sensations de la chute libre sur coussin d'air géant de cinéma. Dépassement de soi et cohésion collective garantie.",
-          img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-chute-hauteur-1.jpg",
+          img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-chute-hauteur-1.webp",
         },
         {
           id: 'combat',
           title: "Combats au Cinéma",
           category: "Chorégraphie & Précision",
           desc: "Initiation aux techniques de combats de films : esquives, feintes, coups scéniques et synchronisation avec les axes caméra.",
-          img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg",
+          img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.webp",
         },
         {
           id: 'parkour',
           title: "Parkour & Yamakasi",
           category: "Agilité & Mouvement",
           desc: "Initiation encadrée par des cascadeurs professionnels et spécialistes du déplacement urbain : franchissements d'obstacles, sauts de précision et motricité.",
-          img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-parkour-1.jpg",
+          img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-parkour-1.webp",
         },
         {
           id: 'sfx',
           title: "Maquillage Effets Spéciaux (SFX)",
           category: "Coulisses & Cinéma",
           desc: "Découvrez les secrets des maquilleurs de cinéma : création de blessures ultra-réalistes, fausses cicatrices, impacts de balles et prothèses d'action.",
-          img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-maquillage.jpg",
+          img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-maquillage.webp",
         },
         {
           id: 'doublage',
           title: "Doublage de Voix & Post-Production",
           category: "Créativité & Voix",
           desc: "Mettez-vous dans la peau d'un comédien de doublage ! Enregistrez en équipe les répliques et bruitages de séquences cultes du cinéma d'action.",
-          img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-doublage-voix.jpg",
+          img: "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-doublage-voix.webp",
         },
       ],
     },
@@ -402,7 +402,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Spectacles Yamakasi',
     meta_title: 'Spectacles de Cascadeurs & Shows Yamakasi | CUC Events',
     meta_description: "Spectacles vivants d'action, combats chorégraphiés et acrobaties urbaines Yamakasi pour vos événements, festivals et parcs.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp',
     hero: {
       badge: 'LE CINÉMA S’INVITE SUR SCÈNE',
       title: 'SPECTACLES CASCADEURS & YAMAKASI',
@@ -411,7 +411,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Voir les vidéos de shows',
       cta_secondary_link: '/videos-cascadeur',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Spectacles & Shows Vivants', order: 1, is_visible: true },
@@ -428,7 +428,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Animations Airbag',
     meta_title: 'Animation Airbag Géant de Chute Libre & Parkour | CUC Events',
     meta_description: "Faites vivre le grand frisson du saut dans le vide sur coussin d'air géant de cinéma. Animation encadrée par des cascadeurs professionnels.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/xtrem-jump-1.png',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/xtrem-jump-1.webp',
     hero: {
       badge: 'AIRBAG DE CINÉMA • ENCADREMENT PROFESSIONNEL',
       title: 'ANIMATIONS AIRBAG & PARKOUR',
@@ -437,7 +437,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Toutes les Offres CUC Events',
       cta_secondary_link: '/cuc-events-agence',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/xtrem-jump-1.png',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/xtrem-jump-1.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Animation Airbag Géant', order: 1, is_visible: true },
@@ -454,7 +454,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Visite Virtuelle 360°',
     meta_title: 'Visite Virtuelle 360° & Plan 3D du Campus | CUC',
     meta_description: "Explorez les 11 000 m² du Campus Univers Cascades en immersion 360° ou via le plan topographique 3D interactif.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.webp',
     hero: {
       badge: 'IMMERSION 360° & PLAN 3D',
       title: 'DÉCOUVRIR LE CAMPUS',
@@ -463,7 +463,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '#viewer',
       cta_secondary_text: 'Plan 3D Interactif',
       cta_secondary_link: '#plan-3d-campus',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Visite Virtuelle', order: 1, is_visible: true },
@@ -479,7 +479,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Visite Guidée',
     meta_title: 'Visite Guidée des Infrastructures du Campus | CUC',
     meta_description: "Découvrez en détail les installations du CUC : tour de saut 21m, 1300 m² de hangars, dojo de combat, fosse de réception et hébergement.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.webp',
     hero: {
       badge: 'INFRASTRUCTURES DE FORMATION',
       title: 'LE CAMPUS',
@@ -488,7 +488,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '#installations-detail',
       cta_secondary_text: 'Visite 360°',
       cta_secondary_link: '#visite-virtuelle-360',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Visite Guidée & Chiffres Clés', order: 1, is_visible: true },
@@ -507,7 +507,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Vidéothèque',
     meta_title: 'Reportages TV & Vidéos de Cascades | Campus Univers Cascades',
     meta_description: "Retrouvez les reportages diffusés aux JT de TF1 et France 2 sur le CUC ainsi que les showreels des cascadeurs du campus.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.webp',
     hero: {
       badge: 'REPORTAGES TÉLÉVISION',
       title: 'LES REPORTAGES & VIDÉOS DU CUC',
@@ -516,7 +516,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '#documentaires',
       cta_secondary_text: 'Réseaux & Médias',
       cta_secondary_link: '#medias',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Vidéos & Émissions TV', order: 1, is_visible: true },
@@ -613,7 +613,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Partenaires',
     meta_title: 'Nos Partenaires, Studios & Équipementiers | CUC',
     meta_description: "Le Campus Univers Cascades collabore avec les plus grandes marques de protection, studios de cinéma et institutions certifiées.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-6-scaled.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-6-scaled.webp',
     hero: {
       badge: 'ILS NOUS ACCOMPAGNENT',
       title: 'NOS PARTENAIRES',
@@ -623,7 +623,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_secondary_text: 'Voir les certifications',
       // Ancre réellement rendue : bloc Financement/Qualiopi de la page Formation.
       cta_secondary_link: '/formation-de-cascadeur#certifications',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-6-scaled.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-6-scaled.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Partenaires', order: 1, is_visible: true },
@@ -639,7 +639,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Contact & Projets',
     meta_title: 'Contact & Projets | Campus Univers Cascades • Action Design & Formations',
     meta_description: "Productions cinéma, action design, formations professionnelles de cascadeurs, stages et événements : contactez l'équipe du Campus Univers Cascades.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     hero: {
       badge: 'ADMISSIONS & PROJETS',
       title: 'CONTACT & PROJETS',
@@ -648,7 +648,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '#formulaire',
       cta_secondary_text: 'Venir au campus',
       cta_secondary_link: '#campus-map-hub',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.jpg',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Contact & Plan d Accès', order: 1, is_visible: true },

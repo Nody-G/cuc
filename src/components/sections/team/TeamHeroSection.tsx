@@ -23,7 +23,7 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
   const subtitle = hero?.subtitle || t('hero.subtitle');
   const bgImage =
     hero?.bg_image ||
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp';
   const ctaPrimaryText = hero?.cta_primary_text || t('hero.ctaPrimary');
   /**
    * CTA du hero TOURNAGE → page contact, pré-remplie « tournage & production »

@@ -59,7 +59,7 @@ export const DEFAULT_EVENTS: SiteEvent[] = [
     price_indicator: 'Sur devis',
     cta_text: 'Organiser un Team Building',
     cta_link: '/team-building-cascades',
-    image_url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.jpg',
+    image_url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.webp',
     order_index: 3,
     is_published: true,
   },

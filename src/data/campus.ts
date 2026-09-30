@@ -15,7 +15,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Zone de réception XXL pour airbag de cascade professionnel'
     ],
     specifications: 'Structure acier haute résistance, plateformes de saut étagées, réception airbag professionnel cinéma',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/CUC-TOWER-Team-scaled.jpg'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/CUC-TOWER-Team-scaled.webp'
   },
   {
     id: 'zoe-bell-hall',
@@ -30,7 +30,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Système de caméras avec retour écran instantané'
     ],
     specifications: 'Sol amortissant continu, hauteur sous plafond 8 mètres, éclairage cinéma zénithal',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Zoe-Bell-Hall.jpg'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Zoe-Bell-Hall.webp'
   },
   {
     id: 'hangar-wirework',
@@ -45,7 +45,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Plateau modulable de tournage intérieur'
     ],
     specifications: 'Poutres IPN renforcées, ligne de vie continue, sol béton lissé pour glissades et tractions',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Rigging.jpg'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Rigging.webp'
   },
   {
     id: 'dojos-sceniques',
@@ -60,7 +60,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Écrans de relecture pédagogique'
     ],
     specifications: 'Norme arts martiaux professionnels, climatisation/chauffage régulés',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/salle-3.jpg'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/salle-3.webp'
   },
   {
     id: 'manege-equestre',
@@ -75,7 +75,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Zone de briefing et sellerie'
     ],
     specifications: 'Sol meuble fibré haute absorption, 900 m² d\'évolution sans pilier central',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Page-Campus-Manege-equestre2-2.jpg'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Page-Campus-Manege-equestre2-2.webp'
   },
   {
     id: 'espace-mecanique',
@@ -90,7 +90,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Systèmes de déclenchement d\'impacts contrôlés'
     ],
     specifications: 'Accès restreint, encadrement de sécurité et dispositifs d\'extinction permanents',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Espace-mecanique-campus.jpg'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Espace-mecanique-campus.webp'
   },
   {
     id: 'site-tournage',
@@ -105,7 +105,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Plateaux modulables pour équipes de tournage'
     ],
     specifications: 'Domaine privé clos, adapté aux tournages',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Page-Campus-site-tournage.jpg'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Page-Campus-site-tournage.webp'
   },
   {
     id: 'qg-staff-hebergement',
@@ -120,7 +120,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Bureaux d\'accueil et de production'
     ],
     specifications: 'Cadre arboré et sécurisé, situé à 1h40 de Paris (Le Cateau-Cambrésis)',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/QG-STAFF-CUC-5.0-Copie.jpg'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/QG-STAFF-CUC-5.0-Copie.webp'
   },
   {
     id: 'city-stade-exterieur',
@@ -135,6 +135,6 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Vue directe sur la CUC Tower'
     ],
     specifications: 'Revêtement synthétique amortissant tout temps',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/City-Stade-CUC-2.0.jpg'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/City-Stade-CUC-2.0.webp'
   }
 ];

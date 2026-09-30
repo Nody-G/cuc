@@ -29,7 +29,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
   const heroSubtitle = content.hero?.subtitle || t('heroSubtitle');
   const heroBg =
     content.hero?.bg_image ||
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.jpg';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp';
   const ctaPrimaryText = content.hero?.cta_primary_text || t('ctaPrimaryText');
   /** CTA spectacles → page contact, pré-remplie « devis CUC Events ». */
   const ctaPrimaryLink = withContactIntent(
@@ -183,7 +183,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
                 <div className="lg:col-span-5 relative">
                   <div className="relative h-72 sm:h-96 w-full border border-zinc-800 overflow-hidden bg-black shadow-xl">
                     <Image
-                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-7-scaled.jpg"
+                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-7-scaled.webp"
                       alt={t('showImageAlt')}
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"
@@ -201,7 +201,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
                 <div className="lg:col-span-5 relative">
                   <div className="relative h-72 w-full border border-zinc-700 overflow-hidden bg-black">
                     <Image
-                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg"
+                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.webp"
                       alt={t('arenaImageAlt')}
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"

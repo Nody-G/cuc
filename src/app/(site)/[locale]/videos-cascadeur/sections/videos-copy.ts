@@ -17,5 +17,5 @@ export type VideosProgram = (typeof PROGRAMMES_TV)[number];
 /** Visuels de la page (Supabase Storage). */
 export const VIDEOS_MEDIA = {
     heroFallback:
-        'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.jpg',
+        'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.webp',
 } as const;
