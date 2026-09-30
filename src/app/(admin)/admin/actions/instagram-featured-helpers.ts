@@ -36,17 +36,17 @@ export function mapLiveVideosToReels(
         coverImage?: string;
         views?: number;
         viewsFormatted?: string;
-        likes?: number;
+        likes?: string;
         date?: string;
     }>,
     limit: number
 ): InstagramReel[] {
     return videoItems.slice(0, limit).map((p, idx) => ({
         id: `latest-reel-${p.shortcode || idx}`,
-        shortcode: p.shortcode,
-        url: p.url,
-        title: p.title,
-        description: p.description,
+        shortcode: p.shortcode || `reel-${idx}`,
+        url: p.url || '',
+        title: p.title || '',
+        description: p.description || '',
         coverImage: p.coverImage || (p.shortcode ? `/images/reels/${p.shortcode}.jpg` : ''),
         views: p.views || 0,
         viewsFormatted: p.viewsFormatted || (p.views ? p.views.toLocaleString('fr-FR') : '0'),

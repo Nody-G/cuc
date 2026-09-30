@@ -165,14 +165,7 @@ export async function getOfficialReelMetrics(
     return fetchMediaInsights(media.id, accessToken);
 }
 
-/**
- * Récupère le détail complet d'un Reel (légende, couverture, vues certifiées, likes)
- * directement depuis l'API officielle Meta Graph.
- */
-export async function getOfficialReelDetails(
-    shortcode: string,
-    accessToken: string
-): Promise<{
+export interface OfficialReelDetails {
     shortcode: string;
     title: string;
     description: string;
@@ -182,7 +175,16 @@ export async function getOfficialReelDetails(
     likes: string;
     date?: string;
     url: string;
-} | null> {
+}
+
+/**
+ * Récupère le détail complet d'un Reel (légende, couverture, vues certifiées, likes)
+ * directement depuis l'API officielle Meta Graph.
+ */
+export async function getOfficialReelDetails(
+    shortcode: string,
+    accessToken: string
+): Promise<OfficialReelDetails | null> {
     const mapping = await getAccountMediaMapping(accessToken);
     const media = mapping.get(shortcode);
     if (!media) return null;

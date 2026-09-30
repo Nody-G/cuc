@@ -65,7 +65,10 @@ async function probe(path) {
         });
 
         const body = await res.text();
-        const errorSignature = ERROR_SIGNATURES.find((sig) => body.includes(sig));
+        // Ignore les scripts d'hydratation/dictionnaires JSON pour éviter les faux positifs
+        // sur les chaînes de traduction (ex. errorTitle dans messages/fr.json).
+        const visibleHtml = body.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+        const errorSignature = ERROR_SIGNATURES.find((sig) => visibleHtml.includes(sig));
         const hasContent = body.includes(CONTENT_MARKER);
 
         return {
