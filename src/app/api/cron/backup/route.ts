@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { exportFullSiteBackup } from '@/app/(admin)/admin/actions/backup';
 import { createAdminClient } from '@/lib/supabase/admin';
 
-export const dynamic = 'force-dynamic';
-
 /**
  * Route Cron de Sauvegarde Hebdomadaire Automatisée.
  * Standard Next.js & Vercel Cron.

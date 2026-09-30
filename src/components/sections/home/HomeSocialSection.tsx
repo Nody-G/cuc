@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { ExternalLink } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { SocialIcon } from '@/components/ui/logos/SocialLogos';
 import { InstagramFollowerBadge } from '@/components/ui/InstagramFollowerBadge';
