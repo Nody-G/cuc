@@ -30,6 +30,7 @@ export interface UseNavigationEditorResult {
     isPublished: boolean;
     isLoading: boolean;
     isPending: boolean;
+    isDirty: boolean;
     expandedId: string | null;
     setPublished: (value: boolean) => void;
     moveItem: (index: number, direction: -1 | 1) => void;
@@ -54,8 +55,19 @@ export function useNavigationEditor({
     const [structure, setStructure] = useState<NavigationStructure>(DEFAULT_NAVIGATION.structure);
     const [isPublished, setIsPublished] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
+    const [isDirty, setIsDirty] = useState(false);
     const [expandedId, setExpandedId] = useState<string | null>(null);
     const [isPending, startTransition] = useTransition();
+
+    const mutateStructure = useCallback((next: NavigationStructure) => {
+        setStructure(next);
+        setIsDirty(true);
+    }, []);
+
+    const setPublished = useCallback((val: boolean) => {
+        setIsPublished(val);
+        setIsDirty(true);
+    }, []);
 
     useEffect(() => {
         let cancelled = false;
@@ -64,6 +76,7 @@ export function useNavigationEditor({
                 if (cancelled) return;
                 setStructure(nav.structure);
                 setIsPublished(nav.is_published);
+                setIsDirty(false);
             })
             .finally(() => {
                 if (!cancelled) setIsLoading(false);
@@ -78,31 +91,31 @@ export function useNavigationEditor({
     const moveItem = useCallback(
         (index: number, direction: -1 | 1) => {
             const next = moveItemIn(structure, index, direction);
-            if (next) setStructure(next);
+            if (next) mutateStructure(next);
         },
-        [structure]
+        [structure, mutateStructure]
     );
 
     const updateItem = useCallback(
         (id: string, updates: Partial<NavItem>) => {
-            setStructure(updateItemIn(structure, id, updates));
+            mutateStructure(updateItemIn(structure, id, updates));
         },
-        [structure]
+        [structure, mutateStructure]
     );
 
     const removeItem = useCallback(
         (id: string) => {
             if (!confirm('Supprimer cette entrée de navigation ?')) return;
-            setStructure(removeItemIn(structure, id));
+            mutateStructure(removeItemIn(structure, id));
         },
-        [structure]
+        [structure, mutateStructure]
     );
 
     const addItem = useCallback(() => {
         const { structure: next, itemId } = addItemTo(structure);
-        setStructure(next);
+        mutateStructure(next);
         setExpandedId(itemId);
-    }, [structure]);
+    }, [structure, mutateStructure]);
 
     const toggleExpanded = useCallback((id: string) => {
         setExpandedId((prev) => (prev === id ? null : id));
@@ -117,41 +130,41 @@ export function useNavigationEditor({
 
     const updateChild = useCallback(
         (parentId: string, childId: string, updates: Partial<NavChildItem>) => {
-            setStructure(updateChildIn(structure, parentId, childId, updates));
+            mutateStructure(updateChildIn(structure, parentId, childId, updates));
         },
-        [structure]
+        [structure, mutateStructure]
     );
 
     const moveChild = useCallback(
         (parentId: string, index: number, direction: -1 | 1) => {
             const next = moveChildIn(structure, parentId, index, direction);
-            if (next) setStructure(next);
+            if (next) mutateStructure(next);
         },
-        [structure]
+        [structure, mutateStructure]
     );
 
     const removeChild = useCallback(
         (parentId: string, childId: string) => {
-            setStructure(removeChildIn(structure, parentId, childId));
+            mutateStructure(removeChildIn(structure, parentId, childId));
         },
-        [structure]
+        [structure, mutateStructure]
     );
 
     const addChild = useCallback(
         (parentId: string) => {
             const next = addChildTo(structure, parentId);
-            if (next) setStructure(next);
+            if (next) mutateStructure(next);
         },
-        [structure]
+        [structure, mutateStructure]
     );
 
     // --- CTA principal ---
 
     const updateCta = useCallback(
         (updates: Partial<NavigationStructure['cta']>) => {
-            setStructure({ ...structure, cta: { ...structure.cta, ...updates } });
+            mutateStructure({ ...structure, cta: { ...structure.cta, ...updates } });
         },
-        [structure]
+        [structure, mutateStructure]
     );
 
     // --- Persistance ---
@@ -159,6 +172,9 @@ export function useNavigationEditor({
     const handleSave = useCallback(() => {
         startTransition(async () => {
             const ok = await upsertNavigation(structure, { id: 'main', isPublished });
+            if (ok) {
+                setIsDirty(false);
+            }
             showToast(
                 ok
                     ? 'Navigation enregistrée — la vitrine est mise à jour en direct.'
@@ -170,6 +186,7 @@ export function useNavigationEditor({
     const handleReset = useCallback(() => {
         if (!confirm('Réinitialiser la navigation aux valeurs par défaut ?')) return;
         setStructure(DEFAULT_NAVIGATION.structure);
+        setIsDirty(true);
         showToast('Navigation réinitialisée (pensez à enregistrer).');
     }, [showToast]);
 
@@ -179,8 +196,9 @@ export function useNavigationEditor({
         isPublished,
         isLoading,
         isPending,
+        isDirty,
         expandedId,
-        setPublished: setIsPublished,
+        setPublished,
         moveItem,
         updateItem,
         removeItem,

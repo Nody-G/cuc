@@ -57,3 +57,9 @@ export type { LocaleToggleProps, EditorLocaleOption } from './LocaleToggle';
 
 export { CommaListField } from './CommaListField';
 export type { CommaListFieldProps } from './CommaListField';
+
+export { PageUrlSelect } from './PageUrlSelect';
+export type { PageUrlSelectProps } from './PageUrlSelect';
+
+export { StickySaveBar } from './StickySaveBar';
+export type { StickySaveBarProps } from './StickySaveBar';

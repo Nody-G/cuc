@@ -48,3 +48,29 @@ export async function getPagePublicationState(slug: string): Promise<PagePublica
         return 'unknown';
     }
 }
+
+/**
+ * Retourne la liste des slugs de toutes les pages dépubliées (`is_published: false`).
+ * Utilisé pour filtrer automatiquement les liens du header / navigation.
+ */
+export async function getUnpublishedPageSlugs(): Promise<string[]> {
+    'use cache';
+    cacheLife('max');
+    cacheTag('site_pages');
+
+    if (!hasServiceRoleKey()) return [];
+
+    try {
+        const supabase = createAdminClient();
+        const { data, error } = await supabase
+            .from('site_pages')
+            .select('slug')
+            .eq('is_published', false);
+
+        if (error || !data) return [];
+        return data.map((r: { slug: string }) => normalizeSlug(r.slug));
+    } catch {
+        return [];
+    }
+}
+

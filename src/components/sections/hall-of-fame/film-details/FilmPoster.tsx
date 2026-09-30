@@ -6,7 +6,7 @@ import { Film } from 'lucide-react';
 import type { FilmBindingProps } from './film-details.types';
 
 /** Affiche du film (ou repli typographique) + badge d'année éditable. */
-export const FilmPoster: React.FC<FilmBindingProps> = ({ movie, filmAttr, filmValue }) => (
+export const FilmPoster: React.FC<FilmBindingProps> = ({ movie }) => (
     <div className="sm:col-span-5 relative h-64 sm:h-72 w-full border border-zinc-800 bg-zinc-900 overflow-hidden">
         {movie.image ? (
             <Image

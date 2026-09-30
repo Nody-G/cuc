@@ -2,18 +2,16 @@
 
 import React from 'react';
 import { useTranslations } from 'next-intl';
-import { Film, ArrowUpDown } from 'lucide-react';
+import { ArrowUpDown } from 'lucide-react';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { getFilms } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { FilmCredit, Instructor } from '@/types';
 import { selectCoordinatedFilms } from '@/lib/coach-films';
-import { StuntBadge } from '@/components/ui/StuntBadge';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
 import { FilmCard } from '@/components/sections/films/FilmCard';
 import { applyFilmOverlays } from '@/lib/i18n/apply-film-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
-import { cucMicro } from '@/lib/preview/cuc-micro';
 
 type FilmSort = 'year-desc' | 'year-asc' | 'title-asc' | 'title-desc';
 
@@ -126,7 +124,7 @@ export const CucFilmsShowcase: React.FC<CucFilmsShowcaseProps> = ({
     }, [scopedFilms, filmSort]);
 
     return (
-        <section id={id} className={`py-14 bg-[#060608] border-b border-zinc-800 ${className}`.trim()}>
+        <section id={id} className={`py-14 bg-[#060608] ${divider ? 'border-t' : ''} border-b border-zinc-800 ${className}`.trim()}>
             <div className="page-shell">
                 <div className="text-center max-w-3xl mx-auto mb-8">
                     <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1.5">

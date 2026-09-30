@@ -1,11 +1,12 @@
 {
-  "generatedAt": "2026-09-24T15:14:49.534Z",
-  "scannedFiles": 1194,
-  "total": 24,
+  "generatedAt": "2026-09-30T17:48:52.433Z",
+  "scannedFiles": 1358,
+  "total": 41,
   "byGroup": {
+    "badge": 19,
+    "terminologie": 9,
     "superlatif": 5,
-    "jargon": 8,
-    "badge": 11
+    "jargon": 8
   },
   "byRule": [
     {
@@ -16,17 +17,22 @@
     {
       "id": "badge-worldwide",
       "group": "badge",
-      "count": 3
+      "count": 4
     },
     {
       "id": "badge-box-office",
       "group": "badge",
-      "count": 1
+      "count": 2
+    },
+    {
+      "id": "badge-tactique",
+      "group": "badge",
+      "count": 3
     },
     {
       "id": "badge-elite",
       "group": "badge",
-      "count": 3
+      "count": 6
     },
     {
       "id": "badge-exclusif",
@@ -49,6 +55,11 @@
       "count": 1
     },
     {
+      "id": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "count": 9
+    },
+    {
       "id": "jargon-tactical",
       "group": "jargon",
       "count": 8
@@ -56,18 +67,137 @@
   ],
   "findings": [
     {
+      "file": "src\\app\\(site)\\[locale]\\stunt-workshop-cuc\\sections\\WorkshopProgram.tsx",
+      "line": 120,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "Tactique & BRI"
+    },
+    {
+      "file": "src\\components\\sections\\events\\spectacles\\spectacles-types.data.ts",
+      "line": 17,
+      "rule": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "text": "title: 'Show Parkour & Art du Déplacement',"
+    },
+    {
+      "file": "src\\data\\celebrities.ts",
+      "line": 204,
+      "rule": "badge-box-office",
+      "group": "badge",
+      "text": "\"bio\": \"Réalisateur et comédien star de la comédie française contemporaine, leader de la Bande à Fifi. Auteur de triomphes consécutifs au box-office : Babysitting, Alibi.com, l'adaptation culte Nicky "
+    },
+    {
+      "file": "src\\data\\filmography.ts",
+      "line": 4699,
+      "rule": "badge-elite",
+      "group": "badge",
+      "text": "\"description\": \"Léa Parker, from Special Operation Division, a secret cell of the French police, is an elite agent. So, she cannot reveal her true job to anyone close to her and is an archivist as a c"
+    },
+    {
+      "file": "src\\data\\filmography.ts",
+      "line": 5097,
+      "rule": "badge-elite",
+      "group": "badge",
+      "text": "\"description\": \"Join an elite team of highly trained soldiers. Armed to the teeth with unrivaled combat technology and cutting-edge military hardware, Ghost Recon takes you to the globe's most deadly "
+    },
+    {
+      "file": "src\\data\\filmography.ts",
+      "line": 9438,
+      "rule": "badge-elite",
+      "group": "badge",
+      "text": "\"description\": \"Joachim Jo Saint-Clair is a veteran detective in Paris elite Criminal Brigade tackling the city's most challenging murder cases.\""
+    },
+    {
+      "file": "src\\data\\filmography.ts",
+      "line": 13927,
+      "rule": "badge-worldwide",
+      "group": "badge",
+      "text": "\"description\": \"Mistaken for a dangerous Islamist, Saadi - a regular guy who happens to be an illegal Arab immigrant - sets out on the most dangerous day of his life. A satirical and thrilling comedy "
+    },
+    {
       "file": "src\\data\\instagram-reels.ts",
-      "line": 646,
+      "line": 699,
       "rule": "superl-plongez-au-coeur",
       "group": "superlatif",
       "text": "title: \"Plongez au cœur du métier de cascadeur ! 🎬🔥\","
     },
     {
       "file": "src\\data\\instagram-reels.ts",
-      "line": 647,
+      "line": 700,
       "rule": "superl-plongez-au-coeur",
       "group": "superlatif",
       "text": "description: \"Plongez au cœur du métier de cascadeur ! 🎬🔥\\n\\nRendez-vous chez @campus.univers.cascades , une école spécialisée dans la formation de cascadeurs. Entre combats, acrobaties, chutes et g"
+    },
+    {
+      "file": "src\\data\\team.ts",
+      "line": 547,
+      "rule": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "text": "\"title\": \"Référent Parkour & Art du Déplacement\","
+    },
+    {
+      "file": "src\\data\\team.ts",
+      "line": 550,
+      "rule": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "text": "\"Art du Déplacement\","
+    },
+    {
+      "file": "src\\data\\team.ts",
+      "line": 554,
+      "rule": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "text": "\"bio\": \"Membre fondateur des Yamakasi et pionnier de l'Art du Déplacement et du Parkour. Malik Diouf transmet les fondamentaux du mouvement urbain naturel : franchissements d'obstacles, équilibre dyna"
+    },
+    {
+      "file": "src\\data\\team.ts",
+      "line": 1183,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "\"title\": \"Formateur Référent Armes Blanches & Tactique\","
+    },
+    {
+      "file": "scripts\\apply_all_coaches_and_actors.mjs",
+      "line": 77,
+      "rule": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "text": "title: 'Référent Parkour & Art du Déplacement',"
+    },
+    {
+      "file": "scripts\\apply_all_coaches_and_actors.mjs",
+      "line": 78,
+      "rule": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "text": "specialties: ['Parkour', 'Art du Déplacement', 'Franchissements urbains', 'Mobilité acrobatique'],"
+    },
+    {
+      "file": "scripts\\apply_all_coaches_and_actors.mjs",
+      "line": 79,
+      "rule": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "text": "bio: \"Membre fondateur des Yamakasi et pionnier de l'Art du Déplacement et du Parkour. Malik Diouf transmet les fondamentaux du mouvement urbain naturel : franchissements d'obstacles, équilibre dynami"
+    },
+    {
+      "file": "scripts\\apply_all_coaches_and_actors.mjs",
+      "line": 129,
+      "rule": "badge-tactique",
+      "group": "badge",
+      "text": "title: 'Formateur Référent Armes Blanches & Tactique',"
+    },
+    {
+      "file": "scripts\\cuc_20_coaches_scraped.json",
+      "line": 38,
+      "rule": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "text": "\"text\": \"id=\\\"panel-609-2-2-1\\\" class=\\\"so-panel widget widget_sow-editor panel-last-child\\\" data-index=\\\"7\\\" > \\nYamakasi - Référent Parkour\\nArt du Déplacement\\nSite Web \\n<div\","
+    },
+    {
+      "file": "scripts\\cuc_20_coaches_scraped.json",
+      "line": 42,
+      "rule": "termino-art-du-deplacement",
+      "group": "terminologie",
+      "text": "\"rawTextChunk\": \"id=\\\"panel-609-2-2-1\\\" class=\\\"so-panel widget widget_sow-editor panel-last-child\\\" data-index=\\\"7\\\" ><div style=\\\"text-align: left;\\\" data-title-color=\\\"#443f3f\\\" data-headings-color"
     },
     {
       "file": "scripts\\fix_team_production_i18n.mjs",

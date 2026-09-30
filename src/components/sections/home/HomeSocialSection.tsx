@@ -3,7 +3,6 @@
 import React from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { ExternalLink } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { SocialIcon } from '@/components/ui/logos/SocialLogos';
 import { InstagramFollowerBadge } from '@/components/ui/InstagramFollowerBadge';
@@ -13,6 +12,11 @@ import {
   StudioParallaxLayer,
   StudioParallaxCard,
 } from '@/components/ui/parallax';
+
+import { getFeaturedInstagramReels } from '@/lib/data/site-service';
+import { getLatestInstagramReelsAction } from '@/app/(admin)/admin/actions/instagram-featured';
+import type { InstagramReel } from '@/data/instagram-reels';
+import { HomeReelCard, HomePostFallbackCard } from './HomeSocialCards';
 
 export interface HomeSocialData {
   badge?: string;
@@ -32,10 +36,20 @@ interface HomeSocialSectionProps {
 
 export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData }) => {
   const t = useTranslations('home.social');
+  const [liveReels, setLiveReels] = React.useState<InstagramReel[]>([]);
+
+  React.useEffect(() => {
+    getLatestInstagramReelsAction(6, true).then((res) => {
+      if (res.success && res.reels.length > 0) {
+        setLiveReels(res.reels.slice(0, 6));
+      } else {
+        getFeaturedInstagramReels().then((reels) => setLiveReels(reels.slice(0, 6)));
+      }
+    });
+  }, []);
+
   /**
-   * Réseaux pilotés par `site_social_links` — aucune URL en dur ici. Les logos
-   * sont seuls (aucun libellé visible qui surcharge) : le nom de la plateforme
-   * et le handle restent accessibles via `aria-label`/`title`.
+   * Réseaux pilotés par `site_social_links` — aucune URL en dur ici.
    */
   const socialLinks = useSocialLinks();
   const activeSocials = socialLinks.filter((social) => social.is_active);
@@ -186,65 +200,25 @@ export const HomeSocialSection: React.FC<HomeSocialSectionProps> = ({ socialData
           })}
         </div>
 
-        {/* Instagram 3D Spatialized Triptyque */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {instagramPosts.map((post, idx) => (
-            <StudioParallaxLayer key={idx} speed={post.speed}>
-              <StudioParallaxCard maxTilt={5} className="h-full">
-                <a
-                  href={post.link}
-                  data-cuc-field={`sections_data.social.posts.${idx}.link`}
-                  data-cuc-kind="link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#0e0e14]/95 backdrop-blur-xs border border-zinc-800 hover:border-[#FFE500]/60 p-5 group transition-all flex flex-col justify-between h-full shadow-lg hover:shadow-[0_10px_35px_rgba(255,229,0,0.1)] block"
-                >
-                  <div>
-                    <div
-                      data-cuc-field={`sections_data.social.posts.${idx}.image`}
-                      data-cuc-kind="image"
-                      className="relative h-56 w-full mb-4 overflow-hidden border border-zinc-800 bg-black"
-                    >
-                      <Image
-                        src={post.image}
-                        alt={post.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover object-center group-hover:scale-105 transition-transform duration-500 brightness-85"
-                      />
-                      <div
-                        data-cuc-field={`sections_data.social.posts.${idx}.tag`}
-                        className="absolute top-3 left-3 bg-black/80 px-2 py-0.5 text-[10px] font-mono-tech text-[#FFE500] font-bold border border-white/20"
-                      >
-                        {post.tag}
-                      </div>
-                    </div>
-
-                    <h3
-                      data-cuc-field={`sections_data.social.posts.${idx}.title`}
-                      className="text-xl font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors mb-2"
-                    >
-                      {post.title}
-                    </h3>
-                    <p
-                      data-cuc-field={`sections_data.social.posts.${idx}.desc`}
-                      className="text-xs font-tech text-zinc-400 leading-relaxed mb-4"
-                    >
-                      {post.desc}
-                    </p>
-                  </div>
-
-                  <div className="pt-3 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono-tech text-zinc-500">
-                    <span data-cuc-field="sections_data.social.see_instagram">
-                      {seeInstagram}
-                    </span>
-                    <ExternalLink className="w-3.5 h-3.5 text-[#FFE500] group-hover:translate-x-0.5 transition-transform" />
-                  </div>
-                </a>
-              </StudioParallaxCard>
-            </StudioParallaxLayer>
-          ))}
-        </div>
+        {/* Grille des Reels Instagram en direct (Meta Graph API) */}
+        {liveReels.length > 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+            {liveReels.map((reel) => (
+              <HomeReelCard key={reel.id} reel={reel} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {instagramPosts.map((post, idx) => (
+              <HomePostFallbackCard
+                key={idx}
+                post={post}
+                idx={idx}
+                seeInstagram={seeInstagram}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </StudioParallaxScene>
   );

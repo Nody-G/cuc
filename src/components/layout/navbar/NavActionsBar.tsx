@@ -44,11 +44,6 @@ export const NavActionsBar: React.FC = () => {
 
   return (
     <div className="hidden sm:flex items-center gap-2.5 shrink-0">
-      {/* Badge officiel certifié Instagram CUC */}
-      <div className="hidden lg:flex items-center">
-        <InstagramFollowerBadge variant="header" />
-      </div>
-
       <a
         href={`tel:${phone.replace(/\s/g, '')}`}
         className="hidden 2xl:flex whitespace-nowrap shrink-0 text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] items-center gap-1.5 px-2.5 py-1.5 border border-zinc-800 hover:border-zinc-600 transition-colors"
@@ -60,6 +55,11 @@ export const NavActionsBar: React.FC = () => {
           {phone}
         </span>
       </a>
+
+      {/* Badge officiel certifié Instagram CUC (placé à côté du drapeau de langue) */}
+      <div className="hidden md:flex items-center">
+        <InstagramFollowerBadge variant="header" />
+      </div>
 
       <LanguageSwitcher />
 

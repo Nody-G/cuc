@@ -21,6 +21,11 @@ export interface StageData {
     src: string;
     alt: string;
   };
+  sessions?: Array<{
+    id?: string;
+    date: string;
+    status: 'complet' | 'ouvert' | 'dernières places' | 'bientôt';
+  }>;
   isPopular?: boolean;
 }
 

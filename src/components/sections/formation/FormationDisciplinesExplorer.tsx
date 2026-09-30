@@ -115,13 +115,13 @@ export const FormationDisciplinesExplorer: React.FC = () => {
           <div className="lg:col-span-7 bg-[#0f0f16] border-2 border-zinc-800 p-6 relative">
 
             {/* Real Image of Discipline */}
-            <div className="relative h-72 sm:h-80 w-full mb-6 overflow-hidden border border-zinc-800">
+            <div className="relative h-80 sm:h-96 w-full mb-6 overflow-hidden border border-zinc-800">
               <Image
                 src={activeDiscipline.heroImage}
                 alt={activeDiscipline.name}
                 fill
                 sizes="(max-width: 1024px) 100vw, 60vw"
-                className="object-cover object-center brightness-90 contrast-110"
+                className="object-cover object-[center_12%] brightness-95 contrast-105"
               />
             </div>
 

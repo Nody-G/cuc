@@ -18,11 +18,11 @@ import {
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import { withContactIntent } from '@/lib/contact-intent';
+import { SPECTACLE_TYPES, SpectacleTypeCard } from '@/components/sections/events/spectacles';
 
 export default function SpectaclesCascadeursYamakasiPage() {
   const t = useTranslations('spectacles');
   const { content } = usePageDynamicContent('spectacles-cascadeurs-yamakasi');
-  const specsItems = t.raw('specsItems') as { label: string; value: string }[];
 
   const heroBadge = content.hero?.badge || t('heroBadge');
   const heroTitle = content.hero?.title || t('heroTitle');
@@ -132,71 +132,32 @@ export default function SpectaclesCascadeursYamakasiPage() {
           </div>
         </section>
 
-        {/* Détails de l'offre Spectacles */}
+        {/* Catalogue des Spectacles CUC */}
         <section className="py-16">
           <div className="page-shell space-y-12">
-            {/* Show Formats */}
-            <div className="bg-[#0e0e14] border-2 border-zinc-800 p-6 sm:p-10 relative">
-
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div className="lg:col-span-7 space-y-4">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Image
-                      src="/images/logos/cuc-logo-yellow.png"
-                      alt={t('logoAlt')}
-                      width={44}
-                      height={44}
-                      className="w-11 h-11 object-contain drop-shadow-[0_0_10px_rgba(255,229,0,0.3)]"
-                    />
-                    <div>
-                      <span className="text-xs font-mono-tech text-[#FFE500] font-bold tracking-wider uppercase block">
-                        <span {...cucMicro('spectacles.panelTag')}>{t('panelTag')}</span>
-                      </span>
-                      <span className="text-[10px] font-mono-tech text-zinc-500 uppercase">
-                        <span {...cucMicro('spectacles.panelSub')}>{t('panelSub')}</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  <h2 className="text-2xl sm:text-3xl font-display uppercase text-white">
-                    <span {...cucMicro('spectacles.panelTitle')}>{t('panelTitle')}</span>
-                  </h2>
-
-                  <p className="text-sm font-tech text-zinc-300 leading-relaxed">
-                    <span {...cucMicro('spectacles.panelParagraph')}>{t('panelParagraph')}</span>
-                  </p>
-
-                  <div className="p-4 bg-[#14141c] border border-zinc-800 space-y-2 text-xs font-tech">
-                    <div className="text-[#FFE500] font-mono-tech font-bold uppercase">
-                      <span {...cucMicro('spectacles.specsTitle')}>{t('specsTitle')}</span>
-                    </div>
-                    <ul className="space-y-1.5 text-zinc-300">
-                      {specsItems.map((item) => (
-                        <li key={item.label}>
-                          • <strong>{item.label}</strong> {item.value}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="lg:col-span-5 relative">
-                  <div className="relative h-72 sm:h-96 w-full border border-zinc-800 overflow-hidden bg-black shadow-xl">
-                    <Image
-                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-7-scaled.webp"
-                      alt={t('showImageAlt')}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 40vw"
-                      className="object-cover object-center"
-                    />
-                  </div>
-                </div>
-              </div>
+            <div className="text-center max-w-3xl mx-auto mb-6">
+              <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-2">
+                Formats &amp; Répertoires de Scène
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white">
+                Nos Spectacles &amp; Démonstrations en Direct
+              </h2>
+              <p className="text-sm font-tech text-zinc-400 mt-2">
+                Du grand show en arène aux tableaux historiques immersifs, chaque spectacle est entièrement conçu, sécurisé et interprété par les cascadeurs professionnels du CUC.
+              </p>
             </div>
 
-            {/* Référence Prestige : Accor Arena */}
-            <div className="bg-[#121218] border-2 border-[#FFE500] p-6 sm:p-10 relative shadow-[0_0_30px_rgba(255,229,0,0.1)]">
+            {/* Liste des blocs de spectacles dédiés */}
+            {SPECTACLE_TYPES.map((spectacle, index) => (
+              <SpectacleTypeCard
+                key={spectacle.id}
+                item={spectacle}
+                reversed={index % 2 === 1}
+              />
+            ))}
 
+            {/* Référence Prestige : Accor Arena */}
+            <div className="bg-[#121218] border-2 border-[#FFE500] p-6 sm:p-10 relative shadow-[0_0_30px_rgba(255,229,0,0.1)] mt-12">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-5 relative">
                   <div className="relative h-72 w-full border border-zinc-700 overflow-hidden bg-black">

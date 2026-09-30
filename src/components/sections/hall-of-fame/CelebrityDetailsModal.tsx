@@ -41,11 +41,11 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
   );
 
   /** Vérifie si un film de la production correspond à un film coordonné par Lucas */
-  const findMatchingLucasFilm = (prodName: string): FilmCredit | undefined => {
+  const findMatchingLucasFilm = React.useCallback((prodName: string): FilmCredit | undefined => {
     if (!coordinatedFilms || coordinatedFilms.length === 0) return undefined;
     const key = creditTitleKey(prodName);
     return coordinatedFilms.find((f) => creditTitleKey(f.title) === key);
-  };
+  }, [coordinatedFilms]);
 
   /** Seuls les films coordonnés par le CUC associés à ce comédien */
   const lucasCoordinatedFilms = useMemo<FilmCredit[]>(() => {
@@ -69,7 +69,9 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
       }
     }
     return matched;
-  }, [celebrity, coordinatedFilms]);
+  }, [celebrity, coordinatedFilms, findMatchingLucasFilm]);
+
+  const [hasError, setHasError] = React.useState(false);
 
   if (!celebrity) return null;
 
@@ -107,10 +109,12 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
             {/* Photo */}
             <div className="sm:col-span-5 relative h-64 w-full border border-zinc-800 bg-black overflow-hidden">
               <Image
-                src={celebrity.photo}
+                key={celebrity.photo}
+                src={hasError ? '/images/actors/actor-placeholder.svg' : (celebrity.photo || '/images/actors/actor-placeholder.svg')}
                 alt={celebrity.name}
                 fill
                 sizes="(max-width: 640px) 100vw, 250px"
+                onError={() => setHasError(true)}
                 className="object-cover object-top"
               />
             </div>

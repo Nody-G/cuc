@@ -95,10 +95,10 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
             {heroData?.subtitle || t('hero.subtitle')}
           </p>
 
-          <div className="flex flex-wrap gap-4 mt-8">
+          <div className="flex flex-wrap items-center gap-4 mt-8">
             <TacticalButton
               variant="primary"
-              size="lg"
+              size="md"
               icon={<ChevronRight className="w-4 h-4" />}
               onClick={() => onApply('pro-longue-duree')}
             >
@@ -108,28 +108,13 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
             </TacticalButton>
             <TacticalButton
               variant="secondary"
-              size="lg"
+              size="md"
               onClick={() => onApply('stage-decouverte')}
             >
               <span data-cuc-field="hero.cta_secondary_text" data-cuc-kind="text">
                 {heroData?.cta_secondary_text || t('hero.ctaDiscovery')}
               </span>
             </TacticalButton>
-            <a
-              href="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block hover:opacity-90 transition-opacity"
-              title={t('hero.certificateTitle')}
-            >
-              <Image
-                src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Encart-plaquette.webp"
-                alt={t('hero.brochureAlt')}
-                width={240}
-                height={50}
-                className="object-contain"
-              />
-            </a>
           </div>
         </div>
       </section>

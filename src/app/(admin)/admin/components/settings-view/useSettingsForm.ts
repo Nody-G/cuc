@@ -18,6 +18,7 @@ export interface UseSettingsFormArgs {
 export function useSettingsForm({ initialSettings }: UseSettingsFormArgs) {
     const [settings, setSettings] = useState<SiteSettings>(initialSettings || DEFAULT_SITE_SETTINGS);
     const [isPending, startTransition] = useTransition();
+    const [isDirty, setIsDirty] = useState(false);
     const [statusMessage, setStatusMessage] = useState<{
         type: 'success' | 'error';
         text: string;
@@ -26,6 +27,7 @@ export function useSettingsForm({ initialSettings }: UseSettingsFormArgs) {
 
     const handleChange: SettingsChangeHandler = (key, value) => {
         setSettings((prev) => ({ ...prev, [key]: value } as SiteSettings));
+        setIsDirty(true);
     };
 
     const handleSave = () => {
@@ -33,6 +35,7 @@ export function useSettingsForm({ initialSettings }: UseSettingsFormArgs) {
             try {
                 const res = await updateSiteSettings('general', settings);
                 if (res.success) {
+                    setIsDirty(false);
                     setStatusMessage({
                         type: 'success',
                         text: 'Paramètres généraux enregistrés et appliqués en direct sur tout le site !',
@@ -53,12 +56,14 @@ export function useSettingsForm({ initialSettings }: UseSettingsFormArgs) {
     const handleResetToDefault = () => {
         if (confirm('Voulez-vous réinitialiser le formulaire avec les valeurs standards du campus ?')) {
             setSettings(DEFAULT_SITE_SETTINGS);
+            setIsDirty(true);
         }
     };
 
     return {
         settings,
         isPending,
+        isDirty,
         statusMessage,
         activeSection,
         setActiveSection,

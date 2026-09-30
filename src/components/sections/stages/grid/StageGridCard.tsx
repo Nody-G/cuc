@@ -99,6 +99,46 @@ export const StageGridCard: React.FC<StageGridCardProps> = ({
                         ))}
                     </div>
 
+                    {/* Prochaines sessions de formation */}
+                    {stage.sessions && stage.sessions.length > 0 && (
+                        <div className="mb-6 p-3 bg-black/40 border border-zinc-800/80 rounded-lg">
+                            <span className="text-[10px] font-mono-tech uppercase text-zinc-400 font-bold block mb-2 tracking-wider">
+                                Prochaines sessions :
+                            </span>
+                            <div className="flex flex-wrap gap-2">
+                                {stage.sessions.map((sess, sIdx) => {
+                                    const statusBadge =
+                                        sess.status === 'ouvert'
+                                            ? 'bg-emerald-950/60 border-emerald-700/80 text-emerald-400'
+                                            : sess.status === 'dernières places'
+                                            ? 'bg-yellow-950/60 border-yellow-700/80 text-[#FFE500]'
+                                            : sess.status === 'bientôt'
+                                            ? 'bg-sky-950/60 border-sky-700/80 text-sky-400'
+                                            : 'bg-red-950/60 border-red-800/80 text-red-400';
+                                    const statusText =
+                                        sess.status === 'ouvert'
+                                            ? 'Ouvert'
+                                            : sess.status === 'dernières places'
+                                            ? 'Dernières places'
+                                            : sess.status === 'bientôt'
+                                            ? 'Bientôt'
+                                            : 'Complet';
+                                    return (
+                                        <div
+                                            key={sess.id || sIdx}
+                                            className="flex items-center gap-2 px-2.5 py-1 bg-zinc-900 border border-zinc-800 text-xs font-mono-tech"
+                                        >
+                                            <span className="text-zinc-200">{sess.date}</span>
+                                            <span className={`px-1.5 py-0.5 text-[9px] uppercase font-bold border rounded ${statusBadge}`}>
+                                                {statusText}
+                                            </span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
+
                     <div className="flex flex-wrap items-center gap-4">
                         <TacticalButton
                             variant="primary"

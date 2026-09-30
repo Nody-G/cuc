@@ -5,8 +5,10 @@ import { useFooterEditor } from './footer-view/useFooterEditor';
 import { FooterHeader } from './footer-view/FooterHeader';
 import { FooterPublishToggle } from './footer-view/FooterPublishToggle';
 import { FooterBrandCard } from './footer-view/FooterBrandCard';
+import { FooterCertificationCard } from './footer-view/FooterCertificationCard';
 import { FooterColumnsEditor } from './footer-view/FooterColumnsEditor';
 import { FooterLegalCard } from './footer-view/FooterLegalCard';
+import { StickySaveBar } from './ui/StickySaveBar';
 
 interface FooterViewProps {
     showToast: (msg: string) => void;
@@ -15,14 +17,14 @@ interface FooterViewProps {
 /**
  * Éditeur du pied de page.
  *
- * Gère les colonnes de liens, l'identité de marque (nom, accroche, description)
- * et la mention légale + liens légaux. Persistance dans `site_footer` (id = 'main').
+ * Gère les colonnes de liens, l'identité de marque (nom, accroche, description),
+ * la certification Qualiopi, et la mention légale + liens légaux.
  */
 export const FooterView: React.FC<FooterViewProps> = ({ showToast }) => {
     const footer = useFooterEditor({ showToast });
 
     return (
-        <div className="space-y-6 animate-in fade-in duration-200">
+        <div className="space-y-6 animate-in fade-in duration-200 pb-16">
             {/* En-tête */}
             <FooterHeader
                 isPending={footer.isPending}
@@ -35,6 +37,12 @@ export const FooterView: React.FC<FooterViewProps> = ({ showToast }) => {
 
             {/* Identité de marque */}
             <FooterBrandCard brand={footer.structure.brand} onChange={footer.updateBrand} />
+
+            {/* Certification Qualiopi (Nouveau) */}
+            <FooterCertificationCard
+                certification={footer.structure.certification}
+                onChange={footer.updateCertification}
+            />
 
             {/* Colonnes */}
             <FooterColumnsEditor
@@ -60,6 +68,14 @@ export const FooterView: React.FC<FooterViewProps> = ({ showToast }) => {
                 onUpdateLink={footer.updateLegalLink}
                 onRemoveLink={footer.removeLegalLink}
                 onAddLink={footer.addLegalLink}
+            />
+
+            {/* Barre de sauvegarde flottante persistante */}
+            <StickySaveBar
+                isDirty={footer.isDirty}
+                isPending={footer.isPending}
+                onSave={footer.handleSave}
+                label="Modifications du pied de page non enregistrées"
             />
         </div>
     );

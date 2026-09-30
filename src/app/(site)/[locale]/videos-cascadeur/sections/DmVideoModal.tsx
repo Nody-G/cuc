@@ -8,8 +8,36 @@ export interface DmVideoModalProps {
     closeTitle: string;
 }
 
+function resolveEmbedUrl(raw: string): { type: 'iframe' | 'video'; url: string } {
+    if (!raw) return { type: 'iframe', url: '' };
+
+    // Fichier vidéo direct (mp4, webm)
+    if (raw.endsWith('.mp4') || raw.endsWith('.webm') || raw.includes('/video/upload/')) {
+        return { type: 'video', url: raw };
+    }
+
+    // YouTube (URL longue, courte ou ID à 11 caractères)
+    const ytMatch = raw.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    if (ytMatch) {
+        return { type: 'iframe', url: `https://www.youtube-nocookie.com/embed/${ytMatch[1]}?autoplay=1&rel=0` };
+    }
+
+    // Dailymotion (URL ou identifiant x...)
+    const dmMatch = raw.match(/(?:dailymotion\.com\/(?:video|embed\/video)\/|^)([a-zA-Z0-9]+)/);
+    if (dmMatch && (dmMatch[1].startsWith('x') || dmMatch[1].startsWith('k'))) {
+        return { type: 'iframe', url: `https://www.dailymotion.com/embed/video/${dmMatch[1]}?autoplay=1` };
+    }
+
+    if (raw.startsWith('http')) {
+        return { type: 'iframe', url: raw };
+    }
+
+    return { type: 'iframe', url: `https://www.dailymotion.com/embed/video/${raw}?autoplay=1` };
+}
+
 export const DmVideoModal: React.FC<DmVideoModalProps> = ({ video, onClose, closeTitle }) => {
     if (!video) return null;
+    const embed = resolveEmbedUrl(video.id);
 
     return (
         <div
@@ -34,12 +62,21 @@ export const DmVideoModal: React.FC<DmVideoModalProps> = ({ video, onClose, clos
                     </button>
                 </div>
                 <div className="relative aspect-video w-full bg-black">
-                    <iframe
-                        src={`https://www.dailymotion.com/embed/video/${video.id}?autoplay=1`}
-                        className="w-full h-full border-0"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        allowFullScreen
-                    />
+                    {embed.type === 'video' ? (
+                        <video
+                            src={embed.url}
+                            controls
+                            autoPlay
+                            className="w-full h-full object-contain"
+                        />
+                    ) : (
+                        <iframe
+                            src={embed.url}
+                            className="w-full h-full border-0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                        />
+                    )}
                 </div>
             </div>
         </div>

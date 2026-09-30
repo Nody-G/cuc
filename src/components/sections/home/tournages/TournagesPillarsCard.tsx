@@ -8,7 +8,7 @@ import { StudioParallaxCard } from '@/components/ui/parallax';
 import { creditTitleKey } from '@/lib/credit-title';
 import { FilmCard } from '@/components/sections/films/FilmCard';
 import type { FilmCredit } from '@/types';
-import { FEATURED_PRODUCTIONS } from './home-tournages-data';
+import { FEATURED_PRODUCTIONS, type HighlightProject } from './home-tournages-data';
 
 interface TournagesPillarsCardProps {
     pillar1Title: string;
@@ -20,6 +20,7 @@ interface TournagesPillarsCardProps {
     ctaProduction: string;
     ctaCatalog: string;
     filmsByTitle: Map<string, FilmCredit>;
+    featuredProductions?: HighlightProject[];
     directorFor: (film?: FilmCredit) => string | undefined;
     onOpenFilm: (film: FilmCredit) => void;
 }
@@ -41,6 +42,7 @@ export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
     ctaProduction,
     ctaCatalog,
     filmsByTitle,
+    featuredProductions,
     directorFor,
     onOpenFilm,
 }) => (
@@ -114,9 +116,12 @@ export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
                 </div>
 
                 {/* Right Column: Mini Showcase of Featured Production Posters */}
-                <div className="lg:col-span-5">
-                    <div className="grid grid-cols-2 gap-3">
-                        {FEATURED_PRODUCTIONS.map((prod, idx) => {
+                <div className="lg:col-span-5 flex justify-center">
+                    <div className="grid grid-cols-2 gap-3 max-w-[340px] w-full">
+                        {(featuredProductions && featuredProductions.length > 0
+                            ? featuredProductions
+                            : FEATURED_PRODUCTIONS
+                        ).map((prod: HighlightProject, idx: number) => {
                             const match = filmsByTitle.get(creditTitleKey(prod.title));
                             return (
                                 <FilmCard
@@ -129,7 +134,7 @@ export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
                                             image: prod.poster,
                                         }
                                     }
-                                    sizes="(max-width: 1024px) 50vw, 20vw"
+                                    sizes="(max-width: 1024px) 45vw, 15vw"
                                     footer={directorFor(match)}
                                     onOpen={match ? () => onOpenFilm(match) : undefined}
                                     href={match ? undefined : '/cuc-team-cascadeur#filmographie'}

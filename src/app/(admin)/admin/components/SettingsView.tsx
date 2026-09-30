@@ -10,6 +10,7 @@ import { IdentitySection } from './settings-view/IdentitySection';
 import { SettingsHeader } from './settings-view/SettingsHeader';
 import { SETTINGS_SECTIONS } from './settings-view/settings-sections';
 import { useSettingsForm } from './settings-view/useSettingsForm';
+import { StickySaveBar } from './ui/StickySaveBar';
 
 interface SettingsViewProps {
   initialSettings?: SiteSettings;
@@ -102,6 +103,14 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
           )}
         </button>
       </div>
+
+      {/* Barre de sauvegarde flottante persistante */}
+      <StickySaveBar
+        isDirty={form.isDirty}
+        isPending={form.isPending}
+        onSave={form.handleSave}
+        label="Modifications des réglages généraux non enregistrées"
+      />
     </div>
   );
 }

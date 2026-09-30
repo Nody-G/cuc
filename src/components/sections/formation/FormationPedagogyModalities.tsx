@@ -2,14 +2,15 @@
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 
-import React from 'react';
-
-import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
 import { Calendar, ShieldCheck, Award, CheckCircle2 } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { usePageSectionData } from '@/lib/hooks/usePageSectionData';
 import { cucField } from '@/lib/preview/cuc-field';
 import { cucMicro } from '@/lib/preview/cuc-micro';
+
+import { getPrograms } from '@/lib/data/site/content';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 
 interface FormationPedagogyModalitiesProps {
   onApply: (programId: string) => void;
@@ -20,6 +21,34 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
 }) => {
   const t = useTranslations('formation');
   const tp = useTranslations('formation.pedagogy');
+  const [dbSessions, setDbSessions] = useState<{ label: string; status: string }[] | null>(null);
+
+  const loadProSessions = React.useCallback(() => {
+    getPrograms().then((progs) => {
+      const proProg = progs.find((p) => p.id === 'pro-longue-duree');
+      if (proProg?.nextSessions && proProg.nextSessions.length > 0) {
+        setDbSessions(
+          proProg.nextSessions.map((s) => ({
+            label: s.date,
+            status:
+              s.status === 'complet'
+                ? 'full'
+                : s.status === 'dernières places'
+                ? 'few'
+                : s.status === 'bientôt'
+                ? 'bientôt'
+                : 'open',
+          }))
+        );
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    loadProSessions();
+  }, [loadProSessions]);
+
+  useRealtimeRefresh(['site_sessions', 'site_programs'], loadProSessions);
 
   /** Titres des trois colonnes : données de page prioritaires. */
   const chrome = usePageSectionData<{
@@ -30,15 +59,18 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
 
   /**
    * Sessions, statuts et financements : la copie vit dans `formation.pedagogy`
-   * (les dates FR « 16 au 28 août 2026 » ne s'affichent plus en mode anglais).
+   * ou provient de la base `site_sessions`.
    */
-  const sessions = (tp.raw('sessions') as { label: string; status: string }[]) ?? [];
+  const fallbackSessions = (tp.raw('sessions') as { label: string; status: string }[]) ?? [];
+  const sessions = dbSessions && dbSessions.length > 0 ? dbSessions : fallbackSessions;
   const statuses = (tp.raw('statuses') as Record<string, string>) ?? {};
   const fundingItems = (tp.raw('fundingItems') as string[]) ?? [];
   const statusStyles: Record<string, string> = {
     full: 'text-red-400 bg-red-950/40 border-red-800',
     few: 'text-[#FFE500] bg-yellow-950/40 border-yellow-700',
     open: 'text-emerald-400 bg-emerald-950/40 border-emerald-800',
+    bientôt: 'text-sky-400 bg-sky-950/40 border-sky-800',
+    soon: 'text-sky-400 bg-sky-950/40 border-sky-800',
   };
 
   return (
@@ -57,7 +89,7 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
               </h3>
             </div>
             <div className="space-y-2.5 text-xs font-mono-tech">
-              {sessions.map((session) => (
+              {sessions.map((session: { label: string; status: string }) => (
                 <div
                   key={session.label}
                   className="flex items-center justify-between p-2.5 bg-[#14141c] border border-zinc-800"
@@ -113,25 +145,14 @@ export const FormationPedagogyModalities: React.FC<FormationPedagogyModalitiesPr
 
           {/* Financement & Prise en Charge — ancre `#certifications` (Qualiopi, CTA Partenaires). */}
           <div id="certifications" className="bg-[#0e0e14] border border-zinc-800 p-6 scroll-mt-28">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <Award className="w-4 h-4 text-[#FFE500]" />
-                <h3
-                  {...cucField('sections_data.pedagogie.funding_title')}
-                  className="font-display uppercase text-lg text-white"
-                >
-                  {chrome?.funding_title || tp('fundingTitle')}
-                </h3>
-              </div>
-              <div className="relative w-8 h-8 opacity-75">
-                <Image
-                  src="/images/logos/cuc-logo-bw.png"
-                  alt={tp('sealAlt')}
-                  width={32}
-                  height={32}
-                  className="object-contain"
-                />
-              </div>
+            <div className="flex items-center gap-2 mb-4">
+              <Award className="w-4 h-4 text-[#FFE500]" />
+              <h3
+                {...cucField('sections_data.pedagogie.funding_title')}
+                className="font-display uppercase text-lg text-white"
+              >
+                {chrome?.funding_title || tp('fundingTitle')}
+              </h3>
             </div>
             <div className="space-y-3 text-xs font-tech text-zinc-300">
               <p>{tp.rich('fundingQualiopi', { b: (chunks) => <strong>{chunks}</strong> })}</p>

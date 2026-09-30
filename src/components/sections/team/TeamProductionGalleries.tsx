@@ -68,56 +68,10 @@ export const TeamProductionGalleries: React.FC<TeamProductionGalleriesProps> = (
 
   return (
     <>
-      {/* 1. CUC PROD — LE STUDIO ET LA SALLE (Grille 3x2) */}
-      <section className="py-14 bg-[#09090d] border-b border-zinc-800">
+      {/* 1. CUC PROD — L'ÉQUIPE (Cascadeurs pro & doublures) */}
+      <section className="py-16 bg-[#060608] border-b border-zinc-800/80">
         <div className="page-shell">
-          <div className="text-center max-w-3xl mx-auto mb-8">
-            <span
-              data-cuc-field="sections_data.galeries_production.studio_badge"
-              className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1.5"
-            >
-              {studioBadge}
-            </span>
-            <h2
-              data-cuc-field="sections_data.galeries_production.studio_title"
-              className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wide text-white"
-            >
-              {studioTitle}
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {studioGallery.map((item, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => onOpenLightbox(studioGallery, i)}
-                data-cuc-field={`sections_data.galeries_production.studio_items.${i}.src`}
-                data-cuc-kind="image"
-                className="relative aspect-video border-2 border-zinc-800 hover:border-[#FFE500] overflow-hidden group bg-black cursor-pointer text-left focus:outline-hidden transition-all shadow-md hover:shadow-[0_4px_20px_rgba(255,229,0,0.12)]"
-                title={t('galleries.zoomStudio')}
-              >
-                <Image
-                  src={item.src}
-                  alt={item.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <span className="p-3 bg-black/85 rounded-full text-[#FFE500] border border-[#FFE500]/50 shadow-lg">
-                    <Maximize2 className="w-4 h-4" />
-                  </span>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 2. CUC PROD — LES CASCADEURS */}
-      <section className="py-14 bg-[#060608] border-b border-zinc-800">
-        <div className="page-shell">
-          <div className="text-center max-w-3xl mx-auto mb-8">
+          <div className="text-center max-w-3xl mx-auto mb-10">
             <span
               data-cuc-field="sections_data.galeries_production.doubles_badge"
               className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1.5"
@@ -139,7 +93,7 @@ export const TeamProductionGalleries: React.FC<TeamProductionGalleriesProps> = (
                 onClick={() => onOpenLightbox(doublesGallery, i)}
                 data-cuc-field={`sections_data.galeries_production.doubles_items.${i}.src`}
                 data-cuc-kind="image"
-                className="relative aspect-video border border-zinc-800 hover:border-[#FFE500] overflow-hidden group bg-black cursor-pointer text-left focus:outline-hidden transition-all"
+                className="relative aspect-video border border-zinc-800 hover:border-[#FFE500] overflow-hidden group bg-black cursor-pointer text-left focus:outline-hidden transition-all shadow-md"
                 title={t('galleries.zoomStunt')}
               >
                 <Image
@@ -163,10 +117,10 @@ export const TeamProductionGalleries: React.FC<TeamProductionGalleriesProps> = (
         </div>
       </section>
 
-      {/* 3. CUC PROD — LES ÉQUIPEMENTS (Grille aérée et organisée) */}
-      <section className="py-14 bg-[#09090d] border-b border-zinc-800">
+      {/* 2. CUC PROD — LE MATOS (Équipements & régie cascade) */}
+      <section className="py-16 bg-[#0a0a0f] border-b border-zinc-800/80">
         <div className="page-shell">
-          <div className="text-center max-w-3xl mx-auto mb-8">
+          <div className="text-center max-w-3xl mx-auto mb-10">
             <span
               data-cuc-field="sections_data.galeries_production.equipment_badge"
               className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1.5"
@@ -200,6 +154,52 @@ export const TeamProductionGalleries: React.FC<TeamProductionGalleriesProps> = (
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <span className="p-2.5 bg-black/85 rounded-full text-[#FFE500] border border-[#FFE500]/50 shadow-lg">
+                    <Maximize2 className="w-4 h-4" />
+                  </span>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. CUC PROD — LE LIEU (Studio, fosse & plateaux) */}
+      <section className="py-16 bg-[#060608] border-b border-zinc-800/80">
+        <div className="page-shell">
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <span
+              data-cuc-field="sections_data.galeries_production.studio_badge"
+              className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-1.5"
+            >
+              {studioBadge}
+            </span>
+            <h2
+              data-cuc-field="sections_data.galeries_production.studio_title"
+              className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-wide text-white"
+            >
+              {studioTitle}
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {studioGallery.map((item, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => onOpenLightbox(studioGallery, i)}
+                data-cuc-field={`sections_data.galeries_production.studio_items.${i}.src`}
+                data-cuc-kind="image"
+                className="relative aspect-video border-2 border-zinc-800 hover:border-[#FFE500] overflow-hidden group bg-black cursor-pointer text-left focus:outline-hidden transition-all shadow-md hover:shadow-[0_4px_20px_rgba(255,229,0,0.12)]"
+                title={t('galleries.zoomStudio')}
+              >
+                <Image
+                  src={item.src}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <span className="p-3 bg-black/85 rounded-full text-[#FFE500] border border-[#FFE500]/50 shadow-lg">
                     <Maximize2 className="w-4 h-4" />
                   </span>
                 </div>

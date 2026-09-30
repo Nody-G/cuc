@@ -146,7 +146,7 @@ export function useSessionsEditor({
 
     const startDuplicateSession = (session: ProgramSession) => {
         setNewSessionDate(`${session.date} (Copie)`);
-        setNewSessionStatus(session.status === 'bientôt' ? 'ouvert' : session.status);
+        setNewSessionStatus(session.status);
         setShowAddSessionModal(true);
     };
 

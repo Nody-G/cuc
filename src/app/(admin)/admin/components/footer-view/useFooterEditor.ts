@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState, useTransition } from 'react';
 import {
     DEFAULT_FOOTER,
     type FooterBrand,
+    type FooterCertification,
     type FooterColumn,
     type FooterLink,
     type FooterStructure,
@@ -36,9 +37,11 @@ export interface UseFooterEditorResult {
     isPublished: boolean;
     isLoading: boolean;
     isPending: boolean;
+    isDirty: boolean;
     expandedColumn: string | null;
     setPublished: (value: boolean) => void;
     updateBrand: (updates: Partial<FooterBrand>) => void;
+    updateCertification: (updates: Partial<FooterCertification>) => void;
     moveColumn: (index: number, direction: -1 | 1) => void;
     updateColumn: (id: string, updates: Partial<FooterColumn>) => void;
     removeColumn: (id: string) => void;
@@ -60,8 +63,19 @@ export function useFooterEditor({ showToast }: UseFooterEditorArgs): UseFooterEd
     const [structure, setStructure] = useState<FooterStructure>(DEFAULT_FOOTER.structure);
     const [isPublished, setIsPublished] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
+    const [isDirty, setIsDirty] = useState(false);
     const [expandedColumn, setExpandedColumn] = useState<string | null>(null);
     const [isPending, startTransition] = useTransition();
+
+    const mutateStructure = useCallback((next: FooterStructure) => {
+        setStructure(next);
+        setIsDirty(true);
+    }, []);
+
+    const setPublished = useCallback((val: boolean) => {
+        setIsPublished(val);
+        setIsDirty(true);
+    }, []);
 
     useEffect(() => {
         let cancelled = false;
@@ -70,6 +84,7 @@ export function useFooterEditor({ showToast }: UseFooterEditorArgs): UseFooterEd
                 if (cancelled) return;
                 setStructure(footer.structure);
                 setIsPublished(footer.is_published);
+                setIsDirty(false);
             })
             .finally(() => {
                 if (!cancelled) setIsLoading(false);
@@ -83,9 +98,22 @@ export function useFooterEditor({ showToast }: UseFooterEditorArgs): UseFooterEd
 
     const updateBrand = useCallback(
         (updates: Partial<FooterBrand>) => {
-            setStructure({ ...structure, brand: { ...structure.brand, ...updates } });
+            mutateStructure({ ...structure, brand: { ...structure.brand, ...updates } });
         },
-        [structure]
+        [structure, mutateStructure]
+    );
+
+    // --- Certification & Qualiopi ---
+
+    const updateCertification = useCallback(
+        (updates: Partial<FooterCertification>) => {
+            const current = structure.certification || DEFAULT_FOOTER.structure.certification!;
+            mutateStructure({
+                ...structure,
+                certification: { ...current, ...updates },
+            });
+        },
+        [structure, mutateStructure]
     );
 
     // --- Colonnes ---
@@ -187,6 +215,9 @@ export function useFooterEditor({ showToast }: UseFooterEditorArgs): UseFooterEd
     const handleSave = useCallback(() => {
         startTransition(async () => {
             const ok = await upsertFooter(structure, { id: 'main', isPublished });
+            if (ok) {
+                setIsDirty(false);
+            }
             showToast(
                 ok
                     ? 'Pied de page enregistré — la vitrine est mise à jour en direct.'
@@ -198,6 +229,7 @@ export function useFooterEditor({ showToast }: UseFooterEditorArgs): UseFooterEd
     const handleReset = useCallback(() => {
         if (!confirm('Réinitialiser le pied de page aux valeurs par défaut ?')) return;
         setStructure(DEFAULT_FOOTER.structure);
+        setIsDirty(true);
         showToast('Pied de page réinitialisé (pensez à enregistrer).');
     }, [showToast]);
 
@@ -208,9 +240,11 @@ export function useFooterEditor({ showToast }: UseFooterEditorArgs): UseFooterEd
         isPublished,
         isLoading,
         isPending,
+        isDirty,
         expandedColumn,
-        setPublished: setIsPublished,
+        setPublished,
         updateBrand,
+        updateCertification,
         moveColumn,
         updateColumn,
         removeColumn,

@@ -6,7 +6,7 @@ import { getFilms } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { creditTitleKey } from '@/lib/credit-title';
 import type { FilmCredit } from '@/types';
-import type { HomeTournagesData } from './home-tournages-data';
+import { FEATURED_PRODUCTIONS, type HighlightProject, type HomeTournagesData } from './home-tournages-data';
 
 interface UseHomeTournagesArgs {
     tournagesData?: HomeTournagesData;
@@ -31,6 +31,7 @@ export interface HomeTournagesController {
     };
     films: FilmCredit[];
     filmsByTitle: Map<string, FilmCredit>;
+    featuredProductions: HighlightProject[];
     selectedFilm: FilmCredit | null;
     setSelectedFilm: React.Dispatch<React.SetStateAction<FilmCredit | null>>;
     /** Pied de jaquette : nom du réalisateur (« Réal. X »), absent si inconnu. */
@@ -44,8 +45,6 @@ export interface HomeTournagesController {
  */
 export function useHomeTournages({ tournagesData }: UseHomeTournagesArgs): HomeTournagesController {
     const t = useTranslations('home.tournages');
-    /** Namespace `team` : il porte déjà les libellés de rôle traduits (FR/EN). */
-    const tTeam = useTranslations('team');
 
     const labels = {
         badge: tournagesData?.badge || t('badge'),
@@ -93,8 +92,16 @@ export function useHomeTournages({ tournagesData }: UseHomeTournagesArgs): HomeT
      * Pied de jaquette : nom du réalisateur, comme sur la vitrine TOURNAGE et la
      * fiche coach. Omis si la donnée n'est pas disponible dans le catalogue.
      */
-    const directorFor = (film?: FilmCredit): string | undefined =>
-        film?.director ? tTeam('directorShort', { name: film.director }) : undefined;
+    const featuredProductions = React.useMemo(() => {
+        return tournagesData?.featured_films && tournagesData.featured_films.length > 0
+            ? tournagesData.featured_films
+            : FEATURED_PRODUCTIONS;
+    }, [tournagesData]);
 
-    return { labels, films, filmsByTitle, selectedFilm, setSelectedFilm, directorFor };
+    const directorFor = React.useCallback(
+        (film?: FilmCredit) => (film?.director ? `Réal. ${film.director}` : undefined),
+        []
+    );
+
+    return { labels, films, filmsByTitle, featuredProductions, selectedFilm, setSelectedFilm, directorFor };
 }

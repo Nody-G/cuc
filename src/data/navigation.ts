@@ -263,10 +263,19 @@ export interface FooterLegal {
     links: FooterLink[];
 }
 
+export interface FooterCertification {
+    title: string;
+    subtitle: string;
+    logo_url: string;
+    pdf_url: string;
+    is_visible: boolean;
+}
+
 export interface FooterStructure {
     columns: FooterColumn[];
     brand: FooterBrand;
     legal: FooterLegal;
+    certification?: FooterCertification;
 }
 
 export interface SiteFooter {
@@ -287,6 +296,13 @@ export const DEFAULT_FOOTER: SiteFooter = {
             tagline: 'Fondé en 2008 • Plus grande école au monde',
             description:
                 "Centre de formation professionnelle de cascadeurs, coordinateurs et action designers pour l'industrie cinématographique internationale. Des installations de pointe.",
+        },
+        certification: {
+            title: 'Organisme Certifié Qualiopi',
+            subtitle: 'Actions de formation • Financements AFDAS & OPCO',
+            logo_url: '/images/partenaires/qualiopi.png',
+            pdf_url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf',
+            is_visible: true,
         },
         columns: [
             {

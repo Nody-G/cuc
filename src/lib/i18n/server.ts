@@ -14,6 +14,7 @@ import {
 import type { LocalizedChromeData } from '@/components/i18n/SiteDataProvider';
 import { type Locale } from './entities';
 import { mergeLocalized } from './localized-merge';
+import { getUnpublishedPageSlugs } from './page-publication';
 
 /**
  * ==============================================================================
@@ -155,6 +156,39 @@ async function getChrome(
     return { structure: data.structure as NavigationStructure | FooterStructure, labels };
 }
 
+function isSlugUnpublished(href: string | undefined, unpublishedSlugs: Set<string>): boolean {
+    if (!href) return false;
+    const rawSlug = href.replace(/^\//, '').split('?')[0].split('#')[0];
+    const slug = normalizeSlug(rawSlug);
+    return Boolean(slug && unpublishedSlugs.has(slug));
+}
+
+function filterNavItems(
+    items: NavigationStructure['items'],
+    unpublishedSlugs: Set<string>
+): NavigationStructure['items'] {
+    return items
+        .filter((item) => !isSlugUnpublished(item.href, unpublishedSlugs))
+        .map((item) => {
+            if (item.children && item.children.length > 0) {
+                const filteredChildren = item.children.filter(
+                    (child) => !isSlugUnpublished(child.href, unpublishedSlugs)
+                );
+                return {
+                    ...item,
+                    children: filteredChildren,
+                };
+            }
+            return item;
+        })
+        .filter((item) => {
+            if (item.children && item.children.length === 0 && (!item.href || item.href === '#')) {
+                return false;
+            }
+            return true;
+        });
+}
+
 /** Navigation principale, libellés EN inclus (résolus sur le serveur). */
 export async function getLocalizedNavigation(
     id = 'main',
@@ -162,10 +196,19 @@ export async function getLocalizedNavigation(
 ): Promise<LocalizedChromeData<NavigationStructure>> {
     'use cache';
     cacheLife('max');
-    cacheTag('site_navigation', 'site_translations', `navigation:${id}`, `locale:${locale}`);
+    cacheTag('site_navigation', 'site_pages', 'site_translations', `navigation:${id}`, `locale:${locale}`);
     const chrome = await getChrome('navigation', id, locale);
+    const unpublished = await getUnpublishedPageSlugs();
+    const unpublishedSet = new Set(unpublished);
+
+    const baseStructure = (chrome?.structure ?? DEFAULT_NAVIGATION.structure) as NavigationStructure;
+    const filteredItems = filterNavItems(baseStructure.items ?? [], unpublishedSet);
+
     return {
-        structure: (chrome?.structure ?? DEFAULT_NAVIGATION.structure) as NavigationStructure,
+        structure: {
+            ...baseStructure,
+            items: filteredItems,
+        },
         labels: chrome?.labels ?? null,
     };
 }

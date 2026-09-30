@@ -4,26 +4,34 @@ import React from 'react';
 import { Link } from '@/i18n/navigation';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { TacticalButton } from '@/components/ui/TacticalButton';
-import { Award, ShieldCheck, Sparkles, Users } from 'lucide-react';
+import { Award, Film, ShieldCheck, Sparkles } from 'lucide-react';
 import type { useTranslations } from 'next-intl';
-import type { Instructor } from '@/types';
+import type { FilmCredit, Instructor } from '@/types';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import { entityRef } from '@/lib/preview/entity-ref';
 import { cucEntity } from '@/lib/preview/cuc-entity';
 import { resolveEntityOverride, usePreviewEntities } from '@/lib/preview/use-preview-entity';
-import { CoachDoubledActors } from '../../sections/CoachDoubledActors';
+import { FilmCard } from '@/components/sections/films/FilmCard';
 
 export interface CoachProfileProps {
     member: Instructor;
     chrome: ReturnType<typeof useTranslations<'commonChrome'>>;
     tt: ReturnType<typeof useTranslations<'team'>>;
+    topFilms?: FilmCredit[];
+    onOpenFilm?: (film: FilmCredit) => void;
 }
 
 /**
  * Colonne informations : identité, trajectoire (bio), domaines d'expertise,
- * doublures clés et appels à l'action.
+ * sélection de films et appels à l'action.
  */
-export const CoachProfile: React.FC<CoachProfileProps> = ({ member, chrome, tt }) => {
+export const CoachProfile: React.FC<CoachProfileProps> = ({
+    member,
+    chrome,
+    tt,
+    topFilms,
+    onOpenFilm,
+}) => {
     /**
      * Édition en place de la fiche coach (`site_team`) : rôle, titre et bio.
      * Le **nom** reste hors canal — son identité est vérifiée
@@ -87,17 +95,23 @@ export const CoachProfile: React.FC<CoachProfileProps> = ({ member, chrome, tt }
                 </div>
             </div>
 
-            {/* Doublures Acteurs Clés (si existant) */}
-            {member.doubledActors && member.doubledActors.length > 0 && (
-                <div className="bg-[#14141e] border border-zinc-800 p-5">
-                    <h2 className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider mb-2 flex items-center gap-2">
-                        <Users className="w-4 h-4" />
-                        <span {...cucMicro('team.doubledLabel')}>{tt('doubledLabel')}</span>
+            {/* Rangée de 3 Jaquettes Clés */}
+            {topFilms && topFilms.length > 0 && (
+                <div className="space-y-3 pt-2">
+                    <h2 className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider flex items-center gap-2">
+                        <Film className="w-4 h-4" />
+                        <span>Tournages & Productions Clés :</span>
                     </h2>
-                    <CoachDoubledActors
-                        actorNames={member.doubledActors}
-                        textClassName="text-sm font-tech text-zinc-300"
-                    />
+                    <div className="grid grid-cols-3 gap-3">
+                        {topFilms.slice(0, 3).map((film) => (
+                            <FilmCard
+                                key={film.id}
+                                film={film}
+                                sizes="(max-width: 768px) 33vw, 15vw"
+                                onOpen={onOpenFilm ? () => onOpenFilm(film) : undefined}
+                            />
+                        ))}
+                    </div>
                 </div>
             )}
 

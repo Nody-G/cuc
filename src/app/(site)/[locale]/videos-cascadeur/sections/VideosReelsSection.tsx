@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Play, ExternalLink, Eye } from 'lucide-react';
+import { Play, ExternalLink } from 'lucide-react';
 import { InstagramFollowerBadge } from '@/components/ui/InstagramFollowerBadge';
 import { InstagramLogo } from '@/components/ui/logos/SocialLogos';
 import type { InstagramReel, ReelSortOption } from '@/data/instagram-reels';
@@ -48,28 +48,16 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
         <section id="reels" className="py-20 bg-[#060608] border-t border-zinc-800 scroll-mt-28 relative">
             <div className="page-shell">
                 {/* Header de section */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-                    <div>
-                        <div className="flex items-center gap-2 mb-3 flex-wrap">
-                            <InstagramFollowerBadge variant="pill" />
-                        </div>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-wide text-white">
-                            {labels.title}
-                        </h2>
-                        <p className="text-sm font-tech text-zinc-400 mt-2 max-w-2xl">
-                            {labels.intro}
-                        </p>
+                <div className="mb-10">
+                    <div className="flex items-center gap-2 mb-3 flex-wrap">
+                        <InstagramFollowerBadge variant="pill" />
                     </div>
-
-                    <a
-                        href="https://www.instagram.com/campus.univers.cascades/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-5 py-3 border border-zinc-800 bg-[#0c0c10] hover:border-[#FFE500] text-xs font-mono-tech uppercase text-zinc-300 hover:text-white transition-all duration-200 group self-start md:self-auto rounded-lg shadow-sm"
-                    >
-                        <span>{labels.socialInstagram}</span>
-                        <ExternalLink className="w-3.5 h-3.5 text-[#FFE500] group-hover:translate-x-0.5 transition-transform" />
-                    </a>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-wide text-white">
+                        {labels.title}
+                    </h2>
+                    <p className="text-sm font-tech text-zinc-400 mt-2 max-w-2xl">
+                        {labels.intro}
+                    </p>
                 </div>
 
                 {/* Grille des vidéos : 6 colonnes desktop, 4 tablette, 2 mobile */}
@@ -100,14 +88,6 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
 
                                 {/* Dégradé sombre cinématique */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none" />
-
-                                {/* Vues certifiées relevées en direct */}
-                                {reel.viewsFormatted && (
-                                    <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 px-2 py-0.5 rounded-md bg-black/75 backdrop-blur-md border border-white/10 text-[11px] font-mono-tech text-white">
-                                        <Eye className="w-3 h-3 text-[#FFE500]" />
-                                        <span>{reel.viewsFormatted}</span>
-                                    </div>
-                                )}
 
                                 {/* Date de publication */}
                                 {reel.date && (

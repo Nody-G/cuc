@@ -46,7 +46,7 @@ const TAB_METADATA_MAP: Record<TabType, TabMetadata> = {
     campus: { label: 'Campus & Installations', sectionTitle: 'Formations & Films', icon: Boxes },
     'campus-3d': { label: 'Campus & Installations', sectionTitle: 'Formations & Films', icon: Boxes },
     disciplines: { label: 'Disciplines Enseignées', sectionTitle: 'Formations & Films', icon: Shield },
-    events: { label: 'Agence & Événements Pro', sectionTitle: 'Formations & Films', icon: Briefcase },
+    events: { label: 'Events', sectionTitle: 'Formations & Films', icon: Briefcase },
     partners: { label: 'Partenaires', sectionTitle: 'Formations & Films', icon: Handshake },
     instagram: { label: 'Instagram & Vidéos', sectionTitle: 'Réseaux & Visites', icon: Activity },
     traffic: { label: 'Visites du Site', sectionTitle: 'Réseaux & Visites', icon: Globe },

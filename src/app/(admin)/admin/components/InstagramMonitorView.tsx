@@ -8,17 +8,51 @@ import { useInstagramFeaturedReels } from './instagram-monitor/useInstagramFeatu
 import { InstagramMediaFilterBar } from './instagram-monitor/InstagramMediaFilterBar';
 import { InstagramMediaCard } from './instagram-monitor/InstagramMediaCard';
 import { InstagramMediaTable } from './instagram-monitor/InstagramMediaTable';
+import { VideosCrudManager } from './instagram-monitor/VideosCrudManager';
 
 interface InstagramMonitorViewProps {
     showToast: (msg: string) => void;
 }
 
 export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ showToast }) => {
+    const [subTab, setSubTab] = React.useState<'instagram' | 'videos'>('instagram');
     const featured = useInstagramFeaturedReels(showToast);
     const monitor = useLiveInstagramMonitor(showToast, featured.featuredShortcodes);
 
     return (
         <div className="space-y-6 animate-in fade-in duration-200">
+            {/* Sous-onglets Instagram / Vidéos */}
+            <div className="flex items-center gap-2 p-1 bg-[#0D0D12] border border-zinc-800 rounded-xl w-fit">
+                <button
+                    type="button"
+                    onClick={() => setSubTab('instagram')}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono-tech uppercase font-bold transition-all cursor-pointer ${
+                        subTab === 'instagram'
+                            ? 'bg-[#FFE500] text-black shadow-md'
+                            : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                    }`}
+                >
+                    <InstagramLogo className="w-4 h-4" />
+                    <span>Instagram &amp; Reels Meta</span>
+                </button>
+                <button
+                    type="button"
+                    onClick={() => setSubTab('videos')}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono-tech uppercase font-bold transition-all cursor-pointer ${
+                        subTab === 'videos'
+                            ? 'bg-[#FFE500] text-black shadow-md'
+                            : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                    }`}
+                >
+                    <Play className="w-4 h-4" />
+                    <span>Vidéos &amp; Reportages TV (CRUD)</span>
+                </button>
+            </div>
+
+            {subTab === 'videos' ? (
+                <VideosCrudManager showToast={showToast} />
+            ) : (
+                <>
             {/* Header épuré et direct */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 bg-[#0b0b10] border border-zinc-800 rounded-2xl shadow-xl">
                 <div>
@@ -199,6 +233,8 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                     </div>
                 )}
             </div>
+            </>
+            )}
         </div>
     );
 };

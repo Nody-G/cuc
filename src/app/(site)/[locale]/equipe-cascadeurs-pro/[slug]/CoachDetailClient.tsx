@@ -89,7 +89,13 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
               <CoachPortrait member={member} tt={tt} />
 
               {/* Colonne Droite : Informations Détaillées, Trajectoire & Compétences */}
-              <CoachProfile member={member} chrome={chrome} tt={tt} />
+              <CoachProfile
+                member={member}
+                chrome={chrome}
+                tt={tt}
+                topFilms={data.sortedFilms.slice(0, 3)}
+                onOpenFilm={data.setSelectedFilmModal}
+              />
             </div>
           </CelebritySheetProvider>
 

@@ -21,7 +21,7 @@ interface HomeTournagesSectionProps {
  * Toute la logique vit dans `useHomeTournages` ; les sous-vues sont déclaratives.
  */
 export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({ tournagesData }) => {
-  const { labels, filmsByTitle, selectedFilm, setSelectedFilm, directorFor } = useHomeTournages({
+  const { labels, filmsByTitle, featuredProductions, selectedFilm, setSelectedFilm, directorFor } = useHomeTournages({
     tournagesData,
   });
 
@@ -53,6 +53,7 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({ tour
           ctaProduction={labels.ctaProduction}
           ctaCatalog={labels.ctaCatalog}
           filmsByTitle={filmsByTitle}
+          featuredProductions={featuredProductions}
           directorFor={directorFor}
           onOpenFilm={setSelectedFilm}
         />

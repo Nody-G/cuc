@@ -2,6 +2,7 @@ import React from 'react';
 import { Plus, Scale, Trash2 } from 'lucide-react';
 import type { FooterLegal, FooterLink } from '@/data/navigation';
 import { FOOTER_INPUT_CLASS } from './footer-ui';
+import { PageUrlSelect } from '../ui/PageUrlSelect';
 
 export interface FooterLegalCardProps {
     legal: FooterLegal;
@@ -46,13 +47,13 @@ export const FooterLegalCard: React.FC<FooterLegalCardProps> = ({
                         onChange={(e) => onUpdateLink(link.id, { label: e.target.value })}
                         className={FOOTER_INPUT_CLASS}
                     />
-                    <input
-                        type="text"
-                        value={link.href}
-                        placeholder="/url"
-                        onChange={(e) => onUpdateLink(link.id, { href: e.target.value })}
-                        className={FOOTER_INPUT_CLASS}
-                    />
+                    <div className="flex-1">
+                        <PageUrlSelect
+                            value={link.href}
+                            onChange={(href) => onUpdateLink(link.id, { href })}
+                            placeholder="/mentions-legales..."
+                        />
+                    </div>
                     <button
                         onClick={() => onRemoveLink(link.id)}
                         className="p-2 rounded-md hover:bg-red-500/20 text-red-400 shrink-0 self-end sm:self-center"

@@ -16,8 +16,16 @@ import { cucMicro } from '@/lib/preview/cuc-micro';
  * dans `messages/*.json` (namespace `footer`).
  */
 export const FooterBrandAndSites: React.FC = () => {
-  const { brand } = useFooter();
+  const { brand, certification } = useFooter();
   const t = useTranslations('footer');
+
+  const certVisible = certification?.is_visible !== false;
+  const certLogo = certification?.logo_url || '/images/partenaires/qualiopi.png';
+  const certPdf =
+    certification?.pdf_url ||
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf';
+  const certTitle = certification?.title || t('certified');
+  const certSubtitle = certification?.subtitle || t('funding');
 
   return (
     <>
@@ -48,34 +56,36 @@ export const FooterBrandAndSites: React.FC = () => {
         </p>
 
         <div className="pt-2 space-y-2">
-          <a
-            href="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between p-2.5 bg-[#101017] hover:bg-[#161622] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors group"
-            title={t('certificateTitle')}
-          >
-            <div className="flex items-center gap-2.5">
-              <div className="relative w-16 h-8 shrink-0">
-                <Image
-                  src="/images/partenaires/qualiopi.png"
-                  alt="Logo Qualiopi"
-                  fill
-                  className="object-contain"
-                  sizes="64px"
-                />
+          {certVisible && (
+            <a
+              href={certPdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between p-2.5 bg-[#101017] hover:bg-[#161622] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors group"
+              title={certification?.title || t('certificateTitle')}
+            >
+              <div className="flex items-center gap-2.5">
+                <div className="relative w-16 h-8 shrink-0">
+                  <Image
+                    src={certLogo}
+                    alt={certTitle}
+                    fill
+                    className="object-contain"
+                    sizes="64px"
+                  />
+                </div>
+                <div>
+                  <span className="text-[11px] font-mono-tech text-white group-hover:text-[#FFE500] font-bold block">
+                    {certification?.title ? certTitle : <span {...cucMicro('footer.certified')}>{t('certified')}</span>}
+                  </span>
+                  <span className="text-[10px] text-zinc-500 font-tech">
+                    {certification?.subtitle ? certSubtitle : <span {...cucMicro('footer.funding')}>{t('funding')}</span>}
+                  </span>
+                </div>
               </div>
-              <div>
-                <span className="text-[11px] font-mono-tech text-white group-hover:text-[#FFE500] font-bold block">
-                  <span {...cucMicro('footer.certified')}>{t('certified')}</span>
-                </span>
-                <span className="text-[10px] text-zinc-500 font-tech">
-                  <span {...cucMicro('footer.funding')}>{t('funding')}</span>
-                </span>
-              </div>
-            </div>
-            <ExternalLink className="w-3.5 h-3.5 text-zinc-600 group-hover:text-[#FFE500]" />
-          </a>
+              <ExternalLink className="w-3.5 h-3.5 text-zinc-600 group-hover:text-[#FFE500]" />
+            </a>
+          )}
 
           <Link
             href="/visite-virtuelle"

@@ -26,6 +26,12 @@ interface ContactCoordinatesSidebarProps {
     car_info?: string;
     parking_info?: string;
     schedule_info?: string;
+    phone?: string;
+    email?: string;
+    campus_address?: string;
+    campus_region?: string;
+    idf_studio?: string;
+    idf_address?: string;
     /** Forme héritée (lecture seule). */
     train?: string;
     car?: string;
@@ -68,10 +74,12 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
                 <span {...cucMicro('contact.sidebar.directPhone')}>{t('directPhone')}</span>
               </strong>
               <a
-                href="tel:+33672849492"
+                href={`tel:${(accessInfo?.phone || '06 72 84 94 92').replace(/\s+/g, '')}`}
+                data-cuc-field="sections_data.access_info.phone"
+                data-cuc-kind="text"
                 className="text-base font-bold text-white hover:text-[#FFE500]"
               >
-                06 72 84 94 92
+                {accessInfo?.phone || '06 72 84 94 92'}
               </a>
             </div>
           </div>
@@ -83,10 +91,12 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
                 <span {...cucMicro('contact.sidebar.email')}>{t('email')}</span>
               </strong>
               <a
-                href="mailto:contact@campus-universcascades.com"
+                href={`mailto:${accessInfo?.email || 'contact@campus-universcascades.com'}`}
+                data-cuc-field="sections_data.access_info.email"
+                data-cuc-kind="text"
                 className="text-zinc-300 hover:text-white truncate"
               >
-                contact@campus-universcascades.com
+                {accessInfo?.email || 'contact@campus-universcascades.com'}
               </a>
             </div>
           </div>
@@ -112,34 +122,28 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
               </span>
             </div>
           </div>
-          {(accessInfo?.train_info || accessInfo?.train || accessInfo?.car_info || accessInfo?.car) && (
-            <div className="pt-3 border-t border-zinc-800/80 space-y-1.5 text-[11px] text-zinc-400">
-              {(accessInfo?.train_info || accessInfo?.train) && (
-                <div className="flex items-start gap-2">
-                  <span className="text-[#FFE500] font-mono-tech font-bold shrink-0">{t('train')}</span>
-                  <span {...cucField('sections_data.access_info.train_info')}>
-                    {accessInfo?.train_info || accessInfo?.train}
-                  </span>
-                </div>
-              )}
-              {(accessInfo?.car_info || accessInfo?.car) && (
-                <div className="flex items-start gap-2">
-                  <span className="text-[#FFE500] font-mono-tech font-bold shrink-0">{t('road')}</span>
-                  <span {...cucField('sections_data.access_info.car_info')}>
-                    {accessInfo?.car_info || accessInfo?.car}
-                  </span>
-                </div>
-              )}
-              {accessInfo?.parking_info && (
-                <div className="flex items-start gap-2">
-                  <span className="text-[#FFE500] font-mono-tech font-bold shrink-0">{t('parking')}</span>
-                  <span {...cucField('sections_data.access_info.parking_info')}>
-                    {accessInfo.parking_info}
-                  </span>
-                </div>
-              )}
+          <div className="pt-3 border-t border-zinc-800/80 space-y-1.5 text-[11px] text-zinc-400">
+            <div className="flex items-start gap-2">
+              <span className="text-[#FFE500] font-mono-tech font-bold shrink-0">{t('train')}</span>
+              <span {...cucField('sections_data.access_info.train_info')}>
+                {accessInfo?.train_info || accessInfo?.train || 'Gare du Cateau (TER Hauts-de-France) à 5 min en taxi / navette.'}
+              </span>
             </div>
-          )}
+            <div className="flex items-start gap-2">
+              <span className="text-[#FFE500] font-mono-tech font-bold shrink-0">{t('road')}</span>
+              <span {...cucField('sections_data.access_info.car_info')}>
+                {accessInfo?.car_info || accessInfo?.car || 'Autoroute A2 / A26 sortie Cambrai puis D643 direction Le Cateau.'}
+              </span>
+            </div>
+            {(accessInfo?.parking_info || true) && (
+              <div className="flex items-start gap-2">
+                <span className="text-[#FFE500] font-mono-tech font-bold shrink-0">{t('parking')}</span>
+                <span {...cucField('sections_data.access_info.parking_info')}>
+                  {accessInfo?.parking_info || 'Parking intérieur sécurisé réservé aux stagiaires et productions.'}
+                </span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -154,10 +158,20 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
             <span {...cucMicro('contact.sidebar.mainCampus')}>{t('mainCampus')}</span>
           </strong>
           <p className="text-zinc-300">
-            <span {...cucMicro('contact.sidebar.mainCampusAddress')}>{t('mainCampusAddress')}</span>
+            <span data-cuc-field="sections_data.access_info.campus_address" data-cuc-kind="text">
+              {accessInfo?.campus_address || (
+                <span {...cucMicro('contact.sidebar.mainCampusAddress')}>{t('mainCampusAddress')}</span>
+              )}
+            </span>
             <br />
-            <span className="text-zinc-500" {...cucMicro('contact.sidebar.mainCampusRegion')}>
-              {t('mainCampusRegion')}
+            <span
+              className="text-zinc-500"
+              data-cuc-field="sections_data.access_info.campus_region"
+              data-cuc-kind="text"
+            >
+              {accessInfo?.campus_region || (
+                <span {...cucMicro('contact.sidebar.mainCampusRegion')}>{t('mainCampusRegion')}</span>
+              )}
             </span>
           </p>
           <div className="mt-2.5 flex items-center gap-2">
@@ -185,10 +199,20 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
             <span {...cucMicro('contact.sidebar.idfHub')}>{t('idfHub')}</span>
           </strong>
           <p className="text-zinc-300">
-            <span {...cucMicro('contact.sidebar.idfStudio')}>{t('idfStudio')}</span>
+            <span data-cuc-field="sections_data.access_info.idf_studio" data-cuc-kind="text">
+              {accessInfo?.idf_studio || (
+                <span {...cucMicro('contact.sidebar.idfStudio')}>{t('idfStudio')}</span>
+              )}
+            </span>
             <br />
-            <span className="text-zinc-500" {...cucMicro('contact.sidebar.idfAddress')}>
-              {t('idfAddress')}
+            <span
+              className="text-zinc-500"
+              data-cuc-field="sections_data.access_info.idf_address"
+              data-cuc-kind="text"
+            >
+              {accessInfo?.idf_address || (
+                <span {...cucMicro('contact.sidebar.idfAddress')}>{t('idfAddress')}</span>
+              )}
             </span>
           </p>
         </div>

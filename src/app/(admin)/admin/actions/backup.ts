@@ -26,7 +26,10 @@ export async function exportFullSiteBackup() {
       settingsRes,
       disciplinesRes,
       poisRes,
-      inquiriesRes
+      inquiriesRes,
+      navigationRes,
+      footerRes,
+      translationsRes
     ] = await Promise.all([
       adminClient.from('site_programs').select('*'),
       adminClient.from('site_pages').select('*'),
@@ -39,6 +42,9 @@ export async function exportFullSiteBackup() {
       adminClient.from('site_disciplines').select('*'),
       adminClient.from('site_campus_pois').select('*'),
       adminClient.from('site_inquiries').select('*'),
+      adminClient.from('site_navigation').select('*'),
+      adminClient.from('site_footer').select('*'),
+      adminClient.from('site_translations').select('*'),
     ]);
 
     const backupPayload = {
@@ -57,6 +63,9 @@ export async function exportFullSiteBackup() {
         disciplines: disciplinesRes.data || [],
         campus_pois: poisRes.data || [],
         inquiries: inquiriesRes.data || [],
+        navigation: navigationRes?.data || [],
+        footer: footerRes?.data || [],
+        translations: translationsRes?.data || [],
       },
     };
 
@@ -136,6 +145,15 @@ export async function restoreFullSiteBackup(jsonData: string) {
       } catch {
         await adminClient.from('site_settings').upsert({ key: 'inquiries', value: { list: inquiries } });
       }
+    }
+    if (Array.isArray(parsed.data.navigation) && parsed.data.navigation.length > 0) {
+      await adminClient.from('site_navigation').upsert(parsed.data.navigation);
+    }
+    if (Array.isArray(parsed.data.footer) && parsed.data.footer.length > 0) {
+      await adminClient.from('site_footer').upsert(parsed.data.footer);
+    }
+    if (Array.isArray(parsed.data.translations) && parsed.data.translations.length > 0) {
+      await adminClient.from('site_translations').upsert(parsed.data.translations);
     }
 
     await revalidateSite(['/', '/formation-de-cascadeur', '/stages-cascades-parkour-2', '/contact-cuc', '/team-building-cascades']);

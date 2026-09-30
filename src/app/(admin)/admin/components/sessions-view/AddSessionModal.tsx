@@ -58,6 +58,7 @@ export const AddSessionModal: React.FC<AddSessionModalProps> = ({
                     >
                         <option value="ouvert">🟢 Ouvert aux inscriptions</option>
                         <option value="dernières places">🟡 Dernières places</option>
+                        <option value="bientôt">🔵 Bientôt disponible</option>
                         <option value="complet">🔴 Complet</option>
                     </select>
                 </div>

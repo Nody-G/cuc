@@ -209,7 +209,7 @@ export function buildNavSections({
                 ...(isDirecteurOrAdmin
                     ? [
                         { id: 'disciplines' as TabType, label: 'Disciplines Enseignées', icon: Shield },
-                        { id: 'events' as TabType, label: 'Agence & Événements Pro', icon: Briefcase },
+                        { id: 'events' as TabType, label: 'Events', icon: Briefcase },
                         { id: 'partners' as TabType, label: 'Partenaires', icon: Handshake },
                     ]
                     : []),

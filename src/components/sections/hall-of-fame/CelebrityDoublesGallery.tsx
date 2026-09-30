@@ -6,7 +6,6 @@ import { DOUBLED_CELEBRITIES } from '@/data/filmography';
 import { getCelebrities } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { DoubledCelebrity } from '@/types';
-import { UserCheck } from 'lucide-react';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import { CelebrityCard } from './CelebrityCard';
 import type { TeamNameRef } from '@/lib/celebrity-double';

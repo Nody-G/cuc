@@ -5,8 +5,8 @@ export type ProgramSession = StuntProgram['nextSessions'][number];
 
 export type SessionStatus = 'ouvert' | 'dernières places' | 'complet' | 'bientôt';
 
-/** Statuts proposés à la création d'une session (pas de « bientôt » manuel). */
-export type NewSessionStatus = Exclude<SessionStatus, 'bientôt'>;
+/** Statuts proposés à la création d'une session (inclut « bientôt »). */
+export type NewSessionStatus = SessionStatus;
 
 export const STATUS_COLORS: Record<string, string> = {
     complet: 'bg-red-500/10 text-red-400 border-red-500/20',

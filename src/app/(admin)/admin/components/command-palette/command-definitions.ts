@@ -70,7 +70,7 @@ export function buildCommands({ selectTab, openBackup, openHealth }: CommandActi
         { id: 'nav-team', label: 'Coachs & Formateurs', category: 'Navigation', icon: Users, action: () => selectTab('team'), keywords: ['coachs', 'formateurs', 'cascadeurs', 'equipe', 'staff'] },
         { id: 'nav-campus-3d', label: 'Campus & Installations', category: 'Navigation', icon: Boxes, action: () => selectTab('campus-3d'), keywords: ['campus', '3d', 'installations', 'lieux', 'batiments', 'poi', 'studio'] },
         { id: 'nav-disciplines', label: 'Disciplines Enseignées', category: 'Navigation', icon: Compass, action: () => selectTab('disciplines'), keywords: ['parkour', 'cascades', 'escalade', 'disciplines', 'modules'] },
-        { id: 'nav-events', label: 'Agence & Événements Pro', category: 'Navigation', icon: Briefcase, action: () => selectTab('events'), keywords: ['agence', 'events', 'evenements', 'b2b', 'prestations'] },
+        { id: 'nav-events', label: 'Events', category: 'Navigation', icon: Briefcase, action: () => selectTab('events'), keywords: ['agence', 'events', 'evenements', 'b2b', 'prestations'] },
         { id: 'nav-partners', label: 'Partenaires', category: 'Navigation', icon: Handshake, action: () => selectTab('partners'), keywords: ['sponsors', 'logos', 'partenaires', 'marques'] },
 
         // Navigation — Pôle 3 : Réseaux & Visites

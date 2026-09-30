@@ -9,6 +9,7 @@ import { NavigationHeader } from './navigation-view/NavigationHeader';
 import { NavigationPublishToggle } from './navigation-view/NavigationPublishToggle';
 import { NavigationItemsEditor } from './navigation-view/NavigationItemsEditor';
 import { NavigationCtaCard } from './navigation-view/NavigationCtaCard';
+import { StickySaveBar } from './ui/StickySaveBar';
 
 interface NavigationViewProps {
     showToast: (msg: string) => void;
@@ -110,6 +111,14 @@ export const NavigationView: React.FC<NavigationViewProps> = ({
             />
 
             <NavigationCtaCard cta={nav.structure.cta} onChange={nav.updateCta} />
+
+            {/* Barre de sauvegarde flottante persistante */}
+            <StickySaveBar
+                isDirty={nav.isDirty}
+                isPending={nav.isPending}
+                onSave={nav.handleSave}
+                label="Modifications de la navigation non enregistrées"
+            />
         </div>
     );
 };

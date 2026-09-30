@@ -6,6 +6,7 @@ import { Send, CheckCircle2 } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { submitInquiry } from '@/app/(admin)/admin/actions';
 import { cucMicro } from '@/lib/preview/cuc-micro';
+import { ContactProgramChips } from './ContactProgramChips';
 
 /** Identifiants valides du sélecteur « Votre Demande Concerne ». */
 const VALID_PROGRAMS = [
@@ -43,7 +44,7 @@ export const ContactForm: React.FC = () => {
     name: '',
     email: '',
     phone: '',
-    program: resolveInitialProgram(),
+    programs: [resolveInitialProgram()],
     sportExperience: '',
     message: '',
   }));
@@ -57,16 +58,15 @@ export const ContactForm: React.FC = () => {
     setIsSubmitting(true);
     setErrorMessage(null);
 
-    // Libellé de la demande : une seule source (catalogue), donc la même
-    // formulation à l'affichage et dans la fiche reçue par le Cockpit.
-    const programTitle = t(`options.${formData.program}`);
+    // Formulations issues du catalogue de micro-textes
+    const programTitles = formData.programs.map((progId) => t(`options.${progId}`));
 
     const res = await submitInquiry({
       full_name: formData.name,
       email: formData.email,
       phone: formData.phone,
-      program_id: formData.program,
-      program_title: programTitle,
+      program_id: formData.programs.join(', '),
+      program_title: programTitles.join(' • '),
       sport_background: formData.sportExperience,
       message: formData.message,
     });
@@ -174,28 +174,10 @@ export const ContactForm: React.FC = () => {
             />
           </div>
 
-          <div>
-            <label
-              htmlFor="contact-program"
-              className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
-            >
-              <span {...cucMicro('contact.form.labelProgram')}>{t('labelProgram')}</span>
-            </label>
-            <select
-              id="contact-program"
-              value={formData.program}
-              onChange={(e) =>
-                setFormData({ ...formData, program: e.target.value })
-              }
-              className="w-full bg-[#14141c] border border-zinc-800 p-3 text-white focus:border-[#FFE500] focus:outline-hidden"
-            >
-              {VALID_PROGRAMS.map((programId) => (
-                <option key={programId} value={programId}>
-                  {t(`options.${programId}`)}
-                </option>
-              ))}
-            </select>
-          </div>
+          <ContactProgramChips
+            selectedKeys={formData.programs}
+            onChange={(keys) => setFormData({ ...formData, programs: keys })}
+          />
 
           <div>
             <label

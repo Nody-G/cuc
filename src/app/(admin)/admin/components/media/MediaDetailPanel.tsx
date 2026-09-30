@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Check, Copy, Download, ExternalLink, Info } from 'lucide-react';
 import { formatBytes, type MediaObject } from '@/app/(admin)/admin/media-shared';
 import { KIND_ICON } from './media-explorer-shared';
+import { forceDownloadBlob } from '@/lib/download-blob';
 
 export interface MediaDetailPanelProps {
     detail: MediaObject | null;
@@ -125,13 +126,14 @@ export const MediaDetailPanel: React.FC<MediaDetailPanelProps> = ({
                         >
                             <ExternalLink className="w-3.5 h-3.5" /> Ouvrir
                         </a>
-                        <a
-                            href={detail.url}
-                            download
-                            className="px-2 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-200 text-[11px] flex items-center justify-center gap-1.5"
+                        <button
+                            type="button"
+                            onClick={() => forceDownloadBlob(detail.url, detail.name)}
+                            className="px-2 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-200 text-[11px] flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+                            title="Télécharger directement l'image"
                         >
                             <Download className="w-3.5 h-3.5" /> Télécharger
-                        </a>
+                        </button>
                         <button
                             type="button"
                             onClick={onTrash}

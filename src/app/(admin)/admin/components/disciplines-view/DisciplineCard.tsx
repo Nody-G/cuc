@@ -99,79 +99,77 @@ export const DisciplineCard: React.FC<DisciplineCardProps> = ({
                 </div>
 
                 {/* Interconnexions Actives */}
-                <div className="space-y-2 pt-2 border-t border-zinc-800/60 text-xs">
-                    {/* Zone Campus */}
-                    <div className="flex items-center gap-2 text-zinc-300">
-                        <MapPin className="w-3.5 h-3.5 text-cuc-gold shrink-0" />
-                        <span className="text-zinc-500">Zone Campus :</span>
-                        {zone ? (
-                            <span className="font-medium text-amber-300 truncate">{zone.name}</span>
-                        ) : (
-                            <span className="text-zinc-600 italic">Non assignée</span>
+                {(zone || linkedInstructors.length > 0 || linkedFilms.length > 0 || linkedProgs.length > 0) && (
+                    <div className="space-y-2 pt-2 border-t border-zinc-800/60 text-xs">
+                        {/* Zone Campus (uniquement si assignée) */}
+                        {zone && (
+                            <div className="flex items-center gap-2 text-zinc-300">
+                                <MapPin className="w-3.5 h-3.5 text-cuc-gold shrink-0" />
+                                <span className="text-zinc-500">Zone Campus :</span>
+                                <span className="font-medium text-amber-300 truncate">{zone.name}</span>
+                            </div>
+                        )}
+
+                        {/* Formateurs Référents (uniquement si liés) */}
+                        {linkedInstructors.length > 0 && (
+                            <div className="flex items-center gap-2 text-zinc-300">
+                                <Users className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+                                <span className="text-zinc-500">Formateurs :</span>
+                                <div className="flex items-center gap-1.5 flex-wrap">
+                                    {linkedInstructors.slice(0, 2).map((inst) => (
+                                        <span
+                                            key={inst.id}
+                                            className="px-2 py-0.5 bg-zinc-800/80 rounded-md text-[11px] text-zinc-200 border border-zinc-700/50"
+                                        >
+                                            {inst.name.split(' ')[0]}
+                                        </span>
+                                    ))}
+                                    {linkedInstructors.length > 2 && (
+                                        <span className="text-[10px] text-zinc-400 font-mono">
+                                            +{linkedInstructors.length - 2}
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Films Phares Liés */}
+                        {linkedFilms.length > 0 && (
+                            <div className="flex items-center gap-2 text-zinc-300">
+                                <Film className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+                                <span className="text-zinc-500">Films phares :</span>
+                                <div className="flex items-center gap-1.5 flex-wrap">
+                                    {linkedFilms.slice(0, 2).map((f) => (
+                                        <span
+                                            key={f.id}
+                                            className="px-2 py-0.5 bg-purple-950/40 text-purple-200 rounded-md text-[11px] border border-purple-800/40 truncate max-w-[130px]"
+                                        >
+                                            {f.title}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Formations Associées */}
+                        {linkedProgs.length > 0 && (
+                            <div className="flex items-center gap-2 text-zinc-300">
+                                <GraduationCap className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                                <span className="text-zinc-500">Programmes :</span>
+                                <div className="flex items-center gap-1.5 flex-wrap">
+                                    {linkedProgs.map((p) => (
+                                        <span
+                                            key={p.id}
+                                            className="px-2 py-0.5 bg-emerald-950/40 text-emerald-300 rounded-md text-[10px] border border-emerald-800/30"
+                                        >
+                                            {p.badge || p.title.slice(0, 15)}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
                         )}
                     </div>
-
-                    {/* Formateurs Référents */}
-                    <div className="flex items-center gap-2 text-zinc-300">
-                        <Users className="w-3.5 h-3.5 text-sky-400 shrink-0" />
-                        <span className="text-zinc-500">Formateurs :</span>
-                        {linkedInstructors.length > 0 ? (
-                            <div className="flex items-center gap-1.5 flex-wrap">
-                                {linkedInstructors.slice(0, 2).map((inst) => (
-                                    <span
-                                        key={inst.id}
-                                        className="px-2 py-0.5 bg-zinc-800/80 rounded-md text-[11px] text-zinc-200 border border-zinc-700/50"
-                                    >
-                                        {inst.name.split(' ')[0]}
-                                    </span>
-                                ))}
-                                {linkedInstructors.length > 2 && (
-                                    <span className="text-[10px] text-zinc-400 font-mono">
-                                        +{linkedInstructors.length - 2}
-                                    </span>
-                                )}
-                            </div>
-                        ) : (
-                            <span className="text-zinc-600 italic">Aucun formateur lié</span>
-                        )}
-                    </div>
-
-                    {/* Films Phares Liés */}
-                    {linkedFilms.length > 0 && (
-                        <div className="flex items-center gap-2 text-zinc-300">
-                            <Film className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-                            <span className="text-zinc-500">Films phares :</span>
-                            <div className="flex items-center gap-1.5 flex-wrap">
-                                {linkedFilms.slice(0, 2).map((f) => (
-                                    <span
-                                        key={f.id}
-                                        className="px-2 py-0.5 bg-purple-950/40 text-purple-200 rounded-md text-[11px] border border-purple-800/40 truncate max-w-[130px]"
-                                    >
-                                        {f.title}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Formations Associées */}
-                    {linkedProgs.length > 0 && (
-                        <div className="flex items-center gap-2 text-zinc-300">
-                            <GraduationCap className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                            <span className="text-zinc-500">Programmes :</span>
-                            <div className="flex items-center gap-1.5 flex-wrap">
-                                {linkedProgs.map((p) => (
-                                    <span
-                                        key={p.id}
-                                        className="px-2 py-0.5 bg-emerald-950/40 text-emerald-300 rounded-md text-[10px] border border-emerald-800/30"
-                                    >
-                                        {p.badge || p.title.slice(0, 15)}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-                </div>
+                )}
 
                 {/* Matériel Clé */}
                 {d.equipment && d.equipment.length > 0 && (

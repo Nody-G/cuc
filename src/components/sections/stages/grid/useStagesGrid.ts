@@ -4,6 +4,9 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import { STAGES_LIST, type StageData } from '../stages.data';
 import { usePageSectionData } from '@/lib/hooks/usePageSectionData';
+import { getPrograms } from '@/lib/data/site/content';
+import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
+import type { StuntProgram } from '@/types';
 import { pickCopy, type StageCopy, type StageOverride } from './stage-render';
 
 export interface StagesGridController {
@@ -41,6 +44,16 @@ interface CustomStageInput {
 export function useStagesGrid(customStages?: unknown[]): StagesGridController {
     const t = useTranslations('stages');
     const cardCopy = t.raw('cards') as StageCopy[];
+    const [programs, setPrograms] = React.useState<StuntProgram[]>([]);
+
+    React.useEffect(() => {
+        getPrograms().then(setPrograms);
+    }, []);
+
+    useRealtimeRefresh(['site_sessions', 'site_programs'], () => {
+        getPrograms().then(setPrograms);
+    });
+
     /**
      * Ancien bloc d'overrides du Mode Studio : lu en **repli** pour ne pas
      * perdre une saisie antérieure à l'alignement. La source canonique est
@@ -58,11 +71,13 @@ export function useStagesGrid(customStages?: unknown[]): StagesGridController {
     const displayList: StageData[] = (customList.length > 0)
         ? customList.map((cs, idx: number) => {
             const match = STAGES_LIST.find((s) => s.id === cs.id) || STAGES_LIST[idx % STAGES_LIST.length];
+            const prog = programs.find((p) => p.id === (cs.id || match?.id));
             return {
                 ...match,
                 id: cs.id || match?.id || `stage-${idx}`,
                 title: cs.title || match?.title,
                 description: cs.description || match?.description,
+                sessions: prog?.nextSessions,
                 badge: cs.level
                     ? { text: cs.level, variant: 'yellow' as const }
                     : (match?.badge || { text: t('fallbackBadge'), variant: 'yellow' as const }),

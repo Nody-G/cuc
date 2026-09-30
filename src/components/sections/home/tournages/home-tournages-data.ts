@@ -28,6 +28,7 @@ export interface HomeTournagesData {
     pillar2_desc?: string;
     pillar3_title?: string;
     pillar3_desc?: string;
+    featured_films?: HighlightProject[];
 }
 
 export interface HomeVirtualTourData {
@@ -69,13 +70,13 @@ export const FEATURED_PRODUCTIONS: HighlightProject[] = [
         poster: 'https://m.media-amazon.com/images/M/MV5BNTNkOTYzZjgtYzE0Yy00NGY1LThjNmQtMjFkMWZiMTNmMmZlXkEyXkFqcGc@._V1_.jpg',
     },
     {
-        title: 'Chien 51',
-        year: '2025',
-        poster: 'https://m.media-amazon.com/images/M/MV5BMzgxMjMyZDUtOTA5Yy00ODYyLWJhMDEtNDBhMDc1YjQwNGE4XkEyXkFqcGc@._V1_.jpg',
+        title: 'Bagarre',
+        year: '2026',
+        poster: 'https://m.media-amazon.com/images/M/MV5BNWQyOTZjZGYtZjFlZC00NzI2LTg3ZmItYjJhYjM2YmFjNDZmXkEyXkFqcGc@._V1_.jpg',
     },
     {
-        title: 'Le négociateur',
-        year: '2023',
-        poster: 'https://m.media-amazon.com/images/M/MV5BY2Y2MTViMWItYTgyOS00ZGRhLWE0YzItNzQ3ZmM5MjA1NjE3XkEyXkFqcGc@._V1_.jpg',
+        title: 'Néro',
+        year: '2025',
+        poster: 'https://m.media-amazon.com/images/M/MV5BYzJmOTQzMmUtOWVjNS00MzhhLWE3OTYtMmNlMDlkYjAxMTBjXkEyXkFqcGc@._V1_.jpg',
     },
 ];

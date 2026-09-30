@@ -1,56 +1,34 @@
-'use client';
-
-import React, { useMemo } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import { DoubledCelebrity } from '@/types';
 import { ImdbLogo, LogoLink } from '@/components/ui/BrandLogos';
-import { UserCheck } from 'lucide-react';
-import { resolveDoubledBy, type TeamNameRef } from '@/lib/celebrity-double';
-import { shortActorDescription } from '@/lib/celebrity-copy';
+import type { TeamNameRef } from '@/lib/celebrity-double';
 
 interface CelebrityCardProps {
     actor: DoubledCelebrity;
-    /** Référentiel de l'équipe CUC, pour transformer un nom de doubleur en lien. */
-    teamMembers: TeamNameRef[];
+    /** Référentiel de l'équipe CUC (compatibilité interface). */
+    teamMembers?: TeamNameRef[];
     /** Ouvre la fiche détaillée du comédien. */
     onSelect: () => void;
 }
 
 /**
- * Vignette d'un comédien doublé.
+ * Vignette d'un comédien partenaire du CUC.
  *
- * Toute la carte ouvre la fiche au clic (et au clavier) ; le badge IMDb et le
- * nom du doubleur CUC sont des liens qui neutralisent ce clic. Quand le
- * doubleur appartient à l'équipe du campus, son nom mène à sa fiche coach —
- * la même interconnexion que sur les jaquettes de films.
- *
- * La mention « voir la fiche » a été retirée : l'affordance est portée par le
- * curseur, la bordure jaune et le survol de la carte, pas par un badge.
- *
- * La description courte est dérivée de la donnée publiée (spécialité, sinon
- * biographie) : voir [`shortActorDescription`].
+ * Toute la carte ouvre la fiche au clic ; le logo IMDb offre l'accès direct.
+ * Épuré selon la demande : nom officiel du comédien sans micro-description tronquée.
  */
-export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers, onSelect }) => {
+export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, onSelect }) => {
     const t = useTranslations('teamProduction');
-
-    const doubledBy = useMemo(
-        () => resolveDoubledBy(actor.stuntDoubles, teamMembers),
-        [actor.stuntDoubles, teamMembers]
-    );
-    const hasDoubles = doubledBy.name.trim().length > 0;
-
-    const description = shortActorDescription({
-        specialty: actor.stuntSpecialty,
-        bio: actor.bio,
-    });
 
     const openFromKeyboard = (event: React.KeyboardEvent) => {
         if (event.key !== 'Enter' && event.key !== ' ') return;
         event.preventDefault();
         onSelect();
     };
+
+    const [hasError, setHasError] = React.useState(false);
 
     return (
         <article
@@ -64,71 +42,34 @@ export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers
             {/* Portrait — ratio 3/4 harmonisé avec la grille 6 colonnes */}
             <div className="relative aspect-[3/4] w-full overflow-hidden bg-black">
                 <Image
-                    src={actor.photo}
+                    key={actor.photo}
+                    src={hasError ? '/images/actors/actor-placeholder.svg' : actor.photo}
                     alt={t('hallOfFame.photoAlt', { name: actor.name })}
                     fill
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
+                    onError={() => setHasError(true)}
                     className="object-cover object-top brightness-90 contrast-105 group-hover:scale-105 group-hover:brightness-100 transition-all duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#121218] via-[#121218]/25 to-transparent" />
 
                 {/* IMDb — lien direct, hors clic de carte : logo seul */}
-                <LogoLink
-                    href={actor.imdbUrl}
-                    label={t('hallOfFame.imdbTitle', { name: actor.name })}
-                    onClick={(e) => e.stopPropagation()}
-                    className="absolute top-2.5 right-2.5 z-10 drop-shadow-md"
-                >
-                    <ImdbLogo className="h-5 w-auto" />
-                </LogoLink>
-
+                {actor.imdbUrl && (
+                    <LogoLink
+                        href={actor.imdbUrl}
+                        label={t('hallOfFame.imdbTitle', { name: actor.name })}
+                        onClick={(e) => e.stopPropagation()}
+                        className="absolute top-2.5 right-2.5 z-10 drop-shadow-md"
+                    >
+                        <ImdbLogo className="h-5 w-auto" />
+                    </LogoLink>
+                )}
             </div>
 
-            {/* Contenu */}
-            <div className="p-3.5 flex-1 flex flex-col gap-2">
-                <h4 className="text-base sm:text-lg font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors leading-tight">
+            {/* Contenu : nom seul, aligné et percutant */}
+            <div className="p-3.5 flex-1 flex flex-col justify-center">
+                <h4 className="text-sm sm:text-base font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors leading-tight line-clamp-1">
                     {actor.name}
                 </h4>
-
-                {/* Description courte — spécialité publiée, sinon première phrase
-                    de la biographie vérifiée. Hauteur bornée pour aligner la grille. */}
-                {description ? (
-                    <p className="text-[11px] font-tech text-zinc-400 leading-snug line-clamp-2 min-h-[2.25rem]">
-                        {description}
-                    </p>
-                ) : null}
-
-                {hasDoubles ? (
-                    <div className="inline-flex items-start gap-1 self-start px-2 py-0.5 bg-[#FFE500]/10 border border-[#FFE500]/40 text-[9px] font-mono-tech text-[#FFE500] font-bold">
-                        <UserCheck className="w-2.5 h-2.5 flex-shrink-0 mt-0.5" />
-                        <span className="leading-tight">
-                            {doubledBy.segments.length > 0 ? (
-                                doubledBy.segments.map((seg, sIdx) => {
-                                    if (seg.type === 'member' && seg.member) {
-                                        return (
-                                            <Link
-                                                key={sIdx}
-                                                href={`/equipe-cascadeurs-pro/${seg.member.id}`}
-                                                onClick={(e) => e.stopPropagation()}
-                                                title={seg.member.name}
-                                                className="underline decoration-dotted underline-offset-2 hover:text-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-[#FFE500] transition-colors"
-                                            >
-                                                {seg.text}
-                                            </Link>
-                                        );
-                                    }
-                                    return <React.Fragment key={sIdx}>{seg.text}</React.Fragment>;
-                                })
-                            ) : (
-                                <>
-                                    {doubledBy.prefix}
-                                    {doubledBy.name}
-                                    {doubledBy.suffix}
-                                </>
-                            )}
-                        </span>
-                    </div>
-                ) : null}
             </div>
 
             <div className="h-[2px] w-full bg-zinc-800 group-hover:bg-[#FFE500] transition-colors" />
