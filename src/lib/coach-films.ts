@@ -131,6 +131,7 @@ export interface CoachFilmRole {
     role: string;
     isCoord: boolean;
     isDoublure: boolean;
+    isCascadeur: boolean;
 }
 
 /** Traducteur des libellés de rôles (namespace `team`). */
@@ -195,13 +196,22 @@ export function createCoachFilmRoleResolver({
 }) {
     return (film: FilmCredit): CoachFilmRole => {
         const summary = resolveRoleSet(film, member, parsedCredits);
+        const isCoord = summary.roles.includes('Coordinateur des cascades');
+        const isDoublure = summary.roles.includes('Doublure');
+        const isCascadeur =
+            summary.roles.includes('Cascadeur') ||
+            summary.roles.includes('Cascadeur mécanique') ||
+            summary.roles.includes('Rigger') ||
+            (!isCoord && !isDoublure);
+
         return {
             role: renderRoleSet(
                 { roles: summary.roles, doubledActors: summary.doubledActors },
                 tt
             ),
-            isCoord: summary.roles.includes('Coordinateur des cascades'),
-            isDoublure: summary.roles.includes('Doublure'),
+            isCoord,
+            isDoublure,
+            isCascadeur,
         };
     };
 }

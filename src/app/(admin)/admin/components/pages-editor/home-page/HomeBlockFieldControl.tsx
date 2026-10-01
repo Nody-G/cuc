@@ -1,7 +1,7 @@
 import React from 'react';
-import { Image as ImageIcon } from 'lucide-react';
 import type { HomeFieldDef } from './home-blocks.types';
 import { LinkField } from '../LinkField';
+import { MediaImageField } from '../MediaImageField';
 
 const INPUT_CLASS =
     'w-full bg-black/60 border border-white/20 rounded px-3 py-2 text-xs text-white focus:border-[#FFE500] focus:outline-none';
@@ -35,26 +35,13 @@ export const HomeBlockFieldControl: React.FC<HomeBlockFieldControlProps> = ({
 
     if (field.media) {
         return (
-            <div>
-                <label className={LABEL_CLASS}>{field.label}</label>
-                <div className="flex items-center gap-2">
-                    <input
-                        type="text"
-                        value={value}
-                        onChange={(e) => onChange(e.target.value)}
-                        className={INPUT_CLASS}
-                        {...fieldAttr}
-                    />
-                    <button
-                        type="button"
-                        onClick={() => onPickMedia(fieldPath)}
-                        className="shrink-0 p-2 rounded bg-white/10 text-white hover:bg-white/20"
-                        title="Choisir dans la médiathèque"
-                    >
-                        <ImageIcon className="w-4 h-4" />
-                    </button>
-                </div>
-            </div>
+            <MediaImageField
+                label={field.label}
+                value={value}
+                onChange={onChange}
+                onPickMedia={() => onPickMedia(fieldPath)}
+                data-cuc-field={field.liveEdit ? fieldPath : undefined}
+            />
         );
     }
 

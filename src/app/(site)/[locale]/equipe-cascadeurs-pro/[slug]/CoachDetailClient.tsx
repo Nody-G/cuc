@@ -93,8 +93,6 @@ export const CoachDetailClient: React.FC<CoachDetailClientProps> = ({
                 member={member}
                 chrome={chrome}
                 tt={tt}
-                topFilms={data.sortedFilms.slice(0, 3)}
-                onOpenFilm={data.setSelectedFilmModal}
               />
             </div>
           </CelebritySheetProvider>

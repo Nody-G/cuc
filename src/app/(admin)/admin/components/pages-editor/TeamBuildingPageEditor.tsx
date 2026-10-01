@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import { Plus, Trash2, Image as ImageIcon } from 'lucide-react';
+import { Plus, Trash2 } from 'lucide-react';
 import { SitePageContent } from '@/lib/data/site-service';
+import { MediaImageField } from './MediaImageField';
 
 /** Forme minimale d'un atelier : celle écrite par le formulaire et la vitrine. */
 interface WorkshopItem {
@@ -186,25 +187,12 @@ export const TeamBuildingPageEditor: React.FC<TeamBuildingPageEditorProps> = ({
                   />
                 </div>
 
-                <div>
-                  <label className="block text-[10px] font-mono text-gray-400 mb-1">Photo de l&apos;atelier</label>
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      value={ws.img || ''}
-                      onChange={(e) => handleUpdateWorkshop(idx, { img: e.target.value })}
-                      className="flex-1 bg-black/60 border border-white/20 rounded px-2.5 py-1.5 text-xs text-white"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setMediaPickerTarget(`workshop_img_${idx}`)}
-                      className="px-3 py-1.5 rounded bg-white/10 hover:bg-white/20 text-xs font-bold text-white flex items-center gap-1.5"
-                      title="Choisir dans la médiathèque"
-                    >
-                      <ImageIcon className="w-3.5 h-3.5 text-[#FFE500]" />
-                    </button>
-                  </div>
-                </div>
+                <MediaImageField
+                  label="Photo de l'atelier"
+                  value={ws.img || ''}
+                  onChange={(url) => handleUpdateWorkshop(idx, { img: url })}
+                  onPickMedia={() => setMediaPickerTarget(`workshop_img_${idx}`)}
+                />
               </div>
             )
           )}
