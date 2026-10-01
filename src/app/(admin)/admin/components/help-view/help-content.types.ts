@@ -47,3 +47,15 @@ export const HELP_QUICK_START: QuickStep[] = [
         text: '« Diagnostic du Site » détecte les liens cassés et images manquantes ; « Journal & Activité » trace qui a modifié quoi.',
     },
 ];
+
+/** Identifiants des 5 grands volets du centre d'aide. */
+export type HelpTabId = 'guide' | 'application' | 'methodologie' | 'cuc-sign' | 'faq';
+
+export interface HelpTabDefinition {
+    id: HelpTabId;
+    label: string;
+    shortLabel: string;
+    description: string;
+    badge?: string;
+}
+
