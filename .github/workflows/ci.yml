@@ -62,3 +62,29 @@ jobs:
         run: npm run audit:route-weight
         env:
           NEXT_TELEMETRY_DISABLED: "1"
+
+  # Garde de périmètre CUC Sign : contrôle **statique** du code source
+  # (`scripts/guard_cuc_sign_scope.mjs`), sans base, sans réseau, sans secret —
+  # il s'exécute donc sur une pull request, y compris depuis un fork. Il refuse
+  # toute écriture SQL hors liste blanche, toute référence à une table CUC Sign
+  # ou au schéma `auth`, toute FK interdite et toute DDL.
+  cuc-sign-scope-guard:
+    name: Garde de périmètre CUC Sign
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Périmètre CUC Sign (lecture seule)
+        run: node scripts/guard_cuc_sign_scope.mjs

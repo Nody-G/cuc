@@ -18,6 +18,7 @@ import { DashboardHeader } from './dashboard-view/DashboardHeader';
 import { DashboardModuleCard } from './dashboard-view/DashboardModuleCard';
 import { DashboardActivityLog } from './dashboard-view/DashboardActivityLog';
 import { DashboardBackupPanel } from './dashboard-view/DashboardBackupPanel';
+import { BackupVersionsPanel } from './backup-view/BackupVersionsPanel';
 import { useAuditLogs } from './dashboard-view/useAuditLogs';
 
 interface DashboardViewProps {
@@ -178,9 +179,15 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         {/* Journal d'activités récentes */}
         <DashboardActivityLog logs={logs} />
 
-        {/* Panneau Sécurité & Sauvegardes */}
+        {/* Panneau Sécurité & Sauvegardes (import/export JSON de contenu) */}
         <DashboardBackupPanel onOpenBackupModal={onOpenBackupModal} />
       </div>
+
+      {/* État réel des sauvegardes versionnées (en veille par choix) +
+          restauration versionnée. Lecture du catalogue hors projet Supabase ;
+          aucune écriture tant que les trois vérifications serveur ne sont pas
+          réunies. */}
+      <BackupVersionsPanel />
     </div>
   );
 };

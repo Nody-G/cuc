@@ -182,7 +182,7 @@ export const OLD_SITE_VULNERABILITIES: readonly VulnerabilityDetail[] = [
         riskLevel: 'Élevé',
         oldFlaw: 'Les sauvegardes étaient gérées localement sur le même disque dur de l’hébergeur.',
         concreteRisk: 'En cas de crash de disque, d’incendie du datacenter (ex : incendie OVH) ou de corruption de base lors d’une mise à jour, des années d’archives de cascade et d’inscriptions étaient anéanties à jamais.',
-        newResolution: 'Sauvegardes automatiques quotidiennes chiffrées répliquées sur plusieurs régions Cloud indépendantes, plus exports manuels complets en 1 clic depuis le Cockpit.',
+        newResolution: 'Export de sauvegarde manuel en 1 clic depuis le Cockpit : un fichier JSON téléchargé et conservé hors plateforme, rechargeable sans rien supprimer. Un moteur de sauvegarde chiffré et versionné vers un stockage externe existe également, prêt à être activé sur décision.',
     },
     {
         title: 'Destruction des Négatifs Haute Définition des Cascades',

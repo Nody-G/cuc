@@ -29,6 +29,7 @@ import {
     Globe,
     ScrollText,
     BookOpen,
+    History,
 } from 'lucide-react';
 import type { TabType } from '../../CockpitApp';
 
@@ -102,7 +103,8 @@ export function buildCommands({ selectTab, openBackup, openHealth }: CommandActi
 
         // Outils Système
         { id: 'nav-logs', label: 'Journal & Activité', category: 'Navigation', icon: ScrollText, action: () => selectTab('logs'), keywords: ['journal', 'logs', 'activite', 'erreurs', 'incidents', 'tracabilite', 'diagnostic', 'audit'] },
-        { id: 'tool-backup', label: 'Sauvegarder / Restaurer le Site', category: 'Outils Système', icon: Database, action: () => openBackup(), keywords: ['backup', 'export', 'import', 'restauration', 'sauvegarde'] },
+        { id: 'tool-backup', label: 'Import / Export d’un contenu JSON', category: 'Outils Système', icon: Database, action: () => openBackup(), keywords: ['backup', 'export', 'import', 'json', 'contenu', 'fusion'] },
+        { id: 'tool-backup-versions', label: 'Versions de sauvegarde & Restauration versionnée', category: 'Outils Système', icon: History, action: () => selectTab('dashboard'), keywords: ['versions', 'restauration', 'retour arriere', 'rollback', 'snapshot', 'catalogue', 'sauvegardes', 'backup'] },
         { id: 'tool-health', label: 'Diagnostic Système & Santé', category: 'Outils Système', icon: Activity, action: () => openHealth(), keywords: ['sante', 'diagnostic', 'statut', 'monitoring', 'performance'] },
     ];
 }

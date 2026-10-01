@@ -52,22 +52,24 @@ export const HELP_SYSTEM_GROUP: HelpGroup = {
         },
         {
             id: 'sauvegarde',
-            title: 'Sauvegarde & Restauration complète du site',
-            summary: 'Créer un instantané global de secours ou revenir en arrière en cas de pépin.',
+            title: 'Sauvegarde manuelle & Import / Export JSON',
+            summary: 'Télécharger à la demande une sauvegarde de contenu, la recharger ou revenir en arrière sans risque.',
             steps: [
-                'Accessible depuis la palette Ctrl+K ou le bouton « Sauvegardes » dans la barre supérieure.',
-                'Pour créer un instantané : cliquez sur « Exporter / Sauvegarder maintenant » pour télécharger une archive complète JSON/SQL.',
-                'Pour restaurer un état passé : sélectionnez une sauvegarde antérieure et confirmez l’opération.',
+                'Pour créer une sauvegarde : bouton « Ouvrir l’outil Import / Export JSON » (ou Ctrl+K → « Import / Export d’un contenu JSON »), puis « Télécharger la Sauvegarde Complète (.json) ». Le fichier se conserve où vous le souhaitez.',
+                'Pour recharger un export : ouvrez le même outil et sélectionnez un fichier .json antérieur. Réservé aux comptes Direction et Administrateur.',
+                'Il n’y a aujourd’hui aucune sauvegarde automatique : la fraîcheur de votre sauvegarde est la date de votre dernier export.',
             ],
             bullets: [
-                'En plus des sauvegardes manuelles, Supabase effectue des sauvegardes automatiques quotidiennes chiffrées de toute la base PostgreSQL.',
-                'La restauration est une action lourde qui demande une confirmation par mot de passe administrateur.',
+                'L’import ne supprime rien : il écrit ou met à jour les lignes du fichier, et les éléments créés après l’export subsistent. Ce n’est pas un retour arrière strict de version.',
+                'L’import ne touche que les tables de contenu de la vitrine. Aucune table du produit CUC Sign n’est lue ni écrite : l’opération est sans risque pour CUC Sign.',
+                'Si personne n’exporte pendant un mois, on ne peut revenir que d’un mois : exportez régulièrement et avant toute opération sensible.',
+                'Le panneau « Versions & Restauration » (versions chiffrées hors projet Supabase) existe mais est inactif par choix ; il redeviendra opérationnel si le dispositif est activé plus tard.',
             ],
             proTip:
-                'Avant de faire une refonte majeure d’un programme ou de restructurer plusieurs pages, faites un export de sauvegarde en 5 secondes : vous travaillerez avec une sérénité absolue.',
+                'Exportez avant toute modification importante : c’est le geste qui garantit votre filet de sécurité.',
             troubleshooting:
-                'Si vous avez besoin de restaurer la base entière suite à une catastrophe, contactez l’administrateur technique pour remonter la sauvegarde quotidienne Supabase de la veille.',
-            keywords: ['sauvegarde', 'backup', 'restauration', 'export', 'securite', 'snapshot'],
+                'Le panneau « Versions & Restauration » indique des sauvegardes versionnées désactivées : c’est volontaire, aucune sauvegarde automatique n’est prévue. Le geste à utiliser est l’export/import JSON ci-dessus.',
+            keywords: ['sauvegarde', 'backup', 'restauration', 'export', 'import', 'json', 'securite'],
         },
         {
             id: 'comptes',

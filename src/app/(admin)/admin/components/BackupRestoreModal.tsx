@@ -14,6 +14,17 @@ import {
 } from 'lucide-react';
 import { exportFullSiteBackup, restoreFullSiteBackup } from '@/app/(admin)/admin/actions';
 
+/**
+ * Outil d'**import / export d'un fichier JSON de contenu**.
+ *
+ * Ce modal n'est **pas** un retour arrière de version : il écrit ou met à jour
+ * les lignes présentes dans le fichier, sans jamais en supprimer. Le vrai retour
+ * arrière vit dans le panneau « Versions & Restauration » du tableau de bord
+ * (`backup-view/BackupVersionsPanel.tsx`). L'action serveur
+ * `restoreFullSiteBackup` est conservée telle quelle (d'autres chemins et tests
+ * s'appuient dessus) : seule sa **présentation** est corrigée pour ne plus
+ * laisser croire à une restauration de version.
+ */
 interface BackupRestoreModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -57,7 +68,7 @@ export const BackupRestoreModal: React.FC<BackupRestoreModalProps> = ({
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
       downloadAnchor.remove();
-      showToast('Sauvegarde intégrale du site exportée avec succès !');
+      showToast('Export JSON des contenus téléchargé.');
     } else {
       setErrorMsg(res.error || 'Erreur lors de l’export');
     }
@@ -98,7 +109,11 @@ export const BackupRestoreModal: React.FC<BackupRestoreModalProps> = ({
 
   const handleRestore = async () => {
     if (!fileContent) return;
-    if (!confirm('ATTENTION : La restauration écrasera les données actuelles par celles de la sauvegarde. Souhaitez-vous continuer ?')) {
+    if (
+      !confirm(
+        'Confirmer l’import de ce fichier ? Les lignes qu’il contient seront écrites ou mises à jour. Aucune ligne existante ne sera supprimée.',
+      )
+    ) {
       return;
     }
 
@@ -108,11 +123,11 @@ export const BackupRestoreModal: React.FC<BackupRestoreModalProps> = ({
     setIsRestoring(false);
 
     if (res.success) {
-      showToast('Restauration intégrale effectuée avec succès !');
+      showToast('Import terminé : les lignes du fichier ont été écrites ou mises à jour. Aucune suppression.');
       onRestored?.();
       onClose();
     } else {
-      setErrorMsg(res.error || 'Erreur lors de la restauration');
+      setErrorMsg(res.error || 'Erreur lors de l’import');
     }
   };
 
@@ -129,13 +144,18 @@ export const BackupRestoreModal: React.FC<BackupRestoreModalProps> = ({
         <div className="flex items-start justify-between border-b border-white/10 pb-4">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono text-[#FFE500] uppercase mb-1">
-              <Database className="w-3.5 h-3.5" /> Sécurité &amp; Sauvegardes
+              <Database className="w-3.5 h-3.5" /> Sauvegardes manuelles
             </div>
             <h2 className="text-xl font-black text-white uppercase tracking-tight">
-              Export &amp; Restauration du Site
+              Import & Export d'un fichier JSON
             </h2>
             <p className="text-xs text-gray-400 mt-0.5">
-              Sauvegardez l&apos;intégralité des configurations (pages, sessions, équipe, films, partenaires).
+              Sauvegarde manuelle des contenus de la vitrine (pages, sessions, équipe, films, partenaires).
+            </p>
+            <p className="text-[11px] text-amber-300 mt-1.5">
+              Ce n'est <strong>pas</strong> un retour arrière de version : l'import ne supprime
+              aucune ligne, les éléments créés après l'export subsistent. Pour revenir à une version
+              antérieure, utilisez le panneau « Versions & Restauration » du tableau de bord.
             </p>
           </div>
           <button
@@ -163,7 +183,7 @@ export const BackupRestoreModal: React.FC<BackupRestoreModalProps> = ({
             <span className="text-[10px] font-mono text-gray-400">Format .JSON</span>
           </div>
           <p className="text-xs text-gray-400">
-            Télécharge un fichier contenant la configuration de toutes les pages vitrine, ateliers, membres de l&apos;équipe, dates de stages et métadonnées.
+            Télécharge un fichier contenant la configuration de toutes les pages vitrine, ateliers, membres de l'équipe, dates de stages et métadonnées.
           </p>
           <button
             type="button"
@@ -174,7 +194,7 @@ export const BackupRestoreModal: React.FC<BackupRestoreModalProps> = ({
             {isExporting ? (
               <>
                 <RefreshCw className="w-4 h-4 animate-spin" />
-                Génération de l&apos;instantané...
+                Génération de l'instantané...
               </>
             ) : (
               <>
@@ -185,14 +205,14 @@ export const BackupRestoreModal: React.FC<BackupRestoreModalProps> = ({
           </button>
         </div>
 
-        {/* Section 2 : Restaurer */}
+        {/* Section 2 : Importer */}
         <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-3">
           <div className="flex items-center justify-between">
             <div className="text-xs font-mono text-white font-bold uppercase flex items-center gap-1.5">
-              <Upload className="w-4 h-4 text-emerald-400" /> Restaurer à partir d&apos;un Fichier
+              <Upload className="w-4 h-4 text-emerald-400" /> Réimporter un Fichier JSON de Contenu
             </div>
             <span className="text-[10px] font-mono text-amber-400 flex items-center gap-1">
-              <ShieldAlert className="w-3 h-3" /> Écrasement
+              <ShieldAlert className="w-3 h-3" /> Fusion — aucune suppression
             </span>
           </div>
 
@@ -212,10 +232,16 @@ export const BackupRestoreModal: React.FC<BackupRestoreModalProps> = ({
             </div>
           </label>
 
+          <p className="text-[10px] text-gray-500 leading-relaxed">
+            Limite connue : cet import écrit ou met à jour les lignes du fichier, mais ne supprime rien.
+            Un vrai retour arrière est disponible dans « Versions & Restauration » (tableau de bord) —
+            rôle admin/directeur, mot de passe et phrase de confirmation.
+          </p>
+
           {previewSummary && (
             <div className="p-3 bg-emerald-950/20 border border-emerald-500/30 rounded-xl space-y-2 text-xs">
               <div className="text-emerald-300 font-bold flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5" /> Fichier validé avec succès
+                <CheckCircle2 className="w-3.5 h-3.5" /> Fichier lu avec succès
               </div>
               <div className="grid grid-cols-2 gap-2 text-[11px] font-mono text-gray-300">
                 <div>Pages : {previewSummary.pages}</div>
@@ -227,7 +253,7 @@ export const BackupRestoreModal: React.FC<BackupRestoreModalProps> = ({
               </div>
               {previewSummary.date && (
                 <div className="text-[10px] text-gray-400 pt-1 border-t border-emerald-500/20">
-                  Date d&apos;export : {previewSummary.date}
+                  Date d'export : {previewSummary.date}
                 </div>
               )}
 
@@ -240,12 +266,12 @@ export const BackupRestoreModal: React.FC<BackupRestoreModalProps> = ({
                 {isRestoring ? (
                   <>
                     <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                    Restauration en cours...
+                    Import en cours...
                   </>
                 ) : (
                   <>
                     <Upload className="w-3.5 h-3.5" />
-                    Appliquer cette restauration sur le site
+                    Importer ce contenu (aucune suppression)
                   </>
                 )}
               </button>

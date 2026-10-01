@@ -45,5 +45,6 @@ export { updateInquiryStage, reclassifyInquiry, setDiscoveryVerdict } from './ac
 export { convertInquiryToCucSignStudent } from './actions/inquiries-conversion';
 export { syncSessionsSeatCountsFromCucSign } from './actions/sessions-sync';
 export { exportFullSiteBackup, restoreFullSiteBackup } from './actions/backup';
+export { listBackupVersions, simulateRestore, restoreFromSnapshot } from './actions/backup-versions';
 export { getSystemHealth } from './actions/health';
 export type { HealthState, HealthMetric, SystemHealthReport } from './actions/health';

@@ -1,0 +1,82 @@
+name: Sauvegarde du site (R2)
+
+# Transport du système de sauvegarde versionné.
+# La planification a été VOLONTAIREMENT RETIRÉE (décision du propriétaire,
+# 2026-10-01) : le site ne tourne plus AUCUNE sauvegarde automatique. Ce
+# workflow ne se déclenche plus que manuellement (`workflow_dispatch`), avec le
+# tier choisi à la main. Le cron Vercel hérité a été supprimé le même jour.
+on:
+  workflow_dispatch:
+    inputs:
+      tier:
+        description: 'Tier de sauvegarde'
+        required: false
+        default: daily
+        type: choice
+        options:
+          - daily
+          - weekly
+          - monthly
+
+# Deux sauvegardes ne doivent JAMAIS tourner en parallèle : elles écriraient le
+# même catalogue. Aucune exécution n'est donc annulée, elles sont mises en file.
+concurrency:
+  group: backup-cuc
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    name: Sauvegarde puis vérification
+    # Garde de dépôt : jamais d'exécution sur un fork, où les secrets sont absents.
+    if: github.repository == 'Nody-G/cuc'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Déterminer le tier
+        id: tier
+        run: echo "tier=${{ inputs.tier }}" >> "$GITHUB_OUTPUT"
+
+      - name: Sauvegarde (écriture réelle)
+        run: npm run backup:run:write -- --tier=${{ steps.tier.outputs.tier }}
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          BACKUP_ENCRYPTION_KEY: ${{ secrets.BACKUP_ENCRYPTION_KEY }}
+          BACKUP_ENCRYPTION_KEY_ID: ${{ secrets.BACKUP_ENCRYPTION_KEY_ID }}
+          BACKUP_S3_ENDPOINT: ${{ secrets.BACKUP_S3_ENDPOINT }}
+          BACKUP_S3_BUCKET: ${{ secrets.BACKUP_S3_BUCKET }}
+          BACKUP_S3_ACCESS_KEY_ID: ${{ secrets.BACKUP_S3_ACCESS_KEY_ID }}
+          BACKUP_S3_SECRET_ACCESS_KEY: ${{ secrets.BACKUP_S3_SECRET_ACCESS_KEY }}
+
+      # Un instantané non vérifié n'est pas une sauvegarde : le job échoue si une
+      # seule partie ne se relit pas, ne se déchiffre pas ou ne se décompresse pas.
+      # `if: always()` : la vérification tourne MÊME si l'étape de sauvegarde a
+      # signalé une dégradation (code de sortie 2) — on doit toujours savoir si
+      # ce qui a été produit est exploitable. Le job reste rouge : l'étape de
+      # sauvegarde a déjà échoué en code 2, et toute vérification en défaut
+      # échoue ici également.
+      - name: Vérification du snapshot qui vient d'être créé
+        if: always()
+        run: npm run backup:verify -- --deep
+        env:
+          BACKUP_ENCRYPTION_KEY: ${{ secrets.BACKUP_ENCRYPTION_KEY }}
+          BACKUP_ENCRYPTION_KEY_ID: ${{ secrets.BACKUP_ENCRYPTION_KEY_ID }}
+          BACKUP_S3_ENDPOINT: ${{ secrets.BACKUP_S3_ENDPOINT }}
+          BACKUP_S3_BUCKET: ${{ secrets.BACKUP_S3_BUCKET }}
+          BACKUP_S3_ACCESS_KEY_ID: ${{ secrets.BACKUP_S3_ACCESS_KEY_ID }}
+          BACKUP_S3_SECRET_ACCESS_KEY: ${{ secrets.BACKUP_S3_SECRET_ACCESS_KEY }}

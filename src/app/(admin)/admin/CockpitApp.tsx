@@ -135,7 +135,7 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
         onClose={() => setIsBackupModalOpen(false)}
         showToast={showToast}
         onRestored={() => {
-          showToast('Données restaurées avec succès !');
+          showToast('Contenu importé (aucune suppression) — rechargement du Cockpit.');
           window.location.reload();
         }}
       />

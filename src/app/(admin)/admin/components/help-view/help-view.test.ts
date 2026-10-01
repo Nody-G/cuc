@@ -1,4 +1,3 @@
-import { describe, expect, it } from 'vitest';
 import { HELP_TABS, DEFAULT_HELP_TAB } from './help-tabs.config';
 import {
     APP_METRICS,

@@ -57,17 +57,21 @@
    administrateur). Mesure du 2026-09-24 : `site_page_revisions` était **vide** ; le
    panneau « Historique des versions » promettait donc des versions inexistantes.
 7. **Hébergement : ce que le projet exige vraiment** (relevé le 2026-09-24) — le site ne
-   dépend d'**aucune** fonctionnalité payante de Vercel : pas de tâche planifiée (`vercel.json`
-   absent, aucun `crons`), aucune fonction longue (`maxDuration`, runtime edge), pages
-   prérendues avec `use cache`, images optimisées à la volée, en-têtes et redirections
-   déclarés dans `next.config.ts`. L'offre gratuite suffit donc **techniquement** ; son
-   règlement la réserve en revanche à un usage non commercial — réserve à confirmer auprès
-   de Vercel pour une structure qui facture des formations (l'offre Pro représente alors
-   ≈ 20 $/mois). Supabase reste **non optionnel** : cf. §3, la marge de stockage et les
-   sauvegardes quotidiennes du plan payant sont la réponse à l'incident du 2026-09-23.
-   Ces chiffres vivent dans le dossier client, recalculés à chaque génération
-   (`npm run report:dossier`, section « Sous le capot ») : aucune valeur d'hébergement
-   n'est écrite à la main dans un document.
+   dépend d'**aucune** fonctionnalité payante de Vercel pour servir ses pages : aucune
+   fonction longue (`maxDuration`, runtime edge), pages prérendues avec `use cache`, images
+   optimisées à la volée, en-têtes et redirections déclarés dans `next.config.ts`.
+   `vercel.json` **n'existe plus** : l'unique cron hérité (`/api/cron/backup`) a été
+   supprimé le 2026-10-01 avec sa route — décision explicite du propriétaire, aucune
+   sauvegarde automatique. Aucune tâche planifiée ne tourne donc côté Vercel, et le site
+   n'en dépend pas. Le dispositif de sauvegarde (geste manuel par export/import JSON,
+   moteur versionné en veille) est décrit dans [`backup_restore.md`](backup_restore.md:1),
+   **seule source du sujet**. L'offre gratuite Vercel suffit donc **techniquement** ; son règlement la réserve
+   en revanche à un usage non commercial — réserve à confirmer auprès de Vercel pour une
+   structure qui facture des formations (l'offre Pro représente alors ≈ 20 $/mois).
+   Supabase reste **non optionnel** : cf. §3, la marge de stockage du plan payant est la
+   réponse à l'incident du 2026-09-23. Ces chiffres vivent dans le dossier client,
+   recalculés à chaque génération (`npm run report:dossier`, section « Sous le capot ») :
+   aucune valeur d'hébergement n'est écrite à la main dans un document.
 8. **Aucune écriture avalée, aucun tableau de bord inventé** (leçon du 2026-09-24) :
    `supabase-js` **ne lève pas** d'exception, il renvoie `{ error }` — tout `try/catch`
    seul laisse donc passer une écriture refusée. Deux conséquences tirées :

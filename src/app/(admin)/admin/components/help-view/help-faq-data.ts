@@ -17,7 +17,7 @@ export const LUCAS_FAQ_ITEMS: readonly FaqItem[] = [
     {
         question: 'Combien coûte l’exploitation du site chaque mois ?',
         answer:
-            'Deux abonnements seulement sont requis : Vercel pour l’hébergement et Supabase pour la base de données. Grâce à l’optimisation extrême du code (pages pré-générées, images allégées sans serveur lourd), l’offre Vercel est gratuite ou à 20$/mois en plan Pro. Supabase Pro coûte 25$/mois (nécessaire pour les sauvegardes automatiques quotidiennes et la marge de données). Total mensuel : environ 25 à 45€/mois, bien inférieur aux coûts d’un WordPress avec hébergement dédié et licences de plugins payants.',
+            'Deux abonnements seulement sont requis : Vercel pour l’hébergement et Supabase pour la base de données. Grâce à l’optimisation extrême du code (pages pré-générées, images allégées sans serveur lourd), l’offre Vercel est gratuite ou à 20$/mois en plan Pro. Supabase Pro coûte 25$/mois (nécessaire pour la marge de données). Total mensuel : environ 25 à 45€/mois, bien inférieur aux coûts d’un WordPress avec hébergement dédié et licences de plugins payants.',
         category: 'finances',
         highlight: 'Environ 25 à 45€/mois au total.',
     },
@@ -38,9 +38,9 @@ export const LUCAS_FAQ_ITEMS: readonly FaqItem[] = [
     {
         question: 'Que se passe-t-il en cas de fausse manipulation ou de suppression par erreur ?',
         answer:
-            'Le système est blindé contre les erreurs humaines : chaque modification de page enregistre un instantané complet dans l’onglet Versions (restaurable en un clic). Les images supprimées partent dans un dossier corbeille sécurisé (_trash). Les négatifs haute fidélité restent archivés dans (_originals). La base Postgres est sauvegardée chaque nuit.',
+            'Le système est blindé contre les erreurs humaines : chaque modification de page enregistre un instantané complet dans l’onglet Versions (restaurable en un clic). Les images supprimées partent dans un dossier corbeille sécurisé (_trash). Les négatifs haute fidélité restent archivés dans (_originals). La sauvegarde du contenu se fait par un export manuel téléchargé depuis le Cockpit, à la demande.',
         category: 'securite',
-        highlight: 'Historique annulable, corbeille réversible et sauvegardes quotidiennes.',
+        highlight: 'Historique annulable, corbeille réversible et export de sauvegarde manuel.',
     },
     {
         question: 'Pourquoi le site est-il tellement plus rapide que l’ancien WordPress ?',
