@@ -13,6 +13,12 @@ export interface HomeBlockFieldControlProps {
     value: string;
     onChange: (value: string) => void;
     onPickMedia: (target: string) => void;
+    /**
+     * Chemin explicite du champ. Utile aux items de liste
+     * (`sections_data.<bloc>.<tableau>.<index>.<clé>`), qui ne se déduisent pas
+     * de `block` + `field.key`. À défaut : `sections_data.<bloc>.<clé>`.
+     */
+    path?: string;
 }
 
 export const HomeBlockFieldControl: React.FC<HomeBlockFieldControlProps> = ({
@@ -21,6 +27,7 @@ export const HomeBlockFieldControl: React.FC<HomeBlockFieldControlProps> = ({
     value,
     onChange,
     onPickMedia,
+    path,
 }) => {
     /**
      * Attribut d'édition inline : permet à l'aperçu live de retrouver l'input
@@ -30,7 +37,7 @@ export const HomeBlockFieldControl: React.FC<HomeBlockFieldControlProps> = ({
      * sinon le clic d'inspection dans la page n'aurait rien à focaliser pour les
      * images et les liens (ils sont pourtant cliquables là-bas).
      */
-    const fieldPath = `sections_data.${block}.${field.key}`;
+    const fieldPath = path ?? `sections_data.${block}.${field.key}`;
     const fieldAttr = field.liveEdit ? { 'data-cuc-field': fieldPath } : {};
 
     if (field.media) {
@@ -53,7 +60,7 @@ export const HomeBlockFieldControl: React.FC<HomeBlockFieldControlProps> = ({
                 <LinkField
                     value={value}
                     onChange={onChange}
-                    field={field.liveEdit ? `sections_data.${block}.${field.key}` : undefined}
+                    field={field.liveEdit ? fieldPath : undefined}
                 />
             </div>
         );

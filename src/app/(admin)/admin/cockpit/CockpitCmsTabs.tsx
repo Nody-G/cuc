@@ -2,32 +2,28 @@
 
 import React, { useState } from 'react';
 import type { CockpitTabContentProps } from './CockpitTabContent';
-import type { TabType } from './cockpit-nav';
-import { AnnouncementsView } from '../components/AnnouncementsView';
+import { getHubForTab, type TabType } from './cockpit-nav';
 import { TranslationsView } from '../components/TranslationsView';
 import { MicrocopyView } from '../components/MicrocopyView';
 import { PagesEditorView } from '../components/PagesEditorView';
 import { NavigationView } from '../components/NavigationView';
-import { FooterView } from '../components/FooterView';
-import { SocialLinksView } from '../components/SocialLinksView';
 import { MediaLibraryView } from '../components/MediaLibraryView';
 import { EventsView } from '../components/EventsView';
 import { PartnersView } from '../components/PartnersView';
-import { SettingsView } from '../components/SettingsView';
 import { UsersRolesView } from '../components/UsersRolesView';
-import { AuditLogView } from '../components/AuditLogView';
-import { LogsView } from '../components/LogsView';
 import { ContentHealthView } from '../components/ContentHealthView';
-import { AnalyticsView } from '../components/AnalyticsView';
 import { InquiriesView } from '../components/InquiriesView';
 import { InstagramMonitorView } from '../components/InstagramMonitorView';
-import { TrafficMonitorView } from '../components/TrafficMonitorView';
 import { HelpView } from '../components/HelpView';
+import { ChromeHub } from '../components/cockpit-hubs/ChromeHub';
+import { JournalHub } from '../components/cockpit-hubs/JournalHub';
+import { AudienceHub } from '../components/cockpit-hubs/AudienceHub';
 
 /**
- * Onglets « vitrine & exploitation » : bandeau flash, i18n, CMS de pages,
- * navigation, réseaux, médiathèque, events, partenaires, réglages,
- * utilisateurs, audit, santé, analytique, candidatures.
+ * Onglets « vitrine & exploitation » : i18n, CMS de pages, navigation,
+ * médiathèque, events, partenaires, utilisateurs, santé du contenu,
+ * candidatures, Instagram, aide — plus les trois hubs (Chrome, Journal,
+ * Audience) qui regroupent leurs écrans sous des sous-onglets.
  */
 export const CockpitCmsTabs: React.FC<CockpitTabContentProps> = (props) => {
     /**
@@ -50,14 +46,22 @@ export const CockpitCmsTabs: React.FC<CockpitTabContentProps> = (props) => {
         props.switchTab('navigation');
     };
 
+    // Hub concerné par l'onglet actif (ou `undefined`) : une entrée historique
+    // (`analytics`, `traffic`, `logs`, `audit`, `announcements`, `footer`,
+    // `social`, `settings`) route vers le même hub que son onglet agrégateur.
+    const activeHub = getHubForTab(props.activeTab);
+
     return (
         <>
-            {/* 7. BANDEAU FLASH */}
-            {props.activeTab === 'announcements' && (
-                <AnnouncementsView
+            {/* HUB CHROME — Bandeau, Bas de Page, Réseaux Sociaux, Coordonnées */}
+            {activeHub?.id === 'chrome' && (
+                <ChromeHub
+                    activeTab={props.activeTab}
+                    switchTab={props.switchTab}
+                    showToast={props.showToast}
                     announcement={props.announcement}
                     setAnnouncement={props.setAnnouncement}
-                    showToast={props.showToast}
+                    siteSettings={props.siteSettings}
                 />
             )}
 
@@ -94,13 +98,7 @@ export const CockpitCmsTabs: React.FC<CockpitTabContentProps> = (props) => {
                 />
             )}
 
-            {/* 10. PIED DE PAGE */}
-            {props.activeTab === 'footer' && <FooterView showToast={props.showToast} />}
-
-            {/* 11. RÉSEAUX SOCIAUX */}
-            {props.activeTab === 'social' && <SocialLinksView showToast={props.showToast} />}
-
-            {/* 12. MÉDIATHÈQUE STORAGE */}
+            {/* MÉDIATHÈQUE STORAGE */}
             {props.activeTab === 'media' && (
                 <div className="space-y-6 animate-in fade-in duration-200">
                     <MediaLibraryView showToast={props.showToast} />
@@ -147,14 +145,7 @@ export const CockpitCmsTabs: React.FC<CockpitTabContentProps> = (props) => {
                 </div>
             )}
 
-            {/* 15. PARAMÈTRES GLOBAUX */}
-            {props.activeTab === 'settings' && (
-                <div className="space-y-6 animate-in fade-in duration-200">
-                    <SettingsView initialSettings={props.siteSettings} onNavigateToTab={props.switchTab} />
-                </div>
-            )}
-
-            {/* 16. COMPTES & ACCÈS (UTILISATEURS & RÔLES) */}
+            {/* COMPTES & ACCÈS (UTILISATEURS & RÔLES) */}
             {props.activeTab === 'users' && (
                 <div className="space-y-6 animate-in fade-in duration-200">
                     <UsersRolesView
@@ -165,16 +156,14 @@ export const CockpitCmsTabs: React.FC<CockpitTabContentProps> = (props) => {
                 </div>
             )}
 
-            {/* 17. JOURNAL & ACTIVITÉ — hub unifié (métier, système, rétention) */}
-            {props.activeTab === 'logs' && <LogsView showToast={props.showToast} />}
-
-            {/*
-              * Journal d'audit conservé tel quel : l'URL `/admin/audit` reste
-              * valide (favoris et deep-links), et son rendu sert d'onglet
-              * « Métier » au hub. Le supprimer aurait cassé des liens existants
-              * pour aucun gain.
-              */}
-            {props.activeTab === 'audit' && <AuditLogView showToast={props.showToast} />}
+            {/* HUB JOURNAL — Activité + Journal d'Audit (/admin/journal, /admin/audit) */}
+            {activeHub?.id === 'journal' && (
+                <JournalHub
+                    activeTab={props.activeTab}
+                    switchTab={props.switchTab}
+                    showToast={props.showToast}
+                />
+            )}
 
             {/* 18. DIAGNOSTIC DE SANTÉ DU CONTENU */}
             {props.activeTab === 'health' && (
@@ -185,12 +174,7 @@ export const CockpitCmsTabs: React.FC<CockpitTabContentProps> = (props) => {
                 />
             )}
 
-            {/* 19. TABLEAU DE BORD ANALYTIQUE */}
-            {props.activeTab === 'analytics' && (
-                <AnalyticsView programs={props.programs} pages={props.pagesList} showToast={props.showToast} />
-            )}
-
-            {/* 20. CANDIDATURES & DEMANDES DE CONTACT */}
+            {/* CANDIDATURES & DEMANDES DE CONTACT */}
             {props.activeTab === 'inquiries' && (
                 <div className="space-y-6 animate-in fade-in duration-200">
                     <InquiriesView
@@ -206,9 +190,15 @@ export const CockpitCmsTabs: React.FC<CockpitTabContentProps> = (props) => {
                 <InstagramMonitorView showToast={props.showToast} />
             )}
 
-            {/* 22. MONITORING DES VISITES & AUDIENCE DU SITE */}
-            {props.activeTab === 'traffic' && (
-                <TrafficMonitorView showToast={props.showToast} />
+            {/* HUB AUDIENCE — Statistiques & Conversion + Visites (/admin/analytics, /admin/visites) */}
+            {activeHub?.id === 'audience' && (
+                <AudienceHub
+                    activeTab={props.activeTab}
+                    switchTab={props.switchTab}
+                    showToast={props.showToast}
+                    programs={props.programs}
+                    pages={props.pagesList}
+                />
             )}
 
             {/* 23. AIDE & GUIDE — la pédagogie de l'application, centralisée */}

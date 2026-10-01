@@ -128,6 +128,8 @@ export function diffPageSnapshots(
     'og_image',
     'hero',
     'sections',
+    'layout_sections',
+    'sections_data',
     'is_published',
   ];
 

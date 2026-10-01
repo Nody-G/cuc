@@ -28,6 +28,7 @@ import {
     ExternalLink,
     Globe,
     ScrollText,
+    Stethoscope,
     BookOpen,
     History,
 } from 'lucide-react';
@@ -85,11 +86,12 @@ export function buildCommands({ selectTab, openBackup, openHealth }: CommandActi
         { id: 'nav-footer', label: 'Bas de Page (Footer)', category: 'Navigation', icon: PanelBottom, action: () => selectTab('footer'), keywords: ['footer', 'pied', 'bas de page', 'mentions', 'legal'] },
         { id: 'nav-social', label: 'Réseaux Sociaux', category: 'Navigation', icon: Share2, action: () => selectTab('social'), keywords: ['instagram', 'youtube', 'tiktok', 'facebook', 'linkedin'] },
         { id: 'nav-translations', label: 'Traductions Anglaises (i18n)', category: 'Navigation', icon: Globe, action: () => selectTab('translations'), keywords: ['traductions', 'anglais', 'en', 'i18n', 'langues'] },
-        { id: 'nav-microcopy', label: 'Textes & Boutons du Site', category: 'Navigation', icon: FileText, action: () => selectTab('microcopy'), keywords: ['microtextes', 'textes', 'boutons', 'labels', 'phrases'] },
+        { id: 'nav-microcopy', label: 'Libellés & Micro-textes', category: 'Navigation', icon: FileText, action: () => selectTab('microcopy'), keywords: ['microtextes', 'textes', 'boutons', 'labels', 'phrases', 'libelles', 'catalogue'] },
         { id: 'nav-settings', label: 'Coordonnées & Paramètres', category: 'Navigation', icon: Settings, action: () => selectTab('settings'), keywords: ['configuration', 'parametres', 'reglages', 'identite', 'qualiopi'] },
         { id: 'nav-users', label: 'Comptes & Accès', category: 'Navigation', icon: Shield, action: () => selectTab('users'), keywords: ['comptes', 'permissions', 'roles', 'acces', 'admin'] },
         { id: 'nav-audit', label: 'Journal d’Audit', category: 'Navigation', icon: Activity, action: () => selectTab('audit'), keywords: ['audit', 'historique', 'journal', 'tracabilite', 'logs'] },
-        { id: 'nav-analytics', label: 'Statistiques & Conversion', category: 'Navigation', icon: BarChart3, action: () => selectTab('analytics'), keywords: ['analytique', 'statistiques', 'kpi', 'metriques', 'conversion'] },
+        { id: 'nav-analytics', label: 'Statistiques & Conversion', category: 'Navigation', icon: BarChart3, action: () => selectTab('analytics'), keywords: ['analytique', 'statistiques', 'kpi', 'metriques', 'conversion', 'audience'] },
+        { id: 'nav-health', label: 'Diagnostic du Contenu', category: 'Navigation', icon: Stethoscope, action: () => selectTab('health'), keywords: ['diagnostic', 'contenu', 'sante du contenu', 'liens casses', 'images manquantes', 'seo', 'integrite', 'qualite'] },
 
         // Actions Rapides
         { id: 'action-view-site', label: 'Ouvrir le Site Vitrine en direct', category: 'Actions Rapides', icon: ExternalLink, action: () => { if (typeof window !== 'undefined') window.open('/', '_blank'); }, keywords: ['voir', 'site', 'vitrine', 'public', 'apercu', 'ouvrir'] },
@@ -102,7 +104,7 @@ export function buildCommands({ selectTab, openBackup, openHealth }: CommandActi
         { id: 'nav-help', label: 'Aide & Guide', category: 'Navigation', icon: BookOpen, action: () => selectTab('help'), keywords: ['aide', 'guide', 'help', 'tuto', 'documentation', 'comment faire', 'explication'] },
 
         // Outils Système
-        { id: 'nav-logs', label: 'Journal & Activité', category: 'Navigation', icon: ScrollText, action: () => selectTab('logs'), keywords: ['journal', 'logs', 'activite', 'erreurs', 'incidents', 'tracabilite', 'diagnostic', 'audit'] },
+        { id: 'nav-logs', label: 'Activité du Site (Journal)', category: 'Navigation', icon: ScrollText, action: () => selectTab('logs'), keywords: ['journal', 'logs', 'activite', 'erreurs', 'incidents', 'tracabilite', 'audit'] },
         { id: 'tool-backup', label: 'Import / Export d’un contenu JSON', category: 'Outils Système', icon: Database, action: () => openBackup(), keywords: ['backup', 'export', 'import', 'json', 'contenu', 'fusion'] },
         { id: 'tool-backup-versions', label: 'Versions de sauvegarde & Restauration versionnée', category: 'Outils Système', icon: History, action: () => selectTab('dashboard'), keywords: ['versions', 'restauration', 'retour arriere', 'rollback', 'snapshot', 'catalogue', 'sauvegardes', 'backup'] },
         { id: 'tool-health', label: 'Diagnostic Système & Santé', category: 'Outils Système', icon: Activity, action: () => openHealth(), keywords: ['sante', 'diagnostic', 'statut', 'monitoring', 'performance'] },

@@ -19,6 +19,8 @@ export interface PageRevisionsPanelProps {
     showToast: (msg: string) => void;
     /** Panneau replié par défaut ? */
     defaultCollapsed?: boolean;
+    /** Signal monotone : un incrément relance la lecture de l'historique. */
+    refreshKey?: number;
 }
 
 /**
@@ -33,6 +35,7 @@ export const PageRevisionsPanel: React.FC<PageRevisionsPanelProps> = ({
     onRestored,
     showToast,
     defaultCollapsed = false,
+    refreshKey = 0,
 }) => {
     const history = usePageRevisions({
         slug,
@@ -40,6 +43,7 @@ export const PageRevisionsPanel: React.FC<PageRevisionsPanelProps> = ({
         onRestored,
         showToast,
         defaultCollapsed,
+        refreshKey,
     });
 
     return (

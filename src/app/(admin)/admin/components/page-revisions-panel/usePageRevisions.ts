@@ -17,6 +17,11 @@ interface UsePageRevisionsArgs {
     onRestored?: (content: SitePageContent) => void;
     showToast: (msg: string) => void;
     defaultCollapsed: boolean;
+    /**
+     * Signal monotone : chaque incrément relance la lecture de l'historique
+     * (bump après un enregistrement, une publication ou une restauration).
+     */
+    refreshKey?: number;
 }
 
 export interface PageRevisionsController {
@@ -45,6 +50,7 @@ export function usePageRevisions({
     onRestored,
     showToast,
     defaultCollapsed,
+    refreshKey = 0,
 }: UsePageRevisionsArgs): PageRevisionsController {
     const [collapsed, setCollapsed] = useState(defaultCollapsed);
     const [revisions, setRevisions] = useState<SitePageRevision[]>([]);
@@ -58,7 +64,10 @@ export function usePageRevisions({
         const data = await getPageRevisions(slug);
         setRevisions(data);
         setLoading(false);
-    }, [slug]);
+        // `refreshKey` est un déclencheur volontaire : chaque incrément (sauvegarde,
+        // publication, restauration) doit relire l'historique sans changer de slug.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [slug, refreshKey]);
 
     useEffect(() => {
         // Chargement des révisions à chaque changement de slug (synchronisation

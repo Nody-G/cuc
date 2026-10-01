@@ -2,14 +2,19 @@
  * Métadonnées d'affichage des onglets du Cockpit (libellé, section, icône).
  *
  * Extraites de `cockpit-nav.ts` pour respecter le plafond dur de 300 lignes
- * (`AGENTS.md` § 2) — même motif que `cockpit-system-section.ts` et
- * `cockpit-help-section.ts`. Couche « Types & Contrats » : aucune React.
+ * (`AGENTS.md` § 2) — même motif que `cockpit-nav-sections.ts`. Couche
+ * « Types & Contrats » : aucune React.
+ *
+ * Depuis la réorganisation du 2026-10-01, les `sectionTitle` reflètent les 6
+ * sections de l'IA cible et les libellés sont désambiguïsés (voir le détail
+ * dans `cockpit-nav-sections.ts`). Les hubs (`chrome`, `journal`, `audience`)
+ * disposent de leur propre entrée pour l'en-tête de la barre supérieure.
  */
 
 import {
     Activity,
+    BarChart3,
     Bell,
-    BookOpen,
     Boxes,
     Briefcase,
     Calendar,
@@ -20,11 +25,15 @@ import {
     Image as ImageIcon,
     Inbox,
     LayoutDashboard,
+    LifeBuoy,
     Menu,
     PanelBottom,
+    ScrollText,
     Settings,
     Share2,
     Shield,
+    ShieldCheck,
+    Stethoscope,
     Users,
     type LucideIcon,
 } from 'lucide-react';
@@ -37,33 +46,47 @@ export interface TabMetadata {
 }
 
 const TAB_METADATA_MAP: Record<TabType, TabMetadata> = {
-    dashboard: { label: 'Tableau de Bord', sectionTitle: 'Inscriptions & Planning', icon: LayoutDashboard },
-    inquiries: { label: 'Contact', sectionTitle: 'Inscriptions & Planning', icon: Inbox },
-    sessions: { label: 'Sessions de Formation', sectionTitle: 'Inscriptions & Planning', icon: Calendar },
-    pages: { label: 'Pages du Site', sectionTitle: 'Formations & Films', icon: FileText },
-    films: { label: 'Filmographie & Cascades', sectionTitle: 'Formations & Films', icon: Film },
-    team: { label: 'Coachs & Formateurs', sectionTitle: 'Formations & Films', icon: Users },
-    campus: { label: 'Campus & Installations', sectionTitle: 'Formations & Films', icon: Boxes },
-    'campus-3d': { label: 'Campus & Installations', sectionTitle: 'Formations & Films', icon: Boxes },
-    disciplines: { label: 'Disciplines Enseignées', sectionTitle: 'Formations & Films', icon: Shield },
-    events: { label: 'Events', sectionTitle: 'Formations & Films', icon: Briefcase },
-    partners: { label: 'Partenaires', sectionTitle: 'Formations & Films', icon: Handshake },
-    instagram: { label: 'Instagram & Vidéos', sectionTitle: 'Réseaux & Visites', icon: Activity },
-    traffic: { label: 'Visites du Site', sectionTitle: 'Réseaux & Visites', icon: Globe },
-    media: { label: 'Médiathèque (Photos & Médias)', sectionTitle: 'Réseaux & Visites', icon: ImageIcon },
-    announcements: { label: 'Bandeau d\'Alerte', sectionTitle: 'Réglages du Site', icon: Bell },
-    navigation: { label: 'Menus du Site', sectionTitle: 'Réglages du Site', icon: Menu },
-    footer: { label: 'Bas de Page (Footer)', sectionTitle: 'Réglages du Site', icon: PanelBottom },
-    social: { label: 'Réseaux Sociaux', sectionTitle: 'Réglages du Site', icon: Share2 },
-    settings: { label: 'Coordonnées & Paramètres', sectionTitle: 'Réglages du Site', icon: Settings },
-    users: { label: 'Comptes & Accès', sectionTitle: 'Réglages du Site', icon: Users },
-    logs: { label: 'Journal & Activité', sectionTitle: 'Outils Système', icon: Activity },
-    audit: { label: 'Journal d’Audit', sectionTitle: 'Outils Système', icon: Activity },
-    health: { label: 'Diagnostic du Site', sectionTitle: 'Outils Système', icon: Activity },
-    analytics: { label: 'Statistiques & Conversion', sectionTitle: 'Inscriptions & Planning', icon: Activity },
-    translations: { label: 'Traductions Anglaises', sectionTitle: 'Réglages du Site', icon: Globe },
-    microcopy: { label: 'Textes & Boutons du Site', sectionTitle: 'Réglages du Site', icon: FileText },
-    help: { label: 'Aide & Guide', sectionTitle: 'Aide', icon: BookOpen },
+    /* 1. Éditorial */
+    pages: { label: 'Pages du Site', sectionTitle: 'Éditorial', icon: FileText },
+    navigation: { label: 'Menus du Site', sectionTitle: 'Éditorial', icon: Menu },
+    microcopy: { label: 'Libellés & Micro-textes', sectionTitle: 'Éditorial', icon: FileText },
+    translations: { label: 'Traductions Anglaises', sectionTitle: 'Éditorial', icon: Globe },
+
+    /* 2. Chrome du site */
+    chrome: { label: 'Chrome du Site', sectionTitle: 'Chrome du site', icon: PanelBottom },
+    announcements: { label: 'Bandeau', sectionTitle: 'Chrome du site', icon: Bell },
+    footer: { label: 'Bas de Page', sectionTitle: 'Chrome du site', icon: PanelBottom },
+    social: { label: 'Réseaux Sociaux', sectionTitle: 'Chrome du site', icon: Share2 },
+    settings: { label: 'Coordonnées', sectionTitle: 'Chrome du site', icon: Settings },
+
+    /* 3. Contenus métier */
+    sessions: { label: 'Sessions de Formation', sectionTitle: 'Contenus métier', icon: Calendar },
+    team: { label: 'Coachs & Formateurs', sectionTitle: 'Contenus métier', icon: Users },
+    films: { label: 'Filmographie', sectionTitle: 'Contenus métier', icon: Film },
+    campus: { label: 'Campus & Installations', sectionTitle: 'Contenus métier', icon: Boxes },
+    'campus-3d': { label: 'Campus & Installations', sectionTitle: 'Contenus métier', icon: Boxes },
+    disciplines: { label: 'Disciplines', sectionTitle: 'Contenus métier', icon: Shield },
+    events: { label: 'Events', sectionTitle: 'Contenus métier', icon: Briefcase },
+    partners: { label: 'Partenaires', sectionTitle: 'Contenus métier', icon: Handshake },
+
+    /* 4. Médias & Réseaux */
+    media: { label: 'Médiathèque', sectionTitle: 'Médias & Réseaux', icon: ImageIcon },
+    instagram: { label: 'Instagram & Vidéos', sectionTitle: 'Médias & Réseaux', icon: Activity },
+
+    /* 5. Pilotage */
+    dashboard: { label: 'Tableau de Bord', sectionTitle: 'Pilotage', icon: LayoutDashboard },
+    inquiries: { label: 'Contact', sectionTitle: 'Pilotage', icon: Inbox },
+    audience: { label: 'Statistiques & Audience', sectionTitle: 'Pilotage', icon: BarChart3 },
+    analytics: { label: 'Statistiques & Conversion', sectionTitle: 'Pilotage', icon: BarChart3 },
+    traffic: { label: 'Visites du Site', sectionTitle: 'Pilotage', icon: Globe },
+    journal: { label: 'Journal', sectionTitle: 'Pilotage', icon: ScrollText },
+    logs: { label: 'Activité', sectionTitle: 'Pilotage', icon: ScrollText },
+    audit: { label: 'Journal d’Audit', sectionTitle: 'Pilotage', icon: ShieldCheck },
+    health: { label: 'Diagnostic du Contenu', sectionTitle: 'Pilotage', icon: Stethoscope },
+
+    /* 6. Système & Aide */
+    users: { label: 'Comptes & Accès', sectionTitle: 'Système & Aide', icon: Users },
+    help: { label: 'Aide & Guide', sectionTitle: 'Système & Aide', icon: LifeBuoy },
 };
 
 export function getTabMetadata(tab: TabType): TabMetadata {

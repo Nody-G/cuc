@@ -1,32 +1,17 @@
 /**
- * Contrats de navigation du Cockpit — onglets, routes, sections du menu.
+ * Contrats de navigation du Cockpit — onglets, routes, hubs et modèles de menu.
  *
- * Couche « Types & Contrats » (`AGENTS.md` § 1) : aucune React ici, seulement
- * la correspondance onglet ↔ URL et la construction des sections du menu.
+ * Couche « Types & Contrats » (`AGENTS.md` § 1) : aucune React ici, seulement la
+ * correspondance onglet ↔ URL, la description des **hubs** (regroupements avec
+ * sous-onglets) et les modèles du menu latéral.
+ *
+ * La construction des sections vit dans `cockpit-nav-sections.ts` et les
+ * métadonnées d'affichage dans `cockpit-tab-metadata.ts`, afin de tenir le
+ * plafond dur de 300 lignes (`AGENTS.md` § 2). Ces deux modules ne dépendent de
+ * ce fichier que par des types (aucun cycle d'exécution).
  */
-import { SYSTEM_TOOLS_SECTION } from './cockpit-system-section';
-import { HELP_NAV_SECTION } from './cockpit-help-section';
-import {
-    Activity,
-    Bell,
-    Boxes,
-    Briefcase,
-    Calendar,
-    FileText,
-    Film,
-    Globe,
-    Handshake,
-    Image as ImageIcon,
-    Inbox,
-    LayoutDashboard,
-    Menu,
-    PanelBottom,
-    Settings,
-    Share2,
-    Users,
-    Shield,
-    type LucideIcon,
-} from 'lucide-react';
+
+import type { LucideIcon } from 'lucide-react';
 
 export type TabType =
     | 'dashboard'
@@ -55,14 +40,28 @@ export type TabType =
     | 'settings'
     | 'instagram'
     | 'traffic'
-    | 'help';
+    | 'help'
+    // Hubs introduits par la réorganisation du 2026-10-01 : entrées de menu qui
+    // regroupent des écrans existants sous des sous-onglets. Les valeurs
+    // ci-dessus restent toutes valides (rétro-compatibilité des deep-links).
+    | 'chrome'
+    | 'journal'
+    | 'audience';
 
 /**
  * Source de vérité unique de la correspondance onglet ↔ segment d'URL.
  * Toute vue du Cockpit doit y figurer afin que le deep-linking, le bouton
  * Précédent/Suivant et le rafraîchissement direct d'une URL restent cohérents.
+ *
+ * Les entrées historiques sont **toutes conservées** : aucun deep-link existant
+ * ne casse. Les hubs sont déclarés en tête pour que les URL historiques
+ * `/admin/journal` et `/admin/audience` résolvent vers le hub (sous-onglet par
+ * défaut pré-sélectionné) plutôt que vers l'un de leurs sous-onglets.
  */
 export const TAB_ROUTES: ReadonlyArray<{ tab: TabType; segment: string }> = [
+    { tab: 'journal', segment: 'journal' },
+    { tab: 'audience', segment: 'audience' },
+    { tab: 'chrome', segment: 'chrome' },
     { tab: 'traffic', segment: 'visites' },
     { tab: 'instagram', segment: 'instagram' },
     { tab: 'inquiries', segment: 'inquiries' },
@@ -111,7 +110,99 @@ export function routeForTab(tab: TabType): string {
 }
 
 /* ------------------------------------------------------------------ */
-/* Sections du menu latéral                                            */
+/* Hubs : regroupements d'écrans existants sous des sous-onglets        */
+/* ------------------------------------------------------------------ */
+
+export interface CockpitHubSubTab {
+    /** Onglet canonique rendu lorsque ce sous-onglet est actif. */
+    tab: TabType;
+    /** Libellé désambiguïsé affiché dans la barre de sous-onglets. */
+    label: string;
+}
+
+export interface CockpitHubModel {
+    /** Onglet du hub lui-même (entrée de la barre latérale). */
+    id: TabType;
+    label: string;
+    /** Sous-onglet ouvert par défaut en l'absence de sous-onglet explicite. */
+    defaultTab: TabType;
+    subTabs: CockpitHubSubTab[];
+}
+
+/** Description des trois hubs du Cockpit (Chrome, Journal, Audience). */
+export const COCKPIT_HUBS: readonly CockpitHubModel[] = [
+    {
+        id: 'chrome',
+        label: 'Chrome du Site',
+        defaultTab: 'announcements',
+        subTabs: [
+            { tab: 'announcements', label: 'Bandeau' },
+            { tab: 'footer', label: 'Bas de Page' },
+            { tab: 'social', label: 'Réseaux Sociaux' },
+            { tab: 'settings', label: 'Coordonnées' },
+        ],
+    },
+    {
+        id: 'journal',
+        label: 'Journal',
+        defaultTab: 'logs',
+        subTabs: [
+            { tab: 'logs', label: 'Activité' },
+            { tab: 'audit', label: 'Journal d’Audit' },
+        ],
+    },
+    {
+        id: 'audience',
+        label: 'Statistiques & Audience',
+        defaultTab: 'analytics',
+        subTabs: [
+            { tab: 'analytics', label: 'Statistiques & Conversion' },
+            { tab: 'traffic', label: 'Visites du Site' },
+        ],
+    },
+];
+
+/** Récupère un hub par son identifiant d'onglet. */
+export function getHub(hubId: TabType): CockpitHubModel | undefined {
+    return COCKPIT_HUBS.find((hub) => hub.id === hubId);
+}
+
+/**
+ * Détermine le hub qui rend un onglet donné — que l'onglet soit le hub lui-même
+ * ou l'un de ses sous-onglets. C'est ce qui route les deep-links historiques
+ * (`analytics`, `traffic`, `logs`, `audit`, `announcements`, `footer`, `social`,
+ * `settings`) vers le hub correspondant, sous-onglet pré-sélectionné.
+ */
+export function getHubForTab(tab: TabType): CockpitHubModel | undefined {
+    return COCKPIT_HUBS.find(
+        (hub) => hub.id === tab || hub.subTabs.some((sub) => sub.tab === tab),
+    );
+}
+
+/**
+ * Sous-onglet à rendre pour un onglet actif : l'onglet lui-même s'il est un
+ * sous-onglet déclaré, sinon le sous-onglet par défaut du hub.
+ */
+export function subTabFor(hub: CockpitHubModel, activeTab: TabType): TabType {
+    return hub.subTabs.some((sub) => sub.tab === activeTab) ? activeTab : hub.defaultTab;
+}
+
+/**
+ * Surbrillance de la barre latérale. Une entrée de hub reste active tant qu'un
+ * de ses sous-onglets est ouvert — sans quoi changer de sous-onglet ferait
+ * « disparaître » le surlignage du menu, puisque chaque sous-onglet est un
+ * `TabType` distinct.
+ */
+export function isNavItemActive(itemId: TabType, activeTab: TabType): boolean {
+    if (itemId === activeTab) return true;
+    // Cas historique : `campus` est un sous-écran de « Campus & Installations ».
+    if (itemId === 'campus-3d' && activeTab === 'campus') return true;
+    const hub = getHub(itemId);
+    return hub ? hub.subTabs.some((sub) => sub.tab === activeTab) : false;
+}
+
+/* ------------------------------------------------------------------ */
+/* Modèles du menu latéral                                             */
 /* ------------------------------------------------------------------ */
 
 export interface CockpitNavItemModel {
@@ -126,129 +217,9 @@ export interface CockpitNavSectionModel {
     items: CockpitNavItemModel[];
 }
 
-export interface BuildNavSectionsArgs {
-    userRole: string;
-    newInquiriesCount: number;
-    /** Bandeau flash actif — affiche le badge « Live ». */
-    announcementActive: boolean;
-}
-
-/**
- * Construit les sections du menu selon le rôle (admin, directeur, secrétaire,
- * coach) : chaque item masqué l'est par construction, jamais par CSS.
- */
-export function buildNavSections({
-    userRole,
-    newInquiriesCount,
-    announcementActive,
-}: BuildNavSectionsArgs): CockpitNavSectionModel[] {
-    const isDirecteurOrAdmin = ['directeur', 'admin'].includes(userRole);
-    const isSecretaire = userRole === 'secretaire';
-
-    return [
-        {
-            title: '1. Inscriptions & Planning',
-            items: [
-                { id: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard },
-                {
-                    id: 'inquiries',
-                    label: 'Contact',
-                    icon: Inbox,
-                    badge: newInquiriesCount > 0 ? `${newInquiriesCount} nouveau` : undefined,
-                },
-                {
-                    id: 'sessions',
-                    label: 'Sessions de Formation',
-                    icon: Calendar,
-                },
-            ],
-        },
-        {
-            title: '2. Formations, Coachs & Films',
-            items: [
-                {
-                    id: 'pages',
-                    label: 'Pages du Site',
-                    icon: FileText,
-                },
-                {
-                    id: 'films',
-                    label: 'Filmographie & Cascades',
-                    icon: Film,
-                },
-                ...(!isSecretaire
-                    ? [
-                        {
-                            id: 'team' as TabType,
-                            label: 'Coachs & Formateurs',
-                            icon: Users,
-                        },
-                    ]
-                    : []),
-                {
-                    id: 'campus-3d',
-                    label: 'Campus & Installations',
-                    icon: Boxes,
-                },
-                ...(isDirecteurOrAdmin
-                    ? [
-                        { id: 'disciplines' as TabType, label: 'Disciplines Enseignées', icon: Shield },
-                        { id: 'events' as TabType, label: 'Events', icon: Briefcase },
-                        { id: 'partners' as TabType, label: 'Partenaires', icon: Handshake },
-                    ]
-                    : []),
-            ],
-        },
-        ...(isDirecteurOrAdmin
-            ? [
-                {
-                    title: '3. Réseaux & Visites',
-                    items: [
-                        { id: 'instagram' as TabType, label: 'Instagram & Vidéos', icon: Activity },
-                        { id: 'traffic' as TabType, label: 'Visites du Site', icon: Globe },
-                        { id: 'media' as TabType, label: 'Médiathèque (Photos & Médias)', icon: ImageIcon },
-                    ],
-                },
-            ]
-            : [
-                {
-                    title: '3. Réseaux & Médias',
-                    items: [
-                        { id: 'media' as TabType, label: 'Médiathèque (Photos & Médias)', icon: ImageIcon },
-                    ],
-                },
-            ]),
-        ...(isDirecteurOrAdmin ? [SYSTEM_TOOLS_SECTION] : []), // outils système (cf. cockpit-system-section.ts)
-        {
-            title: '4. Réglages du Site',
-            items: [
-                {
-                    id: 'announcements',
-                    label: 'Bandeau d\'Alerte',
-                    icon: Bell,
-                    badge: announcementActive ? 'Actif' : undefined,
-                },
-                {
-                    id: 'navigation',
-                    label: 'Menus du Site',
-                    icon: Menu,
-                },
-                ...(isDirecteurOrAdmin
-                    ? [
-                        { id: 'footer' as TabType, label: 'Bas de Page (Footer)', icon: PanelBottom },
-                        { id: 'social' as TabType, label: 'Réseaux Sociaux', icon: Share2 },
-                        { id: 'settings' as TabType, label: 'Coordonnées & Paramètres', icon: Settings },
-                        { id: 'users' as TabType, label: 'Comptes & Accès', icon: Users },
-                    ]
-                    : []),
-            ],
-        },
-        // Aide : accessible à tous les rôles (cf. cockpit-help-section.ts).
-        HELP_NAV_SECTION,
-    ];
-}
-
-// Métadonnées d'affichage des onglets (libellé, section, icône) déportées dans
-// `cockpit-tab-metadata.ts` pour tenir sous le plafond de 300 lignes (§ 2).
+// Construction du menu et métadonnées d'affichage ré-exportées : les
+// consommateurs historiques (`CockpitApp`) gardent un point d'entrée unique.
+export { buildNavSections } from './cockpit-nav-sections';
+export type { BuildNavSectionsArgs } from './cockpit-nav-sections';
 export type { TabMetadata } from './cockpit-tab-metadata';
 export { getTabMetadata } from './cockpit-tab-metadata';

@@ -50,5 +50,7 @@ export const FIELD_LABELS: Record<string, string> = {
     og_image: 'Image OG',
     hero: 'Hero',
     sections: 'Sections',
+    layout_sections: 'Disposition des sections',
+    sections_data: 'Contenu des sections',
     is_published: 'Publiée',
 };

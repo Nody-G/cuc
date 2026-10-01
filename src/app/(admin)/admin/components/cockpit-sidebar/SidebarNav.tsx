@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, Database, Globe, Pin, PinOff } from 'lucide-react';
 import type { TabType } from '../../CockpitApp';
+import { isNavItemActive } from '../../cockpit/cockpit-nav';
 import { cx } from '../ui';
 import type { CockpitNavItem, CockpitNavSection } from './sidebar-types';
 
@@ -42,7 +43,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
 
     const renderItem = (item: CockpitNavItem) => {
         const Icon = item.icon;
-        const isActive = activeTab === item.id || (item.id === 'campus-3d' && activeTab === 'campus');
+        const isActive = isNavItemActive(item.id, activeTab);
         const isPinned = pins.includes(item.id);
         return (
             <div key={item.id} className="group/item relative">

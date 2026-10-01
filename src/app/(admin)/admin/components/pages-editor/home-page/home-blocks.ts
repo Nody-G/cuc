@@ -34,7 +34,16 @@ export const HOME_BLOCKS: HomeBlockDef[] = [
                     },
                 ],
             },
-            { fields: [{ key: 'image_url', label: 'Image de présentation', media: true }] },
+            {
+                fields: [
+                    {
+                        key: 'image_url',
+                        label: 'Image de présentation',
+                        media: true,
+                        liveEdit: true,
+                    },
+                ],
+            },
             {
                 columns: 2,
                 fields: [
@@ -162,7 +171,14 @@ export const HOME_BLOCKS: HomeBlockDef[] = [
                 ],
             },
             {
-                fields: [{ key: 'image_url', label: 'Visuel de la visite 360°', media: true }],
+                fields: [
+                    {
+                        key: 'image_url',
+                        label: 'Visuel de la visite 360°',
+                        media: true,
+                        liveEdit: true,
+                    },
+                ],
             },
         ],
     },
@@ -182,22 +198,30 @@ export const HOME_BLOCKS: HomeBlockDef[] = [
             {
                 columns: 2,
                 fields: [
-                    { key: 'afdas_badge', label: 'AFDAS — badge' },
-                    { key: 'afdas_text', label: 'AFDAS — texte' },
+                    { key: 'afdas_badge', label: 'AFDAS — badge', liveEdit: true },
+                    { key: 'afdas_text', label: 'AFDAS — texte', liveEdit: true },
                 ],
             },
             {
                 columns: 2,
                 fields: [
-                    { key: 'france_travail_badge', label: 'France Travail — badge' },
-                    { key: 'france_travail_text', label: 'France Travail — texte' },
+                    {
+                        key: 'france_travail_badge',
+                        label: 'France Travail — badge',
+                        liveEdit: true,
+                    },
+                    {
+                        key: 'france_travail_text',
+                        label: 'France Travail — texte',
+                        liveEdit: true,
+                    },
                 ],
             },
             {
                 columns: 2,
                 fields: [
-                    { key: 'opco_badge', label: 'OPCO — badge' },
-                    { key: 'opco_text', label: 'OPCO — texte' },
+                    { key: 'opco_badge', label: 'OPCO — badge', liveEdit: true },
+                    { key: 'opco_text', label: 'OPCO — texte', liveEdit: true },
                 ],
             },
             {
@@ -206,7 +230,14 @@ export const HOME_BLOCKS: HomeBlockDef[] = [
                 ],
             },
             {
-                fields: [{ key: 'logo_url', label: 'Logo de certification', media: true }],
+                fields: [
+                    {
+                        key: 'logo_url',
+                        label: 'Logo de certification',
+                        media: true,
+                        liveEdit: true,
+                    },
+                ],
             },
         ],
     },
@@ -234,7 +265,14 @@ export const HOME_BLOCKS: HomeBlockDef[] = [
                 fields: [{ key: 'see_instagram', label: 'Lien Instagram — libellé', liveEdit: true }],
             },
             {
-                fields: [{ key: 'avatar_url', label: 'Avatar du bloc', media: true }],
+                fields: [
+                    {
+                        key: 'avatar_url',
+                        label: 'Avatar du bloc',
+                        media: true,
+                        liveEdit: true,
+                    },
+                ],
             },
         ],
     },

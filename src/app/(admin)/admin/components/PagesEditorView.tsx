@@ -12,6 +12,7 @@ import { EditorTabsBar } from './pages-editor/EditorTabsBar';
 import { focusCucField } from './pages-editor/focus-field';
 import { LayoutTabPanel } from './pages-editor/LayoutTabPanel';
 import type { PageEditorTab } from './pages-editor/pages-options';
+import { PageEditorSaveBar } from './pages-editor/PageEditorSaveBar';
 import { PageEditorTopBar } from './pages-editor/PageEditorTopBar';
 import { PreviewTabPanel } from './pages-editor/PreviewTabPanel';
 import { RevisionsSection } from './pages-editor/RevisionsSection';
@@ -20,6 +21,7 @@ import { useChromeDraftState } from './pages-editor/useChromeDraftState';
 import { useEditorNavigation } from './pages-editor/useEditorNavigation';
 import { usePageEditorDraft } from './pages-editor/usePageEditorDraft';
 import { usePageEditorCommitHandlers } from './pages-editor/usePageEditorCommitHandlers';
+import { usePageEditorDirtyState } from './pages-editor/usePageEditorDirtyState';
 import { usePageSaveActions } from './pages-editor/usePageSaveActions';
 import { usePreviewMediaPicker } from './pages-editor/usePreviewMediaPicker';
 import { usePageEditorCatalog } from './pages-editor/usePageEditorCatalog';
@@ -103,6 +105,7 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     entityDraft: chrome.entities,
     clearEntityDraft: chrome.clearEntities,
   });
+  const saveBar = usePageEditorDirtyState(draft, chrome, editorLocale);
 
   /** Garde-fous de navigation : langue, page, structure (voir le hook). */
   const navigation = useEditorNavigation({
@@ -269,7 +272,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
       <RevisionsSection
         editorLocale={editorLocale}
         slug={cleanSelectedSlug}
-        currentPage={draft.currentPage}
+        currentContent={draft.formData}
+        refreshKey={save.revisionRefreshKey}
         showToast={showToast}
         onRestored={commits.handleRestored}
         translationUpdatedAt={draft.translation.updatedAt}
@@ -283,6 +287,12 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
           onSelectUrl={mediaPicker.applySelected}
         />
       )}
+      <PageEditorSaveBar
+        isDirty={saveBar.isDirty}
+        isSaving={save.isSaving || draft.translation.saving}
+        onSave={() => void save.handleSave()}
+        onDiscard={saveBar.discardAll}
+      />
     </div>
   );
 };

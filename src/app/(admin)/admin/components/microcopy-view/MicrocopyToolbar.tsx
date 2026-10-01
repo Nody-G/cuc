@@ -40,11 +40,14 @@ export const MicrocopyToolbar: React.FC<MicrocopyToolbarProps> = ({
     <div className="rounded-lg border border-zinc-800 bg-zinc-900/40 p-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-                <h2 className="text-lg font-semibold text-white">Micro-textes du site</h2>
+                <h2 className="text-lg font-semibold text-white">Catalogue exhaustif des libellés (FR ↔ EN)</h2>
                 <p className="mt-1 max-w-3xl text-xs text-zinc-400">
-                    Tous les libellés d'interface (boutons, badges, intitulés, mentions) réunis
-                    ici. Une valeur vide n'est jamais publiée : effacer un champ le ramène au
-                    catalogue. La publication revalide les 15 pages, en français et en anglais.
+                    Référence exhaustive et recherchable de tous les libellés d'interface
+                    (boutons, badges, intitulés, mentions), en français comme en anglais. Le
+                    clic dans l'aperçu de page ne couvre que la page ouverte ; ce catalogue,
+                    lui, couvre l'intégralité du site. Une valeur vide n'est jamais publiée :
+                    effacer un champ le ramène au catalogue. La publication revalide les 15
+                    pages, en français et en anglais.
                 </p>
             </div>
             <div className="flex items-center gap-2 text-xs">

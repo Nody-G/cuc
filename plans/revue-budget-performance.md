@@ -1,6 +1,6 @@
 # Revue — Budget performance du Mode Studio
 
-Généré le 2026-09-29T17:56:12.083Z par `scripts/audit_performance_budget.mjs`.
+Généré le 2026-10-01T15:08:54.593Z par `scripts/audit_performance_budget.mjs`.
 
 | Engagement | État | Preuve |
 | --- | --- | --- |
@@ -14,8 +14,8 @@ Généré le 2026-09-29T17:56:12.083Z par `scripts/audit_performance_budget.mjs`
 
 ## Ratios de référence
 
-- Fichiers publics analysés : 286
-- Fichiers Cockpit analysés : 426
+- Fichiers publics analysés : 292
+- Fichiers Cockpit analysés : 469
 - Canaux Realtime historiques restants sur le chemin public : 0
 - Canaux Realtime ouverts par un visiteur : 0 (route Cockpit uniquement)
 

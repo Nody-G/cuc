@@ -9,7 +9,10 @@ import { PageRevisionsPanel } from '../PageRevisionsPanel';
 export interface RevisionsSectionProps {
     editorLocale: EditorLocaleOption;
     slug: string;
-    currentPage: SitePageContent;
+    /** Contenu **français du brouillon en cours** : référence du diff live. */
+    currentContent: SitePageContent;
+    /** Signal monotone : un incrément relance la lecture de l'historique. */
+    refreshKey: number;
     showToast: (msg: string) => void;
     onRestored: (restored: SitePageContent) => void;
     /** Horodatage du dernier enregistrement de la traduction EN. */
@@ -23,7 +26,8 @@ export interface RevisionsSectionProps {
 export const RevisionsSection: React.FC<RevisionsSectionProps> = ({
     editorLocale,
     slug,
-    currentPage,
+    currentContent,
+    refreshKey,
     showToast,
     onRestored,
     translationUpdatedAt,
@@ -31,7 +35,8 @@ export const RevisionsSection: React.FC<RevisionsSectionProps> = ({
     editorLocale === 'fr' ? (
         <PageRevisionsPanel
             slug={slug}
-            currentContent={currentPage}
+            currentContent={currentContent}
+            refreshKey={refreshKey}
             showToast={showToast}
             onRestored={onRestored}
         />

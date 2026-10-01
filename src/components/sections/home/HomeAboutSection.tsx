@@ -78,7 +78,11 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
           <div className="lg:col-span-5 relative">
             {/* Layer A: Background Shadow Frame & Photo (Deep plane) */}
             <StudioParallaxLayer speed={-0.12} className="relative">
-              <div className="relative h-[460px] sm:h-[540px] w-full border border-zinc-800 bg-[#0c0c12] overflow-hidden shadow-2xl group">
+              <div
+                data-cuc-field="sections_data.about.image_url"
+                data-cuc-kind="image"
+                className="relative h-[460px] sm:h-[540px] w-full border border-zinc-800 bg-[#0c0c12] overflow-hidden shadow-2xl group"
+              >
                 <Image
                   src={imageUrl}
                   alt={t('imageAlt')}

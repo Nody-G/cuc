@@ -68,6 +68,13 @@ export function usePageSaveActions({
     const [isSaving, setIsSaving] = useState(false);
     const [isResetting, setIsResetting] = useState(false);
     const [isPublishing, setIsPublishing] = useState(false);
+    /**
+     * Compteur monotone incrémenté à chaque écriture réussie qui crée ou décale
+     * l'historique des versions. Le panneau d'historique l'observe pour relancer
+     * sa lecture sans recharger la page.
+     */
+    const [revisionRefreshKey, setRevisionRefreshKey] = useState(0);
+    const bumpRevisionRefresh = () => setRevisionRefreshKey((key) => key + 1);
 
     /**
      * Écrit le brouillon « chrome » : réglages du site puis micro-textes de la
@@ -176,6 +183,7 @@ export function usePageSaveActions({
             clearSnapshot();
             onPageSaved(formData);
             bumpPreview();
+            bumpRevisionRefresh();
 
             const chrome = await flushChromeDraft();
             if (chrome.count === 0) {
@@ -204,6 +212,7 @@ export function usePageSaveActions({
             setFormData(updated);
             onPageSaved(updated);
             bumpPreview();
+            bumpRevisionRefresh();
             showToast(
                 nextState
                     ? `Page "${formData.title}" publiée sur la vitrine.`
@@ -230,6 +239,7 @@ export function usePageSaveActions({
                 setFormData({ ...defaultData });
                 onPageSaved(defaultData);
                 bumpPreview();
+                bumpRevisionRefresh();
                 showToast(`Page "${formData.title}" rétablie aux réglages d'origine CUC.`);
             }
         } else {
@@ -264,5 +274,7 @@ export function usePageSaveActions({
         isSaving,
         isResetting,
         isPublishing,
+        /** Signal monotone : un incrément = un historique à relire. */
+        revisionRefreshKey,
     };
 }
