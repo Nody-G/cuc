@@ -35,12 +35,13 @@ const HELP_GROUPS: HelpGroup[] = [
                 title: 'Ce que chaque rôle voit',
                 summary: 'Le menu s’adapte au rôle du compte connecté.',
                 bullets: [
-                    'Coach : uniquement ses sessions, sa fiche formateur et ses crédits films.',
-                    'Secrétariat : inscriptions, sessions, pages, films, médias — sans les réglages sensibles.',
+                    'Cockpit réservé à la gestion administrative : Direction et Secrétariat.',
                     'Directeur / Administrateur : accès complet, y compris comptes, journal et outils système.',
+                    'Secrétariat : inscriptions, sessions, pages vitrine, films, médias — sans les réglages sensibles.',
+                    'Les coachs n’accèdent pas au Cockpit du site vitrine : leur espace dédié sera hébergé dans l’application CUC Sign.',
                     'Un onglet masqué l’est par construction, jamais par simple style.',
                 ],
-                keywords: ['role', 'coach', 'directeur', 'secretaire', 'admin', 'permissions'],
+                keywords: ['role', 'directeur', 'secretaire', 'admin', 'permissions', 'cuc sign', 'coach'],
             },
             {
                 id: 'theme',

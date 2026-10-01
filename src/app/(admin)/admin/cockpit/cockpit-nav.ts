@@ -144,22 +144,6 @@ export function buildNavSections({
 }: BuildNavSectionsArgs): CockpitNavSectionModel[] {
     const isDirecteurOrAdmin = ['directeur', 'admin'].includes(userRole);
     const isSecretaire = userRole === 'secretaire';
-    const isCoach = userRole === 'coach';
-
-    // Vue Coach simplifiée et focalisée sur ses interventions
-    if (isCoach) {
-        return [
-            {
-                title: 'Mes Activités & Fiche',
-                items: [
-                    { id: 'sessions', label: 'Sessions Encadrées', icon: Calendar },
-                    { id: 'team', label: 'Ma Fiche Formateur', icon: Users },
-                    { id: 'films', label: 'Mes Films & Crédits', icon: Film },
-                ],
-            },
-            HELP_NAV_SECTION,
-        ];
-    }
 
     return [
         {

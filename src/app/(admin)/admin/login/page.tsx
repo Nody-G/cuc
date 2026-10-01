@@ -66,7 +66,7 @@ export default function AdminLoginPage() {
           .eq('id', data.user.id)
           .single();
 
-        if (profError || !['admin', 'directeur', 'coach', 'secretaire'].includes(profile?.role || '')) {
+        if (profError || !['admin', 'directeur', 'secretaire'].includes(profile?.role || '')) {
           // Si le profil n'a pas les droits nécessaires, déconnexion immédiate
           await supabase.auth.signOut();
           setErrorMessage('Accès refusé : ce compte ne possède pas les privilèges administrateur.');

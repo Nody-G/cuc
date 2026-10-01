@@ -1,19 +1,18 @@
 'use client';
 
 import React from 'react';
-import { Briefcase, GraduationCap, KeyRound, Shield, type LucideIcon } from 'lucide-react';
+import { Briefcase, KeyRound, Shield, type LucideIcon } from 'lucide-react';
 import { COCKPIT_ACCESS_ROLES, roleDescriptor, type CockpitRole } from './users-model';
 
 const ROLE_ICONS: Record<(typeof COCKPIT_ACCESS_ROLES)[number], LucideIcon> = {
     directeur: KeyRound,
     admin: Shield,
     secretaire: Briefcase,
-    coach: GraduationCap,
 };
 
 /** Rappel synthétique des droits accordés par chaque rôle d'accès. */
 export const UserRoleLegend: React.FC = () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {COCKPIT_ACCESS_ROLES.map((role) => {
             const descriptor = roleDescriptor(role as CockpitRole);
             const Icon = ROLE_ICONS[role];

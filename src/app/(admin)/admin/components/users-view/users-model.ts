@@ -10,7 +10,7 @@ export const COCKPIT_ROLES = ['directeur', 'admin', 'secretaire', 'coach', 'stud
 export type CockpitRole = (typeof COCKPIT_ROLES)[number];
 
 /** Rôles qui ouvrent l'accès au Cockpit (cf. `checkIsAdmin`). */
-export const COCKPIT_ACCESS_ROLES = ['admin', 'directeur', 'secretaire', 'coach'] as const;
+export const COCKPIT_ACCESS_ROLES = ['admin', 'directeur', 'secretaire'] as const;
 
 /**
  * Rôles habilités à gérer les comptes — appliqué côté serveur
@@ -53,10 +53,10 @@ export const ROLE_CATALOG: readonly RoleDescriptor[] = [
     },
     {
         value: 'coach',
-        label: 'Coach / Formateur',
+        label: 'Coach / Formateur (espace CUC Sign)',
         description:
-            'Accès ciblé à sa fiche biographique, sa filmographie et ses sessions encadrées.',
-        tone: 'success',
+            'Compte formateur. N’accède pas au Cockpit vitrine (espace réservé dans l’application CUC Sign).',
+        tone: 'neutral',
     },
     {
         value: 'student',

@@ -71,9 +71,7 @@ export function useCockpitSidebar({
             ? 'Direction Campus'
             : userRole === 'secretaire'
                 ? 'Secrétariat'
-                : userRole === 'coach'
-                    ? 'Espace Formateur'
-                    : 'Admin Vitrine';
+                : 'Admin Vitrine';
 
     const normalizedQuery = query.trim().toLowerCase();
 

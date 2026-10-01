@@ -57,7 +57,7 @@ import type {
 import { writeActivityLog } from '@/lib/logging/write';
 
 /** Rôles autorisés à ouvrir le Cockpit (aligné sur `checkIsAdmin`). */
-const COCKPIT_ROLES = ['admin', 'directeur', 'secretaire', 'coach'];
+const COCKPIT_ROLES = ['admin', 'directeur', 'secretaire'];
 /** Conservation d'un négatif : réservée à la Direction et aux administrateurs. */
 const ORIGINAL_ROLES = ['admin', 'directeur'];
 

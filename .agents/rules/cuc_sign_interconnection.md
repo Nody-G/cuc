@@ -63,3 +63,12 @@ et fonctionnent sans elle. Toute présentation (dossier client, script d'appel) 
    étape est lancée, et rien de ce qui est déjà payé n'est remis en cause ;
 4. s'appuyer sur ce qui existe déjà (le pont de données est en service : formations, coachs, lieux lus depuis CUC Sign)
    plutôt que sur des promesses. Toute fonctionnalité citée doit exister dans `Nody-G/cuc-sign` — sinon elle se tait.
+
+## 6. Périmètre d'accès Cockpit vitrine vs CUC Sign (Règle d'or des rôles)
+
+- Le **Cockpit vitrine CUC** (`/admin`) est strictement réservé à l'équipe administrative du site :
+  `directeur`, `admin`, et `secretaire`.
+- Les **coachs et formateurs** n'accèdent **JAMAIS** au Cockpit du site vitrine :
+  leur espace personnel de travail (planning des interventions, émargements de sessions, suivi pédagogique)
+  sera hébergé et accessible exclusivement dans la future application métier **CUC Sign**.
+- Tout compte ayant le rôle `coach` ou `student` est refusé à la connexion au Cockpit vitrine (`COCKPIT_ACCESS_ROLES`).

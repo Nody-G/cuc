@@ -23,7 +23,7 @@ export async function checkIsAdmin(): Promise<boolean> {
       .eq('id', user.id)
       .single();
 
-    return ['admin', 'directeur', 'secretaire', 'coach'].includes(profile?.role || '');
+    return ['admin', 'directeur', 'secretaire'].includes(profile?.role || '');
   } catch {
     return false;
   }
@@ -95,7 +95,7 @@ export async function loginAdminAction(identifier: string, pass: string) {
         .eq('id', data.user.id)
         .single();
 
-      if (!['admin', 'directeur', 'secretaire', 'coach'].includes(profile?.role || '')) {
+      if (!['admin', 'directeur', 'secretaire'].includes(profile?.role || '')) {
         await supabase.auth.signOut();
         return { success: false, error: 'Accès refusé : ce compte ne possède pas les autorisations nécessaires pour accéder au Cockpit.' };
       }

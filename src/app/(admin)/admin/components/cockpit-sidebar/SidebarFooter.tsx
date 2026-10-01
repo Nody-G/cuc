@@ -1,5 +1,5 @@
 import React from 'react';
-import { LogOut, Shield } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 
 export interface SidebarFooterProps {
     userName: string;
@@ -21,18 +21,14 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({ userName, userRole
             </div>
         </div>
 
-        <div className="flex items-center justify-between pt-1 border-t border-white/5">
-            <div className="flex items-center gap-1.5 text-[10px] font-mono text-gray-500">
-                <Shield className="w-3.5 h-3.5 text-[#FFE500]" />
-                <span>CUC Secure</span>
-            </div>
+        <div className="pt-1 border-t border-white/5">
             <button
                 type="button"
                 onClick={onLogout}
                 title="Se déconnecter du Cockpit"
-                className="flex items-center gap-1 text-[10px] font-mono text-gray-400 hover:text-red-400 transition-colors px-2 py-1 rounded hover:bg-white/5"
+                className="w-full flex items-center justify-center gap-1.5 text-[11px] font-mono text-gray-400 hover:text-red-400 transition-colors py-1 px-2 rounded hover:bg-white/5"
             >
-                <LogOut className="w-3 h-3" />
+                <LogOut className="w-3.5 h-3.5" />
                 <span>Déconnexion</span>
             </button>
         </div>
