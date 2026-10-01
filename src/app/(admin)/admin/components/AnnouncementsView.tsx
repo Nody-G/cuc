@@ -16,13 +16,49 @@ export const AnnouncementsView: React.FC<AnnouncementsViewProps> = ({
   setAnnouncement,
   showToast,
 }) => {
-  const [, startTransition] = useTransition();
+  const [isToggling, startToggleTransition] = useTransition();
+  const [isSavingText, startTextTransition] = useTransition();
 
+  /**
+   * Bascule instantanée du bandeau en direct :
+   * L'activation/désactivation prend effet immédiatement sans nécessiter
+   * de cliquer sur un bouton supplémentaire.
+   */
+  const handleToggleActive = (checked: boolean) => {
+    // 1. Mise à jour optimiste immédiate dans l'UI
+    setAnnouncement((prev) => ({ ...prev, is_active: checked }));
+    showToast(checked ? 'Bandeau activé en direct sur le site !' : 'Bandeau désactivé du site.');
+
+    // 2. Persistance immédiate en base Supabase
+    startToggleTransition(async () => {
+      try {
+        await updateAnnouncement({
+          id: announcement.id || undefined,
+          title: announcement.title,
+          message: announcement.message,
+          badge: announcement.badge,
+          link_url: announcement.link_url,
+          link_text: announcement.link_text,
+          style: announcement.style,
+          is_active: checked,
+        });
+      } catch {
+        // En cas d'erreur de communication, annulation de la bascule
+        setAnnouncement((prev) => ({ ...prev, is_active: !checked }));
+        showToast("Erreur lors de la mise à jour de l'activation du bandeau.");
+      }
+    });
+  };
+
+  /**
+   * Enregistrement du contenu textuel (titre, message, lien, couleur) :
+   * Permet de modifier le message sans avoir à éteindre/rallumer le bandeau.
+   */
   const handleSaveAnnouncement = (e: React.FormEvent) => {
     e.preventDefault();
-    showToast('Bandeau d\'annonce mis à jour en direct !');
+    showToast('Textes et réglages du bandeau enregistrés !');
 
-    startTransition(async () => {
+    startTextTransition(async () => {
       await updateAnnouncement({
         id: announcement.id || undefined,
         title: announcement.title,
@@ -97,19 +133,32 @@ export const AnnouncementsView: React.FC<AnnouncementsViewProps> = ({
       <form onSubmit={handleSaveAnnouncement} className="bg-[#0D0D12] border border-white/10 rounded-xl p-6 space-y-5">
         <div className="flex items-center justify-between p-4 rounded-lg bg-white/5 border border-white/10">
           <div>
-            <div className="text-sm font-bold text-white">Activer le bandeau sur le site</div>
+            <div className="flex items-center gap-2 mb-0.5">
+              <div className="text-sm font-bold text-white">Activer le bandeau sur le site</div>
+              {announcement.is_active ? (
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 inline-flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  EN DIRECT
+                </span>
+              ) : (
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono text-zinc-400 bg-white/5 border border-white/10">
+                  HORS LIGNE
+                </span>
+              )}
+            </div>
             <div className="text-xs text-gray-400">
-              Visible par tous les visiteurs au sommet de chaque page.
+              Prise d&apos;effet instantanée : cliquez pour afficher ou masquer immédiatement le bandeau sur la vitrine.
             </div>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
             <input
               type="checkbox"
               checked={announcement.is_active}
-              onChange={(e) => setAnnouncement({ ...announcement, is_active: e.target.checked })}
+              onChange={(e) => handleToggleActive(e.target.checked)}
+              disabled={isToggling}
               className="sr-only peer"
             />
-            <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#FFE500]"></div>
+            <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#FFE500] peer-disabled:opacity-50"></div>
           </label>
         </div>
 
@@ -187,12 +236,16 @@ export const AnnouncementsView: React.FC<AnnouncementsViewProps> = ({
           </div>
         </div>
 
-        <div className="pt-4 border-t border-white/10 flex justify-end">
+        <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <span className="text-xs text-gray-400 font-mono">
+            ⚡ L&apos;interrupteur ci-dessus s&apos;applique instantanément en direct sans devoir enregistrer ici.
+          </span>
           <button
             type="submit"
-            className="px-6 py-2.5 rounded-lg bg-[#FFE500] hover:bg-[#ffe600e6] text-black text-xs font-black uppercase tracking-wider flex items-center gap-2"
+            disabled={isSavingText}
+            className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-[#FFE500] hover:bg-[#ffe600e6] text-black text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 disabled:opacity-50 transition-colors"
           >
-            Enregistrer &amp; Mettre en ligne
+            {isSavingText ? 'Enregistrement…' : 'Enregistrer les textes & réglages'}
           </button>
         </div>
       </form>
