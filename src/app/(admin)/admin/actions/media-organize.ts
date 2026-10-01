@@ -139,7 +139,9 @@ export async function listMediaFiles() {
         .map((file) => ({
           name: file.name,
           path: file.path,
+          folder: file.folder,
           size: file.size,
+          mimetype: file.mimetype,
           createdAt: file.createdAt,
           url: file.url,
           kind: file.kind,

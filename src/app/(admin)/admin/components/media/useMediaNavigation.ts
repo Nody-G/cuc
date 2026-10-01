@@ -62,11 +62,15 @@ export function useMediaNavigation({
     const refreshTree = useCallback(async () => {
         // `await` initial : aucun setState pendant la phase synchrone d'un effet
         // (règle `react-hooks/set-state-in-effect`), et rendu jamais bloqué.
-        await Promise.resolve();
-        const res = await listMediaTree();
-        if (res.success) {
-            setTree(res.tree.filter((folder) => folder.path && !isHidden(folder.path)));
-            setTotal({ files: res.totalFiles, bytes: res.totalBytes });
+        try {
+            await Promise.resolve();
+            const res = await listMediaTree();
+            if (res.success) {
+                setTree(res.tree.filter((folder) => folder.path && !isHidden(folder.path)));
+                setTotal({ files: res.totalFiles, bytes: res.totalBytes });
+            }
+        } catch {
+            /* tolérant aux incidents réseau passagers */
         }
     }, [isHidden]);
 
@@ -85,26 +89,63 @@ export function useMediaNavigation({
             if (isAppend) setLoadingMore(true);
             else setLoading(true);
 
-            const res = await listMediaFolder({
-                prefix: targetPrefix,
-                sortBy: options.sortBy ?? sortBy,
-                order: options.order ?? order,
-                limit: PAGE_SIZE,
-                offset: options.offset ?? 0,
-            });
+            try {
+                if (targetPrefix === '') {
+                    // À la racine, s'il n'y a pas de fichiers directs (tous les médias sont rangés
+                    // dans des sous-dossiers), on charge l'ensemble des fichiers via listMediaFiles()
+                    // pour que l'utilisateur voie directement tous les médias disponibles au lieu
+                    // d'un dossier vide déroutant.
+                    const [folderRes, allFilesRes] = await Promise.all([
+                        listMediaFolder({
+                            prefix: '',
+                            sortBy: options.sortBy ?? sortBy,
+                            order: options.order ?? order,
+                            limit: PAGE_SIZE,
+                            offset: options.offset ?? 0,
+                        }),
+                        listMediaFiles(),
+                    ]);
 
-            if (res.success) {
-                setFolders(res.folders.filter((folder) => !isHidden(folder.path)));
-                setFiles((prev) => (isAppend ? [...prev, ...res.files] : res.files));
-                setOffset(res.nextOffset);
-                setHasMore(res.hasMore);
-                if (!isAppend) setDetail(null);
-            } else {
-                showToast(res.error || 'Erreur de chargement du dossier');
+                    if (folderRes.success) {
+                        setFolders(folderRes.folders.filter((folder) => !isHidden(folder.path)));
+                        const filesToShow = (
+                            folderRes.files.length > 0
+                                ? folderRes.files
+                                : (allFilesRes.success ? allFilesRes.files : [])
+                        ) as MediaObject[];
+                        setFiles(filesToShow);
+                        setOffset(filesToShow.length);
+                        setHasMore(false);
+                        if (!isAppend) setDetail(null);
+                    } else {
+                        showToast(folderRes.error || 'Erreur de chargement du dossier');
+                    }
+                } else {
+                    const res = await listMediaFolder({
+                        prefix: targetPrefix,
+                        sortBy: options.sortBy ?? sortBy,
+                        order: options.order ?? order,
+                        limit: PAGE_SIZE,
+                        offset: options.offset ?? 0,
+                    });
+
+                    if (res.success) {
+                        setFolders(res.folders.filter((folder) => !isHidden(folder.path)));
+                        setFiles((prev) => (isAppend ? [...prev, ...res.files] : res.files));
+                        setOffset(res.nextOffset);
+                        setHasMore(res.hasMore);
+                        if (!isAppend) setDetail(null);
+                    } else {
+                        showToast(res.error || 'Erreur de chargement du dossier');
+                    }
+                }
+            } catch (err: unknown) {
+                const message = err instanceof Error ? err.message : 'Erreur de chargement';
+                showToast(message);
+            } finally {
+                setLoading(false);
+                setLoadingMore(false);
             }
-
-            setLoading(false);
-            setLoadingMore(false);
         },
         [isHidden, order, showToast, sortBy]
     );

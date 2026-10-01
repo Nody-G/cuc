@@ -29,7 +29,7 @@ export const MediaTreeAside: React.FC<MediaTreeAsideProps> = ({
                 }`}
         >
             <span className="flex items-center justify-between gap-2">
-                <span className="font-bold">Racine</span>
+                <span className="font-bold">Tous les médias</span>
                 <span className="text-[10px] text-gray-500 font-mono">{total.files}</span>
             </span>
         </button>
