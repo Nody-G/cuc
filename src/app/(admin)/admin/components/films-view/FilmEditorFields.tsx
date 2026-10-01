@@ -12,10 +12,16 @@ export interface FilmEditorFieldsProps {
     value: FilmCredit;
     onChange: (updates: Partial<FilmCredit>) => void;
     onOpenMediaPicker: () => void;
+    /**
+     * Champ verrouillé dans la locale courante : en anglais, seuls `description`
+     * et `stuntRoles` restent éditables (identité, affiche, castings doublés et
+     * liens sont des données sources).
+     */
+    isFieldReadOnly: (field: string) => boolean;
 }
 
 const inputClass =
-    'w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500]';
+    'w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#FFE500] disabled:opacity-50 disabled:cursor-not-allowed';
 const labelClass = 'block text-xs font-mono text-gray-400 mb-1';
 
 /** Champs principaux du projet : identité, catégorie, affiche, castings doublés, liens. */
@@ -23,6 +29,7 @@ export const FilmEditorFields: React.FC<FilmEditorFieldsProps> = ({
     value,
     onChange,
     onOpenMediaPicker,
+    isFieldReadOnly,
 }) => (
     <>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -31,6 +38,7 @@ export const FilmEditorFields: React.FC<FilmEditorFieldsProps> = ({
                 <input
                     type="text"
                     required
+                    disabled={isFieldReadOnly('title')}
                     value={value.title}
                     onChange={(e) => onChange({ title: e.target.value })}
                     className={inputClass}
@@ -42,6 +50,7 @@ export const FilmEditorFields: React.FC<FilmEditorFieldsProps> = ({
                     type="text"
                     required
                     placeholder="ex: 2025"
+                    disabled={isFieldReadOnly('year')}
                     value={value.year}
                     onChange={(e) => onChange({ year: e.target.value })}
                     className={inputClass}
@@ -54,6 +63,7 @@ export const FilmEditorFields: React.FC<FilmEditorFieldsProps> = ({
                 <label className={labelClass}>Catégorie vitrine</label>
                 <select
                     value={value.category}
+                    disabled={isFieldReadOnly('category')}
                     onChange={(e) => onChange({ category: e.target.value as FilmCredit['category'] })}
                     className={inputClass}
                 >
@@ -69,6 +79,7 @@ export const FilmEditorFields: React.FC<FilmEditorFieldsProps> = ({
                 <input
                     type="text"
                     placeholder="ex: COMBATS, POURSUITES, NOUVEAU"
+                    disabled={isFieldReadOnly('tag')}
                     value={value.tag || ''}
                     onChange={(e) => onChange({ tag: e.target.value })}
                     className={inputClass}
@@ -82,6 +93,7 @@ export const FilmEditorFields: React.FC<FilmEditorFieldsProps> = ({
                 <input
                     type="text"
                     placeholder="ex: Olivier Megaton, Luc Besson..."
+                    disabled={isFieldReadOnly('director')}
                     value={value.director || ''}
                     onChange={(e) => onChange({ director: e.target.value })}
                     className={inputClass}
@@ -93,6 +105,7 @@ export const FilmEditorFields: React.FC<FilmEditorFieldsProps> = ({
                     <input
                         type="text"
                         placeholder="/images/... ou https://..."
+                        disabled={isFieldReadOnly('image')}
                         value={value.image || ''}
                         onChange={(e) => onChange({ image: e.target.value })}
                         className={`flex-1 ${inputClass}`}
@@ -100,7 +113,8 @@ export const FilmEditorFields: React.FC<FilmEditorFieldsProps> = ({
                     <button
                         type="button"
                         onClick={onOpenMediaPicker}
-                        className="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-bold text-white flex items-center gap-1.5"
+                        disabled={isFieldReadOnly('image')}
+                        className="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-bold text-white flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
                         title="Choisir dans la médiathèque"
                     >
                         <ImageIcon className="w-3.5 h-3.5 text-[#FFE500]" />
@@ -117,9 +131,22 @@ export const FilmEditorFields: React.FC<FilmEditorFieldsProps> = ({
                 key={`film-doubled-${value.id}`}
                 value={coerceStringList(value.doubledActors)}
                 onChange={(doubledActors) => onChange({ doubledActors })}
+                disabled={isFieldReadOnly('doubledActors')}
                 placeholder="ex: Tomer Sisley, Pierre Niney, Keanu Reeves"
                 className={inputClass}
                 aria-label="Comédiens doublés"
+            />
+        </div>
+
+        <div>
+            <label className={labelClass}>Description / Synopsis</label>
+            <textarea
+                rows={3}
+                placeholder="Synopsis factuel de la fiche — traduisible en anglais via l'overlay."
+                disabled={isFieldReadOnly('description')}
+                value={value.description || ''}
+                onChange={(e) => onChange({ description: e.target.value })}
+                className={inputClass}
             />
         </div>
 
@@ -128,6 +155,7 @@ export const FilmEditorFields: React.FC<FilmEditorFieldsProps> = ({
             <textarea
                 rows={2}
                 placeholder="ex: Coordination cascades, chorégraphie combats, doublure Tomer Sisley, chutes hauteur 18m"
+                disabled={isFieldReadOnly('stuntRoles')}
                 value={value.stuntRoles}
                 onChange={(e) => onChange({ stuntRoles: e.target.value })}
                 className={inputClass}
@@ -142,9 +170,10 @@ export const FilmEditorFields: React.FC<FilmEditorFieldsProps> = ({
                 <input
                     type="text"
                     placeholder="https://imdb.com/title/..."
+                    disabled={isFieldReadOnly('imdbUrl')}
                     value={value.imdbUrl || ''}
                     onChange={(e) => onChange({ imdbUrl: e.target.value })}
-                    className="w-full bg-black/60 border border-white/20 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-[#FFE500]"
+                    className="w-full bg-black/60 border border-white/20 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-[#FFE500] disabled:opacity-50 disabled:cursor-not-allowed"
                 />
             </div>
             <div>
@@ -154,9 +183,10 @@ export const FilmEditorFields: React.FC<FilmEditorFieldsProps> = ({
                 <input
                     type="text"
                     placeholder="https://allocine.fr/film/..."
+                    disabled={isFieldReadOnly('allocineUrl')}
                     value={value.allocineUrl || ''}
                     onChange={(e) => onChange({ allocineUrl: e.target.value })}
-                    className="w-full bg-black/60 border border-white/20 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-[#FFE500]"
+                    className="w-full bg-black/60 border border-white/20 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-[#FFE500] disabled:opacity-50 disabled:cursor-not-allowed"
                 />
             </div>
             <div>
@@ -166,9 +196,10 @@ export const FilmEditorFields: React.FC<FilmEditorFieldsProps> = ({
                 <input
                     type="text"
                     placeholder="https://youtube.com/watch?v=..."
+                    disabled={isFieldReadOnly('trailerUrl')}
                     value={value.trailerUrl || ''}
                     onChange={(e) => onChange({ trailerUrl: e.target.value })}
-                    className="w-full bg-black/60 border border-white/20 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-[#FFE500]"
+                    className="w-full bg-black/60 border border-white/20 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-[#FFE500] disabled:opacity-50 disabled:cursor-not-allowed"
                 />
             </div>
         </div>

@@ -10,11 +10,12 @@ interface TranslationsViewProps {
 }
 
 /**
- * Cockpit — « Traductions EN ».
+ * Cockpit — « Traductions · éditeur technique (JSON) ».
  *
- * Édite la table `site_translations` (overlay JSON par entité/locale).
- * Validation JSON côté client avant enregistrement ; l'écriture passe par la
- * server action `upsertSiteTranslation` (RLS admin).
+ * Repli technique : édite brut la table `site_translations` (overlay JSON par
+ * entité/locale) pour les entités sans édition en place. Validation JSON côté
+ * client avant enregistrement ; l'écriture passe par la server action
+ * `upsertSiteTranslation` (RLS admin).
  */
 export const TranslationsView: React.FC<TranslationsViewProps> = ({ showToast }) => {
     const [rows, setRows] = useState<TranslationRow[]>([]);
@@ -106,11 +107,19 @@ export const TranslationsView: React.FC<TranslationsViewProps> = ({ showToast })
                 <div>
                     <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
                         <Globe className="w-5 h-5 text-amber-400" />
-                        Traductions EN
+                        Traductions — éditeur technique (JSON)
                     </h1>
                     <p className="text-sm text-zinc-400 mt-1">
-                        Surcharge de traduction (table <code className="text-zinc-300">site_translations</code>) : le
-                        contenu français sert de repli automatique.
+                        Les traductions s'éditent désormais{' '}
+                        <strong className="text-zinc-300">en place</strong> dans chaque écran concerné du Cockpit
+                        (Pages, Coachs, Films, Événements, Disciplines, Campus, Réseaux sociaux, Menus, Bas de page)
+                        via le sélecteur <code className="text-zinc-300">FR | EN</code>. Cet écran reste le repli
+                        technique : il édite brut les overlays de la table{' '}
+                        <code className="text-zinc-300">site_translations</code> pour les entités qui n'ont pas
+                        d'éditeur en place (le contenu français sert de repli automatique).
+                    </p>
+                    <p className="text-xs text-zinc-500 mt-2">
+                        Repli technique uniquement : Partenaires, Sessions, Programmes, Installations du campus.
                     </p>
                 </div>
                 <button

@@ -5,12 +5,12 @@
  * Extraite de `cockpit-nav.ts` (plafond dur de 300 lignes, § 2) pour héberger
  * l'arborescence en 6 sections validée par l'audit du 2026-10-01 :
  *
- *  1. Éditorial          — Pages, Menus, Libellés & Micro-textes, Traductions
+ *  1. Éditorial          — Pages, Menus, Libellés & Micro-textes
  *  2. Chrome du site     — hub `chrome` (Bandeau, Bas de Page, Réseaux, Coordonnées)
  *  3. Contenus métier    — Sessions, Coachs, Filmographie, Campus, Disciplines, Events, Partenaires
  *  4. Médias & Réseaux   — Médiathèque, Instagram & Vidéos
  *  5. Pilotage           — Tableau de Bord, Contact, hub `audience`, hub `journal`, Diagnostic du Contenu
- *  6. Système & Aide     — Comptes & Accès, Aide & Guide
+ *  6. Système & Aide     — Comptes & Accès, Traductions · technique, Aide & Guide
  *
  * Les libellés qui se télescopaient sont désambiguïsés : « Diagnostic du
  * Contenu » (onglet `health`) ne se confond plus avec la modale « Diagnostic
@@ -70,10 +70,7 @@ export function buildNavSections({
             { id: 'pages', label: 'Pages du Site', icon: FileText },
             { id: 'navigation', label: 'Menus du Site', icon: Menu },
             ...(isDirecteurOrAdmin
-                ? [
-                    { id: 'microcopy' as TabType, label: 'Libellés & Micro-textes', icon: FileText },
-                    { id: 'translations' as TabType, label: 'Traductions Anglaises', icon: Globe },
-                ]
+                ? [{ id: 'microcopy' as TabType, label: 'Libellés & Micro-textes', icon: FileText }]
                 : []),
         ],
     };
@@ -137,7 +134,10 @@ export function buildNavSections({
         title: '6. Système & Aide',
         items: [
             ...(isDirecteurOrAdmin
-                ? [{ id: 'users' as TabType, label: 'Comptes & Accès', icon: Users }]
+                ? [
+                    { id: 'users' as TabType, label: 'Comptes & Accès', icon: Users },
+                    { id: 'translations' as TabType, label: 'Traductions · technique', icon: Globe },
+                ]
                 : []),
             { id: 'help', label: 'Aide & Guide', icon: LifeBuoy },
         ],

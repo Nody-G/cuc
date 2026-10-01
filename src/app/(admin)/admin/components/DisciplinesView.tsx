@@ -72,16 +72,21 @@ export const DisciplinesView: React.FC<DisciplinesViewProps> = ({
       {/* Modal d'édition / création ultra-complète */}
       {editor.editingDiscipline && (
         <DisciplineEditorModal
-          discipline={editor.editingDiscipline}
+          discipline={editor.activeDiscipline}
+          sourceDiscipline={editor.editingDiscipline}
           campusPOIs={campusPOIs}
           team={team}
           films={films}
           programs={programs}
-          onChange={editor.patchEditing}
+          onChange={editor.patchActive}
+          onSourceChange={editor.patchSource}
           onToggleLink={editor.toggleArrayItem}
           onOpenMediaPicker={editor.openMediaPicker}
           onClose={editor.closeEditor}
           onSubmit={editor.handleSave}
+          localeEditor={editor.locale}
+          onLocaleChange={editor.changeLocale}
+          isFieldReadOnly={editor.isFieldReadOnly}
         />
       )}
 

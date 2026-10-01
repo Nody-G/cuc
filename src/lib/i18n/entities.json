@@ -116,11 +116,19 @@
                     "kind": "scalar"
                 },
                 {
-                    "name": "description",
+                    "name": "shortDesc",
                     "kind": "scalar"
                 },
                 {
-                    "name": "objectives",
+                    "name": "fullDesc",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "cinemaContext",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "equipment",
                     "kind": "array"
                 }
             ]
@@ -136,12 +144,28 @@
                     "kind": "scalar"
                 },
                 {
+                    "name": "subtitle",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "badge",
+                    "kind": "scalar"
+                },
+                {
                     "name": "description",
                     "kind": "scalar"
                 },
                 {
-                    "name": "location",
+                    "name": "price_indicator",
                     "kind": "scalar"
+                },
+                {
+                    "name": "cta_text",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "features",
+                    "kind": "array"
                 }
             ]
         },
@@ -156,11 +180,19 @@
                     "kind": "scalar"
                 },
                 {
+                    "name": "category",
+                    "kind": "scalar"
+                },
+                {
                     "name": "description",
                     "kind": "scalar"
                 },
                 {
-                    "name": "category",
+                    "name": "badge",
+                    "kind": "scalar"
+                },
+                {
+                    "name": "specs",
                     "kind": "scalar"
                 }
             ]

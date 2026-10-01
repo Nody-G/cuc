@@ -9,6 +9,10 @@ export interface FooterLinkRowProps {
     link: FooterLink;
     index: number;
     total: number;
+    /** Édition anglaise : URL, visibilité, ordre et suppression sont verrouillés. */
+    locked: boolean;
+    /** Overlay chargé : le libellé (seul champ traduisible) reste éditable. */
+    ready: boolean;
     onMoveLink: (columnId: string, index: number, direction: -1 | 1) => void;
     onUpdateLink: (columnId: string, linkId: string, updates: Partial<FooterLink>) => void;
     onRemoveLink: (columnId: string, linkId: string) => void;
@@ -19,6 +23,8 @@ export const FooterLinkRow: React.FC<FooterLinkRowProps> = ({
     link,
     index,
     total,
+    locked,
+    ready,
     onMoveLink,
     onUpdateLink,
     onRemoveLink,
@@ -27,14 +33,14 @@ export const FooterLinkRow: React.FC<FooterLinkRowProps> = ({
         <div className="flex items-center gap-1 shrink-0">
             <button
                 onClick={() => onMoveLink(columnId, index, -1)}
-                disabled={index === 0}
+                disabled={locked || index === 0}
                 className="p-1 rounded hover:bg-white/10 disabled:opacity-30 text-gray-500"
             >
                 <ChevronUp className="w-3.5 h-3.5" />
             </button>
             <button
                 onClick={() => onMoveLink(columnId, index, 1)}
-                disabled={index === total - 1}
+                disabled={locked || index === total - 1}
                 className="p-1 rounded hover:bg-white/10 disabled:opacity-30 text-gray-500"
             >
                 <ChevronDown className="w-3.5 h-3.5" />
@@ -46,11 +52,13 @@ export const FooterLinkRow: React.FC<FooterLinkRowProps> = ({
                 type="text"
                 value={link.label}
                 placeholder="Libellé"
+                disabled={locked && !ready}
                 onChange={(e) => onUpdateLink(columnId, link.id, { label: e.target.value })}
                 className={FOOTER_INPUT_CLASS}
             />
             <PageUrlSelect
                 value={link.href}
+                disabled={locked}
                 onChange={(href) => onUpdateLink(columnId, link.id, { href })}
                 placeholder="Sélectionner la page cible..."
             />
@@ -59,7 +67,8 @@ export const FooterLinkRow: React.FC<FooterLinkRowProps> = ({
         <div className="flex items-center gap-1 shrink-0 self-end lg:self-center">
             <button
                 onClick={() => onUpdateLink(columnId, link.id, { is_visible: !link.is_visible })}
-                className={`p-1.5 rounded-md ${link.is_visible ? 'text-[#FFE500]' : 'text-gray-600'
+                disabled={locked}
+                className={`p-1.5 rounded-md disabled:opacity-40 ${link.is_visible ? 'text-[#FFE500]' : 'text-gray-600'
                     } hover:bg-white/10`}
             >
                 {link.is_visible ? (
@@ -70,7 +79,8 @@ export const FooterLinkRow: React.FC<FooterLinkRowProps> = ({
             </button>
             <button
                 onClick={() => onRemoveLink(columnId, link.id)}
-                className="p-1.5 rounded-md hover:bg-red-500/20 text-red-400"
+                disabled={locked}
+                className="p-1.5 rounded-md hover:bg-red-500/20 text-red-400 disabled:opacity-40"
             >
                 <Trash2 className="w-3.5 h-3.5" />
             </button>

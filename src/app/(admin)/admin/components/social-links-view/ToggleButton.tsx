@@ -6,14 +6,22 @@ interface ToggleButtonProps {
     checked: boolean;
     onChange: (v: boolean) => void;
     label: string;
+    /** Verrou d'édition (champ structurel, non traduisible). */
+    disabled?: boolean;
 }
 
 /** Bouton bascule compact (emplacements d'affichage d'un réseau). */
-export const ToggleButton: React.FC<ToggleButtonProps> = ({ checked, onChange, label }) => (
+export const ToggleButton: React.FC<ToggleButtonProps> = ({
+    checked,
+    onChange,
+    label,
+    disabled = false,
+}) => (
     <button
         type="button"
         onClick={() => onChange(!checked)}
-        className={`px-2.5 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-wider transition-colors ${checked
+        disabled={disabled}
+        className={`px-2.5 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-wider transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${checked
             ? 'bg-[#FFE500] text-black'
             : 'bg-white/5 text-gray-500 hover:text-gray-300 hover:bg-white/10'
             }`}

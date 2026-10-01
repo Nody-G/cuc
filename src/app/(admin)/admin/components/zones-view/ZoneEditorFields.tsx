@@ -4,18 +4,33 @@ import { ImageIcon } from 'lucide-react';
 import { POI } from '@/components/ui/campus-map/campusMap.data';
 
 export interface ZoneEditorFieldsProps {
+    /** Brouillon actif : français en FR, contenu localisé en EN. */
     poi: POI;
+    /** Patch des champs traduisibles (allow-list `ZONE_CODEC`). */
     onChange: (patch: Partial<POI>) => void;
+    /** POI source française : visuel technique verrouillé en anglais. */
+    sourcePoi: POI;
+    /** Patch des champs techniques (image, ordre). */
+    onSourceChange: (patch: Partial<POI>) => void;
     onOpenMediaPicker: () => void;
+    /** Champ verrouillé dans la locale courante (technique ou non chargé). */
+    isFieldReadOnly: (field: string) => boolean;
 }
 
 const fieldClass =
-    'w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-cuc-gold';
+    'w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-cuc-gold disabled:opacity-50 disabled:cursor-not-allowed';
 
+/**
+ * Champs éditoriaux d'une zone : nom, catégorie, badge, description, specs et
+ * visuel. En anglais, seul le visuel (`image_url`) reste verrouillé.
+ */
 export const ZoneEditorFields: React.FC<ZoneEditorFieldsProps> = ({
     poi,
     onChange,
+    sourcePoi,
+    onSourceChange,
     onOpenMediaPicker,
+    isFieldReadOnly,
 }) => (
     <>
         <div>
@@ -25,6 +40,7 @@ export const ZoneEditorFields: React.FC<ZoneEditorFieldsProps> = ({
             <input
                 type="text"
                 required
+                disabled={isFieldReadOnly('name')}
                 value={poi.name}
                 onChange={(e) => onChange({ name: e.target.value })}
                 placeholder="ex: Tour de Saut 21m"
@@ -40,6 +56,7 @@ export const ZoneEditorFields: React.FC<ZoneEditorFieldsProps> = ({
                 <input
                     type="text"
                     required
+                    disabled={isFieldReadOnly('category')}
                     value={poi.category}
                     onChange={(e) => onChange({ category: e.target.value })}
                     placeholder="Hauteur, Combat, Câbles..."
@@ -52,6 +69,7 @@ export const ZoneEditorFields: React.FC<ZoneEditorFieldsProps> = ({
                 </label>
                 <input
                     type="text"
+                    disabled={isFieldReadOnly('badge')}
                     value={poi.badge}
                     onChange={(e) => onChange({ badge: e.target.value })}
                     placeholder="ex: HOMOLOGUÉ APAVE"
@@ -60,17 +78,17 @@ export const ZoneEditorFields: React.FC<ZoneEditorFieldsProps> = ({
             </div>
         </div>
 
-        {/* Visuel de la zone (Supabase Storage) */}
+        {/* Visuel de la zone (technique : verrouillé en anglais) */}
         <div>
             <label className="block text-xs font-semibold text-zinc-400 mb-1">
                 Visuel de la Zone (Vitrine)
             </label>
             <div className="flex items-center gap-3">
                 <div className="relative w-24 h-16 shrink-0 rounded-xl overflow-hidden border border-zinc-800 bg-black flex items-center justify-center">
-                    {poi.image_url ? (
+                    {sourcePoi.image_url ? (
                         <Image
-                            src={poi.image_url}
-                            alt={poi.name || 'Visuel zone'}
+                            src={sourcePoi.image_url}
+                            alt={sourcePoi.name || 'Visuel zone'}
                             fill
                             sizes="96px"
                             className="object-cover"
@@ -81,15 +99,17 @@ export const ZoneEditorFields: React.FC<ZoneEditorFieldsProps> = ({
                 </div>
                 <input
                     type="text"
-                    value={poi.image_url || ''}
-                    onChange={(e) => onChange({ image_url: e.target.value })}
+                    disabled={isFieldReadOnly('image_url')}
+                    value={sourcePoi.image_url || ''}
+                    onChange={(e) => onSourceChange({ image_url: e.target.value })}
                     placeholder="URL Supabase Storage ou chemin local"
-                    className="flex-1 px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-xs text-white focus:outline-none focus:border-cuc-gold"
+                    className="flex-1 px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-xs text-white focus:outline-none focus:border-cuc-gold disabled:opacity-50 disabled:cursor-not-allowed"
                 />
                 <button
                     type="button"
                     onClick={onOpenMediaPicker}
-                    className="px-3 py-2 rounded-xl border border-zinc-700 text-zinc-200 text-xs font-semibold hover:bg-zinc-800 transition shrink-0"
+                    disabled={isFieldReadOnly('image_url')}
+                    className="px-3 py-2 rounded-xl border border-zinc-700 text-zinc-200 text-xs font-semibold hover:bg-zinc-800 transition shrink-0 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                     Médiathèque
                 </button>
@@ -103,6 +123,7 @@ export const ZoneEditorFields: React.FC<ZoneEditorFieldsProps> = ({
             <textarea
                 rows={3}
                 required
+                disabled={isFieldReadOnly('description')}
                 value={poi.description}
                 onChange={(e) => onChange({ description: e.target.value })}
                 className={fieldClass}
@@ -116,6 +137,7 @@ export const ZoneEditorFields: React.FC<ZoneEditorFieldsProps> = ({
             <input
                 type="text"
                 required
+                disabled={isFieldReadOnly('specs')}
                 value={poi.specs}
                 onChange={(e) => onChange({ specs: e.target.value })}
                 placeholder="ex: Hauteur 21m • Paliers 5/8/12/16/21m • Poutre de largage"
@@ -124,3 +146,5 @@ export const ZoneEditorFields: React.FC<ZoneEditorFieldsProps> = ({
         </div>
     </>
 );
+
+export default ZoneEditorFields;

@@ -30,18 +30,29 @@ export const FooterView: React.FC<FooterViewProps> = ({ showToast }) => {
                 isPending={footer.isPending}
                 onReset={footer.handleReset}
                 onSave={footer.handleSave}
+                localeEditor={footer.locale}
+                onLocaleChange={footer.changeLocale}
             />
 
             {/* Publication */}
-            <FooterPublishToggle isPublished={footer.isPublished} onChange={footer.setPublished} />
+            <FooterPublishToggle
+                isPublished={footer.isPublished}
+                onChange={footer.setPublished}
+                disabled={footer.isEnglish}
+            />
 
             {/* Identité de marque */}
-            <FooterBrandCard brand={footer.structure.brand} onChange={footer.updateBrand} />
+            <FooterBrandCard
+                brand={footer.activeStructure.brand}
+                onChange={footer.updateBrand}
+                locked={footer.isEnglish}
+            />
 
             {/* Certification Qualiopi (Nouveau) */}
             <FooterCertificationCard
                 certification={footer.structure.certification}
                 onChange={footer.updateCertification}
+                locked={footer.isEnglish}
             />
 
             {/* Colonnes */}
@@ -49,6 +60,8 @@ export const FooterView: React.FC<FooterViewProps> = ({ showToast }) => {
                 isLoading={footer.isLoading}
                 columns={footer.columns}
                 expandedColumn={footer.expandedColumn}
+                locked={footer.isEnglish}
+                ready={footer.locale.ready}
                 onMoveColumn={footer.moveColumn}
                 onUpdateColumn={footer.updateColumn}
                 onRemoveColumn={footer.removeColumn}
@@ -62,8 +75,10 @@ export const FooterView: React.FC<FooterViewProps> = ({ showToast }) => {
 
             {/* Mentions légales */}
             <FooterLegalCard
-                legal={footer.structure.legal}
+                legal={footer.activeStructure.legal}
                 links={footer.legalLinks}
+                locked={footer.isEnglish}
+                ready={footer.locale.ready}
                 onUpdateCopyright={footer.updateCopyright}
                 onUpdateLink={footer.updateLegalLink}
                 onRemoveLink={footer.removeLegalLink}

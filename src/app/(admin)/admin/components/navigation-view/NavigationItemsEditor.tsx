@@ -10,6 +10,10 @@ export interface NavigationItemsEditorProps {
     isLoading: boolean;
     items: NavItem[];
     expandedId: string | null;
+    /** Édition anglaise : les contrôles structurels passent en lecture seule. */
+    locked: boolean;
+    /** Overlay chargé : les libellés redeviennent éditables en anglais. */
+    ready: boolean;
     onMoveItem: (index: number, direction: -1 | 1) => void;
     onUpdateItem: (id: string, updates: Partial<NavItem>) => void;
     onRemoveItem: (id: string) => void;
@@ -29,6 +33,8 @@ export const NavigationItemsEditor: React.FC<NavigationItemsEditorProps> = ({
     isLoading,
     items,
     expandedId,
+    locked,
+    ready,
     onMoveItem,
     onUpdateItem,
     onRemoveItem,
@@ -53,6 +59,8 @@ export const NavigationItemsEditor: React.FC<NavigationItemsEditorProps> = ({
                     totalItems={items.length}
                     isExpanded={expandedId === item.id}
                     childItems={sortedChildren(item)}
+                    locked={locked}
+                    ready={ready}
                     onMoveItem={onMoveItem}
                     onUpdateItem={onUpdateItem}
                     onRemoveItem={onRemoveItem}

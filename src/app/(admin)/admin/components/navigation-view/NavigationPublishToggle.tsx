@@ -3,11 +3,14 @@ import React from 'react';
 export interface NavigationPublishToggleProps {
     isPublished: boolean;
     onChange: (value: boolean) => void;
+    /** Verrou d'édition en anglais : la publication appartient à la source FR. */
+    disabled?: boolean;
 }
 
 export const NavigationPublishToggle: React.FC<NavigationPublishToggleProps> = ({
     isPublished,
     onChange,
+    disabled = false,
 }) => (
     <div className="flex items-center justify-between p-4 rounded-xl bg-[#0D0D12] border border-white/10">
         <div>
@@ -16,10 +19,11 @@ export const NavigationPublishToggle: React.FC<NavigationPublishToggleProps> = (
                 Si désactivé, la vitrine conserve la navigation par défaut.
             </div>
         </div>
-        <label className="relative inline-flex items-center cursor-pointer">
+        <label className={`relative inline-flex items-center ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
             <input
                 type="checkbox"
                 checked={isPublished}
+                disabled={disabled}
                 onChange={(e) => onChange(e.target.checked)}
                 className="sr-only peer"
             />

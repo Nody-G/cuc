@@ -37,6 +37,14 @@ export const TeamView: React.FC<TeamViewProps> = ({
     startTransition,
     editingMember,
     setEditingMember,
+    setSourceMember,
+    activeMember,
+    setActiveMember,
+    locale: memberLocale,
+    changeLocale: changeMemberLocale,
+    isFieldReadOnly,
+    openEditor,
+    closeEditor,
     showMediaPickerTeam,
     setShowMediaPickerTeam,
     handleSaveTeamMember,
@@ -57,7 +65,7 @@ export const TeamView: React.FC<TeamViewProps> = ({
 
   /** Nouvelle fiche vierge, prête pour le modal d'édition. */
   const handleAddMember = () =>
-    setEditingMember({
+    openEditor({
       id: `coach-${Date.now()}`,
       name: '',
       role: 'Coach & Intervenant',
@@ -86,16 +94,21 @@ export const TeamView: React.FC<TeamViewProps> = ({
         films={films}
         disciplines={disciplines}
         onAdd={handleAddMember}
-        onEdit={(member) => setEditingMember(member)}
+        onEdit={openEditor}
         onDelete={handleDeleteTeamMember}
       />
 
       {/* Modal édition membre */}
       {editingMember && (
         <TeamMemberEditorModal
-          member={editingMember}
-          onMemberChange={(next) => setEditingMember(next)}
-          onClose={() => setEditingMember(null)}
+          member={activeMember}
+          onMemberChange={setActiveMember}
+          sourceMember={editingMember}
+          onSourceMemberChange={setSourceMember}
+          localeEditor={memberLocale}
+          onLocaleChange={changeMemberLocale}
+          isFieldReadOnly={isFieldReadOnly}
+          onClose={closeEditor}
           onSubmit={handleSaveTeamMember}
           onOpenMediaPicker={() => setShowMediaPickerTeam(true)}
           credits={{

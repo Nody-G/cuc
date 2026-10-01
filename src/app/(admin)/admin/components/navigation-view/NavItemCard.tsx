@@ -22,6 +22,10 @@ export interface NavItemCardProps {
     totalItems: number;
     isExpanded: boolean;
     childItems: NavChildItem[];
+    /** Édition anglaise : type, URL, visibilité et ordre sont verrouillés. */
+    locked: boolean;
+    /** Overlay chargé : le libellé (seul champ traduisible) reste éditable. */
+    ready: boolean;
     onMoveItem: (index: number, direction: -1 | 1) => void;
     onUpdateItem: (id: string, updates: Partial<NavItem>) => void;
     onRemoveItem: (id: string) => void;
@@ -42,6 +46,8 @@ export const NavItemCard: React.FC<NavItemCardProps> = ({
     totalItems,
     isExpanded,
     childItems,
+    locked,
+    ready,
     onMoveItem,
     onUpdateItem,
     onRemoveItem,
@@ -62,7 +68,7 @@ export const NavItemCard: React.FC<NavItemCardProps> = ({
             <div className="flex items-center gap-1 shrink-0">
                 <button
                     onClick={() => onMoveItem(index, -1)}
-                    disabled={index === 0}
+                    disabled={locked || index === 0}
                     className="p-1.5 rounded-md hover:bg-white/10 disabled:opacity-30 text-gray-400"
                     title="Monter"
                 >
@@ -70,7 +76,7 @@ export const NavItemCard: React.FC<NavItemCardProps> = ({
                 </button>
                 <button
                     onClick={() => onMoveItem(index, 1)}
-                    disabled={index === totalItems - 1}
+                    disabled={locked || index === totalItems - 1}
                     className="p-1.5 rounded-md hover:bg-white/10 disabled:opacity-30 text-gray-400"
                     title="Descendre"
                 >
@@ -89,6 +95,7 @@ export const NavItemCard: React.FC<NavItemCardProps> = ({
                     <input
                         type="text"
                         value={item.label}
+                        disabled={locked && !ready}
                         onChange={(e) => onUpdateItem(item.id, { label: e.target.value })}
                         className={NAV_INPUT_CLASS}
                     />
@@ -100,6 +107,7 @@ export const NavItemCard: React.FC<NavItemCardProps> = ({
                     </label>
                     <select
                         value={item.type}
+                        disabled={locked}
                         onChange={(e) =>
                             onUpdateItem(item.id, {
                                 type: e.target.value as NavItemType,
@@ -120,6 +128,7 @@ export const NavItemCard: React.FC<NavItemCardProps> = ({
                     <LinkField
                         label={item.type === 'dropdown' ? 'URL (optionnelle)' : 'URL'}
                         value={item.href || ''}
+                        disabled={locked}
                         onChange={(href) => onUpdateItem(item.id, { href })}
                     />
                     <LinkedPageChip
@@ -132,7 +141,8 @@ export const NavItemCard: React.FC<NavItemCardProps> = ({
             <div className="flex items-center gap-1 shrink-0 self-end lg:self-center">
                 <button
                     onClick={() => onUpdateItem(item.id, { is_visible: !item.is_visible })}
-                    className={`p-2 rounded-md transition-colors ${item.is_visible
+                    disabled={locked}
+                    className={`p-2 rounded-md transition-colors disabled:opacity-40 ${item.is_visible
                         ? 'text-[#FFE500] hover:bg-white/10'
                         : 'text-gray-600 hover:bg-white/10'
                         }`}
@@ -156,7 +166,8 @@ export const NavItemCard: React.FC<NavItemCardProps> = ({
 
                 <button
                     onClick={() => onRemoveItem(item.id)}
-                    className="p-2 rounded-md hover:bg-red-500/20 text-red-400"
+                    disabled={locked}
+                    className="p-2 rounded-md hover:bg-red-500/20 text-red-400 disabled:opacity-40"
                     title="Supprimer"
                 >
                     <Trash2 className="w-4 h-4" />
@@ -174,6 +185,8 @@ export const NavItemCard: React.FC<NavItemCardProps> = ({
                         child={child}
                         index={childIndex}
                         total={childItems.length}
+                        locked={locked}
+                        ready={ready}
                         onMoveChild={onMoveChild}
                         onUpdateChild={onUpdateChild}
                         onRemoveChild={onRemoveChild}
@@ -184,7 +197,8 @@ export const NavItemCard: React.FC<NavItemCardProps> = ({
 
                 <button
                     onClick={() => onAddChild(item.id)}
-                    className="ml-4 px-3 py-2 bg-white/5 hover:bg-white/10 text-gray-300 text-[11px] font-bold uppercase tracking-wider rounded-lg flex items-center gap-2 transition-colors"
+                    disabled={locked}
+                    className="ml-4 px-3 py-2 bg-white/5 hover:bg-white/10 text-gray-300 text-[11px] font-bold uppercase tracking-wider rounded-lg flex items-center gap-2 transition-colors disabled:opacity-40"
                 >
                     <Plus className="w-3.5 h-3.5" />
                     Ajouter une sous-entrée

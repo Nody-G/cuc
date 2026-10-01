@@ -4,11 +4,14 @@ import type { FooterBrand } from '@/data/navigation';
 import { FOOTER_INPUT_CLASS } from './footer-ui';
 
 export interface FooterBrandCardProps {
+    /** Marque affichée : accroche/description localisées en EN. */
     brand: FooterBrand;
     onChange: (updates: Partial<FooterBrand>) => void;
+    /** En anglais, le nom affiché (identité) reste en lecture seule. */
+    locked?: boolean;
 }
 
-export const FooterBrandCard: React.FC<FooterBrandCardProps> = ({ brand, onChange }) => (
+export const FooterBrandCard: React.FC<FooterBrandCardProps> = ({ brand, onChange, locked = false }) => (
     <div className="bg-[#0D0D12] border border-white/10 rounded-xl p-6 space-y-4">
         <div className="flex items-center gap-2 text-xs font-mono text-[#FFE500] uppercase tracking-wider">
             <Building2 className="w-3.5 h-3.5" /> Identité de marque
@@ -19,6 +22,7 @@ export const FooterBrandCard: React.FC<FooterBrandCardProps> = ({ brand, onChang
                 <input
                     type="text"
                     value={brand.name}
+                    disabled={locked}
                     onChange={(e) => onChange({ name: e.target.value })}
                     className={FOOTER_INPUT_CLASS}
                 />

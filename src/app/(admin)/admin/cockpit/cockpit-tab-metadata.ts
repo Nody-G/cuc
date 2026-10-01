@@ -50,7 +50,6 @@ const TAB_METADATA_MAP: Record<TabType, TabMetadata> = {
     pages: { label: 'Pages du Site', sectionTitle: 'Éditorial', icon: FileText },
     navigation: { label: 'Menus du Site', sectionTitle: 'Éditorial', icon: Menu },
     microcopy: { label: 'Libellés & Micro-textes', sectionTitle: 'Éditorial', icon: FileText },
-    translations: { label: 'Traductions Anglaises', sectionTitle: 'Éditorial', icon: Globe },
 
     /* 2. Chrome du site */
     chrome: { label: 'Chrome du Site', sectionTitle: 'Chrome du site', icon: PanelBottom },
@@ -86,6 +85,7 @@ const TAB_METADATA_MAP: Record<TabType, TabMetadata> = {
 
     /* 6. Système & Aide */
     users: { label: 'Comptes & Accès', sectionTitle: 'Système & Aide', icon: Users },
+    translations: { label: 'Traductions · technique', sectionTitle: 'Système & Aide', icon: Globe },
     help: { label: 'Aide & Guide', sectionTitle: 'Système & Aide', icon: LifeBuoy },
 };
 

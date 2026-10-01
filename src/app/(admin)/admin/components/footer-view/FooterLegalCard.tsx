@@ -7,6 +7,10 @@ import { PageUrlSelect } from '../ui/PageUrlSelect';
 export interface FooterLegalCardProps {
     legal: FooterLegal;
     links: FooterLink[];
+    /** Édition anglaise : URLs, ordre et suppression sont verrouillés. */
+    locked: boolean;
+    /** Overlay chargé : copyright et libellés légaux restent éditables. */
+    ready: boolean;
     onUpdateCopyright: (value: string) => void;
     onUpdateLink: (linkId: string, updates: Partial<FooterLink>) => void;
     onRemoveLink: (linkId: string) => void;
@@ -16,6 +20,8 @@ export interface FooterLegalCardProps {
 export const FooterLegalCard: React.FC<FooterLegalCardProps> = ({
     legal,
     links,
+    locked,
+    ready,
     onUpdateCopyright,
     onUpdateLink,
     onRemoveLink,
@@ -32,6 +38,7 @@ export const FooterLegalCard: React.FC<FooterLegalCardProps> = ({
             <input
                 type="text"
                 value={legal.copyright}
+                disabled={locked && !ready}
                 onChange={(e) => onUpdateCopyright(e.target.value)}
                 className={FOOTER_INPUT_CLASS}
             />
@@ -44,19 +51,22 @@ export const FooterLegalCard: React.FC<FooterLegalCardProps> = ({
                         type="text"
                         value={link.label}
                         placeholder="Libellé"
+                        disabled={locked && !ready}
                         onChange={(e) => onUpdateLink(link.id, { label: e.target.value })}
                         className={FOOTER_INPUT_CLASS}
                     />
                     <div className="flex-1">
                         <PageUrlSelect
                             value={link.href}
+                            disabled={locked}
                             onChange={(href) => onUpdateLink(link.id, { href })}
                             placeholder="/mentions-legales..."
                         />
                     </div>
                     <button
                         onClick={() => onRemoveLink(link.id)}
-                        className="p-2 rounded-md hover:bg-red-500/20 text-red-400 shrink-0 self-end sm:self-center"
+                        disabled={locked}
+                        className="p-2 rounded-md hover:bg-red-500/20 text-red-400 shrink-0 self-end sm:self-center disabled:opacity-40"
                     >
                         <Trash2 className="w-4 h-4" />
                     </button>
@@ -64,7 +74,8 @@ export const FooterLegalCard: React.FC<FooterLegalCardProps> = ({
             ))}
             <button
                 onClick={onAddLink}
-                className="px-3 py-2 bg-white/5 hover:bg-white/10 text-gray-300 text-[11px] font-bold uppercase tracking-wider rounded-lg flex items-center gap-2 transition-colors"
+                disabled={locked}
+                className="px-3 py-2 bg-white/5 hover:bg-white/10 text-gray-300 text-[11px] font-bold uppercase tracking-wider rounded-lg flex items-center gap-2 transition-colors disabled:opacity-40"
             >
                 <Plus className="w-3.5 h-3.5" />
                 Ajouter un lien légal

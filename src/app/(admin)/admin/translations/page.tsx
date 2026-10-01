@@ -1,7 +1,7 @@
 import { CockpitApp } from '../CockpitApp';
 
 export const metadata = {
-    title: 'Traductions EN | Cockpit CUC',
+    title: 'Traductions · technique | Cockpit CUC',
 };
 
 export default function AdminTranslationsPage() {

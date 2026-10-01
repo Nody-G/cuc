@@ -17,6 +17,8 @@ export async function upsertFilm(film: {
   year?: string;
   category?: string;
   director?: string;
+  /** Synopsis factuel de la fiche (colonne `site_films.description`). */
+  description?: string;
   stunt_roles?: string;
   image?: string;
   tag?: string;
@@ -44,6 +46,7 @@ export async function upsertFilm(film: {
         year: film.year,
         category: film.category,
         director: film.director,
+        description: film.description,
         stunt_roles: film.stunt_roles,
         image: film.image,
         tag: film.tag,

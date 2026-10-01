@@ -7,12 +7,25 @@ import { SOCIAL_INPUT_CLASS } from './social-links-form';
 import { ToggleButton } from './ToggleButton';
 
 interface SocialLinkDetailsRowProps {
+    /** Réseau source français (colonnes verrouillées : handle, couleur, surfaces). */
     link: SiteSocialLink;
+    /** Réseau affiché : seul `display_hint` s'y écrit en anglais. */
+    activeLink: SiteSocialLink;
     onUpdate: (id: string, updates: Partial<SiteSocialLink>) => void;
+    /** Écriture du réseau affiché (champ traduction). */
+    onUpdateActive: (updates: Partial<SiteSocialLink>) => void;
+    /** Édition anglaise : les champs non traduisibles passent en lecture seule. */
+    isEnglish: boolean;
 }
 
 /** Ligne 2 : handle, texte d'indice, couleur de marque et emplacements. */
-export const SocialLinkDetailsRow: React.FC<SocialLinkDetailsRowProps> = ({ link, onUpdate }) => (
+export const SocialLinkDetailsRow: React.FC<SocialLinkDetailsRowProps> = ({
+    link,
+    activeLink,
+    onUpdate,
+    onUpdateActive,
+    isEnglish,
+}) => (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 pl-0 lg:pl-[104px]">
         <div className="lg:col-span-3">
             <label className="block text-[10px] font-mono text-gray-500 mb-1 uppercase">
@@ -23,6 +36,7 @@ export const SocialLinkDetailsRow: React.FC<SocialLinkDetailsRowProps> = ({ link
                 value={link.handle || ''}
                 placeholder="@campusuniverscascades"
                 onChange={(e) => onUpdate(link.id, { handle: e.target.value })}
+                disabled={isEnglish}
                 className={SOCIAL_INPUT_CLASS}
             />
         </div>
@@ -33,9 +47,9 @@ export const SocialLinkDetailsRow: React.FC<SocialLinkDetailsRowProps> = ({ link
             </label>
             <input
                 type="text"
-                value={link.display_hint || ''}
+                value={activeLink.display_hint || ''}
                 placeholder="Chaîne Stunt Team"
-                onChange={(e) => onUpdate(link.id, { display_hint: e.target.value })}
+                onChange={(e) => onUpdateActive({ display_hint: e.target.value })}
                 className={SOCIAL_INPUT_CLASS}
             />
         </div>
@@ -50,12 +64,14 @@ export const SocialLinkDetailsRow: React.FC<SocialLinkDetailsRowProps> = ({ link
                     type="color"
                     value={link.brand_color || '#FFE500'}
                     onChange={(e) => onUpdate(link.id, { brand_color: e.target.value })}
+                    disabled={isEnglish}
                     className="w-9 h-9 rounded-md bg-black/60 border border-white/20 cursor-pointer"
                 />
                 <input
                     type="text"
                     value={link.brand_color || ''}
                     onChange={(e) => onUpdate(link.id, { brand_color: e.target.value })}
+                    disabled={isEnglish}
                     className={`${SOCIAL_INPUT_CLASS} font-mono text-xs`}
                 />
             </div>
@@ -70,16 +86,19 @@ export const SocialLinkDetailsRow: React.FC<SocialLinkDetailsRowProps> = ({ link
                     checked={link.show_in_navbar}
                     onChange={(v) => onUpdate(link.id, { show_in_navbar: v })}
                     label="Navbar"
+                    disabled={isEnglish}
                 />
                 <ToggleButton
                     checked={link.show_in_drawer}
                     onChange={(v) => onUpdate(link.id, { show_in_drawer: v })}
                     label="Menu mobile"
+                    disabled={isEnglish}
                 />
                 <ToggleButton
                     checked={link.show_in_footer}
                     onChange={(v) => onUpdate(link.id, { show_in_footer: v })}
                     label="Footer"
+                    disabled={isEnglish}
                 />
             </div>
         </div>

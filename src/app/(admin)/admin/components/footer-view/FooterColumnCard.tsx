@@ -10,6 +10,10 @@ export interface FooterColumnCardProps {
     index: number;
     totalColumns: number;
     isExpanded: boolean;
+    /** Édition anglaise : visibilité, ordre et suppression sont verrouillés. */
+    locked: boolean;
+    /** Overlay chargé : le titre (champ traduisible) reste éditable. */
+    ready: boolean;
     onMoveColumn: (index: number, direction: -1 | 1) => void;
     onUpdateColumn: (id: string, updates: Partial<FooterColumn>) => void;
     onRemoveColumn: (id: string) => void;
@@ -25,6 +29,8 @@ export const FooterColumnCard: React.FC<FooterColumnCardProps> = ({
     index,
     totalColumns,
     isExpanded,
+    locked,
+    ready,
     onMoveColumn,
     onUpdateColumn,
     onRemoveColumn,
@@ -42,14 +48,14 @@ export const FooterColumnCard: React.FC<FooterColumnCardProps> = ({
                 <div className="flex items-center gap-1 shrink-0">
                     <button
                         onClick={() => onMoveColumn(index, -1)}
-                        disabled={index === 0}
+                        disabled={locked || index === 0}
                         className="p-1.5 rounded-md hover:bg-white/10 disabled:opacity-30 text-gray-400"
                     >
                         <ChevronUp className="w-4 h-4" />
                     </button>
                     <button
                         onClick={() => onMoveColumn(index, 1)}
-                        disabled={index === totalColumns - 1}
+                        disabled={locked || index === totalColumns - 1}
                         className="p-1.5 rounded-md hover:bg-white/10 disabled:opacity-30 text-gray-400"
                     >
                         <ChevronDown className="w-4 h-4" />
@@ -66,6 +72,7 @@ export const FooterColumnCard: React.FC<FooterColumnCardProps> = ({
                     <input
                         type="text"
                         value={column.title}
+                        disabled={locked && !ready}
                         onChange={(e) => onUpdateColumn(column.id, { title: e.target.value })}
                         className={FOOTER_INPUT_CLASS}
                     />
@@ -74,7 +81,8 @@ export const FooterColumnCard: React.FC<FooterColumnCardProps> = ({
                 <div className="flex items-center gap-1 shrink-0 self-end lg:self-center">
                     <button
                         onClick={() => onUpdateColumn(column.id, { is_visible: !column.is_visible })}
-                        className={`p-2 rounded-md transition-colors ${column.is_visible
+                        disabled={locked}
+                        className={`p-2 rounded-md transition-colors disabled:opacity-40 ${column.is_visible
                             ? 'text-[#FFE500] hover:bg-white/10'
                             : 'text-gray-600 hover:bg-white/10'
                             }`}
@@ -96,7 +104,8 @@ export const FooterColumnCard: React.FC<FooterColumnCardProps> = ({
                     </button>
                     <button
                         onClick={() => onRemoveColumn(column.id)}
-                        className="p-2 rounded-md hover:bg-red-500/20 text-red-400"
+                        disabled={locked}
+                        className="p-2 rounded-md hover:bg-red-500/20 text-red-400 disabled:opacity-40"
                     >
                         <Trash2 className="w-4 h-4" />
                     </button>
@@ -112,6 +121,8 @@ export const FooterColumnCard: React.FC<FooterColumnCardProps> = ({
                             link={link}
                             index={linkIndex}
                             total={links.length}
+                            locked={locked}
+                            ready={ready}
                             onMoveLink={onMoveLink}
                             onUpdateLink={onUpdateLink}
                             onRemoveLink={onRemoveLink}
@@ -120,7 +131,8 @@ export const FooterColumnCard: React.FC<FooterColumnCardProps> = ({
 
                     <button
                         onClick={() => onAddLink(column.id)}
-                        className="ml-4 px-3 py-2 bg-white/5 hover:bg-white/10 text-gray-300 text-[11px] font-bold uppercase tracking-wider rounded-lg flex items-center gap-2 transition-colors"
+                        disabled={locked}
+                        className="ml-4 px-3 py-2 bg-white/5 hover:bg-white/10 text-gray-300 text-[11px] font-bold uppercase tracking-wider rounded-lg flex items-center gap-2 transition-colors disabled:opacity-40"
                     >
                         <Plus className="w-3.5 h-3.5" />
                         Ajouter un lien

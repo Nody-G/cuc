@@ -89,14 +89,22 @@ export const NavigationView: React.FC<NavigationViewProps> = ({
                 isPending={nav.isPending}
                 onReset={nav.handleReset}
                 onSave={nav.handleSave}
+                localeEditor={nav.locale}
+                onLocaleChange={nav.changeLocale}
             />
 
-            <NavigationPublishToggle isPublished={nav.isPublished} onChange={nav.setPublished} />
+            <NavigationPublishToggle
+                isPublished={nav.isPublished}
+                onChange={nav.setPublished}
+                disabled={nav.isEnglish}
+            />
 
             <NavigationItemsEditor
                 isLoading={nav.isLoading}
                 items={nav.items}
                 expandedId={nav.expandedId}
+                locked={nav.isEnglish}
+                ready={nav.locale.ready}
                 onMoveItem={nav.moveItem}
                 onUpdateItem={nav.updateItem}
                 onRemoveItem={nav.removeItem}
@@ -110,7 +118,11 @@ export const NavigationView: React.FC<NavigationViewProps> = ({
                 onEditPage={onEditPage}
             />
 
-            <NavigationCtaCard cta={nav.structure.cta} onChange={nav.updateCta} />
+            <NavigationCtaCard
+                cta={nav.structure.cta}
+                onChange={nav.updateCta}
+                locked={nav.isEnglish}
+            />
 
             {/* Barre de sauvegarde flottante persistante */}
             <StickySaveBar

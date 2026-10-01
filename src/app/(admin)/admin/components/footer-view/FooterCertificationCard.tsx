@@ -7,11 +7,14 @@ import { FOOTER_INPUT_CLASS } from './footer-ui';
 export interface FooterCertificationCardProps {
     certification?: FooterCertification;
     onChange: (updates: Partial<FooterCertification>) => void;
+    /** Identité de certification (titre, logo, PDF, visibilité) : verrouillée en EN. */
+    locked?: boolean;
 }
 
 export const FooterCertificationCard: React.FC<FooterCertificationCardProps> = ({
     certification,
     onChange,
+    locked = false,
 }) => {
     const cert = certification || {
         title: 'Organisme Certifié Qualiopi',
@@ -32,6 +35,7 @@ export const FooterCertificationCard: React.FC<FooterCertificationCardProps> = (
                     <input
                         type="checkbox"
                         checked={cert.is_visible !== false}
+                        disabled={locked}
                         onChange={(e) => onChange({ is_visible: e.target.checked })}
                         className="rounded border-zinc-700 text-[#FFE500] focus:ring-[#FFE500]"
                     />
@@ -47,6 +51,7 @@ export const FooterCertificationCard: React.FC<FooterCertificationCardProps> = (
                     <input
                         type="text"
                         value={cert.title}
+                        disabled={locked}
                         onChange={(e) => onChange({ title: e.target.value })}
                         className={FOOTER_INPUT_CLASS}
                     />
@@ -58,6 +63,7 @@ export const FooterCertificationCard: React.FC<FooterCertificationCardProps> = (
                     <input
                         type="text"
                         value={cert.subtitle}
+                        disabled={locked}
                         onChange={(e) => onChange({ subtitle: e.target.value })}
                         className={FOOTER_INPUT_CLASS}
                     />
@@ -72,6 +78,7 @@ export const FooterCertificationCard: React.FC<FooterCertificationCardProps> = (
                     <input
                         type="text"
                         value={cert.logo_url}
+                        disabled={locked}
                         onChange={(e) => onChange({ logo_url: e.target.value })}
                         placeholder="/images/partenaires/qualiopi.png"
                         className={FOOTER_INPUT_CLASS}
@@ -106,6 +113,7 @@ export const FooterCertificationCard: React.FC<FooterCertificationCardProps> = (
                     <input
                         type="text"
                         value={cert.pdf_url}
+                        disabled={locked}
                         onChange={(e) => onChange({ pdf_url: e.target.value })}
                         placeholder="https://..."
                         className={FOOTER_INPUT_CLASS}

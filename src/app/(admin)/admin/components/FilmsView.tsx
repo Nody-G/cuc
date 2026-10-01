@@ -76,12 +76,15 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
       {/* Modal édition film */}
       {editor.editingFilm && (
         <FilmEditorModal
-          film={editor.editingFilm}
+          film={editor.activeFilm}
           team={team}
-          onChange={editor.patchEditing}
+          onChange={editor.patchActive}
           onToggleMember={editor.toggleTeamMember}
           onRoleChange={editor.setMemberRole}
           onOpenMediaPicker={editor.openMediaPicker}
+          localeEditor={editor.locale}
+          onLocaleChange={editor.changeLocale}
+          isFieldReadOnly={editor.isFieldReadOnly}
           onClose={editor.closeEditor}
           onSubmit={editor.handleSave}
         />

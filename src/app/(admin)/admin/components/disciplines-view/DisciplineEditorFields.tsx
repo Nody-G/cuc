@@ -8,22 +8,36 @@ import { coerceStringList } from '@/lib/comma-list';
 import { CommaListField } from '../ui';
 
 export interface DisciplineEditorFieldsProps {
+    /** Brouillon actif : français en FR, contenu localisé en EN. */
     value: Discipline;
+    /** Patch des champs traduisibles (allow-list `DISCIPLINE_CODEC`). */
     onChange: (updates: Partial<Discipline>) => void;
+    /** Fiche source française : champs techniques verrouillés en anglais. */
+    sourceValue: Discipline;
+    /** Patch des champs techniques (numéro, niveau, zone, visuel). */
+    onSourceChange: (updates: Partial<Discipline>) => void;
     campusPOIs: POI[];
     onOpenMediaPicker: () => void;
+    /** Champ verrouillé dans la locale courante (technique ou non chargé). */
+    isFieldReadOnly: (field: string) => boolean;
 }
 
 const inputClass =
-    'w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-cuc-gold';
+    'w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-cuc-gold disabled:opacity-50 disabled:cursor-not-allowed';
 const labelClass = 'block text-xs font-semibold text-zinc-400 mb-1';
 
-/** Champs principaux du module : identité, niveau, zone, textes, matériel, visuel. */
+/**
+ * Champs principaux du module : identité, niveau, zone, textes, matériel,
+ * visuel. En anglais seuls les textes (et le matériel) restent éditables.
+ */
 export const DisciplineEditorFields: React.FC<DisciplineEditorFieldsProps> = ({
     value,
     onChange,
+    sourceValue,
+    onSourceChange,
     campusPOIs,
     onOpenMediaPicker,
+    isFieldReadOnly,
 }) => (
     <>
         {/* Infos Clés */}
@@ -33,8 +47,9 @@ export const DisciplineEditorFields: React.FC<DisciplineEditorFieldsProps> = ({
                 <input
                     type="text"
                     required
-                    value={value.number}
-                    onChange={(e) => onChange({ number: e.target.value })}
+                    disabled={isFieldReadOnly('number')}
+                    value={sourceValue.number}
+                    onChange={(e) => onSourceChange({ number: e.target.value })}
                     className={inputClass}
                 />
             </div>
@@ -43,6 +58,7 @@ export const DisciplineEditorFields: React.FC<DisciplineEditorFieldsProps> = ({
                 <input
                     type="text"
                     required
+                    disabled={isFieldReadOnly('name')}
                     value={value.name}
                     onChange={(e) => onChange({ name: e.target.value })}
                     className={inputClass}
@@ -54,8 +70,9 @@ export const DisciplineEditorFields: React.FC<DisciplineEditorFieldsProps> = ({
             <div>
                 <label className={labelClass}>Niveau Technique</label>
                 <select
-                    value={value.level}
-                    onChange={(e) => onChange({ level: e.target.value as Discipline['level'] })}
+                    disabled={isFieldReadOnly('level')}
+                    value={sourceValue.level}
+                    onChange={(e) => onSourceChange({ level: e.target.value as Discipline['level'] })}
                     className={inputClass}
                 >
                     <option value="Fondamental">Fondamental</option>
@@ -67,8 +84,9 @@ export const DisciplineEditorFields: React.FC<DisciplineEditorFieldsProps> = ({
             <div>
                 <label className={labelClass}>Zone du Campus (Lieu d'Entraînement)</label>
                 <select
-                    value={value.campus_zone_id || ''}
-                    onChange={(e) => onChange({ campus_zone_id: e.target.value })}
+                    disabled={isFieldReadOnly('campus_zone_id')}
+                    value={sourceValue.campus_zone_id || ''}
+                    onChange={(e) => onSourceChange({ campus_zone_id: e.target.value })}
                     className={inputClass}
                 >
                     <option value="">Sélectionner une infrastructure...</option>
@@ -87,6 +105,7 @@ export const DisciplineEditorFields: React.FC<DisciplineEditorFieldsProps> = ({
             <textarea
                 rows={2}
                 required
+                disabled={isFieldReadOnly('shortDesc')}
                 value={value.shortDesc}
                 onChange={(e) => onChange({ shortDesc: e.target.value })}
                 className={inputClass}
@@ -97,6 +116,7 @@ export const DisciplineEditorFields: React.FC<DisciplineEditorFieldsProps> = ({
             <label className={labelClass}>Description Pédagogique Détaillée</label>
             <textarea
                 rows={4}
+                disabled={isFieldReadOnly('fullDesc')}
                 value={value.fullDesc}
                 onChange={(e) => onChange({ fullDesc: e.target.value })}
                 className={inputClass}
@@ -109,6 +129,7 @@ export const DisciplineEditorFields: React.FC<DisciplineEditorFieldsProps> = ({
                 <label className={labelClass}>Exemples de Scènes Cinéma</label>
                 <input
                     type="text"
+                    disabled={isFieldReadOnly('cinemaContext')}
                     value={value.cinemaContext}
                     onChange={(e) => onChange({ cinemaContext: e.target.value })}
                     placeholder="ex: John Wick, cascades sur les toits..."
@@ -121,6 +142,7 @@ export const DisciplineEditorFields: React.FC<DisciplineEditorFieldsProps> = ({
                     key={`discipline-equipment-${value.id}`}
                     value={coerceStringList(value.equipment)}
                     onChange={(equipment) => onChange({ equipment })}
+                    disabled={isFieldReadOnly('equipment')}
                     placeholder="Airbag géant, Harnais, Nomex..."
                     className={inputClass}
                     aria-label="Matériel spécifique"
@@ -128,21 +150,23 @@ export const DisciplineEditorFields: React.FC<DisciplineEditorFieldsProps> = ({
             </div>
         </div>
 
-        {/* Visuel */}
+        {/* Visuel (technique : verrouillé en anglais) */}
         <div>
             <label className={labelClass}>Image Illustrative (URL ou Médiathèque)</label>
             <div className="flex gap-2">
                 <input
                     type="url"
-                    value={value.heroImage}
-                    onChange={(e) => onChange({ heroImage: e.target.value })}
+                    disabled={isFieldReadOnly('heroImage')}
+                    value={sourceValue.heroImage}
+                    onChange={(e) => onSourceChange({ heroImage: e.target.value })}
                     placeholder="https://..."
                     className={`flex-1 ${inputClass}`}
                 />
                 <button
                     type="button"
                     onClick={onOpenMediaPicker}
-                    className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold rounded-xl flex items-center gap-1.5 transition"
+                    disabled={isFieldReadOnly('heroImage')}
+                    className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold rounded-xl flex items-center gap-1.5 transition disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                     <ImageIcon className="w-4 h-4 text-cuc-gold" />
                     Médiathèque
@@ -151,3 +175,5 @@ export const DisciplineEditorFields: React.FC<DisciplineEditorFieldsProps> = ({
         </div>
     </>
 );
+
+export default DisciplineEditorFields;

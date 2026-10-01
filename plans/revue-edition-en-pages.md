@@ -1,11 +1,11 @@
 # Revue — Édition anglaise des pages (Cockpit)
 
-Généré le 2026-09-21T23:21:51.503Z par `scripts/verify_page_translation_invariants.mjs`.
+Généré le 2026-10-01T16:57:00.494Z par `scripts/verify_page_translation_invariants.mjs`.
 
 ## Synthèse
 
 - Pages contrôlées : **15** (dont **15** avec un overlay EN)
-- Couverture anglaise globale : **89 %** (216/244 feuilles)
+- Couverture anglaise globale : **84 %** (218/258 feuilles)
 - Violations d'invariants : **0**
 - Tableaux désalignés du français : **0**
 - Chemins inconnus (absents du contenu français) : **0**
@@ -23,7 +23,7 @@ Invariants vérifiés (ceux de `src/lib/i18n/localized-merge.ts`) :
 
 | Page | Overlay | Publié | Feuilles FR | Traduites | Couverture |
 |---|---|---|---|---|---|
-| `/` | oui | oui | 51 | 36 | 71 % |
+| `/` | oui | oui | 52 | 38 | 73 % |
 | `animations-airbag-parkour` | oui | oui | 8 | 8 | 100 % |
 | `contact-cuc` | oui | oui | 15 | 15 | 100 % |
 | `cuc-events-agence` | oui | oui | 8 | 8 | 100 % |
@@ -35,7 +35,7 @@ Invariants vérifiés (ceux de `src/lib/i18n/localized-merge.ts`) :
 | `stages-cascades-parkour-2` | oui | oui | 31 | 31 | 100 % |
 | `stunt-workshop-cuc` | oui | oui | 8 | 6 | 75 % |
 | `team-building-cascades` | oui | oui | 29 | 27 | 93 % |
-| `videos-cascadeur` | oui | oui | 8 | 8 | 100 % |
+| `videos-cascadeur` | oui | oui | 21 | 8 | 38 % |
 | `visite-guidee` | oui | oui | 8 | 8 | 100 % |
 | `visite-virtuelle` | oui | oui | 8 | 8 | 100 % |
 

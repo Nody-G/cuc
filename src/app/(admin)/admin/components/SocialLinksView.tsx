@@ -30,6 +30,7 @@ export const SocialLinksView: React.FC<SocialLinksViewProps> = ({ showToast }) =
                 isPending={editor.isPending}
                 onReset={editor.handleReset}
                 onSave={editor.handleSave}
+                isEnglishMode={editor.isEnglishMode}
             />
 
             {editor.isLoading ? (
@@ -45,6 +46,8 @@ export const SocialLinksView: React.FC<SocialLinksViewProps> = ({ showToast }) =
                             onMove={editor.move}
                             onUpdate={editor.update}
                             onDelete={editor.handleDelete}
+                            showToast={showToast}
+                            onRegisterEnglishSave={editor.registerEnglishSave}
                         />
                     ))}
 

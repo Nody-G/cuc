@@ -7,10 +7,17 @@ interface SocialLinksHeaderProps {
     isPending: boolean;
     onReset: () => void;
     onSave: () => void;
+    /** Une ligne est en édition anglaise : l'enregistrement cible l'overlay. */
+    isEnglishMode?: boolean;
 }
 
 /** En-tête de l'éditeur : titre, réinitialisation et enregistrement. */
-export const SocialLinksHeader: React.FC<SocialLinksHeaderProps> = ({ isPending, onReset, onSave }) => (
+export const SocialLinksHeader: React.FC<SocialLinksHeaderProps> = ({
+    isPending,
+    onReset,
+    onSave,
+    isEnglishMode = false,
+}) => (
     <div className="border-b border-white/10 pb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
             <div className="flex items-center gap-2 text-xs font-mono text-[#FFE500] uppercase tracking-wider mb-1">
@@ -27,7 +34,13 @@ export const SocialLinksHeader: React.FC<SocialLinksHeaderProps> = ({ isPending,
         <div className="flex items-center gap-2 self-start md:self-auto">
             <button
                 onClick={onReset}
-                className="px-4 py-2.5 bg-white/5 hover:bg-white/10 text-gray-300 text-xs font-bold uppercase tracking-wider rounded-lg flex items-center gap-2 transition-colors"
+                disabled={isEnglishMode}
+                title={
+                    isEnglishMode
+                        ? 'Réinitialisation indisponible pendant une édition anglaise'
+                        : 'Rétablir les réseaux par défaut'
+                }
+                className="px-4 py-2.5 bg-white/5 hover:bg-white/10 text-gray-300 text-xs font-bold uppercase tracking-wider rounded-lg flex items-center gap-2 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
                 <RotateCcw className="w-4 h-4" />
                 Réinitialiser
@@ -35,10 +48,15 @@ export const SocialLinksHeader: React.FC<SocialLinksHeaderProps> = ({ isPending,
             <button
                 onClick={onSave}
                 disabled={isPending}
+                title={
+                    isEnglishMode
+                        ? 'Enregistrer les traductions anglaises (seules les différences avec le français sont écrites)'
+                        : 'Enregistrer les réseaux sociaux français'
+                }
                 className="px-5 py-2.5 bg-[#FFE500] hover:bg-[#ffe600e6] disabled:opacity-50 text-black text-xs font-black uppercase tracking-wider rounded-lg flex items-center gap-2 shadow-lg shadow-yellow-500/10 transition-transform active:scale-95"
             >
                 <Save className="w-4 h-4" />
-                {isPending ? 'Enregistrement…' : 'Enregistrer'}
+                {isPending ? 'Enregistrement…' : isEnglishMode ? 'Enregistrer EN' : 'Enregistrer'}
             </button>
         </div>
     </div>

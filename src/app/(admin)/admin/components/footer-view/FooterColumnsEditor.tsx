@@ -8,6 +8,10 @@ export interface FooterColumnsEditorProps {
     isLoading: boolean;
     columns: FooterColumn[];
     expandedColumn: string | null;
+    /** Édition anglaise : les contrôles structurels passent en lecture seule. */
+    locked: boolean;
+    /** Overlay chargé : les titres/libellés redeviennent éditables en anglais. */
+    ready: boolean;
     onMoveColumn: (index: number, direction: -1 | 1) => void;
     onUpdateColumn: (id: string, updates: Partial<FooterColumn>) => void;
     onRemoveColumn: (id: string) => void;
@@ -23,6 +27,8 @@ export const FooterColumnsEditor: React.FC<FooterColumnsEditorProps> = ({
     isLoading,
     columns,
     expandedColumn,
+    locked,
+    ready,
     onMoveColumn,
     onUpdateColumn,
     onRemoveColumn,
@@ -48,6 +54,8 @@ export const FooterColumnsEditor: React.FC<FooterColumnsEditorProps> = ({
                     index={index}
                     totalColumns={columns.length}
                     isExpanded={expandedColumn === column.id}
+                    locked={locked}
+                    ready={ready}
                     onMoveColumn={onMoveColumn}
                     onUpdateColumn={onUpdateColumn}
                     onRemoveColumn={onRemoveColumn}

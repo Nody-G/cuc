@@ -50,11 +50,16 @@ export const CampusZonesView: React.FC<CampusZonesViewProps> = ({
 
       {editor.editingPOI && (
         <ZoneEditorModal
-          poi={editor.editingPOI}
-          onChange={editor.updateDraft}
+          poi={editor.activePOI}
+          onChange={editor.patchActive}
+          sourcePoi={editor.editingPOI}
+          onSourceChange={editor.patchSource}
           onClose={editor.closeEditor}
           onSubmit={editor.handleSave}
           onOpenMediaPicker={editor.openMediaPicker}
+          localeEditor={editor.locale}
+          onLocaleChange={editor.changeLocale}
+          isFieldReadOnly={editor.isFieldReadOnly}
         />
       )}
 

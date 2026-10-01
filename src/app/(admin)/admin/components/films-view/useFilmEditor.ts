@@ -1,14 +1,40 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useCallback, useState, useTransition } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import type { FilmCredit } from '@/types';
+import type { EditorLocaleOption } from '../ui';
 import { upsertFilm, deleteFilm } from '@/app/(admin)/admin/actions';
+import { useEntityEditorLocale } from '../entity-translation/useEntityEditorLocale';
+import { FILM_CODEC } from '../entity-translation/entity-codec';
 import { createEmptyFilm, normalizeDoubledActors } from './film-form';
 
 export interface UseFilmEditorArgs {
     setFilms: React.Dispatch<React.SetStateAction<FilmCredit[]>>;
     showToast: (msg: string) => void;
 }
+
+/** Fiche neutre : brouillon inerte passé au socle bilingue hors édition. */
+const CLOSED_FILM: FilmCredit = {
+    id: '',
+    title: '',
+    year: '',
+    category: '',
+    stuntRoles: '',
+    highlight: false,
+    image: '',
+    tag: '',
+    imdbUrl: '',
+    allocineUrl: '',
+    trailerUrl: '',
+};
+
+/**
+ * Champs du brouillon film traduisibles. `FILM_CODEC` expose la colonne
+ * d'overlay (`stunt_roles`) là où la modale manipule `stuntRoles` : ce miroir
+ * porte le pont camelCase → snake_case et reste aligné sur le codec.
+ */
+const FILM_TRANSLATABLE_DRAFT_FIELDS: readonly string[] = ['description', 'stuntRoles'];
 
 /**
  * Édition d'un projet : fiche en cours, enregistrement optimiste (liste mise à
@@ -23,11 +49,109 @@ export function useFilmEditor({ setFilms, showToast }: UseFilmEditorArgs) {
     const [editingFilm, setEditingFilm] = useState<FilmCredit | null>(null);
     const [showMediaPicker, setShowMediaPicker] = useState(false);
 
-    const openCreate = () => setEditingFilm(createEmptyFilm());
-    const openEdit = (film: FilmCredit) => setEditingFilm(film);
-    const closeEditor = () => setEditingFilm(null);
+    /**
+     * Point d'écriture de la fiche **source française** (intervenants, rôles,
+     * affiche). La fiche reste la propriété de ce hook.
+     */
+    const setSourceFilm = useCallback<Dispatch<SetStateAction<FilmCredit>>>(
+        (value) => {
+            setEditingFilm((previous) => {
+                if (!previous) return previous;
+                return typeof value === 'function'
+                    ? (value as (prev: FilmCredit) => FilmCredit)(previous)
+                    : value;
+            });
+        },
+        []
+    );
 
-    /** Patch de la fiche en cours : point d'écriture unique des champs du formulaire. */
+    /**
+     * Édition EN PLACE (WS-2) : l'overlay `film` ne porte que `description` et
+     * les rôles de cascades, via le pont `stuntRoles ⇄ stunt_roles`. Tant
+     * qu'aucun film n'est ouvert, `entityId` est vide et la locale reste en FR.
+     */
+    const locale = useEntityEditorLocale({
+        codec: FILM_CODEC,
+        entityId: editingFilm?.id ?? '',
+        draft: editingFilm ?? CLOSED_FILM,
+        setDraft: setSourceFilm,
+    });
+
+    /** Ouvre une fiche existante : on repart toujours de la source française. */
+    const openEdit = (film: FilmCredit) => {
+        setEditingFilm(film);
+        locale.setLocale('fr');
+    };
+
+    /** Fiche vierge prête pour la modale (voir `film-form.ts`). */
+    const openCreate = () => {
+        setEditingFilm(createEmptyFilm());
+        locale.setLocale('fr');
+    };
+
+    /**
+     * Ferme la modale. Un brouillon anglais non enregistré demande confirmation :
+     * cette sortie l'abandonne (elle n'écrit jamais l'overlay). Les deux
+     * mutations restent groupées dans le même rendu : la locale retombe en FR
+     * avant que `entityId` ne passe à vide, donc la fermeture ne déclenche aucun
+     * chargement d'overlay.
+     */
+    const closeEditor = () => {
+        if (
+            locale.isEnglish &&
+            locale.dirty &&
+            !window.confirm(
+                'Des modifications anglaises ne sont pas enregistrées. Fermer l\'éditeur les abandonnera.\n\nContinuer sans enregistrer ?'
+            )
+        ) {
+            return;
+        }
+        setEditingFilm(null);
+        locale.setLocale('fr');
+    };
+
+    /**
+     * Bascule de langue. En français, une retouche des champs traduisibles
+     * marque le brouillon « non enregistré » (overlay non chargé) : réaligner la
+     * base avant d'ouvrir l'anglais évite de servir du français comme
+     * traduction. Quitter l'anglais avec une saisie non enregistrée demande
+     * confirmation.
+     */
+    const changeLocale = (next: EditorLocaleOption) => {
+        if (next === locale.locale) return;
+        if (
+            locale.isEnglish &&
+            locale.dirty &&
+            !window.confirm(
+                'Des modifications anglaises ne sont pas enregistrées. Changer de langue les abandonnera.\n\nContinuer sans enregistrer ?'
+            )
+        ) {
+            return;
+        }
+        if (next === 'en') locale.revertTranslation();
+        locale.setLocale(next);
+    };
+
+    /**
+     * Garde de champ : en anglais, seuls `description` et les rôles de cascades
+     * restent éditables, et seulement une fois l'overlay chargé.
+     */
+    const isFieldReadOnly = (field: string) =>
+        locale.isReadOnlyField(field) ||
+        (locale.isEnglish && (!locale.ready || !FILM_TRANSLATABLE_DRAFT_FIELDS.includes(field)));
+
+    /**
+     * Patch de la fiche **active** : français en FR, overlay en EN. Tous les
+     * champs traduisibles de la modale passent par ici.
+     */
+    const patchActive = (updates: Partial<FilmCredit>) => {
+        locale.setActive((previous) => ({ ...previous, ...updates }));
+    };
+
+    /**
+     * Patch de la fiche en cours : point d'écriture des champs de la **source
+     * française** (intervenants, rôles, affiche).
+     */
     const patchEditing = (updates: Partial<FilmCredit>) => {
         setEditingFilm((prev) => (prev ? { ...prev, ...updates } : prev));
     };
@@ -62,6 +186,22 @@ export function useFilmEditor({ setFilms, showToast }: UseFilmEditorArgs) {
         e.preventDefault();
         if (!editingFilm) return;
 
+        /*
+         * En anglais, l'action principale enregistre l'**overlay** de traduction
+         * (`description`, rôles de cascades) et ne persiste jamais la ligne
+         * française. La fermeture qui suit n'est pas gardée : le brouillon vient
+         * d'être persisté.
+         */
+        if (locale.isEnglish) {
+            void locale.saveTranslation().then((result) => {
+                if (!result.success) return;
+                setEditingFilm(null);
+                locale.setLocale('fr');
+                showToast('Traduction anglaise du film enregistrée.');
+            });
+            return;
+        }
+
         const updated: FilmCredit = {
             ...editingFilm,
             doubledActors: normalizeDoubledActors(editingFilm),
@@ -72,7 +212,7 @@ export function useFilmEditor({ setFilms, showToast }: UseFilmEditorArgs) {
             if (exists) return prev.map((f) => (f.id === updated.id ? updated : f));
             return [...prev, updated];
         });
-        setEditingFilm(null);
+        closeEditor();
         showToast('Projet enregistré au catalogue !');
 
         startTransition(async () => {
@@ -82,6 +222,7 @@ export function useFilmEditor({ setFilms, showToast }: UseFilmEditorArgs) {
                 year: updated.year,
                 category: updated.category,
                 director: updated.director,
+                description: updated.description,
                 stunt_roles: updated.stuntRoles,
                 image: updated.image,
                 tag: updated.tag,
@@ -111,15 +252,22 @@ export function useFilmEditor({ setFilms, showToast }: UseFilmEditorArgs) {
     const closeMediaPicker = () => setShowMediaPicker(false);
 
     const applyPoster = (url: string) => {
-        if (editingFilm) {
-            setEditingFilm({ ...editingFilm, image: url });
-        }
+        patchEditing({ image: url });
         setShowMediaPicker(false);
     };
 
     return {
+        /** Fiche source française (intervenants, affiche, save FR). */
         editingFilm,
+        setSourceFilm,
+        /** Fiche active : français en FR, contenu localisé en EN. */
+        activeFilm: locale.active,
+        patchActive,
         patchEditing,
+        /** État bilingue complet, consommé par l'en-tête de la modale. */
+        locale,
+        changeLocale,
+        isFieldReadOnly,
         openCreate,
         openEdit,
         closeEditor,

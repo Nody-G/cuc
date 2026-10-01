@@ -65,7 +65,9 @@ export const CockpitCmsTabs: React.FC<CockpitTabContentProps> = (props) => {
                 />
             )}
 
-            {/* 7bis. TRADUCTIONS EN (i18n) */}
+            {/* REPLI TECHNIQUE — TRADUCTIONS : overlays JSON `site_translations`
+                pour les entités sans édition en place (partenaires, sessions,
+                programmes, installations du campus). */}
             {props.activeTab === 'translations' && <TranslationsView showToast={props.showToast} />}
 
             {/* 7ter. MICRO-TEXTES DU SITE (surcharges du catalogue i18n) */}

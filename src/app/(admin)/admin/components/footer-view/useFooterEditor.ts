@@ -9,22 +9,16 @@ import {
     type FooterLink,
     type FooterStructure,
 } from '@/data/navigation';
-import { getFooter, upsertFooter } from '@/lib/data/site-service';
-import {
-    addColumnTo,
-    addLegalLinkTo,
-    addLinkTo,
-    moveColumnIn,
-    moveLinkIn,
-    removeColumnIn,
-    removeLegalLinkIn,
-    removeLinkIn,
-    sortedColumns,
-    sortedLegalLinks,
-    updateColumnIn,
-    updateLegalLinkIn,
-    updateLinkIn,
-} from './footer-form';
+import { getFooter } from '@/lib/data/site-service';
+import type { EditorLocaleOption } from '../ui';
+import { useLabelsEditorLocale } from '../entity-translation/useLabelsEditorLocale';
+import { footerLabelsCodec, type LabelsRow } from '../entity-translation/labels-codec';
+import type { EntityEditorLocale } from '../entity-translation/entity-translation.contract';
+import { sortedColumns, sortedLegalLinks, updateColumnIn, updateLegalLinkIn, updateLinkIn } from './footer-form';
+import { useFooterSourceActions } from './useFooterSourceActions';
+
+/** Codec de l'overlay `footer` — constante de module (identité stable). */
+const FOOTER_CODEC = footerLabelsCodec();
 
 export interface UseFooterEditorArgs {
     showToast: (msg: string) => void;
@@ -57,8 +51,27 @@ export interface UseFooterEditorResult {
     addLegalLink: () => void;
     handleSave: () => void;
     handleReset: () => void;
+    /** Édition anglaise active : URLs, ordre et certification sont verrouillés. */
+    isEnglish: boolean;
+    /** Brouillon actif : français en FR, contenu localisé en EN. */
+    activeStructure: FooterStructure;
+    /** État bilingue complet, consommé par l'en-tête (barre FR | EN). */
+    locale: EntityEditorLocale<FooterStructure>;
+    /** Bascule de langue avec garde-fou sur un brouillon anglais non enregistré. */
+    changeLocale: (next: EditorLocaleOption) => void;
+    /** Verrou générique d'un champ en anglais (médias / technique). */
+    isFieldReadOnly: (field: string) => boolean;
 }
 
+/**
+ * État et écritures du pied de page.
+ *
+ * Couche « Hooks & Orchestration » (`AGENTS.md` § 1) : source FR et écritures
+ * structurelles déléguées à `useFooterSourceActions`, orchestration bilingue
+ * EN PLACE assurée par `useLabelsEditorLocale`. Seuls les libellés/copies sont
+ * traduisibles (`col.id`, `link.id`, `brand.tagline`, `brand.description`,
+ * `legal.copyright`, `legal.<id>`) ; URLs, ordre et certification restent FR.
+ */
 export function useFooterEditor({ showToast }: UseFooterEditorArgs): UseFooterEditorResult {
     const [structure, setStructure] = useState<FooterStructure>(DEFAULT_FOOTER.structure);
     const [isPublished, setIsPublished] = useState(true);
@@ -72,10 +85,21 @@ export function useFooterEditor({ showToast }: UseFooterEditorArgs): UseFooterEd
         setIsDirty(true);
     }, []);
 
-    const setPublished = useCallback((val: boolean) => {
-        setIsPublished(val);
-        setIsDirty(true);
-    }, []);
+    /**
+     * Édition EN PLACE : le codec `footer` projette la structure vers l'overlay
+     * `labels` (clés composites) et rend la structure active. Le français reste
+     * la source ; rien n'est chargé en FR.
+     */
+    const labelsEditor = useLabelsEditorLocale<FooterStructure, LabelsRow>({
+        codec: FOOTER_CODEC,
+        entityId: 'main',
+        draft: structure,
+        setDraft: setStructure,
+    });
+
+    const locale = labelsEditor.locale;
+    const isEnglish = labelsEditor.isEnglish;
+    const activeStructure = labelsEditor.active;
 
     useEffect(() => {
         let cancelled = false;
@@ -94,171 +118,119 @@ export function useFooterEditor({ showToast }: UseFooterEditorArgs): UseFooterEd
         };
     }, []);
 
-    // --- Identité de marque ---
+    /**
+     * Écriture d'un champ traduisible : en EN l'overlay, en FR la source. La
+     * branche FR préserve la sémantique existante de chaque mutation.
+     */
+    const commitSource = useCallback(
+        (next: FooterStructure) => {
+            if (isEnglish) labelsEditor.setActive(next);
+            else setStructure(next);
+        },
+        [isEnglish, labelsEditor, setStructure]
+    );
+
+    const commitBrand = useCallback(
+        (next: FooterStructure) => {
+            if (isEnglish) labelsEditor.setActive(next);
+            else mutateStructure(next);
+        },
+        [isEnglish, labelsEditor, mutateStructure]
+    );
+
+    // --- Champs traduisibles (nom verrouillé en EN) ---
 
     const updateBrand = useCallback(
         (updates: Partial<FooterBrand>) => {
-            mutateStructure({ ...structure, brand: { ...structure.brand, ...updates } });
+            commitBrand({ ...activeStructure, brand: { ...activeStructure.brand, ...updates } });
         },
-        [structure, mutateStructure]
-    );
-
-    // --- Certification & Qualiopi ---
-
-    const updateCertification = useCallback(
-        (updates: Partial<FooterCertification>) => {
-            const current = structure.certification || DEFAULT_FOOTER.structure.certification!;
-            mutateStructure({
-                ...structure,
-                certification: { ...current, ...updates },
-            });
-        },
-        [structure, mutateStructure]
-    );
-
-    // --- Colonnes ---
-
-    const moveColumn = useCallback(
-        (index: number, direction: -1 | 1) => {
-            const next = moveColumnIn(structure, index, direction);
-            if (next) setStructure(next);
-        },
-        [structure]
+        [activeStructure, commitBrand]
     );
 
     const updateColumn = useCallback(
         (id: string, updates: Partial<FooterColumn>) => {
-            setStructure(updateColumnIn(structure, id, updates));
+            commitSource(updateColumnIn(activeStructure, id, updates));
         },
-        [structure]
+        [commitSource, activeStructure]
     );
-
-    const removeColumn = useCallback(
-        (id: string) => {
-            if (!confirm('Supprimer cette colonne du pied de page ?')) return;
-            setStructure(removeColumnIn(structure, id));
-        },
-        [structure]
-    );
-
-    const addColumn = useCallback(() => {
-        const { structure: next, columnId } = addColumnTo(structure);
-        setStructure(next);
-        setExpandedColumn(columnId);
-    }, [structure]);
-
-    const toggleColumnExpanded = useCallback((id: string) => {
-        setExpandedColumn((prev) => (prev === id ? null : id));
-    }, []);
-
-    // --- Liens d'une colonne ---
 
     const updateLink = useCallback(
         (columnId: string, linkId: string, updates: Partial<FooterLink>) => {
-            setStructure(updateLinkIn(structure, columnId, linkId, updates));
+            commitSource(updateLinkIn(activeStructure, columnId, linkId, updates));
         },
-        [structure]
+        [commitSource, activeStructure]
     );
-
-    const moveLink = useCallback(
-        (columnId: string, index: number, direction: -1 | 1) => {
-            const next = moveLinkIn(structure, columnId, index, direction);
-            if (next) setStructure(next);
-        },
-        [structure]
-    );
-
-    const removeLink = useCallback(
-        (columnId: string, linkId: string) => {
-            setStructure(removeLinkIn(structure, columnId, linkId));
-        },
-        [structure]
-    );
-
-    const addLink = useCallback(
-        (columnId: string) => {
-            const next = addLinkTo(structure, columnId);
-            if (next) setStructure(next);
-        },
-        [structure]
-    );
-
-    // --- Liens légaux ---
 
     const updateCopyright = useCallback(
         (value: string) => {
-            setStructure({ ...structure, legal: { ...structure.legal, copyright: value } });
+            commitSource({ ...activeStructure, legal: { ...activeStructure.legal, copyright: value } });
         },
-        [structure]
+        [commitSource, activeStructure]
     );
 
     const updateLegalLink = useCallback(
         (linkId: string, updates: Partial<FooterLink>) => {
-            setStructure(updateLegalLinkIn(structure, linkId, updates));
+            commitSource(updateLegalLinkIn(activeStructure, linkId, updates));
         },
-        [structure]
+        [commitSource, activeStructure]
     );
 
-    const removeLegalLink = useCallback(
-        (linkId: string) => {
-            setStructure(removeLegalLinkIn(structure, linkId));
-        },
-        [structure]
-    );
+    // --- Structurel (français uniquement) ---
 
-    const addLegalLink = useCallback(() => {
-        setStructure(addLegalLinkTo(structure));
-    }, [structure]);
+    const sourceActions = useFooterSourceActions({
+        structure,
+        setStructure,
+        mutateStructure,
+        isPublished,
+        setIsPublished,
+        setIsDirty,
+        setExpandedColumn,
+        isEnglish,
+        showToast,
+        startTransition,
+    });
 
-    // --- Persistance ---
-
+    /**
+     * Action principale de l'écran : en anglais elle enregistre l'**overlay** des
+     * libellés et laisse la source française intacte ; en français elle reste la
+     * sauvegarde structurelle existante (`sourceActions.handleSave`).
+     */
     const handleSave = useCallback(() => {
-        startTransition(async () => {
-            const ok = await upsertFooter(structure, { id: 'main', isPublished });
-            if (ok) {
-                setIsDirty(false);
-            }
-            showToast(
-                ok
-                    ? 'Pied de page enregistré — la vitrine est mise à jour en direct.'
-                    : 'Échec de l\'enregistrement du pied de page.'
-            );
-        });
-    }, [structure, isPublished, showToast, startTransition]);
-
-    const handleReset = useCallback(() => {
-        if (!confirm('Réinitialiser le pied de page aux valeurs par défaut ?')) return;
-        setStructure(DEFAULT_FOOTER.structure);
-        setIsDirty(true);
-        showToast('Pied de page réinitialisé (pensez à enregistrer).');
-    }, [showToast]);
+        if (isEnglish) {
+            void labelsEditor.locale.saveTranslation().then((result) => {
+                showToast(
+                    result.success
+                        ? 'Traduction anglaise du pied de page enregistrée.'
+                        : 'Échec de l\'enregistrement de la traduction.'
+                );
+            });
+            return;
+        }
+        sourceActions.handleSave();
+    }, [isEnglish, labelsEditor, showToast, sourceActions]);
 
     return {
         structure,
-        columns: sortedColumns(structure),
-        legalLinks: sortedLegalLinks(structure),
+        columns: sortedColumns(activeStructure),
+        legalLinks: sortedLegalLinks(activeStructure),
         isPublished,
         isLoading,
         isPending,
         isDirty,
         expandedColumn,
-        setPublished,
         updateBrand,
-        updateCertification,
-        moveColumn,
         updateColumn,
-        removeColumn,
-        addColumn,
-        toggleColumnExpanded,
         updateLink,
-        moveLink,
-        removeLink,
-        addLink,
         updateCopyright,
         updateLegalLink,
-        removeLegalLink,
-        addLegalLink,
+        isEnglish,
+        activeStructure,
+        locale,
+        changeLocale: labelsEditor.changeLocale,
+        isFieldReadOnly: labelsEditor.isFieldReadOnly,
+        ...sourceActions,
+        // En anglais, l'action principale écrit l'overlay : elle surcharge la
+        // sauvegarde structurelle française exposée par `sourceActions`.
         handleSave,
-        handleReset,
     };
 }

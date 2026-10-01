@@ -11,6 +11,8 @@ export interface PageUrlSelectProps {
   label?: string;
   placeholder?: string;
   className?: string;
+  /** Verrou d'édition (lien structurel : non traduisible). */
+  disabled?: boolean;
 }
 
 /** Formate la valeur du slug en chemin absolu interne `/...` */
@@ -28,6 +30,7 @@ export const PageUrlSelect: React.FC<PageUrlSelectProps> = ({
   onChange,
   label,
   className = '',
+  disabled = false,
 }) => {
   const normalizedValue = normalizePath(value);
   const matchedCatalog = SITE_PAGE_CATALOG.find(
@@ -62,7 +65,8 @@ export const PageUrlSelect: React.FC<PageUrlSelectProps> = ({
             id={id}
             value={isCustom ? '__custom__' : (matchedCatalog ? normalizePath(matchedCatalog.value) : '/')}
             onChange={handleSelectChange}
-            className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-xs text-white focus:outline-hidden focus:border-[#FFE500] pr-8 appearance-none cursor-pointer"
+            disabled={disabled}
+            className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-xs text-white focus:outline-hidden focus:border-[#FFE500] pr-8 appearance-none cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <optgroup label="Pages du site vitrine">
               {SITE_PAGE_CATALOG.map((page) => {
@@ -89,8 +93,9 @@ export const PageUrlSelect: React.FC<PageUrlSelectProps> = ({
               type="text"
               value={value}
               onChange={(e) => onChange(e.target.value)}
+              disabled={disabled}
               placeholder="https://... ou #ancre"
-              className="w-full bg-black/60 border border-[#FFE500]/50 rounded-lg px-3 py-1.5 text-xs text-[#FFE500] font-mono focus:outline-hidden focus:border-[#FFE500] pr-8"
+              className="w-full bg-black/60 border border-[#FFE500]/50 rounded-lg px-3 py-1.5 text-xs text-[#FFE500] font-mono focus:outline-hidden focus:border-[#FFE500] pr-8 disabled:opacity-40"
             />
             <ExternalLink className="absolute right-2.5 w-3.5 h-3.5 text-gray-400 pointer-events-none" />
           </div>

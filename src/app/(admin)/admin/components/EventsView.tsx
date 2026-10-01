@@ -40,7 +40,7 @@ export const EventsView: React.FC<EventsViewProps> = ({
           <EventCard
             key={event.id}
             event={event}
-            onEdit={editor.setEditingEvent}
+            onEdit={editor.openEditor}
             onDelete={editor.handleDelete}
           />
         ))}
@@ -49,12 +49,17 @@ export const EventsView: React.FC<EventsViewProps> = ({
       {/* Modal d'édition de prestation */}
       {editor.editingEvent && (
         <EventEditModal
-          editingEvent={editor.editingEvent}
-          setEditingEvent={editor.setEditingEvent}
+          event={editor.activeEvent}
+          onEventChange={editor.setActiveEvent}
+          sourceEvent={editor.editingEvent}
+          onSourceChange={editor.patchSourceEvent}
+          localeEditor={editor.locale}
+          onLocaleChange={editor.changeLocale}
+          isFieldReadOnly={editor.isFieldReadOnly}
           featureInput={editor.featureInput}
           setFeatureInput={editor.setFeatureInput}
           onSave={editor.handleSave}
-          onClose={() => editor.setEditingEvent(null)}
+          onClose={editor.closeEditor}
           onAddFeature={editor.handleAddFeature}
           onRemoveFeature={editor.handleRemoveFeature}
           onOpenMediaPicker={() => editor.setShowMediaPicker(true)}
