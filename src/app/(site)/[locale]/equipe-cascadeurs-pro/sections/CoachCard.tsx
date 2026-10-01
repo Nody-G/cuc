@@ -4,9 +4,10 @@ import React from 'react';
 import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { ExternalLink, ArrowRight, Globe, Users } from 'lucide-react';
+import { ExternalLink, ArrowRight, Globe, Film } from 'lucide-react';
 import type { Instructor, FilmCredit } from '@/types';
-import { CoachDoubledActors } from './CoachDoubledActors';
+import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
+import { selectCoachFilms } from '@/lib/coach-films';
 
 interface CoachCardProps {
     member: Instructor;
@@ -16,11 +17,16 @@ interface CoachCardProps {
 }
 
 /**
- * Carte coach : portrait pleine hauteur, rôle, bio, spécialités et comédiens doublés.
+ * Carte coach : portrait pleine hauteur, rôle, bio, spécialités et 3 premières jaquettes de films.
  * L'ancre `#{member.id}` alimente les liens de la navbar.
  */
-export const CoachCard: React.FC<CoachCardProps> = ({ member }) => {
+export const CoachCard: React.FC<CoachCardProps> = ({ member, films = FILMOGRAPHY_CREDITS, onSelectFilm }) => {
     const t = useTranslations('team');
+
+    const coachFilms = React.useMemo(() => {
+        const list = films && films.length > 0 ? films : FILMOGRAPHY_CREDITS;
+        return selectCoachFilms(list, member).slice(0, 3);
+    }, [films, member]);
 
     return (
         <div
@@ -105,17 +111,58 @@ export const CoachCard: React.FC<CoachCardProps> = ({ member }) => {
                             </div>
                         </div>
 
-                        {/* Acteurs doublés */}
-                        {member.doubledActors && member.doubledActors.length > 0 && (
+                        {/* 3 premières jaquettes de films */}
+                        {coachFilms.length > 0 && (
                             <div className="pt-3 border-t border-zinc-800/80">
-                                <strong className="text-[11px] font-mono-tech text-[#FFE500] uppercase block mb-1.5 flex items-center gap-1.5">
-                                    <Users className="w-3.5 h-3.5 text-[#FFE500]" />
-                                    <span>Acteurs doublés :</span>
-                                </strong>
-                                <CoachDoubledActors
-                                    actorNames={member.doubledActors}
-                                    textClassName="text-xs font-tech text-zinc-300 leading-relaxed"
-                                />
+                                <div className="flex items-center justify-between mb-2">
+                                    <strong className="text-[11px] font-mono-tech text-[#FFE500] uppercase flex items-center gap-1.5">
+                                        <Film className="w-3.5 h-3.5 text-[#FFE500]" />
+                                        <span>{t('projectsLabel')} :</span>
+                                    </strong>
+                                    <span className="text-[10px] font-mono-tech text-zinc-500">
+                                        {coachFilms.length > 1
+                                            ? t('listedMany', { count: coachFilms.length })
+                                            : t('listedOne', { count: coachFilms.length })}
+                                    </span>
+                                </div>
+                                <div className="grid grid-cols-3 gap-2">
+                                    {coachFilms.map((film) => (
+                                        <button
+                                            key={film.id}
+                                            type="button"
+                                            onClick={() => onSelectFilm?.(film)}
+                                            className="group/poster relative aspect-[2/3] w-full bg-zinc-900 border border-zinc-800 hover:border-[#FFE500] overflow-hidden transition-all duration-300 shadow-md hover:shadow-[0_4px_16px_rgba(255,229,0,0.15)] text-left cursor-pointer"
+                                            title={t('filmCardTitle', { title: film.title, year: film.year || '' })}
+                                        >
+                                            {film.image ? (
+                                                <Image
+                                                    src={film.image}
+                                                    alt={film.title}
+                                                    fill
+                                                    sizes="(max-width: 768px) 30vw, 120px"
+                                                    className="object-cover object-center group-hover/poster:scale-105 transition-transform duration-300"
+                                                />
+                                            ) : (
+                                                <div className="absolute inset-0 flex flex-col items-center justify-center p-1 text-center bg-zinc-900">
+                                                    <Film className="w-4 h-4 text-zinc-600 mb-1" />
+                                                    <span className="text-[9px] font-mono-tech uppercase text-zinc-400 line-clamp-2 leading-tight">
+                                                        {film.title}
+                                                    </span>
+                                                </div>
+                                            )}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover/poster:opacity-100 transition-opacity flex items-end p-1.5 pointer-events-none">
+                                                <span className="text-[9px] font-tech text-white truncate w-full">
+                                                    {film.title}
+                                                </span>
+                                            </div>
+                                            {film.year && (
+                                                <div className="absolute top-1 left-1 px-1 py-0.5 bg-black/80 border border-zinc-700 text-[8px] font-mono-tech text-[#FFE500] leading-none">
+                                                    {film.year}
+                                                </div>
+                                            )}
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
                         )}
                     </div>

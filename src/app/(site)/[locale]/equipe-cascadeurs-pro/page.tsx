@@ -47,6 +47,8 @@ export default function EquipeCascadeursProPage() {
                     <CoachCard
                       key={member.id}
                       member={member}
+                      films={data.displayFilms}
+                      onSelectFilm={data.setSelectedFilm}
                     />
                   ))}
                 </div>
