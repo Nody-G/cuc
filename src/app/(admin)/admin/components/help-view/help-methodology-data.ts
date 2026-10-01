@@ -173,3 +173,77 @@ export const SAFETY_PROTOCOL_STEPS: readonly SafetyProtocolStep[] = [
         action: 'Revue humaine du git diff, commit atomique documenté et déploiement mondial instantané sur Vercel Edge.',
     },
 ];
+
+export interface ToolAnalogyItem {
+    name: string;
+    cinemaAnalogy: string;
+    category: 'IDE & Orchestration' | 'Intelligence IA' | 'Base & Sécurité' | 'Traçabilité & Déploiement' | 'Filet de Sécurité';
+    plainExplanation: string;
+    concreteUsage: string;
+}
+
+export const TOOL_CINEMA_ANALOGIES: readonly ToolAnalogyItem[] = [
+    {
+        name: 'Google Antigravity',
+        cinemaAnalogy: 'La Régie Générale & la Grue Télécommandée',
+        category: 'IDE & Orchestration',
+        plainExplanation:
+            'Ce n’est pas un simple bloc-notes. C’est la cabine de pilotage complète depuis laquelle Niels coordonne les fichiers, le terminal de commandes, les sous-agents d’IA et les navigateurs de test en direct.',
+        concreteUsage:
+            'Exemple concret : Niels donne une directive, Antigravity ouvre automatiquement les 4 fichiers nécessaires, lance un navigateur Chrome invisible pour tester le clic sur le Mode Studio et alerte au moindre pixel de travers.',
+    },
+    {
+        name: 'Gemini 3.8 Flash (Google DeepMind)',
+        cinemaAnalogy: 'Le Chef Décorateur & Premier Assistant Réalisateur',
+        category: 'Intelligence IA',
+        plainExplanation:
+            'Un modèle d’IA doté d’une mémoire gigantesque (plus d’un million de mots simultanés) et d’une vitesse supersonique.',
+        concreteUsage:
+            'Exemple concret : Capable de lire d’un seul coup les 100+ fichiers du site CUC sans perdre le fil. Niels l’utilise pour concevoir les interfaces réactives, harmoniser le design sombre et s’assurer que chaque texte respecte l’ADN cascadeur.',
+    },
+    {
+        name: 'DeepSeek v4.1 Flash (DeepSeek AI)',
+        cinemaAnalogy: 'L’Ingénieur Rigger & Calculateur de Trajectoire Cascade',
+        category: 'Intelligence IA',
+        plainExplanation:
+            'Un modèle d’IA surdoué en logique pure, mathématiques et déduction algorithmique pas-à-pas.',
+        concreteUsage:
+            'Exemple concret : Niels lui confie les calculs de compression d’images sans perte de netteté, les requêtes de base de données ultra-rapides et les politiques de sécurité par rôle (RLS) pour ne laisser aucune faille mathématique.',
+    },
+    {
+        name: 'PostgreSQL Supabase',
+        cinemaAnalogy: 'Le Coffre-Fort Blindé des Masters & la Base Arrière du Campus',
+        category: 'Base & Sécurité',
+        plainExplanation:
+            'La base de données relationnelle moderne qui remplace les vieux serveurs MySQL fragiles. Elle stocke les 22 tables du CUC (candidats, coachs, films, sessions).',
+        concreteUsage:
+            'Exemple concret : Chaque ligne est protégée par un casier blindé individuel (Row-Level Security). Dès que Lucas modifie le statut d’une session en « Complet », Supabase répercute l’information en temps réel sur le site vitrine en 50 millisecondes.',
+    },
+    {
+        name: 'GitHub & Git',
+        cinemaAnalogy: 'La Boîte Noire du Tournage & le Scénarimage Numéroté',
+        category: 'Traçabilité & Déploiement',
+        plainExplanation:
+            'Le registre officiel international où chaque seconde de code est gravée, datée et signée par Niels (plus de 350 "commits").',
+        concreteUsage:
+            'Exemple concret : Si une idée ne convient pas ou si un imprévu survient, Niels peut remonter le temps d’un clic à la version exacte d’il y a 3 jours. Zéro bricolage dans l’ombre, traçabilité juridique totale.',
+    },
+    {
+        name: 'Vercel Edge Platform',
+        cinemaAnalogy: 'Le Réseau Mondial de Distribution en Salles Multiplex',
+        category: 'Traçabilité & Déploiement',
+        plainExplanation:
+            'Le réseau de serveurs ultra-rapides répartis sur tous les continents (Paris, Londres, New York, Tokyo...).',
+        concreteUsage:
+            'Exemple concret : Au lieu d’un serveur unique qui surchauffe lors d’un passage télévisé au JT de 20h, Vercel distribue le site CUC partout à la fois. Le site encaisse 50 000 visiteurs simultanés en chargeant en 0,3s sans jamais planter.',
+    },
+    {
+        name: 'Vitest & Les 808 Tests Automatisés',
+        cinemaAnalogy: 'Le Crash-Test & la Répétition Générale avec Filet de Sécurité',
+        category: 'Filet de Sécurité',
+        plainExplanation:
+            'Un robot d’inspection impitoyable qui rejoue 808 scénarios de test complets avant chaque mise en ligne.',
+        concreteUsage:
+            'Exemple concret : Avant chaque livraison, le robot vérifie tout en 35 secondes : liens internes, accessibilité, contraste du thème clair, blocage des coachs hors du Cockpit. Si UN SEUL test échoue, le déploiement est stoppé net.',
+    },
+];

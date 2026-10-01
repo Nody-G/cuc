@@ -15,6 +15,7 @@ import {
     PUBLIC_PAGES_OVERVIEW,
     WORDPRESS_VS_NEXT,
 } from './help-application-data';
+import { AppVulnerabilitiesSection } from './AppVulnerabilitiesSection';
 
 export const HelpApplicationTab: React.FC = () => {
     return (
@@ -81,6 +82,9 @@ export const HelpApplicationTab: React.FC = () => {
                     ))}
                 </div>
             </section>
+
+            {/* Autopsie des failles & risques de l'ancien site */}
+            <AppVulnerabilitiesSection />
 
             {/* Cartographie : Pages publiques & Écrans Cockpit */}
             <section className="space-y-4">

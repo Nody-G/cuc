@@ -1,12 +1,19 @@
 import { describe, expect, it } from 'vitest';
 import { HELP_TABS, DEFAULT_HELP_TAB } from './help-tabs.config';
-import { APP_METRICS, WORDPRESS_VS_NEXT, PUBLIC_PAGES_OVERVIEW, COCKPIT_SCREENS_OVERVIEW } from './help-application-data';
+import {
+    APP_METRICS,
+    WORDPRESS_VS_NEXT,
+    PUBLIC_PAGES_OVERVIEW,
+    COCKPIT_SCREENS_OVERVIEW,
+    OLD_SITE_VULNERABILITIES,
+} from './help-application-data';
 import {
     CONCRETE_CASE_STUDIES,
     FLASH_MODELS,
     PRE_PROMPT_THOUGHTS,
     SAFETY_PROTOCOL_STEPS,
     TOKEN_COST_ESTIMATION,
+    TOOL_CINEMA_ANALOGIES,
 } from './help-methodology-data';
 import { CUC_SIGN_FEATURES, VITRINE_TO_SIGN_BRIDGE, CUC_SIGN_CHALLENGES } from './help-cuc-sign-data';
 import { LUCAS_FAQ_ITEMS } from './help-faq-data';
@@ -31,7 +38,6 @@ describe('Centre d’Aide & Documentation CUC', () => {
         const totalTopics = HELP_CONTENT.reduce((acc, g) => acc + g.topics.length, 0);
         expect(totalTopics).toBeGreaterThanOrEqual(15);
 
-        // Vérification qu'au moins plusieurs sujets comportent des étapes pas-à-pas, des astuces et du dépannage
         const topicsWithSteps = HELP_CONTENT.flatMap((g) => g.topics).filter((t) => t.steps && t.steps.length > 0);
         const topicsWithProTip = HELP_CONTENT.flatMap((g) => g.topics).filter((t) => Boolean(t.proTip));
         const topicsWithTroubleshooting = HELP_CONTENT.flatMap((g) => g.topics).filter((t) => Boolean(t.troubleshooting));
@@ -41,14 +47,22 @@ describe('Centre d’Aide & Documentation CUC', () => {
         expect(topicsWithTroubleshooting.length).toBeGreaterThanOrEqual(10);
     });
 
-    it('dossier application contient les métriques clés et comparatifs', () => {
+    it('dossier application contient les métriques clés, comparatifs et failles de l’ancien site', () => {
         expect(APP_METRICS.length).toBeGreaterThanOrEqual(4);
         expect(WORDPRESS_VS_NEXT.length).toBeGreaterThanOrEqual(5);
         expect(PUBLIC_PAGES_OVERVIEW.count).toBe(15);
         expect(COCKPIT_SCREENS_OVERVIEW.count).toBe(27);
+
+        expect(OLD_SITE_VULNERABILITIES).toHaveLength(6);
+        for (const vuln of OLD_SITE_VULNERABILITIES) {
+            expect(vuln.title.length).toBeGreaterThan(5);
+            expect(vuln.concreteRisk.length).toBeGreaterThan(10);
+            expect(vuln.newResolution.length).toBeGreaterThan(10);
+            expect(['Critique', 'Élevé', 'Majeur']).toContain(vuln.riskLevel);
+        }
     });
 
-    it('méthodologie détaille Gemini 3.8 Flash, DeepSeek v4.1 Flash, les tokens et les cas réels', () => {
+    it('méthodologie détaille Gemini 3.8 Flash, DeepSeek v4.1 Flash, tokens, cas réels et analogies', () => {
         expect(PRE_PROMPT_THOUGHTS).toHaveLength(4);
         expect(FLASH_MODELS).toHaveLength(2);
         const modelNames = FLASH_MODELS.map((m) => m.name);
@@ -60,6 +74,13 @@ describe('Centre d’Aide & Documentation CUC', () => {
 
         expect(CONCRETE_CASE_STUDIES).toHaveLength(3);
         expect(SAFETY_PROTOCOL_STEPS).toHaveLength(4);
+
+        expect(TOOL_CINEMA_ANALOGIES).toHaveLength(7);
+        for (const tool of TOOL_CINEMA_ANALOGIES) {
+            expect(tool.cinemaAnalogy.length).toBeGreaterThan(0);
+            expect(tool.plainExplanation.length).toBeGreaterThan(20);
+            expect(tool.concreteUsage.length).toBeGreaterThan(20);
+        }
     });
 
     it('dossier CUC Sign détaille les fonctionnalités, la passerelle et les défis', () => {

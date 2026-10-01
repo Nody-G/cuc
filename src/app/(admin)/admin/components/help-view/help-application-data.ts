@@ -146,3 +146,56 @@ export const MEDIA_PIPELINE_INFO = {
         },
     ],
 };
+
+export interface VulnerabilityDetail {
+    title: string;
+    riskLevel: 'Critique' | 'Élevé' | 'Majeur';
+    oldFlaw: string;
+    concreteRisk: string;
+    newResolution: string;
+}
+
+export const OLD_SITE_VULNERABILITIES: readonly VulnerabilityDetail[] = [
+    {
+        title: 'Plugins Tiers & Portes Dérobées (Piratage / Ransomware)',
+        riskLevel: 'Critique',
+        oldFlaw: 'L’ancien WordPress reposait sur plus de 30 extensions (plugins) codées par des tiers inconnus.',
+        concreteRisk: 'Chaque plugin non mis à jour est une brèche ouverte : risque d’injection SQL, de défiguration du site (affichage de messages frauduleux) ou de piratage des accès administrateur.',
+        newResolution: 'Zéro plugin tiers exposé. 100% du code source est propriétaire, audité, compilé en amont et servi en lecture seule via Next.js.',
+    },
+    {
+        title: 'Effondrement lors des Pics Média (Crashs TV TF1 / France 2)',
+        riskLevel: 'Critique',
+        oldFlaw: 'Un serveur PHP traditionnel unique recalculait chaque page et interrogeait MySQL pour chaque visiteur.',
+        concreteRisk: 'Lors d’un passage au journal télévisé de 20h ou d’un post viral, le serveur saturait dès 50-100 connexions simultanées, renvoyant une page blanche "502 Bad Gateway" et perdant des dizaines de candidatures.',
+        newResolution: 'Architecture Serverless Edge sur Vercel : le site est distribué sur un réseau mondial capable d’encaisser 100 000 visiteurs simultanés sans ralentir d’une milliseconde.',
+    },
+    {
+        title: 'Fuite des Données Personnelles Candidats & Risque RGPD',
+        riskLevel: 'Élevé',
+        oldFlaw: 'Les formulaires stockaient les coordonnées, CV, téléphones et vidéos des stagiaires en clair dans les tables WordPress.',
+        concreteRisk: 'Une simple faille sur un plugin de formulaire permettait d’aspirer l’intégralité de la base de prospects du CUC. Responsabilité civile et pénale de l’école engagée auprès de la CNIL.',
+        newResolution: 'Base PostgreSQL Supabase blindée par Row-Level Security (RLS) : chaque ligne est verrouillée comme un coffre-fort. Seul le secrétariat authentifié peut y accéder.',
+    },
+    {
+        title: 'Absence de Sauvegardes Étanches & Risque de Perte Définitive',
+        riskLevel: 'Élevé',
+        oldFlaw: 'Les sauvegardes étaient gérées localement sur le même disque dur de l’hébergeur.',
+        concreteRisk: 'En cas de crash de disque, d’incendie du datacenter (ex : incendie OVH) ou de corruption de base lors d’une mise à jour, des années d’archives de cascade et d’inscriptions étaient anéanties à jamais.',
+        newResolution: 'Sauvegardes automatiques quotidiennes chiffrées répliquées sur plusieurs régions Cloud indépendantes, plus exports manuels complets en 1 clic depuis le Cockpit.',
+    },
+    {
+        title: 'Destruction des Négatifs Haute Définition des Cascades',
+        riskLevel: 'Majeur',
+        oldFlaw: 'Les photos téléversées dans `wp-content/uploads` étaient écrasées et recompressées à la volée sans conserver les sources.',
+        concreteRisk: 'Perte irréversible de la netteté 4K des cascades et des tournages historiques de Lucas Dollfus.',
+        newResolution: 'Dossier inconditionnel `_originals/` qui préserve chaque image maître dans sa résolution native pour toujours, doublé d’une corbeille réversible `_trash/`.',
+    },
+    {
+        title: 'Rançon Financière des Licences & Conflits Permanents',
+        riskLevel: 'Majeur',
+        oldFlaw: 'Abonnements obligatoires à renouveler chaque année (Elementor Pro, WPML bilingue, plugins de cache, extensions de formulaires).',
+        concreteRisk: 'Si une licence expire ou si deux plugins entrent en conflit après une mise à jour nocturne, le site casse sans prévenir un dimanche matin.',
+        newResolution: '0€ de licence logicielle. Le CUC est 100% propriétaire de sa technologie, sans aucun intermédiaire captif.',
+    },
+];

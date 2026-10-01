@@ -29,6 +29,7 @@ import {
     SAFETY_PROTOCOL_STEPS,
     TOKEN_COST_ESTIMATION,
 } from './help-methodology-data';
+import { MethodologyToolsGuide } from './MethodologyToolsGuide';
 
 export const HelpMethodologyTab: React.FC = () => {
     return (
@@ -112,6 +113,9 @@ export const HelpMethodologyTab: React.FC = () => {
                     ))}
                 </div>
             </section>
+
+            {/* Guide des outils avec analogies cinéma pour Lucas */}
+            <MethodologyToolsGuide />
 
             {/* Estimation des Coûts Tokens & Euros : Comparatif Choc pour Lucas */}
             <section className="p-6 rounded-2xl bg-[#0D0D12] border border-white/10 space-y-5">
