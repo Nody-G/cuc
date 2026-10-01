@@ -15,7 +15,8 @@ import { CUC_TEAM } from '@/data/team';
 import { getTeam } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { usePreviewEntities } from '@/lib/preview/use-preview-entity';
-import type { FilmCredit, Instructor } from '@/types';
+import { parseCredit, type FilmCredit, type Instructor } from '@/types';
+import { creditTitleKey } from '@/lib/credit-title';
 
 export interface FilmDetailsTeam {
     /** Membres CUC crédités sur le film, dans l'ordre du catalogue équipe. */
@@ -39,8 +40,21 @@ export function useFilmDetailsTeam(movie: FilmCredit | null): FilmDetailsTeam {
     useRealtimeRefresh(['site_team'], loadTeam);
 
     const involvedTeamMembers = useMemo(() => {
-        const involvedIds = movie?.cuc_team_involved || [];
-        return teamMembers.filter((member) => involvedIds.includes(member.id));
+        if (!movie) return [];
+        const involvedSet = new Set(movie.cuc_team_involved || []);
+        if (movie.cuc_team_roles) {
+            Object.keys(movie.cuc_team_roles).forEach((id) => involvedSet.add(id));
+        }
+        const filmKey = creditTitleKey(movie.title);
+        return teamMembers.filter((member) => {
+            if (involvedSet.has(member.id)) return true;
+            if (member.film_ids && member.film_ids.includes(movie.id)) return true;
+            if (member.metadata?.film_roles && member.metadata.film_roles[movie.id]) return true;
+            return (member.notableCredits || []).some((c) => {
+                const creditKey = creditTitleKey(parseCredit(c).title || c);
+                return creditKey && creditKey === filmKey;
+            });
+        });
     }, [movie, teamMembers]);
 
     return { involvedTeamMembers, entityOverrides };
