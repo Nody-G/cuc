@@ -114,16 +114,11 @@ export const CoachCard: React.FC<CoachCardProps> = ({ member, films = FILMOGRAPH
                         {/* 3 premières jaquettes de films */}
                         {coachFilms.length > 0 && (
                             <div className="pt-3 border-t border-zinc-800/80">
-                                <div className="flex items-center justify-between mb-2">
+                                <div className="mb-2">
                                     <strong className="text-[11px] font-mono-tech text-[#FFE500] uppercase flex items-center gap-1.5">
                                         <Film className="w-3.5 h-3.5 text-[#FFE500]" />
                                         <span>{t('projectsLabel')} :</span>
                                     </strong>
-                                    <span className="text-[10px] font-mono-tech text-zinc-500">
-                                        {coachFilms.length > 1
-                                            ? t('listedMany', { count: coachFilms.length })
-                                            : t('listedOne', { count: coachFilms.length })}
-                                    </span>
                                 </div>
                                 <div className="grid grid-cols-3 gap-2">
                                     {coachFilms.map((film) => (
