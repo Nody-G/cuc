@@ -1,125 +1,175 @@
 /**
- * Données structurées sur la méthodologie de travail de Niels (« Vibe Coding » de haute précision).
+ * Données complètes et approfondies sur la méthodologie de « Vibe Coding » de Niels.
  *
- * Décrit en toute transparence le workflow d'ingénierie, la stack IA (Google Antigravity,
- * Gemini, DeepSeek), l'infrastructure (Supabase, GitHub, Vercel), le temps investi
- * et le système de règles canoniques garantissant la robustesse du site pour Lucas.
+ * Explications pédagogiques et exhaustives pour Lucas :
+ * - Ce à quoi Niels pense avant de prompter
+ * - Rôle respectif de Gemini 3.8 Flash et DeepSeek v4.1 Flash
+ * - Estimation chiffrée des tokens et des coûts en euros
+ * - Le protocole « Zéro Casse » et 3 exemples concrets vécus sur le CUC
  * Couche « Types & Contrats / Données » (`AGENTS.md` § 1).
  */
 
-export interface StackTool {
+export interface PrePromptThought {
+    category: string;
+    question: string;
+    explanation: string;
+}
+
+export const PRE_PROMPT_THOUGHTS: readonly PrePromptThought[] = [
+    {
+        category: '1. Cartographie d’impact',
+        question: 'Quels fichiers vont bouger et quels sont les effets de bord potentiels ?',
+        explanation:
+            'Avant d’écrire une seule consigne, Niels identifie la chaîne de dépendances : est-ce qu’une modification de formulaire impacte le schéma Supabase, le thème clair du Cockpit, ou les 807 tests automatisés ?',
+    },
+    {
+        category: '2. Choix du bon modèle IA',
+        question: 'Gemini 3.8 Flash ou DeepSeek v4.1 Flash ?',
+        explanation:
+            'Niels aiguille la tâche vers le modèle optimal : Gemini pour la vitesse, la vision globale et l’ergonomie UI ; DeepSeek pour l’algorithmique pure, la rigueur mathématique et les requêtes SQL complexes.',
+    },
+    {
+        category: '3. Découpage en étapes atomiques',
+        question: 'Comment découper pour ne jamais perdre le contrôle ?',
+        explanation:
+            'Interdiction de donner une consigne géante (« refais tout le site »). Niels découpe chirurgicalement : d’abord les contrats et types stricts, puis la logique métier et les hooks, enfin l’interface visuelle.',
+    },
+    {
+        category: '4. Verrouillage des règles non-négociables',
+        question: 'Quelles règles d’or doivent brider l’IA ?',
+        explanation:
+            'Plafond dur de 300 lignes par fichier (`AGENTS.md`), interdiction du blabla marketing creux (« AI slop »), respect strict du vocabulaire cascadeur et maintien des 807 tests au vert absolu.',
+    },
+];
+
+export interface FlashModelDetail {
     name: string;
-    role: string;
-    description: string;
-    badge: string;
+    provider: string;
+    speciality: string;
+    whyUsed: string;
+    stats: string;
 }
 
-export const METHODOLOGY_STACK: readonly StackTool[] = [
+export const FLASH_MODELS: readonly FlashModelDetail[] = [
     {
-        name: 'Google Antigravity',
-        role: 'Environnement Agentique de Pointe',
-        description:
-            'L’IDE de nouvelle génération qui pilote le projet. Permet de coordonner des agents autonomes avec accès direct aux fichiers, au shell, aux navigateurs de test et aux diagnostics temps réel.',
-        badge: 'Orchestrateur',
+        name: 'Gemini 3.8 Flash',
+        provider: 'Google DeepMind',
+        speciality: 'Contexte Géant & Vitesse Fulgurante',
+        whyUsed:
+            'Capable d’ingérer plus de 100 fichiers de code en un instant pour comprendre l’ensemble du site CUC sans halluciner ni perdre le fil. Il conçoit les interfaces réactives, gère l’ergonomie et garantit le respect de la charte visuelle.',
+        stats: '~150M tokens analysés · Temps de réponse sub-seconde',
     },
     {
-        name: 'Gemini 2.5 Pro & Flash',
-        role: 'Raisonnement Système & Vision Globale',
-        description:
-            'Les modèles d’IA de Google à très large fenêtre de contexte. Utilisés pour cartographier l’architecture globale, concevoir les interfaces réactives et garantir le respect absolu de la marque CUC.',
-        badge: 'Intelligence IA',
-    },
-    {
-        name: 'DeepSeek Reasoner',
-        role: 'Logique Algorithmique & Optimisations',
-        description:
-            'Modèle de raisonnement pur utilisé pour résoudre les défis complexes : algorithmes de compression d’images, requêtes SQL relationnelles et synchronisations multi-couches.',
-        badge: 'Raisonnement',
-    },
-    {
-        name: 'PostgreSQL Supabase',
-        role: 'Données Temps Réel & Sécurité RLS',
-        description:
-            'La base de données relationnelle de référence. Sécurisée par Row-Level Security, elle gère le catalogue, les révisions de pages, les médias et les canaux de synchronisation temps réel.',
-        badge: 'Backend Cloud',
-    },
-    {
-        name: 'GitHub & Git',
-        role: 'Versioning Atomique & Traçabilité',
-        description:
-            'Plus de 350 commits chirurgicaux. Chaque modification de code est documentée, traçable et réversible. Aucune zone d’ombre ni bricolage non consigné.',
-        badge: 'Traçabilité',
-    },
-    {
-        name: 'Vercel Edge Platform',
-        role: 'Déploiement Continu & CDN Mondial',
-        description:
-            'Infrastructure d’hébergement planétaire de Next.js. Mises en production instantanées dès chaque validation, zéro interruption de service et latence minimale pour les visiteurs.',
-        badge: 'Infrastructure',
+        name: 'DeepSeek v4.1 Flash',
+        provider: 'DeepSeek AI',
+        speciality: 'Raisonnement Algorithmique & Rigueur SQL',
+        whyUsed:
+            'Utilisé pour les défis de pure logique : compression WebP/AVIF d’images, requêtes relationnelles Supabase, politiques de sécurité Row-Level Security et optimisation fine des structures de données TypeScript.',
+        stats: '~20M tokens générés · Raisonnement pas-à-pas strict',
     },
 ];
 
-export interface MethodologyPrinciple {
+export interface CostComparison {
+    metric: string;
+    agencyTraditional: string;
+    nielsVibeCoding: string;
+}
+
+export const TOKEN_COST_ESTIMATION = {
+    tokensInput: '~140 à 180 Millions de tokens',
+    tokensOutput: '~18 à 25 Millions de tokens',
+    estimatedCostEuros: '28€ à 38€ au total',
+    contextRead: 'Plus de 1 400 fichiers scannés et audités en direct',
+    comparisons: [
+        {
+            metric: 'Coût financier de production',
+            agencyTraditional: '20 000€ à 35 000€ (facturation équipe agence)',
+            nielsVibeCoding: 'Environ 35€ de tokens d’IA (modèles Flash optimisés)',
+        },
+        {
+            metric: 'Délai de réalisation',
+            agencyTraditional: '3 à 5 mois avec multiples réunions intermédiaires',
+            nielsVibeCoding: 'Quelques semaines d’ingénierie intensive et itérative',
+        },
+        {
+            metric: 'Sécurité & Tests automatisés',
+            agencyTraditional: 'Tests manuels sommaires, failles WordPress fréquentes',
+            nielsVibeCoding: '807 tests automatisés validés à chaque commit Git',
+        },
+        {
+            metric: 'Propriété & Dépendance',
+            agencyTraditional: 'Abonnements de maintenance captifs, code verrouillé',
+            nielsVibeCoding: '100% propriété exclusive du CUC, 0 abonnement logiciel',
+        },
+    ] as CostComparison[],
+};
+
+export interface ConcreteCaseStudy {
     title: string;
-    subtitle: string;
-    detail: string;
-    points: string[];
+    badge: string;
+    problem: string;
+    solution: string;
+    result: string;
 }
 
-export const VIBE_CODING_PRINCIPLES: readonly MethodologyPrinciple[] = [
+export const CONCRETE_CASE_STUDIES: readonly ConcreteCaseStudy[] = [
     {
-        title: 'Le « Vibe Coding » selon Niels',
-        subtitle: 'L’intuition créative propulsée par une discipline d’ingénierie sans compromis',
-        detail:
-            'Le Vibe Coding tel que Niels le pratique n’est pas du code jetable ou généré au hasard. C’est la capacité de concevoir, prototyper et livrer des fonctionnalités de niveau studio à une vitesse décuplée, tout en maintenant les standards d’un logiciel bancaire.',
-        points: [
-            'Vision produit directe : dialoguer avec l’IA au niveau de l’intention métier tout en inspectant chaque ligne générée.',
-            'Zéro dette technique : chaque brique ajoutée est typée en TypeScript strict et couverte par des tests.',
-            'Boucle de rétroaction continue : tests visuels instantanés, audits de performance réguliers et contrôles qualité.',
-            'Des centaines d’heures d’implication passionnée pour offrir au CUC un site à la hauteur de sa réputation internationale.',
-        ],
+        title: 'La Filière Média Sans Perte (Protection des Négatifs)',
+        badge: 'Optimisation & Sécurité',
+        problem:
+            'Le site avait besoin d’images ultra-légères (WebP/AVIF) pour charger en moins d’une seconde sur mobile, mais Lucas ne devait JAMAIS risquer de perdre les affiches et photos de cascade originales en haute résolution 4K.',
+        solution:
+            'Niels a conçu un pipeline de stockage : tout fichier téléversé déplace automatiquement son original maître intouché dans un dossier sécurisé `_originals/`, puis génère une version allégée pour le web.',
+        result:
+            'Temps de chargement divisé par 4, 70% de bande passante économisée, et 100% des fichiers négatifs maîtres préservés à vie.',
     },
     {
-        title: 'Le Système de Règles Canoniques (AGENTS.md)',
-        subtitle: 'Le garde-fou indispensable qui canalise l’IA et élimine les erreurs',
-        detail:
-            'L’intelligence artificielle est puissante mais a tendance à dériver si elle n’est pas strictement encadrée. Niels a conçu une suite de règles gravées dans le projet (`.agents/rules/`), que chaque agent est obligé d’appliquer.',
-        points: [
-            'Architecture modulaire & SRP : interdiction formelle des fichiers géants (« god components »). Plafond dur à 300 lignes, séparation en 4 couches étanches.',
-            'Style éditorial & zéro AI slop : interdiction des poncifs creux du web (« repousser les limites »). Respect du jargon authentique de la cascade et du Parkour.',
-            'Vérification IMDb des 20 coachs : recherche et confirmation des crédits réels sur IMDb/TMDB pour bannir toute exagération commerciale.',
-            'Filière médias & négatifs : compression automatique pour la vitesse, avec sauvegarde intouchable des fichiers sources dans `_originals`.',
-            'Édition bilingue FR ↔ EN : synchronisation en miroir pour qu’aucun texte anglais ne manque ou ne désynchronise la maquette.',
-            '802 tests automatisés au vert : avant tout commit, la suite de tests Vitest est exécutée. Si un seul test échoue, le déploiement est stoppé.',
-        ],
+        title: 'Verrouillage Étanche : Cockpit vs Application CUC Sign',
+        badge: 'Architecture des Rôles',
+        problem:
+            'Des bribes de code prévoyaient un accès partiel des coachs au Cockpit vitrine, risquant de créer de la confusion avec la future application de gestion de l’école CUC Sign et des failles d’accès.',
+        solution:
+            'Niels a retiré chirurgicalement le rôle `coach` des autorisations du Cockpit vitrine, mis à jour les contrôles serveur et gravé la règle d’or dans la documentation d’architecture.',
+        result:
+            'Séparation nette et limpide : le Cockpit pour la direction/secrétariat du site, CUC Sign pour les coachs et élèves (émargement smartphone).',
+    },
+    {
+        title: 'Vérification IMDb des 20 Coachs (Éradication du Blabla IA)',
+        badge: 'Vérité Éditoriale',
+        problem:
+            'Sur le web, beaucoup de sites de cascadeurs inventent des crédits ou génèrent du texte vague (« cascadeur intrépide qui repousse les limites »). Le CUC mérite une crédibilité hollywoodienne irréprochable.',
+        solution:
+            'Niels a développé un script d’audit qui a extrait et recoupé les crédits réels sur IMDb/TMDB pour chaque coach, en distinguant précisément son rôle (doublure cascadeur, coordinateur, cascadeur) et en reliant les affiches officielles HD.',
+        result:
+            'Zéro mensonge marketing, authenticité totale et impact immédiat auprès des productions de cinéma internationales.',
     },
 ];
 
-export interface ProjectTimelineStat {
-    label: string;
-    value: string;
-    description: string;
+export interface SafetyProtocolStep {
+    step: string;
+    name: string;
+    action: string;
 }
 
-export const PROJECT_DEV_STATS: readonly ProjectTimelineStat[] = [
+export const SAFETY_PROTOCOL_STEPS: readonly SafetyProtocolStep[] = [
     {
-        label: 'Investissement temps',
-        value: '300+ heures',
-        description: 'Recherche, modélisation 3D, architecture, design system, tests et déploiements',
+        step: '1',
+        name: 'Cadrage Mental & Cibles',
+        action: 'Identification précise des fichiers touchés, choix du modèle Flash adapté et définition des limites.',
     },
     {
-        label: 'Commits Git atomiques',
-        value: '350+ commits',
-        description: 'Historique de développement complet, structuré et vérifiable sur GitHub',
+        step: '2',
+        name: 'Diffs Chirurgicaux',
+        action: 'L’agent modifie uniquement les lignes nécessaires. Interdiction formelle de réécrire un fichier complet à l’aveugle.',
     },
     {
-        label: 'Garantie de non-régression',
-        value: '802 tests validés',
-        description: 'Couverture sur l’accessibilité (axe), la réactivité, l’i18n et les règles métier',
+        step: '3',
+        name: 'Le Filet de 807 Tests',
+        action: 'Exécution automatique de toute la suite Vitest (accessibilité, liens, thèmes). Si 1 test échoue, le commit est bloqué.',
     },
     {
-        label: 'Liens ou images cassés',
-        value: '0 anomalie',
-        description: 'Audit automatisé quotidien certifiant une navigation fluide et sans faille',
+        step: '4',
+        name: 'Validation Git & Vercel',
+        action: 'Revue humaine du git diff, commit atomique documenté et déploiement mondial instantané sur Vercel Edge.',
     },
 ];

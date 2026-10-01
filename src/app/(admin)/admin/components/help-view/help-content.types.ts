@@ -9,10 +9,16 @@
 export interface HelpTopic {
     id: string;
     title: string;
-    /** Résumé en une phrase. */
+    /** Résumé du rôle et de l'objectif de l'écran. */
     summary: string;
-    /** Points pratiques (ce qu'il faut savoir faire). */
+    /** Marche à suivre pas à pas (1, 2, 3...). */
+    steps?: string[];
+    /** Points pratiques et règles à respecter. */
     bullets: string[];
+    /** Astuce de pro pour gagner du temps ou éviter un piège. */
+    proTip?: string;
+    /** En cas de doute, d'erreur ou de comportement inattendu. */
+    troubleshooting?: string;
     /** Mots-clés de recherche (synonymes, onglets concernés). */
     keywords: string[];
 }
