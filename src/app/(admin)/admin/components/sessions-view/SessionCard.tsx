@@ -1,10 +1,9 @@
 import React from 'react';
-import { Copy, Trash2, Users } from 'lucide-react';
+import { Copy, Trash2 } from 'lucide-react';
 import type { SiteInquiry } from '@/lib/data/site-service';
 import type { StuntProgram } from '@/types';
 import {
     STATUS_COLORS,
-    countSessionCandidates,
     type ProgramSession,
     type SessionStatus,
 } from './session-form';
@@ -22,14 +21,10 @@ export interface SessionCardProps {
 export const SessionCard: React.FC<SessionCardProps> = ({
     session,
     index,
-    program,
-    inquiries,
     onStatusChange,
     onDuplicate,
     onDelete,
 }) => {
-    const candidates = countSessionCandidates(inquiries, program, session.date);
-
     return (
         <div
             key={index}
@@ -44,17 +39,6 @@ export const SessionCard: React.FC<SessionCardProps> = ({
                     >
                         {session.status}
                     </span>
-
-                    {candidates.total > 0 && (
-                        <span
-                            className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20 flex items-center gap-1"
-                            title={`${candidates.total} dossier(s) déposé(s)`}
-                        >
-                            <Users className="w-3 h-3" />
-                            {candidates.total} candidat{candidates.total > 1 ? 's' : ''}
-                            {candidates.admitted > 0 && ` (${candidates.admitted} admis)`}
-                        </span>
-                    )}
                 </div>
             </div>
 
