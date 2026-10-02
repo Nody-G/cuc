@@ -15,7 +15,16 @@
         "errorText": "Le contenu n'a pas pu être affiché. Vous pouvez réessayer immédiatement ou revenir à l'accueil.",
         "retry": "Réessayer",
         "backHome": "Retour à l'accueil",
-        "errorReference": "Référence : {digest}"
+        "errorReference": "Référence : {digest}",
+        "notFoundBadge": "ERREUR 404 • HORS PISTE",
+        "notFoundTitle": "ZONE NON RÉPERTORIÉE",
+        "notFoundSubtitle": "La page demandée est introuvable ou a été déplacée lors d'une cascade.",
+        "notFoundDescription": "Même les meilleurs cascadeurs dévient parfois de leur trajectoire. Reprenez votre élan en explorant l'une de nos sections principales :",
+        "exploreFormations": "Formations & Stages",
+        "exploreTeam": "L'Équipe CUC",
+        "exploreVideos": "Vidéos & Démos",
+        "contactUs": "Nous contacter",
+        "suggestedPages": "Destinations recommandées :"
     },
     "films": {
         "badge": "TOURNAGES & AFFICHES",

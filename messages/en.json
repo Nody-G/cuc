@@ -15,7 +15,16 @@
         "errorText": "The content could not be displayed. You can try again immediately or return to the home page.",
         "retry": "Try again",
         "backHome": "Back to home",
-        "errorReference": "Reference: {digest}"
+        "errorReference": "Reference: {digest}",
+        "notFoundBadge": "404 ERROR • OFF TRACK",
+        "notFoundTitle": "PAGE NOT FOUND",
+        "notFoundSubtitle": "The requested page cannot be found or was moved during a stunt.",
+        "notFoundDescription": "Even the best stunt performers miss a mark sometimes. Get back on track by exploring our main sections:",
+        "exploreFormations": "Stunt Training & Courses",
+        "exploreTeam": "CUC Stunt Team",
+        "exploreVideos": "Videos & Reels",
+        "contactUs": "Contact Us",
+        "suggestedPages": "Suggested destinations:"
     },
     "films": {
         "badge": "PRODUCTIONS & POSTERS",
