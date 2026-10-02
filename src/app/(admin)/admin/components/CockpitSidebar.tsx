@@ -32,6 +32,7 @@ export const CockpitSidebar: React.FC<CockpitSidebarProps> = ({
     userName,
     onLogout,
     onOpenBackup,
+    onOpenChangePassword,
     isMobileOpen,
     onCloseMobile,
 }) => {
@@ -62,7 +63,12 @@ export const CockpitSidebar: React.FC<CockpitSidebarProps> = ({
                 onToggleGroup={sidebar.toggleGroup}
                 onTogglePin={sidebar.togglePin}
             />
-            <SidebarFooter userName={userName} userRole={userRole} onLogout={onLogout} />
+            <SidebarFooter
+                userName={userName}
+                userRole={userRole}
+                onLogout={onLogout}
+                onOpenChangePassword={onOpenChangePassword}
+            />
         </>
     );
 

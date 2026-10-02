@@ -9,6 +9,7 @@ import { CockpitSidebar } from './components/CockpitSidebar';
 import { BackupRestoreModal } from './components/BackupRestoreModal';
 import { CommandPalette } from './components/CommandPalette';
 import { SystemHealthModal } from './components/SystemHealthModal';
+import { ChangePasswordModal } from './components/ChangePasswordModal';
 import { createClient } from '@/lib/supabase/client';
 import { CockpitTopbar } from './cockpit/CockpitTopbar';
 import { CockpitTabContent } from './cockpit/CockpitTabContent';
@@ -41,6 +42,7 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isHealthModalOpen, setIsHealthModalOpen] = useState(false);
   const [isShortcutsHelpOpen, setIsShortcutsHelpOpen] = useState(false);
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   /**
    * Film à ouvrir automatiquement dans la Filmographie (patron `pageToEdit`).
@@ -113,6 +115,7 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
         }
         onLogout={handleLogout}
         onOpenBackup={() => setIsBackupModalOpen(true)}
+        onOpenChangePassword={() => setIsChangePasswordOpen(true)}
         isMobileOpen={isMobileNavOpen}
         onCloseMobile={() => setIsMobileNavOpen(false)}
       />
@@ -184,6 +187,13 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
         urgentInquiriesCount={data.newInquiriesCount}
         totalSessions={data.totalSessions}
         fullSessions={data.fullSessions}
+      />
+
+      {/* Modale de Changement de Mot de Passe */}
+      <ChangePasswordModal
+        isOpen={isChangePasswordOpen}
+        onClose={() => setIsChangePasswordOpen(false)}
+        showToast={showToast}
       />
     </div>
   );

@@ -19,8 +19,12 @@ import { join, relative } from 'node:path';
  */
 
 const ADMIN_DIR = join(process.cwd(), 'src', 'app', '(admin)');
-/** La page de connexion vit hors du `[data-cockpit-root]` : hors périmètre. */
-const OUT_OF_SCOPE_DIRS = [join(ADMIN_DIR, 'login')];
+/** Les pages d'authentification (login, reset-password) vivent hors du `[data-cockpit-root]` : hors périmètre. */
+const OUT_OF_SCOPE_DIRS = [
+    join(ADMIN_DIR, 'admin', 'login'),
+    join(ADMIN_DIR, 'admin', 'reset-password'),
+    join(ADMIN_DIR, 'login'),
+];
 /**
  * Le thème clair est réparti en deux feuilles pour rester sous le plafond de
  * 300 lignes par fichier (`AGENTS.md` § 2) : la base (jetons, surfaces, textes,

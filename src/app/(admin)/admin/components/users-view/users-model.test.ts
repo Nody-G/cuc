@@ -17,12 +17,15 @@ import {
 } from './users-model';
 
 describe('normalizeCockpitEmail', () => {
-    it('complète un identifiant nu en @cuc.fr', () => {
-        expect(normalizeCockpitEmail('lucas')).toBe('lucas@cuc.fr');
+    it('résout les alias connus vers les vraies adresses', () => {
+        expect(normalizeCockpitEmail('lucas')).toBe('lucas.d@campus-universcascades.com');
+        expect(normalizeCockpitEmail('lucas.d')).toBe('lucas.d@campus-universcascades.com');
+        expect(normalizeCockpitEmail('niels')).toBe('niels.dalery@gmail.com');
     });
 
     it('nettoie espaces et majuscules', () => {
-        expect(normalizeCockpitEmail('  Lucas.Dollfus@CUC.fr ')).toBe('lucas.dollfus@cuc.fr');
+        expect(normalizeCockpitEmail('  Lucas.D  ')).toBe('lucas.d@campus-universcascades.com');
+        expect(normalizeCockpitEmail('  Niels.Dalery@gmail.com ')).toBe('niels.dalery@gmail.com');
     });
 
     it('conserve une adresse déjà qualifiée', () => {

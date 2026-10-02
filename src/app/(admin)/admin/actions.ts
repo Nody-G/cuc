@@ -10,7 +10,14 @@
  * est résolue à la source pour les composants clients.
  */
 
-export { checkIsAdmin, checkIsUserManager, getCurrentUserProfile, loginAdminAction } from './actions/auth';
+export {
+    checkIsAdmin,
+    checkIsUserManager,
+    getCurrentUserProfile,
+    loginAdminAction,
+    requestPasswordResetAction,
+    changeCurrentUserPasswordAction,
+} from './actions/auth';
 export {
     listCockpitUsers,
     sendUserPasswordReset,

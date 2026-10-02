@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import { loginAdminAction } from '../actions';
 import { Shield, Lock, Mail, ArrowLeft, AlertCircle, RefreshCw, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
+import { ForgotPasswordModal } from './ForgotPasswordModal';
+import { normalizeCockpitLoginIdentifier } from '@/lib/auth/admin-guard';
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
@@ -13,17 +15,14 @@ export default function AdminLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isForgotOpen, setIsForgotOpen] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setErrorMessage(null);
 
-    let cleanInput = email.trim().toLowerCase();
-    if (cleanInput === 'lucas' || cleanInput === 'lucas.dollfus' || cleanInput === 'lucas-dollfus') {
-      cleanInput = 'cuc';
-    }
-    const normalizedEmail = cleanInput.includes('@') ? cleanInput : `${cleanInput}@cuc.fr`;
+    const normalizedEmail = normalizeCockpitLoginIdentifier(email);
     const cleanPassword = password.trim();
 
     try {
@@ -43,7 +42,7 @@ export default function AdminLoginPage() {
 
       if (error) {
         // En cas d'échec côté client (ex: restriction de cookies tiers, extensions, etc.), tentative via Server Action
-        const serverResult = await loginAdminAction(cleanInput, cleanPassword);
+        const serverResult = await loginAdminAction(normalizedEmail, cleanPassword);
         if (serverResult.success) {
           window.location.href = getDestinationUrl();
           return;
@@ -51,7 +50,7 @@ export default function AdminLoginPage() {
 
         setErrorMessage(
           error.message === 'Invalid login credentials'
-            ? 'Identifiant ou mot de passe incorrect. Assurez-vous d\'utiliser "admin" ou "lucas" et le mot de passe "password".'
+            ? 'Identifiant ou mot de passe incorrect. Vérifiez vos informations de connexion.'
             : error.message
         );
         setLoading(false);
@@ -80,7 +79,7 @@ export default function AdminLoginPage() {
     } catch {
       // Fallback ultime : appel de la Server Action
       try {
-        const serverResult = await loginAdminAction(cleanInput, cleanPassword);
+        const serverResult = await loginAdminAction(normalizedEmail, cleanPassword);
         if (serverResult.success) {
           const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
           const nextParam = searchParams?.get('next');
@@ -146,7 +145,7 @@ export default function AdminLoginPage() {
                   autoCapitalize="none"
                   autoCorrect="off"
                   spellCheck={false}
-                  placeholder="admin ou admin@cuc.fr"
+                  placeholder="lucas.d@campus-universcascades.com ou niels"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-black/60 border border-white/15 rounded-lg pl-10 pr-3 py-2.5 text-sm text-white focus:outline-none focus:border-[#FFE500] transition-colors font-mono"
@@ -180,6 +179,15 @@ export default function AdminLoginPage() {
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
+              <div className="flex items-center justify-end pt-1">
+                <button
+                  type="button"
+                  onClick={() => setIsForgotOpen(true)}
+                  className="text-[11px] font-mono text-gray-400 hover:text-[#FFE500] transition-colors"
+                >
+                  Mot de passe oublié ?
+                </button>
+              </div>
             </div>
 
             <button
@@ -196,17 +204,19 @@ export default function AdminLoginPage() {
             </button>
           </form>
 
-          {/* Bouton de remplissage rapide en 1-clic */}
-          <div className="pt-2">
-            <button
-              type="button"
-              onClick={fillQuickCredentials}
-              className="w-full py-2 px-3 rounded-lg bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-amber-300 text-xs font-mono flex items-center justify-center gap-2 transition"
-            >
-              <CheckCircle2 className="w-3.5 h-3.5 text-[#FFE500]" />
-              <span>Remplir avec l&apos;identifiant de production</span>
-            </button>
-          </div>
+          {/* Bouton de remplissage rapide (environnement de développement local uniquement) */}
+          {process.env.NODE_ENV === 'development' && (
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={fillQuickCredentials}
+                className="w-full py-2 px-3 rounded-lg bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-amber-300 text-xs font-mono flex items-center justify-center gap-2 transition"
+              >
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#FFE500]" />
+                <span>Remplir avec l&apos;identifiant de test (dev)</span>
+              </button>
+            </div>
+          )}
 
           <div className="pt-3 border-t border-white/10 text-center text-[11px] text-gray-400">
             <span className="inline-flex items-center gap-1.5 font-mono">
@@ -227,6 +237,12 @@ export default function AdminLoginPage() {
           </Link>
         </div>
       </div>
+
+      <ForgotPasswordModal
+        isOpen={isForgotOpen}
+        onClose={() => setIsForgotOpen(false)}
+        defaultIdentifier={email}
+      />
     </div>
   );
 }

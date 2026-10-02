@@ -121,16 +121,18 @@ export interface PasswordResetResult extends UserMutationResult {
 /* Logique pure — testable hors du cycle de vie UI                     */
 /* ------------------------------------------------------------------ */
 
+import { normalizeCockpitLoginIdentifier } from '@/lib/auth/admin-guard';
+
 /**
  * Normalise un identifiant saisi en adresse email.
  *
  * Reprend la convention de connexion du Cockpit (`loginAdminAction`,
- * `AdminLoginPage`) : un identifiant sans `@` est suffixé `@cuc.fr`.
+ * `AdminLoginPage`) : résout les alias administrateurs reconnus.
  */
 export function normalizeCockpitEmail(input: string): string {
     const value = input.trim().toLowerCase();
     if (!value) return '';
-    return value.includes('@') ? value : `${value}@cuc.fr`;
+    return normalizeCockpitLoginIdentifier(value);
 }
 
 export interface RoleChangeInput {

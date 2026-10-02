@@ -21,6 +21,7 @@ export interface CockpitSidebarProps {
     userName: string;
     onLogout: () => void;
     onOpenBackup: () => void;
+    onOpenChangePassword?: () => void;
     /** Contrôle l'ouverture du tiroir sur mobile. */
     isMobileOpen: boolean;
     onCloseMobile: () => void;

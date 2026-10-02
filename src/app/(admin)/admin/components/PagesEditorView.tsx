@@ -34,9 +34,7 @@ interface PagesEditorViewProps {
   pages: SitePageContent[];
   onPageSaved: (updatedPage: SitePageContent) => void;
   showToast: (msg: string) => void;
-  /** Page demandée par un autre écran (menu du site) à l'ouverture de l'onglet. */
   initialSlug?: string | null;
-  /** Ouvre l'onglet « Menu du Site » sur la page éditée (interconnexion). */
   onOpenMenu?: (pageKey: string) => void;
 }
 
@@ -287,13 +285,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
         translationUpdatedAt={draft.translation.updatedAt}
       />
 
-      {/* Modal Médiathèque intégrée */}
       {mediaPickerTarget && (
-        <MediaPickerModal
-          isOpen={true}
-          onClose={() => setMediaPickerTarget(null)}
-          onSelectUrl={mediaPicker.applySelected}
-        />
+        <MediaPickerModal isOpen onClose={() => setMediaPickerTarget(null)} onSelectUrl={mediaPicker.applySelected} />
       )}
       <PageEditorSaveBar
         isDirty={saveBar.isDirty}
