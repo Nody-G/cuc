@@ -21,14 +21,41 @@ export default function ResetPasswordPage() {
   useEffect(() => {
     const supabase = createClient();
 
-    // 1. Écoute de l'événement Supabase de récupération
+    // 1. Écoute des événements d'authentification Supabase
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event) => {
       if (event === 'PASSWORD_RECOVERY' || event === 'SIGNED_IN') {
         setIsReady(true);
       }
     });
 
-    // 2. Traitement d'un éventuel code PKCE dans l'URL (?code=...)
+    // 2. Traitement d'un flux implicite avec jetons dans le fragment hash (#access_token=...)
+    const hash = typeof window !== 'undefined' ? window.location.hash.replace(/^#/, '') : '';
+    if (hash) {
+      const hashParams = new URLSearchParams(hash);
+      const accessToken = hashParams.get('access_token');
+      const refreshToken = hashParams.get('refresh_token');
+      const errorDesc = hashParams.get('error_description');
+
+      if (errorDesc) {
+        setErrorMessage(decodeURIComponent(errorDesc.replace(/\+/g, ' ')));
+        return () => subscription.unsubscribe();
+      }
+
+      if (accessToken && refreshToken) {
+        supabase.auth
+          .setSession({ access_token: accessToken, refresh_token: refreshToken })
+          .then(({ error }) => {
+            if (error) {
+              setErrorMessage('Le lien de réinitialisation est invalide ou a expiré : ' + error.message);
+            } else {
+              setIsReady(true);
+            }
+          });
+        return () => subscription.unsubscribe();
+      }
+    }
+
+    // 3. Traitement d'un éventuel code PKCE dans l'URL (?code=...)
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
     if (code) {
@@ -40,7 +67,7 @@ export default function ResetPasswordPage() {
         }
       });
     } else {
-      // Vérification si une session existe déjà
+      // 4. Vérification si une session existe déjà
       supabase.auth.getSession().then(({ data: { session } }) => {
         if (session) {
           setIsReady(true);
@@ -69,12 +96,31 @@ export default function ResetPasswordPage() {
 
     try {
       const supabase = createClient();
+
+      // En présence de tokens dans le hash, s'assurer que la session active est bien celle du lien
+      const hash = typeof window !== 'undefined' ? window.location.hash.replace(/^#/, '') : '';
+      if (hash) {
+        const hashParams = new URLSearchParams(hash);
+        const accessToken = hashParams.get('access_token');
+        const refreshToken = hashParams.get('refresh_token');
+        if (accessToken && refreshToken) {
+          await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+        }
+      }
+
       const { error } = await supabase.auth.updateUser({
         password: cleanPass,
       });
 
       if (error) {
-        setErrorMessage(error.message);
+        if (error.message.includes('sub claim') || error.message.includes('not exist')) {
+          await supabase.auth.signOut();
+          setErrorMessage(
+            'Votre navigateur contenait les cookies d’un ancien compte supprimé. Les cookies ont été purgés. Veuillez cliquer à nouveau sur votre lien de réinitialisation.',
+          );
+        } else {
+          setErrorMessage(error.message);
+        }
         setLoading(false);
         return;
       }
