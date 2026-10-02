@@ -1,8 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Home, Compass, GraduationCap, Users, Film, Mail } from 'lucide-react';
-import { RootShell } from '@/components/layout/RootShell';
-import frMessages from '../../messages/fr.json';
+import '@/app/globals.css';
 
 export const metadata = {
     title: 'Page non trouvée (404) • Campus Univers Cascades',
@@ -13,14 +12,13 @@ export const metadata = {
 /**
  * Page 404 racine de secours pour l'ensemble du domaine CUC.
  *
- * Intercepte toute route non résolue au niveau racine (URL inexistante,
- * préfixe inconnu, asset manquant). Elle utilise `RootShell` pour garantir
- * le chargement des polices CUC, de Tailwind et de l'identité visuelle de marque.
+ * Entièrement statique et auto-portante (rend ses propres balises <html> et <body>),
+ * sans dépendance à RootShell ni à Supabase/next-intl au moment du prerendering.
  */
 export default function GlobalNotFound() {
     return (
-        <RootShell locale="fr" messages={frMessages}>
-            <main className="min-h-screen bg-[#060608] text-white flex flex-col items-center justify-center px-4 sm:px-6 py-20 relative overflow-hidden selection:bg-[#FFE500] selection:text-black">
+        <html lang="fr" className="dark">
+            <body className="antialiased min-h-screen bg-[#060608] text-white flex flex-col items-center justify-center px-4 sm:px-6 py-20 relative overflow-hidden selection:bg-[#FFE500] selection:text-black">
                 {/* Glow ambiant */}
                 <div
                     className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[30rem] h-[30rem] bg-[#FFE500]/[0.03] rounded-full blur-3xl pointer-events-none"
@@ -100,7 +98,7 @@ export default function GlobalNotFound() {
                         </div>
                     </div>
                 </div>
-            </main>
-        </RootShell>
+            </body>
+        </html>
     );
 }
