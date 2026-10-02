@@ -14,19 +14,20 @@ interface UseTrafficMonitorProps {
 
 export function useTrafficMonitor({ showToast }: UseTrafficMonitorProps) {
     const [windowState, setWindowState] = useState<TrafficWindow>('30d');
+    const [sourceMode, setSourceMode] = useState<'measured' | 'modelled'>('measured');
     const [report, setReport] = useState<SiteTrafficReport | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
     const [pollingInterval, setPollingInterval] = useState<number>(10000); // 10s par défaut
 
-    // Charge le rapport complet pour la fenêtre sélectionnée
+    // Charge le rapport complet pour la fenêtre et la source sélectionnées
     const loadReport = useCallback(
-        async (targetWindow: TrafficWindow, silent = false) => {
+        async (targetWindow: TrafficWindow, targetSource: 'measured' | 'modelled', silent = false) => {
             if (!silent) setLoading(true);
             else setIsRefreshing(true);
 
             try {
-                const res = await getSiteTrafficReportAction(targetWindow);
+                const res = await getSiteTrafficReportAction(targetWindow, targetSource);
                 if (res.success && res.data) {
                     setReport(res.data);
                 } else {
@@ -72,7 +73,7 @@ export function useTrafficMonitor({ showToast }: UseTrafficMonitorProps) {
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', `cuc-traffic-report-${report.window}-${new Date().toISOString().split('T')[0]}.csv`);
+        link.setAttribute('download', `cuc-traffic-report-${report.window}-${report.dataSource}-${new Date().toISOString().split('T')[0]}.csv`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -83,22 +84,28 @@ export function useTrafficMonitor({ showToast }: UseTrafficMonitorProps) {
     const handleSetWindow = useCallback(
         (newWindow: TrafficWindow) => {
             setWindowState(newWindow);
-            loadReport(newWindow);
+            loadReport(newWindow, sourceMode);
         },
-        [loadReport]
+        [loadReport, sourceMode]
+    );
+
+    // Changement de source de données
+    const handleSetSourceMode = useCallback(
+        (newMode: 'measured' | 'modelled') => {
+            setSourceMode(newMode);
+            loadReport(windowState, newMode);
+        },
+        [loadReport, windowState]
     );
 
     /**
-     * Chargement initial. L'appel est enveloppé dans une frontière asynchrone :
-     * `loadReport` ne met à jour l'état qu'après la réponse serveur, donc rien
-     * n'est modifié de façon synchrone dans l'effet (exigence de
-     * `react-hooks/set-state-in-effect`).
+     * Chargement initial.
      */
     useEffect(() => {
         void (async () => {
-            await loadReport(windowState);
+            await loadReport(windowState, sourceMode);
         })();
-    }, [loadReport, windowState]);
+    }, [loadReport, windowState, sourceMode]);
 
     // Polling temps réel automatique
     useEffect(() => {
@@ -115,9 +122,11 @@ export function useTrafficMonitor({ showToast }: UseTrafficMonitorProps) {
         isRefreshing,
         window: windowState,
         setWindow: handleSetWindow,
+        sourceMode,
+        setSourceMode: handleSetSourceMode,
         pollingInterval,
         setPollingInterval,
-        refresh: () => loadReport(windowState, true),
+        refresh: () => loadReport(windowState, sourceMode, true),
         exportCsv: handleExportCsv,
     };
 }

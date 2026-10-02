@@ -13,12 +13,13 @@ export interface TrafficActionResult<T> {
     error?: string;
 }
 
-/** Récupère le rapport de trafic pour la période sélectionnée */
+/** Récupère le rapport de trafic pour la période et la source sélectionnées */
 export async function getSiteTrafficReportAction(
-    window: TrafficWindow
+    window: TrafficWindow,
+    sourceMode: 'measured' | 'modelled' = 'measured'
 ): Promise<TrafficActionResult<SiteTrafficReport>> {
     try {
-        const report = getSiteTrafficReport(window);
+        const report = getSiteTrafficReport(window, sourceMode);
         return { success: true, data: report };
     } catch (err) {
         console.error('[traffic-monitor] Erreur getSiteTrafficReportAction:', err);

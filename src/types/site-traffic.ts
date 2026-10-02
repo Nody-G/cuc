@@ -125,6 +125,26 @@ export interface SiteTrafficReport {
      * observées. Aucun visiteur n'est fabriqué pour « remplir » le flux.
      */
     liveIsMeasured: boolean;
+    /** Résumé des Core Web Vitals réels vécus sur le site (LCP, INP, CLS, TTFB). */
+    vitalsSummary?: RealWebVitalsReport;
+    /** Volumes réels de candidatures et leads reçus via site_inquiries. */
+    realInquiries?: RealInquiriesMetric;
+}
+
+export interface RealWebVitalsReport {
+    lcpP75Ms: number;
+    inpP75Ms: number;
+    clsP75: number;
+    ttfbP75Ms: number;
+    samplesCount: number;
+    rating: 'excellent' | 'good' | 'needs-improvement';
+}
+
+export interface RealInquiriesMetric {
+    totalInquiries: number;
+    formationCount: number;
+    proCount: number;
+    lastInquiryDate: string | null;
 }
 
 /** Événement de visite émis par le tracker vitrine. */

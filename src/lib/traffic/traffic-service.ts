@@ -96,7 +96,10 @@ export function recordSiteVisit(payload: IncomingVisitPayload): RealtimeVisitor 
 }
 
 /** Récupère le rapport complet pour une fenêtre donnée */
-export function getSiteTrafficReport(window: TrafficWindow): SiteTrafficReport {
+export function getSiteTrafficReport(
+    window: TrafficWindow,
+    sourceMode: 'measured' | 'modelled' = 'modelled'
+): SiteTrafficReport {
     pruneExpiredSessions();
 
     /**
@@ -107,7 +110,7 @@ export function getSiteTrafficReport(window: TrafficWindow): SiteTrafficReport {
      */
     const realSessions = Array.from(globalSessions.sessions.values());
 
-    return generateReport(window, realSessions);
+    return generateReport(window, realSessions, sourceMode);
 }
 
 /**

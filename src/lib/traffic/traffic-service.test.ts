@@ -68,4 +68,15 @@ describe('traffic-service', () => {
         expect(csv).toContain('Formation Cascadeur Pro');
         expect(csv).toContain('INDICATEURS CLÉS');
     });
+
+    it('génère un rapport mesuré avec Core Web Vitals sans extrapoler les volumes', () => {
+        const report = getSiteTrafficReport('today', 'measured');
+        expect(report.dataSource).toBe('measured');
+        expect(report.vitalsSummary).toBeDefined();
+        expect(report.vitalsSummary?.lcpP75Ms).toBeGreaterThan(0);
+        expect(report.vitalsSummary?.inpP75Ms).toBeGreaterThan(0);
+        expect(report.vitalsSummary?.clsP75).toBeDefined();
+        expect(report.kpis.uniqueVisitors).toBe(getRealtimeVisitors().count);
+    });
 });
+

@@ -5,6 +5,8 @@ import { Globe, RefreshCw, Download } from 'lucide-react';
 import type { TrafficWindow } from '@/types/site-traffic';
 import { CockpitViewHeader, CockpitButton, CockpitSkeletonList } from './ui';
 import { useTrafficMonitor } from './traffic-monitor/useTrafficMonitor';
+import { TrafficDataSourceBanner } from './traffic-monitor/TrafficDataSourceBanner';
+import { TrafficWebVitalsCard } from './traffic-monitor/TrafficWebVitalsCard';
 import { TrafficKpiOverview } from './traffic-monitor/TrafficKpiOverview';
 import { TrafficTimeChart } from './traffic-monitor/TrafficTimeChart';
 import { TrafficRealtimeStream } from './traffic-monitor/TrafficRealtimeStream';
@@ -32,6 +34,8 @@ export const TrafficMonitorView: React.FC<TrafficMonitorViewProps> = ({ showToas
         isRefreshing,
         window,
         setWindow,
+        sourceMode,
+        setSourceMode,
         pollingInterval,
         setPollingInterval,
         refresh,
@@ -89,26 +93,11 @@ export const TrafficMonitorView: React.FC<TrafficMonitorViewProps> = ({ showToas
                 }
             />
 
-            {/* Statut d'hébergement Vercel & domaine */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 bg-zinc-900/60 border border-zinc-800 rounded-xl gap-3 text-xs font-mono-tech">
-                <div className="flex items-center gap-2.5">
-                    <span className="text-zinc-400">
-                        Hébergement actif : <strong className="text-white">Vercel Production</strong> (
-                        <a
-                            href="https://cuc-new.vercel.app/"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-[#FFE500] hover:underline"
-                        >
-                            https://cuc-new.vercel.app
-                        </a>
-                        )
-                    </span>
-                </div>
-                <div className="text-[11px] text-zinc-500">
-                    Bascule automatique prête pour le nom de domaine définitif du Campus
-                </div>
-            </div>
+            {/* Sélecteur de source de données & information de bascule DNS */}
+            <TrafficDataSourceBanner
+                sourceMode={sourceMode}
+                onChangeSourceMode={setSourceMode}
+            />
 
             {loading || !report ? (
                 <CockpitSkeletonList rows={6} />
@@ -117,10 +106,13 @@ export const TrafficMonitorView: React.FC<TrafficMonitorViewProps> = ({ showToas
                     {/* 1. KPIs majeurs */}
                     <TrafficKpiOverview kpis={report.kpis} windowLabel={WINDOW_LABELS[window]} />
 
-                    {/* 2. Graphique d'évolution temporelle */}
+                    {/* 2. Core Web Vitals réels (standard Octobre 2026) */}
+                    <TrafficWebVitalsCard vitals={report.vitalsSummary} />
+
+                    {/* 3. Graphique d'évolution temporelle */}
                     <TrafficTimeChart data={report.timeSeries} windowLabel={WINDOW_LABELS[window]} />
 
-                    {/* 3. Visiteurs en direct & stream temps réel */}
+                    {/* 4. Visiteurs en direct & stream temps réel */}
                     <TrafficRealtimeStream
                         visitors={report.realtimeVisitors}
                         isRefreshing={isRefreshing}
@@ -129,10 +121,10 @@ export const TrafficMonitorView: React.FC<TrafficMonitorViewProps> = ({ showToas
                         onChangePolling={setPollingInterval}
                     />
 
-                    {/* 4. Top pages & contenus */}
+                    {/* 5. Top pages & contenus */}
                     <TrafficPagesTable pages={report.topPages} />
 
-                    {/* 5. Canaux, Géographie & Terminaux */}
+                    {/* 6. Canaux, Géographie & Terminaux */}
                     <TrafficSourcesAndGeo
                         referrers={report.referrers}
                         geography={report.geography}
@@ -140,7 +132,7 @@ export const TrafficMonitorView: React.FC<TrafficMonitorViewProps> = ({ showToas
                         browsers={report.browsers}
                     />
 
-                    {/* 6. Tunnels de conversion clés CUC */}
+                    {/* 7. Tunnels de conversion clés CUC */}
                     <TrafficConversionFunnels funnels={report.funnels} />
 
                     {/* Pied de page informatif */}

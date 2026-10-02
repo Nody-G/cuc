@@ -33,8 +33,8 @@ export function generateTimeSeries(
         // Variation fluide et réaliste
         const sinus = Math.sin((points - i) / 2) * 0.25;
         const randomFactor = 0.85 + Math.random() * 0.3 + sinus;
-        const visitors = Math.max(5, Math.round(avgPerPoint * randomFactor));
-        const pageViews = Math.round(visitors * (3.1 + Math.random() * 0.7));
+        const visitors = total === 0 ? 0 : Math.max(1, Math.round(avgPerPoint * randomFactor));
+        const pageViews = total === 0 ? 0 : Math.round(visitors * (3.1 + Math.random() * 0.7));
 
         list.push({
             label,

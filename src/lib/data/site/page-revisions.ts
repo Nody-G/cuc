@@ -140,9 +140,119 @@ export function diffPageSnapshots(
   for (const field of fields) {
     const beforeValue = (a as Record<string, unknown>)[field as string];
     const afterValue = (b as Record<string, unknown>)[field as string];
-    if (JSON.stringify(beforeValue) !== JSON.stringify(afterValue)) {
-      changes.push({ field: field as string, before: beforeValue, after: afterValue });
+    if (JSON.stringify(beforeValue) === JSON.stringify(afterValue)) {
+      continue;
     }
+
+    // Décomposition granulaire pour le Hero
+    if (
+      field === 'hero' &&
+      typeof beforeValue === 'object' &&
+      typeof afterValue === 'object' &&
+      beforeValue !== null &&
+      afterValue !== null
+    ) {
+      const heroA = beforeValue as Record<string, unknown>;
+      const heroB = afterValue as Record<string, unknown>;
+      const subkeys = Array.from(new Set([...Object.keys(heroA), ...Object.keys(heroB)]));
+      let hadSub = false;
+      for (const k of subkeys) {
+        if (JSON.stringify(heroA[k]) !== JSON.stringify(heroB[k])) {
+          changes.push({
+            field: `hero.${k}`,
+            before: heroA[k],
+            after: heroB[k],
+          });
+          hadSub = true;
+        }
+      }
+      if (hadSub) continue;
+    }
+
+    // Décomposition granulaire pour les sections_data
+    if (
+      field === 'sections_data' &&
+      typeof beforeValue === 'object' &&
+      typeof afterValue === 'object' &&
+      beforeValue !== null &&
+      afterValue !== null
+    ) {
+      const secA = beforeValue as Record<string, Record<string, unknown>>;
+      const secB = afterValue as Record<string, Record<string, unknown>>;
+      const sectionKeys = Array.from(new Set([...Object.keys(secA), ...Object.keys(secB)]));
+      let hadSub = false;
+      for (const sk of sectionKeys) {
+        const dataA = secA[sk] || {};
+        const dataB = secB[sk] || {};
+        if (JSON.stringify(dataA) !== JSON.stringify(dataB)) {
+          const props = Array.from(new Set([...Object.keys(dataA), ...Object.keys(dataB)]));
+          for (const pk of props) {
+            if (JSON.stringify(dataA[pk]) !== JSON.stringify(dataB[pk])) {
+              changes.push({
+                field: `sections_data.${sk}.${pk}`,
+                before: dataA[pk],
+                after: dataB[pk],
+              });
+              hadSub = true;
+            }
+          }
+        }
+      }
+      if (hadSub) continue;
+    }
+
+    // Décomposition granulaire pour les sections (chiffres clés / capsules)
+    if (
+      field === 'sections' &&
+      Array.isArray(beforeValue) &&
+      Array.isArray(afterValue)
+    ) {
+      const maxLen = Math.max(beforeValue.length, afterValue.length);
+      let hadSub = false;
+      for (let i = 0; i < maxLen; i++) {
+        const itemA = beforeValue[i] as Record<string, unknown> | undefined;
+        const itemB = afterValue[i] as Record<string, unknown> | undefined;
+        if (JSON.stringify(itemA) !== JSON.stringify(itemB)) {
+          if (itemA && itemB) {
+            if (itemA.value !== itemB.value) {
+              changes.push({
+                field: `sections[${i}].value`,
+                before: itemA.value,
+                after: itemB.value,
+              });
+              hadSub = true;
+            }
+            if (itemA.title !== itemB.title) {
+              changes.push({
+                field: `sections[${i}].title`,
+                before: itemA.title,
+                after: itemB.title,
+              });
+              hadSub = true;
+            }
+            if (itemA.description !== itemB.description) {
+              changes.push({
+                field: `sections[${i}].description`,
+                before: itemA.description,
+                after: itemB.description,
+              });
+              hadSub = true;
+            }
+          } else {
+            changes.push({
+              field: `sections[${i}]`,
+              before: itemA,
+              after: itemB,
+            });
+            hadSub = true;
+          }
+        }
+      }
+      if (hadSub) continue;
+    }
+
+    // Repli standard
+    changes.push({ field: field as string, before: beforeValue, after: afterValue });
   }
 
   return changes;

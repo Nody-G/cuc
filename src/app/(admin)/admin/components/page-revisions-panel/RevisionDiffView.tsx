@@ -4,7 +4,7 @@ import React from 'react';
 import { FileText, X, RotateCcw } from 'lucide-react';
 import type { PageRevisionDiffEntry, SitePageRevision } from '@/lib/data/site-service';
 import { CockpitButton } from '../ui';
-import { FIELD_LABELS, summarizeValue } from './revision-format';
+import { formatFieldLabel, summarizeValue } from './revision-format';
 
 interface RevisionDiffViewProps {
     selected: SitePageRevision | null;
@@ -60,7 +60,7 @@ export const RevisionDiffView: React.FC<RevisionDiffViewProps> = ({
                                 className="rounded-lg border border-white/10 bg-black/40 p-3"
                             >
                                 <p className="text-[10px] font-mono uppercase tracking-wider text-[#FFE500] mb-2">
-                                    {FIELD_LABELS[entry.field] ?? entry.field}
+                                    {formatFieldLabel(entry.field)}
                                 </p>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                     <div className="rounded border border-red-500/20 bg-red-500/5 p-2">
