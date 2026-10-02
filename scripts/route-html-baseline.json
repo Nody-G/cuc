@@ -1,0 +1,296 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-02T11:35:35.938Z",
+  "unit": "bytes",
+  "note": "Snapshot du poids HTML par route (WS-F / F0). Régénérer avec `npm run audit:html-weight:baseline` après revue.",
+  "routes": {
+    "/en/equipe-cascadeurs-pro/jerome-gaspard": {
+      "bytes": 1135184,
+      "flight": 106526
+    },
+    "/fr/equipe-cascadeurs-pro/jerome-gaspard": {
+      "bytes": 1121499,
+      "flight": 89807
+    },
+    "/en/equipe-cascadeurs-pro/amedeo-cazzella": {
+      "bytes": 728043,
+      "flight": 106603
+    },
+    "/fr/equipe-cascadeurs-pro/amedeo-cazzella": {
+      "bytes": 714016,
+      "flight": 89845
+    },
+    "/en/equipe-cascadeurs-pro/michel-bouis": {
+      "bytes": 648401,
+      "flight": 106558
+    },
+    "/fr/equipe-cascadeurs-pro/michel-bouis": {
+      "bytes": 634434,
+      "flight": 89815
+    },
+    "/en/equipe-cascadeurs-pro/vincent-bouillon": {
+      "bytes": 603630,
+      "flight": 106644
+    },
+    "/fr/equipe-cascadeurs-pro/vincent-bouillon": {
+      "bytes": 589363,
+      "flight": 89871
+    },
+    "/en/equipe-cascadeurs-pro/kefi-abrikh": {
+      "bytes": 588651,
+      "flight": 106580
+    },
+    "/fr/equipe-cascadeurs-pro/kefi-abrikh": {
+      "bytes": 574193,
+      "flight": 89801
+    },
+    "/en/equipe-cascadeurs-pro/malik-diouf": {
+      "bytes": 572667,
+      "flight": 106463
+    },
+    "/en/equipe-cascadeurs-pro/anthony-pho": {
+      "bytes": 564387,
+      "flight": 106541
+    },
+    "/fr/equipe-cascadeurs-pro/malik-diouf": {
+      "bytes": 558679,
+      "flight": 89780
+    },
+    "/fr/equipe-cascadeurs-pro/anthony-pho": {
+      "bytes": 549981,
+      "flight": 89768
+    },
+    "/en/equipe-cascadeurs-pro": {
+      "bytes": 540706,
+      "flight": 105012
+    },
+    "/fr/equipe-cascadeurs-pro": {
+      "bytes": 526548,
+      "flight": 88188
+    },
+    "/en/equipe-cascadeurs-pro/franck-blanc": {
+      "bytes": 522984,
+      "flight": 106594
+    },
+    "/en/equipe-cascadeurs-pro/frederic-dessains": {
+      "bytes": 508996,
+      "flight": 106649
+    },
+    "/fr/equipe-cascadeurs-pro/franck-blanc": {
+      "bytes": 508549,
+      "flight": 89788
+    },
+    "/en/equipe-cascadeurs-pro/maurice-chan": {
+      "bytes": 498935,
+      "flight": 106585
+    },
+    "/fr/equipe-cascadeurs-pro/frederic-dessains": {
+      "bytes": 494591,
+      "flight": 89876
+    },
+    "/fr/equipe-cascadeurs-pro/maurice-chan": {
+      "bytes": 484670,
+      "flight": 89803
+    },
+    "/en/cuc-team-cascadeur": {
+      "bytes": 479636,
+      "flight": 104998
+    },
+    "/fr/cuc-team-cascadeur": {
+      "bytes": 465337,
+      "flight": 88271
+    },
+    "/en/equipe-cascadeurs-pro/teddy-ponceau": {
+      "bytes": 418434,
+      "flight": 106575
+    },
+    "/en/equipe-cascadeurs-pro/alex-vu": {
+      "bytes": 413392,
+      "flight": 106506
+    },
+    "/fr/equipe-cascadeurs-pro/teddy-ponceau": {
+      "bytes": 403979,
+      "flight": 89802
+    },
+    "/fr/equipe-cascadeurs-pro/alex-vu": {
+      "bytes": 398857,
+      "flight": 89733
+    },
+    "/en/equipe-cascadeurs-pro/sarah-belala": {
+      "bytes": 393522,
+      "flight": 106579
+    },
+    "/en/equipe-cascadeurs-pro/pierre-toubas": {
+      "bytes": 382689,
+      "flight": 106599
+    },
+    "/en/equipe-cascadeurs-pro/bastien-trouve": {
+      "bytes": 379341,
+      "flight": 106472
+    },
+    "/fr/equipe-cascadeurs-pro/sarah-belala": {
+      "bytes": 379012,
+      "flight": 89806
+    },
+    "/fr/equipe-cascadeurs-pro/pierre-toubas": {
+      "bytes": 368024,
+      "flight": 89826
+    },
+    "/fr/equipe-cascadeurs-pro/bastien-trouve": {
+      "bytes": 365154,
+      "flight": 89816
+    },
+    "/en/equipe-cascadeurs-pro/lucas-dollfus": {
+      "bytes": 358190,
+      "flight": 106569
+    },
+    "/en/equipe-cascadeurs-pro/jonathan-bernard": {
+      "bytes": 344401,
+      "flight": 106620
+    },
+    "/fr/equipe-cascadeurs-pro/lucas-dollfus": {
+      "bytes": 343713,
+      "flight": 89826
+    },
+    "/fr/equipe-cascadeurs-pro/jonathan-bernard": {
+      "bytes": 329808,
+      "flight": 89847
+    },
+    "/en/equipe-cascadeurs-pro/nicolas-retabi": {
+      "bytes": 326270,
+      "flight": 106625
+    },
+    "/fr/equipe-cascadeurs-pro/nicolas-retabi": {
+      "bytes": 311656,
+      "flight": 89852
+    },
+    "/en/equipe-cascadeurs-pro/alan-cueff": {
+      "bytes": 301534,
+      "flight": 106551
+    },
+    "/fr/equipe-cascadeurs-pro/alan-cueff": {
+      "bytes": 286884,
+      "flight": 89778
+    },
+    "/en/visite-guidee": {
+      "bytes": 283665,
+      "flight": 105123
+    },
+    "/en": {
+      "bytes": 281015,
+      "flight": 108481
+    },
+    "/fr/visite-guidee": {
+      "bytes": 269171,
+      "flight": 88297
+    },
+    "/fr": {
+      "bytes": 266559,
+      "flight": 91723
+    },
+    "/en/videos-cascadeur": {
+      "bytes": 239230,
+      "flight": 106637
+    },
+    "/en/partenaires": {
+      "bytes": 227327,
+      "flight": 104658
+    },
+    "/fr/videos-cascadeur": {
+      "bytes": 224653,
+      "flight": 89977
+    },
+    "/en/formation-de-cascadeur": {
+      "bytes": 221708,
+      "flight": 107258
+    },
+    "/en/equipe-cascadeurs-pro/niels-dalery": {
+      "bytes": 215874,
+      "flight": 106567
+    },
+    "/en/spectacles-cascadeurs-yamakasi": {
+      "bytes": 213398,
+      "flight": 104918
+    },
+    "/en/contact-cuc": {
+      "bytes": 212841,
+      "flight": 105537
+    },
+    "/fr/partenaires": {
+      "bytes": 212822,
+      "flight": 87979
+    },
+    "/en/stages-cascades-parkour-2": {
+      "bytes": 211823,
+      "flight": 106515
+    },
+    "/en/team-building-cascades": {
+      "bytes": 209383,
+      "flight": 107318
+    },
+    "/fr/formation-de-cascadeur": {
+      "bytes": 207665,
+      "flight": 90617
+    },
+    "/en/stunt-workshop-cuc": {
+      "bytes": 207615,
+      "flight": 105093
+    },
+    "/en/cuc-events-agence": {
+      "bytes": 202574,
+      "flight": 105014
+    },
+    "/fr/equipe-cascadeurs-pro/niels-dalery": {
+      "bytes": 201203,
+      "flight": 89824
+    },
+    "/fr/spectacles-cascadeurs-yamakasi": {
+      "bytes": 198841,
+      "flight": 88280
+    },
+    "/fr/contact-cuc": {
+      "bytes": 198302,
+      "flight": 88784
+    },
+    "/fr/stages-cascades-parkour-2": {
+      "bytes": 197481,
+      "flight": 89893
+    },
+    "/fr/team-building-cascades": {
+      "bytes": 195217,
+      "flight": 90801
+    },
+    "/fr/stunt-workshop-cuc": {
+      "bytes": 192364,
+      "flight": 88159
+    },
+    "/en/animations-airbag-parkour": {
+      "bytes": 190075,
+      "flight": 104953
+    },
+    "/fr/cuc-events-agence": {
+      "bytes": 188089,
+      "flight": 88258
+    },
+    "/en/visite-virtuelle": {
+      "bytes": 186227,
+      "flight": 104554
+    },
+    "/fr/animations-airbag-parkour": {
+      "bytes": 175530,
+      "flight": 88294
+    },
+    "/fr/visite-virtuelle": {
+      "bytes": 171722,
+      "flight": 87913
+    },
+    "/en/preview": {
+      "bytes": 0,
+      "flight": 0
+    },
+    "/fr/preview": {
+      "bytes": 0,
+      "flight": 0
+    }
+  }
+}

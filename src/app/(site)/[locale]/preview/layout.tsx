@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { checkIsAdmin } from '@/app/(admin)/admin/actions/auth';
+import { ScopedIntlProvider } from '@/components/i18n/ScopedIntlProvider';
 
 /**
  * ==============================================================================
@@ -29,9 +31,26 @@ export const metadata: Metadata = {
  */
 export const instant = false;
 
-export default async function PreviewLayout({ children }: { children: React.ReactNode }) {
+export default async function PreviewLayout({
+    children,
+    params,
+}: {
+    children: React.ReactNode;
+    params: Promise<{ locale: string }>;
+}) {
     const isAdmin = await checkIsAdmin();
     if (!isAdmin) notFound();
 
-    return <>{children}</>;
+    const { locale } = await params;
+
+    // WS-F / F1 : le layout de locale ne sérialise plus que `SHELL_NAMESPACES`.
+    // L'aperçu rend les MÊMES écrans que la vitrine (tous namespaces) : il
+    // fournit donc le catalogue COMPLET, sans changer d'un octet son rendu.
+    const messages = await getMessages();
+
+    return (
+        <ScopedIntlProvider locale={locale} messages={messages}>
+            {children}
+        </ScopedIntlProvider>
+    );
 }

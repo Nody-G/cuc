@@ -1,0 +1,38 @@
+{
+    "version": 1,
+    "unit": "kb",
+    "note": "Contrat machine du budget HTML par route (WS-F / F0). Mesuré par scripts/audit_html_weight.mjs sur les HTML prérendus. Cibles d'ingénierie, NON bloquantes par défaut (rapport) : `--strict` rend le dépassement opposable. Les clés de `routes` sont les slugs sans locale ('/' = accueil).",
+    "budgetMode": "aspirational-report-only",
+    "budgetModeNote": "Cibles WS-F : ramener les pages sous 300 Ko (palier B) / 250 Ko (palier A). Au 2026-10-02, la plus lourde (/cuc-team-cascadeur) reste portée par le DOM SSR de ses grilles (hors périmètre F1). Revue : resserrer après F2.",
+    "reviewBy": "2026-12-31",
+    "absoluteCapKb": 500,
+    "nearCapRatio": 0.1,
+    "tiers": {
+        "A": {
+            "label": "contenu statique",
+            "targetKb": 250,
+            "hardCapKb": 350
+        },
+        "B": {
+            "label": "interactif / media",
+            "targetKb": 300,
+            "hardCapKb": 400
+        }
+    },
+    "routes": {
+        "/": "A",
+        "/contact-cuc": "A",
+        "/formation-de-cascadeur": "A",
+        "/spectacles-cascadeurs-yamakasi": "A",
+        "/stages-cascades-parkour-2": "A",
+        "/animations-airbag-parkour": "A",
+        "/team-building-cascades": "A",
+        "/stunt-workshop-cuc": "A",
+        "/partenaires": "A",
+        "/cuc-events-agence": "A",
+        "/videos-cascadeur": "B",
+        "/visite-virtuelle": "B",
+        "/equipe-cascadeurs-pro": "B",
+        "/cuc-team-cascadeur": "B"
+    }
+}

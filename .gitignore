@@ -57,5 +57,8 @@ scripts/coach_credits_review_imdb.json
 # rapatriement des médias WordPress (zone de travail locale, non versionnée)
 /.staging/
 
+# diagnostic local lisant des secrets (.env.local), jamais versionné
+scripts/audit_videos_live.mjs
+
 # artefacts shell accidentels (redirection malformée : `console.log('`)
 console.log('

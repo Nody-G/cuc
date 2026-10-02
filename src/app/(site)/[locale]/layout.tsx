@@ -13,6 +13,7 @@ import {
     getLocalizedNavigation,
     getLocalizedSocialLinks,
 } from '@/lib/i18n/server';
+import { pickShellMessages } from '@/lib/i18n/scoped-payload';
 import type { Locale } from '@/lib/i18n/entities';
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, DEFAULT_OG_IMAGE } from '@/lib/seo';
 
@@ -97,33 +98,25 @@ export default async function LocaleLayout({
     // Active le rendu statique par locale (recommandé par next-intl).
     setRequestLocale(locale);
 
-    const messages = await getMessages();
+    // WS-F / F1 — la coquille ne sérialise QUE ses propres namespaces. Chaque
+    // route ajoute les siens via `SitePageScope` (`public-namespaces.ts`). Fin
+    // de l'inlining des 24 namespaces sur chaque page publique.
+    const messages = pickShellMessages(await getMessages());
 
     // La localisation de la COQUILLE (navigation + pied de page) est résolue ICI,
     // pour TOUTES les pages : sans cela, seules quelques pages fournissaient le
     // provider et les libellés FR (menu, footer) restaient affichés en mode EN —
     // y compris définitivement sur les vues purement clientes.
-    const [
-        navigation,
-        footer,
-        social,
-        teamOverlays,
-        campusPoiOverlays,
-        facilityOverlays,
-        disciplineOverlays,
-    ] = await Promise.all([
+    const [navigation, footer, social, teamOverlays] = await Promise.all([
         getLocalizedNavigation('main', locale as Locale),
         getLocalizedFooterChrome('main', locale as Locale),
         getLocalizedSocialLinks(locale as Locale),
-        // Données éditoriales EN attendues dès le premier rendu (sinon le HTML
-        // servi reste en français jusqu'à l'hydratation — défaut mesuré par le
-        // crawler i18n) : coachs de l'annuaire, points du campus, installations
-        // du domaine (fiches de la visite guidée) et référentiel des 10
-        // disciplines (page Formation).
+        // WS-F / F1 : `team` reste GLOBAL (noms et rôles de coachs affichés
+        // partout). Les overlays `campus_poi` / `campus_facility` / `discipline`
+        // ne sont plus chargés ici : chaque route les déclare via
+        // `SitePageScope` → `ROUTE_OVERLAYS`. Un overlay absent retombe sur la
+        // lecture navigateur paresseuse (`useEntityOverlays`), jamais sur un bug.
         getEntityOverlays('team', locale as Locale),
-        getEntityOverlays('campus_poi', locale as Locale),
-        getEntityOverlays('campus_facility', locale as Locale),
-        getEntityOverlays('discipline', locale as Locale),
     ]);
 
     // Le provider next-intl est porté par RootShell : la page ET les composants
@@ -138,9 +131,6 @@ export default async function LocaleLayout({
                     social,
                     overlays: {
                         team: teamOverlays,
-                        campus_poi: campusPoiOverlays,
-                        campus_facility: facilityOverlays,
-                        discipline: disciplineOverlays,
                     },
                 }}
             >

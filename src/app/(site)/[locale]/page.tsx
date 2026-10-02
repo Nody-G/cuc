@@ -1,13 +1,15 @@
 import { hasLocale } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import {
   getLocalizedFooterChrome,
   getLocalizedNavigation,
 } from '@/lib/i18n/server';
+import { pickRouteMessages } from '@/lib/i18n/scoped-payload';
 import { getPublicPageContent } from '@/lib/i18n/public-page';
 import { SiteDataProvider } from '@/components/i18n/SiteDataProvider';
+import { ScopedIntlProvider } from '@/components/i18n/ScopedIntlProvider';
 import type { Locale } from '@/lib/i18n/entities';
 import { HomeView } from './HomeView';
 
@@ -33,16 +35,21 @@ export default async function HomePage({
 
   setRequestLocale(locale);
 
-  const [page, navigation, footer] = await Promise.all([
+  const [page, navigation, footer, allMessages] = await Promise.all([
     // Porte de diffusion : une page définitivement non publiée → 404.
     getPublicPageContent('/', locale as Locale),
     getLocalizedNavigation('main', locale as Locale),
     getLocalizedFooterChrome('main', locale as Locale),
+    // WS-F / F1 : la coquille (layout de locale) porte déjà `SHELL_NAMESPACES`;
+    // l'accueil n'ajoute que les siens (`ROUTE_NAMESPACES['/']`).
+    getMessages(),
   ]);
 
   return (
     <SiteDataProvider value={{ locale, page, navigation, footer }}>
-      <HomeView />
+      <ScopedIntlProvider locale={locale} messages={pickRouteMessages(allMessages, '/')}>
+        <HomeView />
+      </ScopedIntlProvider>
     </SiteDataProvider>
   );
 }

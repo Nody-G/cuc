@@ -450,3 +450,336 @@ Cette ligne unique respecte la limite `< 150 lignes` de `AGENTS.md` (aucun déta
 5. **WS‑P1.2** (framer-motion) → **WS‑P1.3** (HTML filmographie).
 6. **WS‑P2.1 → WS‑P2.2 → WS‑P2.3** (hygiène).
 7. Régénérer la baseline **après revue**, puis resserrer les plafonds de [`plans/route-weight-budget.json`](plans/route-weight-budget.json:1).
+
+---
+
+# WS‑F — Alléger le HTML de `/cuc-team-cascadeur` (≈ 498 Ko)
+
+**Statut :** conception à approuver. **Aucune ligne de code applicatif n'est modifiée par cette section.**
+**Périmètre :** le **poids du HTML** (octets de réponse, flight RSC inclus) de la route publique
+`/[locale]/cuc-team-cascadeur`, plus le correctif transverse du payload de vol partagé qu'elle révèle.
+**Hors périmètre :** le budget JS gzip (WS‑P0.1/P0.2/P1.1/P1.2), déjà traité.
+
+> **Avertissement de méthode.** Le chiffre ≈ 498 Ko est une **mesure terrain du 2026‑09‑29**
+> ([`reports/cuc-metriques-2026.metrics.json`](reports/cuc-metriques-2026.metrics.json:384) : `bytes: 498430`).
+> L'audit contractuel existant, [`audit_route_weight.mjs`](scripts/audit_route_weight.mjs:1), mesure le **JS gzip**
+> et **ne mesure pas les octets HTML** : il n'existe donc aujourd'hui **aucun mètre du sujet traité ici**.
+> La première tâche de WS‑F est d'ajouter ce mètre (F0) avant toute optimisation.
+
+---
+
+## F.1 Réalité mesurée — d'où viennent réellement les 498 Ko
+
+### F.1.1 Le chiffre, et ses voisins
+
+Mesure terrain (même campagne, [`reports/cuc-metriques-2026.metrics.json`](reports/cuc-metriques-2026.metrics.json:358)) :
+
+| Route | Octets HTML | Écart à la médiane publique |
+| :--- | ---: | ---: |
+| `/cuc-team-cascadeur` | **498 430** | + 265 Ko vs `/` |
+| `/equipe-cascadeurs-pro` | 333 332 | + 100 Ko vs `/` |
+| `/visite-guidee` | 278 344 | — |
+| `/` | 246 807 | — |
+| `/videos-cascadeur` | 217 715 | — |
+| `/visite-virtuelle` | 160 607 (plancher public) | — |
+
+Le plancher public (`/visite-virtuelle` ≈ 161 Ko) est le **coût incompressible du payload de vol
+partagé** ; `/cuc-team-cascadeur` y ajoute ≈ 337 Ko de contenu qui lui est propre.
+
+### F.1.2 Le payload de vol partagé (présent sur TOUTES les routes)
+
+Le layout racine passe au client, à chaque page, l'intégralité des messages i18n et quatre jeux
+d'overlays ; tout cela est **sérialisé dans le flight RSC puis inliné dans le HTML** sous forme de
+`self.__next_f.push(...)` :
+
+- [`layout.tsx`](src/app/(site)/[locale]/layout.tsx:100) — `const messages = await getMessages();`
+  puis [`layout.tsx`](src/app/(site)/[locale]/layout.tsx:132) `messages={messages}` → `PreviewIntlProvider`.
+- [`layout.tsx`](src/app/(site)/[locale]/layout.tsx:123) — `getEntityOverlays('team', …)`,
+  [`layout.tsx`](src/app/(site)/[locale]/layout.tsx:124) `campus_poi`, [`layout.tsx`](src/app/(site)/[locale]/layout.tsx:125)
+  `campus_facility`, [`layout.tsx`](src/app/(site)/[locale]/layout.tsx:126) `discipline` → `SiteDataProvider`.
+
+Preuve dans le flight du build, [`cuc-team-cascadeur.rsc`](.next/server/app/fr/cuc-team-cascadeur.rsc:28) :
+la ligne 28 contient `"messages":{…}` avec **tous** les namespaces (`common`, `films`, `campus`,
+`campus3dViewer`, `formation`, …) et la ligne 32 l'`SiteDataProvider` complet (navigation, footer,
+social, overlays). Le HTML prérendu contient bien une clé d'un namespace **non utilisé par la page** —
+`ctaApplyPro` (namespace `formation`) — ce qui **prouve** que le bundle de messages entier est inliné
+sur une page qui n'en a pas besoin.
+Les tags de cache de la route confirment le chargement des quatre entités
+([`cuc-team-cascadeur.meta`](.next/server/app/fr/cuc-team-cascadeur.meta:6) : `entity:team,
+entity:campus_poi, entity:campus_facility, entity:discipline`).
+
+### F.1.3 Le contenu propre à la page TOURNAGE (DOM SSR)
+
+[`page.tsx`](src/app/(site)/[locale]/cuc-team-cascadeur/page.tsx:16) est un composant **client** ; il
+monte [`HallOfFame`](src/components/sections/HallOfFame.tsx:22), qui **rend côté serveur** deux
+grilles lourdes, puis [`TeamProductionGalleries`](src/components/sections/team/TeamProductionGalleries.tsx:15) :
+
+- [`CucFilmsShowcase`](src/components/sections/films/CucFilmsShowcase.tsx:47) — grille d'affiches
+  (sous-ensemble coordonné par Lucas), chaque [`FilmCard`](src/components/sections/films/FilmCard.tsx:68)
+  émettant un `<img srcset>` multi-variantes ;
+- [`CelebrityDoublesGallery`](src/components/sections/hall-of-fame/CelebrityDoublesGallery.tsx:35) —
+  **les 43 comédiens** ([`celebrities.ts`](src/data/celebrities.ts:8)) en
+  [`CelebrityCard`](src/components/sections/hall-of-fame/CelebrityCard.tsx:22), chacun avec bio, photo
+  `next/image` et liens ;
+- [`TeamProductionGalleries`](src/components/sections/team/TeamProductionGalleries.tsx:15) — 3 galeries
+  (~20 `next/image`), données [`teamGalleries.data.ts`](src/components/sections/team/teamGalleries.data.ts:8).
+
+C'est la **corrélation de tailles** qui identifie le coupable : la seule page qui monte cette galerie de
+43 comédiens est aussi la plus lourde (498 Ko contre 333 Ko pour `/equipe-cascadeurs-pro`, qui monte 20
+cartes coachs).
+
+### F.1.4 Ce qui n'est PAS inliné — correction d'une hypothèse de WS‑P1.3
+
+WS‑P1.3 affirmait : « Le HTML de 498 Ko provient de la filmographie inlinée ». **C'est inexact**, et
+c'est vérifiable sur le HTML prérendu :
+
+- aucun champ du catalogue n'est sérialisé — pas de `cuc_team_roles`, `cuc_team_involved`,
+  `notableCredits`, `stuntRoles`, `imdbUrl` dans
+  [`cuc-team-cascadeur.html`](.next/server/app/fr/cuc-team-cascadeur.html:1) ;
+- aucune **filmographie complète** n'est inlinée : les titres non coordonnés (`Kursk`, `Taxi 2`,
+  `Douce France`, `Phnom Penh Ground Zero`) sont **absents** ; seuls les titres du **sous-ensemble
+  coordonné** (`Wankil`, `Kavinsky`, `Sorority`) apparaissent, en texte rendu.
+
+Autrement dit : la page ne rend que la poignée de films coordonnés par le référent. **Retirer la
+filmographie ne retirerait donc pas 200 à 300 Ko** ; l'estimation de gain de WS‑P1.3
+([`plan-performance-first-load-2026.md`](plans/plan-performance-first-load-2026.md:240)) est à corriger (voir F.8).
+
+### F.1.5 Chaîne des flux
+
+```mermaid
+graph TD
+  L[layout.tsx locale] -->|messages + 4 overlays| FLIGHT[Flight RSC inliné dans le HTML]
+  L --> RS[RootShell / PreviewIntlProvider]
+  L --> SDP[SiteDataProvider]
+  SDP --> PAGE[cuc-team-cascadeur page client]
+  PAGE --> HOF[HallOfFame]
+  HOF --> CFS[CucFilmsShowcase affiches coordonnées]
+  HOF --> CDG[CelebrityDoublesGallery 43 cartes]
+  PAGE --> TPG[TeamProductionGalleries 20 images]
+  CFS --> DOM[DOM SSR des cartes]
+  CDG --> DOM
+  TPG --> DOM
+  FLIGHT --> HTML[HTML ≈ 498 Ko]
+  DOM --> HTML
+```
+
+---
+
+## F.2 Verdict sur la proposition utilisateur
+
+> « Charger uniquement les films des cartes coach (les 3 affiches), et la filmographie complète seulement
+> sur la fiche du coach. »
+
+**Cette proposition est juste — et déjà en place.** Mais elle ne concerne pas la page cible.
+
+1. **Elle décrit `/equipe-cascadeurs-pro`, pas `/cuc-team-cascadeur`.** « Les 3 affiches des cartes coach »
+   vivent dans [`CoachCard.tsx`](src/app/(site)/[locale]/equipe-cascadeurs-pro/sections/CoachCard.tsx:28),
+   qui fait déjà `selectCoachFilms(...).slice(0, 3)`, et la liste de crédits est déjà bornée à 4
+   ([`CoachCreditsList.tsx`](src/app/(site)/[locale]/equipe-cascadeurs-pro/sections/CoachCreditsList.tsx:28)).
+   La filmographie complète est déjà rendue sur la fiche, serveur, par
+   [`CoachFilmography`](src/app/(site)/[locale]/equipe-cascadeurs-pro/[slug]/coach-detail/CoachFilmography.tsx:170),
+   sous une route Server Component ([`[slug]/page.tsx`](src/app/(site)/[locale]/equipe-cascadeurs-pro/[slug]/page.tsx:64)).
+   → **Aucun changement n'est requis** pour cette partie.
+2. **`/cuc-team-cascadeur` ne contient aucune carte coach** : elle contient une galerie de 43 comédiens et
+   une grille d'affiches coordonnées. Le levier « 3 affiches » n'y a pas d'objet.
+3. **Deux meilleurs leviers, sans toucher à l'UX ni au SEO**, font le vrai poids :
+   (a) **F1 — cesser d'inliner le payload de vol partagé** (messages i18n complets + 4 overlays) sur chaque
+   page publique ; (b) **F2 — alléger le DOM** des grilles rendues (variantes d'images + pagination douce).
+   L'UX reste identique : on **retire des octets**, pas du contenu.
+
+**Recommandation :** ne pas modifier l'UX. Adopter F1 puis F2, et **abandonner la variante « off-load de la
+filmographie »** de WS‑P1.3 (elle déplacerait du contenu indexable pour ~0 gain réel).
+
+---
+
+## F.3 Impact SEO — le contenu indexable est déjà au bon endroit
+
+- **Un film = une fiche indexable par coach.** La filmographie complète est bien dans le HTML de la fiche
+  coach : le HTML prérendu [`lucas-dollfus.html`](.next/server/app/fr/equipe-cascadeurs-pro/lucas-dollfus.html:1)
+  contient `Kursk`, `Forty Love`, `Le Redoutable` (crédits complets de Lucas). Le titre du coach et son
+  rôle sont dans les métadonnées localisées ([`[slug]/page.tsx`](src/app/(site)/[locale]/equipe-cascadeurs-pro/[slug]/page.tsx:29)).
+- **La liste ne montre que 3 affiches + 4 crédits** : c'est un **teaser**, pas le contenu de référence ;
+  le contenu de référence reste sur l'URL du coach. C'est le bon modèle SEO (une page par entité).
+- **La liste TOURNAGE** conserve les titres coordonnés + réalisateur en texte SSR (`FilmCard`,
+  [`FilmCard.tsx`](src/components/sections/films/FilmCard.tsx:146)) et les **43 noms de comédiens** —
+  ces textes sont indexables et **doivent le rester** : F2 réduit la verbosité du balisage, **pas** les
+  noms, titres ou `alt`.
+- **Risque à ne pas prendre :** remplacer les `next/image` par des visuels purement client (ex. fond CSS
+  posé après hydratation) et **supprimer les noms du HTML**. Toute variante F2 doit conserver chaque
+  `<h4>` (comédien) et chaque `<h3>`/`title` (film) dans le SSR indexable.
+- **JSON-LD** (Organization/WebSite) reste émis par la coquille ([`cuc-team-cascadeur.rsc`](.next/server/app/fr/cuc-team-cascadeur.rsc:25)) : inchangé.
+
+---
+
+## F.4 Blueprint d'implémentation (4 couches, diffs chirurgicaux)
+
+Légende : **[UI]** présentation · **[Hooks]** orchestration/état et serveur de composition · **[Domain]**
+fonctions/services purs · **[Types]** contrats.
+
+### F0 — Mètre du HTML (prérequis, aucune optimisation avant)
+
+| Fichier | Couche | Rôle |
+| :--- | :--- | :--- |
+| [`scripts/audit_html_weight.mjs`](scripts/audit_html_weight.mjs:1) | **[Domain]** | Lit `.next/server/app/**/*.html`, calcule les **octets par route publique** (taille fichier + part `self.__next_f.push`), écrit `plans/revue-poids-html.md`. Même contrat que l'audit JS. |
+| [`plans/route-html-budget.json`](plans/route-html-budget.json:1) | **[Types]** | Plafonds HTML par route (proposition : ≤ 250 Ko cible, 350 Ko dur). Contrat machine. |
+| [`package.json`](package.json:34) | config | Ajouter `audit:html-weight` (même motif que `audit:route-weight`). |
+
+**Vérification F0 :** `npm run build && npm run audit:html-weight` reproduit ≈ 498 Ko (± le contenu courant)
+sur `/cuc-team-cascadeur` et ≈ 161 Ko sur `/visite-virtuelle`. Si l'écart à ces chiffres est important, **la
+décomposition ci‑dessous est ré‑établie avant de coder** (voir F.7, question 1).
+
+### F1 — Sortir le payload de vol partagé du HTML de chaque page (levier principal, toutes routes)
+
+**Fichiers à créer**
+
+| Fichier | Couche | Rôle |
+| :--- | :--- | :--- |
+| [`src/lib/i18n/public-namespaces.ts`](src/lib/i18n/public-namespaces.ts:1) | **[Types]** | `SHELL_NAMESPACES` (commun à toute la coquille) + carte `ROUTE_NAMESPACES` (slug → namespaces réellement utilisés par la page). Source unique du contrat. |
+| [`src/lib/i18n/scoped-payload.ts`](src/lib/i18n/scoped-payload.ts:1) | **[Domain]** | `pickMessages(all, namespaces)` et `pickOverlays(all, keys)` — **fonctions pures**, testables, sans React ni réseau. |
+| [`src/components/i18n/ScopedSiteData.tsx`](src/components/i18n/ScopedSiteData.tsx:1) | **[Hooks — serveur]** | Provider **de fusion** : reçoit la coquille du layout et n'ajoute que les overlays de la route. Même patron que [`SitePageScope.tsx`](src/components/i18n/SitePageScope.tsx:27), qui n'ajoute que `page`. |
+
+**Fichiers à modifier**
+
+| Fichier | Couche | Changement précis |
+| :--- | :--- | :--- |
+| [`src/app/(site)/[locale]/layout.tsx`](src/app/(site)/[locale]/layout.tsx:100) | **[Hooks]** | Ne plus passer `getMessages()` entier : ne sérialiser que `SHELL_NAMESPACES` (`common`, `footer`, `lightbox`, `applicationModal`). |
+| [`src/app/(site)/[locale]/layout.tsx`](src/app/(site)/[locale]/layout.tsx:123) | **[Hooks]** | Retirer `campus_poi` / `campus_facility` / `discipline` du provider global (garder `team`, utilisé par les noms de coachs partout). Les three overlays migrent vers les routes qui les rendent (**[`visite-guidee`](src/app/(site)/[locale]/visite-guidee/page.tsx:1)**, **[`visite-virtuelle`](src/app/(site)/[locale]/visite-virtuelle/page.tsx:1)**, **`formation-de-cascadeur`**) via `ScopedSiteData`. |
+| [`src/components/i18n/SiteDataProvider.tsx`](src/components/i18n/SiteDataProvider.tsx:31) | **[Types]** | `overlays` devient partiel/optionnel (les entités non chargées par la route sont absentes, pas `{}`). |
+| `…/[locale]/<route>/layout.tsx` (visite-guidee, visite-virtuelle, formation) | **[Hooks]** | Fournissent leurs overlays/namespaces propres. |
+
+**Ce que ça change.** Le HTML d'une page cesse d'embarquer les messages et overlays des 13 autres routes.
+Le contenu **rendu** (textes FR/EN) continue d'être résolu **côté serveur** : c'est la **sérialisation** qui
+diminue, pas la couverture i18n du premier rendu.
+
+**Conformité SRP.** Le choix « quel namespace/overlay pour quelle route » est un **[Types]** ; la sélection
+est un **[Domain]** pur ; la composition est **[Hooks]** ; les vues restent intactes.
+
+**Gain estimé.** **−120 Ko à −250 Ko de HTML sur toutes les routes publiques** (dont `/cuc-team-cascadeur`).
+Le plancher public (`/visite-virtuelle` ≈ 161 Ko) est le repère à re‑mesurer.
+
+**Contrainte non négociable.** Ce découpage touche le contrat « pas de flash FR→EN »
+([`cockpit_bilingual_editing.md`](.agents/rules/cockpit_bilingual_editing.md:1)) : toute route qui rend du
+contenu traduit doit garder ses namespaces/overlays **dans son scope serveur**.
+
+### F2 — Alléger le DOM rendu sur `/cuc-team-cascadeur`
+
+**Fichiers à modifier**
+
+| Fichier | Couche | Changement précis |
+| :--- | :--- | :--- |
+| [`src/components/sections/hall-of-fame/CelebrityCard.tsx`](src/components/sections/hall-of-fame/CelebrityCard.tsx:44) | **[UI]** | Les 43 portraits utilisent `next/image` (`fill` + `sizes`) → `srcset` long par carte, alors que la vignette ne fait ~150 px. Passer les cartes **hors LCP** à une image unique (`<Image unoptimized>` ou `quality`/`sizes` réduits) : contenu et `alt` inchangés, octets `srcset` supprimés. |
+| [`src/components/sections/films/FilmCard.tsx`](src/components/sections/films/FilmCard.tsx:100) | **[UI]** | Même traitement pour les affiches (aucune n'est LCP) ; conserver `title`/`alt`/année pour le SEO. |
+| [`next.config.ts`](next.config.ts:16) | config | Réduire `images.deviceSizes`/`imageSizes` à la plage réellement servie (ex. 4 largeurs). Effet **global** : chaque `srcset` du site raccourcit. |
+| [`src/components/sections/team/TeamProductionGalleries.tsx`](src/components/sections/team/TeamProductionGalleries.tsx:15) | **[UI]** | Galeries (contenu non indexable) : `next/dynamic` avec squelette de hauteur réservée — sort le DOM de ~20 images du HTML initial sans perte SEO. |
+
+**Alternative (à n'ouvrir que si F1 + F2 insuffisent) — pagination douce de la galerie comédiens :** rendre
+les ~12 premières cartes côté serveur, puis charger le reste à la demande. **SEO :** chaque nom au-delà du
+premier écran sortirait du HTML → à ne faire **que** si un `ItemList` JSON-LD ou une page d’index comédiens
+reprend ces noms. **Non recommandé par défaut.**
+
+**Conformité SRP / plafonds.** `CelebrityCard` = 79 lignes, `FilmCard` = 191 lignes : toute extraction
+(fragment `<img>`, wrapper de galerie) reste locale et sous 300 lignes ([`AGENTS.md`](AGENTS.md:1) §2).
+
+### F3 — Fiche coach : filmographie complète **serveur**, pas de fetch à la demande
+
+- **Décision :** la fiche coach reste **Server Component** ([`[slug]/page.tsx`](src/app/(site)/[locale]/equipe-cascadeurs-pro/[slug]/page.tsx:64)) et la filmographie complète reste **rendue en SSR**.
+- **`'use cache'` n'est pas requis ici :** les données viennent de constantes du dépôt
+  ([`team.ts`](src/data/team.ts:8), [`filmography.ts`](src/data/filmography.ts:7)) et les overlays EN sont
+  déjà résolus en cache serveur (`getEntityOverlays`, même mécanisme que
+  [`SitePageScope.tsx`](src/components/i18n/SitePageScope.tsx:11)). Aucune lecture PostgREST par visiteur.
+- **Pas de fetch client à la demande** : la filmographie d'un coach est exactement le contenu à indexer sur
+  son URL (F.3) ; la déporter côté client la retirerait du HTML pour un gain déjà obtenu par F1/F2.
+- **Seule évolution licite :** si la filmographie passait en base (`site_films`), utiliser `'use cache'` +
+  tags plutôt qu'un `useEffect`/`getFilms()` côté client (le motif « état initial statique + Realtime » de
+  [`useCoachDetailData.ts`](src/app/(site)/[locale]/equipe-cascadeurs-pro/[slug]/coach-detail/useCoachDetailData.ts:36)
+  reste inchangé pour le direct).
+
+### F4 — (Variante) « Off-load filmographie » — évaluée, **non recommandée**
+
+Si un propriétaire tenait malgré tout à sortir la grille d'affiches du HTML initial : grille en
+`next/dynamic({ ssr: true })` + liste textuelle SSR (liens internes vers les fiches coach) pour préserver
+l'indexabilité. **Gain ≈ dizaines de Ko au mieux ; complexité et risque SEO disproportionnés** au vu de F.1.4.
+
+---
+
+## F.5 Impact HTML / JS attendu et mesure
+
+| Levier | Octets HTML attendus | Portée |
+| :--- | ---: | :--- |
+| **F1** payload de vol partagé | **−120 à −250 Ko** | **toutes** les routes publiques |
+| **F2a** `srcset` des cartes (43 + ~15 + 20 images) | −30 à −60 Ko | `/cuc-team-cascadeur`, `/equipe-cascadeurs-pro` |
+| **F2b** galeries différées | −20 à −40 Ko | `/cuc-team-cascadeur` |
+| **F2c** diminution `deviceSizes` | −10 à −30 Ko | toutes les pages à images |
+| **JS gzip** | ± 0 (F1 est un changement de **sérialisation**, pas de bundle) | — |
+
+**Cible** : ramener `/cuc-team-cascadeur` sous **300 Ko** de HTML (aujourd'hui 498 Ko) et le plancher public
+sous ~140 Ko.
+
+**Mesure (contractuelle)**
+- **Avant/après build :** `npm run build && npm run audit:html-weight` (F0) → octets par route publique,
+  écrits dans `plans/revue-poids-html.md` ; comparaison directe au tableau F.1.1.
+- **Non-régression JS :** `npm run audit:route-weight` (doit rester stable ou baisser).
+- **Terrain :** `reports/cuc-metriques-2026.metrics.json` (re‑généré par `scripts/audit_live_site.mjs`) et
+  `site_vitals` / `npm run audit:vitals` (TTFB/LCP réels — c'est le ressenti qui a déclenché le chantier).
+
+---
+
+## F.6 Vérification & rollback
+
+**Vérification d'absence de perte de contenu (le vrai risque)**
+1. Marqueurs SEO présents dans le HTML prérendu : les **43 noms** de comédiens, les titres d'affiches
+   coordonnées, `alt`/`title`, et le JSON-LD Organization/WebSite.
+2. Non-régression de la fiche coach : `curl` de `/fr/equipe-cascadeurs-pro/lucas-dollfus` → `Kursk`,
+   `Forty Love`, `Le Redoutable` toujours présents (filmographie complète indexable).
+3. **Bilingue :** `npm run i18n:verify:no-flash` + `npm run i18n:audit:consumption` (le découpage F1 est le
+   SEUL point qui peut réintroduire un flash FR→EN — à contrôler route par route).
+4. QA visuelle mobile/desktop (grilles, images, modales) ; `npm run test`.
+5. F0/F.5 : HTML ≤ cible, aucune route publique au‑dessus de son plafond dur.
+
+**Rollback**
+- F1 : restaurer `messages={await getMessages()}` et les 4 overlays globaux dans
+  [`layout.tsx`](src/app/(site)/[locale]/layout.tsx:100) (un seul fichier ; les modules créés restent inertes).
+- F2a/F2c : revenir aux `next/image` `fill` et aux tailles par défaut, fichier par fichier.
+- F2b : repointer `next/dynamic` vers l'import statique.
+- Aucune migration de données ; aucune règle modifiée.
+
+---
+
+## F.7 Risques & questions ouvertes (propriétaire)
+
+| Risque | Sévérité | Mitigation |
+| :--- | :--- | :--- |
+| Le 498 Ko date du **2026‑09‑29** : la composition a pu bouger depuis | Moyenne | **F0 d'abord** ; re‑mesurer avant de coder. Si le poids a chuté, re‑cadrer WS‑F sur les chiffres du jour. |
+| F1 réintroduit un flash FR→EN sur une route mal scopée | **Élevée** | Carte `ROUTE_NAMESPACES` explicite + `i18n:verify:no-flash` bloquant ; garder `team` global. |
+| Réduire les `srcset` dégrade la netteté sur grand écran | Moyenne | Plage de largeurs choisie sur les breakpoints réellement servis ; QA visuelle. |
+| Retirer des noms de comédiens du HTML nuit au SEO | **Élevée** | F2 garde **tout** le texte en SSR ; la variante « pagination » n'est ouverte qu'avec un JSON-LD `ItemList` compensatoire. |
+| Collision avec WS‑P1.1 (même [`layout.tsx`](src/app/(site)/[locale]/layout.tsx:1)) | Élevée | **Séquencer** : WS‑F/F1 après WS‑P1.1 (voir frontières §3). |
+
+**Questions ouvertes**
+1. **Le 498 Ko est‑il toujours d'actualité ?** Fournir une re‑mesure terrain avant d'engager F1.
+2. **Quelle cible HTML** accepte le propriétaire (proposition : ≤ 300 Ko pour `/cuc-team-cascadeur`) ?
+3. **F1 touche 14 routes** : accepte‑t‑on le principe « chaque route ne porte que ses messages » (prix :
+   une carte de correspondance à maintenir) ?
+4. **Images :** accepte‑t‑on de réduire les variantes responsives au profit d'octets, ou préfère‑t‑on
+   conserver la qualité maximale et ne jouer que sur F1 ?
+
+---
+
+## F.8 Amendement de WS‑P1.3 (texte proposé)
+
+**Constat :** l'hypothèse « le HTML de 498 Ko provient de la filmographie inlinée » n'est pas vérifiée
+(F.1.4). Le retrait de la filmographie ne rendrait pas les 200–300 Ko annoncés
+([`plan-performance-first-load-2026.md`](plans/plan-performance-first-load-2026.md:240)).
+
+**Remplacement proposé pour le § « Changement (résumé) » de WS‑P1.3 :**
+
+> Le poids de `/cuc-team-cascadeur` ne vient pas d'une filmographie inlinée (vérifié : aucun champ du
+> catalogue n'est sérialisé, seuls les titres coordonnés sont rendus) mais (1) du **payload de vol partagé**
+> — messages i18n complets + quatre jeux d'overlays sérialisés dans chaque page — et (2) du **DOM SSR** des
+> grilles de cette page (43 comédiens, affiches coordonnées, 3 galeries). Le correctif utile est donc
+> **WS‑F/F1 puis F2** ; l'off‑load de la filmographie est abandonné, le contenu indexable restant sur l'URL
+> du coach ([`CoachFilmography`](src/app/(site)/[locale]/equipe-cascadeurs-pro/[slug]/coach-detail/CoachFilmography.tsx:170)).
+
+**Ordre d'exécution recommandé (ajout au §6) :**
+**F0 (mètre HTML) → F1 (payload de vol) → F2 (DOM) → F3 (confirmation fiche coach serveur)** ;
+F4 seulement sur décision explicite du propriétaire.
