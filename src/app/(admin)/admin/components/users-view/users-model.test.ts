@@ -18,13 +18,13 @@ import {
 
 describe('normalizeCockpitEmail', () => {
     it('résout les alias connus vers les vraies adresses', () => {
-        expect(normalizeCockpitEmail('lucas')).toBe('lucas.d@campus-universcascades.com');
-        expect(normalizeCockpitEmail('lucas.d')).toBe('lucas.d@campus-universcascades.com');
+        expect(normalizeCockpitEmail('lucas')).toBe('campusucascades@gmail.com');
+        expect(normalizeCockpitEmail('lucas.d')).toBe('campusucascades@gmail.com');
         expect(normalizeCockpitEmail('niels')).toBe('niels.dalery@gmail.com');
     });
 
     it('nettoie espaces et majuscules', () => {
-        expect(normalizeCockpitEmail('  Lucas.D  ')).toBe('lucas.d@campus-universcascades.com');
+        expect(normalizeCockpitEmail('  Lucas.D  ')).toBe('campusucascades@gmail.com');
         expect(normalizeCockpitEmail('  Niels.Dalery@gmail.com ')).toBe('niels.dalery@gmail.com');
     });
 

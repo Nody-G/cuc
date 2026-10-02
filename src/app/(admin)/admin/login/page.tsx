@@ -157,7 +157,7 @@ export default function AdminLoginPage() {
                   autoCapitalize="none"
                   autoCorrect="off"
                   spellCheck={false}
-                  placeholder="lucas.d@campus-universcascades.com ou niels"
+                  placeholder="CampusUcascades@gmail.com ou niels"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-black/60 border border-white/15 rounded-lg pl-10 pr-3 py-2.5 text-sm text-white focus:outline-none focus:border-[#FFE500] transition-colors font-mono"

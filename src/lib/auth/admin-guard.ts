@@ -61,7 +61,7 @@ export function buildAdminLoginRedirect(
 
 /**
  * Normalise un identifiant de connexion pour les administrateurs du Cockpit.
- * Supporte les alias rapides : `lucas` -> `lucas.d@campus-universcascades.com`, `niels` -> `niels.dalery@gmail.com`.
+ * Supporte les alias rapides : `lucas` -> `campusucascades@gmail.com`, `niels` -> `niels.dalery@gmail.com`.
  */
 export function normalizeCockpitLoginIdentifier(identifier: string): string {
     const clean = identifier.trim().toLowerCase();
@@ -69,9 +69,10 @@ export function normalizeCockpitLoginIdentifier(identifier: string): string {
         clean === 'lucas' ||
         clean === 'lucas.d' ||
         clean === 'lucas.dollfus' ||
-        clean === 'lucas-dollfus'
+        clean === 'lucas-dollfus' ||
+        clean === 'lucas.d@campus-universcascades.com'
     ) {
-        return 'lucas.d@campus-universcascades.com';
+        return 'campusucascades@gmail.com';
     }
     if (clean === 'niels' || clean === 'niels.dalery' || clean === 'niels-dalery') {
         return 'niels.dalery@gmail.com';

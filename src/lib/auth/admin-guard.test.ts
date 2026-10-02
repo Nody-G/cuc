@@ -65,9 +65,10 @@ describe('admin-guard', () => {
     });
 
     it('normalise les alias de connexion pour Lucas et Niels', () => {
-        expect(normalizeCockpitLoginIdentifier('lucas')).toBe('lucas.d@campus-universcascades.com');
-        expect(normalizeCockpitLoginIdentifier('lucas.d')).toBe('lucas.d@campus-universcascades.com');
-        expect(normalizeCockpitLoginIdentifier('lucas.dollfus')).toBe('lucas.d@campus-universcascades.com');
+        expect(normalizeCockpitLoginIdentifier('lucas')).toBe('campusucascades@gmail.com');
+        expect(normalizeCockpitLoginIdentifier('lucas.d')).toBe('campusucascades@gmail.com');
+        expect(normalizeCockpitLoginIdentifier('lucas.dollfus')).toBe('campusucascades@gmail.com');
+        expect(normalizeCockpitLoginIdentifier('lucas.d@campus-universcascades.com')).toBe('campusucascades@gmail.com');
         expect(normalizeCockpitLoginIdentifier('niels')).toBe('niels.dalery@gmail.com');
         expect(normalizeCockpitLoginIdentifier('niels.dalery')).toBe('niels.dalery@gmail.com');
         expect(normalizeCockpitLoginIdentifier('custom@example.com')).toBe('custom@example.com');

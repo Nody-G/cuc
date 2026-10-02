@@ -192,7 +192,7 @@ export const TeamMemberIdentityFields: React.FC<TeamMemberIdentityFieldsProps> =
                     className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#FFE500] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     <option value="">-- Aucun compte CUC Sign lié --</option>
-                    <option value="d96d7d35-4baa-4844-8146-e32f7d8fa5ab">Lucas DOLLFUS (lucas.d@campus-universcascades.com)</option>
+                    <option value="d96d7d35-4baa-4844-8146-e32f7d8fa5ab">Lucas DOLLFUS (CampusUcascades@gmail.com)</option>
                     <option value="fcae4c8a-b488-415a-8c3b-4f392f6204a0">Niels Dalery (niels.dalery@gmail.com)</option>
                 </select>
             </div>
