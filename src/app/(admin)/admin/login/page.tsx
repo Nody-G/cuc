@@ -107,11 +107,6 @@ export default function AdminLoginPage() {
     }
   };
 
-  const fillQuickCredentials = () => {
-    setEmail('admin');
-    setPassword('password');
-  };
-
   return (
     <div className="min-h-screen bg-[#070709] flex flex-col items-center justify-center p-4 selection:bg-[#FFE500] selection:text-black">
       <div className="max-w-md w-full space-y-6">
@@ -157,7 +152,7 @@ export default function AdminLoginPage() {
                   autoCapitalize="none"
                   autoCorrect="off"
                   spellCheck={false}
-                  placeholder="CampusUcascades@gmail.com ou niels"
+                  placeholder="nom@exemple.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-black/60 border border-white/15 rounded-lg pl-10 pr-3 py-2.5 text-sm text-white focus:outline-none focus:border-[#FFE500] transition-colors font-mono"
@@ -226,20 +221,6 @@ export default function AdminLoginPage() {
           </div>
 
           <GoogleSignInButton disabled={loading} onError={setErrorMessage} />
-
-          {/* Bouton de remplissage rapide (environnement de développement local uniquement) */}
-          {process.env.NODE_ENV === 'development' && (
-            <div className="pt-2">
-              <button
-                type="button"
-                onClick={fillQuickCredentials}
-                className="w-full py-2 px-3 rounded-lg bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-amber-300 text-xs font-mono flex items-center justify-center gap-2 transition"
-              >
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#FFE500]" />
-                <span>Remplir avec l&apos;identifiant de test (dev)</span>
-              </button>
-            </div>
-          )}
 
           <div className="pt-3 border-t border-white/10 text-center text-[11px] text-gray-400">
             <span className="inline-flex items-center gap-1.5 font-mono">
