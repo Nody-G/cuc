@@ -66,7 +66,20 @@ export function analyzeContentHealth(input: ContentHealthInput): ContentHealthRe
     const validPaths = new Set<string>([...STATIC_ROUTES, ...pagePaths]);
     const assetSet = knownPublicAssets ? new Set(knownPublicAssets) : null;
 
+    const seenAnomalies = new Set<string>();
     const pushIssue: PushIssue = (issue) => {
+        // Dédoublonnage : une même anomalie n'est comptée qu'une fois, dans le
+        // rapport comme dans le score. L'« élément » de la clé est la valeur
+        // fautive quand elle existe (un même href cassé ne pèse qu'une fois,
+        // qu'il soit présent dans la navigation ET le pied de page), sinon le
+        // couple périmètre+libellé — pour ne pas fusionner deux pages distinctes
+        // qui partagent le même message générique (ex. « Titre SEO absent »).
+        const element = issue.value?.trim()
+            ? issue.value.trim()
+            : `${issue.scope}:${issue.label}`;
+        const anomalyKey = `${issue.kind}:${element}:${issue.message}`;
+        if (seenAnomalies.has(anomalyKey)) return;
+        seenAnomalies.add(anomalyKey);
         issues.push({ ...issue, id: `${issue.kind}:${issue.scope}:${issue.value ?? issue.label}` });
     };
 

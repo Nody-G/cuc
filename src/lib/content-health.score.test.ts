@@ -90,7 +90,7 @@ describe('analyzeContentHealth — agrégation et score', () => {
         expect(ids).toContain('broken-link:Navigation:/nope-b');
     });
 
-    it('déduplique deux anomalies strictement identiques (même type, périmètre et valeur)', () => {
+    it('déduplique deux anomalies strictement identiques (même type, valeur et message)', () => {
         const report = analyzeContentHealth(
             baseInput({
                 navigation: makeNav({
@@ -101,8 +101,11 @@ describe('analyzeContentHealth — agrégation et score', () => {
                 }),
             })
         );
-        // Les deux entrées produisent la même clé : le diagnostic les fusionne
-        // volontairement pour éviter le bruit dans le rapport.
+        // Les deux entrées portent la même anomalie : le diagnostic la fusionne
+        // volontairement pour éviter le bruit dans le rapport et dans le score.
+        expect(report.issues).toHaveLength(1);
+        expect(report.counts['broken-link']).toBe(1);
+        expect(report.score).toBe(90);
         const ids = report.issues.map((i) => i.id);
         expect(new Set(ids).size).toBe(1);
     });

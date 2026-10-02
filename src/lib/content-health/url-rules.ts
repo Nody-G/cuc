@@ -6,12 +6,28 @@ export function isAnchorOrQuery(url: string): boolean {
     return url.startsWith('#') || url.startsWith('?');
 }
 
+/**
+ * Canonise un chemin interne en chemin **absolu** (`/slug`).
+ *
+ * Les deux sources réelles divergent sur le slash initial :
+ *   - `site_pages.slug` est stocké sans slash (« visite-guidee », « / » pour
+ *     la racine) ;
+ *   - la navigation et le pied de page écrivent des `href` absolus
+ *     (« /visite-guidee »).
+ * Sans cette canonicalisation, une même page a deux clés distinctes
+ * (« visite-guidee » vs « /visite-guidee ») et n'est jamais reconnue comme
+ * atteignable : toutes les pages CMS deviennent faussement orphelines.
+ */
 export function normalizeInternalPath(url: string): string {
     const withoutHash = url.split('#')[0].split('?')[0];
-    if (withoutHash.length > 1 && withoutHash.endsWith('/')) {
-        return withoutHash.slice(0, -1);
-    }
-    return withoutHash || '/';
+    const withoutTrailingSlash =
+        withoutHash.length > 1 && withoutHash.endsWith('/')
+            ? withoutHash.slice(0, -1)
+            : withoutHash;
+    if (!withoutTrailingSlash) return '/';
+    return withoutTrailingSlash.startsWith('/')
+        ? withoutTrailingSlash
+        : `/${withoutTrailingSlash}`;
 }
 
 export function isPlaceholderImage(url: string): boolean {
