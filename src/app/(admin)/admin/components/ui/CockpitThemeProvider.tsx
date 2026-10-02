@@ -101,3 +101,8 @@ export function useCockpitTheme(): CockpitThemeContextValue {
     }
     return ctx;
 }
+
+export function useOptionalCockpitTheme(): CockpitThemeContextValue | null {
+    return useContext(CockpitThemeContext);
+}
+
