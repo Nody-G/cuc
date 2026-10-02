@@ -2,14 +2,16 @@
 
 import { useCallback, useEffect, useMemo, useState, useTransition } from 'react';
 import {
-    getPageRevisions,
-    restorePageRevision,
-    deletePageRevision,
     diffPageSnapshots,
     type SitePageRevision,
     type SitePageContent,
     type PageRevisionDiffEntry,
 } from '@/lib/data/site-service';
+import {
+    getPageRevisionsAction,
+    restorePageRevisionAction,
+    deletePageRevisionAction,
+} from '@/app/(admin)/admin/actions/pages';
 
 interface UsePageRevisionsArgs {
     slug: string;
@@ -61,8 +63,8 @@ export function usePageRevisions({
 
     const load = useCallback(async () => {
         setLoading(true);
-        const data = await getPageRevisions(slug);
-        setRevisions(data);
+        const data = await getPageRevisionsAction(slug);
+        setRevisions((data ?? []) as SitePageRevision[]);
         setLoading(false);
         // `refreshKey` est un déclencheur volontaire : chaque incrément (sauvegarde,
         // publication, restauration) doit relire l'historique sans changer de slug.
@@ -101,10 +103,10 @@ export function usePageRevisions({
             return;
         }
         startTransition(async () => {
-            const restored = await restorePageRevision(revision.id);
+            const restored = await restorePageRevisionAction(revision.id);
             if (restored) {
                 showToast(`Révision n°${revision.revision_number} restaurée.`);
-                onRestored?.(restored);
+                onRestored?.(restored as SitePageContent);
                 await load();
             } else {
                 showToast('Échec de la restauration de la révision.');
@@ -117,7 +119,7 @@ export function usePageRevisions({
             return;
         }
         startTransition(async () => {
-            const ok = await deletePageRevision(revision.id);
+            const ok = await deletePageRevisionAction(revision.id);
             if (ok) {
                 showToast('Révision supprimée.');
                 if (selectedId === revision.id) setSelectedId(null);

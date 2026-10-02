@@ -190,3 +190,86 @@ export async function resetPageContentToDefault(slug: string) {
     return { success: false, error: message };
   }
 }
+
+/**
+ * Récupère l'historique des révisions d'une page (serveur, contourne le verrou RLS).
+ */
+export async function getPageRevisionsAction(slug: string, limit = 50) {
+  try {
+    const cleanSlug = slug === '/' ? '/' : slug.replace(/^\//, '');
+    const adminClient = createAdminClient();
+    const { data, error } = await adminClient
+      .from('site_page_revisions')
+      .select('*')
+      .eq('page_slug', cleanSlug)
+      .order('revision_number', { ascending: false })
+      .limit(limit);
+
+    if (error || !data) return [];
+    return data;
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Restaure une révision précédente et applique son instantané sur `site_pages`.
+ */
+export async function restorePageRevisionAction(revisionId: string) {
+  try {
+    const adminClient = createAdminClient();
+    const { data: revision } = await adminClient
+      .from('site_page_revisions')
+      .select('*')
+      .eq('id', revisionId)
+      .maybeSingle();
+
+    if (!revision) return null;
+
+    const snap = (revision.snapshot ?? {}) as Record<string, unknown>;
+    const { PAGE_REVISION_FIELDS } = await import('@/lib/data/site/page-revision-snapshot');
+    const patch: Record<string, unknown> = { updated_at: new Date().toISOString() };
+    for (const field of PAGE_REVISION_FIELDS) {
+      if (field in snap) patch[field] = snap[field];
+    }
+
+    const { data, error } = await adminClient
+      .from('site_pages')
+      .update(patch)
+      .eq('slug', revision.page_slug)
+      .select('*')
+      .maybeSingle();
+
+    if (error || !data) return null;
+
+    await logAuditEvent(
+      'page.restore_revision',
+      revision.page_slug,
+      `Restauration de la révision n°${revision.revision_number} (${revision.label || 'Sans nom'})`
+    );
+
+    const targetPath = revision.page_slug === '/' ? '/' : `/${revision.page_slug}`;
+    await revalidateSite([targetPath, '/']);
+
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Supprime une révision de l'historique.
+ */
+export async function deletePageRevisionAction(revisionId: string): Promise<boolean> {
+  try {
+    const adminClient = createAdminClient();
+    const { error } = await adminClient
+      .from('site_page_revisions')
+      .delete()
+      .eq('id', revisionId);
+
+    return !error;
+  } catch {
+    return false;
+  }
+}

@@ -32,7 +32,14 @@ export { upsertTeamMember, deleteTeamMember } from './actions/team';
 export { upsertFilm, deleteFilm } from './actions/films';
 export { upsertSiteTranslation, getSiteTranslation, deleteSiteTranslation } from './actions/translations';
 export type { SiteTranslationReadResult } from './actions/translations';
-export { upsertPageContent, setPagePublishState, resetPageContentToDefault } from './actions/pages';
+export {
+    upsertPageContent,
+    setPagePublishState,
+    resetPageContentToDefault,
+    getPageRevisionsAction,
+    restorePageRevisionAction,
+    deletePageRevisionAction,
+} from './actions/pages';
 export { upsertPartner, deletePartner, upsertEvent, deleteEvent } from './actions/partners-events';
 export {
     updateSiteSettings,

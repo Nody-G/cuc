@@ -79,6 +79,17 @@ export async function loginAdminAction(identifier: string, pass: string) {
     });
 
     if (error) {
+      try {
+        const adminClient = createAdminClient();
+        await adminClient.from('site_audit_logs').insert({
+          user_name: email,
+          action: 'auth.login_failed',
+          target: email,
+          details: `Échec de connexion : ${error.message}`,
+        });
+      } catch {
+        /* silencieux */
+      }
       return { success: false, error: error.message };
     }
 
@@ -86,13 +97,36 @@ export async function loginAdminAction(identifier: string, pass: string) {
       const adminClient = createAdminClient();
       const { data: profile } = await adminClient
         .from('profiles')
-        .select('role')
+        .select('role, full_name')
         .eq('id', data.user.id)
         .single();
 
       if (!['admin', 'directeur', 'secretaire'].includes(profile?.role || '')) {
         await supabase.auth.signOut();
+        try {
+          await adminClient.from('site_audit_logs').insert({
+            user_id: data.user.id,
+            user_name: profile?.full_name || email,
+            action: 'auth.unauthorized_access',
+            target: email,
+            details: `Accès refusé au Cockpit : rôle insuffisant (${profile?.role || 'aucun'})`,
+          });
+        } catch {
+          /* silencieux */
+        }
         return { success: false, error: 'Accès refusé : ce compte ne possède pas les autorisations nécessaires pour accéder au Cockpit.' };
+      }
+
+      try {
+        await adminClient.from('site_audit_logs').insert({
+          user_id: data.user.id,
+          user_name: profile?.full_name || email,
+          action: 'auth.login_success',
+          target: email,
+          details: `Connexion réussie (${profile?.full_name || email}, rôle: ${profile?.role})`,
+        });
+      } catch {
+        /* silencieux */
       }
 
       return { success: true, userId: data.user.id, role: profile?.role };
