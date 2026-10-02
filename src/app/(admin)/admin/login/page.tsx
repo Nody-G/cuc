@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import { loginAdminAction } from '../actions';
 import { Shield, Lock, Mail, ArrowLeft, AlertCircle, RefreshCw, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
 import { ForgotPasswordModal } from './ForgotPasswordModal';
+import { GoogleSignInButton } from './GoogleSignInButton';
 import { normalizeCockpitLoginIdentifier } from '@/lib/auth/admin-guard';
 
 export default function AdminLoginPage() {
@@ -16,6 +17,17 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isForgotOpen, setIsForgotOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const err = params.get('error');
+    if (err === 'oauth_failed') {
+      setErrorMessage('La connexion avec Google a échoué ou a été annulée.');
+    } else if (err === 'unauthorized') {
+      setErrorMessage("Accès refusé : ce compte Google n'est pas autorisé à accéder au Cockpit.");
+    }
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -203,6 +215,17 @@ export default function AdminLoginPage() {
               {loading ? 'Connexion en cours...' : 'Accéder au Cockpit'}
             </button>
           </form>
+
+          <div className="relative my-4 flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-white/10" />
+            </div>
+            <div className="relative px-3 bg-[#0F0F14] text-[11px] font-mono text-gray-500 uppercase tracking-wider">
+              ou
+            </div>
+          </div>
+
+          <GoogleSignInButton disabled={loading} onError={setErrorMessage} />
 
           {/* Bouton de remplissage rapide (environnement de développement local uniquement) */}
           {process.env.NODE_ENV === 'development' && (

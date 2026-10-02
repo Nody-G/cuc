@@ -21,6 +21,11 @@ const handleI18nRouting = createMiddleware(routing);
 export function proxy(request: NextRequest) {
     const { pathname, search } = request.nextUrl;
 
+    // 0. Routes système d'authentification OAuth (/auth/*) : pas d'i18n
+    if (pathname.startsWith('/auth/')) {
+        return NextResponse.next();
+    }
+
     // 1. Garde du Cockpit d'administration (/admin)
     if (isAdminPath(pathname)) {
         const cookieHeader = request.headers.get('cookie');
