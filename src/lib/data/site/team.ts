@@ -32,7 +32,7 @@ interface TeamRow {
  */
 export async function getTeam(): Promise<Instructor[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     // `featured_credits` et `credits_display_limit` sont optionnelles : si la
     // migration n'a pas encore été appliquée, on retombe sur un select de base
     // pour ne jamais casser l'affichage public.

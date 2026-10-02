@@ -3,6 +3,7 @@
 import { useCallback, type Dispatch, type SetStateAction } from 'react';
 import type { SitePageContent } from '@/lib/data/site-service';
 import { setFieldValue } from '@/lib/preview/field-path';
+import { applyListCommand, type ListCommand } from '@/lib/preview/list-command';
 
 export interface UseHomePageSectionsArgs {
     formData: SitePageContent;
@@ -18,6 +19,17 @@ export interface UseHomePageSectionsResult {
      * fonction de copie immuable que l'aperçu, donc un seul écrivain de chemin.
      */
     updateField: (path: string, value: string) => void;
+    /**
+     * Applique une commande de liste (ajouter, supprimer, réordonner,
+     * dupliquer) au brouillon actif, via le moteur partagé `applyListCommand`.
+     * `seed` est le socle réel d'une liste encore absente (visuels du hero).
+     */
+    applyList: (
+        arrayPath: string,
+        command: ListCommand,
+        index: number,
+        seed?: readonly unknown[],
+    ) => void;
 }
 
 export function useHomePageSections({
@@ -54,5 +66,13 @@ export function useHomePageSections({
         [setFormData],
     );
 
-    return { data, updateBlock, updateField };
+    /** Commandes de liste : même moteur pur que l'aperçu, aucun état intermédiaire. */
+    const applyList = useCallback(
+        (arrayPath: string, command: ListCommand, index: number, seed?: readonly unknown[]) => {
+            setFormData((prev) => applyListCommand(prev, arrayPath, command, index, seed));
+        },
+        [setFormData],
+    );
+
+    return { data, updateBlock, updateField, applyList };
 }

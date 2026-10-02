@@ -129,6 +129,7 @@ export const NavigationView: React.FC<NavigationViewProps> = ({
                 isDirty={nav.isDirty}
                 isPending={nav.isPending}
                 onSave={nav.handleSave}
+                onReset={nav.handleDiscard}
                 label="Modifications de la navigation non enregistrées"
             />
         </div>

@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { buildRouteMetadata } from '@/lib/i18n/route-metadata';
 import { hasLocale } from 'next-intl';
-import { getPublicPageContent } from '@/lib/i18n/public-page';
 import { routing } from '@/i18n/routing';
 import type { Locale } from '@/lib/i18n/entities';
-import { PageDataProvider } from '@/components/i18n/PageDataProvider';
+import { SitePageScope } from '@/components/i18n/SitePageScope';
 
 export async function generateMetadata({
   params,
@@ -34,14 +33,13 @@ export default async function RouteLayout({
     ? (locale as Locale)
     : 'fr';
 
-  // Contenu de page localisé (FR + overlay EN) résolu sur le SERVEUR : le HTML
-  // servi est déjà dans la bonne langue, sans flash de français. La porte de
-  // diffusion répond 404 si la page est définitivement non publiée.
-  const page = await getPublicPageContent('formation-de-cascadeur', safeLocale);
-
+  // Contrat « contenu de page fourni par le serveur » : `SitePageScope` résout la
+  // page localisée (déjà en cache), applique la porte de diffusion (404 si la page
+  // est définitivement non publiée) et l'injecte dans le provider — le client ne
+  // rejoue donc AUCUNE lecture `site_pages`.
   return (
-    <PageDataProvider page={page}>
+    <SitePageScope slug="formation-de-cascadeur" locale={safeLocale}>
       <section className="w-full flex-grow flex flex-col">{children}</section>
-    </PageDataProvider>
+    </SitePageScope>
   );
 }

@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect } from 'react';
 import { resolveTabFromPath, routeForTab, type TabType } from './cockpit-nav';
+import { resetWindowScroll, useManualScrollRestoration } from './cockpit-scroll';
 
 export interface UseCockpitShortcutsArgs {
     setActiveTab: React.Dispatch<React.SetStateAction<TabType>>;
@@ -34,6 +35,9 @@ export function useCockpitShortcuts({
     isHealthModalOpen,
     setIsHealthModalOpen,
 }: UseCockpitShortcutsArgs) {
+    // La position de défilement est décidée par le Cockpit, pas par l'historique.
+    useManualScrollRestoration();
+
     const switchTab = useCallback(
         (tab: TabType) => {
             setActiveTab(tab);
@@ -41,6 +45,9 @@ export function useCockpitShortcuts({
             if (window.location.pathname !== targetUrl) {
                 window.history.pushState(null, '', targetUrl);
             }
+            // Un onglet s'ouvre toujours par le haut : sans cela, le nouveau
+            // contenu (parfois plus court) restait affiché à l'ancienne position.
+            resetWindowScroll();
         },
         [setActiveTab]
     );
@@ -152,6 +159,8 @@ export function useCockpitShortcuts({
     useEffect(() => {
         const handlePopState = () => {
             setActiveTab(resolveTabFromPath(window.location.pathname) ?? 'dashboard');
+            // Précédent/Suivant rouvre lui aussi l'onglet par le haut.
+            resetWindowScroll();
         };
 
         window.addEventListener('popstate', handlePopState);

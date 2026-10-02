@@ -12,7 +12,7 @@ import { DEFAULT_PARTNERS } from './defaults/partners';
  */
 export async function getPartners(): Promise<SitePartner[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data, error } = await supabase
       .from('site_partners')
       .select('*')

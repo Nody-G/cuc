@@ -25,9 +25,16 @@ export interface PageEditorDirtyState {
 }
 
 /**
+ * Purge explicite du filet local : l'abandon ne doit pas pouvoir être ressuscité
+ * par un rechargement (instantanés page et chrome).
+ */
+export type PageEditorSnapshotPurge = () => void;
+
+/**
  * Agrège les brouillons de l'éditeur de pages (page FR, chrome partagé, traduction
  * EN) en un signal unique pour la barre d'enregistrement, avec un abandon qui
- * remet tout à l'état enregistré.
+ * remet tout à l'état **persisté** : brouillons vidés, signaux propres et filets
+ * locaux purgés (un rechargement ne peut plus restaurer ce qui a été abandonné).
  *
  * Couche « Hooks & Orchestration » (`AGENTS.md` § 1) : aucun état propre, les
  * sources de vérité restent les hooks de brouillon existants.
@@ -35,7 +42,8 @@ export interface PageEditorDirtyState {
 export function usePageEditorDirtyState(
     draft: PageEditorDraftSource,
     chrome: ChromeDraftState,
-    editorLocale: EditorLocaleOption
+    editorLocale: EditorLocaleOption,
+    purgeLocalSnapshots: PageEditorSnapshotPurge
 ): PageEditorDirtyState {
     const isDirty =
         draft.draftChanges.length > 0 ||
@@ -50,7 +58,10 @@ export function usePageEditorDirtyState(
         chrome.clearSettings();
         chrome.clearMicrocopy();
         chrome.clearEntities();
-    }, [draft, chrome, editorLocale]);
+        // Le filet local tombe avec le brouillon : sans cette purge, un
+        // rechargement proposerait de restaurer une modification abandonnée.
+        purgeLocalSnapshots();
+    }, [draft, chrome, editorLocale, purgeLocalSnapshots]);
 
     return { isDirty, discardAll };
 }

@@ -83,4 +83,45 @@ describe('applyListCommand', () => {
         expect(applyListCommand(PAGE, '', 'add', 0)).toBe(PAGE);
         expect(applyListCommand(PAGE, 'sections_data.inexistant.items', 'add', 0)).toBe(PAGE);
     });
+
+    describe('graine d’une liste absente (ex. visuels du hero)', () => {
+        const seed = [
+            { id: 'campus', url: 'https://cdn.test/1.webp' },
+            { id: 'team', url: 'https://cdn.test/4.webp' },
+        ];
+
+        it('matérialise la graine réelle puis ajoute un clone en fin de liste', () => {
+            const next = applyListCommand(
+                { sections_data: {} } as Record<string, unknown>,
+                'sections_data.hero.slides',
+                'add',
+                -1,
+                seed
+            ) as { sections_data: { hero: { slides: Array<Record<string, string>> } } };
+
+            expect(next.sections_data.hero.slides).toHaveLength(3);
+            expect(next.sections_data.hero.slides[0].url).toBe('https://cdn.test/1.webp');
+            expect(next.sections_data.hero.slides[1].url).toBe('https://cdn.test/4.webp');
+            expect(next.sections_data.hero.slides[2].url).toBe('https://cdn.test/4.webp');
+            expect(next.sections_data.hero.slides[2].id).toBe('team-copie');
+        });
+
+        it('sans graine, une liste absente reste intacte', () => {
+            const root = { sections_data: {} };
+            expect(applyListCommand(root, 'sections_data.hero.slides', 'add', -1)).toBe(root);
+        });
+
+        it('démarre aussi une liste vide lorsqu’une graine est fournie', () => {
+            const root = { sections_data: { hero: { slides: [] as unknown[] } } };
+            const next = applyListCommand(
+                root,
+                'sections_data.hero.slides',
+                'add',
+                -1,
+                seed
+            ) as typeof root;
+
+            expect(next.sections_data.hero.slides).toHaveLength(3);
+        });
+    });
 });

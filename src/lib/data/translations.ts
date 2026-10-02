@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/client';
+import { loadSupabaseBrowserClient } from '@/lib/supabase/lazy-client';
 
 /** Ligne de la table `site_translations` (overlay EN par entité). */
 export interface TranslationRow {
@@ -21,7 +21,7 @@ export async function getTranslationRows(): Promise<{
     rows: TranslationRow[];
     error: string | null;
 }> {
-    const supabase = createClient();
+    const supabase = await loadSupabaseBrowserClient();
     const { data, error } = await supabase
         .from('site_translations')
         .select('*')

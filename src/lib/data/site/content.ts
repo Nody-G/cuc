@@ -16,7 +16,7 @@ import { getSupabaseClient } from './client';
  */
 export async function getPrograms(): Promise<StuntProgram[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data: programs, error: progError } = await supabase
       .from('site_programs')
       .select('*')
@@ -85,7 +85,7 @@ export async function getPrograms(): Promise<StuntProgram[]> {
  */
 export async function getCampusFacilities(): Promise<InfrastructureSpot[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data: row } = await supabase
       .from('site_settings')
       .select('value')
@@ -107,7 +107,7 @@ export async function getCampusFacilities(): Promise<InfrastructureSpot[]> {
  */
 export async function getDisciplines(): Promise<Discipline[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
 
     // 1. Table dédiée site_disciplines
     const { data: tableData, error: tableError } = await supabase
@@ -168,7 +168,7 @@ export async function getDisciplines(): Promise<Discipline[]> {
  */
 export async function getCampusPOIs(): Promise<POI[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
 
     // 1. Table dédiée site_campus_pois (source de vérité)
     const { data: tableData, error: tableError } = await supabase

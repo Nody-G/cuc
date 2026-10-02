@@ -90,6 +90,7 @@ export const FooterView: React.FC<FooterViewProps> = ({ showToast }) => {
                 isDirty={footer.isDirty}
                 isPending={footer.isPending}
                 onSave={footer.handleSave}
+                onReset={footer.handleDiscard}
                 label="Modifications du pied de page non enregistrées"
             />
         </div>

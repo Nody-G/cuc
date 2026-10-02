@@ -158,6 +158,10 @@ export function courseJsonLd(params: {
 
 /**
  * Données structurées schema.org pour une vidéo (reportage, série TV).
+ *
+ * `embedUrl` (lecteur tiers) et `contentUrl` (fichier servi directement) sont
+ * dérivés de la référence réelle par `resolveVideoMedia` : on n'annonce jamais
+ * une plateforme qui n'est pas celle effectivement lue.
  */
 export function videoObjectJsonLd(params: {
     name: string;
@@ -165,6 +169,7 @@ export function videoObjectJsonLd(params: {
     thumbnailUrl: string;
     uploadDate?: string;
     embedUrl?: string;
+    contentUrl?: string;
 }) {
     return {
         "@context": "https://schema.org",
@@ -174,6 +179,7 @@ export function videoObjectJsonLd(params: {
         thumbnailUrl: [params.thumbnailUrl],
         uploadDate: params.uploadDate ?? "2025-12-01",
         ...(params.embedUrl ? { embedUrl: params.embedUrl } : {}),
+        ...(params.contentUrl ? { contentUrl: params.contentUrl } : {}),
         publisher: { "@id": `${SITE_URL}/#organization` },
         inLanguage: "fr-FR",
     };

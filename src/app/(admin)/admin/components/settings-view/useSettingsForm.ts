@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { DEFAULT_SITE_SETTINGS, type SiteSettings } from '@/lib/data/site-service';
 import { updateSiteSettings } from '../../actions';
+import { usePersistedDraftDiscard } from '../ui/usePersistedDraftDiscard';
 import type { SettingsChangeHandler, SettingsSectionId } from './settings-sections';
 
 export interface UseSettingsFormArgs {
@@ -25,6 +26,17 @@ export function useSettingsForm({ initialSettings }: UseSettingsFormArgs) {
     } | null>(null);
     const [activeSection, setActiveSection] = useState<SettingsSectionId>('all');
 
+    /** Référence d'abandon : les réglages chargés, puis la dernière sauvegarde. */
+    const { rememberPersisted, discardPersisted } = usePersistedDraftDiscard<SiteSettings>(
+        initialSettings || DEFAULT_SITE_SETTINGS,
+        setSettings,
+        () => setIsDirty(false)
+    );
+
+    useEffect(() => {
+        if (initialSettings) rememberPersisted(initialSettings);
+    }, [initialSettings, rememberPersisted]);
+
     const handleChange: SettingsChangeHandler = (key, value) => {
         setSettings((prev) => ({ ...prev, [key]: value } as SiteSettings));
         setIsDirty(true);
@@ -36,6 +48,7 @@ export function useSettingsForm({ initialSettings }: UseSettingsFormArgs) {
                 const res = await updateSiteSettings('general', settings);
                 if (res.success) {
                     setIsDirty(false);
+                    rememberPersisted(settings);
                     setStatusMessage({
                         type: 'success',
                         text: 'Paramètres généraux enregistrés et appliqués en direct sur tout le site !',
@@ -70,5 +83,7 @@ export function useSettingsForm({ initialSettings }: UseSettingsFormArgs) {
         handleChange,
         handleSave,
         handleResetToDefault,
+        /** Abandon : retour aux réglages persistés (distinct de « Valeurs par défaut »). */
+        handleDiscard: discardPersisted,
     };
 }

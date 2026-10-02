@@ -20,7 +20,7 @@ import { DEFAULT_SITE_SETTINGS } from './defaults/settings';
  */
 export async function getVideos(): Promise<ProgrammeTvItem[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data: row } = await supabase
       .from('site_settings')
       .select('value')
@@ -46,7 +46,7 @@ export async function getVideos(): Promise<ProgrammeTvItem[]> {
  */
 export async function getCampusPlacements3D(): Promise<Record<string, unknown> | null> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data: row } = await supabase
       .from('site_settings')
       .select('value')
@@ -68,7 +68,7 @@ export async function getCampusPlacements3D(): Promise<Record<string, unknown> |
  */
 export async function getActiveAnnouncement(): Promise<SiteAnnouncement | null> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data, error } = await supabase
       .from('site_announcements')
       .select('*')
@@ -92,7 +92,7 @@ export async function getActiveAnnouncement(): Promise<SiteAnnouncement | null> 
  */
 export async function getSiteSettings(): Promise<SiteSettings> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data, error } = await supabase
       .from('site_settings')
       .select('value')
@@ -113,7 +113,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
  */
 export async function getFeaturedInstagramReels(): Promise<InstagramReel[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data: row } = await supabase
       .from('site_settings')
       .select('value')

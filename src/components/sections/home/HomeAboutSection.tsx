@@ -5,10 +5,10 @@ import React from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
-import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { mergeSectionItems } from '@/lib/hooks/usePageSectionData';
+import { useRevealOnView } from '@/lib/hooks/useRevealOnView';
 import {
   StudioParallaxScene,
   StudioParallaxLayer,
@@ -38,6 +38,7 @@ interface HomeAboutSectionProps {
 
 export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData }) => {
   const t = useTranslations('home.about');
+  const revealRef = useRevealOnView<HTMLDivElement>();
 
   /**
    * Piliers : toute la copie est dans les catalogues (`home.about.pillars`),
@@ -98,11 +99,9 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
 
           {/* Editorial Content Side */}
           <div className="lg:col-span-7 space-y-6">
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+            <div
+              ref={revealRef}
+              className="opacity-0 translate-y-4 transition-[opacity,transform] duration-700 ease-out data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0"
             >
               <div className="flex items-center gap-2 mb-2">
                 <span
@@ -132,7 +131,7 @@ export const HomeAboutSection: React.FC<HomeAboutSectionProps> = ({ aboutData })
               >
                 {description}
               </p>
-            </motion.div>
+            </div>
 
             {/* 4 Pillars Grid with Staggered Parallax Wave */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">

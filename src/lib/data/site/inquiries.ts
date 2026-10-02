@@ -3,7 +3,7 @@
  * Règle SRP : `AGENTS.md` § 1-2.
  */
 
-import { createClient } from '@/lib/supabase/client';
+import { loadSupabaseBrowserClient } from '@/lib/supabase/lazy-client';
 import { getSupabaseClient } from './client';
 import { SiteInquiry } from './types';
 import { SAMPLE_INQUIRIES } from './defaults/samples';
@@ -15,7 +15,9 @@ import { SAMPLE_INQUIRIES } from './defaults/samples';
  */
 export async function getInquiries(): Promise<SiteInquiry[]> {
   try {
-    const supabase = typeof window !== 'undefined' ? createClient() : getSupabaseClient();
+    const supabase = typeof window !== 'undefined'
+      ? await loadSupabaseBrowserClient()
+      : await getSupabaseClient();
     const { data, error } = await supabase
       .from('site_inquiries')
       .select('*')

@@ -12,6 +12,7 @@ import type { EditorLocaleOption } from '../ui';
 import { useLabelsEditorLocale } from '../entity-translation/useLabelsEditorLocale';
 import { navigationLabelsCodec, type LabelsRow } from '../entity-translation/labels-codec';
 import type { EntityEditorLocale } from '../entity-translation/entity-translation.contract';
+import { usePersistedDraftDiscard } from '../ui/usePersistedDraftDiscard';
 import { useNavigationSourceActions } from './useNavigationSourceActions';
 import { sortedItems, updateChildIn, updateItemIn } from './navigation-form';
 
@@ -44,6 +45,8 @@ export interface UseNavigationEditorResult {
     addChild: (parentId: string) => void;
     updateCta: (updates: Partial<NavigationStructure['cta']>) => void;
     handleSave: () => void;
+    /** Abandon : retour à la navigation persistée (distinct de « Réinitialiser »). */
+    handleDiscard: () => void;
     handleReset: () => void;
     /** Édition anglaise active : les contrôles structurels sont verrouillés. */
     isEnglish: boolean;
@@ -97,6 +100,13 @@ export function useNavigationEditor({
     /** Structure affichée : libellés localisés en EN, français sinon. */
     const activeStructure = labelsEditor.active;
 
+    /** Référence d'abandon : structure chargée, puis dernière sauvegarde FR réussie. */
+    const { rememberPersisted, discardPersisted } = usePersistedDraftDiscard<NavigationStructure>(
+        DEFAULT_NAVIGATION.structure,
+        setStructure,
+        () => setIsDirty(false)
+    );
+
     /**
      * Écriture du brouillon affiché : en FR le français (marqué modifié) ; en EN
      * l'overlay uniquement — le codec ne laisse passer que les libellés.
@@ -115,6 +125,7 @@ export function useNavigationEditor({
             .then((nav) => {
                 if (cancelled) return;
                 setStructure(nav.structure);
+                rememberPersisted(nav.structure);
                 setIsPublished(nav.is_published);
                 setIsDirty(false);
             })
@@ -124,7 +135,7 @@ export function useNavigationEditor({
         return () => {
             cancelled = true;
         };
-    }, []);
+    }, [rememberPersisted]);
 
     // --- Champs traduisibles (libellés d'entrées et de sous-entrées) ---
 
@@ -174,6 +185,7 @@ export function useNavigationEditor({
             const ok = await upsertNavigation(structure, { id: 'main', isPublished });
             if (ok) {
                 setIsDirty(false);
+                rememberPersisted(structure);
             }
             showToast(
                 ok
@@ -181,7 +193,7 @@ export function useNavigationEditor({
                     : 'Échec de l\'enregistrement de la navigation.'
             );
         });
-    }, [isEnglish, locale, structure, isPublished, showToast, startTransition]);
+    }, [isEnglish, locale, structure, isPublished, showToast, startTransition, rememberPersisted]);
 
     /**
      * Mutation structurelle FR (ordre, ajout / retrait, CTA, publication,
@@ -216,5 +228,6 @@ export function useNavigationEditor({
         changeLocale,
         isFieldReadOnly,
         ...sourceActions,
+        handleDiscard: discardPersisted,
     };
 }

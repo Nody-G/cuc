@@ -39,6 +39,7 @@ export interface VideosLabels {
     docusBadge: string;
     docusTitle: string;
     docusHint: string;
+    docusOpenExternal: string;
     mediaTag: string;
     mediaTitle: string;
     mediaIntro: string;
@@ -59,8 +60,11 @@ export interface VideosLabels {
 }
 
 export interface SelectedDmVideo {
+    /** Référence brute stockée (id Dailymotion nu, URL Dailymotion/YouTube, fichier). */
     id: string;
     title: string;
+    /** Affiche du programme, utilisée comme repli visuel si l'embed est refusé. */
+    img?: string;
 }
 
 export interface UseVideosPageResult {
@@ -218,6 +222,7 @@ export function useVideosPage(): UseVideosPageResult {
             docusBadge: t('docusBadge'),
             docusTitle: t('docusTitle'),
             docusHint: t('docusHint'),
+            docusOpenExternal: t('docusOpenExternal'),
             mediaTag: t('mediaTag'),
             mediaTitle: t('mediaTitle'),
             mediaIntro: t('mediaIntro'),
@@ -248,8 +253,8 @@ export function useVideosPage(): UseVideosPageResult {
         reelsTotalViews,
         reelsRemaining: 0,
         reelsHasMore: false,
-        onChangeReelsSort: () => {},
-        onLoadMoreReels: () => {},
+        onChangeReelsSort: () => { },
+        onLoadMoreReels: () => { },
         selectedReel,
         openReel: setSelectedReel,
         closeReel: () => setSelectedReel(null),

@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { useTranslations } from 'next-intl';
-import { mergeSectionItems } from '@/lib/hooks/usePageSectionData';
+import { mergeSectionItems, usePageSectionData } from '@/lib/hooks/usePageSectionData';
 import {
-  HERO_SLIDES,
   HeroBottomControls,
   HeroTechDepth,
+  mergeHeroSlides,
+  type HeroSlideOverride,
 } from './parallax-hero';
 import { HeroBackground3D } from './parallax-hero/HeroBackground3D';
 import { HeroFocalContent } from './parallax-hero/HeroFocalContent';
@@ -32,7 +33,14 @@ interface ParallaxHeroProps {
  */
 export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
   const heroRef = useRef<HTMLElement>(null);
-  const heroMotion = useParallaxHero(heroRef);
+  /**
+   * Liste des visuels : les quatre défauts historiques, fusionnés index par
+   * index avec la surcharge éditée dans `sections_data.hero.slides` (brouillon
+   * d'aperçu compris). `mergeHeroSlides` garantit une liste non vide.
+   */
+  const heroSection = usePageSectionData<{ slides?: HeroSlideOverride[] }>('hero');
+  const heroSlides = useMemo(() => mergeHeroSlides(heroSection?.slides), [heroSection]);
+  const heroMotion = useParallaxHero(heroRef, heroSlides.length);
 
   const tHero = useTranslations('home.hero');
   /**
@@ -50,7 +58,13 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
     metricDefaults,
     heroData?.metrics ? { items: heroData.metrics } : null
   );
-  const activeCopy = slideCopy[HERO_SLIDES[heroMotion.currentSlide].key];
+  /**
+   * Index borné : la copie i18n n'existe que pour les quatre clés historiques,
+   * un visuel ajouté laisse le sous-titre du catalogue intact (`undefined`).
+   */
+  const activeSlide =
+    heroSlides[heroMotion.currentSlide] ?? heroSlides[0];
+  const activeCopy = activeSlide?.key ? slideCopy[activeSlide.key] : undefined;
 
   return (
     <section
@@ -63,6 +77,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
       <HeroBackground3D
         isCalmMode={heroMotion.isCalmMode}
         currentSlide={heroMotion.currentSlide}
+        slides={heroSlides}
         slideCopy={slideCopy}
         bgScrollY={heroMotion.bgScrollY}
         bgShiftX={heroMotion.bgShiftX}
@@ -89,7 +104,7 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
 
       {/* 4. Modern Segmented Slide Navigation & Smooth Scroll Cue */}
       <HeroBottomControls
-        slides={HERO_SLIDES}
+        slides={heroSlides}
         currentSlide={heroMotion.currentSlide}
         onSelectSlide={heroMotion.handleSelectSlide}
         slideDuration={SLIDE_DURATION_SEC}

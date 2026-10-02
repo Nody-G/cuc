@@ -50,13 +50,29 @@ export interface HomeListFieldDef {
 }
 
 export interface HomeListDef {
-    /** Clé du tableau dans le bloc (`pillars`, `items`, `posts`). */
+    /** Clé du tableau dans le bloc (`pillars`, `items`, `posts`, `slides`). */
     arrayKey: string;
     label: string;
     desc?: string;
-    /** Nombre d'items rendus par la vitrine (structure fixe, aucun ajout). */
+    /**
+     * Nombre d'items rendus par la vitrine. `Math.max(count, items.length)` : le
+     * formulaire édite au moins les positions servies par la vitrine.
+     */
     count: number;
     fields: HomeListFieldDef[];
+    /**
+     * Ouvre les commandes de structure (ajouter, supprimer, réordonner,
+     * dupliquer) via le moteur `applyListCommand`. Réservé aux listes dont le
+     * domaine tolère une longueur variable (visuels du hero) : les autres
+     * gardent une longueur fixe, inchangée.
+     */
+    canEditStructure?: boolean;
+    /**
+     * Socle par défaut d'une liste encore absente : sert de **repli affiché** par
+     * position et de **graine** à la première addition. Ce sont des données
+     * réelles (ex. les visuels historiques du hero), jamais du contenu inventé.
+     */
+    seed?: Array<Record<string, string | undefined>>;
 }
 
 /**

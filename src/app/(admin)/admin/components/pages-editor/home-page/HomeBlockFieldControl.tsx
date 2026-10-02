@@ -19,6 +19,12 @@ export interface HomeBlockFieldControlProps {
      * de `block` + `field.key`. À défaut : `sections_data.<bloc>.<clé>`.
      */
     path?: string;
+    /**
+     * Valeur de repli **affichée** (jamais persistée) quand le champ est vide :
+     * le socle réel d'une liste encore absente, ex. les visuels historiques du
+     * hero. Elle sert d'aperçu grisé et de `placeholder`.
+     */
+    fallbackValue?: string;
 }
 
 export const HomeBlockFieldControl: React.FC<HomeBlockFieldControlProps> = ({
@@ -28,6 +34,7 @@ export const HomeBlockFieldControl: React.FC<HomeBlockFieldControlProps> = ({
     onChange,
     onPickMedia,
     path,
+    fallbackValue,
 }) => {
     /**
      * Attribut d'édition inline : permet à l'aperçu live de retrouver l'input
@@ -47,6 +54,7 @@ export const HomeBlockFieldControl: React.FC<HomeBlockFieldControlProps> = ({
                 value={value}
                 onChange={onChange}
                 onPickMedia={() => onPickMedia(fieldPath)}
+                fallbackValue={fallbackValue}
                 data-cuc-field={field.liveEdit ? fieldPath : undefined}
             />
         );
@@ -74,6 +82,7 @@ export const HomeBlockFieldControl: React.FC<HomeBlockFieldControlProps> = ({
                     rows={field.rows ?? 2}
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
+                    placeholder={fallbackValue ?? ''}
                     className={INPUT_CLASS}
                     {...fieldAttr}
                 />
@@ -82,6 +91,7 @@ export const HomeBlockFieldControl: React.FC<HomeBlockFieldControlProps> = ({
                     type="text"
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
+                    placeholder={fallbackValue ?? ''}
                     className={INPUT_CLASS}
                     {...fieldAttr}
                 />

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSiteData } from '@/components/i18n/SiteDataProvider';
-import { createClient } from '@/lib/supabase/client';
+import { loadSupabaseBrowserClient } from '@/lib/supabase/lazy-client';
 import { subscribeTable } from '@/lib/supabase/realtime';
 import { DEFAULT_SOCIAL_LINKS, type SiteSocialLink } from '@/data/navigation';
 import { currentLocale } from './navigation-labels';
@@ -22,9 +22,11 @@ export function useSocialLinks(): SiteSocialLink[] {
     useEffect(() => {
         if (hasServerSocial) return;
         let cancelled = false;
-        const supabase = createClient();
+        let unsubscribeSocial: () => void = () => { };
 
-        async function fetchLinks() {
+        type BrowserClient = Awaited<ReturnType<typeof loadSupabaseBrowserClient>>;
+
+        async function fetchLinks(supabase: BrowserClient) {
             try {
                 const { data, error } = await supabase
                     .from('site_social_links')
@@ -76,14 +78,23 @@ export function useSocialLinks(): SiteSocialLink[] {
             }
         }
 
-        fetchLinks();
+        // Chargement PARESSEUX (vitrine servie par le serveur : jamais de client).
+        async function bootstrap() {
+            const supabase = await loadSupabaseBrowserClient();
+            if (cancelled) return;
 
-        // Canal nommé dans l'exception de production :
-        // "cannot add postgres_changes callbacks for realtime:site_social_links:all
-        //  after subscribe()". Le nom unique par instance supprime la collision.
-        const unsubscribeSocial = subscribeTable(supabase, { table: 'site_social_links' }, () => {
-            fetchLinks();
-        });
+            await fetchLinks(supabase);
+            if (cancelled) return;
+
+            // Canal nommé dans l'exception de production :
+            // "cannot add postgres_changes callbacks for realtime:site_social_links:all
+            //  after subscribe()". Le nom unique par instance supprime la collision.
+            unsubscribeSocial = subscribeTable(supabase, { table: 'site_social_links' }, () => {
+                void fetchLinks(supabase);
+            });
+        }
+
+        void bootstrap();
 
         return () => {
             cancelled = true;

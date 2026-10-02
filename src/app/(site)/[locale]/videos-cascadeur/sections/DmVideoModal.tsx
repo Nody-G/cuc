@@ -1,43 +1,36 @@
 import React from 'react';
-import { X } from 'lucide-react';
+import Image from 'next/image';
+import { ExternalLink, X } from 'lucide-react';
+import { resolveEmbedUrl } from '@/lib/video-embed';
 import type { SelectedDmVideo } from './useVideosPage';
 
 export interface DmVideoModalProps {
     video: SelectedDmVideo | null;
     onClose: () => void;
     closeTitle: string;
+    /** Libellé du repli sortant (page publique de visionnage). */
+    externalLabel?: string;
 }
 
-function resolveEmbedUrl(raw: string): { type: 'iframe' | 'video'; url: string } {
-    if (!raw) return { type: 'iframe', url: '' };
-
-    // Fichier vidéo direct (mp4, webm)
-    if (raw.endsWith('.mp4') || raw.endsWith('.webm') || raw.includes('/video/upload/')) {
-        return { type: 'video', url: raw };
-    }
-
-    // YouTube (URL longue, courte ou ID à 11 caractères)
-    const ytMatch = raw.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-    if (ytMatch) {
-        return { type: 'iframe', url: `https://www.youtube-nocookie.com/embed/${ytMatch[1]}?autoplay=1&rel=0` };
-    }
-
-    // Dailymotion (URL ou identifiant x...)
-    const dmMatch = raw.match(/(?:dailymotion\.com\/(?:video|embed\/video)\/|^)([a-zA-Z0-9]+)/);
-    if (dmMatch && (dmMatch[1].startsWith('x') || dmMatch[1].startsWith('k'))) {
-        return { type: 'iframe', url: `https://www.dailymotion.com/embed/video/${dmMatch[1]}?autoplay=1` };
-    }
-
-    if (raw.startsWith('http')) {
-        return { type: 'iframe', url: raw };
-    }
-
-    return { type: 'iframe', url: `https://www.dailymotion.com/embed/video/${raw}?autoplay=1` };
-}
-
-export const DmVideoModal: React.FC<DmVideoModalProps> = ({ video, onClose, closeTitle }) => {
+/**
+ * Modale de lecture d'un reportage TV.
+ *
+ * La résolution de la référence (`resolveEmbedUrl`) vit dans
+ * [`src/lib/video-embed.ts`](../../../../../../lib/video-embed.ts) : ce composant
+ * ne garde que la présentation. Un repli explicite (affiche + lien sortant) est
+ * proposé lorsque le média est identifié sur une plateforme tierce, car un
+ * hébergeur peut refuser l'encadrement (403 « Forbidden ») sans que l'URL soit
+ * fautive.
+ */
+export const DmVideoModal: React.FC<DmVideoModalProps> = ({
+    video,
+    onClose,
+    closeTitle,
+    externalLabel,
+}) => {
     if (!video) return null;
     const embed = resolveEmbedUrl(video.id);
+    const watchUrl = embed.provider === 'file' ? undefined : embed.watchUrl;
 
     return (
         <div
@@ -61,23 +54,57 @@ export const DmVideoModal: React.FC<DmVideoModalProps> = ({ video, onClose, clos
                         <X className="w-5 h-5" />
                     </button>
                 </div>
+
                 <div className="relative aspect-video w-full bg-black">
-                    {embed.type === 'video' ? (
+                    {embed.kind === 'video' ? (
                         <video
                             src={embed.url}
                             controls
                             autoPlay
                             className="w-full h-full object-contain"
                         />
-                    ) : (
+                    ) : embed.url ? (
                         <iframe
                             src={embed.url}
+                            title={video.title}
                             className="w-full h-full border-0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowFullScreen
+                            referrerPolicy="strict-origin-when-cross-origin"
                         />
-                    )}
+                    ) : video.img ? (
+                        <Image
+                            src={video.img}
+                            alt={video.title}
+                            fill
+                            sizes="(max-width: 1024px) 100vw, 896px"
+                            className="object-cover opacity-70"
+                        />
+                    ) : null}
                 </div>
+
+                {watchUrl && externalLabel && (
+                    <div className="mt-3 flex items-center gap-3 border border-zinc-800 bg-[#0b0b10] p-2.5">
+                        {video.img && (
+                            <Image
+                                src={video.img}
+                                alt=""
+                                width={96}
+                                height={54}
+                                className="h-[54px] w-24 shrink-0 object-cover border border-zinc-800"
+                            />
+                        )}
+                        <a
+                            href={watchUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-xs font-tech uppercase tracking-wide text-[#FFE500] hover:text-white transition-colors"
+                        >
+                            <ExternalLink className="w-4 h-4" />
+                            {externalLabel}
+                        </a>
+                    </div>
+                )}
             </div>
         </div>
     );

@@ -57,4 +57,5 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 | Micro-textes éditables | [`site_microcopy.md`](.agents/rules/site_microcopy.md:1) |
 | Compression des médias téléversés, négatifs `_originals` | [`media_compression.md`](.agents/rules/media_compression.md:1) |
 | Durabilité, CI, roadmap, RLS | [`durability_health.md`](.agents/rules/durability_health.md:1) |
+| Budget JS de premier chargement, chargement différé des libs lourdes | [`client_bundle_budget.md`](.agents/rules/client_bundle_budget.md:1) |
 | Sauvegarde & restauration (périmètre, GFS, append-only, garde) | [`backup_restore.md`](.agents/rules/backup_restore.md:1) |

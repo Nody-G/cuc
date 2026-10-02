@@ -4,10 +4,10 @@ import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { soundFX } from '@/lib/soundFx';
-import { HeroSlide } from './parallaxHero.data';
+import type { HeroSlideView } from './parallaxHero.data';
 
 interface HeroBottomControlsProps {
-  slides: HeroSlide[];
+  slides: readonly HeroSlideView[];
   currentSlide: number;
   onSelectSlide: (index: number) => void;
   /** Conservé pour compatibilité d'API (l'auto-avance est pilotée en amont). */

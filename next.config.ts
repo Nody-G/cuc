@@ -220,6 +220,18 @@ const nextConfig: NextConfig = {
         destination: '/videos-cascadeur',
         permanent: true,
       },
+      // Slugs courts réellement exposés par l'ancien site : ils y redirigent
+      // déjà vers `/videos-cascadeur/` (mesuré : 301). On reproduit la chaîne.
+      {
+        source: '/videos',
+        destination: '/videos-cascadeur',
+        permanent: true,
+      },
+      {
+        source: '/video',
+        destination: '/videos-cascadeur',
+        permanent: true,
+      },
       {
         source: '/spectacles-cascadeurs',
         destination: '/spectacles-cascadeurs-yamakasi',

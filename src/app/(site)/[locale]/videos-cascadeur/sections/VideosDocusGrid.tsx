@@ -35,7 +35,7 @@ export const VideosDocusGrid: React.FC<VideosDocusGridProps> = ({
                     <button
                         key={i}
                         type="button"
-                        onClick={() => onSelectProgram({ id: v.dmId, title: v.title })}
+                        onClick={() => onSelectProgram({ id: v.dmId, title: v.title, img: v.img })}
                         className="bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/70 transition-all p-4 group text-left cursor-pointer focus:outline-hidden"
                     >
                         <div className="relative aspect-video w-full mb-3 border border-zinc-800 overflow-hidden bg-black">

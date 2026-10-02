@@ -1,8 +1,6 @@
 'use client';
 
 import React from 'react';
-import { motion, useTransform } from 'framer-motion';
-import { useStudioParallax } from './StudioParallaxScene';
 
 interface StudioParallaxLayerProps {
   children?: React.ReactNode;
@@ -14,6 +12,12 @@ interface StudioParallaxLayerProps {
   depth?: number; // visual z-depth in px, e.g. -50 or +50
 }
 
+/**
+ * Couche parallaxe : traduit `--cuc-parallax-progress` (héritée de la scène
+ * [`StudioParallaxScene`](src/components/ui/parallax/StudioParallaxScene.tsx:1))
+ * en `transform`/`opacity` via `calc()`, sans JavaScript d'animation. Le
+ * lissage précédemment assuré par un ressort est porté par la transition CSS.
+ */
 export const StudioParallaxLayer: React.FC<StudioParallaxLayerProps> = ({
   children,
   speed = 0,
@@ -23,29 +27,27 @@ export const StudioParallaxLayer: React.FC<StudioParallaxLayerProps> = ({
   className = '',
   depth = 0,
 }) => {
-  const { smoothProgress } = useStudioParallax();
-
   // Determine translation range
-  const rangeY: [number, number] = yOffset
-    ? yOffset
-    : [speed * 120, speed * -120];
-
-  const y = useTransform(smoothProgress, [0, 1], rangeY);
-  const scale = useTransform(smoothProgress, [0, 1], scaleOffset ?? [1, 1]);
-  const opacity = useTransform(smoothProgress, [0, 1], opacityOffset ?? [1, 1]);
+  const [yStart, yEnd]: [number, number] = yOffset ?? [speed * 120, speed * -120];
+  const translateY = `translate3d(0, calc(var(--cuc-parallax-progress, 0) * ${yEnd - yStart}px + ${yStart}px), 0)`;
+  const scale = scaleOffset
+    ? ` scale(calc(${scaleOffset[0]} + var(--cuc-parallax-progress, 0) * ${scaleOffset[1] - scaleOffset[0]}))`
+    : '';
+  const translateZ = depth ? ` translateZ(${depth}px)` : '';
+  const opacity = opacityOffset
+    ? `calc(${opacityOffset[0]} + var(--cuc-parallax-progress, 0) * ${opacityOffset[1] - opacityOffset[0]})`
+    : undefined;
 
   return (
-    <motion.div
+    <div
       style={{
-        y,
-        scale: scaleOffset ? scale : undefined,
-        opacity: opacityOffset ? opacity : undefined,
-        translateZ: depth,
+        transform: `${translateY}${scale}${translateZ}`,
+        opacity,
         willChange: 'transform',
       }}
-      className={className}
+      className={`transition-transform duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] ${className}`}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };

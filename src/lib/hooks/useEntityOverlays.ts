@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
+import { loadSupabaseBrowserClient } from '@/lib/supabase/lazy-client';
 import { useSiteData } from '@/components/i18n/SiteDataProvider';
 
 /** Référence stable : évite de recréer un objet à chaque rendu. */
@@ -48,27 +48,37 @@ export function useEntityOverlays(entity: string) {
         if (locale === 'fr' || !entity || hasServerOverlays) return;
 
         let isMounted = true;
-        const supabase = createClient();
+        let cancelled = false;
 
-        supabase
-            .from('site_translations')
-            .select('entity_id, payload')
-            .eq('entity', entity)
-            .eq('locale', locale)
-            .eq('is_published', true)
-            .then(({ data, error }) => {
-                if (error || !data || !isMounted) return;
-                setState({
-                    key,
-                    overlays: Object.fromEntries(
-                        (data as { entity_id: string; payload: Record<string, unknown> }[]).map(
-                            (row) => [row.entity_id, row.payload ?? {}]
-                        )
-                    ),
-                });
+        // Chargement PARESSEUX : overlays déjà résolus par le serveur ou locale
+        // FR → `@supabase/supabase-js` n'est jamais téléchargé.
+        void loadSupabaseBrowserClient()
+            .then((supabase) => {
+                if (cancelled) return;
+                return supabase
+                    .from('site_translations')
+                    .select('entity_id, payload')
+                    .eq('entity', entity)
+                    .eq('locale', locale)
+                    .eq('is_published', true)
+                    .then(({ data, error }) => {
+                        if (error || !data || !isMounted) return;
+                        setState({
+                            key,
+                            overlays: Object.fromEntries(
+                                (data as { entity_id: string; payload: Record<string, unknown> }[]).map(
+                                    (row) => [row.entity_id, row.payload ?? {}]
+                                )
+                            ),
+                        });
+                    });
+            })
+            .catch(() => {
+                /* Repli silencieux : les fiches FR restent affichées. */
             });
 
         return () => {
+            cancelled = true;
             isMounted = false;
         };
     }, [entity, locale, key, hasServerOverlays]);

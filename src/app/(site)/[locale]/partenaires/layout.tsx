@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { buildRouteMetadata } from '@/lib/i18n/route-metadata';
 import { hasLocale } from 'next-intl';
-import { getPublicPageContent } from '@/lib/i18n/public-page';
 import { routing } from '@/i18n/routing';
 import type { Locale } from '@/lib/i18n/entities';
-import { PageDataProvider } from '@/components/i18n/PageDataProvider';
+import { SitePageScope } from '@/components/i18n/SitePageScope';
 
 export async function generateMetadata({
   params,
@@ -34,13 +33,12 @@ export default async function RouteLayout({
     ? (locale as Locale)
     : 'fr';
 
-  // Contenu de page localisé (FR + overlay EN) résolu sur le SERVEUR : le HTML
-  // servi est déjà dans la bonne langue, sans flash de français.
-  const page = await getPublicPageContent('partenaires', safeLocale);
-
+  // Contrat « contenu de page fourni par le serveur » : `SitePageScope` résout la
+  // page localisée (déjà en cache) et l'injecte dans le provider — le client ne
+  // rejoue donc AUCUNE lecture `site_pages`.
   return (
-    <PageDataProvider page={page}>
+    <SitePageScope slug="partenaires" locale={safeLocale}>
       <section className="w-full flex-grow flex flex-col">{children}</section>
-    </PageDataProvider>
+    </SitePageScope>
   );
 }

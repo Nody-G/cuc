@@ -75,18 +75,35 @@ function uniqueId(items: readonly unknown[], baseId: string): string {
  * Applique une commande de liste à `root` (chemin de **tableau**, ex.
  * `sections_data.formules.items`). Retourne `root` inchangé si la commande est
  * impossible — jamais d'objet partiel, jamais de mutation.
+ *
+ * `seed` (facultatif) est le **socle** d'une liste absente ou vide : quand une
+ * `add` est demandée sur un tableau encore inexistant, la graine est matérialisée
+ * avant l'ajout. Elle doit venir d'un contenu réel (ex. les visuels historiques
+ * du hero) — jamais d'une structure inventée. Sans graine, la doctrine reste
+ * inchangée : on n'invente rien dans une liste vide.
  */
 export function applyListCommand<T>(
     root: T,
     arrayPath: string,
     command: ListCommand,
-    index: number
+    index: number,
+    seed?: readonly unknown[]
 ): T {
     const path = segments(arrayPath);
     if (path.length === 0) return root;
 
     const current = readAt(root, path);
-    if (!Array.isArray(current)) return root;
+    if (!Array.isArray(current)) {
+        if (command === 'add' && seed && seed.length > 0) {
+            return applyListCommand(
+                writeAt(root, path, [...seed]) as T,
+                arrayPath,
+                command,
+                index
+            );
+        }
+        return root;
+    }
 
     const items = [...current];
     const bounded = Number.isInteger(index) ? index : -1;
@@ -96,7 +113,19 @@ export function applyListCommand<T>(
         case 'duplicate': {
             const sourceIndex = bounded >= 0 && bounded < items.length ? bounded : items.length - 1;
             const source = items[sourceIndex];
-            if (source === undefined) return root; // liste vide : forme inconnue
+            if (source === undefined) {
+                // Liste vide : la forme d'un item s'invente, sauf si une graine
+                // réelle est fournie (ex. les visuels historiques du hero).
+                if (command === 'add' && seed && seed.length > 0) {
+                    return applyListCommand(
+                        writeAt(root, path, [...seed]) as T,
+                        arrayPath,
+                        command,
+                        index
+                    );
+                }
+                return root;
+            }
             const sourceId = isRecord(source) && typeof source.id === 'string' ? source.id : 'item';
             const copy: unknown = isRecord(source)
                 ? { ...source, id: uniqueId(items, `${sourceId}-copie`) }

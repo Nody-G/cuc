@@ -13,6 +13,12 @@ export interface MediaImageFieldProps {
     disabled?: boolean;
     helperText?: string;
     inputClass?: string;
+    /**
+     * Visuel de repli **affiché** (jamais persisté) quand `value` est vide — le
+     * socle réel d'une liste encore absente (ex. visuels historiques du hero).
+     * Il permet de voir les images servies par la vitrine sans créer de surcharge.
+     */
+    fallbackValue?: string;
     'data-cuc-field'?: string;
 }
 
@@ -42,15 +48,19 @@ export const MediaImageField: React.FC<MediaImageFieldProps> = ({
     value,
     onChange,
     onPickMedia,
-    placeholder = 'https://... ou /media/...',
+    placeholder,
     disabled = false,
     helperText,
     inputClass,
+    fallbackValue,
     'data-cuc-field': dataCucField,
 }) => {
     const [failedUrl, setFailedUrl] = useState<string | null>(null);
-    const hasError = Boolean(value && failedUrl === value);
-    const filename = getFilenameFromUrl(value);
+    /** URL montrée : la surcharge si saisie, sinon le repli (visuel par défaut). */
+    const previewUrl = value || fallbackValue || '';
+    const isFallback = !value && Boolean(fallbackValue);
+    const hasError = Boolean(previewUrl && failedUrl === previewUrl);
+    const filename = getFilenameFromUrl(previewUrl);
 
     return (
         <div className="space-y-1.5">
@@ -58,7 +68,10 @@ export const MediaImageField: React.FC<MediaImageFieldProps> = ({
                 <div className="flex items-center justify-between">
                     <label className="block text-xs font-mono text-gray-400">{label}</label>
                     {filename && (
-                        <span className="text-[10px] font-mono text-[#FFE500] truncate max-w-[200px]" title={value}>
+                        <span
+                            className="text-[10px] font-mono text-[#FFE500] truncate max-w-[200px]"
+                            title={previewUrl}
+                        >
                             {filename}
                         </span>
                     )}
@@ -68,20 +81,26 @@ export const MediaImageField: React.FC<MediaImageFieldProps> = ({
             <div className="flex items-start gap-3">
                 {/* Vignette d'aperçu visuel */}
                 <div className="relative w-20 h-14 rounded-lg bg-black/60 border border-white/20 overflow-hidden shrink-0 flex items-center justify-center group">
-                    {value && !hasError ? (
+                    {previewUrl && !hasError ? (
                         <>
                             <Image
-                                key={value}
-                                src={value}
+                                key={previewUrl}
+                                src={previewUrl}
                                 alt={filename || 'Aperçu'}
                                 fill
                                 sizes="80px"
                                 unoptimized
-                                className="object-cover transition-transform group-hover:scale-105"
-                                onError={() => setFailedUrl(value)}
+                                className={`object-cover transition-transform group-hover:scale-105${isFallback ? ' opacity-60' : ''
+                                    }`}
+                                onError={() => setFailedUrl(previewUrl)}
                             />
+                            {isFallback && (
+                                <span className="absolute inset-x-0 bottom-0 bg-black/80 text-[8px] font-mono text-[#FFE500] text-center leading-tight py-px">
+                                    défaut
+                                </span>
+                            )}
                             <a
-                                href={value}
+                                href={previewUrl}
                                 target="_blank"
                                 rel="noreferrer noopener"
                                 className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity"
@@ -107,7 +126,7 @@ export const MediaImageField: React.FC<MediaImageFieldProps> = ({
                             type="text"
                             value={value}
                             onChange={(e) => onChange(e.target.value)}
-                            placeholder={placeholder}
+                            placeholder={placeholder ?? fallbackValue ?? 'https://... ou /media/...'}
                             disabled={disabled}
                             data-cuc-field={dataCucField}
                             className={

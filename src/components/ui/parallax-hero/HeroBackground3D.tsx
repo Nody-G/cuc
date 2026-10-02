@@ -4,13 +4,15 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import type { MotionValue } from 'framer-motion';
-import { HERO_SLIDES } from './parallaxHero.data';
+import { resolveHeroSlideAlt, type HeroSlideView } from './parallaxHero.data';
 import { SLIDE_DURATION_SEC } from './useParallaxHero';
 import type { SlideCopyMap } from './useParallaxHero';
 
 interface HeroBackground3DProps {
     isCalmMode: boolean;
     currentSlide: number;
+    /** Visuels effectifs (défauts fusionnés avec la surcharge éditée). */
+    slides: readonly HeroSlideView[];
     slideCopy: SlideCopyMap;
     /** Dérive verticale au scroll (Ken-Burns inertiel). */
     bgScrollY: MotionValue<string>;
@@ -29,13 +31,22 @@ interface HeroBackground3DProps {
 export const HeroBackground3D: React.FC<HeroBackground3DProps> = ({
     isCalmMode,
     currentSlide,
+    slides,
     slideCopy,
     bgScrollY,
     bgShiftX,
     bgRotateX,
     bgRotateY,
 }) => {
-    const activeCopy = slideCopy[HERO_SLIDES[currentSlide].key];
+    // Ceinture de sécurité : aucune image ⇒ rien à peindre, jamais de crash.
+    // `mergeHeroSlides` garantit déjà une liste non vide côté appelant.
+    if (slides.length === 0) return null;
+
+    /** Index borné : retirer un visuel ne peut pas pointer hors du tableau. */
+    const safeIndex = currentSlide >= 0 && currentSlide < slides.length ? currentSlide : 0;
+    const activeSlide = slides[safeIndex];
+    const activeCopy = activeSlide.key ? slideCopy[activeSlide.key] : undefined;
+    const activeAlt = resolveHeroSlideAlt(activeSlide, activeCopy);
 
     return (
         <motion.div
@@ -61,11 +72,11 @@ export const HeroBackground3D: React.FC<HeroBackground3DProps> = ({
                         instantanée malgré le réseau mobile. */}
                     <div className="absolute inset-0">
                         <Image
-                            key={currentSlide}
-                            src={HERO_SLIDES[currentSlide].url}
-                            alt={activeCopy?.caption ?? ''}
+                            key={safeIndex}
+                            src={activeSlide.url}
+                            alt={activeAlt}
                             fill
-                            priority={currentSlide === 0}
+                            priority={safeIndex === 0}
                             sizes="100vw"
                             /* Cadrage portrait : `object-center` coupait les sujets sur un
                                écran étroit — un point focal légèrement au-dessus du centre
@@ -75,7 +86,7 @@ export const HeroBackground3D: React.FC<HeroBackground3DProps> = ({
                     </div>
                     <div className="invisible absolute inset-0" aria-hidden="true">
                         <Image
-                            src={HERO_SLIDES[(currentSlide + 1) % HERO_SLIDES.length].url}
+                            src={slides[(safeIndex + 1) % slides.length].url}
                             alt=""
                             fill
                             sizes="100vw"
@@ -84,8 +95,8 @@ export const HeroBackground3D: React.FC<HeroBackground3DProps> = ({
                     </div>
                 </>
             ) : (
-                HERO_SLIDES.map((slide, idx) => {
-                    const isActive = idx === currentSlide;
+                slides.map((slide, idx) => {
+                    const isActive = idx === safeIndex;
                     return (
                         /* Empilement stable (plus de bascule z-10/z-0) : le changement de
                            z-index sur des calques plein écran provoquait un scintillement
@@ -103,7 +114,10 @@ export const HeroBackground3D: React.FC<HeroBackground3DProps> = ({
                             >
                                 <Image
                                     src={slide.url}
-                                    alt={slideCopy[slide.key]?.caption ?? ''}
+                                    alt={resolveHeroSlideAlt(
+                                        slide,
+                                        slide.key ? slideCopy[slide.key] : undefined
+                                    )}
                                     fill
                                     priority={idx === 0}
                                     sizes="100vw"

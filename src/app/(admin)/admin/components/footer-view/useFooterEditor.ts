@@ -15,6 +15,7 @@ import { useLabelsEditorLocale } from '../entity-translation/useLabelsEditorLoca
 import { footerLabelsCodec, type LabelsRow } from '../entity-translation/labels-codec';
 import type { EntityEditorLocale } from '../entity-translation/entity-translation.contract';
 import { sortedColumns, sortedLegalLinks, updateColumnIn, updateLegalLinkIn, updateLinkIn } from './footer-form';
+import { usePersistedDraftDiscard } from '../ui/usePersistedDraftDiscard';
 import { useFooterSourceActions } from './useFooterSourceActions';
 
 /** Codec de l'overlay `footer` — constante de module (identité stable). */
@@ -50,6 +51,8 @@ export interface UseFooterEditorResult {
     removeLegalLink: (linkId: string) => void;
     addLegalLink: () => void;
     handleSave: () => void;
+    /** Abandon : retour au pied de page persisté (distinct de « Réinitialiser »). */
+    handleDiscard: () => void;
     handleReset: () => void;
     /** Édition anglaise active : URLs, ordre et certification sont verrouillés. */
     isEnglish: boolean;
@@ -101,12 +104,20 @@ export function useFooterEditor({ showToast }: UseFooterEditorArgs): UseFooterEd
     const isEnglish = labelsEditor.isEnglish;
     const activeStructure = labelsEditor.active;
 
+    /** Référence d'abandon : structure chargée, puis dernière sauvegarde FR réussie. */
+    const { rememberPersisted, discardPersisted } = usePersistedDraftDiscard<FooterStructure>(
+        DEFAULT_FOOTER.structure,
+        setStructure,
+        () => setIsDirty(false)
+    );
+
     useEffect(() => {
         let cancelled = false;
         getFooter('main')
             .then((footer) => {
                 if (cancelled) return;
                 setStructure(footer.structure);
+                rememberPersisted(footer.structure);
                 setIsPublished(footer.is_published);
                 setIsDirty(false);
             })
@@ -116,7 +127,7 @@ export function useFooterEditor({ showToast }: UseFooterEditorArgs): UseFooterEd
         return () => {
             cancelled = true;
         };
-    }, []);
+    }, [rememberPersisted]);
 
     /**
      * Écriture d'un champ traduisible : en EN l'overlay, en FR la source. La
@@ -188,6 +199,7 @@ export function useFooterEditor({ showToast }: UseFooterEditorArgs): UseFooterEd
         isEnglish,
         showToast,
         startTransition,
+        onPersisted: rememberPersisted,
     });
 
     /**
@@ -232,5 +244,6 @@ export function useFooterEditor({ showToast }: UseFooterEditorArgs): UseFooterEd
         // En anglais, l'action principale écrit l'overlay : elle surcharge la
         // sauvegarde structurelle française exposée par `sourceActions`.
         handleSave,
+        handleDiscard: discardPersisted,
     };
 }

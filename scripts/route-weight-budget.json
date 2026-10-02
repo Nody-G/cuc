@@ -1,0 +1,39 @@
+{
+    "version": 1,
+    "unit": "gzip-kb",
+    "note": "Contrat machine du budget JS de premier chargement (cf. .agents/rules/client_bundle_budget.md). Applique les plafonds par route sur les HTML prerendus via scripts/audit_route_weight.mjs. targetKb = objectif de palier ; hardCapKb = capacite cible ; absoluteCapKb = capacite cible absolue. Les cles de `routes` sont les slugs sans locale ('/' = accueil).",
+    "budgetMode": "aspirational-under-ratchet",
+    "budgetModeNote": "Depuis la vague d'optimisations WS-B/C/D/E (2026-10-02), les cibles targetKb/hardCapKb/absoluteCapKb restent la reference d'ingenierie mais ne sont PLUS bloquantes : aucune route ne les atteint encore. Le garde-fou bloquant est le ratchet monotone `scripts/route-weight-ratchet.json` (echec uniquement en cas de regression > +5 %). Reserrer ces cibles quand le budget sera effectivement tenu.",
+    "aspirationalSince": "2026-10-02",
+    "reviewBy": "2026-12-31",
+    "absoluteCapKb": 380,
+    "nearCapRatio": 0.1,
+    "tiers": {
+        "A": {
+            "label": "contenu statique",
+            "targetKb": 250,
+            "hardCapKb": 300
+        },
+        "B": {
+            "label": "interactif / media",
+            "targetKb": 300,
+            "hardCapKb": 360
+        }
+    },
+    "routes": {
+        "/": "A",
+        "/contact-cuc": "A",
+        "/formation-de-cascadeur": "A",
+        "/spectacles-cascadeurs-yamakasi": "A",
+        "/stages-cascades-parkour-2": "A",
+        "/animations-airbag-parkour": "A",
+        "/team-building-cascades": "A",
+        "/stunt-workshop-cuc": "A",
+        "/partenaires": "A",
+        "/cuc-events-agence": "A",
+        "/videos-cascadeur": "B",
+        "/visite-virtuelle": "B",
+        "/equipe-cascadeurs-pro": "B",
+        "/cuc-team-cascadeur": "B"
+    }
+}

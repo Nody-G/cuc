@@ -31,7 +31,10 @@ export const HomePageEditor: React.FC<HomePageEditorProps> = ({
     setFormData,
     setMediaPickerTarget,
 }) => {
-    const { data, updateBlock, updateField } = useHomePageSections({ formData, setFormData });
+    const { data, updateBlock, updateField, applyList } = useHomePageSections({
+        formData,
+        setFormData,
+    });
     const sections = (formData.sections_data || {}) as Record<
         string,
         Record<string, unknown> | undefined
@@ -56,6 +59,7 @@ export const HomePageEditor: React.FC<HomePageEditorProps> = ({
                     blockData={sections[block.id]}
                     onItemChange={updateField}
                     onPickMedia={setMediaPickerTarget}
+                    onListCommand={applyList}
                 />
             ))}
         </div>

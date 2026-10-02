@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useSiteData } from '@/components/i18n/SiteDataProvider';
-import { createClient } from '@/lib/supabase/client';
-import { subscribeTable } from '@/lib/supabase/realtime';
+import { loadSupabaseBrowserClient } from '@/lib/supabase/lazy-client';
+import { isCockpitRoute, subscribeTable } from '@/lib/supabase/realtime';
 import {
     DEFAULT_NAVIGATION,
     type NavigationStructure,
@@ -44,66 +44,78 @@ export function useNavigation(id: string = 'main'): NavigationStructure {
 
     useEffect(() => {
         let cancelled = false;
-        const supabase = createClient();
+        let unsubscribeNavigation: () => void = () => { };
 
-        async function fetchNavigation() {
-            // Le serveur a déjà fourni la navigation localisée : on ne rejoue pas
-            // la requête (Realtime reste actif pour la fraîcheur).
-            if (hasServerData) return;
-            try {
-                const { data, error } = await supabase
-                    .from('site_navigation')
-                    .select('structure, is_published')
-                    .eq('id', id)
-                    .eq('is_published', true)
-                    .maybeSingle();
+        // Chargement PARESSEUX : le client Supabase n'est sollicité que si une
+        // lecture est nécessaire (pas de données serveur) ou si le canal Realtime
+        // du Cockpit doit être ouvert. Sur la vitrine déjà servie par le serveur,
+        // `@supabase/supabase-js` n'est jamais téléchargé.
+        async function bootstrap() {
+            const needsRealtime =
+                typeof window !== 'undefined' && isCockpitRoute(window.location.pathname);
+            if (hasServerData && !needsRealtime) return;
 
-                if (cancelled || error || !data?.structure) return;
+            const supabase = await loadSupabaseBrowserClient();
+            if (cancelled) return;
 
-                const incoming = data.structure as NavigationStructure;
-                if (!incoming.items || !Array.isArray(incoming.items) || incoming.items.length === 0) {
-                    return;
+            if (!hasServerData) {
+                try {
+                    const { data, error } = await supabase
+                        .from('site_navigation')
+                        .select('structure, is_published')
+                        .eq('id', id)
+                        .eq('is_published', true)
+                        .maybeSingle();
+
+                    if (cancelled || error || !data?.structure) return;
+
+                    const incoming = data.structure as NavigationStructure;
+                    if (!incoming.items || !Array.isArray(incoming.items) || incoming.items.length === 0) {
+                        return;
+                    }
+
+                    const labels = await fetchLabelOverlay(supabase, 'navigation', id, currentLocale());
+                    const cta = incoming.cta || DEFAULT_NAVIGATION.structure.cta;
+
+                    setStructure({
+                        items: applyItemLabels(incoming.items, labels),
+                        cta: labels?.cta ? { ...cta, label: labels.cta } : cta,
+                    });
+                } catch {
+                    /* fallback silencieux : on conserve DEFAULT_NAVIGATION */
                 }
-
-                const labels = await fetchLabelOverlay(supabase, 'navigation', id, currentLocale());
-                const cta = incoming.cta || DEFAULT_NAVIGATION.structure.cta;
-
-                setStructure({
-                    items: applyItemLabels(incoming.items, labels),
-                    cta: labels?.cta ? { ...cta, label: labels.cta } : cta,
-                });
-            } catch {
-                /* fallback silencieux : on conserve DEFAULT_NAVIGATION */
             }
+
+            if (cancelled) return;
+
+            // Canal à nom unique + garde : évite la collision qui provoquait
+            // « cannot add postgres_changes callbacks ... after subscribe() ».
+            // Canal partagé par client (cf. `subscribeTable`) : plus un canal par
+            // table — la barre de navigation, le pied de page et les réseaux sociaux
+            // tiennent sur le même WebSocket.
+            unsubscribeNavigation = subscribeTable(
+                supabase,
+                { table: 'site_navigation', filter: `id=eq.${id}` },
+                (payload) => {
+                    const row = payload.new as { structure?: NavigationStructure; is_published?: boolean } | null;
+                    if (!row?.structure || row.is_published === false) {
+                        setStructure(DEFAULT_NAVIGATION.structure);
+                        return;
+                    }
+                    const incoming = row.structure;
+                    if (!incoming.items || !Array.isArray(incoming.items) || incoming.items.length === 0) {
+                        setStructure(DEFAULT_NAVIGATION.structure);
+                        return;
+                    }
+                    setStructure({
+                        items: incoming.items,
+                        cta: incoming.cta || DEFAULT_NAVIGATION.structure.cta,
+                    });
+                }
+            );
         }
 
-        fetchNavigation();
-
-        // Canal à nom unique + garde : évite la collision qui provoquait
-        // « cannot add postgres_changes callbacks ... after subscribe() ».
-        // Canal partagé par client (cf. `subscribeTable`) : plus un canal par
-        // table — la barre de navigation, le pied de page et les réseaux sociaux
-        // tiennent sur le même WebSocket.
-        const unsubscribeNavigation = subscribeTable(
-            supabase,
-            { table: 'site_navigation', filter: `id=eq.${id}` },
-            (payload) => {
-                const row = payload.new as { structure?: NavigationStructure; is_published?: boolean } | null;
-                if (!row?.structure || row.is_published === false) {
-                    setStructure(DEFAULT_NAVIGATION.structure);
-                    return;
-                }
-                const incoming = row.structure;
-                if (!incoming.items || !Array.isArray(incoming.items) || incoming.items.length === 0) {
-                    setStructure(DEFAULT_NAVIGATION.structure);
-                    return;
-                }
-                setStructure({
-                    items: incoming.items,
-                    cta: incoming.cta || DEFAULT_NAVIGATION.structure.cta,
-                });
-            }
-        );
+        void bootstrap();
 
         return () => {
             cancelled = true;

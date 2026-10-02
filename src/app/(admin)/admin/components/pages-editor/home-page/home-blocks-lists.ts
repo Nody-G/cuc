@@ -1,4 +1,5 @@
 import type { HomeListBlockDef } from './home-blocks.types';
+import { HERO_SLIDES, buildHeroSlideSeed } from '@/lib/data/site/hero-slides';
 
 /**
  * ==============================================================================
@@ -20,6 +21,26 @@ import type { HomeListBlockDef } from './home-blocks.types';
  * l'audit comme un champ plat du bloc, donc une promesse fantôme.
  */
 export const HOME_LIST_BLOCKS: HomeListBlockDef[] = [
+    {
+        id: 'hero',
+        title: 'Accueil — Visuels du hero',
+        desc: 'Les photos qui défilent en fond de bannière. Modifiez, réordonnez ou ajoutez des visuels au-delà des 4 historiques.',
+        tag: 'hero',
+        lists: [
+            {
+                arrayKey: 'slides',
+                label: 'Visuels qui défilent',
+                desc: 'Le bouton ouvre la médiathèque. Tant qu’aucune surcharge n’est enregistrée, les 4 visuels historiques servent de repli (aperçus grisés).',
+                count: HERO_SLIDES.length,
+                canEditStructure: true,
+                seed: buildHeroSlideSeed(),
+                fields: [
+                    { fieldKey: 'url', label: 'Image', media: true },
+                    { fieldKey: 'alt', label: 'Texte alternatif (visuels ajoutés)' },
+                ],
+            },
+        ],
+    },
     {
         id: 'about',
         title: 'Présentation — Piliers éditoriaux',

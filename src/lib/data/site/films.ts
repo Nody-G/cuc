@@ -30,7 +30,7 @@ const STATIC_DIRECTORS = new Map(
  */
 export async function getFilms(): Promise<FilmCredit[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data, error } = await supabase
       .from('site_films')
       .select('*')
@@ -87,7 +87,7 @@ export async function getFilms(): Promise<FilmCredit[]> {
  */
 export async function getCelebrities(): Promise<DoubledCelebrity[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data: row } = await supabase
       .from('site_settings')
       .select('value')
@@ -109,7 +109,7 @@ export async function getCelebrities(): Promise<DoubledCelebrity[]> {
  */
 export async function getFilmBanners(): Promise<FilmBanner[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data: row } = await supabase
       .from('site_settings')
       .select('value')

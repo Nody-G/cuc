@@ -1,110 +1,245 @@
 # Revue — Poids JS par route (budget)
 
-Généré le 2026-10-01T16:57:10.674Z par `scripts/audit_route_weight.mjs`.
+Généré le 2026-10-02T10:55:20.634Z par `scripts/audit_route_weight.mjs`.
 
-Mesure : somme **gzip** des chunks JS référencés par le HTML prérendu de chaque
-route publique (`fr/*`, `en/*`) — c’est ce que reçoit le navigateur au premier
-chargement. Baseline : `plans/route-weight-baseline.json`. Seuils : échec **> +5 %**,
-avertissement **> +2 %**. Régénérer la baseline (après revue) :
+Mesure : somme **gzip** des chunks JS réellement téléchargés au premier écran (HTML
+prérendu public `fr/*`, `en/*`) — les scripts `nomodule` (chunk legacy `polyfills-*.js`)
+sont **exclus** car aucun navigateur moderne ne les télécharge, et listés à part ci-dessous.
+Cibles aspirantes : `scripts/route-weight-budget.json` (paliers A/B + plafond absolu) —
+la dette restante est affichée mais **non bloquante** tant que le ratchet tient.
+Garde-fou bloquant (ratchet monotone) : `scripts/route-weight-ratchet.json` — échec si
+**> +5 %** au-dessus du ratchet ; avertissement : **> +2 %**. Régénérer (après revue) :
 `npm run audit:route-weight:baseline`.
 
 ## Verdict
 
-**OK** — 72 routes mesurées, aucune au-dessus de +5 %.
+**OK (ratchet)** — 72 routes mesurées : aucune régression > +5 % vs ratchet.
 
-- avertissements (> +2 %) : 68
-- améliorations (< −2 %) : 2
-- nouvelles routes (hors baseline) : 2
+- régressions ratchet (> +5 %) : 0
+- cibles aspirantes dépassées (dette suivie, non bloquant) : 70
+- proches d’une cible (< 10 %) : 0
+- dérives ratchet (> +2 %) : 0
+- améliorations (< −2 % ratchet) : 0
+- nouvelles routes (hors ratchet) : 0
 - routes absentes du build : 0
+- routes sans palier déclaré (cible absolue seule) : 44
+- scripts `nomodule` exclus du poids (transparence) : 1 chunk(s), 38.7 Ko
+
+## Budget par route (cibles aspirantes + ratchet bloquant)
+
+| Route | Palier | Poids | Cible | Cible aspirante | Statut |
+| --- | :---: | ---: | ---: | ---: | :---: |
+| `/en/cuc-team-cascadeur` | B | 459.6 Ko | 300 Ko | 360 Ko | hors cible |
+| `/fr/cuc-team-cascadeur` | B | 459.6 Ko | 300 Ko | 360 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro` | B | 456.3 Ko | 300 Ko | 360 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro` | B | 456.3 Ko | 300 Ko | 360 Ko | hors cible |
+| `/en` | A | 455.4 Ko | 250 Ko | 300 Ko | hors cible |
+| `/fr` | A | 455.4 Ko | 250 Ko | 300 Ko | hors cible |
+| `/en/visite-guidee` | — | 454.2 Ko | — | 380 Ko | hors cible |
+| `/fr/visite-guidee` | — | 454.2 Ko | — | 380 Ko | hors cible |
+| `/en/contact-cuc` | A | 451.5 Ko | 250 Ko | 300 Ko | hors cible |
+| `/fr/contact-cuc` | A | 451.5 Ko | 250 Ko | 300 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/alan-cueff` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/alex-vu` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/amedeo-cazzella` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/anthony-pho` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/bastien-trouve` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/franck-blanc` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/frederic-dessains` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/jerome-gaspard` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/jonathan-bernard` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/kefi-abrikh` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/lucas-dollfus` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/malik-diouf` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/maurice-chan` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/michel-bouis` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/nicolas-retabi` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/niels-dalery` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/pierre-toubas` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/sarah-belala` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/teddy-ponceau` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/equipe-cascadeurs-pro/vincent-bouillon` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/alan-cueff` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/alex-vu` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/amedeo-cazzella` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/anthony-pho` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/bastien-trouve` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/franck-blanc` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/frederic-dessains` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/jerome-gaspard` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/jonathan-bernard` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/kefi-abrikh` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/lucas-dollfus` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/malik-diouf` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/maurice-chan` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/michel-bouis` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/nicolas-retabi` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/niels-dalery` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/pierre-toubas` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/sarah-belala` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/teddy-ponceau` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/fr/equipe-cascadeurs-pro/vincent-bouillon` | — | 450.2 Ko | — | 380 Ko | hors cible |
+| `/en/formation-de-cascadeur` | A | 449.6 Ko | 250 Ko | 300 Ko | hors cible |
+| `/fr/formation-de-cascadeur` | A | 449.6 Ko | 250 Ko | 300 Ko | hors cible |
+| `/en/partenaires` | A | 445.5 Ko | 250 Ko | 300 Ko | hors cible |
+| `/fr/partenaires` | A | 445.5 Ko | 250 Ko | 300 Ko | hors cible |
+| `/en/stunt-workshop-cuc` | A | 445.2 Ko | 250 Ko | 300 Ko | hors cible |
+| `/fr/stunt-workshop-cuc` | A | 445.2 Ko | 250 Ko | 300 Ko | hors cible |
+| `/en/stages-cascades-parkour-2` | A | 445.2 Ko | 250 Ko | 300 Ko | hors cible |
+| `/fr/stages-cascades-parkour-2` | A | 445.2 Ko | 250 Ko | 300 Ko | hors cible |
+| `/en/videos-cascadeur` | B | 444.4 Ko | 300 Ko | 360 Ko | hors cible |
+| `/fr/videos-cascadeur` | B | 444.4 Ko | 300 Ko | 360 Ko | hors cible |
+| `/en/cuc-events-agence` | A | 444.3 Ko | 250 Ko | 300 Ko | hors cible |
+| `/fr/cuc-events-agence` | A | 444.3 Ko | 250 Ko | 300 Ko | hors cible |
+| `/en/visite-virtuelle` | B | 439 Ko | 300 Ko | 360 Ko | hors cible |
+| `/fr/visite-virtuelle` | B | 439 Ko | 300 Ko | 360 Ko | hors cible |
+| `/en/animations-airbag-parkour` | A | 434.2 Ko | 250 Ko | 300 Ko | hors cible |
+| `/en/spectacles-cascadeurs-yamakasi` | A | 434.2 Ko | 250 Ko | 300 Ko | hors cible |
+| `/en/team-building-cascades` | A | 434.2 Ko | 250 Ko | 300 Ko | hors cible |
+| `/fr/animations-airbag-parkour` | A | 434.2 Ko | 250 Ko | 300 Ko | hors cible |
+| `/fr/spectacles-cascadeurs-yamakasi` | A | 434.2 Ko | 250 Ko | 300 Ko | hors cible |
+| `/fr/team-building-cascades` | A | 434.2 Ko | 250 Ko | 300 Ko | hors cible |
+| `/en/preview` | — | 0 Ko | — | 380 Ko | OK |
+| `/fr/preview` | — | 0 Ko | — | 380 Ko | OK |
 
 ## Routes les plus lourdes (top 10)
 
-| Route | Poids | Baseline | Δ |
+| Route | Poids | Ratchet | Δ |
 | --- | ---: | ---: | ---: |
-| `/en/contact-cuc` | 570 Ko | 546.3 Ko | +4.3 % |
-| `/fr/contact-cuc` | 570 Ko | 546.3 Ko | +4.3 % |
-| `/en/visite-guidee` | 569.9 Ko | 551.9 Ko | +3.3 % |
-| `/fr/visite-guidee` | 569.9 Ko | 551.9 Ko | +3.3 % |
-| `/en/cuc-team-cascadeur` | 569.2 Ko | 556.7 Ko | +2.2 % |
-| `/fr/cuc-team-cascadeur` | 569.2 Ko | 556.7 Ko | +2.2 % |
-| `/en/formation-de-cascadeur` | 568.1 Ko | 546.1 Ko | +4.0 % |
-| `/fr/formation-de-cascadeur` | 568.1 Ko | 546.1 Ko | +4.0 % |
-| `/en/partenaires` | 564 Ko | 541 Ko | +4.3 % |
-| `/fr/partenaires` | 564 Ko | 541 Ko | +4.3 % |
+| `/en/cuc-team-cascadeur` | 459.6 Ko | 459.6 Ko | +0.0 % |
+| `/fr/cuc-team-cascadeur` | 459.6 Ko | 459.6 Ko | +0.0 % |
+| `/en/equipe-cascadeurs-pro` | 456.3 Ko | 456.3 Ko | +0.0 % |
+| `/fr/equipe-cascadeurs-pro` | 456.3 Ko | 456.3 Ko | +0.0 % |
+| `/en` | 455.4 Ko | 455.4 Ko | +0.0 % |
+| `/fr` | 455.4 Ko | 455.4 Ko | +0.0 % |
+| `/en/visite-guidee` | 454.2 Ko | 454.2 Ko | +0.0 % |
+| `/fr/visite-guidee` | 454.2 Ko | 454.2 Ko | +0.0 % |
+| `/en/contact-cuc` | 451.5 Ko | 451.5 Ko | +0.0 % |
+| `/fr/contact-cuc` | 451.5 Ko | 451.5 Ko | +0.0 % |
 
-## Avertissements (> +2 %)
+## Cibles aspirantes dépassées (dette suivie — non bloquant sous ratchet)
 
-- `/en/contact-cuc` — 570 Ko (baseline 546.3 Ko, +4.3 %)
-- `/fr/contact-cuc` — 570 Ko (baseline 546.3 Ko, +4.3 %)
-- `/en/partenaires` — 564 Ko (baseline 541 Ko, +4.3 %)
-- `/fr/partenaires` — 564 Ko (baseline 541 Ko, +4.3 %)
-- `/en/formation-de-cascadeur` — 568.1 Ko (baseline 546.1 Ko, +4.0 %)
-- `/fr/formation-de-cascadeur` — 568.1 Ko (baseline 546.1 Ko, +4.0 %)
-- `/en/stunt-workshop-cuc` — 560.7 Ko (baseline 540 Ko, +3.8 %)
-- `/fr/stunt-workshop-cuc` — 560.7 Ko (baseline 540 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro` — 564 Ko (baseline 543.4 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro` — 564 Ko (baseline 543.4 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/alan-cueff` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/alex-vu` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/amedeo-cazzella` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/anthony-pho` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/bastien-trouve` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/franck-blanc` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/frederic-dessains` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/jerome-gaspard` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/jonathan-bernard` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/kefi-abrikh` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/lucas-dollfus` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/malik-diouf` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/maurice-chan` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/michel-bouis` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/nicolas-retabi` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/niels-dalery` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/pierre-toubas` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/sarah-belala` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/teddy-ponceau` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/equipe-cascadeurs-pro/vincent-bouillon` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/alan-cueff` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/alex-vu` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/amedeo-cazzella` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/anthony-pho` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/bastien-trouve` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/franck-blanc` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/frederic-dessains` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/jerome-gaspard` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/jonathan-bernard` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/kefi-abrikh` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/lucas-dollfus` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/malik-diouf` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/maurice-chan` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/michel-bouis` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/nicolas-retabi` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/niels-dalery` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/pierre-toubas` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/sarah-belala` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/teddy-ponceau` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/fr/equipe-cascadeurs-pro/vincent-bouillon` — 560.6 Ko (baseline 540.2 Ko, +3.8 %)
-- `/en/videos-cascadeur` — 562.6 Ko (baseline 542.6 Ko, +3.7 %)
-- `/fr/videos-cascadeur` — 562.6 Ko (baseline 542.6 Ko, +3.7 %)
-- `/en/visite-guidee` — 569.9 Ko (baseline 551.9 Ko, +3.3 %)
-- `/fr/visite-guidee` — 569.9 Ko (baseline 551.9 Ko, +3.3 %)
-- `/en/visite-virtuelle` — 557.6 Ko (baseline 540.9 Ko, +3.1 %)
-- `/fr/visite-virtuelle` — 557.6 Ko (baseline 540.9 Ko, +3.1 %)
-- `/en/stages-cascades-parkour-2` — 556.6 Ko (baseline 540 Ko, +3.1 %)
-- `/fr/stages-cascades-parkour-2` — 556.6 Ko (baseline 540 Ko, +3.1 %)
-- `/en/cuc-events-agence` — 556.4 Ko (baseline 541 Ko, +2.9 %)
-- `/fr/cuc-events-agence` — 556.4 Ko (baseline 541 Ko, +2.9 %)
-- `/en/spectacles-cascadeurs-yamakasi` — 552.9 Ko (baseline 537.7 Ko, +2.8 %)
-- `/fr/spectacles-cascadeurs-yamakasi` — 552.9 Ko (baseline 537.7 Ko, +2.8 %)
-- `/en/animations-airbag-parkour` — 552.9 Ko (baseline 537.8 Ko, +2.8 %)
-- `/fr/animations-airbag-parkour` — 552.9 Ko (baseline 537.8 Ko, +2.8 %)
-- `/en/team-building-cascades` — 552.9 Ko (baseline 537.8 Ko, +2.8 %)
-- `/fr/team-building-cascades` — 552.9 Ko (baseline 537.8 Ko, +2.8 %)
-- `/en/cuc-team-cascadeur` — 569.2 Ko (baseline 556.7 Ko, +2.2 %)
-- `/fr/cuc-team-cascadeur` — 569.2 Ko (baseline 556.7 Ko, +2.2 %)
+- `/en` — 455.4 Ko / cible 300 Ko (palier A)
+- `/fr` — 455.4 Ko / cible 300 Ko (palier A)
+- `/en/contact-cuc` — 451.5 Ko / cible 300 Ko (palier A)
+- `/fr/contact-cuc` — 451.5 Ko / cible 300 Ko (palier A)
+- `/en/formation-de-cascadeur` — 449.6 Ko / cible 300 Ko (palier A)
+- `/fr/formation-de-cascadeur` — 449.6 Ko / cible 300 Ko (palier A)
+- `/en/partenaires` — 445.5 Ko / cible 300 Ko (palier A)
+- `/fr/partenaires` — 445.5 Ko / cible 300 Ko (palier A)
+- `/en/stunt-workshop-cuc` — 445.2 Ko / cible 300 Ko (palier A)
+- `/fr/stunt-workshop-cuc` — 445.2 Ko / cible 300 Ko (palier A)
+- `/en/stages-cascades-parkour-2` — 445.2 Ko / cible 300 Ko (palier A)
+- `/fr/stages-cascades-parkour-2` — 445.2 Ko / cible 300 Ko (palier A)
+- `/en/cuc-events-agence` — 444.3 Ko / cible 300 Ko (palier A)
+- `/fr/cuc-events-agence` — 444.3 Ko / cible 300 Ko (palier A)
+- `/en/animations-airbag-parkour` — 434.2 Ko / cible 300 Ko (palier A)
+- `/en/spectacles-cascadeurs-yamakasi` — 434.2 Ko / cible 300 Ko (palier A)
+- `/en/team-building-cascades` — 434.2 Ko / cible 300 Ko (palier A)
+- `/fr/animations-airbag-parkour` — 434.2 Ko / cible 300 Ko (palier A)
+- `/fr/spectacles-cascadeurs-yamakasi` — 434.2 Ko / cible 300 Ko (palier A)
+- `/fr/team-building-cascades` — 434.2 Ko / cible 300 Ko (palier A)
+- `/en/cuc-team-cascadeur` — 459.6 Ko / cible 360 Ko (palier B)
+- `/fr/cuc-team-cascadeur` — 459.6 Ko / cible 360 Ko (palier B)
+- `/en/equipe-cascadeurs-pro` — 456.3 Ko / cible 360 Ko (palier B)
+- `/fr/equipe-cascadeurs-pro` — 456.3 Ko / cible 360 Ko (palier B)
+- `/en/videos-cascadeur` — 444.4 Ko / cible 360 Ko (palier B)
+- `/fr/videos-cascadeur` — 444.4 Ko / cible 360 Ko (palier B)
+- `/en/visite-virtuelle` — 439 Ko / cible 360 Ko (palier B)
+- `/fr/visite-virtuelle` — 439 Ko / cible 360 Ko (palier B)
+- `/en/visite-guidee` — 454.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/visite-guidee` — 454.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/alan-cueff` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/alex-vu` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/amedeo-cazzella` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/anthony-pho` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/bastien-trouve` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/franck-blanc` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/frederic-dessains` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/jerome-gaspard` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/jonathan-bernard` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/kefi-abrikh` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/lucas-dollfus` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/malik-diouf` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/maurice-chan` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/michel-bouis` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/nicolas-retabi` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/niels-dalery` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/pierre-toubas` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/sarah-belala` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/teddy-ponceau` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/en/equipe-cascadeurs-pro/vincent-bouillon` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/alan-cueff` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/alex-vu` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/amedeo-cazzella` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/anthony-pho` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/bastien-trouve` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/franck-blanc` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/frederic-dessains` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/jerome-gaspard` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/jonathan-bernard` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/kefi-abrikh` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/lucas-dollfus` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/malik-diouf` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/maurice-chan` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/michel-bouis` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/nicolas-retabi` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/niels-dalery` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/pierre-toubas` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/sarah-belala` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/teddy-ponceau` — 450.2 Ko / cible 380 Ko (plafond absolu)
+- `/fr/equipe-cascadeurs-pro/vincent-bouillon` — 450.2 Ko / cible 380 Ko (plafond absolu)
 
-## Nouvelles routes (hors baseline — régénérer la baseline après revue)
+## Routes publiques sans palier déclaré (cible absolue seule)
 
+- `/en/visite-guidee`
+- `/fr/visite-guidee`
+- `/en/equipe-cascadeurs-pro/alan-cueff`
+- `/en/equipe-cascadeurs-pro/alex-vu`
+- `/en/equipe-cascadeurs-pro/amedeo-cazzella`
+- `/en/equipe-cascadeurs-pro/anthony-pho`
+- `/en/equipe-cascadeurs-pro/bastien-trouve`
+- `/en/equipe-cascadeurs-pro/franck-blanc`
+- `/en/equipe-cascadeurs-pro/frederic-dessains`
+- `/en/equipe-cascadeurs-pro/jerome-gaspard`
+- `/en/equipe-cascadeurs-pro/jonathan-bernard`
+- `/en/equipe-cascadeurs-pro/kefi-abrikh`
+- `/en/equipe-cascadeurs-pro/lucas-dollfus`
+- `/en/equipe-cascadeurs-pro/malik-diouf`
+- `/en/equipe-cascadeurs-pro/maurice-chan`
+- `/en/equipe-cascadeurs-pro/michel-bouis`
+- `/en/equipe-cascadeurs-pro/nicolas-retabi`
+- `/en/equipe-cascadeurs-pro/niels-dalery`
+- `/en/equipe-cascadeurs-pro/pierre-toubas`
+- `/en/equipe-cascadeurs-pro/sarah-belala`
+- `/en/equipe-cascadeurs-pro/teddy-ponceau`
+- `/en/equipe-cascadeurs-pro/vincent-bouillon`
+- `/fr/equipe-cascadeurs-pro/alan-cueff`
+- `/fr/equipe-cascadeurs-pro/alex-vu`
+- `/fr/equipe-cascadeurs-pro/amedeo-cazzella`
+- `/fr/equipe-cascadeurs-pro/anthony-pho`
+- `/fr/equipe-cascadeurs-pro/bastien-trouve`
+- `/fr/equipe-cascadeurs-pro/franck-blanc`
+- `/fr/equipe-cascadeurs-pro/frederic-dessains`
+- `/fr/equipe-cascadeurs-pro/jerome-gaspard`
+- `/fr/equipe-cascadeurs-pro/jonathan-bernard`
+- `/fr/equipe-cascadeurs-pro/kefi-abrikh`
+- `/fr/equipe-cascadeurs-pro/lucas-dollfus`
+- `/fr/equipe-cascadeurs-pro/malik-diouf`
+- `/fr/equipe-cascadeurs-pro/maurice-chan`
+- `/fr/equipe-cascadeurs-pro/michel-bouis`
+- `/fr/equipe-cascadeurs-pro/nicolas-retabi`
+- `/fr/equipe-cascadeurs-pro/niels-dalery`
+- `/fr/equipe-cascadeurs-pro/pierre-toubas`
+- `/fr/equipe-cascadeurs-pro/sarah-belala`
+- `/fr/equipe-cascadeurs-pro/teddy-ponceau`
+- `/fr/equipe-cascadeurs-pro/vincent-bouillon`
 - `/en/preview`
 - `/fr/preview`
+
+## Scripts `nomodule` exclus du poids (legacy — jamais téléchargés par un navigateur moderne)
+
+Total exclu : **38.7 Ko** gzip sur 1 chunk(s).
+
+- `static/chunks/polyfills-42372ed130431b0a.js` — 38.7 Ko
 

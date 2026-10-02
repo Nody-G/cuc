@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { createClient } from '@/lib/supabase/client';
+import { loadSupabaseBrowserClient } from '@/lib/supabase/lazy-client';
 import { isCockpitRoute, subscribeTable } from '@/lib/supabase/realtime';
 
 /**
@@ -88,8 +88,9 @@ export function useRealtimeRefresh(
         if (tableList.length === 0) return;
         if (!isCockpitRoute(window.location.pathname)) return;
 
-        const supabase = createClient();
+        let cancelled = false;
         let timer: ReturnType<typeof setTimeout> | null = null;
+        let unsubscribers: Array<() => void> = [];
 
         const schedule = () => {
             if (timer) clearTimeout(timer);
@@ -98,11 +99,17 @@ export function useRealtimeRefresh(
             }, debounceMs);
         };
 
-        // Canal PARTAGÉ par client : toutes les tables écoutées par cette page
-        // s'enregistrent sur le même WebSocket (cf. `subscribeTable`).
-        const unsubscribers = tableList.map((table) => subscribeTable(supabase, { table }, schedule));
+        // Chargement PARESSEUX : la garde ci-dessus sort les routes publiques,
+        // donc `@supabase/supabase-js` n'est téléchargé que pour le Cockpit.
+        void loadSupabaseBrowserClient().then((supabase) => {
+            if (cancelled) return;
+            // Canal PARTAGÉ par client : toutes les tables écoutées par cette page
+            // s'enregistrent sur le même WebSocket (cf. `subscribeTable`).
+            unsubscribers = tableList.map((table) => subscribeTable(supabase, { table }, schedule));
+        });
 
         return () => {
+            cancelled = true;
             if (timer) clearTimeout(timer);
             for (const unsubscribe of unsubscribers) unsubscribe();
         };

@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import React, { useState, useEffect } from 'react';
 
 import { ArrowUp } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useFooter } from '@/lib/hooks/useNavigation';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 
@@ -82,24 +81,22 @@ export const FooterCreditsBar: React.FC = () => {
         </button>
       </div>
 
-      {/* Floating Back To Top Button */}
-      <AnimatePresence>
-        {showFloatingTop && (
-          <motion.button
-            onClick={scrollToTop}
-            initial={{ opacity: 0, scale: 0.8, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 10 }}
-            transition={{ duration: 0.2 }}
-            /* `bottom` mobile = au-dessus de la barre collante + encoche iOS. */
-            className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] sm:bottom-8 right-5 sm:right-8 z-40 p-3 bg-[#0a0a0e]/90 hover:bg-[#FFE500] text-zinc-300 hover:text-black border border-zinc-700 hover:border-[#FFE500] backdrop-blur-md shadow-2xl transition-colors cursor-pointer active:scale-95"
-            aria-label={t('backToTopLabel')}
-            title={t('backToTopTitle')}
-          >
-            <ArrowUp className="w-5 h-5" />
-          </motion.button>
-        )}
-      </AnimatePresence>
+      {/* Floating Back To Top Button — `bottom` mobile = au-dessus de la barre
+          collante + encoche iOS ; masquée (invisible + non focusable) tant que
+          le seuil de scroll n'est pas franchi. */}
+      <button
+        onClick={scrollToTop}
+        aria-hidden={!showFloatingTop}
+        tabIndex={showFloatingTop ? 0 : -1}
+        className={`fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] sm:bottom-8 right-5 sm:right-8 z-40 p-3 bg-[#0a0a0e]/90 hover:bg-[#FFE500] text-zinc-300 hover:text-black border border-zinc-700 hover:border-[#FFE500] backdrop-blur-md shadow-2xl cursor-pointer active:scale-95 transition-[opacity,transform,background-color,border-color,color] duration-200 ${showFloatingTop
+          ? 'opacity-100 scale-100 translate-y-0'
+          : 'opacity-0 scale-90 translate-y-2.5 invisible pointer-events-none'
+          }`}
+        aria-label={t('backToTopLabel')}
+        title={t('backToTopTitle')}
+      >
+        <ArrowUp className="w-5 h-5" />
+      </button>
     </>
   );
 };

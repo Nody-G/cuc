@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useSiteData } from '@/components/i18n/SiteDataProvider';
-import { createClient } from '@/lib/supabase/client';
-import { subscribeTable } from '@/lib/supabase/realtime';
+import { loadSupabaseBrowserClient } from '@/lib/supabase/lazy-client';
+import { isCockpitRoute, subscribeTable } from '@/lib/supabase/realtime';
 import { DEFAULT_FOOTER, type FooterStructure } from '@/data/navigation';
 import { applyFooterLabels, currentLocale, fetchLabelOverlay } from './navigation-labels';
 
@@ -24,53 +24,65 @@ export function useFooter(id: string = 'main'): FooterStructure {
 
     useEffect(() => {
         let cancelled = false;
-        const supabase = createClient();
+        let unsubscribeFooter: () => void = () => { };
 
-        async function fetchFooter() {
-            if (hasServerFooter) return;
-            try {
-                const { data, error } = await supabase
-                    .from('site_footer')
-                    .select('structure, is_published')
-                    .eq('id', id)
-                    .eq('is_published', true)
-                    .maybeSingle();
+        // Même chargement PARESSEUX que `useNavigation` : ni lecture ni canal
+        // Supabase tant que le serveur a fourni le pied de page hors Cockpit.
+        async function bootstrap() {
+            const needsRealtime =
+                typeof window !== 'undefined' && isCockpitRoute(window.location.pathname);
+            if (hasServerFooter && !needsRealtime) return;
 
-                if (cancelled || error || !data?.structure) return;
+            const supabase = await loadSupabaseBrowserClient();
+            if (cancelled) return;
 
-                const incoming = data.structure as FooterStructure;
-                if (!incoming.columns || !Array.isArray(incoming.columns)) return;
+            if (!hasServerFooter) {
+                try {
+                    const { data, error } = await supabase
+                        .from('site_footer')
+                        .select('structure, is_published')
+                        .eq('id', id)
+                        .eq('is_published', true)
+                        .maybeSingle();
 
-                const labels = await fetchLabelOverlay(supabase, 'footer', id, currentLocale());
-                setStructure(applyFooterLabels(incoming, labels));
-            } catch {
-                /* fallback silencieux */
+                    if (cancelled || error || !data?.structure) return;
+
+                    const incoming = data.structure as FooterStructure;
+                    if (!incoming.columns || !Array.isArray(incoming.columns)) return;
+
+                    const labels = await fetchLabelOverlay(supabase, 'footer', id, currentLocale());
+                    setStructure(applyFooterLabels(incoming, labels));
+                } catch {
+                    /* fallback silencieux */
+                }
             }
+
+            if (cancelled) return;
+
+            unsubscribeFooter = subscribeTable(
+                supabase,
+                { table: 'site_footer', filter: `id=eq.${id}` },
+                (payload) => {
+                    const row = payload.new as { structure?: FooterStructure; is_published?: boolean } | null;
+                    if (!row?.structure || row.is_published === false) {
+                        setStructure(DEFAULT_FOOTER.structure);
+                        return;
+                    }
+                    const incoming = row.structure;
+                    if (!incoming.columns || !Array.isArray(incoming.columns)) {
+                        setStructure(DEFAULT_FOOTER.structure);
+                        return;
+                    }
+                    setStructure({
+                        columns: incoming.columns,
+                        brand: incoming.brand || DEFAULT_FOOTER.structure.brand,
+                        legal: incoming.legal || DEFAULT_FOOTER.structure.legal,
+                    });
+                }
+            );
         }
 
-        fetchFooter();
-
-        const unsubscribeFooter = subscribeTable(
-            supabase,
-            { table: 'site_footer', filter: `id=eq.${id}` },
-            (payload) => {
-                const row = payload.new as { structure?: FooterStructure; is_published?: boolean } | null;
-                if (!row?.structure || row.is_published === false) {
-                    setStructure(DEFAULT_FOOTER.structure);
-                    return;
-                }
-                const incoming = row.structure;
-                if (!incoming.columns || !Array.isArray(incoming.columns)) {
-                    setStructure(DEFAULT_FOOTER.structure);
-                    return;
-                }
-                setStructure({
-                    columns: incoming.columns,
-                    brand: incoming.brand || DEFAULT_FOOTER.structure.brand,
-                    legal: incoming.legal || DEFAULT_FOOTER.structure.legal,
-                });
-            }
-        );
+        void bootstrap();
 
         return () => {
             cancelled = true;

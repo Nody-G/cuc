@@ -151,13 +151,17 @@ export function useNavigationSourceActions({
         [structure, mutateStructure, isEnglish]
     );
 
+    /**
+     * « Réinitialiser » = valeurs par défaut CUC, action destructive assumée.
+     * Aucun verrou de langue : en anglais comme en français, le bouton doit agir —
+     * un bouton mort est pire qu'une confirmation explicite.
+     */
     const handleReset = useCallback(() => {
-        if (isEnglish) return;
         if (!confirm('Réinitialiser la navigation aux valeurs par défaut ?')) return;
         setStructure(DEFAULT_NAVIGATION.structure);
         setIsDirty(true);
         showToast('Navigation réinitialisée (pensez à enregistrer).');
-    }, [isEnglish, setStructure, setIsDirty, showToast]);
+    }, [setStructure, setIsDirty, showToast]);
 
     return {
         setPublished,

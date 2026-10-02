@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import {
     shouldRefreshOnReturn,
     useRealtimeRefresh,
@@ -116,10 +116,12 @@ describe('useRealtimeRefresh — Cockpit', () => {
         window.history.pushState({}, '', '/');
     });
 
-    it('garde le canal partagé pour l’outil d’édition', () => {
+    it('garde le canal partagé pour l’outil d’édition', async () => {
         const refresh = vi.fn();
         render(<Harness refresh={refresh} />);
 
-        expect(mocks.createClient).toHaveBeenCalledTimes(1);
+        // Le client est chargé PARESSEUSEMENT (import dynamique) : on attend
+        // qu'il soit sollicité plutôt que de le supposer synchrone au montage.
+        await waitFor(() => expect(mocks.createClient).toHaveBeenCalledTimes(1));
     });
 });

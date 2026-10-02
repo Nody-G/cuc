@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import type { PointerEvent as ReactPointerEvent, RefObject } from 'react';
 import { useScroll, useSpring, useTransform, useMotionValue } from 'framer-motion';
 import { isPreviewFrame } from '@/lib/preview/preview-context';
-import { HERO_SLIDES, type HeroSlide } from './parallaxHero.data';
+import type { HeroSlideKey } from './parallaxHero.data';
 
 export const SLIDE_DURATION_SEC = 6.5;
 
@@ -16,7 +16,7 @@ export interface SlideCopy {
     tag: string;
 }
 
-export type SlideCopyMap = Record<HeroSlide['key'], SlideCopy>;
+export type SlideCopyMap = Record<HeroSlideKey, SlideCopy>;
 
 /** Métrique éditable du hero (`home.hero.metrics`). */
 export interface HeroMetric {
@@ -29,9 +29,12 @@ export interface HeroMetric {
  * avancement automatique des visuels et handlers associés.
  *
  * La ref de la section est créée par le composant appelant et passée en
- * paramètre (jamais retournée par le hook).
+ * paramètre (jamais retournée par le hook). `slideCount` est le nombre de
+ * visuels **effectifs** (surcharge fusionnée) : l'auto-avance ne reboucle que
+ * sur les visuels réellement rendus.
  */
-export function useParallaxHero(heroRef: RefObject<HTMLElement | null>) {
+export function useParallaxHero(heroRef: RefObject<HTMLElement | null>, slideCount: number) {
+    const safeCount = Number.isFinite(slideCount) && slideCount > 0 ? Math.floor(slideCount) : 1;
     const [currentSlide, setCurrentSlide] = useState(0);
 
     /**
@@ -119,17 +122,23 @@ export function useParallaxHero(heroRef: RefObject<HTMLElement | null>) {
     // Auto advance slide with clean reset
     useEffect(() => {
         const timer = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+            setCurrentSlide((prev) => (prev + 1) % safeCount);
         }, SLIDE_DURATION_SEC * 1000);
         return () => clearInterval(timer);
-    }, [currentSlide]);
+    }, [currentSlide, safeCount]);
 
     const handleSelectSlide = useCallback((index: number) => {
         setCurrentSlide(index);
     }, []);
 
     return {
-        currentSlide,
+        /**
+         * Index **borné** : si la surcharge réduit la liste alors que l'index
+         * courant pointait plus loin, on expose 0 sans réécrire d'état dans un
+         * effet (évite un rendu en cascade) — l'auto-avance réaligne au tick
+         * suivant via le modulo.
+         */
+        currentSlide: currentSlide < safeCount ? currentSlide : 0,
         isCalmMode,
         smoothScroll,
         smoothMouseX,

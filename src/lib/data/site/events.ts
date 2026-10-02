@@ -12,7 +12,7 @@ import { SiteEvent } from './types';
  */
 export async function getEvents(): Promise<SiteEvent[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data, error } = await supabase
       .from('site_events')
       .select('*')

@@ -5,14 +5,54 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { ParallaxHero } from '@/components/ui/ParallaxHero';
 import { StudioGlobalAtmosphere } from '@/components/ui/parallax';
-import {
-    HomeAboutSection,
-    HomeTournagesSection,
-    HomeVirtualTourSection,
-    HomeQualiopiSection,
-    HomeSocialSection,
-} from '@/components/sections/home';
+import dynamic from 'next/dynamic';
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
+
+/**
+ * Frontière de chargement des sections sous la ligne de flottaison — WS-P0.2.
+ *
+ * Le hero ([`ParallaxHero`](src/components/ui/ParallaxHero.tsx:1)), la navigation
+ * et le pied de page restent *eager* : seules les sections ci-dessous passent par
+ * `next/dynamic`, pour que leur JavaScript soit découpé dans des chunks
+ * asynchrones absents du graphe de premier chargement.
+ *
+ * `ssr: true` est **requis** : c'est la valeur qui conserve le HTML prérendu de
+ * chaque section (SEO + LCP) — seul le JS est différé, jamais le markup. Vérifié
+ * dans la doc Next 16.3.5
+ * (`node_modules/next/dist/docs/01-app/02-guides/lazy-loading.md`) : `ssr: false`
+ * supprime ce markup et n'est de toute façon pas autorisé dans un Server
+ * Component. Les `import()` littéraux ciblent les modules réels (jamais le
+ * barrel `./index`) afin que le découpage se fasse section par section. Les
+ * déclarations sont au niveau module : `next/dynamic` ne peut pas être appelé
+ * pendant le rendu.
+ */
+const HomeAboutSection = dynamic(
+    () => import('@/components/sections/home/HomeAboutSection').then((m) => m.HomeAboutSection),
+    { ssr: true },
+);
+
+const HomeTournagesSection = dynamic(
+    () => import('@/components/sections/home/HomeTournagesSection').then((m) => m.HomeTournagesSection),
+    { ssr: true },
+);
+
+const HomeVirtualTourSection = dynamic(
+    () =>
+        import('@/components/sections/home/HomeVirtualTourSection').then(
+            (m) => m.HomeVirtualTourSection,
+        ),
+    { ssr: true },
+);
+
+const HomeQualiopiSection = dynamic(
+    () => import('@/components/sections/home/HomeQualiopiSection').then((m) => m.HomeQualiopiSection),
+    { ssr: true },
+);
+
+const HomeSocialSection = dynamic(
+    () => import('@/components/sections/home/HomeSocialSection').then((m) => m.HomeSocialSection),
+    { ssr: true },
+);
 
 /**
  * Vue cliente de l'accueil — îlot interactif.

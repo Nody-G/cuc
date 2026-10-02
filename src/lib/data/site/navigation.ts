@@ -12,7 +12,7 @@ import { getSupabaseClient } from './client';
  */
 export async function getNavigation(id: string = 'main'): Promise<SiteNavigation> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data, error } = await supabase
       .from('site_navigation')
       .select('*')
@@ -50,7 +50,7 @@ export async function getNavigation(id: string = 'main'): Promise<SiteNavigation
  */
 export async function getFooter(id: string = 'main'): Promise<SiteFooter> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data, error } = await supabase
       .from('site_footer')
       .select('*')
@@ -89,7 +89,7 @@ export async function getFooter(id: string = 'main'): Promise<SiteFooter> {
  */
 export async function getSocialLinks(): Promise<SiteSocialLink[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data, error } = await supabase
       .from('site_social_links')
       .select('*')
@@ -128,7 +128,7 @@ export async function upsertNavigation(
   options: { id?: string; label?: string; isPublished?: boolean } = {}
 ): Promise<boolean> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const id = options.id ?? 'main';
     const { error } = await supabase.from('site_navigation').upsert(
       {
@@ -155,7 +155,7 @@ export async function upsertFooter(
   options: { id?: string; label?: string; isPublished?: boolean } = {}
 ): Promise<boolean> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const id = options.id ?? 'main';
     const { error } = await supabase.from('site_footer').upsert(
       {
@@ -179,7 +179,7 @@ export async function upsertFooter(
  */
 export async function upsertSocialLink(link: SiteSocialLink): Promise<boolean> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { error } = await supabase.from('site_social_links').upsert(
       {
         id: link.id,
@@ -210,7 +210,7 @@ export async function upsertSocialLink(link: SiteSocialLink): Promise<boolean> {
  */
 export async function deleteSocialLink(id: string): Promise<boolean> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { error } = await supabase.from('site_social_links').delete().eq('id', id);
     return !error;
   } catch {

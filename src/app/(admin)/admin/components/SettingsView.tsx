@@ -109,6 +109,7 @@ export function SettingsView({ initialSettings }: SettingsViewProps) {
         isDirty={form.isDirty}
         isPending={form.isPending}
         onSave={form.handleSave}
+        onReset={form.handleDiscard}
         label="Modifications des réglages généraux non enregistrées"
       />
     </div>

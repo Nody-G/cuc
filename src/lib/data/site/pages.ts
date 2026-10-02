@@ -16,7 +16,7 @@ export function normalizeSlug(slug: string): string {
  */
 export async function getAllPages(): Promise<SitePageContent[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data, error } = await supabase
       .from('site_pages')
       .select('*')
@@ -34,7 +34,7 @@ export async function getAllPages(): Promise<SitePageContent[]> {
  */
 export async function getPageContent(slug: string): Promise<SitePageContent | null> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data, error } = await supabase
       .from('site_pages')
       .select('*')

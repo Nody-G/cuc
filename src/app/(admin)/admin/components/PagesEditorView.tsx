@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { normalizeSlug, type SitePageContent } from '@/lib/data/site-service';
 import { findPageTreeEntry } from '@/lib/data/site/page-tree';
 import { buildPreviewUrl } from '@/lib/preview/preview-url';
+import { clearChromeDraftSnapshot } from '@/lib/preview/chrome-draft-storage';
 import type { PreviewMode } from '@/lib/preview/preview-protocol';
 import type { EditorLocaleOption } from '@/app/(admin)/admin/components/ui/LocaleToggle';
 import { MediaPickerModal } from './MediaPickerModal';
@@ -105,7 +106,14 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
     entityDraft: chrome.entities,
     clearEntityDraft: chrome.clearEntities,
   });
-  const saveBar = usePageEditorDirtyState(draft, chrome, editorLocale);
+  /** Abandon : purge explicite des deux filets locaux (page + chrome). */
+  const { clearCurrentSnapshot } = draft;
+  const purgeLocalSnapshots = useCallback(() => {
+    clearCurrentSnapshot();
+    clearChromeDraftSnapshot(editorLocale);
+  }, [clearCurrentSnapshot, editorLocale]);
+
+  const saveBar = usePageEditorDirtyState(draft, chrome, editorLocale, purgeLocalSnapshots);
 
   /** Garde-fous de navigation : langue, page, structure (voir le hook). */
   const navigation = useEditorNavigation({

@@ -58,6 +58,8 @@ export interface UseFooterSourceActionsArgs {
     isEnglish: boolean;
     showToast: (msg: string) => void;
     startTransition: TransitionStartFunction;
+    /** Persistance réussie : la structure écrite devient la référence d'abandon. */
+    onPersisted?: (next: FooterStructure) => void;
 }
 
 export function useFooterSourceActions({
@@ -71,6 +73,7 @@ export function useFooterSourceActions({
     isEnglish,
     showToast,
     startTransition,
+    onPersisted,
 }: UseFooterSourceActionsArgs): FooterSourceActions {
     const setPublished = useCallback(
         (val: boolean) => {
@@ -164,22 +167,29 @@ export function useFooterSourceActions({
     const handleSave = useCallback(() => {
         startTransition(async () => {
             const ok = await upsertFooter(structure, { id: 'main', isPublished });
-            if (ok) setIsDirty(false);
+            if (ok) {
+                setIsDirty(false);
+                onPersisted?.(structure);
+            }
             showToast(
                 ok
                     ? 'Pied de page enregistré — la vitrine est mise à jour en direct.'
                     : 'Échec de l\'enregistrement du pied de page.'
             );
         });
-    }, [structure, isPublished, showToast, startTransition, setIsDirty]);
+    }, [structure, isPublished, showToast, startTransition, setIsDirty, onPersisted]);
 
+    /**
+     * « Réinitialiser » = valeurs par défaut CUC, action destructive assumée.
+     * Aucun verrou de langue : en anglais comme en français, le bouton doit agir —
+     * un bouton mort est pire qu'une confirmation explicite.
+     */
     const handleReset = useCallback(() => {
-        if (isEnglish) return;
         if (!confirm('Réinitialiser le pied de page aux valeurs par défaut ?')) return;
         setStructure(DEFAULT_FOOTER.structure);
         setIsDirty(true);
         showToast('Pied de page réinitialisé (pensez à enregistrer).');
-    }, [isEnglish, setStructure, setIsDirty, showToast]);
+    }, [setStructure, setIsDirty, showToast]);
 
     return {
         setPublished,

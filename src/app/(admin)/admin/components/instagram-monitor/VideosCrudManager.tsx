@@ -1,22 +1,18 @@
 'use client';
 
-import React, { useState, useEffect, useTransition } from 'react';
+import React, { useState } from 'react';
 import { Plus, Video } from 'lucide-react';
-import type { ProgrammeTvItem } from '@/data/videos';
-import { getVideos } from '@/lib/data/site-service';
-import { updateSiteSettings } from '../../actions';
 import { VideoRowItem } from './VideoRowItem';
 import { StickySaveBar } from '../ui/StickySaveBar';
+import { useVideosCrudDraft } from './useVideosCrudDraft';
 
 interface VideosCrudManagerProps {
   showToast: (msg: string) => void;
 }
 
 export const VideosCrudManager: React.FC<VideosCrudManagerProps> = ({ showToast }) => {
-  const [videos, setVideos] = useState<ProgrammeTvItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isDirty, setIsDirty] = useState(false);
-  const [isPending, startTransition] = useTransition();
+  const draft = useVideosCrudDraft(showToast);
+  const { videos, isLoading, isDirty, isPending } = draft;
 
   // Modal or inline add form
   const [showAddForm, setShowAddForm] = useState(false);
@@ -25,19 +21,6 @@ export const VideosCrudManager: React.FC<VideosCrudManagerProps> = ({ showToast 
   const [newImg, setNewImg] = useState('');
   const [newDmId, setNewDmId] = useState('');
 
-  useEffect(() => {
-    let cancelled = false;
-    getVideos().then((data) => {
-      if (!cancelled) {
-        setVideos(data || []);
-        setIsLoading(false);
-      }
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
   const handleAddVideo = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newTitle.trim() || !newDmId.trim()) {
@@ -45,15 +28,12 @@ export const VideosCrudManager: React.FC<VideosCrudManagerProps> = ({ showToast 
       return;
     }
 
-    const newItem: ProgrammeTvItem = {
+    draft.addVideo({
       title: newTitle.trim(),
       sub: newSub.trim() || 'Reportage officiel CUC',
       img: newImg.trim() || 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/ReportageBFMTV-Alecoledescascadeurs.webp',
       dmId: newDmId.trim(),
-    };
-
-    setVideos((prev) => [newItem, ...prev]);
-    setIsDirty(true);
+    });
     setNewTitle('');
     setNewSub('');
     setNewImg('');
@@ -62,45 +42,10 @@ export const VideosCrudManager: React.FC<VideosCrudManagerProps> = ({ showToast 
     showToast('Vidéo ajoutée à la liste (pensez à enregistrer).');
   };
 
-  const handleUpdate = (index: number, updates: Partial<ProgrammeTvItem>) => {
-    setVideos((prev) => {
-      const copy = [...prev];
-      copy[index] = { ...copy[index], ...updates };
-      return copy;
-    });
-    setIsDirty(true);
-  };
-
   const handleDelete = (index: number) => {
     if (!confirm('Supprimer cette vidéo de la page ?')) return;
-    setVideos((prev) => prev.filter((_, i) => i !== index));
-    setIsDirty(true);
+    draft.deleteVideo(index);
     showToast('Vidéo supprimée.');
-  };
-
-  const handleMove = (index: number, direction: -1 | 1) => {
-    const targetIndex = index + direction;
-    if (targetIndex < 0 || targetIndex >= videos.length) return;
-    setVideos((prev) => {
-      const copy = [...prev];
-      const temp = copy[index];
-      copy[index] = copy[targetIndex];
-      copy[targetIndex] = temp;
-      return copy;
-    });
-    setIsDirty(true);
-  };
-
-  const handleSave = () => {
-    startTransition(async () => {
-      const res = await updateSiteSettings('videos', { list: videos });
-      if (res.success) {
-        setIsDirty(false);
-        showToast('Vidéos enregistrées et mises à jour en direct sur la page Vidéos !');
-      } else {
-        showToast(res.error || 'Erreur lors de l’enregistrement.');
-      }
-    });
   };
 
   return (
@@ -217,8 +162,8 @@ export const VideosCrudManager: React.FC<VideosCrudManagerProps> = ({ showToast 
               index={idx}
               isFirst={idx === 0}
               isLast={idx === videos.length - 1}
-              onMove={(dir) => handleMove(idx, dir)}
-              onUpdate={(updates) => handleUpdate(idx, updates)}
+              onMove={(dir) => draft.moveVideo(idx, dir)}
+              onUpdate={(updates) => draft.updateVideo(idx, updates)}
               onDelete={() => handleDelete(idx)}
             />
           ))}
@@ -229,7 +174,8 @@ export const VideosCrudManager: React.FC<VideosCrudManagerProps> = ({ showToast 
       <StickySaveBar
         isDirty={isDirty}
         isPending={isPending}
-        onSave={handleSave}
+        onSave={draft.handleSave}
+        onReset={draft.handleDiscard}
         label="Modifications des vidéos non enregistrées"
       />
     </div>

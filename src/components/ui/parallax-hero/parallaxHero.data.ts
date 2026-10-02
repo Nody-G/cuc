@@ -1,32 +1,11 @@
 /**
- * Données du hero d'accueil.
+ * Données du hero d'accueil — façade de ré-export.
  *
- * Doctrine i18n : **aucune copie rédactionnelle ici**. Chaque visuel ne porte
- * que sa clé (`key`) ; les textes (légende, sous-titre, badge, étiquette)
- * vivent dans les catalogues `messages/fr.json` et `messages/en.json` sous
- * `home.hero.slides.<key>`. Les URLs d'images, elles, sont des médias stables.
+ * La doctrine i18n et la logique de fusion vivent désormais dans le domaine
+ * partagé `@/lib/data/site/hero-slides` : **aucune copie rédactionnelle** ici,
+ * seulement la clé (`home.hero.slides.<key>`) et les URL média stables. Le
+ * module reste le point d'import historique (`./parallaxHero.data`) pour ne
+ * casser aucun appelant, mais la source unique est le domaine — partagée avec
+ * l'éditeur du Cockpit.
  */
-export interface HeroSlide {
-  /** Clé d'overlay i18n : `home.hero.slides.<key>`. */
-  key: 'campus' | 'combat' | 'facilities' | 'team';
-  url: string;
-}
-
-export const HERO_SLIDES: HeroSlide[] = [
-  {
-    key: 'campus',
-    url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-6-scaled.webp',
-  },
-  {
-    key: 'combat',
-    url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp',
-  },
-  {
-    key: 'facilities',
-    url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-7-scaled.webp',
-  },
-  {
-    key: 'team',
-    url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.webp',
-  },
-];
+export * from '@/lib/data/site/hero-slides';

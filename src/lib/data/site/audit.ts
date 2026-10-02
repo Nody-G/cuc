@@ -13,7 +13,7 @@ import { AuditLogEntry } from './types';
  */
 export async function getAuditLogs(): Promise<AuditLogEntry[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data, error } = await supabase
       .from('site_audit_logs')
       .select('*')
@@ -49,7 +49,7 @@ export async function getAuditLogs(): Promise<AuditLogEntry[]> {
  */
 export async function getAuditLogsExtended(limit = 500): Promise<AuditLogEntry[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data, error } = await supabase
       .from('site_audit_logs')
       .select('*')

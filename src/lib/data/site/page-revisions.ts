@@ -16,7 +16,7 @@ export async function getPageRevisions(
   limit = 50
 ): Promise<SitePageRevision[]> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data, error } = await supabase
       .from('site_page_revisions')
       .select('*')
@@ -36,7 +36,7 @@ export async function getPageRevisions(
  */
 export async function getPageRevision(id: string): Promise<SitePageRevision | null> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { data, error } = await supabase
       .from('site_page_revisions')
       .select('*')
@@ -72,7 +72,7 @@ export async function restorePageRevision(
     const revision = await getPageRevision(revisionId);
     if (!revision) return null;
 
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const snap = (revision.snapshot ?? {}) as Record<string, unknown>;
 
     const patch: Record<string, unknown> = { updated_at: new Date().toISOString() };
@@ -99,7 +99,7 @@ export async function restorePageRevision(
  */
 export async function deletePageRevision(id: string): Promise<boolean> {
   try {
-    const supabase = getSupabaseClient();
+    const supabase = await getSupabaseClient();
     const { error } = await supabase.from('site_page_revisions').delete().eq('id', id);
     return !error;
   } catch {

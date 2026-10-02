@@ -2,9 +2,9 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
+import { loadSupabaseBrowserClient } from '@/lib/supabase/lazy-client';
 import { useSiteData } from '@/components/i18n/SiteDataProvider';
-import { subscribeTable } from '@/lib/supabase/realtime';
+import { isCockpitRoute, subscribeTable } from '@/lib/supabase/realtime';
 import { SitePageContent, DEFAULT_PAGE_CONTENTS, normalizeSlug } from '@/lib/data/site-service';
 import { mergeLocalized } from '@/lib/i18n/localized-merge';
 import { getPreviewDraft, subscribePreviewDraft } from '@/lib/preview/preview-store';
@@ -109,9 +109,13 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
 
   useEffect(() => {
     let isMounted = true;
-    const supabase = createClient();
+    let cancelled = false;
+    let unsubscribePage: () => void = () => { };
+    let unsubscribeTranslation: (() => void) | null = null;
 
-    async function fetchFreshContent() {
+    type BrowserClient = Awaited<ReturnType<typeof loadSupabaseBrowserClient>>;
+
+    async function fetchFreshContent(supabase: BrowserClient) {
       try {
         setIsLoading(true);
         const { data, error } = await supabase
@@ -151,7 +155,7 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
       }
     }
 
-    async function fetchTranslation() {
+    async function fetchTranslation(supabase: BrowserClient) {
       if (locale === 'fr') {
         setTranslation(null);
         return;
@@ -173,57 +177,71 @@ export function usePageDynamicContent(slug: string, fallback?: Partial<SitePageC
       }
     }
 
-    // Le serveur a déjà fusionné FR + EN : rejouer ces requêtes ne ferait que
-    // réafficher du français le temps de la réponse (le Realtime, plus bas, reste
-    // actif pour la fraîcheur).
-    if (!hasServerPage) {
-      fetchFreshContent();
-      fetchTranslation();
+    async function bootstrap() {
+      const needsRealtime =
+        typeof window !== 'undefined' && isCockpitRoute(window.location.pathname);
+      // Le serveur a déjà fusionné FR + EN : ni lecture ni WebSocket sur la
+      // route publique — `@supabase/supabase-js` n'est alors jamais téléchargé.
+      if (hasServerPage && !needsRealtime) return;
+
+      const supabase = await loadSupabaseBrowserClient();
+      if (cancelled) return;
+
+      // Le serveur a déjà fusionné FR + EN : rejouer ces requêtes ne ferait que
+      // réafficher du français le temps de la réponse (le Realtime, plus bas, reste
+      // actif pour la fraîcheur).
+      if (!hasServerPage) {
+        void fetchFreshContent(supabase);
+        void fetchTranslation(supabase);
+      }
+
+      // Abonnement Realtime instantané — canal PARTAGÉ par client (cf.
+      // `subscribeTable`) : la page et ses traductions tiennent sur le même
+      // WebSocket que la navigation, le pied de page et les réseaux sociaux.
+      unsubscribePage = subscribeTable(
+        supabase,
+        { table: 'site_pages', filter: `slug=eq.${cleanSlug}` },
+        (payload) => {
+          if (payload.new && isMounted) {
+            const updated = payload.new as SitePageContent;
+            setContent((prev) => ({
+              ...prev,
+              ...updated,
+              hero: {
+                ...prev.hero,
+                ...(updated.hero || {}),
+              },
+              layout_sections:
+                updated.layout_sections && updated.layout_sections.length > 0
+                  ? updated.layout_sections
+                  : prev.layout_sections,
+              sections_data: deepMergeSectionsData(
+                defaultData.sections_data,
+                updated.sections_data
+              ),
+              sections:
+                updated.sections && updated.sections.length > 0
+                  ? updated.sections
+                  : prev.sections,
+            }));
+          }
+        }
+      );
+
+      unsubscribeTranslation =
+        locale === 'fr'
+          ? null
+          : subscribeTable(
+            supabase,
+            { table: 'site_translations', filter: `entity_id=eq.${cleanSlug}` },
+            () => { void fetchTranslation(supabase); }
+          );
     }
 
-    // Abonnement Realtime instantané — canal PARTAGÉ par client (cf.
-    // `subscribeTable`) : la page et ses traductions tiennent sur le même
-    // WebSocket que la navigation, le pied de page et les réseaux sociaux.
-    const unsubscribePage = subscribeTable(
-      supabase,
-      { table: 'site_pages', filter: `slug=eq.${cleanSlug}` },
-      (payload) => {
-        if (payload.new && isMounted) {
-          const updated = payload.new as SitePageContent;
-          setContent((prev) => ({
-            ...prev,
-            ...updated,
-            hero: {
-              ...prev.hero,
-              ...(updated.hero || {}),
-            },
-            layout_sections:
-              updated.layout_sections && updated.layout_sections.length > 0
-                ? updated.layout_sections
-                : prev.layout_sections,
-            sections_data: deepMergeSectionsData(
-              defaultData.sections_data,
-              updated.sections_data
-            ),
-            sections:
-              updated.sections && updated.sections.length > 0
-                ? updated.sections
-                : prev.sections,
-          }));
-        }
-      }
-    );
-
-    const unsubscribeTranslation =
-      locale === 'fr'
-        ? null
-        : subscribeTable(
-          supabase,
-          { table: 'site_translations', filter: `entity_id=eq.${cleanSlug}` },
-          () => fetchTranslation()
-        );
+    void bootstrap();
 
     return () => {
+      cancelled = true;
       isMounted = false;
       unsubscribePage();
       unsubscribeTranslation?.();

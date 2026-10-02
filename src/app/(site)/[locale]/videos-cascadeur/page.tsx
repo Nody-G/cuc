@@ -4,6 +4,7 @@ import React from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { videoObjectJsonLd } from '@/lib/seo';
+import { resolveVideoMedia } from '@/lib/video-embed';
 import { useVideosPage } from './sections/useVideosPage';
 import { VideosHero } from './sections/VideosHero';
 import { VideosDocusGrid } from './sections/VideosDocusGrid';
@@ -23,23 +24,28 @@ export default function VideosCascadeurPage() {
 
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
-      {/* JSON-LD : un VideoObject par programme TV (rich results Google Vidéo) */}
-      {page.localizedPrograms.map((v) => (
-        <script
-          key={v.dmId}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(
-              videoObjectJsonLd({
-                name: v.title,
-                description: v.sub,
-                thumbnailUrl: v.img,
-                embedUrl: `https://www.dailymotion.com/embed/video/${v.dmId}`,
-              })
-            ),
-          }}
-        />
-      ))}
+      {/* JSON-LD : un VideoObject par programme TV réellement lisible (rich results
+          Google Vidéo). L'URL est dérivée de la référence stockée — jamais une
+          plateforme forcée — et aucun JSON-LD n'est émis si elle est inexploitable. */}
+      {page.localizedPrograms
+        .map((v) => ({ video: v, media: resolveVideoMedia(v.dmId) }))
+        .filter(({ media }) => Boolean(media.embedUrl || media.contentUrl))
+        .map(({ video: v, media }) => (
+          <script
+            key={`${v.dmId}-${media.embedUrl ?? media.contentUrl}`}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(
+                videoObjectJsonLd({
+                  name: v.title,
+                  description: v.sub,
+                  thumbnailUrl: v.img,
+                  ...media,
+                })
+              ),
+            }}
+          />
+        ))}
 
       <Navbar />
 
@@ -59,6 +65,7 @@ export default function VideosCascadeurPage() {
           video={page.selectedDmVideo}
           onClose={page.closeDmVideo}
           closeTitle={page.labels.closeTitle}
+          externalLabel={page.labels.docusOpenExternal}
         />
 
         {/* Real CUC Action & Stunt Reels (Instagram) — 6 vidéos les plus récentes */}

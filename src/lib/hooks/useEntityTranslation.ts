@@ -120,7 +120,16 @@ export function useEntityTranslation<T extends object>({
     const payload = useMemo(() => diffTranslation(base, localized), [base, localized]);
 
     const savedJson = useMemo(() => serialize(savedPayload), [savedPayload]);
-    const dirty = useMemo(() => serialize(payload) !== savedJson, [payload, savedJson]);
+    /**
+     * « Sale » n'a de sens que si l'édition anglaise est active. En français,
+     * l'overlay n'est ni chargé ni édité : le signaler ferait clignoter une barre
+     * d'enregistrement fantôme. Pire, une fois vrai il ne pouvait plus redevenir
+     * faux — c'est ce drapeau figé qui rendait « Annuler » inopérant.
+     */
+    const dirty = useMemo(
+        () => shouldLoad && serialize(payload) !== savedJson,
+        [shouldLoad, payload, savedJson]
+    );
 
     // La référence est mise à jour dans un effet (jamais pendant le rendu) : elle
     // sert aux chargements différés, qui doivent savoir si une saisie est en cours.

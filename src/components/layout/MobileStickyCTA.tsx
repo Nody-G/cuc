@@ -5,7 +5,6 @@ import { useLocale, useTranslations } from 'next-intl';
 import React, { useState, useEffect } from 'react';
 
 import { Phone, ChevronRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { usePreviewSettings } from '@/lib/preview/use-preview-settings';
@@ -68,47 +67,43 @@ export const MobileStickyCTA: React.FC = () => {
     '/contact-cuc';
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          initial={{ y: 80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 80, opacity: 0 }}
-          transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#060608]/95 backdrop-blur-md border-t border-[#FFE500]/30 px-3.5 pt-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))] flex items-center justify-between gap-2.5 shadow-[0_-10px_25px_rgba(0,0,0,0.9)]"
-        >
-          {/* Quick Call Button */}
-          <a
-            href={`tel:${phone.replace(/\s+/g, '')}`}
-            className="flex items-center justify-center gap-1.5 px-3 py-2 bg-[#121218] border border-zinc-700 text-[#FFE500] font-mono-tech text-xs uppercase tracking-wider active:bg-zinc-800 shrink-0"
-            title={t('callTitle')}
-          >
-            <Phone className="w-3.5 h-3.5" />
-            {/* Libellé piloté par sa source réelle : réglage du Cockpit en FR,
+    <div
+      aria-hidden={!isVisible}
+      className={`sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#060608]/95 backdrop-blur-md border-t border-[#FFE500]/30 px-3.5 pt-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))] flex items-center justify-between gap-2.5 shadow-[0_-10px_25px_rgba(0,0,0,0.9)] transition-[transform,opacity] duration-300 ease-out ${isVisible
+        ? 'translate-y-0 opacity-100'
+        : 'translate-y-full opacity-0 invisible pointer-events-none'
+        }`}
+    >
+      {/* Quick Call Button */}
+      <a
+        href={`tel:${phone.replace(/\s+/g, '')}`}
+        className="flex items-center justify-center gap-1.5 px-3 py-2 bg-[#121218] border border-zinc-700 text-[#FFE500] font-mono-tech text-xs uppercase tracking-wider active:bg-zinc-800 shrink-0"
+        title={t('callTitle')}
+      >
+        <Phone className="w-3.5 h-3.5" />
+        {/* Libellé piloté par sa source réelle : réglage du Cockpit en FR,
                 catalogue `common` en EN — les deux sont éditables en place. */}
-            <span
-              {...(isEn ? cucMicro('common.call') : cucSetting('mobile_sticky_call_label'))}
-              className="font-bold"
-            >
-              {callLabel}
-            </span>
-          </a>
+        <span
+          {...(isEn ? cucMicro('common.call') : cucSetting('mobile_sticky_call_label'))}
+          className="font-bold"
+        >
+          {callLabel}
+        </span>
+      </a>
 
-          {/* Candidater / Réserver : le lien porte lui-même l'apparence du
+      {/* Candidater / Réserver : le lien porte lui-même l'apparence du
               bouton. Un `<button>` imbriqué dans un `<Link>` superposait deux
               éléments interactifs, ce qui brouille le clic et la navigation au
               clavier pour les lecteurs d'écran. */}
-          <Link
-            href={ctaUrl}
-            className="flex-grow flex items-center justify-center gap-2 px-3.5 py-2 bg-[#FFE500] text-black font-display font-bold uppercase text-xs tracking-wider shadow-[0_0_15px_rgba(255,229,0,0.3)] active:scale-98"
-          >
-            <span {...(isEn ? cucMicro('common.stickyCta') : cucSetting('mobile_sticky_cta_text'))}>
-              {ctaLabel}
-            </span>
-            <ChevronRight className="w-3.5 h-3.5" />
-          </Link>
-        </motion.div>
-      )}
-    </AnimatePresence>
+      <Link
+        href={ctaUrl}
+        className="flex-grow flex items-center justify-center gap-2 px-3.5 py-2 bg-[#FFE500] text-black font-display font-bold uppercase text-xs tracking-wider shadow-[0_0_15px_rgba(255,229,0,0.3)] active:scale-98"
+      >
+        <span {...(isEn ? cucMicro('common.stickyCta') : cucSetting('mobile_sticky_cta_text'))}>
+          {ctaLabel}
+        </span>
+        <ChevronRight className="w-3.5 h-3.5" />
+      </Link>
+    </div>
   );
 };

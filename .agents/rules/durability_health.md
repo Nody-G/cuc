@@ -39,9 +39,15 @@
    règle se met à jour dans son fichier canonique — jamais en double. Un guide opérationnel
    lourd devient un skill `.agents/skills/`.
 6. **Charge : ce qui croît avec le trafic, et rien d'autre** : le nombre de tables n'est pas
-   la question — la vitrine ne demande **aucune** lecture par visiteur (HTML prérendu,
-   lectures `use cache` + tags) et n'ouvre **aucun** canal Realtime (voir
-   `studio_mode_preview.md` § 4). Sa **seule écriture** est la télémétrie de performance
+   la question. La vitrine n'ouvre **aucun** canal Realtime (voir `studio_mode_preview.md` § 4),
+   et **aucune page publique ne demande de lecture par visiteur — à une condition, désormais
+   mesurée** : la route fournit son contenu de page au `SiteDataProvider` depuis le serveur
+   (`getPublicPageContent` + lectures `use cache`/tags). Tant qu'une route cliente n'est pas
+   branchée sur ce contrat, elle lit `site_pages` **une fois par visiteur** — et une fois de plus
+   pour l'overlay EN : c'est une **dette connue et suivie**, jamais une situation admise. Sa
+   disparition est vérifiée par l'inspection réseau (`rest/v1/site_pages`) sur chaque route
+   convertie. Le poids JS de premier chargement par route publique est régi par
+   [`client_bundle_budget.md`](client_bundle_budget.md:1). Sa **seule écriture** est la télémétrie de performance
    vécue : échantillonnée à **un visiteur sur vingt** (décision prise une fois par session),
    **une écriture par page vue** à la sortie de page, jamais bloquante, table `site_vitals`
    sous RLS **sans aucune policy** (service role uniquement) et plafonnée à 180 jours par

@@ -3,7 +3,7 @@
  * chargement de l'overlay `site_translations` et application aux structures.
  */
 
-import { createClient } from '@/lib/supabase/client';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { DEFAULT_FOOTER, type FooterStructure, type NavItem } from '@/data/navigation';
 
 /** Locale déduite de l'URL (la vitrine vit sous `/[locale]`). */
@@ -17,7 +17,7 @@ export function currentLocale(): 'fr' | 'en' {
  * Repli FR automatique si la traduction est absente (retourne `null`).
  */
 export async function fetchLabelOverlay(
-    supabase: ReturnType<typeof createClient>,
+    supabase: SupabaseClient,
     entity: string,
     entityId: string,
     locale: string

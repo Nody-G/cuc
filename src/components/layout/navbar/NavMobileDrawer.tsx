@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import React from 'react';
 
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { SocialIcon } from '@/components/ui/logos/SocialLogos';
@@ -101,113 +100,108 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
   };
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        /* Voile de fermeture au tap : posé sous la barre (z négatif dans le
-           contexte d'empilement du header) pour laisser la navigation visible. */
-        <motion.button
-          type="button"
-          key="mobile-nav-backdrop"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          onClick={onClose}
-          aria-label={t('closeMenu')}
-          className="xl:hidden fixed inset-0 -z-10 bg-black/50 cursor-default"
-        />
-      )}
-      {isOpen && (
-        <motion.div
-          key="mobile-nav-panel"
-          id="mobile-nav-drawer"
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.22, ease: 'easeInOut' }}
-          className="xl:hidden relative bg-[#0a0a0e] border-b border-[#FFE500]/40 p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] space-y-3 shadow-2xl max-h-[85dvh] overflow-y-auto overscroll-contain"
-        >
-          <div className="h-1 w-full hazard-stripes mb-2" />
+    <>
+      {/* Voile de fermeture au tap : posé sous la barre (z négatif dans le
+         contexte d'empilement du header) pour laisser la navigation visible. */}
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label={t('closeMenu')}
+        aria-hidden={!isOpen}
+        tabIndex={isOpen ? 0 : -1}
+        className={`xl:hidden fixed inset-0 -z-10 bg-black/50 cursor-default transition-opacity duration-200 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
+      />
+      <div
+        id="mobile-nav-drawer"
+        aria-hidden={!isOpen}
+        className={`xl:hidden grid transition-[grid-template-rows,opacity,visibility] duration-200 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100 visible' : 'grid-rows-[0fr] opacity-0 invisible pointer-events-none'
+          }`}
+      >
+        <div className="overflow-hidden">
+          <div className="relative bg-[#0a0a0e] border-b border-[#FFE500]/40 p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] space-y-3 shadow-2xl max-h-[85dvh] overflow-y-auto overscroll-contain">
+            <div className="h-1 w-full hazard-stripes mb-2" />
 
-          {/* Mobile Brand Header */}
-          <div className="flex items-center gap-3 pb-2.5 mb-1 border-b border-zinc-800">
-            <div className="relative w-9 h-9 shrink-0">
-              <Image
-                src="/images/logos/cuc-logo-yellow.png"
-                alt="Logo Campus Univers Cascades"
-                width={36}
-                height={36}
-                className="object-contain drop-shadow-[0_0_8px_rgba(255,229,0,0.4)]"
-              />
-            </div>
-            <div>
-              <span
-                className="font-display text-sm font-bold tracking-wider text-white block leading-tight"
-                {...cucMicro('commonChrome.brandName')}
-              >
-                {chrome('brandName')}
-              </span>
-              <span
-                className="text-[9px] font-mono-tech text-[#FFE500] uppercase tracking-widest block"
-                {...cucMicro('commonChrome.brandTagline')}
-              >
-                {chrome('brandTagline')}
-              </span>
-            </div>
-          </div>
-
-          <div className="flex flex-col space-y-1">
-            {navigation.items
-              .filter((item) => item.is_visible)
-              .sort((a, b) => a.order - b.order)
-              .map(renderItem)}
-          </div>
-
-          <div className="pt-3 flex flex-col gap-2">
-            <Link href={cta.href} onClick={onClose}>
-              <TacticalButton variant="primary" size="md" className="w-full">
-                {cta.label}
-              </TacticalButton>
-            </Link>
-            <div className="flex items-center justify-between text-xs font-mono-tech text-zinc-400 pt-2">
-              <span>{chrome('campusCity')}</span>
-              <a href="tel:+33672849492" className="text-[#FFE500]">
-                06 72 84 94 92
-              </a>
-            </div>
-
-            {/* Compteur officiel certifié Instagram CUC */}
-            <div className="flex justify-center pb-2">
-              <InstagramFollowerBadge variant="pill" />
-            </div>
-
-            {/* Réseaux : logos seuls (aucun libellé visible), piloté par
-                `site_social_links`. Nom et handle restent accessibles. */}
-            {drawerSocials.length > 0 && (
-              <div className="flex flex-wrap items-center justify-center gap-2.5 pt-3 border-t border-zinc-800">
-                {drawerSocials.map((social) => (
-                  <a
-                    key={social.id}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ ['--brand' as string]: social.brand_color || '#FFE500' } as React.CSSProperties}
-                    className="w-10 h-10 flex items-center justify-center bg-[#14141c] border border-zinc-800 hover:border-[color:var(--brand)] hover:bg-white/[0.05] transition-colors group"
-                    aria-label={social.handle ? `${social.label} · ${social.handle}` : social.label}
-                    title={social.handle ? `${social.label} — ${social.handle}` : social.label}
-                  >
-                    <SocialIcon
-                      platform={social.platform}
-                      variant="color"
-                      className="w-4 h-4 group-hover:scale-110 transition-transform"
-                    />
-                  </a>
-                ))}
+            {/* Mobile Brand Header */}
+            <div className="flex items-center gap-3 pb-2.5 mb-1 border-b border-zinc-800">
+              <div className="relative w-9 h-9 shrink-0">
+                <Image
+                  src="/images/logos/cuc-logo-yellow.png"
+                  alt="Logo Campus Univers Cascades"
+                  width={36}
+                  height={36}
+                  className="object-contain drop-shadow-[0_0_8px_rgba(255,229,0,0.4)]"
+                />
               </div>
-            )}
+              <div>
+                <span
+                  className="font-display text-sm font-bold tracking-wider text-white block leading-tight"
+                  {...cucMicro('commonChrome.brandName')}
+                >
+                  {chrome('brandName')}
+                </span>
+                <span
+                  className="text-[9px] font-mono-tech text-[#FFE500] uppercase tracking-widest block"
+                  {...cucMicro('commonChrome.brandTagline')}
+                >
+                  {chrome('brandTagline')}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex flex-col space-y-1">
+              {navigation.items
+                .filter((item) => item.is_visible)
+                .sort((a, b) => a.order - b.order)
+                .map(renderItem)}
+            </div>
+
+            <div className="pt-3 flex flex-col gap-2">
+              <Link href={cta.href} onClick={onClose}>
+                <TacticalButton variant="primary" size="md" className="w-full">
+                  {cta.label}
+                </TacticalButton>
+              </Link>
+              <div className="flex items-center justify-between text-xs font-mono-tech text-zinc-400 pt-2">
+                <span>{chrome('campusCity')}</span>
+                <a href="tel:+33672849492" className="text-[#FFE500]">
+                  06 72 84 94 92
+                </a>
+              </div>
+
+              {/* Compteur officiel certifié Instagram CUC */}
+              <div className="flex justify-center pb-2">
+                <InstagramFollowerBadge variant="pill" />
+              </div>
+
+              {/* Réseaux : logos seuls (aucun libellé visible), piloté par
+                `site_social_links`. Nom et handle restent accessibles. */}
+              {drawerSocials.length > 0 && (
+                <div className="flex flex-wrap items-center justify-center gap-2.5 pt-3 border-t border-zinc-800">
+                  {drawerSocials.map((social) => (
+                    <a
+                      key={social.id}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ ['--brand' as string]: social.brand_color || '#FFE500' } as React.CSSProperties}
+                      className="w-10 h-10 flex items-center justify-center bg-[#14141c] border border-zinc-800 hover:border-[color:var(--brand)] hover:bg-white/[0.05] transition-colors group"
+                      aria-label={social.handle ? `${social.label} · ${social.handle}` : social.label}
+                      title={social.handle ? `${social.label} — ${social.handle}` : social.label}
+                    >
+                      <SocialIcon
+                        platform={social.platform}
+                        variant="color"
+                        className="w-4 h-4 group-hover:scale-110 transition-transform"
+                      />
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        </div>
+      </div>
+    </>
   );
 };
