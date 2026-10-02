@@ -42,6 +42,12 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
   const [isHealthModalOpen, setIsHealthModalOpen] = useState(false);
   const [isShortcutsHelpOpen, setIsShortcutsHelpOpen] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  /**
+   * Film à ouvrir automatiquement dans la Filmographie (patron `pageToEdit`).
+   * Posé par le bouton « Corriger » du Diagnostic de Santé, consommé une seule
+   * fois par `FilmsView` qui ouvre alors la fiche concernée.
+   */
+  const [pendingFilmId, setPendingFilmId] = useState<string | null>(null);
 
   const data = useCockpitData();
   const { switchTab } = useCockpitShortcuts({
@@ -65,6 +71,15 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
       router.push('/admin/login');
     }
   };
+
+  /** Ouvre la Filmographie sur la fiche d'un film précis (bouton « Corriger »). */
+  const openFilmEditor = (filmId: string) => {
+    setPendingFilmId(filmId);
+    switchTab('films');
+  };
+
+  /** Marque la demande d'ouverture comme consommée (évite une réouverture). */
+  const handlePendingFilmHandled = () => setPendingFilmId(null);
 
   const navSections = buildNavSections({
     userRole: data.userRole,
@@ -125,6 +140,9 @@ const CockpitAppInner: React.FC<CockpitAppProps> = ({ initialTab = 'dashboard' }
           showToast={showToast}
           currentUserId={data.currentUserProfile?.id ?? ''}
           onOpenBackupModal={() => setIsBackupModalOpen(true)}
+          initialFilmId={pendingFilmId}
+          onInitialFilmHandled={handlePendingFilmHandled}
+          onOpenFilm={openFilmEditor}
           {...data}
         />
       </div>

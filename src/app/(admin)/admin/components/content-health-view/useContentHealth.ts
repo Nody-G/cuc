@@ -30,11 +30,14 @@ import {
     type ContentIssueSeverity,
 } from '@/lib/content-health';
 import { KIND_META, type HealthTab } from './health-meta';
+import { resolveIssueFilmId } from '@/lib/content-health/issue-target';
 
 interface UseContentHealthArgs {
     pages: SitePageContent[];
     showToast: (msg: string) => void;
     onNavigateToTab?: (tab: HealthTab) => void;
+    /** Ouvre la fiche d'un film (anomalies de rôle rattachées à un film). */
+    onOpenFilm?: (filmId: string) => void;
 }
 
 export interface ContentHealthController {
@@ -61,6 +64,7 @@ export function useContentHealth({
     pages,
     showToast,
     onNavigateToTab,
+    onOpenFilm,
 }: UseContentHealthArgs): ContentHealthController {
     const [report, setReport] = useState<ContentHealthReport | null>(null);
     const [loading, setLoading] = useState(true);
@@ -139,6 +143,25 @@ export function useContentHealth({
     };
 
     const handleFix = (issue: ContentIssue) => {
+        /*
+         * Anomalies de rôle : on ouvre directement la fiche du film concerné
+         * (identifiant porté par `value`). Les anomalies « Équipe » (règles 4 et
+         * 5, sans film) gardent le repli historique vers l'onglet Équipe.
+         */
+        if (issue.kind === 'incomplete-roles') {
+            const filmId = resolveIssueFilmId(issue);
+            if (filmId && onOpenFilm) {
+                onOpenFilm(filmId);
+                showToast(`Ouverture de la fiche du film pour corriger : ${issue.label}`);
+                return;
+            }
+            if (onNavigateToTab) {
+                onNavigateToTab('team');
+                showToast(`Ouverture de l'équipe pour corriger : ${issue.label}`);
+            }
+            return;
+        }
+
         const meta = KIND_META[issue.kind];
         if (onNavigateToTab) {
             onNavigateToTab(meta.tab);

@@ -10,6 +10,7 @@ import { FilmGrid } from './films-view/FilmGrid';
 import { FilmsHeader } from './films-view/FilmsHeader';
 import { useFilmEditor } from './films-view/useFilmEditor';
 import { useFilmFilters } from './films-view/useFilmFilters';
+import { usePendingFilmOpen } from './films-view/usePendingFilmOpen';
 
 interface FilmsViewProps {
   films: FilmCredit[];
@@ -17,6 +18,10 @@ interface FilmsViewProps {
   team?: Instructor[];
   disciplines?: Discipline[];
   showToast: (msg: string) => void;
+  /** Film à ouvrir automatiquement (bouton « Corriger » du Diagnostic). */
+  initialFilmId?: string | null;
+  /** Signale que la demande d'ouverture a été consommée. */
+  onInitialFilmHandled?: () => void;
 }
 
 /**
@@ -33,9 +38,22 @@ export const FilmsView: React.FC<FilmsViewProps> = ({
   team = [],
   disciplines = [],
   showToast,
+  initialFilmId = null,
+  onInitialFilmHandled,
 }) => {
   const editor = useFilmEditor({ setFilms, showToast });
   const filters = useFilmFilters(films);
+
+  /**
+   * Ouverture différée demandée par un autre onglet (Diagnostic → « Corriger »).
+   * Consommée une seule fois ; sans callback, la demande reste inerte.
+   */
+  usePendingFilmOpen({
+    films,
+    pendingFilmId: initialFilmId,
+    openEdit: editor.openEdit,
+    onHandled: onInitialFilmHandled ?? (() => { }),
+  });
 
   return (
     <div className="space-y-6 animate-in fade-in duration-200">

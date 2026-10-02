@@ -22,7 +22,9 @@ export type HealthTab =
     | 'social'
     | 'partners'
     | 'events'
-    | 'films';
+    | 'films'
+    /** Repli des anomalies « Équipe » (règles 4 et 5, sans film). */
+    | 'team';
 
 export const KIND_META: Record<
     ContentIssueKind,

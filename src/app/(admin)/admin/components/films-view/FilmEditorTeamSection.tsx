@@ -3,6 +3,7 @@
 import React from 'react';
 import { Users } from 'lucide-react';
 import type { FilmCredit, Instructor } from '@/types';
+import { RoleCombobox } from '../ui/RoleCombobox';
 
 export interface FilmEditorTeamSectionProps {
     film: FilmCredit;
@@ -78,12 +79,11 @@ export const FilmEditorTeamSection: React.FC<FilmEditorTeamSectionProps> = ({
                                     <span className="text-xs text-white font-bold truncate w-32 shrink-0">
                                         {memberObj?.name || memberId} :
                                     </span>
-                                    <input
-                                        type="text"
-                                        placeholder="ex: Coordinateur des cascades / Cascadeur / Doublure..."
+                                    <RoleCombobox
                                         value={currentRole}
-                                        onChange={(e) => onRoleChange(memberId, e.target.value)}
-                                        className="flex-1 bg-black/80 border border-white/20 rounded px-2 py-1 text-xs text-zinc-200 focus:outline-none focus:border-[#FFE500]"
+                                        onChange={(role) => onRoleChange(memberId, role)}
+                                        placeholder="ex: Coordinateur des cascades / Cascadeur / Doublure..."
+                                        ariaLabel={`Rôle de ${memberObj?.name || memberId} sur ce film`}
                                     />
                                 </div>
                             );

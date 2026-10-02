@@ -173,6 +173,7 @@ export const CockpitCmsTabs: React.FC<CockpitTabContentProps> = (props) => {
                     pages={props.pagesList}
                     showToast={props.showToast}
                     onNavigateToTab={(tab) => props.switchTab(tab as TabType)}
+                    onOpenFilm={props.onOpenFilm}
                 />
             )}
 

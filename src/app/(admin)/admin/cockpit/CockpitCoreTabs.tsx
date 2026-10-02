@@ -84,6 +84,8 @@ export const CockpitCoreTabs: React.FC<CockpitTabContentProps> = (props) => (
                 team={props.team}
                 disciplines={props.disciplines}
                 showToast={props.showToast}
+                initialFilmId={props.initialFilmId}
+                onInitialFilmHandled={props.onInitialFilmHandled}
             />
         )}
     </>

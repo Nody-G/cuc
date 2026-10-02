@@ -50,6 +50,13 @@ export interface CockpitTabContentProps {
     setAnnouncement: React.Dispatch<React.SetStateAction<SiteAnnouncement>>;
     setNewInquiriesCount: React.Dispatch<React.SetStateAction<number>>;
     onOpenBackupModal: () => void;
+    /* Ouverture croisée Santé → Filmographie (patron `pageToEdit`). */
+    /** Identifiant du film à ouvrir automatiquement, ou `null`. */
+    initialFilmId: string | null;
+    /** Signale que la demande d'ouverture a été consommée. */
+    onInitialFilmHandled: () => void;
+    /** Demande l'ouverture de la fiche d'un film depuis un autre onglet. */
+    onOpenFilm: (filmId: string) => void;
 }
 
 /**

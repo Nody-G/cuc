@@ -14,6 +14,8 @@ interface ContentHealthViewProps {
     pages: SitePageContent[];
     showToast: (msg: string) => void;
     onNavigateToTab?: (tab: HealthTab) => void;
+    /** Ouvre la fiche d'un film depuis le bouton « Corriger » (anomalies rôle). */
+    onOpenFilm?: (filmId: string) => void;
 }
 
 /**
@@ -26,8 +28,9 @@ export const ContentHealthView: React.FC<ContentHealthViewProps> = ({
     pages,
     showToast,
     onNavigateToTab,
+    onOpenFilm,
 }) => {
-    const health = useContentHealth({ pages, showToast, onNavigateToTab });
+    const health = useContentHealth({ pages, showToast, onNavigateToTab, onOpenFilm });
 
     return (
         <div className="space-y-6 animate-in fade-in duration-200">
@@ -83,7 +86,7 @@ export const ContentHealthView: React.FC<ContentHealthViewProps> = ({
                         groupedBySeverity={health.groupedBySeverity}
                         filteredCount={health.filteredIssues.length}
                         hasActiveFilters={health.kindFilter !== 'all' || health.severityFilter !== 'all'}
-                        canFix={Boolean(onNavigateToTab)}
+                        canFix={Boolean(onOpenFilm || onNavigateToTab)}
                         onFix={health.handleFix}
                     />
                 </>
