@@ -75,7 +75,7 @@ export const MediaTile: React.FC<MediaTileProps> = ({
                     </span>
                 ) : (
                     <span
-                        className="absolute bottom-2 left-2 px-1.5 py-0.5 rounded bg-black/75 text-[9px] font-mono text-gray-400 border border-white/5 group-hover:border-amber-500/30 group-hover:text-amber-300 transition-colors"
+                        className="absolute bottom-2 left-2 px-1.5 py-0.5 rounded bg-black/70 text-[9px] font-mono text-gray-400 border border-white/5 group-hover:border-amber-500/30 group-hover:text-amber-300 transition-colors"
                         title="Aucune utilisation en base (média libre)"
                     >
                         libre
