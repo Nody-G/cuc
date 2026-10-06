@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-09-29T16:33:37.015Z",
+  "generatedAt": "2026-10-02T16:46:42.906Z",
   "tables": {
     "site_pages": 15,
-    "site_page_revisions": 2,
+    "site_page_revisions": 6,
     "site_team": 20,
     "site_films": 570,
     "site_partners": 21,
     "site_events": 3,
     "site_disciplines": 10,
-    "site_sessions": 18,
+    "site_sessions": 17,
     "site_programs": 6,
     "site_inquiries": 1,
-    "site_audit_logs": 10,
-    "site_announcements": 2,
+    "site_audit_logs": 32,
+    "site_announcements": 3,
     "site_settings": 15,
     "site_navigation": 1,
     "site_footer": 1,
@@ -117,8 +117,8 @@
     }
   ],
   "sessions": {
-    "total": 18,
-    "linked": 10,
+    "total": 17,
+    "linked": 9,
     "unlinked": [
       {
         "id": "d3c74574-f31d-4b10-891a-55936124d54c",
@@ -173,12 +173,22 @@
   },
   "team": {
     "total": 20,
-    "linked": 5,
+    "linked": 2,
     "withoutProfile": [
       {
         "id": "jerome-gaspard",
         "name": "Jérôme Gaspard",
         "role": "Responsable Pédagogique"
+      },
+      {
+        "id": "malik-diouf",
+        "name": "Malik Diouf",
+        "role": "Co-fondateur Yamakasi"
+      },
+      {
+        "id": "franck-blanc",
+        "name": "Franck Blanc",
+        "role": "Directeur Adjoint"
       },
       {
         "id": "frederic-dessains",
@@ -234,6 +244,11 @@
         "id": "jonathan-bernard",
         "name": "Jonathan Bernard",
         "role": "Spécialiste Combats et Chute"
+      },
+      {
+        "id": "bastien-trouve",
+        "name": "Bastien Trouvé",
+        "role": "Spécialiste Combats et Maniements d'armes"
       },
       {
         "id": "teddy-ponceau",
@@ -388,6 +403,10 @@
       "shape": "list",
       "length": 1
     },
+    "videos": {
+      "shape": "list",
+      "length": 6
+    },
     "instagram_feed_snapshot": {
       "shape": "object",
       "keys": [
@@ -399,18 +418,14 @@
         "totalVideoViews",
         "totalAccountPosts"
       ]
-    },
-    "videos": {
-      "shape": "list",
-      "length": 6
     }
   },
   "mirrorsDrift": [],
   "inquiries": 1,
-  "auditLogs": 10,
+  "auditLogs": 32,
   "cucSign": {
     "formations": 12,
-    "profiles": 13,
+    "profiles": 2,
     "locations": 9
   }
 }

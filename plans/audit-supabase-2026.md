@@ -1,6 +1,6 @@
 # Audit Supabase — état de la base vitrine CUC
 
-**Généré le :** 2026-09-29T16:33:37.015Z  
+**Généré le :** 2026-10-02T16:46:42.906Z  
 **Lecture seule** — aucune écriture base.
 
 ## Publication Realtime
@@ -13,17 +13,17 @@
 | Table | Lignes | RLS |
 | --- | ---: | --- |
 | `site_pages` | 15 | ✔ |
-| `site_page_revisions` | 2 | ✔ |
+| `site_page_revisions` | 6 | ✔ |
 | `site_team` | 20 | ✔ |
 | `site_films` | 570 | ✔ |
 | `site_partners` | 21 | ✔ |
 | `site_events` | 3 | ✔ |
 | `site_disciplines` | 10 | ✔ |
-| `site_sessions` | 18 | ✔ |
+| `site_sessions` | 17 | ✔ |
 | `site_programs` | 6 | ✔ |
 | `site_inquiries` | 1 | ✔ |
-| `site_audit_logs` | 10 | ✔ |
-| `site_announcements` | 2 | ✔ |
+| `site_audit_logs` | 32 | ✔ |
+| `site_announcements` | 3 | ✔ |
 | `site_settings` | 15 | ✔ |
 | `site_navigation` | 1 | ✔ |
 | `site_footer` | 1 | ✔ |
@@ -38,8 +38,8 @@
 
 | Entité | Liaison | Couverture |
 | --- | --- | --- |
-| Sessions | `cuc_sign_formation_id` → `formations` | 10/18 |
-| Équipe | `profile_id` → `profiles` | 5/20 |
+| Sessions | `cuc_sign_formation_id` → `formations` | 9/17 |
+| Équipe | `profile_id` → `profiles` | 2/20 |
 | Campus | `location_id` → `locations` | 4/5 |
 
 ## Clés étrangères site_*

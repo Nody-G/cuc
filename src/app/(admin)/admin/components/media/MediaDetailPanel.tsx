@@ -6,11 +6,13 @@ import { Check, Copy, Download, ExternalLink, Info } from 'lucide-react';
 import { formatBytes, type MediaObject } from '@/app/(admin)/admin/media-shared';
 import { KIND_ICON } from './media-explorer-shared';
 import { forceDownloadBlob } from '@/lib/download-blob';
+import type { MediaUsageItem } from '@/lib/media-library/media-usage';
 
 export interface MediaDetailPanelProps {
     detail: MediaObject | null;
     references: Record<string, string[]> | null;
     detailReferences: string[];
+    usageItem?: MediaUsageItem | null;
     mode: 'manage' | 'pick';
     onCopy: (value: string, label: string) => void;
     onPick: (url: string) => void;
@@ -25,6 +27,7 @@ export const MediaDetailPanel: React.FC<MediaDetailPanelProps> = ({
     detail,
     references,
     detailReferences,
+    usageItem,
     mode,
     onCopy,
     onPick,
@@ -81,15 +84,37 @@ export const MediaDetailPanel: React.FC<MediaDetailPanelProps> = ({
                     </div>
                 </dl>
 
-                <div className="text-[11px]">
+                <div className="text-[11px] space-y-1.5 bg-white/[0.03] p-2.5 rounded-lg border border-white/5">
                     {references === null ? (
                         <span className="text-gray-500 font-mono">Vérification de l'usage…</span>
+                    ) : usageItem && usageItem.count > 0 ? (
+                        <div className="space-y-1.5">
+                            <div className="text-emerald-300 font-mono font-medium flex items-center justify-between">
+                                <span>Utilisé {usageItem.count}× sur le site</span>
+                                <span className="text-[10px] text-gray-500 font-sans">
+                                    ({usageItem.locations.length} endroit{usageItem.locations.length > 1 ? 's' : ''})
+                                </span>
+                            </div>
+                            <ul className="space-y-1.5 text-[10px] text-gray-300 max-h-36 overflow-y-auto divide-y divide-white/5 pr-1">
+                                {usageItem.locations.map((loc, idx) => (
+                                    <li key={idx} className="pt-1.5 first:pt-0">
+                                        <div className="font-medium text-gray-200">{loc.label}</div>
+                                        {loc.context && (
+                                            <div className="text-gray-400 font-mono text-[9px]">{loc.context}</div>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     ) : detailReferences.length > 0 ? (
                         <span className="text-emerald-300 font-mono">
                             Utilisé par : {detailReferences.join(', ')}
                         </span>
                     ) : (
-                        <span className="text-amber-300 font-mono">Aucune référence en base</span>
+                        <div className="text-amber-300 font-mono flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
+                            <span>Aucune utilisation en base (libre)</span>
+                        </div>
                     )}
                 </div>
 

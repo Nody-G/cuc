@@ -66,12 +66,19 @@ export const MediaTile: React.FC<MediaTileProps> = ({
                         <Check className="w-3.5 h-3.5" />
                     </span>
                 )}
-                {referenceCount > 0 && (
+                {referenceCount > 0 ? (
                     <span
-                        className="absolute bottom-2 left-2 px-1.5 py-0.5 rounded bg-black/80 text-[9px] font-mono text-emerald-300"
-                        title={`Utilisé par ${referenceCount} ressource(s)`}
+                        className="absolute bottom-2 left-2 px-1.5 py-0.5 rounded bg-black/85 text-[9px] font-mono text-emerald-300 border border-emerald-500/20"
+                        title={`Utilisé ${referenceCount} fois sur le site`}
                     >
-                        utilisé · {referenceCount}
+                        utilisé · {referenceCount}×
+                    </span>
+                ) : (
+                    <span
+                        className="absolute bottom-2 left-2 px-1.5 py-0.5 rounded bg-black/75 text-[9px] font-mono text-gray-400 border border-white/5 group-hover:border-amber-500/30 group-hover:text-amber-300 transition-colors"
+                        title="Aucune utilisation en base (média libre)"
+                    >
+                        libre
                     </span>
                 )}
             </button>

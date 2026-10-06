@@ -24,6 +24,12 @@ import {
 import { MediaFolderStat } from '../media-shared';
 import { describeCeilingRefusal, mediaNature, profileForPath, uploadCeilingBytes } from '@/lib/media-library/media-policy';
 import { sanitizeFileName, stampedPath } from '@/lib/media-library/image-compression.plan';
+import {
+  buildMediaUsageIndex,
+  extractMediaOccurrencesFromRow,
+  type MediaUsageIndex,
+  type MediaUsageLocation,
+} from '@/lib/media-library/media-usage';
 
 /**
  * Repli de téléversement sous 1 Mo — le parcours normal est le dépôt direct
@@ -88,14 +94,7 @@ export async function uploadMediaFile(formData: FormData) {
       originalPath: null,
     });
 
-    return {
-      success: true,
-      url: publicUrlData.publicUrl,
-      path,
-      name: file.name,
-      size: file.size,
-      folder,
-    };
+    return { success: true, url: publicUrlData.publicUrl, path, name: file.name, size: file.size, folder };
   } catch (err: unknown) {
     // Un refus (bucket absent, fichier trop lourd, réseau) restait invisible pour
     // l'exploitant : le motif est journalisé, jamais étouffé.
@@ -260,37 +259,27 @@ export async function getMediaReferences() {
 
     const marker = `/storage/v1/object/public/${MEDIA_BUCKET}/`;
     const adminClient = createAdminClient();
+    const occurrences: Array<{ path: string; location: MediaUsageLocation }> = [];
     const references: Record<string, string[]> = {};
 
     for (const table of TABLES) {
       const { data, error } = await adminClient.from(table).select('*');
       if (error || !data) continue;
-      const blob = JSON.stringify(data);
 
-      // Extraction par balayage : évite une regex dynamique (et un ReDoS).
-      let cursor = 0;
-      for (; ;) {
-        const hit = blob.indexOf(marker, cursor);
-        if (hit === -1) break;
-        let end = hit + marker.length;
-        while (end < blob.length && !/["'\\\s)]/.test(blob[end])) end += 1;
-        const raw = blob.slice(hit + marker.length, end);
-        cursor = end;
-        if (!raw) continue;
-        let path = raw;
-        try {
-          path = decodeURIComponent(raw);
-        } catch {
-          /* chemin déjà décodé */
+      for (const row of data as Record<string, unknown>[]) {
+        const rowHits = extractMediaOccurrencesFromRow(table, row, marker);
+        for (const hit of rowHits) {
+          occurrences.push(hit);
+          references[hit.path] = references[hit.path] ?? [];
+          if (!references[hit.path].includes(table)) references[hit.path].push(table);
         }
-        references[path] = references[path] ?? [];
-        if (!references[path].includes(table)) references[path].push(table);
       }
     }
 
-    return { success: true, references, total: Object.keys(references).length };
+    const usageIndex = buildMediaUsageIndex(occurrences);
+    return { success: true, references, usageIndex, total: Object.keys(usageIndex).length };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Erreur de lecture des références';
-    return { success: false, error: message, references: {} as Record<string, string[]>, total: 0 };
+    return { success: false, error: message, references: {}, usageIndex: {}, total: 0 };
   }
 }

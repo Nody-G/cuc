@@ -11,7 +11,7 @@ import {
     Search,
     X,
 } from 'lucide-react';
-import type { MediaKind } from '@/app/(admin)/admin/media-shared';
+import type { MediaKind, MediaSortCriterion } from '@/app/(admin)/admin/media-shared';
 import { KIND_ICON, KIND_LABEL, type ExplorerView } from './media-explorer-shared';
 
 export interface MediaToolbarProps {
@@ -19,7 +19,7 @@ export interface MediaToolbarProps {
     search: string;
     onSearchChange: (value: string) => void;
     onClearSearch: () => void;
-    sortBy: 'name' | 'created_at' | 'size';
+    sortBy: MediaSortCriterion;
     order: 'asc' | 'desc';
     onChangeSort: () => void;
     onToggleOrder: () => void;
@@ -92,19 +92,29 @@ export const MediaToolbar: React.FC<MediaToolbarProps> = ({
                 <button
                     type="button"
                     onClick={onChangeSort}
-                    className="px-2.5 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-[11px] font-mono text-gray-200 flex items-center gap-1.5"
-                    title="Changer le critère de tri"
+                    className={`px-2.5 py-2 rounded-lg text-[11px] font-mono flex items-center gap-1.5 transition-colors ${
+                        sortBy === 'usage'
+                            ? 'bg-[#FFE500] text-black font-semibold'
+                            : 'bg-white/5 hover:bg-white/10 text-gray-200'
+                    }`}
+                    title="Changer le critère de tri : Nom → Date → Poids → Utilisations"
                 >
                     <ArrowUpDown className="w-3.5 h-3.5" />
-                    {sortBy === 'name' ? 'Nom' : sortBy === 'created_at' ? 'Date' : 'Poids'}
+                    {sortBy === 'name' ? 'Nom' : sortBy === 'created_at' ? 'Date' : sortBy === 'size' ? 'Poids' : 'Utilisations'}
                 </button>
                 <button
                     type="button"
                     onClick={onToggleOrder}
                     className="px-2.5 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-[11px] font-mono text-gray-200"
-                    title="Inverser l'ordre"
+                    title={
+                        sortBy === 'usage'
+                            ? order === 'desc'
+                                ? 'Plus utilisées en premier (cliquer pour orphelines/moins utilisées)'
+                                : 'Orphelines / Moins utilisées en premier'
+                            : "Inverser l'ordre"
+                    }
                 >
-                    {order === 'asc' ? 'A→Z' : 'Z→A'}
+                    {sortBy === 'usage' ? (order === 'desc' ? '+ → 0' : '0 → +') : order === 'asc' ? 'A→Z' : 'Z→A'}
                 </button>
                 <div className="flex items-center rounded-lg bg-white/5 p-0.5">
                     <button

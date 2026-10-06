@@ -1,18 +1,18 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-10-01T16:57:09.865Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-10-02T16:46:54.326Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 289 |
-| DONNÉES — éditable par un écran existant | 108 |
+| ANNOTÉ — éditable en place | 294 |
+| DONNÉES — éditable par un écran existant | 111 |
 | TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 13 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 17 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 8 |
-| **Total** | **435** |
+| **Total** | **443** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -46,6 +46,14 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\app\(site)\[locale]\error.tsx`
 
 - l.43 — `{chrome('campusNameTitle')}`
+
+### `src\app\(site)\[locale]\not-found.tsx`
+
+- l.71 — `{t('notFoundBadge')}`
+- l.85 — `{t('notFoundTitle')}`
+- l.92 — `{t('notFoundSubtitle')}`
+- l.99 — `{t('notFoundDescription')}`
+- l.126 — `{t('suggestedPages')}`
 
 ### `src\app\(site)\[locale]\spectacles-cascadeurs-yamakasi\page.tsx`
 
@@ -143,8 +151,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\MobileStickyCTA.tsx`
 
-- l.93 — `{callLabel}`
-- l.106 — `{ctaLabel}`
+- l.90 — `{callLabel}`
+- l.103 — `{ctaLabel}`
 
 ### `src\components\layout\footer-sections\FooterBrandAndSites.tsx`
 
@@ -153,7 +161,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\footer-sections\FooterCreditsBar.tsx`
 
-- l.72 — `{t('qualiopiBadge')}`
+- l.71 — `{t('qualiopiBadge')}`
 
 ### `src\components\layout\footer-sections\FooterDirectContacts.tsx`
 
@@ -168,8 +176,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\navbar\NavMobileDrawer.tsx`
 
-- l.148 — `{chrome('brandName')}`
-- l.154 — `{chrome('brandTagline')}`
+- l.141 — `{chrome('brandName')}`
+- l.147 — `{chrome('brandTagline')}`
 
 ### `src\components\sections\contact\ContactCoordinatesSidebar.tsx`
 
@@ -284,13 +292,13 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\home\HomeAboutSection.tsx`
 
-- l.112 — `{tag}`
-- l.118 — `{subtag}`
-- l.126 — `{title}`
-- l.133 — `{description}`
-- l.149 — `{pillar.title}`
-- l.155 — `{pillar.tag}`
-- l.162 — `{pillar.desc}`
+- l.111 — `{tag}`
+- l.117 — `{subtag}`
+- l.125 — `{title}`
+- l.132 — `{description}`
+- l.148 — `{pillar.title}`
+- l.154 — `{pillar.tag}`
+- l.161 — `{pillar.desc}`
 
 ### `src\components\sections\home\HomePartnersSection.tsx`
 
@@ -554,11 +562,20 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\layout.tsx`
 
-- l.151 — `{children}`
+- l.141 — `{children}`
+
+### `src\app\(site)\[locale]\not-found.tsx`
+
+- l.142 — `{t(item.labelKey)}`
+
+### `src\app\(site)\[locale]\preview\layout.tsx`
+
+- l.53 — `{children}`
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\DmVideoModal.tsx`
 
-- l.53 — `{video.title}`
+- l.46 — `{video.title}`
+- l.104 — `{externalLabel}`
 
 ### `src\app\(site)\[locale]\videos-cascadeur\sections\VideosDocusGrid.tsx`
 
@@ -613,8 +630,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\footer-sections\FooterCreditsBar.tsx`
 
-- l.61 — `{link.label}`
-- l.65 — `{link.label}`
+- l.60 — `{link.label}`
+- l.64 — `{link.label}`
 
 ### `src\components\layout\footer-sections\FooterNavMatrix.tsx`
 
@@ -623,13 +640,13 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\navbar\NavDropdowns.tsx`
 
-- l.98 — `{child.label}`
-- l.102 — `{child.description}`
+- l.96 — `{child.label}`
+- l.100 — `{child.description}`
 
 ### `src\components\layout\navbar\NavMobileDrawer.tsx`
 
-- l.98 — `{item.label}`
-- l.169 — `{cta.label}`
+- l.97 — `{item.label}`
+- l.162 — `{cta.label}`
 
 ### `src\components\sections\contact\ContactForm.tsx`
 
@@ -696,8 +713,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\home\HomeAboutSection.tsx`
 
-- l.175 — `{ctaPrimaryText}`
-- l.180 — `{ctaSecondaryText}`
+- l.174 — `{ctaPrimaryText}`
+- l.179 — `{ctaSecondaryText}`
 
 ### `src\components\sections\home\HomeSocialCards.tsx`
 
@@ -759,15 +776,15 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\ui\parallax\StudioParallaxCard.tsx`
 
-- l.57 — `{children}`
+- l.58 — `{children}`
 
 ### `src\components\ui\parallax\StudioParallaxLayer.tsx`
 
-- l.48 — `{children}`
+- l.50 — `{children}`
 
 ### `src\components\ui\parallax\StudioParallaxScene.tsx`
 
-- l.59 — `{children}`
+- l.76 — `{children}`
 
 ## 3. TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n)
 

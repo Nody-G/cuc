@@ -47,6 +47,7 @@ export const MediaExplorer: React.FC<MediaExplorerProps> = ({
         loadFolder: nav.loadFolder,
         refreshTree: nav.refreshTree,
         resetCatalogue: nav.resetCatalogue,
+        externalReferences: nav.references,
         showToast,
     });
 
@@ -144,6 +145,7 @@ export const MediaExplorer: React.FC<MediaExplorerProps> = ({
                         onTogglePath={togglePath}
                         onOpenDetail={(file) => void sel.openDetail(file)}
                         references={sel.references}
+                        usageIndex={nav.usageIndex}
                         onPick={pickUrl}
                         kindsCount={nav.kinds.length}
                         catalogueLoading={nav.catalogueLoading}
@@ -163,6 +165,7 @@ export const MediaExplorer: React.FC<MediaExplorerProps> = ({
                         detail={nav.detail}
                         references={sel.references}
                         detailReferences={sel.detailReferences}
+                        usageItem={nav.detail && nav.usageIndex ? nav.usageIndex[nav.detail.path] : null}
                         mode={mode}
                         onCopy={sel.copyToClipboard}
                         onPick={pickUrl}

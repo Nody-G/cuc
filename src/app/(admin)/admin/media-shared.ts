@@ -20,6 +20,13 @@ export interface MediaObject {
 }
 
 export type MediaKind = 'image' | 'video' | 'document' | 'other';
+export type MediaSortCriterion = 'name' | 'created_at' | 'size' | 'usage';
+
+export type {
+    MediaUsageLocation,
+    MediaUsageItem,
+    MediaUsageIndex,
+} from '@/lib/media-library/media-usage';
 
 export interface MediaFolderStat {
     path: string;

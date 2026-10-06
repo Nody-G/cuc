@@ -7,6 +7,7 @@ import { KIND_ICON, PAGE_SIZE, type ExplorerView } from './media-explorer-shared
 import { MediaTile } from './MediaTile';
 import { MediaUploadPanel } from './MediaUploadPanel';
 import type { UseMediaUploadReturn } from './useMediaUpload';
+import type { MediaUsageIndex } from '@/lib/media-library/media-usage';
 
 export interface MediaBrowserProps {
     mode: 'manage' | 'pick';
@@ -22,6 +23,7 @@ export interface MediaBrowserProps {
     onTogglePath: (path: string) => void;
     onOpenDetail: (file: MediaObject) => void;
     references: Record<string, string[]> | null;
+    usageIndex?: MediaUsageIndex | null;
     onPick: (url: string) => void;
     kindsCount: number;
     catalogueLoading: boolean;
@@ -56,6 +58,7 @@ export const MediaBrowser: React.FC<MediaBrowserProps> = ({
     onTogglePath,
     onOpenDetail,
     references,
+    usageIndex,
     onPick,
     kindsCount,
     catalogueLoading,
@@ -144,24 +147,28 @@ export const MediaBrowser: React.FC<MediaBrowserProps> = ({
             </div>
         ) : view === 'grid' ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                {visibleFiles.map((file) => (
-                    <MediaTile
-                        key={file.path}
-                        file={file}
-                        selected={selectionSet.has(file.path)}
-                        onToggle={onToggleSelect}
-                        onOpen={onOpenDetail}
-                        referenceCount={references?.[file.path]?.length ?? 0}
-                        mode={mode}
-                        onPick={onPick}
-                    />
-                ))}
+                {visibleFiles.map((file) => {
+                    const usageCount = usageIndex?.[file.path]?.count ?? references?.[file.path]?.length ?? 0;
+                    return (
+                        <MediaTile
+                            key={file.path}
+                            file={file}
+                            selected={selectionSet.has(file.path)}
+                            onToggle={onToggleSelect}
+                            onOpen={onOpenDetail}
+                            referenceCount={usageCount}
+                            mode={mode}
+                            onPick={onPick}
+                        />
+                    );
+                })}
             </div>
         ) : (
             <div className="border border-white/10 rounded-xl divide-y divide-white/5 overflow-hidden">
                 {visibleFiles.map((file) => {
                     const Icon = KIND_ICON[file.kind];
                     const selected = selectionSet.has(file.path);
+                    const usageCount = usageIndex?.[file.path]?.count ?? references?.[file.path]?.length ?? 0;
                     return (
                         <div
                             key={file.path}
@@ -185,9 +192,13 @@ export const MediaBrowser: React.FC<MediaBrowserProps> = ({
                                     {file.folder || 'racine'}
                                 </span>
                             </button>
-                            {(references?.[file.path]?.length ?? 0) > 0 && (
+                            {usageCount > 0 ? (
                                 <span className="text-[10px] font-mono text-emerald-400 shrink-0">
-                                    utilisé · {references?.[file.path]?.length}
+                                    utilisé · {usageCount}×
+                                </span>
+                            ) : (
+                                <span className="text-[10px] font-mono text-gray-500 shrink-0">
+                                    libre
                                 </span>
                             )}
                             <span className="text-[10px] font-mono text-gray-400 w-16 text-right shrink-0">

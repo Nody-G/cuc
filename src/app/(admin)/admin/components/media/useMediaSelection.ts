@@ -33,6 +33,7 @@ export interface UseMediaSelectionArgs {
     ) => Promise<void>;
     refreshTree: () => Promise<void>;
     resetCatalogue: () => void;
+    externalReferences?: Record<string, string[]> | null;
     showToast: (message: string) => void;
 }
 
@@ -51,12 +52,14 @@ export function useMediaSelection({
     loadFolder,
     refreshTree,
     resetCatalogue,
+    externalReferences,
     showToast,
 }: UseMediaSelectionArgs) {
     const [selection, setSelection] = useState<string[]>([]);
     const lastClickedRef = useRef<string | null>(null);
 
     const [references, setReferences] = useState<Record<string, string[]> | null>(null);
+    const activeReferences = references ?? externalReferences ?? null;
     const [moveTarget, setMoveTarget] = useState('');
     const [newFolder, setNewFolder] = useState('');
 
@@ -166,7 +169,7 @@ export function useMediaSelection({
         if (targets.length === 0) return;
 
         const { count, names, suffix } = summarizeDeleteTargets(targets);
-        const referencesToDelete = countReferences(targets, references);
+        const referencesToDelete = countReferences(targets, activeReferences);
 
         const message = permanent
             ? `Supprimer DÉFINITIVEMENT ${count} fichier(s) : ${names}${suffix} ?`
@@ -197,14 +200,14 @@ export function useMediaSelection({
     const openDetail = useCallback(
         async (file: MediaObject) => {
             setDetail(file);
-            if (references) return;
+            if (activeReferences) return;
             const res = await getMediaReferences();
             setReferences(res.success ? res.references : {});
         },
-        [references, setDetail]
+        [activeReferences, setDetail]
     );
 
-    const detailReferences = detail ? references?.[detail.path] ?? [] : [];
+    const detailReferences = detail ? activeReferences?.[detail.path] ?? [] : [];
 
     return {
         selection,
@@ -213,7 +216,7 @@ export function useMediaSelection({
         toggleSelect,
         selectedObjects,
         selectedReferences,
-        references,
+        references: activeReferences,
         copyToClipboard,
         moveTarget,
         setMoveTarget,

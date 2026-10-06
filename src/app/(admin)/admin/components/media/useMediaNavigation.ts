@@ -1,13 +1,15 @@
 'use client';
 
 import { useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react';
-import { listMediaFiles, listMediaFolder, listMediaTree } from '@/app/(admin)/admin/actions';
+import { getMediaReferences, listMediaFiles, listMediaFolder, listMediaTree } from '@/app/(admin)/admin/actions';
 import {
     filterMedia,
     type MediaFolderStat,
     type MediaKind,
     type MediaObject,
+    type MediaSortCriterion,
 } from '@/app/(admin)/admin/media-shared';
+import { sortMediaByUsage, type MediaUsageIndex } from '@/lib/media-library/media-usage';
 import { PAGE_SIZE, type ExplorerView } from './media-explorer-shared';
 
 export interface UseMediaNavigationArgs {
@@ -47,9 +49,12 @@ export function useMediaNavigation({
     const [catalogueLoading, setCatalogueLoading] = useState(false);
 
     const [kinds, setKinds] = useState<MediaKind[]>([]);
-    const [sortBy, setSortBy] = useState<'name' | 'created_at' | 'size'>('name');
+    const [sortBy, setSortBy] = useState<MediaSortCriterion>('name');
     const [order, setOrder] = useState<'asc' | 'desc'>('asc');
     const [view, setView] = useState<ExplorerView>('grid');
+
+    const [usageIndex, setUsageIndex] = useState<MediaUsageIndex | null>(null);
+    const [references, setReferences] = useState<Record<string, string[]> | null>(null);
 
     /** Fichier ouvert dans le panneau détail (état de navigation). */
     const [detail, setDetail] = useState<MediaObject | null>(null);
@@ -89,6 +94,9 @@ export function useMediaNavigation({
             if (isAppend) setLoadingMore(true);
             else setLoading(true);
 
+            const activeSort = options.sortBy ?? sortBy;
+            const storageSort = activeSort === 'usage' ? 'name' : activeSort;
+
             try {
                 if (targetPrefix === '') {
                     // À la racine, s'il n'y a pas de fichiers directs (tous les médias sont rangés
@@ -98,7 +106,7 @@ export function useMediaNavigation({
                     const [folderRes, allFilesRes] = await Promise.all([
                         listMediaFolder({
                             prefix: '',
-                            sortBy: options.sortBy ?? sortBy,
+                            sortBy: storageSort,
                             order: options.order ?? order,
                             limit: PAGE_SIZE,
                             offset: options.offset ?? 0,
@@ -123,7 +131,7 @@ export function useMediaNavigation({
                 } else {
                     const res = await listMediaFolder({
                         prefix: targetPrefix,
-                        sortBy: options.sortBy ?? sortBy,
+                        sortBy: storageSort,
                         order: options.order ?? order,
                         limit: PAGE_SIZE,
                         offset: options.offset ?? 0,
@@ -150,12 +158,23 @@ export function useMediaNavigation({
         [isHidden, order, showToast, sortBy]
     );
 
-    // Chargement initial (arborescence + dossier racine), une seule fois.
-    // Différé d'une tâche : les chargements posent un état d'attente, ce que
-    // `react-hooks/set-state-in-effect` interdit pendant la phase synchrone.
+    const refreshUsage = useCallback(async () => {
+        try {
+            const res = await getMediaReferences();
+            if (res.success) {
+                setUsageIndex(res.usageIndex ?? null);
+                setReferences(res.references ?? null);
+            }
+        } catch {
+            /* tolérant aux pannes réseau */
+        }
+    }, []);
+
+    // Chargement initial (arborescence + usage + dossier racine), une seule fois.
     useEffect(() => {
         const timer = window.setTimeout(() => {
             void refreshTree();
+            void refreshUsage();
             void loadFolder('', { offset: 0 });
         }, 0);
         return () => window.clearTimeout(timer);
@@ -177,20 +196,26 @@ export function useMediaNavigation({
     );
 
     const changeSort = () => {
-        const next = sortBy === 'name' ? 'created_at' : sortBy === 'created_at' ? 'size' : 'name';
+        const next: MediaSortCriterion =
+            sortBy === 'name' ? 'created_at' : sortBy === 'created_at' ? 'size' : sortBy === 'size' ? 'usage' : 'name';
         setSortBy(next);
-        void loadFolder(prefix, { offset: 0, sortBy: next });
+        if (next !== 'usage') {
+            void loadFolder(prefix, { offset: 0, sortBy: next });
+        }
     };
 
     const toggleOrder = () => {
         const next = order === 'asc' ? 'desc' : 'asc';
         setOrder(next);
-        void loadFolder(prefix, { offset: 0, order: next });
+        if (sortBy !== 'usage') {
+            void loadFolder(prefix, { offset: 0, order: next });
+        }
     };
 
     const refreshAll = () => {
         setCatalogue(null);
         void refreshTree();
+        void refreshUsage();
         void loadFolder(prefix, { offset: 0 });
     };
 
@@ -214,16 +239,19 @@ export function useMediaNavigation({
 
     const visibleFiles = useMemo(() => {
         const source = searching ? catalogue ?? [] : files;
-        const filtered = filterMedia(source, {
+        let filtered = filterMedia(source, {
             query: searching ? deferredSearch : '',
             kinds: kinds.length ? kinds : acceptKinds,
         });
         // En mode sélecteur, on masque les non-images si aucun filtre explicite.
         if (mode === 'pick' && !kinds.length && !acceptKinds?.length) {
-            return filtered.filter((file) => file.kind === 'image');
+            filtered = filtered.filter((file) => file.kind === 'image');
+        }
+        if (sortBy === 'usage') {
+            return sortMediaByUsage(filtered, usageIndex, order);
         }
         return filtered;
-    }, [acceptKinds, catalogue, deferredSearch, files, kinds, mode, searching]);
+    }, [acceptKinds, catalogue, deferredSearch, files, kinds, mode, order, searching, sortBy, usageIndex]);
 
     const segmentation = useMemo(() => prefix.split('/').filter(Boolean), [prefix]);
 
@@ -249,6 +277,9 @@ export function useMediaNavigation({
         setView,
         detail,
         setDetail,
+        usageIndex,
+        references,
+        refreshUsage,
         navigateTo,
         changeSort,
         toggleOrder,

@@ -46,7 +46,7 @@ function walk(dir, files = []) {
         if (SOURCE_EXCLUDE_DIRS.has(entry.name)) continue;
         const full = path.join(dir, entry.name);
         if (entry.isDirectory()) walk(full, files);
-        else if (SOURCE_EXTENSIONS.has(path.extname(entry.name))) files.push(full);
+        else if (SOURCE_EXTENSIONS.has(path.extname(entry.name)) && !entry.name.includes('.test.')) files.push(full);
     }
     return files;
 }
