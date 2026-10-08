@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Activity, Sparkles, ShieldCheck, Info, ExternalLink } from 'lucide-react';
+import { Activity, Sparkles, ShieldCheck, Info } from 'lucide-react';
 
 interface TrafficDataSourceBannerProps {
     sourceMode: 'measured' | 'modelled';

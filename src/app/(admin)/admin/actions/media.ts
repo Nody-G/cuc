@@ -27,7 +27,6 @@ import { sanitizeFileName, stampedPath } from '@/lib/media-library/image-compres
 import {
   buildMediaUsageIndex,
   extractMediaOccurrencesFromRow,
-  type MediaUsageIndex,
   type MediaUsageLocation,
 } from '@/lib/media-library/media-usage';
 

@@ -3,7 +3,7 @@
 import React from 'react';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
-import { Home, ArrowLeft, GraduationCap, Users, Film, Mail, Compass } from 'lucide-react';
+import { Home, GraduationCap, Users, Film, Mail, Compass } from 'lucide-react';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 
 /**

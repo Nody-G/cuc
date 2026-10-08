@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-10-07T00:48:33.226Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-10-08T08:06:22.944Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -824,9 +824,9 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\team\teamGalleries.data.ts`
 
-- l.14 — `{ src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/006.webp', title: 'Studio CUC', category: 'Le Studio et la Salle' }`
-- l.25 — `{ src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/CUC-5.0-203-e1671702096970.webp', title: 'Cascadeurs CUC', category: 'Les Cascadeurs' }`
-- l.36 — `{ src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/MG_5464-1.webp', title: 'Équipements CUC', category: 'Les Équipements' }`
+- l.14 — `{ src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/studio-cuc-prod-salle-cascades-idf.webp', title: 'Studio CUC', category: 'Le Studio et la Salle' }`
+- l.40 — `{ src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-torche-1.webp', title: 'Cascadeurs CUC', category: 'Les Cascadeurs' }`
+- l.51 — `{ src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/equipement-cuc-5-0-462.webp', title: 'Équipements CUC', category: 'Les Équipements' }`
 
 ## 4. CODÉ EN DUR — dette (aucune prise en charge par le Cockpit)
 

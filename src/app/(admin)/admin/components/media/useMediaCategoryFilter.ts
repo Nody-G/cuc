@@ -35,7 +35,10 @@ export function useMediaCategoryFilter({
     }, []);
 
     useEffect(() => {
-        void loadOverrides();
+        const timer = window.setTimeout(() => {
+            void loadOverrides();
+        }, 0);
+        return () => window.clearTimeout(timer);
     }, [loadOverrides]);
 
     const getFileCategory = useCallback(

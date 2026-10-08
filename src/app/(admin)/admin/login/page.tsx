@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { createClient } from '@/lib/supabase/client';
 import { loginAdminAction } from '../actions';
-import { Shield, Lock, Mail, ArrowLeft, AlertCircle, RefreshCw, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
+import { Shield, Lock, Mail, ArrowLeft, AlertCircle, RefreshCw, Eye, EyeOff } from 'lucide-react';
 import { ForgotPasswordModal } from './ForgotPasswordModal';
 import { GoogleSignInButton } from './GoogleSignInButton';
 import { normalizeCockpitLoginIdentifier } from '@/lib/auth/admin-guard';
@@ -20,13 +20,16 @@ export default function AdminLoginPage() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const params = new URLSearchParams(window.location.search);
-    const err = params.get('error');
-    if (err === 'oauth_failed') {
-      setErrorMessage('La connexion avec Google a échoué ou a été annulée.');
-    } else if (err === 'unauthorized') {
-      setErrorMessage("Accès refusé : ce compte Google n'est pas autorisé à accéder au Cockpit.");
-    }
+    const timer = window.setTimeout(() => {
+      const params = new URLSearchParams(window.location.search);
+      const err = params.get('error');
+      if (err === 'oauth_failed') {
+        setErrorMessage('La connexion avec Google a échoué ou a été annulée.');
+      } else if (err === 'unauthorized') {
+        setErrorMessage("Accès refusé : ce compte Google n'est pas autorisé à accéder au Cockpit.");
+      }
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   const handleLogin = async (e: React.FormEvent) => {

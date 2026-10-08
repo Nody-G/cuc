@@ -37,7 +37,9 @@ export default function ResetPasswordPage() {
       const errorDesc = hashParams.get('error_description');
 
       if (errorDesc) {
-        setErrorMessage(decodeURIComponent(errorDesc.replace(/\+/g, ' ')));
+        window.setTimeout(() => {
+          setErrorMessage(decodeURIComponent(errorDesc.replace(/\+/g, ' ')));
+        }, 0);
         return () => subscription.unsubscribe();
       }
 

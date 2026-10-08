@@ -59,7 +59,7 @@ const REPORT = join(ROOT, 'plans', 'revue-couverture-champs-visuels.md');
 /** Profondeur maximale du graphe d'imports suivi depuis la route. */
 const MAX_DEPTH = 4;
 
-const IMPORT_RE = /(?:import|export)\s+(?:type\s+)?(?:[\s\S]*?\s+from\s+)?['"]([^'"]+)['"]/g;
+const IMPORT_RE = /(?:import|export)\s+(?:type\s+)?(?:[\s\S]*?\s+from\s+)?['"]([^'"]+)['"]|import\s*\(\s*['"]([^'"]+)['"]\s*\)/g;
 const FIELD_ATTR_RE = /data-cuc-field=(["'])((?:(?!\1).)+)\1/g;
 /** Gabarits : `data-cuc-field={`sections_data.x.items.${i}.t`}` — normalisés en `*`. */
 const FIELD_ATTR_TEMPLATE_RE = /data-cuc-field=\{`([^`]+)`\}/g;
@@ -232,7 +232,8 @@ function collectFiles(entry, depth = 0, visited = new Set()) {
     visited.add(entry);
     const source = read(entry);
     for (const match of source.matchAll(IMPORT_RE)) {
-        const resolved = resolveSpecifier(match[1], entry);
+        const specifier = match[1] || match[2];
+        const resolved = resolveSpecifier(specifier, entry);
         if (!resolved || resolved.includes('.test.')) continue;
         collectFiles(resolved, depth + 1, visited);
     }
