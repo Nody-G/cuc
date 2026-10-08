@@ -54,6 +54,7 @@ export { upsertCampusPlacements3D, probeCampusPlacements3D } from './actions/cam
 export { logAuditEvent } from './actions/audit';
 export { uploadMediaFile, listMediaFolder, listMediaTree, getMediaReferences } from './actions/media';
 export { createMediaFolder, moveMediaObjects, deleteMediaObjects, listMediaFiles, deleteMediaFile } from './actions/media-organize';
+export { getMediaCategoryOverrides, setMediaCategoryOverride } from './actions/media-categories';
 export { submitInquiry, updateInquiryStatus, updateInquiryNotes, deleteInquiry, fetchInquiriesAction } from './actions/inquiries';
 export { updateInquiryStage, reclassifyInquiry, setDiscoveryVerdict } from './actions/inquiries-pipeline';
 export { convertInquiryToCucSignStudent } from './actions/inquiries-conversion';

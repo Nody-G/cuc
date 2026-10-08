@@ -6,6 +6,8 @@
  * petits utilitaires de présentation. D'où cette séparation.
  */
 
+import type { MediaCategory } from '@/lib/media-library/media-categories';
+
 export interface MediaObject {
     name: string;
     /** Chemin relatif à la racine du bucket — clé de toute opération. */
@@ -17,10 +19,23 @@ export interface MediaObject {
     mimetype: string;
     createdAt: string | null;
     kind: MediaKind;
+    /** Catégorie sémantique déduite ou assignée */
+    category?: MediaCategory;
 }
 
 export type MediaKind = 'image' | 'video' | 'document' | 'other';
 export type MediaSortCriterion = 'name' | 'created_at' | 'size' | 'usage';
+
+export type {
+    MediaCategory,
+    MediaCategoryMeta,
+} from '@/lib/media-library/media-categories';
+export {
+    MEDIA_CATEGORIES,
+    CATEGORY_META_BY_ID,
+    inferMediaCategory,
+    groupMediaByCategory,
+} from '@/lib/media-library/media-categories';
 
 export type {
     MediaUsageLocation,

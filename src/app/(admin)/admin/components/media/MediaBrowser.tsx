@@ -2,8 +2,15 @@
 
 import React from 'react';
 import { FolderTree, Upload } from 'lucide-react';
-import { formatBytes, type MediaObject } from '@/app/(admin)/admin/media-shared';
+import {
+    CATEGORY_META_BY_ID,
+    MEDIA_CATEGORIES,
+    formatBytes,
+    type MediaCategory,
+    type MediaObject,
+} from '@/app/(admin)/admin/media-shared';
 import { KIND_ICON, PAGE_SIZE, type ExplorerView } from './media-explorer-shared';
+import { MediaCategorySection } from './MediaCategorySection';
 import { MediaTile } from './MediaTile';
 import { MediaUploadPanel } from './MediaUploadPanel';
 import type { UseMediaUploadReturn } from './useMediaUpload';
@@ -37,6 +44,9 @@ export interface MediaBrowserProps {
     hasMore: boolean;
     loadingMore: boolean;
     onLoadMore: () => void;
+    groupByCategory?: boolean;
+    groups?: Record<MediaCategory, MediaObject[]>;
+    categoryOf?: (file: MediaObject) => string;
 }
 
 /**
@@ -71,6 +81,9 @@ export const MediaBrowser: React.FC<MediaBrowserProps> = ({
     hasMore,
     loadingMore,
     onLoadMore,
+    groupByCategory,
+    groups,
+    categoryOf,
 }) => (
     <div className="min-w-0 space-y-4">
         {/* Zone de dépôt */}
@@ -145,6 +158,28 @@ export const MediaBrowser: React.FC<MediaBrowserProps> = ({
                     ? 'Aucun média ne correspond à ces critères.'
                     : 'Ce dossier est vide — déposez des fichiers ou créez un dossier.'}
             </div>
+        ) : groupByCategory && !searching && groups ? (
+            <div className="space-y-4">
+                {MEDIA_CATEGORIES.map((catMeta) => {
+                    const catFiles = groups[catMeta.id] ?? [];
+                    if (catFiles.length === 0) return null;
+                    return (
+                        <MediaCategorySection
+                            key={catMeta.id}
+                            meta={catMeta}
+                            files={catFiles}
+                            mode={mode}
+                            selectionSet={selectionSet}
+                            onToggleSelect={onToggleSelect}
+                            onOpenDetail={onOpenDetail}
+                            onPick={onPick}
+                            usageIndex={usageIndex}
+                            references={references}
+                            categoryOf={categoryOf ?? ((f) => f.category || 'autres')}
+                        />
+                    );
+                })}
+            </div>
         ) : view === 'grid' ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                 {visibleFiles.map((file) => {
@@ -159,6 +194,7 @@ export const MediaBrowser: React.FC<MediaBrowserProps> = ({
                             referenceCount={usageCount}
                             mode={mode}
                             onPick={onPick}
+                            category={categoryOf ? categoryOf(file) : file.category}
                         />
                     );
                 })}
@@ -169,6 +205,8 @@ export const MediaBrowser: React.FC<MediaBrowserProps> = ({
                     const Icon = KIND_ICON[file.kind];
                     const selected = selectionSet.has(file.path);
                     const usageCount = usageIndex?.[file.path]?.count ?? references?.[file.path]?.length ?? 0;
+                    const catKey = categoryOf ? categoryOf(file) : file.category;
+                    const catMeta = catKey ? CATEGORY_META_BY_ID.get(catKey as MediaCategory) : null;
                     return (
                         <div
                             key={file.path}
@@ -192,6 +230,11 @@ export const MediaBrowser: React.FC<MediaBrowserProps> = ({
                                     {file.folder || 'racine'}
                                 </span>
                             </button>
+                            {catMeta && (
+                                <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded border shrink-0 ${catMeta.badgeClass}`}>
+                                    {catMeta.shortLabel}
+                                </span>
+                            )}
                             {usageCount > 0 ? (
                                 <span className="text-[10px] font-mono text-emerald-400 shrink-0">
                                     utilisé · {usageCount}×

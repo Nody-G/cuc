@@ -3,7 +3,13 @@
 import React from 'react';
 import Image from 'next/image';
 import { Check, Copy, Download, ExternalLink, Info } from 'lucide-react';
-import { formatBytes, type MediaObject } from '@/app/(admin)/admin/media-shared';
+import {
+    CATEGORY_META_BY_ID,
+    MEDIA_CATEGORIES,
+    formatBytes,
+    type MediaCategory,
+    type MediaObject,
+} from '@/app/(admin)/admin/media-shared';
 import { KIND_ICON } from './media-explorer-shared';
 import { forceDownloadBlob } from '@/lib/download-blob';
 import type { MediaUsageItem } from '@/lib/media-library/media-usage';
@@ -17,6 +23,8 @@ export interface MediaDetailPanelProps {
     onCopy: (value: string, label: string) => void;
     onPick: (url: string) => void;
     onTrash: () => void;
+    category?: MediaCategory;
+    onUpdateCategory?: (category: MediaCategory) => void;
 }
 
 /**
@@ -32,7 +40,12 @@ export const MediaDetailPanel: React.FC<MediaDetailPanelProps> = ({
     onCopy,
     onPick,
     onTrash,
-}) => (
+    category,
+    onUpdateCategory,
+}) => {
+    const catMeta = category ? CATEGORY_META_BY_ID.get(category) : null;
+
+    return (
     <aside className="bg-[#0D0D12] border border-white/10 rounded-xl p-3 h-fit xl:sticky xl:top-4">
         {!detail ? (
             <div className="text-xs text-gray-400 flex items-start gap-2">
@@ -80,6 +93,32 @@ export const MediaDetailPanel: React.FC<MediaDetailPanelProps> = ({
                             {detail.createdAt
                                 ? new Date(detail.createdAt).toLocaleDateString('fr-FR')
                                 : '—'}
+                        </dd>
+                    </div>
+                    <div className="flex items-center justify-between gap-2 pt-1 border-t border-white/5">
+                        <dt className="text-gray-500">Catégorie</dt>
+                        <dd>
+                            {onUpdateCategory && mode === 'manage' ? (
+                                <select
+                                    value={category || 'autres'}
+                                    onChange={(e) => onUpdateCategory(e.target.value as MediaCategory)}
+                                    className="bg-black/80 border border-white/15 rounded px-2 py-0.5 text-[11px] text-[#FFE500] font-mono focus:outline-none focus:border-[#FFE500]"
+                                >
+                                    {MEDIA_CATEGORIES.map((cat) => (
+                                        <option key={cat.id} value={cat.id} className="bg-[#0D0D12] text-white">
+                                            {cat.label}
+                                        </option>
+                                    ))}
+                                </select>
+                            ) : (
+                                <span
+                                    className={`px-1.5 py-0.5 rounded text-[10px] font-medium border ${
+                                        catMeta?.badgeClass || 'text-gray-400 border-white/10'
+                                    }`}
+                                >
+                                    {catMeta?.shortLabel || 'Autres'}
+                                </span>
+                            )}
                         </dd>
                     </div>
                 </dl>
@@ -171,4 +210,5 @@ export const MediaDetailPanel: React.FC<MediaDetailPanelProps> = ({
             </div>
         )}
     </aside>
-);
+    );
+};

@@ -11,8 +11,9 @@ import {
     Search,
     X,
 } from 'lucide-react';
-import type { MediaKind, MediaSortCriterion } from '@/app/(admin)/admin/media-shared';
+import type { MediaCategory, MediaKind, MediaSortCriterion } from '@/app/(admin)/admin/media-shared';
 import { KIND_ICON, KIND_LABEL, type ExplorerView } from './media-explorer-shared';
+import { MediaCategoryPills } from './MediaCategoryPills';
 
 export interface MediaToolbarProps {
     mode: 'manage' | 'pick';
@@ -36,6 +37,11 @@ export interface MediaToolbarProps {
     searching: boolean;
     resultCount: number;
     onNavigate: (path: string) => void;
+    selectedCategory?: MediaCategory | 'all';
+    onSelectCategory?: (cat: MediaCategory | 'all') => void;
+    categoryCounts?: Record<string, number>;
+    groupByCategory?: boolean;
+    onToggleGroupBy?: () => void;
 }
 
 /**
@@ -64,6 +70,11 @@ export const MediaToolbar: React.FC<MediaToolbarProps> = ({
     searching,
     resultCount,
     onNavigate,
+    selectedCategory,
+    onSelectCategory,
+    categoryCounts,
+    groupByCategory,
+    onToggleGroupBy,
 }) => (
     <div className="bg-[#0D0D12] border border-white/10 rounded-xl p-3 space-y-3">
         <div className="flex flex-col xl:flex-row xl:items-center gap-3">
@@ -184,6 +195,16 @@ export const MediaToolbar: React.FC<MediaToolbarProps> = ({
                 </div>
             )}
         </div>
+
+        {selectedCategory !== undefined && onSelectCategory && categoryCounts && (
+            <MediaCategoryPills
+                selectedCategory={selectedCategory}
+                onSelectCategory={onSelectCategory}
+                categoryCounts={categoryCounts}
+                groupByCategory={Boolean(groupByCategory)}
+                onToggleGroupBy={onToggleGroupBy ?? (() => undefined)}
+            />
+        )}
 
         {/* Fil d'Ariane */}
         <div className="flex items-center gap-1 text-[11px] font-mono text-gray-400 flex-wrap">

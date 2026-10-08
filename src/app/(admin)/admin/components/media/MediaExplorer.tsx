@@ -8,6 +8,7 @@ import { MediaBrowser } from './MediaBrowser';
 import { MediaDetailPanel } from './MediaDetailPanel';
 import { MediaToolbar } from './MediaToolbar';
 import { MediaTreeAside } from './MediaTreeAside';
+import { useMediaCategoryFilter } from './useMediaCategoryFilter';
 import { useMediaNavigation } from './useMediaNavigation';
 import { useMediaSelection } from './useMediaSelection';
 
@@ -39,8 +40,13 @@ export const MediaExplorer: React.FC<MediaExplorerProps> = ({
     hiddenPrefixes = [TRASH_ROOT, ORIGINALS_ROOT],
 }) => {
     const nav = useMediaNavigation({ mode, acceptKinds, hiddenPrefixes, showToast });
+    const cat = useMediaCategoryFilter({
+        files: nav.visibleFiles,
+        usageIndex: nav.usageIndex,
+        showToast,
+    });
     const sel = useMediaSelection({
-        visibleFiles: nav.visibleFiles,
+        visibleFiles: cat.categorizedFiles,
         prefix: nav.prefix,
         detail: nav.detail,
         setDetail: nav.setDetail,
@@ -77,6 +83,9 @@ export const MediaExplorer: React.FC<MediaExplorerProps> = ({
                 total={nav.total}
                 prefix={nav.prefix}
                 onNavigate={navigateTo}
+                selectedCategory={cat.selectedCategory}
+                onSelectCategory={cat.setSelectedCategory}
+                categoryCounts={cat.categoryCounts}
             />
 
             <section className="min-w-0 space-y-4">
@@ -100,8 +109,13 @@ export const MediaExplorer: React.FC<MediaExplorerProps> = ({
                     onCreateFolder={sel.handleCreateFolder}
                     segmentation={nav.segmentation}
                     searching={nav.searching}
-                    resultCount={nav.visibleFiles.length}
+                    resultCount={cat.categorizedFiles.length}
                     onNavigate={navigateTo}
+                    selectedCategory={cat.selectedCategory}
+                    onSelectCategory={cat.setSelectedCategory}
+                    categoryCounts={cat.categoryCounts}
+                    groupByCategory={cat.groupByCategory}
+                    onToggleGroupBy={() => cat.setGroupByCategory((prev) => !prev)}
                 />
 
                 {sel.selection.length > 0 && (
@@ -138,7 +152,7 @@ export const MediaExplorer: React.FC<MediaExplorerProps> = ({
                         onNavigate={navigateTo}
                         searching={nav.searching}
                         loading={nav.loading}
-                        visibleFiles={nav.visibleFiles}
+                        visibleFiles={cat.categorizedFiles}
                         view={nav.view}
                         selectionSet={sel.selectionSet}
                         onToggleSelect={sel.toggleSelect}
@@ -160,6 +174,9 @@ export const MediaExplorer: React.FC<MediaExplorerProps> = ({
                         onLoadMore={() =>
                             void nav.loadFolder(nav.prefix, { append: true, offset: nav.offset })
                         }
+                        groupByCategory={cat.groupByCategory}
+                        groups={cat.groups}
+                        categoryOf={cat.getFileCategory}
                     />
                     <MediaDetailPanel
                         detail={nav.detail}
@@ -169,9 +186,10 @@ export const MediaExplorer: React.FC<MediaExplorerProps> = ({
                         mode={mode}
                         onCopy={sel.copyToClipboard}
                         onPick={pickUrl}
-                        // Cible explicite : la fiche du panneau est supprimée au
-                        // premier clic, sans dépendre d'une sélection mise à jour
-                        // au rendu suivant (défaut corrigé le 2026-09-24).
+                        category={nav.detail ? cat.getFileCategory(nav.detail) : undefined}
+                        onUpdateCategory={(newCat) =>
+                            nav.detail && void cat.updateCategory(nav.detail.path, newCat)
+                        }
                         onTrash={() => {
                             const file = nav.detail;
                             if (!file) return;

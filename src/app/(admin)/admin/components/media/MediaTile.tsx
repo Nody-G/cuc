@@ -3,7 +3,12 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Check, Info } from 'lucide-react';
-import { formatBytes, type MediaObject } from '@/app/(admin)/admin/media-shared';
+import {
+    CATEGORY_META_BY_ID,
+    formatBytes,
+    type MediaCategory,
+    type MediaObject,
+} from '@/app/(admin)/admin/media-shared';
 import { KIND_ICON } from './media-explorer-shared';
 
 export interface MediaTileProps {
@@ -14,6 +19,7 @@ export interface MediaTileProps {
     onToggle: (file: MediaObject, event: React.MouseEvent) => void;
     onOpen: (file: MediaObject) => void;
     onPick: (url: string) => void;
+    category?: string;
 }
 
 /**
@@ -28,10 +34,12 @@ export const MediaTile: React.FC<MediaTileProps> = ({
     onToggle,
     onOpen,
     onPick,
+    category,
 }) => {
     const Icon = KIND_ICON[file.kind];
     const [failed, setFailed] = useState(false);
     const showImage = file.kind === 'image' && !failed;
+    const catMeta = category ? CATEGORY_META_BY_ID.get(category as MediaCategory) : null;
 
     return (
         <div
@@ -64,6 +72,14 @@ export const MediaTile: React.FC<MediaTileProps> = ({
                 {selected && (
                     <span className="absolute top-2 left-2 w-5 h-5 rounded-full bg-[#FFE500] text-black flex items-center justify-center">
                         <Check className="w-3.5 h-3.5" />
+                    </span>
+                )}
+                {catMeta && (
+                    <span
+                        className={`absolute top-2 right-2 px-1.5 py-0.5 rounded text-[9px] font-medium border backdrop-blur-md shadow-sm ${catMeta.badgeClass}`}
+                        title={`Catégorie : ${catMeta.label}`}
+                    >
+                        {catMeta.shortLabel}
                     </span>
                 )}
                 {referenceCount > 0 ? (
