@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
-import { Navbar } from '@/components/layout/Navbar';
-import { Footer } from '@/components/layout/Footer';
-import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
-import { useEquipeCascadeursData } from './sections/useEquipeCascadeursData';
-import { EquipeHeroSection } from './sections/EquipeHeroSection';
-import { CoachCard } from './sections/CoachCard';
-import { CelebritySheetProvider } from './sections/celebrity-sheet/CelebritySheetProvider';
-import { EquipeCallout } from './sections/EquipeCallout';
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { FilmDetailsModal } from "@/components/sections/hall-of-fame/FilmDetailsModal";
+import { useEquipeCascadeursData } from "./sections/useEquipeCascadeursData";
+import { EquipeHeroSection } from "./sections/EquipeHeroSection";
+import { CoachCard } from "./sections/CoachCard";
+import { CelebritySheetProvider } from "./sections/celebrity-sheet/CelebritySheetProvider";
+import { EquipeCallout } from "./sections/EquipeCallout";
 
 /**
  * Page équipe — façade de composition.
@@ -41,17 +41,17 @@ export default function EquipeCascadeursProPage() {
               teamMembers={data.teamMembers}
               coordinatedFilms={data.coordinatedFilms}
             >
-            {/* Catalogue comédiens + modale : montés une seule fois pour toute la grille. */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-                  {data.displayTeam.map((member) => (
-                    <CoachCard
-                      key={member.id}
-                      member={member}
-                      films={data.displayFilms}
-                      onSelectFilm={data.setSelectedFilm}
-                    />
-                  ))}
-                </div>
+              {/* Catalogue comédiens + modale : montés une seule fois pour toute la grille. */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+                {data.displayTeam.map((member) => (
+                  <CoachCard
+                    key={member.id}
+                    member={member}
+                    films={data.displayFilms}
+                    onSelectFilm={data.setSelectedFilm}
+                  />
+                ))}
+              </div>
             </CelebritySheetProvider>
 
             {/* La liste des films et le bloc « LES FILMS DOUBLÉS & COORDONNÉS PAR LE CUC »
