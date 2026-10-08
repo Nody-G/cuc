@@ -1,15 +1,14 @@
 import json
 import math
 import os
+import sys
+sys.path.insert(0, os.path.abspath("."))
 
-with open("scratch/perfect_cuc_polys.json") as f:
+with open("scripts/assets/cuc_geometry.json", "r", encoding="utf-8") as f:
     cuc = json.load(f)
 
-with open("scratch/logo_data.json") as f:
-    orig = json.load(f)
-
-text_paths_raw = orig["text"]
-star_path_raw  = orig["star"]
+from scripts.generate_clean_typography import get_clean_cuc_text_vectors
+text_paths, star_path = get_clean_cuc_text_vectors()
 
 CX = 512.0
 CY = 512.0
@@ -24,36 +23,14 @@ Y_CUT_BOTTOM = 750.0
 WHITE = "#FFFFFF"
 DARK_LINE = "#111111"
 
-def shift_svg_path(d_str, dx=0.0, dy=0.0):
-    if not d_str:
-        return ""
-    import re
-    def repl(m):
-        cmd = m.group(1)
-        x = float(m.group(2)) + dx
-        y = float(m.group(3)) + dy
-        return f"{cmd} {x:.1f},{y:.1f}"
-    return re.sub(r'([ML])\s*([-\d.]+),([-\d.]+)', repl, d_str)
-
-# Star shifted by -5.0px to sit dead center at x = 512.0
-star_path = shift_svg_path(star_path_raw, dx=-5.0, dy=0.0)
-
-# U shifted by -0.5px to align with CX = 512.0
-u_out   = shift_svg_path(cuc["u_out"], dx=-0.5)
-u_white = shift_svg_path(cuc["u_white"], dx=-0.5)
-u_core  = shift_svg_path(cuc["u_core"], dx=-0.5)
+u_out   = cuc["u_out"]
+u_white = cuc["u_white"]
+u_core  = cuc["u_core"]
 
 cl_black = cuc["cl_black"]
 cl_white = cuc["cl_white"]
 cr_black = cuc["cr_black"]
 cr_white = cuc["cr_white"]
-
-text_paths = []
-for p in text_paths_raw:
-    if " 6" in p[:30] or " 7" in p[:30] or " 5" in p[:30] or " 8" in p[:30]:
-        text_paths.append(shift_svg_path(p, dx=1.5))
-    else:
-        text_paths.append(p)
 
 def make_ring_clips():
     return f"""
@@ -71,14 +48,14 @@ def make_ring_clips():
     </filter>
     """
 
-def render_texts(text_fill=WHITE, text_stroke=DARK_LINE, stroke_w=6, star_fill=None):
+def render_texts(text_fill=WHITE, text_stroke=DARK_LINE, stroke_w=2.5, star_fill=None):
     if star_fill is None:
         star_fill = text_fill
     lines = []
     for d in text_paths:
-        lines.append(f'<path d="{d}" fill="{text_fill}" stroke="{text_stroke}" stroke-width="{stroke_w}" stroke-linejoin="round" paint-order="stroke fill" fill-rule="evenodd" />')
+        lines.append(f'<path d="{d}" fill="{text_fill}" stroke="{text_stroke}" stroke-width="{stroke_w}" stroke-linejoin="miter" paint-order="stroke fill" fill-rule="evenodd" />')
     if star_path:
-        lines.append(f'<path d="{star_path}" fill="{star_fill}" stroke="{text_stroke}" stroke-width="{stroke_w}" stroke-linejoin="round" paint-order="stroke fill" fill-rule="evenodd" />')
+        lines.append(f'<path d="{star_path}" fill="{star_fill}" stroke="{text_stroke}" stroke-width="{stroke_w}" stroke-linejoin="miter" paint-order="stroke fill" fill-rule="evenodd" />')
     return "\n      ".join(lines)
 
 def render_cuc_letters(u_core_content=None, u_fill="#C8102E", c_fill=DARK_LINE, u_stroke=DARK_LINE):
@@ -143,7 +120,7 @@ def build_flag_logo(flag_svg_group, u_fill, border_accent=WHITE, text_fill=WHITE
 
   <!-- === 2. TEXTS & STAR (PERFECTLY CENTERED AT 512.0) === -->
   <g filter="url(#text-glow)">
-    {render_texts(text_fill=text_fill, text_stroke=text_stroke, stroke_w=7, star_fill=star_fill)}
+    {render_texts(text_fill=text_fill, text_stroke=text_stroke, stroke_w=2.5, star_fill=star_fill)}
   </g>
 
   <!-- === 3. C U C LETTERS === -->

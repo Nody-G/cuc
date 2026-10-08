@@ -84,4 +84,14 @@ export const CAMPUS_GALLERY_PHOTOS: LightboxImage[] = [
     src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/CUC-Ecole-de-cascade.webp',
     category: 'Entrée Principale',
   },
+  {
+    title: 'Campus Univers Cascades',
+    src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-le-domaine-en-images-photo-en-plus.webp',
+    category: 'Domaine & Nature',
+  },
+  {
+    title: 'Campus Univers Cascades',
+    src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-le-domaine-en-images-photo-en-plus-2.webp',
+    category: 'Domaine & Nature',
+  },
 ];

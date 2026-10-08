@@ -1,0 +1,730 @@
+[
+  {
+    "originalPath": "01 - ACCUEIL/Centre de formation pro reference.jpg",
+    "originalBytes": 195434,
+    "compressedBytes": 168378,
+    "objectPath": "media/cuc-visual/home-centre-de-formation-pro-reference.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/home-centre-de-formation-pro-reference.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "01 - ACCUEIL/Couv (1).jpg",
+    "originalBytes": 1289973,
+    "compressedBytes": 316908,
+    "objectPath": "media/cuc-visual/home-couv-1.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/home-couv-1.webp",
+    "profile": "hero"
+  },
+  {
+    "originalPath": "01 - ACCUEIL/Couv (2).jpg",
+    "originalBytes": 2260105,
+    "compressedBytes": 893134,
+    "objectPath": "media/cuc-visual/home-couv-2.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/home-couv-2.webp",
+    "profile": "hero"
+  },
+  {
+    "originalPath": "01 - ACCUEIL/Couv (3).jpg",
+    "originalBytes": 506825,
+    "compressedBytes": 360862,
+    "objectPath": "media/cuc-visual/home-couv-3.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/home-couv-3.webp",
+    "profile": "hero"
+  },
+  {
+    "originalPath": "01 - ACCUEIL/Couv (4).jpg",
+    "originalBytes": 732801,
+    "compressedBytes": 417090,
+    "objectPath": "media/cuc-visual/home-couv-4.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/home-couv-4.webp",
+    "profile": "hero"
+  },
+  {
+    "originalPath": "01 - ACCUEIL/Couv (5).jpg",
+    "originalBytes": 701762,
+    "compressedBytes": 356732,
+    "objectPath": "media/cuc-visual/home-couv-5.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/home-couv-5.webp",
+    "profile": "hero"
+  },
+  {
+    "originalPath": "02 - LE CAMPUS/00 - bandeau haut.jpg",
+    "originalBytes": 1979224,
+    "compressedBytes": 667156,
+    "objectPath": "media/cuc-visual/campus-00-bandeau-haut.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-00-bandeau-haut.webp",
+    "profile": "hero"
+  },
+  {
+    "originalPath": "02 - LE CAMPUS/01 - CUC TOWER.jpg",
+    "originalBytes": 2016264,
+    "compressedBytes": 108426,
+    "objectPath": "media/cuc-visual/campus-01-cuc-tower.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-01-cuc-tower.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "02 - LE CAMPUS/02 - ZOE BELL HALL (supprimer gymnase et fosse).jpg",
+    "originalBytes": 2189761,
+    "compressedBytes": 462292,
+    "objectPath": "media/cuc-visual/campus-02-zoe-bell-hall.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-02-zoe-bell-hall.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "02 - LE CAMPUS/03 - Parkour Park et Hall Câblage.jpg",
+    "originalBytes": 684434,
+    "compressedBytes": 251402,
+    "objectPath": "media/cuc-visual/campus-03-parkour-park-et-hall-cablage.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-03-parkour-park-et-hall-cablage.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "02 - LE CAMPUS/04 - Dojos et espaces Combats.jpg",
+    "originalBytes": 1263675,
+    "compressedBytes": 267570,
+    "objectPath": "media/cuc-visual/campus-04-dojos-et-espaces-combats.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-04-dojos-et-espaces-combats.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "02 - LE CAMPUS/05 - Manège equestre couvert et ecuries.JPG",
+    "originalBytes": 520943,
+    "compressedBytes": 331806,
+    "objectPath": "media/cuc-visual/campus-05-manege-equestre-couvert-et-ecuries.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-05-manege-equestre-couvert-et-ecuries.webp",
+    "profile": "hero"
+  },
+  {
+    "originalPath": "02 - LE CAMPUS/06 - Salle d'armes.JPG",
+    "originalBytes": 5809569,
+    "compressedBytes": 213522,
+    "objectPath": "media/cuc-visual/campus-06-salle-d-armes.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-06-salle-d-armes.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "02 - LE CAMPUS/07- Site exterieur et decors naturel.JPG",
+    "originalBytes": 335000,
+    "compressedBytes": 147084,
+    "objectPath": "media/cuc-visual/campus-07-site-exterieur-et-decors-naturel.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-07-site-exterieur-et-decors-naturel.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "02 - LE CAMPUS/08 - Hebergement et base de vie.jpg",
+    "originalBytes": 334852,
+    "compressedBytes": 345966,
+    "objectPath": "media/cuc-visual/campus-08-hebergement-et-base-de-vie.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-08-hebergement-et-base-de-vie.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "02 - LE CAMPUS/09 - City Stade et Espace sportif.jpg",
+    "originalBytes": 186681,
+    "compressedBytes": 100398,
+    "objectPath": "media/cuc-visual/campus-09-city-stade-et-espace-sportif.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-09-city-stade-et-espace-sportif.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "02 - LE CAMPUS/Le domaine en images - photo en plus 2.jpg",
+    "originalBytes": 776326,
+    "compressedBytes": 347650,
+    "objectPath": "media/cuc-visual/campus-le-domaine-en-images-photo-en-plus-2.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-le-domaine-en-images-photo-en-plus-2.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "02 - LE CAMPUS/Le Domaine en images - photo en plus.jpg",
+    "originalBytes": 1850819,
+    "compressedBytes": 259528,
+    "objectPath": "media/cuc-visual/campus-le-domaine-en-images-photo-en-plus.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-le-domaine-en-images-photo-en-plus.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "03 - STAGES ET FORMATIONS/01 - FORMATION PROFESSIONNELLE/Bandeau.jpg",
+    "originalBytes": 2920292,
+    "compressedBytes": 213922,
+    "objectPath": "media/cuc-visual/formation-pro-bandeau.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/formation-pro-bandeau.webp",
+    "profile": "hero"
+  },
+  {
+    "originalPath": "03 - STAGES ET FORMATIONS/02 - STAGES DE CASCADES ET PARKOUR/BANDEAU-Logos-stages-3-768x139.png",
+    "originalBytes": 56197,
+    "compressedBytes": 18292,
+    "objectPath": "media/partner-logo/stages-parkour-bandeau-logos-stages-3-768x139.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/stages-parkour-bandeau-logos-stages-3-768x139.webp",
+    "profile": "logo"
+  },
+  {
+    "originalPath": "03 - STAGES ET FORMATIONS/02 - STAGES DE CASCADES ET PARKOUR/Bandeau.jpg",
+    "originalBytes": 581496,
+    "compressedBytes": 326580,
+    "objectPath": "media/cuc-visual/stages-parkour-bandeau.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/stages-parkour-bandeau.webp",
+    "profile": "hero"
+  },
+  {
+    "originalPath": "03 - STAGES ET FORMATIONS/03 - WORKSHOP/Bandeau Workshop.jpg",
+    "originalBytes": 883832,
+    "compressedBytes": 520396,
+    "objectPath": "media/cuc-visual/workshop-bandeau-workshop.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/workshop-bandeau-workshop.webp",
+    "profile": "hero"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/00 - LOGO CUC TEAM en haut a droite.png",
+    "originalBytes": 293925,
+    "compressedBytes": 19112,
+    "objectPath": "media/partner-logo/cuc-team-badge.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/cuc-team-badge.webp",
+    "profile": "logo"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/1000003116.jpg",
+    "originalBytes": 1057551,
+    "compressedBytes": 632440,
+    "objectPath": "media/cuc-visual/cascadeur-1000003116.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-1000003116.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/1000038955.jpg",
+    "originalBytes": 4092679,
+    "compressedBytes": 1985884,
+    "objectPath": "media/cuc-visual/cascadeur-1000038955.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-1000038955.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/1000047186 (1).jpg",
+    "originalBytes": 5519227,
+    "compressedBytes": 1303898,
+    "objectPath": "media/cuc-visual/cascadeur-1000047186-1.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-1000047186-1.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/1000049431.jpg",
+    "originalBytes": 3891600,
+    "compressedBytes": 838278,
+    "objectPath": "media/cuc-visual/cascadeur-1000049431.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-1000049431.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/1000052477.jpg",
+    "originalBytes": 3391570,
+    "compressedBytes": 1934354,
+    "objectPath": "media/cuc-visual/cascadeur-1000052477.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-1000052477.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/1000053353.jpg",
+    "originalBytes": 5299592,
+    "compressedBytes": 1304432,
+    "objectPath": "media/cuc-visual/cascadeur-1000053353.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-1000053353.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/1000057029.jpg",
+    "originalBytes": 7939601,
+    "compressedBytes": 2092634,
+    "objectPath": "media/cuc-visual/cascadeur-1000057029.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-1000057029.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/20240427_052437.jpg",
+    "originalBytes": 4023943,
+    "compressedBytes": 1876116,
+    "objectPath": "media/cuc-visual/cascadeur-20240427_052437.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-20240427_052437.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/20240517_165627.jpg",
+    "originalBytes": 2449083,
+    "compressedBytes": 1059178,
+    "objectPath": "media/cuc-visual/cascadeur-20240517_165627.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-20240517_165627.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/20240611_162341.jpg",
+    "originalBytes": 3179255,
+    "compressedBytes": 510290,
+    "objectPath": "media/cuc-visual/cascadeur-20240611_162341.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-20240611_162341.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/20240612_191918.jpg",
+    "originalBytes": 5925163,
+    "compressedBytes": 1528774,
+    "objectPath": "media/cuc-visual/cascadeur-20240612_191918.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-20240612_191918.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/20240817_084043.jpg",
+    "originalBytes": 6419670,
+    "compressedBytes": 1871814,
+    "objectPath": "media/cuc-visual/cascadeur-20240817_084043.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-20240817_084043.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/20240916_170437.jpg",
+    "originalBytes": 3456310,
+    "compressedBytes": 500160,
+    "objectPath": "media/cuc-visual/cascadeur-20240916_170437.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-20240916_170437.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/20241001_142413.jpg",
+    "originalBytes": 7375149,
+    "compressedBytes": 357332,
+    "objectPath": "media/cuc-visual/cascadeur-20241001_142413.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-20241001_142413.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/20241001_172449(0).jpg",
+    "originalBytes": 4180041,
+    "compressedBytes": 835042,
+    "objectPath": "media/cuc-visual/cascadeur-20241001_172449-0.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-20241001_172449-0.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/CUC-5.0-203.jpg",
+    "originalBytes": 3423641,
+    "compressedBytes": 558416,
+    "objectPath": "media/cuc-visual/cascadeur-cuc-5-0-203.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-cuc-5-0-203.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/CUC-5.0-Ech-4.jpg",
+    "originalBytes": 15316161,
+    "compressedBytes": 473704,
+    "objectPath": "media/cuc-visual/cascadeur-cuc-5-0-ech-4.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-cuc-5-0-ech-4.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/NERO (1).jpg",
+    "originalBytes": 2493931,
+    "compressedBytes": 1289918,
+    "objectPath": "media/cuc-visual/cascadeur-nero-1.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-nero-1.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/NERO (2).jpg",
+    "originalBytes": 3012031,
+    "compressedBytes": 1363420,
+    "objectPath": "media/cuc-visual/cascadeur-nero-2.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-nero-2.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/NERO (6).jpg",
+    "originalBytes": 4749772,
+    "compressedBytes": 1202316,
+    "objectPath": "media/cuc-visual/cascadeur-nero-6.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-nero-6.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/Nero - team.jpg",
+    "originalBytes": 378933,
+    "compressedBytes": 454938,
+    "objectPath": "media/cuc-visual/cascadeur-nero-team.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-nero-team.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/Saut-Niels-2-3.jpg",
+    "originalBytes": 1289973,
+    "compressedBytes": 144010,
+    "objectPath": "media/cuc-visual/cascadeur-saut-niels-2-3.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-saut-niels-2-3.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/01 - NOS CASCADEUSES ET CASCADEURS/Torche-1.jpg",
+    "originalBytes": 9020304,
+    "compressedBytes": 212598,
+    "objectPath": "media/cuc-visual/cascadeur-torche-1.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-torche-1.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/02 - EQUIPEMENTS DE TOURNAGE/01.jpg",
+    "originalBytes": 3930998,
+    "compressedBytes": 754588,
+    "objectPath": "media/cuc-visual/equipement-01.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/equipement-01.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/02 - EQUIPEMENTS DE TOURNAGE/02.jpg",
+    "originalBytes": 3503128,
+    "compressedBytes": 634788,
+    "objectPath": "media/cuc-visual/equipement-02.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/equipement-02.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/02 - EQUIPEMENTS DE TOURNAGE/03.jpg",
+    "originalBytes": 3126650,
+    "compressedBytes": 447260,
+    "objectPath": "media/cuc-visual/equipement-03.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/equipement-03.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/02 - EQUIPEMENTS DE TOURNAGE/04.png",
+    "originalBytes": 756074,
+    "compressedBytes": 46682,
+    "objectPath": "media/cuc-visual/equipement-04.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/equipement-04.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/02 - EQUIPEMENTS DE TOURNAGE/05.jpg",
+    "originalBytes": 3931197,
+    "compressedBytes": 757116,
+    "objectPath": "media/cuc-visual/equipement-05.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/equipement-05.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/02 - EQUIPEMENTS DE TOURNAGE/06.jpg",
+    "originalBytes": 720213,
+    "compressedBytes": 378388,
+    "objectPath": "media/cuc-visual/equipement-06.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/equipement-06.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/02 - EQUIPEMENTS DE TOURNAGE/07.JPG",
+    "originalBytes": 824181,
+    "compressedBytes": 384286,
+    "objectPath": "media/cuc-visual/equipement-07.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/equipement-07.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/02 - EQUIPEMENTS DE TOURNAGE/CUC-5.0-462.jpg",
+    "originalBytes": 18055451,
+    "compressedBytes": 1014946,
+    "objectPath": "media/cuc-visual/equipement-cuc-5-0-462.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/equipement-cuc-5-0-462.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/03 - LE STUDIO ET SALLE D'ACTION/20221222_095128.jpg",
+    "originalBytes": 2051685,
+    "compressedBytes": 228572,
+    "objectPath": "media/cuc-visual/studio-20221222_095128.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/studio-20221222_095128.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/03 - LE STUDIO ET SALLE D'ACTION/20221222_095731.jpg",
+    "originalBytes": 2131592,
+    "compressedBytes": 314658,
+    "objectPath": "media/cuc-visual/studio-20221222_095731.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/studio-20221222_095731.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/03 - LE STUDIO ET SALLE D'ACTION/20221222_095753.jpg",
+    "originalBytes": 2377326,
+    "compressedBytes": 424982,
+    "objectPath": "media/cuc-visual/studio-20221222_095753.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/studio-20221222_095753.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/03 - LE STUDIO ET SALLE D'ACTION/CUC PROD - 2.jpg",
+    "originalBytes": 1441032,
+    "compressedBytes": 313420,
+    "objectPath": "media/cuc-visual/studio-cuc-prod-2.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/studio-cuc-prod-2.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/03 - LE STUDIO ET SALLE D'ACTION/CUC PROD - Salle cascades IDF (2).jpg",
+    "originalBytes": 1545101,
+    "compressedBytes": 368170,
+    "objectPath": "media/cuc-visual/studio-cuc-prod-salle-cascades-idf-2.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/studio-cuc-prod-salle-cascades-idf-2.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "04 - TOURNAGE/03 - LE STUDIO ET SALLE D'ACTION/CUC PROD - salle cascades IDF.jpg",
+    "originalBytes": 2088917,
+    "compressedBytes": 265410,
+    "objectPath": "media/cuc-visual/studio-cuc-prod-salle-cascades-idf.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/studio-cuc-prod-salle-cascades-idf.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "05 - LEQUIPE/Bandeau Equipe.jpg",
+    "originalBytes": 2920292,
+    "compressedBytes": 213922,
+    "objectPath": "media/cuc-visual/equipe-pro-bandeau-equipe.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/equipe-pro-bandeau-equipe.webp",
+    "profile": "hero"
+  },
+  {
+    "originalPath": "06 - EVENTS/01 - CUC EVENTS - AGENCY/00 - Bandeau.jpg",
+    "originalBytes": 3438263,
+    "compressedBytes": 1311088,
+    "objectPath": "media/events/events-agency-00-bandeau.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/events-agency-00-bandeau.webp",
+    "profile": "hero"
+  },
+  {
+    "originalPath": "06 - EVENTS/01 - CUC EVENTS - AGENCY/01 - TEAM BUILDING et ACTION.jpg",
+    "originalBytes": 13253377,
+    "compressedBytes": 356934,
+    "objectPath": "media/events/team-building-01-team-building-et-action.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/team-building-01-team-building-et-action.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/01 - CUC EVENTS - AGENCY/02 - SPECTACLES ET SHOW LIVE.jpg",
+    "originalBytes": 227071,
+    "compressedBytes": 94270,
+    "objectPath": "media/events/events-agency-02-spectacles-et-show-live.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/events-agency-02-spectacles-et-show-live.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/01 - CUC EVENTS - AGENCY/03 - LOCATION AIRBAG ET ANIM.JPG",
+    "originalBytes": 934195,
+    "compressedBytes": 263574,
+    "objectPath": "media/events/events-agency-03-location-airbag-et-anim.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/events-agency-03-location-airbag-et-anim.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/01 - SHOW PARKOUR ACROBATIE.jpg",
+    "originalBytes": 199658,
+    "compressedBytes": 73974,
+    "objectPath": "media/events/spectacles-01-show-parkour-acrobatie.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-01-show-parkour-acrobatie.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/02 - SHOW JAMES BOND.jpg",
+    "originalBytes": 1929010,
+    "compressedBytes": 78656,
+    "objectPath": "media/events/spectacles-02-show-james-bond.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-02-show-james-bond.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/03 - SHOW SUPER HEROS.jpg",
+    "originalBytes": 5810303,
+    "compressedBytes": 115494,
+    "objectPath": "media/events/spectacles-03-show-super-heros.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-03-show-super-heros.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/04 - SHOW CASA DE PAPEL.jpg",
+    "originalBytes": 5143636,
+    "compressedBytes": 129962,
+    "objectPath": "media/events/spectacles-04-show-casa-de-papel.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-04-show-casa-de-papel.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/05 - SHOW ACRO & PERFORMANCES.jpg",
+    "originalBytes": 4610320,
+    "compressedBytes": 127064,
+    "objectPath": "media/events/spectacles-05-show-acro-performances.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-05-show-acro-performances.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/Archives Photos Spectacles/1359-IMG_2517.jpg",
+    "originalBytes": 289368,
+    "compressedBytes": 109070,
+    "objectPath": "media/events/spectacles-1359-img_2517.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-1359-img_2517.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/Archives Photos Spectacles/banc - Cascades.JPG",
+    "originalBytes": 740997,
+    "compressedBytes": 162088,
+    "objectPath": "media/events/spectacles-banc-cascades.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-banc-cascades.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/Archives Photos Spectacles/James Bond 5.JPG",
+    "originalBytes": 502530,
+    "compressedBytes": 107494,
+    "objectPath": "media/events/spectacles-james-bond-5.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-james-bond-5.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/Archives Photos Spectacles/Mission impossible.jpg",
+    "originalBytes": 192983,
+    "compressedBytes": 39986,
+    "objectPath": "media/events/spectacles-mission-impossible.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-mission-impossible.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/Archives Photos Spectacles/Pirates des Caraïbes.JPG",
+    "originalBytes": 739118,
+    "compressedBytes": 130418,
+    "objectPath": "media/events/spectacles-pirates-des-caraibes.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-pirates-des-caraibes.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/Archives Photos Spectacles/Spectacles a Themes.JPG",
+    "originalBytes": 1535924,
+    "compressedBytes": 349250,
+    "objectPath": "media/events/spectacles-spectacles-a-themes.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-spectacles-a-themes.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/Archives Photos Spectacles/SSE-1.jpg",
+    "originalBytes": 3943280,
+    "compressedBytes": 90974,
+    "objectPath": "media/events/spectacles-sse-1.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-sse-1.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/Archives Photos Spectacles/SSE-12.jpg",
+    "originalBytes": 7142549,
+    "compressedBytes": 181256,
+    "objectPath": "media/events/spectacles-sse-12.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-sse-12.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/Archives Photos Spectacles/SSE-15.jpg",
+    "originalBytes": 7987403,
+    "compressedBytes": 213270,
+    "objectPath": "media/events/spectacles-sse-15.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-sse-15.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/Archives Photos Spectacles/SSE-16.jpg",
+    "originalBytes": 7604747,
+    "compressedBytes": 256316,
+    "objectPath": "media/events/spectacles-sse-16.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-sse-16.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/Archives Photos Spectacles/SSE-19.jpg",
+    "originalBytes": 7168248,
+    "compressedBytes": 198178,
+    "objectPath": "media/events/spectacles-sse-19.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-sse-19.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/Archives Photos Spectacles/SSE-20.jpg",
+    "originalBytes": 8081196,
+    "compressedBytes": 236950,
+    "objectPath": "media/events/spectacles-sse-20.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-sse-20.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/Archives Photos Spectacles/SSE-3.jpg",
+    "originalBytes": 3024010,
+    "compressedBytes": 123752,
+    "objectPath": "media/events/spectacles-sse-3.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-sse-3.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/Archives Photos Spectacles/SSE-5.jpg",
+    "originalBytes": 6417465,
+    "compressedBytes": 218348,
+    "objectPath": "media/events/spectacles-sse-5.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-sse-5.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/Archives Photos Spectacles/TRICKS - ACROBATIE 25.jpg.JPG",
+    "originalBytes": 271968,
+    "compressedBytes": 64132,
+    "objectPath": "media/events/spectacles-tricks-acrobatie-25-jpg.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-tricks-acrobatie-25-jpg.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/bonus (1).jpg",
+    "originalBytes": 611406,
+    "compressedBytes": 275692,
+    "objectPath": "media/events/spectacles-bonus-1.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-bonus-1.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/bonus (2).jpg",
+    "originalBytes": 222262,
+    "compressedBytes": 127116,
+    "objectPath": "media/events/spectacles-bonus-2.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-bonus-2.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/bonus (3).jpg",
+    "originalBytes": 499161,
+    "compressedBytes": 209714,
+    "objectPath": "media/events/spectacles-bonus-3.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-bonus-3.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/parkour acro.jpg",
+    "originalBytes": 158799,
+    "compressedBytes": 65708,
+    "objectPath": "media/events/spectacles-parkour-acro.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-parkour-acro.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/02 - SPECTACLES CASCADES et PARKOUR/SSE-4.jpg",
+    "originalBytes": 6406084,
+    "compressedBytes": 238714,
+    "objectPath": "media/events/spectacles-sse-4.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-sse-4.webp",
+    "profile": "web"
+  },
+  {
+    "originalPath": "06 - EVENTS/04 - TEAM BUILDING/bandeau.jpg",
+    "originalBytes": 13253377,
+    "compressedBytes": 1044600,
+    "objectPath": "media/events/team-building-bandeau.webp",
+    "publicUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/team-building-bandeau.webp",
+    "profile": "hero"
+  }
+]

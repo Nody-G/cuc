@@ -56,6 +56,9 @@ scripts/coach_credits_review_imdb.json
 
 # rapatriement des médias WordPress (zone de travail locale, non versionnée)
 /.staging/
+/CUC images lucas/
+__pycache__/
+*.pyc
 
 # diagnostic local lisant des secrets (.env.local), jamais versionné
 scripts/audit_videos_live.mjs

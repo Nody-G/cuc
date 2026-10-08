@@ -1,10 +1,10 @@
 # Revue — Quotas Supabase (mesure et plafonds)
 
-Généré le 2026-10-02T16:46:35.594Z par `scripts/audit_quotas.mjs`.
+Généré le 2026-10-07T00:48:32.999Z par `scripts/audit_quotas.mjs`.
 
-- Base `postgres` : **18.96 Mo** (budget 200.00 Mo)
+- Base `postgres` : **19.17 Mo** (budget 200.00 Mo)
 - Stockage objet : **31.68 Mo** sur 189 objet(s) (budget 150.00 Mo)
-- Plus grosse table : `site_films` — 0.88 Mo (budget 50.00 Mo)
+- Plus grosse table : `site_settings` — 0.93 Mo (budget 50.00 Mo)
 
 ## Stockage par bucket
 
@@ -18,8 +18,8 @@ Généré le 2026-10-02T16:46:35.594Z par `scripts/audit_quotas.mjs`.
 
 | Table | Empreinte |
 | --- | ---: |
+| `site_settings` | 0.93 Mo |
 | `site_films` | 0.88 Mo |
-| `site_settings` | 0.84 Mo |
 | `site_translations` | 0.41 Mo |
 | `site_team` | 0.41 Mo |
 | `site_pages` | 0.23 Mo |

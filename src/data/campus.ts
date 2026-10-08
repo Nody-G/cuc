@@ -15,12 +15,12 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Zone de réception XXL pour airbag de cascade professionnel'
     ],
     specifications: 'Structure acier haute résistance, plateformes de saut étagées, réception airbag professionnel cinéma',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/CUC-TOWER-Team-scaled.webp'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-01-cuc-tower.webp'
   },
   {
     id: 'zoe-bell-hall',
     code: '02',
-    name: 'Zoé Bell Hall — Gymnase & Fosse Olympique',
+    name: 'Zoé Bell Hall — Plateau d\'Entraînement',
     size: '700 m² couverts',
     description: 'Espace dédié aux acrobaties et aux chutes, baptisé en hommage à Zoé Bell, marraine du Campus. Équipé d\'une fosse à cubes de mousse de plus de 50 m³ et d\'un praticable olympique complet.',
     features: [
@@ -30,7 +30,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Système de caméras avec retour écran instantané'
     ],
     specifications: 'Sol amortissant continu, hauteur sous plafond 8 mètres, éclairage cinéma zénithal',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Zoe-Bell-Hall.webp'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-02-zoe-bell-hall.webp'
   },
   {
     id: 'hangar-wirework',
@@ -45,7 +45,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Plateau modulable de tournage intérieur'
     ],
     specifications: 'Poutres IPN renforcées, ligne de vie continue, sol béton lissé pour glissades et tractions',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Rigging.webp'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-03-parkour-park-et-hall-cablage.webp'
   },
   {
     id: 'dojos-sceniques',
@@ -60,7 +60,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Écrans de relecture pédagogique'
     ],
     specifications: 'Norme arts martiaux professionnels, climatisation/chauffage régulés',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/salle-3.webp'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-04-dojos-et-espaces-combats.webp'
   },
   {
     id: 'manege-equestre',
@@ -75,7 +75,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Zone de briefing et sellerie'
     ],
     specifications: 'Sol meuble fibré haute absorption, 900 m² d\'évolution sans pilier central',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Page-Campus-Manege-equestre2-2.webp'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-05-manege-equestre-couvert-et-ecuries.webp'
   },
   {
     id: 'espace-mecanique',
@@ -90,7 +90,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Systèmes de déclenchement d\'impacts contrôlés'
     ],
     specifications: 'Accès restreint, encadrement de sécurité et dispositifs d\'extinction permanents',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Espace-mecanique-campus.webp'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-06-salle-d-armes.webp'
   },
   {
     id: 'site-tournage',
@@ -105,7 +105,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Plateaux modulables pour équipes de tournage'
     ],
     specifications: 'Domaine privé clos, adapté aux tournages',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Page-Campus-site-tournage.webp'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-07-site-exterieur-et-decors-naturel.webp'
   },
   {
     id: 'qg-staff-hebergement',
@@ -120,7 +120,7 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Bureaux d\'accueil et de production'
     ],
     specifications: 'Cadre arboré et sécurisé, situé à 1h40 de Paris (Le Cateau-Cambrésis)',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/QG-STAFF-CUC-5.0-Copie.webp'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-08-hebergement-et-base-de-vie.webp'
   },
   {
     id: 'city-stade-exterieur',
@@ -135,6 +135,6 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
       'Vue directe sur la CUC Tower'
     ],
     specifications: 'Revêtement synthétique amortissant tout temps',
-    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/City-Stade-CUC-2.0.webp'
+    image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-09-city-stade-et-espace-sportif.webp'
   }
 ];

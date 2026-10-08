@@ -1,13 +1,13 @@
 import json
+import os
+import sys
+sys.path.insert(0, os.path.abspath("."))
 
-with open("scratch/perfect_cuc_polys.json") as f:
+with open("scripts/assets/cuc_geometry.json", "r", encoding="utf-8") as f:
     cuc = json.load(f)
 
-with open("scratch/logo_data.json") as f:
-    orig = json.load(f)
-
-text_paths = orig["text"]
-star_path  = orig["star"]
+from scripts.generate_clean_typography import get_clean_cuc_text_vectors
+text_paths, star_path = get_clean_cuc_text_vectors()
 
 cl_black = cuc["cl_black"]
 cl_white = cuc["cl_white"]
@@ -81,14 +81,14 @@ def make_ring_clips():
     </mask>
     """
 
-def render_texts(text_fill=WHITE, text_stroke=DARK_LINE, stroke_w=6, star_fill=None):
+def render_texts(text_fill=WHITE, text_stroke=DARK_LINE, stroke_w=2.5, star_fill=None):
     if star_fill is None:
         star_fill = text_fill
     lines = []
     for d in text_paths:
-        lines.append(f'<path d="{d}" fill="{text_fill}" stroke="{text_stroke}" stroke-width="{stroke_w}" stroke-linejoin="round" paint-order="stroke fill" fill-rule="evenodd" />')
+        lines.append(f'<path d="{d}" fill="{text_fill}" stroke="{text_stroke}" stroke-width="{stroke_w}" stroke-linejoin="miter" paint-order="stroke fill" fill-rule="evenodd" />')
     if star_path:
-        lines.append(f'<path d="{star_path}" fill="{star_fill}" stroke="{text_stroke}" stroke-width="{stroke_w}" stroke-linejoin="round" paint-order="stroke fill" fill-rule="evenodd" />')
+        lines.append(f'<path d="{star_path}" fill="{star_fill}" stroke="{text_stroke}" stroke-width="{stroke_w}" stroke-linejoin="miter" paint-order="stroke fill" fill-rule="evenodd" />')
     return "\n      ".join(lines)
 
 def render_cuc_letters(u_core_content=None, u_fill=UK_RED, c_fill=DARK_LINE, u_stroke=DARK_LINE):
@@ -152,7 +152,7 @@ svg_v1 = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" wid
 
   <!-- === 2. TEXTS & STAR === -->
   <g filter="url(#text-glow)">
-    {render_texts(text_fill=WHITE, text_stroke=DARK_LINE, stroke_w=7, star_fill=WHITE)}
+    {render_texts(text_fill=WHITE, text_stroke=DARK_LINE, stroke_w=2.5, star_fill=WHITE)}
   </g>
 
   <!-- === 3. C U C CENTRAL LETTERS === -->
@@ -195,7 +195,7 @@ svg_v2 = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" wid
   </g>
 
   <!-- === 2. TEXTS & RED STAR === -->
-  {render_texts(text_fill=WHITE, text_stroke="#040c1c", stroke_w=6, star_fill=UK_RED)}
+  {render_texts(text_fill=WHITE, text_stroke="#040c1c", stroke_w=2.5, star_fill=UK_RED)}
 
   <!-- === 3. C U C LETTERS === -->
   {render_cuc_letters(u_fill=UK_RED, c_fill=SPORT_NAVY, u_stroke=DARK_LINE)}
@@ -236,7 +236,7 @@ svg_v3 = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" wid
   </g>
 
   <!-- === 2. TEXTS & WHITE STAR === -->
-  {render_texts(text_fill=WHITE, text_stroke="#040c1c", stroke_w=6, star_fill=WHITE)}
+  {render_texts(text_fill=WHITE, text_stroke="#040c1c", stroke_w=2.5, star_fill=WHITE)}
 
   <!-- === 3. C U C LETTERS WITH UNION JACK EMBEDDED IN U === -->
   {render_cuc_letters(u_core_content='<use href="#union-jack-full" />', c_fill=DARK_LINE, u_stroke=DARK_LINE)}
@@ -275,7 +275,7 @@ svg_v4 = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" wid
   </g>
 
   <!-- === 2. TEXTS & STAR (DARK FOR MAXIMUM CONTRAST ON WHITE RING) === -->
-  {render_texts(text_fill=DARK_LINE, text_stroke=WHITE, stroke_w=3, star_fill=UK_RED)}
+  {render_texts(text_fill=DARK_LINE, text_stroke=WHITE, stroke_w=2.5, star_fill=UK_RED)}
 
   <!-- === 3. C U C CENTRAL LETTERS (RED U, BLACK C) === -->
   {render_cuc_letters(u_fill=UK_RED, c_fill=DARK_LINE, u_stroke=DARK_LINE)}

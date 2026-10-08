@@ -11,7 +11,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Accueil',
     meta_title: "Campus Univers Cascades | 1ère École de Cascadeurs Professionnels d'Europe",
     meta_description: "Centre d'entraînement de cascadeurs professionnels fondé en 2008 par Lucas Dollfus. 11 000 m² d'infrastructures dédiées au cinéma d'action, parkour, combat et cascades.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/home-couv-1.webp',
     hero: {
       badge: 'PREMIER CENTRE EUROPÉEN • ACTION DESIGN & CASCADE CINÉMA',
       title: 'CAMPUS UNIVERS CASCADES',
@@ -20,7 +20,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/formation-de-cascadeur',
       cta_secondary_text: 'Visite guidée du campus',
       cta_secondary_link: '/visite-guidee',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/home-couv-1.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'Section Héros Parallaxe', order: 1, is_visible: true },
@@ -39,7 +39,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
         founder_name: 'LUCAS DOLLFUS',
         founder_role: 'FONDATEUR & RÉGLEUR',
         badge_year: 'DEPUIS 2008',
-        image_url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.webp',
+        image_url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/home-centre-de-formation-pro-reference.webp',
         cta_primary_text: 'Découvrir la Formation Pro',
         cta_primary_link: '/formation-de-cascadeur',
         cta_secondary_text: "L'Équipe des Cascadeurs",
@@ -103,7 +103,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/stages-cascades-parkour-2',
       cta_secondary_text: 'Télécharger la brochure',
       cta_secondary_link: '/contact-cuc',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.webp',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/formation-pro-bandeau.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête & Titre Programme', order: 1, is_visible: true },
@@ -169,7 +169,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '#dates',
       cta_secondary_text: "Modalités d'inscription",
       cta_secondary_link: '/contact-cuc',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus.webp',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/stages-parkour-bandeau.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête des Stages', order: 1, is_visible: true },
@@ -235,7 +235,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '#apply',
       cta_secondary_text: 'Inquire & Information',
       cta_secondary_link: '/contact-cuc',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/workshop-bandeau-workshop.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête International Workshop', order: 1, is_visible: true },
@@ -262,7 +262,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/formation-de-cascadeur',
       cta_secondary_text: 'Prendre contact',
       cta_secondary_link: '/contact-cuc',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-equipe.webp',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/equipe-pro-bandeau-equipe.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Équipe & Instructeurs', order: 1, is_visible: true },
@@ -287,7 +287,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Voir les affiches',
       cta_secondary_link: '#filmographie',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-cuc-5-0-ech-4.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Tournages & Régie', order: 1, is_visible: true },
@@ -313,7 +313,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Toutes nos vidéos de shows',
       cta_secondary_link: '/videos-cascadeur',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Image1-scaled.webp',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/events-agency-00-bandeau.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Agence CUC Events', order: 1, is_visible: true },
@@ -339,7 +339,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Toutes les Offres CUC Events',
       cta_secondary_link: '/cuc-events-agence',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.webp',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/team-building-bandeau.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Team Building Entreprise', order: 1, is_visible: true },
@@ -488,7 +488,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '#installations-detail',
       cta_secondary_text: 'Visite 360°',
       cta_secondary_link: '#visite-virtuelle-360',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.webp',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-00-bandeau-haut.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Visite Guidée & Chiffres Clés', order: 1, is_visible: true },
