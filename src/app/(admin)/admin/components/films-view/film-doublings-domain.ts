@@ -86,8 +86,8 @@ export function resolveFilmDoublings(
             }
         }
 
-        // 4. Si toujours non identifiée, croiser avec la base canonique DOUBLED_CELEBRITIES
-        if (!stuntDoubleName) {
+        // 4. Si toujours non identifiée et sans note explicite, croiser avec la base canonique DOUBLED_CELEBRITIES
+        if (!stuntDoubleName && !note) {
             const celeb = DOUBLED_CELEBRITIES.find(
                 (c) => c.name.toLowerCase() === actorName.toLowerCase()
             );

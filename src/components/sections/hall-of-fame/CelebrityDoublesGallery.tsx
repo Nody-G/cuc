@@ -7,6 +7,7 @@ import { getCelebrities } from '@/lib/data/site-service';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { DoubledCelebrity } from '@/types';
 import { cucMicro } from '@/lib/preview/cuc-micro';
+import { selectTournageCelebrities } from '@/lib/celebrity-tournage';
 import { CelebrityCard } from './CelebrityCard';
 import type { TeamNameRef } from '@/lib/celebrity-double';
 
@@ -14,6 +15,8 @@ interface CelebrityDoublesGalleryProps {
   onSelectCelebrity: (celebrity: DoubledCelebrity) => void;
   /** Référentiel de l'équipe, transmis aux vignettes pour interconnexion. */
   teamMembers: TeamNameRef[];
+  /** Mode d'affichage : 'tournage' (16 comédiens sélectionnés par Lucas) ou 'all' (catalogue complet). */
+  filter?: 'tournage' | 'all';
 }
 
 interface CelebrityCopy {
@@ -29,12 +32,13 @@ interface CelebrityCopy {
  * délègue le rendu de chaque vignette à [`CelebrityCard`], qui porte à la fois
  * la mise en page et l'interconnexion « doubleur CUC → fiche coach ».
  *
- * Les filtres de segmentation marketing sont retirés : la lecture
- * (français / international) ne reposait sur aucune preuve éditoriale.
+ * Par défaut sur la page Tournage, seule la sélection validée par Lucas Dollfus
+ * (16 comédiens dans l'ordre strict) est affichée, sans altérer le catalogue global.
  */
 export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = ({
   onSelectCelebrity,
   teamMembers,
+  filter = 'tournage',
 }) => {
   const t = useTranslations('teamProduction');
   const [celebrities, setCelebrities] = useState<DoubledCelebrity[]>(DOUBLED_CELEBRITIES);
@@ -57,6 +61,11 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
       }),
     [celebrities, copyById]
   );
+
+  const displayedCelebrities = useMemo(() => {
+    if (filter === 'all') return localizedCelebrities;
+    return selectTournageCelebrities(localizedCelebrities);
+  }, [filter, localizedCelebrities]);
 
   /** Recharge les comédiens doublés (état initial + synchronisation Realtime). */
   const loadCelebrities = useCallback(() => {
@@ -94,7 +103,7 @@ export const CelebrityDoublesGallery: React.FC<CelebrityDoublesGalleryProps> = (
 
         {/* Grille des comédiens doublés — 6 colonnes */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
-          {localizedCelebrities.map((actor) => (
+          {displayedCelebrities.map((actor) => (
             <CelebrityCard
               key={actor.id}
               actor={actor}

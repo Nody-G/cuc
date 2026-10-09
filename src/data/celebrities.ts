@@ -1,7 +1,7 @@
 import { DoubledCelebrity } from '@/types';
 
 /**
- * 43 comédiens et personnalités doublés par les cascadeurs et coachs du CUC.
+ * 56 comédiens et personnalités doublés par les cascadeurs et coachs du CUC.
  * Fiches enrichies avec photos officielles (TMDb / Unifrance / IMDb), filmographies certifiées,
  * URLs IMDb officielles vérifiées et biographies authentiques.
  */
@@ -256,12 +256,13 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
     "name": "Ramzy Bedia",
     "photo": "https://image.tmdb.org/t/p/h632/fzGqj63WW6NFAK43oVjtYzVy75y.jpg",
     "productions": [
+      "Bagarre",
       "Les Blagues de Toto"
     ],
     "stuntSpecialty": "",
     "stuntDoubles": "Doublé par Kefi Abrikh",
     "imdbUrl": "https://www.imdb.com/name/nm0066080/",
-    "bio": "Comédien, humoriste, scénariste et réalisateur, membre du duo culte Éric et Ramzy (La Tour Montparnasse infernale, la série H). Il s'est imposé dans le cinéma d'auteur et d'action comme Mandibules de Quentin Dupieux, Les Blagues de Toto et Balle perdue."
+    "bio": "Comédien, humoriste, scénariste et réalisateur, membre du duo culte Éric et Ramzy (La Tour Montparnasse infernale, la série H). Il s'est imposé dans le cinéma d'auteur et d'action comme Mandibules de Quentin Dupieux, Les Blagues de Toto, Balle perdue et Bagarre."
   },
   {
     "id": "ned-dennehy",
@@ -527,5 +528,164 @@ export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
     "stuntDoubles": "Doublé par Malik Diouf",
     "imdbUrl": "https://www.imdb.com/name/nm10553742/",
     "bio": "Jeune acteur français révélé dans La Vie scolaire de Grand Corps Malade et Mehdi Idir, puis dans le film d'action Le Salaire de la peur sur Netflix."
+  },
+  {
+    "id": "gilles-lellouche",
+    "name": "Gilles Lellouche",
+    "photo": "https://image.tmdb.org/t/p/h632/5Ka9nodCWS6TRFJnmosjp9sV3iA.jpg",
+    "productions": [
+      "L'Amour ouf"
+    ],
+    "stuntSpecialty": "",
+    "stuntDoubles": "Doublé par l'équipe CUC",
+    "imdbUrl": "https://www.imdb.com/name/nm0500976/",
+    "bio": "Acteur, scénariste et réalisateur français majeur, nommé à plusieurs reprises aux César. Réalisateur du succès Le Grand Bain et de la fresque criminelle L'Amour ouf, il s'est également illustré dans le cinéma d'action et le polar avec BAC Nord, Kompromat et Ne le dis à personne."
+  },
+  {
+    "id": "adele-exarchopoulos",
+    "name": "Adèle Exarchopoulos",
+    "photo": "https://image.tmdb.org/t/p/h632/5I98lvcCH7T6KlTp9pqupMXa4Pi.jpg",
+    "productions": [
+      "L'Amour ouf",
+      "Chien 51"
+    ],
+    "stuntSpecialty": "",
+    "stuntDoubles": "Doublée par l'équipe CUC",
+    "imdbUrl": "https://www.imdb.com/name/nm2650819/",
+    "bio": "Plus jeune comédienne récompensée par la Palme d'or au Festival de Cannes pour La Vie d'Adèle, lauréate de deux César (meilleur espoir féminin et meilleure actrice dans un second rôle). Figure incontournable du cinéma français contemporain, elle brille dans Le Règne animal, L'Amour ouf et le film d'anticipation Chien 51."
+  },
+  {
+    "id": "pio-marmai",
+    "name": "Pio Marmaï",
+    "photo": "https://image.tmdb.org/t/p/h632/kLsPUbNFFIRSWvtwpPA6ftbgwxF.jpg",
+    "productions": [
+      "Néro"
+    ],
+    "stuntSpecialty": "",
+    "stuntDoubles": "Doublé par l'équipe CUC",
+    "imdbUrl": "https://www.imdb.com/name/nm2847812/",
+    "bio": "Acteur français nommé à plusieurs reprises aux César, reconnu pour son intensité physique et son magnétisme de jeu. Il s'illustre dans Le Premier Jour du reste de ta vie, En liberté !, la superproduction Les Trois Mousquetaires (Porthos), Yannick et la série d'aventure historique Néro sur Netflix."
+  },
+  {
+    "id": "zoe-marchal",
+    "name": "Zoé Marchal",
+    "photo": "https://image.tmdb.org/t/p/h632/cAc417DqXCnygDvGTKE3K1Wb3hn.jpg",
+    "productions": [
+      "Nouveaux riches",
+      "Coka Chicas"
+    ],
+    "stuntSpecialty": "",
+    "stuntDoubles": "Doublée par l'équipe CUC",
+    "imdbUrl": "https://www.imdb.com/name/nm5847997/",
+    "bio": "Actrice française remarquée pour son énergie et son tempérament dans la comédie d'action Nouveaux riches de Julien Royal sur Netflix, ainsi que dans les séries SKAM France, Overdose et Coka Chicas."
+  },
+  {
+    "id": "sabrina-ouazani",
+    "name": "Sabrina Ouazani",
+    "photo": "https://image.tmdb.org/t/p/h632/zlUmASMbAwU61NNti9TKnM08tDc.jpg",
+    "productions": [
+      "Stunts"
+    ],
+    "stuntSpecialty": "",
+    "stuntDoubles": "Doublée par l'équipe CUC",
+    "imdbUrl": "https://www.imdb.com/name/nm1493817/",
+    "bio": "Actrice française révélée dans L'Esquive d'Abdellatif Kechiche et Des hommes et des dieux. Sportive accomplie et adepte d'arts martiaux, elle s'impose dans le cinéma d'action populaire avec Taxi 5, Jusqu'ici tout va bien, Plan Cœur et la série d'action Stunts sur France TV."
+  },
+  {
+    "id": "francois-cluzet",
+    "name": "François Cluzet",
+    "photo": "https://image.tmdb.org/t/p/h632/f6PO7Lkrem1N4UmklxHro2k6Jto.jpg",
+    "productions": [
+      "Pour le plaisir"
+    ],
+    "stuntSpecialty": "",
+    "stuntDoubles": "Doublé par l'équipe CUC",
+    "imdbUrl": "https://www.imdb.com/name/nm0167388/",
+    "bio": "Grand comédien français, lauréat du César du meilleur acteur pour Ne le dis à personne de Guillaume Canet et héros du phénomène planétaire Intouchables. Figure emblématique du cinéma français dans Les Petits Mouchoirs, À l'origine, L'Adversaire et la comédie Pour le plaisir."
+  },
+  {
+    "id": "eric-cantona",
+    "name": "Éric Cantona",
+    "photo": "https://image.tmdb.org/t/p/h632/lMIXZd1QiHH7Y5emujCKGnRh6np.jpg",
+    "productions": [
+      "La nirvana"
+    ],
+    "stuntSpecialty": "",
+    "stuntDoubles": "Doublé par l'équipe CUC",
+    "imdbUrl": "https://www.imdb.com/name/nm0134642/",
+    "bio": "Légende vivante du football international (« The King » à Manchester United) devenue acteur et artiste au charisme singulier. Remarqué dans Looking for Eric de Ken Loach, Le Deuxième Souffle, les séries Dérapages et Le Voyageur, ainsi que dans le film d'action La nirvana."
+  },
+  {
+    "id": "jeanne-goursaud",
+    "name": "Jeanne Goursaud",
+    "photo": "https://image.tmdb.org/t/p/h632/d8z3LEQGHCiZIRmMQD55Geq0iqM.jpg",
+    "productions": [
+      "Stunts"
+    ],
+    "stuntSpecialty": "",
+    "stuntDoubles": "Doublée par l'équipe CUC",
+    "imdbUrl": "https://www.imdb.com/name/nm7016255/",
+    "bio": "Actrice franco-allemande remarquée pour ses performances physiques et de combat, héroïne de la série historique Barbarians sur Netflix, ainsi que de Pax Massilia d'Olivier Marchal et de la série d'action Stunts sur France TV."
+  },
+  {
+    "id": "ichem-bougheraba",
+    "name": "Ichem Bougheraba",
+    "photo": "https://image.tmdb.org/t/p/h632/3EUsdenS8qhvxXgz6Zrs1a1ggeW.jpg",
+    "productions": [
+      "Sous écrous",
+      "La nirvana"
+    ],
+    "stuntSpecialty": "",
+    "stuntDoubles": "Doublé par l'équipe CUC",
+    "imdbUrl": "https://www.imdb.com/name/nm10058042/",
+    "bio": "Acteur et humoriste marseillais révélé par le phénomène web Les Déguns et son adaptation sur grand écran. Tête d'affiche des succès populaires Sous écrous, Les Segpa et du long-métrage d'action La nirvana."
+  },
+  {
+    "id": "romain-duris",
+    "name": "Romain Duris",
+    "photo": "https://image.tmdb.org/t/p/h632/70KN228eNpvouPTCxDSurnCzx9G.jpg",
+    "productions": [
+      "Chien 51"
+    ],
+    "stuntSpecialty": "",
+    "stuntDoubles": "Doublé par l'équipe CUC",
+    "imdbUrl": "https://www.imdb.com/name/nm0244151/",
+    "bio": "Acteur français majeur, nommé à plusieurs reprises aux César. Acteur fétiche de Cédric Klapisch (L'Auberge espagnole), il livre des performances marquantes dans De battre mon cœur s'est arrêté de Jacques Audiard, Eiffel, Les Trois Mousquetaires (Aramis), Le Règne animal et Chien 51 de Cédric Jimenez."
+  },
+  {
+    "id": "fadily-camara",
+    "name": "Fadily Camara",
+    "photo": "https://image.tmdb.org/t/p/h632/op22Xmp31FI8zqP5tqgFkSOIB3.jpg",
+    "productions": [
+      "Coka Chicas"
+    ],
+    "stuntSpecialty": "",
+    "stuntDoubles": "Doublée par l'équipe CUC",
+    "imdbUrl": "https://www.imdb.com/name/nm8045516/",
+    "bio": "Humoriste et actrice française au sens du rythme et de la gestuelle acclamé sur scène (spectacle Netflix : La plus drôle de tes copines) ainsi qu'au cinéma dans Docteur ?, Tout simplement noir, En place et Coka Chicas."
+  },
+  {
+    "id": "alice-isaaz",
+    "name": "Alice Isaaz",
+    "photo": "https://image.tmdb.org/t/p/h632/yULL4NbQW3ymzB2lHcI7SVlb7dS.jpg",
+    "productions": [
+      "Néro"
+    ],
+    "stuntSpecialty": "",
+    "stuntDoubles": "Doublée par l'équipe CUC",
+    "imdbUrl": "https://www.imdb.com/name/nm4393560/",
+    "bio": "Comédienne française révélée dans La Crème de la crème de Kim Chapiron et Elle de Paul Verhoeven. Tête d'affiche remarquée dans Le Mystère Henri Pick, Une belle course et la série d'époque et d'action fantastique Néro sur Netflix."
+  },
+  {
+    "id": "camille-razat",
+    "name": "Camille Razat",
+    "photo": "https://image.tmdb.org/t/p/h632/KHg73Wl3kiqQCh4O02yXuxwxrE.jpg",
+    "productions": [
+      "Néro"
+    ],
+    "stuntSpecialty": "",
+    "stuntDoubles": "Doublée par l'équipe CUC",
+    "imdbUrl": "https://www.imdb.com/name/nm4253884/",
+    "bio": "Actrice française reconnue internationalement pour son rôle de Camille dans la série phénomène Emily in Paris sur Netflix. Elle s'illustre également dans le registre d'action et d'aventure fantastique, incarnant le personnage combattant de La Borgne dans la série Néro."
   }
 ];

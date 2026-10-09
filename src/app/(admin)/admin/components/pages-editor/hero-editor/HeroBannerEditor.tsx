@@ -76,7 +76,10 @@ export const HeroBannerEditor: React.FC<HeroBannerEditorProps> = ({ hero, onChan
             </div>
 
             <div>
-                <label className={HERO_LABEL_CLASS}>Titre Principal (H1)</label>
+                <div className="flex items-center justify-between mb-1">
+                    <label className={HERO_LABEL_CLASS}>Titre Principal (H1)</label>
+                    <span className="text-[11px] font-mono text-[#FFE500]">Titre visible sur le site</span>
+                </div>
                 <input
                     type="text"
                     value={hero.title}

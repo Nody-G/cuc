@@ -43,7 +43,8 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
   /** Vérifie si un film de la production correspond à un film coordonné par Lucas */
   const findMatchingLucasFilm = React.useCallback((prodName: string): FilmCredit | undefined => {
     if (!coordinatedFilms || coordinatedFilms.length === 0) return undefined;
-    const key = creditTitleKey(prodName);
+    const cleanProd = prodName.replace(/\s*\([^)]*\)\s*$/, '').trim();
+    const key = creditTitleKey(cleanProd || prodName);
     return coordinatedFilms.find((f) => creditTitleKey(f.title) === key);
   }, [coordinatedFilms]);
 

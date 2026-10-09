@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DEFAULT_PAGE_CONTENTS, normalizeSlug, type SitePageContent } from '@/lib/data/site-service';
 import { useEntityTranslation } from '@/lib/hooks/useEntityTranslation';
 import type { EditorLocaleOption } from '../ui';
@@ -26,8 +26,9 @@ export interface UsePageEditorDraftArgs {
  * vivent dans `usePageSaveActions`, la sélection de page dans la façade.
  */
 export function usePageEditorDraft({ pages, selectedSlug, editorLocale }: UsePageEditorDraftArgs) {
+    const pageInCatalog = pages.find((p) => normalizeSlug(p.slug) === selectedSlug);
     const currentPage =
-        pages.find((p) => normalizeSlug(p.slug) === selectedSlug) ||
+        pageInCatalog ||
         pages[0] ||
         DEFAULT_PAGE_CONTENTS['/'];
 
@@ -72,6 +73,53 @@ export function usePageEditorDraft({ pages, selectedSlug, editorLocale }: UsePag
      */
     const isInspectorEnabled = editorLocale === 'fr';
     const draftChanges = isInspectorEnabled ? collectDraftChanges(savedData, activeData) : [];
+
+    // Référence de suivi pour la synchronisation réactive :
+    // 1) Arrivée asynchrone initiale des données de Supabase (pages était vide).
+    // 2) Navigation vers une autre page (selectedSlug a changé).
+    // 3) Mise à jour externe de la page courante (onPageSaved ou Realtime).
+    const syncStateRef = useRef<{
+        slug: string;
+        page: SitePageContent | undefined;
+        isInitialHydrated: boolean;
+    }>({
+        slug: selectedSlug,
+        page: pageInCatalog,
+        isInitialHydrated: Boolean(pageInCatalog),
+    });
+
+    useEffect(() => {
+        const slugChanged = syncStateRef.current.slug !== selectedSlug;
+        const pageChanged = syncStateRef.current.page !== pageInCatalog;
+        const wasNotHydrated = !syncStateRef.current.isInitialHydrated && Boolean(pageInCatalog);
+
+        if (slugChanged) {
+            syncStateRef.current = {
+                slug: selectedSlug,
+                page: pageInCatalog,
+                isInitialHydrated: Boolean(pageInCatalog),
+            };
+            setFormData(composePageDraft(selectedSlug, pageInCatalog || currentPage));
+            resetDraftHistory();
+            return;
+        }
+
+        if (wasNotHydrated) {
+            syncStateRef.current = {
+                slug: selectedSlug,
+                page: pageInCatalog,
+                isInitialHydrated: true,
+            };
+            setFormData(composePageDraft(selectedSlug, pageInCatalog));
+            resetDraftHistory();
+            return;
+        }
+
+        if (pageChanged && draftChanges.length === 0) {
+            syncStateRef.current.page = pageInCatalog;
+            setFormData(composePageDraft(selectedSlug, pageInCatalog || currentPage));
+        }
+    }, [selectedSlug, pageInCatalog, currentPage, draftChanges.length, resetDraftHistory]);
 
     const { clearCurrentSnapshot } = useDraftPersistence({
         slug: selectedSlug,

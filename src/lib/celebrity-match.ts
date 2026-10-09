@@ -51,6 +51,11 @@ export const CELEBRITY_SPELLING_FIXES: readonly CelebritySpellingFix[] = [
         catalogueId: 'aahmir-khan',
         source: "Catalogue « Aamir Khan » (IMDb nm0451148) — doublure CUC sur « Thugs de l'Hindostan ».",
     },
+    {
+        published: 'Camille Rozat',
+        catalogueId: 'camille-razat',
+        source: 'Catalogue « Camille Razat » (IMDb nm4253884) — rôle de La Borgne dans la série Néro sur Netflix.',
+    },
 ];
 
 /**

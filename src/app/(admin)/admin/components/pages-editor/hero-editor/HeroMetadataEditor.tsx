@@ -48,9 +48,15 @@ export const HeroMetadataEditor: React.FC<HeroMetadataEditorProps> = ({
 
         <div className="space-y-3">
             <div>
-                <label className={HERO_LABEL_CLASS}>
-                    Titre SEO & Onglet Navigateur (Meta Title)
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                    <label className={HERO_LABEL_CLASS}>
+                        Titre SEO & Onglet Navigateur (Meta Title)
+                    </label>
+                    <span className="text-[11px] font-mono text-gray-400">Google & Onglet uniquement</span>
+                </div>
+                <p className="text-[11px] text-gray-500 mb-1.5">
+                    Balise technique invisible sur la page. Pour modifier le grand titre affiché sur le site, utilisez le « Titre Principal (H1) » ci-dessus.
+                </p>
                 <input
                     type="text"
                     value={formData.meta_title || ''}

@@ -94,8 +94,13 @@ export async function getCelebrities(): Promise<DoubledCelebrity[]> {
       .eq('key', 'celebrities')
       .maybeSingle();
 
-    if (row?.value?.list && Array.isArray(row.value.list) && row.value.list.length > 0) {
-      return row.value.list as DoubledCelebrity[];
+    const raw = row?.value;
+    const list = Array.isArray(raw)
+      ? raw
+      : (raw?.list && Array.isArray(raw.list) ? raw.list : null);
+
+    if (list && list.length > 0) {
+      return list as DoubledCelebrity[];
     }
     return DOUBLED_CELEBRITIES;
   } catch {
