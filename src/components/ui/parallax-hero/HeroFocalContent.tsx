@@ -2,14 +2,12 @@
 
 import React from 'react';
 import { Link } from '@/i18n/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import type { MotionValue } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { ChevronRight, Compass, Building } from 'lucide-react';
 import { TacticalButton } from '../TacticalButton';
 import { cucField } from '@/lib/preview/cuc-field';
 import { cucMicro } from '@/lib/preview/cuc-micro';
-import type { SitePageHero } from '@/lib/data/site-service';
+import type { SitePageHero } from '@/lib/data/site/types';
 import type { HeroMetric, SlideCopy } from './useParallaxHero';
 
 interface HeroFocalContentProps {
@@ -17,20 +15,18 @@ interface HeroFocalContentProps {
     currentSlide: number;
     activeCopy?: SlideCopy;
     quickMetrics: HeroMetric[];
-    /** Fondu du plan focal au scroll (ressort amorti, aucun déplacement du texte). */
-    focalTextOpacity: MotionValue<number>;
 }
 
 /**
  * Couche 4 : plan focal texte (badge, titre, sous-titre, métriques, CTA).
- * 100 % stable — aucun parallaxe de déplacement, seulement un fondu d'opacité.
+ * 100 % stable — aucun parallaxe de déplacement, seulement un fondu d'opacité
+ * piloté par `--cuc-hero-opacity`.
  */
 export const HeroFocalContent: React.FC<HeroFocalContentProps> = ({
     heroData,
     currentSlide,
     activeCopy,
     quickMetrics,
-    focalTextOpacity,
 }) => {
     const tHero = useTranslations('home.hero');
     /** Chrome commun : la seconde ligne du titre est un libellé éditable. */
@@ -38,31 +34,23 @@ export const HeroFocalContent: React.FC<HeroFocalContentProps> = ({
 
     return (
         <div className="relative z-20 flex-grow flex items-center justify-center pt-24 pb-8 sm:pt-28 pointer-events-auto">
-            <motion.div
-                style={{ opacity: focalTextOpacity }}
-                className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center will-change-transform"
+            <div
+                style={{ opacity: 'var(--cuc-hero-opacity, 1)' }}
+                className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center will-change-transform transition-opacity duration-150 ease-out"
             >
                 {/* Refined Pill Badge */}
-                <motion.div
-                    initial={{ opacity: 0, y: -8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, ease: 'easeOut' }}
-                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 backdrop-blur-md text-[11px] font-mono-tech tracking-widest text-zinc-300 uppercase shadow-xs mb-5"
-                >
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 backdrop-blur-md text-[11px] font-mono-tech tracking-widest text-zinc-300 uppercase shadow-xs mb-5">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#FFE500]" />
                     <span {...cucField('hero.badge')}>{heroData?.badge || tHero('badge')}</span>
                     <span className="text-zinc-600">•</span>
                     <span {...cucField('hero.since')} className="text-[#FFE500] font-semibold">
                         {heroData?.since || tHero('since')}
                     </span>
-                </motion.div>
+                </div>
 
                 {/* Clean Editorial Title */}
-                <motion.h1
+                <h1
                     {...cucField('hero.title')}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
                     className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display uppercase tracking-tight text-white leading-[0.92] max-w-5xl"
                 >
                     {heroData?.title ? (
@@ -78,32 +66,21 @@ export const HeroFocalContent: React.FC<HeroFocalContentProps> = ({
                             </span>
                         </>
                     )}
-                </motion.h1>
+                </h1>
 
                 {/* Dynamic Subtitle with smooth crossfade */}
                 <div className="h-16 sm:h-12 flex items-center justify-center my-3">
-                    <AnimatePresence mode="wait">
-                        <motion.p
-                            key={currentSlide}
-                            {...cucField('hero.subtitle', 'textarea')}
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -8 }}
-                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                            className="text-sm sm:text-base md:text-lg text-zinc-300 max-w-2xl font-normal leading-relaxed text-balance"
-                        >
-                            {heroData?.subtitle || activeCopy?.sub || ''}
-                        </motion.p>
-                    </AnimatePresence>
+                    <p
+                        key={currentSlide}
+                        {...cucField('hero.subtitle', 'textarea')}
+                        className="text-sm sm:text-base md:text-lg text-zinc-300 max-w-2xl font-normal leading-relaxed text-balance transition-opacity duration-500 ease-out"
+                    >
+                        {heroData?.subtitle || activeCopy?.sub || ''}
+                    </p>
                 </div>
 
                 {/* Key Metrics Cards */}
-                <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className="my-4 flex flex-wrap items-center justify-center gap-3"
-                >
+                <div className="my-4 flex flex-wrap items-center justify-center gap-3">
                     {quickMetrics.map((stat, i) => (
                         <div
                             key={i}
@@ -125,15 +102,10 @@ export const HeroFocalContent: React.FC<HeroFocalContentProps> = ({
                             </div>
                         </div>
                     ))}
-                </motion.div>
+                </div>
 
                 {/* Action CTAs */}
-                <motion.div
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: 0.3 }}
-                    className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
-                >
+                <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
                     <Link
                         href={heroData?.cta_primary_link || '/formation-de-cascadeur'}
                         data-cuc-field="hero.cta_primary_link"
@@ -177,8 +149,8 @@ export const HeroFocalContent: React.FC<HeroFocalContentProps> = ({
                             </span>
                         </TacticalButton>
                     </Link>
-                </motion.div>
-            </motion.div>
+                </div>
+            </div>
         </div>
     );
 };

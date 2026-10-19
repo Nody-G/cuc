@@ -2,8 +2,10 @@
 
 import React from 'react';
 import { ExternalLink } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { InstagramLogo } from '@/components/ui/logos/SocialLogos';
 import { useInstagramFollowers } from '@/lib/instagram/useInstagramFollowers';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 
 export interface InstagramFollowerBadgeProps {
     variant?: 'pill' | 'card' | 'compact' | 'header';
@@ -18,6 +20,7 @@ export const InstagramFollowerBadge: React.FC<InstagramFollowerBadgeProps> = ({
     variant = 'pill',
     className = '',
 }) => {
+    const t = useTranslations('commonChrome');
     const { exactFollowersFormatted, followersFormatted } = useInstagramFollowers();
     const instagramUrl = 'https://www.instagram.com/campus.univers.cascades/';
 
@@ -27,7 +30,7 @@ export const InstagramFollowerBadge: React.FC<InstagramFollowerBadgeProps> = ({
                 href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                title="Consulter le compte Instagram officiel @campus.univers.cascades (1,1M+ abonnés)"
+                title={t('instaHeaderTitle')}
                 className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/70 transition-all text-xs font-mono-tech group shadow-xs ${className}`}
             >
                 <InstagramLogo className="w-3.5 h-3.5 text-[#FFE500]" />
@@ -44,15 +47,18 @@ export const InstagramFollowerBadge: React.FC<InstagramFollowerBadgeProps> = ({
                 href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                title="Consulter le compte Instagram officiel @campus.univers.cascades (1,1M+ abonnés)"
+                title={t('instaHeaderTitle')}
                 className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0e0e14] border border-zinc-800 hover:border-[#FFE500]/70 transition-all text-xs font-mono-tech group shadow-xs ${className}`}
             >
                 <InstagramLogo className="w-3.5 h-3.5 text-[#FFE500]" />
                 <span className="font-bold text-white group-hover:text-[#FFE500] transition-colors">
                     {followersFormatted}
                 </span>
-                <span className="text-[10px] text-zinc-400 uppercase tracking-wide">
-                    abonnés
+                <span
+                    className="text-[10px] text-zinc-400 uppercase tracking-wide"
+                    {...cucMicro('commonChrome.instaFollowersUnit')}
+                >
+                    {t('instaFollowersUnit')}
                 </span>
             </a>
         );
@@ -64,7 +70,7 @@ export const InstagramFollowerBadge: React.FC<InstagramFollowerBadgeProps> = ({
                 href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                title="Rejoindre les 1,1M+ d'abonnés sur Instagram"
+                title={t('instaCardTitle')}
                 className={`block p-5 rounded-2xl bg-[#0b0b12]/95 border border-zinc-800/80 hover:border-[#FFE500]/60 transition-all duration-300 shadow-xl hover:shadow-[0_10px_35px_rgba(255,229,0,0.15)] group ${className}`}
             >
                 <div className="flex items-center justify-between gap-4 mb-3">
@@ -73,8 +79,11 @@ export const InstagramFollowerBadge: React.FC<InstagramFollowerBadgeProps> = ({
                             <InstagramLogo className="w-5 h-5 text-[#FFE500]" />
                         </div>
                         <div>
-                            <div className="text-[11px] font-mono-tech uppercase font-bold text-[#FFE500] tracking-wider">
-                                Instagram Officiel
+                            <div
+                                className="text-[11px] font-mono-tech uppercase font-bold text-[#FFE500] tracking-wider"
+                                {...cucMicro('commonChrome.instaOfficialTitle')}
+                            >
+                                {t('instaOfficialTitle')}
                             </div>
                             <div className="text-xs font-mono-tech text-zinc-400">
                                 @campus.univers.cascades
@@ -91,17 +100,23 @@ export const InstagramFollowerBadge: React.FC<InstagramFollowerBadgeProps> = ({
                     <span className="text-3xl sm:text-4xl font-mono-tech font-bold text-white tracking-tight group-hover:text-[#FFE500] transition-colors">
                         {exactFollowersFormatted}
                     </span>
-                    <span className="text-xs font-mono-tech uppercase text-zinc-400">
-                        abonnés
+                    <span
+                        className="text-xs font-mono-tech uppercase text-zinc-400"
+                        {...cucMicro('commonChrome.instaFollowersUnit')}
+                    >
+                        {t('instaFollowersUnit')}
                     </span>
                 </div>
 
                 <div className="mt-3 pt-3 border-t border-zinc-800/80 flex items-center justify-between text-xs font-mono-tech text-zinc-400">
-                    <span className="text-[11px] text-zinc-400">
-                        Communauté officielle certifiée
+                    <span
+                        className="text-[11px] text-zinc-400"
+                        {...cucMicro('commonChrome.instaCertifiedCommunity')}
+                    >
+                        {t('instaCertifiedCommunity')}
                     </span>
                     <span className="inline-flex items-center gap-1 text-[#FFE500] font-bold text-[11px] group-hover:translate-x-0.5 transition-transform">
-                        <span>Rejoindre</span>
+                        <span {...cucMicro('commonChrome.instaJoinCta')}>{t('instaJoinCta')}</span>
                         <ExternalLink className="w-3 h-3" />
                     </span>
                 </div>
@@ -115,7 +130,7 @@ export const InstagramFollowerBadge: React.FC<InstagramFollowerBadgeProps> = ({
             href={instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            title="Rejoindre la communauté officielle Instagram @campus.univers.cascades"
+            title={t('instaCardTitle')}
             className={`inline-flex items-center gap-3 px-4 py-2 rounded-full bg-[#0c0c12]/95 border border-zinc-800/90 hover:border-[#FFE500]/60 transition-all duration-300 shadow-md hover:shadow-[0_0_20px_rgba(255,229,0,0.18)] group cursor-pointer ${className}`}
         >
             <div className="flex items-center gap-2">
@@ -130,8 +145,11 @@ export const InstagramFollowerBadge: React.FC<InstagramFollowerBadgeProps> = ({
                 <span className="text-sm font-mono-tech font-bold text-white group-hover:text-[#FFE500] transition-colors tracking-tight">
                     {exactFollowersFormatted}
                 </span>
-                <span className="text-[11px] font-mono-tech uppercase text-zinc-400">
-                    abonnés
+                <span
+                    className="text-[11px] font-mono-tech uppercase text-zinc-400"
+                    {...cucMicro('commonChrome.instaFollowersUnit')}
+                >
+                    {t('instaFollowersUnit')}
                 </span>
             </div>
 

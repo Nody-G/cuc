@@ -369,7 +369,15 @@
         "externalLinkAria": "Fiche & Références externes",
         "coachImdbTitle": "Fiche IMDb Officielle",
         "coachPortraitAlt": "Portrait de {name}",
-        "coachExternalTitle": "Site officiel ou portfolio"
+        "coachExternalTitle": "Site officiel ou portfolio",
+        "filmographyHeading": "Cascades & Tournages de {name}",
+        "filterAll": "Toutes les participations",
+        "filterCoord": "Coordination des cascades",
+        "filterDoublure": "Doublures",
+        "filterCascadeur": "Cascades & Combats",
+        "filteredCount": "{shown} / {total} films",
+        "filmographyEmptyFilter": "Aucune production trouvée pour ce filtre.",
+        "showAllFilms": "Voir toutes les productions (+{count})"
     },
     "contact": {
         "hero": {
@@ -395,6 +403,8 @@
             "labelEmail": "Adresse Email *",
             "placeholderEmail": "Ex : alexandre@exemple.com",
             "labelProgram": "Votre Demande Concerne *",
+            "multipleChoiceHint": "Choix multiple possible",
+            "topicsGroupAria": "Sujets de demande",
             "labelExperience": "Expérience Sportive / Artistique (Arts martiaux, gymnastique, parkour…)",
             "placeholderExperience": "Ex : 5 ans de judo, pratique du parkour…",
             "labelMessage": "Votre Message / Précisions *",
@@ -765,6 +775,8 @@
         "reelsSortByViews": "Nombre de vues",
         "reelsSortByDateDesc": "Plus récentes",
         "reelsSortByDateAsc": "Plus anciennes",
+        "catalogLabel": "Catalogue vidéo officiel :",
+        "cumulativeViews": "{views}M+ vues cumulées",
         "reelsItems": [
             {
                 "title": "Encore un pare-brise... 🤭",
@@ -977,7 +989,11 @@
         "arenaBadge": "ÉVÉNEMENT",
         "arenaTitle": "CUC EVENTS À L'ACCOR ARENA (BERCY)",
         "arenaParagraph": "Devant plus de 15 000 spectateurs, la CUC Stunt Team a assuré le show d'ouverture avec des cascades synchronisées, des sauts depuis les structures aériennes et des combats retransmis sur écrans géants.",
-        "arenaCta": "Organiser un Show dans votre Salle"
+        "arenaCta": "Organiser un Show dans votre Salle",
+        "catalogBadge": "Formats & Répertoires de Scène",
+        "catalogTitle": "Nos Spectacles & Démonstrations en Direct",
+        "catalogSubtitle": "Du grand show en arène aux tableaux historiques immersifs, chaque spectacle est entièrement conçu, sécurisé et interprété par les cascadeurs professionnels du CUC.",
+        "specsLogisticsTitle": "Spécifications & Logistique"
     },
     "animations": {
         "heroBadge": "AIRBAG DE CINÉMA • ENCADREMENT PROFESSIONNEL",
@@ -1097,7 +1113,13 @@
     },
     "stuntWorkshop": {
         "heroMeta": "EN ANGLAIS & FRANÇAIS",
-        "briAlt": "CUC BRI — Formation cascade Brigade de Recherche et d'Intervention"
+        "briAlt": "CUC BRI — Formation cascade Brigade de Recherche et d'Intervention",
+        "posterBadge": "AFFICHE OFFICIELLE",
+        "posterTitle": "Session Internationale CUC",
+        "posterSubtitle": "Certification Pro Action Performer",
+        "towerCaption": "Tour de chute 21m",
+        "tacticalCaption": "Intervention & Armurerie",
+        "crowdCaption": "Performers du Monde Entier au CUC"
     },
     "visiteGuidee": {
         "accessBadge": "ACCÈS & TRANSPORT",
@@ -1171,6 +1193,10 @@
         "celebrityModal": {
             "title": "Fiche Tournage & Cascades",
             "doublesLabel": "Doublure cascades :",
+            "doublesAndShootsLabel": "DOUBLURE & TOURNAGES :",
+            "inConnector": "dans",
+            "openLucasFilmTitle": "Voir la fiche du film « {title} » coordonné par Lucas Dollfus",
+            "openCucFilmTitle": "Voir la fiche du film « {title} » coordonné par le CUC",
             "scenesLabel": "Cascades & scènes d'action :",
             "filmsLabel": "Films :",
             "cucCoordinatedFilmsSingular": "Film coordonné par le CUC :",
@@ -1297,7 +1323,13 @@
         "trainingPathTitle": "Trajectoire & Philosophie",
         "otherCoordinatorsTitle": "Autres Coordinateurs & Instructeurs",
         "broadcastNote": "retransmis sur écrans géants.",
-        "eventsAgencySubtitle": "Spectacles • Animations • Team Building"
+        "eventsAgencySubtitle": "Spectacles • Animations • Team Building",
+        "instaFollowersUnit": "abonnés",
+        "instaOfficialTitle": "Instagram Officiel",
+        "instaCertifiedCommunity": "Communauté officielle certifiée",
+        "instaJoinCta": "Rejoindre",
+        "instaHeaderTitle": "Consulter le compte Instagram officiel @campus.univers.cascades",
+        "instaCardTitle": "Rejoindre la communauté officielle sur Instagram"
     },
     "applicationModal": {
         "closeAria": "Fermer",

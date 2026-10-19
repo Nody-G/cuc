@@ -369,7 +369,15 @@
         "externalLinkAria": "Profile & external references",
         "coachImdbTitle": "Official IMDb page",
         "coachPortraitAlt": "Portrait of {name}",
-        "coachExternalTitle": "Official website or portfolio"
+        "coachExternalTitle": "Official website or portfolio",
+        "filmographyHeading": "Stunts & Productions of {name}",
+        "filterAll": "All credits",
+        "filterCoord": "Stunt coordination",
+        "filterDoublure": "Stunt doubles",
+        "filterCascadeur": "Stunts & Fights",
+        "filteredCount": "{shown} / {total} films",
+        "filmographyEmptyFilter": "No production found for this filter.",
+        "showAllFilms": "Show all productions (+{count})"
     },
     "contact": {
         "hero": {
@@ -395,6 +403,8 @@
             "labelEmail": "Email address *",
             "placeholderEmail": "e.g. alexandre@example.com",
             "labelProgram": "Your request concerns *",
+            "multipleChoiceHint": "Multiple selection allowed",
+            "topicsGroupAria": "Request topics",
             "labelExperience": "Sporting / artistic background (martial arts, gymnastics, parkour…)",
             "placeholderExperience": "e.g. 5 years of judo, parkour practice…",
             "labelMessage": "Your message / details *",
@@ -765,6 +775,8 @@
         "reelsSortByViews": "Most viewed",
         "reelsSortByDateDesc": "Newest",
         "reelsSortByDateAsc": "Oldest",
+        "catalogLabel": "Official video catalogue:",
+        "cumulativeViews": "{views}M+ cumulative views",
         "reelsItems": [
             {
                 "title": "Another windshield down... 🤭",
@@ -977,7 +989,11 @@
         "arenaBadge": "EVENT",
         "arenaTitle": "CUC EVENTS AT ACCOR ARENA (BERCY)",
         "arenaParagraph": "In front of more than 15,000 spectators, the CUC Stunt Team performed the opening show with synchronised stunts, jumps from the aerial structures and fights broadcast on giant screens.",
-        "arenaCta": "Organise a Show in your Venue"
+        "arenaCta": "Organise a Show in your Venue",
+        "catalogBadge": "Stage Formats & Repertoire",
+        "catalogTitle": "Our Live Shows & Demonstrations",
+        "catalogSubtitle": "From large-scale arena shows to immersive historical tableaux, every show is designed, secured and performed by CUC professional stunt performers.",
+        "specsLogisticsTitle": "Specifications & Logistics"
     },
     "animations": {
         "heroBadge": "CINEMA AIRBAG • PROFESSIONAL SUPERVISION",
@@ -1097,7 +1113,13 @@
     },
     "stuntWorkshop": {
         "heroMeta": "IN ENGLISH & FRENCH",
-        "briAlt": "CUC BRI — riot police stunt training (Brigade de Recherche et d'Intervention)"
+        "briAlt": "CUC BRI — riot police stunt training (Brigade de Recherche et d'Intervention)",
+        "posterBadge": "OFFICIAL POSTER",
+        "posterTitle": "CUC International Session",
+        "posterSubtitle": "Pro Action Performer Certification",
+        "towerCaption": "21m High-Fall Tower",
+        "tacticalCaption": "Tactical & Armoury",
+        "crowdCaption": "Performers from Around the World at CUC"
     },
     "visiteGuidee": {
         "accessBadge": "ACCESS & TRANSPORT",
@@ -1177,7 +1199,11 @@
             "cucCoordinatedFilmsPlural": "Films coordinated by CUC:",
             "imdbCta": "IMDb page",
             "close": "Close",
-            "closeAria": "Close"
+            "closeAria": "Close",
+            "doublesAndShootsLabel": "STUNT DOUBLE & SHOOTS:",
+            "inConnector": "in",
+            "openLucasFilmTitle": "Open the file for '{title}' coordinated by Lucas Dollfus",
+            "openCucFilmTitle": "Open the file for '{title}' coordinated by CUC"
         },
         "filmModal": {
             "title": "FILM",
@@ -1297,7 +1323,13 @@
         "trainingPathTitle": "Trajectory & Philosophy",
         "otherCoordinatorsTitle": "Other Coordinators & Instructors",
         "broadcastNote": "broadcast on giant screens.",
-        "eventsAgencySubtitle": "Shows • Animations • Team Building"
+        "eventsAgencySubtitle": "Shows • Animations • Team Building",
+        "instaFollowersUnit": "followers",
+        "instaOfficialTitle": "Official Instagram",
+        "instaCertifiedCommunity": "Certified official community",
+        "instaJoinCta": "Join",
+        "instaHeaderTitle": "Visit the official Instagram account @campus.univers.cascades",
+        "instaCardTitle": "Join the official community on Instagram"
     },
     "applicationModal": {
         "closeAria": "Close",

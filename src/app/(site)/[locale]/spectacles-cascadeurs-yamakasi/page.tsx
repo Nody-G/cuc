@@ -136,14 +136,23 @@ export default function SpectaclesCascadeursYamakasiPage() {
         <section className="py-16">
           <div className="page-shell space-y-12">
             <div className="text-center max-w-3xl mx-auto mb-6">
-              <span className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-2">
-                Formats &amp; Répertoires de Scène
+              <span
+                className="text-xs font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block mb-2"
+                {...cucMicro('spectacles.catalogBadge')}
+              >
+                {t('catalogBadge')}
               </span>
-              <h2 className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white">
-                Nos Spectacles &amp; Démonstrations en Direct
+              <h2
+                className="text-3xl sm:text-4xl font-display uppercase tracking-wide text-white"
+                {...cucMicro('spectacles.catalogTitle')}
+              >
+                {t('catalogTitle')}
               </h2>
-              <p className="text-sm font-tech text-zinc-400 mt-2">
-                Du grand show en arène aux tableaux historiques immersifs, chaque spectacle est entièrement conçu, sécurisé et interprété par les cascadeurs professionnels du CUC.
+              <p
+                className="text-sm font-tech text-zinc-400 mt-2"
+                {...cucMicro('spectacles.catalogSubtitle')}
+              >
+                {t('catalogSubtitle')}
               </p>
             </div>
 

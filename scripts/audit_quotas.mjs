@@ -82,46 +82,154 @@ function mb(bytes) {
     return `${(Number(bytes) / MB).toFixed(2)} Mo`;
 }
 
-async function main() {
-    await client.connect();
+/**
+ * Repli HTTPS (PostgREST + Storage API) lorsque l'hôte Postgres direct
+ * (`db.<ref>.supabase.co`, IPv6 uniquement) est injoignable depuis un réseau IPv4.
+ * Permet de mesurer précisément le stockage objet par bucket (poste critique de
+ * l'incident du 23/09) et le nombre de lignes des tables à croissance continue.
+ */
+async function measureViaHttpFallback() {
+    const baseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, '');
+    const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_KEY;
+    if (!baseUrl || !key) {
+        return null;
+    }
+    const headers = {
+        apikey: key,
+        Authorization: `Bearer ${key}`,
+        'Content-Type': 'application/json',
+    };
 
-    const { rows: dbRows } = await client.query(
-        `SELECT pg_database_size(current_database())::bigint AS bytes,
-                current_database() AS name`
-    );
-    const databaseBytes = Number(dbRows[0]?.bytes ?? 0);
+    const bucketsRes = await fetch(`${baseUrl}/storage/v1/bucket`, { headers });
+    if (!bucketsRes.ok) return null;
+    const buckets = await bucketsRes.json();
 
-    const { rows: tableRows } = await client.query(
-        `SELECT c.relname AS name, pg_total_relation_size(c.oid)::bigint AS bytes
-           FROM pg_class c
-           JOIN pg_namespace n ON n.oid = c.relnamespace
-          WHERE c.relkind = 'r' AND n.nspname = 'public'
-          ORDER BY bytes DESC`
-    );
-    const tables = tableRows.map((row) => ({ name: row.name, bytes: Number(row.bytes) }));
+    async function walkBucket(bucketId, prefix = '') {
+        let objects = 0;
+        let bytes = 0;
+        let offset = 0;
+        const limit = 1000;
+        while (true) {
+            const res = await fetch(`${baseUrl}/storage/v1/object/list/${bucketId}`, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify({ prefix, limit, offset }),
+            });
+            if (!res.ok) break;
+            const items = await res.json();
+            if (!Array.isArray(items) || items.length === 0) break;
+            for (const item of items) {
+                if (!item || !item.name) continue;
+                if (item.id === null) {
+                    const sub = await walkBucket(
+                        bucketId,
+                        prefix ? `${prefix}/${item.name}` : item.name
+                    );
+                    objects += sub.objects;
+                    bytes += sub.bytes;
+                } else {
+                    objects += 1;
+                    bytes += Number(item.metadata?.size ?? 0);
+                }
+            }
+            if (items.length < limit) break;
+            offset += limit;
+        }
+        return { objects, bytes };
+    }
 
-    const { rows: bucketRows } = await client.query(
-        `SELECT bucket_id,
-                COUNT(*)::int AS objects,
-                COALESCE(SUM(CASE WHEN (metadata->>'size') ~ '^[0-9]+$'
-                                  THEN (metadata->>'size')::bigint ELSE 0 END), 0)::bigint AS bytes
-           FROM storage.objects
-          GROUP BY bucket_id
-          ORDER BY bytes DESC`
-    );
-    const storageBytes = bucketRows.reduce((sum, row) => sum + Number(row.bytes), 0);
+    const bucketRows = [];
+    for (const b of buckets) {
+        const stats = await walkBucket(b.id);
+        bucketRows.push({ bucket_id: b.id, objects: stats.objects, bytes: stats.bytes });
+    }
+    bucketRows.sort((a, b) => b.bytes - a.bytes);
 
     const growth = [];
     for (const table of GROWTH_TABLES) {
-        const { rows } = await client.query(
-            `SELECT to_regclass($1) IS NOT NULL AS exists`,
-            [`public.${table}`]
-        );
-        if (!rows[0]?.exists) continue;
-        const { rows: countRows } = await client.query(`SELECT COUNT(*)::int AS n FROM ${table}`);
-        growth.push({ table, rows: countRows[0]?.n ?? 0 });
+        const res = await fetch(`${baseUrl}/rest/v1/${table}?select=*`, {
+            method: 'HEAD',
+            headers: { ...headers, Prefer: 'count=exact' },
+        });
+        if (!res.ok) continue;
+        const range = res.headers.get('content-range') || '';
+        const match = range.match(/\/(\d+)$/);
+        growth.push({ table, rows: match ? Number(match[1]) : 0 });
     }
 
+    return {
+        dbName: 'postgrest-https',
+        databaseBytes: 0,
+        tables: [],
+        bucketRows,
+        growth,
+    };
+}
+
+async function collectMetrics() {
+    try {
+        await client.connect();
+        const { rows: dbRows } = await client.query(
+            `SELECT pg_database_size(current_database())::bigint AS bytes,
+                    current_database() AS name`
+        );
+        const databaseBytes = Number(dbRows[0]?.bytes ?? 0);
+
+        const { rows: tableRows } = await client.query(
+            `SELECT c.relname AS name, pg_total_relation_size(c.oid)::bigint AS bytes
+               FROM pg_class c
+               JOIN pg_namespace n ON n.oid = c.relnamespace
+              WHERE c.relkind = 'r' AND n.nspname = 'public'
+              ORDER BY bytes DESC`
+        );
+        const tables = tableRows.map((row) => ({ name: row.name, bytes: Number(row.bytes) }));
+
+        const { rows: bucketRows } = await client.query(
+            `SELECT bucket_id,
+                    COUNT(*)::int AS objects,
+                    COALESCE(SUM(CASE WHEN (metadata->>'size') ~ '^[0-9]+$'
+                                      THEN (metadata->>'size')::bigint ELSE 0 END), 0)::bigint AS bytes
+               FROM storage.objects
+              GROUP BY bucket_id
+              ORDER BY bytes DESC`
+        );
+
+        const growth = [];
+        for (const table of GROWTH_TABLES) {
+            const { rows } = await client.query(
+                `SELECT to_regclass($1) IS NOT NULL AS exists`,
+                [`public.${table}`]
+            );
+            if (!rows[0]?.exists) continue;
+            const { rows: countRows } = await client.query(`SELECT COUNT(*)::int AS n FROM ${table}`);
+            growth.push({ table, rows: countRows[0]?.n ?? 0 });
+        }
+
+        await client.end();
+        return {
+            dbName: dbRows[0]?.name ?? '—',
+            databaseBytes,
+            tables,
+            bucketRows,
+            growth,
+        };
+    } catch (err) {
+        try {
+            await client.end();
+        } catch {
+            /* ignore */
+        }
+        if (/ENOTFOUND|ENOENT|EAI_AGAIN|ETIMEDOUT|ECONNREFUSED/i.test(String(err?.message || err))) {
+            const fallback = await measureViaHttpFallback();
+            if (fallback) return fallback;
+        }
+        throw err;
+    }
+}
+
+async function main() {
+    const { dbName, databaseBytes, tables, bucketRows, growth } = await collectMetrics();
+    const storageBytes = bucketRows.reduce((sum, row) => sum + Number(row.bytes), 0);
     const largest = tables[0] ?? { name: '—', bytes: 0 };
 
     const breaches = [];
@@ -154,7 +262,7 @@ async function main() {
     lines.push(`Généré le ${new Date().toISOString()} par \`scripts/audit_quotas.mjs\`.`);
     lines.push('');
     lines.push(
-        `- Base \`${dbRows[0]?.name ?? '—'}\` : **${mb(databaseBytes)}** (budget ${mb(BUDGETS.databaseBytes)})`
+        `- Base \`${dbName ?? '—'}\` : **${mb(databaseBytes)}** (budget ${mb(BUDGETS.databaseBytes)})`
     );
     lines.push(
         `- Stockage objet : **${mb(storageBytes)}** sur ${bucketRows.reduce((sum, row) => sum + Number(row.objects), 0)} objet(s) (budget ${mb(BUDGETS.storageBytes)})`
@@ -241,7 +349,6 @@ async function main() {
         console.log(`[audit:quotas] Rapport : ${path.relative(ROOT, REPORT)}`);
     }
 
-    await client.end();
     process.exit(breaches.length === 0 ? 0 : 2);
 }
 

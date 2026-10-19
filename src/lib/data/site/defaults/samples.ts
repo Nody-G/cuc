@@ -20,7 +20,7 @@ export const SAMPLE_INQUIRIES: SiteInquiry[] = [
     message: 'Passionné de cascade physique et de cinéma d’action, je souhaite intégrer la promotion 2026. Disponible pour les auditions physiques au Cateau-Cambrésis.',
     status: 'nouveau',
     admin_notes: 'Profil physique très prometteur. Dossier de candidature complet reçu.',
-    created_at: new Date(Date.now() - 3600000 * 4).toISOString(),
+    created_at: '2026-04-15T14:00:00.000Z',
   },
   {
     id: 'inq-2',
@@ -36,7 +36,7 @@ export const SAMPLE_INQUIRIES: SiteInquiry[] = [
     message: 'Comédienne intermittente, je cherche à perfectionner mes compétences en combat chorégraphié et chutes câblées pour de futurs tournages.',
     status: 'en_cours',
     admin_notes: 'Contactée par téléphone. Convention AFDAS transmise au secrétariat.',
-    created_at: new Date(Date.now() - 3600000 * 26).toISOString(),
+    created_at: '2026-04-14T16:00:00.000Z',
   },
   {
     id: 'inq-3',
@@ -52,7 +52,7 @@ export const SAMPLE_INQUIRIES: SiteInquiry[] = [
     message: 'Bonjour, nous souhaiterions privatiser le domaine pour une journée Team Building avec ateliers Chute Airbag et Combat Scénique pour notre équipe.',
     status: 'admis',
     admin_notes: 'Devis envoyé et signé. Accompte 30% reçu. Encadrement prévu avec 4 instructeurs.',
-    created_at: new Date(Date.now() - 3600000 * 72).toISOString(),
+    created_at: '2026-04-12T18:00:00.000Z',
   },
 ];
 
@@ -63,7 +63,7 @@ export const SAMPLE_AUDIT_LOGS: AuditLogEntry[] = [
     action: 'Mise à jour de page',
     entity: 'team-building-cascades',
     details: 'Mise à jour des descriptifs d’ateliers et réorganisation de grille',
-    created_at: new Date(Date.now() - 1000 * 60 * 15).toISOString(),
+    created_at: '2026-04-15T17:45:00.000Z',
   },
   {
     id: 'log-2',
@@ -71,7 +71,7 @@ export const SAMPLE_AUDIT_LOGS: AuditLogEntry[] = [
     action: 'Nouvelle Session',
     entity: 'Formation Découverte',
     details: 'Session 15-26 Juillet 2026 ouverte aux inscriptions',
-    created_at: new Date(Date.now() - 1000 * 60 * 95).toISOString(),
+    created_at: '2026-04-15T16:25:00.000Z',
   },
   {
     id: 'log-3',
@@ -79,6 +79,6 @@ export const SAMPLE_AUDIT_LOGS: AuditLogEntry[] = [
     action: 'Bandeau Flash',
     entity: 'site_announcements',
     details: 'Activation de l’alerte Journée Portes Ouvertes Campus',
-    created_at: new Date(Date.now() - 3600000 * 5).toISOString(),
+    created_at: '2026-04-15T13:00:00.000Z',
   },
 ];

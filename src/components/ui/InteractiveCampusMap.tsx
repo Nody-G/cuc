@@ -4,11 +4,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { Copy, Check } from 'lucide-react';
 import { TRAVEL_ROUTES } from './campus-map/campusMap.data';
-import {
-  getSiteSettings,
-  DEFAULT_SITE_SETTINGS,
-  SiteSettings,
-} from '@/lib/data/site-service';
+import { getSiteSettings } from '@/lib/data/site/settings';
+import { DEFAULT_SITE_SETTINGS } from '@/lib/data/site/defaults/settings';
+import type { SiteSettings } from '@/lib/data/site/types';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { usePreviewSettings } from '@/lib/preview/use-preview-settings';
 import { cucMicro } from '@/lib/preview/cuc-micro';
@@ -119,7 +117,7 @@ export const InteractiveCampusMap: React.FC = () => {
                 surcouche de texte. Cette vue n'existe que sur la page contact. */}
             <div className="relative w-full h-80 sm:h-96 md:h-[420px] bg-black border border-zinc-800 overflow-hidden">
               <iframe
-                title="Campus Univers Cascades — vue satellite"
+                title={t('aerial')}
                 src="https://www.google.com/maps?q=50.0909,3.5374&t=k&z=17&output=embed"
                 className="w-full h-full border-0"
                 loading="lazy"

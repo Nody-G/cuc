@@ -7,7 +7,7 @@ import { Zap, ChevronRight } from 'lucide-react';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { CUC_DISCIPLINES } from '@/data/disciplines';
 import { Discipline } from '@/types';
-import { getDisciplines } from '@/lib/data/site-service';
+import { getDisciplines } from '@/lib/data/site/content';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { applyDisciplineOverlays } from '@/lib/i18n/apply-discipline-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';

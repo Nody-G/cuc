@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
-import { DOUBLED_CELEBRITIES } from '@/data/filmography';
-import { getCelebrities } from '@/lib/data/site-service';
+import { DOUBLED_CELEBRITIES } from '@/data/celebrities';
+import { getCelebrities } from '@/lib/data/site/films';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { DoubledCelebrity } from '@/types';
 import { cucMicro } from '@/lib/preview/cuc-micro';

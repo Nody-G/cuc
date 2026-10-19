@@ -14,7 +14,7 @@ import {
   StudioParallaxCard,
 } from '@/components/ui/parallax';
 
-import { getFeaturedInstagramReels } from '@/lib/data/site-service';
+import { getFeaturedInstagramReels } from '@/lib/data/site/media-settings';
 import { getLatestInstagramReelsAction } from '@/app/(admin)/admin/actions/instagram-featured';
 import type { InstagramReel } from '@/data/instagram-reels';
 import { HomeReelCard, HomePostFallbackCard } from './HomeSocialCards';

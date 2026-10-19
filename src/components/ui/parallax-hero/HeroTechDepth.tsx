@@ -1,12 +1,8 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import { motion, MotionValue, useTransform } from 'framer-motion';
 
 interface HeroTechDepthProps {
-  smoothMouseX: MotionValue<number>;
-  smoothMouseY: MotionValue<number>;
-  smoothScroll: MotionValue<number>;
   /**
    * Mobile / `prefers-reduced-motion` : ne conserver que la géométrie statique
    * (grille, anneaux, repères). Le halo `blur-3xl` et les particules animées en
@@ -27,26 +23,9 @@ interface Particle {
 }
 
 export const HeroTechDepth: React.FC<HeroTechDepthProps> = ({
-  smoothMouseX,
-  smoothMouseY,
-  smoothScroll,
   simplified = false,
 }) => {
-  // Layer 1: Midground Mech Matrix Transforms (subtle tilt & shift)
-  const matrixX = useTransform(smoothMouseX, [-20, 20], [-12, 12]);
-  const matrixY = useTransform(smoothMouseY, [-20, 20], [-12, 12]);
-  const matrixScrollY = useTransform(smoothScroll, [0, 1], [0, 60]);
-
-  // Layer 2: Volumetric Organic Light (tracks pointer smoothly)
-  const lightX = useTransform(smoothMouseX, [-20, 20], [-60, 60]);
-  const lightY = useTransform(smoothMouseY, [-20, 20], [-40, 40]);
-
-  // Layer 3: Foreground Optical Dust / Embers (near plane, moves faster with depth multiplier)
-  const dustX = useTransform(smoothMouseX, [-20, 20], [-25, 25]);
-  const dustY = useTransform(smoothMouseY, [-20, 20], [-25, 25]);
-  const dustScrollY = useTransform(smoothScroll, [0, 1], [0, -90]);
-
-  // Generate 20 floating particles across 3 stereoscopic depths
+  // Generate floating particles across 3 stereoscopic depths
   const particles: Particle[] = useMemo(() => {
     return [
       { id: 1, x: 12, y: 22, size: 2.5, depth: 0.5, opacity: 0.4 },
@@ -74,21 +53,28 @@ export const HeroTechDepth: React.FC<HeroTechDepthProps> = ({
     <div className="absolute inset-0 pointer-events-none overflow-hidden z-10 will-change-transform">
       {/* 1. Volumetric Organic Halo: Soft interactive warm beam */}
       {!simplified && (
-        <motion.div
-          style={{ x: lightX, y: lightY }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[55rem] h-[35rem] rounded-full bg-[radial-gradient(circle,_rgba(255,229,0,0.065)_0%,_rgba(255,200,0,0.02)_45%,_transparent_70%)] blur-3xl pointer-events-none will-change-transform"
+        <div
+          style={{
+            transform:
+              'translate3d(calc(-50% + var(--cuc-hero-mx, 0) * 48px), calc(-50% + var(--cuc-hero-my, 0) * 32px), 0)',
+          }}
+          className="absolute top-1/2 left-1/2 w-[55rem] h-[35rem] rounded-full bg-[radial-gradient(circle,_rgba(255,229,0,0.065)_0%,_rgba(255,200,0,0.02)_45%,_transparent_70%)] blur-3xl pointer-events-none will-change-transform transition-transform duration-500 ease-out"
         />
       )}
 
       {/* 2. Midground Tech/Mech Precision Geometry (Perspective Grid + Optics) */}
-      <motion.div
-        style={simplified ? undefined : { x: matrixX, y: matrixY }}
-        className="absolute inset-0 opacity-35 sm:opacity-45"
+      <div
+        style={
+          simplified
+            ? undefined
+            : {
+                transform:
+                  'translate3d(calc(var(--cuc-hero-mx, 0) * 9.6px), calc(var(--cuc-hero-my, 0) * 9.6px + var(--cuc-hero-scroll, 0) * 60px), 0)',
+              }
+        }
+        className="absolute inset-0 opacity-35 sm:opacity-45 transition-transform duration-300 ease-out"
       >
-        <motion.div
-          style={simplified ? undefined : { y: matrixScrollY }}
-          className="w-full h-full relative"
-        >
+        <div className="w-full h-full relative">
           {/* Subtle Cyber/Cinematic Reticle Circle in center */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[34rem] sm:w-[48rem] h-[34rem] sm:h-[48rem] rounded-full border border-white/[0.04] pointer-events-none">
             {/* Pulsing Concentric Range Ring */}
@@ -120,46 +106,35 @@ export const HeroTechDepth: React.FC<HeroTechDepthProps> = ({
           <div className="absolute top-16 right-6 sm:right-12 w-6 h-6 border-t border-r border-white/20" />
           <div className="absolute bottom-24 left-6 sm:left-12 w-6 h-6 border-b border-l border-white/20" />
           <div className="absolute bottom-24 right-6 sm:right-12 w-6 h-6 border-b border-r border-white/20" />
-
-
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
       {/* 3. Foreground Floating Stereoscopic Optical Motes (Multi-depth embers) */}
       {!simplified && (
-        <motion.div
-          style={{ x: dustX, y: dustY }}
-          className="absolute inset-0 pointer-events-none will-change-transform"
+        <div
+          style={{
+            transform:
+              'translate3d(calc(var(--cuc-hero-mx, 0) * 20px), calc(var(--cuc-hero-my, 0) * 20px + var(--cuc-hero-scroll, 0) * -90px), 0)',
+          }}
+          className="absolute inset-0 pointer-events-none will-change-transform transition-transform duration-300 ease-out"
         >
-          <motion.div style={{ y: dustScrollY }} className="w-full h-full relative">
-            {particles.map((p) => {
-              // Near particles drift more dramatically than far ones
-              const depthFactor = p.depth;
-              return (
-                <motion.div
-                  key={p.id}
-                  animate={{
-                    y: [0, -14 * depthFactor, 0],
-                    opacity: [p.opacity * 0.7, p.opacity, p.opacity * 0.7],
-                    scale: [1, 1.15, 1],
-                  }}
-                  transition={{
-                    duration: 4.5 + p.id * 0.35,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                  style={{
-                    left: `${p.x}%`,
-                    top: `${p.y}%`,
-                    width: `${p.size}px`,
-                    height: `${p.size}px`,
-                  }}
-                  className="absolute rounded-full bg-[#FFE500] shadow-[0_0_8px_rgba(255,229,0,0.8)]"
-                />
-              );
-            })}
-          </motion.div>
-        </motion.div>
+          <div className="w-full h-full relative">
+            {particles.map((p) => (
+              <div
+                key={p.id}
+                style={{
+                  left: `${p.x}%`,
+                  top: `${p.y}%`,
+                  width: `${p.size}px`,
+                  height: `${p.size}px`,
+                  opacity: p.opacity,
+                  animationDuration: `${4.5 + p.id * 0.35}s`,
+                }}
+                className="absolute rounded-full bg-[#FFE500] shadow-[0_0_8px_rgba(255,229,0,0.8)] animate-pulse"
+              />
+            ))}
+          </div>
+        </div>
       )}
     </div>
   );

@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { DOUBLED_CELEBRITIES } from '@/data/celebrities';
-import { getCelebrities } from '@/lib/data/site-service';
+import { getCelebrities } from '@/lib/data/site/films';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { buildCelebrityIndex, resolveCelebrityByActorName } from '@/lib/celebrity-match';
 import { CelebrityDetailsModal } from '@/components/sections/hall-of-fame/CelebrityDetailsModal';

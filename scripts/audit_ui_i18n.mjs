@@ -25,10 +25,15 @@ const BASELINE_PATH = 'scripts/ui-i18n-baseline.json';
 const INIT = process.argv.includes('--init');
 const UPDATE = process.argv.includes('--update');
 
+const BRAND_NAMES = new Set(['AlloCiné']);
 const ACCENTS = /[àâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ]/;
 const FR_HINT =
     /\b(le|la|les|des|une|un|et|pour|avec|sur|dans|notre|nos|vos|est|sont|vous|nous|du|au|aux|par|plus|tout|tous|depuis|entre|ce|cette|ces|qui|que)\b/i;
-const isFrench = (s) => typeof s === 'string' && s.trim().length > 3 && (ACCENTS.test(s) || FR_HINT.test(s));
+const isFrench = (s) =>
+    typeof s === 'string' &&
+    s.trim().length > 3 &&
+    !BRAND_NAMES.has(s.trim()) &&
+    (ACCENTS.test(s) || FR_HINT.test(s));
 
 function walk(dir, out = []) {
     for (const entry of readdirSync(dir)) {
@@ -43,12 +48,13 @@ function walk(dir, out = []) {
 const counts = {};
 let total = 0;
 for (const file of walk('src')) {
-    if (!file.endsWith('.tsx')) continue;
+    if (!file.endsWith('.tsx') || file.endsWith('.test.tsx')) continue;
     const rel = relative('.', file);
     if (rel.includes('(admin)')) continue; // Cockpit : FR par conception
-    // Suite d'édition 3D du Cockpit (panneaux, HUD, outils) : jamais rendue sur
-    // la vitrine publique, donc hors périmètre EN.
+    // Suite d'édition 3D et Mode Studio du Cockpit : jamais rendue aux visiteurs
+    // sur la vitrine publique, donc hors périmètre EN.
     if (rel.includes('components/3d/ui/') || rel.includes('components\\3d\\ui\\')) continue;
+    if (rel.includes('components/preview/') || rel.includes('components\\preview\\')) continue;
     const src = readFileSync(file, 'utf8');
     let count = 0;
     for (const m of src.matchAll(/>\s*([^<>{}\n]{4,160})\s*</g)) if (isFrench(m[1])) count += 1;

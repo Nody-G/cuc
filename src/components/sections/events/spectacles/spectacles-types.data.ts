@@ -14,7 +14,7 @@ export const SPECTACLE_TYPES: SpectacleTypeItem[] = [
   {
     id: 'yamakasi-parkour',
     badge: 'Urbain & Yamakasi',
-    title: 'Show Parkour & Art du Déplacement',
+    title: 'Show Parkour & Yamakasi',
     subtitle: 'Chorégraphié par les pionniers de la discipline',
     description:
       'Une démonstration physique d’une intensité rare : franchissements vertigineux, courses-poursuites dynamiques, acrobaties de rue et franchissements de modules. Conçu et interprété en collaboration avec les co-fondateurs historiques des Yamakasi et l’élite des traceurs CUC.',

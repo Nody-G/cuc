@@ -3,7 +3,6 @@
  * Règle SRP : `AGENTS.md` § 1-2.
  */
 
-import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
 import { DOUBLED_CELEBRITIES } from '@/data/celebrities';
 import { OFFICIAL_FILM_BANNERS, FilmBanner } from '@/data/filmBanners';
 import { FilmCredit, DoubledCelebrity } from '@/types';
@@ -18,12 +17,25 @@ import { getSupabaseClient } from './client';
  * reprend alors la valeur **vérifiée** du catalogue du dépôt (aucune invention) —
  * sinon le nom du réalisateur manquait sur les jaquettes et dans la fiche film.
  */
-const STATIC_DIRECTORS = new Map(
-  FILMOGRAPHY_CREDITS.filter((f) => !!f.director).map((f) => [
-    creditTitleKey(f.title),
-    f.director as string,
-  ])
-);
+let staticDirectorsCache: Map<string, string> | null = null;
+
+async function loadStaticFilmography(): Promise<FilmCredit[]> {
+  const mod = await import('@/data/filmography');
+  return mod.FILMOGRAPHY_CREDITS;
+}
+
+async function getStaticDirectors(): Promise<Map<string, string>> {
+  if (!staticDirectorsCache) {
+    const credits = await loadStaticFilmography();
+    staticDirectorsCache = new Map(
+      credits.filter((f) => !!f.director).map((f) => [
+        creditTitleKey(f.title),
+        f.director as string,
+      ])
+    );
+  }
+  return staticDirectorsCache;
+}
 
 /**
  * Récupère la filmographie.
@@ -53,9 +65,10 @@ export async function getFilms(): Promise<FilmCredit[]> {
       if (settingRow && Array.isArray(settingRow.value) && settingRow.value.length > 0) {
         return settingRow.value as FilmCredit[];
       }
-      return FILMOGRAPHY_CREDITS;
+      return await loadStaticFilmography();
     }
 
+    const staticDirectors = await getStaticDirectors();
     return data.map((f) => ({
       id: f.id,
       title: f.title,
@@ -63,7 +76,7 @@ export async function getFilms(): Promise<FilmCredit[]> {
       // Garde-fou de lecture : tout reliquat de l'ancien vocabulaire marketing
       // en base est converti (ou vidé) — il ne peut donc jamais atteindre l'UI.
       category: normalizeFilmCategory(f.category),
-      director: f.director || STATIC_DIRECTORS.get(creditTitleKey(f.title)),
+      director: f.director || staticDirectors.get(creditTitleKey(f.title)),
       stuntRoles: f.stunt_roles || '',
       description: f.description || '',
       doubledActors: f.doubled_actors,
@@ -77,7 +90,7 @@ export async function getFilms(): Promise<FilmCredit[]> {
       cuc_team_roles: f.metadata?.cuc_team_roles || f.cuc_team_roles || {},
     }));
   } catch {
-    return FILMOGRAPHY_CREDITS;
+    return await loadStaticFilmography();
   }
 }
 

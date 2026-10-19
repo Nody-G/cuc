@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-30T17:48:52.433Z",
-  "scannedFiles": 1358,
-  "total": 41,
+  "generatedAt": "2026-10-18T17:26:33.976Z",
+  "scannedFiles": 1555,
+  "total": 43,
   "byGroup": {
-    "badge": 19,
+    "badge": 21,
     "terminologie": 9,
     "superlatif": 5,
     "jargon": 8
@@ -37,7 +37,7 @@
     {
       "id": "badge-exclusif",
       "group": "badge",
-      "count": 1
+      "count": 3
     },
     {
       "id": "superl-légendaire",
@@ -66,6 +66,20 @@
     }
   ],
   "findings": [
+    {
+      "file": "src\\app\\(admin)\\admin\\components\\help-view\\help-faq-data.ts",
+      "line": 27,
+      "rule": "badge-exclusif",
+      "group": "badge",
+      "text": "'Le site, l’intégralité de son code source sur GitHub, les médias et les bases de données Supabase sont la propriété exclusive à 100% du Campus Univers Cascades. Aucun abonnement logiciel captif, aucu"
+    },
+    {
+      "file": "src\\app\\(admin)\\admin\\components\\help-view\\help-methodology-data.ts",
+      "line": 102,
+      "rule": "badge-exclusif",
+      "group": "badge",
+      "text": "nielsVibeCoding: '100% propriété exclusive du CUC, 0 abonnement logiciel',"
+    },
     {
       "file": "src\\app\\(site)\\[locale]\\stunt-workshop-cuc\\sections\\WorkshopProgram.tsx",
       "line": 120,

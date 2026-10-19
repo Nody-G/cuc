@@ -50,12 +50,20 @@ export const ContactProgramChips: React.FC<ContactProgramChipsProps> = ({
         >
           <span {...cucMicro('contact.form.labelProgram')}>{t('labelProgram')}</span>
         </label>
-        <span className="text-[10px] font-mono-tech text-zinc-500 uppercase tracking-wider">
-          Choix multiple possible
+        <span
+          className="text-[10px] font-mono-tech text-zinc-500 uppercase tracking-wider"
+          {...cucMicro('contact.form.multipleChoiceHint')}
+        >
+          {t('multipleChoiceHint')}
         </span>
       </div>
 
-      <div id="contact-program-chips" className="flex flex-wrap gap-2 pt-1" role="group" aria-label="Sujets de demande">
+      <div
+        id="contact-program-chips"
+        className="flex flex-wrap gap-2 pt-1"
+        role="group"
+        aria-label={t('topicsGroupAria')}
+      >
         {CONTACT_TOPIC_KEYS.map((key) => {
           const isSelected = selectedKeys.includes(key);
           return (

@@ -1,19 +1,5 @@
 import type { ComponentType } from 'react';
-import { HomeView } from '../HomeView';
-import AnimationsAirbagParkourPage from '../animations-airbag-parkour/page';
-import ContactCucPage from '../contact-cuc/page';
-import CucEventsAgencePage from '../cuc-events-agence/page';
-import CucTeamCascadeurPage from '../cuc-team-cascadeur/page';
-import EquipeCascadeursProPage from '../equipe-cascadeurs-pro/page';
-import FormationDeCascadeurPage from '../formation-de-cascadeur/page';
-import PartenairesPage from '../partenaires/page';
-import SpectaclesCascadeursYamakasiPage from '../spectacles-cascadeurs-yamakasi/page';
-import StagesCascadesParkour2Page from '../stages-cascades-parkour-2/page';
-import StuntWorkshopCucPage from '../stunt-workshop-cuc/page';
-import TeamBuildingCascadesPage from '../team-building-cascades/page';
-import VideosCascadeurPage from '../videos-cascadeur/page';
-import VisiteGuideePage from '../visite-guidee/page';
-import VisiteVirtuellePage from '../visite-virtuelle/page';
+import dynamic from 'next/dynamic';
 
 /**
  * ==============================================================================
@@ -27,21 +13,24 @@ import VisiteVirtuellePage from '../visite-virtuelle/page';
  * Contrat de couverture : chaque page du catalogue canonique
  * (`SITE_PAGE_CATALOG`) doit avoir son entrée — vérifié par
  * `preview-url.test.ts`.
+ *
+ * Chargement différé (`next/dynamic`) : évite que Webpack ne fusionne les 15
+ * vues de pages dans un chunk client commun à toute la vitrine.
  */
 export const PREVIEW_SCREENS: Record<string, ComponentType> = {
-    '/': HomeView,
-    '/animations-airbag-parkour': AnimationsAirbagParkourPage,
-    '/contact-cuc': ContactCucPage,
-    '/cuc-events-agence': CucEventsAgencePage,
-    '/cuc-team-cascadeur': CucTeamCascadeurPage,
-    '/equipe-cascadeurs-pro': EquipeCascadeursProPage,
-    '/formation-de-cascadeur': FormationDeCascadeurPage,
-    '/partenaires': PartenairesPage,
-    '/spectacles-cascadeurs-yamakasi': SpectaclesCascadeursYamakasiPage,
-    '/stages-cascades-parkour-2': StagesCascadesParkour2Page,
-    '/stunt-workshop-cuc': StuntWorkshopCucPage,
-    '/team-building-cascades': TeamBuildingCascadesPage,
-    '/videos-cascadeur': VideosCascadeurPage,
-    '/visite-guidee': VisiteGuideePage,
-    '/visite-virtuelle': VisiteVirtuellePage,
+    '/': dynamic(() => import('../HomeView').then((m) => m.HomeView)),
+    '/animations-airbag-parkour': dynamic(() => import('../animations-airbag-parkour/page')),
+    '/contact-cuc': dynamic(() => import('../contact-cuc/page')),
+    '/cuc-events-agence': dynamic(() => import('../cuc-events-agence/page')),
+    '/cuc-team-cascadeur': dynamic(() => import('../cuc-team-cascadeur/page')),
+    '/equipe-cascadeurs-pro': dynamic(() => import('../equipe-cascadeurs-pro/page')),
+    '/formation-de-cascadeur': dynamic(() => import('../formation-de-cascadeur/page')),
+    '/partenaires': dynamic(() => import('../partenaires/page')),
+    '/spectacles-cascadeurs-yamakasi': dynamic(() => import('../spectacles-cascadeurs-yamakasi/page')),
+    '/stages-cascades-parkour-2': dynamic(() => import('../stages-cascades-parkour-2/page')),
+    '/stunt-workshop-cuc': dynamic(() => import('../stunt-workshop-cuc/page')),
+    '/team-building-cascades': dynamic(() => import('../team-building-cascades/page')),
+    '/videos-cascadeur': dynamic(() => import('../videos-cascadeur/page')),
+    '/visite-guidee': dynamic(() => import('../visite-guidee/page')),
+    '/visite-virtuelle': dynamic(() => import('../visite-virtuelle/page')),
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { CheckCircle2, Zap } from 'lucide-react';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 import { WORKSHOP_MEDIA, type WorkshopCurriculumItem } from './workshop-copy';
 import type { WorkshopProgramCopy } from './useWorkshopContent';
 
@@ -77,16 +78,25 @@ export const WorkshopProgram: React.FC<WorkshopProgramProps> = ({ program, curri
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/30 pointer-events-none" />
                         <div className="absolute top-3 left-3">
-                            <span className="text-[10px] font-mono-tech uppercase font-bold tracking-widest bg-black/80 border border-[#FFE500]/60 text-[#FFE500] px-2.5 py-1">
-                                AFFICHE OFFICIELLE
+                            <span
+                                className="text-[10px] font-mono-tech uppercase font-bold tracking-widest bg-black/80 border border-[#FFE500]/60 text-[#FFE500] px-2.5 py-1"
+                                {...cucMicro('stuntWorkshop.posterBadge')}
+                            >
+                                {program.posterBadge}
                             </span>
                         </div>
                         <div className="absolute bottom-3 left-3 right-3 text-left">
-                            <p className="text-xs font-mono-tech text-zinc-300 uppercase font-semibold">
-                                Session Internationale CUC
+                            <p
+                                className="text-xs font-mono-tech text-zinc-300 uppercase font-semibold"
+                                {...cucMicro('stuntWorkshop.posterTitle')}
+                            >
+                                {program.posterTitle}
                             </p>
-                            <p className="text-[10px] font-mono-tech text-[#FFE500]">
-                                Certification Pro Action Performer
+                            <p
+                                className="text-[10px] font-mono-tech text-[#FFE500]"
+                                {...cucMicro('stuntWorkshop.posterSubtitle')}
+                            >
+                                {program.posterSubtitle}
                             </p>
                         </div>
                     </div>
@@ -102,8 +112,11 @@ export const WorkshopProgram: React.FC<WorkshopProgramProps> = ({ program, curri
                                 className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                            <span className="absolute bottom-2 left-2 text-[9px] font-mono-tech uppercase font-bold text-white bg-black/70 px-1.5 py-0.5 border border-zinc-700">
-                                Tour de chute 21m
+                            <span
+                                className="absolute bottom-2 left-2 text-[9px] font-mono-tech uppercase font-bold text-white bg-black/70 px-1.5 py-0.5 border border-zinc-700"
+                                {...cucMicro('stuntWorkshop.towerCaption')}
+                            >
+                                {program.towerCaption}
                             </span>
                         </div>
 
@@ -116,8 +129,11 @@ export const WorkshopProgram: React.FC<WorkshopProgramProps> = ({ program, curri
                                 className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                            <span className="absolute bottom-2 left-2 text-[9px] font-mono-tech uppercase font-bold text-white bg-black/70 px-1.5 py-0.5 border border-zinc-700">
-                                Tactique & BRI
+                            <span
+                                className="absolute bottom-2 left-2 text-[9px] font-mono-tech uppercase font-bold text-white bg-black/70 px-1.5 py-0.5 border border-zinc-700"
+                                {...cucMicro('stuntWorkshop.tacticalCaption')}
+                            >
+                                {program.tacticalCaption}
                             </span>
                         </div>
                     </div>
@@ -132,8 +148,11 @@ export const WorkshopProgram: React.FC<WorkshopProgramProps> = ({ program, curri
                             className="object-cover object-center group-hover:scale-103 transition-transform duration-500"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                        <span className="absolute bottom-2 left-2 text-[9px] font-mono-tech uppercase font-bold text-white bg-black/70 px-2 py-0.5 border border-zinc-700">
-                            Performers du Monde Entier au CUC
+                        <span
+                            className="absolute bottom-2 left-2 text-[9px] font-mono-tech uppercase font-bold text-white bg-black/70 px-2 py-0.5 border border-zinc-700"
+                            {...cucMicro('stuntWorkshop.crowdCaption')}
+                        >
+                            {program.crowdCaption}
                         </span>
                     </div>
                 </div>

@@ -138,8 +138,11 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
               {/* Doublé par (coach du CUC) dans (nom du ou des films) */}
               {celebrity.stuntDoubles ? (
                 <div className="p-3 bg-[#141419] border border-zinc-800/80 rounded-xs space-y-1.5">
-                  <span className="text-[10px] font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block">
-                    DOUBLURE & TOURNAGES :
+                  <span
+                    className="text-[10px] font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block"
+                    {...cucMicro('teamProduction.celebrityModal.doublesAndShootsLabel')}
+                  >
+                    {t('celebrityModal.doublesAndShootsLabel')}
                   </span>
                   <div className="text-xs text-white font-mono-tech leading-relaxed">
                     {doubledBy.segments.length > 0 ? (
@@ -164,7 +167,10 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                     )}
                     {celebrity.productions.length > 0 && (
                       <>
-                        {' '}dans{' '}
+                        {' '}
+                        <span {...cucMicro('teamProduction.celebrityModal.inConnector')}>
+                          {t('celebrityModal.inConnector')}
+                        </span>{' '}
                         {celebrity.productions.map((p, pIdx) => {
                           const matchingFilm = findMatchingLucasFilm(p);
                           return (
@@ -178,7 +184,9 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                                     onSelectFilm?.(matchingFilm);
                                   }}
                                   className="text-[#FFE500] underline font-bold hover:text-white transition-colors cursor-pointer inline-flex items-center gap-1 group"
-                                  title={`Voir la fiche du film « ${matchingFilm.title} » coordonné par Lucas Dollfus`}
+                                  title={t('celebrityModal.openLucasFilmTitle', {
+                                    title: matchingFilm.title,
+                                  })}
                                 >
                                   <span>{p}</span>
                                   <span className="text-[9px] bg-[#FFE500] text-black px-1 py-0.2 rounded-xs font-bold font-mono-tech group-hover:bg-white">
@@ -201,7 +209,13 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
               {lucasCoordinatedFilms.length > 0 && (
                 <div className="space-y-2 pt-2 border-t border-zinc-800/80">
                   <span className="text-[10px] font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block">
-                    <span {...cucMicro('teamProduction.celebrityModal.cucCoordinatedFilmsLabel')}>
+                    <span
+                      {...cucMicro(
+                        lucasCoordinatedFilms.length > 1
+                          ? 'teamProduction.celebrityModal.cucCoordinatedFilmsPlural'
+                          : 'teamProduction.celebrityModal.cucCoordinatedFilmsSingular'
+                      )}
+                    >
                       {lucasCoordinatedFilms.length > 1
                         ? t('celebrityModal.cucCoordinatedFilmsPlural')
                         : t('celebrityModal.cucCoordinatedFilmsSingular')}
@@ -217,7 +231,7 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                           onSelectFilm?.(film);
                         }}
                         className="px-3 py-1.5 bg-[#FFE500]/15 border border-[#FFE500]/60 text-xs font-mono-tech text-[#FFE500] font-bold hover:bg-[#FFE500] hover:text-black transition-all cursor-pointer flex items-center gap-1.5 rounded-xs group"
-                        title={`Voir la fiche du film « ${film.title} » coordonné par le CUC`}
+                        title={t('celebrityModal.openCucFilmTitle', { title: film.title })}
                       >
                         <Clapperboard className="w-3.5 h-3.5 shrink-0" />
                         <span>{film.title}</span>

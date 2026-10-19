@@ -3,9 +3,13 @@
  * Règle SRP : `AGENTS.md` § 1-2.
  */
 
-import { CUC_TEAM } from '@/data/team';
 import { Instructor } from '@/types';
 import { getSupabaseClient } from './client';
+
+async function loadStaticTeam(): Promise<Instructor[]> {
+  const mod = await import('@/data/team');
+  return mod.CUC_TEAM;
+}
 
 /** Colonnes lues sur `site_team` (les optionnelles tolèrent la migration absente). */
 interface TeamRow {
@@ -59,7 +63,7 @@ export async function getTeam(): Promise<Instructor[]> {
     }
 
     if (error || !data || data.length === 0) {
-      return CUC_TEAM;
+      return await loadStaticTeam();
     }
 
     // Récupération des correspondances de films pour relier les cascades certifiées
@@ -107,6 +111,6 @@ export async function getTeam(): Promise<Instructor[]> {
       metadata: t.metadata || {},
     }));
   } catch {
-    return CUC_TEAM;
+    return await loadStaticTeam();
   }
 }

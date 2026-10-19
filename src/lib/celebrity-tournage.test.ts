@@ -11,7 +11,6 @@
 
 import {
     CUC_TOURNAGE_CELEBRITIES_ORDER,
-    CUC_TOURNAGE_PROJECTS_OVERRIDE,
     selectTournageCelebrities,
 } from './celebrity-tournage';
 import type { DoubledCelebrity } from '@/types';

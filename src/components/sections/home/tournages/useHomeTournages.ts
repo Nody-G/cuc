@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useTranslations } from 'next-intl';
-import { getFilms } from '@/lib/data/site-service';
+import { getFilms } from '@/lib/data/site/films';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { creditTitleKey } from '@/lib/credit-title';
 import type { FilmCredit } from '@/types';

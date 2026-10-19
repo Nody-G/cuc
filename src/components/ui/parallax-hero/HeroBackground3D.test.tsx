@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react';
-import type { MotionValue } from 'framer-motion';
 import { HeroBackground3D } from './HeroBackground3D';
 import { HERO_SLIDES, mergeHeroSlides } from './parallaxHero.data';
 import type { SlideCopyMap } from './useParallaxHero';
@@ -16,8 +15,6 @@ vi.mock('next/image', () => ({
     },
 }));
 
-const motion = <T,>(value: T) => ({ get: () => value } as unknown as MotionValue<T>);
-
 const renderBackground = (currentSlide: number, overrides?: unknown[]) =>
     render(
         <HeroBackground3D
@@ -25,10 +22,6 @@ const renderBackground = (currentSlide: number, overrides?: unknown[]) =>
             currentSlide={currentSlide}
             slides={mergeHeroSlides(overrides)}
             slideCopy={{} as SlideCopyMap}
-            bgScrollY={motion('0%')}
-            bgShiftX={motion(0)}
-            bgRotateX={motion(0)}
-            bgRotateY={motion(0)}
         />
     );
 

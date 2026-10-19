@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { CUC_PARTNERS } from '../partenaires.data';
-import { getPartners, type SitePartner } from '@/lib/data/site-service';
+import { getPartners } from '@/lib/data/site/partners';
+import type { SitePartner } from '@/lib/data/site/types';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { createPartnerLocalizer, type PartnerCopy, type PartnerLocalizer } from './partner-localization';
 

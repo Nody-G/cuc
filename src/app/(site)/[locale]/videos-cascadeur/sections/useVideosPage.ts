@@ -8,7 +8,7 @@ import {
     type InstagramReel,
     type ReelSortOption,
 } from '@/data/instagram-reels';
-import { getVideos, getFeaturedInstagramReels } from '@/lib/data/site-service';
+import { getVideos, getFeaturedInstagramReels } from '@/lib/data/site/media-settings';
 import { getLatestInstagramReelsAction } from '@/app/(admin)/admin/actions/instagram-featured';
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';

@@ -17,7 +17,7 @@ import {
   type HeroMetric,
   type SlideCopyMap,
 } from './parallax-hero/useParallaxHero';
-import type { SitePageHero } from '@/lib/data/site-service';
+import type { SitePageHero } from '@/lib/data/site/types';
 
 interface ParallaxHeroProps {
   onOpenSearch?: () => void;
@@ -79,19 +79,10 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
         currentSlide={heroMotion.currentSlide}
         slides={heroSlides}
         slideCopy={slideCopy}
-        bgScrollY={heroMotion.bgScrollY}
-        bgShiftX={heroMotion.bgShiftX}
-        bgRotateX={heroMotion.bgRotateX}
-        bgRotateY={heroMotion.bgRotateY}
       />
 
-      {/* 2. Tech / Mech & Organic 3D Depth Layer (absorbs wheel & finger saccades) */}
-      <HeroTechDepth
-        smoothMouseX={heroMotion.smoothMouseX}
-        smoothMouseY={heroMotion.smoothMouseY}
-        smoothScroll={heroMotion.smoothScroll}
-        simplified={heroMotion.isCalmMode}
-      />
+      {/* 2. Tech / Mech & Organic 3D Depth Layer */}
+      <HeroTechDepth simplified={heroMotion.isCalmMode} />
 
       {/* 3. Central Text Content: Rock-Solid Focal Plane (NO text displacement!) */}
       <HeroFocalContent
@@ -99,7 +90,6 @@ export const ParallaxHero: React.FC<ParallaxHeroProps> = ({ heroData }) => {
         currentSlide={heroMotion.currentSlide}
         activeCopy={activeCopy}
         quickMetrics={quickMetrics}
-        focalTextOpacity={heroMotion.focalTextOpacity}
       />
 
       {/* 4. Modern Segmented Slide Navigation & Smooth Scroll Cue */}

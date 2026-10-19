@@ -29,6 +29,12 @@ export interface WorkshopProgramCopy {
     title: string;
     intro: string;
     briAlt: string;
+    posterBadge: string;
+    posterTitle: string;
+    posterSubtitle: string;
+    towerCaption: string;
+    tacticalCaption: string;
+    crowdCaption: string;
 }
 
 export interface WorkshopInfoCopy {
@@ -135,6 +141,12 @@ export function useWorkshopContent(): UseWorkshopContentResult {
             title: programTitle,
             intro: programIntro,
             briAlt: t('briAlt'),
+            posterBadge: t('posterBadge'),
+            posterTitle: t('posterTitle'),
+            posterSubtitle: t('posterSubtitle'),
+            towerCaption: t('towerCaption'),
+            tacticalCaption: t('tacticalCaption'),
+            crowdCaption: t('crowdCaption'),
         },
         highlights,
         curriculum,

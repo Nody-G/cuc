@@ -2,7 +2,9 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { StuntBadge } from '@/components/ui/StuntBadge';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 import { SpectacleTypeItem } from './spectacles-types.data';
 import { CheckCircle2 } from 'lucide-react';
 
@@ -15,6 +17,8 @@ export const SpectacleTypeCard: React.FC<SpectacleTypeCardProps> = ({
   item,
   reversed = false,
 }) => {
+  const t = useTranslations('spectacles');
+
   return (
     <article className="bg-[#0e0e14] border-2 border-zinc-800 hover:border-zinc-700 transition-colors p-6 sm:p-8 lg:p-10 relative">
       <div
@@ -42,8 +46,11 @@ export const SpectacleTypeCard: React.FC<SpectacleTypeCardProps> = ({
           </p>
 
           <div className="p-4 bg-[#14141c] border border-zinc-800/80 space-y-2.5 text-xs font-tech">
-            <div className="text-[#FFE500] font-mono-tech font-bold uppercase tracking-wider text-[11px]">
-              Spécifications &amp; Logistique
+            <div
+              className="text-[#FFE500] font-mono-tech font-bold uppercase tracking-wider text-[11px]"
+              {...cucMicro('spectacles.specsLogisticsTitle')}
+            >
+              {t('specsLogisticsTitle')}
             </div>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-zinc-300">
               {item.specs.map((spec) => (

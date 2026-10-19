@@ -5,7 +5,9 @@ import { usePathname } from 'next/navigation';
 import { loadSupabaseBrowserClient } from '@/lib/supabase/lazy-client';
 import { useSiteData } from '@/components/i18n/SiteDataProvider';
 import { isCockpitRoute, subscribeTable } from '@/lib/supabase/realtime';
-import { SitePageContent, DEFAULT_PAGE_CONTENTS, normalizeSlug } from '@/lib/data/site-service';
+import type { SitePageContent } from '@/lib/data/site/types';
+import { DEFAULT_PAGE_CONTENTS } from '@/lib/data/site/defaults/pages';
+import { normalizeSlug } from '@/lib/data/site/pages';
 import { mergeLocalized } from '@/lib/i18n/localized-merge';
 import { getPreviewDraft, subscribePreviewDraft } from '@/lib/preview/preview-store';
 

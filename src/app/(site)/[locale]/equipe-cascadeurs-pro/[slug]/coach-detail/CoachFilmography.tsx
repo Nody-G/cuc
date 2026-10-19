@@ -32,6 +32,8 @@ export interface CoachFilmographyProps {
  * est spécifique à la fiche coach — les libellés d'appel (« Fiche film »,
  * « Détails ») ont été retirés.
  */
+const INITIAL_VISIBLE_FILMS = 24;
+
 export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
     member,
     relatedFilms,
@@ -46,6 +48,7 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
 }) => {
     type ParticipationFilter = 'all' | 'coord' | 'doublure' | 'cascadeur';
     const [participationFilter, setParticipationFilter] = React.useState<ParticipationFilter>('all');
+    const [showAll, setShowAll] = React.useState(false);
 
     /** Décompte dynamique des rôles pour ce coach. */
     const counts = React.useMemo(() => {
@@ -62,21 +65,46 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
     }, [relatedFilms, getFilmRole]);
 
     /** Options de filtre visibles (uniquement si au moins 1 film dans la catégorie). */
-    const filterOptions: Array<{ id: ParticipationFilter; label: string; count: number }> = React.useMemo(() => {
-        const opts: Array<{ id: ParticipationFilter; label: string; count: number }> = [
-            { id: 'all', label: 'Toutes les participations', count: counts.all },
+    const filterOptions: Array<{
+        id: ParticipationFilter;
+        label: string;
+        microKey: string;
+        count: number;
+    }> = React.useMemo(() => {
+        const opts: Array<{
+            id: ParticipationFilter;
+            label: string;
+            microKey: string;
+            count: number;
+        }> = [
+            { id: 'all', label: tt('filterAll'), microKey: 'team.filterAll', count: counts.all },
         ];
         if (counts.coord > 0) {
-            opts.push({ id: 'coord', label: 'Coordination des cascades', count: counts.coord });
+            opts.push({
+                id: 'coord',
+                label: tt('filterCoord'),
+                microKey: 'team.filterCoord',
+                count: counts.coord,
+            });
         }
         if (counts.doublure > 0) {
-            opts.push({ id: 'doublure', label: 'Doublures', count: counts.doublure });
+            opts.push({
+                id: 'doublure',
+                label: tt('filterDoublure'),
+                microKey: 'team.filterDoublure',
+                count: counts.doublure,
+            });
         }
         if (counts.cascadeur > 0) {
-            opts.push({ id: 'cascadeur', label: 'Cascades & Combats', count: counts.cascadeur });
+            opts.push({
+                id: 'cascadeur',
+                label: tt('filterCascadeur'),
+                microKey: 'team.filterCascadeur',
+                count: counts.cascadeur,
+            });
         }
         return opts;
-    }, [counts]);
+    }, [counts, tt]);
 
     /** Liste filtrée selon la participation active. */
     const displayedFilms = React.useMemo(() => {
@@ -90,6 +118,12 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
         });
     }, [sortedFilms, participationFilter, getFilmRole]);
 
+    const visibleFilms = React.useMemo(
+        () => (showAll ? displayedFilms : displayedFilms.slice(0, INITIAL_VISIBLE_FILMS)),
+        [displayedFilms, showAll],
+    );
+    const remainingCount = displayedFilms.length - visibleFilms.length;
+
     return (
         <div className="mb-20 pt-12 border-t border-zinc-800">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
@@ -98,8 +132,11 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
                         <Film className="w-4 h-4" />
                         <span {...cucMicro('team.filmographyTag')}>{tt('filmographyTag')}</span>
                     </div>
-                    <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white">
-                        Cascades & Tournages de {member.name}
+                    <h2
+                        className="text-2xl sm:text-3xl font-display uppercase tracking-wide text-white"
+                        {...cucMicro('team.filmographyHeading')}
+                    >
+                        {tt('filmographyHeading', { name: member.name })}
                     </h2>
                     <p className="text-xs font-tech text-zinc-400 mt-1">
                         <span {...cucMicro('team.filmographyHint')}>{tt('filmographyHint')}</span>
@@ -108,10 +145,13 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
                 <div className="flex items-center gap-3">
                     <span className="text-xs font-mono-tech text-zinc-400">
                         {displayedFilms.length !== relatedFilms.length
-                            ? `${displayedFilms.length} / ${relatedFilms.length} films`
+                            ? tt('filteredCount', {
+                                  shown: displayedFilms.length,
+                                  total: relatedFilms.length,
+                              })
                             : relatedFilms.length > 1
-                            ? tt('listedMany', { count: relatedFilms.length })
-                            : tt('listedOne', { count: relatedFilms.length })}
+                              ? tt('listedMany', { count: relatedFilms.length })
+                              : tt('listedOne', { count: relatedFilms.length })}
                     </span>
                     <label className="flex items-center gap-1.5 text-[11px] font-mono-tech text-zinc-400">
                         <ArrowUpDown className="w-3.5 h-3.5 text-[#FFE500]" />
@@ -139,14 +179,17 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
                             <button
                                 key={opt.id}
                                 type="button"
-                                onClick={() => setParticipationFilter(opt.id)}
+                                onClick={() => {
+                                    setParticipationFilter(opt.id);
+                                    setShowAll(false);
+                                }}
                                 className={`px-3 py-1.5 text-xs font-mono-tech uppercase tracking-wider transition-all flex items-center gap-2 border ${
                                     isActive
                                         ? 'bg-[#FFE500] text-black font-bold border-[#FFE500] shadow-sm'
                                         : 'bg-[#121218] text-zinc-300 hover:text-white hover:bg-zinc-800 border-zinc-700'
                                 }`}
                             >
-                                <span>{opt.label}</span>
+                                <span {...cucMicro(opt.microKey)}>{opt.label}</span>
                                 <span
                                     className={`px-1.5 py-0.2 rounded text-[10px] ${
                                         isActive
@@ -163,43 +206,65 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
             )}
 
             {displayedFilms.length === 0 ? (
-                <div className="p-8 text-center bg-[#121218] border border-zinc-800 text-zinc-400 text-xs font-mono-tech">
-                    Aucune production trouvée pour ce filtre.
+                <div
+                    className="p-8 text-center bg-[#121218] border border-zinc-800 text-zinc-400 text-xs font-mono-tech"
+                    {...cucMicro('team.filmographyEmptyFilter')}
+                >
+                    {tt('filmographyEmptyFilter')}
                 </div>
             ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6">
-                    {displayedFilms.map((film) => {
-                        const { role, isCoord, isDoublure } = getFilmRole(film);
-                        const isFeatured = featuredOrder.has(normalizeTitleKey(film.title));
+                <>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6">
+                        {visibleFilms.map((film) => {
+                            const { role, isCoord, isDoublure } = getFilmRole(film);
+                            const isFeatured = featuredOrder.has(normalizeTitleKey(film.title));
 
-                        const roleBlock: FilmCardRole = {
-                            label: tt('roleOnProduction'),
-                            value: role,
-                            variant: isCoord ? 'coord' : isDoublure ? 'doublure' : 'other',
-                            micro: cucMicro('team.roleOnProduction'),
-                        };
+                            const roleBlock: FilmCardRole = {
+                                label: tt('roleOnProduction'),
+                                value: role,
+                                variant: isCoord ? 'coord' : isDoublure ? 'doublure' : 'other',
+                                micro: cucMicro('team.roleOnProduction'),
+                            };
 
-                        return (
-                            <FilmCard
-                                key={film.id}
-                                film={film}
-                                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
-                                featured={
-                                    isFeatured
-                                        ? { label: tt('featuredBadge'), micro: cucMicro('team.featuredBadge') }
-                                        : null
-                                }
-                                role={roleBlock}
-                                footer={
-                                    film.director
-                                        ? tt('directorShort', { name: film.director })
-                                        : tt('productionFallback')
-                                }
-                                onOpen={() => onSelectFilm(film)}
-                            />
-                        );
-                    })}
-                </div>
+                            return (
+                                <FilmCard
+                                    key={film.id}
+                                    film={film}
+                                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 16vw"
+                                    featured={
+                                        isFeatured
+                                            ? {
+                                                  label: tt('featuredBadge'),
+                                                  micro: cucMicro('team.featuredBadge'),
+                                              }
+                                            : null
+                                    }
+                                    role={roleBlock}
+                                    footer={
+                                        film.director
+                                            ? tt('directorShort', { name: film.director })
+                                            : tt('productionFallback')
+                                    }
+                                    onOpen={() => onSelectFilm(film)}
+                                />
+                            );
+                        })}
+                    </div>
+
+                    {remainingCount > 0 && (
+                        <div className="mt-10 flex justify-center">
+                            <button
+                                type="button"
+                                onClick={() => setShowAll(true)}
+                                className="px-6 py-3 bg-[#14141c] hover:bg-[#1c1c28] border border-zinc-700 hover:border-[#FFE500] text-white hover:text-[#FFE500] text-xs font-mono-tech uppercase tracking-wider font-bold transition-all cursor-pointer"
+                            >
+                                <span {...cucMicro('team.showAllFilms')}>
+                                    {tt('showAllFilms', { count: remainingCount })}
+                                </span>
+                            </button>
+                        </div>
+                    )}
+                </>
             )}
         </div>
     );

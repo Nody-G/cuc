@@ -5,7 +5,9 @@ import { useLocale, useTranslations } from 'next-intl';
 import React, { useState, useEffect } from 'react';
 
 import { Phone, ChevronRight } from 'lucide-react';
-import { getSiteSettings, DEFAULT_SITE_SETTINGS, SiteSettings } from '@/lib/data/site-service';
+import { getSiteSettings } from '@/lib/data/site/settings';
+import { DEFAULT_SITE_SETTINGS } from '@/lib/data/site/defaults/settings';
+import type { SiteSettings } from '@/lib/data/site/types';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { usePreviewSettings } from '@/lib/preview/use-preview-settings';
 import { cucSetting } from '@/lib/preview/cuc-chrome';

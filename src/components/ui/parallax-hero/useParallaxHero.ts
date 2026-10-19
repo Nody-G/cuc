@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import type { PointerEvent as ReactPointerEvent, RefObject } from 'react';
-import { useScroll, useSpring, useTransform, useMotionValue } from 'framer-motion';
 import { isPreviewFrame } from '@/lib/preview/preview-context';
 import type { HeroSlideKey } from './parallaxHero.data';
 
@@ -25,13 +24,14 @@ export interface HeroMetric {
 }
 
 /**
- * Orchestration du hero : mode calme, ressorts de scroll / pointeur,
+ * Orchestration du hero : mode calme, parallaxe CSS (scroll / pointeur),
  * avancement automatique des visuels et handlers associés.
  *
- * La ref de la section est créée par le composant appelant et passée en
- * paramètre (jamais retournée par le hook). `slideCount` est le nombre de
- * visuels **effectifs** (surcharge fusionnée) : l'auto-avance ne reboucle que
- * sur les visuels réellement rendus.
+ * Pilotage par propriétés personnalisées CSS (`--cuc-hero-scroll`,
+ * `--cuc-hero-opacity`, `--cuc-hero-mx`, `--cuc-hero-my`) écrites en
+ * `requestAnimationFrame` sur l'élément racine : aucun re-render React au
+ * scroll/pointeur et zéro dépendance `framer-motion` dans le graphe public
+ * (`.agents/rules/client_bundle_budget.md` § 3).
  */
 export function useParallaxHero(heroRef: RefObject<HTMLElement | null>, slideCount: number) {
     const safeCount = Number.isFinite(slideCount) && slideCount > 0 ? Math.floor(slideCount) : 1;
@@ -39,15 +39,10 @@ export function useParallaxHero(heroRef: RefObject<HTMLElement | null>, slideCou
 
     /**
      * Mode calme — tactile (pointer grossier) ou `prefers-reduced-motion`.
-     *
-     * Cause racine des bugs mobiles signalés : le tilt 3D était piloté par
-     * `pointermove`, or le scroll au doigt émet ces événements — le fond se
-     * penchait puis restait incliné (`pointerleave` ne se déclenche pas au
-     * toucher). S'ajoutaient un Ken-Burns en boucle, un fondu de 1 s et quatre
-     * visuels plein écran empilés : de quoi produire déformation, scintillement
-     * et cadrage instable sur mobile.
      */
     const [isCalmMode, setIsCalmMode] = useState(false);
+    const pointerFrameRef = useRef<number>(0);
+    const pointerTargetRef = useRef<{ mx: number; my: number }>({ mx: 0, my: 0 });
 
     useEffect(() => {
         const coarse = window.matchMedia('(hover: none), (pointer: coarse)');
@@ -63,61 +58,84 @@ export function useParallaxHero(heroRef: RefObject<HTMLElement | null>, slideCou
         };
     }, []);
 
-    // 1. Saccade-absorbing hydraulic spring for scroll (absorbs wheel notches & finger flicks)
-    const { scrollYProgress } = useScroll({
-        target: heroRef,
-        offset: ['start start', 'end start'],
-    });
+    // Synchronisation du scroll vers `--cuc-hero-scroll` et `--cuc-hero-opacity`
+    useEffect(() => {
+        const el = heroRef.current;
+        if (!el) return;
 
-    const smoothScroll = useSpring(scrollYProgress, {
-        stiffness: 45,
-        damping: 25,
-        mass: 0.8,
-        restDelta: 0.0001,
-    });
+        if (isCalmMode) {
+            el.style.setProperty('--cuc-hero-scroll', '0');
+            el.style.setProperty('--cuc-hero-opacity', '1');
+            el.style.setProperty('--cuc-hero-mx', '0');
+            el.style.setProperty('--cuc-hero-my', '0');
+            return;
+        }
 
-    // 2. Fluid gimbal inertia for pointer / touch movement
-    const rawMouseX = useMotionValue(0);
-    const rawMouseY = useMotionValue(0);
+        let scrollFrame = 0;
+        const updateScroll = () => {
+            scrollFrame = 0;
+            const rect = el.getBoundingClientRect();
+            const height = Math.max(1, rect.height);
+            const raw = -rect.top / height;
+            const progress = raw < 0 ? 0 : raw > 1 ? 1 : raw;
+            const opacity = Math.max(0, Math.min(1, 1 - progress / 0.65));
+            el.style.setProperty('--cuc-hero-scroll', progress.toFixed(4));
+            el.style.setProperty('--cuc-hero-opacity', opacity.toFixed(4));
+        };
 
-    const smoothMouseX = useSpring(rawMouseX, {
-        stiffness: 35,
-        damping: 22,
-        mass: 0.7,
-    });
+        const scheduleScroll = () => {
+            if (!scrollFrame) scrollFrame = window.requestAnimationFrame(updateScroll);
+        };
 
-    const smoothMouseY = useSpring(rawMouseY, {
-        stiffness: 35,
-        damping: 22,
-        mass: 0.7,
-    });
+        updateScroll();
+        window.addEventListener('scroll', scheduleScroll, { passive: true });
+        window.addEventListener('resize', scheduleScroll);
+        return () => {
+            window.removeEventListener('scroll', scheduleScroll);
+            window.removeEventListener('resize', scheduleScroll);
+            if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
+        };
+    }, [heroRef, isCalmMode]);
 
-    // 3. 3D Perspective Tilt on Background Environment (Not on text!)
-    const bgRotateX = useTransform(smoothMouseY, [-20, 20], [2, -2]);
-    const bgRotateY = useTransform(smoothMouseX, [-20, 20], [-2, 2]);
-    const bgShiftX = useTransform(smoothMouseX, [-20, 20], [-8, 8]);
-    const bgScrollY = useTransform(smoothScroll, [0, 1], ['0%', '14%']);
+    // Nettoyage du frame pointeur au démontage
+    useEffect(() => {
+        return () => {
+            if (pointerFrameRef.current) {
+                window.cancelAnimationFrame(pointerFrameRef.current);
+            }
+        };
+    }, []);
 
-    // 4. Focal Text Layer: 100% STABLE (No movement parallax on text!)
-    // Only smooth opacity fade on scroll driven by the damped spring
-    const focalTextOpacity = useTransform(smoothScroll, [0, 0.65], [1, 0]);
+    const flushPointer = useCallback(() => {
+        pointerFrameRef.current = 0;
+        const el = heroRef.current;
+        if (!el) return;
+        const { mx, my } = pointerTargetRef.current;
+        el.style.setProperty('--cuc-hero-mx', mx.toFixed(4));
+        el.style.setProperty('--cuc-hero-my', my.toFixed(4));
+    }, [heroRef]);
 
-    // Pointer event listeners with smooth coordinate mapping
-    const handlePointerMove = (e: ReactPointerEvent<HTMLElement>) => {
-        // Souris uniquement (et jamais en mode calme) : le doigt ne doit pas
-        // incliner l'environnement pendant le scroll.
-        if (isCalmMode || e.pointerType !== 'mouse') return;
-        const rect = e.currentTarget.getBoundingClientRect();
-        const normX = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
-        const normY = (e.clientY - rect.top) / rect.height - 0.5;
-        rawMouseX.set(normX * 24);
-        rawMouseY.set(normY * 24);
-    };
+    const handlePointerMove = useCallback(
+        (e: ReactPointerEvent<HTMLElement>) => {
+            if (isCalmMode || e.pointerType !== 'mouse') return;
+            const rect = e.currentTarget.getBoundingClientRect();
+            if (rect.width <= 0 || rect.height <= 0) return;
+            const normX = ((e.clientX - rect.left) / rect.width - 0.5) * 2; // -1 to 1
+            const normY = ((e.clientY - rect.top) / rect.height - 0.5) * 2; // -1 to 1
+            pointerTargetRef.current = { mx: normX, my: normY };
+            if (!pointerFrameRef.current) {
+                pointerFrameRef.current = window.requestAnimationFrame(flushPointer);
+            }
+        },
+        [isCalmMode, flushPointer]
+    );
 
-    const handlePointerLeave = () => {
-        rawMouseX.set(0);
-        rawMouseY.set(0);
-    };
+    const handlePointerLeave = useCallback(() => {
+        pointerTargetRef.current = { mx: 0, my: 0 };
+        if (!pointerFrameRef.current) {
+            pointerFrameRef.current = window.requestAnimationFrame(flushPointer);
+        }
+    }, [flushPointer]);
 
     // Auto advance slide with clean reset
     useEffect(() => {
@@ -132,22 +150,8 @@ export function useParallaxHero(heroRef: RefObject<HTMLElement | null>, slideCou
     }, []);
 
     return {
-        /**
-         * Index **borné** : si la surcharge réduit la liste alors que l'index
-         * courant pointait plus loin, on expose 0 sans réécrire d'état dans un
-         * effet (évite un rendu en cascade) — l'auto-avance réaligne au tick
-         * suivant via le modulo.
-         */
         currentSlide: currentSlide < safeCount ? currentSlide : 0,
         isCalmMode,
-        smoothScroll,
-        smoothMouseX,
-        smoothMouseY,
-        bgRotateX,
-        bgRotateY,
-        bgShiftX,
-        bgScrollY,
-        focalTextOpacity,
         handlePointerMove,
         handlePointerLeave,
         handleSelectSlide,

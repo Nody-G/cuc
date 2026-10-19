@@ -4,7 +4,7 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import { ArrowUpDown } from 'lucide-react';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
-import { getFilms } from '@/lib/data/site-service';
+import { getFilms } from '@/lib/data/site/films';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { FilmCredit, Instructor } from '@/types';
 import { selectCoordinatedFilms } from '@/lib/coach-films';

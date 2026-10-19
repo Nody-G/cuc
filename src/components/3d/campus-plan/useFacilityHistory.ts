@@ -6,7 +6,7 @@ import { DEFAULT_FACILITIES } from '../data/defaultFacilities';
 import { normalizeFacilityItem, normalizeFacilityRecord } from '../data/facilityTransform';
 import type { EditableFacilityItem } from '../types/campus3d.types';
 import { readLocalPlacements } from './placement-storage';
-import { getCampusPlacements3D } from '@/lib/data/site-service';
+import { getCampusPlacements3D } from '@/lib/data/site/settings';
 
 /**
  * Fenêtre de fusion de l'historique : deux modifications du **même champ** sur

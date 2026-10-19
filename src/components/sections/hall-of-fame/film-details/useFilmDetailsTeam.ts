@@ -11,8 +11,7 @@
  */
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { CUC_TEAM } from '@/data/team';
-import { getTeam } from '@/lib/data/site-service';
+import { getTeam } from '@/lib/data/site/team';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { usePreviewEntities } from '@/lib/preview/use-preview-entity';
 import { parseCredit, type FilmCredit, type Instructor } from '@/types';
@@ -26,7 +25,7 @@ export interface FilmDetailsTeam {
 }
 
 export function useFilmDetailsTeam(movie: FilmCredit | null): FilmDetailsTeam {
-    const [teamMembers, setTeamMembers] = useState<Instructor[]>(CUC_TEAM);
+    const [teamMembers, setTeamMembers] = useState<Instructor[]>([]);
     const entityOverrides = usePreviewEntities();
 
     const loadTeam = useCallback(() => {

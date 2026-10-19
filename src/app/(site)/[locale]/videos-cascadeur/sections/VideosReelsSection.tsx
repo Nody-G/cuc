@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Play, ExternalLink } from 'lucide-react';
 import { InstagramFollowerBadge } from '@/components/ui/InstagramFollowerBadge';
 import { InstagramLogo } from '@/components/ui/logos/SocialLogos';
+import { cucMicro } from '@/lib/preview/cuc-micro';
 import type { InstagramReel, ReelSortOption } from '@/data/instagram-reels';
 
 export interface VideosReelsSectionProps {
@@ -52,10 +53,16 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                     <div className="flex items-center gap-2 mb-3 flex-wrap">
                         <InstagramFollowerBadge variant="pill" />
                     </div>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-wide text-white">
+                    <h2
+                        className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-wide text-white"
+                        {...cucMicro('videos.reelsTitle')}
+                    >
                         {labels.title}
                     </h2>
-                    <p className="text-sm font-tech text-zinc-400 mt-2 max-w-2xl">
+                    <p
+                        className="text-sm font-tech text-zinc-400 mt-2 max-w-2xl"
+                        {...cucMicro('videos.reelsIntro')}
+                    >
                         {labels.intro}
                     </p>
                 </div>
@@ -128,7 +135,7 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                         className="inline-flex items-center gap-3 px-8 py-3.5 border border-zinc-700 hover:border-[#FFE500] bg-[#0e0e14] hover:bg-[#14141c] text-xs font-mono-tech uppercase text-zinc-200 hover:text-white rounded-xl shadow-lg transition-all duration-200 group"
                     >
                         <InstagramLogo className="w-4 h-4 text-[#FFE500]" />
-                        <span>Découvrir toutes nos vidéos sur Instagram</span>
+                        <span {...cucMicro('videos.socialInstagram')}>{labels.socialInstagram}</span>
                         <ExternalLink className="w-3.5 h-3.5 text-[#FFE500] group-hover:translate-x-0.5 transition-transform" />
                     </a>
                 </div>

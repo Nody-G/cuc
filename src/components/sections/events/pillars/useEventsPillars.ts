@@ -1,7 +1,8 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { getEvents, type SiteEvent } from '@/lib/data/site-service';
+import { getEvents } from '@/lib/data/site/events';
+import type { SiteEvent } from '@/lib/data/site/types';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { applyEventOverlays } from '@/lib/i18n/apply-event-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';

@@ -71,7 +71,7 @@ const TRANSLATION_CALL_RE = /\b(?:t|t[A-Z]\w*|tf|tp|td)\s*\(\s*['"`]/;
  * n'aurait aucun sens (et un « Google Maps » localisé serait un contresens).
  */
 const TECHNICAL_LABEL_RE =
-    /^(?:IMDb|Allociné|AlloCiné|Allocine|Google Maps|Apple Maps|Waze|Instagram|Facebook|YouTube|TikTok|LinkedIn|Vimeo|Spotify|Portfolio|Allo Ciné|SNCF Connect)$/i;
+    /^(?:CUC|IMDb|Allociné|AlloCiné|Allocine|Google Maps|Apple Maps|Waze|Instagram|Facebook|YouTube|TikTok|LinkedIn|Vimeo|Spotify|Portfolio|Allo Ciné|SNCF Connect)$/i;
 const TECHNICAL_PATTERNS = [
     /@[\w.-]+\.[a-z]{2,}/i, // adresse e-mail
     /^https?:\/\//i, // URL

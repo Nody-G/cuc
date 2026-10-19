@@ -57,6 +57,10 @@ const DOCUMENTED_EXCEPTIONS = new Map([
         'program',
         "les lignes `site_programs` ne sont affichées que dans le Cockpit (interface française) — les overlays EN n'ont pas de surface publique",
     ],
+    [
+        'campus_poi',
+        "la carte satellite de la page Contact affiche désormais l'imagerie Google Maps sans épingles POI textuelles ; le plan 3D consomme l'entité `campus_facility`",
+    ],
 ]);
 
 /**

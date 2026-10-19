@@ -1,5 +1,5 @@
 import { LightboxImage } from '@/components/ui/LightboxModal';
-import { OFFICIAL_FILM_BANNERS } from '@/data/filmography';
+import { OFFICIAL_FILM_BANNERS } from '@/data/filmBanners';
 
 // Les visuels ci-dessous sont des photographies réelles du campus.
 // Aucune légende descriptive n'est affichée : seul le nom de la série sert

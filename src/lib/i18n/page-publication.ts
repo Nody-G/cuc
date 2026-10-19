@@ -1,6 +1,6 @@
 import { cacheLife, cacheTag } from 'next/cache';
 import { createAdminClient, hasServiceRoleKey } from '@/lib/supabase/admin';
-import { normalizeSlug } from '@/lib/data/site-service';
+import { normalizeSlug } from '@/lib/data/site/pages';
 
 /**
  * ==============================================================================

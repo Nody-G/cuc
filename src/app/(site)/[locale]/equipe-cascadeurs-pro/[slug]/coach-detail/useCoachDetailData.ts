@@ -3,7 +3,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { CUC_TEAM } from '@/data/team';
 import { FILMOGRAPHY_CREDITS } from '@/data/filmography';
-import { getTeam, getFilms } from '@/lib/data/site-service';
+import { getTeam } from '@/lib/data/site/team';
+import { getFilms } from '@/lib/data/site/films';
 import { applyTeamOverlay } from '@/lib/i18n/apply-team-overlay';
 import { applyFilmOverlays } from '@/lib/i18n/apply-film-overlay';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';

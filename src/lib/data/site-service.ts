@@ -12,6 +12,7 @@ export * from './site/content';
 export * from './site/team';
 export * from './site/films';
 export * from './site/settings';
+export * from './site/media-settings';
 export * from './site/pages';
 export * from './site/partners';
 export * from './site/events';

@@ -544,14 +544,13 @@ export const CUC_TEAM: Instructor[] = [
     "id": "malik-diouf",
     "name": "Malik Diouf",
     "role": "Co-fondateur Yamakasi",
-    "title": "Référent Parkour & Art du Déplacement",
+    "title": "Référent Parkour & Franchissements",
     "specialties": [
       "Parkour",
-      "Art du Déplacement",
       "Franchissements urbains",
       "Mobilité acrobatique"
     ],
-    "bio": "Membre fondateur des Yamakasi et pionnier de l'Art du Déplacement et du Parkour. Malik Diouf transmet les fondamentaux du mouvement urbain naturel : franchissements d'obstacles, équilibre dynamique, précision et gestion du risque.",
+    "bio": "Membre fondateur des Yamakasi et pionnier du Parkour. Malik Diouf transmet les fondamentaux du mouvement urbain naturel : franchissements d'obstacles, équilibre dynamique, précision et gestion du risque.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/3-malik.webp",
     "imdb": "https://www.imdb.com/name/nm0228086/",
     "externalUrl": "https://www.instagram.com/malikdiouf_yamakasi/",
@@ -1180,7 +1179,7 @@ export const CUC_TEAM: Instructor[] = [
     "id": "amedeo-cazzella",
     "name": "Amédéo Cazzella",
     "role": "Spécialiste Combats & Maniement d'Armes",
-    "title": "Formateur Référent Armes Blanches & Tactique",
+    "title": "Formateur Référent Armes Blanches & Combat Scénique",
     "specialties": [
       "Maniement d'armes blanches",
       "Combats tactiques",

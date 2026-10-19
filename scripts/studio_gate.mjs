@@ -83,12 +83,14 @@ const results = [];
 
 for (const step of steps) {
     const [bin, args] = step.command;
-    const shell = process.platform === 'win32';
-    const run = spawnSync(bin, args, {
-        cwd: ROOT,
-        stdio: 'inherit',
-        shell,
-    });
+    const run =
+        bin === 'node'
+            ? spawnSync(process.execPath, args, { cwd: ROOT, stdio: 'inherit' })
+            : spawnSync(`${bin} ${args.join(' ')}`, {
+                  cwd: ROOT,
+                  stdio: 'inherit',
+                  shell: true,
+              });
     results.push({ name: step.name, code: run.status ?? 1, blocking: step.blocking });
 }
 

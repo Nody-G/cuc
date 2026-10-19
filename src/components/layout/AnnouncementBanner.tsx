@@ -3,7 +3,8 @@ import { Link } from '@/i18n/navigation';
 
 import React, { useEffect, useState } from 'react';
 
-import { getActiveAnnouncement, getSiteSettings, SiteAnnouncement } from '@/lib/data/site-service';
+import { getActiveAnnouncement, getSiteSettings } from '@/lib/data/site/settings';
+import type { SiteAnnouncement } from '@/lib/data/site/types';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { entityRef } from '@/lib/preview/entity-ref';
 import { cucEntity } from '@/lib/preview/cuc-entity';

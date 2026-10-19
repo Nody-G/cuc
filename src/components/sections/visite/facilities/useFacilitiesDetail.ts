@@ -10,7 +10,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { CAMPUS_FACILITIES } from '@/data/campus';
-import { getCampusFacilities } from '@/lib/data/site-service';
+import { getCampusFacilities } from '@/lib/data/site/content';
 import { useEntityOverlays } from '@/lib/hooks/useEntityOverlays';
 import { usePageSectionData } from '@/lib/hooks/usePageSectionData';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';

@@ -1,5 +1,5 @@
 import { importReelViaMetaAction } from './instagram-featured';
-import { getFeaturedInstagramReels } from '@/lib/data/site/settings';
+import { getFeaturedInstagramReels } from '@/lib/data/site/media-settings';
 import { DEFAULT_FEATURED_REELS } from '@/data/instagram-reels';
 
 describe('instagram-featured actions & persistence', () => {
