@@ -46,6 +46,36 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
         .sort((a, b) => a.order - b.order);
       if (!children.length) return null;
 
+      // S'il n'y a qu'un seul choix dans le menu, lien direct sans sous-liste
+      if (children.length === 1) {
+        const singleChild = children[0];
+        if (singleChild.is_external) {
+          return (
+            <a
+              key={item.id}
+              href={singleChild.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={onClose}
+              className="text-base font-display uppercase tracking-widest text-zinc-200 hover:text-[#FFE500] py-2 border-b border-zinc-800 flex items-center justify-between"
+            >
+              <span>{item.label}</span>
+              <ExternalLink className="w-3.5 h-3.5 text-zinc-500" />
+            </a>
+          );
+        }
+        return (
+          <Link
+            key={item.id}
+            href={singleChild.href}
+            onClick={onClose}
+            className="text-base font-display uppercase tracking-widest text-zinc-200 hover:text-[#FFE500] py-2 border-b border-zinc-800"
+          >
+            {item.label}
+          </Link>
+        );
+      }
+
       return (
         <div key={item.id} className="py-2 border-b border-zinc-800">
           <span className="text-xs font-mono-tech uppercase text-[#FFE500] block mb-1">

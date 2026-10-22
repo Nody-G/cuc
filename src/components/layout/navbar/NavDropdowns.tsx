@@ -68,6 +68,34 @@ export const NavDropdownItem: React.FC<NavDropdownItemProps> = ({
     };
   }, []);
 
+  // S'il n'y a qu'un seul choix visible, pas de menu déroulant ni de flèche : redirection directe
+  if (children.length === 1) {
+    const single = children[0];
+    const baseClass = `py-1 transition-colors ${active
+      ? 'text-[#FFE500] font-bold border-b-2 border-[#FFE500]'
+      : 'text-zinc-300 hover:text-[#FFE500]'
+      }`;
+
+    if (single.is_external) {
+      return (
+        <a
+          href={single.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${baseClass} flex items-center gap-1`}
+        >
+          <span>{item.label}</span>
+        </a>
+      );
+    }
+
+    return (
+      <Link href={single.href} className={baseClass}>
+        {item.label}
+      </Link>
+    );
+  }
+
   return (
     <div
       className="relative"

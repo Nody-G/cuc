@@ -1,6 +1,6 @@
 # Revue — Couverture des champs éditables (Mode Studio)
 
-Généré le 2026-10-22T12:08:17.517Z par `scripts/audit_cuc_fields.mjs`.
+Généré le 2026-10-22T18:59:41.658Z par `scripts/audit_cuc_fields.mjs`.
 
 ## 1. Couverture par page
 

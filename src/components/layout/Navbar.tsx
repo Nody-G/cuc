@@ -103,8 +103,11 @@ export const Navbar: React.FC = () => {
           {/* Desktop Navigation Links — séquence unique ordonnée par `order` */}
           <div className="hidden xl:flex flex-nowrap items-center gap-2 xl:gap-3 2xl:gap-4.5 text-[11px] xl:text-[11.5px] 2xl:text-xs font-mono-tech uppercase tracking-wider shrink-0 whitespace-nowrap">
             {orderedItems.map((item) => {
-              // Dropdown (Formation & Stages, Events) — piloté par site_navigation
-              if (item.type === 'dropdown' && item.children?.length) {
+              const visibleChildren = (item.children ?? []).filter((child) => child.is_visible);
+
+              // Dropdown (Formation & Stages, etc.) — uniquement s'il y a plus d'un choix visible.
+              // S'il n'y a qu'un seul choix (ex: Events -> CUC Events), pas de flèche et lien direct.
+              if (item.type === 'dropdown' && visibleChildren.length > 1) {
                 return (
                   <NavDropdownItem
                     key={item.id}
@@ -122,11 +125,16 @@ export const Navbar: React.FC = () => {
                 : 'text-zinc-300 hover:text-[#FFE500]'
                 }`;
 
-              if (item.is_external || item.type === 'external') {
+              // Si c'est un menu dropdown avec un seul enfant visible, redirection directe vers cet enfant
+              const singleChild = item.type === 'dropdown' && visibleChildren.length === 1 ? visibleChildren[0] : null;
+              const targetHref = singleChild ? singleChild.href : (item.href ?? '/');
+              const isExternal = singleChild ? singleChild.is_external : (item.is_external || item.type === 'external');
+
+              if (isExternal) {
                 return (
                   <a
                     key={item.id}
-                    href={item.href ?? '#'}
+                    href={targetHref}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`${baseClass} flex items-center gap-1`}
@@ -139,7 +147,7 @@ export const Navbar: React.FC = () => {
               }
 
               return (
-                <Link key={item.id} href={item.href ?? '/'} className={baseClass}>
+                <Link key={item.id} href={targetHref} className={baseClass}>
                   {item.label}
                 </Link>
               );

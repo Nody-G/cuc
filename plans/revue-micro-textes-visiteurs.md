@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-10-22T12:08:20.281Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-10-22T18:59:44.598Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -8,11 +8,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | Catégorie | Occurrences |
 | --- | ---: |
 | ANNOTÉ — éditable en place | 318 |
-| DONNÉES — éditable par un écran existant | 109 |
+| DONNÉES — éditable par un écran existant | 111 |
 | TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 13 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 9 |
-| **Total** | **449** |
+| **Total** | **451** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -200,8 +200,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\navbar\NavMobileDrawer.tsx`
 
-- l.141 — `{chrome('brandName')}`
-- l.147 — `{chrome('brandTagline')}`
+- l.171 — `{chrome('brandName')}`
+- l.177 — `{chrome('brandTagline')}`
 
 ### `src\components\sections\contact\ContactCoordinatesSidebar.tsx`
 
@@ -655,8 +655,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\Navbar.tsx`
 
-- l.143 — `{item.label}`
-- l.165 — `{cta.label}`
+- l.151 — `{item.label}`
+- l.173 — `{cta.label}`
 
 ### `src\components\layout\RootShell.tsx`
 
@@ -680,13 +680,15 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\layout\navbar\NavDropdowns.tsx`
 
-- l.134 — `{child.label}`
-- l.138 — `{child.description}`
+- l.94 — `{item.label}`
+- l.162 — `{child.label}`
+- l.166 — `{child.description}`
 
 ### `src\components\layout\navbar\NavMobileDrawer.tsx`
 
-- l.97 — `{item.label}`
-- l.162 — `{cta.label}`
+- l.74 — `{item.label}`
+- l.127 — `{item.label}`
+- l.192 — `{cta.label}`
 
 ### `src\components\sections\contact\ContactForm.tsx`
 
