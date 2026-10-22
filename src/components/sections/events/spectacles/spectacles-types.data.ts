@@ -13,11 +13,11 @@ export interface SpectacleTypeItem {
 export const SPECTACLE_TYPES: SpectacleTypeItem[] = [
   {
     id: 'yamakasi-parkour',
-    badge: 'Urbain & Yamakasi',
-    title: 'Show Parkour & Yamakasi',
+    badge: 'Urbain & Parkour',
+    title: 'Show Parkour & Spectacle Cascadeur',
     subtitle: 'Chorégraphié par les pionniers de la discipline',
     description:
-      'Une démonstration physique d’une intensité rare : franchissements vertigineux, courses-poursuites dynamiques, acrobaties de rue et franchissements de modules. Conçu et interprété en collaboration avec les co-fondateurs historiques des Yamakasi et l’élite des traceurs CUC.',
+      'Une démonstration physique d’une intensité rare : franchissements vertigineux, courses-poursuites dynamiques, acrobaties de rue et franchissements de modules. Conçu et interprété en collaboration avec les cascadeurs et l’élite des traceurs CUC.',
     specs: [
       { label: 'Espace requis :', value: 'Intérieur ou extérieur (modules adaptables)' },
       { label: 'Artistes :', value: '3 à 12 cascadeurs / traceurs pros' },
@@ -25,7 +25,7 @@ export const SPECTACLE_TYPES: SpectacleTypeItem[] = [
       { label: 'Adaptabilité :', value: 'Scènes, toitures, structures métalliques, arènes' },
     ],
     image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp',
-    imageAlt: 'Spectacle Parkour et Yamakasi CUC',
+    imageAlt: 'Spectacle Parkour et Cascades CUC',
   },
   {
     id: 'medieval-combats',

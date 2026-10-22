@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-10-18T19:56:06.918Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-10-22T12:08:20.281Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -205,7 +205,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\contact\ContactCoordinatesSidebar.tsx`
 
-- l.82 — `{accessInfo?.phone || '06 72 84 94 92'}`
+- l.82 — `{accessInfo?.phone || '01 30 32 38 03'}`
 - l.99 — `{accessInfo?.email || 'contact@campus-universcascades.com'}`
 - l.129 — `{accessInfo?.train_info || accessInfo?.train || 'Gare du Cateau (TER Hauts-de-France) à 5 min en taxi / navette.'}`
 - l.135 — `{accessInfo?.car_info || accessInfo?.car || 'Autoroute A2 / A26 sortie Cambrai puis D643 direction Le Cateau.'}`
@@ -453,13 +453,13 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\team\TeamProductionGalleries.tsx`
 
-- l.79 — `{doublesBadge}`
-- l.85 — `{doublesTitle}`
-- l.110 — `{expandLabel}`
-- l.128 — `{equipmentBadge}`
-- l.134 — `{equipmentTitle}`
-- l.174 — `{studioBadge}`
-- l.180 — `{studioTitle}`
+- l.82 — `{doublesBadge}`
+- l.88 — `{doublesTitle}`
+- l.116 — `{expandLabel}`
+- l.157 — `{equipmentBadge}`
+- l.163 — `{equipmentTitle}`
+- l.203 — `{studioBadge}`
+- l.209 — `{studioTitle}`
 
 ### `src\components\sections\team\TeamProductionServices.tsx`
 
@@ -690,7 +690,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\contact\ContactForm.tsx`
 
-- l.223 — `{errorMessage}`
+- l.204 — `{errorMessage}`
 
 ### `src\components\sections\events\pillars\DbEventPillarCard.tsx`
 

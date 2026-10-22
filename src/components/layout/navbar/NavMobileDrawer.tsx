@@ -164,8 +164,8 @@ export const NavMobileDrawer: React.FC<NavMobileDrawerProps> = ({
               </Link>
               <div className="flex items-center justify-between text-xs font-mono-tech text-zinc-400 pt-2">
                 <span>{chrome('campusCity')}</span>
-                <a href="tel:+33672849492" className="text-[#FFE500]">
-                  06 72 84 94 92
+                <a href="tel:+33130323803" className="text-[#FFE500]">
+                  01 30 32 38 03
                 </a>
               </div>
 

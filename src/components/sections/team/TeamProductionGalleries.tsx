@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { LightboxImage } from '@/components/ui/LightboxModal';
 import { STUDIO_GALLERY, CASCADEUR_GALLERY, EQUIPMENT_GALLERY } from './teamGalleries.data';
-import { Maximize2, Eye } from 'lucide-react';
+import { Maximize2, Eye, ChevronDown, ChevronUp } from 'lucide-react';
 import { usePageSectionData, mergeSectionItems } from '@/lib/hooks/usePageSectionData';
 
 interface TeamProductionGalleriesProps {
@@ -40,6 +40,9 @@ export const TeamProductionGalleries: React.FC<TeamProductionGalleriesProps> = (
   const equipmentBadge = block?.equipment_badge || t('galleries.equipmentBadge');
   const equipmentTitle = block?.equipment_title || t('galleries.equipmentTitle');
   const expandLabel = block?.expand || t('galleries.expand');
+
+  const [isDoublesExpanded, setIsDoublesExpanded] = React.useState(false);
+  const INITIAL_VISIBLE_DOUBLES = 8;
 
   const studioGallery = React.useMemo(
     () =>
@@ -86,34 +89,60 @@ export const TeamProductionGalleries: React.FC<TeamProductionGalleriesProps> = (
             </h2>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {doublesGallery.map((item, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => onOpenLightbox(doublesGallery, i)}
-                data-cuc-field={`sections_data.galeries_production.doubles_items.${i}.src`}
-                data-cuc-kind="image"
-                className="relative aspect-video border border-zinc-800 hover:border-[#FFE500] overflow-hidden group bg-black cursor-pointer text-left focus:outline-hidden transition-all shadow-md"
-                title={t('galleries.zoomStunt')}
-              >
-                <Image
-                  src={item.src}
-                  alt={item.title}
-                  fill
-                  sizes="25vw"
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <span className="p-2.5 bg-black/85 rounded-full text-[#FFE500] border border-[#FFE500]/60 flex items-center gap-1.5 text-xs font-mono-tech">
-                    <Eye className="w-3.5 h-3.5" />
-                    <span data-cuc-field="sections_data.galeries_production.expand">
-                      {expandLabel}
+            {(isDoublesExpanded ? doublesGallery : doublesGallery.slice(0, INITIAL_VISIBLE_DOUBLES)).map((item, i) => {
+              const originalIndex = doublesGallery.indexOf(item);
+              const targetIndex = originalIndex >= 0 ? originalIndex : i;
+              return (
+                <button
+                  key={targetIndex}
+                  type="button"
+                  onClick={() => onOpenLightbox(doublesGallery, targetIndex)}
+                  data-cuc-field={`sections_data.galeries_production.doubles_items.${targetIndex}.src`}
+                  data-cuc-kind="image"
+                  className="relative aspect-video border border-zinc-800 hover:border-[#FFE500] overflow-hidden group bg-black cursor-pointer text-left focus:outline-hidden transition-all shadow-md"
+                  title={t('galleries.zoomStunt')}
+                >
+                  <Image
+                    src={item.src}
+                    alt={item.title}
+                    fill
+                    sizes="25vw"
+                    className="object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="p-2.5 bg-black/85 rounded-full text-[#FFE500] border border-[#FFE500]/60 flex items-center gap-1.5 text-xs font-mono-tech">
+                      <Eye className="w-3.5 h-3.5" />
+                      <span data-cuc-field="sections_data.galeries_production.expand">
+                        {expandLabel}
+                      </span>
                     </span>
-                  </span>
-                </div>
-              </button>
-            ))}
+                  </div>
+                </button>
+              );
+            })}
           </div>
+
+          {doublesGallery.length > INITIAL_VISIBLE_DOUBLES && (
+            <div className="mt-8 text-center">
+              <button
+                type="button"
+                onClick={() => setIsDoublesExpanded((prev) => !prev)}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[#101016] border border-zinc-700 hover:border-[#FFE500] text-zinc-300 hover:text-white text-xs font-mono-tech uppercase font-bold tracking-wider transition-all cursor-pointer shadow-md hover:bg-[#151520]"
+              >
+                {isDoublesExpanded ? (
+                  <>
+                    <ChevronUp className="w-4 h-4 text-[#FFE500]" />
+                    <span>{t('galleries.showLessPhotos')}</span>
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="w-4 h-4 text-[#FFE500]" />
+                    <span>{t('galleries.showAllPhotos', { count: doublesGallery.length - INITIAL_VISIBLE_DOUBLES })}</span>
+                  </>
+                )}
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

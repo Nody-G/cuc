@@ -48,7 +48,7 @@ export const MobileStickyCTA: React.FC = () => {
 
   /** Brouillon de réglages du Mode Studio : la surcharge locale prime. */
   const previewSettings = usePreviewSettings();
-  const phone = previewSettings.phone || settings.phone || '(+33) 06 72 84 94 92';
+  const phone = previewSettings.phone || settings.phone || '01 30 32 38 03';
   // Les libellés de `site_settings` sont en français (données FR) : en mode
   // anglais, on sert le catalogue `common`, sinon les réglages du Cockpit.
   const isEn = locale === 'en';

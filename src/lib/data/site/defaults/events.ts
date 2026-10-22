@@ -8,10 +8,10 @@ import { SiteEvent } from '../types';
 export const DEFAULT_EVENTS: SiteEvent[] = [
   {
     id: 'spectacles-cascades',
-    title: 'Spectacles de Cascades & Shows Yamakasi',
+    title: 'Spectacles de Cascades & Shows Live',
     subtitle: 'Combats chorégraphiés, voltige urbaine et pyrotechnie en direct',
     badge: 'PRESTATIONS & SHOWS EN DIRECT',
-    description: 'Spectacles vivants sur-mesure pour parcs, festivals, lancements de produit et grands événements. Combats chorégraphiés, voltige Yamakasi, chutes de hauteur et torches humaines.',
+    description: 'Spectacles vivants sur-mesure pour parcs, festivals, lancements de produit et grands événements. Combats chorégraphiés, voltige, chutes de hauteur et torches humaines.',
     features: [
       'Cascadeurs professionnels diplômés',
       'Combats chorégraphiés (médiéval, contemporain, SFX)',

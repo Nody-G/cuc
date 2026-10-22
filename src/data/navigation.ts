@@ -157,7 +157,7 @@ export const DEFAULT_NAVIGATION: SiteNavigation = {
                 children: [
                     {
                         id: 'cuc-events-agence',
-                        label: 'CUC EVENTS AGENCE',
+                        label: 'CUC EVENTS',
                         description: 'Prestations & coordination événementielle',
                         href: '/cuc-events-agence',
                         order: 1,
@@ -165,11 +165,11 @@ export const DEFAULT_NAVIGATION: SiteNavigation = {
                     },
                     {
                         id: 'spectacles-yamakasi',
-                        label: 'SPECTACLES YAMAKASI',
+                        label: 'SPECTACLES CASCADEURS',
                         description: 'Shows de parkour & cascades live',
                         href: '/spectacles-cascadeurs-yamakasi',
                         order: 2,
-                        is_visible: true,
+                        is_visible: false,
                     },
                     {
                         id: 'animations-airbag',
@@ -177,7 +177,7 @@ export const DEFAULT_NAVIGATION: SiteNavigation = {
                         description: 'Airbag parkour pour tous publics',
                         href: '/animations-airbag-parkour',
                         order: 3,
-                        is_visible: true,
+                        is_visible: false,
                     },
                     {
                         id: 'team-building',
@@ -185,7 +185,7 @@ export const DEFAULT_NAVIGATION: SiteNavigation = {
                         description: 'Cohésion d’équipe par la cascade',
                         href: '/team-building-cascades',
                         order: 4,
-                        is_visible: true,
+                        is_visible: false,
                     },
                 ],
             },

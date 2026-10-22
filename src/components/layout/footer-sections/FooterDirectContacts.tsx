@@ -27,7 +27,7 @@ export const FooterDirectContacts: React.FC = () => {
   const socialLinks = useSocialLinks();
   /** Brouillon de réglages du Mode Studio : la surcharge locale prime. */
   const previewSettings = usePreviewSettings();
-  const phone = previewSettings.phone || settings.phone || '(+33) 06 72 84 94 92';
+  const phone = previewSettings.phone || settings.phone || '01 30 32 38 03';
   const email =
     previewSettings.email_general ||
     settings.email_general ||

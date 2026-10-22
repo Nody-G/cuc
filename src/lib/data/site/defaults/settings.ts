@@ -12,8 +12,8 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   founding_year: "2008",
   founder_name: "Lucas Dollfus",
 
-  phone: "+33 (0)6 72 84 94 92",
-  emergency_phone: "+33 (0)6 72 84 94 92",
+  phone: "01 30 32 38 03",
+  emergency_phone: "01 30 32 38 03",
   email_general: "contact@campus-universcascades.com",
   email_admissions: "formations@campus-universcascades.com",
   email_events: "events@campus-universcascades.com",

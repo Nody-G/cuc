@@ -74,12 +74,12 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
                 <span {...cucMicro('contact.sidebar.directPhone')}>{t('directPhone')}</span>
               </strong>
               <a
-                href={`tel:${(accessInfo?.phone || '06 72 84 94 92').replace(/\s+/g, '')}`}
+                href={`tel:${(accessInfo?.phone || '01 30 32 38 03').replace(/\s+/g, '')}`}
                 data-cuc-field="sections_data.access_info.phone"
                 data-cuc-kind="text"
                 className="text-base font-bold text-white hover:text-[#FFE500]"
               >
-                {accessInfo?.phone || '06 72 84 94 92'}
+                {accessInfo?.phone || '01 30 32 38 03'}
               </a>
             </div>
           </div>

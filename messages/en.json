@@ -407,7 +407,7 @@
             "topicsGroupAria": "Request topics",
             "labelExperience": "Sporting / artistic background (martial arts, gymnastics, parkour…)",
             "placeholderExperience": "e.g. 5 years of judo, parkour practice…",
-            "labelMessage": "Your message / details *",
+            "labelMessage": "Your message *",
             "placeholderMessage": "Tell us about your goals, questions or planned funding (AFDAS, etc.)…",
             "submit": "Send my application / message",
             "submitting": "Sending…",
@@ -951,7 +951,7 @@
     },
     "spectacles": {
         "heroBadge": "CINEMA TAKES TO THE STAGE",
-        "heroTitle": "STUNT & YAMAKASI SHOWS",
+        "heroTitle": "STUNT SHOWS",
         "heroSubtitle": "Relive the action sequences from your favourite films with the professional stunt performers and film doubles of Campus Univers Cascades. Fights, falls, parkour, humour and stage effects for all your events.",
         "ctaPrimaryText": "Request a Show Quote",
         "ctaSecondaryText": "Watch our Live Videos",
@@ -959,7 +959,7 @@
         "logoAlt": "CUC Events shows",
         "breadcrumbHome": "HOME",
         "breadcrumbEvents": "CUC EVENTS",
-        "breadcrumbCurrent": "STUNT & YAMAKASI SHOWS",
+        "breadcrumbCurrent": "STUNT SHOWS",
         "heroMeta": "STUNT PERFORMERS • ACTORS • TURNKEY SHOWS",
         "panelTag": "CUC EVENTS SHOWS",
         "panelSub": "STUNT PERFORMERS & FILM DOUBLES",
@@ -981,7 +981,7 @@
             },
             {
                 "label": "Disciplines included:",
-                "value": "Screen fights, high falls, comedy, acrobatics, Yamakasi parkour"
+                "value": "Screen fights, high falls, comedy, acrobatics, parkour"
             }
         ],
         "showImageAlt": "CUC stunt performers on stage",
@@ -1175,7 +1175,9 @@
             "zoomStudio": "Click to view full screen",
             "zoomStunt": "Click to enlarge the stunt photo",
             "zoomEquipment": "Click to view the equipment in detail",
-            "expand": "Enlarge"
+            "expand": "Enlarge",
+            "showAllPhotos": "View all action photos (+{count})",
+            "showLessPhotos": "Show less"
         },
         "hallOfFame": {
             "emblemAlt": "CUC emblem",
@@ -1376,7 +1378,7 @@
         "successTitle": "Application submitted successfully!",
         "successBody": "Your request has been recorded for <strong>{name}</strong>. A CUC course officer will contact you within 24 to 48 hours to confirm your application and session availability.",
         "contactAddress": "CUC Campus, 59360 Le Cateau-Cambrésis (Hauts-de-France)",
-        "contactPhone": "Course office: (+33) 06 72 84 94 92",
+        "contactPhone": "Course office: 01 30 32 38 03",
         "closeCase": "Close the application"
     },
     "lightbox": {

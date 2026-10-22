@@ -65,8 +65,8 @@ export const VisiteAccessTransport: React.FC = () => {
   const mapExternalLabel = block?.map_external_label || 'Google Maps';
   const standardLabel = block?.standard_label || t('standardLabel');
   const phoneLabel = block?.phone_label || t('phoneLabel');
-  const phoneDisplay = block?.phone_display || '(+33) 06 72 84 94 92';
-  const phoneHref = block?.phone_href || 'tel:+33672849492';
+  const phoneDisplay = block?.phone_display || '01 30 32 38 03';
+  const phoneHref = block?.phone_href || 'tel:+33130323803';
   const emailLabel = block?.email_label || t('emailLabel');
   const emailAddress = block?.email_address || 'contact@campus-universcascades.com';
   const emailHref = block?.email_href || 'mailto:contact@campus-universcascades.com';

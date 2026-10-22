@@ -181,25 +181,6 @@ export const ContactForm: React.FC = () => {
 
           <div>
             <label
-              htmlFor="contact-sportExperience"
-              className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
-            >
-              <span {...cucMicro('contact.form.labelExperience')}>{t('labelExperience')}</span>
-            </label>
-            <input
-              id="contact-sportExperience"
-              type="text"
-              value={formData.sportExperience}
-              onChange={(e) =>
-                setFormData({ ...formData, sportExperience: e.target.value })
-              }
-              placeholder={t('placeholderExperience')}
-              className="w-full bg-[#14141c] border border-zinc-800 p-3 text-white focus:border-[#FFE500] focus:outline-hidden"
-            />
-          </div>
-
-          <div>
-            <label
               htmlFor="contact-message"
               className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
             >

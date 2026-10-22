@@ -109,7 +109,7 @@ export const TeamProductionServices: React.FC = () => {
                 >
                   {t('services.phoneLabel')}
                 </span>
-                <a href="tel:+33672849492" className="text-white hover:text-[#FFE500]">06 72 84 94 92</a>
+                <a href="tel:+33130323803" className="text-white hover:text-[#FFE500]">01 30 32 38 03</a>
               </div>
               <div>
                 <span

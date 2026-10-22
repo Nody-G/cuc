@@ -407,7 +407,7 @@
             "topicsGroupAria": "Sujets de demande",
             "labelExperience": "Expérience Sportive / Artistique (Arts martiaux, gymnastique, parkour…)",
             "placeholderExperience": "Ex : 5 ans de judo, pratique du parkour…",
-            "labelMessage": "Votre Message / Précisions *",
+            "labelMessage": "Votre Message *",
             "placeholderMessage": "Indiquez vos objectifs, questions ou financements envisagés (AFDAS, etc.)…",
             "submit": "Envoyer ma Candidature / Message",
             "submitting": "Transmission en cours…",
@@ -951,7 +951,7 @@
     },
     "spectacles": {
         "heroBadge": "LE CINÉMA S'INVITE SUR SCÈNE",
-        "heroTitle": "SPECTACLES CASCADEURS & YAMAKASI",
+        "heroTitle": "SPECTACLES CASCADEURS",
         "heroSubtitle": "Revivez les séquences d'action de vos films préférés avec les cascadeurs professionnels et doublures cinéma du Campus Univers Cascades. Combats, chutes, Parkour, humour et effets scéniques pour tous vos événements.",
         "ctaPrimaryText": "Demander un Devis Spectacle",
         "ctaSecondaryText": "Voir nos Vidéos en Direct",
@@ -959,7 +959,7 @@
         "logoAlt": "CUC Events Spectacles",
         "breadcrumbHome": "ACCUEIL",
         "breadcrumbEvents": "CUC EVENTS",
-        "breadcrumbCurrent": "SPECTACLES CASCADEURS & YAMAKASI",
+        "breadcrumbCurrent": "SPECTACLES CASCADEURS",
         "heroMeta": "CASCADEURS • COMÉDIENS • SHOWS CLÉ EN MAIN",
         "panelTag": "CUC EVENTS SPECTACLES",
         "panelSub": "CASCADEURS & DOUBLURES CINÉMA",
@@ -981,7 +981,7 @@
             },
             {
                 "label": "Disciplines intégrées :",
-                "value": "Combats scéniques, chutes de hauteur, comédie, acrobaties, Parkour Yamakasi"
+                "value": "Combats scéniques, chutes de hauteur, comédie, acrobaties, Parkour"
             }
         ],
         "showImageAlt": "Spectacles cascadeurs CUC sur scène",
@@ -1175,7 +1175,9 @@
             "zoomStudio": "Cliquer pour voir en plein écran",
             "zoomStunt": "Cliquer pour agrandir la photo de cascade",
             "zoomEquipment": "Cliquer pour voir l'équipement en détail",
-            "expand": "Agrandir"
+            "expand": "Agrandir",
+            "showAllPhotos": "Voir toutes les photos d'action (+{count})",
+            "showLessPhotos": "Réduire l'affichage"
         },
         "hallOfFame": {
             "emblemAlt": "Blason CUC",
@@ -1376,7 +1378,7 @@
         "successTitle": "Dossier Transmis avec Succès !",
         "successBody": "Votre demande a bien été enregistrée pour le compte de <strong>{name}</strong>. Un responsable pédagogique du CUC vous contactera sous 24 à 48 heures pour valider votre dossier et les disponibilités de session.",
         "contactAddress": "Campus CUC, 59360 Le Cateau-Cambrésis (Hauts-de-France)",
-        "contactPhone": "Standard pédagogique : (+33) 06 72 84 94 92",
+        "contactPhone": "Standard pédagogique : 01 30 32 38 03",
         "closeCase": "Fermer le Dossier"
     },
     "lightbox": {

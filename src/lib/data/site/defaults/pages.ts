@@ -301,7 +301,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
   },
   'cuc-events-agence': {
     slug: 'cuc-events-agence',
-    title: 'CUC Events Agence',
+    title: 'CUC Events',
     meta_title: 'CUC Events | Agence de Spectacles & Cascades en Direct',
     meta_description: "Spectacles vivants, animations airbag géant et team building d'entreprise orchestrés par les cascadeurs professionnels du CUC.",
     og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Image1-scaled.webp',
@@ -399,14 +399,14 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
   },
   'spectacles-cascadeurs-yamakasi': {
     slug: 'spectacles-cascadeurs-yamakasi',
-    title: 'Spectacles Yamakasi',
-    meta_title: 'Spectacles de Cascadeurs & Shows Yamakasi | CUC Events',
-    meta_description: "Spectacles vivants d'action, combats chorégraphiés et acrobaties urbaines Yamakasi pour vos événements, festivals et parcs.",
+    title: 'Spectacles Cascadeurs',
+    meta_title: 'Spectacles de Cascadeurs | CUC Events',
+    meta_description: "Spectacles vivants d'action, combats chorégraphiés et acrobaties urbaines pour vos événements, festivals et parcs.",
     og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp',
     hero: {
       badge: 'LE CINÉMA S’INVITE SUR SCÈNE',
-      title: 'SPECTACLES CASCADEURS & YAMAKASI',
-      subtitle: "Des performances scéniques explosives alliant voltige urbaine Yamakasi, combats chorégraphiés, pyrotechnie et cascades de haute précision.",
+      title: 'SPECTACLES CASCADEURS',
+      subtitle: "Des performances scéniques explosives alliant voltige urbaine, combats chorégraphiés, pyrotechnie et cascades de haute précision.",
       cta_primary_text: 'Réserver un Spectacle',
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Voir les vidéos de shows',

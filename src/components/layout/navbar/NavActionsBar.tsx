@@ -28,7 +28,7 @@ export const NavActionsBar: React.FC = () => {
     previewSettings.hero_primary_cta_text || settings.hero_primary_cta_text || 'Contact & Projets';
   const ctaUrl =
     previewSettings.hero_primary_cta_url || settings.hero_primary_cta_url || '/contact-cuc';
-  const phone = previewSettings.phone || settings.phone || '06 72 84 94 92';
+  const phone = previewSettings.phone || settings.phone || '01 30 32 38 03';
 
   /** Recharge les réglages du site (état initial + synchronisation Realtime). */
   const loadSettings = React.useCallback(() => {
