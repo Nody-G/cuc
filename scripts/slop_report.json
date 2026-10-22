@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-18T17:26:33.976Z",
-  "scannedFiles": 1555,
-  "total": 43,
+  "generatedAt": "2026-10-22T19:27:35.342Z",
+  "scannedFiles": 1562,
+  "total": 37,
   "byGroup": {
-    "badge": 21,
-    "terminologie": 9,
+    "badge": 19,
     "superlatif": 5,
+    "terminologie": 5,
     "jargon": 8
   },
   "byRule": [
@@ -27,7 +27,7 @@
     {
       "id": "badge-tactique",
       "group": "badge",
-      "count": 3
+      "count": 1
     },
     {
       "id": "badge-elite",
@@ -57,7 +57,7 @@
     {
       "id": "termino-art-du-deplacement",
       "group": "terminologie",
-      "count": 9
+      "count": 5
     },
     {
       "id": "jargon-tactical",
@@ -79,20 +79,6 @@
       "rule": "badge-exclusif",
       "group": "badge",
       "text": "nielsVibeCoding: '100% propriété exclusive du CUC, 0 abonnement logiciel',"
-    },
-    {
-      "file": "src\\app\\(site)\\[locale]\\stunt-workshop-cuc\\sections\\WorkshopProgram.tsx",
-      "line": 120,
-      "rule": "badge-tactique",
-      "group": "badge",
-      "text": "Tactique & BRI"
-    },
-    {
-      "file": "src\\components\\sections\\events\\spectacles\\spectacles-types.data.ts",
-      "line": 17,
-      "rule": "termino-art-du-deplacement",
-      "group": "terminologie",
-      "text": "title: 'Show Parkour & Art du Déplacement',"
     },
     {
       "file": "src\\data\\celebrities.ts",
@@ -142,34 +128,6 @@
       "rule": "superl-plongez-au-coeur",
       "group": "superlatif",
       "text": "description: \"Plongez au cœur du métier de cascadeur ! 🎬🔥\\n\\nRendez-vous chez @campus.univers.cascades , une école spécialisée dans la formation de cascadeurs. Entre combats, acrobaties, chutes et g"
-    },
-    {
-      "file": "src\\data\\team.ts",
-      "line": 547,
-      "rule": "termino-art-du-deplacement",
-      "group": "terminologie",
-      "text": "\"title\": \"Référent Parkour & Art du Déplacement\","
-    },
-    {
-      "file": "src\\data\\team.ts",
-      "line": 550,
-      "rule": "termino-art-du-deplacement",
-      "group": "terminologie",
-      "text": "\"Art du Déplacement\","
-    },
-    {
-      "file": "src\\data\\team.ts",
-      "line": 554,
-      "rule": "termino-art-du-deplacement",
-      "group": "terminologie",
-      "text": "\"bio\": \"Membre fondateur des Yamakasi et pionnier de l'Art du Déplacement et du Parkour. Malik Diouf transmet les fondamentaux du mouvement urbain naturel : franchissements d'obstacles, équilibre dyna"
-    },
-    {
-      "file": "src\\data\\team.ts",
-      "line": 1183,
-      "rule": "badge-tactique",
-      "group": "badge",
-      "text": "\"title\": \"Formateur Référent Armes Blanches & Tactique\","
     },
     {
       "file": "scripts\\apply_all_coaches_and_actors.mjs",

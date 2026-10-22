@@ -160,7 +160,7 @@ const CUC_SIGN_BRIDGE_ROWS = [
   ],
   [
     'CUC Sign → Site',
-    'Les formations (dates, intitulés), les 12 coachs et les lieux du campus : le site les lit en direct, en lecture seule.',
+    'Les formations (dates, intitulés), les profils de l’équipe (19 fiches) et les lieux du campus : le site les lit en direct, en lecture seule.',
     'En service',
   ],
   [

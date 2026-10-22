@@ -1,203 +1,203 @@
 {
-  "generatedAt": "2026-09-29T16:59:04.021Z",
+  "generatedAt": "2026-10-22T19:19:26.730Z",
   "git": {
     "branch": "master",
-    "head": "dff31d3",
+    "head": "42669ca",
     "remote": "https://github.com/Nody-G/cuc.git",
-    "totalCommits": 345,
+    "totalCommits": 397,
     "firstCommit": "2026-09-16",
-    "lastCommit": "2026-09-29",
-    "commits30d": 345,
+    "lastCommit": "2026-10-22",
+    "commits30d": 192,
     "contributors": [
       {
-        "commits": 345,
+        "commits": 397,
         "name": "Nody-G"
       }
     ]
   },
   "weekly": [
     {
-      "week": "04-07",
+      "week": "04-30",
       "count": 0
     },
     {
-      "week": "04-14",
+      "week": "05-07",
       "count": 0
     },
     {
-      "week": "04-21",
+      "week": "05-14",
       "count": 0
     },
     {
-      "week": "04-28",
+      "week": "05-21",
       "count": 0
     },
     {
-      "week": "05-05",
+      "week": "05-28",
       "count": 0
     },
     {
-      "week": "05-12",
+      "week": "06-04",
       "count": 0
     },
     {
-      "week": "05-19",
+      "week": "06-11",
       "count": 0
     },
     {
-      "week": "05-26",
+      "week": "06-18",
       "count": 0
     },
     {
-      "week": "06-02",
+      "week": "06-25",
       "count": 0
     },
     {
-      "week": "06-09",
+      "week": "07-02",
       "count": 0
     },
     {
-      "week": "06-16",
+      "week": "07-09",
       "count": 0
     },
     {
-      "week": "06-23",
+      "week": "07-16",
       "count": 0
     },
     {
-      "week": "06-30",
+      "week": "07-23",
       "count": 0
     },
     {
-      "week": "07-07",
+      "week": "07-30",
       "count": 0
     },
     {
-      "week": "07-14",
+      "week": "08-06",
       "count": 0
     },
     {
-      "week": "07-21",
+      "week": "08-13",
       "count": 0
     },
     {
-      "week": "07-28",
+      "week": "08-20",
       "count": 0
     },
     {
-      "week": "08-04",
+      "week": "08-27",
       "count": 0
     },
     {
-      "week": "08-11",
+      "week": "09-03",
       "count": 0
     },
     {
-      "week": "08-18",
-      "count": 0
+      "week": "09-10",
+      "count": 14
     },
     {
-      "week": "08-25",
-      "count": 0
+      "week": "09-17",
+      "count": 239
     },
     {
-      "week": "09-01",
-      "count": 0
+      "week": "09-24",
+      "count": 101
     },
     {
-      "week": "09-08",
-      "count": 0
+      "week": "10-01",
+      "count": 35
     },
     {
-      "week": "09-15",
-      "count": 168
+      "week": "10-08",
+      "count": 5
     },
     {
-      "week": "09-22",
-      "count": 164
+      "week": "10-15",
+      "count": 1
     },
     {
-      "week": "09-29",
-      "count": 13
+      "week": "10-22",
+      "count": 2
     }
   ],
   "code": {
     "totals": {
-      "lines": 191937,
-      "blank": 18854,
-      "comment": 19759,
-      "files": 1441
+      "lines": 225022,
+      "blank": 22553,
+      "comment": 24009,
+      "files": 1653
     },
     "zones": {
       "Cockpit": {
-        "lines": 43511,
-        "files": 436,
-        "blank": 4073,
-        "comment": 3407
+        "lines": 56538,
+        "files": 524,
+        "blank": 5250,
+        "comment": 4963
       },
       "Vitrine (pages)": {
-        "lines": 8568,
-        "files": 108,
-        "blank": 883,
-        "comment": 806
+        "lines": 9192,
+        "files": 111,
+        "blank": 912,
+        "comment": 879
       },
       "Composants UI": {
-        "lines": 21047,
-        "files": 204,
-        "blank": 2063,
-        "comment": 2128
+        "lines": 21866,
+        "files": 213,
+        "blank": 2139,
+        "comment": 2230
       },
       "i18n, données & types": {
-        "lines": 21203,
+        "lines": 21415,
         "files": 19,
-        "blank": 102,
-        "comment": 198
+        "blank": 106,
+        "comment": 216
       },
       "Bibliothèques & données": {
-        "lines": 27493,
-        "files": 260,
-        "blank": 3158,
-        "comment": 4947
+        "lines": 40115,
+        "files": 347,
+        "blank": 4674,
+        "comment": 6863
       },
       "Autres": {
-        "lines": 40,
+        "lines": 70,
         "files": 1,
-        "blank": 6,
-        "comment": 13
+        "blank": 13,
+        "comment": 16
       },
       "Outillage (scripts)": {
-        "lines": 55331,
-        "files": 320,
-        "blank": 5681,
-        "comment": 7708
+        "lines": 58539,
+        "files": 338,
+        "blank": 6025,
+        "comment": 8112
       },
       "Documentation": {
-        "lines": 14744,
-        "files": 93,
-        "blank": 2888,
-        "comment": 552
+        "lines": 17287,
+        "files": 100,
+        "blank": 3434,
+        "comment": 730
       }
     },
     "byExt": {
       ".ts": {
-        "lines": 76684,
-        "files": 537
+        "lines": 97870,
+        "files": 681
       },
       ".tsx": {
-        "lines": 44521,
-        "files": 485
+        "lines": 52016,
+        "files": 536
       },
       ".css": {
         "lines": 1051,
         "files": 8
       },
       ".json": {
-        "lines": 994,
-        "files": 4
+        "lines": 1064,
+        "files": 5
       },
       ".mjs": {
-        "lines": 50157,
-        "files": 301
+        "lines": 51986,
+        "files": 311
       },
       ".sql": {
         "lines": 4259,
@@ -208,8 +208,8 @@
         "files": 1
       },
       ".md": {
-        "lines": 14011,
-        "files": 90
+        "lines": 16516,
+        "files": 96
       }
     },
     "largest": [
@@ -219,7 +219,7 @@
       },
       {
         "file": "src/data/team.ts",
-        "lines": 4101
+        "lines": 4100
       },
       {
         "file": "scripts/generate_app_dossier.mjs",
@@ -251,15 +251,27 @@
       },
       {
         "file": "plans/revue-micro-textes-visiteurs.md",
-        "lines": 852
+        "lines": 906
+      },
+      {
+        "file": "plans/plan-backups-automatiques-2026.md",
+        "lines": 867
       },
       {
         "file": "scripts/generate_audit_report.mjs",
-        "lines": 846
+        "lines": 852
+      },
+      {
+        "file": "plans/plan-performance-first-load-2026.md",
+        "lines": 786
       },
       {
         "file": "src/data/instagram-reels.ts",
         "lines": 756
+      },
+      {
+        "file": "src/data/celebrities.ts",
+        "lines": 692
       },
       {
         "file": "plans/revue-affiches-films.md",
@@ -279,7 +291,11 @@
       },
       {
         "file": "src/data/navigation.ts",
-        "lines": 583
+        "lines": 599
+      },
+      {
+        "file": "scripts/repair_translation_overlays.ts",
+        "lines": 580
       },
       {
         "file": "plans/audit-categories-films.json",
@@ -288,10 +304,6 @@
       {
         "file": "scripts/lib/credit-curator.mjs",
         "lines": 542
-      },
-      {
-        "file": "src/data/celebrities.ts",
-        "lines": 532
       },
       {
         "file": "plans/rapport-scraping-20-coachs-imdb.md",
@@ -303,7 +315,7 @@
       },
       {
         "file": "scripts/audit_cuc_fields.mjs",
-        "lines": 501
+        "lines": 502
       },
       {
         "file": "plans/revue-transformations-3d-flexibles.md",
@@ -320,412 +332,87 @@
       {
         "file": "scripts/fix_team_production_i18n.mjs",
         "lines": 464
-      },
-      {
-        "file": "scripts/apply_actor_name_alignment_migration.ts",
-        "lines": 450
-      },
-      {
-        "file": "scripts/apply_all_coaches_and_actors.mjs",
-        "lines": 439
-      },
-      {
-        "file": "scripts/instagram_harvest_reels.mjs",
-        "lines": 435
       }
     ],
     "tsx": {
-      "files": 485,
-      "clientComponents": 330,
-      "componentExports": 407
+      "files": 536,
+      "clientComponents": 372,
+      "componentExports": 446
     },
-    "hooks": 95,
-    "dynamicImports": 3,
+    "hooks": 109,
+    "dynamicImports": 8,
     "tests": {
       "available": true,
-      "total": 789,
-      "passed": 789,
+      "total": 1188,
+      "passed": 1188,
       "failed": 0,
-      "files": 103
+      "files": 160
     },
-    "plans": 93
+    "plans": 100
   },
   "routes": {
-    "total": 47,
+    "total": 50,
     "public": 18,
-    "admin": 29,
-    "api": 1,
-    "pageWeights": [
-      {
-        "route": "/",
-        "status": 200,
-        "bytes": 246807,
-        "ms": 292
-      },
-      {
-        "route": "/animations-airbag-parkour",
-        "status": 200,
-        "bytes": 164184,
-        "ms": 345
-      },
-      {
-        "route": "/contact-cuc",
-        "status": 200,
-        "bytes": 183448,
-        "ms": 349
-      },
-      {
-        "route": "/cuc-events-agence",
-        "status": 200,
-        "bytes": 179995,
-        "ms": 368
-      },
-      {
-        "route": "/cuc-team-cascadeur",
-        "status": 200,
-        "bytes": 498430,
-        "ms": 691
-      },
-      {
-        "route": "/equipe-cascadeurs-pro",
-        "status": 200,
-        "bytes": 333332,
-        "ms": 445
-      },
-      {
-        "route": "/formation-de-cascadeur",
-        "status": 200,
-        "bytes": 197583,
-        "ms": 348
-      },
-      {
-        "route": "/partenaires",
-        "status": 200,
-        "bytes": 201243,
-        "ms": 363
-      },
-      {
-        "route": "/preview",
-        "status": 404,
-        "bytes": 9,
-        "ms": 18
-      },
-      {
-        "route": "/spectacles-cascadeurs-yamakasi",
-        "status": 200,
-        "bytes": 166516,
-        "ms": 1734
-      },
-      {
-        "route": "/stages-cascades-parkour-2",
-        "status": 200,
-        "bytes": 185918,
-        "ms": 349
-      },
-      {
-        "route": "/stunt-workshop-cuc",
-        "status": 200,
-        "bytes": 178736,
-        "ms": 389
-      },
-      {
-        "route": "/team-building-cascades",
-        "status": 200,
-        "bytes": 183848,
-        "ms": 369
-      },
-      {
-        "route": "/videos-cascadeur",
-        "status": 200,
-        "bytes": 217715,
-        "ms": 437
-      },
-      {
-        "route": "/visite-guidee",
-        "status": 200,
-        "bytes": 278344,
-        "ms": 512
-      },
-      {
-        "route": "/visite-virtuelle",
-        "status": 200,
-        "bytes": 160607,
-        "ms": 382
-      }
-    ]
+    "admin": 32,
+    "api": 2,
+    "pageWeights": null
   },
   "bundle": {
-    "staticChunks": 5294342,
-    "server": 79303187,
+    "staticChunks": 5132233,
+    "server": 39090140,
     "publicAssets": {
-      "bytes": 60741457,
-      "files": 105
+      "bytes": 13568444,
+      "files": 153
     },
     "topChunks": [
       {
-        "file": ".next/static/chunks/1xt94yr268_tq.js",
-        "bytes": 949043
+        "file": ".next/static/chunks/9848-9ffbd01cf16ba356.js",
+        "bytes": 1195445
       },
       {
-        "file": ".next/static/chunks/0scews0v5ty1y.js",
-        "bytes": 666874
+        "file": ".next/static/chunks/4361-d5c0739edbaff827.js",
+        "bytes": 403395
       },
       {
-        "file": ".next/static/chunks/2m599-tv6qmyz.js",
-        "bytes": 652280
+        "file": ".next/static/chunks/b536a0f1.1269118079ffb64b.js",
+        "bytes": 356580
       },
       {
-        "file": ".next/static/chunks/1t6i-ea-n5ksu.js",
-        "bytes": 262067
+        "file": ".next/static/chunks/9826-10549f9e9aa9ca11.js",
+        "bytes": 242581
       },
       {
-        "file": ".next/static/chunks/2ke0l_wyyf-k9.js",
-        "bytes": 234332
+        "file": ".next/static/chunks/bd904a5c.990fd50807cce023.js",
+        "bytes": 209581
       },
       {
-        "file": ".next/static/chunks/12lpti4eb2iwt.js",
-        "bytes": 216088
+        "file": ".next/static/chunks/4bd1b696-76ad6294ab2ef6f8.js",
+        "bytes": 201060
       },
       {
-        "file": ".next/static/chunks/0na09ziqfx3yf.js",
-        "bytes": 177499
+        "file": ".next/static/chunks/framework-666c53740fc261c8.js",
+        "bytes": 189686
       },
       {
-        "file": ".next/static/chunks/1xh-7_z4r_os-.css",
-        "bytes": 170680
+        "file": ".next/static/chunks/4672-42b2861aae2d6045.js",
+        "bytes": 179671
       },
       {
-        "file": ".next/static/chunks/2afkidnpajn5d.js",
-        "bytes": 143562
+        "file": ".next/static/chunks/1553-5ea7a67b00231b8f.js",
+        "bytes": 173342
       },
       {
-        "file": ".next/static/chunks/0cz1d0mv5g_q7.js",
-        "bytes": 112594
+        "file": ".next/static/chunks/1366-df1abb3289ccd1e3.js",
+        "bytes": 156135
       }
     ]
   },
   "database": {
-    "available": true,
-    "tables": [
-      {
-        "name": "site_films",
-        "rows": 570,
-        "bytes": 917504
-      },
-      {
-        "name": "site_settings",
-        "rows": 15,
-        "bytes": 884736
-      },
-      {
-        "name": "site_team",
-        "rows": 20,
-        "bytes": 425984
-      },
-      {
-        "name": "site_translations",
-        "rows": 579,
-        "bytes": 417792
-      },
-      {
-        "name": "site_pages",
-        "rows": 15,
-        "bytes": 237568
-      },
-      {
-        "name": "site_page_revisions",
-        "rows": 3,
-        "bytes": 114688
-      },
-      {
-        "name": "site_programs",
-        "rows": 6,
-        "bytes": 106496
-      },
-      {
-        "name": "site_activity_logs",
-        "rows": 1,
-        "bytes": 98304
-      },
-      {
-        "name": "site_campus_pois",
-        "rows": 5,
-        "bytes": 81920
-      },
-      {
-        "name": "site_disciplines",
-        "rows": 10,
-        "bytes": 81920
-      },
-      {
-        "name": "site_footer",
-        "rows": 1,
-        "bytes": 81920
-      },
-      {
-        "name": "site_inquiries",
-        "rows": 1,
-        "bytes": 65536
-      },
-      {
-        "name": "site_partners",
-        "rows": 21,
-        "bytes": 65536
-      },
-      {
-        "name": "site_sessions",
-        "rows": 17,
-        "bytes": 65536
-      },
-      {
-        "name": "site_announcements",
-        "rows": 2,
-        "bytes": 49152
-      },
-      {
-        "name": "site_audit_logs",
-        "rows": 11,
-        "bytes": 49152
-      },
-      {
-        "name": "site_navigation",
-        "rows": 1,
-        "bytes": 49152
-      },
-      {
-        "name": "site_social_links",
-        "rows": 5,
-        "bytes": 49152
-      },
-      {
-        "name": "site_events",
-        "rows": 3,
-        "bytes": 32768
-      },
-      {
-        "name": "site_vitals",
-        "rows": 0,
-        "bytes": 32768
-      }
-    ],
-    "storage": [
-      {
-        "bucket": "cuc-vitrine-assets",
-        "files": 182,
-        "bytes": 32784739
-      },
-      {
-        "bucket": "reports",
-        "files": 6,
-        "bytes": 417405
-      },
-      {
-        "bucket": "avatars",
-        "files": 1,
-        "bytes": 13577
-      }
-    ],
-    "filmsByCategory": [
-      {
-        "category": "Film",
-        "n": 375
-      },
-      {
-        "category": "Série",
-        "n": 148
-      },
-      {
-        "category": "Court métrage",
-        "n": 46
-      }
-    ],
-    "filmsPublished": 569,
-    "filmsUnpublished": 1,
-    "sessionsByStatus": [
-      {
-        "status": "ouvert",
-        "n": 6
-      },
-      {
-        "status": "complet",
-        "n": 6
-      },
-      {
-        "status": "bientôt",
-        "n": 3
-      },
-      {
-        "status": "dernières places",
-        "n": 2
-      }
-    ],
-    "translationsByEntity": [
-      {
-        "entity": "film",
-        "n": 501
-      },
-      {
-        "entity": "page",
-        "n": 15
-      },
-      {
-        "entity": "partner",
-        "n": 14
-      },
-      {
-        "entity": "team",
-        "n": 12
-      },
-      {
-        "entity": "discipline",
-        "n": 10
-      },
-      {
-        "entity": "campus_facility",
-        "n": 9
-      },
-      {
-        "entity": "program",
-        "n": 6
-      },
-      {
-        "entity": "campus_poi",
-        "n": 5
-      },
-      {
-        "entity": "event",
-        "n": 3
-      },
-      {
-        "entity": "social_link",
-        "n": 2
-      },
-      {
-        "entity": "footer",
-        "n": 1
-      },
-      {
-        "entity": "navigation",
-        "n": 1
-      }
-    ],
-    "realtimeTables": 24,
-    "rlsOn": 20,
-    "cucSign": {
-      "formations": 12,
-      "profiles": 13,
-      "locations": 9,
-      "linkedSessions": 9,
-      "totalSessions": 17,
-      "linkedTeam": 5,
-      "totalTeam": 20,
-      "linkedPois": 4,
-      "totalPois": 5
-    }
+    "available": false
   },
   "i18n": {
-    "fr": 727,
-    "en": 727,
+    "fr": 771,
+    "en": 771,
     "namespaces": 24
   },
   "security": {
@@ -739,10 +426,15 @@
       "Cross-Origin-Opener-Policy",
       "Content-Security-Policy"
     ],
-    "redirects": 19
+    "redirects": 21
   },
   "deps": {
     "production": [
+      {
+        "name": "@aws-sdk/client-s3",
+        "version": "^3.1144.0",
+        "kind": "production"
+      },
       {
         "name": "@supabase/ssr",
         "version": "^0.12.7",
@@ -781,6 +473,11 @@
       {
         "name": "next-intl",
         "version": "^4.14.5",
+        "kind": "production"
+      },
+      {
+        "name": "pg",
+        "version": "^8.23.0",
         "kind": "production"
       },
       {
@@ -836,6 +533,11 @@
         "kind": "développement"
       },
       {
+        "name": "@types/pg",
+        "version": "^8.23.1",
+        "kind": "développement"
+      },
+      {
         "name": "@types/react",
         "version": "^19",
         "kind": "développement"
@@ -888,11 +590,6 @@
       {
         "name": "jsdom",
         "version": "^29.1.1",
-        "kind": "développement"
-      },
-      {
-        "name": "pg",
-        "version": "^8.23.0",
         "kind": "développement"
       },
       {
