@@ -1,14 +1,14 @@
 # Revue — Édition anglaise des pages (Cockpit)
 
-Généré le 2026-10-01T16:57:00.494Z par `scripts/verify_page_translation_invariants.mjs`.
+Généré le 2026-10-26T17:53:12.622Z par `scripts/verify_page_translation_invariants.mjs`.
 
 ## Synthèse
 
 - Pages contrôlées : **15** (dont **15** avec un overlay EN)
-- Couverture anglaise globale : **84 %** (218/258 feuilles)
+- Couverture anglaise globale : **84 %** (216/257 feuilles)
 - Violations d'invariants : **0**
 - Tableaux désalignés du français : **0**
-- Chemins inconnus (absents du contenu français) : **0**
+- Chemins inconnus (absents du contenu français) : **1**
 
 Invariants vérifiés (ceux de `src/lib/i18n/localized-merge.ts`) :
 
@@ -23,7 +23,7 @@ Invariants vérifiés (ceux de `src/lib/i18n/localized-merge.ts`) :
 
 | Page | Overlay | Publié | Feuilles FR | Traduites | Couverture |
 |---|---|---|---|---|---|
-| `/` | oui | oui | 52 | 38 | 73 % |
+| `/` | oui | oui | 51 | 36 | 71 % |
 | `animations-airbag-parkour` | oui | oui | 8 | 8 | 100 % |
 | `contact-cuc` | oui | oui | 15 | 15 | 100 % |
 | `cuc-events-agence` | oui | oui | 8 | 8 | 100 % |
@@ -49,4 +49,6 @@ Aucun : chaque tableau anglais a la même longueur et les mêmes ancres que le f
 
 ## Chemins inconnus
 
-Aucun : chaque clé anglaise existe dans le contenu français.
+| Page | Chemin |
+|---|---|
+| `/` | `hero.since` |

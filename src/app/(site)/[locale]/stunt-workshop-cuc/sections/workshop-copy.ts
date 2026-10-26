@@ -73,7 +73,7 @@ export const CURRICULUM_DEFAULT: Required<WorkshopCurriculumItem>[] = [
 /** Visuels de la page (Supabase Storage / assets locaux). */
 export const WORKSHOP_MEDIA = {
     heroFallback:
-        'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp',
+        'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/workshop-bandeau-workshop.webp',
     poster:
         'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Stage-Workshop-2.webp',
     bri: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/CUC-BRI.webp',

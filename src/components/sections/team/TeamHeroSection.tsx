@@ -23,7 +23,7 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
   const subtitle = hero?.subtitle || t('hero.subtitle');
   const bgImage =
     hero?.bg_image ||
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/cascadeur-cuc-5-0-ech-4.webp';
   const ctaPrimaryText = hero?.cta_primary_text || t('hero.ctaPrimary');
   /**
    * CTA du hero TOURNAGE → page contact, pré-remplie « tournage & production »
@@ -110,7 +110,7 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
             <div className="relative w-64 h-64 border border-zinc-800 p-2 bg-[#0a0a0e] shadow-2xl group">
               <div className="relative w-full h-full overflow-hidden border border-zinc-800/80">
                 <Image
-                  src="/images/logos/cuc-logo-cinematic.jpg"
+                  src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/cuc-team-badge.webp"
                   alt={t('hero.emblemAlt')}
                   fill
                   priority

@@ -370,7 +370,7 @@ export const DEFAULT_FOOTER: SiteFooter = {
                     },
                     {
                         id: 'zoe-bell-hall',
-                        label: 'Zoé Bell Hall & Fosse',
+                        label: 'Zoé Bell Hall',
                         href: '/visite-guidee?installation=zoe-bell-hall#installations-detail',
                         order: 3,
                         is_visible: true,

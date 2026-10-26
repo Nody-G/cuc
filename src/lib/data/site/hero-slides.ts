@@ -26,7 +26,7 @@
  */
 
 /** Clés i18n des visuels historiques (`home.hero.slides.<clé>`). */
-export const HERO_SLIDE_KEYS = ['campus', 'combat', 'facilities', 'team'] as const;
+export const HERO_SLIDE_KEYS = ['campus', 'combat', 'facilities', 'team', 'parkour'] as const;
 
 export type HeroSlideKey = (typeof HERO_SLIDE_KEYS)[number];
 
@@ -83,6 +83,10 @@ export const HERO_SLIDES: HeroSlide[] = [
     {
         key: 'team',
         url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/home-couv-4.webp',
+    },
+    {
+        key: 'parkour',
+        url: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/home-couv-5.webp',
     },
 ];
 

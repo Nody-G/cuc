@@ -590,6 +590,12 @@
                     "sub": "Founded in 2008 by Lucas Dollfus • Film, TV series and live show work",
                     "badge": "QUALIOPI CERTIFIED • AFDAS ELIGIBLE",
                     "tag": "Stunt Team"
+                },
+                "parkour": {
+                    "caption": "PARKOUR & STAGE ACROBATICS",
+                    "sub": "Vaults, urban acrobatics and action choreography",
+                    "badge": "PARKOUR PARK & CUC STAGES",
+                    "tag": "Parkour & Acrobatics"
                 }
             },
             "metrics": [
@@ -993,7 +999,10 @@
         "catalogBadge": "Stage Formats & Repertoire",
         "catalogTitle": "Our Live Shows & Demonstrations",
         "catalogSubtitle": "From large-scale arena shows to immersive historical tableaux, every show is designed, secured and performed by CUC professional stunt performers.",
-        "specsLogisticsTitle": "Specifications & Logistics"
+        "specsLogisticsTitle": "Specifications & Logistics",
+        "archivesBadge": "STAGE PORTFOLIO",
+        "archivesTitle": "Show Photo Archives",
+        "archivesSubtitle": "Highlights in pictures from our stage creations, themed shows, live demonstrations and event performances."
     },
     "animations": {
         "heroBadge": "CINEMA AIRBAG • PROFESSIONAL SUPERVISION",

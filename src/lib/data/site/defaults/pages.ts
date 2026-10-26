@@ -304,7 +304,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'CUC Events',
     meta_title: 'CUC Events | Agence de Spectacles & Cascades en Direct',
     meta_description: "Spectacles vivants, animations airbag géant et team building d'entreprise orchestrés par les cascadeurs professionnels du CUC.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Image1-scaled.webp',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/events-agency-00-bandeau.webp',
     hero: {
       badge: 'AGENCE ÉVÉNEMENTIELLE D’ACTION • SHOWS CLÉ EN MAIN',
       title: 'CUC EVENTS : SPECTACLES & ANIMATIONS',
@@ -330,7 +330,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Team Building',
     meta_title: 'Team Building Cinéma & Cascades | CUC Events',
     meta_description: "Séminaires d'entreprise et cohésion d'équipe dans les coulisses du cinéma : combat chorégraphié, doublage voix et dépassement de soi.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Team-building-combat-cinema-1.webp',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/team-building-bandeau.webp',
     hero: {
       badge: 'SÉMINAIRES & ENTREPRISES',
       title: 'TEAM BUILDING D’EXCEPTION',
@@ -411,7 +411,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Voir les vidéos de shows',
       cta_secondary_link: '/videos-cascadeur',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-bonus-2.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Spectacles & Shows Vivants', order: 1, is_visible: true },
@@ -428,7 +428,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Animations Airbag',
     meta_title: 'Animation Airbag Géant de Chute Libre & Parkour | CUC Events',
     meta_description: "Faites vivre le grand frisson du saut dans le vide sur coussin d'air géant de cinéma. Animation encadrée par des cascadeurs professionnels.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/xtrem-jump-1.webp',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/events-agency-03-location-airbag-et-anim.webp',
     hero: {
       badge: 'AIRBAG DE CINÉMA • ENCADREMENT PROFESSIONNEL',
       title: 'ANIMATIONS AIRBAG & PARKOUR',
@@ -437,7 +437,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Toutes les Offres CUC Events',
       cta_secondary_link: '/cuc-events-agence',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/xtrem-jump-1.webp',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/events-agency-03-location-airbag-et-anim.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Animation Airbag Géant', order: 1, is_visible: true },
@@ -454,7 +454,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Visite Virtuelle 360°',
     meta_title: 'Visite Virtuelle 360° & Plan 3D du Campus | CUC',
     meta_description: "Explorez les 11 000 m² du Campus Univers Cascades en immersion 360° ou via le plan topographique 3D interactif.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.webp',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-00-bandeau-haut.webp',
     hero: {
       badge: 'IMMERSION 360° & PLAN 3D',
       title: 'DÉCOUVRIR LE CAMPUS',
@@ -479,7 +479,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     title: 'Visite Guidée',
     meta_title: 'Visite Guidée des Infrastructures du Campus | CUC',
     meta_description: "Découvrez en détail les installations du CUC : tour de saut 21m, 1300 m² de hangars, dojo de combat, fosse de réception et hébergement.",
-    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.webp',
+    og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-00-bandeau-haut.webp',
     hero: {
       badge: 'INFRASTRUCTURES DE FORMATION',
       title: 'LE CAMPUS',

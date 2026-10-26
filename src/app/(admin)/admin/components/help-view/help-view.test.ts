@@ -5,7 +5,15 @@ import {
     PUBLIC_PAGES_OVERVIEW,
     COCKPIT_SCREENS_OVERVIEW,
     OLD_SITE_VULNERABILITIES,
+    WHY_SITE_STANDS_OUT,
+    PERFORMANCE_BENCHMARKS,
+    RESILIENCE_CASCADE_LEVELS,
 } from './help-application-data';
+import {
+    PUBLIC_ROUTES_CATALOG,
+    COCKPIT_SCREENS_CATALOG,
+    COCKPIT_POLE_LABELS,
+} from './help-application-catalog';
 import {
     CONCRETE_CASE_STUDIES,
     FLASH_MODELS,
@@ -46,8 +54,14 @@ describe('Centre d’Aide & Documentation CUC', () => {
         expect(topicsWithTroubleshooting.length).toBeGreaterThanOrEqual(10);
     });
 
-    it('dossier application contient les métriques clés, comparatifs et failles de l’ancien site', () => {
-        expect(APP_METRICS.length).toBeGreaterThanOrEqual(4);
+    it('dossier application contient les métriques clés, piliers, benchmarks, catalogue interactif et failles de l’ancien site', () => {
+        expect(APP_METRICS.length).toBe(8);
+        expect(WHY_SITE_STANDS_OUT).toHaveLength(6);
+        expect(PERFORMANCE_BENCHMARKS).toHaveLength(3);
+        expect(RESILIENCE_CASCADE_LEVELS).toHaveLength(4);
+        expect(PUBLIC_ROUTES_CATALOG.length).toBeGreaterThanOrEqual(16);
+        expect(COCKPIT_SCREENS_CATALOG).toHaveLength(27);
+        expect(COCKPIT_POLE_LABELS).toHaveLength(5);
         expect(WORDPRESS_VS_NEXT.length).toBeGreaterThanOrEqual(5);
         expect(PUBLIC_PAGES_OVERVIEW.count).toBe(15);
         expect(COCKPIT_SCREENS_OVERVIEW.count).toBe(27);

@@ -24,6 +24,9 @@ interface VisiteHeroSectionProps {
 export const VisiteHeroSection: React.FC<VisiteHeroSectionProps> = ({ hero }) => {
   const t = useTranslations('visite');
   const stats = t.raw('hero.stats') as HeroStatCopy[];
+  const bgImage =
+    hero?.bg_image ||
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-00-bandeau-haut.webp';
 
   return (
     <>
@@ -31,7 +34,7 @@ export const VisiteHeroSection: React.FC<VisiteHeroSectionProps> = ({ hero }) =>
       <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
         <div data-cuc-field="hero.bg_image" data-cuc-kind="image" className="absolute inset-0 z-0">
           <Image
-            src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/img-campus-2.webp"
+            src={bgImage}
             alt={t('hero.bgAlt')}
             fill
             priority

@@ -590,6 +590,12 @@
                     "sub": "Fondé en 2008 par Lucas Dollfus • Tournages cinéma, séries et spectacle",
                     "badge": "CERTIFIÉ QUALIOPI • ÉLIGIBLE AFDAS",
                     "tag": "Équipe Cascades"
+                },
+                "parkour": {
+                    "caption": "PARKOUR & ACROBATIES SCÉNIQUES",
+                    "sub": "Franchissements, voltige urbaine et chorégraphies d'action",
+                    "badge": "PARKOUR PARK & PLATEAUX CUC",
+                    "tag": "Parkour & Acrobatie"
                 }
             },
             "metrics": [
@@ -993,7 +999,10 @@
         "catalogBadge": "Formats & Répertoires de Scène",
         "catalogTitle": "Nos Spectacles & Démonstrations en Direct",
         "catalogSubtitle": "Du grand show en arène aux tableaux historiques immersifs, chaque spectacle est entièrement conçu, sécurisé et interprété par les cascadeurs professionnels du CUC.",
-        "specsLogisticsTitle": "Spécifications & Logistique"
+        "specsLogisticsTitle": "Spécifications & Logistique",
+        "archivesBadge": "PORTFOLIO SCÉNIQUE",
+        "archivesTitle": "Archives Photos Spectacles",
+        "archivesSubtitle": "Retour en images sur nos créations scéniques, spectacles à thèmes, démonstrations live et performances événementielles."
     },
     "animations": {
         "heroBadge": "AIRBAG DE CINÉMA • ENCADREMENT PROFESSIONNEL",

@@ -27,7 +27,7 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
   const subtitle = hero?.subtitle || t('heroSubtitle');
   const bgImage =
     hero?.bg_image ||
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/Image1-scaled.webp';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/events-agency-00-bandeau.webp';
   const ctaPrimaryText = hero?.cta_primary_text || t('heroCtaPrimary');
   /** CTA du hero ÉVÉNEMENTS → page contact, pré-remplie « devis CUC Events ». */
   const ctaPrimaryLink = withContactIntent(

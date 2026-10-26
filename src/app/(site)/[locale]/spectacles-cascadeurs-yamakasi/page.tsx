@@ -18,7 +18,11 @@ import {
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import { withContactIntent } from '@/lib/contact-intent';
-import { SPECTACLE_TYPES, SpectacleTypeCard } from '@/components/sections/events/spectacles';
+import {
+  SPECTACLE_TYPES,
+  SpectacleTypeCard,
+  SpectaclesArchivesGallery,
+} from '@/components/sections/events/spectacles';
 
 export default function SpectaclesCascadeursYamakasiPage() {
   const t = useTranslations('spectacles');
@@ -29,7 +33,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
   const heroSubtitle = content.hero?.subtitle || t('heroSubtitle');
   const heroBg =
     content.hero?.bg_image ||
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-bonus-2.webp';
   const ctaPrimaryText = content.hero?.cta_primary_text || t('ctaPrimaryText');
   /** CTA spectacles → page contact, pré-remplie « devis CUC Events ». */
   const ctaPrimaryLink = withContactIntent(
@@ -171,7 +175,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
                 <div className="lg:col-span-5 relative">
                   <div className="relative h-72 w-full border border-zinc-700 overflow-hidden bg-black">
                     <Image
-                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-5-scaled.webp"
+                      src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-sse-4.webp"
                       alt={t('arenaImageAlt')}
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"
@@ -208,6 +212,9 @@ export default function SpectaclesCascadeursYamakasiPage() {
             </div>
           </div>
         </section>
+
+        {/* Galerie Archives Photos Spectacles */}
+        <SpectaclesArchivesGallery />
       </main>
 
       <Footer />

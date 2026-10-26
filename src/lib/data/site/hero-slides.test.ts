@@ -22,6 +22,7 @@ describe('mergeHeroSlides', () => {
             { url: 'https://cdn.test/b.webp' },
             { url: 'https://cdn.test/c.webp' },
             { url: 'https://cdn.test/d.webp' },
+            { url: 'https://cdn.test/e.webp' },
         ]);
 
         expect(merged.map((slide) => slide.url)).toEqual([
@@ -29,8 +30,15 @@ describe('mergeHeroSlides', () => {
             'https://cdn.test/b.webp',
             'https://cdn.test/c.webp',
             'https://cdn.test/d.webp',
+            'https://cdn.test/e.webp',
         ]);
-        expect(merged.map((slide) => slide.key)).toEqual(['campus', 'combat', 'facilities', 'team']);
+        expect(merged.map((slide) => slide.key)).toEqual([
+            'campus',
+            'combat',
+            'facilities',
+            'team',
+            'parkour',
+        ]);
     });
 
     it('fusionne partiellement : les rangs non surchargés gardent le visuel historique', () => {
@@ -39,22 +47,23 @@ describe('mergeHeroSlides', () => {
         expect(merged).toHaveLength(HERO_SLIDES.length);
         expect(merged[0].url).toBe('https://cdn.test/override.webp');
         expect(merged[1].url).toBe(HERO_SLIDES[1].url);
-        expect(merged[3].url).toBe(HERO_SLIDES[3].url);
+        expect(merged[4].url).toBe(HERO_SLIDES[4].url);
     });
 
-    it('ajoute des visuels au-delà de 4, sans clé i18n', () => {
+    it('ajoute des visuels au-delà de 5, sans clé i18n', () => {
         const overrides = [
             { url: 'https://cdn.test/1.webp' },
             { url: 'https://cdn.test/2.webp' },
             { url: 'https://cdn.test/3.webp' },
             { url: 'https://cdn.test/4.webp' },
-            { url: 'https://cdn.test/5.webp', alt: 'Visuel ajouté' },
+            { url: 'https://cdn.test/5.webp' },
+            { url: 'https://cdn.test/6.webp', alt: 'Visuel ajouté' },
         ];
         const merged = mergeHeroSlides(overrides);
 
-        expect(merged).toHaveLength(5);
-        expect(merged[4]).toEqual({ url: 'https://cdn.test/5.webp', alt: 'Visuel ajouté' });
-        expect(merged[4].key).toBeUndefined();
+        expect(merged).toHaveLength(6);
+        expect(merged[5]).toEqual({ url: 'https://cdn.test/6.webp', alt: 'Visuel ajouté' });
+        expect(merged[5].key).toBeUndefined();
     });
 
     it('retombe intégralement sur HERO_SLIDES pour un tableau vide, absent ou invalide', () => {
@@ -71,6 +80,7 @@ describe('mergeHeroSlides', () => {
             null,
             { alt: 'sans url' },
             { url: 123 },
+            {},
         ]);
 
         expect(merged).toHaveLength(HERO_SLIDES.length);
@@ -80,7 +90,7 @@ describe('mergeHeroSlides', () => {
 
     it('n’expose jamais une longueur nulle, même si HERO_SLIDES l’était', () => {
         expect(mergeHeroSlides([]).length).toBeGreaterThan(0);
-        expect(mergeHeroSlides([{}, {}, {}, {}]).length).toBe(HERO_SLIDES.length);
+        expect(mergeHeroSlides([{}, {}, {}, {}, {}]).length).toBe(HERO_SLIDES.length);
     });
 
     it('ignore un ajout sans URL au-delà du socle historique', () => {
@@ -89,10 +99,11 @@ describe('mergeHeroSlides', () => {
             { url: 'https://cdn.test/2.webp' },
             { url: 'https://cdn.test/3.webp' },
             { url: 'https://cdn.test/4.webp' },
+            { url: 'https://cdn.test/5.webp' },
             { alt: 'orphelin sans image' },
         ]);
 
-        expect(merged).toHaveLength(4);
+        expect(merged).toHaveLength(5);
         expect(merged.every((slide) => slide.url.length > 0)).toBe(true);
     });
 });
@@ -131,6 +142,12 @@ describe('buildHeroSlideSeed', () => {
         const seed = buildHeroSlideSeed();
 
         expect(seed.map((item) => item.url)).toEqual(HERO_SLIDES.map((slide) => slide.url));
-        expect(seed.map((item) => item.id)).toEqual(['campus', 'combat', 'facilities', 'team']);
+        expect(seed.map((item) => item.id)).toEqual([
+            'campus',
+            'combat',
+            'facilities',
+            'team',
+            'parkour',
+        ]);
     });
 });
