@@ -525,6 +525,8 @@
         "galleryBadge": "GALERIE DU CAMPUS",
         "galleryTitle": "LE DOMAINE EN IMAGES",
         "gallerySubtitle": "Photographies du campus au Cateau-Cambrésis.",
+        "showAllPhotos": "Voir toutes les photos (+{count})",
+        "showLessPhotos": "Réduire l'affichage",
         "zoom": "Agrandir",
         "facilitiesTag": "INFRASTRUCTURES",
         "facilitiesTitle": "NOS INFRASTRUCTURES",

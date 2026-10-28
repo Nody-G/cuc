@@ -525,6 +525,8 @@
         "galleryBadge": "CAMPUS GALLERY",
         "galleryTitle": "THE GROUNDS IN PICTURES",
         "gallerySubtitle": "Photographs of the campus in Le Cateau-Cambrésis.",
+        "showAllPhotos": "View all photos (+{count})",
+        "showLessPhotos": "Show less",
         "zoom": "Enlarge",
         "facilitiesTag": "FACILITIES",
         "facilitiesTitle": "OUR FACILITIES",
