@@ -23,7 +23,7 @@ export const TournagesHeader: React.FC<TournagesHeaderProps> = ({
     ctaText,
     ctaLink,
 }) => (
-    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-10">
         <div className="space-y-3">
             <div className="flex items-center gap-2">
                 <span
