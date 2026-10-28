@@ -1,14 +1,12 @@
 'use client';
 import { Link } from '@/i18n/navigation';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-import dynamic from 'next/dynamic';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { VirtualTourViewer } from '@/components/ui/VirtualTourViewer';
-import { soundFX } from '@/lib/soundFx';
 import { useTranslations } from 'next-intl';
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 import { cucField } from '@/lib/preview/cuc-field';
@@ -19,39 +17,10 @@ import {
   Building,
   ShieldCheck,
   PhoneCall,
-  Layers,
-  Eye,
 } from 'lucide-react';
-
-/**
- * Attente du plan 3D : composant dédié, car `dynamic()` est évalué au niveau du
- * module, hors du composant de page — le hook de traduction n'y est pas
- * disponible.
- */
-const Plan3DLoading: React.FC = () => {
-  const t = useTranslations('visiteVirtuelle');
-  return (
-    <div className="w-full h-[520px] sm:h-[620px] lg:h-[720px] flex items-center justify-center bg-[#0c0c12] border border-zinc-800">
-      <span className="text-xs font-mono-tech text-zinc-500 uppercase tracking-widest animate-pulse">
-        <span {...cucMicro('visiteVirtuelle.loading3d')}>{t('loading3d')}</span>
-      </span>
-    </div>
-  );
-};
-
-// Three.js (~600 ko) chargé à la demande, uniquement côté client, quand
-// l'utilisateur ouvre l'onglet « Plan 3D ». Évite de pénaliser le LCP initial.
-const CampusPlan3D = dynamic(
-  () => import('@/components/3d/CampusPlan3D').then((m) => m.CampusPlan3D),
-  {
-    ssr: false,
-    loading: () => <Plan3DLoading />,
-  }
-);
 
 export default function VisiteVirtuellePage() {
   const t = useTranslations('visiteVirtuelle');
-  const [activeTab, setActiveTab] = useState<'360' | '3d'>('360');
   const { content } = usePageDynamicContent('visite-virtuelle');
 
   const sortedSections = (content?.layout_sections ?? [])
@@ -60,23 +29,6 @@ export default function VisiteVirtuellePage() {
 
   const isSectionVisible = (id: string) =>
     sortedSections.some((s) => s.id === id);
-
-  useEffect(() => {
-    const handleHash = () => {
-      const hash = window.location.hash;
-      const params = new URLSearchParams(window.location.search);
-      if (hash === '#plan-3d-campus' || params.get('tab') === '3d') {
-        setActiveTab('3d');
-      }
-    };
-
-    window.addEventListener('hashchange', handleHash);
-    const timer = setTimeout(handleHash, 0);
-    return () => {
-      window.removeEventListener('hashchange', handleHash);
-      clearTimeout(timer);
-    };
-  }, []);
 
   return (
     <div className="min-h-screen bg-[#060608] text-white flex flex-col selection:bg-[#FFE500] selection:text-black">
@@ -94,13 +46,8 @@ export default function VisiteVirtuellePage() {
               <span {...cucMicro('visiteVirtuelle.breadcrumbCampus')}>{t('breadcrumbCampus')}</span>
             </Link>
             <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-            <span
-              className="text-[#FFE500]"
-              {...(activeTab === '360'
-                ? cucMicro('visiteVirtuelle.breadcrumb360')
-                : cucMicro('visiteVirtuelle.breadcrumb3d'))}
-            >
-              {activeTab === '360' ? t('breadcrumb360') : t('breadcrumb3d')}
+            <span className="text-[#FFE500]" {...cucMicro('visiteVirtuelle.breadcrumb360')}>
+              {t('breadcrumb360')}
             </span>
           </div>
 
@@ -129,7 +76,7 @@ export default function VisiteVirtuellePage() {
               >
                 {content.hero?.title || t('pageTitle')}{' '}
                 <span className="text-[#FFE500]">
-                  {activeTab === '360' ? t('suffix360') : t('suffix3d')}
+                  {t('suffix360')}
                 </span>
               </h1>
 
@@ -142,36 +89,6 @@ export default function VisiteVirtuellePage() {
             </div>
 
             <div className="flex flex-wrap items-center gap-3 shrink-0">
-              <div className="bg-[#121218] border border-zinc-800 p-1 flex items-center">
-                <button
-                  onClick={() => {
-                    setActiveTab('360');
-                    soundFX.playTacticalClick();
-                  }}
-                  className={`px-3 py-1.5 text-xs font-mono-tech font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer ${activeTab === '360'
-                    ? 'bg-[#FFE500] text-black shadow'
-                    : 'text-zinc-400 hover:text-white'
-                    }`}
-                >
-                  <Eye className="w-3.5 h-3.5" />
-                  <span {...cucMicro('visiteVirtuelle.tab360Label')}>{t('tab360Label')}</span>
-                </button>
-
-                <button
-                  onClick={() => {
-                    setActiveTab('3d');
-                    soundFX.playTacticalClick();
-                  }}
-                  className={`px-3 py-1.5 text-xs font-mono-tech font-bold uppercase transition-all flex items-center gap-1.5 cursor-pointer ${activeTab === '3d'
-                    ? 'bg-[#FFE500] text-black shadow'
-                    : 'text-zinc-400 hover:text-white'
-                    }`}
-                >
-                  <Layers className="w-3.5 h-3.5" />
-                  <span {...cucMicro('visiteVirtuelle.tab3dLabel')}>{t('tab3dLabel')}</span>
-                </button>
-              </div>
-
               <Link href="/contact-cuc?demande=stage-decouverte">
                 <TacticalButton variant="primary" size="md" icon={<PhoneCall className="w-4 h-4" />}>
                   <span {...cucMicro('visiteVirtuelle.ctaRendezVous')}>{t('ctaRendezVous')}</span>
@@ -180,17 +97,11 @@ export default function VisiteVirtuellePage() {
             </div>
           </div>
 
-          {/* Interactive Viewer: either 360 Player or 3D Campus Plan */}
+          {/* Interactive Viewer: 360 Player */}
           {isSectionVisible('viewer') && (
             <div className="mb-12">
-              {/* Ancres `#viewer` et `#plan-3d-campus` (copie certifiée ; le hash 3D est géré plus haut). */}
               <span id="viewer" aria-hidden="true" className="block h-0 scroll-mt-28" />
-              <span id="plan-3d-campus" aria-hidden="true" className="block h-0 scroll-mt-28" />
-              {activeTab === '360' ? (
-                <VirtualTourViewer />
-              ) : (
-                <CampusPlan3D />
-              )}
+              <VirtualTourViewer />
             </div>
           )}
 

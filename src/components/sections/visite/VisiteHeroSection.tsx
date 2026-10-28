@@ -107,11 +107,6 @@ export const VisiteHeroSection: React.FC<VisiteHeroSectionProps> = ({ hero }) =>
                 </span>
               </TacticalButton>
             </a>
-            <a href="#plan-3d-domaine">
-              <TacticalButton variant="outline" size="lg">
-                <span {...cucMicro('visite.hero.ctaPlan3D')}>{t('hero.ctaPlan3D')}</span>
-              </TacticalButton>
-            </a>
           </div>
         </div>
       </section>

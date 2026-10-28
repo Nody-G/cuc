@@ -1,6 +1,6 @@
 # Revue — Quotas Supabase (mesure et plafonds)
 
-Généré le 2026-10-28T10:16:40.464Z par `scripts/audit_quotas.mjs`.
+Généré le 2026-10-28T10:26:54.153Z par `scripts/audit_quotas.mjs`.
 
 - Base `postgres` : **19.23 Mo** (budget 200.00 Mo)
 - Stockage objet : **108.77 Mo** sur 349 objet(s) (budget 150.00 Mo)

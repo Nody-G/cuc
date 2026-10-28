@@ -2,13 +2,12 @@
 
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import dynamic from 'next/dynamic';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { VirtualTourViewer } from '@/components/ui/VirtualTourViewer';
 import { LightboxModal } from '@/components/ui/LightboxModal';
-import { Layers, Compass } from 'lucide-react';
+import { Compass } from 'lucide-react';
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import {
@@ -19,44 +18,18 @@ import {
   VisiteAccessTransport,
 } from '@/components/sections/visite';
 
-/**
- * Attente du plan 3D : composant dédié, car `dynamic()` est évalué au niveau du
- * module, hors du composant de page — le hook de traduction n'y est pas
- * disponible.
- */
-const Plan3DLoading: React.FC = () => {
-  const t = useTranslations('visiteGuidee');
-  return (
-    <div className="w-full h-[520px] sm:h-[620px] lg:h-[720px] flex items-center justify-center bg-[#0c0c12] border border-zinc-800">
-      <span className="text-xs font-mono-tech text-zinc-500 uppercase tracking-widest animate-pulse">
-        <span {...cucMicro('visiteGuidee.loading3d')}>{t('loading3d')}</span>
-      </span>
-    </div>
-  );
-};
-
-// Three.js (~600 ko) chargé à la demande, uniquement côté client.
-const CampusPlan3D = dynamic(
-  () => import('@/components/3d/CampusPlan3D').then((m) => m.CampusPlan3D),
-  {
-    ssr: false,
-    loading: () => <Plan3DLoading />,
-  }
-);
-
 export default function VisiteGuideePage() {
   const t = useTranslations('visiteGuidee');
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const { content } = usePageDynamicContent('visite-guidee');
 
-  // Ordre éditorial imposé : infrastructures d'abord, puis visite 360°, puis plan 3D.
+  // Ordre éditorial imposé : infrastructures d'abord, puis visite 360°.
   const SECTION_ORDER: Record<string, number> = {
     hero: 0,
     facilities: 1,
     virtual_tour: 2,
-    plan_3d: 3,
-    photos: 4,
-    access: 5,
+    photos: 3,
+    access: 4,
   };
 
   const sortedSections = (content?.layout_sections ?? [])
@@ -71,41 +44,6 @@ export default function VisiteGuideePage() {
     switch (sectionId) {
       case 'hero':
         return <VisiteHeroSection key="hero" hero={content?.hero} />;
-
-      case 'plan_3d':
-        return (
-          <section
-            key="plan_3d"
-            id="plan-3d-domaine"
-            className="py-16 bg-[#060608] border-b border-zinc-800 scroll-mt-24"
-          >
-            <div className="page-shell">
-              <div className="text-center max-w-3xl mx-auto mb-10">
-                <div className="inline-flex items-center gap-2 mb-2">
-                  <StuntBadge
-                    variant="yellow"
-                    icon={<Layers className="w-3.5 h-3.5" />}
-                  >
-                    <span {...cucMicro('visiteGuidee.tour3dBadge')}>{t('tour3dBadge')}</span>
-                  </StuntBadge>
-                  <span className="text-xs font-mono-tech text-zinc-400">
-                    <span {...cucMicro('visiteGuidee.domainClosed')}>{t('domainClosed')}</span>
-                  </span>
-                </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-wide text-white mb-3">
-                  <span {...cucMicro('visiteGuidee.tour3dTitle')}>{t('tour3dTitle')}</span>{' '}
-                  <span className="text-[#FFE500]" {...cucMicro('visiteGuidee.tour3dTitleAccent')}>
-                    {t('tour3dTitleAccent')}
-                  </span>
-                </h2>
-                <p className="text-sm font-tech text-zinc-400">
-                  <span {...cucMicro('visiteGuidee.tour3dParagraph')}>{t('tour3dParagraph')}</span>
-                </p>
-              </div>
-              <CampusPlan3D />
-            </div>
-          </section>
-        );
 
       case 'virtual_tour':
         return (

@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-10-28T10:16:40.607Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-10-28T10:26:54.279Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -9,10 +9,10 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | --- | ---: |
 | ANNOTÉ — éditable en place | 317 |
 | DONNÉES — éditable par un écran existant | 112 |
-| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 13 |
+| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 14 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 5 |
-| **Total** | **447** |
+| **Total** | **448** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -164,14 +164,14 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\visite-guidee\page.tsx`
 
-- l.98 — `{t('tour3dTitleAccent')}`
-- l.128 — `{t('tour360TitleAccent')}`
+- l.66 — `{t('tour360TitleAccent')}`
 
 ### `src\app\(site)\[locale]\visite-virtuelle\page.tsx`
 
-- l.115 — `{content.hero?.badge || t('pageTag')}`
-- l.122 — `{content.hero?.meta || 'LE CATEAU-CAMBRÉSIS'}`
-- l.140 — `{content.hero?.subtitle || t('pageSubtitle')}`
+- l.50 — `{t('breadcrumb360')}`
+- l.62 — `{content.hero?.badge || t('pageTag')}`
+- l.69 — `{content.hero?.meta || 'LE CATEAU-CAMBRÉSIS'}`
+- l.87 — `{content.hero?.subtitle || t('pageSubtitle')}`
 
 ### `src\components\layout\MobileStickyCTA.tsx`
 
@@ -789,7 +789,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\visite\VisiteHeroSection.tsx`
 
-- l.129 — `{stat.value}`
+- l.124 — `{stat.value}`
 
 ### `src\components\ui\InstagramFollowerBadge.tsx`
 
@@ -840,6 +840,10 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\app\(site)\[locale]\error.tsx`
 
 - l.71 — `{t('errorReference', { digest: error.digest })}`
+
+### `src\app\(site)\[locale]\visite-virtuelle\page.tsx`
+
+- l.79 — `{t('suffix360')}`
 
 ### `src\components\sections\events\pillars\DbEventPillarCard.tsx`
 

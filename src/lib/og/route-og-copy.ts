@@ -96,14 +96,14 @@ const COPY = {
         fr: {
             eyebrow: 'VISITE VIRTUELLE 360°',
             title: 'EXPLOREZ EN 360°',
-            subtitle: 'Visite immersive du domaine et du plan 3D',
-            metrics: ['360°', 'PLAN 3D', 'IMMERSIF', 'EN LIGNE'],
+            subtitle: 'Visite immersive 360° du domaine',
+            metrics: ['360°', 'PANORAMA', 'IMMERSIF', 'EN LIGNE'],
         },
         en: {
             eyebrow: '360° VIRTUAL TOUR',
             title: 'DISCOVER THE CAMPUS',
-            subtitle: 'Immersive tour of the estate and its 3D map',
-            metrics: ['360°', '3D MAP', 'IMMERSIVE', 'ONLINE'],
+            subtitle: 'Immersive 360° tour of the estate',
+            metrics: ['360°', 'PANORAMA', 'IMMERSIVE', 'ONLINE'],
         },
     },
     'equipe-cascadeurs-pro': {
