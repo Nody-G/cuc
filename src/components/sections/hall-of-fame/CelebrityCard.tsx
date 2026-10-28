@@ -45,7 +45,7 @@ export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers
             className="group bg-[#121218] border border-zinc-800 hover:border-[#FFE500] focus-visible:border-[#FFE500] transition-all duration-300 flex flex-col overflow-hidden cursor-pointer relative hover:shadow-[0_12px_35px_rgba(255,229,0,0.18)] luxury-metric-card"
         >
             {/* Portrait — ratio 3/4 harmonisé avec la grille 6 colonnes */}
-            <div className="relative aspect-[3/4] w-full overflow-hidden bg-black">
+            <div className="relative aspect-[3/4] w-full overflow-hidden bg-black isolate">
                 <Image
                     key={actor.photo}
                     src={hasError ? '/images/actors/actor-placeholder.svg' : actor.photo}
@@ -55,7 +55,7 @@ export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers
                     onError={() => setHasError(true)}
                     className="object-cover object-top brightness-90 contrast-105 group-hover:scale-105 group-hover:brightness-100 transition-all duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#121218] via-[#121218]/25 to-transparent" />
+                <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-[#121218] via-[#121218]/30 to-transparent" />
 
                 {/* IMDb — lien direct, hors clic de carte : logo seul */}
                 {actor.imdbUrl && (
@@ -63,15 +63,15 @@ export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers
                         href={actor.imdbUrl}
                         label={t('hallOfFame.imdbTitle', { name: actor.name })}
                         onClick={(e) => e.stopPropagation()}
-                        className="absolute top-2.5 right-2.5 z-10 drop-shadow-md"
+                        className="absolute top-2.5 right-2.5 z-20 drop-shadow-md"
                     >
                         <ImdbLogo className="h-5 w-auto" />
                     </LogoLink>
                 )}
             </div>
 
-            {/* Contenu : nom du comédien + cascadeurs CUC avec tête en miniature */}
-            <div className="p-3 flex-1 flex flex-col justify-between gap-1.5">
+            {/* Contenu : nom du comédien + cascadeurs CUC avec tête en miniature (-mt-px et z-10 pour masquer tout artefact de sous-pixel au survol) */}
+            <div className="-mt-px relative z-10 bg-[#121218] p-3 flex-1 flex flex-col justify-between gap-1.5">
                 <h4 className="text-sm sm:text-base font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors leading-tight line-clamp-1">
                     {actor.name}
                 </h4>
