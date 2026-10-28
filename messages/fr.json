@@ -477,7 +477,13 @@
             "sectionTitle": "PLAN DU DOMAINE &",
             "sectionTitleAccent": "ITINÉRAIRES",
             "sectionIntro": "Retrouvez les coordonnées GPS exactes, les temps de trajet en train ou voiture depuis Paris, Lille ou Bruxelles, et lancez instantanément votre navigation dans Google Maps, Apple Maps, Waze ou SNCF Connect.",
-            "appLaunchTitle": "LANCER L'ITINÉRAIRE DANS VOTRE APPLICATION :",
+            "appLaunchTitle": "ITINÉRAIRE GPS & NAVIGATION :",
+            "launchRoute": "Lancer l'itinéraire",
+            "chooseApp": "Choisir votre application :",
+            "googleMapsDesc": "Navigation GPS universelle & Web",
+            "appleMapsDesc": "Idéal sur iPhone, iPad & Mac",
+            "wazeDesc": "Trafic & alertes en temps réel",
+            "sncfDesc": "Trajets en train direct vers Le Cateau",
             "routes": [
                 {
                     "id": "paris",

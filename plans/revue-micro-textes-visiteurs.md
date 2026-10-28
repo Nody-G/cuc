@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-10-28T09:41:44.337Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-10-28T09:52:18.140Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -8,11 +8,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | Catégorie | Occurrences |
 | --- | ---: |
 | ANNOTÉ — éditable en place | 317 |
-| DONNÉES — éditable par un écran existant | 111 |
+| DONNÉES — éditable par un écran existant | 112 |
 | TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 13 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
-| HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 9 |
-| **Total** | **450** |
+| HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 5 |
+| **Total** | **447** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -803,6 +803,10 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.84 — `{currentImage.title}`
 - l.150 — `{currentImage.title}`
 
+### `src\components\ui\campus-map\CampusAppLaunchers.tsx`
+
+- l.126 — `{app.desc}`
+
 ### `src\components\ui\campus-map\CampusTravelPlanner.tsx`
 
 - l.105 — `{selectedRouteData.train.time}`
@@ -894,11 +898,4 @@ Aucune occurrence.
 ### `src\components\ui\InteractiveCampusMap.tsx`
 
 - l.72 — `LAT 50.0909° N • LON 3.5374° E`
-
-### `src\components\ui\campus-map\CampusAppLaunchers.tsx`
-
-- l.30 — `Google Maps`
-- l.44 — `Apple Maps`
-- l.58 — `Waze`
-- l.72 — `SNCF Connect`
 

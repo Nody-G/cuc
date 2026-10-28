@@ -477,7 +477,13 @@
             "sectionTitle": "CAMPUS MAP &",
             "sectionTitleAccent": "DIRECTIONS",
             "sectionIntro": "Find the exact GPS coordinates and travel times by train or car from Paris, Lille or Brussels, then launch your navigation instantly in Google Maps, Apple Maps, Waze or SNCF Connect.",
-            "appLaunchTitle": "OPEN DIRECTIONS IN YOUR APP:",
+            "appLaunchTitle": "GPS DIRECTIONS & NAVIGATION:",
+            "launchRoute": "Launch directions",
+            "chooseApp": "Choose your application:",
+            "googleMapsDesc": "Universal GPS & Web navigation",
+            "appleMapsDesc": "Ideal on iPhone, iPad & Mac",
+            "wazeDesc": "Live traffic & road alerts",
+            "sncfDesc": "Direct train routes to Le Cateau",
             "routes": [
                 {
                     "id": "paris",
