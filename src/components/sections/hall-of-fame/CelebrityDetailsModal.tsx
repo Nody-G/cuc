@@ -132,8 +132,8 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
         {/* Content */}
         <div className="p-6 overflow-y-auto space-y-5">
           <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-start">
-            {/* Photo */}
-            <div className="sm:col-span-5 relative h-64 w-full border border-zinc-800 bg-black overflow-hidden">
+            {/* Photo — ratio 2/3 harmonisé avec les portraits verticaux officiels */}
+            <div className="sm:col-span-5 relative aspect-[2/3] w-full max-w-xs mx-auto sm:max-w-none border border-zinc-800 bg-black overflow-hidden">
               <Image
                 key={celebrity.photo}
                 src={hasError ? '/images/actors/actor-placeholder.svg' : (celebrity.photo || '/images/actors/actor-placeholder.svg')}
