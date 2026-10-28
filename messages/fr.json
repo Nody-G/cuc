@@ -1185,7 +1185,7 @@
             "zoomStunt": "Cliquer pour agrandir la photo de cascade",
             "zoomEquipment": "Cliquer pour voir l'équipement en détail",
             "expand": "Agrandir",
-            "showAllPhotos": "Voir toutes les photos d'action (+{count})",
+            "showAllPhotos": "Voir toutes les photos (+{count})",
             "showLessPhotos": "Réduire l'affichage"
         },
         "hallOfFame": {

@@ -1185,7 +1185,7 @@
             "zoomStunt": "Click to enlarge the stunt photo",
             "zoomEquipment": "Click to view the equipment in detail",
             "expand": "Enlarge",
-            "showAllPhotos": "View all action photos (+{count})",
+            "showAllPhotos": "View all photos (+{count})",
             "showLessPhotos": "Show less"
         },
         "hallOfFame": {
