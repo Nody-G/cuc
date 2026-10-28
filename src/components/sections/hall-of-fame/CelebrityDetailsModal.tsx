@@ -9,7 +9,10 @@ import { ImdbLogo, LogoLink } from '@/components/ui/BrandLogos';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import { resolveDoubledBy, type TeamNameRef } from '@/lib/celebrity-double';
 import { creditTitleKey } from '@/lib/credit-title';
-import { CelebrityStuntDoubles } from './celebrity-details/CelebrityStuntDoubles';
+import {
+  CelebrityStuntDoubles,
+  type CelebrityFilmItem,
+} from './celebrity-details/CelebrityStuntDoubles';
 
 interface CelebrityDetailsModalProps {
   celebrity: DoubledCelebrity | null;
@@ -48,28 +51,50 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
     return coordinatedFilms.find((f) => creditTitleKey(f.title) === key);
   }, [coordinatedFilms]);
 
-  /** Seuls les films coordonnés par le CUC associés à ce comédien */
-  const lucasCoordinatedFilms = useMemo<FilmCredit[]>(() => {
-    if (!celebrity || !coordinatedFilms || coordinatedFilms.length === 0) return [];
-    const matched: FilmCredit[] = [];
-    const prods = celebrity.productions || [];
-    for (const prod of prods) {
+  /**
+   * Liste unifiée et dédoublonnée des productions associées au comédien :
+   * combine les productions listées sur la fiche et les films coordonnés par le CUC.
+   * Chaque film n'apparaît qu'une seule fois. S'il fait partie du catalogue CUC, il est interactif.
+   */
+  const unifiedFilms = useMemo<CelebrityFilmItem[]>(() => {
+    if (!celebrity) return [];
+    const items: CelebrityFilmItem[] = [];
+    const seen = new Set<string>();
+
+    for (const prod of celebrity.productions || []) {
       const match = findMatchingLucasFilm(prod);
-      if (match && !matched.some((m) => m.id === match.id)) {
-        matched.push(match);
+      const title = match?.title || prod;
+      const key = creditTitleKey(title);
+      if (!seen.has(key)) {
+        seen.add(key);
+        items.push({
+          key,
+          title,
+          year: match?.year,
+          cucFilm: match,
+        });
       }
     }
+
     for (const film of coordinatedFilms) {
       if (
         film.doubledActors &&
         film.doubledActors.some((d) => d.toLowerCase().includes(celebrity.name.toLowerCase()))
       ) {
-        if (!matched.some((m) => m.id === film.id)) {
-          matched.push(film);
+        const key = creditTitleKey(film.title);
+        if (!seen.has(key)) {
+          seen.add(key);
+          items.push({
+            key,
+            title: film.title,
+            year: film.year,
+            cucFilm: film,
+          });
         }
       }
     }
-    return matched;
+
+    return items;
   }, [celebrity, coordinatedFilms, findMatchingLucasFilm]);
 
   const [hasError, setHasError] = React.useState(false);
@@ -82,7 +107,7 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="bg-[#0e0e12] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors w-full max-w-xl overflow-hidden relative shadow-2xl max-h-[90vh] flex flex-col"
+        className="bg-[#0e0e12] border border-zinc-800 hover:border-[#FFE500]/50 transition-colors w-full max-w-xl sm:max-w-2xl overflow-hidden relative shadow-2xl max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -135,56 +160,16 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                 </p>
               ) : null}
 
-              {/* Cascadeurs CUC ayant doublé le comédien (avec photo avatar) & tournages associés */}
-              {celebrity.stuntDoubles ? (
+              {/* Cascadeurs CUC ayant doublé le comédien (avec photo avatar) & tournages associés dédoublonnés */}
+              {(celebrity.stuntDoubles || unifiedFilms.length > 0) ? (
                 <CelebrityStuntDoubles
                   doubledBy={doubledBy}
                   stuntDoublesRaw={celebrity.stuntDoubles}
-                  productions={celebrity.productions || []}
-                  findMatchingLucasFilm={findMatchingLucasFilm}
+                  films={unifiedFilms}
                   onSelectFilm={onSelectFilm}
                   onClose={onClose}
                 />
               ) : null}
-
-              {/* Films coordonnés par le CUC (seuls films affichés en bas) */}
-              {lucasCoordinatedFilms.length > 0 && (
-                <div className="space-y-2 pt-2 border-t border-zinc-800/80">
-                  <span className="text-[10px] font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block">
-                    <span
-                      {...cucMicro(
-                        lucasCoordinatedFilms.length > 1
-                          ? 'teamProduction.celebrityModal.cucCoordinatedFilmsPlural'
-                          : 'teamProduction.celebrityModal.cucCoordinatedFilmsSingular'
-                      )}
-                    >
-                      {lucasCoordinatedFilms.length > 1
-                        ? t('celebrityModal.cucCoordinatedFilmsPlural')
-                        : t('celebrityModal.cucCoordinatedFilmsSingular')}
-                    </span>
-                  </span>
-                  <div className="flex flex-wrap gap-2">
-                    {lucasCoordinatedFilms.map((film) => (
-                      <button
-                        key={film.id}
-                        type="button"
-                        onClick={() => {
-                          onClose();
-                          onSelectFilm?.(film);
-                        }}
-                        className="px-3 py-1.5 bg-[#FFE500]/15 border border-[#FFE500]/60 text-xs font-mono-tech text-[#FFE500] font-bold hover:bg-[#FFE500] hover:text-black transition-all cursor-pointer flex items-center gap-1.5 rounded-xs group"
-                        title={t('celebrityModal.openCucFilmTitle', { title: film.title })}
-                      >
-                        <Clapperboard className="w-3.5 h-3.5 shrink-0" />
-                        <span>{film.title}</span>
-                        {film.year && (
-                          <span className="text-[10px] opacity-80 font-normal">({film.year})</span>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
 
               {/* IMDb — logo seul */}
               {celebrity.imdbUrl && (
