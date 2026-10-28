@@ -1,6 +1,6 @@
 # Revue — Poids JS par route (budget)
 
-Généré le 2026-10-22T18:59:45.182Z par `scripts/audit_route_weight.mjs`.
+Généré le 2026-10-27T13:45:27.372Z par `scripts/audit_route_weight.mjs`.
 
 Mesure : somme **gzip** des chunks JS réellement téléchargés au premier écran (HTML
 prérendu public `fr/*`, `en/*`) — les scripts `nomodule` (chunk legacy `polyfills-*.js`)

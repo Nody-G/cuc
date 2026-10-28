@@ -35,8 +35,10 @@ export async function buildRouteMetadata(options: {
     const title = page?.meta_title || fallback.title;
     const description = page?.meta_description || fallback.description;
 
-    const frPath = `/${slug}`;
-    const enPath = `/en/${slug}`;
+    const cleanSlug = slug === '/' ? '' : slug.replace(/^\//, '');
+    const frPath = cleanSlug ? `/${cleanSlug}` : '/';
+    const enPath = cleanSlug ? `/en/${cleanSlug}` : '/en';
+    const canonical = safeLocale === 'en' ? enPath : frPath;
 
     /**
      * Page en brouillon : **hors index**. Le contenu n'est déjà plus rendu au
@@ -51,8 +53,12 @@ export async function buildRouteMetadata(options: {
         description,
         robots: isDraft ? { index: false, follow: false } : undefined,
         alternates: {
-            canonical: frPath,
-            languages: { fr: frPath, en: enPath },
+            canonical,
+            languages: {
+                fr: frPath,
+                en: enPath,
+                'x-default': frPath,
+            },
         },
         openGraph: { title, description },
     };

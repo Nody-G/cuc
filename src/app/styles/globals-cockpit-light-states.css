@@ -80,6 +80,7 @@
 /* ------------------------------------------------------------------
    8. Interrupteurs et pastilles d'état
    ------------------------------------------------------------------ */
+[data-cockpit-root][data-cockpit-theme='light'] .bg-gray-600,
 [data-cockpit-root][data-cockpit-theme='light'] .bg-gray-700 {
     background-color: #cfcfd8;
 }
@@ -92,12 +93,14 @@
    9. Dégradés et listes
    ------------------------------------------------------------------ */
 [data-cockpit-root][data-cockpit-theme='light'] .from-zinc-900\/90,
-[data-cockpit-root][data-cockpit-theme='light'] .from-zinc-950 {
+[data-cockpit-root][data-cockpit-theme='light'] .from-zinc-950,
+[data-cockpit-root][data-cockpit-theme='light'] .from-\\[\\#12121A\\] {
     --tw-gradient-from: var(--cockpit-surface) var(--tw-gradient-from-position);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
-[data-cockpit-root][data-cockpit-theme='light'] .to-zinc-950 {
+[data-cockpit-root][data-cockpit-theme='light'] .to-zinc-950,
+[data-cockpit-root][data-cockpit-theme='light'] .to-\\[\\#0A0A0F\\] {
     --tw-gradient-to: var(--cockpit-bg) var(--tw-gradient-to-position);
 }
 

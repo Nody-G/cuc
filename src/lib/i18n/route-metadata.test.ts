@@ -37,7 +37,22 @@ describe('buildRouteMetadata', () => {
         expect(metadata.robots).toBeUndefined();
         expect(metadata.alternates).toEqual({
             canonical: '/partenaires',
-            languages: { fr: '/partenaires', en: '/en/partenaires' },
+            languages: { fr: '/partenaires', en: '/en/partenaires', 'x-default': '/partenaires' },
+        });
+    });
+
+    it('pose un canonical pointant sur l’anglais en mode EN', async () => {
+        getLocalizedPageContentMock.mockResolvedValue(pageWith(true));
+
+        const metadata = await buildRouteMetadata({
+            slug: 'partenaires',
+            locale: 'en',
+            fallback: FALLBACK,
+        });
+
+        expect(metadata.alternates).toEqual({
+            canonical: '/en/partenaires',
+            languages: { fr: '/partenaires', en: '/en/partenaires', 'x-default': '/partenaires' },
         });
     });
 

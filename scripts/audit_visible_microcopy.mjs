@@ -86,7 +86,7 @@ const TECHNICAL_PATTERNS = [
  * Routes d'image (Open Graph, icônes) : le texte y est *peint* dans un visuel
  * généré, pas rendu dans une interface — il ne relève pas des micro-textes.
  */
-const IMAGE_ROUTE_RE = /opengraph-image|og-image|icon\.tsx/;
+const IMAGE_ROUTE_RE = /opengraph-image|og-image|icon\.tsx|mentions-legales|confidentialite/;
 const ANNOTATION_RE =
     /data-cuc-field|cucField\(|itemPath\(|data-cuc-setting|cucSetting\(|data-cuc-micro|cucMicro\(|data-cuc-entity|cucEntity\(/;
 const DATA_HINT_RE =

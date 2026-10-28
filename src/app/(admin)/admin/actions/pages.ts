@@ -9,6 +9,7 @@ import { createAdminClient } from '@/lib/supabase/admin';
 import { recordPageRevision } from '@/lib/data/site/page-revision-server';
 import { revalidateSite } from './revalidate';
 import { logAuditEvent } from './audit';
+import { checkIsAdmin } from './auth';
 
 /**
  * Met à jour ou insère le contenu détaillé d'une page (Hero, sections, emplacements, SEO).
@@ -24,14 +25,11 @@ export async function upsertPageContent(slug: string, pageData: {
   layout_sections?: unknown[];
   sections_data?: object;
   is_published?: boolean;
-  /**
-   * Horodatage de la version chargée dans l'éditeur. S'il est fourni et que la
-   * base porte une version **plus récente**, l'écriture est refusée : deux
-   * administrateurs (ou deux onglets) ne doivent pas s'écraser en silence.
-   * Le brouillon local de l'éditeur est conservé, il recharge et repart.
-   */
   expectedUpdatedAt?: string | null;
 }) {
+  if (!(await checkIsAdmin())) {
+    return { success: false, error: 'Accès refusé : privilèges administrateur requis.' };
+  }
   try {
     const cleanSlug = slug === '/' ? '/' : slug.replace(/^\//, '');
     const adminClient = createAdminClient();
@@ -127,6 +125,9 @@ export async function setPagePublishState(
   slug: string,
   publish: boolean
 ): Promise<{ success: boolean; error?: string }> {
+  if (!(await checkIsAdmin())) {
+    return { success: false, error: 'Accès refusé : privilèges administrateur requis.' };
+  }
   try {
     const cleanSlug = slug === '/' ? '/' : slug.replace(/^\//, '');
     const adminClient = createAdminClient();
@@ -155,6 +156,9 @@ export async function setPagePublishState(
  * Rétablit le contenu d'origine et la disposition par défaut validée d'une page.
  */
 export async function resetPageContentToDefault(slug: string) {
+  if (!(await checkIsAdmin())) {
+    return { success: false, error: 'Accès refusé : privilèges administrateur requis.' };
+  }
   try {
     const cleanSlug = slug === '/' ? '/' : slug.replace(/^\//, '');
     const { DEFAULT_PAGE_CONTENTS } = await import('@/lib/data/site-service');

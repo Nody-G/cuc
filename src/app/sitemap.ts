@@ -68,6 +68,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             { path: "/stunt-workshop-cuc", priority: 0.7, changeFrequency: "monthly" },
             { path: "/partenaires", priority: 0.6, changeFrequency: "monthly" },
             { path: "/contact-cuc", priority: 0.6, changeFrequency: "yearly" },
+            { path: "/mentions-legales", priority: 0.3, changeFrequency: "yearly" },
+            { path: "/confidentialite", priority: 0.3, changeFrequency: "yearly" },
         ];
 
     const frUrl = (p: string) => (p === "/" ? SITE_URL : `${SITE_URL}${p}`);

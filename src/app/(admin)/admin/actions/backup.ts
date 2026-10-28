@@ -30,6 +30,15 @@ interface BackupTableRead {
  * les diagnostics (`rowCounts`, `totalRows`) sont ajoutés **en plus**, jamais à la place.
  */
 export async function exportFullSiteBackup() {
+  // Garde serveur : l'export complet contient des données personnelles (site_inquiries).
+  const profile = await getCurrentUserProfile();
+  if (profile === null || !hasRole(profile.role ?? '', RESTORE_ROLES)) {
+    return {
+      success: false,
+      error: 'Accès refusé : l’export de sauvegarde est réservé aux comptes admin ou directeur.',
+    };
+  }
+
   try {
     const adminClient = createAdminClient();
 

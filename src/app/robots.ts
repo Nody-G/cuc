@@ -12,7 +12,7 @@ export default function robots(): MetadataRoute.Robots {
                 allow: "/",
                 // `/admin/` couvre tout le Cockpit (éditeur de pages, médias,
                 // sauvegardes) : espace interne, jamais destiné à l'indexation.
-                disallow: ["/api/", "/_next/", "/admin/"],
+                disallow: ["/api/", "/_next/", "/admin/", "/preview/", "/*/preview/"],
             },
         ],
         sitemap: `${SITE_URL}/sitemap.xml`,

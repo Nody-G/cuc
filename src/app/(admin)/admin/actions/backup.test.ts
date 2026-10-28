@@ -30,7 +30,7 @@ vi.mock('./revalidate', () => ({
     revalidateSite: async () => ({ success: true }),
 }));
 
-import { restoreFullSiteBackup } from './backup';
+import { restoreFullSiteBackup, exportFullSiteBackup } from './backup';
 
 /** Instantané minimal valide : une table (`site_pages`) réellement alimentée. */
 const BACKUP_JSON = JSON.stringify({ data: { pages: [{ id: 'p1', slug: 'accueil', title: 'Accueil' }] } });
@@ -78,5 +78,22 @@ describe('restoreFullSiteBackup — garde de rôle serveur', () => {
 
         expect(result.success).toBe(true);
         expect(adminSpies.upsert).toHaveBeenCalledTimes(1);
+    });
+});
+
+
+describe('exportFullSiteBackup — garde de rôle serveur', () => {
+    it('refuse un compte absent', async () => {
+        actor.profile = null;
+        const result = await exportFullSiteBackup();
+        expect(result.success).toBe(false);
+        expect(result.error).toContain('Accès refusé');
+    });
+
+    it('refuse un rôle non autorisé (secretaire)', async () => {
+        actor.profile = { role: 'secretaire' };
+        const result = await exportFullSiteBackup();
+        expect(result.success).toBe(false);
+        expect(result.error).toContain('Accès refusé');
     });
 });

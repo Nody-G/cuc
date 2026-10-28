@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-10-22T18:59:44.598Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-10-27T13:45:26.735Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -63,15 +63,15 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\app\(site)\[locale]\spectacles-cascadeurs-yamakasi\page.tsx`
 
-- l.72 — `{t('breadcrumbCurrent')}`
-- l.79 — `{heroBadge}`
-- l.87 — `{content.hero?.meta || t('heroMeta')}`
-- l.111 — `{heroSubtitle}`
-- l.118 — `{ctaPrimaryText}`
-- l.126 — `{ctaSecondaryText}`
-- l.143 — `{t('catalogBadge')}`
-- l.149 — `{t('catalogTitle')}`
-- l.155 — `{t('catalogSubtitle')}`
+- l.76 — `{t('breadcrumbCurrent')}`
+- l.83 — `{heroBadge}`
+- l.91 — `{content.hero?.meta || t('heroMeta')}`
+- l.115 — `{heroSubtitle}`
+- l.122 — `{ctaPrimaryText}`
+- l.130 — `{ctaSecondaryText}`
+- l.147 — `{t('catalogBadge')}`
+- l.153 — `{t('catalogTitle')}`
+- l.159 — `{t('catalogSubtitle')}`
 
 ### `src\app\(site)\[locale]\stunt-workshop-cuc\sections\WorkshopApplyBox.tsx`
 
@@ -505,11 +505,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\visite\VisiteHeroSection.tsx`
 
-- l.51 — `{t('hero.breadcrumbCurrent')}`
-- l.71 — `{t('hero.titleAccent')}`
-- l.81 — `{hero?.subtitle || t('hero.subtitle')}`
-- l.92 — `{hero?.cta_primary_text || t('hero.ctaFacilities')}`
-- l.103 — `{hero?.cta_secondary_text || t('hero.ctaTour360')}`
+- l.54 — `{t('hero.breadcrumbCurrent')}`
+- l.74 — `{t('hero.titleAccent')}`
+- l.84 — `{hero?.subtitle || t('hero.subtitle')}`
+- l.95 — `{hero?.cta_primary_text || t('hero.ctaFacilities')}`
+- l.106 — `{hero?.cta_secondary_text || t('hero.ctaTour360')}`
 
 ### `src\components\sections\visite\facilities\FacilitiesHeader.tsx`
 
@@ -692,7 +692,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\contact\ContactForm.tsx`
 
-- l.204 — `{errorMessage}`
+- l.219 — `{errorMessage}`
 
 ### `src\components\sections\events\pillars\DbEventPillarCard.tsx`
 
@@ -790,7 +790,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\visite\VisiteHeroSection.tsx`
 
-- l.126 — `{stat.value}`
+- l.129 — `{stat.value}`
 
 ### `src\components\ui\InstagramFollowerBadge.tsx`
 

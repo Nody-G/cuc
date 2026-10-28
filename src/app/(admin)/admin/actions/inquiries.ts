@@ -42,10 +42,22 @@ export async function submitInquiry(data: {
   session_date?: string;
   afdas_status?: string;
   message: string;
+  /** Champ piège anti-spam invisible (honeypot). Doit rester vide. */
+  honeypot?: string;
 }) {
   try {
+    // 0. Garde anti-spam (honeypot) : si rempli par un robot, on simule un succès sans rien stocker
+    if (data.honeypot && data.honeypot.trim().length > 0) {
+      return { success: true };
+    }
+
     if (!data.full_name || !data.email || !data.phone) {
       return { success: false, error: 'Champs obligatoires manquants (Nom, Email, Téléphone)' };
+    }
+
+    // Validation de longueur pour prévenir le gonflement abusif des quotas de base
+    if (data.full_name.length > 120 || data.email.length > 150 || data.phone.length > 40 || (data.message && data.message.length > 5000)) {
+      return { success: false, error: 'Longueur de champ invalide.' };
     }
 
     const newInquiry: SiteInquiry = {

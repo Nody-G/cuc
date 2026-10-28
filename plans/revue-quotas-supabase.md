@@ -1,10 +1,10 @@
 # Revue — Quotas Supabase (mesure et plafonds)
 
-Généré le 2026-10-22T18:59:44.471Z par `scripts/audit_quotas.mjs`.
+Généré le 2026-10-27T13:45:26.610Z par `scripts/audit_quotas.mjs`.
 
-- Base `postgrest-https` : **0.00 Mo** (budget 200.00 Mo)
+- Base `postgres` : **19.22 Mo** (budget 200.00 Mo)
 - Stockage objet : **108.77 Mo** sur 349 objet(s) (budget 150.00 Mo)
-- Plus grosse table : `—` — 0.00 Mo (budget 50.00 Mo)
+- Plus grosse table : `site_films` — 0.88 Mo (budget 50.00 Mo)
 
 ## Stockage par bucket
 
@@ -13,19 +13,26 @@ Généré le 2026-10-22T18:59:44.471Z par `scripts/audit_quotas.mjs`.
 | `cuc-vitrine-assets` | 342 | 108.36 Mo |
 | `reports` | 6 | 0.40 Mo |
 | `avatars` | 1 | 0.01 Mo |
-| `compliance-docs` | 0 | 0.00 Mo |
 
 ## Tables les plus volumineuses
 
 | Table | Empreinte |
 | --- | ---: |
+| `site_films` | 0.88 Mo |
+| `site_settings` | 0.85 Mo |
+| `site_translations` | 0.41 Mo |
+| `site_team` | 0.41 Mo |
+| `site_pages` | 0.23 Mo |
+| `site_page_revisions` | 0.11 Mo |
+| `slots` | 0.10 Mo |
+| `site_programs` | 0.10 Mo |
 
 ## Tables qui grossissent seules
 
 | Table | Lignes | Budget | Rétention |
 | --- | ---: | ---: | --- |
 | `site_page_revisions` | 7 | 20000 | `npm run cms:purge:revisions` |
-| `site_vitals` | 41 | 20000 | `npm run cms:purge:vitals` |
+| `site_vitals` | 42 | 20000 | `npm run cms:purge:vitals` |
 | `site_audit_logs` | 33 | 20000 | `npm run cms:purge:logs` (rétention à cadrer séparément) |
 | `site_activity_logs` | 1 | 20000 | `npm run cms:purge:logs` (90/180/365 j selon la gravité) |
 | `site_inquiries` | 1 | 20000 | à cadrer (demandes de contact) |

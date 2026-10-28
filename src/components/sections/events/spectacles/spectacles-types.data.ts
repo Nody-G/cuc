@@ -47,7 +47,7 @@ export const SPECTACLE_TYPES: SpectacleTypeItem[] = [
   },
   {
     id: 'show-super-heros',
-    badge: '03 • Blockbuster & Pop Culture',
+    badge: '03 • Grand Spectacle & Pop Culture',
     title: 'Show Super-Héros',
     subtitle: 'Affrontements iconiques, acrobaties aériennes et effets scéniques',
     description:

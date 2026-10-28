@@ -7,6 +7,7 @@
 
 import { createAdminClient } from '@/lib/supabase/admin';
 import { revalidateSite } from './revalidate';
+import { checkIsAdmin } from './auth';
 
 /**
  * Met à jour ou insère un membre de l'équipe.
@@ -29,6 +30,9 @@ export async function upsertTeamMember(member: {
   profile_id?: string | null;
   metadata?: Record<string, unknown>;
 }) {
+  if (!(await checkIsAdmin())) {
+    return { success: false, error: 'Accès refusé : privilèges administrateur requis.' };
+  }
   try {
     const adminClient = createAdminClient();
     const payload: Record<string, unknown> = {
@@ -71,6 +75,9 @@ export async function upsertTeamMember(member: {
  * Supprime un membre de l'équipe.
  */
 export async function deleteTeamMember(id: string) {
+  if (!(await checkIsAdmin())) {
+    return { success: false, error: 'Accès refusé : privilèges administrateur requis.' };
+  }
   try {
     const adminClient = createAdminClient();
     const { error } = await adminClient

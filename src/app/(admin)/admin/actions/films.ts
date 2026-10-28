@@ -7,6 +7,7 @@
 
 import { createAdminClient } from '@/lib/supabase/admin';
 import { revalidateSite } from './revalidate';
+import { checkIsAdmin } from './auth';
 
 /**
  * Met à jour ou insère un film dans la filmographie.
@@ -31,6 +32,9 @@ export async function upsertFilm(film: {
   cuc_team_roles?: Record<string, string>;
   metadata?: Record<string, unknown>;
 }) {
+  if (!(await checkIsAdmin())) {
+    return { success: false, error: 'Accès refusé : privilèges administrateur requis.' };
+  }
   try {
     const adminClient = createAdminClient();
     const mergedMetadata = {
@@ -99,6 +103,9 @@ export async function upsertFilm(film: {
  * Supprime un film de la filmographie.
  */
 export async function deleteFilm(id: string) {
+  if (!(await checkIsAdmin())) {
+    return { success: false, error: 'Accès refusé : privilèges administrateur requis.' };
+  }
   try {
     const adminClient = createAdminClient();
     const { error } = await adminClient

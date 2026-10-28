@@ -49,6 +49,7 @@ export const ContactForm: React.FC = () => {
     message: '',
   }));
 
+  const [honeypot, setHoneypot] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -69,6 +70,7 @@ export const ContactForm: React.FC = () => {
       program_title: programTitles.join(' • '),
       sport_background: formData.sportExperience,
       message: formData.message,
+      honeypot,
     });
 
     setIsSubmitting(false);
@@ -109,6 +111,19 @@ export const ContactForm: React.FC = () => {
         </div>
       ) : (
         <form id="formulaire" onSubmit={handleSubmit} className="space-y-4 text-xs font-tech scroll-mt-28">
+          {/* Piège anti-spam invisible (honeypot) : ignoré des utilisateurs humains */}
+          <div className="hidden" aria-hidden="true" style={{ display: 'none' }}>
+            <input
+              id="contact-website"
+              type="text"
+              name="website_url"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-label="website"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+            />
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label

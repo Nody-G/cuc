@@ -39,7 +39,7 @@ export const AppArchitectureDiagram: React.FC = () => {
             </div>
 
             {/* Schéma SVG 1 : Écosystème global animé */}
-            <div className="p-4 sm:p-6 rounded-2xl bg-[#0A0A0F] border border-white/10 space-y-4 overflow-x-auto">
+            <div className="p-4 sm:p-6 rounded-2xl bg-[#0a0a0f] border border-white/10 space-y-4 overflow-x-auto">
                 <svg
                     viewBox="0 0 920 330"
                     className="w-full h-auto min-w-[680px]"
