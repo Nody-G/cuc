@@ -74,12 +74,9 @@ export const CelebrityStuntDoubles: React.FC<CelebrityStuntDoublesProps> = ({
                 )}
               </div>
               <div className="min-w-0 flex-1">
-                <div className="text-xs sm:text-sm font-mono-tech text-white group-hover:text-[#FFE500] transition-colors font-bold tracking-wide">
+                <span className="text-xs sm:text-sm font-mono-tech text-white group-hover:text-[#FFE500] transition-colors font-bold tracking-wide">
                   {member.name}
-                </div>
-                <div className="text-[11px] font-mono-tech text-zinc-400 leading-tight mt-0.5 line-clamp-1">
-                  {member.role || 'Cascadeur CUC'}
-                </div>
+                </span>
               </div>
               <ChevronRight className="w-4 h-4 text-zinc-500 group-hover:text-[#FFE500] group-hover:translate-x-0.5 transition-all shrink-0" />
             </Link>

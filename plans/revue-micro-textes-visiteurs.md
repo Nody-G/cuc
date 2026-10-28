@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-10-28T12:29:46.866Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-10-28T16:06:53.210Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -8,11 +8,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | Catégorie | Occurrences |
 | --- | ---: |
 | ANNOTÉ — éditable en place | 317 |
-| DONNÉES — éditable par un écran existant | 114 |
+| DONNÉES — éditable par un écran existant | 113 |
 | TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 15 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 5 |
-| **Total** | **451** |
+| **Total** | **450** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -317,7 +317,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\components\sections\hall-of-fame\celebrity-details\CelebrityStuntDoubles.tsx`
 
 - l.47 — `{t('celebrityModal.doublesLabel')}`
-- l.106 — `{t('celebrityModal.filmsLabel')}`
+- l.103 — `{t('celebrityModal.filmsLabel')}`
 
 ### `src\components\sections\hall-of-fame\film-details\FilmDoublesList.tsx`
 
@@ -745,7 +745,6 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\components\sections\hall-of-fame\celebrity-details\CelebrityStuntDoubles.tsx`
 
 - l.78 — `{member.name}`
-- l.81 — `{member.role || 'Cascadeur CUC'}`
 
 ### `src\components\sections\hall-of-fame\film-details\FilmDoublesList.tsx`
 
@@ -863,7 +862,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\hall-of-fame\celebrity-details\CelebrityStuntDoubles.tsx`
 
-- l.94 — `{stuntDoublesRaw || doubledBy.name}`
+- l.91 — `{stuntDoublesRaw || doubledBy.name}`
 
 ### `src\components\sections\hall-of-fame\film-details\FilmIdentityBlock.tsx`
 
@@ -905,7 +904,7 @@ Aucune occurrence.
 
 ### `src\components\sections\hall-of-fame\celebrity-details\CelebrityStuntDoubles.tsx`
 
-- l.128 — `CUC`
+- l.125 — `CUC`
 
 ### `src\components\sections\team\TeamProductionServices.tsx`
 
