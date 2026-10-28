@@ -1,6 +1,6 @@
 # Revue — Quotas Supabase (mesure et plafonds)
 
-Généré le 2026-10-28T09:18:54.539Z par `scripts/audit_quotas.mjs`.
+Généré le 2026-10-28T09:41:44.212Z par `scripts/audit_quotas.mjs`.
 
 - Base `postgres` : **19.23 Mo** (budget 200.00 Mo)
 - Stockage objet : **108.77 Mo** sur 349 objet(s) (budget 150.00 Mo)
@@ -32,7 +32,7 @@ Généré le 2026-10-28T09:18:54.539Z par `scripts/audit_quotas.mjs`.
 | Table | Lignes | Budget | Rétention |
 | --- | ---: | ---: | --- |
 | `site_page_revisions` | 7 | 20000 | `npm run cms:purge:revisions` |
-| `site_vitals` | 42 | 20000 | `npm run cms:purge:vitals` |
+| `site_vitals` | 46 | 20000 | `npm run cms:purge:vitals` |
 | `site_audit_logs` | 33 | 20000 | `npm run cms:purge:logs` (rétention à cadrer séparément) |
 | `site_activity_logs` | 1 | 20000 | `npm run cms:purge:logs` (90/180/365 j selon la gravité) |
 | `site_inquiries` | 1 | 20000 | à cadrer (demandes de contact) |

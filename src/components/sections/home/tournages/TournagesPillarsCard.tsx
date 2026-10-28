@@ -3,7 +3,6 @@
 import React from 'react';
 import { Link } from '@/i18n/navigation';
 import { Film, ShieldCheck, ChevronRight, Sparkles } from 'lucide-react';
-import { TacticalButton } from '@/components/ui/TacticalButton';
 import { StudioParallaxCard } from '@/components/ui/parallax';
 import { creditTitleKey } from '@/lib/credit-title';
 import { FilmCard } from '@/components/sections/films/FilmCard';
@@ -17,7 +16,7 @@ interface TournagesPillarsCardProps {
     pillar2Desc: string;
     pillar3Title: string;
     pillar3Desc: string;
-    ctaProduction: string;
+    ctaProduction?: string;
     ctaCatalog: string;
     filmsByTitle: Map<string, FilmCredit>;
     featuredProductions?: HighlightProject[];
@@ -142,25 +141,16 @@ export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
                     })}
                 </div>
 
-                {/* 3. Barre d'action avec boutons */}
-                <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-zinc-800/80">
-                    <div className="flex flex-wrap items-center gap-4">
-                        <Link href="/contact-cuc?demande=tournage-production">
-                            <TacticalButton variant="primary" size="md">
-                                <span data-cuc-field="sections_data.tournages.cta_production">
-                                    {ctaProduction}
-                                </span>
-                            </TacticalButton>
-                        </Link>
-                        <Link href="/cuc-team-cascadeur#filmographie">
-                            <span className="text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] transition-colors flex items-center gap-1">
-                                <span data-cuc-field="sections_data.tournages.cta_catalog">
-                                    {ctaCatalog}
-                                </span>
-                                <ChevronRight className="w-3 h-3" />
+                {/* 3. Lien vers le catalogue complet */}
+                <div className="flex justify-center pt-3 border-t border-zinc-800/80">
+                    <Link href="/cuc-team-cascadeur#filmographie" className="group">
+                        <span className="text-xs font-mono-tech text-zinc-400 group-hover:text-[#FFE500] transition-colors flex items-center gap-1.5 font-bold uppercase tracking-wider py-1">
+                            <span data-cuc-field="sections_data.tournages.cta_catalog">
+                                {ctaCatalog}
                             </span>
-                        </Link>
-                    </div>
+                            <ChevronRight className="w-3.5 h-3.5 text-[#FFE500] group-hover:translate-x-1 transition-transform" />
+                        </span>
+                    </Link>
                 </div>
             </div>
         </StudioParallaxCard>

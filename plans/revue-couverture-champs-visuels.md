@@ -1,12 +1,12 @@
 # Revue — Couverture des champs éditables (Mode Studio)
 
-Généré le 2026-10-28T09:18:53.642Z par `scripts/audit_cuc_fields.mjs`.
+Généré le 2026-10-28T09:41:43.133Z par `scripts/audit_cuc_fields.mjs`.
 
 ## 1. Couverture par page
 
 | Page | Champs | Dont listes | Dont gabarits | Fichiers porteurs | Statut |
 | --- | ---: | ---: | ---: | --- | --- |
-| `/` | 68 | 0 | 10 | `src\components\ui\parallax-hero\HeroFocalContent.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\home\HomeAboutSection.tsx`, `src\components\sections\home\tournages\TournagesHeader.tsx`, `src\components\sections\home\tournages\TournagesPillarsCard.tsx`, `src\components\sections\home\HomeVirtualTourSection.tsx`, `src\components\sections\home\HomeQualiopiSection.tsx`, `src\components\sections\home\HomeQualiopiFunding.tsx`, `src\components\sections\home\HomeSocialSection.tsx`, `src\components\sections\home\HomeSocialCards.tsx` | ✅ |
+| `/` | 67 | 0 | 10 | `src\components\ui\parallax-hero\HeroFocalContent.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\home\HomeAboutSection.tsx`, `src\components\sections\home\tournages\TournagesHeader.tsx`, `src\components\sections\home\tournages\TournagesPillarsCard.tsx`, `src\components\sections\home\HomeVirtualTourSection.tsx`, `src\components\sections\home\HomeQualiopiSection.tsx`, `src\components\sections\home\HomeQualiopiFunding.tsx`, `src\components\sections\home\HomeSocialSection.tsx`, `src\components\sections\home\HomeSocialCards.tsx` | ✅ |
 | `formation-de-cascadeur` | 24 | 9 | 0 | `src\components\sections\formation\FormationHeroSection.tsx`, `src\components\sections\formation\FormationFormulesSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\formation\FormationDisciplinesExplorer.tsx`, `src\components\sections\formation\FormationPedagogyModalities.tsx` | ✅ |
 | `stages-cascades-parkour-2` | 15 | 0 | 9 | `src\components\sections\stages\StagesHeroSection.tsx`, `src\lib\preview\cuc-field.ts`, `src\components\sections\stages\grid\StageGridCard.tsx` | ✅ |
 | `stunt-workshop-cuc` | 29 | 0 | 4 | `src\app\(site)\[locale]\stunt-workshop-cuc\sections\WorkshopHero.tsx`, `src\app\(site)\[locale]\stunt-workshop-cuc\sections\WorkshopHighlights.tsx`, `src\app\(site)\[locale]\stunt-workshop-cuc\sections\WorkshopProgram.tsx`, `src\app\(site)\[locale]\stunt-workshop-cuc\sections\WorkshopInfoCards.tsx`, `src\app\(site)\[locale]\stunt-workshop-cuc\sections\WorkshopApplyBox.tsx` | ✅ |
@@ -28,13 +28,13 @@ Chaque champ promis par un éditeur du Cockpit (`liveEdit`, formulaires, items d
 
 | Page | Champs promis | Manquants | Statut |
 | --- | ---: | ---: | --- |
-| `/` | 47 | 0 | ✅ |
+| `/` | 46 | 0 | ✅ |
 | `team-building-cascades` | 7 | 0 | ✅ |
 | `formation-de-cascadeur` | 8 | 0 | ✅ |
 | `stages-cascades-parkour-2` | 3 | 0 | ✅ |
 | `contact-cuc` | 4 | 0 | ✅ |
 
-✅ Les 69 champs promis sont annotés côté vitrine.
+✅ Les 68 champs promis sont annotés côté vitrine.
 
 ## 3. Natures de champs (`data-cuc-kind`)
 
@@ -51,7 +51,7 @@ Natures autorisées : `text`, `textarea`, `image`, `link`, `list-item`.
 - Pages auditées : 15
 - Pages sans aucun champ : 0
 - Routes absentes : 0
-- Promesses d'éditeurs : 69 champ(s), 0 manquant(s)
+- Promesses d'éditeurs : 68 champ(s), 0 manquant(s)
 - Natures inconnues : 0
 - Champs de liste (`itemPath`) : 17
 

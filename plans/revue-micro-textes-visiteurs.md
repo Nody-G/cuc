@@ -1,18 +1,18 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-10-28T09:18:54.669Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-10-28T09:41:44.337Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
 
 | Catégorie | Occurrences |
 | --- | ---: |
-| ANNOTÉ — éditable en place | 318 |
+| ANNOTÉ — éditable en place | 317 |
 | DONNÉES — éditable par un écran existant | 111 |
 | TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 13 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 9 |
-| **Total** | **451** |
+| **Total** | **450** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -388,14 +388,13 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\home\tournages\TournagesPillarsCard.tsx`
 
-- l.68 — `{pillar1Title}`
-- l.75 — `{pillar1Desc}`
-- l.88 — `{pillar2Title}`
-- l.95 — `{pillar2Desc}`
-- l.108 — `{pillar3Title}`
-- l.115 — `{pillar3Desc}`
-- l.151 — `{ctaProduction}`
-- l.158 — `{ctaCatalog}`
+- l.67 — `{pillar1Title}`
+- l.74 — `{pillar1Desc}`
+- l.87 — `{pillar2Title}`
+- l.94 — `{pillar2Desc}`
+- l.107 — `{pillar3Title}`
+- l.114 — `{pillar3Desc}`
+- l.149 — `{ctaCatalog}`
 
 ### `src\components\sections\partenaires\PartenairesGridSection.tsx`
 

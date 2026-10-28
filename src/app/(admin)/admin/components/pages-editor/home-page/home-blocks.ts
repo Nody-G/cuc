@@ -123,9 +123,7 @@ export const HOME_BLOCKS: HomeBlockDef[] = [
                 ],
             },
             {
-                columns: 2,
                 fields: [
-                    { key: 'cta_production', label: 'CTA production — libellé', liveEdit: true },
                     { key: 'cta_catalog', label: 'CTA catalogue — libellé', liveEdit: true },
                 ],
             },
