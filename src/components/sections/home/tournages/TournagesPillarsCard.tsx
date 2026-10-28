@@ -118,28 +118,7 @@ export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
                     </div>
                 </div>
 
-                {/* 2. Barre d'action avec boutons */}
-                <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-zinc-800/80">
-                    <div className="flex flex-wrap items-center gap-4">
-                        <Link href="/contact-cuc?demande=tournage-production">
-                            <TacticalButton variant="primary" size="md">
-                                <span data-cuc-field="sections_data.tournages.cta_production">
-                                    {ctaProduction}
-                                </span>
-                            </TacticalButton>
-                        </Link>
-                        <Link href="/cuc-team-cascadeur#filmographie">
-                            <span className="text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] transition-colors flex items-center gap-1">
-                                <span data-cuc-field="sections_data.tournages.cta_catalog">
-                                    {ctaCatalog}
-                                </span>
-                                <ChevronRight className="w-3 h-3" />
-                            </span>
-                        </Link>
-                    </div>
-                </div>
-
-                {/* 3. Bandeau des 4 Jaquettes de films en 4 colonnes */}
+                {/* 2. Bandeau des 4 Jaquettes de films en 4 colonnes */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     {productions.map((prod: HighlightProject, idx: number) => {
                         const match = filmsByTitle.get(creditTitleKey(prod.title));
@@ -161,6 +140,27 @@ export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
                             />
                         );
                     })}
+                </div>
+
+                {/* 3. Barre d'action avec boutons */}
+                <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-zinc-800/80">
+                    <div className="flex flex-wrap items-center gap-4">
+                        <Link href="/contact-cuc?demande=tournage-production">
+                            <TacticalButton variant="primary" size="md">
+                                <span data-cuc-field="sections_data.tournages.cta_production">
+                                    {ctaProduction}
+                                </span>
+                            </TacticalButton>
+                        </Link>
+                        <Link href="/cuc-team-cascadeur#filmographie">
+                            <span className="text-xs font-mono-tech text-zinc-400 hover:text-[#FFE500] transition-colors flex items-center gap-1">
+                                <span data-cuc-field="sections_data.tournages.cta_catalog">
+                                    {ctaCatalog}
+                                </span>
+                                <ChevronRight className="w-3 h-3" />
+                            </span>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </StudioParallaxCard>

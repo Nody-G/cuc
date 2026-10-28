@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-10-28T09:12:36.810Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-10-28T09:18:54.669Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -394,8 +394,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 - l.95 — `{pillar2Desc}`
 - l.108 — `{pillar3Title}`
 - l.115 — `{pillar3Desc}`
-- l.127 — `{ctaProduction}`
-- l.134 — `{ctaCatalog}`
+- l.151 — `{ctaProduction}`
+- l.158 — `{ctaCatalog}`
 
 ### `src\components\sections\partenaires\PartenairesGridSection.tsx`
 
