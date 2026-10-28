@@ -3,11 +3,11 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { DoubledCelebrity } from '@/types';
 import { ImdbLogo, LogoLink } from '@/components/ui/BrandLogos';
-import type { TeamNameRef } from '@/lib/celebrity-double';
+import { resolveDoubledBy, type TeamNameRef } from '@/lib/celebrity-double';
 
 interface CelebrityCardProps {
     actor: DoubledCelebrity;
-    /** Référentiel de l'équipe CUC (compatibilité interface). */
+    /** Référentiel de l'équipe CUC. */
     teamMembers?: TeamNameRef[];
     /** Ouvre la fiche détaillée du comédien. */
     onSelect: () => void;
@@ -17,10 +17,15 @@ interface CelebrityCardProps {
  * Vignette d'un comédien partenaire du CUC.
  *
  * Toute la carte ouvre la fiche au clic ; le logo IMDb offre l'accès direct.
- * Épuré selon la demande : nom officiel du comédien sans micro-description tronquée.
+ * Affiche le nom officiel du comédien et la miniature (avatar) du/des cascadeurs CUC l'ayant doublé.
  */
-export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, onSelect }) => {
+export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, teamMembers = [], onSelect }) => {
     const t = useTranslations('teamProduction');
+
+    const doubledBy = React.useMemo(
+        () => resolveDoubledBy(actor.stuntDoubles, teamMembers),
+        [actor.stuntDoubles, teamMembers]
+    );
 
     const openFromKeyboard = (event: React.KeyboardEvent) => {
         if (event.key !== 'Enter' && event.key !== ' ') return;
@@ -65,11 +70,42 @@ export const CelebrityCard: React.FC<CelebrityCardProps> = ({ actor, onSelect })
                 )}
             </div>
 
-            {/* Contenu : nom seul, aligné et percutant */}
-            <div className="p-3.5 flex-1 flex flex-col justify-center">
+            {/* Contenu : nom du comédien + cascadeurs CUC avec tête en miniature */}
+            <div className="p-3 flex-1 flex flex-col justify-between gap-1.5">
                 <h4 className="text-sm sm:text-base font-display uppercase tracking-wide text-white group-hover:text-[#FFE500] transition-colors leading-tight line-clamp-1">
                     {actor.name}
                 </h4>
+
+                {doubledBy.allMembers.length > 0 && (
+                    <div className="flex items-center gap-1.5 pt-1.5 border-t border-zinc-800/80">
+                        {doubledBy.allMembers.slice(0, 2).map((member) => (
+                            <div
+                                key={member.id}
+                                className="flex items-center gap-1.5 min-w-0"
+                                title={`Doublé par ${member.name}`}
+                            >
+                                <div className="relative w-5 h-5 rounded-full overflow-hidden bg-zinc-800 shrink-0 border border-zinc-700">
+                                    {member.avatarUrl ? (
+                                        <Image
+                                            src={member.avatarUrl}
+                                            alt={member.name}
+                                            fill
+                                            sizes="20px"
+                                            className="object-cover"
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center text-[8px] font-bold text-zinc-400">
+                                            {member.name.charAt(0)}
+                                        </div>
+                                    )}
+                                </div>
+                                <span className="text-[10px] font-mono-tech text-zinc-400 group-hover:text-zinc-200 transition-colors truncate">
+                                    {member.name}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
 
             <div className="h-[2px] w-full bg-zinc-800 group-hover:bg-[#FFE500] transition-colors" />

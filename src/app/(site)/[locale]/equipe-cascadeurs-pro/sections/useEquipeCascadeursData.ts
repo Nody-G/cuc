@@ -89,7 +89,7 @@ export function useEquipeCascadeursData(): EquipeCascadeursData {
 
     /** Annuaire de l'équipe : alimente les liens « doublé par » des fiches comédiens. */
     const teamMembers = React.useMemo<TeamNameRef[]>(
-        () => displayTeam.map((member) => ({ id: member.id, name: member.name })),
+        () => displayTeam.map((member) => ({ id: member.id, name: member.name, avatarUrl: member.avatarUrl, role: member.role })),
         [displayTeam]
     );
 

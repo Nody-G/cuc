@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-10-28T10:26:54.279Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-10-28T11:47:28.070Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -8,11 +8,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 | Catégorie | Occurrences |
 | --- | ---: |
 | ANNOTÉ — éditable en place | 317 |
-| DONNÉES — éditable par un écran existant | 112 |
-| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 14 |
+| DONNÉES — éditable par un écran existant | 115 |
+| TRADUCTION — éditable via « Micro-textes du site » (surcharge i18n) | 15 |
 | CODÉ EN DUR — dette (aucune prise en charge par le Cockpit) | 0 |
 | HORS PÉRIMÈTRE — libellé technique (marque, adresse, coordonnées) | 5 |
-| **Total** | **448** |
+| **Total** | **452** |
 
 ## 1. ANNOTÉ — éditable en place
 
@@ -301,9 +301,7 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 ### `src\components\sections\hall-of-fame\CelebrityDetailsModal.tsx`
 
 - l.94 — `{t('celebrityModal.title')}`
-- l.145 — `{t('celebrityModal.doublesAndShootsLabel')}`
-- l.172 — `{t('celebrityModal.inConnector')}`
-- l.270 — `{t('celebrityModal.close')}`
+- l.212 — `{t('celebrityModal.close')}`
 
 ### `src\components\sections\hall-of-fame\CelebrityDoublesGallery.tsx`
 
@@ -315,6 +313,11 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.56 — `{t('filmModal.title')}`
 - l.97 — `{t('filmModal.close')}`
+
+### `src\components\sections\hall-of-fame\celebrity-details\CelebrityStuntDoubles.tsx`
+
+- l.42 — `{t('celebrityModal.doublesAndShootsLabel')}`
+- l.99 — `{t('celebrityModal.inConnector')}`
 
 ### `src\components\sections\hall-of-fame\film-details\FilmDoublesList.tsx`
 
@@ -731,13 +734,19 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\hall-of-fame\CelebrityCard.tsx`
 
-- l.71 — `{actor.name}`
+- l.76 — `{actor.name}`
+- l.103 — `{member.name}`
 
 ### `src\components\sections\hall-of-fame\CelebrityDetailsModal.tsx`
 
 - l.127 — `{celebrity.name}`
 - l.134 — `{celebrity.bio}`
-- l.159 — `{seg.text}`
+
+### `src\components\sections\hall-of-fame\celebrity-details\CelebrityStuntDoubles.tsx`
+
+- l.73 — `{member.name}`
+- l.76 — `{member.role || 'Cascadeur CUC'}`
+- l.128 — `{p}`
 
 ### `src\components\sections\hall-of-fame\film-details\FilmDoublesList.tsx`
 
@@ -853,6 +862,10 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.99 — `{statuses[session.status] ?? ''}`
 
+### `src\components\sections\hall-of-fame\celebrity-details\CelebrityStuntDoubles.tsx`
+
+- l.89 — `{stuntDoublesRaw || doubledBy.name}`
+
 ### `src\components\sections\hall-of-fame\film-details\FilmIdentityBlock.tsx`
 
 - l.17 — `{t('filmModal.directedBy', { name: movie.director })}`
@@ -891,9 +904,9 @@ Aucune occurrence.
 
 - l.128 — `720H`
 
-### `src\components\sections\hall-of-fame\CelebrityDetailsModal.tsx`
+### `src\components\sections\hall-of-fame\celebrity-details\CelebrityStuntDoubles.tsx`
 
-- l.193 — `CUC`
+- l.120 — `CUC`
 
 ### `src\components\sections\team\TeamProductionServices.tsx`
 

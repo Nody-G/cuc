@@ -39,7 +39,7 @@ export const HallOfFame: React.FC = () => {
   useRealtimeRefresh(['site_team', 'site_films'], loadData);
 
   const teamNames = useMemo<TeamNameRef[]>(
-    () => teamMembers.map((member) => ({ id: member.id, name: member.name })),
+    () => teamMembers.map((member) => ({ id: member.id, name: member.name, avatarUrl: member.avatarUrl, role: member.role })),
     [teamMembers]
   );
 

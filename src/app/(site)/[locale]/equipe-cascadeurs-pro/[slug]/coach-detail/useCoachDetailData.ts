@@ -102,7 +102,7 @@ export function useCoachDetailData({ slug, teamOverlays }: UseCoachDetailDataArg
 
     /** Annuaire de l'équipe : alimente les liens « doublé par » de la fiche comédien. */
     const teamMembers = useMemo<TeamNameRef[]>(
-        () => allTeam.map((m) => ({ id: m.id, name: m.name })),
+        () => allTeam.map((m) => ({ id: m.id, name: m.name, avatarUrl: m.avatarUrl, role: m.role })),
         [allTeam]
     );
 

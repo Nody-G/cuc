@@ -15,6 +15,8 @@
 export interface TeamNameRef {
     id: string;
     name: string;
+    avatarUrl?: string;
+    role?: string;
 }
 
 export interface DoubledBySegment {

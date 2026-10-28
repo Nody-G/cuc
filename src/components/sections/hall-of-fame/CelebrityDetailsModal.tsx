@@ -2,7 +2,6 @@
 
 import React, { useMemo } from 'react';
 import Image from 'next/image';
-import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import type { DoubledCelebrity, FilmCredit } from '@/types';
 import { X, Clapperboard } from 'lucide-react';
@@ -10,6 +9,7 @@ import { ImdbLogo, LogoLink } from '@/components/ui/BrandLogos';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import { resolveDoubledBy, type TeamNameRef } from '@/lib/celebrity-double';
 import { creditTitleKey } from '@/lib/credit-title';
+import { CelebrityStuntDoubles } from './celebrity-details/CelebrityStuntDoubles';
 
 interface CelebrityDetailsModalProps {
   celebrity: DoubledCelebrity | null;
@@ -33,7 +33,7 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
 
   /**
    * Découpe « Doublé par X » et reconnaît l'éventuel membre de l'équipe : le
-   * nom devient un lien vers sa fiche coach, comme sur les jaquettes de films.
+   * nom devient un lien vers sa fiche coach, avec photo avatar et rôle.
    */
   const doubledBy = useMemo(
     () => resolveDoubledBy(celebrity?.stuntDoubles ?? '', teamMembers),
@@ -135,74 +135,16 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                 </p>
               ) : null}
 
-              {/* Doublé par (coach du CUC) dans (nom du ou des films) */}
+              {/* Cascadeurs CUC ayant doublé le comédien (avec photo avatar) & tournages associés */}
               {celebrity.stuntDoubles ? (
-                <div className="p-3 bg-[#141419] border border-zinc-800/80 rounded-xs space-y-1.5">
-                  <span
-                    className="text-[10px] font-mono-tech text-[#FFE500] uppercase font-bold tracking-wider block"
-                    {...cucMicro('teamProduction.celebrityModal.doublesAndShootsLabel')}
-                  >
-                    {t('celebrityModal.doublesAndShootsLabel')}
-                  </span>
-                  <div className="text-xs text-white font-mono-tech leading-relaxed">
-                    {doubledBy.segments.length > 0 ? (
-                      doubledBy.segments.map((seg, sIdx) => {
-                        if (seg.type === 'member' && seg.member) {
-                          return (
-                            <Link
-                              key={sIdx}
-                              href={`/equipe-cascadeurs-pro/${seg.member.id}`}
-                              onClick={onClose}
-                              title={seg.member.name}
-                              className="text-[#FFE500] font-bold underline decoration-dotted underline-offset-2 hover:text-white transition-colors"
-                            >
-                              {seg.text}
-                            </Link>
-                          );
-                        }
-                        return <span key={sIdx} className="text-zinc-200">{seg.text}</span>;
-                      })
-                    ) : (
-                      <span>{doubledBy.name}</span>
-                    )}
-                    {celebrity.productions.length > 0 && (
-                      <>
-                        {' '}
-                        <span {...cucMicro('teamProduction.celebrityModal.inConnector')}>
-                          {t('celebrityModal.inConnector')}
-                        </span>{' '}
-                        {celebrity.productions.map((p, pIdx) => {
-                          const matchingFilm = findMatchingLucasFilm(p);
-                          return (
-                            <React.Fragment key={pIdx}>
-                              {pIdx > 0 && ', '}
-                              {matchingFilm ? (
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    onClose();
-                                    onSelectFilm?.(matchingFilm);
-                                  }}
-                                  className="text-[#FFE500] underline font-bold hover:text-white transition-colors cursor-pointer inline-flex items-center gap-1 group"
-                                  title={t('celebrityModal.openLucasFilmTitle', {
-                                    title: matchingFilm.title,
-                                  })}
-                                >
-                                  <span>{p}</span>
-                                  <span className="text-[9px] bg-[#FFE500] text-black px-1 py-0.2 rounded-xs font-bold font-mono-tech group-hover:bg-white">
-                                    CUC
-                                  </span>
-                                </button>
-                              ) : (
-                                <span className="text-zinc-300">{p}</span>
-                              )}
-                            </React.Fragment>
-                          );
-                        })}
-                      </>
-                    )}
-                  </div>
-                </div>
+                <CelebrityStuntDoubles
+                  doubledBy={doubledBy}
+                  stuntDoublesRaw={celebrity.stuntDoubles}
+                  productions={celebrity.productions || []}
+                  findMatchingLucasFilm={findMatchingLucasFilm}
+                  onSelectFilm={onSelectFilm}
+                  onClose={onClose}
+                />
               ) : null}
 
               {/* Films coordonnés par le CUC (seuls films affichés en bas) */}
