@@ -1,6 +1,6 @@
 # Revue — Micro-textes visibles par les visiteurs
 
-Généré le 2026-10-28T09:52:18.140Z par `scripts/audit_visible_microcopy.mjs`.
+Généré le 2026-10-28T10:16:40.607Z par `scripts/audit_visible_microcopy.mjs`.
 
 Analyse statique des composants de vitrine : chaque texte visible est classé.
 Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors périmètre.
@@ -256,8 +256,8 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.65 — `{chrome?.badge || t('disciplines.badge')}`
 - l.72 — `{chrome?.title || t('disciplines.title')}`
-- l.142 — `{t('disciplines.cinemaContextLabel')}`
-- l.151 — `{t('disciplines.equipmentLabel')}`
+- l.152 — `{t('disciplines.cinemaContextLabel')}`
+- l.161 — `{t('disciplines.equipmentLabel')}`
 
 ### `src\components\sections\formation\FormationFormulesSection.tsx`
 
@@ -523,12 +523,12 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 ### `src\components\sections\visite\facilities\FacilityDetailPanel.tsx`
 
-- l.48 — `{facility.name}`
-- l.54 — `{facility.description}`
-- l.63 — `{specsLabel}`
-- l.72 — `{feature}`
-- l.84 — `{complianceLabel}`
-- l.89 — `{facility.specifications}`
+- l.56 — `{facility.name}`
+- l.62 — `{facility.description}`
+- l.71 — `{specsLabel}`
+- l.80 — `{feature}`
+- l.92 — `{complianceLabel}`
+- l.97 — `{facility.specifications}`
 
 ### `src\components\ui\InstagramFollowerBadge.tsx`
 
@@ -725,9 +725,9 @@ Les libellés techniques (marques, `alt`, `title`, `aria-label`) sont hors péri
 
 - l.97 — `{d.number}`
 - l.100 — `{d.name}`
-- l.130 — `{activeDiscipline.name}`
-- l.135 — `{activeDiscipline.fullDesc}`
-- l.160 — `{item}`
+- l.140 — `{activeDiscipline.name}`
+- l.145 — `{activeDiscipline.fullDesc}`
+- l.170 — `{item}`
 
 ### `src\components\sections\hall-of-fame\CelebrityCard.tsx`
 

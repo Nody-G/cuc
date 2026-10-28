@@ -21,14 +21,22 @@ export const FacilityDetailPanel: React.FC<FacilityDetailPanelProps> = ({
     complianceLabel,
 }) => (
     <div className="lg:col-span-8 bg-[#0e0e14] border border-zinc-800 p-6 sm:p-8 relative">
-        {/* Facility Image — `loading="eager"` + préchargement amont : le
-            changement d'installation est instantané (aucun aller-retour
-            réseau au clic). */}
+        {/* Facility Image — affichage en pleine taille sans tronquage,
+            avec sous-couche floue d'ambiance pour formats alternatifs. */}
         <div
             data-cuc-field={`sections_data.installations.items.${index}.image`}
             data-cuc-kind="image"
-            className="relative h-72 sm:h-96 w-full mb-6 border border-zinc-800 overflow-hidden bg-black"
+            className="relative w-full aspect-[16/10] sm:aspect-[3/2] max-h-[540px] mb-6 border border-zinc-800 overflow-hidden bg-black"
         >
+            <Image
+                key={`bg-${facility.id}`}
+                src={facility.image}
+                alt=""
+                fill
+                aria-hidden="true"
+                sizes="(max-width: 1024px) 100vw, 70vw"
+                className="object-cover blur-2xl opacity-20 scale-105 pointer-events-none"
+            />
             <Image
                 key={facility.id}
                 src={facility.image}
@@ -36,7 +44,7 @@ export const FacilityDetailPanel: React.FC<FacilityDetailPanelProps> = ({
                 fill
                 loading="eager"
                 sizes="(max-width: 1024px) 100vw, 70vw"
-                className="object-cover object-center"
+                className="object-contain object-center relative z-10"
                 style={{ animation: 'cuc-fade-in 300ms ease-out both' }}
             />
         </div>

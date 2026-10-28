@@ -114,14 +114,24 @@ export const FormationDisciplinesExplorer: React.FC = () => {
           {/* Discipline Detail Card on Right with Real Image */}
           <div className="lg:col-span-7 bg-[#0f0f16] border-2 border-zinc-800 p-6 relative">
 
-            {/* Real Image of Discipline */}
-            <div className="relative h-80 sm:h-96 w-full mb-6 overflow-hidden border border-zinc-800">
+            {/* Real Image of Discipline — pleine taille sans tronquage */}
+            <div className="relative w-full aspect-[16/10] sm:aspect-[3/2] max-h-[520px] mb-6 overflow-hidden border border-zinc-800 bg-black">
               <Image
+                key={`bg-${activeDiscipline.id}`}
+                src={activeDiscipline.heroImage}
+                alt=""
+                fill
+                aria-hidden="true"
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                className="object-cover blur-2xl opacity-20 scale-105 pointer-events-none"
+              />
+              <Image
+                key={activeDiscipline.id}
                 src={activeDiscipline.heroImage}
                 alt={activeDiscipline.name}
                 fill
                 sizes="(max-width: 1024px) 100vw, 60vw"
-                className="object-cover object-[center_12%] brightness-95 contrast-105"
+                className="object-contain object-center relative z-10 brightness-95 contrast-105"
               />
             </div>
 
