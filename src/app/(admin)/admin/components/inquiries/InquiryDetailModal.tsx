@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Calendar, Mail, Phone, Trash2, X } from 'lucide-react';
+import { Trash2, X } from 'lucide-react';
 import type { SiteInquiry } from '@/lib/data/site-service';
 import type { StuntProgram } from '@/types';
 import type { ApplicantHistory } from '@/lib/inquiries/applicant-history';
@@ -11,6 +11,8 @@ import {
     type PreviousDossierView,
 } from './InquiryApplicantHistorySection';
 import { InquiryChecklistSection } from './InquiryChecklistSection';
+import { InquiryClassificationSection } from './InquiryClassificationSection';
+import { InquiryContactInfoSection } from './InquiryContactInfoSection';
 import { InquiryCucSignSection } from './InquiryCucSignSection';
 import { InquiryDiscoverySection, type DiscoveryVerdict } from './InquiryDiscoverySection';
 import { InquiryNotesSection } from './InquiryNotesSection';
@@ -44,6 +46,8 @@ export interface InquiryDetailModalProps {
     onDiscoveryVerdict: (verdict: DiscoveryVerdict) => void;
     /** Correction d'une erreur de catégorie. */
     onReclassify: (targetPipeline: string, reason: string) => void;
+    /** Re-classification du programme / type de demande. */
+    onProgramChange?: (programId: string, programTitle: string) => void;
     /** Historique dérivé de la personne (tous ses dossiers confondus). */
     applicantHistory?: ApplicantHistory | null;
     /** Dossiers antérieurs de la même personne, du plus récent au plus ancien. */
@@ -79,6 +83,7 @@ export const InquiryDetailModal: React.FC<InquiryDetailModalProps> = ({
     onStageChange,
     onDiscoveryVerdict,
     onReclassify,
+    onProgramChange,
     applicantHistory = null,
     previousApplicants = [],
 }) => {
@@ -120,73 +125,12 @@ export const InquiryDetailModal: React.FC<InquiryDetailModalProps> = ({
                     </button>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                    <div className="p-3.5 rounded-xl bg-white/5 space-y-1">
-                        <div className="text-gray-400 font-mono">Email de contact</div>
-                        <a
-                            href={`mailto:${inquiry.email}`}
-                            className="text-white hover:text-[#FFE500] font-medium flex items-center gap-1.5"
-                        >
-                            <Mail className="w-3.5 h-3.5 text-[#FFE500]" /> {inquiry.email}
-                        </a>
-                    </div>
-                    <div className="p-3.5 rounded-xl bg-white/5 space-y-1">
-                        <div className="text-gray-400 font-mono">Téléphone</div>
-                        <a
-                            href={`tel:${inquiry.phone}`}
-                            className="text-white hover:text-[#FFE500] font-medium flex items-center gap-1.5"
-                        >
-                            <Phone className="w-3.5 h-3.5 text-[#FFE500]" /> {inquiry.phone}
-                        </a>
-                    </div>
-                    {inquiry.age && (
-                        <div className="p-3.5 rounded-xl bg-white/5 space-y-1">
-                            <div className="text-gray-400 font-mono">Âge</div>
-                            <div className="text-white font-medium">{inquiry.age}</div>
-                        </div>
-                    )}
-                    {inquiry.afdas_status && (
-                        <div className="p-3.5 rounded-xl bg-white/5 space-y-1">
-                            <div className="text-gray-400 font-mono">Statut Financement / AFDAS</div>
-                            <div className="text-white font-medium">{inquiry.afdas_status}</div>
-                        </div>
-                    )}
-
-                    {/* Session & cursus : vocabulaire de la Formation uniquement. */}
-                    {isFormation && (
-                        <div className="p-3.5 rounded-xl bg-white/5 space-y-2 col-span-full">
-                            <div className="flex items-center justify-between text-gray-400 font-mono">
-                                <span className="flex items-center gap-1.5 text-[#FFE500]">
-                                    <Calendar className="w-3.5 h-3.5" /> Session & Cursus assigné
-                                </span>
-                                <span className="text-[11px] text-zinc-300 font-semibold">
-                                    {inquiry.session_date || 'Non assignée'}
-                                </span>
-                            </div>
-                            {programs && programs.length > 0 && (
-                                <div className="flex items-center gap-2 pt-1">
-                                    <select
-                                        value={inquiry.session_date || ''}
-                                        onChange={(e) => onSessionDateChange(e.target.value)}
-                                        aria-label="Session assignée"
-                                        className="w-full bg-black/60 border border-white/20 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-[#FFE500] cursor-pointer"
-                                    >
-                                        <option value="">
-                                            Sélectionner ou réassigner à une date de session...
-                                        </option>
-                                        {programs.flatMap((prog) =>
-                                            (prog.nextSessions || []).map((s, idx) => (
-                                                <option key={`${prog.id}-${idx}`} value={s.date}>
-                                                    {prog.title} — {s.date} ({s.status})
-                                                </option>
-                                            ))
-                                        )}
-                                    </select>
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </div>
+                <InquiryContactInfoSection
+                    inquiry={inquiry}
+                    isFormation={isFormation}
+                    programs={programs}
+                    onSessionDateChange={onSessionDateChange}
+                />
 
                 {inquiry.sport_background && (
                     <div className="space-y-1.5">
@@ -207,6 +151,13 @@ export const InquiryDetailModal: React.FC<InquiryDetailModalProps> = ({
                         {inquiry.message || 'Aucun message particulier fourni.'}
                     </div>
                 </div>
+
+                <InquiryClassificationSection
+                    currentProgramId={inquiry.program_id}
+                    currentProgramTitle={inquiry.program_title}
+                    programs={programs}
+                    onProgramChange={onProgramChange}
+                />
 
                 <InquiryChecklistSection
                     checklist={checklist}

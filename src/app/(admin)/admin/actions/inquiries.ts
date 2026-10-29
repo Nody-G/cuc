@@ -160,6 +160,30 @@ export async function updateInquiryStatus(id: string, stage: string) {
 }
 
 /**
+ * Met à jour la classification de programme / type de demande d'un dossier.
+ * Permet aux administrateurs de classer les demandes générales reçues.
+ */
+export async function updateInquiryProgram(id: string, programId: string, programTitle: string) {
+  try {
+    const stamp = new Date().toISOString();
+    return await mutateInquiry(
+      id,
+      { program_id: programId, program_title: programTitle, updated_at: stamp },
+      (entry) => ({ ...entry, program_id: programId, program_title: programTitle, updated_at: stamp }),
+      {
+        action: 'inquiry.classify_program',
+        failureAction: 'inquiry.classify_program.failed',
+        failureMessage: 'La classification du programme n’a pas pu être enregistrée.',
+        details: { programId, programTitle },
+      }
+    );
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Erreur classification demande';
+    return { success: false, error: message };
+  }
+}
+
+/**
  * Met à jour les notes administratives privées d'une candidature.
  */
 export async function updateInquiryNotes(id: string, notes: string) {

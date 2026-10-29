@@ -43,6 +43,14 @@ export const InquiryRow: React.FC<InquiryRowProps> = ({
                             {pipeline.label}
                         </span>
                     )}
+                    {(inquiry.program_id === 'autre' || inquiry.program_id === 'general' || !inquiry.program_id) && (
+                        <span
+                            className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-amber-500/15 text-amber-300 border border-amber-500/30"
+                            title="Demande générale — à qualifier et classer par l'équipe."
+                        >
+                            À classer
+                        </span>
+                    )}
                     {applicantDossierCount > 1 && (
                         <span
                             className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-[#FFE500]/10 text-[#FFE500] border border-[#FFE500]/30"

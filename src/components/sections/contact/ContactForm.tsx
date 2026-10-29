@@ -7,9 +7,8 @@ import { Send, CheckCircle2 } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { submitInquiry } from '@/app/(admin)/admin/actions';
 import { cucMicro } from '@/lib/preview/cuc-micro';
-import { ContactProgramChips } from './ContactProgramChips';
 
-/** Identifiants valides du sélecteur « Votre Demande Concerne ». */
+/** Identifiants valides des types de demande et programmes CUC. */
 const VALID_PROGRAMS = [
   'pro-longue-duree',
   'stage-decouverte',
@@ -23,30 +22,28 @@ const VALID_PROGRAMS = [
 ] as const;
 
 /**
- * Lit le paramètre d'URL `?demande=<id>` pour préremplir le sélecteur
- * « Votre Demande Concerne » depuis un call-to-action contextuel.
+ * Lit le paramètre d'URL `?demande=<id>` depuis un call-to-action contextuel.
+ * Par défaut, toute demande reçue depuis le formulaire contact est d'ordre général ('autre')
+ * pour éviter toute fausse saisie par les utilisateurs ; l'équipe Cockpit classe ensuite le dossier.
  */
 const resolveInitialProgram = (): string => {
-  if (typeof window === 'undefined') return 'pro-longue-duree';
+  if (typeof window === 'undefined') return 'autre';
   const requested = new URLSearchParams(window.location.search).get('demande');
   if (requested && (VALID_PROGRAMS as readonly string[]).includes(requested)) {
     return requested;
   }
-  return 'pro-longue-duree';
+  return 'autre';
 };
 
 export const ContactForm: React.FC = () => {
   const t = useTranslations('contact.form');
 
-  // Préremplissage depuis le paramètre d'URL `?demande=...` : résolu une seule
-  // fois via l'initialiseur paresseux (côté client), sans effet ni rendu en
-  // cascade. Le rendu serveur retombe sur la valeur par défaut.
+  // Préremplissage depuis le paramètre d'URL `?demande=...` si présent, sinon 'autre'.
   const [formData, setFormData] = useState(() => ({
     name: '',
     email: '',
     phone: '',
-    programs: [resolveInitialProgram()],
-    sportExperience: '',
+    program: resolveInitialProgram(),
     message: '',
   }));
 
@@ -60,16 +57,16 @@ export const ContactForm: React.FC = () => {
     setIsSubmitting(true);
     setErrorMessage(null);
 
-    // Formulations issues du catalogue de micro-textes
-    const programTitles = formData.programs.map((progId) => t(`options.${progId}`));
+    // Formulation issue du catalogue de micro-textes (défaut : autre / générale)
+    const progId = formData.program || 'autre';
+    const programTitle = t(`options.${progId}` as any) || t('options.autre');
 
     const res = await submitInquiry({
       full_name: formData.name,
       email: formData.email,
       phone: formData.phone,
-      program_id: formData.programs.join(', '),
-      program_title: programTitles.join(' • '),
-      sport_background: formData.sportExperience,
+      program_id: progId,
+      program_title: programTitle,
       message: formData.message,
       honeypot,
     });
@@ -189,11 +186,6 @@ export const ContactForm: React.FC = () => {
               className="w-full bg-[#14141c] border border-zinc-800 p-3 text-white focus:border-[#FFE500] focus:outline-hidden"
             />
           </div>
-
-          <ContactProgramChips
-            selectedKeys={formData.programs}
-            onChange={(keys) => setFormData({ ...formData, programs: keys })}
-          />
 
           <div>
             <label

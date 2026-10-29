@@ -150,6 +150,9 @@ export const InquiriesView: React.FC<InquiriesViewProps> = ({
           onReclassify={(targetPipeline, reason) =>
             void data.reclassify(selected.id, targetPipeline, reason)
           }
+          onProgramChange={(programId, programTitle) =>
+            void data.classifyProgram(selected.id, programId, programTitle)
+          }
           applicantHistory={selectedHistory}
           previousApplicants={previousApplicants}
         />

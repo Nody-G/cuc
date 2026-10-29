@@ -8,6 +8,7 @@ import {
     reclassifyInquiry,
     setDiscoveryVerdict,
     updateInquiryNotes,
+    updateInquiryProgram,
     updateInquiryStage,
 } from '@/app/(admin)/admin/actions';
 import { getInquiries, type SiteInquiry } from '@/lib/data/site-service';
@@ -182,6 +183,24 @@ export function useInquiriesData({ showToast, onInquiriesCountChange }: UseInqui
         }
     };
 
+    /** Met à jour la classification de programme / type de demande. */
+    const classifyProgram = async (id: string, programId: string, programTitle: string) => {
+        const res = await updateInquiryProgram(id, programId, programTitle);
+        if (res.success) {
+            setInquiries((prev) =>
+                prev.map((item) =>
+                    item.id === id
+                        ? { ...item, program_id: programId, program_title: programTitle }
+                        : item
+                )
+            );
+            showToast(`Demande classée : ${programTitle}`);
+        } else {
+            showToast(`Erreur : ${res.error}`);
+        }
+        return res;
+    };
+
     /** Réassignation de session : mutation locale de la liste + accusé visuel. */
     const updateSessionDate = (id: string, date: string) => {
         setInquiries((prev) => prev.map((it) => (it.id === id ? { ...it, session_date: date } : it)));
@@ -199,5 +218,6 @@ export function useInquiriesData({ showToast, onInquiriesCountChange }: UseInqui
         removeInquiry,
         convertInquiry,
         updateSessionDate,
+        classifyProgram,
     };
 }
