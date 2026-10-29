@@ -17,7 +17,7 @@ export const CUC_TEAM: Instructor[] = [
       "Sécurité de tournage",
       "Chutes de hauteur"
     ],
-    "bio": "Fondateur du Campus Univers Cascades en 2008. Lucas Dollfus coordonne les cascades de longs-métrages, séries et événements, en appliquant une méthode d'entraînement axée sur la rigueur technique, la sécurité et la polyvalence.",
+    "bio": "Fils de deux professeurs d'EPS originaire de Loire-Atlantique, Lucas Dollfus monte à Paris après son baccalauréat avec la volonté d'apprendre le métier de cascadeur. Marqué par le manque d'encadrement professionnel et de rigueur sécuritaire des formations de l'époque, il conçoit à 21 ans le projet d'une école complète, inspirée des campus d'entraînement intégrés. Fondateur du Campus Univers Cascades en 2008, installé depuis 2016 sur un domaine de 5 hectares au Cateau-Cambrésis, il poursuit en parallèle son activité de coordinateur de cascades pour le cinéma et la télévision. Sur le campus, il transmet aux stagiaires le sens du collectif, l'exigence technique et les réalités concrètes des plateaux de tournage.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/1-lucas.webp",
     "imdb": "https://www.imdb.com/name/nm9598200/",
     "externalUrl": "https://www.instagram.com/lucas.dollfus/",
@@ -111,7 +111,7 @@ export const CUC_TEAM: Instructor[] = [
       "Câblage",
       "Combats armés"
     ],
-    "bio": "Coordinateur de cascades et formateur au CUC avec plus de 30 ans d'expérience et plus de 200 productions. Ancien gymnaste de haut niveau et fondateur d'Action Cascade et France-Cascade, il conçoit et coordonne des cascades physiques et mécaniques majeures pour le cinéma.",
+    "bio": "Initié dès le plus jeune âge à la gymnastique et à l'acrobatie par son père, Jérôme Gaspard fait ses premières armes de cascadeur en 1997 à Disneyland Paris sur les spectacles Pocahontas et Tarzan. Il fait ses débuts sur grand écran en 2001 en doublant Samuel Le Bihan dans Le Pacte des loups, avant d'enchaîner plus de deux cents productions au cinéma et à la télévision (Taken, Largo Winch, Valérian, Braquo). Fondateur de la plateforme professionnelle Action Cascade, il assure la direction pédagogique du CUC. Il y enseigne la coordination des cascades mécaniques et physiques, les chutes de grande hauteur et l'analyse méthodique des risques sur plateau.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/2-jerome.webp",
     "imdb": "https://www.imdb.com/name/nm2285249/",
     "externalUrl": "https://www.action-cascade.com/coordinateur-de-cascades/",
@@ -550,7 +550,7 @@ export const CUC_TEAM: Instructor[] = [
       "Franchissements urbains",
       "Mobilité acrobatique"
     ],
-    "bio": "Membre fondateur des Yamakasi et pionnier du Parkour. Malik Diouf transmet les fondamentaux du mouvement urbain naturel : franchissements d'obstacles, équilibre dynamique, précision et gestion du risque.",
+    "bio": "Membre fondateur originel du groupe des Yamakasi, Malik Diouf a contribué à révéler le Parkour au grand public mondial à travers les films cultes Yamakasi : Les Samouraïs des temps modernes et Les Fils du vent. Cascadeur et coordinateur d'action sur de multiples productions cinématographiques et télévisuelles (Taxi 2, Les Misérables), il intervient au Campus Univers Cascades comme formateur référent en Parkour. Il transmet aux élèves une méthode de franchissement urbain épurée, fondée sur la gestion de l'effort, la précision des appuis, le renforcement articulaire et la maîtrise psychologique face aux obstacles.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/3-malik.webp",
     "imdb": "https://www.imdb.com/name/nm0228086/",
     "externalUrl": "https://www.instagram.com/malikdiouf_yamakasi/",
@@ -732,7 +732,7 @@ export const CUC_TEAM: Instructor[] = [
       "Effets pyrotechniques",
       "Torches humaines"
     ],
-    "bio": "Directeur adjoint du campus et expert câblage et pyrotechnie. Franck Blanc forme les stagiaires aux techniques avancées de rigging 3D, aux trajectoires aériennes assistées et aux protocoles stricts de sécurité pyrotechnique.",
+    "bio": "Issu du théâtre et du spectacle vivant en tant que comédien, Franck Blanc rejoint le Campus Univers Cascades pour s'orienter vers les disciplines les plus techniques du cinéma d'action. Devenu directeur adjoint de l'école, il est le spécialiste référent du rigging 3D, du travail sur câbles, des trajectoires aériennes assistées et des cascades pyrotechniques, incluant les torches humaines intégrales. Il forme les promotions aux protocoles d'installation rigoureux, à la manipulation du matériel de traction et au sang-froid nécessaire lors des cascades à fort engagement physique.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/4-franck.webp",
     "imdb": "https://www.imdb.com/name/nm6923086/",
     "externalUrl": "https://www.instagram.com/franck_blanc_cuc/",
@@ -900,7 +900,7 @@ export const CUC_TEAM: Instructor[] = [
       "Chutes comiques",
       "Cascade burlesque"
     ],
-    "bio": "Cascadeur et formateur expérimenté avec plus de 100 productions à son actif. Frédéric Dessains apporte au CUC son expertise des acrobaties, des combats scéniques et du timing comique indispensable aux cascades de divertissement.",
+    "bio": "Enfant de la balle ayant tourné dès son plus jeune âge comme comédien pour Costa-Gavras et Claude Miller, Frédéric Dessains se produit d'abord sur scène dans un numéro acrobatique aux côtés de son père. Il entre dans la cascade professionnelle en 1998 à Disneyland Paris avant de participer à plus de cent vingt productions pour le cinéma et la télévision (Taken, From Paris with Love, Rien à déclarer, Antigang). Au CUC, il met son double bagage d'acteur et d'acrobate au service des élèves pour travailler le jeu corporel, les chutes burlesques, la précision des réactions aux impacts et la justesse comique face à la caméra.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/5-frederic.webp",
     "imdb": "https://www.imdb.com/name/nm1178395/",
     "externalUrl": "https://www.instagram.com/fredericdessains/",
@@ -1159,7 +1159,7 @@ export const CUC_TEAM: Instructor[] = [
       "Tricking",
       "Chutes acrobatiques"
     ],
-    "bio": "Spécialiste des acrobaties au sol et du free-running de haut niveau. Niels Dalery enseigne la maîtrise spatiale, les rotations aériennes et l'aisance corporelle nécessaires aux scènes d'action modernes.",
+    "bio": "Originaire de la région lyonnaise, Niels Dalery s'est illustré parmi les pionniers de la scène sportive du freerunning et du tricking en France, remportant le championnat national de Speed Running en 2013. Cascadeur sur le film Loin du périph, il encadre au Campus Univers Cascades les modules d'acrobaties au sol, de rotations aériennes et de mobilité urbaine. Son enseignement privilégie la conscience spatiale, l'absorption des impacts et la transition fluide entre mouvements acrobatiques purs et exigences de jeu sur plateau.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/6-niels.webp",
     "externalUrl": "https://www.youtube.com/watch?v=DwpD2jceFXA",
     "instagram": "https://www.instagram.com/nielsdalery/",
@@ -1186,7 +1186,7 @@ export const CUC_TEAM: Instructor[] = [
       "Tir de combat",
       "Chutes"
     ],
-    "bio": "Spécialiste du combat scénique armé et à mains nues, avec plus de 110 productions dont John Wick 4. Amédéo Cazzella prépare les élèves au réalisme des affrontements au cinéma et à la manipulation sécurisée d'armes.",
+    "bio": "Pratiquant d'arts martiaux dès l'âge de 14 ans, Amédéo Cazzella cofonde en 1997 la Cascade Demo Team aux côtés de Maurice Chan et Christophe Dupuis, contribuant à populariser les arts martiaux artistiques sur les scènes internationales. Cascadeur et régleur d'action depuis 1998, il collabore à plus de cent dix productions au cinéma (Le Pacte des loups, Lucy, Valérian, Anna, John Wick 4). Au CUC, il est le formateur référent en combat scénique et maniement d'armes blanches (bâton, couteau, sabre), insistant sur la sécurité de manipulation, la lisibilité des angles et la vérité du geste armé à l'écran.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/7-amadeo.webp",
     "imdb": "https://www.imdb.com/name/nm1000561/",
     "externalUrl": "https://www.instagram.com/amedeo_cazzella/",
@@ -1445,7 +1445,7 @@ export const CUC_TEAM: Instructor[] = [
       "Doublure d'action",
       "Acrobaties"
     ],
-    "bio": "Cascadeur de référence internationale, lauréat du Taurus World Stunt Award 2024 pour la mythique chute des 222 marches du Sacré-Cœur dans John Wick: Chapitre 4 comme doublure de Keanu Reeves. Doublure attitrée de Tomer Sisley, Jean Dujardin et Adam Sandler.",
+    "bio": "Formé dès l'enfance au karaté, au judo et à l'aïkido avant de perfectionner son tricking au sein du groupe Cascade, Vincent Bouillon s'est imposé comme une référence internationale de la cascade d'action. Doublure cascade officielle de Keanu Reeves dans John Wick : Chapitre 4 et Ballerina, son travail lui vaut en 2024 le prestigieux Taurus World Stunt Award pour sa chute d'escaliers à Montmartre. Membre de l'équipe mondiale Hitz International, il intervient au CUC pour partager l'expérience des grands plateaux hollywoodiens : encaissement, chorégraphies martiales intenses et précision millimétrée exigée pour le doublage de premiers rôles.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/13-vincent-OK.webp",
     "imdb": "https://www.imdb.com/name/nm4933991/",
     "externalUrl": "https://fr.vincentbouillon.com/",
@@ -1651,7 +1651,7 @@ export const CUC_TEAM: Instructor[] = [
       "Chutes faciales et arrières",
       "Chorégraphies rapides"
     ],
-    "bio": "Co-fondateur du collectif Cascade Demo Team et expert international en arts martiaux et cascades de contact. Maurice Chan transmet l'exigence des impacts, la lisibilité caméra des frappes et la précision des enchaînements.",
+    "bio": "Titulaire d'une licence en cinéma à la Sorbonne Nouvelle et multiple champion de France et d'Europe de Việt Võ Đạo, Maurice Chan cofonde la Cascade Demo Team en 1997. Il évolue comme cascadeur et chorégraphe de combat sur des productions internationales (Lucy, 007 Spectre, John Wick 4, Balle perdue 2) ainsi que sur les spectacles Marvel de Disneyland Paris et la comédie musicale Back to the Future à Broadway. Auteur de l'ouvrage pédagogique Les bases de la cascade physique, il enseigne au CUC la biomécanique des impacts, l'économie du corps et la conception rigoureuse des scènes d'action.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/9-maurice.webp",
     "imdb": "https://www.imdb.com/name/nm0151023/",
     "externalUrl": "https://mauricechan.book.fr",
@@ -1811,7 +1811,7 @@ export const CUC_TEAM: Instructor[] = [
       "Prévisualisation",
       "Cascades physiques"
     ],
-    "bio": "Action designer et coordinateur des cascades sur des productions internationales (Lupin, Lucy, Fast & Furious 6). Kefi Abrikh forme les élèves à la conception de combats cinématographiques narratifs et dynamiques.",
+    "bio": "Issu des sports de combat, Samuel Kefi Abrikh débute comme cascadeur et doublure régulière de comédiens tels que Tomer Sisley. Devenu l'un des action designers et coordinateurs de combats les plus actifs du cinéma français et européen avec sa structure AC Stunts, il supervise également la réalisation de secondes équipes action sur des longs-métrages d'envergure (Nicky Larson, L'Empereur de Paris, Kung Fu Zohra, The Princess, Le Visiteur du Futur). Au CUC, il forme les stagiaires à aborder le combat d'action sous le prisme de la réalisation, du cadre de caméra et du rythme narratif.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/10-kefi.webp",
     "imdb": "https://www.imdb.com/name/nm3768608/",
     "externalUrl": "http://www.kefiabrikh.com",
@@ -2026,7 +2026,7 @@ export const CUC_TEAM: Instructor[] = [
       "Câblage",
       "Combats rapprochés"
     ],
-    "bio": "Chorégraphe de combat et cascadeur prolifique comptant plus de 170 productions (Yoroï, Black Snake). Anthony Pho enseigne la rythmique martiale, la distance de sécurité et le travail des impacts à l'écran.",
+    "bio": "Diplômé d'un Master en informatique et pratiquant assidu de Taekwondo et de Vovinam Viet Vo Dao, Anthony Pho fait ses débuts dans la cascade cinématographique sur From Paris with Love sous le mentorat de Manu Lanzi. Cascadeur, comédien et assistant régleur, il participe à des projets majeurs en France et à l'international (Balle perdue 1 et 2, John Wick 4, Dune de Denis Villeneuve, 6 Underground, Titane), et remporte un Taurus World Stunt Award pour les combats du film Freaks Out. Au CUC, il transmet l'art de la chorégraphie martiale moderne, le maniement des armes traditionnelles et la netteté du geste sous l'œil de l'objectif.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/17-anthony.webp",
     "imdb": "https://www.imdb.com/name/nm4131136/",
     "externalUrl": "https://www.anthonypho.com/",
@@ -2400,7 +2400,7 @@ export const CUC_TEAM: Instructor[] = [
       "Combats acrobatiques",
       "Cascades contact"
     ],
-    "bio": "Cascadeur et formateur spécialisé dans le tricking et les chutes physiques de haute intensité. Alex Vu (John Wick: Chapter 4) forme les futurs cascadeurs à la combinaison fluide d'acrobaties explosives et de combats.",
+    "bio": "Formé aux arts martiaux et au tricking, Alex Vu intègre la Cascade Demo Team en 2006 pour des tournées scéniques internationales avant de faire ses débuts au cinéma en 2009 dans From Paris with Love. En 2016, il est engagé par le Cirque du Soleil à Las Vegas pour tenir le rôle principal d'action du spectacle Kà. Coordinateur de cascades et cofondateur de Stunt Workshop International, il intervient au CUC sur les modules de tricks, d'acrobaties appliquées et de combat scénique, apprenant aux élèves à allier virtuosité physique, puissance visuelle et sécurité d'exécution.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/12-alex.webp",
     "imdb": "https://www.imdb.com/name/nm4842137/",
     "externalUrl": "https://alexvu.book.fr",
@@ -2610,7 +2610,7 @@ export const CUC_TEAM: Instructor[] = [
       "Cascades mécaniques",
       "Combats"
     ],
-    "bio": "Figure historique de la cascade française avec plus de 260 crédits (Lupin, L'Amour ouf, Elyas, L'Empereur de Paris). Michel Bouis transmet son savoir inégalé sur les chutes complexes et le maniement d'armes scéniques.",
+    "bio": "Ancien sapeur-pompier de Paris pendant cinq ans, Michel Bouis commence sa carrière de cascadeur professionnel en 1987 avec le spectacle équestre avant de devenir l'un des régleurs d'action les plus expérimentés du cinéma français, totalisant plus de deux cent soixante productions (La Reine Margot, Taxi 2, Astérix Mission Cléopâtre, Lupin, L'Empereur de Paris, L'Amour ouf). Au Campus Univers Cascades, il transmet son savoir éprouvé sur les chutes corporelles complexes et le maniement des armes historiques et modernes, en accordant une priorité absolue à la préparation psychologique, à l'entraide et au protocole de sécurité.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/14-michel.webp",
     "imdb": "https://www.imdb.com/name/nm0099365/",
     "externalUrl": "https://www.michel-bouis-cascade.fr/",
@@ -3158,7 +3158,7 @@ export const CUC_TEAM: Instructor[] = [
       "Doublure féminine",
       "Poursuites"
     ],
-    "bio": "Cascadeuse et doublure d'action reconnue comptant plus de 80 productions (Acide, Mon Poussin, La Danseuse). Sarah Belala forme aux exigences physiques des chutes et des combats féminins sur plateau.",
+    "bio": "Diplômée du Campus Univers Cascades après un cursus scientifique, Sarah Belala conjugue une pratique martiale diversifiée (boxe, kung-fu, kick-boxing) et des qualifications techniques poussées (chute libre en parachute, plongée sous-marine). Cascadeuse et doublure sur des productions françaises et internationales (Mission: Impossible - Fallout, Climax de Gaspar Noé, Le Bazar de la Charité, Moon Knight), elle s'est illustrée dans les chutes de hauteur, les combats au corps-à-corps et les cascades de torche humaine. Conférencière sur la gestion de la peur, elle enseigne au CUC le dépassement de soi maîtrisé, l'engagement physique total et les spécificités de la doublure féminine sur plateau.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/15-sarah.webp",
     "imdb": "https://www.imdb.com/name/nm5404934/",
     "externalUrl": "https://www.instagram.com/sarahbelala/",
@@ -3350,7 +3350,7 @@ export const CUC_TEAM: Instructor[] = [
       "Chutes physiques",
       "Câblage"
     ],
-    "bio": "Cascadeur et coordinateur fort de plus de 70 productions (Marianne, Walter). Pierre Toubas enseigne la synergie entre acrobaties dynamiques, chutes nettes et intensité martiale.",
+    "bio": "Formé aux arts martiaux traditionnels à travers le Taekwondo et le sabre coréen Haidong Gumdo, Pierre Toubas s'est aguerri au combat scénique aux côtés de Manu Lanzi et de l'équipe Movie Action Design. Cascadeur, comédien et assistant régleur sur de multiples longs-métrages et séries télévisées (Le Dernier Voyage, Victor Young Perez, Néro), il partage au CUC son expertise des affrontements martiaux et des acrobaties de sol. Il insiste auprès des élèves sur la précision du tracé des lames, la fluidité des trajectoires et le sens du cadre cinématographique.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/16-pierre.webp",
     "imdb": "https://www.imdb.com/name/nm4947290/",
     "externalUrl": "https://www.instagram.com/pierretoubas/",
@@ -3524,7 +3524,7 @@ export const CUC_TEAM: Instructor[] = [
       "Cascades physiques",
       "Doublure"
     ],
-    "bio": "Cascadeur polyvalent présent sur plus de 40 productions de cinéma et télévision. Jonathan Bernard accompagne les promotions sur les fondamentaux de chute et la réaction aux coups.",
+    "bio": "Issu de la formation du Campus Univers Cascades, Jonathan Bernard s'est spécialisé dans les cascades physiques intenses au sein de projets exigeants. Membre de l'équipe principale de cascadeurs sur le film Athena de Romain Gavras, il intervient sur des productions de premier plan telles que John Wick 4, The Killer de David Fincher et la série policière B.R.I. Au CUC, il forme les stagiaires à la réalité du plateau d'action : l'encaissement et la distribution crédible des coups, la réaction physique aux détonations, ainsi que la répétition sécurisée des chutes en vitesse dans l'énergie du plan-séquence.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/18-jonathan.webp",
     "imdb": "https://www.imdb.com/name/nm6788253/",
     "externalUrl": "https://www.instagram.com/jonathan_bernard_stunt/",
@@ -3638,7 +3638,7 @@ export const CUC_TEAM: Instructor[] = [
       "Chutes",
       "Acrobaties"
     ],
-    "bio": "Cascadeur professionnel et diplômé CUC, Bastien Trouvé compte près de 40 productions dont Anna de Luc Besson. Il forme les stagiaires à la précision du maniement des armes et à l'exécution martiale rigoureuse.",
+    "bio": "Diplômé du Campus Univers Cascades, Bastien Trouvé s'appuie sur une solide pratique de la boxe, de la boxe thaïlandaise et de l'escrime pour concevoir des cascades physiques franches et percutantes. Actif sur près de quarante productions cinématographiques et télévisuelles (Anna de Luc Besson, Pax Massilia, Largo Winch 3, L'Amour ouf), il encadre au CUC les ateliers de combat au corps-à-corps et de maniement d'armes. Son enseignement se focalise sur la précision du placement, la gestion de la distance de sécurité et le respect scrupuleux des intentions chorégraphiques du régleur.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/19-bastien.webp",
     "imdb": "https://www.imdb.com/name/nm9687362/",
     "externalUrl": "https://www.instagram.com/bastien_trouve/",
@@ -3742,7 +3742,7 @@ export const CUC_TEAM: Instructor[] = [
       "Combats scéniques",
       "Chutes de hauteur"
     ],
-    "bio": "Traceur et cascadeur d'élite fort de plus de 80 productions (Sous la Seine 2). Teddy Ponceau forme aux techniques explosives de franchissement d'obstacles, aux chutes de vitesse et aux chorégraphies nerveuses.",
+    "bio": "Traceur aguerri et cascadeur professionnel comptant plus de quatre-vingts productions pour le cinéma et les plateformes (Furies, Voleuses, The Killer, Acide, Alibi.com 2), Teddy Ponceau s'est notamment illustré comme doublure d'action de comédiens athlétiques. Spécialiste des poursuites rythmées, des franchissements en milieu urbain et des chutes d'impact en vitesse, il transmet au CUC l'art d'adapter la réactivité du Parkour aux contraintes des axes de caméra, de l'espace de jeu réduit et de la synchronisation avec les partenaires.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/23-teddy-ponceau.webp",
     "imdb": "https://www.imdb.com/fr/name/nm12249560/",
     "externalUrl": "https://www.instagram.com/teddyponceau/",
@@ -3934,7 +3934,7 @@ export const CUC_TEAM: Instructor[] = [
       "Tricking",
       "Combats"
     ],
-    "bio": "Cascadeur professionnel formé au CUC, intervenant sur des productions internationales (Anna, The Killer). Alan Cueff transmet sa rigueur technique en acrobaties, chutes et combats rapprochés.",
+    "bio": "Titulaire d'un BPJEPS en activités gymniques acrobatiques et formé au Campus Univers Cascades, Alan Cueff complète son bagage par des qualifications en cascade automobile et en armement tactique. Intervenant sur des productions internationales et françaises de premier plan (Anna, The Killer, Elyas, Loin du périph), il dirige au CUC les entraînements d'acrobaties, de chutes de hauteur et de réceptions au sol. Sa pédagogie met l'accent sur l'alignement corporel, la régularité de trajectoire et l'apprentissage méthodique de l'absorption des impacts pour préserver l'intégrité physique sur la durée.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/21-alan-cueff.webp",
     "imdb": "https://www.imdb.com/name/nm10995720/",
     "externalUrl": "https://www.instagram.com/alancueff/",
@@ -3998,7 +3998,7 @@ export const CUC_TEAM: Instructor[] = [
       "Acrobaties",
       "Impacts"
     ],
-    "bio": "Cascadeur de référence pour les chutes de très grande hauteur et la gestion des réceptions airbag (Les Trois Mousquetaires, Pattaya). Nicolas Retabi forme aux protocoles stricts des sauts et réceptions sécurisées.",
+    "bio": "Cascadeur professionnel reconnu pour ses interventions sur des projets d'action marquants (Pattaya, Athena, The Veil), Nicolas Retabi a développé une expertise pointue dans les chutes de grande hauteur et la gestion des réceptions sur airbag. Régulièrement sollicité pour tester et valider des dispositifs de saut complexes depuis des nacelles en hauteur, il forme les élèves du CUC aux protocoles stricts de sécurité aérienne. Son module aborde la décomposition de la chute libre, le gainage en vol, le placement du corps à l'impact et la gestion mentale du vertige.",
     "avatarUrl": "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/22-nicolas-rertabi.webp",
     "imdb": "https://www.imdb.com/fr/name/nm6912508/",
     "externalUrl": "https://www.instagram.com/nicolasretabi/",
