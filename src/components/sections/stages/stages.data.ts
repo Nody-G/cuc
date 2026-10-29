@@ -68,7 +68,7 @@ export const STAGES_LIST: StageData[] = [
     description: "Donnez à vos rôles une crédibilité totale dans les scènes d'action. Formation de 70 heures conventionnée AFDAS dispensée au sein de notre studio parisien à Gennevilliers. Apprenez à encaisser les impacts, manipuler des armes à blanc, chuter dans les escaliers et tournez votre bande-démo d'action.",
     details: [
       { icon: 'clock', text: '2 Semaines (10 jours ouvrés / 70 heures)' },
-      { icon: 'map', text: 'Pôle CUC Île-de-France, 92230 Gennevilliers' },
+      { icon: 'map', text: 'Pôle CUC Île-de-France, 86 Avenue Louis Roche, 92230 Gennevilliers' },
       { icon: 'shield', text: 'Conventionné AFDAS (0€ de reste à charge pour l\'artiste)' },
       { icon: 'sparkles', text: 'Tournage d\'une bande-démo action individuelle' },
     ],

@@ -149,7 +149,7 @@ export function collectFooterLabels(
     for (const link of footer?.legal?.links ?? []) {
         const key = pageKeyOf(link.href);
         // Les pages réglementaires statiques (mentions légales, confidentialité) sont hors catalogue éditorial CMS
-        if (key && key !== 'mentions-legales' && key !== 'confidentialite' && !labels.has(key)) {
+        if (key && key !== 'mentions-legales' && key !== 'confidentialite' && key !== 'reglement-interieur' && !labels.has(key)) {
             labels.set(key, link.label);
         }
     }

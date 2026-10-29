@@ -215,6 +215,17 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
               )}
             </span>
           </p>
+          <div className="mt-2.5 flex items-center gap-2">
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=86+Avenue+Louis+Roche+92230+Gennevilliers"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-2.5 py-1 bg-[#1a1a24] hover:bg-[#222230] text-zinc-300 hover:text-white border border-zinc-700 text-[11px] font-mono-tech flex items-center gap-1 transition-colors"
+            >
+              <Navigation className="w-3 h-3 text-[#FFE500]" />
+              <span>Google Maps</span>
+            </a>
+          </div>
         </div>
 
         <div className="pt-2 border-t border-zinc-800/80">

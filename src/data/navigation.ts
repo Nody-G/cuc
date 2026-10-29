@@ -486,8 +486,8 @@ export const DEFAULT_FOOTER: SiteFooter = {
                 },
                 {
                     id: 'reglement',
-                    label: 'Règlement & Inscriptions',
-                    href: '/contact-cuc?demande=autre#contact-form',
+                    label: 'Règlement Intérieur & Sécurité',
+                    href: '/reglement-interieur',
                     order: 3,
                     is_visible: true,
                 },

@@ -156,7 +156,7 @@ export const FooterBrandAndSites: React.FC = () => {
             </p>
             <div className="mt-1.5">
               <a
-                href="https://www.google.com/maps/search/?api=1&query=Gennevilliers+92230"
+                href="https://www.google.com/maps/search/?api=1&query=86+Avenue+Louis+Roche+92230+Gennevilliers"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[10px] font-mono-tech text-zinc-400 hover:text-[#FFE500] flex items-center gap-1"

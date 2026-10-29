@@ -72,7 +72,7 @@ export const VisiteAccessTransport: React.FC = () => {
   const emailHref = block?.email_href || 'mailto:contact@campus-universcascades.com';
   const idfLabel = block?.idf_label || t('idfLabel');
   const idfValue = block?.idf_value || t('idfValue');
-  const idfZip = block?.idf_zip || '92230 Gennevilliers';
+  const idfZip = block?.idf_zip || '86 Avenue Louis Roche, 92230 Gennevilliers';
   const accessCta = block?.access_cta || t('accessCta');
 
   return (

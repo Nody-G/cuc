@@ -190,7 +190,7 @@
         "gpsRoute": "Itinéraire GPS",
         "idfHub": "PÔLE ÎLE-DE-FRANCE :",
         "idfStudio": "Studio de Répétition & Préparation Comédiens",
-        "idfAddress": "92230 Gennevilliers (Région Parisienne)",
+        "idfAddress": "86 Avenue Louis Roche, 92230 Gennevilliers (Région Parisienne)",
         "locateMaps": "Localiser sur Maps",
         "productionAgency": "AGENCE DE PRODUCTION :",
         "productionDesc": "CUC PROD • Société de production cinéma & spectacle vivant",
@@ -412,6 +412,7 @@
             "submit": "Envoyer ma Candidature / Message",
             "submitting": "Transmission en cours…",
             "consent": "En soumettant ce formulaire, vous acceptez que les informations saisies soient exploitées dans le cadre strict de votre demande d'admission ou de contact CUC.",
+      "privacyLink": "Consulter notre Politique de Confidentialité & vos droits RGPD",
             "errorFallback": "Une erreur est survenue lors de l'envoi. Veuillez réessayer.",
             "options": {
                 "pro-longue-duree": "Formation Professionnelle Longue Durée (2 ans / 720h)",
@@ -442,7 +443,7 @@
             "seeMap": "Voir la Carte & Accès",
             "idfHub": "PÔLE ÎLE-DE-FRANCE (STUDIO PARIS) :",
             "idfStudio": "Studio de Répétition & Préparation Comédiens",
-            "idfAddress": "92230 Gennevilliers (Région Parisienne)",
+            "idfAddress": "86 Avenue Louis Roche, 92230 Gennevilliers (Région Parisienne)",
             "production": "SOCIÉTÉ DE PRODUCTION :",
             "productionDesc": "CUC PROD — Société de production cinéma et spectacle",
             "qualiopi": "Organisme certifié QUALIOPI pour la formation professionnelle.",
@@ -1075,7 +1076,7 @@
                 "description": "Donnez à vos rôles une crédibilité totale dans les scènes d'action. Formation de 70 heures conventionnée AFDAS dispensée au sein de notre studio parisien à Gennevilliers. Apprenez à encaisser les impacts, manipuler des armes à blanc, chuter dans les escaliers et tournez votre bande-démo d'action.",
                 "details": [
                     "2 Semaines (10 jours ouvrés / 70 heures)",
-                    "Pôle CUC Île-de-France, 92230 Gennevilliers",
+                    "Pôle CUC Île-de-France, 86 Avenue Louis Roche, 92230 Gennevilliers",
                     "Conventionné AFDAS (0€ de reste à charge pour l'artiste)",
                     "Tournage d'une bande-démo action individuelle"
                 ],

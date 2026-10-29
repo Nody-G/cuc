@@ -190,7 +190,7 @@
         "gpsRoute": "GPS Directions",
         "idfHub": "PARIS REGION HUB:",
         "idfStudio": "Rehearsal Studio & Actor Preparation",
-        "idfAddress": "92230 Gennevilliers (Paris Region)",
+        "idfAddress": "86 Avenue Louis Roche, 92230 Gennevilliers (Paris Region)",
         "locateMaps": "Locate on Maps",
         "productionAgency": "PRODUCTION COMPANY:",
         "productionDesc": "CUC PROD • Film & live show production company",
@@ -412,6 +412,7 @@
             "submit": "Send my application / message",
             "submitting": "Sending…",
             "consent": "By submitting this form, you agree that the information provided will be used strictly within the scope of your admission or contact request to CUC.",
+      "privacyLink": "View our Privacy Policy & GDPR rights",
             "errorFallback": "Something went wrong while sending. Please try again.",
             "options": {
                 "pro-longue-duree": "Two-Year Professional Programme (720h)",
@@ -442,7 +443,7 @@
             "seeMap": "See Map & Access",
             "idfHub": "PARIS REGION HUB (PARIS STUDIO):",
             "idfStudio": "Rehearsal Studio & Actor Preparation",
-            "idfAddress": "92230 Gennevilliers (Paris Region)",
+            "idfAddress": "86 Avenue Louis Roche, 92230 Gennevilliers (Paris Region)",
             "production": "PRODUCTION COMPANY:",
             "productionDesc": "CUC PROD — Film and live show production company",
             "qualiopi": "QUALIOPI certified body for professional training.",
@@ -1075,7 +1076,7 @@
                 "description": "Give your roles total credibility in action scenes. A 70-hour AFDAS-funded course delivered in our Paris studio in Gennevilliers. Learn to take impacts, handle blank-firing weapons, fall down stairs and shoot your own action demo reel.",
                 "details": [
                     "2 weeks (10 working days / 70 hours)",
-                    "CUC Paris region centre, 92230 Gennevilliers",
+                    "CUC Paris region centre, 86 Avenue Louis Roche, 92230 Gennevilliers",
                     "AFDAS-funded (no cost left for the artist)",
                     "Shooting of an individual action demo reel"
                 ],

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import { Send, CheckCircle2 } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { submitInquiry } from '@/app/(admin)/admin/actions';
@@ -238,8 +239,17 @@ export const ContactForm: React.FC = () => {
             </TacticalButton>
           </div>
 
-          <div className="text-[10px] font-mono-tech text-zinc-500 pt-1 text-center">
+          <div className="text-[10px] font-mono-tech text-zinc-500 pt-1 text-center space-y-1">
             <span {...cucMicro('contact.form.consent')}>{t('consent')}</span>
+            <div>
+              <Link
+                href="/confidentialite"
+                className="text-zinc-400 hover:text-[#FFE500] underline transition-colors"
+                {...cucMicro('contact.form.privacyLink')}
+              >
+                {t('privacyLink')}
+              </Link>
+            </div>
           </div>
         </form>
       )}

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { SITE_PAGE_CATALOG } from '@/lib/data/site/page-options';
+import { REGULATORY_PAGES } from '@/lib/legal/legal-data';
 import { ExternalLink, Link as LinkIcon } from 'lucide-react';
 
 export interface PageUrlSelectProps {
@@ -36,10 +37,21 @@ export const PageUrlSelect: React.FC<PageUrlSelectProps> = ({
   const matchedCatalog = SITE_PAGE_CATALOG.find(
     (p) => normalizePath(p.value) === normalizedValue
   );
+  const matchedRegulatory = REGULATORY_PAGES.find(
+    (p) => normalizePath(p.value) === normalizedValue
+  );
 
-  const isKnown = Boolean(matchedCatalog);
+  const isKnown = Boolean(matchedCatalog || matchedRegulatory);
   const [userForcedCustom, setUserForcedCustom] = useState(false);
   const isCustom = userForcedCustom || (!isKnown && Boolean(value));
+
+  const resolvedValue = isCustom
+    ? '__custom__'
+    : matchedCatalog
+    ? normalizePath(matchedCatalog.value)
+    : matchedRegulatory
+    ? normalizePath(matchedRegulatory.value)
+    : '/';
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selected = e.target.value;
@@ -63,13 +75,23 @@ export const PageUrlSelect: React.FC<PageUrlSelectProps> = ({
         <div className="relative">
           <select
             id={id}
-            value={isCustom ? '__custom__' : (matchedCatalog ? normalizePath(matchedCatalog.value) : '/')}
+            value={resolvedValue}
             onChange={handleSelectChange}
             disabled={disabled}
             className="w-full bg-black/60 border border-white/20 rounded-lg px-3 py-2 text-xs text-white focus:outline-hidden focus:border-[#FFE500] pr-8 appearance-none cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <optgroup label="Pages du site vitrine">
               {SITE_PAGE_CATALOG.map((page) => {
+                const path = normalizePath(page.value);
+                return (
+                  <option key={page.value} value={path}>
+                    {page.label} ({path})
+                  </option>
+                );
+              })}
+            </optgroup>
+            <optgroup label="Pages réglementaires & légales">
+              {REGULATORY_PAGES.map((page) => {
                 const path = normalizePath(page.value);
                 return (
                   <option key={page.value} value={path}>

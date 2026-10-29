@@ -262,6 +262,42 @@ const nextConfig: NextConfig = {
         destination: '/partenaires',
         permanent: true,
       },
+      // --- Redirections des pages légales & réglementaires ---
+      {
+        source: '/mentions',
+        destination: '/mentions-legales',
+        permanent: true,
+      },
+      {
+        source: '/mentions-legale',
+        destination: '/mentions-legales',
+        permanent: true,
+      },
+      {
+        source: '/legal',
+        destination: '/mentions-legales',
+        permanent: true,
+      },
+      {
+        source: '/privacy',
+        destination: '/confidentialite',
+        permanent: true,
+      },
+      {
+        source: '/rgpd',
+        destination: '/confidentialite',
+        permanent: true,
+      },
+      {
+        source: '/reglement',
+        destination: '/reglement-interieur',
+        permanent: true,
+      },
+      {
+        source: '/reglement-interieur-cuc',
+        destination: '/reglement-interieur',
+        permanent: true,
+      },
     ];
   },
 };
