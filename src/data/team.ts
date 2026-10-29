@@ -1166,12 +1166,12 @@ export const CUC_TEAM: Instructor[] = [
     "order_index": 6,
     "doubledActors": [],
     "notableCredits": [
-      "Sous la Seine (2024) — Cascadeur"
+      "Loin du périph (2022) — Cascadeur"
     ],
     "metadata": {
       "imdb_last_scraped_at": "2026-09-25T10:24:36.473Z",
       "film_roles": {
-        "sous-la-seine": "Cascadeur"
+        "loin-du-periph": "Cascadeur"
       }
     }
   },

@@ -2421,7 +2421,8 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
       "bastien-trouve",
       "alan-cueff",
       "jonathan-bernard",
-      "teddy-ponceau"
+      "teddy-ponceau",
+      "niels-dalery"
     ],
     "cuc_team_roles": {
       "alan-cueff": "Cascadeur",
@@ -2431,7 +2432,8 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
       "teddy-ponceau": "Cascadeur",
       "bastien-trouve": "Cascadeur",
       "amedeo-cazzella": "Cascadeur",
-      "jonathan-bernard": "Cascadeur"
+      "jonathan-bernard": "Cascadeur",
+      "niels-dalery": "Cascadeur"
     },
     "director": "Louis Leterrier",
     "description": "Diakité et Monge sont des officiers de police que tout oppose ; ils se retrouvent ensemble pour enquêter sur une affaire criminelle d'une ampleur inattendue."

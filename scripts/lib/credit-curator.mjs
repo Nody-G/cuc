@@ -99,8 +99,8 @@ export const NON_CINEMA_TITLES = new Set([
  * Un coach absent de cette table n'est pas filtré.
  */
 export const COACH_TITLE_ALLOWLIST = {
-    // Niels Dalery : « Sous la Seine » uniquement (demande explicite répétée).
-    'niels-dalery': new Set(['sous la seine']),
+        // Niels Dalery : « Loin du périph » uniquement.
+    'niels-dalery': new Set(['loin du periph', 'loin du périph']),
 };
 
 /**
