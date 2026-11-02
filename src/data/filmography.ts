@@ -291,9 +291,7 @@ const FILMS_PART_1: FilmCredit[] = [
     "year": "2027",
     "category": "Film",
     "stuntRoles": "",
-    "doubledActors": [
-      "Benjamin Voisin"
-    ],
+    "doubledActors": [],
     "highlight": false,
     "image": "https://m.media-amazon.com/images/M/MV5BNjExYjUyM2ItNzM1Yy00M2M0LTlhZGEtYTAwYmNmNGNjODIwXkEyXkFqcGc@._V1_.jpg",
     "tag": "",
@@ -3054,9 +3052,7 @@ const FILMS_PART_1: FilmCredit[] = [
     "year": "2026",
     "category": "Film",
     "stuntRoles": "",
-    "doubledActors": [
-      "Benjamin Voisin"
-    ],
+    "doubledActors": [],
     "highlight": false,
     "image": "/images/films/forty-love.jpg",
     "tag": "",
