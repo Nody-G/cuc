@@ -4,10 +4,9 @@ import React from 'react';
 import { Link } from '@/i18n/navigation';
 import { Film, ShieldCheck, ChevronRight, Sparkles } from 'lucide-react';
 import { StudioParallaxCard } from '@/components/ui/parallax';
-import { creditTitleKey } from '@/lib/credit-title';
-import { FilmCard } from '@/components/sections/films/FilmCard';
 import type { FilmCredit } from '@/types';
-import { FEATURED_PRODUCTIONS, type HighlightProject } from './home-tournages-data';
+import { type HighlightProject } from './home-tournages-data';
+import { CoordinatedFilmsCarousel } from './CoordinatedFilmsCarousel';
 
 interface TournagesPillarsCardProps {
     pillar1Title: string;
@@ -20,17 +19,14 @@ interface TournagesPillarsCardProps {
     ctaCatalog: string;
     filmsByTitle: Map<string, FilmCredit>;
     featuredProductions?: HighlightProject[];
+    coordinatedFilms: FilmCredit[];
     directorFor: (film?: FilmCredit) => string | undefined;
     onOpenFilm: (film: FilmCredit) => void;
 }
 
 /**
- * Carte studio : les 3 piliers éditoriaux et la sélection de productions.
- * Mise en page équilibrée et fluide :
- * 1. Piliers d'expertise en grille horizontale 3 colonnes à hauteur égale.
- * 2. Barre d'action avec boutons de contact et lien vers le catalogue.
- * 3. Showcase horizontal des 4 jaquettes de films en 4 colonnes (aspect 2/3).
- * Zéro espace mort vertical, visibilité et lecture optimales sur tout écran.
+ * Carte studio : les 3 piliers éditoriaux et le carrousel infini des films
+ * coordonnés en cascade par Lucas Dollfus.
  */
 export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
     pillar1Title,
@@ -39,18 +35,11 @@ export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
     pillar2Desc,
     pillar3Title,
     pillar3Desc,
-    ctaProduction,
     ctaCatalog,
-    filmsByTitle,
-    featuredProductions,
+    coordinatedFilms,
     directorFor,
     onOpenFilm,
 }) => {
-    const productions =
-        featuredProductions && featuredProductions.length > 0
-            ? featuredProductions
-            : FEATURED_PRODUCTIONS;
-
     return (
         <StudioParallaxCard maxTilt={2}>
             <div className="bg-[#0e0e14]/95 backdrop-blur-md border border-[#FFE500]/50 p-6 sm:p-8 lg:p-10 relative shadow-[0_0_40px_rgba(255,229,0,0.08)] flex flex-col gap-8">
@@ -117,29 +106,12 @@ export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
                     </div>
                 </div>
 
-                {/* 2. Bandeau des 4 Jaquettes de films en 4 colonnes */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    {productions.map((prod: HighlightProject, idx: number) => {
-                        const match = filmsByTitle.get(creditTitleKey(prod.title));
-                        return (
-                            <FilmCard
-                                key={match?.id ?? `home-${prod.title}`}
-                                film={
-                                    match ?? {
-                                        id: `home-${idx}`,
-                                        title: prod.title,
-                                        year: prod.year,
-                                        image: prod.poster,
-                                    }
-                                }
-                                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
-                                footer={directorFor(match)}
-                                onOpen={match ? () => onOpenFilm(match) : undefined}
-                                href={match ? undefined : '/cuc-team-cascadeur#filmographie'}
-                            />
-                        );
-                    })}
-                </div>
+                {/* 2. Carrousel infini bidirectionnel des films coordonnés par Lucas Dollfus */}
+                <CoordinatedFilmsCarousel
+                    films={coordinatedFilms}
+                    directorFor={directorFor}
+                    onOpenFilm={onOpenFilm}
+                />
 
                 {/* 3. Lien vers le catalogue complet */}
                 <div className="flex justify-center pt-3 border-t border-zinc-800/80">

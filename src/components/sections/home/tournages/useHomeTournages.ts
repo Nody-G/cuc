@@ -3,10 +3,17 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { getFilms } from '@/lib/data/site/films';
+import { getTeam } from '@/lib/data/site/team';
 import { useRealtimeRefresh } from '@/lib/hooks/useRealtimeRefresh';
 import { creditTitleKey } from '@/lib/credit-title';
-import type { FilmCredit } from '@/types';
-import { FEATURED_PRODUCTIONS, type HighlightProject, type HomeTournagesData } from './home-tournages-data';
+import { selectCoordinatedFilms } from '@/lib/coach-films';
+import type { FilmCredit, Instructor } from '@/types';
+import {
+    FEATURED_PRODUCTIONS,
+    INITIAL_COORDINATED_FILMS,
+    type HighlightProject,
+    type HomeTournagesData,
+} from './home-tournages-data';
 
 interface UseHomeTournagesArgs {
     tournagesData?: HomeTournagesData;
@@ -32,6 +39,8 @@ export interface HomeTournagesController {
     films: FilmCredit[];
     filmsByTitle: Map<string, FilmCredit>;
     featuredProductions: HighlightProject[];
+    /** Ensemble des films coordonnés en cascade par Lucas Dollfus. */
+    coordinatedFilms: FilmCredit[];
     selectedFilm: FilmCredit | null;
     setSelectedFilm: React.Dispatch<React.SetStateAction<FilmCredit | null>>;
     /** Pied de jaquette : nom du réalisateur (« Réal. X »), absent si inconnu. */
@@ -40,8 +49,8 @@ export interface HomeTournagesController {
 
 /**
  * Orchestration du bloc tournages : libellés éditoriaux (données de page ou
- * traduction), catalogue `site_films` + Realtime, résolution par titre
- * normalisé et légende des rôles réellement enregistrés.
+ * traduction), catalogue `site_films` + `site_team` + Realtime, et sélection
+ * dynamique de tous les films coordonnés en cascade par Lucas Dollfus.
  */
 export function useHomeTournages({ tournagesData }: UseHomeTournagesArgs): HomeTournagesController {
     const t = useTranslations('home.tournages');
@@ -63,45 +72,55 @@ export function useHomeTournages({ tournagesData }: UseHomeTournagesArgs): HomeT
         pillar3Desc: tournagesData?.pillar3_desc || t('pillar3Desc'),
     };
 
-    /**
-     * Catalogue live des films (`site_films`) : les affiches éditoriales de la
-     * section sont résolues par titre normalisé dans le catalogue — mêmes
-     * données, même modale et même navigation que « LES FILMS DOUBLÉS &
-     * COORDONNÉS PAR LE CUC ».
-     */
-    const [films, setFilms] = React.useState<FilmCredit[]>([]);
+    const [films, setFilms] = React.useState<FilmCredit[]>(INITIAL_COORDINATED_FILMS);
+    const [team, setTeam] = React.useState<Instructor[]>([]);
     const [selectedFilm, setSelectedFilm] = React.useState<FilmCredit | null>(null);
 
-    const loadFilms = React.useCallback(() => {
+    const loadFilmsAndTeam = React.useCallback(() => {
         getFilms().then(setFilms);
+        getTeam().then(setTeam);
     }, []);
 
     React.useEffect(() => {
-        loadFilms();
-    }, [loadFilms]);
+        loadFilmsAndTeam();
+    }, [loadFilmsAndTeam]);
 
-    // Synchronisation Realtime Cockpit → Vitrine (catalogue des films).
-    useRealtimeRefresh(['site_films'], loadFilms);
+    // Synchronisation Realtime Cockpit → Vitrine (catalogue des films + équipe).
+    useRealtimeRefresh(['site_films', 'site_team'], loadFilmsAndTeam);
 
     const filmsByTitle = React.useMemo(
         () => new Map(films.map((f) => [creditTitleKey(f.title), f])),
         [films]
     );
 
-    /**
-     * Pied de jaquette : nom du réalisateur, comme sur la vitrine TOURNAGE et la
-     * fiche coach. Omis si la donnée n'est pas disponible dans le catalogue.
-     */
     const featuredProductions = React.useMemo(() => {
         return tournagesData?.featured_films && tournagesData.featured_films.length > 0
             ? tournagesData.featured_films
             : FEATURED_PRODUCTIONS;
     }, [tournagesData]);
 
+    const coordinatedFilms = React.useMemo(() => {
+        const coordinator =
+            team.find((m) => m.id === 'lucas-dollfus') ??
+            team.find((m) => m.name.toLowerCase().includes('dollfus'));
+        if (!coordinator) return INITIAL_COORDINATED_FILMS;
+        const resolved = selectCoordinatedFilms(films, coordinator);
+        return resolved.length > 0 ? resolved : INITIAL_COORDINATED_FILMS;
+    }, [films, team]);
+
     const directorFor = React.useCallback(
         (film?: FilmCredit) => (film?.director ? `Réal. ${film.director}` : undefined),
         []
     );
 
-    return { labels, films, filmsByTitle, featuredProductions, selectedFilm, setSelectedFilm, directorFor };
+    return {
+        labels,
+        films,
+        filmsByTitle,
+        featuredProductions,
+        coordinatedFilms,
+        selectedFilm,
+        setSelectedFilm,
+        directorFor,
+    };
 }
