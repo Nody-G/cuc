@@ -311,8 +311,8 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       subtitle: "Marquez les esprits lors de vos festivals, lancements de marque, parcs à thème ou séminaires avec des shows d'action spectaculaires.",
       cta_primary_text: 'Demander un Devis Événementiel',
       cta_primary_link: '/contact-cuc',
-      cta_secondary_text: 'Toutes nos vidéos de shows',
-      cta_secondary_link: '/videos-cascadeur',
+      cta_secondary_text: '',
+      cta_secondary_link: '',
       bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/events-agency-00-bandeau.webp',
     },
     layout_sections: [

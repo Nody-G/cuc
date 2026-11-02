@@ -8,7 +8,7 @@ export const INQUIRY_CLASSIFICATION_OPTIONS: Array<{ id: string; title: string }
     { id: 'autre', title: 'Autre question générale / Demande non classée' },
     { id: 'pro-longue-duree', title: 'Formation Professionnelle Longue Durée (2 ans / 720h)' },
     { id: 'stage-decouverte', title: 'Stage Découverte & Sélection (12 jours / 80h)' },
-    { id: 'weekend-immersion', title: 'Formule Week-end Immersion (250 € pension complète)' },
+    { id: 'weekend-immersion', title: 'Formule Week-end Immersion (pension complète)' },
     { id: 'afdas-artistes-interpretes', title: 'Stage AFDAS Artistes Interprètes (Gennevilliers)' },
     { id: 'stunt-summer-camp', title: 'Stunt Summer Camp (Séjour d\'été)' },
     { id: 'workshop-international', title: 'International Stunt Workshop' },

@@ -88,30 +88,7 @@ export const CoachCard: React.FC<CoachCardProps> = ({ member, films = FILMOGRAPH
                         </h3>
                     </div>
 
-                    {/* Bio */}
-                    <p className="text-xs sm:text-sm font-tech text-zinc-300 leading-relaxed mb-6">
-                        {member.bio}
-                    </p>
-
-                    {/* Specialties */}
-                    <div className="space-y-3 mb-6 pt-4 border-t border-zinc-800/80">
-                        <div>
-                            <strong className="text-[11px] font-mono-tech text-zinc-400 uppercase block mb-2">
-                                Domaines d'expertise :
-                            </strong>
-                            <div className="flex flex-wrap gap-1.5">
-                                {member.specialties.map((spec, idx) => (
-                                    <span
-                                        key={idx}
-                                        className="px-2.5 py-1 bg-zinc-900 border border-zinc-800 text-[10px] font-mono-tech text-zinc-300 group-hover:border-zinc-700 transition-colors"
-                                    >
-                                        {spec}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* 3 premières jaquettes de films */}
+                    {/* 3 premières jaquettes de films */}
                         {coachFilms.length > 0 && (
                             <div className="pt-3 border-t border-zinc-800/80">
                                 <div className="mb-2">
@@ -161,7 +138,6 @@ export const CoachCard: React.FC<CoachCardProps> = ({ member, films = FILMOGRAPH
                             </div>
                         )}
                     </div>
-                </div>
 
                 {/* Action Button & Links Footer */}
                 <div className="pt-4 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-3">

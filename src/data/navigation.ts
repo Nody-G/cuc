@@ -327,7 +327,7 @@ export const DEFAULT_FOOTER: SiteFooter = {
                     },
                     {
                         id: 'stages-weekend',
-                        label: 'Stages Week-end (250€)',
+                        label: 'Stages Week-end',
                         href: '/stages-cascades-parkour-2#weekend-immersion',
                         order: 3,
                         is_visible: true,

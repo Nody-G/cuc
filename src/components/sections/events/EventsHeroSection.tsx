@@ -34,7 +34,7 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
     hero?.cta_primary_link || '/contact-cuc',
     'cuc-events'
   );
-  const ctaSecondaryText = hero?.cta_secondary_text || t('heroCtaSecondary');
+  const ctaSecondaryText = hero?.cta_secondary_text;
   const ctaSecondaryLink = hero?.cta_secondary_link || '/videos-cascadeur';
 
   return (
@@ -46,9 +46,9 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center brightness-35 contrast-125"
+          className="object-cover object-top brightness-70 contrast-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/40 to-transparent" />
       </div>
 
       <div className="relative z-10 page-shell">

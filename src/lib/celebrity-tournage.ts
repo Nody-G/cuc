@@ -2,7 +2,7 @@
  * Sélection et ordre canonique des comédiens doublés pour la page TOURNAGES
  * (/cuc-team-cascadeur).
  *
- * Règle demandée : afficher exclusivement la sélection de 16 comédiens coordonnés
+ * Règle demandée : afficher exclusivement la sélection de 17 comédiens coordonnés
  * par Lucas Dollfus / CUC Team, dans l'ordre strict validé, sans supprimer les
  * autres comédiens du catalogue général (conservés pour les fiches coachs et l'annuaire).
  */
@@ -30,6 +30,7 @@ export const CUC_TOURNAGE_CELEBRITIES_ORDER: readonly string[] = [
     'fadily-camara',
     'alice-isaaz',
     'camille-razat',
+    'benjamin-voisin',
 ] as const;
 
 /**
@@ -52,6 +53,7 @@ export const CUC_TOURNAGE_PROJECTS_OVERRIDE: Readonly<Record<string, readonly st
     'fadily-camara': ['Coka Chicas'],
     'alice-isaaz': ['Néro (Netflix)'],
     'camille-razat': ['Néro (Netflix)'],
+    'benjamin-voisin': ['Forty Love', 'Johnny'],
 };
 
 /**

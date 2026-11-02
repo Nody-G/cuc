@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from '@/i18n/navigation';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { TacticalButton } from '@/components/ui/TacticalButton';
-import { Award, ShieldCheck, Sparkles } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 import type { useTranslations } from 'next-intl';
 import type { Instructor } from '@/types';
 import { cucMicro } from '@/lib/preview/cuc-micro';
@@ -33,8 +33,8 @@ export const CoachProfile: React.FC<CoachProfileProps> = ({
      * (`coach_identity_verification.md`) et se corrige dans l'écran Équipe.
      */
     const entityOverrides = usePreviewEntities();
-    const coachAttr = (field: 'role' | 'title' | 'bio') => cucEntity('site_team', member.id, field);
-    const coachValue = (field: 'role' | 'title' | 'bio', base: string) =>
+    const coachAttr = (field: 'role' | 'title') => cucEntity('site_team', member.id, field);
+    const coachValue = (field: 'role' | 'title', base: string) =>
         resolveEntityOverride(entityOverrides, entityRef('site_team', member.id, field)) ?? base;
 
     return (
@@ -57,39 +57,6 @@ export const CoachProfile: React.FC<CoachProfileProps> = ({
                     <span {...coachAttr('title')}>{coachValue('title', member.title)}</span>
                 </p>
             </div>
-
-            {/* Biographie Détaillée */}
-            <div className="bg-[#0e0e14] border border-zinc-800 p-6 sm:p-8 relative">
-                <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 uppercase tracking-wider mb-4 pb-3 border-b border-zinc-800/80">
-                    <Award className="w-4 h-4 text-[#FFE500]" />
-                    <span {...cucMicro('commonChrome.trainingPathTitle')}>
-                        {chrome('trainingPathTitle')}
-                    </span>
-                </div>
-
-                <p className="text-sm sm:text-base font-tech text-zinc-200 leading-relaxed whitespace-pre-line">
-                    <span {...coachAttr('bio')}>{coachValue('bio', member.bio)}</span>
-                </p>
-            </div>
-
-            {/* Domaines d'Expertise Tactique */}
-            <div>
-                <h2 className="text-sm font-mono-tech uppercase tracking-wider text-zinc-400 mb-3 flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-[#FFE500]" />
-                    <span {...cucMicro('team.expertiseLabel')}>{tt('expertiseLabel')}</span>
-                </h2>
-                <div className="flex flex-wrap gap-2">
-                    {member.specialties.map((spec, idx) => (
-                        <span
-                            key={idx}
-                            className="px-3 py-1.5 bg-[#12121c] border border-zinc-700 text-xs font-mono-tech text-zinc-200 shadow-sm"
-                        >
-                            {spec}
-                        </span>
-                    ))}
-                </div>
-            </div>
-
 
             {/* Call to Action Direct */}
             <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">

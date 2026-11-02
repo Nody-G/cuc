@@ -43,9 +43,9 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center brightness-35 contrast-125"
+          className="object-cover object-[center_25%] brightness-70 contrast-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/40 to-transparent" />
       </div>
 
       <div className="relative z-10 page-shell">
@@ -117,9 +117,6 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
                   sizes="256px"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-              </div>
-              <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-black px-3 py-0.5 border border-zinc-800 text-[10px] font-mono-tech text-[#FFE500] uppercase tracking-wider whitespace-nowrap shadow-md">
-                <span {...cucMicro('teamProduction.hero.emblemLabel')}>{t('hero.emblemLabel')}</span>
               </div>
             </div>
           </div>

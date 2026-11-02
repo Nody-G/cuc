@@ -29,12 +29,13 @@ function mockCelebrity(id: string, name: string, productions: string[] = []): Do
 }
 
 describe('celebrity-tournage domain logic', () => {
-    it('définit exactement 16 comédiens dans CUC_TOURNAGE_CELEBRITIES_ORDER', () => {
-        expect(CUC_TOURNAGE_CELEBRITIES_ORDER).toHaveLength(16);
+    it('définit exactement 17 comédiens dans CUC_TOURNAGE_CELEBRITIES_ORDER', () => {
+        expect(CUC_TOURNAGE_CELEBRITIES_ORDER).toHaveLength(17);
         expect(CUC_TOURNAGE_CELEBRITIES_ORDER[0]).toBe('gilles-lellouche');
         expect(CUC_TOURNAGE_CELEBRITIES_ORDER[1]).toBe('adele-exarchopoulos');
         expect(CUC_TOURNAGE_CELEBRITIES_ORDER[2]).toBe('francois-civil');
         expect(CUC_TOURNAGE_CELEBRITIES_ORDER[15]).toBe('camille-razat');
+        expect(CUC_TOURNAGE_CELEBRITIES_ORDER[16]).toBe('benjamin-voisin');
     });
 
     it('sélectionne et ordonne exclusivement les comédiens de la liste', () => {

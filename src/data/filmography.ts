@@ -3643,12 +3643,38 @@ export const FILMOGRAPHY_CREDITS: FilmCredit[] = [
     "description": "Un événement caritatif réunissant des stars est plongé dans le chaos lorsqu'un groupe radical s'y introduit à la recherche d'un artefact mystique lié à une ancienne prophétie."
   },
   {
+    "id": "johnny",
+    "title": "Johnny",
+    "year": "2027",
+    "category": "Film",
+    "stuntRoles": "",
+    "doubledActors": [
+      "Benjamin Voisin"
+    ],
+    "highlight": false,
+    "image": "https://image.tmdb.org/t/p/h632/oe37Uv6isNH7p9uwGunQj11Iy4R.jpg",
+    "tag": "",
+    "imdbUrl": "https://www.imdb.com/name/nm8308968/",
+    "allocineUrl": "https://www.allocine.fr",
+    "trailerUrl": "",
+    "cuc_team_involved": [
+      "lucas-dollfus"
+    ],
+    "cuc_team_roles": {
+      "lucas-dollfus": "Coordinateur des cascades"
+    },
+    "director": "Cédric Jimenez",
+    "description": "Biopic d'envergure retraçant le parcours mythique de Johnny Hallyday, de ses débuts d'idole yé-yé jusqu'aux concerts monumentaux au Parc des Princes en 1993."
+  },
+  {
     "id": "forty-love",
     "title": "Forty Love",
     "year": "2026",
     "category": "Film",
     "stuntRoles": "",
-    "doubledActors": [],
+    "doubledActors": [
+      "Benjamin Voisin"
+    ],
     "highlight": false,
     "image": "/images/films/forty-love.jpg",
     "tag": "",

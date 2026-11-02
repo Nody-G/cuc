@@ -7,27 +7,6 @@ import { SiteEvent } from '../types';
 
 export const DEFAULT_EVENTS: SiteEvent[] = [
   {
-    id: 'team-building',
-    title: 'Team Building Cinéma d’Action',
-    subtitle: 'Immersion entreprise sur le domaine du CUC',
-    badge: 'SÉMINAIRES & IMMERSION ENTREPRISE',
-    description:
-      'Fédérez vos équipes lors d’un séminaire d’action inoubliable : tournage de faux trailer d’action, combat cinéma, doublage vocal et saut airbag. Accueil jusqu’à 90 personnes avec hébergement et restauration.',
-    features: [
-      'Ateliers cinéma indoor et cascades physiques',
-      'Initiation combat cinéma et axes caméra',
-      'Atelier doublage de voix & effets spéciaux (SFX)',
-      'Hébergement et restauration sur site',
-    ],
-    price_indicator: 'Sur devis',
-    cta_text: 'Organiser un Team Building',
-    cta_link: '/team-building-cascades',
-    image_url:
-      'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/team-building-01-team-building-et-action.webp',
-    order_index: 1,
-    is_published: true,
-  },
-  {
     id: 'spectacles',
     title: 'Spectacles de Cascades & Shows Live',
     subtitle: 'Combats chorégraphiés, voltige urbaine et pyrotechnie en direct',
@@ -45,7 +24,7 @@ export const DEFAULT_EVENTS: SiteEvent[] = [
     cta_link: '/spectacles-cascadeurs-yamakasi',
     image_url:
       'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/events-agency-02-spectacles-et-show-live.webp',
-    order_index: 2,
+    order_index: 1,
     is_published: true,
   },
   {
@@ -66,6 +45,27 @@ export const DEFAULT_EVENTS: SiteEvent[] = [
     cta_link: '/animations-airbag-parkour',
     image_url:
       'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/events-agency-03-location-airbag-et-anim.webp',
+    order_index: 2,
+    is_published: true,
+  },
+  {
+    id: 'team-building',
+    title: 'Team Building Cinéma d’Action',
+    subtitle: 'Immersion entreprise sur le domaine du CUC',
+    badge: 'SÉMINAIRES & IMMERSION ENTREPRISE',
+    description:
+      'Fédérez vos équipes lors d’un séminaire d’action inoubliable : tournage de faux trailer d’action, combat cinéma, doublage vocal et saut airbag. Accueil jusqu’à 90 personnes avec hébergement et restauration.',
+    features: [
+      'Ateliers cinéma indoor et cascades physiques',
+      'Initiation combat cinéma et axes caméra',
+      'Atelier doublage de voix & effets spéciaux (SFX)',
+      'Hébergement et restauration sur site',
+    ],
+    price_indicator: 'Sur devis',
+    cta_text: 'Organiser un Team Building',
+    cta_link: '/team-building-cascades',
+    image_url:
+      'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/team-building-01-team-building-et-action.webp',
     order_index: 3,
     is_published: true,
   },

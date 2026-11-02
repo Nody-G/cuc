@@ -1,1411 +1,1411 @@
 {
-    "common": {
-        "skipToContent": "Aller au contenu principal",
-        "language": "Langue",
-        "currentLanguage": "Français",
-        "switchToEnglish": "English",
-        "switchToFrench": "Français",
-        "languageMenuLabel": "Choisir la langue",
-        "openMenu": "Ouvrir le menu",
-        "closeMenu": "Fermer le menu",
-        "call": "Appel",
-        "callTitle": "Appeler le CUC",
-        "stickyCta": "Contact & Projets",
-        "errorTitle": "Une erreur est survenue",
-        "errorText": "Le contenu n'a pas pu être affiché. Vous pouvez réessayer immédiatement ou revenir à l'accueil.",
-        "retry": "Réessayer",
-        "backHome": "Retour à l'accueil",
-        "errorReference": "Référence : {digest}",
-        "notFoundBadge": "ERREUR 404 • HORS PISTE",
-        "notFoundTitle": "ZONE NON RÉPERTORIÉE",
-        "notFoundSubtitle": "La page demandée est introuvable ou a été déplacée lors d'une cascade.",
-        "notFoundDescription": "Même les meilleurs cascadeurs dévient parfois de leur trajectoire. Reprenez votre élan en explorant l'une de nos sections principales :",
-        "exploreFormations": "Formations & Stages",
-        "exploreTeam": "L'Équipe CUC",
-        "exploreVideos": "Vidéos & Démos",
-        "contactUs": "Nous contacter",
-        "suggestedPages": "Destinations recommandées :"
+  "common": {
+    "skipToContent": "Aller au contenu principal",
+    "language": "Langue",
+    "currentLanguage": "Français",
+    "switchToEnglish": "English",
+    "switchToFrench": "Français",
+    "languageMenuLabel": "Choisir la langue",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "call": "Appel",
+    "callTitle": "Appeler le CUC",
+    "stickyCta": "Contact & Projets",
+    "errorTitle": "Une erreur est survenue",
+    "errorText": "Le contenu n'a pas pu être affiché. Vous pouvez réessayer immédiatement ou revenir à l'accueil.",
+    "retry": "Réessayer",
+    "backHome": "Retour à l'accueil",
+    "errorReference": "Référence : {digest}",
+    "notFoundBadge": "ERREUR 404 • HORS PISTE",
+    "notFoundTitle": "ZONE NON RÉPERTORIÉE",
+    "notFoundSubtitle": "La page demandée est introuvable ou a été déplacée lors d'une cascade.",
+    "notFoundDescription": "Même les meilleurs cascadeurs dévient parfois de leur trajectoire. Reprenez votre élan en explorant l'une de nos sections principales :",
+    "exploreFormations": "Formations & Stages",
+    "exploreTeam": "L'Équipe CUC",
+    "exploreVideos": "Vidéos & Démos",
+    "contactUs": "Nous contacter",
+    "suggestedPages": "Destinations recommandées :"
+  },
+  "films": {
+    "badge": "TOURNAGES & AFFICHES",
+    "title": "LES FILMS COORDONNÉS PAR LE CUC",
+    "subtitle": "Découvrez l'ensemble des productions cinématographiques et télévisuelles sur lesquelles nos cascadeurs et formateurs sont intervenus.",
+    "sortLabel": "Trier :",
+    "sortYearDesc": "Année (récent → ancien)",
+    "sortYearAsc": "Année (ancien → récent)",
+    "sortTitleAsc": "Nom (A → Z)",
+    "sortTitleDesc": "Nom (Z → A)",
+    "filmCardDetails": "Cliquer pour les détails"
+  },
+  "campus": {
+    "title": "LE CAMPUS",
+    "ctaInfrastructures": "Infrastructures",
+    "ctaVisite360": "Visite 360°",
+    "ctaPlan3d": "Plan 3D"
+  },
+  "campus3dViewer": {
+    "title": "Plan 3D du domaine",
+    "resetView": "Recentrer la vue",
+    "enterFullscreen": "Passer en plein écran",
+    "exitFullscreen": "Quitter le plein écran",
+    "fullscreen": "Plein écran",
+    "gestures": "Glisser : pivoter • Clic droit ou Maj + glisser : déplacer • Molette : zoomer",
+    "closeCard": "Fermer la fiche",
+    "cardCta": "Voir la fiche détaillée",
+    "facilityFallbackName": "Campus CUC",
+    "badgeInaugurated": "INAUGURÉE LE 25 OCTOBRE 2024",
+    "badgeVerified": "INSTALLATION VÉRIFIÉE CUC"
+  },
+  "formation": {
+    "ctaApplyPro": "Candidater au Cursus Pro",
+    "formules": {
+      "badge": "PARCOURS D'ADMISSION & CURSUS",
+      "title": "DU STAGE DÉCOUVERTE AU DIPLÔME PRO",
+      "subtitle": "L'accès à la formation longue durée est conditionné par la validation du stage découverte. Ce protocole sélectif garantit la sécurité de tous et le niveau d'excellence de la promotion.",
+      "step1Badge": "ÉTAPE 01 • SÉLECTION OBLIGATOIRE",
+      "step1Hours": "80 HEURES",
+      "step1Title": "STAGE DÉCOUVERTE & SÉLECTION",
+      "step1Desc": "12 jours consécutifs pour tester vos aptitudes physiques, votre sang-froid et votre capacité d'adaptation avant de postuler au cursus long.",
+      "labelDuration": "Durée :",
+      "step1Duration": "12 jours consécutifs (80h de pratique)",
+      "labelPlace": "Lieu :",
+      "place": "Domaine CUC, 59360 Le Cateau-Cambrésis",
+      "labelBoarding": "Hébergement :",
+      "step1Boarding": "Pension complète disponible sur place (90 lits)",
+      "step1ProgramTitle": "Au programme des 12 jours :",
+      "step1Items": [
+        "Initiation aux combats chorégraphiés et axes caméra",
+        "Chutes de sa hauteur et absorptions sur praticables",
+        "Sauts progressifs en hauteur jusqu'à 6-9 mètres sur airbag",
+        "Parcours d'obstacles et Parkour Yamakasi",
+        "Bilan individuel d'aptitude et verdict d'admission pro"
+      ],
+      "step1Cta": "Réserver la Session Découverte",
+      "step2Badge": "ÉTAPE 02 • FORMATION PROFESSIONNELLE",
+      "step2Hours": "720 À 800 HEURES",
+      "step2Title": "FORMATION PROFESSIONNELLE 2 ANS",
+      "step2Desc": "9 à 10 stages de 12 jours échelonnés sur deux ans. Le cursus complet qui forme les cascadeurs polyvalents aptes à tourner immédiatement pour le cinéma international.",
+      "labelRhythm": "Rythme :",
+      "step2Rhythm": "1 stage de 12 jours tous les deux mois (2 ans)",
+      "labelAccreditation": "Agrément :",
+      "step2Accreditation": "Certifié QUALIOPI • Prise en charge AFDAS / France Travail",
+      "labelCertification": "Certification :",
+      "step2Certification": "Diplôme de Cascadeur Professionnel CUC",
+      "step2ProgramTitle": "Maîtrise totale des modules :",
+      "step2Items": [
+        "Chutes extrêmes jusqu'à 21 mètres sur la CUC Tower",
+        "Torche humaine intégrale avec protocoles pyro",
+        "Câblage 3D, wirework super-héroïque et catapultes",
+        "Forces spéciales, armes à blanc et rappel tactique",
+        "Insertion directe dans le réseau de coordinateurs cascades CUC"
+      ]
     },
-    "films": {
-        "badge": "TOURNAGES & AFFICHES",
-        "title": "LES FILMS COORDONNÉS PAR LE CUC",
-        "subtitle": "Découvrez l'ensemble des productions cinématographiques et télévisuelles sur lesquelles nos cascadeurs et formateurs sont intervenus.",
-        "sortLabel": "Trier :",
-        "sortYearDesc": "Année (récent → ancien)",
-        "sortYearAsc": "Année (ancien → récent)",
-        "sortTitleAsc": "Nom (A → Z)",
-        "sortTitleDesc": "Nom (Z → A)",
-        "filmCardDetails": "Cliquer pour les détails"
-    },
-    "campus": {
-        "title": "LE CAMPUS",
-        "ctaInfrastructures": "Infrastructures",
-        "ctaVisite360": "Visite 360°",
-        "ctaPlan3d": "Plan 3D"
-    },
-    "campus3dViewer": {
-        "title": "Plan 3D du domaine",
-        "resetView": "Recentrer la vue",
-        "enterFullscreen": "Passer en plein écran",
-        "exitFullscreen": "Quitter le plein écran",
-        "fullscreen": "Plein écran",
-        "gestures": "Glisser : pivoter • Clic droit ou Maj + glisser : déplacer • Molette : zoomer",
-        "closeCard": "Fermer la fiche",
-        "cardCta": "Voir la fiche détaillée",
-        "facilityFallbackName": "Campus CUC",
-        "badgeInaugurated": "INAUGURÉE LE 25 OCTOBRE 2024",
-        "badgeVerified": "INSTALLATION VÉRIFIÉE CUC"
-    },
-    "formation": {
-        "ctaApplyPro": "Candidater au Cursus Pro",
-        "formules": {
-            "badge": "PARCOURS D'ADMISSION & CURSUS",
-            "title": "DU STAGE DÉCOUVERTE AU DIPLÔME PRO",
-            "subtitle": "L'accès à la formation longue durée est conditionné par la validation du stage découverte. Ce protocole sélectif garantit la sécurité de tous et le niveau d'excellence de la promotion.",
-            "step1Badge": "ÉTAPE 01 • SÉLECTION OBLIGATOIRE",
-            "step1Hours": "80 HEURES",
-            "step1Title": "STAGE DÉCOUVERTE & SÉLECTION",
-            "step1Desc": "12 jours consécutifs pour tester vos aptitudes physiques, votre sang-froid et votre capacité d'adaptation avant de postuler au cursus long.",
-            "labelDuration": "Durée :",
-            "step1Duration": "12 jours consécutifs (80h de pratique)",
-            "labelPlace": "Lieu :",
-            "place": "Domaine CUC, 59360 Le Cateau-Cambrésis",
-            "labelBoarding": "Hébergement :",
-            "step1Boarding": "Pension complète disponible sur place (90 lits)",
-            "step1ProgramTitle": "Au programme des 12 jours :",
-            "step1Items": [
-                "Initiation aux combats chorégraphiés et axes caméra",
-                "Chutes de sa hauteur et absorptions sur praticables",
-                "Sauts progressifs en hauteur jusqu'à 6-9 mètres sur airbag",
-                "Parcours d'obstacles et Parkour Yamakasi",
-                "Bilan individuel d'aptitude et verdict d'admission pro"
-            ],
-            "step1Cta": "Réserver la Session Découverte",
-            "step2Badge": "ÉTAPE 02 • FORMATION PROFESSIONNELLE",
-            "step2Hours": "720 À 800 HEURES",
-            "step2Title": "FORMATION PROFESSIONNELLE 2 ANS",
-            "step2Desc": "9 à 10 stages de 12 jours échelonnés sur deux ans. Le cursus complet qui forme les cascadeurs polyvalents aptes à tourner immédiatement pour le cinéma international.",
-            "labelRhythm": "Rythme :",
-            "step2Rhythm": "1 stage de 12 jours tous les deux mois (2 ans)",
-            "labelAccreditation": "Agrément :",
-            "step2Accreditation": "Certifié QUALIOPI • Prise en charge AFDAS / France Travail",
-            "labelCertification": "Certification :",
-            "step2Certification": "Diplôme de Cascadeur Professionnel CUC",
-            "step2ProgramTitle": "Maîtrise totale des modules :",
-            "step2Items": [
-                "Chutes extrêmes jusqu'à 21 mètres sur la CUC Tower",
-                "Torche humaine intégrale avec protocoles pyro",
-                "Câblage 3D, wirework super-héroïque et catapultes",
-                "Forces spéciales, armes à blanc et rappel tactique",
-                "Insertion directe dans le réseau de coordinateurs cascades CUC"
-            ]
+    "pedagogy": {
+      "sessionsTitle": "PROCHAINES SESSIONS",
+      "registrationNote": "* Les inscriptions se font par ordre de validation du dossier médical et du stage découverte.",
+      "statuses": {
+        "full": "COMPLET",
+        "few": "DERNIÈRES PLACES",
+        "open": "OUVERT"
+      },
+      "sessions": [
+        {
+          "label": "16 au 28 août 2026",
+          "status": "full"
         },
-        "pedagogy": {
-            "sessionsTitle": "PROCHAINES SESSIONS",
-            "registrationNote": "* Les inscriptions se font par ordre de validation du dossier médical et du stage découverte.",
-            "statuses": {
-                "full": "COMPLET",
-                "few": "DERNIÈRES PLACES",
-                "open": "OUVERT"
-            },
-            "sessions": [
-                {
-                    "label": "16 au 28 août 2026",
-                    "status": "full"
-                },
-                {
-                    "label": "18 au 30 octobre 2026",
-                    "status": "full"
-                },
-                {
-                    "label": "21 fév. au 05 mars 2027",
-                    "status": "full"
-                },
-                {
-                    "label": "18 au 30 avril 2027",
-                    "status": "few"
-                },
-                {
-                    "label": "27 juin au 09 juillet 2027",
-                    "status": "open"
-                }
-            ],
-            "admissionTitle": "CONDITIONS D'ADMISSION",
-            "admissionAge": "Être âgé de <b>18 ans révolus</b> au début du cursus.",
-            "admissionDiscovery": "Avoir validé avec succès le <b>stage découverte de 12 jours</b>.",
-            "admissionMedical": "Fournir un <b>certificat médical d'aptitude poussée</b> à la cascade physique.",
-            "admissionBoard": "Validation du dossier par la commission pédagogique CUC.",
-            "fundingTitle": "PRISE EN CHARGE",
-            "sealAlt": "Sceau CUC",
-            "fundingQualiopi": "Le Campus Univers Cascades est un organisme certifié <b>QUALIOPI</b>.",
-            "fundingIntro": "Les formations peuvent faire l'objet d'une prise en charge intégrale ou partielle par :",
-            "fundingItems": [
-                "• AFDAS (Intermittents du spectacle)",
-                "• FRANCE TRAVAIL (AIF demandeurs d'emploi)",
-                "• OPCO & Entreprises du spectacle",
-                "• Échéanciers sans frais (fonds propres)"
-            ]
+        {
+          "label": "18 au 30 octobre 2026",
+          "status": "full"
         },
-        "cta": {
-            "title": "PRÊT À INTÉGRER L'ÉCOLE DES CASCADEURS ?",
-            "text": "Contactez notre équipe pédagogique pour vérifier votre éligibilité, planifier votre stage découverte ou monter votre dossier de financement.",
-            "contact": "Nous Contacter par Téléphone"
+        {
+          "label": "21 fév. au 05 mars 2027",
+          "status": "full"
         },
-        "hero": {
-            "breadcrumbHome": "ACCUEIL",
-            "breadcrumbCurrent": "FORMATION PROFESSIONNELLE DE CASCADEUR",
-            "badge": "CURSUS CERTIFIÉ QUALIOPI",
-            "titleLead": "FORMATION PROFESSIONNELLE",
-            "titleHighlight": "DE CASCADEUR",
-            "subtitle": "Cursus de formation professionnelle fondé par Lucas Dollfus. Une immersion technique au Cateau-Cambrésis pour acquérir les compétences, la discipline de plateau et les réflexes de sécurité exigés par le cinéma d'action.",
-            "ctaDiscovery": "Formule Découverte (12 jours)",
-            "imageAlt": "Formation professionnelle de cascadeur au Campus Univers Cascades",
-            "certificateTitle": "Consulter le dossier d'agrément et de certification CUC",
-            "brochureAlt": "Télécharger la plaquette CUC"
+        {
+          "label": "18 au 30 avril 2027",
+          "status": "few"
         },
-        "stats": {
-            "practiceLabel": "Pratique Intensive Plateau",
-            "graduatesLabel": "Stagiaires Certifiés",
-            "satisfactionLabel": "Taux de Satisfaction",
-            "referenceLabel": "Formation Référente en France",
-            "since": "DEPUIS 2011"
-        },
-        "disciplines": {
-            "badge": "RÉPERTOIRE TECHNIQUE",
-            "title": "LES 10 DISCIPLINES DE LA CASCADE PHYSIQUE",
-            "cinemaContextLabel": "Contexte Cinéma & Tournage :",
-            "equipmentLabel": "Équipements & Installations :"
+        {
+          "label": "27 juin au 09 juillet 2027",
+          "status": "open"
         }
+      ],
+      "admissionTitle": "CONDITIONS D'ADMISSION",
+      "admissionAge": "Être âgé de <b>18 ans révolus</b> au début du cursus.",
+      "admissionDiscovery": "Avoir validé avec succès le <b>stage découverte de 12 jours</b>.",
+      "admissionMedical": "Fournir un <b>certificat médical d'aptitude poussée</b> à la cascade physique.",
+      "admissionBoard": "Validation du dossier par la commission pédagogique CUC.",
+      "fundingTitle": "PRISE EN CHARGE",
+      "sealAlt": "Sceau CUC",
+      "fundingQualiopi": "Le Campus Univers Cascades est un organisme certifié <b>QUALIOPI</b>.",
+      "fundingIntro": "Les formations peuvent faire l'objet d'une prise en charge intégrale ou partielle par :",
+      "fundingItems": [
+        "• AFDAS (Intermittents du spectacle)",
+        "• FRANCE TRAVAIL (AIF demandeurs d'emploi)",
+        "• OPCO & Entreprises du spectacle",
+        "• Échéanciers sans frais (fonds propres)"
+      ]
     },
-    "footer": {
-        "certificateTitle": "Voir le certificat Qualiopi",
-        "certified": "Organisme Certifié Qualiopi",
-        "funding": "Prise en charge AFDAS & CPF 100%",
-        "virtualTour": "Visite Virtuelle 360° du Campus",
-        "sitesTitle": "Nos Implantations",
-        "mainCampus": "CAMPUS PRINCIPAL :",
-        "mainCampusAddress": "Domaine CUC, 59360 Le Cateau-Cambrésis",
-        "region": "Hauts-de-France (1h40 de Paris / 1h de Lille)",
-        "mapAccess": "Carte & Accès",
-        "gpsRoute": "Itinéraire GPS",
-        "idfHub": "PÔLE ÎLE-DE-FRANCE :",
-        "idfStudio": "Studio de Répétition & Préparation Comédiens",
-        "idfAddress": "86 Avenue Louis Roche, 92230 Gennevilliers (Région Parisienne)",
-        "locateMaps": "Localiser sur Maps",
-        "productionAgency": "AGENCE DE PRODUCTION :",
-        "productionDesc": "CUC PROD • Société de production cinéma & spectacle vivant",
-        "directLines": "Lignes Directes",
-        "admissionFile": "Dossier d'Admission 2026/2027",
-        "networksTitle": "Réseaux & Médias",
-        "networksText": "Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages :",
-        "backToTop": "Haut de page",
-        "backToTopLabel": "Remonter en haut de la page",
-        "backToTopTitle": "Remonter en haut",
-        "qualiopiBadge": "Agrément QUALIOPI"
+    "cta": {
+      "title": "PRÊT À INTÉGRER L'ÉCOLE DES CASCADEURS ?",
+      "text": "Contactez notre équipe pédagogique pour vérifier votre éligibilité, planifier votre stage découverte ou monter votre dossier de financement.",
+      "contact": "Nous Contacter par Téléphone"
     },
-    "partenaires": {
-        "cinemaHeading": "Studios & Productions Partenaires",
-        "specializedHeading": "Partenaires Spécialisés & Institutionnels",
-        "productionBadge": "Production Cinéma",
-        "officialSite": "Site officiel",
-        "website": "Site web",
-        "roleMateriel": "Équipementier",
-        "roleMedia": "Média",
-        "roleInstitutionnel": "Institutionnel",
-        "breadcrumbHome": "ACCUEIL",
-        "breadcrumbCurrent": "PARTENAIRES",
-        "heroBadge": "ILS NOUS ACCOMPAGNENT",
-        "heroTitle": "NOS PARTENAIRES",
-        "heroSubtitle": "Équipementiers, effets spéciaux, protections et structures partenaires du Campus Univers Cascades.",
-        "heroImageAlt": "Partenaires du Campus Univers Cascades",
-        "heroMeta": "ÉQUIPEMENTIERS • CINÉMA • INSTITUTIONNELS • ÉTAT",
-        "categories": {
-            "agrement": "Agrément & Certification d'État",
-            "equipementiers": "Équipementiers & Protections",
-            "materiel": "Matériel & Équipement de Tournage",
-            "pedagogie": "Pédagogie & Cascades Professionnelles",
-            "multimedia": "Multimédia & Production",
-            "etablissement": "Établissement & Nutrition"
-        },
-        "partners": [
-            {
-                "name": "Qualiopi",
-                "category": "Certification",
-                "role": "Certification Qualiopi",
-                "description": "Certification qualité des actions de formation (éligible AFDAS, France Travail)."
-            },
-            {
-                "name": "Nike",
-                "category": "Équipementier",
-                "role": "Textiles & Chaussures",
-                "description": "Équipementier sportif (textiles et chaussures de sport)."
-            },
-            {
-                "name": "RXR Protect",
-                "category": "Protections",
-                "role": "Protections Corporelles",
-                "description": "Gilets et équipements de protection corporelle gonflables (technologie Air Shock Absorber)."
-            },
-            {
-                "name": "Gravity",
-                "category": "Vêtements de sport",
-                "role": "Textiles Parkour",
-                "description": "Vêtements et streetwear pour le parkour et le freerunning."
-            },
-            {
-                "name": "C17 Special Effects",
-                "category": "Effets Spéciaux",
-                "role": "SFX & Pyrotechnie",
-                "description": "Effets spéciaux physiques, pyrotechnie et armurerie pour le cinéma."
-            },
-            {
-                "name": "Kiloutou",
-                "category": "Location de Matériel",
-                "role": "Levage & Nacelles",
-                "description": "Location de nacelles élévatrices, engins de levage et matériel de chantier."
-            },
-            {
-                "name": "TM Incendie",
-                "category": "Sécurité Incendie",
-                "role": "Protection Incendie",
-                "description": "Vente et maintenance de matériel de sécurité incendie et extincteurs."
-            },
-            {
-                "name": "Action Cascade",
-                "category": "Cascades & Tournage",
-                "role": "Coordination de Cascades",
-                "description": "Équipe de cascadeurs et coordination de cascades pour les tournages et spectacles."
-            },
-            {
-                "name": "AYA Catch",
-                "category": "Catch & Lutte",
-                "role": "Catch Professionnel",
-                "description": "École et association française de catch professionnel et lutte scénarisée."
-            },
-            {
-                "name": "Cascade Demo Team",
-                "category": "Arts Martiaux & Acrobaties",
-                "role": "Démonstration & XMA",
-                "description": "Troupe de démonstration d'arts martiaux artistiques (XMA) et acrobaties martiales."
-            },
-            {
-                "name": "Xtrem Video",
-                "category": "Média & Vidéo",
-                "role": "Média Sports Extrêmes",
-                "description": "Production et distribution de contenus vidéo de sports d'action et extrêmes."
-            },
-            {
-                "name": "TaffCoeur",
-                "category": "Production Audiovisuelle",
-                "role": "Réalisation & Captation",
-                "description": "Studio de réalisation vidéo, clips et captations de spectacles."
-            },
-            {
-                "name": "MFR Le Cateau-Cambrésis",
-                "role": "Hébergement & Restauration",
-                "category": "Hébergement & Accueil",
-                "description": "Hébergement et restauration des stagiaires au Cateau-Cambrésis."
-            },
-            {
-                "name": "BSN Nutrition",
-                "role": "Nutrition Sportive",
-                "category": "Nutrition Sportive",
-                "description": "Nutrition sportive et compléments alimentaires pour athlètes."
-            }
-        ],
-        "ctaBadge": "SPONSORING",
-        "ctaTitle": "DEVENIR PARTENAIRE",
-        "ctaBody": "Vous êtes équipementier, fabricant de matériel, société d'effets spéciaux ou marque souhaitant associer son image au campus ?",
-        "ctaButton": "Nous contacter"
+    "hero": {
+      "breadcrumbHome": "ACCUEIL",
+      "breadcrumbCurrent": "FORMATION PROFESSIONNELLE DE CASCADEUR",
+      "badge": "CURSUS CERTIFIÉ QUALIOPI",
+      "titleLead": "FORMATION PROFESSIONNELLE",
+      "titleHighlight": "DE CASCADEUR",
+      "subtitle": "Cursus de formation professionnelle fondé par Lucas Dollfus. Une immersion technique au Cateau-Cambrésis pour acquérir les compétences, la discipline de plateau et les réflexes de sécurité exigés par le cinéma d'action.",
+      "ctaDiscovery": "Formule Découverte (12 jours)",
+      "imageAlt": "Formation professionnelle de cascadeur au Campus Univers Cascades",
+      "certificateTitle": "Consulter le dossier d'agrément et de certification CUC",
+      "brochureAlt": "Télécharger la plaquette CUC"
     },
-    "team": {
-        "badge": "COACHS & PROFESSIONNELS DU CINÉMA",
-        "title": "L'ÉQUIPE",
-        "subtitle": "Une faculté d'action unique au monde. Des coordinateurs de cascades renommés, des pionniers des Yamakasi, et des cascadeurs en exercice sur les plus grandes productions hollywoodiennes et françaises qui transmettent chaque jour leur savoir-faire sur le terrain.",
-        "performerTag": "CASCADEURS DU CINÉMA D'ACTION INTERNATIONAL",
-        "creditsLabel": "Références & Tournages :",
-        "creditsUnit": "crédits",
-        "othersLabel": "+{count} autres",
-        "projectsLabel": "Projets & Tournages Cinéma",
-        "ctaDetail": "Voir la fiche complète",
-        "showcaseTag": "CINÉMA D'ACTION INTERNATIONAL",
-        "roleCoordination": "Coordination",
-        "roleAssistantCoordination": "Assistant coordination",
-        "roleRiggingCoordination": "Coordination rigging",
-        "roleRigger": "Rigger",
-        "roleMechanicalStunt": "Cascade mécanique",
-        "roleDouble": "Doublure",
-        "roleDoubleOf": "Doublure de {names}",
-        "roleStunt": "Cascade",
-        "filmCardTitle": "{title} ({year}) — ouvrir la fiche de production",
-        "breadcrumb": "ÉQUIPE PRO",
-        "facultyTag": "FACULTÉ PÉDAGOGIQUE DU CUC",
-        "expertiseLabel": "Domaines d'expertise & Disciplines enseignées :",
-        "doubledLabel": "Acteurs doublés à l'écran :",
-        "ctaContact": "Contacter l'équipe de production",
-        "ctaTrain": "Découvrir nos formations & stages",
-        "filmographyTag": "FILMOGRAPHIE & PRODUCTIONS CINÉMA",
-        "filmographyHint": "Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués.",
-        "listedOne": "{count} production répertoriée",
-        "listedMany": "{count} productions répertoriées",
-        "roleOnProduction": "Rôle sur cette production :",
-        "directorShort": "Réal. {name}",
-        "productionFallback": "Production",
-        "featuredBadge": "Mis en avant",
-        "campusFacultyTag": "FACULTÉ DU CAMPUS",
-        "seeWholeTeam": "Voir toute l'équipe",
-        "cardCta": "Fiche complète",
-        "backToTeam": "Retour à toute l'équipe pédagogique",
-        "breadcrumbHome": "ACCUEIL",
-        "breadcrumbCurrent": "L'ÉQUIPE",
-        "ctaBlockTitle": "FORMEZ-VOUS AVEC LES MEILLEURS PROFESSIONNELS DU SECTEUR",
-        "ctaBlockBody": "Chaque instructeur du Campus Univers Cascades est actif sur les plateaux de tournage et transmet les exigences actuelles du cinéma mondial.",
-        "ctaBlockButton": "Découvrir les Formations du CUC",
-        "coachNotFound": "Ce membre de l'équipe pédagogique n'existe pas ou a été déplacé.",
-        "coachNotFoundTitle": "Coach Introuvable",
-        "coachBackToTeam": "Retour à l'équipe",
-        "coachAllocineTitle": "Fiche Allociné",
-        "coachSortFilmographyAria": "Trier la filmographie",
-        "externalLinkAria": "Fiche & Références externes",
-        "coachImdbTitle": "Fiche IMDb Officielle",
-        "coachPortraitAlt": "Portrait de {name}",
-        "coachExternalTitle": "Site officiel ou portfolio",
-        "filmographyHeading": "Cascades & Tournages de {name}",
-        "filterAll": "Toutes les participations",
-        "filterCoord": "Coordination des cascades",
-        "filterDoublure": "Doublures",
-        "filterCascadeur": "Cascades & Combats",
-        "filteredCount": "{shown} / {total} films",
-        "filmographyEmptyFilter": "Aucune production trouvée pour ce filtre.",
-        "showAllFilms": "Voir toutes les productions (+{count})"
+    "stats": {
+      "practiceLabel": "Pratique Intensive Plateau",
+      "graduatesLabel": "Stagiaires Certifiés",
+      "satisfactionLabel": "Taux de Satisfaction",
+      "referenceLabel": "Formation Référente en France",
+      "since": "DEPUIS 2011"
     },
-    "contact": {
-        "hero": {
-            "breadcrumbHome": "ACCUEIL",
-            "breadcrumbCurrent": "CONTACT & PROJETS",
-            "badge": "CONTACT & ADMISSIONS",
-            "locationLabel": "CAMPUS CUC • LE CATEAU-CAMBRÉSIS & GENNEVILLIERS",
-            "titleLine": "CONTACT &",
-            "titleAccent": "PROJETS",
-            "subtitle": "Productions cinématographiques, action design, formations professionnelles de cascadeurs, stages ou événements d'entreprise : échangez directement avec les équipes du CUC.",
-            "imageAlt": "Contact et inscriptions au Campus Univers Cascades"
-        },
-        "form": {
-            "title": "DÉMARRER UN PROJET OU ÉCHANGER",
-            "intro": "Transmettez-nous les détails de votre demande. Notre équipe opérationnelle vous répondra sous 24 à 48 heures ouvrées.",
-            "successTitle": "MESSAGE TRANSMIS AVEC SUCCÈS",
-            "successText": "Merci pour votre prise de contact avec le Campus Univers Cascades. Notre équipe examinera votre projet et reviendra vers vous avec réactivité.",
-            "sendAnother": "Envoyer un autre message",
-            "labelName": "Nom & Prénom *",
-            "placeholderName": "Ex : Alexandre Dubois",
-            "labelPhone": "Téléphone *",
-            "placeholderPhone": "Ex : 06 12 34 56 78",
-            "labelEmail": "Adresse Email *",
-            "placeholderEmail": "Ex : alexandre@exemple.com",
-            "labelProgram": "Votre Demande Concerne *",
-            "multipleChoiceHint": "Choix multiple possible",
-            "topicsGroupAria": "Sujets de demande",
-            "labelExperience": "Expérience Sportive / Artistique (Arts martiaux, gymnastique, parkour…)",
-            "placeholderExperience": "Ex : 5 ans de judo, pratique du parkour…",
-            "labelMessage": "Votre Message *",
-            "placeholderMessage": "Indiquez vos objectifs, questions ou financements envisagés (AFDAS, etc.)…",
-            "submit": "Envoyer ma Candidature / Message",
-            "submitting": "Transmission en cours…",
-            "consent": "En soumettant ce formulaire, vous acceptez que les informations saisies soient exploitées dans le cadre strict de votre demande d'admission ou de contact CUC.",
-      "privacyLink": "Consulter notre Politique de Confidentialité & vos droits RGPD",
-            "errorFallback": "Une erreur est survenue lors de l'envoi. Veuillez réessayer.",
-            "options": {
-                "pro-longue-duree": "Formation Professionnelle Longue Durée (2 ans / 720h)",
-                "stage-decouverte": "Stage Découverte & Sélection (12 jours / 80h)",
-                "weekend-immersion": "Formule Week-end Immersion (250 € pension complète)",
-                "afdas-artistes-interpretes": "Stage AFDAS Artistes Interprètes (Gennevilliers)",
-                "stunt-summer-camp": "Stunt Summer Camp (Séjour d'été)",
-                "workshop-international": "International Stunt Workshop",
-                "tournage-production": "Production de Cinéma / Tournage / Coordination",
-                "cuc-events": "CUC Events / Spectacles & Animations Live",
-                "autre": "Autre question générale"
-            }
-        },
-        "sidebar": {
-            "standardTitle": "STANDARD ADMISSIONS & DIRECTION",
-            "directPhone": "TÉLÉPHONE DIRECT :",
-            "email": "EMAIL :",
-            "hours": "HORAIRES DU STANDARD :",
-            "hoursValue": "Du Lundi au Vendredi : 09h00 - 18h30",
-            "hoursSaturday": "Samedi (jours de stage) : 09h00 - 17h00",
-            "train": "TRAIN :",
-            "road": "ROUTE :",
-            "parking": "PARKING :",
-            "sitesTitle": "NOS DEUX SITES",
-            "mainCampus": "CAMPUS PRINCIPAL :",
-            "mainCampusAddress": "Domaine CUC, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis",
-            "mainCampusRegion": "Hauts-de-France (à 1h40 de Paris en train / 1h de Lille)",
-            "seeMap": "Voir la Carte & Accès",
-            "idfHub": "PÔLE ÎLE-DE-FRANCE (STUDIO PARIS) :",
-            "idfStudio": "Studio de Répétition & Préparation Comédiens",
-            "idfAddress": "86 Avenue Louis Roche, 92230 Gennevilliers (Région Parisienne)",
-            "production": "SOCIÉTÉ DE PRODUCTION :",
-            "productionDesc": "CUC PROD — Société de production cinéma et spectacle",
-            "qualiopi": "Organisme certifié QUALIOPI pour la formation professionnelle.",
-            "entitiesTitle": "ENTITÉS & DÉPARTEMENTS DU CAMPUS",
-            "logoAltCuc": "Campus Univers Cascades CUC",
-            "logoAltEvents": "CUC Events",
-            "logoAltTeam": "CUC Team"
-        },
-        "map": {
-            "radar": "Radar Satellite",
-            "roadMap": "Vue Satellite",
-            "copyGps": "COPIER GPS",
-            "copied": "GPS COPIÉ !",
-            "copyGpsTitle": "Copier les coordonnées GPS",
-            "domain": "DOMAINE CUC",
-            "cartography": "CARTOGRAPHIE DU CAMPUS",
-            "aerial": "Vue Aérienne HD",
-            "grid": "Mode Grille",
-            "toggleLayer": "Basculer entre la vue satellite réelle et la grille radar",
-            "orthophotoAlt": "Orthophoto HD du Campus Univers Cascades",
-            "travelTitle": "TEMPS DE TRAJET & ACCÈS",
-            "travelBadge": "CAMPUS CUC",
-            "trainTitle": "EN TRAIN DIRECT",
-            "arrival": "Arrivée : {station}",
-            "carTitle": "EN VOITURE",
-            "accessInfoTitle": "INFO ACCÈS & STATIONNEMENT :",
-            "accessInfoParking": "• <b>Parking gratuit 50 places</b> à l'intérieur du Domaine CUC sécurisé.",
-            "accessInfoShuttle": "• <b>Navette CUC gratuite</b> entre la Gare du Cateau et le Campus pour les stagiaires en formation.",
-            "addressCopied": "ADRESSE COPIÉE DANS LE PRESSE-PAPIER !",
-            "copyAddress": "COPIER L'ADRESSE COMPLÈTE",
-            "sectionBadge": "GÉOLOCALISATION & ASSISTANT DE NAVIGATION",
-            "sectionTitle": "PLAN DU DOMAINE &",
-            "sectionTitleAccent": "ITINÉRAIRES",
-            "sectionIntro": "Retrouvez les coordonnées GPS exactes, les temps de trajet en train ou voiture depuis Paris, Lille ou Bruxelles, et lancez instantanément votre navigation dans Google Maps, Apple Maps, Waze ou SNCF Connect.",
-            "appLaunchTitle": "ITINÉRAIRE GPS & NAVIGATION :",
-            "launchRoute": "Lancer l'itinéraire",
-            "chooseApp": "Choisir votre application :",
-            "googleMapsDesc": "Navigation GPS universelle & Web",
-            "appleMapsDesc": "Idéal sur iPhone, iPad & Mac",
-            "wazeDesc": "Trafic & alertes en temps réel",
-            "sncfDesc": "Trajets en train direct vers Le Cateau",
-            "routes": [
-                {
-                    "id": "paris",
-                    "origin": "Paris",
-                    "tag": "Accès Rapide",
-                    "trainDetails": "Gare du Nord direct TER / Intercités vers Gare du Cateau. Navette campus sur demande.",
-                    "trainStation": "Gare du Cateau-Cambrésis (à 3 min du campus)",
-                    "carDetails": "Autoroute A1 puis A2 (sortie Cambrai ou Valenciennes), direction Le Cateau-Cambrésis."
-                },
-                {
-                    "id": "lille",
-                    "origin": "Lille & Région Nord",
-                    "tag": "Proximité",
-                    "trainDetails": "Lille Flandres direct vers Le Cateau via Valenciennes.",
-                    "trainStation": "Gare du Cateau-Cambrésis",
-                    "carDetails": "Autoroute A23 direction Valenciennes, puis D932 jusqu'au Cateau."
-                },
-                {
-                    "id": "bruxelles",
-                    "origin": "Bruxelles & Belgique",
-                    "tag": "International",
-                    "trainDetails": "Bruxelles-Midi vers Mons puis correspondance Aulnoye-Aymeries / Le Cateau.",
-                    "trainStation": "Gare du Cateau",
-                    "carDetails": "Autoroute E19 / E42 via Mons, direction Maubeuge puis Le Cateau."
-                },
-                {
-                    "id": "airports",
-                    "origin": "Aéroports Internationaux",
-                    "tag": "Monde & DOM-TOM",
-                    "trainDetails": "Depuis Roissy-CDG : TGV Haute-Picardie ou liaison Gare du Nord.",
-                    "trainStation": "Roissy-CDG ou Charleroi Bruxelles-Sud",
-                    "carDetails": "Idéal pour les élèves arrivant de l'étranger : Canada, Réunion, Guadeloupe ou Suisse."
-                }
-            ],
-            "mapAddressLabel": "Le Cateau-Cambrésis • Domaine CUC"
-        }
-    },
-    "visite": {
-        "galleryBadge": "GALERIE DU CAMPUS",
-        "galleryTitle": "LE DOMAINE EN IMAGES",
-        "gallerySubtitle": "Photographies du campus au Cateau-Cambrésis.",
-        "showAllPhotos": "Voir toutes les photos (+{count})",
-        "showLessPhotos": "Réduire l'affichage",
-        "zoom": "Agrandir",
-        "facilitiesTag": "INFRASTRUCTURES",
-        "facilitiesTitle": "NOS INFRASTRUCTURES",
-        "facilitiesSubtitle": "Chaque espace est conçu pour le travail des cascades physiques et mécaniques, avec les équipements de réception nécessaires.",
-        "facilitiesSpecsLabel": "Spécifications & Équipements Clés :",
-        "facilitiesComplianceLabel": "Conformité & Normes :",
-        "hero": {
-            "breadcrumbHome": "ACCUEIL",
-            "breadcrumbCurrent": "LE CAMPUS",
-            "badge": "INFRASTRUCTURES DE FORMATION",
-            "location": "LE CATEAU-CAMBRÉSIS (59)",
-            "titleLead": "LE",
-            "titleAccent": "CAMPUS",
-            "subtitle": "Découvrez les infrastructures du Campus Univers Cascades : la tour de saut de 21 mètres, 1300 m² de hangars couverts, fosse de réception, dojos, manège équestre, hébergement 90 lits et studio de répétition en région parisienne.",
-            "ctaFacilities": "Infrastructures",
-            "ctaTour360": "Visite 360°",
-            "ctaPlan3D": "Plan 3D",
-            "bgAlt": "Domaine du Campus Univers Cascades",
-            "stats": [
-                {
-                    "value": "11 000 M²",
-                    "label": "Surface d'Infrastructures"
-                },
-                {
-                    "value": "21 MÈTRES",
-                    "label": "Hauteur de la Tour CUC"
-                },
-                {
-                    "value": "90 LITS",
-                    "label": "Hébergement Sur Site"
-                },
-                {
-                    "value": "2 SITES",
-                    "label": "Nord (59) & Paris (92)"
-                }
-            ]
-        }
-    },
-    "home": {
-        "hero": {
-            "badge": "Centre International de Formation de Cascadeurs",
-            "since": "Depuis 2008",
-            "ctaFormation": "Formation Professionnelle",
-            "ctaVisit": "Visiter le Campus",
-            "ctaStuntTeam": "Stunt Team Pro",
-            "prevSlide": "Diapositive précédente",
-            "nextSlide": "Diapositive suivante",
-            "slides": {
-                "campus": {
-                    "caption": "CAMPUS UNIVERS CASCADES",
-                    "sub": "Centre de formation professionnelle de cascadeurs",
-                    "badge": "DOMAINE PRIVÉ • LE CATEAU-CAMBRÉSIS",
-                    "tag": "Domaine & Campus"
-                },
-                "combat": {
-                    "caption": "CASCADES & COMBATS DE CINÉMA",
-                    "sub": "Combats chorégraphiés, arts martiaux et cascades physiques",
-                    "badge": "ACTION DESIGN & CHORÉGRAPHIE",
-                    "tag": "Combat & Action"
-                },
-                "facilities": {
-                    "caption": "INSTALLATIONS & PLATEAUX TECHNIQUES",
-                    "sub": "Plateformes de saut, airbag et ateliers câblage",
-                    "badge": "SÉCURITÉ & RIGGING CINÉMA",
-                    "tag": "Plateaux & Rigging"
-                },
-                "team": {
-                    "caption": "ÉQUIPE DE CASCADEURS PROFESSIONNELS",
-                    "sub": "Fondé en 2008 par Lucas Dollfus • Tournages cinéma, séries et spectacle",
-                    "badge": "CERTIFIÉ QUALIOPI • ÉLIGIBLE AFDAS",
-                    "tag": "Équipe Cascades"
-                },
-                "parkour": {
-                    "caption": "PARKOUR & ACROBATIES SCÉNIQUES",
-                    "sub": "Franchissements, voltige urbaine et chorégraphies d'action",
-                    "badge": "PARKOUR PARK & PLATEAUX CUC",
-                    "tag": "Parkour & Acrobatie"
-                }
-            },
-            "metrics": [
-                {
-                    "val": "DEPUIS 2008",
-                    "label": "SAVOIR-FAIRE CUC"
-                },
-                {
-                    "val": "IMMERSION",
-                    "label": "PÉDAGOGIE ACTIVE"
-                },
-                {
-                    "val": "CINÉMA & TV",
-                    "label": "INSERTION PRO"
-                },
-                {
-                    "val": "QUALIOPI",
-                    "label": "FORMATION CERTIFIÉE"
-                }
-            ]
-        },
-        "about": {
-            "tag": "PRÉSENTATION",
-            "subtag": "• CINÉMA, SÉRIES & SPECTACLE",
-            "title": "LE CENTRE DE FORMATION DE RÉFÉRENCE EN CASCADE DE CINÉMA",
-            "description": "Créé en 2008 par Lucas Dollfus, le Campus Univers Cascades (CUC) est un centre de formation professionnelle dédié aux techniques de cascade physique et mécanique, établi au Cateau-Cambrésis (59).",
-            "founderQuote": "« Maîtriser le risque, créer l'inédit, repousser les limites de la vérité physique au service de la vision des plus grands réalisateurs. »",
-            "founderLabel": "LE MOT DU FONDATEUR",
-            "founderName": "LUCAS DOLLFUS",
-            "founderRole": "FONDATEUR & RÉGLEUR",
-            "badgeYear": "DEPUIS 2008",
-            "imageAlt": "Plateau d'entraînement et cascadeurs professionnels du Campus Univers Cascades",
-            "ctaPrimary": "Découvrir la Formation Pro",
-            "ctaSecondary": "L'Équipe des Cascadeurs",
-            "pillars": [
-                {
-                    "title": "INFRASTRUCTURES DÉDIÉES",
-                    "desc": "Plateaux techniques complets : fosse de réception, dojos de combat chorégraphié, hangars de cascades mécaniques et manège équestre.",
-                    "tag": "DOMAINE PRIVÉ"
-                },
-                {
-                    "title": "ÉQUIPE & INSTRUCTEURS",
-                    "desc": "Encadrement par des régleurs et coordinateurs en activité, maîtres d'armes et spécialistes du combat scénique et du parkour.",
-                    "tag": "PÉDAGOGIE"
-                },
-                {
-                    "title": "INSERTION PROFESSIONNELLE",
-                    "desc": "Des diplômés actifs sur les longs-métrages, séries télévisées, spectacles vivants et productions internationales.",
-                    "tag": "CINÉMA & TV"
-                },
-                {
-                    "title": "AGENCE CUC EVENTS",
-                    "desc": "Spectacles d'action sur mesure, cascades en direct, animations et démonstrations événementielles.",
-                    "tag": "ÉVÉNEMENTS"
-                }
-            ]
-        },
-        "tournages": {
-            "badge": "SECTEUR PRODUCTION CINÉMA & TOURNAGES",
-            "title": "COORDINATION DE CASCADES & TOURNAGES",
-            "subtitle": "Partenaire des productions de cinéma, des séries et des diffuseurs, le Campus Univers Cascades met à disposition son expertise en action design, direction de combats et sécurité sur plateau, avec plus de 570 productions référencées au catalogue.",
-            "cta": "Découvrir la CUC Stunt Team",
-            "teamTag": "• CUC STUNT TEAM",
-            "pillar1Title": "1. Action Design & Chorégraphie d'Action",
-            "pillar1Desc": "Découpage technique, prévisualisation vidéo, chorégraphie sur-mesure des fusillades et combats, et préparation intensive des comédiens en amont du tournage dans notre studio parisien.",
-            "pillar2Title": "2. Vivier de 200+ Cascadeurs & Doublures",
-            "pillar2Desc": "Doublures cascades et cascadeurs professionnels sur les plus grandes productions de cinéma et de streaming, performers multi-disciplinaires (chutes de hauteur, torche humaine, câblerie, parkour, armes).",
-            "pillar3Title": "3. Régie Cascade & Sécurité Homologuée CNC",
-            "pillar3Desc": "Régleurs de cascades chevronnés, matériel de pointe (airbags certifiés, rigging 3D, crash-pads) et domaine privé privatisable pour répétitions de scènes complexes.",
-            "ctaProduction": "Échanger sur votre Production",
-            "ctaCatalog": "Voir le catalogue de films",
-            "posterAlt": "Affiche de {title}",
-            "category": "Film"
-        },
-        "qualiopi": {
-            "badge": "CERTIFICATION QUALIOPI",
-            "title": "FORMATIONS CERTIFIÉES",
-            "subtitle": "Certification délivrée au titre des ACTIONS DE FORMATION. Nos formations sont éligibles aux financements professionnels (AFDAS, France Travail).",
-            "cta": "Voir le certificat (PDF)",
-            "logoAlt": "Logo Qualiopi"
-        },
-        "partners": {
-            "badge": "COLLABORATION INDUSTRIE & CINÉMA",
-            "title": "NOS PARTENAIRES",
-            "viewAll": "Voir tous les partenaires",
-            "logoAlt": "Logo {name}",
-            "roles": {
-                "equipementier": "Équipementier",
-                "nacelles": "Nacelles & Levage",
-                "certification": "Certification Qualiopi",
-                "protections": "Protections Corporelles",
-                "pyrotechnie": "Pyrotechnie & SFX",
-                "cascadePro": "Cascade Professionnelle"
-            }
-        },
-        "social": {
-            "badge": "RÉSEAUX SOCIAUX & ACTUALITÉS",
-            "title": "COMMUNAUTÉ & RÉSEAUX SOCIAUX",
-            "subtitle": "🇲🇫 French Stunt Team • Stuntmen | Fighters | Performers • 🔥 Break the limits • 🌍 Biggest Stunt School in the World",
-            "avatarAlt": "Instagram du Campus Univers Cascades",
-            "handle": "• @CAMPUS.UNIVERS.CASCADES",
-            "join": "Rejoindre le compte",
-            "seeInstagram": "Voir sur Instagram",
-            "posts": [
-                {
-                    "title": "COKA CHICAS au cinéma",
-                    "tag": "SORTIE EN SALLES",
-                    "desc": "Cascades coordonnées et doublées par la CUC Stunt Team pour le long-métrage de Roxine Helberg avec Fadily Camara, Zoé Marchal, Eva Huault."
-                },
-                {
-                    "title": "Training Combat & Martial Arts",
-                    "tag": "PLATEAU TECHNIQUE",
-                    "desc": "Coordination chirurgicale des frappes et esquives sur tatamis d'impact avec l'équipe de chorégraphes du campus."
-                },
-                {
-                    "title": "Risk Zone & Défenestration",
-                    "tag": "CHUTES DE HAUTEUR",
-                    "desc": "Exercices de chutes de hauteur et simulation de défenestration sur le domaine du Cateau-Cambrésis."
-                }
-            ]
-        },
-        "virtualTour": {
-            "badge": "IMMERSION INTERACTIVE",
-            "title": "VISITE VIRTUELLE EN IMMERSION 360°",
-            "subtitle": "Découvrez notre domaine comme si vous y étiez ! Arpentez les plateaux de tournage, la fosse olympique de mousse, les dojos de combat chorégraphié, les hangars de cascades mécaniques et le manège équestre grâce à notre visite virtuelle interactive.",
-            "cta": "Ouvrir la Visite Virtuelle 360°",
-            "installationsCta": "Détail des 9 Installations",
-            "tag": "• VISITE 360° VR HD MEDIA",
-            "previewAlt": "Aperçu 360 d'un plateau technique du Campus Univers Cascades",
-            "hudTitle": "Visite 360° Interactive",
-            "hudHint": "Cliquer pour explorer le campus",
-            "launchLabel": "Lancer la visite virtuelle 360"
-        }
-    },
-    "videos": {
-        "breadcrumbHome": "ACCUEIL",
-        "breadcrumbCurrent": "NOS VIDÉOS & REPORTAGES",
-        "heroBadge": "REPORTAGES TÉLÉVISION",
-        "heroTitle": "LES REPORTAGES & VIDÉOS DU CUC",
-        "heroSubtitle": "Découvrez les coulisses de l'entraînement des cascadeurs avec les reportages diffusés sur TF1 et France 2, ainsi que les vidéos officielles du Campus Univers Cascades.",
-        "heroMeta": "TF1 JT 20H • FRANCE 2 • BFM TV",
-        "heroImageAlt": "Vidéos et reportages du Campus Univers Cascades",
-        "tabTf1": "REPORTAGE TF1 (JT 20H)",
-        "tabFrance2": "REPORTAGE FRANCE 2 (20H30 LE MAG)",
-        "videoFallback": "Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.",
-        "tf1Title": "REPORTAGE TF1 — LE JT DE 20H AU CUC",
-        "tf1Desc": "Immersion des caméras du journal télévisé de TF1 au Campus Univers Cascades : entraînements aux chutes de hauteur, cascades en feu et formation des futures doublures du cinéma d'action.",
-        "france2Title": "FRANCE 2 — 20H30 LE MAG : « À L'ÉCOLE DES CASCADEURS »",
-        "france2Desc": "Grand format de 20h30 Le Mag sur France 2 présenté par Laurent Delahousse. Les coulisses de la formation professionnelle au Cateau-Cambrésis et le quotidien des élèves.",
-        "broadcastBadge": "DIFFUSION NATIONALE",
-        "docusBadge": "DOCUS & SÉRIES TV",
-        "docusTitle": "LES PROGRAMMES TV & REPORTAGES DU SITE",
-        "docusHint": "Cliquez sur une vignette pour lancer la vidéo dans le lecteur immersif.",
-        "docusOpenExternal": "Ouvrir le reportage sur Dailymotion",
-        "mediaTag": "COUVERTURE MÉDIATIQUE",
-        "mediaTitle": "LE CUC DANS LES MÉDIAS",
-        "mediaIntro": "Découvrez les reportages consacrés aux coulisses du campus et à l'entraînement des cascadeurs sur les grandes chaînes nationales et nos réseaux.",
-        "mediaItems": [
-            {
-                "channel": "TF1",
-                "label": "Le Journal de 20H au Campus"
-            },
-            {
-                "channel": "FRANCE 2",
-                "label": "20h30 Le Mag avec Laurent Delahousse"
-            },
-            {
-                "channel": "BFM TV",
-                "label": "Grand Format à l'École des Cascadeurs"
-            }
-        ],
-        "socialInstagram": "Voir les cascades sur Instagram",
-        "socialTiktok": "Suivre la Stunt Team sur TikTok",
-        "closeTitle": "Fermer",
-        "reelsTitle": "SESSIONS D'ACTION EN FORMAT COURT",
-        "reelsIntro": "Vivez l'action au plus près avec les formats verticaux officiels du Campus Univers Cascades.",
-        "reelsPlay": "Lancer le Reel",
-        "reelsWatchOnInsta": "Voir sur Instagram",
-        "reelsPrev": "Reel précédent",
-        "reelsNext": "Reel suivant",
-        "reelsSeeMore": "Voir plus de vidéos",
-        "reelsSortByFeatured": "Mis en avant",
-        "reelsSortByViews": "Nombre de vues",
-        "reelsSortByDateDesc": "Plus récentes",
-        "reelsSortByDateAsc": "Plus anciennes",
-        "catalogLabel": "Catalogue vidéo officiel :",
-        "cumulativeViews": "{views}M+ vues cumulées",
-        "reelsItems": [
-            {
-                "title": "Encore un pare-brise... 🤭",
-                "description": "Encore un pare-brise... 🤭👌 Impact, trajectoire et réception sur pare-brise par les cascadeurs du Campus Univers Cascades."
-            },
-            {
-                "title": "Concert de PLK au Stade de France",
-                "description": "Concert de PLK au Stade de France 🔥 Expérience de folie avec l'équipe de cascadeurs et performers CUC."
-            },
-            {
-                "title": "Piñata Party 😅",
-                "description": "Piñata Party au campus 😅🥳 Vie du domaine, esprit d'équipe et bonne humeur entre deux entraînements intensifs."
-            },
-            {
-                "title": "Just Training 🤝",
-                "description": "Just training 🤝😅 Répétitions chorégraphiques de combat scénique et coordination des axes caméra."
-            },
-            {
-                "title": "Moto 1 - Voiture 0 🤭",
-                "description": "Moto 1 - Voiture 0 🤭👌 Cascade d'action mécanique et impact percutant tourné sur les pistes du campus."
-            },
-            {
-                "title": "Team CUC — Fight Training ✌️",
-                "description": "Just training ✌️ Session d'entraînement physique et combat au contact avec les membres de la CUC Team."
-            }
-        ],
-        "programs": [
-            {
-                "dmId": "x9uewe0",
-                "title": "COEUR DE CASCADEURS",
-                "sub": "Série TV France 2 & CUC"
-            },
-            {
-                "dmId": "x8581s9",
-                "title": "REPORTAGE BFM TV",
-                "sub": "« À l'école des cascadeurs »"
-            },
-            {
-                "dmId": "x858323",
-                "title": "HAPPY BIRTHDAY CUC",
-                "sub": "10 ans de cascade (2009 - 2019)"
-            },
-            {
-                "dmId": "x8583in",
-                "title": "SESSION D'AOÛT 2017",
-                "sub": "Promotion CUC en formation"
-            },
-            {
-                "dmId": "k2LHEg1AIHtIfYxkvcz",
-                "title": "ZOË BELL AU CAMPUS",
-                "sub": "Marraine du Campus Univers Cascades"
-            },
-            {
-                "dmId": "x8583u3",
-                "title": "STUNT RIDER — CAMPUS LIFE",
-                "sub": "La vie au CUC au quotidien"
-            }
-        ]
-    },
-    "teamBuilding": {
-        "heroMeta": "COHÉSION D'ÉQUIPE • COULISSES DU CINÉMA",
-        "overviewBadge": "CUC EVENTS • IMMERSION ENTREPRISE",
-        "overviewTitle": "LES ATELIERS DU CINÉMA",
-        "overviewDescription": "Nous vous proposons des animations et initiations autour du métier de cascadeur, du cinéma et de ses coulisses. Team building, séminaires, collectivités... Notre équipe de professionnels vous propose des ateliers au choix avec du matériel spécifique et une sécurité sans compromis.",
-        "workshopChoice": "Atelier au choix",
-        "workshopModular": "Modulable",
-        "breadcrumbCurrent": "TEAM BUILDING D'EXCEPTION",
-        "workshopFallbackTitle": "Atelier cascade",
-        "workshopFallbackLabel": "ATELIER CUC",
-        "customBadge": "SUR MESURE",
-        "customTitle": "COMBINEZ PLUSIEURS ATELIERS POUR VOTRE JOURNÉE",
-        "customDescription": "Nous adaptons le déroulement, le nombre d'animateurs cascadeurs et le matériel selon vos objectifs, vos contraintes de planning et la taille de votre groupe.",
-        "customCta": "Recevoir une Proposition Détaillée & Devis"
-    },
-    "visiteVirtuelle": {
-        "viewerTitle": "VISITE VIRTUELLE 360° INTERACTIVE",
-        "helpTitle": "Aide de navigation",
-        "helpLabel": "Mode d'emploi",
-        "resetTitle": "Réinitialiser la visite à l'entrée",
-        "resetLabel": "Réinitialiser",
-        "openTabTitle": "Ouvrir en plein écran dans un nouvel onglet / Casque VR",
-        "openTabLabel": "Ouvrir dans un onglet",
-        "exitFullscreenTitle": "Quitter le plein écran",
-        "fullscreenTitle": "Plein écran immersif",
-        "collapseLabel": "RÉDUIRE",
-        "fullscreenLabel": "PLEIN ÉCRAN",
-        "navHelpTitle": "Navigation 360° :",
-        "navHelpBody1": "Cliquez et faites glisser votre curseur (ou votre doigt sur mobile) pour regarder autour de vous. Cliquez sur les",
-        "navHelpHighlight": "flèches clignotantes au sol",
-        "navHelpBody2": "pour avancer d'une pièce à l'autre.",
-        "hideLabel": "[MASQUER]",
-        "iframeTitle": "Visite Virtuelle 360° Campus Univers Cascades",
-        "breadcrumbHome": "ACCUEIL",
-        "breadcrumbCampus": "LE CAMPUS",
-        "breadcrumb360": "VISITE VIRTUELLE 360°",
-        "breadcrumb3d": "PLAN 3D DU DOMAINE",
-        "pageTag": "VISITE DU DOMAINE",
-        "pageTitle": "DÉCOUVRIR LE CAMPUS",
-        "suffix360": "EN 360°",
-        "suffix3d": "EN 3D",
-        "pageSubtitle": "Explorez les infrastructures du centre de formation de cascadeurs au Cateau-Cambrésis en immersion 360° haute définition.",
-        "tab360Label": "Vue 360° VR",
-        "tab3dLabel": "Plan 3D",
-        "loading3d": "Chargement du plan 3D…",
-        "ctaRendezVous": "Prendre Rendez-vous",
-        "factsTitle1": "11 000 m² d'Infrastructures",
-        "factsBody1": "Tour de saut de 21 mètres, salle d'entraînement Zoé Bell, dojos, manège équestre et hangars de cascades mécaniques réunis sur un même domaine privé.",
-        "factsTitle2": "Sécurité & Équipements",
-        "factsBody2": "Matériel professionnel de cascade aux normes en vigueur : matelas de réception certifiés, airbags de saut, trampolines et fosse de travail.",
-        "factsTitle3": "Accès & Hébergement",
-        "factsBody3": "Situé au Cateau-Cambrésis (à 2h de Paris, 1h de Lille). Possibilité d'hébergement sur site en pension complète pour les élèves en formation et stages."
-    },
-    "eventsAgence": {
-        "learnMore": "En savoir plus",
-        "pillars": [
-            {
-                "tag": "PRESTATIONS & SHOWS EN DIRECT",
-                "title": "SPECTACLES DE CASCADES",
-                "paragraph1": "Vous souhaitez dynamiser votre événement avec un spectacle percutant ? Le Campus Univers Cascades met à votre disposition son savoir-faire et ses équipes de cascadeurs professionnels pour créer des shows vivants sur-mesure.",
-                "paragraph2": "Combats chorégraphiés médiévaux, contemporains ou fantastiques, chutes de hauteur spectaculaires, cascades pyrotechniques (torches humaines), nos créations s'adaptent à toutes les contraintes techniques et scéniques.",
-                "cta": "En savoir plus sur nos Spectacles",
-                "imageAlt": "Photo Spectacle CUC Events"
-            },
-            {
-                "tag": "SENSATIONS FORTES GRAND PUBLIC",
-                "title": "ANIMATIONS & FREEJUMP AIRBAG",
-                "paragraph1": "Offrez à votre public des sensations uniques grâce à nos animations interactives encadrées par des professionnels : le FreeJump Airbag (sauts sécurisés de 4 à 8 mètres de haut), simulateur de câblage cinéma, ou ateliers d'initiation au parkour avec les membres des Yamakasi.",
-                "paragraph2": "Installations entièrement conformes aux normes de sécurité les plus strictes avec assurance professionnelle et encadrement qualifié.",
-                "cta": "En savoir plus sur nos Animations",
-                "imageAlt": "Animation FreeJump Airbag CUC Events"
-            },
-            {
-                "tag": "SÉMINAIRES & IMMERSION ENTREPRISE",
-                "title": "TEAM BUILDING CINÉMA D'ACTION",
-                "paragraph1": "Fédérez vos équipes lors d'un séminaire d'action inoubliable au cœur du domaine du CUC au Cateau-Cambrésis.",
-                "paragraph2": "Atelier cinéma indoor, cascades physiques, cascades de feu sécurisées, tournage d'une fausse bande-annonce d'action : vos collaborateurs dépassent leurs limites dans un esprit de camaraderie et de bienveillance totale. Capacité d'accueil jusqu'à 90 personnes avec hébergement et restauration sur site.",
-                "cta": "Organiser un Team Building",
-                "imageAlt": "Atelier Cinéma Indoor Team Building"
-            }
-        ],
-        "guarantees": [
-            {
-                "title": "SÉCURITÉ & HOMOLOGATION",
-                "description": "Assurance professionnelle spectacle, matériel homologué et protocoles stricts."
-            },
-            {
-                "title": "CASCADEURS PROFESSIONNELS",
-                "description": "Performeurs formés au CUC, actifs sur des productions cinéma et parcs à thème majeurs."
-            },
-            {
-                "title": "PARTOUT EN FRANCE & EUROPE",
-                "description": "Déplacement de nos structures mobiles et équipes de cascadeurs sur votre site d'événement."
-            }
-        ],
-        "guaranteeLogoAlt": "Cascadeurs Professionnels CUC",
-        "partnersBadge": "PARTENAIRES & MARQUES",
-        "partnersTitle": "ILS NOUS ONT FAIT CONFIANCE",
-        "cinemaBadge": "RÉFÉRENCES CINÉMA",
-        "cinemaTitle": "LES PRODUCTIONS CINÉMA & TÉLÉVISION",
-        "bannerAlt1": "Bandes affiches film série 1",
-        "bannerAlt2": "Bandes affiches film série 2",
-        "bannerAlt3": "Bandes affiches film série 3",
-        "bannerAlt4": "Bandes affiches film série 4",
-        "heroBadge": "AGENCE ÉVÉNEMENTIELLE D'ACTION",
-        "heroTitle": "CUC EVENTS : SPECTACLES & ANIMATIONS",
-        "heroSubtitle": "Marquez les esprits lors de vos festivals, lancements de marque, parcs à thème ou séminaires d'entreprise grâce à des shows d'action spectaculaires orchestrés par les cascadeurs professionnels du Campus Univers Cascades.",
-        "breadcrumbCurrent": "CUC EVENTS & SPECTACLES",
-        "heroCtaPrimary": "Demander un Devis Événementiel",
-        "heroCtaSecondary": "Voir nos Vidéos en Direct",
-        "heroImageAlt": "CUC Events spectacles de cascades et animations en direct",
-        "animationsBody": "Offrez à votre public des sensations uniques grâce à nos animations interactives encadrées par des professionnels : le <strong>FreeJump Airbag</strong> (sauts sécurisés de 4 à 8 mètres de haut), simulateur de câblage cinéma, ou ateliers d'initiation au parkour avec les membres des Yamakasi."
-    },
-    "spectacles": {
-        "heroBadge": "LE CINÉMA S'INVITE SUR SCÈNE",
-        "heroTitle": "SPECTACLES CASCADEURS",
-        "heroSubtitle": "Revivez les séquences d'action de vos films préférés avec les cascadeurs professionnels et doublures cinéma du Campus Univers Cascades. Combats, chutes, Parkour, humour et effets scéniques pour tous vos événements.",
-        "ctaPrimaryText": "Demander un Devis Spectacle",
-        "ctaSecondaryText": "Voir nos Vidéos en Direct",
-        "heroImageAlt": "Spectacles de cascadeurs professionnels CUC Events",
-        "logoAlt": "CUC Events Spectacles",
-        "breadcrumbHome": "ACCUEIL",
-        "breadcrumbEvents": "CUC EVENTS",
-        "breadcrumbCurrent": "SPECTACLES CASCADEURS",
-        "heroMeta": "CASCADEURS • COMÉDIENS • SHOWS CLÉ EN MAIN",
-        "panelTag": "CUC EVENTS SPECTACLES",
-        "panelSub": "CASCADEURS & DOUBLURES CINÉMA",
-        "panelTitle": "DES SHOWS CLÉ EN MAIN ADAPTÉS À VOTRE LIEU",
-        "panelParagraph": "Nos artistes font partie du milieu très restreint des doublures-cascadeurs pour les films d'action au cinéma. Formés au sein du Campus Univers Cascades et travaillant en exclusivité avec notre agence, ils s'adaptent à n'importe quel environnement pour satisfaire vos envies.",
-        "specsTitle": "Spécifications de la formule Spectacle :",
-        "specsItems": [
-            {
-                "label": "Équipe :",
-                "value": "5 artistes professionnels polyvalents (cascadeurs, comédiens, traceurs)"
-            },
-            {
-                "label": "Format :",
-                "value": "De 8 à 20 minutes d'action ininterrompue et réglée au millimètre"
-            },
-            {
-                "label": "Thèmes au choix :",
-                "value": "James Bond 007, Univers Super-Héros (Marvel/DC), John Wick, Post-apocalyptique"
-            },
-            {
-                "label": "Disciplines intégrées :",
-                "value": "Combats scéniques, chutes de hauteur, comédie, acrobaties, Parkour"
-            }
-        ],
-        "showImageAlt": "Spectacles cascadeurs CUC sur scène",
-        "arenaImageAlt": "CUC Events spectacle et performance live cascadeurs",
-        "arenaBadge": "ÉVÉNEMENT",
-        "arenaTitle": "CUC EVENTS À L'ACCOR ARENA (BERCY)",
-        "arenaParagraph": "Devant plus de 15 000 spectateurs, la CUC Stunt Team a assuré le show d'ouverture avec des cascades synchronisées, des sauts depuis les structures aériennes et des combats retransmis sur écrans géants.",
-        "arenaCta": "Organiser un Show dans votre Salle",
-        "catalogBadge": "Formats & Répertoires de Scène",
-        "catalogTitle": "Nos Spectacles & Démonstrations en Direct",
-        "catalogSubtitle": "Du grand show en arène aux tableaux historiques immersifs, chaque spectacle est entièrement conçu, sécurisé et interprété par les cascadeurs professionnels du CUC.",
-        "specsLogisticsTitle": "Spécifications & Logistique",
-        "archivesBadge": "PORTFOLIO SCÉNIQUE",
-        "archivesTitle": "Archives Photos Spectacles",
-        "archivesSubtitle": "Retour en images sur nos créations scéniques, spectacles à thèmes, démonstrations live et performances événementielles."
-    },
-    "animations": {
-        "heroBadge": "AIRBAG DE CINÉMA • ENCADREMENT PROFESSIONNEL",
-        "heroTitle": "ANIMATIONS AIRBAG & PARKOUR",
-        "heroSubtitle": "Faites vivre au grand public les sensations uniques de la chute libre sur coussin d'air géant de cinéma. Une animation spectaculaire encadrée par les cascadeurs professionnels du Campus Univers Cascades.",
-        "ctaPrimaryText": "Devis Animation Airbag",
-        "ctaSecondaryText": "Toutes les Offres CUC Events",
-        "heroImageAlt": "Xtrem Jump Airbag Géant de Cinéma CUC Events",
-        "logoAlt": "CUC Events Animations",
-        "breadcrumbHome": "ACCUEIL",
-        "breadcrumbEvents": "CUC EVENTS",
-        "breadcrumbCurrent": "ANIMATIONS AIRBAG GÉANT & PARKOUR",
-        "heroMeta": "DEPUIS 2009",
-        "stat1Label": "Sauts Réalisés en Europe",
-        "stat2Value": "20 MÈTRES",
-        "stat2Label": "Capacité Maximale Airbag",
-        "stat3Label": "Sécurité et Encadrement Pro",
-        "stat4Label": "Pionniers de l'Animation Airbag",
-        "panelTag": "CUC EVENTS ANIMATIONS",
-        "panelSub": "XTREM JUMP AIRBAG CINÉMA & PARKOUR",
-        "panelTitle": "XTREM JUMP AIRBAG : INITIATION GRAND PUBLIC & SHOWS",
-        "panelParagraph1": "Le grand public peut enfin goûter à l'adrénaline et découvrir les sensations uniques de la chute libre avec une sécurité optimale. Ils profiteront pour cela de notre Airbag géant (coussin d'air utilisé au cinéma) pouvant réceptionner une chute d'un cascadeur professionnel allant jusqu'à 20 mètres.",
-        "panelParagraph2": "Notre agence et notre équipe de professionnels ont été les précurseurs de cette animation événementielle en France dès 2009. Avec plus de 20 000 chutes encadrées à travers l'Europe, nos cascadeurs diplômés guident chaque participant pour un saut mémorable et sans danger.",
-        "includedTitle": "Inclus dans la prestation :",
-        "includedItems": [
-            "Airbag géant cinéma certifié aux normes UE",
-            "Plateforme ou échafaudage de saut adapté",
-            "Encadrement par 2 à 4 cascadeurs pros",
-            "Démonstrations de sauts acrobatiques incluses"
-        ],
-        "panelImageAlt": "Saut sur Airbag géant CUC"
-    },
-    "stages": {
-        "fallbackBadge": "STAGE CUC",
-        "fallbackCta": "Réserver mon stage",
-        "bookWithPrice": "Réserver ({price})",
-        "fallbackLocation": "Campus CUC, Le Cateau-Cambrésis (59)",
-        "cards": [
-            {
-                "id": "weekend-immersion",
-                "badgeText": "OFFRE POPULAIRE",
-                "subBadge": "ACCESSIBLE DÈS 16 ANS",
-                "highlightText": "PENSION COMPLÈTE INCLUSE",
-                "title": "FORMULE WEEK-END IMMERSION CUC",
-                "description": "Vivez la vie d'un cascadeur de cinéma pendant deux jours complets. Dormez sur le campus, partagez les repas avec l'équipe et sautez sur l'airbag géant en toute sécurité. Idéal pour découvrir ses capacités physiques et faire le plein de sensations fortes.",
-                "details": [
-                    "Vendredi 17h au Dimanche 17h30 (16h de pratique)",
-                    "Hébergement sur place (chambres campus)",
-                    "Tous les repas compris (du vendredi soir au dimanche midi)",
-                    "Domaine CUC, Le Cateau-Cambrésis (59)"
-                ],
-                "buttonLabel": "Réserver mon Week-end (250,00 €)",
-                "pdfLabel": "Télécharger la Plaquette Week-end (PDF)",
-                "imageAlt": "Affiche Stage Week-end Immersion CUC"
-            },
-            {
-                "id": "afdas-artistes-interpretes",
-                "badgeText": "PRISE EN CHARGE AFDAS 100%",
-                "subBadge": "COMÉDIENS • DANSEURS • CIRCASSIENS",
-                "highlightText": "",
-                "title": "STAGE AFDAS — ARTISTES INTERPRÈTES",
-                "description": "Donnez à vos rôles une crédibilité totale dans les scènes d'action. Formation de 70 heures conventionnée AFDAS dispensée au sein de notre studio parisien à Gennevilliers. Apprenez à encaisser les impacts, manipuler des armes à blanc, chuter dans les escaliers et tournez votre bande-démo d'action.",
-                "details": [
-                    "2 Semaines (10 jours ouvrés / 70 heures)",
-                    "Pôle CUC Île-de-France, 86 Avenue Louis Roche, 92230 Gennevilliers",
-                    "Conventionné AFDAS (0€ de reste à charge pour l'artiste)",
-                    "Tournage d'une bande-démo action individuelle"
-                ],
-                "buttonLabel": "Demander ma Prise en Charge AFDAS",
-                "pdfLabel": "",
-                "imageAlt": "Affiche Stage AFDAS Artistes Interprètes CUC"
-            },
-            {
-                "id": "stunt-summer-camp",
-                "badgeText": "STAGE D'ÉTÉ INTENSIF",
-                "subBadge": "DÈS 15 ANS • PARKOUR & AIRBAG",
-                "highlightText": "",
-                "title": "STUNT SUMMER CAMP CUC",
-                "description": "Une semaine d'entraînement estival au CUC : Parkour, sauts sur airbag, acrobaties sur fosse à cubes et combats de cinéma. Formule internat avec hébergement et pension complète.",
-                "details": [
-                    "1 Semaine (Du dimanche au vendredi soir / 35h)",
-                    "Formule internat avec hébergement et pension complète",
-                    "Encadré par les cascadeurs et formateurs CUC",
-                    "Campus CUC, 59360 Le Cateau-Cambrésis"
-                ],
-                "buttonLabel": "Pré-inscriptions Summer Camp",
-                "pdfLabel": "Télécharger la Plaquette Summer Camp (PDF)",
-                "imageAlt": "Affiche Stunt Summer Camp CUC"
-            },
-            {
-                "id": "afdas-cascadeurs-pro",
-                "badgeText": "CASCADEURS PROS EN EXERCICE",
-                "subBadge": "PROVENCE STUDIOS (MARTIGUES)",
-                "highlightText": "",
-                "title": "STAGE AFDAS — CASCADEURS PRO (PROVENCE STUDIOS)",
-                "description": "Session de perfectionnement technique organisée au sein des studios de tournage à Provence Studios. Câblage multi-axes, catapultes pneumatiques (ratchets), torches humaines et protocoles de sécurité pour tournages professionnels.",
-                "details": [
-                    "Provence Studios, Martigues (Bouches-du-Rhône)",
-                    "Prise en charge AFDAS Intermittents Cascadeurs"
-                ],
-                "buttonLabel": "Contacter pour les Sessions Pro",
-                "pdfLabel": "",
-                "imageAlt": "Affiche Stage Cascadeur Pro CUC Provence Studios"
-            }
-        ],
-        "hero": {
-            "breadcrumbHome": "ACCUEIL",
-            "breadcrumbCurrent": "STAGES & SÉJOURS DE CASCADES",
-            "badge": "IMMERSION & PERFECTIONNEMENT",
-            "meta": "WEEK-ENDS DÈS 250€ • STAGES AFDAS 100% • SUMMER CAMP",
-            "titleLead": "STAGES DE CASCADE, ",
-            "titleAccent": "PARKOUR & ACTION",
-            "subtitle": "Pour vivre l'expérience cascadeur le temps d'un week-end en immersion totale à 250€, profiter d'une prise en charge intégrale AFDAS en tant qu'artiste interprète, ou rejoindre notre grand Summer Camp estival sur nos installations.",
-            "bgAlt": "Stages et séjours de cascades au Campus Univers Cascades",
-            "logosAlt": "Logos des stages CUC"
-        }
-    },
-    "stuntWorkshop": {
-        "heroMeta": "EN ANGLAIS & FRANÇAIS",
-        "briAlt": "CUC BRI — Formation cascade Brigade de Recherche et d'Intervention",
-        "posterBadge": "AFFICHE OFFICIELLE",
-        "posterTitle": "Session Internationale CUC",
-        "posterSubtitle": "Certification Pro Action Performer",
-        "towerCaption": "Tour de chute 21m",
-        "tacticalCaption": "Intervention & Armurerie",
-        "crowdCaption": "Performers du Monde Entier au CUC"
-    },
-    "visiteGuidee": {
-        "accessBadge": "ACCÈS & TRANSPORT",
-        "accessTitle": "COMMENT REJOINDRE LE CAMPUS ?",
-        "accessIntro": "Situé au cœur de la région Hauts-de-France, le campus est facilement accessible depuis Paris, Lille, Bruxelles ou Londres.",
-        "accessCarLabel": "EN VOITURE :",
-        "accessCarBody": "À 2h de Paris par les autoroutes A1 et A26. À 1h de Lille et Valenciennes. Parking privé sécurisé gratuit sur place pour les stagiaires.",
-        "accessTrainLabel": "EN TRAIN (SNCF) :",
-        "accessTrainBody": "Gare de Le Cateau-Cambrésis (à 5 minutes du campus). Lignes directes depuis Paris Gare du Nord (via Saint-Quentin ou Cambrai). Navette CUC disponible sur demande.",
-        "accessPlaneLabel": "EN AVION :",
-        "accessPlaneBody": "Aéroports internationaux de Paris CDG (1h45 de route), Lille Lesquin (1h) ou Charleroi Bruxelles-Sud (1h15).",
-        "coordinatesTitle": "COORDONNÉES DU DOMAINE",
-        "addressLabel": "Adresse postale & Accès :",
-        "mapRadarLabel": "Radar & Itinéraires",
-        "standardLabel": "Standard Admissions :",
-        "phoneLabel": "Téléphone :",
-        "emailLabel": "Email :",
-        "idfLabel": "Pôle Île-de-France (Studio Paris) :",
-        "idfValue": "Studio de Répétition & Comédiens",
-        "accessCta": "Planifier une Visite ou Réserver un Stage",
-        "tour3dBadge": "TOPOGRAPHIE SPATIALE 3D",
-        "tour3dTitle": "PLAN 3D INTERACTIF",
-        "tour3dTitleAccent": "DU CAMPUS",
-        "tour3dParagraph": "Faites pivoter la vue aérienne, explorez les 9 infrastructures en trois dimensions, et sélectionnez une zone pour découvrir ses installations spécialisées.",
-        "tour360Badge": "EXPÉRIENCE 360°",
-        "tour360Title": "VISITE VIRTUELLE",
-        "tour360TitleAccent": "360° DU CAMPUS",
-        "tour360Paragraph": "Explorez le domaine en immersion totale : naviguez librement dans le Zoé Bell Hall, observez la fosse olympique à cubes, la Tour CUC de 21m et l'ensemble des plateaux techniques.",
-        "loading3d": "Chargement du plan 3D…",
-        "accessAddress": "Domaine CUC, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis (France)",
-        "domainClosed": "DOMAINE CLOS • LE CATEAU-CAMBRÉSIS"
-    },
-    "teamProduction": {
-        "hero": {
-            "breadcrumbHome": "ACCUEIL",
-            "breadcrumbCurrent": "TOURNAGE",
-            "badge": "COORDINATION DE CASCADES • CINÉMA",
-            "title": "TOURNAGE",
-            "subtitle": "Le Campus Univers Cascades et la CUC Stunt Team accompagnent les productions cinématographiques et audiovisuelles, de la conception des chorégraphies d'action jusqu'au tournage en plateau.",
-            "ctaPrimary": "Contacter l'Équipe de Production",
-            "posters": "Voir les affiches",
-            "bgAlt": "CUC Stunt Team tournages cinéma et films d'action",
-            "emblemAlt": "Blason CUC Stunt Team",
-            "emblemLabel": "CAMPUS UNIVERS CASCADES"
-        },
-        "galleries": {
-            "studioBadge": "INFRASTRUCTURES DE TOURNAGE",
-            "studioTitle": "LE STUDIO & LA SALLE D'ACTION",
-            "doublesBadge": "DOUBLURES & CHORÉGRAPHES",
-            "doublesTitle": "LES CASCADEURS EN ACTION",
-            "equipmentBadge": "MATÉRIEL TECHNIQUE CINÉMA",
-            "equipmentTitle": "LES ÉQUIPEMENTS DE TOURNAGE",
-            "zoomStudio": "Cliquer pour voir en plein écran",
-            "zoomStunt": "Cliquer pour agrandir la photo de cascade",
-            "zoomEquipment": "Cliquer pour voir l'équipement en détail",
-            "expand": "Agrandir",
-            "showAllPhotos": "Voir toutes les photos (+{count})",
-            "showLessPhotos": "Réduire l'affichage"
-        },
-        "hallOfFame": {
-            "emblemAlt": "Blason CUC",
-            "badge": "CRÉDITS & TOURNAGES",
-            "tag": "PRODUCTIONS CUC & ANCIENS ÉLÈVES",
-            "title": "HALL OF FAME DU CINÉMA D'ACTION",
-            "subtitle": "Retrouvez une sélection de productions audiovisuelles et cinématographiques sur lesquelles sont intervenus les cascadeurs et formateurs du CUC.",
-            "actorsBadge": "ACTEURS & TOURNAGES",
-            "actorsTitle": "LES COMÉDIENS DOUBLÉS PAR LE CUC",
-            "actorsIntro": "Les formateurs et cascadeurs du Campus Univers Cascades interviennent sur les scènes d'action des tournages français et internationaux.",
-            "photoAlt": "Comédien doublé {name}",
-            "imdbTitle": "Voir la filmographie IMDb de {name}",
-            "filmsLabel": "Films :"
-        },
-        "celebrityModal": {
-            "title": "Fiche Tournage & Cascades",
-            "doublesLabel": "Doublure cascades :",
-            "doublesAndShootsLabel": "DOUBLURE & TOURNAGES :",
-            "inConnector": "dans",
-            "openLucasFilmTitle": "Voir la fiche du film « {title} » coordonné par Lucas Dollfus",
-            "openCucFilmTitle": "Voir la fiche du film « {title} » coordonné par le CUC",
-            "scenesLabel": "Cascades & scènes d'action :",
-            "filmsLabel": "Films :",
-            "cucCoordinatedFilmsSingular": "Film coordonné par le CUC :",
-            "cucCoordinatedFilmsPlural": "Films coordonnés par le CUC :",
-            "imdbCta": "Fiche IMDb",
-            "close": "Fermer",
-            "closeAria": "Fermer"
-        },
-        "filmModal": {
-            "title": "FILM",
-            "directedBy": "Réalisé par {name}",
-            "doublesLabel": "Doublures & comédiens :",
-            "teamLabel": "Équipe CUC :",
-            "trailer": "Bande-annonce",
-            "close": "Fermer",
-            "closeAria": "Fermer"
-        },
-        "showcase": {
-            "sortLabel": "Trier :",
-            "sortAria": "Trier les films"
-        },
-        "services": {
-            "badge": "SERVICES AUX PRODUCTIONS",
-            "title": "TOURNER VOS SCÈNES D'ACTION AVEC LE CUC",
-            "intro": "De la pré-production à l'exécution sur le plateau, le Campus Univers Cascades met à votre disposition ses ressources techniques et humaines :",
-            "items": [
-                {
-                    "label": "1. COORDINATION & CHORÉGRAPHIE :",
-                    "body": "Analyse du scénario, chiffrage budgétaire, découpage technique de l'action et chorégraphies sur-mesure adaptées au jeu des comédiens."
-                },
-                {
-                    "label": "2. PRÉPARATION DES COMÉDIENS (STUDIO PARIS / GENNEVILLIERS) :",
-                    "body": "Sessions de répétition en amont du tournage pour habituer les acteurs aux armes factices, aux mouvements de combat et aux réactions de tir."
-                },
-                {
-                    "label": "3. MATÉRIEL DE TOURNAGE & DOMAINE :",
-                    "body": "Airbags certifiés, systèmes de câblage (rigging), harnais de cascade et mise à disposition du domaine comme décor naturel."
-                }
-            ],
-            "contactTitle": "CONTACT PRODUCTION & CASTING",
-            "contactIntro": "Vous préparez un long-métrage, une série, un clip ou un spectacle ? Contactez directement notre bureau de coordination.",
-            "coordinatorLabel": "COORDINATEUR RÉFÉRENT :",
-            "coordinatorValue": "Lucas Dollfus — CUC PROD",
-            "phoneLabel": "TÉLÉPHONE DIRECT :",
-            "emailLabel": "EMAIL PRO :",
-            "cta": "Demande de Devis & Collaboration"
-        },
-        "celebrities": [
-            {
-                "id": "tomer-sisley",
-                "specialty": "Combats chorégraphiés, cascades physiques et poursuites.",
-                "doubles": "Doublé par Vincent Bouillon"
-            },
-            {
-                "id": "keanu-reeves",
-                "specialty": "Chute des 222 marches du Sacré-Cœur à Paris (Taurus World Stunt Award 2024).",
-                "doubles": "Doublé par Vincent Bouillon"
-            },
-            {
-                "id": "jean-dujardin",
-                "specialty": "Cascades physiques et combats chorégraphiés.",
-                "doubles": "Doublé par Vincent Bouillon"
-            },
-            {
-                "id": "pierre-niney",
-                "specialty": "Duels à l'épée et cascades physiques réglés avec les régleurs CUC.",
-                "doubles": ""
-            },
-            {
-                "id": "francois-civil",
-                "specialty": "Combats rapprochés et cascades physiques.",
-                "doubles": ""
-            },
-            {
-                "id": "roschdy-zem",
-                "specialty": "Combats rapprochés et fusillades tactiques.",
-                "doubles": ""
-            },
-            {
-                "id": "omar-sy",
-                "specialty": "Cascades physiques et affrontements armés.",
-                "doubles": ""
-            },
-            {
-                "id": "gilles-lellouche",
-                "specialty": "Cascades physiques et poursuites urbaines.",
-                "doubles": ""
-            },
-            {
-                "id": "kevin-costner",
-                "specialty": "Cascades physiques et poursuites lors du tournage parisien.",
-                "doubles": ""
-            },
-            {
-                "id": "vincent-cassel",
-                "specialty": "Combats et cascades physiques.",
-                "doubles": ""
-            },
-            {
-                "id": "jean-reno",
-                "specialty": "Cascades physiques et affrontements armés.",
-                "doubles": ""
-            }
-        ],
-        "teamBannersBadge": "CRÉDITS CINÉMATOGRAPHIQUES",
-        "teamBannersTitle": "LES FILMS COORDONNÉS PAR LE CUC & LUCAS DOLLFUS",
-        "teamBannersPosterTitle": "Cliquer pour ouvrir l'affiche en plein écran",
-        "teamBannersIntro": "Retrouvez les affiches des productions françaises et internationales sur lesquelles nos équipes sont intervenues. Cliquez sur une affiche pour la voir en haute résolution.",
-        "teamBannersHdLabel": "AFFICHE HD"
-    },
-    "commonChrome": {
-        "breadcrumbHome": "ACCUEIL",
-        "brandName": "CAMPUS UNIVERS CASCADES",
-        "brandTagline": "Stunt Academy & Team",
-        "brandTaglineEst": "Stunt Academy & Team • Est. 2008",
-        "campusCity": "Le Cateau-Cambrésis (59)",
-        "eventsAnimationsBadge": "CUC EVENTS ANIMATIONS",
-        "siteCampus": "CAMPUS CUC",
-        "siteEvents": "CUC EVENTS",
-        "siteStuntTeam": "CUC STUNT TEAM",
-        "campusNameTitle": "Campus Univers Cascades",
-        "heroTitleTail": "Cascades",
-        "locationLabel": "LE CATEAU-CAMBRÉSIS",
-        "trainingPathTitle": "Trajectoire & Philosophie",
-        "otherCoordinatorsTitle": "Autres Coordinateurs & Instructeurs",
-        "broadcastNote": "retransmis sur écrans géants.",
-        "eventsAgencySubtitle": "Spectacles • Animations • Team Building",
-        "instaFollowersUnit": "abonnés",
-        "instaOfficialTitle": "Instagram Officiel",
-        "instaCertifiedCommunity": "Communauté officielle certifiée",
-        "instaJoinCta": "Rejoindre",
-        "instaHeaderTitle": "Consulter le compte Instagram officiel @campus.univers.cascades",
-        "instaCardTitle": "Rejoindre la communauté officielle sur Instagram"
-    },
-    "applicationModal": {
-        "closeAria": "Fermer",
-        "badge": "CANDIDATURE & ADMISSIONS",
-        "session": "SESSION 2026-2027",
-        "logoAlt": "Logo CUC",
-        "titleLead": "Candidater au ",
-        "titleAccent": "Campus Univers Cascades",
-        "intro": "Remplissez les informations ci-dessous pour postuler au cursus professionnel, réserver un stage ou solliciter une prise en charge AFDAS.",
-        "tabs": {
-            "pro": "Cursus Pro (Long)",
-            "discovery": "Stage Découverte",
-            "weekend": "Week-end (250€)",
-            "afdas": "Prise en charge AFDAS"
-        },
-        "labels": {
-            "fullName": "Nom & Prénom *",
-            "age": "Âge * (Dès 16 ou 18 ans)",
-            "email": "Adresse Email *",
-            "phone": "Téléphone *",
-            "afdasStatus": "Statut AFDAS / Professionnel",
-            "sport": "Parcours Sportif / Artistique & Disciplines pratiquées",
-            "session": "Session souhaitée / Objectifs"
-        },
-        "placeholders": {
-            "fullName": "Ex: Alexandre Dubois",
-            "age": "Ex: 22",
-            "email": "alexandre@exemple.com",
-            "phone": "06 00 00 00 00",
-            "sport": "Ex: Arts martiaux (5 ans), Parkour, Gymnastique, Théâtre...",
-            "message": "Précisez la date de session visée ou vos questions particulières..."
-        },
-        "afdasOptions": [
-            "Intermittent du spectacle (Comédien, danseur, artiste)",
-            "Cascadeur professionnel en activité",
-            "Autre ayant-droit AFDAS"
-        ],
-        "safetyTitle": "Avis de sécurité & sélection :",
-        "safetyBody": "En raison de l'exigence physique et des contraintes de sécurité, chaque candidature est soumise à l'examen de la commission pédagogique du CUC.",
-        "submitError": "Erreur lors de la transmission du dossier.",
-        "cancel": "Annuler",
-        "submit": "Transmettre ma Candidature",
-        "submitting": "Transmission...",
-        "successTitle": "Dossier Transmis avec Succès !",
-        "successBody": "Votre demande a bien été enregistrée pour le compte de <strong>{name}</strong>. Un responsable pédagogique du CUC vous contactera sous 24 à 48 heures pour valider votre dossier et les disponibilités de session.",
-        "contactAddress": "Campus CUC, 59360 Le Cateau-Cambrésis (Hauts-de-France)",
-        "contactPhone": "Standard pédagogique : 01 30 32 38 03",
-        "closeCase": "Fermer le Dossier"
-    },
-    "lightbox": {
-        "closeAria": "Fermer la visionneuse",
-        "closeTitle": "Fermer (Échap)",
-        "prevAria": "Photo précédente",
-        "prevTitle": "Précédente (Flèche gauche)",
-        "nextAria": "Photo suivante",
-        "nextTitle": "Suivante (Flèche droite)",
-        "navHint": "Navigation : Touches ← / → pour parcourir • Échap pour fermer"
+    "disciplines": {
+      "badge": "RÉPERTOIRE TECHNIQUE",
+      "title": "LES 10 DISCIPLINES DE LA CASCADE PHYSIQUE",
+      "cinemaContextLabel": "Contexte Cinéma & Tournage :",
+      "equipmentLabel": "Équipements & Installations :"
     }
+  },
+  "footer": {
+    "certificateTitle": "Voir le certificat Qualiopi",
+    "certified": "Organisme Certifié Qualiopi",
+    "funding": "Prise en charge AFDAS & CPF 100%",
+    "virtualTour": "Visite Virtuelle 360° du Campus",
+    "sitesTitle": "Nos Implantations",
+    "mainCampus": "CAMPUS PRINCIPAL :",
+    "mainCampusAddress": "Domaine CUC, 59360 Le Cateau-Cambrésis",
+    "region": "Hauts-de-France (1h40 de Paris / 1h de Lille)",
+    "mapAccess": "Carte & Accès",
+    "gpsRoute": "Itinéraire GPS",
+    "idfHub": "PÔLE ÎLE-DE-FRANCE :",
+    "idfStudio": "Studio de Répétition & Préparation Comédiens",
+    "idfAddress": "86 Avenue Louis Roche, 92230 Gennevilliers (Région Parisienne)",
+    "locateMaps": "Localiser sur Maps",
+    "productionAgency": "AGENCE DE PRODUCTION :",
+    "productionDesc": "CUC PROD • Société de production cinéma & spectacle vivant",
+    "directLines": "Lignes Directes",
+    "admissionFile": "Dossier d'Admission 2026/2027",
+    "networksTitle": "Réseaux & Médias",
+    "networksText": "Suivez les entraînements quotidiens, cascades exclusives et coulisses de tournages :",
+    "backToTop": "Haut de page",
+    "backToTopLabel": "Remonter en haut de la page",
+    "backToTopTitle": "Remonter en haut",
+    "qualiopiBadge": "Agrément QUALIOPI"
+  },
+  "partenaires": {
+    "cinemaHeading": "Studios & Productions Partenaires",
+    "specializedHeading": "Partenaires Spécialisés & Institutionnels",
+    "productionBadge": "Production Cinéma",
+    "officialSite": "Site officiel",
+    "website": "Site web",
+    "roleMateriel": "Équipementier",
+    "roleMedia": "Média",
+    "roleInstitutionnel": "Institutionnel",
+    "breadcrumbHome": "ACCUEIL",
+    "breadcrumbCurrent": "PARTENAIRES",
+    "heroBadge": "ILS NOUS ACCOMPAGNENT",
+    "heroTitle": "NOS PARTENAIRES",
+    "heroSubtitle": "Équipementiers, effets spéciaux, protections et structures partenaires du Campus Univers Cascades.",
+    "heroImageAlt": "Partenaires du Campus Univers Cascades",
+    "heroMeta": "ÉQUIPEMENTIERS • CINÉMA • INSTITUTIONNELS • ÉTAT",
+    "categories": {
+      "agrement": "Agrément & Certification d'État",
+      "equipementiers": "Équipementiers & Protections",
+      "materiel": "Matériel & Équipement de Tournage",
+      "pedagogie": "Pédagogie & Cascades Professionnelles",
+      "multimedia": "Multimédia & Production",
+      "etablissement": "Établissement & Nutrition"
+    },
+    "partners": [
+      {
+        "name": "Qualiopi",
+        "category": "Certification",
+        "role": "Certification Qualiopi",
+        "description": "Certification qualité des actions de formation (éligible AFDAS, France Travail)."
+      },
+      {
+        "name": "Nike",
+        "category": "Équipementier",
+        "role": "Textiles & Chaussures",
+        "description": "Équipementier sportif (textiles et chaussures de sport)."
+      },
+      {
+        "name": "RXR Protect",
+        "category": "Protections",
+        "role": "Protections Corporelles",
+        "description": "Gilets et équipements de protection corporelle gonflables (technologie Air Shock Absorber)."
+      },
+      {
+        "name": "Gravity",
+        "category": "Vêtements de sport",
+        "role": "Textiles Parkour",
+        "description": "Vêtements et streetwear pour le parkour et le freerunning."
+      },
+      {
+        "name": "C17 Special Effects",
+        "category": "Effets Spéciaux",
+        "role": "SFX & Pyrotechnie",
+        "description": "Effets spéciaux physiques, pyrotechnie et armurerie pour le cinéma."
+      },
+      {
+        "name": "Kiloutou",
+        "category": "Location de Matériel",
+        "role": "Levage & Nacelles",
+        "description": "Location de nacelles élévatrices, engins de levage et matériel de chantier."
+      },
+      {
+        "name": "TM Incendie",
+        "category": "Sécurité Incendie",
+        "role": "Protection Incendie",
+        "description": "Vente et maintenance de matériel de sécurité incendie et extincteurs."
+      },
+      {
+        "name": "Action Cascade",
+        "category": "Cascades & Tournage",
+        "role": "Coordination de Cascades",
+        "description": "Équipe de cascadeurs et coordination de cascades pour les tournages et spectacles."
+      },
+      {
+        "name": "AYA Catch",
+        "category": "Catch & Lutte",
+        "role": "Catch Professionnel",
+        "description": "École et association française de catch professionnel et lutte scénarisée."
+      },
+      {
+        "name": "Cascade Demo Team",
+        "category": "Arts Martiaux & Acrobaties",
+        "role": "Démonstration & XMA",
+        "description": "Troupe de démonstration d'arts martiaux artistiques (XMA) et acrobaties martiales."
+      },
+      {
+        "name": "Xtrem Video",
+        "category": "Média & Vidéo",
+        "role": "Média Sports Extrêmes",
+        "description": "Production et distribution de contenus vidéo de sports d'action et extrêmes."
+      },
+      {
+        "name": "TaffCoeur",
+        "category": "Production Audiovisuelle",
+        "role": "Réalisation & Captation",
+        "description": "Studio de réalisation vidéo, clips et captations de spectacles."
+      },
+      {
+        "name": "MFR Le Cateau-Cambrésis",
+        "role": "Hébergement & Restauration",
+        "category": "Hébergement & Accueil",
+        "description": "Hébergement et restauration des stagiaires au Cateau-Cambrésis."
+      },
+      {
+        "name": "BSN Nutrition",
+        "role": "Nutrition Sportive",
+        "category": "Nutrition Sportive",
+        "description": "Nutrition sportive et compléments alimentaires pour athlètes."
+      }
+    ],
+    "ctaBadge": "SPONSORING",
+    "ctaTitle": "DEVENIR PARTENAIRE",
+    "ctaBody": "Vous êtes équipementier, fabricant de matériel, société d'effets spéciaux ou marque souhaitant associer son image au campus ?",
+    "ctaButton": "Nous contacter"
+  },
+  "team": {
+    "badge": "COACHS & PROFESSIONNELS DU CINÉMA",
+    "title": "L'ÉQUIPE",
+    "subtitle": "Une faculté d'action unique au monde. Des coordinateurs de cascades renommés, des pionniers des Yamakasi, et des cascadeurs en exercice sur les plus grandes productions hollywoodiennes et françaises qui transmettent chaque jour leur savoir-faire sur le terrain.",
+    "performerTag": "CASCADEURS DU CINÉMA D'ACTION INTERNATIONAL",
+    "creditsLabel": "Références & Tournages :",
+    "creditsUnit": "crédits",
+    "othersLabel": "+{count} autres",
+    "projectsLabel": "Projets & Tournages Cinéma",
+    "ctaDetail": "Voir la fiche complète",
+    "showcaseTag": "CINÉMA D'ACTION INTERNATIONAL",
+    "roleCoordination": "Coordination",
+    "roleAssistantCoordination": "Assistant coordination",
+    "roleRiggingCoordination": "Coordination rigging",
+    "roleRigger": "Rigger",
+    "roleMechanicalStunt": "Cascade mécanique",
+    "roleDouble": "Doublure",
+    "roleDoubleOf": "Doublure de {names}",
+    "roleStunt": "Cascade",
+    "filmCardTitle": "{title} ({year}) — ouvrir la fiche de production",
+    "breadcrumb": "ÉQUIPE PRO",
+    "facultyTag": "FACULTÉ PÉDAGOGIQUE DU CUC",
+    "expertiseLabel": "Domaines d'expertise & Disciplines enseignées :",
+    "doubledLabel": "Acteurs doublés à l'écran :",
+    "ctaContact": "Contacter l'équipe de production",
+    "ctaTrain": "Découvrir nos formations & stages",
+    "filmographyTag": "FILMOGRAPHIE & PRODUCTIONS CINÉMA",
+    "filmographyHint": "Cliquez sur une production pour afficher la fiche complète, vidéos et cascadeurs impliqués.",
+    "listedOne": "{count} production répertoriée",
+    "listedMany": "{count} productions répertoriées",
+    "roleOnProduction": "Rôle sur cette production :",
+    "directorShort": "Réal. {name}",
+    "productionFallback": "Production",
+    "featuredBadge": "Mis en avant",
+    "campusFacultyTag": "FACULTÉ DU CAMPUS",
+    "seeWholeTeam": "Voir toute l'équipe",
+    "cardCta": "Fiche complète",
+    "backToTeam": "Retour à toute l'équipe pédagogique",
+    "breadcrumbHome": "ACCUEIL",
+    "breadcrumbCurrent": "L'ÉQUIPE",
+    "ctaBlockTitle": "FORMEZ-VOUS AVEC LES MEILLEURS PROFESSIONNELS DU SECTEUR",
+    "ctaBlockBody": "Chaque instructeur du Campus Univers Cascades est actif sur les plateaux de tournage et transmet les exigences actuelles du cinéma mondial.",
+    "ctaBlockButton": "Découvrir les Formations du CUC",
+    "coachNotFound": "Ce membre de l'équipe pédagogique n'existe pas ou a été déplacé.",
+    "coachNotFoundTitle": "Coach Introuvable",
+    "coachBackToTeam": "Retour à l'équipe",
+    "coachAllocineTitle": "Fiche Allociné",
+    "coachSortFilmographyAria": "Trier la filmographie",
+    "externalLinkAria": "Fiche & Références externes",
+    "coachImdbTitle": "Fiche IMDb Officielle",
+    "coachPortraitAlt": "Portrait de {name}",
+    "coachExternalTitle": "Site officiel ou portfolio",
+    "filmographyHeading": "Cascades & Tournages de {name}",
+    "filterAll": "Toutes les participations",
+    "filterCoord": "Coordination des cascades",
+    "filterDoublure": "Doublures",
+    "filterCascadeur": "Cascades & Combats",
+    "filteredCount": "{shown} / {total} films",
+    "filmographyEmptyFilter": "Aucune production trouvée pour ce filtre.",
+    "showAllFilms": "Voir toutes les productions (+{count})"
+  },
+  "contact": {
+    "hero": {
+      "breadcrumbHome": "ACCUEIL",
+      "breadcrumbCurrent": "CONTACT & PROJETS",
+      "badge": "CONTACT & ADMISSIONS",
+      "locationLabel": "CAMPUS CUC • LE CATEAU-CAMBRÉSIS & GENNEVILLIERS",
+      "titleLine": "CONTACT &",
+      "titleAccent": "PROJETS",
+      "subtitle": "Productions cinématographiques, action design, formations professionnelles de cascadeurs, stages ou événements d'entreprise : échangez directement avec les équipes du CUC.",
+      "imageAlt": "Contact et inscriptions au Campus Univers Cascades"
+    },
+    "form": {
+      "title": "DÉMARRER UN PROJET OU ÉCHANGER",
+      "intro": "Transmettez-nous les détails de votre demande. Notre équipe opérationnelle vous répondra sous 24 à 48 heures ouvrées.",
+      "successTitle": "MESSAGE TRANSMIS AVEC SUCCÈS",
+      "successText": "Merci pour votre prise de contact avec le Campus Univers Cascades. Notre équipe examinera votre projet et reviendra vers vous avec réactivité.",
+      "sendAnother": "Envoyer un autre message",
+      "labelName": "Nom & Prénom *",
+      "placeholderName": "Ex : Alexandre Dubois",
+      "labelPhone": "Téléphone *",
+      "placeholderPhone": "Ex : 06 12 34 56 78",
+      "labelEmail": "Adresse Email *",
+      "placeholderEmail": "Ex : alexandre@exemple.com",
+      "labelProgram": "Votre Demande Concerne *",
+      "multipleChoiceHint": "Choix multiple possible",
+      "topicsGroupAria": "Sujets de demande",
+      "labelExperience": "Expérience Sportive / Artistique (Arts martiaux, gymnastique, parkour…)",
+      "placeholderExperience": "Ex : 5 ans de judo, pratique du parkour…",
+      "labelMessage": "Votre Message *",
+      "placeholderMessage": "Indiquez vos objectifs, questions ou financements envisagés (AFDAS, etc.)…",
+      "submit": "Envoyer ma Candidature / Message",
+      "submitting": "Transmission en cours…",
+      "consent": "En soumettant ce formulaire, vous acceptez que les informations saisies soient exploitées dans le cadre strict de votre demande d'admission ou de contact CUC.",
+      "privacyLink": "Consulter notre Politique de Confidentialité & vos droits RGPD",
+      "errorFallback": "Une erreur est survenue lors de l'envoi. Veuillez réessayer.",
+      "options": {
+        "pro-longue-duree": "Formation Professionnelle Longue Durée (2 ans / 720h)",
+        "stage-decouverte": "Stage Découverte & Sélection (12 jours / 80h)",
+        "weekend-immersion": "Formule Week-end Immersion (pension complète)",
+        "afdas-artistes-interpretes": "Stage AFDAS Artistes Interprètes (Gennevilliers)",
+        "stunt-summer-camp": "Stunt Summer Camp (Séjour d'été)",
+        "workshop-international": "International Stunt Workshop",
+        "tournage-production": "Production de Cinéma / Tournage / Coordination",
+        "cuc-events": "CUC Events / Spectacles & Animations Live",
+        "autre": "Autre question générale"
+      }
+    },
+    "sidebar": {
+      "standardTitle": "STANDARD ADMISSIONS & DIRECTION",
+      "directPhone": "TÉLÉPHONE DIRECT :",
+      "email": "EMAIL :",
+      "hours": "HORAIRES DU STANDARD :",
+      "hoursValue": "Du Lundi au Vendredi : 09h00 - 18h30",
+      "hoursSaturday": "Samedi (jours de stage) : 09h00 - 17h00",
+      "train": "TRAIN :",
+      "road": "ROUTE :",
+      "parking": "PARKING :",
+      "sitesTitle": "NOS DEUX SITES",
+      "mainCampus": "CAMPUS PRINCIPAL :",
+      "mainCampusAddress": "Domaine CUC, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis",
+      "mainCampusRegion": "Hauts-de-France (à 1h40 de Paris en train / 1h de Lille)",
+      "seeMap": "Voir la Carte & Accès",
+      "idfHub": "PÔLE ÎLE-DE-FRANCE (STUDIO PARIS) :",
+      "idfStudio": "Studio de Répétition & Préparation Comédiens",
+      "idfAddress": "86 Avenue Louis Roche, 92230 Gennevilliers (Région Parisienne)",
+      "production": "SOCIÉTÉ DE PRODUCTION :",
+      "productionDesc": "CUC PROD — Société de production cinéma et spectacle",
+      "qualiopi": "Organisme certifié QUALIOPI pour la formation professionnelle.",
+      "entitiesTitle": "ENTITÉS & DÉPARTEMENTS DU CAMPUS",
+      "logoAltCuc": "Campus Univers Cascades CUC",
+      "logoAltEvents": "CUC Events",
+      "logoAltTeam": "CUC Team"
+    },
+    "map": {
+      "radar": "Radar Satellite",
+      "roadMap": "Vue Satellite",
+      "copyGps": "COPIER GPS",
+      "copied": "GPS COPIÉ !",
+      "copyGpsTitle": "Copier les coordonnées GPS",
+      "domain": "DOMAINE CUC",
+      "cartography": "CARTOGRAPHIE DU CAMPUS",
+      "aerial": "Vue Aérienne HD",
+      "grid": "Mode Grille",
+      "toggleLayer": "Basculer entre la vue satellite réelle et la grille radar",
+      "orthophotoAlt": "Orthophoto HD du Campus Univers Cascades",
+      "travelTitle": "TEMPS DE TRAJET & ACCÈS",
+      "travelBadge": "CAMPUS CUC",
+      "trainTitle": "EN TRAIN DIRECT",
+      "arrival": "Arrivée : {station}",
+      "carTitle": "EN VOITURE",
+      "accessInfoTitle": "INFO ACCÈS & STATIONNEMENT :",
+      "accessInfoParking": "• <b>Parking gratuit 50 places</b> à l'intérieur du Domaine CUC sécurisé.",
+      "accessInfoShuttle": "• <b>Navette CUC gratuite</b> entre la Gare du Cateau et le Campus pour les stagiaires en formation.",
+      "addressCopied": "ADRESSE COPIÉE DANS LE PRESSE-PAPIER !",
+      "copyAddress": "COPIER L'ADRESSE COMPLÈTE",
+      "sectionBadge": "GÉOLOCALISATION & ASSISTANT DE NAVIGATION",
+      "sectionTitle": "PLAN DU DOMAINE &",
+      "sectionTitleAccent": "ITINÉRAIRES",
+      "sectionIntro": "Retrouvez les coordonnées GPS exactes, les temps de trajet en train ou voiture depuis Paris, Lille ou Bruxelles, et lancez instantanément votre navigation dans Google Maps, Apple Maps, Waze ou SNCF Connect.",
+      "appLaunchTitle": "ITINÉRAIRE GPS & NAVIGATION :",
+      "launchRoute": "Lancer l'itinéraire",
+      "chooseApp": "Choisir votre application :",
+      "googleMapsDesc": "Navigation GPS universelle & Web",
+      "appleMapsDesc": "Idéal sur iPhone, iPad & Mac",
+      "wazeDesc": "Trafic & alertes en temps réel",
+      "sncfDesc": "Trajets en train direct vers Le Cateau",
+      "routes": [
+        {
+          "id": "paris",
+          "origin": "Paris",
+          "tag": "Accès Rapide",
+          "trainDetails": "Gare du Nord direct TER / Intercités vers Gare du Cateau. Navette campus sur demande.",
+          "trainStation": "Gare du Cateau-Cambrésis (à 3 min du campus)",
+          "carDetails": "Autoroute A1 puis A2 (sortie Cambrai ou Valenciennes), direction Le Cateau-Cambrésis."
+        },
+        {
+          "id": "lille",
+          "origin": "Lille & Région Nord",
+          "tag": "Proximité",
+          "trainDetails": "Lille Flandres direct vers Le Cateau via Valenciennes.",
+          "trainStation": "Gare du Cateau-Cambrésis",
+          "carDetails": "Autoroute A23 direction Valenciennes, puis D932 jusqu'au Cateau."
+        },
+        {
+          "id": "bruxelles",
+          "origin": "Bruxelles & Belgique",
+          "tag": "International",
+          "trainDetails": "Bruxelles-Midi vers Mons puis correspondance Aulnoye-Aymeries / Le Cateau.",
+          "trainStation": "Gare du Cateau",
+          "carDetails": "Autoroute E19 / E42 via Mons, direction Maubeuge puis Le Cateau."
+        },
+        {
+          "id": "airports",
+          "origin": "Aéroports Internationaux",
+          "tag": "Monde & DOM-TOM",
+          "trainDetails": "Depuis Roissy-CDG : TGV Haute-Picardie ou liaison Gare du Nord.",
+          "trainStation": "Roissy-CDG ou Charleroi Bruxelles-Sud",
+          "carDetails": "Idéal pour les élèves arrivant de l'étranger : Canada, Réunion, Guadeloupe ou Suisse."
+        }
+      ],
+      "mapAddressLabel": "Le Cateau-Cambrésis • Domaine CUC"
+    }
+  },
+  "visite": {
+    "galleryBadge": "GALERIE DU CAMPUS",
+    "galleryTitle": "LE DOMAINE EN IMAGES",
+    "gallerySubtitle": "Photographies du campus au Cateau-Cambrésis.",
+    "showAllPhotos": "Voir toutes les photos (+{count})",
+    "showLessPhotos": "Réduire l'affichage",
+    "zoom": "Agrandir",
+    "facilitiesTag": "INFRASTRUCTURES",
+    "facilitiesTitle": "NOS INFRASTRUCTURES",
+    "facilitiesSubtitle": "Chaque espace est conçu pour le travail des cascades physiques et mécaniques, avec les équipements de réception nécessaires.",
+    "facilitiesSpecsLabel": "Spécifications & Équipements Clés :",
+    "facilitiesComplianceLabel": "Conformité & Normes :",
+    "hero": {
+      "breadcrumbHome": "ACCUEIL",
+      "breadcrumbCurrent": "LE CAMPUS",
+      "badge": "INFRASTRUCTURES DE FORMATION",
+      "location": "LE CATEAU-CAMBRÉSIS (59)",
+      "titleLead": "LE",
+      "titleAccent": "CAMPUS",
+      "subtitle": "Découvrez les infrastructures du Campus Univers Cascades : la tour de saut de 21 mètres, 1300 m² de hangars couverts, fosse de réception, dojos, manège équestre, hébergement 90 lits et studio de répétition en région parisienne.",
+      "ctaFacilities": "Infrastructures",
+      "ctaTour360": "Visite 360°",
+      "ctaPlan3D": "Plan 3D",
+      "bgAlt": "Domaine du Campus Univers Cascades",
+      "stats": [
+        {
+          "value": "11 000 M²",
+          "label": "Surface d'Infrastructures"
+        },
+        {
+          "value": "21 MÈTRES",
+          "label": "Hauteur de la Tour CUC"
+        },
+        {
+          "value": "90 LITS",
+          "label": "Hébergement Sur Site"
+        },
+        {
+          "value": "1 AMPHI",
+          "label": "Amphithéâtre de cours & projections"
+        }
+      ]
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "Centre International de Formation de Cascadeurs",
+      "since": "Depuis 2008",
+      "ctaFormation": "Formation Professionnelle",
+      "ctaVisit": "Visiter le Campus",
+      "ctaStuntTeam": "Stunt Team Pro",
+      "prevSlide": "Diapositive précédente",
+      "nextSlide": "Diapositive suivante",
+      "slides": {
+        "campus": {
+          "caption": "CAMPUS UNIVERS CASCADES",
+          "sub": "Centre de formation professionnelle de cascadeurs",
+          "badge": "DOMAINE PRIVÉ • LE CATEAU-CAMBRÉSIS",
+          "tag": "Domaine & Campus"
+        },
+        "combat": {
+          "caption": "CASCADES & COMBATS DE CINÉMA",
+          "sub": "Combats chorégraphiés, arts martiaux et cascades physiques",
+          "badge": "ACTION DESIGN & CHORÉGRAPHIE",
+          "tag": "Combat & Action"
+        },
+        "facilities": {
+          "caption": "INSTALLATIONS & PLATEAUX TECHNIQUES",
+          "sub": "Plateformes de saut, airbag et ateliers câblage",
+          "badge": "SÉCURITÉ & RIGGING CINÉMA",
+          "tag": "Plateaux & Rigging"
+        },
+        "team": {
+          "caption": "ÉQUIPE DE CASCADEURS PROFESSIONNELS",
+          "sub": "Fondé en 2008 par Lucas Dollfus • Tournages cinéma, séries et spectacle",
+          "badge": "CERTIFIÉ QUALIOPI • ÉLIGIBLE AFDAS",
+          "tag": "Équipe Cascades"
+        },
+        "parkour": {
+          "caption": "PARKOUR & ACROBATIES SCÉNIQUES",
+          "sub": "Franchissements, voltige urbaine et chorégraphies d'action",
+          "badge": "PARKOUR PARK & PLATEAUX CUC",
+          "tag": "Parkour & Acrobatie"
+        }
+      },
+      "metrics": [
+        {
+          "val": "DEPUIS 2008",
+          "label": "SAVOIR-FAIRE CUC"
+        },
+        {
+          "val": "IMMERSION",
+          "label": "PÉDAGOGIE ACTIVE"
+        },
+        {
+          "val": "CINÉMA & TV",
+          "label": "INSERTION PRO"
+        },
+        {
+          "val": "QUALIOPI",
+          "label": "FORMATION CERTIFIÉE"
+        }
+      ]
+    },
+    "about": {
+      "tag": "PRÉSENTATION",
+      "subtag": "• CINÉMA, SÉRIES & SPECTACLE",
+      "title": "LE CENTRE DE FORMATION DE RÉFÉRENCE EN CASCADE DE CINÉMA",
+      "description": "Créé en 2008 par Lucas Dollfus, le Campus Univers Cascades (CUC) est un centre de formation professionnelle dédié aux techniques de cascade physique et mécanique, établi au Cateau-Cambrésis (59).",
+      "founderQuote": "« Maîtriser le risque, créer l'inédit, repousser les limites de la vérité physique au service de la vision des plus grands réalisateurs. »",
+      "founderLabel": "LE MOT DU FONDATEUR",
+      "founderName": "LUCAS DOLLFUS",
+      "founderRole": "FONDATEUR & RÉGLEUR",
+      "badgeYear": "DEPUIS 2008",
+      "imageAlt": "Plateau d'entraînement et cascadeurs professionnels du Campus Univers Cascades",
+      "ctaPrimary": "Découvrir la Formation Pro",
+      "ctaSecondary": "L'Équipe des Cascadeurs",
+      "pillars": [
+        {
+          "title": "INFRASTRUCTURES DÉDIÉES",
+          "desc": "Plateaux techniques complets : fosse de réception, dojos de combat chorégraphié, hangars de cascades mécaniques et manège équestre.",
+          "tag": "DOMAINE PRIVÉ"
+        },
+        {
+          "title": "ÉQUIPE & INSTRUCTEURS",
+          "desc": "Encadrement par des régleurs et coordinateurs en activité, maîtres d'armes et spécialistes du combat scénique et du parkour.",
+          "tag": "PÉDAGOGIE"
+        },
+        {
+          "title": "INSERTION PROFESSIONNELLE",
+          "desc": "Des diplômés actifs sur les longs-métrages, séries télévisées, spectacles vivants et productions internationales.",
+          "tag": "CINÉMA & TV"
+        },
+        {
+          "title": "AGENCE CUC EVENTS",
+          "desc": "Spectacles d'action sur mesure, cascades en direct, animations et démonstrations événementielles.",
+          "tag": "ÉVÉNEMENTS"
+        }
+      ]
+    },
+    "tournages": {
+      "badge": "SECTEUR PRODUCTION CINÉMA & TOURNAGES",
+      "title": "COORDINATION DE CASCADES & TOURNAGES",
+      "subtitle": "Partenaire des productions de cinéma, des séries et des diffuseurs, le Campus Univers Cascades met à disposition son expertise en action design, direction de combats et sécurité sur plateau, avec plus de 570 productions référencées au catalogue.",
+      "cta": "Découvrir la CUC Stunt Team",
+      "teamTag": "• CUC STUNT TEAM",
+      "pillar1Title": "1. Action Design & Chorégraphie d'Action",
+      "pillar1Desc": "Découpage technique, prévisualisation vidéo, chorégraphie sur-mesure des fusillades et combats, et préparation intensive des comédiens en amont du tournage dans notre studio parisien.",
+      "pillar2Title": "2. Vivier de 200+ Cascadeurs & Doublures",
+      "pillar2Desc": "Doublures cascades et cascadeurs professionnels sur les plus grandes productions de cinéma et de streaming, performers multi-disciplinaires (chutes de hauteur, torche humaine, câblerie, parkour, armes).",
+      "pillar3Title": "3. Régie Cascade & Sécurité Homologuée CNC",
+      "pillar3Desc": "Régleurs de cascades chevronnés, matériel de pointe (airbags certifiés, rigging 3D, crash-pads) et domaine privé privatisable pour répétitions de scènes complexes.",
+      "ctaProduction": "Échanger sur votre Production",
+      "ctaCatalog": "Voir le catalogue de films",
+      "posterAlt": "Affiche de {title}",
+      "category": "Film"
+    },
+    "qualiopi": {
+      "badge": "CERTIFICATION QUALIOPI",
+      "title": "FORMATIONS CERTIFIÉES",
+      "subtitle": "Certification délivrée au titre des ACTIONS DE FORMATION. Nos formations sont éligibles aux financements professionnels (AFDAS, France Travail).",
+      "cta": "Voir le certificat (PDF)",
+      "logoAlt": "Logo Qualiopi"
+    },
+    "partners": {
+      "badge": "COLLABORATION INDUSTRIE & CINÉMA",
+      "title": "NOS PARTENAIRES",
+      "viewAll": "Voir tous les partenaires",
+      "logoAlt": "Logo {name}",
+      "roles": {
+        "equipementier": "Équipementier",
+        "nacelles": "Nacelles & Levage",
+        "certification": "Certification Qualiopi",
+        "protections": "Protections Corporelles",
+        "pyrotechnie": "Pyrotechnie & SFX",
+        "cascadePro": "Cascade Professionnelle"
+      }
+    },
+    "social": {
+      "badge": "RÉSEAUX SOCIAUX & ACTUALITÉS",
+      "title": "COMMUNAUTÉ & RÉSEAUX SOCIAUX",
+      "subtitle": "🇲🇫 French Stunt Team • Stuntmen | Fighters | Performers • 🔥 Break the limits • 🌍 Biggest Stunt School in the World",
+      "avatarAlt": "Instagram du Campus Univers Cascades",
+      "handle": "• @CAMPUS.UNIVERS.CASCADES",
+      "join": "Rejoindre le compte",
+      "seeInstagram": "Voir sur Instagram",
+      "posts": [
+        {
+          "title": "COKA CHICAS au cinéma",
+          "tag": "SORTIE EN SALLES",
+          "desc": "Cascades coordonnées et doublées par la CUC Stunt Team pour le long-métrage de Roxine Helberg avec Fadily Camara, Zoé Marchal, Eva Huault."
+        },
+        {
+          "title": "Training Combat & Martial Arts",
+          "tag": "PLATEAU TECHNIQUE",
+          "desc": "Coordination chirurgicale des frappes et esquives sur tatamis d'impact avec l'équipe de chorégraphes du campus."
+        },
+        {
+          "title": "Risk Zone & Défenestration",
+          "tag": "CHUTES DE HAUTEUR",
+          "desc": "Exercices de chutes de hauteur et simulation de défenestration sur le domaine du Cateau-Cambrésis."
+        }
+      ]
+    },
+    "virtualTour": {
+      "badge": "IMMERSION INTERACTIVE",
+      "title": "VISITE VIRTUELLE EN IMMERSION 360°",
+      "subtitle": "Découvrez notre domaine comme si vous y étiez ! Arpentez les plateaux de tournage, la fosse olympique de mousse, les dojos de combat chorégraphié, les hangars de cascades mécaniques et le manège équestre grâce à notre visite virtuelle interactive.",
+      "cta": "Ouvrir la Visite Virtuelle 360°",
+      "installationsCta": "Détail des 9 Installations",
+      "tag": "• VISITE 360° VR HD MEDIA",
+      "previewAlt": "Aperçu 360 d'un plateau technique du Campus Univers Cascades",
+      "hudTitle": "Visite 360° Interactive",
+      "hudHint": "Cliquer pour explorer le campus",
+      "launchLabel": "Lancer la visite virtuelle 360"
+    }
+  },
+  "videos": {
+    "breadcrumbHome": "ACCUEIL",
+    "breadcrumbCurrent": "NOS VIDÉOS & REPORTAGES",
+    "heroBadge": "REPORTAGES TÉLÉVISION",
+    "heroTitle": "LES REPORTAGES & VIDÉOS DU CUC",
+    "heroSubtitle": "Découvrez les coulisses de l'entraînement des cascadeurs avec les reportages diffusés sur TF1 et France 2, ainsi que les vidéos officielles du Campus Univers Cascades.",
+    "heroMeta": "TF1 JT 20H • FRANCE 2 • BFM TV",
+    "heroImageAlt": "Vidéos et reportages du Campus Univers Cascades",
+    "tabTf1": "REPORTAGE TF1 (JT 20H)",
+    "tabFrance2": "REPORTAGE FRANCE 2 (20H30 LE MAG)",
+    "videoFallback": "Votre navigateur ne prend pas en charge la lecture de vidéos HTML5.",
+    "tf1Title": "REPORTAGE TF1 — LE JT DE 20H AU CUC",
+    "tf1Desc": "Immersion des caméras du journal télévisé de TF1 au Campus Univers Cascades : entraînements aux chutes de hauteur, cascades en feu et formation des futures doublures du cinéma d'action.",
+    "france2Title": "FRANCE 2 — 20H30 LE MAG : « À L'ÉCOLE DES CASCADEURS »",
+    "france2Desc": "Grand format de 20h30 Le Mag sur France 2 présenté par Laurent Delahousse. Les coulisses de la formation professionnelle au Cateau-Cambrésis et le quotidien des élèves.",
+    "broadcastBadge": "DIFFUSION NATIONALE",
+    "docusBadge": "DOCUS & SÉRIES TV",
+    "docusTitle": "LES PROGRAMMES TV & REPORTAGES DU SITE",
+    "docusHint": "Cliquez sur une vignette pour lancer la vidéo dans le lecteur immersif.",
+    "docusOpenExternal": "Ouvrir le reportage sur Dailymotion",
+    "mediaTag": "COUVERTURE MÉDIATIQUE",
+    "mediaTitle": "LE CUC DANS LES MÉDIAS",
+    "mediaIntro": "Découvrez les reportages consacrés aux coulisses du campus et à l'entraînement des cascadeurs sur les grandes chaînes nationales et nos réseaux.",
+    "mediaItems": [
+      {
+        "channel": "TF1",
+        "label": "Le Journal de 20H au Campus"
+      },
+      {
+        "channel": "FRANCE 2",
+        "label": "20h30 Le Mag avec Laurent Delahousse"
+      },
+      {
+        "channel": "BFM TV",
+        "label": "Grand Format à l'École des Cascadeurs"
+      }
+    ],
+    "socialInstagram": "Voir les cascades sur Instagram",
+    "socialTiktok": "Suivre la Stunt Team sur TikTok",
+    "closeTitle": "Fermer",
+    "reelsTitle": "SESSIONS D'ACTION EN FORMAT COURT",
+    "reelsIntro": "Vivez l'action au plus près avec les formats verticaux officiels du Campus Univers Cascades.",
+    "reelsPlay": "Lancer le Reel",
+    "reelsWatchOnInsta": "Voir sur Instagram",
+    "reelsPrev": "Reel précédent",
+    "reelsNext": "Reel suivant",
+    "reelsSeeMore": "Voir plus de vidéos",
+    "reelsSortByFeatured": "Mis en avant",
+    "reelsSortByViews": "Nombre de vues",
+    "reelsSortByDateDesc": "Plus récentes",
+    "reelsSortByDateAsc": "Plus anciennes",
+    "catalogLabel": "Catalogue vidéo officiel :",
+    "cumulativeViews": "{views}M+ vues cumulées",
+    "reelsItems": [
+      {
+        "title": "Encore un pare-brise... 🤭",
+        "description": "Encore un pare-brise... 🤭👌 Impact, trajectoire et réception sur pare-brise par les cascadeurs du Campus Univers Cascades."
+      },
+      {
+        "title": "Concert de PLK au Stade de France",
+        "description": "Concert de PLK au Stade de France 🔥 Expérience de folie avec l'équipe de cascadeurs et performers CUC."
+      },
+      {
+        "title": "Piñata Party 😅",
+        "description": "Piñata Party au campus 😅🥳 Vie du domaine, esprit d'équipe et bonne humeur entre deux entraînements intensifs."
+      },
+      {
+        "title": "Just Training 🤝",
+        "description": "Just training 🤝😅 Répétitions chorégraphiques de combat scénique et coordination des axes caméra."
+      },
+      {
+        "title": "Moto 1 - Voiture 0 🤭",
+        "description": "Moto 1 - Voiture 0 🤭👌 Cascade d'action mécanique et impact percutant tourné sur les pistes du campus."
+      },
+      {
+        "title": "Team CUC — Fight Training ✌️",
+        "description": "Just training ✌️ Session d'entraînement physique et combat au contact avec les membres de la CUC Team."
+      }
+    ],
+    "programs": [
+      {
+        "dmId": "x9uewe0",
+        "title": "COEUR DE CASCADEURS",
+        "sub": "Série TV France 2 & CUC"
+      },
+      {
+        "dmId": "x8581s9",
+        "title": "REPORTAGE BFM TV",
+        "sub": "« À l'école des cascadeurs »"
+      },
+      {
+        "dmId": "x858323",
+        "title": "HAPPY BIRTHDAY CUC",
+        "sub": "10 ans de cascade (2009 - 2019)"
+      },
+      {
+        "dmId": "x8583in",
+        "title": "SESSION D'AOÛT 2017",
+        "sub": "Promotion CUC en formation"
+      },
+      {
+        "dmId": "k2LHEg1AIHtIfYxkvcz",
+        "title": "ZOË BELL AU CAMPUS",
+        "sub": "Marraine du Campus Univers Cascades"
+      },
+      {
+        "dmId": "x8583u3",
+        "title": "STUNT RIDER — CAMPUS LIFE",
+        "sub": "La vie au CUC au quotidien"
+      }
+    ]
+  },
+  "teamBuilding": {
+    "heroMeta": "COHÉSION D'ÉQUIPE • COULISSES DU CINÉMA",
+    "overviewBadge": "CUC EVENTS • IMMERSION ENTREPRISE",
+    "overviewTitle": "LES ATELIERS DU CINÉMA",
+    "overviewDescription": "Nous vous proposons des animations et initiations autour du métier de cascadeur, du cinéma et de ses coulisses. Team building, séminaires, collectivités... Notre équipe de professionnels vous propose des ateliers au choix avec du matériel spécifique et une sécurité sans compromis.",
+    "workshopChoice": "Atelier au choix",
+    "workshopModular": "Modulable",
+    "breadcrumbCurrent": "TEAM BUILDING D'EXCEPTION",
+    "workshopFallbackTitle": "Atelier cascade",
+    "workshopFallbackLabel": "ATELIER CUC",
+    "customBadge": "SUR MESURE",
+    "customTitle": "COMBINEZ PLUSIEURS ATELIERS POUR VOTRE JOURNÉE",
+    "customDescription": "Nous adaptons le déroulement, le nombre d'animateurs cascadeurs et le matériel selon vos objectifs, vos contraintes de planning et la taille de votre groupe.",
+    "customCta": "Recevoir une Proposition Détaillée & Devis"
+  },
+  "visiteVirtuelle": {
+    "viewerTitle": "VISITE VIRTUELLE 360° INTERACTIVE",
+    "helpTitle": "Aide de navigation",
+    "helpLabel": "Mode d'emploi",
+    "resetTitle": "Réinitialiser la visite à l'entrée",
+    "resetLabel": "Réinitialiser",
+    "openTabTitle": "Ouvrir en plein écran dans un nouvel onglet / Casque VR",
+    "openTabLabel": "Ouvrir dans un onglet",
+    "exitFullscreenTitle": "Quitter le plein écran",
+    "fullscreenTitle": "Plein écran immersif",
+    "collapseLabel": "RÉDUIRE",
+    "fullscreenLabel": "PLEIN ÉCRAN",
+    "navHelpTitle": "Navigation 360° :",
+    "navHelpBody1": "Cliquez et faites glisser votre curseur (ou votre doigt sur mobile) pour regarder autour de vous. Cliquez sur les",
+    "navHelpHighlight": "flèches clignotantes au sol",
+    "navHelpBody2": "pour avancer d'une pièce à l'autre.",
+    "hideLabel": "[MASQUER]",
+    "iframeTitle": "Visite Virtuelle 360° Campus Univers Cascades",
+    "breadcrumbHome": "ACCUEIL",
+    "breadcrumbCampus": "LE CAMPUS",
+    "breadcrumb360": "VISITE VIRTUELLE 360°",
+    "breadcrumb3d": "PLAN 3D DU DOMAINE",
+    "pageTag": "VISITE DU DOMAINE",
+    "pageTitle": "DÉCOUVRIR LE CAMPUS",
+    "suffix360": "EN 360°",
+    "suffix3d": "EN 3D",
+    "pageSubtitle": "Explorez les infrastructures du centre de formation de cascadeurs au Cateau-Cambrésis en immersion 360° haute définition.",
+    "tab360Label": "Vue 360° VR",
+    "tab3dLabel": "Plan 3D",
+    "loading3d": "Chargement du plan 3D…",
+    "ctaRendezVous": "Prendre Rendez-vous",
+    "factsTitle1": "11 000 m² d'Infrastructures",
+    "factsBody1": "Tour de saut de 21 mètres, salle d'entraînement Zoé Bell, dojos, manège équestre et hangars de cascades mécaniques réunis sur un même domaine privé.",
+    "factsTitle2": "Sécurité & Équipements",
+    "factsBody2": "Matériel professionnel de cascade aux normes en vigueur : matelas de réception certifiés, airbags de saut, trampolines et fosse de travail.",
+    "factsTitle3": "Accès & Hébergement",
+    "factsBody3": "Situé au Cateau-Cambrésis (à 2h de Paris, 1h de Lille). Possibilité d'hébergement sur site en pension complète pour les élèves en formation et stages."
+  },
+  "eventsAgence": {
+    "learnMore": "En savoir plus",
+    "pillars": [
+      {
+        "tag": "PRESTATIONS & SHOWS EN DIRECT",
+        "title": "SPECTACLES DE CASCADES",
+        "paragraph1": "Vous souhaitez dynamiser votre événement avec un spectacle percutant ? Le Campus Univers Cascades met à votre disposition son savoir-faire et ses équipes de cascadeurs professionnels pour créer des shows vivants sur-mesure.",
+        "paragraph2": "Combats chorégraphiés médiévaux, contemporains ou fantastiques, chutes de hauteur spectaculaires, cascades pyrotechniques (torches humaines), nos créations s'adaptent à toutes les contraintes techniques et scéniques.",
+        "cta": "En savoir plus sur nos Spectacles",
+        "imageAlt": "Photo Spectacle CUC Events"
+      },
+      {
+        "tag": "SENSATIONS FORTES GRAND PUBLIC",
+        "title": "ANIMATIONS & FREEJUMP AIRBAG",
+        "paragraph1": "Offrez à votre public des sensations uniques grâce à nos animations interactives encadrées par des professionnels : le FreeJump Airbag (sauts sécurisés de 4 à 8 mètres de haut), simulateur de câblage cinéma, ou ateliers d'initiation au parkour avec les membres des Yamakasi.",
+        "paragraph2": "Installations entièrement conformes aux normes de sécurité les plus strictes avec assurance professionnelle et encadrement qualifié.",
+        "cta": "En savoir plus sur nos Animations",
+        "imageAlt": "Animation FreeJump Airbag CUC Events"
+      },
+      {
+        "tag": "SÉMINAIRES & IMMERSION ENTREPRISE",
+        "title": "TEAM BUILDING CINÉMA D'ACTION",
+        "paragraph1": "Fédérez vos équipes lors d'un séminaire d'action inoubliable au cœur du domaine du CUC au Cateau-Cambrésis.",
+        "paragraph2": "Atelier cinéma indoor, cascades physiques, cascades de feu sécurisées, tournage d'une fausse bande-annonce d'action : vos collaborateurs dépassent leurs limites dans un esprit de camaraderie et de bienveillance totale. Capacité d'accueil jusqu'à 90 personnes avec hébergement et restauration sur site.",
+        "cta": "Organiser un Team Building",
+        "imageAlt": "Atelier Cinéma Indoor Team Building"
+      }
+    ],
+    "guarantees": [
+      {
+        "title": "SÉCURITÉ & HOMOLOGATION",
+        "description": "Assurance professionnelle spectacle, matériel homologué et protocoles stricts."
+      },
+      {
+        "title": "CASCADEURS PROFESSIONNELS",
+        "description": "Performeurs formés au CUC, actifs sur des productions cinéma et parcs à thème majeurs."
+      },
+      {
+        "title": "PARTOUT EN FRANCE & EUROPE",
+        "description": "Déplacement de nos structures mobiles et équipes de cascadeurs sur votre site d'événement."
+      }
+    ],
+    "guaranteeLogoAlt": "Cascadeurs Professionnels CUC",
+    "partnersBadge": "PARTENAIRES & MARQUES",
+    "partnersTitle": "ILS NOUS ONT FAIT CONFIANCE",
+    "cinemaBadge": "RÉFÉRENCES CINÉMA",
+    "cinemaTitle": "LES PRODUCTIONS CINÉMA & TÉLÉVISION",
+    "bannerAlt1": "Bandes affiches film série 1",
+    "bannerAlt2": "Bandes affiches film série 2",
+    "bannerAlt3": "Bandes affiches film série 3",
+    "bannerAlt4": "Bandes affiches film série 4",
+    "heroBadge": "AGENCE ÉVÉNEMENTIELLE D'ACTION",
+    "heroTitle": "CUC EVENTS : SPECTACLES & ANIMATIONS",
+    "heroSubtitle": "Marquez les esprits lors de vos festivals, lancements de marque, parcs à thème ou séminaires d'entreprise grâce à des shows d'action spectaculaires orchestrés par les cascadeurs professionnels du Campus Univers Cascades.",
+    "breadcrumbCurrent": "CUC EVENTS & SPECTACLES",
+    "heroCtaPrimary": "Demander un Devis Événementiel",
+    "heroCtaSecondary": "Voir nos Vidéos en Direct",
+    "heroImageAlt": "CUC Events spectacles de cascades et animations en direct",
+    "animationsBody": "Offrez à votre public des sensations uniques grâce à nos animations interactives encadrées par des professionnels : le <strong>FreeJump Airbag</strong> (sauts sécurisés de 4 à 8 mètres de haut), simulateur de câblage cinéma, ou ateliers d'initiation au parkour avec les membres des Yamakasi."
+  },
+  "spectacles": {
+    "heroBadge": "LE CINÉMA S'INVITE SUR SCÈNE",
+    "heroTitle": "SPECTACLES CASCADEURS",
+    "heroSubtitle": "Revivez les séquences d'action de vos films préférés avec les cascadeurs professionnels et doublures cinéma du Campus Univers Cascades. Combats, chutes, Parkour, humour et effets scéniques pour tous vos événements.",
+    "ctaPrimaryText": "Demander un Devis Spectacle",
+    "ctaSecondaryText": "Voir nos Vidéos en Direct",
+    "heroImageAlt": "Spectacles de cascadeurs professionnels CUC Events",
+    "logoAlt": "CUC Events Spectacles",
+    "breadcrumbHome": "ACCUEIL",
+    "breadcrumbEvents": "CUC EVENTS",
+    "breadcrumbCurrent": "SPECTACLES CASCADEURS",
+    "heroMeta": "CASCADEURS • COMÉDIENS • SHOWS CLÉ EN MAIN",
+    "panelTag": "CUC EVENTS SPECTACLES",
+    "panelSub": "CASCADEURS & DOUBLURES CINÉMA",
+    "panelTitle": "DES SHOWS CLÉ EN MAIN ADAPTÉS À VOTRE LIEU",
+    "panelParagraph": "Nos artistes font partie du milieu très restreint des doublures-cascadeurs pour les films d'action au cinéma. Formés au sein du Campus Univers Cascades et travaillant en exclusivité avec notre agence, ils s'adaptent à n'importe quel environnement pour satisfaire vos envies.",
+    "specsTitle": "Spécifications de la formule Spectacle :",
+    "specsItems": [
+      {
+        "label": "Équipe :",
+        "value": "5 artistes professionnels polyvalents (cascadeurs, comédiens, traceurs)"
+      },
+      {
+        "label": "Format :",
+        "value": "De 8 à 20 minutes d'action ininterrompue et réglée au millimètre"
+      },
+      {
+        "label": "Thèmes au choix :",
+        "value": "James Bond 007, Univers Super-Héros (Marvel/DC), John Wick, Post-apocalyptique"
+      },
+      {
+        "label": "Disciplines intégrées :",
+        "value": "Combats scéniques, chutes de hauteur, comédie, acrobaties, Parkour"
+      }
+    ],
+    "showImageAlt": "Spectacles cascadeurs CUC sur scène",
+    "arenaImageAlt": "CUC Events spectacle et performance live cascadeurs",
+    "arenaBadge": "ÉVÉNEMENT",
+    "arenaTitle": "CUC EVENTS À L'ACCOR ARENA (BERCY)",
+    "arenaParagraph": "Devant plus de 15 000 spectateurs, la CUC Stunt Team a assuré le show d'ouverture avec des cascades synchronisées, des sauts depuis les structures aériennes et des combats retransmis sur écrans géants.",
+    "arenaCta": "Organiser un Show dans votre Salle",
+    "catalogBadge": "Formats & Répertoires de Scène",
+    "catalogTitle": "Nos Spectacles & Démonstrations en Direct",
+    "catalogSubtitle": "Du grand show en arène aux tableaux historiques immersifs, chaque spectacle est entièrement conçu, sécurisé et interprété par les cascadeurs professionnels du CUC.",
+    "specsLogisticsTitle": "Spécifications & Logistique",
+    "archivesBadge": "PORTFOLIO SCÉNIQUE",
+    "archivesTitle": "Archives Photos Spectacles",
+    "archivesSubtitle": "Retour en images sur nos créations scéniques, spectacles à thèmes, démonstrations live et performances événementielles."
+  },
+  "animations": {
+    "heroBadge": "AIRBAG DE CINÉMA • ENCADREMENT PROFESSIONNEL",
+    "heroTitle": "ANIMATIONS AIRBAG & PARKOUR",
+    "heroSubtitle": "Faites vivre au grand public les sensations uniques de la chute libre sur coussin d'air géant de cinéma. Une animation spectaculaire encadrée par les cascadeurs professionnels du Campus Univers Cascades.",
+    "ctaPrimaryText": "Devis Animation Airbag",
+    "ctaSecondaryText": "Toutes les Offres CUC Events",
+    "heroImageAlt": "Xtrem Jump Airbag Géant de Cinéma CUC Events",
+    "logoAlt": "CUC Events Animations",
+    "breadcrumbHome": "ACCUEIL",
+    "breadcrumbEvents": "CUC EVENTS",
+    "breadcrumbCurrent": "ANIMATIONS AIRBAG GÉANT & PARKOUR",
+    "heroMeta": "DEPUIS 2009",
+    "stat1Label": "Sauts Réalisés en Europe",
+    "stat2Value": "20 MÈTRES",
+    "stat2Label": "Capacité Maximale Airbag",
+    "stat3Label": "Sécurité et Encadrement Pro",
+    "stat4Label": "Pionniers de l'Animation Airbag",
+    "panelTag": "CUC EVENTS ANIMATIONS",
+    "panelSub": "XTREM JUMP AIRBAG CINÉMA & PARKOUR",
+    "panelTitle": "XTREM JUMP AIRBAG : INITIATION GRAND PUBLIC & SHOWS",
+    "panelParagraph1": "Le grand public peut enfin goûter à l'adrénaline et découvrir les sensations uniques de la chute libre avec une sécurité optimale. Ils profiteront pour cela de notre Airbag géant (coussin d'air utilisé au cinéma) pouvant réceptionner une chute d'un cascadeur professionnel allant jusqu'à 20 mètres.",
+    "panelParagraph2": "Notre agence et notre équipe de professionnels ont été les précurseurs de cette animation événementielle en France dès 2009. Avec plus de 20 000 chutes encadrées à travers l'Europe, nos cascadeurs diplômés guident chaque participant pour un saut mémorable et sans danger.",
+    "includedTitle": "Inclus dans la prestation :",
+    "includedItems": [
+      "Airbag géant cinéma certifié aux normes UE",
+      "Plateforme ou échafaudage de saut adapté",
+      "Encadrement par 2 à 4 cascadeurs pros",
+      "Démonstrations de sauts acrobatiques incluses"
+    ],
+    "panelImageAlt": "Saut sur Airbag géant CUC"
+  },
+  "stages": {
+    "fallbackBadge": "STAGE CUC",
+    "fallbackCta": "Réserver mon stage",
+    "bookWithPrice": "Réserver ({price})",
+    "fallbackLocation": "Campus CUC, Le Cateau-Cambrésis (59)",
+    "cards": [
+      {
+        "id": "weekend-immersion",
+        "badgeText": "OFFRE POPULAIRE",
+        "subBadge": "ACCESSIBLE DÈS 16 ANS",
+        "highlightText": "PENSION COMPLÈTE INCLUSE",
+        "title": "FORMULE WEEK-END IMMERSION CUC",
+        "description": "Vivez la vie d'un cascadeur de cinéma pendant deux jours complets. Dormez sur le campus, partagez les repas avec l'équipe et sautez sur l'airbag géant en toute sécurité. Idéal pour découvrir ses capacités physiques et faire le plein de sensations fortes.",
+        "details": [
+          "Vendredi 17h au Dimanche 17h30 (16h de pratique)",
+          "Hébergement sur place (chambres campus)",
+          "Tous les repas compris (du vendredi soir au dimanche midi)",
+          "Domaine CUC, Le Cateau-Cambrésis (59)"
+        ],
+        "buttonLabel": "Réserver mon Week-end",
+        "pdfLabel": "Télécharger la Plaquette Week-end (PDF)",
+        "imageAlt": "Affiche Stage Week-end Immersion CUC"
+      },
+      {
+        "id": "afdas-artistes-interpretes",
+        "badgeText": "PRISE EN CHARGE AFDAS 100%",
+        "subBadge": "COMÉDIENS • DANSEURS • CIRCASSIENS",
+        "highlightText": "",
+        "title": "STAGE AFDAS — ARTISTES INTERPRÈTES",
+        "description": "Donnez à vos rôles une crédibilité totale dans les scènes d'action. Formation de 70 heures conventionnée AFDAS dispensée au sein de notre studio parisien à Gennevilliers. Apprenez à encaisser les impacts, manipuler des armes à blanc, chuter dans les escaliers et tournez votre bande-démo d'action.",
+        "details": [
+          "2 Semaines (10 jours ouvrés / 70 heures)",
+          "Pôle CUC Île-de-France, 86 Avenue Louis Roche, 92230 Gennevilliers",
+          "Conventionné AFDAS (0€ de reste à charge pour l'artiste)",
+          "Tournage d'une bande-démo action individuelle"
+        ],
+        "buttonLabel": "Demander ma Prise en Charge AFDAS",
+        "pdfLabel": "",
+        "imageAlt": "Affiche Stage AFDAS Artistes Interprètes CUC"
+      },
+      {
+        "id": "stunt-summer-camp",
+        "badgeText": "STAGE D'ÉTÉ INTENSIF",
+        "subBadge": "DÈS 15 ANS • PARKOUR & AIRBAG",
+        "highlightText": "",
+        "title": "STUNT SUMMER CAMP CUC",
+        "description": "Une semaine d'entraînement estival au CUC : Parkour, sauts sur airbag, acrobaties sur fosse à cubes et combats de cinéma. Formule internat avec hébergement et pension complète.",
+        "details": [
+          "1 Semaine (Du dimanche au vendredi soir / 35h)",
+          "Formule internat avec hébergement et pension complète",
+          "Encadré par les cascadeurs et formateurs CUC",
+          "Campus CUC, 59360 Le Cateau-Cambrésis"
+        ],
+        "buttonLabel": "Pré-inscriptions Summer Camp",
+        "pdfLabel": "Télécharger la Plaquette Summer Camp (PDF)",
+        "imageAlt": "Affiche Stunt Summer Camp CUC"
+      },
+      {
+        "id": "afdas-cascadeurs-pro",
+        "badgeText": "CASCADEURS PROS EN EXERCICE",
+        "subBadge": "PROVENCE STUDIOS (MARTIGUES)",
+        "highlightText": "",
+        "title": "STAGE AFDAS — CASCADEURS PRO (PROVENCE STUDIOS)",
+        "description": "Session de perfectionnement technique organisée au sein des studios de tournage à Provence Studios. Câblage multi-axes, catapultes pneumatiques (ratchets), torches humaines et protocoles de sécurité pour tournages professionnels.",
+        "details": [
+          "Provence Studios, Martigues (Bouches-du-Rhône)",
+          "Prise en charge AFDAS Intermittents Cascadeurs"
+        ],
+        "buttonLabel": "Contacter pour les Sessions Pro",
+        "pdfLabel": "",
+        "imageAlt": "Affiche Stage Cascadeur Pro CUC Provence Studios"
+      }
+    ],
+    "hero": {
+      "breadcrumbHome": "ACCUEIL",
+      "breadcrumbCurrent": "STAGES & SÉJOURS DE CASCADES",
+      "badge": "IMMERSION & PERFECTIONNEMENT",
+      "meta": "WEEK-ENDS IMMERSION • STAGES AFDAS 100% • SUMMER CAMP",
+      "titleLead": "STAGES DE CASCADE, ",
+      "titleAccent": "PARKOUR & ACTION",
+      "subtitle": "Pour vivre l'expérience cascadeur le temps d'un week-end en immersion totale, profiter d'une prise en charge intégrale AFDAS en tant qu'artiste interprète, ou rejoindre notre grand Summer Camp estival sur nos installations.",
+      "bgAlt": "Stages et séjours de cascades au Campus Univers Cascades",
+      "logosAlt": "Logos des stages CUC"
+    }
+  },
+  "stuntWorkshop": {
+    "heroMeta": "EN ANGLAIS & FRANÇAIS",
+    "briAlt": "CUC BRI — Formation cascade Brigade de Recherche et d'Intervention",
+    "posterBadge": "AFFICHE OFFICIELLE",
+    "posterTitle": "Session Internationale CUC",
+    "posterSubtitle": "Certification Pro Action Performer",
+    "towerCaption": "Tour de chute 21m",
+    "tacticalCaption": "Intervention & Armurerie",
+    "crowdCaption": "Performers du Monde Entier au CUC"
+  },
+  "visiteGuidee": {
+    "accessBadge": "ACCÈS & TRANSPORT",
+    "accessTitle": "COMMENT REJOINDRE LE CAMPUS ?",
+    "accessIntro": "Situé au cœur de la région Hauts-de-France, le campus est facilement accessible depuis Paris, Lille, Bruxelles ou Londres.",
+    "accessCarLabel": "EN VOITURE :",
+    "accessCarBody": "À 2h de Paris par les autoroutes A1 et A26. À 1h de Lille et Valenciennes. Parking privé sécurisé gratuit sur place pour les stagiaires.",
+    "accessTrainLabel": "EN TRAIN (SNCF) :",
+    "accessTrainBody": "Gare de Le Cateau-Cambrésis (à 5 minutes du campus). Lignes directes depuis Paris Gare du Nord (via Saint-Quentin ou Cambrai). Navette CUC disponible sur demande.",
+    "accessPlaneLabel": "EN AVION :",
+    "accessPlaneBody": "Aéroports internationaux de Paris CDG (1h45 de route), Lille Lesquin (1h) ou Charleroi Bruxelles-Sud (1h15).",
+    "coordinatesTitle": "COORDONNÉES DU DOMAINE",
+    "addressLabel": "Adresse postale & Accès :",
+    "mapRadarLabel": "Radar & Itinéraires",
+    "standardLabel": "Standard Admissions :",
+    "phoneLabel": "Téléphone :",
+    "emailLabel": "Email :",
+    "idfLabel": "Pôle Île-de-France (Studio Paris) :",
+    "idfValue": "Studio de Répétition & Comédiens",
+    "accessCta": "Planifier une Visite ou Réserver un Stage",
+    "tour3dBadge": "TOPOGRAPHIE SPATIALE 3D",
+    "tour3dTitle": "PLAN 3D INTERACTIF",
+    "tour3dTitleAccent": "DU CAMPUS",
+    "tour3dParagraph": "Faites pivoter la vue aérienne, explorez les 9 infrastructures en trois dimensions, et sélectionnez une zone pour découvrir ses installations spécialisées.",
+    "tour360Badge": "EXPÉRIENCE 360°",
+    "tour360Title": "VISITE VIRTUELLE",
+    "tour360TitleAccent": "360° DU CAMPUS",
+    "tour360Paragraph": "Explorez le domaine en immersion totale : naviguez librement dans le Zoé Bell Hall, observez la fosse olympique à cubes, la Tour CUC de 21m et l'ensemble des plateaux techniques.",
+    "loading3d": "Chargement du plan 3D…",
+    "accessAddress": "Domaine CUC, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis (France)",
+    "domainClosed": "DOMAINE CLOS • LE CATEAU-CAMBRÉSIS"
+  },
+  "teamProduction": {
+    "hero": {
+      "breadcrumbHome": "ACCUEIL",
+      "breadcrumbCurrent": "TOURNAGE",
+      "badge": "COORDINATION DE CASCADES • CINÉMA",
+      "title": "TOURNAGE",
+      "subtitle": "Le Campus Univers Cascades et la CUC Stunt Team accompagnent les productions cinématographiques et audiovisuelles, de la conception des chorégraphies d'action jusqu'au tournage en plateau.",
+      "ctaPrimary": "Contacter l'Équipe de Production",
+      "posters": "Voir les affiches",
+      "bgAlt": "CUC Stunt Team tournages cinéma et films d'action",
+      "emblemAlt": "Blason CUC Stunt Team",
+      "emblemLabel": "CAMPUS UNIVERS CASCADES"
+    },
+    "galleries": {
+      "studioBadge": "INFRASTRUCTURES DE TOURNAGE",
+      "studioTitle": "LE STUDIO & LA SALLE D'ACTION",
+      "doublesBadge": "DOUBLURES & CHORÉGRAPHES",
+      "doublesTitle": "LES CASCADEURS EN ACTION",
+      "equipmentBadge": "MATÉRIEL TECHNIQUE CINÉMA",
+      "equipmentTitle": "LES ÉQUIPEMENTS DE TOURNAGE",
+      "zoomStudio": "Cliquer pour voir en plein écran",
+      "zoomStunt": "Cliquer pour agrandir la photo de cascade",
+      "zoomEquipment": "Cliquer pour voir l'équipement en détail",
+      "expand": "Agrandir",
+      "showAllPhotos": "Voir toutes les photos (+{count})",
+      "showLessPhotos": "Réduire l'affichage"
+    },
+    "hallOfFame": {
+      "emblemAlt": "Blason CUC",
+      "badge": "CRÉDITS & TOURNAGES",
+      "tag": "PRODUCTIONS CUC & ANCIENS ÉLÈVES",
+      "title": "HALL OF FAME DU CINÉMA D'ACTION",
+      "subtitle": "Retrouvez une sélection de productions audiovisuelles et cinématographiques sur lesquelles sont intervenus les cascadeurs et formateurs du CUC.",
+      "actorsBadge": "ACTEURS & TOURNAGES",
+      "actorsTitle": "LES COMÉDIENS DOUBLÉS PAR LE CUC",
+      "actorsIntro": "Les formateurs et cascadeurs du Campus Univers Cascades interviennent sur les scènes d'action des tournages français et internationaux.",
+      "photoAlt": "Comédien doublé {name}",
+      "imdbTitle": "Voir la filmographie IMDb de {name}",
+      "filmsLabel": "Films :"
+    },
+    "celebrityModal": {
+      "title": "Fiche Tournage & Cascades",
+      "doublesLabel": "Doublure cascades :",
+      "doublesAndShootsLabel": "DOUBLURE & TOURNAGES :",
+      "inConnector": "dans",
+      "openLucasFilmTitle": "Voir la fiche du film « {title} » coordonné par Lucas Dollfus",
+      "openCucFilmTitle": "Voir la fiche du film « {title} » coordonné par le CUC",
+      "scenesLabel": "Cascades & scènes d'action :",
+      "filmsLabel": "Films :",
+      "cucCoordinatedFilmsSingular": "Film coordonné par le CUC :",
+      "cucCoordinatedFilmsPlural": "Films coordonnés par le CUC :",
+      "imdbCta": "Fiche IMDb",
+      "close": "Fermer",
+      "closeAria": "Fermer"
+    },
+    "filmModal": {
+      "title": "FILM",
+      "directedBy": "Réalisé par {name}",
+      "doublesLabel": "Doublures & comédiens :",
+      "teamLabel": "Équipe CUC :",
+      "trailer": "Bande-annonce",
+      "close": "Fermer",
+      "closeAria": "Fermer"
+    },
+    "showcase": {
+      "sortLabel": "Trier :",
+      "sortAria": "Trier les films"
+    },
+    "services": {
+      "badge": "SERVICES AUX PRODUCTIONS",
+      "title": "TOURNER VOS SCÈNES D'ACTION AVEC LE CUC",
+      "intro": "De la pré-production à l'exécution sur le plateau, le Campus Univers Cascades met à votre disposition ses ressources techniques et humaines :",
+      "items": [
+        {
+          "label": "1. COORDINATION & CHORÉGRAPHIE :",
+          "body": "Analyse du scénario, chiffrage budgétaire, découpage technique de l'action et chorégraphies sur-mesure adaptées au jeu des comédiens."
+        },
+        {
+          "label": "2. PRÉPARATION DES COMÉDIENS (STUDIO PARIS / GENNEVILLIERS) :",
+          "body": "Sessions de répétition en amont du tournage pour habituer les acteurs aux armes factices, aux mouvements de combat et aux réactions de tir."
+        },
+        {
+          "label": "3. MATÉRIEL DE TOURNAGE & DOMAINE :",
+          "body": "Airbags certifiés, systèmes de câblage (rigging), harnais de cascade et mise à disposition du domaine comme décor naturel."
+        }
+      ],
+      "contactTitle": "CONTACT PRODUCTION & CASTING",
+      "contactIntro": "Vous préparez un long-métrage, une série, un clip ou un spectacle ? Contactez directement notre bureau de coordination.",
+      "coordinatorLabel": "COORDINATEUR RÉFÉRENT :",
+      "coordinatorValue": "Lucas Dollfus — CUC PROD",
+      "phoneLabel": "TÉLÉPHONE DIRECT :",
+      "emailLabel": "EMAIL PRO :",
+      "cta": "Demande de Devis & Collaboration"
+    },
+    "celebrities": [
+      {
+        "id": "tomer-sisley",
+        "specialty": "Combats chorégraphiés, cascades physiques et poursuites.",
+        "doubles": "Doublé par Vincent Bouillon"
+      },
+      {
+        "id": "keanu-reeves",
+        "specialty": "Chute des 222 marches du Sacré-Cœur à Paris (Taurus World Stunt Award 2024).",
+        "doubles": "Doublé par Vincent Bouillon"
+      },
+      {
+        "id": "jean-dujardin",
+        "specialty": "Cascades physiques et combats chorégraphiés.",
+        "doubles": "Doublé par Vincent Bouillon"
+      },
+      {
+        "id": "pierre-niney",
+        "specialty": "Duels à l'épée et cascades physiques réglés avec les régleurs CUC.",
+        "doubles": ""
+      },
+      {
+        "id": "francois-civil",
+        "specialty": "Combats rapprochés et cascades physiques.",
+        "doubles": ""
+      },
+      {
+        "id": "roschdy-zem",
+        "specialty": "Combats rapprochés et fusillades tactiques.",
+        "doubles": ""
+      },
+      {
+        "id": "omar-sy",
+        "specialty": "Cascades physiques et affrontements armés.",
+        "doubles": ""
+      },
+      {
+        "id": "gilles-lellouche",
+        "specialty": "Cascades physiques et poursuites urbaines.",
+        "doubles": ""
+      },
+      {
+        "id": "kevin-costner",
+        "specialty": "Cascades physiques et poursuites lors du tournage parisien.",
+        "doubles": ""
+      },
+      {
+        "id": "vincent-cassel",
+        "specialty": "Combats et cascades physiques.",
+        "doubles": ""
+      },
+      {
+        "id": "jean-reno",
+        "specialty": "Cascades physiques et affrontements armés.",
+        "doubles": ""
+      }
+    ],
+    "teamBannersBadge": "CRÉDITS CINÉMATOGRAPHIQUES",
+    "teamBannersTitle": "LES FILMS COORDONNÉS PAR LE CUC & LUCAS DOLLFUS",
+    "teamBannersPosterTitle": "Cliquer pour ouvrir l'affiche en plein écran",
+    "teamBannersIntro": "Retrouvez les affiches des productions françaises et internationales sur lesquelles nos équipes sont intervenues. Cliquez sur une affiche pour la voir en haute résolution.",
+    "teamBannersHdLabel": "AFFICHE HD"
+  },
+  "commonChrome": {
+    "breadcrumbHome": "ACCUEIL",
+    "brandName": "CAMPUS UNIVERS CASCADES",
+    "brandTagline": "Stunt Academy & Team",
+    "brandTaglineEst": "Stunt Academy & Team • Est. 2008",
+    "campusCity": "Le Cateau-Cambrésis (59)",
+    "eventsAnimationsBadge": "CUC EVENTS ANIMATIONS",
+    "siteCampus": "CAMPUS CUC",
+    "siteEvents": "CUC EVENTS",
+    "siteStuntTeam": "CUC STUNT TEAM",
+    "campusNameTitle": "Campus Univers Cascades",
+    "heroTitleTail": "Cascades",
+    "locationLabel": "LE CATEAU-CAMBRÉSIS",
+    "trainingPathTitle": "Trajectoire & Philosophie",
+    "otherCoordinatorsTitle": "Autres Coordinateurs & Instructeurs",
+    "broadcastNote": "retransmis sur écrans géants.",
+    "eventsAgencySubtitle": "Spectacles • Animations • Team Building",
+    "instaFollowersUnit": "abonnés",
+    "instaOfficialTitle": "Instagram Officiel",
+    "instaCertifiedCommunity": "Communauté officielle certifiée",
+    "instaJoinCta": "Rejoindre",
+    "instaHeaderTitle": "Consulter le compte Instagram officiel @campus.univers.cascades",
+    "instaCardTitle": "Rejoindre la communauté officielle sur Instagram"
+  },
+  "applicationModal": {
+    "closeAria": "Fermer",
+    "badge": "CANDIDATURE & ADMISSIONS",
+    "session": "SESSION 2026-2027",
+    "logoAlt": "Logo CUC",
+    "titleLead": "Candidater au ",
+    "titleAccent": "Campus Univers Cascades",
+    "intro": "Remplissez les informations ci-dessous pour postuler au cursus professionnel, réserver un stage ou solliciter une prise en charge AFDAS.",
+    "tabs": {
+      "pro": "Cursus Pro (Long)",
+      "discovery": "Stage Découverte",
+      "weekend": "Week-end",
+      "afdas": "Prise en charge AFDAS"
+    },
+    "labels": {
+      "fullName": "Nom & Prénom *",
+      "age": "Âge * (Dès 16 ou 18 ans)",
+      "email": "Adresse Email *",
+      "phone": "Téléphone *",
+      "afdasStatus": "Statut AFDAS / Professionnel",
+      "sport": "Parcours Sportif / Artistique & Disciplines pratiquées",
+      "session": "Session souhaitée / Objectifs"
+    },
+    "placeholders": {
+      "fullName": "Ex: Alexandre Dubois",
+      "age": "Ex: 22",
+      "email": "alexandre@exemple.com",
+      "phone": "06 00 00 00 00",
+      "sport": "Ex: Arts martiaux (5 ans), Parkour, Gymnastique, Théâtre...",
+      "message": "Précisez la date de session visée ou vos questions particulières..."
+    },
+    "afdasOptions": [
+      "Intermittent du spectacle (Comédien, danseur, artiste)",
+      "Cascadeur professionnel en activité",
+      "Autre ayant-droit AFDAS"
+    ],
+    "safetyTitle": "Avis de sécurité & sélection :",
+    "safetyBody": "En raison de l'exigence physique et des contraintes de sécurité, chaque candidature est soumise à l'examen de la commission pédagogique du CUC.",
+    "submitError": "Erreur lors de la transmission du dossier.",
+    "cancel": "Annuler",
+    "submit": "Transmettre ma Candidature",
+    "submitting": "Transmission...",
+    "successTitle": "Dossier Transmis avec Succès !",
+    "successBody": "Votre demande a bien été enregistrée pour le compte de <strong>{name}</strong>. Un responsable pédagogique du CUC vous contactera sous 24 à 48 heures pour valider votre dossier et les disponibilités de session.",
+    "contactAddress": "Campus CUC, 59360 Le Cateau-Cambrésis (Hauts-de-France)",
+    "contactPhone": "Standard pédagogique : 01 30 32 38 03",
+    "closeCase": "Fermer le Dossier"
+  },
+  "lightbox": {
+    "closeAria": "Fermer la visionneuse",
+    "closeTitle": "Fermer (Échap)",
+    "prevAria": "Photo précédente",
+    "prevTitle": "Précédente (Flèche gauche)",
+    "nextAria": "Photo suivante",
+    "nextTitle": "Suivante (Flèche droite)",
+    "navHint": "Navigation : Touches ← / → pour parcourir • Échap pour fermer"
+  }
 }

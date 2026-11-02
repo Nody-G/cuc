@@ -34,9 +34,9 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center brightness-40 contrast-125"
+            className="object-cover object-center brightness-70 contrast-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/40 to-transparent" />
         </div>
 
         <div className="relative z-10 page-shell">

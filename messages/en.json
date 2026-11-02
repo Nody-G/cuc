@@ -1,1411 +1,1411 @@
 {
-    "common": {
-        "skipToContent": "Skip to main content",
-        "language": "Language",
-        "currentLanguage": "English",
-        "switchToEnglish": "English",
-        "switchToFrench": "Français",
-        "languageMenuLabel": "Choose language",
-        "openMenu": "Open menu",
-        "closeMenu": "Close menu",
-        "call": "Call",
-        "callTitle": "Call the CUC",
-        "stickyCta": "Contact & Projects",
-        "errorTitle": "An error occurred",
-        "errorText": "The content could not be displayed. You can try again immediately or return to the home page.",
-        "retry": "Try again",
-        "backHome": "Back to home",
-        "errorReference": "Reference: {digest}",
-        "notFoundBadge": "404 ERROR • OFF TRACK",
-        "notFoundTitle": "PAGE NOT FOUND",
-        "notFoundSubtitle": "The requested page cannot be found or was moved during a stunt.",
-        "notFoundDescription": "Even the best stunt performers miss a mark sometimes. Get back on track by exploring our main sections:",
-        "exploreFormations": "Stunt Training & Courses",
-        "exploreTeam": "CUC Stunt Team",
-        "exploreVideos": "Videos & Reels",
-        "contactUs": "Contact Us",
-        "suggestedPages": "Suggested destinations:"
+  "common": {
+    "skipToContent": "Skip to main content",
+    "language": "Language",
+    "currentLanguage": "English",
+    "switchToEnglish": "English",
+    "switchToFrench": "Français",
+    "languageMenuLabel": "Choose language",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "call": "Call",
+    "callTitle": "Call the CUC",
+    "stickyCta": "Contact & Projects",
+    "errorTitle": "An error occurred",
+    "errorText": "The content could not be displayed. You can try again immediately or return to the home page.",
+    "retry": "Try again",
+    "backHome": "Back to home",
+    "errorReference": "Reference: {digest}",
+    "notFoundBadge": "404 ERROR • OFF TRACK",
+    "notFoundTitle": "PAGE NOT FOUND",
+    "notFoundSubtitle": "The requested page cannot be found or was moved during a stunt.",
+    "notFoundDescription": "Even the best stunt performers miss a mark sometimes. Get back on track by exploring our main sections:",
+    "exploreFormations": "Stunt Training & Courses",
+    "exploreTeam": "CUC Stunt Team",
+    "exploreVideos": "Videos & Reels",
+    "contactUs": "Contact Us",
+    "suggestedPages": "Suggested destinations:"
+  },
+  "films": {
+    "badge": "PRODUCTIONS & POSTERS",
+    "title": "FILMS COORDINATED BY CUC",
+    "subtitle": "Explore the film and television productions on which our stunt performers and instructors have worked.",
+    "sortLabel": "Sort:",
+    "sortYearDesc": "Year (newest → oldest)",
+    "sortYearAsc": "Year (oldest → newest)",
+    "sortTitleAsc": "Title (A → Z)",
+    "sortTitleDesc": "Title (Z → A)",
+    "filmCardDetails": "Click for details"
+  },
+  "campus": {
+    "title": "THE CAMPUS",
+    "ctaInfrastructures": "Facilities",
+    "ctaVisite360": "360° Tour",
+    "ctaPlan3d": "3D Map"
+  },
+  "campus3dViewer": {
+    "title": "3D map of the estate",
+    "resetView": "Recentre the view",
+    "enterFullscreen": "Enter fullscreen",
+    "exitFullscreen": "Exit fullscreen",
+    "fullscreen": "Fullscreen",
+    "gestures": "Drag: orbit • Right-click or Shift + drag: pan • Wheel: zoom",
+    "closeCard": "Close the details panel",
+    "cardCta": "View the full details",
+    "facilityFallbackName": "CUC Campus",
+    "badgeInaugurated": "OPENED ON 25 OCTOBER 2024",
+    "badgeVerified": "CUC VERIFIED FACILITY"
+  },
+  "formation": {
+    "ctaApplyPro": "Apply to the Pro Programme",
+    "formules": {
+      "badge": "ADMISSION PATHWAY & PROGRAMME",
+      "title": "FROM DISCOVERY COURSE TO PRO DIPLOMA",
+      "subtitle": "Access to the long programme is conditional on passing the discovery course. This selective protocol guarantees everyone's safety and the standard of the cohort.",
+      "step1Badge": "STEP 01 • MANDATORY SELECTION",
+      "step1Hours": "80 HOURS",
+      "step1Title": "DISCOVERY COURSE & SELECTION",
+      "step1Desc": "12 consecutive days to test your physical abilities, your composure and your ability to adapt before applying to the long programme.",
+      "labelDuration": "Duration:",
+      "step1Duration": "12 consecutive days (80h of practice)",
+      "labelPlace": "Location:",
+      "place": "Domaine CUC, 59360 Le Cateau-Cambrésis",
+      "labelBoarding": "Accommodation:",
+      "step1Boarding": "Full board available on site (90 beds)",
+      "step1ProgramTitle": "The 12-day programme includes:",
+      "step1Items": [
+        "Introduction to choreographed fights and camera axes",
+        "Self-height falls and landings on modular platforms",
+        "Progressive high falls up to 6-9 metres onto airbag",
+        "Obstacle course and Yamakasi Parkour",
+        "Individual aptitude assessment and pro admission decision"
+      ],
+      "step1Cta": "Book the Discovery Course",
+      "step2Badge": "STEP 02 • PROFESSIONAL TRAINING",
+      "step2Hours": "720 TO 800 HOURS",
+      "step2Title": "2-YEAR PROFESSIONAL PROGRAMME",
+      "step2Desc": "9 to 10 twelve-day courses spread over two years. The complete programme that trains versatile stunt performers able to work immediately for international cinema.",
+      "labelRhythm": "Rhythm:",
+      "step2Rhythm": "One 12-day course every two months (2 years)",
+      "labelAccreditation": "Accreditation:",
+      "step2Accreditation": "QUALIOPI certified • AFDAS / France Travail funding",
+      "labelCertification": "Certification:",
+      "step2Certification": "CUC Professional Stunt Performer Diploma",
+      "step2ProgramTitle": "Full command of the modules:",
+      "step2Items": [
+        "Extreme falls up to 21 metres on the CUC Tower",
+        "Full-body burn with pyro protocols",
+        "3D rigging, superhero wirework and catapults",
+        "Special forces, blank-firing weapons and tactical rappel",
+        "Direct entry into the CUC stunt coordinator network"
+      ]
     },
-    "films": {
-        "badge": "PRODUCTIONS & POSTERS",
-        "title": "FILMS COORDINATED BY CUC",
-        "subtitle": "Explore the film and television productions on which our stunt performers and instructors have worked.",
-        "sortLabel": "Sort:",
-        "sortYearDesc": "Year (newest → oldest)",
-        "sortYearAsc": "Year (oldest → newest)",
-        "sortTitleAsc": "Title (A → Z)",
-        "sortTitleDesc": "Title (Z → A)",
-        "filmCardDetails": "Click for details"
-    },
-    "campus": {
-        "title": "THE CAMPUS",
-        "ctaInfrastructures": "Facilities",
-        "ctaVisite360": "360° Tour",
-        "ctaPlan3d": "3D Map"
-    },
-    "campus3dViewer": {
-        "title": "3D map of the estate",
-        "resetView": "Recentre the view",
-        "enterFullscreen": "Enter fullscreen",
-        "exitFullscreen": "Exit fullscreen",
-        "fullscreen": "Fullscreen",
-        "gestures": "Drag: orbit • Right-click or Shift + drag: pan • Wheel: zoom",
-        "closeCard": "Close the details panel",
-        "cardCta": "View the full details",
-        "facilityFallbackName": "CUC Campus",
-        "badgeInaugurated": "OPENED ON 25 OCTOBER 2024",
-        "badgeVerified": "CUC VERIFIED FACILITY"
-    },
-    "formation": {
-        "ctaApplyPro": "Apply to the Pro Programme",
-        "formules": {
-            "badge": "ADMISSION PATHWAY & PROGRAMME",
-            "title": "FROM DISCOVERY COURSE TO PRO DIPLOMA",
-            "subtitle": "Access to the long programme is conditional on passing the discovery course. This selective protocol guarantees everyone's safety and the standard of the cohort.",
-            "step1Badge": "STEP 01 • MANDATORY SELECTION",
-            "step1Hours": "80 HOURS",
-            "step1Title": "DISCOVERY COURSE & SELECTION",
-            "step1Desc": "12 consecutive days to test your physical abilities, your composure and your ability to adapt before applying to the long programme.",
-            "labelDuration": "Duration:",
-            "step1Duration": "12 consecutive days (80h of practice)",
-            "labelPlace": "Location:",
-            "place": "Domaine CUC, 59360 Le Cateau-Cambrésis",
-            "labelBoarding": "Accommodation:",
-            "step1Boarding": "Full board available on site (90 beds)",
-            "step1ProgramTitle": "The 12-day programme includes:",
-            "step1Items": [
-                "Introduction to choreographed fights and camera axes",
-                "Self-height falls and landings on modular platforms",
-                "Progressive high falls up to 6-9 metres onto airbag",
-                "Obstacle course and Yamakasi Parkour",
-                "Individual aptitude assessment and pro admission decision"
-            ],
-            "step1Cta": "Book the Discovery Course",
-            "step2Badge": "STEP 02 • PROFESSIONAL TRAINING",
-            "step2Hours": "720 TO 800 HOURS",
-            "step2Title": "2-YEAR PROFESSIONAL PROGRAMME",
-            "step2Desc": "9 to 10 twelve-day courses spread over two years. The complete programme that trains versatile stunt performers able to work immediately for international cinema.",
-            "labelRhythm": "Rhythm:",
-            "step2Rhythm": "One 12-day course every two months (2 years)",
-            "labelAccreditation": "Accreditation:",
-            "step2Accreditation": "QUALIOPI certified • AFDAS / France Travail funding",
-            "labelCertification": "Certification:",
-            "step2Certification": "CUC Professional Stunt Performer Diploma",
-            "step2ProgramTitle": "Full command of the modules:",
-            "step2Items": [
-                "Extreme falls up to 21 metres on the CUC Tower",
-                "Full-body burn with pyro protocols",
-                "3D rigging, superhero wirework and catapults",
-                "Special forces, blank-firing weapons and tactical rappel",
-                "Direct entry into the CUC stunt coordinator network"
-            ]
+    "pedagogy": {
+      "sessionsTitle": "UPCOMING SESSIONS",
+      "registrationNote": "* Enrolment is processed in order of validation of the medical file and the discovery course.",
+      "statuses": {
+        "full": "FULL",
+        "few": "LAST PLACES",
+        "open": "OPEN"
+      },
+      "sessions": [
+        {
+          "label": "16 to 28 August 2026",
+          "status": "full"
         },
-        "pedagogy": {
-            "sessionsTitle": "UPCOMING SESSIONS",
-            "registrationNote": "* Enrolment is processed in order of validation of the medical file and the discovery course.",
-            "statuses": {
-                "full": "FULL",
-                "few": "LAST PLACES",
-                "open": "OPEN"
-            },
-            "sessions": [
-                {
-                    "label": "16 to 28 August 2026",
-                    "status": "full"
-                },
-                {
-                    "label": "18 to 30 October 2026",
-                    "status": "full"
-                },
-                {
-                    "label": "21 Feb. to 05 March 2027",
-                    "status": "full"
-                },
-                {
-                    "label": "18 to 30 April 2027",
-                    "status": "few"
-                },
-                {
-                    "label": "27 June to 09 July 2027",
-                    "status": "open"
-                }
-            ],
-            "admissionTitle": "ADMISSION REQUIREMENTS",
-            "admissionAge": "Be <b>18 or over</b> at the start of the programme.",
-            "admissionDiscovery": "Have successfully completed the <b>12-day discovery course</b>.",
-            "admissionMedical": "Provide a <b>medical certificate of advanced fitness</b> for physical stunts.",
-            "admissionBoard": "Application validated by the CUC teaching committee.",
-            "fundingTitle": "FUNDING",
-            "sealAlt": "CUC seal",
-            "fundingQualiopi": "Campus Univers Cascades is a <b>QUALIOPI</b> certified organisation.",
-            "fundingIntro": "Programmes may be fully or partially funded by:",
-            "fundingItems": [
-                "• AFDAS (freelance entertainment workers)",
-                "• FRANCE TRAVAIL (AIF grant for jobseekers)",
-                "• OPCO & entertainment companies",
-                "• Interest-free instalments (self-funded)"
-            ]
+        {
+          "label": "18 to 30 October 2026",
+          "status": "full"
         },
-        "cta": {
-            "title": "READY TO JOIN THE STUNT SCHOOL?",
-            "text": "Contact our teaching team to check your eligibility, schedule your discovery course or build your funding application.",
-            "contact": "Contact Us by Phone"
+        {
+          "label": "21 Feb. to 05 March 2027",
+          "status": "full"
         },
-        "hero": {
-            "breadcrumbHome": "HOME",
-            "breadcrumbCurrent": "PROFESSIONAL STUNT TRAINING",
-            "badge": "QUALIOPI CERTIFIED PROGRAMME",
-            "titleLead": "PROFESSIONAL STUNT PERFORMER",
-            "titleHighlight": "TRAINING",
-            "subtitle": "Professional stunt training programme founded by Lucas Dollfus. A technical immersion in Le Cateau-Cambrésis to acquire the skills, set discipline and safety reflexes required by action cinema.",
-            "ctaDiscovery": "Discovery Course (12 days)",
-            "imageAlt": "Professional stunt training at Campus Univers Cascades",
-            "certificateTitle": "View the CUC accreditation and certification file",
-            "brochureAlt": "Download the CUC brochure"
+        {
+          "label": "18 to 30 April 2027",
+          "status": "few"
         },
-        "stats": {
-            "practiceLabel": "Intensive Practical Set Training",
-            "graduatesLabel": "Certified Trainees",
-            "satisfactionLabel": "Satisfaction Rate",
-            "referenceLabel": "Reference Programme in France",
-            "since": "SINCE 2011"
-        },
-        "disciplines": {
-            "badge": "TECHNICAL REPERTOIRE",
-            "title": "THE 10 PHYSICAL STUNT DISCIPLINES",
-            "cinemaContextLabel": "Film & Shoot Context:",
-            "equipmentLabel": "Equipment & Facilities:"
+        {
+          "label": "27 June to 09 July 2027",
+          "status": "open"
         }
+      ],
+      "admissionTitle": "ADMISSION REQUIREMENTS",
+      "admissionAge": "Be <b>18 or over</b> at the start of the programme.",
+      "admissionDiscovery": "Have successfully completed the <b>12-day discovery course</b>.",
+      "admissionMedical": "Provide a <b>medical certificate of advanced fitness</b> for physical stunts.",
+      "admissionBoard": "Application validated by the CUC teaching committee.",
+      "fundingTitle": "FUNDING",
+      "sealAlt": "CUC seal",
+      "fundingQualiopi": "Campus Univers Cascades is a <b>QUALIOPI</b> certified organisation.",
+      "fundingIntro": "Programmes may be fully or partially funded by:",
+      "fundingItems": [
+        "• AFDAS (freelance entertainment workers)",
+        "• FRANCE TRAVAIL (AIF grant for jobseekers)",
+        "• OPCO & entertainment companies",
+        "• Interest-free instalments (self-funded)"
+      ]
     },
-    "footer": {
-        "certificateTitle": "View the Qualiopi certificate",
-        "certified": "Qualiopi Certified Body",
-        "funding": "AFDAS & CPF funding (100%)",
-        "virtualTour": "360° Virtual Tour of the Campus",
-        "sitesTitle": "Our Locations",
-        "mainCampus": "MAIN CAMPUS:",
-        "mainCampusAddress": "Domaine CUC, 59360 Le Cateau-Cambrésis",
-        "region": "Hauts-de-France (1h40 from Paris / 1h from Lille)",
-        "mapAccess": "Map & Access",
-        "gpsRoute": "GPS Directions",
-        "idfHub": "PARIS REGION HUB:",
-        "idfStudio": "Rehearsal Studio & Actor Preparation",
-        "idfAddress": "86 Avenue Louis Roche, 92230 Gennevilliers (Paris Region)",
-        "locateMaps": "Locate on Maps",
-        "productionAgency": "PRODUCTION COMPANY:",
-        "productionDesc": "CUC PROD • Film & live show production company",
-        "directLines": "Direct Lines",
-        "admissionFile": "Admission File 2026/2027",
-        "networksTitle": "Networks & Media",
-        "networksText": "Follow daily training, exclusive stunts and behind-the-scenes footage:",
-        "backToTop": "Back to top",
-        "backToTopLabel": "Back to top of page",
-        "backToTopTitle": "Back to top",
-        "qualiopiBadge": "QUALIOPI approval"
+    "cta": {
+      "title": "READY TO JOIN THE STUNT SCHOOL?",
+      "text": "Contact our teaching team to check your eligibility, schedule your discovery course or build your funding application.",
+      "contact": "Contact Us by Phone"
     },
-    "partenaires": {
-        "cinemaHeading": "Partner Studios & Productions",
-        "specializedHeading": "Specialised & Institutional Partners",
-        "productionBadge": "Film Production",
-        "officialSite": "Official website",
-        "website": "Website",
-        "roleMateriel": "Equipment Supplier",
-        "roleMedia": "Media",
-        "roleInstitutionnel": "Institutional",
-        "breadcrumbHome": "HOME",
-        "breadcrumbCurrent": "PARTNERS",
-        "heroBadge": "SUPPORTING US",
-        "heroTitle": "OUR PARTNERS",
-        "heroSubtitle": "Equipment suppliers, special effects, protective gear and partner organisations of Campus Univers Cascades.",
-        "heroImageAlt": "Campus Univers Cascades partners",
-        "heroMeta": "EQUIPMENT • FILM • INSTITUTIONS • STATE",
-        "categories": {
-            "agrement": "State Approval & Certification",
-            "equipementiers": "Equipment & Protective Gear",
-            "materiel": "Filming Equipment & Gear",
-            "pedagogie": "Teaching & Professional Stunts",
-            "multimedia": "Multimedia & Production",
-            "etablissement": "Accommodation & Nutrition"
-        },
-        "partners": [
-            {
-                "name": "Qualiopi",
-                "category": "Certification",
-                "role": "Qualiopi certification",
-                "description": "Quality certification for training courses (eligible for AFDAS and France Travail funding)."
-            },
-            {
-                "name": "Nike",
-                "category": "Equipment supplier",
-                "role": "Apparel & Footwear",
-                "description": "Sports equipment supplier (apparel and sports footwear)."
-            },
-            {
-                "name": "RXR Protect",
-                "category": "Protective gear",
-                "role": "Body Protection",
-                "description": "Inflatable body protection vests and equipment (Air Shock Absorber technology)."
-            },
-            {
-                "name": "Gravity",
-                "category": "Sportswear",
-                "role": "Parkour Apparel",
-                "description": "Clothing and streetwear for parkour and freerunning."
-            },
-            {
-                "name": "C17 Special Effects",
-                "category": "Special Effects",
-                "role": "SFX & Pyrotechnics",
-                "description": "Physical special effects, pyrotechnics and film armoury."
-            },
-            {
-                "name": "Kiloutou",
-                "category": "Equipment Rental",
-                "role": "Lifting & Platforms",
-                "description": "Rental of aerial platforms, lifting gear and construction equipment."
-            },
-            {
-                "name": "TM Incendie",
-                "category": "Fire Safety",
-                "role": "Fire Protection",
-                "description": "Sales and maintenance of fire safety equipment and extinguishers."
-            },
-            {
-                "name": "Action Cascade",
-                "category": "Stunts & Filming",
-                "role": "Stunt Coordination",
-                "description": "Stunt team and stunt coordination for film, TV and live shows."
-            },
-            {
-                "name": "AYA Catch",
-                "category": "Wrestling",
-                "role": "Professional Wrestling",
-                "description": "French school and association for professional wrestling and scripted fighting."
-            },
-            {
-                "name": "Cascade Demo Team",
-                "category": "Martial Arts & Acrobatics",
-                "role": "Demonstration & XMA",
-                "description": "Extreme martial arts (XMA) demonstration team and martial acrobatics."
-            },
-            {
-                "name": "Xtrem Video",
-                "category": "Media & Video",
-                "role": "Extreme Sports Media",
-                "description": "Production and distribution of action and extreme sports video content."
-            },
-            {
-                "name": "TaffCoeur",
-                "category": "Audiovisual Production",
-                "role": "Directing & Filming",
-                "description": "Video production studio, music videos and live show filming."
-            },
-            {
-                "name": "MFR Le Cateau-Cambrésis",
-                "role": "Accommodation & Catering",
-                "category": "Accommodation & Reception",
-                "description": "Accommodation and meals for trainees in Le Cateau-Cambrésis."
-            },
-            {
-                "name": "BSN Nutrition",
-                "role": "Sports Nutrition",
-                "category": "Sports Nutrition",
-                "description": "Sports nutrition and food supplements for athletes."
-            }
-        ],
-        "ctaBadge": "SPONSORING",
-        "ctaTitle": "BECOME A PARTNER",
-        "ctaBody": "Are you an equipment maker, a gear manufacturer, a special effects company or a brand looking to associate its image with the campus?",
-        "ctaButton": "Contact us"
+    "hero": {
+      "breadcrumbHome": "HOME",
+      "breadcrumbCurrent": "PROFESSIONAL STUNT TRAINING",
+      "badge": "QUALIOPI CERTIFIED PROGRAMME",
+      "titleLead": "PROFESSIONAL STUNT PERFORMER",
+      "titleHighlight": "TRAINING",
+      "subtitle": "Professional stunt training programme founded by Lucas Dollfus. A technical immersion in Le Cateau-Cambrésis to acquire the skills, set discipline and safety reflexes required by action cinema.",
+      "ctaDiscovery": "Discovery Course (12 days)",
+      "imageAlt": "Professional stunt training at Campus Univers Cascades",
+      "certificateTitle": "View the CUC accreditation and certification file",
+      "brochureAlt": "Download the CUC brochure"
     },
-    "team": {
-        "badge": "COACHES & FILM PROFESSIONALS",
-        "title": "THE TEAM",
-        "subtitle": "A world-class action faculty: renowned stunt coordinators, Yamakasi pioneers and stunt performers working on the biggest international and French productions, passing on their craft on the ground every day.",
-        "performerTag": "STUNT PERFORMERS FOR INTERNATIONAL ACTION CINEMA",
-        "creditsLabel": "References & Productions:",
-        "creditsUnit": "credits",
-        "othersLabel": "+{count} more",
-        "projectsLabel": "Film Projects & Productions",
-        "ctaDetail": "View full profile",
-        "showcaseTag": "INTERNATIONAL ACTION CINEMA",
-        "roleCoordination": "Stunt coordination",
-        "roleAssistantCoordination": "Assistant stunt coordination",
-        "roleRiggingCoordination": "Rigging coordination",
-        "roleRigger": "Stunt rigger",
-        "roleMechanicalStunt": "Mechanical stunt",
-        "roleDouble": "Stunt double",
-        "roleDoubleOf": "Stunt double for {names}",
-        "roleStunt": "Stunt",
-        "filmCardTitle": "{title} ({year}) — open the production file",
-        "breadcrumb": "STUNT TEAM",
-        "facultyTag": "CUC TEACHING FACULTY",
-        "expertiseLabel": "Areas of expertise & disciplines taught:",
-        "doubledLabel": "Actors doubled on screen:",
-        "ctaContact": "Contact production team",
-        "ctaTrain": "Explore our training programs",
-        "filmographyTag": "FILMOGRAPHY & FILM PRODUCTIONS",
-        "filmographyHint": "Click a production to open the full file, videos and stunt performers involved.",
-        "listedOne": "{count} production listed",
-        "listedMany": "{count} productions listed",
-        "roleOnProduction": "Role on this production:",
-        "directorShort": "Dir. {name}",
-        "productionFallback": "Production",
-        "featuredBadge": "Featured",
-        "campusFacultyTag": "CAMPUS FACULTY",
-        "seeWholeTeam": "See the whole team",
-        "cardCta": "Full profile",
-        "backToTeam": "Back to the teaching team",
-        "breadcrumbHome": "HOME",
-        "breadcrumbCurrent": "THE TEAM",
-        "ctaBlockTitle": "TRAIN WITH THE BEST PROFESSIONALS IN THE INDUSTRY",
-        "ctaBlockBody": "Every Campus Univers Cascades instructor works on film sets and passes on the current demands of international cinema.",
-        "ctaBlockButton": "Explore CUC Courses",
-        "coachNotFound": "This member of the teaching team does not exist or has been moved.",
-        "coachNotFoundTitle": "Coach Not Found",
-        "coachBackToTeam": "Back to the team",
-        "coachAllocineTitle": "AlloCiné page",
-        "coachSortFilmographyAria": "Sort the filmography",
-        "externalLinkAria": "Profile & external references",
-        "coachImdbTitle": "Official IMDb page",
-        "coachPortraitAlt": "Portrait of {name}",
-        "coachExternalTitle": "Official website or portfolio",
-        "filmographyHeading": "Stunts & Productions of {name}",
-        "filterAll": "All credits",
-        "filterCoord": "Stunt coordination",
-        "filterDoublure": "Stunt doubles",
-        "filterCascadeur": "Stunts & Fights",
-        "filteredCount": "{shown} / {total} films",
-        "filmographyEmptyFilter": "No production found for this filter.",
-        "showAllFilms": "Show all productions (+{count})"
+    "stats": {
+      "practiceLabel": "Intensive Practical Set Training",
+      "graduatesLabel": "Certified Trainees",
+      "satisfactionLabel": "Satisfaction Rate",
+      "referenceLabel": "Reference Programme in France",
+      "since": "SINCE 2011"
     },
-    "contact": {
-        "hero": {
-            "breadcrumbHome": "HOME",
-            "breadcrumbCurrent": "CONTACT & PROJECTS",
-            "badge": "CONTACT & ADMISSIONS",
-            "locationLabel": "CUC CAMPUS • LE CATEAU-CAMBRÉSIS & GENNEVILLIERS",
-            "titleLine": "CONTACT &",
-            "titleAccent": "PROJECTS",
-            "subtitle": "Feature films, action design, professional stunt training, workshops or corporate events: talk directly with the CUC teams.",
-            "imageAlt": "Contact and admissions at Campus Univers Cascades"
-        },
-        "form": {
-            "title": "START A PROJECT OR GET IN TOUCH",
-            "intro": "Send us the details of your request. Our operations team replies within 24 to 48 working hours.",
-            "successTitle": "MESSAGE SENT SUCCESSFULLY",
-            "successText": "Thank you for contacting Campus Univers Cascades. Our team will review your project and get back to you promptly.",
-            "sendAnother": "Send another message",
-            "labelName": "Full name *",
-            "placeholderName": "e.g. Alexandre Dubois",
-            "labelPhone": "Phone *",
-            "placeholderPhone": "e.g. +33 6 12 34 56 78",
-            "labelEmail": "Email address *",
-            "placeholderEmail": "e.g. alexandre@example.com",
-            "labelProgram": "Your request concerns *",
-            "multipleChoiceHint": "Multiple selection allowed",
-            "topicsGroupAria": "Request topics",
-            "labelExperience": "Sporting / artistic background (martial arts, gymnastics, parkour…)",
-            "placeholderExperience": "e.g. 5 years of judo, parkour practice…",
-            "labelMessage": "Your message *",
-            "placeholderMessage": "Tell us about your goals, questions or planned funding (AFDAS, etc.)…",
-            "submit": "Send my application / message",
-            "submitting": "Sending…",
-            "consent": "By submitting this form, you agree that the information provided will be used strictly within the scope of your admission or contact request to CUC.",
-      "privacyLink": "View our Privacy Policy & GDPR rights",
-            "errorFallback": "Something went wrong while sending. Please try again.",
-            "options": {
-                "pro-longue-duree": "Two-Year Professional Programme (720h)",
-                "stage-decouverte": "Discovery Course & Selection (12 days / 80h)",
-                "weekend-immersion": "Weekend Immersion Course (€250 full board)",
-                "afdas-artistes-interpretes": "AFDAS Actors Course (Gennevilliers)",
-                "stunt-summer-camp": "Stunt Summer Camp",
-                "workshop-international": "International Stunt Workshop",
-                "tournage-production": "Film Production / Shooting / Coordination",
-                "cuc-events": "CUC Events / Live Shows & Entertainment",
-                "autre": "Other general question"
-            }
-        },
-        "sidebar": {
-            "standardTitle": "ADMISSIONS & MANAGEMENT LINE",
-            "directPhone": "DIRECT PHONE:",
-            "email": "EMAIL:",
-            "hours": "OFFICE HOURS:",
-            "hoursValue": "Monday to Friday: 9:00 am - 6:30 pm",
-            "hoursSaturday": "Saturday (course days): 9:00 am - 5:00 pm",
-            "train": "TRAIN:",
-            "road": "ROAD:",
-            "parking": "PARKING:",
-            "sitesTitle": "OUR TWO LOCATIONS",
-            "mainCampus": "MAIN CAMPUS:",
-            "mainCampusAddress": "Domaine CUC, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis",
-            "mainCampusRegion": "Hauts-de-France (1h40 from Paris by train / 1h from Lille)",
-            "seeMap": "See Map & Access",
-            "idfHub": "PARIS REGION HUB (PARIS STUDIO):",
-            "idfStudio": "Rehearsal Studio & Actor Preparation",
-            "idfAddress": "86 Avenue Louis Roche, 92230 Gennevilliers (Paris Region)",
-            "production": "PRODUCTION COMPANY:",
-            "productionDesc": "CUC PROD — Film and live show production company",
-            "qualiopi": "QUALIOPI certified body for professional training.",
-            "entitiesTitle": "CAMPUS ENTITIES & DEPARTMENTS",
-            "logoAltCuc": "Campus Univers Cascades CUC",
-            "logoAltEvents": "CUC Events",
-            "logoAltTeam": "CUC Team"
-        },
-        "map": {
-            "radar": "Satellite Radar",
-            "roadMap": "Satellite View",
-            "copyGps": "COPY GPS",
-            "copied": "GPS COPIED!",
-            "copyGpsTitle": "Copy GPS coordinates",
-            "domain": "CUC GROUNDS",
-            "cartography": "CAMPUS CARTOGRAPHY",
-            "aerial": "HD Aerial View",
-            "grid": "Grid Mode",
-            "toggleLayer": "Switch between the real satellite view and the radar grid",
-            "orthophotoAlt": "HD orthophoto of Campus Univers Cascades",
-            "travelTitle": "TRAVEL TIMES & ACCESS",
-            "travelBadge": "CUC CAMPUS",
-            "trainTitle": "DIRECT TRAIN",
-            "arrival": "Arrival: {station}",
-            "carTitle": "BY CAR",
-            "accessInfoTitle": "ACCESS & PARKING INFO:",
-            "accessInfoParking": "• <b>Free parking, 50 spaces</b> inside the secured CUC grounds.",
-            "accessInfoShuttle": "• <b>Free CUC shuttle</b> between Le Cateau-Cambrésis station and the campus for trainees enrolled in a course.",
-            "addressCopied": "ADDRESS COPIED TO CLIPBOARD!",
-            "copyAddress": "COPY FULL ADDRESS",
-            "sectionBadge": "GEOLOCATION & NAVIGATION ASSISTANT",
-            "sectionTitle": "CAMPUS MAP &",
-            "sectionTitleAccent": "DIRECTIONS",
-            "sectionIntro": "Find the exact GPS coordinates and travel times by train or car from Paris, Lille or Brussels, then launch your navigation instantly in Google Maps, Apple Maps, Waze or SNCF Connect.",
-            "appLaunchTitle": "GPS DIRECTIONS & NAVIGATION:",
-            "launchRoute": "Launch directions",
-            "chooseApp": "Choose your application:",
-            "googleMapsDesc": "Universal GPS & Web navigation",
-            "appleMapsDesc": "Ideal on iPhone, iPad & Mac",
-            "wazeDesc": "Live traffic & road alerts",
-            "sncfDesc": "Direct train routes to Le Cateau",
-            "routes": [
-                {
-                    "id": "paris",
-                    "origin": "Paris",
-                    "tag": "Express Access",
-                    "trainDetails": "Direct TER / intercity service from Paris Gare du Nord to Le Cateau-Cambrésis station. Campus shuttle on request.",
-                    "trainStation": "Le Cateau-Cambrésis station (3 min from the campus)",
-                    "carDetails": "A1 then A2 motorway (Cambrai or Valenciennes exit), towards Le Cateau-Cambrésis."
-                },
-                {
-                    "id": "lille",
-                    "origin": "Lille & Northern France",
-                    "tag": "Nearby",
-                    "trainDetails": "Direct service from Lille Flandres to Le Cateau via Valenciennes.",
-                    "trainStation": "Le Cateau-Cambrésis station",
-                    "carDetails": "A23 motorway towards Valenciennes, then D932 to Le Cateau-Cambrésis."
-                },
-                {
-                    "id": "bruxelles",
-                    "origin": "Brussels & Belgium",
-                    "tag": "International",
-                    "trainDetails": "Brussels-Midi to Mons, then a connection via Aulnoye-Aymeries to Le Cateau-Cambrésis.",
-                    "trainStation": "Le Cateau-Cambrésis station",
-                    "carDetails": "E19 / E42 motorway via Mons, towards Maubeuge then Le Cateau-Cambrésis."
-                },
-                {
-                    "id": "airports",
-                    "origin": "International Airports",
-                    "tag": "Worldwide & Overseas",
-                    "trainDetails": "From Roissy-CDG: TGV Haute-Picardie or a connection via Gare du Nord.",
-                    "trainStation": "Roissy-CDG or Brussels South Charleroi",
-                    "carDetails": "Ideal for trainees arriving from abroad: Canada, Réunion, Guadeloupe or Switzerland."
-                }
-            ],
-            "mapAddressLabel": "Le Cateau-Cambrésis • CUC Campus"
-        }
-    },
-    "visite": {
-        "galleryBadge": "CAMPUS GALLERY",
-        "galleryTitle": "THE GROUNDS IN PICTURES",
-        "gallerySubtitle": "Photographs of the campus in Le Cateau-Cambrésis.",
-        "showAllPhotos": "View all photos (+{count})",
-        "showLessPhotos": "Show less",
-        "zoom": "Enlarge",
-        "facilitiesTag": "FACILITIES",
-        "facilitiesTitle": "OUR FACILITIES",
-        "facilitiesSubtitle": "Every space is designed for physical and mechanical stunt work, with the landing equipment it requires.",
-        "facilitiesSpecsLabel": "Key Specifications & Equipment:",
-        "facilitiesComplianceLabel": "Compliance & Standards:",
-        "hero": {
-            "breadcrumbHome": "HOME",
-            "breadcrumbCurrent": "THE CAMPUS",
-            "badge": "TRAINING FACILITIES",
-            "location": "LE CATEAU-CAMBRÉSIS (59)",
-            "titleLead": "THE",
-            "titleAccent": "CAMPUS",
-            "subtitle": "Discover the Campus Univers Cascades facilities: the 21-metre jump tower, 1300 m² of covered hangars, landing pit, dojos, indoor riding arena, 90-bed accommodation and a rehearsal studio in the Paris region.",
-            "ctaFacilities": "Facilities",
-            "ctaTour360": "360° tour",
-            "ctaPlan3D": "3D plan",
-            "bgAlt": "Campus Univers Cascades estate",
-            "stats": [
-                {
-                    "value": "11 000 M²",
-                    "label": "Facility area"
-                },
-                {
-                    "value": "21 METRES",
-                    "label": "CUC Tower height"
-                },
-                {
-                    "value": "90 BEDS",
-                    "label": "On-site accommodation"
-                },
-                {
-                    "value": "2 SITES",
-                    "label": "North (59) & Paris (92)"
-                }
-            ]
-        }
-    },
-    "home": {
-        "hero": {
-            "badge": "International Stunt Performer Training Centre",
-            "since": "Since 2008",
-            "ctaFormation": "Professional Programme",
-            "ctaVisit": "Visit the Campus",
-            "ctaStuntTeam": "Stunt Team Pro",
-            "prevSlide": "Previous slide",
-            "nextSlide": "Next slide",
-            "slides": {
-                "campus": {
-                    "caption": "CAMPUS UNIVERS CASCADES",
-                    "sub": "Professional stunt performer training centre",
-                    "badge": "PRIVATE GROUNDS • LE CATEAU-CAMBRÉSIS",
-                    "tag": "Grounds & Campus"
-                },
-                "combat": {
-                    "caption": "FILM STUNTS & FIGHTS",
-                    "sub": "Choreographed fights, martial arts and physical stunts",
-                    "badge": "ACTION DESIGN & CHOREOGRAPHY",
-                    "tag": "Fights & Action"
-                },
-                "facilities": {
-                    "caption": "FACILITIES & TECHNICAL STAGES",
-                    "sub": "Jump platforms, airbag and rigging workshops",
-                    "badge": "SAFETY & FILM RIGGING",
-                    "tag": "Stages & Rigging"
-                },
-                "team": {
-                    "caption": "PROFESSIONAL STUNT PERFORMERS",
-                    "sub": "Founded in 2008 by Lucas Dollfus • Film, TV series and live show work",
-                    "badge": "QUALIOPI CERTIFIED • AFDAS ELIGIBLE",
-                    "tag": "Stunt Team"
-                },
-                "parkour": {
-                    "caption": "PARKOUR & STAGE ACROBATICS",
-                    "sub": "Vaults, urban acrobatics and action choreography",
-                    "badge": "PARKOUR PARK & CUC STAGES",
-                    "tag": "Parkour & Acrobatics"
-                }
-            },
-            "metrics": [
-                {
-                    "val": "SINCE 2008",
-                    "label": "CUC EXPERTISE"
-                },
-                {
-                    "val": "IMMERSION",
-                    "label": "HANDS-ON TRAINING"
-                },
-                {
-                    "val": "FILM & TV",
-                    "label": "CAREER PLACEMENT"
-                },
-                {
-                    "val": "QUALIOPI",
-                    "label": "CERTIFIED PROGRAMME"
-                }
-            ]
-        },
-        "about": {
-            "tag": "OVERVIEW",
-            "subtag": "• FILM, TV SERIES & LIVE SHOWS",
-            "title": "THE LEADING FILM STUNT TRAINING CENTRE",
-            "description": "Founded in 2008 by Lucas Dollfus, Campus Univers Cascades (CUC) is a professional training centre dedicated to physical and mechanical stunt techniques, based in Le Cateau-Cambrésis (59).",
-            "founderQuote": "« Master the risk, create the unprecedented, push the limits of physical truth in the service of the vision of the greatest directors. »",
-            "founderLabel": "WORD FROM THE FOUNDER",
-            "founderName": "LUCAS DOLLFUS",
-            "founderRole": "FOUNDER & STUNT RIGGER",
-            "badgeYear": "SINCE 2008",
-            "imageAlt": "Training stage and professional stunt performers at Campus Univers Cascades",
-            "ctaPrimary": "Explore the Pro Programme",
-            "ctaSecondary": "The Stunt Team",
-            "pillars": [
-                {
-                    "title": "DEDICATED FACILITIES",
-                    "desc": "Complete technical stages: landing pit, choreographed fight dojos, mechanical stunt hangars and an equestrian ring.",
-                    "tag": "PRIVATE GROUNDS"
-                },
-                {
-                    "title": "TEAM & INSTRUCTORS",
-                    "desc": "Supervised by working stunt riggers and coordinators, fight masters and specialists in stage combat and parkour.",
-                    "tag": "TEACHING"
-                },
-                {
-                    "title": "PROFESSIONAL PLACEMENT",
-                    "desc": "Graduates working on feature films, TV series, live shows and international productions.",
-                    "tag": "FILM & TV"
-                },
-                {
-                    "title": "CUC EVENTS AGENCY",
-                    "desc": "Bespoke action shows, live stunts, entertainment and event demonstrations.",
-                    "tag": "EVENTS"
-                }
-            ]
-        },
-        "tournages": {
-            "badge": "FILM PRODUCTION & SHOOTING",
-            "title": "STUNT COORDINATION & FILM WORK",
-            "subtitle": "A partner to film productions, TV series and broadcasters, Campus Univers Cascades provides its expertise in action design, fight direction and on-set safety, with more than 570 productions listed in its catalogue.",
-            "cta": "Discover the CUC Stunt Team",
-            "teamTag": "• CUC STUNT TEAM",
-            "pillar1Title": "1. Action Design & Fight Choreography",
-            "pillar1Desc": "Shot planning, video previsualisation, bespoke choreography for shoot-outs and fights, and intensive preparation of the cast before the shoot in our Paris studio.",
-            "pillar2Title": "2. A Pool of 200+ Stunt Performers & Doubles",
-            "pillar2Desc": "Stunt doubles and professional stunt performers on the largest film and streaming productions, multi-disciplinary performers (high falls, full-body burns, wire work, parkour, weapons).",
-            "pillar3Title": "3. Stunt Department & CNC-Approved Safety",
-            "pillar3Desc": "Experienced stunt riggers, advanced equipment (certified airbags, 3D rigging, crash pads) and private grounds available for rehearsing complex scenes.",
-            "ctaProduction": "Discuss Your Production",
-            "ctaCatalog": "See the film catalogue",
-            "posterAlt": "{title} poster",
-            "category": "Film"
-        },
-        "qualiopi": {
-            "badge": "QUALIOPI CERTIFICATION",
-            "title": "CERTIFIED PROGRAMMES",
-            "subtitle": "Certification issued for TRAINING ACTIONS. Our programmes are eligible for professional funding (AFDAS, France Travail).",
-            "cta": "View the certificate (PDF)",
-            "logoAlt": "Qualiopi logo"
-        },
-        "partners": {
-            "badge": "INDUSTRY & FILM COLLABORATION",
-            "title": "OUR PARTNERS",
-            "viewAll": "See all partners",
-            "logoAlt": "{name} logo",
-            "roles": {
-                "equipementier": "Equipment Supplier",
-                "nacelles": "Lifting & Access Platforms",
-                "certification": "Qualiopi Certification",
-                "protections": "Body Protection",
-                "pyrotechnie": "Pyrotechnics & SFX",
-                "cascadePro": "Professional Stunts"
-            }
-        },
-        "social": {
-            "badge": "SOCIAL MEDIA & NEWS",
-            "title": "COMMUNITY & SOCIAL MEDIA",
-            "subtitle": "🇲🇫 French Stunt Team • Stuntmen | Fighters | Performers • 🔥 Break the limits • 🌍 Biggest Stunt School in the World",
-            "avatarAlt": "Campus Univers Cascades Instagram",
-            "handle": "• @CAMPUS.UNIVERS.CASCADES",
-            "join": "Follow the account",
-            "seeInstagram": "View on Instagram",
-            "posts": [
-                {
-                    "title": "COKA CHICAS in cinemas",
-                    "tag": "IN CINEMAS",
-                    "desc": "Stunts coordinated and doubled by the CUC Stunt Team for Roxine Helberg's feature film starring Fadily Camara, Zoé Marchal and Eva Huault."
-                },
-                {
-                    "title": "Training Combat & Martial Arts",
-                    "tag": "TRAINING STAGE",
-                    "desc": "Precise coordination of strikes and evasions on impact mats with the campus choreography team."
-                },
-                {
-                    "title": "Risk Zone & Defenestration",
-                    "tag": "HIGH FALLS",
-                    "desc": "High-fall drills and defenestration simulation work on the Le Cateau-Cambrésis grounds."
-                }
-            ]
-        },
-        "virtualTour": {
-            "badge": "INTERACTIVE IMMERSION",
-            "title": "360° VIRTUAL IMMERSION TOUR",
-            "subtitle": "Explore our grounds as if you were there! Walk the shooting stages, the Olympic foam pit, the choreographed fight dojos, the mechanical stunt hangars and the equestrian ring through our interactive virtual tour.",
-            "cta": "Open the 360° Virtual Tour",
-            "installationsCta": "Details of the 9 Facilities",
-            "tag": "• 360° VR TOUR HD MEDIA",
-            "previewAlt": "360 overview of a technical stage at Campus Univers Cascades",
-            "hudTitle": "Interactive 360° Tour",
-            "hudHint": "Click to explore the campus",
-            "launchLabel": "Launch the 360° virtual tour"
-        }
-    },
-    "videos": {
-        "breadcrumbHome": "HOME",
-        "breadcrumbCurrent": "OUR VIDEOS & TV REPORTS",
-        "heroBadge": "TELEVISION REPORTS",
-        "heroTitle": "CUC REPORTS & VIDEOS",
-        "heroSubtitle": "Go behind the scenes of stunt training with the reports broadcast on TF1 and France 2, along with the official videos of Campus Univers Cascades.",
-        "heroMeta": "TF1 8PM NEWS • FRANCE 2 • BFM TV",
-        "heroImageAlt": "Videos and reports from Campus Univers Cascades",
-        "tabTf1": "TF1 REPORT (8PM NEWS)",
-        "tabFrance2": "FRANCE 2 REPORT (20H30 LE MAG)",
-        "videoFallback": "Your browser does not support HTML5 video playback.",
-        "tf1Title": "TF1 REPORT — THE 8PM NEWS AT THE CUC",
-        "tf1Desc": "TF1 evening news cameras inside Campus Univers Cascades: high-fall training, fire stunts and the training of tomorrow's action film doubles.",
-        "france2Title": "FRANCE 2 — 20H30 LE MAG: “À L'ÉCOLE DES CASCADEURS”",
-        "france2Desc": "20h30 Le Mag feature on France 2 presented by Laurent Delahousse. Behind the scenes of professional training in Le Cateau-Cambrésis and the daily life of the trainees.",
-        "broadcastBadge": "NATIONWIDE BROADCAST",
-        "docusBadge": "DOCUMENTARIES & TV SERIES",
-        "docusTitle": "TV PROGRAMMES & REPORTS FROM THE SITE",
-        "docusHint": "Click a thumbnail to play the video in the immersive player.",
-        "docusOpenExternal": "Open the report on Dailymotion",
-        "mediaTag": "MEDIA COVERAGE",
-        "mediaTitle": "THE CUC IN THE MEDIA",
-        "mediaIntro": "Watch the reports on the campus behind the scenes and the stunt training on the main national channels and our social networks.",
-        "mediaItems": [
-            {
-                "channel": "TF1",
-                "label": "8PM News at the Campus"
-            },
-            {
-                "channel": "FRANCE 2",
-                "label": "20h30 Le Mag with Laurent Delahousse"
-            },
-            {
-                "channel": "BFM TV",
-                "label": "Feature on the stunt school"
-            }
-        ],
-        "socialInstagram": "See the stunts on Instagram",
-        "socialTiktok": "Follow the Stunt Team on TikTok",
-        "closeTitle": "Close",
-        "reelsTitle": "SHORT ACTION & STUNT SESSIONS",
-        "reelsIntro": "Experience the action up close with official vertical video sessions from Campus Univers Cascades.",
-        "reelsPlay": "Play Reel",
-        "reelsWatchOnInsta": "Watch on Instagram",
-        "reelsPrev": "Previous Reel",
-        "reelsNext": "Next Reel",
-        "reelsSeeMore": "See more videos",
-        "reelsSortByFeatured": "Featured",
-        "reelsSortByViews": "Most viewed",
-        "reelsSortByDateDesc": "Newest",
-        "reelsSortByDateAsc": "Oldest",
-        "catalogLabel": "Official video catalogue:",
-        "cumulativeViews": "{views}M+ cumulative views",
-        "reelsItems": [
-            {
-                "title": "Another windshield down... 🤭",
-                "description": "Another windshield down... 🤭👌 High-impact windshield stunt hit and precision landing by CUC stunt performers."
-            },
-            {
-                "title": "PLK Live at Stade de France",
-                "description": "PLK Concert at the Stade de France 🔥 Unforgettable live performance with the CUC stunt crew and performers."
-            },
-            {
-                "title": "Piñata Party 😅",
-                "description": "Piñata Party on campus 😅🥳 Campus life, teamwork and great vibes between intensive training sessions."
-            },
-            {
-                "title": "Just Training 🤝",
-                "description": "Just training 🤝😅 Scenic fight choreography drills and camera axis coordination."
-            },
-            {
-                "title": "Motorcycle 1 - Car 0 🤭",
-                "description": "Motorcycle 1 - Car 0 🤭👌 Precision vehicle stunt and crash impact filmed on campus tracks."
-            },
-            {
-                "title": "Team CUC — Fight Training ✌️",
-                "description": "Just training ✌️ Physical conditioning and close-combat stunt session with the CUC Team."
-            }
-        ],
-        "programs": [
-            {
-                "dmId": "x9uewe0",
-                "title": "COEUR DE CASCADEURS",
-                "sub": "France 2 TV series & CUC"
-            },
-            {
-                "dmId": "x8581s9",
-                "title": "BFM TV REPORT",
-                "sub": "Feature on the stunt school"
-            },
-            {
-                "dmId": "x858323",
-                "title": "HAPPY BIRTHDAY CUC",
-                "sub": "10 years of stunts (2009 - 2019)"
-            },
-            {
-                "dmId": "x8583in",
-                "title": "AUGUST 2017 SESSION",
-                "sub": "CUC class in training"
-            },
-            {
-                "dmId": "k2LHEg1AIHtIfYxkvcz",
-                "title": "ZOË BELL AT THE CAMPUS",
-                "sub": "Campus Univers Cascades patron"
-            },
-            {
-                "dmId": "x8583u3",
-                "title": "STUNT RIDER — CAMPUS LIFE",
-                "sub": "Daily life at the CUC"
-            }
-        ]
-    },
-    "teamBuilding": {
-        "heroMeta": "TEAM COHESION • BEHIND THE SCENES",
-        "overviewBadge": "CUC EVENTS • CORPORATE IMMERSION",
-        "overviewTitle": "CINEMA WORKSHOPS",
-        "overviewDescription": "We offer activities and introductions to the stunt profession, film-making and what happens behind the scenes. Team building, seminars, public bodies... Our team of professionals offers a choice of workshops with dedicated equipment and uncompromising safety.",
-        "workshopChoice": "Workshop of your choice",
-        "workshopModular": "Modular",
-        "breadcrumbCurrent": "EXCEPTIONAL TEAM BUILDING",
-        "workshopFallbackTitle": "Stunt workshop",
-        "workshopFallbackLabel": "CUC WORKSHOP",
-        "customBadge": "TAILOR-MADE",
-        "customTitle": "COMBINE SEVERAL WORKSHOPS FOR YOUR DAY",
-        "customDescription": "We adapt the programme, the number of stunt instructors and the equipment to your goals, your schedule constraints and the size of your group.",
-        "customCta": "Get a Detailed Proposal & Quote"
-    },
-    "visiteVirtuelle": {
-        "viewerTitle": "INTERACTIVE 360° VIRTUAL TOUR",
-        "helpTitle": "Navigation help",
-        "helpLabel": "How to use",
-        "resetTitle": "Reset the tour to the entrance",
-        "resetLabel": "Reset",
-        "openTabTitle": "Open fullscreen in a new tab / VR headset",
-        "openTabLabel": "Open in a new tab",
-        "exitFullscreenTitle": "Exit fullscreen",
-        "fullscreenTitle": "Immersive fullscreen",
-        "collapseLabel": "COLLAPSE",
-        "fullscreenLabel": "FULLSCREEN",
-        "navHelpTitle": "360 navigation:",
-        "navHelpBody1": "Click and drag your cursor (or your finger on mobile) to look around. Click the",
-        "navHelpHighlight": "flashing arrows on the floor",
-        "navHelpBody2": "to move from one room to the next.",
-        "hideLabel": "[HIDE]",
-        "iframeTitle": "360° Virtual Tour, Campus Univers Cascades",
-        "breadcrumbHome": "HOME",
-        "breadcrumbCampus": "THE CAMPUS",
-        "breadcrumb360": "360° VIRTUAL TOUR",
-        "breadcrumb3d": "INTERACTIVE 3D MAP",
-        "pageTag": "TOUR OF THE GROUNDS",
-        "pageTitle": "DISCOVER THE CAMPUS",
-        "suffix360": "IN 360°",
-        "suffix3d": "IN 3D",
-        "pageSubtitle": "Explore the facilities of the stunt training centre at Le Cateau-Cambrésis in high-definition 360° immersion.",
-        "tab360Label": "360° VR View",
-        "tab3dLabel": "3D Map",
-        "loading3d": "Loading the 3D map…",
-        "ctaRendezVous": "Book a Visit",
-        "factsTitle1": "11,000 m² of Facilities",
-        "factsBody1": "A 21-metre jump tower, the Zoé Bell training hall, dojos, an equestrian ring and mechanical stunt hangars gathered on one private estate.",
-        "factsTitle2": "Safety & Equipment",
-        "factsBody2": "Professional stunt equipment to current standards: certified landing mats, jump airbags, trampolines and a working pit.",
-        "factsTitle3": "Access & Accommodation",
-        "factsBody3": "Located at Le Cateau-Cambrésis (2 hours from Paris, 1 hour from Lille). On-site accommodation with full board is available for trainees and course participants."
-    },
-    "eventsAgence": {
-        "learnMore": "Learn more",
-        "pillars": [
-            {
-                "tag": "LIVE SHOWS & PERFORMANCES",
-                "title": "STUNT SHOWS",
-                "paragraph1": "Want to energise your event with a striking show? Campus Univers Cascades places its expertise and its professional stunt teams at your service to create tailor-made live shows.",
-                "paragraph2": "Medieval, contemporary or fantasy choreographed fights, spectacular high falls, pyrotechnic stunts (full-body burns): our creations adapt to every technical and staging constraint.",
-                "cta": "Learn more about our Shows",
-                "imageAlt": "CUC Events show photo"
-            },
-            {
-                "tag": "THRILLS FOR THE GENERAL PUBLIC",
-                "title": "ANIMATIONS & FREEJUMP AIRBAG",
-                "paragraph1": "Give your audience a unique thrill with our interactive activities supervised by professionals: the FreeJump Airbag (safe jumps from 4 to 8 metres high), a cinema wire-work simulator, or parkour introduction workshops with members of the Yamakasi.",
-                "paragraph2": "Facilities fully compliant with the strictest safety standards, with professional insurance and qualified supervision.",
-                "cta": "Learn more about our Animations",
-                "imageAlt": "CUC Events FreeJump airbag animation"
-            },
-            {
-                "tag": "SEMINARS & CORPORATE IMMERSION",
-                "title": "ACTION CINEMA TEAM BUILDING",
-                "paragraph1": "Bring your teams together for an unforgettable action seminar in the heart of the CUC grounds at Le Cateau-Cambrésis.",
-                "paragraph2": "Indoor cinema workshop, physical stunts, secured fire stunts, shooting a fake action trailer: your colleagues push their limits in a spirit of camaraderie and genuine goodwill. Capacity up to 90 people with on-site accommodation and catering.",
-                "cta": "Organise a Team Building",
-                "imageAlt": "Indoor cinema workshop team building"
-            }
-        ],
-        "guarantees": [
-            {
-                "title": "SAFETY & CERTIFICATION",
-                "description": "Professional show insurance, certified equipment and strict protocols."
-            },
-            {
-                "title": "PROFESSIONAL STUNT PERFORMERS",
-                "description": "Performers trained at the CUC, working on major film productions and theme parks."
-            },
-            {
-                "title": "ANYWHERE IN FRANCE & EUROPE",
-                "description": "We bring our mobile structures and stunt teams to your event site."
-            }
-        ],
-        "guaranteeLogoAlt": "CUC professional stunt performers",
-        "partnersBadge": "PARTNERS & BRANDS",
-        "partnersTitle": "THEY TRUSTED US",
-        "cinemaBadge": "FILM REFERENCES",
-        "cinemaTitle": "FILM & TELEVISION PRODUCTIONS",
-        "bannerAlt1": "Film & series poster strip 1",
-        "bannerAlt2": "Film & series poster strip 2",
-        "bannerAlt3": "Film & series poster strip 3",
-        "bannerAlt4": "Film & series poster strip 4",
-        "heroBadge": "ACTION EVENT AGENCY",
-        "heroTitle": "CUC EVENTS: SHOWS & ANIMATIONS",
-        "heroSubtitle": "Make a lasting impression at your festivals, brand launches, theme parks or corporate seminars with spectacular action shows staged by the professional stunt performers of Campus Univers Cascades.",
-        "breadcrumbCurrent": "CUC EVENTS & LIVE SHOWS",
-        "heroCtaPrimary": "Request an Event Quote",
-        "heroCtaSecondary": "Watch our Live Videos",
-        "heroImageAlt": "CUC Events live stunt shows and animations",
-        "animationsBody": "Give your audience unique thrills with our interactive animations supervised by professionals: the <strong>FreeJump Airbag</strong> (secured jumps from 4 to 8 metres high), a film rigging simulator, or parkour initiation workshops with members of the Yamakasi."
-    },
-    "spectacles": {
-        "heroBadge": "CINEMA TAKES TO THE STAGE",
-        "heroTitle": "STUNT SHOWS",
-        "heroSubtitle": "Relive the action sequences from your favourite films with the professional stunt performers and film doubles of Campus Univers Cascades. Fights, falls, parkour, humour and stage effects for all your events.",
-        "ctaPrimaryText": "Request a Show Quote",
-        "ctaSecondaryText": "Watch our Live Videos",
-        "heroImageAlt": "Professional stunt shows, CUC Events",
-        "logoAlt": "CUC Events shows",
-        "breadcrumbHome": "HOME",
-        "breadcrumbEvents": "CUC EVENTS",
-        "breadcrumbCurrent": "STUNT SHOWS",
-        "heroMeta": "STUNT PERFORMERS • ACTORS • TURNKEY SHOWS",
-        "panelTag": "CUC EVENTS SHOWS",
-        "panelSub": "STUNT PERFORMERS & FILM DOUBLES",
-        "panelTitle": "TURNKEY SHOWS ADAPTED TO YOUR VENUE",
-        "panelParagraph": "Our artists belong to the very small circle of stunt doubles working on action films. Trained at Campus Univers Cascades and working exclusively with our agency, they adapt to any environment to match your expectations.",
-        "specsTitle": "Show package specifications:",
-        "specsItems": [
-            {
-                "label": "Team:",
-                "value": "5 versatile professional artists (stunt performers, actors, traceurs)"
-            },
-            {
-                "label": "Format:",
-                "value": "8 to 20 minutes of uninterrupted action, timed to the millimetre"
-            },
-            {
-                "label": "Themes:",
-                "value": "James Bond 007, superhero universes (Marvel/DC), John Wick, post-apocalyptic"
-            },
-            {
-                "label": "Disciplines included:",
-                "value": "Screen fights, high falls, comedy, acrobatics, parkour"
-            }
-        ],
-        "showImageAlt": "CUC stunt performers on stage",
-        "arenaImageAlt": "CUC Events live stunt show and performance",
-        "arenaBadge": "EVENT",
-        "arenaTitle": "CUC EVENTS AT ACCOR ARENA (BERCY)",
-        "arenaParagraph": "In front of more than 15,000 spectators, the CUC Stunt Team performed the opening show with synchronised stunts, jumps from the aerial structures and fights broadcast on giant screens.",
-        "arenaCta": "Organise a Show in your Venue",
-        "catalogBadge": "Stage Formats & Repertoire",
-        "catalogTitle": "Our Live Shows & Demonstrations",
-        "catalogSubtitle": "From large-scale arena shows to immersive historical tableaux, every show is designed, secured and performed by CUC professional stunt performers.",
-        "specsLogisticsTitle": "Specifications & Logistics",
-        "archivesBadge": "STAGE PORTFOLIO",
-        "archivesTitle": "Show Photo Archives",
-        "archivesSubtitle": "Highlights in pictures from our stage creations, themed shows, live demonstrations and event performances."
-    },
-    "animations": {
-        "heroBadge": "CINEMA AIRBAG • PROFESSIONAL SUPERVISION",
-        "heroTitle": "AIRBAG & PARKOUR ANIMATIONS",
-        "heroSubtitle": "Give the general public the unique sensation of free fall onto a giant cinema airbag. A spectacular activity supervised by the professional stunt performers of Campus Univers Cascades.",
-        "ctaPrimaryText": "Airbag Animation Quote",
-        "ctaSecondaryText": "All CUC Events Offers",
-        "heroImageAlt": "Giant cinema Xtrem Jump airbag, CUC Events",
-        "logoAlt": "CUC Events animations",
-        "breadcrumbHome": "HOME",
-        "breadcrumbEvents": "CUC EVENTS",
-        "breadcrumbCurrent": "GIANT AIRBAG & PARKOUR ANIMATIONS",
-        "heroMeta": "SINCE 2009",
-        "stat1Label": "Jumps Performed in Europe",
-        "stat2Value": "20 METRES",
-        "stat2Label": "Maximum Airbag Capacity",
-        "stat3Label": "Safety and Professional Supervision",
-        "stat4Label": "Airbag Animation Pioneers",
-        "panelTag": "CUC EVENTS ANIMATIONS",
-        "panelSub": "XTREM JUMP CINEMA AIRBAG & PARKOUR",
-        "panelTitle": "XTREM JUMP AIRBAG: PUBLIC INITIATION & SHOWS",
-        "panelParagraph1": "The general public can finally taste the adrenaline and discover the unique sensations of free fall in optimal safety, thanks to our giant airbag — the air cushion used in film-making — able to catch a professional stunt performer falling from up to 20 metres.",
-        "panelParagraph2": "Our agency and our team of professionals pioneered this event activity in France back in 2009. With more than 20,000 supervised jumps across Europe, our qualified stunt performers guide every participant for a memorable and safe jump.",
-        "includedTitle": "Included in the package:",
-        "includedItems": [
-            "Giant cinema airbag certified to EU standards",
-            "Suitable jump platform or scaffolding",
-            "Supervision by 2 to 4 professional stunt performers",
-            "Acrobatic jump demonstrations included"
-        ],
-        "panelImageAlt": "Jump onto the giant CUC airbag"
-    },
-    "stages": {
-        "fallbackBadge": "CUC COURSE",
-        "fallbackCta": "Book my course",
-        "bookWithPrice": "Book ({price})",
-        "fallbackLocation": "CUC campus, Le Cateau-Cambrésis (59)",
-        "cards": [
-            {
-                "id": "weekend-immersion",
-                "badgeText": "POPULAR PACKAGE",
-                "subBadge": "FROM 16 YEARS OLD",
-                "highlightText": "FULL BOARD INCLUDED",
-                "title": "CUC WEEKEND IMMERSION PACKAGE",
-                "description": "Live the life of a film stunt performer for two full days. Sleep on campus, share meals with the team and jump onto the giant airbag in complete safety. Ideal to discover your physical abilities and get your fill of adrenaline.",
-                "details": [
-                    "Friday 5pm to Sunday 5:30pm (16 hours of practice)",
-                    "On-site accommodation (campus rooms)",
-                    "All meals included (Friday evening to Sunday lunch)",
-                    "CUC grounds, Le Cateau-Cambrésis (59)"
-                ],
-                "buttonLabel": "Book my weekend (€250.00)",
-                "pdfLabel": "Download the weekend brochure (PDF)",
-                "imageAlt": "CUC weekend immersion course poster"
-            },
-            {
-                "id": "afdas-artistes-interpretes",
-                "badgeText": "100% AFDAS FUNDING",
-                "subBadge": "ACTORS • DANCERS • CIRCUS PERFORMERS",
-                "highlightText": "",
-                "title": "AFDAS COURSE — PERFORMING ARTISTS",
-                "description": "Give your roles total credibility in action scenes. A 70-hour AFDAS-funded course delivered in our Paris studio in Gennevilliers. Learn to take impacts, handle blank-firing weapons, fall down stairs and shoot your own action demo reel.",
-                "details": [
-                    "2 weeks (10 working days / 70 hours)",
-                    "CUC Paris region centre, 86 Avenue Louis Roche, 92230 Gennevilliers",
-                    "AFDAS-funded (no cost left for the artist)",
-                    "Shooting of an individual action demo reel"
-                ],
-                "buttonLabel": "Request my AFDAS funding",
-                "pdfLabel": "",
-                "imageAlt": "CUC AFDAS performing artists course poster"
-            },
-            {
-                "id": "stunt-summer-camp",
-                "badgeText": "INTENSIVE SUMMER COURSE",
-                "subBadge": "FROM 15 YEARS OLD • PARKOUR & AIRBAG",
-                "highlightText": "",
-                "title": "CUC STUNT SUMMER CAMP",
-                "description": "A summer week of training at the CUC: parkour, airbag jumps, cube-pit acrobatics and film fights. Residential package with accommodation and full board.",
-                "details": [
-                    "1 week (Sunday to Friday evening / 35h)",
-                    "Residential package with accommodation and full board",
-                    "Supervised by CUC stunt performers and instructors",
-                    "CUC campus, 59360 Le Cateau-Cambrésis"
-                ],
-                "buttonLabel": "Summer Camp pre-registration",
-                "pdfLabel": "Download the Summer Camp brochure (PDF)",
-                "imageAlt": "CUC Stunt Summer Camp poster"
-            },
-            {
-                "id": "afdas-cascadeurs-pro",
-                "badgeText": "WORKING PROFESSIONAL STUNT PERFORMERS",
-                "subBadge": "PROVENCE STUDIOS (MARTIGUES)",
-                "highlightText": "",
-                "title": "AFDAS COURSE — PRO STUNT PERFORMERS (PROVENCE STUDIOS)",
-                "description": "Technical refresher session held inside the Provence Studios film stages. Multi-axis wire work, pneumatic ratchets, full-body burns and safety protocols for professional shoots.",
-                "details": [
-                    "Provence Studios, Martigues, France",
-                    "AFDAS funding for freelance stunt performers"
-                ],
-                "buttonLabel": "Contact us about the pro sessions",
-                "pdfLabel": "",
-                "imageAlt": "CUC pro stunt performer course poster, Provence Studios"
-            }
-        ],
-        "hero": {
-            "breadcrumbHome": "HOME",
-            "breadcrumbCurrent": "STUNT COURSES & STAYS",
-            "badge": "IMMERSION & SKILL DEVELOPMENT",
-            "meta": "WEEKENDS FROM €250 • 100% AFDAS-FUNDED COURSES • SUMMER CAMP",
-            "titleLead": "STUNT, ",
-            "titleAccent": "PARKOUR & ACTION COURSES",
-            "subtitle": "Live the stunt performer experience over a full-immersion weekend for €250, benefit from full AFDAS funding as a performing artist, or join our big summer camp on our facilities.",
-            "bgAlt": "Stunt courses and stays at Campus Univers Cascades",
-            "logosAlt": "CUC course logos"
-        }
-    },
-    "stuntWorkshop": {
-        "heroMeta": "IN ENGLISH & FRENCH",
-        "briAlt": "CUC BRI — riot police stunt training (Brigade de Recherche et d'Intervention)",
-        "posterBadge": "OFFICIAL POSTER",
-        "posterTitle": "CUC International Session",
-        "posterSubtitle": "Pro Action Performer Certification",
-        "towerCaption": "21m High-Fall Tower",
-        "tacticalCaption": "Tactical & Armoury",
-        "crowdCaption": "Performers from Around the World at CUC"
-    },
-    "visiteGuidee": {
-        "accessBadge": "ACCESS & TRANSPORT",
-        "accessTitle": "HOW TO REACH THE CAMPUS",
-        "accessIntro": "Located in the heart of the Hauts-de-France region, the campus is easily reachable from Paris, Lille, Brussels or London.",
-        "accessCarLabel": "BY CAR:",
-        "accessCarBody": "2 hours from Paris via the A1 and A26 motorways. 1 hour from Lille and Valenciennes. Free secured private parking on site for trainees.",
-        "accessTrainLabel": "BY TRAIN (SNCF):",
-        "accessTrainBody": "Le Cateau-Cambrésis station (5 minutes from the campus). Direct services from Paris Gare du Nord (via Saint-Quentin or Cambrai). CUC shuttle available on request.",
-        "accessPlaneLabel": "BY PLANE:",
-        "accessPlaneBody": "International airports: Paris CDG (1h45 by road), Lille Lesquin (1h) or Brussels South Charleroi (1h15).",
-        "coordinatesTitle": "GETTING HERE",
-        "addressLabel": "Postal address & access:",
-        "mapRadarLabel": "Radar & directions",
-        "standardLabel": "Admissions office:",
-        "phoneLabel": "Phone:",
-        "emailLabel": "Email:",
-        "idfLabel": "Paris studio:",
-        "idfValue": "Rehearsal studio & actors",
-        "accessCta": "Plan a visit or book a course",
-        "tour3dBadge": "3D SPATIAL TOPOGRAPHY",
-        "tour3dTitle": "INTERACTIVE 3D MAP",
-        "tour3dTitleAccent": "OF THE CAMPUS",
-        "tour3dParagraph": "Rotate the aerial view, explore the nine facilities in three dimensions, and select an area to discover its specialised installations.",
-        "tour360Badge": "360° EXPERIENCE",
-        "tour360Title": "VIRTUAL TOUR",
-        "tour360TitleAccent": "360° OF THE CAMPUS",
-        "tour360Paragraph": "Explore the grounds in full immersion: move freely through the Zoé Bell Hall, look at the Olympic foam pit, the 21m CUC Tower and all the technical stages.",
-        "loading3d": "Loading the 3D map…",
-        "accessAddress": "CUC grounds, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis (France)",
-        "domainClosed": "PRIVATE ESTATE • LE CATEAU-CAMBRÉSIS"
-    },
-    "teamProduction": {
-        "hero": {
-            "breadcrumbHome": "HOME",
-            "breadcrumbCurrent": "FILMING",
-            "badge": "STUNT COORDINATION • FILM",
-            "title": "FILMING",
-            "subtitle": "Campus Univers Cascades and the CUC Stunt Team support film and audiovisual productions, from designing action choreography through to shooting on set.",
-            "ctaPrimary": "Contact the Production Team",
-            "posters": "View the posters",
-            "bgAlt": "CUC Stunt Team film and action shoots",
-            "emblemAlt": "CUC Stunt Team emblem",
-            "emblemLabel": "CAMPUS UNIVERS CASCADES"
-        },
-        "galleries": {
-            "studioBadge": "FILMING FACILITIES",
-            "studioTitle": "THE STUDIO & THE ACTION STAGE",
-            "doublesBadge": "DOUBLES & FIGHT CHOREOGRAPHERS",
-            "doublesTitle": "STUNT PERFORMERS IN ACTION",
-            "equipmentBadge": "FILM TECHNICAL EQUIPMENT",
-            "equipmentTitle": "FILMING EQUIPMENT",
-            "zoomStudio": "Click to view full screen",
-            "zoomStunt": "Click to enlarge the stunt photo",
-            "zoomEquipment": "Click to view the equipment in detail",
-            "expand": "Enlarge",
-            "showAllPhotos": "View all photos (+{count})",
-            "showLessPhotos": "Show less"
-        },
-        "hallOfFame": {
-            "emblemAlt": "CUC emblem",
-            "badge": "CREDITS & SHOOTS",
-            "tag": "CUC PRODUCTIONS & ALUMNI",
-            "title": "ACTION CINEMA HALL OF FAME",
-            "subtitle": "A selection of audiovisual and film productions the CUC stunt performers and instructors have worked on.",
-            "actorsBadge": "ACTORS & SHOOTS",
-            "actorsTitle": "ACTORS STUNT-DOUBLED BY CUC",
-            "actorsIntro": "Campus Univers Cascades instructors and stunt performers work on the action scenes of French and international productions.",
-            "photoAlt": "Doubled actor {name}",
-            "imdbTitle": "View {name}'s IMDb filmography",
-            "filmsLabel": "Films:"
-        },
-        "celebrityModal": {
-            "title": "Shoot & Stunt Details",
-            "doublesLabel": "Stunt double:",
-            "scenesLabel": "Stunts & action scenes:",
-            "filmsLabel": "Films:",
-            "cucCoordinatedFilmsSingular": "Film coordinated by CUC:",
-            "cucCoordinatedFilmsPlural": "Films coordinated by CUC:",
-            "imdbCta": "IMDb page",
-            "close": "Close",
-            "closeAria": "Close",
-            "doublesAndShootsLabel": "STUNT DOUBLE & SHOOTS:",
-            "inConnector": "in",
-            "openLucasFilmTitle": "Open the file for '{title}' coordinated by Lucas Dollfus",
-            "openCucFilmTitle": "Open the file for '{title}' coordinated by CUC"
-        },
-        "filmModal": {
-            "title": "FILM",
-            "directedBy": "Directed by {name}",
-            "doublesLabel": "Doubles & actors:",
-            "teamLabel": "CUC Team:",
-            "trailer": "Trailer",
-            "close": "Close",
-            "closeAria": "Close"
-        },
-        "showcase": {
-            "sortLabel": "Sort:",
-            "sortAria": "Sort films"
-        },
-        "services": {
-            "badge": "SERVICES TO PRODUCTIONS",
-            "title": "SHOOT YOUR ACTION SCENES WITH THE CUC",
-            "intro": "From pre-production to delivery on set, Campus Univers Cascades makes its technical and human resources available to you:",
-            "items": [
-                {
-                    "label": "1. COORDINATION & CHOREOGRAPHY:",
-                    "body": "Script analysis, budget costing, technical breakdown of the action and choreography tailored to the actors' performance."
-                },
-                {
-                    "label": "2. ACTOR PREPARATION (PARIS STUDIO / GENNEVILLIERS):",
-                    "body": "Rehearsal sessions ahead of the shoot to familiarise the actors with prop weapons, fight movements and gunfire reactions."
-                },
-                {
-                    "label": "3. FILM EQUIPMENT & ESTATE:",
-                    "body": "Certified airbags, rigging systems, stunt harnesses and use of the estate as a natural set."
-                }
-            ],
-            "contactTitle": "PRODUCTION & CASTING CONTACT",
-            "contactIntro": "Preparing a feature film, a series, a music video or a live show? Contact our coordination office directly.",
-            "coordinatorLabel": "LEAD COORDINATOR:",
-            "coordinatorValue": "Lucas Dollfus — CUC PROD",
-            "phoneLabel": "DIRECT PHONE:",
-            "emailLabel": "PRO EMAIL:",
-            "cta": "Quote & Collaboration Request"
-        },
-        "celebrities": [
-            {
-                "id": "tomer-sisley",
-                "specialty": "Choreographed fights, physical stunts and chases.",
-                "doubles": "Doubled by Vincent Bouillon"
-            },
-            {
-                "id": "keanu-reeves",
-                "specialty": "222-step fall down the Sacré-Cœur in Paris (Taurus World Stunt Award 2024).",
-                "doubles": "Doubled by Vincent Bouillon"
-            },
-            {
-                "id": "jean-dujardin",
-                "specialty": "Physical stunts and choreographed fights.",
-                "doubles": "Doubled by Vincent Bouillon"
-            },
-            {
-                "id": "pierre-niney",
-                "specialty": "Sword duels and physical stunts choreographed with the CUC fight coordinators.",
-                "doubles": ""
-            },
-            {
-                "id": "francois-civil",
-                "specialty": "Close-quarters fights and physical stunts.",
-                "doubles": ""
-            },
-            {
-                "id": "roschdy-zem",
-                "specialty": "Close-quarters fights and tactical gunfire.",
-                "doubles": ""
-            },
-            {
-                "id": "omar-sy",
-                "specialty": "Physical stunts and armed confrontations.",
-                "doubles": ""
-            },
-            {
-                "id": "gilles-lellouche",
-                "specialty": "Physical stunts and urban chases.",
-                "doubles": ""
-            },
-            {
-                "id": "kevin-costner",
-                "specialty": "Physical stunts and chases during the Paris shoot.",
-                "doubles": ""
-            },
-            {
-                "id": "vincent-cassel",
-                "specialty": "Fights and physical stunts.",
-                "doubles": ""
-            },
-            {
-                "id": "jean-reno",
-                "specialty": "Physical stunts and armed confrontations.",
-                "doubles": ""
-            }
-        ],
-        "teamBannersBadge": "FILM CREDITS",
-        "teamBannersTitle": "FILMS COORDINATED BY THE CUC & LUCAS DOLLFUS",
-        "teamBannersPosterTitle": "Click to open the poster full screen",
-        "teamBannersIntro": "Browse the posters of the French and international productions our teams worked on. Click a poster to view it in high resolution.",
-        "teamBannersHdLabel": "POSTER HD"
-    },
-    "commonChrome": {
-        "breadcrumbHome": "HOME",
-        "brandName": "CAMPUS UNIVERS CASCADES",
-        "brandTagline": "Stunt Academy & Team",
-        "brandTaglineEst": "Stunt Academy & Team • Est. 2008",
-        "campusCity": "Le Cateau-Cambrésis (59)",
-        "eventsAnimationsBadge": "CUC EVENTS ANIMATIONS",
-        "siteCampus": "CAMPUS CUC",
-        "siteEvents": "CUC EVENTS",
-        "siteStuntTeam": "CUC STUNT TEAM",
-        "campusNameTitle": "Campus Univers Cascades",
-        "heroTitleTail": "Cascades",
-        "locationLabel": "LE CATEAU-CAMBRÉSIS",
-        "trainingPathTitle": "Trajectory & Philosophy",
-        "otherCoordinatorsTitle": "Other Coordinators & Instructors",
-        "broadcastNote": "broadcast on giant screens.",
-        "eventsAgencySubtitle": "Shows • Animations • Team Building",
-        "instaFollowersUnit": "followers",
-        "instaOfficialTitle": "Official Instagram",
-        "instaCertifiedCommunity": "Certified official community",
-        "instaJoinCta": "Join",
-        "instaHeaderTitle": "Visit the official Instagram account @campus.univers.cascades",
-        "instaCardTitle": "Join the official community on Instagram"
-    },
-    "applicationModal": {
-        "closeAria": "Close",
-        "badge": "APPLICATION & ADMISSIONS",
-        "session": "SESSION 2026-2027",
-        "logoAlt": "CUC logo",
-        "titleLead": "Apply to ",
-        "titleAccent": "Campus Univers Cascades",
-        "intro": "Fill in the details below to apply for the professional course, book a course or request AFDAS funding.",
-        "tabs": {
-            "pro": "Pro Course (Long)",
-            "discovery": "Discovery Course",
-            "weekend": "Weekend (€250)",
-            "afdas": "AFDAS Funding"
-        },
-        "labels": {
-            "fullName": "Full name *",
-            "age": "Age * (from 16 or 18)",
-            "email": "Email address *",
-            "phone": "Phone *",
-            "afdasStatus": "AFDAS / professional status",
-            "sport": "Sporting / artistic background & disciplines practised",
-            "session": "Preferred session / goals"
-        },
-        "placeholders": {
-            "fullName": "e.g. Alexandre Dubois",
-            "age": "e.g. 22",
-            "email": "alexandre@example.com",
-            "phone": "06 00 00 00 00",
-            "sport": "e.g. Martial arts (5 years), Parkour, Gymnastics, Theatre...",
-            "message": "Tell us the session date you are aiming for or any specific questions..."
-        },
-        "afdasOptions": [
-            "Performing arts worker (actor, dancer, artist)",
-            "Professional stunt performer in activity",
-            "Other AFDAS beneficiary"
-        ],
-        "safetyTitle": "Safety notice & selection:",
-        "safetyBody": "Because of the physical demands and safety requirements, every application is reviewed by the CUC teaching committee.",
-        "submitError": "Error while submitting your application.",
-        "cancel": "Cancel",
-        "submit": "Submit my application",
-        "submitting": "Submitting...",
-        "successTitle": "Application submitted successfully!",
-        "successBody": "Your request has been recorded for <strong>{name}</strong>. A CUC course officer will contact you within 24 to 48 hours to confirm your application and session availability.",
-        "contactAddress": "CUC Campus, 59360 Le Cateau-Cambrésis (Hauts-de-France)",
-        "contactPhone": "Course office: 01 30 32 38 03",
-        "closeCase": "Close the application"
-    },
-    "lightbox": {
-        "closeAria": "Close the viewer",
-        "closeTitle": "Close (Esc)",
-        "prevAria": "Previous photo",
-        "prevTitle": "Previous (Left arrow)",
-        "nextAria": "Next photo",
-        "nextTitle": "Next (Right arrow)",
-        "navHint": "Navigation: ← / → to browse • Esc to close"
+    "disciplines": {
+      "badge": "TECHNICAL REPERTOIRE",
+      "title": "THE 10 PHYSICAL STUNT DISCIPLINES",
+      "cinemaContextLabel": "Film & Shoot Context:",
+      "equipmentLabel": "Equipment & Facilities:"
     }
+  },
+  "footer": {
+    "certificateTitle": "View the Qualiopi certificate",
+    "certified": "Qualiopi Certified Body",
+    "funding": "AFDAS & CPF funding (100%)",
+    "virtualTour": "360° Virtual Tour of the Campus",
+    "sitesTitle": "Our Locations",
+    "mainCampus": "MAIN CAMPUS:",
+    "mainCampusAddress": "Domaine CUC, 59360 Le Cateau-Cambrésis",
+    "region": "Hauts-de-France (1h40 from Paris / 1h from Lille)",
+    "mapAccess": "Map & Access",
+    "gpsRoute": "GPS Directions",
+    "idfHub": "PARIS REGION HUB:",
+    "idfStudio": "Rehearsal Studio & Actor Preparation",
+    "idfAddress": "86 Avenue Louis Roche, 92230 Gennevilliers (Paris Region)",
+    "locateMaps": "Locate on Maps",
+    "productionAgency": "PRODUCTION COMPANY:",
+    "productionDesc": "CUC PROD • Film & live show production company",
+    "directLines": "Direct Lines",
+    "admissionFile": "Admission File 2026/2027",
+    "networksTitle": "Networks & Media",
+    "networksText": "Follow daily training, exclusive stunts and behind-the-scenes footage:",
+    "backToTop": "Back to top",
+    "backToTopLabel": "Back to top of page",
+    "backToTopTitle": "Back to top",
+    "qualiopiBadge": "QUALIOPI approval"
+  },
+  "partenaires": {
+    "cinemaHeading": "Partner Studios & Productions",
+    "specializedHeading": "Specialised & Institutional Partners",
+    "productionBadge": "Film Production",
+    "officialSite": "Official website",
+    "website": "Website",
+    "roleMateriel": "Equipment Supplier",
+    "roleMedia": "Media",
+    "roleInstitutionnel": "Institutional",
+    "breadcrumbHome": "HOME",
+    "breadcrumbCurrent": "PARTNERS",
+    "heroBadge": "SUPPORTING US",
+    "heroTitle": "OUR PARTNERS",
+    "heroSubtitle": "Equipment suppliers, special effects, protective gear and partner organisations of Campus Univers Cascades.",
+    "heroImageAlt": "Campus Univers Cascades partners",
+    "heroMeta": "EQUIPMENT • FILM • INSTITUTIONS • STATE",
+    "categories": {
+      "agrement": "State Approval & Certification",
+      "equipementiers": "Equipment & Protective Gear",
+      "materiel": "Filming Equipment & Gear",
+      "pedagogie": "Teaching & Professional Stunts",
+      "multimedia": "Multimedia & Production",
+      "etablissement": "Accommodation & Nutrition"
+    },
+    "partners": [
+      {
+        "name": "Qualiopi",
+        "category": "Certification",
+        "role": "Qualiopi certification",
+        "description": "Quality certification for training courses (eligible for AFDAS and France Travail funding)."
+      },
+      {
+        "name": "Nike",
+        "category": "Equipment supplier",
+        "role": "Apparel & Footwear",
+        "description": "Sports equipment supplier (apparel and sports footwear)."
+      },
+      {
+        "name": "RXR Protect",
+        "category": "Protective gear",
+        "role": "Body Protection",
+        "description": "Inflatable body protection vests and equipment (Air Shock Absorber technology)."
+      },
+      {
+        "name": "Gravity",
+        "category": "Sportswear",
+        "role": "Parkour Apparel",
+        "description": "Clothing and streetwear for parkour and freerunning."
+      },
+      {
+        "name": "C17 Special Effects",
+        "category": "Special Effects",
+        "role": "SFX & Pyrotechnics",
+        "description": "Physical special effects, pyrotechnics and film armoury."
+      },
+      {
+        "name": "Kiloutou",
+        "category": "Equipment Rental",
+        "role": "Lifting & Platforms",
+        "description": "Rental of aerial platforms, lifting gear and construction equipment."
+      },
+      {
+        "name": "TM Incendie",
+        "category": "Fire Safety",
+        "role": "Fire Protection",
+        "description": "Sales and maintenance of fire safety equipment and extinguishers."
+      },
+      {
+        "name": "Action Cascade",
+        "category": "Stunts & Filming",
+        "role": "Stunt Coordination",
+        "description": "Stunt team and stunt coordination for film, TV and live shows."
+      },
+      {
+        "name": "AYA Catch",
+        "category": "Wrestling",
+        "role": "Professional Wrestling",
+        "description": "French school and association for professional wrestling and scripted fighting."
+      },
+      {
+        "name": "Cascade Demo Team",
+        "category": "Martial Arts & Acrobatics",
+        "role": "Demonstration & XMA",
+        "description": "Extreme martial arts (XMA) demonstration team and martial acrobatics."
+      },
+      {
+        "name": "Xtrem Video",
+        "category": "Media & Video",
+        "role": "Extreme Sports Media",
+        "description": "Production and distribution of action and extreme sports video content."
+      },
+      {
+        "name": "TaffCoeur",
+        "category": "Audiovisual Production",
+        "role": "Directing & Filming",
+        "description": "Video production studio, music videos and live show filming."
+      },
+      {
+        "name": "MFR Le Cateau-Cambrésis",
+        "role": "Accommodation & Catering",
+        "category": "Accommodation & Reception",
+        "description": "Accommodation and meals for trainees in Le Cateau-Cambrésis."
+      },
+      {
+        "name": "BSN Nutrition",
+        "role": "Sports Nutrition",
+        "category": "Sports Nutrition",
+        "description": "Sports nutrition and food supplements for athletes."
+      }
+    ],
+    "ctaBadge": "SPONSORING",
+    "ctaTitle": "BECOME A PARTNER",
+    "ctaBody": "Are you an equipment maker, a gear manufacturer, a special effects company or a brand looking to associate its image with the campus?",
+    "ctaButton": "Contact us"
+  },
+  "team": {
+    "badge": "COACHES & FILM PROFESSIONALS",
+    "title": "THE TEAM",
+    "subtitle": "A world-class action faculty: renowned stunt coordinators, Yamakasi pioneers and stunt performers working on the biggest international and French productions, passing on their craft on the ground every day.",
+    "performerTag": "STUNT PERFORMERS FOR INTERNATIONAL ACTION CINEMA",
+    "creditsLabel": "References & Productions:",
+    "creditsUnit": "credits",
+    "othersLabel": "+{count} more",
+    "projectsLabel": "Film Projects & Productions",
+    "ctaDetail": "View full profile",
+    "showcaseTag": "INTERNATIONAL ACTION CINEMA",
+    "roleCoordination": "Stunt coordination",
+    "roleAssistantCoordination": "Assistant stunt coordination",
+    "roleRiggingCoordination": "Rigging coordination",
+    "roleRigger": "Stunt rigger",
+    "roleMechanicalStunt": "Mechanical stunt",
+    "roleDouble": "Stunt double",
+    "roleDoubleOf": "Stunt double for {names}",
+    "roleStunt": "Stunt",
+    "filmCardTitle": "{title} ({year}) — open the production file",
+    "breadcrumb": "STUNT TEAM",
+    "facultyTag": "CUC TEACHING FACULTY",
+    "expertiseLabel": "Areas of expertise & disciplines taught:",
+    "doubledLabel": "Actors doubled on screen:",
+    "ctaContact": "Contact production team",
+    "ctaTrain": "Explore our training programs",
+    "filmographyTag": "FILMOGRAPHY & FILM PRODUCTIONS",
+    "filmographyHint": "Click a production to open the full file, videos and stunt performers involved.",
+    "listedOne": "{count} production listed",
+    "listedMany": "{count} productions listed",
+    "roleOnProduction": "Role on this production:",
+    "directorShort": "Dir. {name}",
+    "productionFallback": "Production",
+    "featuredBadge": "Featured",
+    "campusFacultyTag": "CAMPUS FACULTY",
+    "seeWholeTeam": "See the whole team",
+    "cardCta": "Full profile",
+    "backToTeam": "Back to the teaching team",
+    "breadcrumbHome": "HOME",
+    "breadcrumbCurrent": "THE TEAM",
+    "ctaBlockTitle": "TRAIN WITH THE BEST PROFESSIONALS IN THE INDUSTRY",
+    "ctaBlockBody": "Every Campus Univers Cascades instructor works on film sets and passes on the current demands of international cinema.",
+    "ctaBlockButton": "Explore CUC Courses",
+    "coachNotFound": "This member of the teaching team does not exist or has been moved.",
+    "coachNotFoundTitle": "Coach Not Found",
+    "coachBackToTeam": "Back to the team",
+    "coachAllocineTitle": "AlloCiné page",
+    "coachSortFilmographyAria": "Sort the filmography",
+    "externalLinkAria": "Profile & external references",
+    "coachImdbTitle": "Official IMDb page",
+    "coachPortraitAlt": "Portrait of {name}",
+    "coachExternalTitle": "Official website or portfolio",
+    "filmographyHeading": "Stunts & Productions of {name}",
+    "filterAll": "All credits",
+    "filterCoord": "Stunt coordination",
+    "filterDoublure": "Stunt doubles",
+    "filterCascadeur": "Stunts & Fights",
+    "filteredCount": "{shown} / {total} films",
+    "filmographyEmptyFilter": "No production found for this filter.",
+    "showAllFilms": "Show all productions (+{count})"
+  },
+  "contact": {
+    "hero": {
+      "breadcrumbHome": "HOME",
+      "breadcrumbCurrent": "CONTACT & PROJECTS",
+      "badge": "CONTACT & ADMISSIONS",
+      "locationLabel": "CUC CAMPUS • LE CATEAU-CAMBRÉSIS & GENNEVILLIERS",
+      "titleLine": "CONTACT &",
+      "titleAccent": "PROJECTS",
+      "subtitle": "Feature films, action design, professional stunt training, workshops or corporate events: talk directly with the CUC teams.",
+      "imageAlt": "Contact and admissions at Campus Univers Cascades"
+    },
+    "form": {
+      "title": "START A PROJECT OR GET IN TOUCH",
+      "intro": "Send us the details of your request. Our operations team replies within 24 to 48 working hours.",
+      "successTitle": "MESSAGE SENT SUCCESSFULLY",
+      "successText": "Thank you for contacting Campus Univers Cascades. Our team will review your project and get back to you promptly.",
+      "sendAnother": "Send another message",
+      "labelName": "Full name *",
+      "placeholderName": "e.g. Alexandre Dubois",
+      "labelPhone": "Phone *",
+      "placeholderPhone": "e.g. +33 6 12 34 56 78",
+      "labelEmail": "Email address *",
+      "placeholderEmail": "e.g. alexandre@example.com",
+      "labelProgram": "Your request concerns *",
+      "multipleChoiceHint": "Multiple selection allowed",
+      "topicsGroupAria": "Request topics",
+      "labelExperience": "Sporting / artistic background (martial arts, gymnastics, parkour…)",
+      "placeholderExperience": "e.g. 5 years of judo, parkour practice…",
+      "labelMessage": "Your message *",
+      "placeholderMessage": "Tell us about your goals, questions or planned funding (AFDAS, etc.)…",
+      "submit": "Send my application / message",
+      "submitting": "Sending…",
+      "consent": "By submitting this form, you agree that the information provided will be used strictly within the scope of your admission or contact request to CUC.",
+      "privacyLink": "View our Privacy Policy & GDPR rights",
+      "errorFallback": "Something went wrong while sending. Please try again.",
+      "options": {
+        "pro-longue-duree": "Two-Year Professional Programme (720h)",
+        "stage-decouverte": "Discovery Course & Selection (12 days / 80h)",
+        "weekend-immersion": "Weekend Immersion Course (full board)",
+        "afdas-artistes-interpretes": "AFDAS Actors Course (Gennevilliers)",
+        "stunt-summer-camp": "Stunt Summer Camp",
+        "workshop-international": "International Stunt Workshop",
+        "tournage-production": "Film Production / Shooting / Coordination",
+        "cuc-events": "CUC Events / Live Shows & Entertainment",
+        "autre": "Other general question"
+      }
+    },
+    "sidebar": {
+      "standardTitle": "ADMISSIONS & MANAGEMENT LINE",
+      "directPhone": "DIRECT PHONE:",
+      "email": "EMAIL:",
+      "hours": "OFFICE HOURS:",
+      "hoursValue": "Monday to Friday: 9:00 am - 6:30 pm",
+      "hoursSaturday": "Saturday (course days): 9:00 am - 5:00 pm",
+      "train": "TRAIN:",
+      "road": "ROAD:",
+      "parking": "PARKING:",
+      "sitesTitle": "OUR TWO LOCATIONS",
+      "mainCampus": "MAIN CAMPUS:",
+      "mainCampusAddress": "Domaine CUC, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis",
+      "mainCampusRegion": "Hauts-de-France (1h40 from Paris by train / 1h from Lille)",
+      "seeMap": "See Map & Access",
+      "idfHub": "PARIS REGION HUB (PARIS STUDIO):",
+      "idfStudio": "Rehearsal Studio & Actor Preparation",
+      "idfAddress": "86 Avenue Louis Roche, 92230 Gennevilliers (Paris Region)",
+      "production": "PRODUCTION COMPANY:",
+      "productionDesc": "CUC PROD — Film and live show production company",
+      "qualiopi": "QUALIOPI certified body for professional training.",
+      "entitiesTitle": "CAMPUS ENTITIES & DEPARTMENTS",
+      "logoAltCuc": "Campus Univers Cascades CUC",
+      "logoAltEvents": "CUC Events",
+      "logoAltTeam": "CUC Team"
+    },
+    "map": {
+      "radar": "Satellite Radar",
+      "roadMap": "Satellite View",
+      "copyGps": "COPY GPS",
+      "copied": "GPS COPIED!",
+      "copyGpsTitle": "Copy GPS coordinates",
+      "domain": "CUC GROUNDS",
+      "cartography": "CAMPUS CARTOGRAPHY",
+      "aerial": "HD Aerial View",
+      "grid": "Grid Mode",
+      "toggleLayer": "Switch between the real satellite view and the radar grid",
+      "orthophotoAlt": "HD orthophoto of Campus Univers Cascades",
+      "travelTitle": "TRAVEL TIMES & ACCESS",
+      "travelBadge": "CUC CAMPUS",
+      "trainTitle": "DIRECT TRAIN",
+      "arrival": "Arrival: {station}",
+      "carTitle": "BY CAR",
+      "accessInfoTitle": "ACCESS & PARKING INFO:",
+      "accessInfoParking": "• <b>Free parking, 50 spaces</b> inside the secured CUC grounds.",
+      "accessInfoShuttle": "• <b>Free CUC shuttle</b> between Le Cateau-Cambrésis station and the campus for trainees enrolled in a course.",
+      "addressCopied": "ADDRESS COPIED TO CLIPBOARD!",
+      "copyAddress": "COPY FULL ADDRESS",
+      "sectionBadge": "GEOLOCATION & NAVIGATION ASSISTANT",
+      "sectionTitle": "CAMPUS MAP &",
+      "sectionTitleAccent": "DIRECTIONS",
+      "sectionIntro": "Find the exact GPS coordinates and travel times by train or car from Paris, Lille or Brussels, then launch your navigation instantly in Google Maps, Apple Maps, Waze or SNCF Connect.",
+      "appLaunchTitle": "GPS DIRECTIONS & NAVIGATION:",
+      "launchRoute": "Launch directions",
+      "chooseApp": "Choose your application:",
+      "googleMapsDesc": "Universal GPS & Web navigation",
+      "appleMapsDesc": "Ideal on iPhone, iPad & Mac",
+      "wazeDesc": "Live traffic & road alerts",
+      "sncfDesc": "Direct train routes to Le Cateau",
+      "routes": [
+        {
+          "id": "paris",
+          "origin": "Paris",
+          "tag": "Express Access",
+          "trainDetails": "Direct TER / intercity service from Paris Gare du Nord to Le Cateau-Cambrésis station. Campus shuttle on request.",
+          "trainStation": "Le Cateau-Cambrésis station (3 min from the campus)",
+          "carDetails": "A1 then A2 motorway (Cambrai or Valenciennes exit), towards Le Cateau-Cambrésis."
+        },
+        {
+          "id": "lille",
+          "origin": "Lille & Northern France",
+          "tag": "Nearby",
+          "trainDetails": "Direct service from Lille Flandres to Le Cateau via Valenciennes.",
+          "trainStation": "Le Cateau-Cambrésis station",
+          "carDetails": "A23 motorway towards Valenciennes, then D932 to Le Cateau-Cambrésis."
+        },
+        {
+          "id": "bruxelles",
+          "origin": "Brussels & Belgium",
+          "tag": "International",
+          "trainDetails": "Brussels-Midi to Mons, then a connection via Aulnoye-Aymeries to Le Cateau-Cambrésis.",
+          "trainStation": "Le Cateau-Cambrésis station",
+          "carDetails": "E19 / E42 motorway via Mons, towards Maubeuge then Le Cateau-Cambrésis."
+        },
+        {
+          "id": "airports",
+          "origin": "International Airports",
+          "tag": "Worldwide & Overseas",
+          "trainDetails": "From Roissy-CDG: TGV Haute-Picardie or a connection via Gare du Nord.",
+          "trainStation": "Roissy-CDG or Brussels South Charleroi",
+          "carDetails": "Ideal for trainees arriving from abroad: Canada, Réunion, Guadeloupe or Switzerland."
+        }
+      ],
+      "mapAddressLabel": "Le Cateau-Cambrésis • CUC Campus"
+    }
+  },
+  "visite": {
+    "galleryBadge": "CAMPUS GALLERY",
+    "galleryTitle": "THE GROUNDS IN PICTURES",
+    "gallerySubtitle": "Photographs of the campus in Le Cateau-Cambrésis.",
+    "showAllPhotos": "View all photos (+{count})",
+    "showLessPhotos": "Show less",
+    "zoom": "Enlarge",
+    "facilitiesTag": "FACILITIES",
+    "facilitiesTitle": "OUR FACILITIES",
+    "facilitiesSubtitle": "Every space is designed for physical and mechanical stunt work, with the landing equipment it requires.",
+    "facilitiesSpecsLabel": "Key Specifications & Equipment:",
+    "facilitiesComplianceLabel": "Compliance & Standards:",
+    "hero": {
+      "breadcrumbHome": "HOME",
+      "breadcrumbCurrent": "THE CAMPUS",
+      "badge": "TRAINING FACILITIES",
+      "location": "LE CATEAU-CAMBRÉSIS (59)",
+      "titleLead": "THE",
+      "titleAccent": "CAMPUS",
+      "subtitle": "Discover the Campus Univers Cascades facilities: the 21-metre jump tower, 1300 m² of covered hangars, landing pit, dojos, indoor riding arena, 90-bed accommodation and a rehearsal studio in the Paris region.",
+      "ctaFacilities": "Facilities",
+      "ctaTour360": "360° tour",
+      "ctaPlan3D": "3D plan",
+      "bgAlt": "Campus Univers Cascades estate",
+      "stats": [
+        {
+          "value": "11 000 M²",
+          "label": "Facility area"
+        },
+        {
+          "value": "21 METRES",
+          "label": "CUC Tower height"
+        },
+        {
+          "value": "90 BEDS",
+          "label": "On-site accommodation"
+        },
+        {
+          "value": "1 AMPHITHEATER",
+          "label": "Lecture hall & projection theater"
+        }
+      ]
+    }
+  },
+  "home": {
+    "hero": {
+      "badge": "International Stunt Performer Training Centre",
+      "since": "Since 2008",
+      "ctaFormation": "Professional Programme",
+      "ctaVisit": "Visit the Campus",
+      "ctaStuntTeam": "Stunt Team Pro",
+      "prevSlide": "Previous slide",
+      "nextSlide": "Next slide",
+      "slides": {
+        "campus": {
+          "caption": "CAMPUS UNIVERS CASCADES",
+          "sub": "Professional stunt performer training centre",
+          "badge": "PRIVATE GROUNDS • LE CATEAU-CAMBRÉSIS",
+          "tag": "Grounds & Campus"
+        },
+        "combat": {
+          "caption": "FILM STUNTS & FIGHTS",
+          "sub": "Choreographed fights, martial arts and physical stunts",
+          "badge": "ACTION DESIGN & CHOREOGRAPHY",
+          "tag": "Fights & Action"
+        },
+        "facilities": {
+          "caption": "FACILITIES & TECHNICAL STAGES",
+          "sub": "Jump platforms, airbag and rigging workshops",
+          "badge": "SAFETY & FILM RIGGING",
+          "tag": "Stages & Rigging"
+        },
+        "team": {
+          "caption": "PROFESSIONAL STUNT PERFORMERS",
+          "sub": "Founded in 2008 by Lucas Dollfus • Film, TV series and live show work",
+          "badge": "QUALIOPI CERTIFIED • AFDAS ELIGIBLE",
+          "tag": "Stunt Team"
+        },
+        "parkour": {
+          "caption": "PARKOUR & STAGE ACROBATICS",
+          "sub": "Vaults, urban acrobatics and action choreography",
+          "badge": "PARKOUR PARK & CUC STAGES",
+          "tag": "Parkour & Acrobatics"
+        }
+      },
+      "metrics": [
+        {
+          "val": "SINCE 2008",
+          "label": "CUC EXPERTISE"
+        },
+        {
+          "val": "IMMERSION",
+          "label": "HANDS-ON TRAINING"
+        },
+        {
+          "val": "FILM & TV",
+          "label": "CAREER PLACEMENT"
+        },
+        {
+          "val": "QUALIOPI",
+          "label": "CERTIFIED PROGRAMME"
+        }
+      ]
+    },
+    "about": {
+      "tag": "OVERVIEW",
+      "subtag": "• FILM, TV SERIES & LIVE SHOWS",
+      "title": "THE LEADING FILM STUNT TRAINING CENTRE",
+      "description": "Founded in 2008 by Lucas Dollfus, Campus Univers Cascades (CUC) is a professional training centre dedicated to physical and mechanical stunt techniques, based in Le Cateau-Cambrésis (59).",
+      "founderQuote": "« Master the risk, create the unprecedented, push the limits of physical truth in the service of the vision of the greatest directors. »",
+      "founderLabel": "WORD FROM THE FOUNDER",
+      "founderName": "LUCAS DOLLFUS",
+      "founderRole": "FOUNDER & STUNT RIGGER",
+      "badgeYear": "SINCE 2008",
+      "imageAlt": "Training stage and professional stunt performers at Campus Univers Cascades",
+      "ctaPrimary": "Explore the Pro Programme",
+      "ctaSecondary": "The Stunt Team",
+      "pillars": [
+        {
+          "title": "DEDICATED FACILITIES",
+          "desc": "Complete technical stages: landing pit, choreographed fight dojos, mechanical stunt hangars and an equestrian ring.",
+          "tag": "PRIVATE GROUNDS"
+        },
+        {
+          "title": "TEAM & INSTRUCTORS",
+          "desc": "Supervised by working stunt riggers and coordinators, fight masters and specialists in stage combat and parkour.",
+          "tag": "TEACHING"
+        },
+        {
+          "title": "PROFESSIONAL PLACEMENT",
+          "desc": "Graduates working on feature films, TV series, live shows and international productions.",
+          "tag": "FILM & TV"
+        },
+        {
+          "title": "CUC EVENTS AGENCY",
+          "desc": "Bespoke action shows, live stunts, entertainment and event demonstrations.",
+          "tag": "EVENTS"
+        }
+      ]
+    },
+    "tournages": {
+      "badge": "FILM PRODUCTION & SHOOTING",
+      "title": "STUNT COORDINATION & FILM WORK",
+      "subtitle": "A partner to film productions, TV series and broadcasters, Campus Univers Cascades provides its expertise in action design, fight direction and on-set safety, with more than 570 productions listed in its catalogue.",
+      "cta": "Discover the CUC Stunt Team",
+      "teamTag": "• CUC STUNT TEAM",
+      "pillar1Title": "1. Action Design & Fight Choreography",
+      "pillar1Desc": "Shot planning, video previsualisation, bespoke choreography for shoot-outs and fights, and intensive preparation of the cast before the shoot in our Paris studio.",
+      "pillar2Title": "2. A Pool of 200+ Stunt Performers & Doubles",
+      "pillar2Desc": "Stunt doubles and professional stunt performers on the largest film and streaming productions, multi-disciplinary performers (high falls, full-body burns, wire work, parkour, weapons).",
+      "pillar3Title": "3. Stunt Department & CNC-Approved Safety",
+      "pillar3Desc": "Experienced stunt riggers, advanced equipment (certified airbags, 3D rigging, crash pads) and private grounds available for rehearsing complex scenes.",
+      "ctaProduction": "Discuss Your Production",
+      "ctaCatalog": "See the film catalogue",
+      "posterAlt": "{title} poster",
+      "category": "Film"
+    },
+    "qualiopi": {
+      "badge": "QUALIOPI CERTIFICATION",
+      "title": "CERTIFIED PROGRAMMES",
+      "subtitle": "Certification issued for TRAINING ACTIONS. Our programmes are eligible for professional funding (AFDAS, France Travail).",
+      "cta": "View the certificate (PDF)",
+      "logoAlt": "Qualiopi logo"
+    },
+    "partners": {
+      "badge": "INDUSTRY & FILM COLLABORATION",
+      "title": "OUR PARTNERS",
+      "viewAll": "See all partners",
+      "logoAlt": "{name} logo",
+      "roles": {
+        "equipementier": "Equipment Supplier",
+        "nacelles": "Lifting & Access Platforms",
+        "certification": "Qualiopi Certification",
+        "protections": "Body Protection",
+        "pyrotechnie": "Pyrotechnics & SFX",
+        "cascadePro": "Professional Stunts"
+      }
+    },
+    "social": {
+      "badge": "SOCIAL MEDIA & NEWS",
+      "title": "COMMUNITY & SOCIAL MEDIA",
+      "subtitle": "🇲🇫 French Stunt Team • Stuntmen | Fighters | Performers • 🔥 Break the limits • 🌍 Biggest Stunt School in the World",
+      "avatarAlt": "Campus Univers Cascades Instagram",
+      "handle": "• @CAMPUS.UNIVERS.CASCADES",
+      "join": "Follow the account",
+      "seeInstagram": "View on Instagram",
+      "posts": [
+        {
+          "title": "COKA CHICAS in cinemas",
+          "tag": "IN CINEMAS",
+          "desc": "Stunts coordinated and doubled by the CUC Stunt Team for Roxine Helberg's feature film starring Fadily Camara, Zoé Marchal and Eva Huault."
+        },
+        {
+          "title": "Training Combat & Martial Arts",
+          "tag": "TRAINING STAGE",
+          "desc": "Precise coordination of strikes and evasions on impact mats with the campus choreography team."
+        },
+        {
+          "title": "Risk Zone & Defenestration",
+          "tag": "HIGH FALLS",
+          "desc": "High-fall drills and defenestration simulation work on the Le Cateau-Cambrésis grounds."
+        }
+      ]
+    },
+    "virtualTour": {
+      "badge": "INTERACTIVE IMMERSION",
+      "title": "360° VIRTUAL IMMERSION TOUR",
+      "subtitle": "Explore our grounds as if you were there! Walk the shooting stages, the Olympic foam pit, the choreographed fight dojos, the mechanical stunt hangars and the equestrian ring through our interactive virtual tour.",
+      "cta": "Open the 360° Virtual Tour",
+      "installationsCta": "Details of the 9 Facilities",
+      "tag": "• 360° VR TOUR HD MEDIA",
+      "previewAlt": "360 overview of a technical stage at Campus Univers Cascades",
+      "hudTitle": "Interactive 360° Tour",
+      "hudHint": "Click to explore the campus",
+      "launchLabel": "Launch the 360° virtual tour"
+    }
+  },
+  "videos": {
+    "breadcrumbHome": "HOME",
+    "breadcrumbCurrent": "OUR VIDEOS & TV REPORTS",
+    "heroBadge": "TELEVISION REPORTS",
+    "heroTitle": "CUC REPORTS & VIDEOS",
+    "heroSubtitle": "Go behind the scenes of stunt training with the reports broadcast on TF1 and France 2, along with the official videos of Campus Univers Cascades.",
+    "heroMeta": "TF1 8PM NEWS • FRANCE 2 • BFM TV",
+    "heroImageAlt": "Videos and reports from Campus Univers Cascades",
+    "tabTf1": "TF1 REPORT (8PM NEWS)",
+    "tabFrance2": "FRANCE 2 REPORT (20H30 LE MAG)",
+    "videoFallback": "Your browser does not support HTML5 video playback.",
+    "tf1Title": "TF1 REPORT — THE 8PM NEWS AT THE CUC",
+    "tf1Desc": "TF1 evening news cameras inside Campus Univers Cascades: high-fall training, fire stunts and the training of tomorrow's action film doubles.",
+    "france2Title": "FRANCE 2 — 20H30 LE MAG: “À L'ÉCOLE DES CASCADEURS”",
+    "france2Desc": "20h30 Le Mag feature on France 2 presented by Laurent Delahousse. Behind the scenes of professional training in Le Cateau-Cambrésis and the daily life of the trainees.",
+    "broadcastBadge": "NATIONWIDE BROADCAST",
+    "docusBadge": "DOCUMENTARIES & TV SERIES",
+    "docusTitle": "TV PROGRAMMES & REPORTS FROM THE SITE",
+    "docusHint": "Click a thumbnail to play the video in the immersive player.",
+    "docusOpenExternal": "Open the report on Dailymotion",
+    "mediaTag": "MEDIA COVERAGE",
+    "mediaTitle": "THE CUC IN THE MEDIA",
+    "mediaIntro": "Watch the reports on the campus behind the scenes and the stunt training on the main national channels and our social networks.",
+    "mediaItems": [
+      {
+        "channel": "TF1",
+        "label": "8PM News at the Campus"
+      },
+      {
+        "channel": "FRANCE 2",
+        "label": "20h30 Le Mag with Laurent Delahousse"
+      },
+      {
+        "channel": "BFM TV",
+        "label": "Feature on the stunt school"
+      }
+    ],
+    "socialInstagram": "See the stunts on Instagram",
+    "socialTiktok": "Follow the Stunt Team on TikTok",
+    "closeTitle": "Close",
+    "reelsTitle": "SHORT ACTION & STUNT SESSIONS",
+    "reelsIntro": "Experience the action up close with official vertical video sessions from Campus Univers Cascades.",
+    "reelsPlay": "Play Reel",
+    "reelsWatchOnInsta": "Watch on Instagram",
+    "reelsPrev": "Previous Reel",
+    "reelsNext": "Next Reel",
+    "reelsSeeMore": "See more videos",
+    "reelsSortByFeatured": "Featured",
+    "reelsSortByViews": "Most viewed",
+    "reelsSortByDateDesc": "Newest",
+    "reelsSortByDateAsc": "Oldest",
+    "catalogLabel": "Official video catalogue:",
+    "cumulativeViews": "{views}M+ cumulative views",
+    "reelsItems": [
+      {
+        "title": "Another windshield down... 🤭",
+        "description": "Another windshield down... 🤭👌 High-impact windshield stunt hit and precision landing by CUC stunt performers."
+      },
+      {
+        "title": "PLK Live at Stade de France",
+        "description": "PLK Concert at the Stade de France 🔥 Unforgettable live performance with the CUC stunt crew and performers."
+      },
+      {
+        "title": "Piñata Party 😅",
+        "description": "Piñata Party on campus 😅🥳 Campus life, teamwork and great vibes between intensive training sessions."
+      },
+      {
+        "title": "Just Training 🤝",
+        "description": "Just training 🤝😅 Scenic fight choreography drills and camera axis coordination."
+      },
+      {
+        "title": "Motorcycle 1 - Car 0 🤭",
+        "description": "Motorcycle 1 - Car 0 🤭👌 Precision vehicle stunt and crash impact filmed on campus tracks."
+      },
+      {
+        "title": "Team CUC — Fight Training ✌️",
+        "description": "Just training ✌️ Physical conditioning and close-combat stunt session with the CUC Team."
+      }
+    ],
+    "programs": [
+      {
+        "dmId": "x9uewe0",
+        "title": "COEUR DE CASCADEURS",
+        "sub": "France 2 TV series & CUC"
+      },
+      {
+        "dmId": "x8581s9",
+        "title": "BFM TV REPORT",
+        "sub": "Feature on the stunt school"
+      },
+      {
+        "dmId": "x858323",
+        "title": "HAPPY BIRTHDAY CUC",
+        "sub": "10 years of stunts (2009 - 2019)"
+      },
+      {
+        "dmId": "x8583in",
+        "title": "AUGUST 2017 SESSION",
+        "sub": "CUC class in training"
+      },
+      {
+        "dmId": "k2LHEg1AIHtIfYxkvcz",
+        "title": "ZOË BELL AT THE CAMPUS",
+        "sub": "Campus Univers Cascades patron"
+      },
+      {
+        "dmId": "x8583u3",
+        "title": "STUNT RIDER — CAMPUS LIFE",
+        "sub": "Daily life at the CUC"
+      }
+    ]
+  },
+  "teamBuilding": {
+    "heroMeta": "TEAM COHESION • BEHIND THE SCENES",
+    "overviewBadge": "CUC EVENTS • CORPORATE IMMERSION",
+    "overviewTitle": "CINEMA WORKSHOPS",
+    "overviewDescription": "We offer activities and introductions to the stunt profession, film-making and what happens behind the scenes. Team building, seminars, public bodies... Our team of professionals offers a choice of workshops with dedicated equipment and uncompromising safety.",
+    "workshopChoice": "Workshop of your choice",
+    "workshopModular": "Modular",
+    "breadcrumbCurrent": "EXCEPTIONAL TEAM BUILDING",
+    "workshopFallbackTitle": "Stunt workshop",
+    "workshopFallbackLabel": "CUC WORKSHOP",
+    "customBadge": "TAILOR-MADE",
+    "customTitle": "COMBINE SEVERAL WORKSHOPS FOR YOUR DAY",
+    "customDescription": "We adapt the programme, the number of stunt instructors and the equipment to your goals, your schedule constraints and the size of your group.",
+    "customCta": "Get a Detailed Proposal & Quote"
+  },
+  "visiteVirtuelle": {
+    "viewerTitle": "INTERACTIVE 360° VIRTUAL TOUR",
+    "helpTitle": "Navigation help",
+    "helpLabel": "How to use",
+    "resetTitle": "Reset the tour to the entrance",
+    "resetLabel": "Reset",
+    "openTabTitle": "Open fullscreen in a new tab / VR headset",
+    "openTabLabel": "Open in a new tab",
+    "exitFullscreenTitle": "Exit fullscreen",
+    "fullscreenTitle": "Immersive fullscreen",
+    "collapseLabel": "COLLAPSE",
+    "fullscreenLabel": "FULLSCREEN",
+    "navHelpTitle": "360 navigation:",
+    "navHelpBody1": "Click and drag your cursor (or your finger on mobile) to look around. Click the",
+    "navHelpHighlight": "flashing arrows on the floor",
+    "navHelpBody2": "to move from one room to the next.",
+    "hideLabel": "[HIDE]",
+    "iframeTitle": "360° Virtual Tour, Campus Univers Cascades",
+    "breadcrumbHome": "HOME",
+    "breadcrumbCampus": "THE CAMPUS",
+    "breadcrumb360": "360° VIRTUAL TOUR",
+    "breadcrumb3d": "INTERACTIVE 3D MAP",
+    "pageTag": "TOUR OF THE GROUNDS",
+    "pageTitle": "DISCOVER THE CAMPUS",
+    "suffix360": "IN 360°",
+    "suffix3d": "IN 3D",
+    "pageSubtitle": "Explore the facilities of the stunt training centre at Le Cateau-Cambrésis in high-definition 360° immersion.",
+    "tab360Label": "360° VR View",
+    "tab3dLabel": "3D Map",
+    "loading3d": "Loading the 3D map…",
+    "ctaRendezVous": "Book a Visit",
+    "factsTitle1": "11,000 m² of Facilities",
+    "factsBody1": "A 21-metre jump tower, the Zoé Bell training hall, dojos, an equestrian ring and mechanical stunt hangars gathered on one private estate.",
+    "factsTitle2": "Safety & Equipment",
+    "factsBody2": "Professional stunt equipment to current standards: certified landing mats, jump airbags, trampolines and a working pit.",
+    "factsTitle3": "Access & Accommodation",
+    "factsBody3": "Located at Le Cateau-Cambrésis (2 hours from Paris, 1 hour from Lille). On-site accommodation with full board is available for trainees and course participants."
+  },
+  "eventsAgence": {
+    "learnMore": "Learn more",
+    "pillars": [
+      {
+        "tag": "LIVE SHOWS & PERFORMANCES",
+        "title": "STUNT SHOWS",
+        "paragraph1": "Want to energise your event with a striking show? Campus Univers Cascades places its expertise and its professional stunt teams at your service to create tailor-made live shows.",
+        "paragraph2": "Medieval, contemporary or fantasy choreographed fights, spectacular high falls, pyrotechnic stunts (full-body burns): our creations adapt to every technical and staging constraint.",
+        "cta": "Learn more about our Shows",
+        "imageAlt": "CUC Events show photo"
+      },
+      {
+        "tag": "THRILLS FOR THE GENERAL PUBLIC",
+        "title": "ANIMATIONS & FREEJUMP AIRBAG",
+        "paragraph1": "Give your audience a unique thrill with our interactive activities supervised by professionals: the FreeJump Airbag (safe jumps from 4 to 8 metres high), a cinema wire-work simulator, or parkour introduction workshops with members of the Yamakasi.",
+        "paragraph2": "Facilities fully compliant with the strictest safety standards, with professional insurance and qualified supervision.",
+        "cta": "Learn more about our Animations",
+        "imageAlt": "CUC Events FreeJump airbag animation"
+      },
+      {
+        "tag": "SEMINARS & CORPORATE IMMERSION",
+        "title": "ACTION CINEMA TEAM BUILDING",
+        "paragraph1": "Bring your teams together for an unforgettable action seminar in the heart of the CUC grounds at Le Cateau-Cambrésis.",
+        "paragraph2": "Indoor cinema workshop, physical stunts, secured fire stunts, shooting a fake action trailer: your colleagues push their limits in a spirit of camaraderie and genuine goodwill. Capacity up to 90 people with on-site accommodation and catering.",
+        "cta": "Organise a Team Building",
+        "imageAlt": "Indoor cinema workshop team building"
+      }
+    ],
+    "guarantees": [
+      {
+        "title": "SAFETY & CERTIFICATION",
+        "description": "Professional show insurance, certified equipment and strict protocols."
+      },
+      {
+        "title": "PROFESSIONAL STUNT PERFORMERS",
+        "description": "Performers trained at the CUC, working on major film productions and theme parks."
+      },
+      {
+        "title": "ANYWHERE IN FRANCE & EUROPE",
+        "description": "We bring our mobile structures and stunt teams to your event site."
+      }
+    ],
+    "guaranteeLogoAlt": "CUC professional stunt performers",
+    "partnersBadge": "PARTNERS & BRANDS",
+    "partnersTitle": "THEY TRUSTED US",
+    "cinemaBadge": "FILM REFERENCES",
+    "cinemaTitle": "FILM & TELEVISION PRODUCTIONS",
+    "bannerAlt1": "Film & series poster strip 1",
+    "bannerAlt2": "Film & series poster strip 2",
+    "bannerAlt3": "Film & series poster strip 3",
+    "bannerAlt4": "Film & series poster strip 4",
+    "heroBadge": "ACTION EVENT AGENCY",
+    "heroTitle": "CUC EVENTS: SHOWS & ANIMATIONS",
+    "heroSubtitle": "Make a lasting impression at your festivals, brand launches, theme parks or corporate seminars with spectacular action shows staged by the professional stunt performers of Campus Univers Cascades.",
+    "breadcrumbCurrent": "CUC EVENTS & LIVE SHOWS",
+    "heroCtaPrimary": "Request an Event Quote",
+    "heroCtaSecondary": "Watch our Live Videos",
+    "heroImageAlt": "CUC Events live stunt shows and animations",
+    "animationsBody": "Give your audience unique thrills with our interactive animations supervised by professionals: the <strong>FreeJump Airbag</strong> (secured jumps from 4 to 8 metres high), a film rigging simulator, or parkour initiation workshops with members of the Yamakasi."
+  },
+  "spectacles": {
+    "heroBadge": "CINEMA TAKES TO THE STAGE",
+    "heroTitle": "STUNT SHOWS",
+    "heroSubtitle": "Relive the action sequences from your favourite films with the professional stunt performers and film doubles of Campus Univers Cascades. Fights, falls, parkour, humour and stage effects for all your events.",
+    "ctaPrimaryText": "Request a Show Quote",
+    "ctaSecondaryText": "Watch our Live Videos",
+    "heroImageAlt": "Professional stunt shows, CUC Events",
+    "logoAlt": "CUC Events shows",
+    "breadcrumbHome": "HOME",
+    "breadcrumbEvents": "CUC EVENTS",
+    "breadcrumbCurrent": "STUNT SHOWS",
+    "heroMeta": "STUNT PERFORMERS • ACTORS • TURNKEY SHOWS",
+    "panelTag": "CUC EVENTS SHOWS",
+    "panelSub": "STUNT PERFORMERS & FILM DOUBLES",
+    "panelTitle": "TURNKEY SHOWS ADAPTED TO YOUR VENUE",
+    "panelParagraph": "Our artists belong to the very small circle of stunt doubles working on action films. Trained at Campus Univers Cascades and working exclusively with our agency, they adapt to any environment to match your expectations.",
+    "specsTitle": "Show package specifications:",
+    "specsItems": [
+      {
+        "label": "Team:",
+        "value": "5 versatile professional artists (stunt performers, actors, traceurs)"
+      },
+      {
+        "label": "Format:",
+        "value": "8 to 20 minutes of uninterrupted action, timed to the millimetre"
+      },
+      {
+        "label": "Themes:",
+        "value": "James Bond 007, superhero universes (Marvel/DC), John Wick, post-apocalyptic"
+      },
+      {
+        "label": "Disciplines included:",
+        "value": "Screen fights, high falls, comedy, acrobatics, parkour"
+      }
+    ],
+    "showImageAlt": "CUC stunt performers on stage",
+    "arenaImageAlt": "CUC Events live stunt show and performance",
+    "arenaBadge": "EVENT",
+    "arenaTitle": "CUC EVENTS AT ACCOR ARENA (BERCY)",
+    "arenaParagraph": "In front of more than 15,000 spectators, the CUC Stunt Team performed the opening show with synchronised stunts, jumps from the aerial structures and fights broadcast on giant screens.",
+    "arenaCta": "Organise a Show in your Venue",
+    "catalogBadge": "Stage Formats & Repertoire",
+    "catalogTitle": "Our Live Shows & Demonstrations",
+    "catalogSubtitle": "From large-scale arena shows to immersive historical tableaux, every show is designed, secured and performed by CUC professional stunt performers.",
+    "specsLogisticsTitle": "Specifications & Logistics",
+    "archivesBadge": "STAGE PORTFOLIO",
+    "archivesTitle": "Show Photo Archives",
+    "archivesSubtitle": "Highlights in pictures from our stage creations, themed shows, live demonstrations and event performances."
+  },
+  "animations": {
+    "heroBadge": "CINEMA AIRBAG • PROFESSIONAL SUPERVISION",
+    "heroTitle": "AIRBAG & PARKOUR ANIMATIONS",
+    "heroSubtitle": "Give the general public the unique sensation of free fall onto a giant cinema airbag. A spectacular activity supervised by the professional stunt performers of Campus Univers Cascades.",
+    "ctaPrimaryText": "Airbag Animation Quote",
+    "ctaSecondaryText": "All CUC Events Offers",
+    "heroImageAlt": "Giant cinema Xtrem Jump airbag, CUC Events",
+    "logoAlt": "CUC Events animations",
+    "breadcrumbHome": "HOME",
+    "breadcrumbEvents": "CUC EVENTS",
+    "breadcrumbCurrent": "GIANT AIRBAG & PARKOUR ANIMATIONS",
+    "heroMeta": "SINCE 2009",
+    "stat1Label": "Jumps Performed in Europe",
+    "stat2Value": "20 METRES",
+    "stat2Label": "Maximum Airbag Capacity",
+    "stat3Label": "Safety and Professional Supervision",
+    "stat4Label": "Airbag Animation Pioneers",
+    "panelTag": "CUC EVENTS ANIMATIONS",
+    "panelSub": "XTREM JUMP CINEMA AIRBAG & PARKOUR",
+    "panelTitle": "XTREM JUMP AIRBAG: PUBLIC INITIATION & SHOWS",
+    "panelParagraph1": "The general public can finally taste the adrenaline and discover the unique sensations of free fall in optimal safety, thanks to our giant airbag — the air cushion used in film-making — able to catch a professional stunt performer falling from up to 20 metres.",
+    "panelParagraph2": "Our agency and our team of professionals pioneered this event activity in France back in 2009. With more than 20,000 supervised jumps across Europe, our qualified stunt performers guide every participant for a memorable and safe jump.",
+    "includedTitle": "Included in the package:",
+    "includedItems": [
+      "Giant cinema airbag certified to EU standards",
+      "Suitable jump platform or scaffolding",
+      "Supervision by 2 to 4 professional stunt performers",
+      "Acrobatic jump demonstrations included"
+    ],
+    "panelImageAlt": "Jump onto the giant CUC airbag"
+  },
+  "stages": {
+    "fallbackBadge": "CUC COURSE",
+    "fallbackCta": "Book my course",
+    "bookWithPrice": "Book ({price})",
+    "fallbackLocation": "CUC campus, Le Cateau-Cambrésis (59)",
+    "cards": [
+      {
+        "id": "weekend-immersion",
+        "badgeText": "POPULAR PACKAGE",
+        "subBadge": "FROM 16 YEARS OLD",
+        "highlightText": "FULL BOARD INCLUDED",
+        "title": "CUC WEEKEND IMMERSION PACKAGE",
+        "description": "Live the life of a film stunt performer for two full days. Sleep on campus, share meals with the team and jump onto the giant airbag in complete safety. Ideal to discover your physical abilities and get your fill of adrenaline.",
+        "details": [
+          "Friday 5pm to Sunday 5:30pm (16 hours of practice)",
+          "On-site accommodation (campus rooms)",
+          "All meals included (Friday evening to Sunday lunch)",
+          "CUC grounds, Le Cateau-Cambrésis (59)"
+        ],
+        "buttonLabel": "Book my weekend",
+        "pdfLabel": "Download the weekend brochure (PDF)",
+        "imageAlt": "CUC weekend immersion course poster"
+      },
+      {
+        "id": "afdas-artistes-interpretes",
+        "badgeText": "100% AFDAS FUNDING",
+        "subBadge": "ACTORS • DANCERS • CIRCUS PERFORMERS",
+        "highlightText": "",
+        "title": "AFDAS COURSE — PERFORMING ARTISTS",
+        "description": "Give your roles total credibility in action scenes. A 70-hour AFDAS-funded course delivered in our Paris studio in Gennevilliers. Learn to take impacts, handle blank-firing weapons, fall down stairs and shoot your own action demo reel.",
+        "details": [
+          "2 weeks (10 working days / 70 hours)",
+          "CUC Paris region centre, 86 Avenue Louis Roche, 92230 Gennevilliers",
+          "AFDAS-funded (no cost left for the artist)",
+          "Shooting of an individual action demo reel"
+        ],
+        "buttonLabel": "Request my AFDAS funding",
+        "pdfLabel": "",
+        "imageAlt": "CUC AFDAS performing artists course poster"
+      },
+      {
+        "id": "stunt-summer-camp",
+        "badgeText": "INTENSIVE SUMMER COURSE",
+        "subBadge": "FROM 15 YEARS OLD • PARKOUR & AIRBAG",
+        "highlightText": "",
+        "title": "CUC STUNT SUMMER CAMP",
+        "description": "A summer week of training at the CUC: parkour, airbag jumps, cube-pit acrobatics and film fights. Residential package with accommodation and full board.",
+        "details": [
+          "1 week (Sunday to Friday evening / 35h)",
+          "Residential package with accommodation and full board",
+          "Supervised by CUC stunt performers and instructors",
+          "CUC campus, 59360 Le Cateau-Cambrésis"
+        ],
+        "buttonLabel": "Summer Camp pre-registration",
+        "pdfLabel": "Download the Summer Camp brochure (PDF)",
+        "imageAlt": "CUC Stunt Summer Camp poster"
+      },
+      {
+        "id": "afdas-cascadeurs-pro",
+        "badgeText": "WORKING PROFESSIONAL STUNT PERFORMERS",
+        "subBadge": "PROVENCE STUDIOS (MARTIGUES)",
+        "highlightText": "",
+        "title": "AFDAS COURSE — PRO STUNT PERFORMERS (PROVENCE STUDIOS)",
+        "description": "Technical refresher session held inside the Provence Studios film stages. Multi-axis wire work, pneumatic ratchets, full-body burns and safety protocols for professional shoots.",
+        "details": [
+          "Provence Studios, Martigues, France",
+          "AFDAS funding for freelance stunt performers"
+        ],
+        "buttonLabel": "Contact us about the pro sessions",
+        "pdfLabel": "",
+        "imageAlt": "CUC pro stunt performer course poster, Provence Studios"
+      }
+    ],
+    "hero": {
+      "breadcrumbHome": "HOME",
+      "breadcrumbCurrent": "STUNT COURSES & STAYS",
+      "badge": "IMMERSION & SKILL DEVELOPMENT",
+      "meta": "WEEKEND IMMERSION • 100% AFDAS-FUNDED COURSES • SUMMER CAMP",
+      "titleLead": "STUNT, ",
+      "titleAccent": "PARKOUR & ACTION COURSES",
+      "subtitle": "Live the stunt performer experience over a full-immersion weekend, benefit from full AFDAS funding as a performing artist, or join our big summer camp on our facilities.",
+      "bgAlt": "Stunt courses and stays at Campus Univers Cascades",
+      "logosAlt": "CUC course logos"
+    }
+  },
+  "stuntWorkshop": {
+    "heroMeta": "IN ENGLISH & FRENCH",
+    "briAlt": "CUC BRI — riot police stunt training (Brigade de Recherche et d'Intervention)",
+    "posterBadge": "OFFICIAL POSTER",
+    "posterTitle": "CUC International Session",
+    "posterSubtitle": "Pro Action Performer Certification",
+    "towerCaption": "21m High-Fall Tower",
+    "tacticalCaption": "Tactical & Armoury",
+    "crowdCaption": "Performers from Around the World at CUC"
+  },
+  "visiteGuidee": {
+    "accessBadge": "ACCESS & TRANSPORT",
+    "accessTitle": "HOW TO REACH THE CAMPUS",
+    "accessIntro": "Located in the heart of the Hauts-de-France region, the campus is easily reachable from Paris, Lille, Brussels or London.",
+    "accessCarLabel": "BY CAR:",
+    "accessCarBody": "2 hours from Paris via the A1 and A26 motorways. 1 hour from Lille and Valenciennes. Free secured private parking on site for trainees.",
+    "accessTrainLabel": "BY TRAIN (SNCF):",
+    "accessTrainBody": "Le Cateau-Cambrésis station (5 minutes from the campus). Direct services from Paris Gare du Nord (via Saint-Quentin or Cambrai). CUC shuttle available on request.",
+    "accessPlaneLabel": "BY PLANE:",
+    "accessPlaneBody": "International airports: Paris CDG (1h45 by road), Lille Lesquin (1h) or Brussels South Charleroi (1h15).",
+    "coordinatesTitle": "GETTING HERE",
+    "addressLabel": "Postal address & access:",
+    "mapRadarLabel": "Radar & directions",
+    "standardLabel": "Admissions office:",
+    "phoneLabel": "Phone:",
+    "emailLabel": "Email:",
+    "idfLabel": "Paris studio:",
+    "idfValue": "Rehearsal studio & actors",
+    "accessCta": "Plan a visit or book a course",
+    "tour3dBadge": "3D SPATIAL TOPOGRAPHY",
+    "tour3dTitle": "INTERACTIVE 3D MAP",
+    "tour3dTitleAccent": "OF THE CAMPUS",
+    "tour3dParagraph": "Rotate the aerial view, explore the nine facilities in three dimensions, and select an area to discover its specialised installations.",
+    "tour360Badge": "360° EXPERIENCE",
+    "tour360Title": "VIRTUAL TOUR",
+    "tour360TitleAccent": "360° OF THE CAMPUS",
+    "tour360Paragraph": "Explore the grounds in full immersion: move freely through the Zoé Bell Hall, look at the Olympic foam pit, the 21m CUC Tower and all the technical stages.",
+    "loading3d": "Loading the 3D map…",
+    "accessAddress": "CUC grounds, 70 Rue Faidherbe, 59360 Le Cateau-Cambrésis (France)",
+    "domainClosed": "PRIVATE ESTATE • LE CATEAU-CAMBRÉSIS"
+  },
+  "teamProduction": {
+    "hero": {
+      "breadcrumbHome": "HOME",
+      "breadcrumbCurrent": "FILMING",
+      "badge": "STUNT COORDINATION • FILM",
+      "title": "FILMING",
+      "subtitle": "Campus Univers Cascades and the CUC Stunt Team support film and audiovisual productions, from designing action choreography through to shooting on set.",
+      "ctaPrimary": "Contact the Production Team",
+      "posters": "View the posters",
+      "bgAlt": "CUC Stunt Team film and action shoots",
+      "emblemAlt": "CUC Stunt Team emblem",
+      "emblemLabel": "CAMPUS UNIVERS CASCADES"
+    },
+    "galleries": {
+      "studioBadge": "FILMING FACILITIES",
+      "studioTitle": "THE STUDIO & THE ACTION STAGE",
+      "doublesBadge": "DOUBLES & FIGHT CHOREOGRAPHERS",
+      "doublesTitle": "STUNT PERFORMERS IN ACTION",
+      "equipmentBadge": "FILM TECHNICAL EQUIPMENT",
+      "equipmentTitle": "FILMING EQUIPMENT",
+      "zoomStudio": "Click to view full screen",
+      "zoomStunt": "Click to enlarge the stunt photo",
+      "zoomEquipment": "Click to view the equipment in detail",
+      "expand": "Enlarge",
+      "showAllPhotos": "View all photos (+{count})",
+      "showLessPhotos": "Show less"
+    },
+    "hallOfFame": {
+      "emblemAlt": "CUC emblem",
+      "badge": "CREDITS & SHOOTS",
+      "tag": "CUC PRODUCTIONS & ALUMNI",
+      "title": "ACTION CINEMA HALL OF FAME",
+      "subtitle": "A selection of audiovisual and film productions the CUC stunt performers and instructors have worked on.",
+      "actorsBadge": "ACTORS & SHOOTS",
+      "actorsTitle": "ACTORS STUNT-DOUBLED BY CUC",
+      "actorsIntro": "Campus Univers Cascades instructors and stunt performers work on the action scenes of French and international productions.",
+      "photoAlt": "Doubled actor {name}",
+      "imdbTitle": "View {name}'s IMDb filmography",
+      "filmsLabel": "Films:"
+    },
+    "celebrityModal": {
+      "title": "Shoot & Stunt Details",
+      "doublesLabel": "Stunt double:",
+      "scenesLabel": "Stunts & action scenes:",
+      "filmsLabel": "Films:",
+      "cucCoordinatedFilmsSingular": "Film coordinated by CUC:",
+      "cucCoordinatedFilmsPlural": "Films coordinated by CUC:",
+      "imdbCta": "IMDb page",
+      "close": "Close",
+      "closeAria": "Close",
+      "doublesAndShootsLabel": "STUNT DOUBLE & SHOOTS:",
+      "inConnector": "in",
+      "openLucasFilmTitle": "Open the file for '{title}' coordinated by Lucas Dollfus",
+      "openCucFilmTitle": "Open the file for '{title}' coordinated by CUC"
+    },
+    "filmModal": {
+      "title": "FILM",
+      "directedBy": "Directed by {name}",
+      "doublesLabel": "Doubles & actors:",
+      "teamLabel": "CUC Team:",
+      "trailer": "Trailer",
+      "close": "Close",
+      "closeAria": "Close"
+    },
+    "showcase": {
+      "sortLabel": "Sort:",
+      "sortAria": "Sort films"
+    },
+    "services": {
+      "badge": "SERVICES TO PRODUCTIONS",
+      "title": "SHOOT YOUR ACTION SCENES WITH THE CUC",
+      "intro": "From pre-production to delivery on set, Campus Univers Cascades makes its technical and human resources available to you:",
+      "items": [
+        {
+          "label": "1. COORDINATION & CHOREOGRAPHY:",
+          "body": "Script analysis, budget costing, technical breakdown of the action and choreography tailored to the actors' performance."
+        },
+        {
+          "label": "2. ACTOR PREPARATION (PARIS STUDIO / GENNEVILLIERS):",
+          "body": "Rehearsal sessions ahead of the shoot to familiarise the actors with prop weapons, fight movements and gunfire reactions."
+        },
+        {
+          "label": "3. FILM EQUIPMENT & ESTATE:",
+          "body": "Certified airbags, rigging systems, stunt harnesses and use of the estate as a natural set."
+        }
+      ],
+      "contactTitle": "PRODUCTION & CASTING CONTACT",
+      "contactIntro": "Preparing a feature film, a series, a music video or a live show? Contact our coordination office directly.",
+      "coordinatorLabel": "LEAD COORDINATOR:",
+      "coordinatorValue": "Lucas Dollfus — CUC PROD",
+      "phoneLabel": "DIRECT PHONE:",
+      "emailLabel": "PRO EMAIL:",
+      "cta": "Quote & Collaboration Request"
+    },
+    "celebrities": [
+      {
+        "id": "tomer-sisley",
+        "specialty": "Choreographed fights, physical stunts and chases.",
+        "doubles": "Doubled by Vincent Bouillon"
+      },
+      {
+        "id": "keanu-reeves",
+        "specialty": "222-step fall down the Sacré-Cœur in Paris (Taurus World Stunt Award 2024).",
+        "doubles": "Doubled by Vincent Bouillon"
+      },
+      {
+        "id": "jean-dujardin",
+        "specialty": "Physical stunts and choreographed fights.",
+        "doubles": "Doubled by Vincent Bouillon"
+      },
+      {
+        "id": "pierre-niney",
+        "specialty": "Sword duels and physical stunts choreographed with the CUC fight coordinators.",
+        "doubles": ""
+      },
+      {
+        "id": "francois-civil",
+        "specialty": "Close-quarters fights and physical stunts.",
+        "doubles": ""
+      },
+      {
+        "id": "roschdy-zem",
+        "specialty": "Close-quarters fights and tactical gunfire.",
+        "doubles": ""
+      },
+      {
+        "id": "omar-sy",
+        "specialty": "Physical stunts and armed confrontations.",
+        "doubles": ""
+      },
+      {
+        "id": "gilles-lellouche",
+        "specialty": "Physical stunts and urban chases.",
+        "doubles": ""
+      },
+      {
+        "id": "kevin-costner",
+        "specialty": "Physical stunts and chases during the Paris shoot.",
+        "doubles": ""
+      },
+      {
+        "id": "vincent-cassel",
+        "specialty": "Fights and physical stunts.",
+        "doubles": ""
+      },
+      {
+        "id": "jean-reno",
+        "specialty": "Physical stunts and armed confrontations.",
+        "doubles": ""
+      }
+    ],
+    "teamBannersBadge": "FILM CREDITS",
+    "teamBannersTitle": "FILMS COORDINATED BY THE CUC & LUCAS DOLLFUS",
+    "teamBannersPosterTitle": "Click to open the poster full screen",
+    "teamBannersIntro": "Browse the posters of the French and international productions our teams worked on. Click a poster to view it in high resolution.",
+    "teamBannersHdLabel": "POSTER HD"
+  },
+  "commonChrome": {
+    "breadcrumbHome": "HOME",
+    "brandName": "CAMPUS UNIVERS CASCADES",
+    "brandTagline": "Stunt Academy & Team",
+    "brandTaglineEst": "Stunt Academy & Team • Est. 2008",
+    "campusCity": "Le Cateau-Cambrésis (59)",
+    "eventsAnimationsBadge": "CUC EVENTS ANIMATIONS",
+    "siteCampus": "CAMPUS CUC",
+    "siteEvents": "CUC EVENTS",
+    "siteStuntTeam": "CUC STUNT TEAM",
+    "campusNameTitle": "Campus Univers Cascades",
+    "heroTitleTail": "Cascades",
+    "locationLabel": "LE CATEAU-CAMBRÉSIS",
+    "trainingPathTitle": "Trajectory & Philosophy",
+    "otherCoordinatorsTitle": "Other Coordinators & Instructors",
+    "broadcastNote": "broadcast on giant screens.",
+    "eventsAgencySubtitle": "Shows • Animations • Team Building",
+    "instaFollowersUnit": "followers",
+    "instaOfficialTitle": "Official Instagram",
+    "instaCertifiedCommunity": "Certified official community",
+    "instaJoinCta": "Join",
+    "instaHeaderTitle": "Visit the official Instagram account @campus.univers.cascades",
+    "instaCardTitle": "Join the official community on Instagram"
+  },
+  "applicationModal": {
+    "closeAria": "Close",
+    "badge": "APPLICATION & ADMISSIONS",
+    "session": "SESSION 2026-2027",
+    "logoAlt": "CUC logo",
+    "titleLead": "Apply to ",
+    "titleAccent": "Campus Univers Cascades",
+    "intro": "Fill in the details below to apply for the professional course, book a course or request AFDAS funding.",
+    "tabs": {
+      "pro": "Pro Course (Long)",
+      "discovery": "Discovery Course",
+      "weekend": "Weekend",
+      "afdas": "AFDAS Funding"
+    },
+    "labels": {
+      "fullName": "Full name *",
+      "age": "Age * (from 16 or 18)",
+      "email": "Email address *",
+      "phone": "Phone *",
+      "afdasStatus": "AFDAS / professional status",
+      "sport": "Sporting / artistic background & disciplines practised",
+      "session": "Preferred session / goals"
+    },
+    "placeholders": {
+      "fullName": "e.g. Alexandre Dubois",
+      "age": "e.g. 22",
+      "email": "alexandre@example.com",
+      "phone": "06 00 00 00 00",
+      "sport": "e.g. Martial arts (5 years), Parkour, Gymnastics, Theatre...",
+      "message": "Tell us the session date you are aiming for or any specific questions..."
+    },
+    "afdasOptions": [
+      "Performing arts worker (actor, dancer, artist)",
+      "Professional stunt performer in activity",
+      "Other AFDAS beneficiary"
+    ],
+    "safetyTitle": "Safety notice & selection:",
+    "safetyBody": "Because of the physical demands and safety requirements, every application is reviewed by the CUC teaching committee.",
+    "submitError": "Error while submitting your application.",
+    "cancel": "Cancel",
+    "submit": "Submit my application",
+    "submitting": "Submitting...",
+    "successTitle": "Application submitted successfully!",
+    "successBody": "Your request has been recorded for <strong>{name}</strong>. A CUC course officer will contact you within 24 to 48 hours to confirm your application and session availability.",
+    "contactAddress": "CUC Campus, 59360 Le Cateau-Cambrésis (Hauts-de-France)",
+    "contactPhone": "Course office: 01 30 32 38 03",
+    "closeCase": "Close the application"
+  },
+  "lightbox": {
+    "closeAria": "Close the viewer",
+    "closeTitle": "Close (Esc)",
+    "prevAria": "Previous photo",
+    "prevTitle": "Previous (Left arrow)",
+    "nextAria": "Next photo",
+    "nextTitle": "Next (Right arrow)",
+    "navHint": "Navigation: ← / → to browse • Esc to close"
+  }
 }

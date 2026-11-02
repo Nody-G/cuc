@@ -47,7 +47,7 @@ export const STAGES_LIST: StageData[] = [
       { icon: 'utensils', text: 'Tous les repas compris (du vendredi soir au dimanche midi)' },
       { icon: 'map', text: 'Domaine CUC, Le Cateau-Cambrésis (59)' },
     ],
-    buttonLabel: 'Réserver mon Week-end (250,00 €)',
+    buttonLabel: 'Réserver mon Week-end',
     pdfLink: {
       href: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/Plaquette-Week-end-Immersion-CUC.pdf',
       label: 'Télécharger la Plaquette Week-end (PDF)',

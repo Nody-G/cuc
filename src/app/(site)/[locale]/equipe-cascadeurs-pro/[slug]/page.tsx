@@ -45,8 +45,8 @@ export async function generateMetadata({ params }: CoachPageProps): Promise<Meta
 
   const title = `${member.name} — ${member.title} | CUC Stunt Team`;
   const description = isEn
-    ? `${member.bio.slice(0, 160)}... Full profile, filmography and specialties of ${member.name} at Campus Univers Cascades.`
-    : `${member.bio.slice(0, 160)}... Retrouvez la fiche complète, filmographie et spécialités de ${member.name} au Campus Univers Cascades.`;
+    ? `Discover the official profile, filmography and stunt productions of ${member.name} at Campus Univers Cascades.`
+    : `Découvrez la fiche officielle, la filmographie et les productions cascades de ${member.name} au Campus Univers Cascades.`;
 
   return {
     title,

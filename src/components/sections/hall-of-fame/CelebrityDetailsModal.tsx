@@ -7,7 +7,7 @@ import type { DoubledCelebrity, FilmCredit } from '@/types';
 import { X, Clapperboard } from 'lucide-react';
 import { ImdbLogo, LogoLink } from '@/components/ui/BrandLogos';
 import { cucMicro } from '@/lib/preview/cuc-micro';
-import { resolveDoubledBy, type TeamNameRef } from '@/lib/celebrity-double';
+import type { TeamNameRef } from '@/lib/celebrity-double';
 import { creditTitleKey } from '@/lib/credit-title';
 import {
   CelebrityStuntDoubles,
@@ -33,15 +33,6 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
   coordinatedFilms = [],
 }) => {
   const t = useTranslations('teamProduction');
-
-  /**
-   * Découpe « Doublé par X » et reconnaît l'éventuel membre de l'équipe : le
-   * nom devient un lien vers sa fiche coach, avec photo avatar et rôle.
-   */
-  const doubledBy = useMemo(
-    () => resolveDoubledBy(celebrity?.stuntDoubles ?? '', teamMembers),
-    [celebrity?.stuntDoubles, teamMembers]
-  );
 
   /** Vérifie si un film de la production correspond à un film coordonné par Lucas */
   const findMatchingLucasFilm = React.useCallback((prodName: string): FilmCredit | undefined => {
@@ -160,11 +151,9 @@ export const CelebrityDetailsModal: React.FC<CelebrityDetailsModalProps> = ({
                 </p>
               ) : null}
 
-              {/* Cascadeurs CUC ayant doublé le comédien (avec photo avatar) & tournages associés dédoublonnés */}
-              {(celebrity.stuntDoubles || unifiedFilms.length > 0) ? (
+              {/* Tournages et films en collaboration avec le CUC */}
+              {unifiedFilms.length > 0 ? (
                 <CelebrityStuntDoubles
-                  doubledBy={doubledBy}
-                  stuntDoublesRaw={celebrity.stuntDoubles}
                   films={unifiedFilms}
                   onSelectFilm={onSelectFilm}
                   onClose={onClose}

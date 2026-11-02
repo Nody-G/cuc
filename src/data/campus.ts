@@ -127,21 +127,21 @@ export const CAMPUS_FACILITIES: InfrastructureSpot[] = [
     specifications: 'Domaine privé clos, adapté aux tournages cinématographiques',
   },
   {
-    id: 'qg-staff-hebergement',
+    id: 'amphitheatre-cuc',
     code: '08',
-    name: 'Hébergement & Base de Vie (90 Places)',
-    size: '90 couchages sur place',
+    name: 'Amphithéâtre CUC & Espace Débriefing',
+    size: 'Amphithéâtre 100 places assises',
     description:
-      'Un campus en vase clos capable d’héberger et de restaurer jusqu’à 90 stagiaires et formateurs directement sur place pour une immersion totale.',
+      'Amphithéâtre de cours et de projections pour les débriefings vidéo, l’analyse technique des cascades et les cours théoriques de plateau.',
     features: [
-      'Chambres équipées avec sanitaires et accès internet',
-      'Réfectoire et cuisine professionnelle adaptée',
-      'Salles de débriefing vidéo et cours théoriques',
-      'Espace d’accueil et bureaux de production',
+      'Gradins confortables de 100 places avec tablettes de travail',
+      'Écran géant et système de projection cinéma',
+      'Régie audio et équipement de captation pour analyse du mouvement',
+      'Espace de conférences et accueil des intervenants professionnels',
     ],
     image:
-      'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-08-hebergement-et-base-de-vie.webp',
-    specifications: 'Cadre arboré et sécurisé à 1h40 de Paris (Le Cateau-Cambrésis)',
+      'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/campus-08-amphitheatre.webp',
+    specifications: 'Équipement audiovisuel professionnel pour debriefing instantané des cascades',
   },
   {
     id: 'city-stade-exterieur',
