@@ -32,6 +32,7 @@ export const CoordinatedFilmsCarousel: React.FC<CoordinatedFilmsCarouselProps> =
     const dragStartXRef = React.useRef(0);
     const dragStartScrollRef = React.useRef(0);
     const manualVelocityRef = React.useRef(0);
+    const dragHistoryRef = React.useRef<{ x: number; time: number }[]>([]);
 
     const baseFilms = React.useMemo(() => (films && films.length > 0 ? films : []), [films]);
     const tripledFilms = React.useMemo(
@@ -50,7 +51,7 @@ export const CoordinatedFilmsCarousel: React.FC<CoordinatedFilmsCarouselProps> =
         }
     }, []);
 
-    // Positionnement initial sur le segment central + boucle d'animation fluide
+    // Positionnement initial sur le segment central + boucle d'animation fluide avec inertie Instagram
     React.useEffect(() => {
         const el = trackRef.current;
         if (!el || baseFilms.length === 0) return;
@@ -71,10 +72,10 @@ export const CoordinatedFilmsCarousel: React.FC<CoordinatedFilmsCarouselProps> =
         const tick = () => {
             const node = trackRef.current;
             if (node) {
-                // Impulsion fluide déclenchée par les boutons Gauche / Droite
-                if (Math.abs(manualVelocityRef.current) > 0.25) {
+                // Inertie fluide type swipe Instagram ou impulsion boutons
+                if (Math.abs(manualVelocityRef.current) > 0.2) {
                     node.scrollLeft += manualVelocityRef.current;
-                    manualVelocityRef.current *= 0.88;
+                    manualVelocityRef.current *= 0.94; // Décélération progressive naturelle
                     normalizeInfinitePosition(node);
                 } else {
                     manualVelocityRef.current = 0;
@@ -110,17 +111,25 @@ export const CoordinatedFilmsCarousel: React.FC<CoordinatedFilmsCarouselProps> =
         manualVelocityRef.current += direction * 28;
     }, []);
 
+    /** Démarrage du glisser à la souris ou au touch (expérience fluide type Instagram) */
     const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-        if (e.button !== 0) return;
+        if (e.button !== 0 && e.pointerType === 'mouse') return;
         const el = trackRef.current;
         if (!el) return;
+        try {
+            e.currentTarget.setPointerCapture(e.pointerId);
+        } catch {
+            // Ignorer si non supporté
+        }
         isDraggingRef.current = true;
         dragMovedRef.current = false;
         dragStartXRef.current = e.clientX;
         dragStartScrollRef.current = el.scrollLeft;
         manualVelocityRef.current = 0;
+        dragHistoryRef.current = [{ x: e.clientX, time: performance.now() }];
     };
 
+    /** Déplacement en temps réel suivant le pointeur */
     const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
         if (!isDraggingRef.current) return;
         const el = trackRef.current;
@@ -131,10 +140,44 @@ export const CoordinatedFilmsCarousel: React.FC<CoordinatedFilmsCarouselProps> =
         }
         el.scrollLeft = dragStartScrollRef.current - deltaX;
         normalizeInfinitePosition(el);
+
+        const now = performance.now();
+        const history = dragHistoryRef.current;
+        history.push({ x: e.clientX, time: now });
+        while (history.length > 2 && now - history[0].time > 100) {
+            history.shift();
+        }
     };
 
-    const stopDragging = () => {
+    /** Relâchement du clic avec transfert d'inertie (flick / momentum) */
+    const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+        if (!isDraggingRef.current) return;
+        try {
+            e.currentTarget.releasePointerCapture(e.pointerId);
+        } catch {
+            // Ignorer
+        }
         isDraggingRef.current = false;
+
+        const history = dragHistoryRef.current;
+        if (history.length >= 2) {
+            const first = history[0];
+            const last = history[history.length - 1];
+            const dt = Math.max(8, last.time - first.time);
+            const dx = last.x - first.x;
+            // Vélocité en pixels/ms vers px/frame avec amplification douce
+            const pxPerMs = dx / dt;
+            const flickVelocity = -pxPerMs * 16 * 1.35;
+            const clamped = Math.max(-60, Math.min(60, flickVelocity));
+            if (Math.abs(clamped) > 1.2) {
+                manualVelocityRef.current = clamped;
+            }
+        }
+        dragHistoryRef.current = [];
+    };
+
+    const handlePointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
+        handlePointerUp(e);
     };
 
     if (baseFilms.length === 0) return null;
@@ -184,10 +227,13 @@ export const CoordinatedFilmsCarousel: React.FC<CoordinatedFilmsCarouselProps> =
                     onScroll={handleScroll}
                     onPointerDown={handlePointerDown}
                     onPointerMove={handlePointerMove}
-                    onPointerUp={stopDragging}
-                    onPointerCancel={stopDragging}
+                    onPointerUp={handlePointerUp}
+                    onPointerCancel={handlePointerCancel}
+                    onLostPointerCapture={() => {
+                        isDraggingRef.current = false;
+                    }}
                     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-                    className="flex items-center gap-3.5 overflow-x-auto [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing"
+                    className="flex items-center gap-3.5 overflow-x-auto touch-pan-y select-none [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing"
                 >
                     {tripledFilms.map((film, idx) => {
                         const footerText = directorFor(film);
@@ -195,6 +241,7 @@ export const CoordinatedFilmsCarousel: React.FC<CoordinatedFilmsCarouselProps> =
                             <button
                                 key={`${film.id}-${idx}`}
                                 type="button"
+                                draggable={false}
                                 onClick={() => {
                                     if (dragMovedRef.current) return;
                                     onOpenFilm(film);

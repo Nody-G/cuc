@@ -1,9 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Link } from '@/i18n/navigation';
 import { StuntBadge } from '@/components/ui/StuntBadge';
-import { TacticalButton } from '@/components/ui/TacticalButton';
 import { ShieldCheck } from 'lucide-react';
 import type { useTranslations } from 'next-intl';
 import type { Instructor } from '@/types';
@@ -19,17 +17,16 @@ export interface CoachProfileProps {
 }
 
 /**
- * Colonne informations : identité, trajectoire (bio), domaines d'expertise
- * et appels à l'action.
+ * Colonne informations : identité, statut et titre référent.
  */
 export const CoachProfile: React.FC<CoachProfileProps> = ({
     member,
-    chrome,
+    chrome: _chrome,
     tt,
 }) => {
     /**
-     * Édition en place de la fiche coach (`site_team`) : rôle, titre et bio.
-     * Le **nom** reste hors canal — son identité est vérifiée
+     * Édition en place de la fiche coach (`site_team`) : rôle et titre.
+     * Le nom reste hors canal — son identité est vérifiée
      * (`coach_identity_verification.md`) et se corrige dans l'écran Équipe.
      */
     const entityOverrides = usePreviewEntities();
@@ -56,21 +53,6 @@ export const CoachProfile: React.FC<CoachProfileProps> = ({
                 <p className="text-base sm:text-lg text-[#FFE500] font-mono-tech uppercase font-bold tracking-wide">
                     <span {...coachAttr('title')}>{coachValue('title', member.title)}</span>
                 </p>
-            </div>
-
-            {/* Call to Action Direct */}
-            <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
-                <Link href="/contact-cuc?demande=tournage-production" className="w-full sm:w-auto flex-1">
-                    <TacticalButton variant="primary" size="lg" className="w-full justify-center">
-                        <span {...cucMicro('team.ctaContact')}>{tt('ctaContact')}</span>
-                    </TacticalButton>
-                </Link>
-
-                <Link href="/formation-de-cascadeur" className="w-full sm:w-auto flex-1">
-                    <TacticalButton variant="secondary" size="lg" className="w-full justify-center">
-                        <span {...cucMicro('team.ctaTrain')}>{tt('ctaTrain')}</span>
-                    </TacticalButton>
-                </Link>
             </div>
         </div>
     );

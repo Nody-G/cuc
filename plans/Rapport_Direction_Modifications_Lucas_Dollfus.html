@@ -1427,6 +1427,69 @@
 
     // Initialize default split state
     updateSplit(50);
+
+    // =========================================================
+    // INSTAGRAM-STYLE HORIZONTAL DRAG & FLICK PREVIEW
+    // =========================================================
+    const previewTrack = document.getElementById('previewCarouselTrack');
+    if (previewTrack) {
+      let isTrackDragging = false;
+      let trackStartX = 0;
+      let trackStartScroll = 0;
+      let trackVelocity = 0;
+      let trackHistory = [];
+      let trackRafId = 0;
+
+      function trackGlide() {
+        if (Math.abs(trackVelocity) > 0.2) {
+          previewTrack.scrollLeft += trackVelocity;
+          trackVelocity *= 0.94;
+          trackRafId = requestAnimationFrame(trackGlide);
+        } else {
+          trackVelocity = 0;
+        }
+      }
+
+      previewTrack.addEventListener('pointerdown', (e) => {
+        if (e.button !== 0 && e.pointerType === 'mouse') return;
+        isTrackDragging = true;
+        cancelAnimationFrame(trackRafId);
+        trackVelocity = 0;
+        trackStartX = e.clientX;
+        trackStartScroll = previewTrack.scrollLeft;
+        trackHistory = [{ x: e.clientX, time: performance.now() }];
+        try { previewTrack.setPointerCapture(e.pointerId); } catch {}
+      });
+
+      previewTrack.addEventListener('pointermove', (e) => {
+        if (!isTrackDragging) return;
+        const dx = e.clientX - trackStartX;
+        previewTrack.scrollLeft = trackStartScroll - dx;
+        const now = performance.now();
+        trackHistory.push({ x: e.clientX, time: now });
+        while (trackHistory.length > 2 && now - trackHistory[0].time > 100) {
+          trackHistory.shift();
+        }
+      });
+
+      function stopTrackDrag() {
+        if (!isTrackDragging) return;
+        isTrackDragging = false;
+        if (trackHistory.length >= 2) {
+          const first = trackHistory[0];
+          const last = trackHistory[trackHistory.length - 1];
+          const dt = Math.max(8, last.time - first.time);
+          const dx = last.x - first.x;
+          const pxPerMs = dx / dt;
+          trackVelocity = -pxPerMs * 16 * 1.35;
+          cancelAnimationFrame(trackRafId);
+          trackRafId = requestAnimationFrame(trackGlide);
+        }
+      }
+
+      previewTrack.addEventListener('pointerup', stopTrackDrag);
+      previewTrack.addEventListener('pointercancel', stopTrackDrag);
+    }
   </script>
 </body>
 </html>

@@ -374,7 +374,7 @@
     "filterAll": "Toutes les participations",
     "filterCoord": "Coordination des cascades",
     "filterDoublure": "Doublures",
-    "filterCascadeur": "Cascades & Combats",
+    "filterCascadeur": "Cascadeur",
     "filteredCount": "{shown} / {total} films",
     "filmographyEmptyFilter": "Aucune production trouvée pour ce filtre.",
     "showAllFilms": "Voir toutes les productions (+{count})"

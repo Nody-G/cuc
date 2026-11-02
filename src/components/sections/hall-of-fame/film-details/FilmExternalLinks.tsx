@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useTranslations } from 'next-intl';
-import { AllocineLogo, ImdbLogo, LogoLink, YouTubeLogo } from '@/components/ui/BrandLogos';
+import { AllocineLogo, LogoLink, YouTubeLogo } from '@/components/ui/BrandLogos';
 import type { FilmCredit } from '@/types';
 
 interface FilmExternalLinksProps {
@@ -10,29 +10,17 @@ interface FilmExternalLinksProps {
 }
 
 /**
- * Liens externes de la fiche (IMDb, AlloCiné, bande-annonce).
- *
- * Rendu épuré : un logo seul par destination, sans texte ni encart rempli. Le
- * nom de la destination reste accessible (`aria-label`) et révélé au survol
- * (`title`) ; le libellé « bande-annonce » demeure éditable (Mode Studio).
+ * Liens complémentaires de la fiche (AlloCiné, bande-annonce).
+ * Le lien principal IMDb est valorisé en haut à droite dans FilmIdentityBlock.
  */
 export const FilmExternalLinks: React.FC<FilmExternalLinksProps> = ({ movie }) => {
     const t = useTranslations('teamProduction');
     const trailerLabel = t('filmModal.trailer');
 
-    if (!movie.imdbUrl && !movie.allocineUrl && !movie.trailerUrl) return null;
+    if (!movie.allocineUrl && !movie.trailerUrl) return null;
 
     return (
         <div className="pt-2 flex flex-wrap items-center gap-4">
-            {movie.imdbUrl && (
-                <LogoLink
-                    href={movie.imdbUrl}
-                    label="IMDb"
-                    title={`${movie.title} — IMDb`}
-                >
-                    <ImdbLogo className="h-4 w-auto" />
-                </LogoLink>
-            )}
             {movie.allocineUrl && (
                 <LogoLink
                     href={movie.allocineUrl}
