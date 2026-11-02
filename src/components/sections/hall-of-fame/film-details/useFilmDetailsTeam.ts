@@ -33,8 +33,10 @@ export function useFilmDetailsTeam(movie: FilmCredit | null): FilmDetailsTeam {
     }, []);
 
     useEffect(() => {
-        loadTeam();
-    }, [loadTeam]);
+        if (movie) {
+            loadTeam();
+        }
+    }, [movie, loadTeam]);
 
     useRealtimeRefresh(['site_team'], loadTeam);
 

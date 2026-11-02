@@ -14,13 +14,15 @@ interface CoachCardProps {
     /** Catalogue localisé conservé pour rétro-compatibilité de signature. */
     films?: FilmCredit[];
     onSelectFilm?: (film: FilmCredit) => void;
+    /** Priorise le chargement des 3 premiers portraits au-dessus de la ligne de flottaison. */
+    priority?: boolean;
 }
 
 /**
  * Carte coach : portrait pleine hauteur, rôle, bio, spécialités et 3 premières jaquettes de films.
  * L'ancre `#{member.id}` alimente les liens de la navbar.
  */
-export const CoachCard: React.FC<CoachCardProps> = ({ member, films = FILMOGRAPHY_CREDITS, onSelectFilm }) => {
+export const CoachCard: React.FC<CoachCardProps> = ({ member, films = FILMOGRAPHY_CREDITS, onSelectFilm, priority = false }) => {
     const t = useTranslations('team');
 
     const coachFilms = React.useMemo(() => {
@@ -59,6 +61,8 @@ export const CoachCard: React.FC<CoachCardProps> = ({ member, films = FILMOGRAPH
                             src={member.avatarUrl}
                             alt={member.name}
                             fill
+                            priority={priority}
+                            loading={priority ? undefined : 'lazy'}
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             className="object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.95)] group-hover/img:scale-105 transition-transform duration-500 ease-out"
                         />
@@ -111,6 +115,7 @@ export const CoachCard: React.FC<CoachCardProps> = ({ member, films = FILMOGRAPH
                                                     src={film.image}
                                                     alt={film.title}
                                                     fill
+                                                    loading="lazy"
                                                     sizes="(max-width: 768px) 30vw, 120px"
                                                     className="object-cover object-center group-hover/poster:scale-105 transition-transform duration-300"
                                                 />

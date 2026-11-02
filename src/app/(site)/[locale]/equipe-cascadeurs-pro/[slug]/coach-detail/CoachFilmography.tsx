@@ -46,22 +46,20 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
     tf,
     onSelectFilm,
 }) => {
-    type ParticipationFilter = 'all' | 'coord' | 'doublure' | 'cascadeur';
+    type ParticipationFilter = 'all' | 'coord' | 'cascadeur';
     const [participationFilter, setParticipationFilter] = React.useState<ParticipationFilter>('all');
     const [showAll, setShowAll] = React.useState(false);
 
     /** Décompte dynamique des rôles pour ce coach. */
     const counts = React.useMemo(() => {
         let coord = 0;
-        let doublure = 0;
         let cascadeur = 0;
         for (const film of relatedFilms) {
             const r = getFilmRole(film);
             if (r.isCoord) coord++;
-            if (r.isDoublure) doublure++;
             if (r.isCascadeur) cascadeur++;
         }
-        return { all: relatedFilms.length, coord, doublure, cascadeur };
+        return { all: relatedFilms.length, coord, cascadeur };
     }, [relatedFilms, getFilmRole]);
 
     /** Options de filtre visibles (uniquement si au moins 1 film dans la catégorie). */
@@ -87,14 +85,6 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
                 count: counts.coord,
             });
         }
-        if (counts.doublure > 0) {
-            opts.push({
-                id: 'doublure',
-                label: tt('filterDoublure'),
-                microKey: 'team.filterDoublure',
-                count: counts.doublure,
-            });
-        }
         if (counts.cascadeur > 0) {
             opts.push({
                 id: 'cascadeur',
@@ -112,7 +102,6 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
         return sortedFilms.filter((film) => {
             const r = getFilmRole(film);
             if (participationFilter === 'coord') return r.isCoord;
-            if (participationFilter === 'doublure') return r.isDoublure;
             if (participationFilter === 'cascadeur') return r.isCascadeur;
             return true;
         });
@@ -216,13 +205,13 @@ export const CoachFilmography: React.FC<CoachFilmographyProps> = ({
                 <>
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6">
                         {visibleFilms.map((film) => {
-                            const { role, isCoord, isDoublure } = getFilmRole(film);
+                            const { role, isCoord } = getFilmRole(film);
                             const isFeatured = featuredOrder.has(normalizeTitleKey(film.title));
 
                             const roleBlock: FilmCardRole = {
                                 label: tt('roleOnProduction'),
                                 value: role,
-                                variant: isCoord ? 'coord' : isDoublure ? 'doublure' : 'other',
+                                variant: isCoord ? 'coord' : 'other',
                                 micro: cucMicro('team.roleOnProduction'),
                             };
 

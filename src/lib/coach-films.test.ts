@@ -1,7 +1,9 @@
 import type { FilmCredit, Instructor } from '@/types';
+import { parseCredit } from '@/types';
 import {
     DEFAULT_COACH_FILM_SORT,
     buildFeaturedOrder,
+    createCoachFilmRoleResolver,
     findRelatedFilms,
     selectCoachFilms,
     selectCoordinatedFilms,
@@ -131,5 +133,59 @@ describe('selectCoordinatedFilms — vitrine « FILMS COORDONNÉS »', () => {
 
     it('sans référent, aucune vitrine', () => {
         expect(selectCoordinatedFilms(catalogue, undefined)).toEqual([]);
+    });
+});
+
+describe('createCoachFilmRoleResolver — unification des doublures en Cascadeur', () => {
+    const tt = (key: string) => {
+        if (key === 'roleCoordination') return 'Coordinateur des cascades';
+        if (key === 'roleRigger') return 'Rigger';
+        if (key === 'roleMechanicalStunt') return 'Cascadeur mécanique';
+        if (key === 'roleAssistantCoordination') return 'Assistant coordinateur des cascades';
+        return 'Cascadeur';
+    };
+
+    it('unifie un rôle « Doublure » ou « Doublure de X » sous « Cascadeur » et active isCascadeur', () => {
+        const vincent = coach({
+            id: 'vincent-bouillon',
+            title: 'Cascadeur Professionnel',
+            notableCredits: ['John Wick : Chapitre 4 (2023) — Doublure de Keanu Reeves'],
+        });
+        const jw4 = film('jw4', 'John Wick : Chapitre 4', 2023, {
+            cuc_team_involved: ['vincent-bouillon'],
+            cuc_team_roles: { 'vincent-bouillon': 'Doublure de Keanu Reeves' },
+        });
+        const resolve = createCoachFilmRoleResolver({
+            member: vincent,
+            parsedCredits: (vincent.notableCredits || []).map(parseCredit),
+            tt,
+        });
+
+        const resolved = resolve(jw4);
+        expect(resolved.role).toBe('Cascadeur');
+        expect(resolved.isCascadeur).toBe(true);
+        expect(resolved.isDoublure).toBe(false);
+        expect(resolved.isCoord).toBe(false);
+    });
+
+    it('préserve Rigger, Cascadeur mécanique et Assistant coordinateur tels quels', () => {
+        const franck = coach({
+            id: 'franck-blanc',
+            title: 'Coach Câblage',
+            notableCredits: ['Néro (2025) — Rigger'],
+        });
+        const nero = film('nero', 'Néro', 2025, {
+            cuc_team_involved: ['franck-blanc'],
+            cuc_team_roles: { 'franck-blanc': 'Rigger' },
+        });
+        const resolve = createCoachFilmRoleResolver({
+            member: franck,
+            parsedCredits: (franck.notableCredits || []).map(parseCredit),
+            tt,
+        });
+
+        const resolved = resolve(nero);
+        expect(resolved.role).toBe('Rigger');
+        expect(resolved.isCascadeur).toBe(true);
     });
 });

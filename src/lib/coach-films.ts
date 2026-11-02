@@ -27,33 +27,56 @@ export type FilmSort = 'year-desc' | 'year-asc' | 'title-asc' | 'title-desc';
  */
 export const DEFAULT_COACH_FILM_SORT: FilmSort = 'year-desc';
 
+const TITLE_KEY_CACHE = new Map<string, string>();
+
 /**
  * Clé canonique d'un titre de film : délègue au helper partagé `creditTitleKey`
  * (retrait du suffixe d'année « (2021) », accents, ponctuation) afin que la
  * mise en avant définie côté admin soit reconnue côté public — y compris pour
  * les crédits sourcés IMDb qui portent toujours leur année.
+ * Mémoïsé en mémoire pour éviter de répéter la normalisation NFD sur 1 089 films.
  */
 export function normalizeTitleKey(title: string): string {
-    return creditTitleKey(title);
+    const raw = String(title || '');
+    const cached = TITLE_KEY_CACHE.get(raw);
+    if (cached !== undefined) return cached;
+    const computed = creditTitleKey(raw);
+    if (TITLE_KEY_CACHE.size > 5000) TITLE_KEY_CACHE.clear();
+    TITLE_KEY_CACHE.set(raw, computed);
+    return computed;
 }
 
 /**
  * Films associés au coach : liens explicites (`film_ids`,
  * `cuc_team_involved`) puis appariement par **titre normalisé** (suffixe
  * d'année retiré) — « Lupin (2021) — Cascadeur » correspond au film « Lupin ».
+ *
+ * Complexité O(F + C) grâce au pré-calcul du Set des clés de crédits du coach
+ * hors de la boucle de filtrage des 1 089 films.
  */
 export function findRelatedFilms(films: FilmCredit[], member?: Instructor): FilmCredit[] {
     if (!member) return [];
+
+    const filmIdsSet =
+        member.film_ids && member.film_ids.length > 0 ? new Set(member.film_ids) : null;
+    const memberFilmRoles = member.metadata?.film_roles || null;
+    const creditKeys =
+        member.notableCredits && member.notableCredits.length > 0
+            ? new Set(
+                  member.notableCredits
+                      .map((c) => normalizeTitleKey(parseCredit(c).title || c))
+                      .filter(Boolean)
+              )
+            : null;
+
     return films.filter((f) => {
-        if (member.film_ids && member.film_ids.includes(f.id)) return true;
+        if (filmIdsSet && filmIdsSet.has(f.id)) return true;
         if (f.cuc_team_involved && f.cuc_team_involved.includes(member.id)) return true;
         if (f.cuc_team_roles && f.cuc_team_roles[member.id]) return true;
-        if (!member.notableCredits) return false;
+        if (memberFilmRoles && memberFilmRoles[f.id]) return true;
+        if (!creditKeys || creditKeys.size === 0) return false;
         const filmKey = normalizeTitleKey(f.title);
-        return member.notableCredits.some((c) => {
-            const creditKey = normalizeTitleKey(parseCredit(c).title || c);
-            return creditKey && creditKey === filmKey;
-        });
+        return Boolean(filmKey && creditKeys.has(filmKey));
     });
 }
 
@@ -148,10 +171,23 @@ export type RoleTranslator = Parameters<typeof renderRoleSet>[1];
  * [`selectCoordinatedFilms`](src/lib/coach-films.ts:1) (vitrine TOURNAGE) : la
  * vitrine ne peut donc pas annoncer une coordination que la fiche ignore.
  */
+function buildCreditRoleMap(parsedCredits: ParsedCredit[]): Map<string, string> {
+    const map = new Map<string, string>();
+    for (const c of parsedCredits) {
+        if (!c.role) continue;
+        const key = normalizeTitleKey(c.title);
+        if (key && !map.has(key)) {
+            map.set(key, c.role);
+        }
+    }
+    return map;
+}
+
 function resolveRoleSet(
     film: FilmCredit,
     member: Instructor,
-    parsedCredits: ParsedCredit[]
+    parsedCredits: ParsedCredit[],
+    creditRoleMap?: Map<string, string>
 ): RoleSetSummary {
     const fromRaw = (raw: string): RoleSetSummary => normalizeRole(raw);
 
@@ -163,7 +199,11 @@ function resolveRoleSet(
     if (member.metadata?.film_roles && member.metadata.film_roles[film.id]) {
         return fromRaw(member.metadata.film_roles[film.id]);
     }
-    // 3. Correspondance dans les crédits parsés
+    // 3. Correspondance O(1) par clé normalisée puis repli sous-chaîne
+    if (creditRoleMap) {
+        const directRole = creditRoleMap.get(normalizeTitleKey(film.title));
+        if (directRole) return fromRaw(directRole);
+    }
     const matched = parsedCredits.find(
         (c) =>
             c.title.toLowerCase().includes(film.title.toLowerCase()) ||
@@ -194,19 +234,25 @@ export function createCoachFilmRoleResolver({
     parsedCredits: ParsedCredit[];
     tt: RoleTranslator;
 }) {
+    const creditRoleMap = buildCreditRoleMap(parsedCredits);
     return (film: FilmCredit): CoachFilmRole => {
-        const summary = resolveRoleSet(film, member, parsedCredits);
-        const isCoord = summary.roles.includes('Coordinateur des cascades');
-        const isDoublure = summary.roles.includes('Doublure');
+        const summary = resolveRoleSet(film, member, parsedCredits, creditRoleMap);
+        const publicRoles = Array.from(
+            new Set(summary.roles.map((r) => (r === 'Doublure' ? 'Cascadeur' : r)))
+        );
+        const isCoord = publicRoles.includes('Coordinateur des cascades');
+        const isDoublure = false;
         const isCascadeur =
-            summary.roles.includes('Cascadeur') ||
-            summary.roles.includes('Cascadeur mécanique') ||
-            summary.roles.includes('Rigger') ||
-            (!isCoord && !isDoublure);
+            publicRoles.includes('Cascadeur') ||
+            publicRoles.includes('Cascadeur mécanique') ||
+            publicRoles.includes('Rigger') ||
+            publicRoles.includes('Assistant coordinateur des cascades') ||
+            publicRoles.includes('Coordinateur de rigging') ||
+            !isCoord;
 
         return {
             role: renderRoleSet(
-                { roles: summary.roles, doubledActors: summary.doubledActors },
+                { roles: publicRoles, doubledActors: [] },
                 tt
             ),
             isCoord,
@@ -231,8 +277,9 @@ export function selectCoordinatedFilms(
 ): FilmCredit[] {
     if (!member) return [];
     const parsedCredits = (member.notableCredits || []).map(parseCredit);
+    const creditRoleMap = buildCreditRoleMap(parsedCredits);
     const coordinated = findRelatedFilms(films, member).filter((film) =>
-        resolveRoleSet(film, member, parsedCredits).roles.includes('Coordinateur des cascades')
+        resolveRoleSet(film, member, parsedCredits, creditRoleMap).roles.includes('Coordinateur des cascades')
     );
     return sortCoachFilms(coordinated, filmSort, buildFeaturedOrder(member));
 }

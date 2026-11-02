@@ -35,6 +35,9 @@ describe('Biographies des coachs CUC — Authenticité & Zéro AI slop', () => {
     expect(malik?.bio).toContain('Parkour');
     expect(malik?.bio).not.toMatch(/art du d[eé]placement/i);
     expect(malik?.bio).not.toMatch(/\bADD\b/);
+    expect(malik?.title).not.toMatch(/art du d[eé]placement/i);
+    expect(malik?.title).not.toMatch(/\bADD\b/);
+    expect(malik?.role).not.toMatch(/art du d[eé]placement/i);
 
     for (const spec of malik?.specialties || []) {
       expect(spec).not.toMatch(/art du d[eé]placement/i);

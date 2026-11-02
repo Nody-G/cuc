@@ -31,86 +31,87 @@ interface TeamRow {
   metadata?: Record<string, unknown>;
 }
 
+let teamCache: { data: Instructor[]; expiresAt: number } | null = null;
+let inFlightTeam: Promise<Instructor[]> | null = null;
+const TEAM_CACHE_TTL_MS = 10_000;
+
 /**
- * Récupère l'équipe d'instructeurs.
+ * Récupère l'équipe d'instructeurs avec déduplication des requêtes simultanées
+ * et résolution locale des film_ids à partir de metadata.film_roles (évite de
+ * re-télécharger les 1 089 lignes de site_films à chaque appel à getTeam()).
  */
 export async function getTeam(): Promise<Instructor[]> {
-  try {
-    const supabase = await getSupabaseClient();
-    // `featured_credits` et `credits_display_limit` sont optionnelles : si la
-    // migration n'a pas encore été appliquée, on retombe sur un select de base
-    // pour ne jamais casser l'affichage public.
-    let data: TeamRow[] | null = null;
-    let error: { message: string } | null = null;
+  if (teamCache && Date.now() < teamCache.expiresAt) {
+    return teamCache.data;
+  }
+  if (inFlightTeam) {
+    return inFlightTeam;
+  }
 
-    const extended = await supabase
-      .from('site_team')
-      .select('*, featured_credits, credits_display_limit')
-      .eq('is_published', true)
-      .order('order_index', { ascending: true });
+  inFlightTeam = (async () => {
+    try {
+      const supabase = await getSupabaseClient();
+      let data: TeamRow[] | null = null;
+      let error: { message: string } | null = null;
 
-    if (extended.error) {
-      const fallback = await supabase
+      const extended = await supabase
         .from('site_team')
-        .select('*')
+        .select('*, featured_credits, credits_display_limit')
         .eq('is_published', true)
         .order('order_index', { ascending: true });
-      data = fallback.data;
-      error = fallback.error;
-    } else {
-      data = extended.data;
-      error = extended.error;
-    }
 
-    if (error || !data || data.length === 0) {
-      return await loadStaticTeam();
-    }
-
-    // Récupération des correspondances de films pour relier les cascades certifiées
-    const teamFilmsMap: Record<string, string[]> = {};
-    try {
-      const { data: filmsData } = await supabase
-        .from('site_films')
-        .select('id, cuc_team_involved')
-        .eq('is_published', true);
-
-      if (filmsData) {
-        for (const f of filmsData) {
-          if (Array.isArray(f.cuc_team_involved)) {
-            for (const memberId of f.cuc_team_involved) {
-              if (!teamFilmsMap[memberId]) teamFilmsMap[memberId] = [];
-              teamFilmsMap[memberId].push(f.id);
-            }
-          }
-        }
+      if (extended.error) {
+        const fallback = await supabase
+          .from('site_team')
+          .select('*')
+          .eq('is_published', true)
+          .order('order_index', { ascending: true });
+        data = fallback.data;
+        error = fallback.error;
+      } else {
+        data = extended.data;
+        error = extended.error;
       }
-    } catch {
-      // Ignorer si échec
-    }
 
-    return data.map((t) => ({
-      id: t.id,
-      name: t.name,
-      role: t.role,
-      title: t.title,
-      specialties: t.specialties || [],
-      bio: t.bio || '',
-      doubledActors: t.doubled_actors,
-      notableCredits: t.notable_credits || [],
-      featuredCredits: t.featured_credits || [],
-      creditsDisplayLimit:
-        typeof t.credits_display_limit === 'number' && t.credits_display_limit > 0
-          ? t.credits_display_limit
-          : 8,
-      externalUrl: t.external_url,
-      avatarUrl: t.avatar_url,
-      instagram: t.instagram,
-      imdb: t.imdb,
-      profile_id: t.profile_id || null,
-      film_ids: teamFilmsMap[t.id] || [],
-      metadata: t.metadata || {},
-    }));
-  } catch {
-    return await loadStaticTeam();
-  }
+      if (error || !data || data.length === 0) {
+        return await loadStaticTeam();
+      }
+
+      const mapped: Instructor[] = data.map((t) => {
+        const filmRoles =
+          (t.metadata?.film_roles as Record<string, string> | undefined) || {};
+        return {
+          id: t.id,
+          name: t.name,
+          role: t.role,
+          title: t.title,
+          specialties: t.specialties || [],
+          bio: t.bio || '',
+          doubledActors: t.doubled_actors,
+          notableCredits: t.notable_credits || [],
+          featuredCredits: t.featured_credits || [],
+          creditsDisplayLimit:
+            typeof t.credits_display_limit === 'number' && t.credits_display_limit > 0
+              ? t.credits_display_limit
+              : 8,
+          externalUrl: t.external_url,
+          avatarUrl: t.avatar_url,
+          instagram: t.instagram,
+          imdb: t.imdb,
+          profile_id: t.profile_id || null,
+          film_ids: Object.keys(filmRoles),
+          metadata: t.metadata || {},
+        };
+      });
+
+      teamCache = { data: mapped, expiresAt: Date.now() + TEAM_CACHE_TTL_MS };
+      return mapped;
+    } catch {
+      return await loadStaticTeam();
+    } finally {
+      inFlightTeam = null;
+    }
+  })();
+
+  return inFlightTeam;
 }

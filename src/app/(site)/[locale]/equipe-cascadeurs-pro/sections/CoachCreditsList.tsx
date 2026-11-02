@@ -28,23 +28,20 @@ export const CoachCreditsList: React.FC<CoachCreditsListProps> = ({ credits }) =
                 {credits.slice(0, 4).map((credit, idx) => {
                     const parsed = parseCredit(credit);
                     const isCoord = parsed.category === 'coordination';
-                    const isDoublure = parsed.category === 'doublure';
 
                     return (
                         <span
                             key={idx}
                             className={`inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-mono-tech border rounded-xs ${isCoord
                                 ? 'bg-[#FFE500]/10 text-[#FFE500] border-[#FFE500]/30 font-semibold'
-                                : isDoublure
-                                    ? 'bg-sky-500/10 text-sky-300 border-sky-500/30'
-                                    : 'bg-black/60 text-zinc-300 border-zinc-800'
+                                : 'bg-black/60 text-zinc-300 border-zinc-800'
                                 }`}
                             title={parsed.role ? `${parsed.title} (${parsed.role})` : parsed.title}
                         >
                             <span className="truncate max-w-[130px]">{parsed.title}</span>
                             {parsed.role && (
                                 <span className="text-[9px] opacity-75 font-normal shrink-0">
-                                    [{isCoord ? t('roleCoordination') : isDoublure ? t('roleDouble') : t('roleStunt')}]
+                                    [{isCoord ? t('roleCoordination') : t('roleStunt')}]
                                 </span>
                             )}
                         </span>

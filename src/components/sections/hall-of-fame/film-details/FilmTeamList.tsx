@@ -82,9 +82,12 @@ interface FilmMemberRoleLabelProps {
  */
 const FilmMemberRoleLabel: React.FC<FilmMemberRoleLabelProps> = ({ movie, member, tTeam }) => {
     const normalized = normalizeRole(resolveMemberRawRole(movie, member));
-    const isCoord = normalized.roles.includes('Coordinateur des cascades');
+    const publicRoles = Array.from(
+        new Set(normalized.roles.map((r) => (r === 'Doublure' ? 'Cascadeur' : r)))
+    );
+    const isCoord = publicRoles.includes('Coordinateur des cascades');
     const roleLabelText = renderRoleSet(
-        { roles: normalized.roles, doubledActors: normalized.doubledActors },
+        { roles: publicRoles, doubledActors: [] },
         tTeam
     );
 
@@ -92,7 +95,7 @@ const FilmMemberRoleLabel: React.FC<FilmMemberRoleLabelProps> = ({ movie, member
         <div
             className={`text-[10px] font-mono-tech truncate ${isCoord ? 'text-[#FFE500] font-semibold' : 'text-zinc-400'
                 }`}
-            title={normalized.detail || roleLabelText}
+            title={roleLabelText}
         >
             {roleLabelText}
         </div>

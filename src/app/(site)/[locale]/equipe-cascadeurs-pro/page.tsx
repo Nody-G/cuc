@@ -43,12 +43,13 @@ export default function EquipeCascadeursProPage() {
             >
               {/* Catalogue comédiens + modale : montés une seule fois pour toute la grille. */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-                {data.displayTeam.map((member) => (
+                {data.displayTeam.map((member, index) => (
                   <CoachCard
                     key={member.id}
                     member={member}
                     films={data.displayFilms}
                     onSelectFilm={data.setSelectedFilm}
+                    priority={index < 3}
                   />
                 ))}
               </div>

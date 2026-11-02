@@ -50,6 +50,6 @@ export function applyFilmOverlays(
     films: FilmCredit[],
     overlays?: Record<string, Record<string, unknown>> | null
 ): FilmCredit[] {
-    if (!overlays) return films;
+    if (!overlays || Object.keys(overlays).length === 0) return films;
     return films.map((film) => applyFilmOverlay(film, overlays[film.id]));
 }
