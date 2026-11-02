@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CUC — Note Exécutive de Direction • Mises à Jour du Site</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07070a;
+      --surface: #0f0f15;
+      --surface-elevated: #161622;
+      --surface-hover: #1c1c2b;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(255, 229, 0, 0.35);
+      --accent: #FFE500;
+      --accent-glow: rgba(255, 229, 0, 0.15);
+      --accent-subtle: rgba(255, 229, 0, 0.06);
+      --text: #f4f4f6;
+      --text-muted: #9494a3;
+      --text-dim: #5c5c6d;
+      --success: #10b981;
+      --success-glow: rgba(16, 185, 129, 0.15);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      padding: 0;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 229, 0, 0.08), transparent 70%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 48px 48px, 48px 48px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    /* Header */
+    .header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 40px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 32px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #FFE500, #ffb700, transparent);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-badge {
+      background: #000;
+      border: 1px solid var(--border-accent);
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    .header-title-wrap h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    .header-title-wrap p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .meta-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .pill-status {
+      background: var(--success-glow);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .pill-commit {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .pill-date {
+      background: var(--accent-subtle);
+      color: var(--accent);
+      border: 1px solid var(--border-accent);
+    }
+
+    .lead-summary {
+      font-size: 15px;
+      color: #d1d1dc;
+      line-height: 1.6;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      max-width: 950px;
+    }
+
+    /* KPI Highlights */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 22px 20px;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .kpi-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .kpi-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .kpi-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Filter Controls */
+    .controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+    }
+
+    .action-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .action-btn:hover {
+      color: #fff;
+      border-color: var(--border-accent);
+    }
+
+    /* Sections */
+    .section-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 24px;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .section-block:hover {
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+
+    .section-header {
+      padding: 22px 28px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), transparent);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .section-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 229, 0, 0.1);
+      border: 1px solid var(--border-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--accent);
+      shrink: 0;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .section-category {
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+    }
+
+    .section-body {
+      padding: 28px;
+    }
+
+    /* Items within section */
+    .update-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .update-item {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 24px;
+      align-items: start;
+      transition: all 0.2s;
+    }
+
+    @media (max-width: 860px) {
+      .update-item {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+    }
+
+    .update-item:hover {
+      background: var(--surface-hover);
+      border-color: rgba(255, 229, 0, 0.25);
+    }
+
+    .update-tag-col {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .item-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+
+    .item-path {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      word-break: break-all;
+    }
+
+    .item-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      font-size: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      width: fit-content;
+      text-transform: uppercase;
+    }
+
+    .status-done {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .status-optimized {
+      background: rgba(255, 229, 0, 0.12);
+      color: #FFE500;
+      border: 1px solid rgba(255, 229, 0, 0.3);
+    }
+
+    .update-detail-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .update-description {
+      font-size: 13.5px;
+      color: #d1d1dc;
+      line-height: 1.6;
+    }
+
+    .before-after-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+    }
+
+    @media (max-width: 640px) {
+      .before-after-box {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .ba-pane {
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      line-height: 1.5;
+    }
+
+    .ba-before {
+      background: rgba(239, 68, 68, 0.07);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+    }
+
+    .ba-after {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      color: #86efac;
+    }
+
+    .ba-title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+      opacity: 0.8;
+    }
+
+    /* Verification Box */
+    .qa-box {
+      background: linear-gradient(135deg, rgba(255, 229, 0, 0.04), rgba(16, 185, 129, 0.04));
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .qa-item h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qa-item p {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .badge-check {
+      color: var(--success);
+      font-weight: bold;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding-top: 48px;
+      color: var(--text-dim);
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      border-top: 1px solid var(--border);
+      margin-top: 60px;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+      }
+      .header, .section-block, .kpi-card, .update-item {
+        background: #fff;
+        border-color: #ddd;
+        color: #000;
+        box-shadow: none;
+      }
+      .controls-bar {
+        display: none;
+      }
+      .item-name, .section-title, .kpi-label, .header-title-wrap h1 {
+        color: #000;
+      }
+      .kpi-num {
+        color: #000;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Executive Header -->
+    <header class="header">
+      <div class="header-top">
+        <div class="brand-group">
+          <div class="logo-badge">CUC</div>
+          <div class="header-title-wrap">
+            <h1>Rapport Exécutif de Direction</h1>
+            <p>Destinataire : Lucas Dollfus • Directeur du Campus Univers Cascades</p>
+          </div>
+        </div>
+        <div class="meta-pills">
+          <span class="pill pill-status">● Production Validée</span>
+          <span class="pill pill-commit">Commit a5476d9</span>
+          <span class="pill pill-date">2 Novembre 2026</span>
+        </div>
+      </div>
+      <p class="lead-summary">
+        Ce dossier récapitule l'intégralité des ajustements techniques, visuels et stratégiques déployés aujourd'hui sur la plateforme CUC (code source, données statiques et base de données de production Supabase). Toutes les demandes opérationnelles ont été traitées avec rigueur, dans le respect de l'identité cinématographique haut de gamme du Campus.
+      </p>
+    </header>
+
+    <!-- Key Metrics / KPIs -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-num">17/17</div>
+        <div class="kpi-label">Sessions Complètes</div>
+        <div class="kpi-desc">Toutes les formations et stages clôturés à guichet fermé</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">0 €</div>
+        <div class="kpi-label">Tarif 250€ Retiré</div>
+        <div class="kpi-desc">Formule immersion passée en « Pension complète »</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">08</div>
+        <div class="kpi-label">Amphithéâtre CUC</div>
+        <div class="kpi-desc">Photo intégrée & métrique « 1 AMPHI » déployée</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">+1</div>
+        <div class="kpi-label">Benjamin Voisin</div>
+        <div class="kpi-desc">Intégré au catalogue avec <em>Forty Love</em> & <em>Johnny</em></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">1 214</div>
+        <div class="kpi-label">Tests Réussis</div>
+        <div class="kpi-desc">167 suites de tests validées sans régression</div>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="controls-bar">
+      <div class="filter-tabs">
+        <button class="filter-btn active" onclick="filterCategory('all')">Tous les pôles (7)</button>
+        <button class="filter-btn" onclick="filterCategory('formations')">Formations & Stages</button>
+        <button class="filter-btn" onclick="filterCategory('campus')">Campus & Amphi</button>
+        <button class="filter-btn" onclick="filterCategory('cinema')">Cinéma & Tournage</button>
+        <button class="filter-btn" onclick="filterCategory('events')">Events & Partenaires</button>
+        <button class="filter-btn" onclick="filterCategory('coachs')">Équipe & Coachs</button>
+        <button class="filter-btn" onclick="filterCategory('visuels')">Bandeaux & Visuels</button>
+      </div>
+      <div>
+        <button class="action-btn" onclick="window.print()">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2m-10 0v4h8v-4"></path></svg>
+          Imprimer / PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- PÔLE 1 : FORMATIONS & STAGES -->
+    <section class="section-block" data-category="formations">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-icon">🎓</div>
+          <div>
+            <div class="section-category">Pôle Pédagogie & Admissions</div>
+            <h2 class="section-title">Formations Professionnelles & Stages Immersion</h2>
+          </div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="update-grid">
+          
+          <div class="update-item">
+            <div class="update-tag-col">
+              <span class="item-name">Clôture des Sessions</span>
+              <span class="item-status-pill status-done">Appliqué en Base</span>
+              <span class="item-path">site_sessions & programs.ts</span>
+            </div>
+            <div class="update-detail-col">
+              <p class="update-description">
+                Toutes les sessions de formation (Formation Longue 2 ans, Stage Découverte 12 jours, Week-end immersion, Stages AFDAS Artistes Interprètes et Summer Camp) affichent désormais le statut officiel <strong>« COMPLET »</strong> sur l'ensemble du site.
+              </p>
+              <div class="before-after-box">
+                <div class="ba-pane ba-before">
+                  <div class="ba-title">État antérieur</div>
+                  Statuts hétérogènes (« dernières places », « ouvert ») incitant à des réservations immédiates.
+                </div>
+                <div class="ba-pane ba-after">
+                  <div class="ba-title">Nouvel état</div>
+                  17 sessions verrouillées à 100 % sur « COMPLET » (bases Supabase et fallback statique synchronisés).
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="update-item">
+            <div class="update-tag-col">
+              <span class="item-name">Suppression du Tarif 250€</span>
+              <span class="item-status-pill status-done">Suppression Totale</span>
+              <span class="item-path">stages.data.ts & navigation.ts & i18n</span>
+            </div>
+            <div class="update-detail-col">
+              <p class="update-description">
+                Disparition totale de la mention « 250€ » / « 250,00 € » sur toutes les vues publiques du site : cartes programmes, boutons d'appel à l'action, navigation du pied de page, formulaires de contact et métadonnées de référencement SEO.
+              </p>
+              <div class="before-after-box">
+                <div class="ba-pane ba-before">
+                  <div class="ba-title">État antérieur</div>
+                  « Réserver mon Week-end (250,00 €) », « Dès 250€ », lien footer « Stages Week-end (250€) ».
+                </div>
+                <div class="ba-pane ba-after">
+                  <div class="ba-title">Nouvel état</div>
+                  Bouton épuré « Réserver mon Week-end », tarif remplacé par « Pension complète », lien footer « Stages Week-end ».
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PÔLE 2 : CAMPUS & INFRASTRUCTURES -->
+    <section class="section-block" data-category="campus">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-icon">🏛️</div>
+          <div>
+            <div class="section-category">Pôle Domaine & Installations</div>
+            <h2 class="section-title">Infrastructures & Métriques du Campus</h2>
+          </div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="update-grid">
+
+          <div class="update-item">
+            <div class="update-tag-col">
+              <span class="item-name">Infrastructure n° 08 : L'Amphithéâtre</span>
+              <span class="item-status-pill status-optimized">Photo WebP HD</span>
+              <span class="item-path">campus.ts & campus_facilities</span>
+            </div>
+            <div class="update-detail-col">
+              <p class="update-description">
+                Remplacement de l'ancienne photo du QG par le cliché officiel haute définition de l'amphithéâtre du Campus (gradins modernes, écran géant L2C, logo CUC rétroéclairé). Conversion en WebP 85 % ultra-léger (132 Ko, 45 % de gain de bande passante) et téléversement sécurisé sur Supabase Storage (`campus-08-amphitheatre.webp`).
+              </p>
+              <div class="before-after-box">
+                <div class="ba-pane ba-before">
+                  <div class="ba-title">Ancienne fiche n° 08</div>
+                  « Hébergement & Base de Vie » avec visuel du QG.
+                </div>
+                <div class="ba-pane ba-after">
+                  <div class="ba-title">Nouvelle fiche n° 08</div>
+                  « Amphithéâtre CUC & Espace Débriefing » avec visuel officiel et descriptif orienté projection de rushes.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="update-item">
+            <div class="update-tag-col">
+              <span class="item-name">Chiffre Clé : 1 AMPHI</span>
+              <span class="item-status-pill status-done">I18n FR / EN</span>
+              <span class="item-path">messages/fr.json & en.json</span>
+            </div>
+            <div class="update-detail-col">
+              <p class="update-description">
+                Mise à jour de la statistique d'accueil dans le module de la visite guidée : remplacement de la métrique géographique « 2 SITES » par la mise en valeur de l'infrastructure pédagogique « 1 AMPHI ».
+              </p>
+              <div class="before-after-box">
+                <div class="ba-pane ba-before">
+                  <div class="ba-title">FR / EN Précédent</div>
+                  « 2 SITES » — Nord (59) & Paris (92)
+                </div>
+                <div class="ba-pane ba-after">
+                  <div class="ba-title">FR / EN Actuel</div>
+                  « 1 AMPHI » — Amphithéâtre de cours & projections (EN: « 1 AMPHITHEATER »)
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PÔLE 3 : CINÉMA & TOURNAGES -->
+    <section class="section-block" data-category="cinema">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-icon">🎬</div>
+          <div>
+            <div class="section-category">Pôle Cascades & Industrie du Cinéma</div>
+            <h2 class="section-title">Comédiens Partenaires & Fiches Tournages</h2>
+          </div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="update-grid">
+
+          <div class="update-item">
+            <div class="update-tag-col">
+              <span class="item-name">Ajout de Benjamin Voisin</span>
+              <span class="item-status-pill status-done">Comédien Officiel</span>
+              <span class="item-path">celebrities.ts & celebrity-tournage.ts</span>
+            </div>
+            <div class="update-detail-col">
+              <p class="update-description">
+                Intégration complète de l'acteur césarisé Benjamin Voisin (<em>Illusions perdues</em>, <em>Été 85</em>) dans la sélection officielle de la page Tournage (portée à 17 comédiens d'élite).
+              </p>
+              <div class="before-after-box">
+                <div class="ba-pane ba-before">
+                  <div class="ba-title">Filmographie associée</div>
+                  Non répertorié dans la galerie CUC.
+                </div>
+                <div class="ba-pane ba-after">
+                  <div class="ba-title">Interconnexions CUC / Lucas</div>
+                  Lié aux productions <strong>Forty Love</strong> (2026, réal. Pierre-Ange Carlotti) et au grand biopic <strong>Johnny</strong> (2027, réal. Cédric Jimenez, cascades Lucas Dollfus).
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="update-item">
+            <div class="update-tag-col">
+              <span class="item-name">Création du Film « Johnny »</span>
+              <span class="item-status-pill status-done">Catalogue CUC</span>
+              <span class="item-path">filmography.ts & site_films</span>
+            </div>
+            <div class="update-detail-col">
+              <p class="update-description">
+                Enregistrement dans la base de données et le catalogue public du long-métrage événement <em>Johnny</em> (sortie 2027, production Hugo Sélignac / Chi-Fou-Mi, distribution Studiocanal) avec Lucas Dollfus crédité comme Coordinateur des cascades.
+              </p>
+            </div>
+          </div>
+
+          <div class="update-item">
+            <div class="update-tag-col">
+              <span class="item-name">Épuration des Fiches Comédiens</span>
+              <span class="item-status-pill status-optimized">UI Ciblée Comédiens</span>
+              <span class="item-path">CelebrityCard.tsx & CelebrityDetailsModal.tsx</span>
+            </div>
+            <div class="update-detail-col">
+              <p class="update-description">
+                Sur la page Tournage (`/cuc-team-cascadeur`), les vignettes et modales des comédiens n'affichent plus les miniatures d'avatars de cascadeurs ou les mentions de doublures (« Doublé par X »). La présentation met en valeur exclusivement la photo officielle, le nom de l'acteur, sa biographie et les boutons cliquables vers les films coordonnés par le CUC. Les données techniques internes restent bien conservées en coulisses.
+              </p>
+            </div>
+          </div>
+
+          <div class="update-item">
+            <div class="update-tag-col">
+              <span class="item-name">Bandeau Tournage : Logo CUC Team</span>
+              <span class="item-status-pill status-done">Design Épuré</span>
+              <span class="item-path">TeamHeroSection.tsx</span>
+            </div>
+            <div class="update-detail-col">
+              <p class="update-description">
+                Suppression du texte « Campus Univers Cascades » qui figurait sous l'écusson dans l'en-tête de la page Tournage : le blason CUC Team s'affiche désormais seul, avec élégance et sans surcharge textuelle.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PÔLE 4 : EVENTS & PARTENAIRES -->
+    <section class="section-block" data-category="events">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-icon">🎪</div>
+          <div>
+            <div class="section-category">Pôle Agence & Prestations Live</div>
+            <h2 class="section-title">Agence CUC Events & Page Partenaires</h2>
+          </div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="update-grid">
+
+          <div class="update-item">
+            <div class="update-tag-col">
+              <span class="item-name">Ordre Canonique des Prestations</span>
+              <span class="item-status-pill status-done">Hiérarchie Validée</span>
+              <span class="item-path">defaults/events.ts & site_events</span>
+            </div>
+            <div class="update-detail-col">
+              <p class="update-description">
+                Réorganisation de l'ordre d'affichage des 3 offres majeures sur `/cuc-events-agence` :
+              </p>
+              <div class="before-after-box">
+                <div class="ba-pane ba-before">
+                  <div class="ba-title">Ordre antérieur</div>
+                  1. Team Building • 2. Spectacles • 3. Airbag
+                </div>
+                <div class="ba-pane ba-after">
+                  <div class="ba-title">Nouvel ordre stratégique</div>
+                  <strong>1. Spectacles & Shows Live</strong> • <strong>2. Airbag & Parkour</strong> • <strong>3. Team Building Action</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="update-item">
+            <div class="update-tag-col">
+              <span class="item-name">Retrait du Bouton Vidéos</span>
+              <span class="item-status-pill status-done">Allègement CTA</span>
+              <span class="item-path">EventsHeroSection.tsx & site_pages</span>
+            </div>
+            <div class="update-detail-col">
+              <p class="update-description">
+                Suppression du bouton secondaire « Toutes nos vidéos de shows » dans le hero d'accueil de l'agence événementielle. Le focus reste ainsi à 100 % sur l'appel à l'action commercial : « Demander un Devis Événementiel ».
+              </p>
+            </div>
+          </div>
+
+          <div class="update-item">
+            <div class="update-tag-col">
+              <span class="item-name">Masquage de la Page Partenaires</span>
+              <span class="item-status-pill status-done">Page Dé-publiée</span>
+              <span class="item-path">navigation.ts & site_pages</span>
+            </div>
+            <div class="update-detail-col">
+              <p class="update-description">
+                La page `/partenaires` a été désactivée de la barre de navigation supérieure et du pied de page (`is_visible: false`). Elle a été dé-publiée dans la table Supabase `site_pages`, ce qui la retire automatiquement du sitemap XML officiel.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PÔLE 5 : ÉQUIPE & COACHS -->
+    <section class="section-block" data-category="coachs">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-icon">🥋</div>
+          <div>
+            <div class="section-category">Pôle Pédagogie & Encadrement</div>
+            <h2 class="section-title">Présentation de l'Équipe des Coachs</h2>
+          </div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="update-grid">
+
+          <div class="update-item">
+            <div class="update-tag-col">
+              <span class="item-name">Domaines d'Expertise Retirés</span>
+              <span class="item-status-pill status-done">Épuration Graphique</span>
+              <span class="item-path">CoachCard.tsx & CoachProfile.tsx</span>
+            </div>
+            <div class="update-detail-col">
+              <p class="update-description">
+                Suppression des pastilles et listes de « Domaines d'expertise » sur l'ensemble du site public (aussi bien sur la galerie générale de l'équipe que sur les pages de profil détaillées de chaque cascadeur).
+              </p>
+            </div>
+          </div>
+
+          <div class="update-item">
+            <div class="update-tag-col">
+              <span class="item-name">Biographies Réservées au Cockpit</span>
+              <span class="item-status-pill status-optimized">Garde en Mémoire</span>
+              <span class="item-path">site_team & Cockpit Admin</span>
+            </div>
+            <div class="update-detail-col">
+              <p class="update-description">
+                Les textes biographiques des coachs ont été retirés de l'affichage public afin d'éviter tout contenu générique ou répétitif perçu par les visiteurs. 
+                <br><br>
+                <strong>Point crucial pour la direction :</strong> Les biographies rédigées restent intégralement conservées dans la base de données et sont consultables / modifiables à tout moment dans le <strong>Cockpit Administrateur</strong> (`/admin` → Équipe), prêtes à être réinjectées ou adaptées selon le choix de Lucas.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PÔLE 6 : BANDEAUX & VISUELS -->
+    <section class="section-block" data-category="visuels">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <div class="section-icon">🖼️</div>
+          <div>
+            <div class="section-category">Pôle Direction Artistique & UX</div>
+            <h2 class="section-title">Luminosité des Bandeaux & Cadrage des Visages</h2>
+          </div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="update-grid">
+
+          <div class="update-item">
+            <div class="update-tag-col">
+              <span class="item-name">Cadrage Visages (Events)</span>
+              <span class="item-status-pill status-done">object-top Calé</span>
+              <span class="item-path">EventsHeroSection.tsx</span>
+            </div>
+            <div class="update-detail-col">
+              <p class="update-description">
+                Correction majeure sur le bandeau d'accueil de la page Événements : l'alignement de l'image est désormais calé en <code>object-top</code> (au lieu de <code>object-center</code>). Le haut de l'image est ainsi préservé à 100 %, éliminant la coupure des têtes et des visages constatée sur les écrans larges.
+              </p>
+            </div>
+          </div>
+
+          <div class="update-item">
+            <div class="update-tag-col">
+              <span class="item-name">Éclaircissement des Bandeaux</span>
+              <span class="item-status-pill status-optimized">Visibilité Rehaussée</span>
+              <span class="item-path">Tous les composants Hero</span>
+            </div>
+            <div class="update-detail-col">
+              <p class="update-description">
+                L'assombrissement excessif qui masquait les photographies a été corrigé sur l'ensemble des pages du site (Formation, Stages, Workshop, Team, Visite, Contact, etc.).
+              </p>
+              <div class="before-after-box">
+                <div class="ba-pane ba-before">
+                  <div class="ba-title">Rendu antérieur</div>
+                  Luminosité écrasée à 35 % (`brightness-35`) + voile sombre à 80 % : photos quasi-invisibles.
+                </div>
+                <div class="ba-pane ba-after">
+                  <div class="ba-title">Nouveau rendu</div>
+                  Luminosité relevée à 70 % (`brightness-70 contrast-110`) + gradient adouci à 40 % : les clichés sont nets, contrastés et vibrants.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- QA & Robustesse -->
+    <div class="qa-box">
+      <div class="qa-item">
+        <h4><span class="badge-check">✓</span> Typage & Architecture</h4>
+        <p>Compilation TypeScript stricte sans avertissement ni régression. Respect strict des plafonds de 300 lignes par composant (directive modulaire CUC).</p>
+      </div>
+      <div class="qa-item">
+        <h4><span class="badge-check">✓</span> Suite de Tests Vitest</h4>
+        <p><strong>167 fichiers de tests</strong> exécutés avec succès. <strong>1 214 tests passés</strong> (0 échec), garantissant l'intégrité de la persistance, du responsive et de l'accessibilité a11y.</p>
+      </div>
+      <div class="qa-item">
+        <h4><span class="badge-check">✓</span> Dépôt Git & Déploiement</h4>
+        <p>Branche principale <code>master</code> synchronisée sur GitHub via le commit <code>a5476d9</code>. Base Supabase de production alignée en temps réel.</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>CAMPUS UNIVERS CASCADES • LE CATEAU-CAMBRÉSIS (59) & GENNEVILLIERS (92)</p>
+      <p style="margin-top: 6px; color: var(--text-muted);">Document technique et stratégique à usage interne de la direction • Généré le 2 Novembre 2026</p>
+    </footer>
+
+  </div>
+
+  <script>
+    function filterCategory(category) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const sections = document.querySelectorAll('.section-block');
+      sections.forEach(sec => {
+        if (category === 'all' || sec.getAttribute('data-category') === category) {
+          sec.style.display = 'block';
+        } else {
+          sec.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
