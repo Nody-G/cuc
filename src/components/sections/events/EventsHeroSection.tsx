@@ -37,21 +37,43 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
   const ctaSecondaryText = hero?.cta_secondary_text;
   const ctaSecondaryLink = hero?.cta_secondary_link || '/videos-cascadeur';
 
+  /** Effet de parallaxe subtil et performant */
+  const [scrollY, setScrollY] = React.useState(0);
+
+  React.useEffect(() => {
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
-      <div className="absolute inset-0 z-0">
+    <section className="relative py-24 sm:py-32 lg:py-36 min-h-[560px] sm:min-h-[640px] flex items-center bg-black border-b border-zinc-800 overflow-hidden">
+      {/* Background avec parallaxe cinématique et cadrage valorisant les silhouettes et costumes */}
+      <div
+        className="absolute inset-x-0 -top-24 -bottom-24 z-0 will-change-transform"
+        style={{ transform: `translate3d(0, ${Math.min(scrollY * 0.18, 140)}px, 0)` }}
+      >
         <Image
           src={bgImage}
           alt={t('heroImageAlt')}
           fill
           priority
           sizes="100vw"
-          className="object-cover object-top brightness-70 contrast-110"
+          className="object-cover object-[center_28%] brightness-75 contrast-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/45 to-transparent" />
       </div>
 
-      <div className="relative z-10 page-shell">
+      <div className="relative z-10 page-shell w-full">
         <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
           <Link href="/" className="hover:text-[#FFE500] transition-colors">
             <span {...cucMicro('commonChrome.breadcrumbHome')}>{chrome('breadcrumbHome')}</span>

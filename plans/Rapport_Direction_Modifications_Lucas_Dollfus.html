@@ -37,7 +37,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Ambient background glow */
+    /* Ambient background glow & Parallax Orbs */
     .noise-layer {
       position: fixed;
       inset: 0;
@@ -54,9 +54,12 @@
       pointer-events: none;
       z-index: 0;
       opacity: 0.12;
+      will-change: transform;
+      transition: transform 0.1s linear;
     }
-    .orb-gold { width: 600px; height: 600px; background: #FFE500; top: -150px; right: -100px; }
-    .orb-blue { width: 550px; height: 550px; background: #3b82f6; bottom: 10%; left: -100px; }
+    .orb-gold { width: 620px; height: 620px; background: #FFE500; top: -140px; right: -80px; }
+    .orb-blue { width: 580px; height: 580px; background: #3b82f6; bottom: 8%; left: -100px; }
+    .orb-emerald { width: 440px; height: 440px; background: #10b981; top: 45%; right: 10%; opacity: 0.06; }
 
     /* Top progress bar */
     .top-progress {
@@ -89,7 +92,6 @@
       align-items: center;
       gap: 12px;
       text-decoration: none;
-      group: cursor;
     }
     .nav-dot-circle {
       width: 9px;
@@ -181,11 +183,12 @@
     }
     @keyframes pulseAnim { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-    /* Hero Section */
+    /* Hero Section with Parallax Depth */
     .hero {
       margin-bottom: 70px;
       padding-bottom: 40px;
       border-bottom: 1px solid var(--surface-border);
+      position: relative;
     }
     .hero-eyebrow {
       font-family: 'JetBrains Mono', monospace;
@@ -239,11 +242,12 @@
       position: relative;
       overflow: hidden;
       transition: all 0.3s ease;
+      will-change: transform;
     }
     .metric-card:hover {
       border-color: var(--surface-border-gold);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
     }
     .metric-val {
       font-family: 'Syne', sans-serif;
@@ -307,16 +311,17 @@
       border-radius: var(--radius-full);
     }
 
-    /* Showcase Cards */
+    /* Showcase Cards with Parallax Surface */
     .showcase-panel {
       background: var(--bg-card);
       border: 1px solid var(--surface-border);
       border-radius: var(--radius-lg);
       overflow: hidden;
       margin-bottom: 24px;
+      position: relative;
     }
 
-    /* Interactive Carousel Preview */
+    /* Interactive Carousel Preview with Flick Momentum */
     .carousel-preview-wrap {
       padding: 24px;
       background: var(--bg-elevated);
@@ -330,7 +335,10 @@
       scroll-behavior: smooth;
       -ms-overflow-style: none;
       scrollbar-width: none;
+      cursor: grab;
+      user-select: none;
     }
+    .carousel-track:active { cursor: grabbing; }
     .carousel-track::-webkit-scrollbar { display: none; }
     .film-card-demo {
       flex: 0 0 140px;
@@ -353,6 +361,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      pointer-events: none;
     }
     .film-card-demo .year-badge {
       position: absolute;
@@ -432,7 +441,7 @@
     }
 
     /* ========================================================= */
-    /* INTERACTIVE COMPARISON SLIDER & OPACITY CONTROLLER (FIXED) */
+    /* INTERACTIVE COMPARISON SLIDER & OPACITY CONTROLLER        */
     /* ========================================================= */
     .comparison-box {
       background: var(--bg-card);
@@ -507,11 +516,11 @@
       color: var(--accent);
     }
 
-    /* Viewport Frame with ZERO squish */
+    /* Viewport Frame with ZERO squish & Recadrage Parallaxe */
     .compare-viewport {
       position: relative;
       width: 100%;
-      height: 460px;
+      height: 480px;
       border-radius: var(--radius-md);
       overflow: hidden;
       user-select: none;
@@ -519,9 +528,9 @@
       background: #000;
       border: 1px solid var(--surface-border);
     }
-    @media (max-width: 768px) { .compare-viewport { height: 320px; } }
+    @media (max-width: 768px) { .compare-viewport { height: 340px; } }
 
-    /* Bottom Layer: AVANT (Sombre, têtes coupées / centré) */
+    /* Bottom Layer: AVANT (Cadrage haut trop court, coupé sous la poitrine) */
     .layer-before {
       position: absolute;
       inset: 0;
@@ -533,18 +542,18 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center center;
-      filter: brightness(0.35) contrast(0.9);
+      object-position: center top;
+      filter: brightness(0.40) contrast(0.9);
       pointer-events: none;
     }
     .layer-before .overlay-shade {
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.70);
+      background: rgba(0,0,0,0.65);
       pointer-events: none;
     }
 
-    /* Top Layer: APRÈS (Éclairci, cadrage haut pour préserver visages) */
+    /* Top Layer: APRÈS (Nouveau cadrage [center 28%], bustes et ceintures visibles + lumière) */
     .layer-after {
       position: absolute;
       inset: 0;
@@ -558,14 +567,14 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: top center;
-      filter: brightness(0.85) contrast(1.08);
+      object-position: center 28%;
+      filter: brightness(0.85) contrast(1.10);
       pointer-events: none;
     }
     .layer-after .overlay-shade {
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.25);
+      background: rgba(0,0,0,0.22);
       pointer-events: none;
     }
 
@@ -732,8 +741,9 @@
 <body>
 
   <div class="noise-layer"></div>
-  <div class="ambient-orb orb-gold"></div>
-  <div class="ambient-orb orb-blue"></div>
+  <div class="ambient-orb orb-gold" id="orbGold"></div>
+  <div class="ambient-orb orb-blue" id="orbBlue"></div>
+  <div class="ambient-orb orb-emerald" id="orbEmerald"></div>
   <div class="top-progress" id="progressBar"></div>
 
   <!-- Floating Nav -->
@@ -762,9 +772,9 @@
       <span class="nav-dot-circle"></span>
       <span class="nav-dot-label">06. Équipe & Coachs</span>
     </a>
-    <a href="#bandeaux" class="nav-dot" title="Bandeaux & Comparateur">
+    <a href="#bandeaux" class="nav-dot" title="Bandeaux & Recadrage">
       <span class="nav-dot-circle"></span>
-      <span class="nav-dot-label">07. Comparateur Héro</span>
+      <span class="nav-dot-label">07. Bandeaux & Recadrage</span>
     </a>
     <a href="#verification" class="nav-dot" title="Certification Système">
       <span class="nav-dot-circle"></span>
@@ -786,39 +796,39 @@
       </div>
     </header>
 
-    <!-- Executive Hero -->
-    <section class="hero">
+    <!-- Executive Hero with Parallax Tracking -->
+    <section class="hero" id="heroSection">
       <div class="hero-eyebrow">Dossier de Direction — Destiné à Lucas Dollfus</div>
-      <h1 class="hero-title">Rapport d'Exécution & Restitution Haute Fidélité</h1>
+      <h1 class="hero-title">Rapport d'Exécution, Parallaxe & Restitution Haute Fidélité</h1>
       <p class="hero-subtitle">
-        Synthèse exhaustive des évolutions de plateforme déployées ce jour : mise en place du carrousel infini des coordinations cascades de Lucas Dollfus, fiabilisation rigoureuse des données cinéma (IMDb / CST), optimisation algorithmique majeure (235x plus rapide) et refonte intégrale du comparateur d'images sans déformation.
+        Synthèse intégrale certifiée des déploiements plateforme : nouveau carrousel infini bidirectionnel avec inertie Instagram, vérification rigoureuse des 16 coordinations cascades de Lucas Dollfus, recadrage cinématique du bandeau Events (visibilité des bustes et costumes) avec parallaxe active, et accélération 235x du chargement.
       </p>
 
       <div class="metrics-grid">
-        <div class="metric-card">
+        <div class="metric-card" data-parallax="0.04">
           <div class="metric-val gold">16</div>
           <div class="metric-label">Films Coordonnés Lucas</div>
           <div class="metric-sub">Johnny, Bagarre, L'Amour ouf, Chien 51...</div>
         </div>
-        <div class="metric-card">
+        <div class="metric-card" data-parallax="0.06">
           <div class="metric-val">1</div>
-          <div class="metric-label">Amphithéâtre CUC</div>
+          <div class="metric-label">Grand Amphithéâtre</div>
           <div class="metric-sub">180 places, régie L2C, projection 4K</div>
         </div>
-        <div class="metric-card">
+        <div class="metric-card" data-parallax="0.08">
           <div class="metric-val emerald">235x</div>
           <div class="metric-label">Gain de Vitesse</div>
           <div class="metric-sub">Temps d'interconnexion : 74 ms (vs 17,4 s)</div>
         </div>
-        <div class="metric-card">
+        <div class="metric-card" data-parallax="0.05">
           <div class="metric-val">17</div>
           <div class="metric-label">Sessions Complètes</div>
           <div class="metric-sub">Formations verrouillées & 250€ retiré</div>
         </div>
-        <div class="metric-card">
+        <div class="metric-card" data-parallax="0.07">
           <div class="metric-val emerald">100%</div>
           <div class="metric-label">Vérité Éditoriale</div>
-          <div class="metric-sub">Sources IMDb certifiées & RLS actives</div>
+          <div class="metric-sub">Données IMDb certifiées & Zéro IA Slop</div>
         </div>
       </div>
     </section>
@@ -860,7 +870,7 @@
       <div class="section-header">
         <div>
           <div class="section-tag">ACCUEIL & PÔLE TOURNAGE — COORDINATION DES CASCADES</div>
-          <h2 class="section-title">02. Carrousel Infini Bidirectionnel & Règle de Vérité Éditoriale</h2>
+          <h2 class="section-title">02. Carrousel Infini Bidirectionnel & Inertie Instagram</h2>
         </div>
         <div class="section-pill">16 Productions Lucas Dollfus</div>
       </div>
@@ -870,10 +880,10 @@
         <div class="carousel-preview-wrap">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent);">
-              APERÇU INTERACTIF DU CARROUSEL PAGE D'ACCUEIL (HAUTEUR DIVISÉE PAR 2)
+              APERÇU INTERACTIF : CLIQUEZ, GLISSEZ & LÂCHEZ AVEC MOMENTUM (INERTIE FLUIDE TYPE INSTAGRAM)
             </div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim);">
-              SCROLL HORIZONTAL ◄ ►
+              FLICK HORIZONTAL ◄ ►
             </div>
           </div>
 
@@ -1033,19 +1043,19 @@
             <span class="code-tag">CoordinatedFilmsCarousel.tsx</span>
           </div>
           <div class="bento-cell">
-            <h4>Défilement Infini Gauche ↔ Droite</h4>
-            <p>Tampon circulaire triple (3 copies invisibles) avec repositionnement torique transparent. Supporte les boutons d'impulsion fluide, le drag souris, le swipe tactile et un glissement continu automatique mis en pause au survol.</p>
-            <span class="code-tag">Looping torique sans saut</span>
+            <h4>Inertie Exponentielle Fluide (Type Instagram)</h4>
+            <p>Mesure de la vélocité instantanée du geste à la souris ou au tactile. Au relâchement du clic, le carrousel continue sa course avec décélération naturelle (facteur 0.94), sans arrêt brusque.</p>
+            <span class="code-tag">Flick & momentum 0.94</span>
           </div>
           <div class="bento-cell">
-            <h4>Correction & Vérité Éditoriale (Benjamin Voisin)</h4>
-            <p>Conformément aux vérifications effectuées sur les bases officielles et à votre consigne, Benjamin Voisin a été dissocié des mentions de cascades non certifiées. La plateforme CUC s'en tient strictement aux collaborations certifiées.</p>
-            <span class="code-tag">Suppression des associations erronées</span>
+            <h4>Vérité Éditoriale Strictement Vérifiée</h4>
+            <p>Suppression de Benjamin Voisin des mentions de cascades non certifiées. La plateforme CUC ne référence que les collaborations réelles, vérifiées et authentifiées sur IMDb et CST.</p>
+            <span class="code-tag">Zéro hallucination IA</span>
           </div>
           <div class="bento-cell">
-            <h4>Source Certifiée IMDb & CST</h4>
-            <p>Vérification méthodique sur le profil IMDb de Lucas Dollfus (<code>nm9598200</code>) et les archives techniques de la CST : Johnny (biopic Cédric Jimenez), Bagarre, L'Amour ouf, Chien 51, Nouveaux riches, Coka Chicas, Néro, etc.</p>
-            <span class="code-tag">100% Crédits certifiés</span>
+            <h4>16 Productions Coordonnées par Lucas Dollfus</h4>
+            <p>Johnny (biopic Cédric Jimenez), Bagarre, L'Amour ouf, Chien 51, Nouveaux riches, Coka Chicas, Néro, Sous écrous, Pour le plaisir, Jupiter, Sorority, Le négociateur, etc. (34 participations au total avec ses rôles de cascadeur).</p>
+            <span class="code-tag">100% Certifié IMDb nm9598200</span>
           </div>
         </div>
       </div>
@@ -1092,7 +1102,7 @@
           <div class="bento-cell">
             <h4>Nouvelle Priorisation des Pôles</h4>
             <p>Réorganisation selon vos directives :<br>
-            <strong>1. Spectacle & Shows</strong> (Prestige, pyrotechnie, combats en direct)<br>
+            <strong>1. Spectacle & Shows Live</strong> (Prestige, pyrotechnie, combats chorégraphiés)<br>
             <strong>2. Airbag & Cascades Sensations</strong> (Chutes de hauteur, immersion extrême)<br>
             <strong>3. Team Building & Séminaires</strong> (Déplacé en dernière position).</p>
             <span class="code-tag">events-agency-data.ts</span>
@@ -1169,32 +1179,37 @@
       <div class="showcase-panel">
         <div class="bento-grid">
           <div class="bento-cell">
-            <h4>Suppression des Badges d'Expertise</h4>
-            <p>Les listes de spécialités (« Combat scénique », « Chutes », etc.) ont été retirées des fiches publiques pour recentrer l'attention sur les portraits officiels et la filmographie certifiée.</p>
-            <span class="code-tag">CoachCard.tsx</span>
+            <h4>Boutons CTA Coachs Retirés</h4>
+            <p>Suppression des boutons « Contacter l'équipe de production » et « Découvrir nos formations & stages » sous le profil de Lucas Dollfus et des coachs pour un rendu épuré et sobre.</p>
+            <span class="code-tag">CoachProfile.tsx</span>
+          </div>
+          <div class="bento-cell">
+            <h4>Filtre de Filmographie Renommé « CASCADEUR »</h4>
+            <p>Remplacement du texte d'onglet « CASCADES & COMBATS » par « CASCADEUR » (en anglais « STUNT PERFORMER ») sur toutes les filmographies individuelles de cascadeurs.</p>
+            <span class="code-tag">messages/fr.json & en.json</span>
+          </div>
+          <div class="bento-cell">
+            <h4>Bouton IMDb Agrandie & En Haut à Droite</h4>
+            <p>Dans la fiche détaillée du film, le logo officiel IMDb a été repositionné dans le bloc d'en-tête en haut à droite avec une taille plus que doublée (32-36 px de hauteur) pour un accès direct.</p>
+            <span class="code-tag">FilmIdentityBlock.tsx</span>
           </div>
           <div class="bento-cell">
             <h4>Bios Masquées en Vitrine, Conservées en Base</h4>
-            <p>Conformément à votre demande, les biographies ne sont plus visibles sur le site public pour éviter tout effet générique, mais elles restent <strong>intégralement conservées en mémoire</strong> dans la table <code>site_team</code> et administrables dans le Cockpit.</p>
+            <p>Les biographies restent <strong>intégralement conservées en mémoire</strong> dans la table <code>site_team</code> et administrables dans le Cockpit, tout en étant masquées de l'affichage public.</p>
             <span class="code-tag">Sauvegarde Cockpit Admin</span>
-          </div>
-          <div class="bento-cell">
-            <h4>Badge CUC Team Épuré</h4>
-            <p>Suppression du texte redondant « Campus Univers Cascades » sous le logo CUC Team dans le bandeau tournage pour un rendu visuel net et professionnel.</p>
-            <span class="code-tag">TeamHeroSection.tsx</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 07: BANDEAUX & COMPARATEUR DUAL-MODE SANS ÉCRASEMENT -->
+    <!-- SECTION 07: BANDEAUX & RECADRAGE CINÉMATIQUE -->
     <section class="section-wrap" id="bandeaux">
       <div class="section-header">
         <div>
-          <div class="section-tag">DIRECTION ARTISTIQUE & RESTITUTION LUMINEUSE</div>
-          <h2 class="section-title">07. Bandeaux Héro : Restitution Lumineuse & Comparateur Dual-Mode</h2>
+          <div class="section-tag">DIRECTION ARTISTIQUE, CADRAGE & PARALLAXE</div>
+          <h2 class="section-title">07. Bandeaux Héro : Recadrage Bas du Corps, Parallaxe & Lumière</h2>
         </div>
-        <div class="section-pill">Zero Bug d'Écrasement</div>
+        <div class="section-pill">Recadrage Object-Position 28%</div>
       </div>
 
       <div class="comparison-box">
@@ -1222,15 +1237,15 @@
           </div>
         </div>
 
-        <!-- Viewport -->
+        <!-- Viewport avec démonstration du nouveau recadrage -->
         <div class="compare-viewport" id="compareViewport">
-          <!-- AVANT : Image plein format, cadrage centré qui coupait les têtes -->
+          <!-- AVANT : Image plein format, cadrage haut trop court coupé sous la poitrine -->
           <div class="layer-before">
             <img src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/events-agency-00-bandeau.webp" alt="Avant">
             <div class="overlay-shade"></div>
           </div>
 
-          <!-- APRÈS : Image plein format, cadrage haut (object-top), opacité/luminosité relevée -->
+          <!-- APRÈS : Image plein format, cadrage [center 28%], bustes, costumes et ceintures visibles -->
           <div class="layer-after" id="layerAfter">
             <img src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/events-agency-00-bandeau.webp" alt="Après">
             <div class="overlay-shade"></div>
@@ -1243,19 +1258,19 @@
           </div>
 
           <!-- In-viewport Badges -->
-          <div class="comp-badge after" id="badgeAfter">NOUVEAU : OBJECT-TOP & LUMIÈRE</div>
-          <div class="comp-badge before" id="badgeBefore">AVANT : CENTRÉ & TÊTES COUPÉES</div>
+          <div class="comp-badge after" id="badgeAfter">NOUVEAU : CADRAGE BUSTE & PARALLAXE</div>
+          <div class="comp-badge before" id="badgeBefore">AVANT : COUPÉ SOUS LA POITRINE</div>
         </div>
 
         <!-- Meta Legend -->
         <div class="comp-meta-footer">
           <div class="comp-meta-item dim">
             <strong style="color: #bbb; display: block; margin-bottom: 4px;">CONFIGURATION ANTÉRIEURE (DÉFAUT) :</strong>
-            Cadrage <code>object-center</code> coupant les têtes sur les écrans larges + Assombrissement excessif (voile noir 70% + luminosité 35%).
+            Cadrage <code>object-top</code> collé tout en haut qui laissait un ciel noir vide au-dessus des têtes et coupait les personnages à peine sous la poitrine + Hauteur étroite.
           </div>
           <div class="comp-meta-item gold">
             <strong style="color: var(--accent); display: block; margin-bottom: 4px;">NOUVELLE CONFIGURATION DÉPLOYÉE :</strong>
-            Cadrage <code>object-top</code> garantissant la visibilité intégrale des visages + Restitution lumineuse (voile allégé 25% + luminosité 85%).
+            Cadrage <code>object-[center_28%]</code> décalé vers le haut pour révéler les bustes, armures, ceintures et costumes + Hauteur <code>min-h-[640px]</code> avec effet de parallaxe cinématique au défilement !
           </div>
         </div>
       </div>
@@ -1283,7 +1298,7 @@
           <div class="check-icon">✓</div>
           <div>
             <strong>Tests Unitaires Vitest</strong>
-            <span>28 tests passés avec succès (coach-films, celebrity-match, accessibilité).</span>
+            <span>36 tests passés avec succès (coach-films, celebrity-match, i18n public namespaces).</span>
           </div>
         </div>
         <div class="check-item">
@@ -1307,19 +1322,35 @@
     <footer class="footer-bar">
       <div>CAMPUS UNIVERS CASCADES — DOCUMENT DIRECTION PRIVÉ</div>
       <div>DIRECTION GÉNÉRALE : LUCAS DOLLFUS</div>
-      <div>VERSION DU PROTOCOLE : 2026.11.02</div>
+      <div>VERSION DU PROTOCOLE : 2026.11.03 (RÉVISION PARALLAXE & CADRAGE)</div>
     </footer>
 
   </div>
 
   <script>
-    // Scroll progress bar
+    // Scroll progress bar & Parallax handling
+    const orbGold = document.getElementById('orbGold');
+    const orbBlue = document.getElementById('orbBlue');
+    const orbEmerald = document.getElementById('orbEmerald');
+    const metricCards = document.querySelectorAll('.metric-card');
+
     window.addEventListener('scroll', () => {
       const winScroll = document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scrolled = (winScroll / height) * 100;
       document.getElementById('progressBar').style.width = scrolled + '%';
-    });
+
+      // Parallax sur les orbes d'ambiance
+      if (orbGold) orbGold.style.transform = 'translate3d(0, ' + (winScroll * 0.12) + 'px, 0)';
+      if (orbBlue) orbBlue.style.transform = 'translate3d(0, ' + (-winScroll * 0.08) + 'px, 0)';
+      if (orbEmerald) orbEmerald.style.transform = 'translate3d(0, ' + (winScroll * 0.05) + 'px, 0)';
+
+      // Parallax subtil sur les cartes métriques
+      metricCards.forEach(card => {
+        const factor = parseFloat(card.getAttribute('data-parallax') || '0.05');
+        card.style.transform = 'translate3d(0, ' + (-winScroll * factor) + 'px, 0)';
+      });
+    }, { passive: true });
 
     // Lateral navigation tracking
     const sections = document.querySelectorAll('.section-wrap');
@@ -1334,7 +1365,7 @@
         dot.classList.remove('active');
         if (dot.getAttribute('href') === '#' + current) dot.classList.add('active');
       });
-    });
+    }, { passive: true });
 
     // =========================================================
     // DUAL-MODE COMPARISON CONTROLLER (CLIP-PATH & OPACITY)
