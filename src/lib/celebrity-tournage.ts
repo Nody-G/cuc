@@ -30,7 +30,6 @@ export const CUC_TOURNAGE_CELEBRITIES_ORDER: readonly string[] = [
     'fadily-camara',
     'alice-isaaz',
     'camille-razat',
-    'benjamin-voisin',
 ] as const;
 
 /**
@@ -53,7 +52,6 @@ export const CUC_TOURNAGE_PROJECTS_OVERRIDE: Readonly<Record<string, readonly st
     'fadily-camara': ['Coka Chicas'],
     'alice-isaaz': ['Néro (Netflix)'],
     'camille-razat': ['Néro (Netflix)'],
-    'benjamin-voisin': ['Forty Love', 'Johnny'],
 };
 
 /**
