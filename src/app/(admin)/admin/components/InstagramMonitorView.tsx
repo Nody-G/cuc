@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { RefreshCw, Play, Users, Image as ImageIcon, ChevronDown } from 'lucide-react';
+import { RefreshCw, Play, Users, Image as ImageIcon, ChevronDown, Video } from 'lucide-react';
 import { InstagramLogo } from '@/components/ui/logos/SocialLogos';
 import { useLiveInstagramMonitor } from './instagram-monitor/useLiveInstagramMonitor';
 import { useInstagramFeaturedReels } from './instagram-monitor/useInstagramFeaturedReels';
@@ -9,20 +9,21 @@ import { InstagramMediaFilterBar } from './instagram-monitor/InstagramMediaFilte
 import { InstagramMediaCard } from './instagram-monitor/InstagramMediaCard';
 import { InstagramMediaTable } from './instagram-monitor/InstagramMediaTable';
 import { VideosCrudManager } from './instagram-monitor/VideosCrudManager';
+import { DailymotionMonitorView } from './instagram-monitor/DailymotionMonitorView';
 
 interface InstagramMonitorViewProps {
     showToast: (msg: string) => void;
 }
 
 export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ showToast }) => {
-    const [subTab, setSubTab] = React.useState<'instagram' | 'videos'>('instagram');
+    const [subTab, setSubTab] = React.useState<'instagram' | 'dailymotion' | 'videos'>('instagram');
     const featured = useInstagramFeaturedReels(showToast);
     const monitor = useLiveInstagramMonitor(showToast, featured.featuredShortcodes);
 
     return (
         <div className="space-y-6 animate-in fade-in duration-200">
-            {/* Sous-onglets Instagram / Vidéos */}
-            <div className="flex items-center gap-2 p-1 bg-[#0D0D12] border border-zinc-800 rounded-xl w-fit">
+            {/* Sous-onglets Réseaux & Médias */}
+            <div className="flex flex-wrap items-center gap-2 p-1 bg-[#0D0D12] border border-zinc-800 rounded-xl w-fit">
                 <button
                     type="button"
                     onClick={() => setSubTab('instagram')}
@@ -37,6 +38,18 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                 </button>
                 <button
                     type="button"
+                    onClick={() => setSubTab('dailymotion')}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono-tech uppercase font-bold transition-all cursor-pointer ${
+                        subTab === 'dailymotion'
+                            ? 'bg-[#FFE500] text-black shadow-md'
+                            : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                    }`}
+                >
+                    <Video className="w-4 h-4" />
+                    <span>Dailymotion Officiel</span>
+                </button>
+                <button
+                    type="button"
                     onClick={() => setSubTab('videos')}
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono-tech uppercase font-bold transition-all cursor-pointer ${
                         subTab === 'videos'
@@ -45,11 +58,13 @@ export const InstagramMonitorView: React.FC<InstagramMonitorViewProps> = ({ show
                     }`}
                 >
                     <Play className="w-4 h-4" />
-                    <span>Vidéos &amp; Reportages TV (CRUD)</span>
+                    <span>Vidéos Vitrine (CRUD)</span>
                 </button>
             </div>
 
-            {subTab === 'videos' ? (
+            {subTab === 'dailymotion' ? (
+                <DailymotionMonitorView showToast={showToast} />
+            ) : subTab === 'videos' ? (
                 <VideosCrudManager showToast={showToast} />
             ) : (
                 <>
