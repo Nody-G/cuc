@@ -820,34 +820,84 @@
     ],
     "programs": [
       {
+        "dmId": "xbfafoi",
+        "title": "BFM TV — LE MÉTIER DE CASCADEUR",
+        "sub": "Reportage BFM TV • Immersion au Campus Univers Cascades"
+      },
+      {
+        "dmId": "xbfaf9m",
+        "title": "QUOTIDIEN — CUC REPORTAGE",
+        "sub": "Émission Quotidien (TMC) • Les coulisses de l'action"
+      },
+      {
+        "dmId": "xbf6gk2",
+        "title": "TF1 JT 20H — CUC REPORTAGE",
+        "sub": "Journal Télévisé TF1 • Immersion à l'école des cascadeurs"
+      },
+      {
         "dmId": "x9uewe0",
-        "title": "COEUR DE CASCADEURS",
-        "sub": "Série TV France 2 & CUC"
+        "title": "CŒUR DE CASCADEURS",
+        "sub": "Série TV France 2 (13h15) • Nania Films & CUC"
       },
       {
-        "dmId": "x8581s9",
-        "title": "REPORTAGE BFM TV",
-        "sub": "« À l'école des cascadeurs »"
+        "dmId": "x8mmmm3",
+        "title": "DIVERSION — CUC TEAM",
+        "sub": "France 2 (20h30 l'été) • Tournage action sur péniche"
       },
       {
-        "dmId": "x858323",
-        "title": "HAPPY BIRTHDAY CUC",
-        "sub": "10 ans de cascade (2009 - 2019)"
+        "dmId": "x8bvgo5",
+        "title": "WARLIKE — GUN FIGHT CONCEPT",
+        "sub": "Concept scène d'action • Production Big Films"
       },
       {
-        "dmId": "x8583in",
-        "title": "SESSION D'AOÛT 2017",
-        "sub": "Promotion CUC en formation"
-      },
-      {
-        "dmId": "k2LHEg1AIHtIfYxkvcz",
-        "title": "ZOË BELL AU CAMPUS",
-        "sub": "Marraine du Campus Univers Cascades"
+        "dmId": "x86v0hi",
+        "title": "+300 MILLIONS DE VUES SUR LES RÉSEAUX",
+        "sub": "Rétrospective & viralité des cascadeurs du CUC"
       },
       {
         "dmId": "x8583u3",
         "title": "STUNT RIDER — CAMPUS LIFE",
-        "sub": "La vie au CUC au quotidien"
+        "sub": "Démonstrations moto • La vie au CUC au quotidien"
+      },
+      {
+        "dmId": "x8583in",
+        "title": "SESSION D'AOÛT 2017",
+        "sub": "Promotion CUC en formation intensive"
+      },
+      {
+        "dmId": "x858323",
+        "title": "HAPPY BIRTHDAY CUC | 2009 - 2019",
+        "sub": "10 ans d'ouverture du Campus Univers Cascades"
+      },
+      {
+        "dmId": "x8582zd",
+        "title": "CUC — HIGHFALL 2K19",
+        "sub": "Chutes de hauteur • Équipe professionnelle CUC"
+      },
+      {
+        "dmId": "x8582k9",
+        "title": "CUC PARTNER — STUNT LIFE",
+        "sub": "Chorégraphie et combat cinématographique"
+      },
+      {
+        "dmId": "x85824y",
+        "title": "CUC 5.0 — STUNT TEAM",
+        "sub": "Plongez au cœur de l'action des cascadeurs"
+      },
+      {
+        "dmId": "x8581s9",
+        "title": "REPORTAGE BFM TV — À L'ÉCOLE DES CASCADEURS",
+        "sub": "Les équipes TV en immersion au CUC"
+      },
+      {
+        "dmId": "x1rwj7l",
+        "title": "THE TRAP — COURT-MÉTRAGE CUC",
+        "sub": "Création audiovisuelle étudiants & régleurs CUC"
+      },
+      {
+        "dmId": "xqzmde",
+        "title": "CREATIVE HUMAN TORCH",
+        "sub": "Torches humaines artistiques • Session cascadeurs"
       }
     ]
   },

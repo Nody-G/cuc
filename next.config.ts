@@ -86,6 +86,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "**.fbcdn.net",
       },
+      // Miniatures officielles Dailymotion (CDN dmcdn.net).
+      {
+        protocol: "https",
+        hostname: "**.dmcdn.net",
+      },
     ],
   },
   // --- Sécurité ---

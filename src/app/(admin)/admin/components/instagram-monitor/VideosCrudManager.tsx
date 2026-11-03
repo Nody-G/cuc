@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Plus, Video } from 'lucide-react';
+import { Plus, RefreshCw, Video } from 'lucide-react';
 import { VideoRowItem } from './VideoRowItem';
 import { StickySaveBar } from '../ui/StickySaveBar';
 import { useVideosCrudDraft } from './useVideosCrudDraft';
+import { syncDailymotionAction } from '../../actions/dailymotion-sync';
 
 interface VideosCrudManagerProps {
   showToast: (msg: string) => void;
@@ -20,6 +21,24 @@ export const VideosCrudManager: React.FC<VideosCrudManagerProps> = ({ showToast 
   const [newSub, setNewSub] = useState('');
   const [newImg, setNewImg] = useState('');
   const [newDmId, setNewDmId] = useState('');
+  const [isSyncing, setIsSyncing] = useState(false);
+
+  const handleSyncDailymotion = async () => {
+    setIsSyncing(true);
+    try {
+      const res = await syncDailymotionAction();
+      if (res.success && res.videos.length > 0) {
+        draft.setAllVideos(res.videos);
+        showToast(`${res.count} vidéos synchronisées depuis la chaîne Dailymotion (@campus-univers-cascades) ! Pensez à enregistrer.`);
+      } else {
+        showToast(res.error || 'Erreur lors de la synchronisation Dailymotion.');
+      }
+    } catch {
+      showToast('Impossible de contacter Dailymotion.');
+    } finally {
+      setIsSyncing(false);
+    }
+  };
 
   const handleAddVideo = (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,14 +80,27 @@ export const VideosCrudManager: React.FC<VideosCrudManagerProps> = ({ showToast 
           </p>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setShowAddForm(!showAddForm)}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-[#FFE500] hover:bg-yellow-400 text-black text-xs font-mono-tech uppercase font-bold rounded-lg transition-colors cursor-pointer shrink-0"
-        >
-          <Plus className="w-4 h-4" />
-          <span>{showAddForm ? 'Fermer' : 'Ajouter une vidéo'}</span>
-        </button>
+        <div className="flex items-center gap-3 shrink-0">
+          <button
+            type="button"
+            disabled={isSyncing}
+            onClick={handleSyncDailymotion}
+            className="inline-flex items-center gap-2 px-3.5 py-2 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-mono-tech uppercase font-bold rounded-lg border border-zinc-700 hover:border-[#FFE500] transition-colors cursor-pointer disabled:opacity-50"
+            title="Importer automatiquement toutes les vidéos de la chaîne Dailymotion @campus-univers-cascades"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 text-[#FFE500] ${isSyncing ? 'animate-spin' : ''}`} />
+            <span>{isSyncing ? 'Synchronisation...' : 'Sync Dailymotion'}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setShowAddForm(!showAddForm)}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#FFE500] hover:bg-yellow-400 text-black text-xs font-mono-tech uppercase font-bold rounded-lg transition-colors cursor-pointer shrink-0"
+          >
+            <Plus className="w-4 h-4" />
+            <span>{showAddForm ? 'Fermer' : 'Ajouter une vidéo'}</span>
+          </button>
+        </div>
       </div>
 
       {showAddForm && (

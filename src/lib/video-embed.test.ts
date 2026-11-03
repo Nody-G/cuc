@@ -30,20 +30,20 @@ describe('resolveEmbedUrl', () => {
         const embed = resolveEmbedUrl('x9uewe0');
         expect(embed.kind).toBe('iframe');
         expect(embed.provider).toBe('dailymotion');
-        expect(embed.url).toBe('https://www.dailymotion.com/embed/video/x9uewe0?autoplay=1&mute=1');
+        expect(embed.url).toBe('https://geo.dailymotion.com/player.html?video=x9uewe0');
         expect(embed.watchUrl).toBe('https://www.dailymotion.com/video/x9uewe0');
     });
 
     it('résout un identifiant Dailymotion nu (k…) en lecteur embed', () => {
         const embed = resolveEmbedUrl('k2LHEg1AIHtIfYxkvcz');
         expect(embed.provider).toBe('dailymotion');
-        expect(embed.url).toContain('/embed/video/k2LHEg1AIHtIfYxkvcz');
+        expect(embed.url).toContain('video=k2LHEg1AIHtIfYxkvcz');
     });
 
     it('résout une URL Dailymotion de visionnage en lecteur embed', () => {
         const embed = resolveEmbedUrl('https://www.dailymotion.com/video/x8581s9');
         expect(embed.provider).toBe('dailymotion');
-        expect(embed.url).toBe('https://www.dailymotion.com/embed/video/x8581s9?autoplay=1&mute=1');
+        expect(embed.url).toBe('https://geo.dailymotion.com/player.html?video=x8581s9');
     });
 
     it('résout une URL YouTube longue en embed sans cookie', () => {
@@ -89,7 +89,7 @@ describe('resolveVideoMedia', () => {
 
     it('expose embedUrl pour un lecteur Dailymotion', () => {
         expect(resolveVideoMedia('x9uewe0')).toEqual({
-            embedUrl: 'https://www.dailymotion.com/embed/video/x9uewe0?autoplay=1&mute=1',
+            embedUrl: 'https://geo.dailymotion.com/player.html?video=x9uewe0',
         });
     });
 

@@ -820,34 +820,84 @@
     ],
     "programs": [
       {
+        "dmId": "xbfafoi",
+        "title": "BFM TV — STUNT PERFORMER PROFESSION",
+        "sub": "BFM TV Report • Inside Campus Univers Cascades"
+      },
+      {
+        "dmId": "xbfaf9m",
+        "title": "QUOTIDIEN — CUC REPORT",
+        "sub": "Quotidien TV Show (TMC) • Behind the action scenes"
+      },
+      {
+        "dmId": "xbf6gk2",
+        "title": "TF1 8PM NEWS — CUC SPECIAL REPORT",
+        "sub": "TF1 National News • Inside the stunt school"
+      },
+      {
         "dmId": "x9uewe0",
-        "title": "COEUR DE CASCADEURS",
-        "sub": "France 2 TV series & CUC"
+        "title": "HEART OF STUNT PERFORMERS",
+        "sub": "France 2 TV Docu-Series • Nania Films & CUC"
       },
       {
-        "dmId": "x8581s9",
-        "title": "BFM TV REPORT",
-        "sub": "Feature on the stunt school"
+        "dmId": "x8mmmm3",
+        "title": "DIVERSION — CUC TEAM",
+        "sub": "France 2 National TV • Barge action shoot"
       },
       {
-        "dmId": "x858323",
-        "title": "HAPPY BIRTHDAY CUC",
-        "sub": "10 years of stunts (2009 - 2019)"
+        "dmId": "x8bvgo5",
+        "title": "WARLIKE — GUN FIGHT CONCEPT",
+        "sub": "Action choreography concept • Big Films production"
       },
       {
-        "dmId": "x8583in",
-        "title": "AUGUST 2017 SESSION",
-        "sub": "CUC class in training"
-      },
-      {
-        "dmId": "k2LHEg1AIHtIfYxkvcz",
-        "title": "ZOË BELL AT THE CAMPUS",
-        "sub": "Campus Univers Cascades patron"
+        "dmId": "x86v0hi",
+        "title": "+300 MILLION VIEWS ON SOCIAL MEDIA",
+        "sub": "Retrospective & virality of CUC stunt performers"
       },
       {
         "dmId": "x8583u3",
         "title": "STUNT RIDER — CAMPUS LIFE",
-        "sub": "Daily life at the CUC"
+        "sub": "Motorcycle stunts • Daily life at CUC"
+      },
+      {
+        "dmId": "x8583in",
+        "title": "AUGUST 2017 SESSION",
+        "sub": "CUC class in intensive stunt training"
+      },
+      {
+        "dmId": "x858323",
+        "title": "HAPPY BIRTHDAY CUC | 2009 - 2019",
+        "sub": "10 years of Campus Univers Cascades"
+      },
+      {
+        "dmId": "x8582zd",
+        "title": "CUC — HIGHFALL 2K19",
+        "sub": "High fall training • CUC pro team"
+      },
+      {
+        "dmId": "x8582k9",
+        "title": "CUC PARTNER — STUNT LIFE",
+        "sub": "Choreographed fight and cinema stunts"
+      },
+      {
+        "dmId": "x85824y",
+        "title": "CUC 5.0 — STUNT TEAM",
+        "sub": "Dive into the action of stunt performers"
+      },
+      {
+        "dmId": "x8581s9",
+        "title": "BFM TV REPORT — AT THE STUNT SCHOOL",
+        "sub": "TV crews immersion at CUC"
+      },
+      {
+        "dmId": "x1rwj7l",
+        "title": "THE TRAP — CUC SHORT FILM",
+        "sub": "Audiovisual creation by CUC students & coordinators"
+      },
+      {
+        "dmId": "xqzmde",
+        "title": "CREATIVE HUMAN TORCH",
+        "sub": "Artistic human torch stunts • Stunt team session"
       }
     ]
   },

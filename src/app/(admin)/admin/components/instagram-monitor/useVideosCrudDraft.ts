@@ -24,6 +24,7 @@ export interface VideosCrudDraft {
     isDirty: boolean;
     isPending: boolean;
     addVideo: (item: ProgrammeTvItem) => void;
+    setAllVideos: (items: ProgrammeTvItem[]) => void;
     updateVideo: (index: number, updates: Partial<ProgrammeTvItem>) => void;
     deleteVideo: (index: number) => void;
     moveVideo: (index: number, direction: -1 | 1) => void;
@@ -60,6 +61,11 @@ export function useVideosCrudDraft(showToast: (msg: string) => void): VideosCrud
 
     const addVideo = (item: ProgrammeTvItem) => {
         setVideos((prev) => [item, ...prev]);
+        setIsDirty(true);
+    };
+
+    const setAllVideos = (items: ProgrammeTvItem[]) => {
+        setVideos(items);
         setIsDirty(true);
     };
 
@@ -109,6 +115,7 @@ export function useVideosCrudDraft(showToast: (msg: string) => void): VideosCrud
         isDirty,
         isPending,
         addVideo,
+        setAllVideos,
         updateVideo,
         deleteVideo,
         moveVideo,

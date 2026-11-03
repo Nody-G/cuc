@@ -69,7 +69,7 @@ export function resolveEmbedUrl(raw: string): VideoEmbed {
     if (dailymotionId) {
         return {
             kind: 'iframe',
-            url: `https://www.dailymotion.com/embed/video/${dailymotionId}?autoplay=1&mute=1`,
+            url: `https://geo.dailymotion.com/player.html?video=${dailymotionId}`,
             provider: 'dailymotion',
             watchUrl: `https://www.dailymotion.com/video/${dailymotionId}`,
         };
