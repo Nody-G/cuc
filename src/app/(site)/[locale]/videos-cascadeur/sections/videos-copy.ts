@@ -10,6 +10,7 @@ export interface VideoCopy {
 export interface MediaItem {
     channel: string;
     label: string;
+    url?: string;
 }
 
 export type VideosProgram = (typeof PROGRAMMES_TV)[number];

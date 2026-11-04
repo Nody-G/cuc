@@ -765,15 +765,18 @@
     "mediaItems": [
       {
         "channel": "TF1",
-        "label": "8PM News at the Campus"
+        "label": "8PM News at the Campus",
+        "url": "https://www.dailymotion.com/video/xbf6gk2"
       },
       {
         "channel": "FRANCE 2",
-        "label": "20h30 Le Mag with Laurent Delahousse"
+        "label": "20h30 Le Mag with Laurent Delahousse",
+        "url": "https://www.dailymotion.com/video/x8mmmm3"
       },
       {
         "channel": "BFM TV",
-        "label": "Feature on the stunt school"
+        "label": "Feature on the stunt school",
+        "url": "https://www.dailymotion.com/video/xbfafoi"
       }
     ],
     "socialInstagram": "See the stunts on Instagram",

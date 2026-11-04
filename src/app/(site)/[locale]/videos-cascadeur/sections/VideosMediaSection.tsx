@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Play } from 'lucide-react';
 import type { MediaItem } from './videos-copy';
 import type { VideosLabels } from './useVideosPage';
 
@@ -7,6 +7,12 @@ export interface VideosMediaSectionProps {
     mediaItems: MediaItem[];
     labels: VideosLabels;
 }
+
+const CHANNEL_DAILYMOTION_URLS: Record<string, string> = {
+    TF1: 'https://www.dailymotion.com/video/xbf6gk2',
+    'FRANCE 2': 'https://www.dailymotion.com/video/x8mmmm3',
+    'BFM TV': 'https://www.dailymotion.com/video/xbfafoi',
+};
 
 export const VideosMediaSection: React.FC<VideosMediaSectionProps> = ({
     mediaItems,
@@ -27,19 +33,38 @@ export const VideosMediaSection: React.FC<VideosMediaSectionProps> = ({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {mediaItems.map((item, index) => (
-                    <div
-                        key={item.channel}
-                        className="bg-[#121218] border border-zinc-800 p-6 text-center"
-                    >
-                        <div
-                            className={`text-3xl sm:text-4xl font-display mb-1 ${index % 2 === 0 ? 'text-[#FFE500]' : 'text-white'}`}
+                {mediaItems.map((item, index) => {
+                    const videoUrl =
+                        item.url ||
+                        CHANNEL_DAILYMOTION_URLS[item.channel.toUpperCase().trim()] ||
+                        'https://www.dailymotion.com/campus-univers-cascades';
+
+                    return (
+                        <a
+                            key={item.channel}
+                            href={videoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group bg-[#121218] border border-zinc-800 hover:border-[#FFE500] p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(0,0,0,0.6)] flex flex-col justify-between cursor-pointer"
                         >
-                            {item.channel}
-                        </div>
-                        <div className="text-xs font-mono-tech text-zinc-400 uppercase">{item.label}</div>
-                    </div>
-                ))}
+                            <div>
+                                <div
+                                    className={`text-3xl sm:text-4xl font-display mb-1 transition-colors ${index % 2 === 0 ? 'text-[#FFE500]' : 'text-white'} group-hover:text-[#FFE500]`}
+                                >
+                                    {item.channel}
+                                </div>
+                                <div className="text-xs font-mono-tech text-zinc-400 uppercase tracking-wide group-hover:text-zinc-200 transition-colors">
+                                    {item.label}
+                                </div>
+                            </div>
+                            <div className="mt-6 pt-3 border-t border-zinc-800/80 flex items-center justify-center gap-1.5 text-xs font-mono-tech text-zinc-400 group-hover:text-[#FFE500] transition-colors">
+                                <Play className="w-3.5 h-3.5 fill-current" />
+                                <span>Voir sur Dailymotion</span>
+                                <ExternalLink className="w-3 h-3 text-[#FFE500] ml-0.5" />
+                            </div>
+                        </a>
+                    );
+                })}
             </div>
 
             <div className="mt-12 flex flex-wrap justify-center gap-4">

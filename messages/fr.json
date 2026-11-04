@@ -765,15 +765,18 @@
     "mediaItems": [
       {
         "channel": "TF1",
-        "label": "Le Journal de 20H au Campus"
+        "label": "Le Journal de 20H au Campus",
+        "url": "https://www.dailymotion.com/video/xbf6gk2"
       },
       {
         "channel": "FRANCE 2",
-        "label": "20h30 Le Mag avec Laurent Delahousse"
+        "label": "20h30 Le Mag avec Laurent Delahousse",
+        "url": "https://www.dailymotion.com/video/x8mmmm3"
       },
       {
         "channel": "BFM TV",
-        "label": "Grand Format à l'École des Cascadeurs"
+        "label": "Grand Format à l'École des Cascadeurs",
+        "url": "https://www.dailymotion.com/video/xbfafoi"
       }
     ],
     "socialInstagram": "Voir les cascades sur Instagram",
