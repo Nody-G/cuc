@@ -22,7 +22,7 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
   return (
     <>
       {/* Hero Header */}
-      <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
+      <section className="relative py-24 sm:py-28 lg:py-32 min-h-[520px] sm:min-h-[580px] flex items-center bg-black border-b border-zinc-800 overflow-hidden">
         <div data-cuc-field="hero.bg_image" data-cuc-kind="image" className="absolute inset-0 z-0">
           <Image
             src={heroData?.bg_image || "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/stages-parkour-bandeau.webp"}
@@ -30,12 +30,12 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[center_25%] brightness-70 contrast-110"
+            className="object-cover object-[center_70%] brightness-85 contrast-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/25 to-transparent" />
         </div>
 
-        <div className="relative z-10 page-shell">
+        <div className="relative z-10 page-shell w-full">
           <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">
               <span {...cucMicro('stages.hero.breadcrumbHome')}>{t('hero.breadcrumbHome')}</span>
@@ -76,14 +76,16 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
       </section>
 
       {/* Header Visual Banner from original site */}
-      <section className="py-6 bg-[#09090d] border-b border-zinc-800">
+      <section className="py-8 bg-[#09090d] border-b border-zinc-800">
         <div className="max-w-4xl mx-auto px-4 flex justify-center">
           <Image
-            src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/stages-parkour-bandeau-logos-stages-3-768x139.webp"
+            src="/images/logos/bandeau-logos-stages.png"
             alt={t('hero.logosAlt')}
-            width={768}
-            height={139}
-            className="object-contain"
+            width={1000}
+            height={180}
+            priority
+            quality={100}
+            className="w-full max-w-3xl h-auto object-contain drop-shadow-md"
           />
         </div>
       </section>

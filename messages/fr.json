@@ -997,6 +997,13 @@
       }
     ],
     "guaranteeLogoAlt": "Cascadeurs Professionnels CUC",
+    "galleryBadge": "SPECTACLES & PARKOUR EN IMAGES",
+    "galleryTitle": "NOS SHOWS & PERFORMANCES EN DIRECT",
+    "gallerySubtitle": "Photographies des spectacles de cascades, shows de parkour et animations live créés par le CUC.",
+    "showAllPhotos": "Voir toutes les photos (+{count})",
+    "showLessPhotos": "Réduire l'affichage",
+    "zoomPhoto": "Cliquer pour agrandir la photo de spectacle",
+    "expand": "Agrandir",
     "partnersBadge": "PARTENAIRES & MARQUES",
     "partnersTitle": "ILS NOUS ONT FAIT CONFIANCE",
     "cinemaBadge": "RÉFÉRENCES CINÉMA",

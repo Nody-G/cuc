@@ -318,8 +318,9 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     layout_sections: [
       { id: 'hero', name: 'En-tête Agence CUC Events', order: 1, is_visible: true },
       { id: 'pillars', name: 'Trois Piliers Majeurs (Shows, Airbag, Team Building)', order: 2, is_visible: true },
-      { id: 'partners', name: 'Partenaires & Diffuseurs Événements', order: 3, is_visible: true },
-      { id: 'guarantees', name: 'Garanties Sécurité & Devis Rapide', order: 4, is_visible: true },
+      { id: 'gallery', name: 'Galerie Photos Spectacles & Parkour', order: 3, is_visible: true },
+      { id: 'partners', name: 'Partenaires & Diffuseurs Événements', order: 4, is_visible: true },
+      { id: 'guarantees', name: 'Garanties Sécurité & Devis Rapide', order: 5, is_visible: true },
     ],
     sections_data: {},
     sections: [],

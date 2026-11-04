@@ -6,6 +6,7 @@ import { Footer } from '@/components/layout/Footer';
 import {
   EventsHeroSection,
   EventsPillarsSection,
+  EventsGallerySection,
   EventsPartnersBanners,
   EventsGuaranteesSection,
 } from '@/components/sections/events';
@@ -18,14 +19,26 @@ export default function CucEventsAgencePage() {
     .filter((s) => s.is_visible !== false)
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
+  const hasGallerySection = sortedSections.some(
+    (s) => s.id === 'gallery' || s.id === 'spectacles_gallery'
+  );
+
   const renderSection = (id: string) => {
     switch (id) {
       case 'hero':
         return <EventsHeroSection key="hero" hero={content.hero} />;
       case 'pillars':
         return <EventsPillarsSection key="pillars" />;
+      case 'gallery':
+      case 'spectacles_gallery':
+        return <EventsGallerySection key="gallery" />;
       case 'partners':
-        return <EventsPartnersBanners key="partners" />;
+        return (
+          <React.Fragment key="partners-wrapper">
+            {!hasGallerySection && <EventsGallerySection key="gallery-auto" />}
+            <EventsPartnersBanners key="partners" />
+          </React.Fragment>
+        );
       case 'guarantees':
         return <EventsGuaranteesSection key="guarantees" />;
       default:
@@ -44,6 +57,7 @@ export default function CucEventsAgencePage() {
           <>
             <EventsHeroSection hero={content.hero} />
             <EventsPillarsSection />
+            <EventsGallerySection />
             <EventsPartnersBanners />
             <EventsGuaranteesSection />
           </>
