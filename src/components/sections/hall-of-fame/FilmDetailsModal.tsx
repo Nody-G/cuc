@@ -11,6 +11,7 @@ import { resolveEntityOverride } from '@/lib/preview/use-preview-entity';
 import type { FilmCredit } from '@/types';
 import { FilmExternalLinks } from './film-details/FilmExternalLinks';
 import { FilmDescription, FilmIdentityBlock } from './film-details/FilmIdentityBlock';
+import { FilmDoublesList } from './film-details/FilmDoublesList';
 import { FilmPoster } from './film-details/FilmPoster';
 import { FilmTeamList } from './film-details/FilmTeamList';
 import { useFilmDetailsTeam } from './film-details/useFilmDetailsTeam';
@@ -75,6 +76,8 @@ export const FilmDetailsModal: React.FC<FilmDetailsModalProps> = ({ movie, onClo
               <FilmIdentityBlock movie={movie} filmAttr={filmAttr} filmValue={filmValue} />
 
               <FilmDescription movie={movie} />
+
+              <FilmDoublesList movie={movie} />
 
               <FilmTeamList
                 movie={movie}

@@ -101,9 +101,9 @@ const SOURCE_EXCLUDE_FILES = new Set(
         'scripts/rewrite_media_urls.mjs',
         'scripts/sync_all_coach_credits_supabase.mjs',
         'scripts/upload_reportages_to_supabase.mjs',
-        // Helpers temporaires d'extraction (regex littérale).
-        'scripts/_tmp_extract_wp.mjs',
-        'scripts/_tmp_map_wp.mjs',
+        // Helpers temporaires d'extraction (archivés).
+        'scripts/archive/probes/_tmp_extract_wp.mjs',
+        'scripts/archive/probes/_tmp_map_wp.mjs',
     ].map((p) => path.normalize(p)),
 );
 

@@ -1,42 +1,45 @@
 {
-  "generatedAt": "2026-09-30T17:48:51.335Z",
+  "generatedAt": "2026-11-04T18:35:05.260Z",
   "summary": {
-    "routes": 47,
-    "sourceFiles": 928,
+    "routes": 53,
+    "sourceFiles": 1066,
     "errors": {
       "brokenLinks": 0,
       "orphanAnchors": 0,
       "duplicateLinks": 0,
-      "orphanComponents": 1,
-      "legacyUrls": 0,
-      "slopHits": 6,
+      "orphanComponents": 0,
+      "legacyUrls": 2,
+      "slopHits": 7,
       "socialConflicts": 0,
       "redirectIssues": 0,
       "widthViolations": 0,
       "realtimeLeaks": 0
     },
     "warnings": {
-      "realtimeGaps": 7,
+      "realtimeGaps": 4,
       "i18nMissingInEn": 0,
       "i18nExtraInEn": 0,
       "metadataGaps": 1
     },
-    "totalErrors": 7,
-    "totalWarnings": 8,
-    "realtimeCoverageRatio": 73
+    "totalErrors": 9,
+    "totalWarnings": 5,
+    "realtimeCoverageRatio": 0
   },
   "routes": [
     "/[locale]",
     "/[locale]/animations-airbag-parkour",
+    "/[locale]/confidentialite",
     "/[locale]/contact-cuc",
     "/[locale]/cuc-events-agence",
     "/[locale]/cuc-team-cascadeur",
     "/[locale]/equipe-cascadeurs-pro",
     "/[locale]/equipe-cascadeurs-pro/[slug]",
     "/[locale]/formation-de-cascadeur",
+    "/[locale]/mentions-legales",
     "/[locale]/partenaires",
     "/[locale]/preview",
     "/[locale]/preview/[slug]",
+    "/[locale]/reglement-interieur",
     "/[locale]/spectacles-cascadeurs-yamakasi",
     "/[locale]/stages-cascades-parkour-2",
     "/[locale]/stunt-workshop-cuc",
@@ -48,9 +51,11 @@
     "/admin/aide",
     "/admin/analytics",
     "/admin/announcements",
+    "/admin/audience",
     "/admin/audit",
     "/admin/campus",
     "/admin/campus-3d",
+    "/admin/chrome",
     "/admin/disciplines",
     "/admin/events",
     "/admin/films",
@@ -65,6 +70,7 @@
     "/admin/navigation",
     "/admin/pages",
     "/admin/partners",
+    "/admin/reset-password",
     "/admin/sessions",
     "/admin/settings",
     "/admin/social",
@@ -77,11 +83,24 @@
   "brokenLinks": [],
   "orphanAnchors": [],
   "duplicateLinks": [],
-  "orphanComponents": [
-    "src/components/sections/hall-of-fame/film-details/FilmDoublesList.tsx"
+  "orphanComponents": [],
+  "legacyUrls": [
+    {
+      "file": "scripts/archive/experiments/audit_videos_live.mjs",
+      "line": 72,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/TF1-JT-20h-CUC-reportage-1.mp4"
+    },
+    {
+      "file": "scripts/archive/experiments/audit_videos_live.mjs",
+      "line": 73,
+      "url": "https://www.campus-universcascades.com/wp-content/uploads/2021/07/20h30-A-LECOLE-DES-CASCADEURS-FRANCE2-VWeb2-1.mp4"
+    }
   ],
-  "legacyUrls": [],
   "legacyLedger": [
+    {
+      "file": "scripts/audit_full_app_report.json",
+      "count": 2
+    },
     {
       "file": "scripts/cuc_20_coaches_scraped.json",
       "count": 24
@@ -157,40 +176,46 @@
   ],
   "slopHits": [
     {
-      "file": "src/components/sections/events/spectacles/spectacles-types.data.ts",
-      "line": 17,
-      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
-      "excerpt": "& Yamakasi', title: 'Show Parkour & Art du Déplacement', subtitle: 'Chorégraphié par les p"
-    },
-    {
       "file": "src/data/celebrities.ts",
-      "line": 204,
+      "line": 217,
       "label": "badge: BOX-OFFICE",
       "excerpt": "ifi. Auteur de triomphes consécutifs au box-office : Babysitting, Alibi.com, l'adaptation"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 13927,
+      "line": 21097,
+      "label": "superlatif: légendaire",
+      "excerpt": "uvelles aventures de Merlin, le sorcier légendaire lorsqu'il était jeune homme, alors qu'i"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 21097,
+      "label": "superlatif: légendaire",
+      "excerpt": "leur ami et transforma Arthur en un roi légendaire.\", \"director\": \"Jeremy Webb, Alice"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 24825,
+      "label": "superlatif: légendaire",
+      "excerpt": "talle en France et devient un faussaire légendaire, créant seul des faux francs parfaits v"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 12787,
       "label": "badge: WORLDWIDE",
-      "excerpt": "ngly accused suspect gets mixed up in a worldwide terrorist plot.\" }, { \"id\": \"la"
+      "excerpt": "ngly accused suspect gets mixed up in a worldwide terrorist plot.\", \"director\": \"Laur"
     },
     {
-      "file": "src/data/team.ts",
-      "line": 547,
-      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
-      "excerpt": "kasi\", \"title\": \"Référent Parkour & Art du Déplacement\", \"specialties\": [ \"Parkour\","
+      "file": "src/data/filmography.ts",
+      "line": 17251,
+      "label": "badge: WORLDWIDE",
+      "excerpt": "fight all dangerous mafia organizations worldwide. To achieve its purposes, its leader -"
     },
     {
-      "file": "src/data/team.ts",
-      "line": 550,
-      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
-      "excerpt": "specialties\": [ \"Parkour\", \"Art du Déplacement\", \"Franchissements urbains\","
-    },
-    {
-      "file": "src/data/team.ts",
-      "line": 554,
-      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
-      "excerpt": "fondateur des Yamakasi et pionnier de l'Art du Déplacement et du Parkour. Malik Diouf transmet les"
+      "file": "src/data/videos.ts",
+      "line": 95,
+      "label": "cliché: plongez au cœur",
+      "excerpt": "itle: 'CUC 5.0 — STUNT TEAM', sub: \"Plongez au cœur de l'action des cascadeurs\", img: '"
     }
   ],
   "slopDoctrineMeta": [
@@ -205,18 +230,6 @@
       "line": 700,
       "label": "cliché: plongez au cœur",
       "excerpt": "ascadeur ! 🎬🔥\", description: \"Plongez au cœur du métier de cascadeur ! 🎬🔥\\n\\nRendez"
-    },
-    {
-      "file": "scripts/apply_all_coaches_and_actors.mjs",
-      "line": 77,
-      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
-      "excerpt": "makasi', title: 'Référent Parkour & Art du Déplacement', specialties: ['Parkour', 'Art du"
-    },
-    {
-      "file": "scripts/apply_all_coaches_and_actors.mjs",
-      "line": 78,
-      "label": "doctrine: Art du Déplacement (utiliser Parkour)",
-      "excerpt": "acement', specialties: ['Parkour', 'Art du Déplacement', 'Franchissements urbains', 'Mobilité"
     },
     {
       "file": "scripts/apply_all_coaches_and_actors.mjs",
@@ -729,6 +742,12 @@
       "excerpt": "TFLIX EXTREME', 'NETFLIX ACTION'], ['SUCCÈS MONDIAL NETFLIX', 'SÉRIE NETFLIX'], ['SUCCES"
     },
     {
+      "file": "scripts/seed_team_translations_en.mjs",
+      "line": 61,
+      "label": "badge: WORLDWIDE",
+      "excerpt": "si, Malik Diouf helped bring Parkour to worldwide audiences through the landmark films Ya"
+    },
+    {
       "file": "scripts/verify_doctrine_in_db.mjs",
       "line": 12,
       "label": "badge: HOLLYWOOD ACTION",
@@ -888,21 +907,21 @@
     },
     {
       "file": "src/app/(admin)/admin/actions/traffic-monitor.ts",
-      "line": 68,
+      "line": 69,
       "platform": "instagram",
       "handle": "p/live-simulated",
       "url": "https://www.instagram.com/p/live-simulated"
     },
     {
       "file": "src/app/(admin)/admin/components/films-view/FilmEditorFields.tsx",
-      "line": 168,
+      "line": 198,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://youtube.com/watch"
     },
     {
       "file": "src/app/(admin)/admin/components/instagram-monitor/VideosCrudManager.tsx",
-      "line": 169,
+      "line": 146,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
@@ -916,73 +935,80 @@
     },
     {
       "file": "src/app/(admin)/admin/components/team-view/TeamMemberIdentityFields.tsx",
-      "line": 129,
+      "line": 144,
       "platform": "instagram",
       "handle": "...",
       "url": "https://instagram.com/..."
     },
     {
       "file": "src/app/(site)/[locale]/videos-cascadeur/sections/VideosMediaSection.tsx",
-      "line": 47,
+      "line": 72,
       "platform": "instagram",
       "handle": "campus.univers.cascades",
       "url": "https://www.instagram.com/campus.univers.cascades/"
     },
     {
       "file": "src/app/(site)/[locale]/videos-cascadeur/sections/VideosMediaSection.tsx",
-      "line": 57,
+      "line": 82,
       "platform": "tiktok",
-      "handle": "@campusuniverscascades",
-      "url": "https://www.tiktok.com/@campusuniverscascades"
+      "handle": "@campus.univers.cascades",
+      "url": "https://www.tiktok.com/@campus.univers.cascades"
     },
     {
       "file": "src/app/(site)/[locale]/videos-cascadeur/sections/VideosReelsModal.tsx",
-      "line": 80,
+      "line": 84,
       "platform": "instagram",
       "handle": "reel",
       "url": "https://www.instagram.com/reel/"
     },
     {
       "file": "src/app/(site)/[locale]/videos-cascadeur/sections/VideosReelsSection.tsx",
-      "line": 125,
+      "line": 138,
       "platform": "instagram",
       "handle": "campus.univers.cascades",
       "url": "https://www.instagram.com/campus.univers.cascades/"
     },
     {
       "file": "src/components/sections/home/HomeSocialCards.tsx",
-      "line": 15,
+      "line": 16,
       "platform": "instagram",
       "handle": "reel",
       "url": "https://www.instagram.com/reel/"
     },
     {
       "file": "src/components/sections/home/HomeSocialSection.tsx",
-      "line": 58,
+      "line": 59,
       "platform": "instagram",
       "handle": "campus.univers.cascades",
       "url": "https://www.instagram.com/campus.univers.cascades/"
     },
     {
       "file": "src/components/sections/home/HomeSocialSection.tsx",
-      "line": 79,
+      "line": 80,
       "platform": "instagram",
       "handle": "reel/DJW5wq0MIzt",
       "url": "https://www.instagram.com/reel/DJW5wq0MIzt/"
     },
     {
       "file": "src/components/sections/home/HomeSocialSection.tsx",
-      "line": 85,
+      "line": 86,
       "platform": "instagram",
       "handle": "reel/DKAFa9dsRVa",
       "url": "https://www.instagram.com/reel/DKAFa9dsRVa/"
     },
     {
       "file": "src/components/sections/home/HomeSocialSection.tsx",
-      "line": 91,
+      "line": 92,
       "platform": "instagram",
       "handle": "reel/DJmOS2tMQpk",
       "url": "https://www.instagram.com/reel/DJmOS2tMQpk/"
+    },
+    {
+      "file": "src/components/sections/home/tournages/home-tournages-data.ts",
+      "line": 101,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/components/sections/partenaires/partenaires.data.tsx",
@@ -1014,126 +1040,210 @@
     },
     {
       "file": "src/components/ui/InstagramFollowerBadge.tsx",
-      "line": 22,
+      "line": 25,
       "platform": "instagram",
       "handle": "campus.univers.cascades",
       "url": "https://www.instagram.com/campus.univers.cascades/"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 75,
+      "line": 20,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 109,
+      "line": 42,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 141,
+      "line": 64,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 163,
+      "line": 82,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 189,
+      "line": 108,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 227,
+      "line": 142,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 253,
+      "line": 168,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 283,
+      "line": 190,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 317,
+      "line": 212,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 343,
+      "line": 246,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 371,
+      "line": 274,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 397,
+      "line": 324,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 433,
+      "line": 344,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 663,
+      "line": 372,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 709,
+      "line": 402,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 727,
+      "line": 432,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 779,
+      "line": 458,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 482,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 508,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 536,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 560,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 582,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 608,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 626,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 644,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 668,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 695,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 735,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/data/filmography.ts",
+      "line": 761,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
@@ -1147,154 +1257,70 @@
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 825,
+      "line": 836,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 939,
+      "line": 870,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 1031,
+      "line": 902,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 1057,
+      "line": 930,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 1101,
+      "line": 954,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 1153,
+      "line": 978,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 1305,
+      "line": 1010,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 1327,
+      "line": 1040,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 1349,
+      "line": 1066,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/filmography.ts",
-      "line": 1405,
-      "platform": "youtube",
-      "handle": "watch",
-      "url": "https://www.youtube.com/watch"
-    },
-    {
-      "file": "src/data/filmography.ts",
-      "line": 1431,
-      "platform": "youtube",
-      "handle": "watch",
-      "url": "https://www.youtube.com/watch"
-    },
-    {
-      "file": "src/data/filmography.ts",
-      "line": 1457,
-      "platform": "youtube",
-      "handle": "watch",
-      "url": "https://www.youtube.com/watch"
-    },
-    {
-      "file": "src/data/filmography.ts",
-      "line": 1481,
-      "platform": "youtube",
-      "handle": "watch",
-      "url": "https://www.youtube.com/watch"
-    },
-    {
-      "file": "src/data/filmography.ts",
-      "line": 1503,
-      "platform": "youtube",
-      "handle": "watch",
-      "url": "https://www.youtube.com/watch"
-    },
-    {
-      "file": "src/data/filmography.ts",
-      "line": 1527,
-      "platform": "youtube",
-      "handle": "watch",
-      "url": "https://www.youtube.com/watch"
-    },
-    {
-      "file": "src/data/filmography.ts",
-      "line": 1575,
-      "platform": "youtube",
-      "handle": "watch",
-      "url": "https://www.youtube.com/watch"
-    },
-    {
-      "file": "src/data/filmography.ts",
-      "line": 1609,
-      "platform": "youtube",
-      "handle": "watch",
-      "url": "https://www.youtube.com/watch"
-    },
-    {
-      "file": "src/data/filmography.ts",
-      "line": 1633,
-      "platform": "youtube",
-      "handle": "watch",
-      "url": "https://www.youtube.com/watch"
-    },
-    {
-      "file": "src/data/filmography.ts",
-      "line": 1655,
-      "platform": "youtube",
-      "handle": "watch",
-      "url": "https://www.youtube.com/watch"
-    },
-    {
-      "file": "src/data/filmography.ts",
-      "line": 1699,
-      "platform": "youtube",
-      "handle": "watch",
-      "url": "https://www.youtube.com/watch"
-    },
-    {
-      "file": "src/data/filmography.ts",
-      "line": 1803,
-      "platform": "youtube",
-      "handle": "watch",
-      "url": "https://www.youtube.com/watch"
-    },
-    {
-      "file": "src/data/filmography.ts",
-      "line": 2969,
+      "line": 6683,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
@@ -1735,28 +1761,28 @@
     },
     {
       "file": "src/data/navigation.ts",
-      "line": 530,
+      "line": 537,
       "platform": "instagram",
       "handle": "campus.univers.cascades",
       "url": "https://www.instagram.com/campus.univers.cascades/"
     },
     {
       "file": "src/data/navigation.ts",
-      "line": 544,
+      "line": 551,
       "platform": "youtube",
-      "handle": "@campusuniverscascades",
-      "url": "https://www.youtube.com/@campusuniverscascades"
+      "handle": "@campus.univers.cascades",
+      "url": "https://www.youtube.com/@campus.univers.cascades"
     },
     {
       "file": "src/data/navigation.ts",
-      "line": 560,
+      "line": 567,
       "platform": "tiktok",
-      "handle": "@campusuniverscascades",
-      "url": "https://www.tiktok.com/@campusuniverscascades"
+      "handle": "@campus.univers.cascades",
+      "url": "https://www.tiktok.com/@campus.univers.cascades"
     },
     {
       "file": "src/data/navigation.ts",
-      "line": 574,
+      "line": 581,
       "platform": "facebook",
       "handle": "campus.univers.cascades",
       "url": "https://www.facebook.com/campus.univers.cascades"
@@ -1777,217 +1803,217 @@
     },
     {
       "file": "src/data/team.ts",
-      "line": 118,
+      "line": 125,
       "platform": "instagram",
       "handle": "jerome_gaspard_stunt",
       "url": "https://www.instagram.com/jerome_gaspard_stunt/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 557,
+      "line": 588,
       "platform": "instagram",
       "handle": "malikdiouf_yamakasi",
       "url": "https://www.instagram.com/malikdiouf_yamakasi/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 558,
+      "line": 589,
       "platform": "instagram",
       "handle": "malikdiouf_yamakasi",
       "url": "https://www.instagram.com/malikdiouf_yamakasi/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 739,
+      "line": 777,
       "platform": "instagram",
       "handle": "franck_blanc_cuc",
       "url": "https://www.instagram.com/franck_blanc_cuc/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 740,
+      "line": 778,
       "platform": "instagram",
       "handle": "franck_blanc_cuc",
       "url": "https://www.instagram.com/franck_blanc_cuc/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 907,
+      "line": 953,
       "platform": "instagram",
       "handle": "fredericdessains",
       "url": "https://www.instagram.com/fredericdessains/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 908,
+      "line": 954,
       "platform": "instagram",
       "handle": "fredericdessains",
       "url": "https://www.instagram.com/fredericdessains/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 1165,
+      "line": 1221,
       "platform": "youtube",
       "handle": "watch",
       "url": "https://www.youtube.com/watch"
     },
     {
       "file": "src/data/team.ts",
-      "line": 1166,
+      "line": 1222,
       "platform": "instagram",
       "handle": "nielsdalery",
       "url": "https://www.instagram.com/nielsdalery/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 1193,
+      "line": 1249,
       "platform": "instagram",
       "handle": "amedeo_cazzella",
       "url": "https://www.instagram.com/amedeo_cazzella/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 1194,
+      "line": 1250,
       "platform": "instagram",
       "handle": "amedeo_cazzella",
       "url": "https://www.instagram.com/amedeo_cazzella/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 1453,
+      "line": 1519,
       "platform": "instagram",
       "handle": "vincent_bouillon",
       "url": "https://www.instagram.com/vincent_bouillon/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 1659,
+      "line": 1743,
       "platform": "instagram",
       "handle": "mauricechan_official",
       "url": "https://www.instagram.com/mauricechan_official/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 1819,
+      "line": 1908,
       "platform": "instagram",
       "handle": "kefi_abrikh",
       "url": "https://www.instagram.com/kefi_abrikh/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 2034,
+      "line": 2138,
       "platform": "instagram",
       "handle": "anthony_pho",
       "url": "https://www.instagram.com/anthony_pho/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 2408,
+      "line": 2523,
       "platform": "instagram",
       "handle": "alexvu_stunt",
       "url": "https://www.instagram.com/alexvu_stunt/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 2618,
+      "line": 2736,
       "platform": "instagram",
       "handle": "michelbouis",
       "url": "https://www.instagram.com/michelbouis/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 3165,
+      "line": 3292,
       "platform": "instagram",
       "handle": "sarahbelala",
       "url": "https://www.instagram.com/sarahbelala/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 3166,
+      "line": 3293,
       "platform": "instagram",
       "handle": "sarahbelala",
       "url": "https://www.instagram.com/sarahbelala/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 3357,
+      "line": 3496,
       "platform": "instagram",
       "handle": "pierretoubas",
       "url": "https://www.instagram.com/pierretoubas/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 3358,
+      "line": 3497,
       "platform": "instagram",
       "handle": "pierretoubas",
       "url": "https://www.instagram.com/pierretoubas/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 3531,
+      "line": 3674,
       "platform": "instagram",
       "handle": "jonathan_bernard_stunt",
       "url": "https://www.instagram.com/jonathan_bernard_stunt/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 3532,
+      "line": 3675,
       "platform": "instagram",
       "handle": "jonathan_bernard_stunt",
       "url": "https://www.instagram.com/jonathan_bernard_stunt/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 3645,
+      "line": 3793,
       "platform": "instagram",
       "handle": "bastien_trouve",
       "url": "https://www.instagram.com/bastien_trouve/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 3646,
+      "line": 3794,
       "platform": "instagram",
       "handle": "bastien_trouve",
       "url": "https://www.instagram.com/bastien_trouve/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 3749,
+      "line": 3900,
       "platform": "instagram",
       "handle": "teddyponceau",
       "url": "https://www.instagram.com/teddyponceau/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 3750,
+      "line": 3901,
       "platform": "instagram",
       "handle": "teddyponceau",
       "url": "https://www.instagram.com/teddyponceau/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 3941,
+      "line": 4097,
       "platform": "instagram",
       "handle": "alancueff",
       "url": "https://www.instagram.com/alancueff/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 3942,
+      "line": 4098,
       "platform": "instagram",
       "handle": "alancueff",
       "url": "https://www.instagram.com/alancueff/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 4005,
+      "line": 4166,
       "platform": "instagram",
       "handle": "nicolasretabi",
       "url": "https://www.instagram.com/nicolasretabi/"
     },
     {
       "file": "src/data/team.ts",
-      "line": 4006,
+      "line": 4167,
       "platform": "instagram",
       "handle": "nicolasretabi",
       "url": "https://www.instagram.com/nicolasretabi/"
@@ -2108,15 +2134,15 @@
       "file": "src/lib/seo.ts",
       "line": 54,
       "platform": "youtube",
-      "handle": "@campusuniverscascades",
-      "url": "https://www.youtube.com/@campusuniverscascades"
+      "handle": "@campus.univers.cascades",
+      "url": "https://www.youtube.com/@campus.univers.cascades"
     },
     {
       "file": "src/lib/seo.ts",
       "line": 55,
       "platform": "tiktok",
-      "handle": "@campusuniverscascades",
-      "url": "https://www.tiktok.com/@campusuniverscascades"
+      "handle": "@campus.univers.cascades",
+      "url": "https://www.tiktok.com/@campus.univers.cascades"
     },
     {
       "file": "src/lib/seo.ts",
@@ -2124,18 +2150,35 @@
       "platform": "facebook",
       "handle": "campus.univers.cascades",
       "url": "https://www.facebook.com/campus.univers.cascades"
+    },
+    {
+      "file": "src/lib/video-embed.ts",
+      "line": 58,
+      "platform": "youtube",
+      "handle": "watch",
+      "url": "https://www.youtube.com/watch"
+    },
+    {
+      "file": "src/lib/video-embed.ts",
+      "line": 83,
+      "platform": "instagram",
+      "handle": "reel",
+      "url": "https://www.instagram.com/reel/"
     }
   ],
   "widthViolations": [],
   "widthStats": {
-    "canonicalUsages": 57,
+    "canonicalUsages": 61,
     "legacyUsages": 0,
     "filesWithCanonical": [
       "src/app/(site)/[locale]/animations-airbag-parkour/page.tsx",
+      "src/app/(site)/[locale]/confidentialite/page.tsx",
       "src/app/(site)/[locale]/contact-cuc/page.tsx",
       "src/app/(site)/[locale]/equipe-cascadeurs-pro/[slug]/CoachDetailClient.tsx",
       "src/app/(site)/[locale]/equipe-cascadeurs-pro/page.tsx",
       "src/app/(site)/[locale]/equipe-cascadeurs-pro/sections/EquipeHeroSection.tsx",
+      "src/app/(site)/[locale]/mentions-legales/page.tsx",
+      "src/app/(site)/[locale]/reglement-interieur/page.tsx",
       "src/app/(site)/[locale]/spectacles-cascadeurs-yamakasi/page.tsx",
       "src/app/(site)/[locale]/stunt-workshop-cuc/page.tsx",
       "src/app/(site)/[locale]/stunt-workshop-cuc/sections/WorkshopHero.tsx",
@@ -2151,10 +2194,12 @@
       "src/app/(site)/[locale]/visite-virtuelle/page.tsx",
       "src/components/layout/Footer.tsx",
       "src/components/sections/contact/ContactHeroSection.tsx",
+      "src/components/sections/events/EventsGallerySection.tsx",
       "src/components/sections/events/EventsGuaranteesSection.tsx",
       "src/components/sections/events/EventsHeroSection.tsx",
       "src/components/sections/events/EventsPartnersBanners.tsx",
       "src/components/sections/events/EventsPillarsSection.tsx",
+      "src/components/sections/events/spectacles/SpectaclesArchivesGallery.tsx",
       "src/components/sections/films/CucFilmsShowcase.tsx",
       "src/components/sections/formation/FormationDisciplinesExplorer.tsx",
       "src/components/sections/formation/FormationFormulesSection.tsx",
@@ -2183,12 +2228,6 @@
   },
   "realtimeGaps": [
     {
-      "file": "src/components/3d/campus-plan/useFacilityHistory.ts",
-      "getters": [
-        "getCampusPlacements3D"
-      ]
-    },
-    {
       "file": "src/components/i18n/PageDataProvider.tsx",
       "getters": [
         "getLocalizedPageContent"
@@ -2207,19 +2246,6 @@
       ]
     },
     {
-      "file": "src/components/sections/home/HomeSocialSection.tsx",
-      "getters": [
-        "getFeaturedInstagramReels",
-        "getLatestInstagramReelsAction"
-      ]
-    },
-    {
-      "file": "src/lib/hooks/usePageDynamicContent.ts",
-      "getters": [
-        "getPreviewDraft"
-      ]
-    },
-    {
       "file": "src/lib/hooks/usePageSectionData.ts",
       "getters": [
         "getPreviewDraft"
@@ -2227,68 +2253,10 @@
     }
   ],
   "realtimeLeaks": [],
-  "realtimeCovered": [
-    {
-      "file": "src/app/(site)/[locale]/equipe-cascadeurs-pro/sections/celebrity-sheet/CelebritySheetProvider.tsx"
-    },
-    {
-      "file": "src/app/(site)/[locale]/equipe-cascadeurs-pro/sections/useEquipeCascadeursData.ts"
-    },
-    {
-      "file": "src/app/(site)/[locale]/equipe-cascadeurs-pro/[slug]/coach-detail/useCoachDetailData.ts"
-    },
-    {
-      "file": "src/app/(site)/[locale]/videos-cascadeur/sections/useVideosPage.ts"
-    },
-    {
-      "file": "src/components/layout/AnnouncementBanner.tsx"
-    },
-    {
-      "file": "src/components/layout/footer-sections/FooterDirectContacts.tsx"
-    },
-    {
-      "file": "src/components/layout/MobileStickyCTA.tsx"
-    },
-    {
-      "file": "src/components/layout/navbar/NavActionsBar.tsx"
-    },
-    {
-      "file": "src/components/sections/events/pillars/useEventsPillars.ts"
-    },
-    {
-      "file": "src/components/sections/films/CucFilmsShowcase.tsx"
-    },
-    {
-      "file": "src/components/sections/formation/FormationDisciplinesExplorer.tsx"
-    },
-    {
-      "file": "src/components/sections/hall-of-fame/CelebrityDoublesGallery.tsx"
-    },
-    {
-      "file": "src/components/sections/hall-of-fame/film-details/useFilmDetailsTeam.ts"
-    },
-    {
-      "file": "src/components/sections/HallOfFame.tsx"
-    },
-    {
-      "file": "src/components/sections/home/tournages/useHomeTournages.ts"
-    },
-    {
-      "file": "src/components/sections/partenaires/grid/usePartnersGrid.ts"
-    },
-    {
-      "file": "src/components/sections/visite/facilities/useFacilitiesDetail.ts"
-    },
-    {
-      "file": "src/components/ui/InteractiveCampusMap.tsx"
-    },
-    {
-      "file": "src/lib/hooks/useRealtimeRefresh.ts"
-    }
-  ],
+  "realtimeCovered": [],
   "i18nParity": {
-    "frKeys": 727,
-    "enKeys": 727,
+    "frKeys": 794,
+    "enKeys": 794,
     "missingInEn": [],
     "extraInEn": []
   },

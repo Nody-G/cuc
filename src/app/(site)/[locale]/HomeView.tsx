@@ -54,6 +54,11 @@ const HomeSocialSection = dynamic(
     { ssr: true },
 );
 
+const HomePartnersSection = dynamic(
+    () => import('@/components/sections/home/HomePartnersSection').then((m) => m.HomePartnersSection),
+    { ssr: true },
+);
+
 /**
  * Vue cliente de l'accueil — îlot interactif.
  *
@@ -102,6 +107,13 @@ export const HomeView: React.FC = () => {
             case 'social':
                 return (
                     <HomeSocialSection key="social" socialData={content.sections_data?.social} />
+                );
+            case 'partners':
+                return (
+                    <HomePartnersSection
+                        key="partners"
+                        partnersData={content.sections_data?.partners}
+                    />
                 );
             default:
                 return null;
