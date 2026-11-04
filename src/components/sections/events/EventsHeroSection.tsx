@@ -120,14 +120,14 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
             </div>
           </div>
 
-          {/* CUC Stunt Team Emblem Showcase — Sans cadre, fond transparent */}
+          {/* CUC Events Emblem Showcase — Sans cadre, fond transparent */}
           <div className="hidden lg:flex lg:col-span-4 justify-center items-center">
             <div className="relative w-72 h-64 flex items-center justify-center filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.65)] hover:scale-105 transition-transform duration-500">
               <Image
-                src="/images/logos/cuc-stunt-team-logo.png"
-                alt="CUC Stunt Team"
+                src="/images/logos/cuc-events-logo.png"
+                alt="CUC Events - Break The Limits"
                 width={300}
-                height={266}
+                height={272}
                 priority
                 unoptimized
                 className="w-auto h-auto max-w-full max-h-full object-contain"
