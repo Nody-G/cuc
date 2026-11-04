@@ -10,7 +10,7 @@
 import type { DoubledCelebrity } from '@/types';
 
 /**
- * Identifiants canoniques des 16 comédiens doublés de la page Tournages,
+ * Identifiants canoniques des 17 comédiens doublés de la page Tournages,
  * dans l'ordre strict demandé par Lucas Dollfus.
  */
 export const CUC_TOURNAGE_CELEBRITIES_ORDER: readonly string[] = [
@@ -30,6 +30,7 @@ export const CUC_TOURNAGE_CELEBRITIES_ORDER: readonly string[] = [
     'fadily-camara',
     'alice-isaaz',
     'camille-razat',
+    'benjamin-voisin',
 ] as const;
 
 /**
@@ -52,6 +53,7 @@ export const CUC_TOURNAGE_PROJECTS_OVERRIDE: Readonly<Record<string, readonly st
     'fadily-camara': ['Coka Chicas'],
     'alice-isaaz': ['Néro (Netflix)'],
     'camille-razat': ['Néro (Netflix)'],
+    'benjamin-voisin': ['Forty Love', 'Johnny'],
 };
 
 /**

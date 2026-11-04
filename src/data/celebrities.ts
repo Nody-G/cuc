@@ -7,6 +7,19 @@ import { DoubledCelebrity } from '@/types';
  */
 export const DOUBLED_CELEBRITIES: DoubledCelebrity[] = [
   {
+    "id": "benjamin-voisin",
+    "name": "Benjamin Voisin",
+    "photo": "https://image.tmdb.org/t/p/h632/oe37Uv6isNH7p9uwGunQj11Iy4R.jpg",
+    "productions": [
+      "Forty Love",
+      "Johnny"
+    ],
+    "stuntSpecialty": "",
+    "stuntDoubles": "Doublé par l'équipe CUC",
+    "imdbUrl": "https://www.imdb.com/name/nm8308968/",
+    "bio": "César du meilleur espoir masculin pour Illusions perdues de Xavier Giannoli et révélation d'Été 85 de François Ozon, Benjamin Voisin s'impose comme l'un des comédiens les plus demandés de sa génération. Il collabore avec le Campus Univers Cascades et Lucas Dollfus sur le drame sportif Forty Love ainsi que sur le biopic événement Johnny de Cédric Jimenez, où il incarne Johnny Hallyday."
+  },
+  {
     "id": "nassim-lyes",
     "name": "Nassim Lyes",
     "photo": "https://image.tmdb.org/t/p/h632/nMJ1qjhdfgRT8JuyUfFEkEwihOW.jpg",
