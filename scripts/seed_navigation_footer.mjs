@@ -280,7 +280,7 @@ const SOCIAL_LINKS = [
         platform: 'whatsapp',
         label: 'WhatsApp',
         handle: 'CUC Admissions',
-        url: 'https://wa.me/33672849492',
+        url: 'https://wa.me/33681004920',
         display_hint: 'Réponse rapide',
         brand_color: '#25D366',
         order_index: 5,

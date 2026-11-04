@@ -591,8 +591,9 @@ export const DEFAULT_SOCIAL_LINKS: SiteSocialLink[] = [
         id: 'whatsapp',
         platform: 'whatsapp',
         label: 'WhatsApp',
-        handle: 'CUC Admissions',
-        url: 'https://wa.me/33672849492',
+
+        handle: '06 81 00 49 20',
+        url: 'https://wa.me/33681004920',
         // Idem : « Réponse rapide » vit en base (avec overlay EN `social_link`).
         display_hint: '',
         brand_color: '#25D366',
