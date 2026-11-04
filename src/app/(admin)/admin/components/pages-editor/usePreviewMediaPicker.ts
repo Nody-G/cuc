@@ -46,7 +46,7 @@ export function usePreviewMediaPicker({
 
     const applySelected = (url: string) => {
         const target = mediaPickerTarget;
-        if (target === 'hero_bg') {
+        if (target === 'hero_bg' || target === 'hero.bg_image') {
             applyDraftChange((prev) => ({ ...prev, hero: { ...prev.hero, bg_image: url } }));
         } else if (target === 'og_image') {
             applyDraftChange((prev) => ({ ...prev, og_image: url }));

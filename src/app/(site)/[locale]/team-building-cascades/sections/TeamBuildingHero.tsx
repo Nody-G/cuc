@@ -27,6 +27,8 @@ export const TeamBuildingHero: React.FC<TeamBuildingHeroProps> = ({ copy, meta }
     return (
         <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
             <div
+                data-cuc-field="hero.bg_image"
+                data-cuc-kind="image"
                 className="absolute inset-x-0 -top-24 -bottom-24 z-0 will-change-transform"
                 style={{ transform: `translate3d(0, ${parallaxOffset}px, 0)` }}
             >
@@ -36,9 +38,9 @@ export const TeamBuildingHero: React.FC<TeamBuildingHeroProps> = ({ copy, meta }
                     fill
                     priority
                     sizes="100vw"
-                    className="object-cover object-[center_30%] brightness-70 contrast-110"
+                    className="object-cover object-[center_30%] brightness-90 contrast-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#060608]/70 via-[#060608]/20 to-transparent pointer-events-none" />
             </div>
 
             <div className="relative z-10 page-shell">

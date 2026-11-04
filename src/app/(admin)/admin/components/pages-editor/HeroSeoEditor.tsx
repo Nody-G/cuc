@@ -33,7 +33,7 @@ export const HeroSeoEditor: React.FC<HeroSeoEditorProps> = ({
 
   return (
     <div className="space-y-6">
-      <HeroBannerEditor hero={formData.hero} onChange={updateHero} />
+      <HeroBannerEditor hero={formData.hero} onChange={updateHero} onPickMedia={setMediaPickerTarget} />
 
       <HeroMetadataEditor
         formData={formData}

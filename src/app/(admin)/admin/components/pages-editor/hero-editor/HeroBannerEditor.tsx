@@ -3,6 +3,7 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import type { SitePageHero } from '@/lib/data/site-service';
+import { MediaImageField } from '../MediaImageField';
 import { LinkField } from '../LinkField';
 import { HeroMetricFields } from './HeroMetricFields';
 import {
@@ -22,18 +23,20 @@ export interface HeroBannerEditorProps {
     hero: SitePageHero;
     /** Fusion immuable d'un ou plusieurs champs du hero. */
     onChange: (patch: Partial<SitePageHero>) => void;
+    /** Ouvre la médiathèque pour choisir une image de fond. */
+    onPickMedia?: (target: string) => void;
 }
 
 /**
- * Bannière d'accroche : badge, mention « depuis », titre, sous-titre, métriques
- * et les trois appels à l'action.
+ * Bannière d'accroche : image de fond, badge, mention « depuis », titre,
+ * sous-titre, métriques et les trois appels à l'action.
  *
  * Chaque contrôle porte le chemin canonique de l'aperçu (`data-cuc-field` ou
  * `field` du sélecteur de lien) : cliquer un texte de la page en mode inspection
  * fait défiler et focalise **cette** saisie. Les valeurs vides retombent sur le
  * catalogue traduit — le champ en affiche le contenu réel en `placeholder`.
  */
-export const HeroBannerEditor: React.FC<HeroBannerEditorProps> = ({ hero, onChange }) => {
+export const HeroBannerEditor: React.FC<HeroBannerEditorProps> = ({ hero, onChange, onPickMedia }) => {
     const tHero = useTranslations('home.hero');
 
     return (
@@ -48,6 +51,19 @@ export const HeroBannerEditor: React.FC<HeroBannerEditorProps> = ({ hero, onChan
                     </p>
                 </div>
                 <span className={HERO_TAG_CLASS}>Haut de Page</span>
+            </div>
+
+            {/* Image d'arrière-plan du bandeau (Hero) */}
+            <div className="pb-3 border-b border-white/5">
+                <MediaImageField
+                    label="Image d'Arrière-Plan du Bandeau (Hero)"
+                    value={hero.bg_image || ''}
+                    onChange={(url) => onChange({ bg_image: url })}
+                    onPickMedia={onPickMedia ? () => onPickMedia('hero.bg_image') : undefined}
+                    placeholder="https://... ou /images/..."
+                    helperText="Image de fond plein écran affichée sous le titre en haut de page."
+                    data-cuc-field="hero.bg_image"
+                />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

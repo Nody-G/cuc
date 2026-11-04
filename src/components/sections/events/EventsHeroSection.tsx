@@ -45,6 +45,8 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
     <section className="relative py-24 sm:py-32 lg:py-36 min-h-[560px] sm:min-h-[640px] flex items-center bg-black border-b border-zinc-800 overflow-hidden">
       {/* Background avec parallaxe cinématique et cadrage valorisant les silhouettes et costumes */}
       <div
+        data-cuc-field="hero.bg_image"
+        data-cuc-kind="image"
         className="absolute inset-x-0 -top-24 -bottom-24 z-0 will-change-transform"
         style={{ transform: `translate3d(0, ${parallaxOffset}px, 0)` }}
       >
@@ -54,9 +56,9 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[center_28%] brightness-75 contrast-110"
+          className="object-cover object-[center_28%] brightness-90 contrast-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/45 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#060608]/70 via-[#060608]/20 to-transparent pointer-events-none" />
       </div>
 
       <div className="relative z-10 page-shell w-full">

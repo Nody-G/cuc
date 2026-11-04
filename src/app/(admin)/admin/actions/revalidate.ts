@@ -5,7 +5,7 @@
  * Règle SRP : `AGENTS.md` § 1-2. Server Actions : docs Next.js (`use server`).
  */
 
-import { revalidatePath, updateTag } from 'next/cache';
+import { revalidatePath, revalidateTag, updateTag, refresh } from 'next/cache';
 
 /**
  * Tags de cache des lectures publiques (cf. `src/lib/i18n/server.ts`) :
@@ -23,27 +23,51 @@ const SITE_CACHE_TAGS = [
 /**
  * Revalide toutes les pages du site vitrine suite à une modification de contenu.
  *
- * Double filet, parce que les deux moitiés du cache sont indépendantes :
- *  - **chemins** : la voie française **et** la voie anglaise (`/en/...`) — sans
- *    quoi une modification n'apparaissait jamais en anglais ;
- *  - **tags** : `updateTag` invalide les lectures mises en cache par tag
- *    (`site_pages`, `site_translations`, …), ce que la revalidation de chemin
- *    ne couvre pas.
+ * Triple filet pour garantir la fraîcheur immédiate sans rechargement forcé :
+ *  - **chemins localisés** : la racine `/`, les voies localisées (`/fr/...`, `/en/...`)
+ *    et le segment dynamique `/[locale]/...` ;
+ *  - **arbre de layout** : `revalidatePath('/', 'layout')` invalide l'arborescence complète ;
+ *  - **tags de cache** : `updateTag` + `revalidateTag(tag, { expire: 0 })` invalident
+ *    immédiatement les fonctions serveur étiquetées (`site_pages`, `site_translations`, `page:<slug>`) ;
+ *  - **rafraîchissement client** : `refresh()` force la synchronisation de l'état client Next.js.
  */
 export async function revalidateSite(paths: string[] = ['/', '/formation-de-cascadeur', '/stages-cascades-parkour-2', '/equipe-cascadeurs-pro', '/cuc-team-cascadeur']) {
   try {
-    for (const path of paths) {
-      revalidatePath(path);
-      // Miroir anglais : la même page existe sous `/en/...`.
-      revalidatePath(path === '/' ? '/en' : `/en${path}`);
+    for (const rawPath of paths) {
+      const clean = rawPath.startsWith('/') ? rawPath : `/${rawPath}`;
+      try {
+        revalidatePath(clean);
+        revalidatePath(clean === '/' ? '/fr' : `/fr${clean}`);
+        revalidatePath(clean === '/' ? '/en' : `/en${clean}`);
+        revalidatePath(clean === '/' ? '/[locale]' : `/[locale]${clean}`);
+
+        const slug = clean.replace(/^\//, '') || '/';
+        revalidateTag(`page:${slug}`, { expire: 0 });
+        updateTag(`page:${slug}`);
+      } catch {
+        /* ignore path revalidation error on edge */
+      }
+    }
+
+    try {
+      revalidatePath('/', 'layout');
+    } catch {
+      /* ignore */
     }
 
     for (const tag of SITE_CACHE_TAGS) {
       try {
+        revalidateTag(tag, { expire: 0 });
         updateTag(tag);
       } catch {
         /* tag inconnu : sans conséquence, les chemins sont déjà revalidés */
       }
+    }
+
+    try {
+      refresh();
+    } catch {
+      /* ignore */
     }
 
     return { success: true };

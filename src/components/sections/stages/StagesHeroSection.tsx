@@ -23,12 +23,12 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
 
   return (
     <>
-      {/* Hero Header */}
+      {/* Hero Header avec cadrage valorisant les cascadeurs et le matériel en bas d'image */}
       <section className="relative py-24 sm:py-28 lg:py-32 min-h-[520px] sm:min-h-[580px] flex items-center bg-black border-b border-zinc-800 overflow-hidden">
         <div
           data-cuc-field="hero.bg_image"
           data-cuc-kind="image"
-          className="absolute inset-x-0 -top-24 -bottom-24 z-0 will-change-transform"
+          className="absolute inset-x-0 -top-16 bottom-0 z-0 will-change-transform"
           style={{ transform: `translate3d(0, ${parallaxOffset}px, 0)` }}
         >
           <Image
@@ -37,9 +37,10 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[center_70%] brightness-85 contrast-105"
+            className="object-cover object-bottom brightness-95 contrast-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/25 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#060608]/60 via-[#060608]/15 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-black/20 pointer-events-none" />
         </div>
 
         <div className="relative z-10 page-shell w-full">
@@ -82,15 +83,16 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
         </div>
       </section>
 
-      {/* Header Visual Banner from original site */}
+      {/* Bandeau des logos d'accréditations & filières stages — Version Haute Résolution 2x non compressée */}
       <section className="py-8 bg-[#09090d] border-b border-zinc-800">
         <div className="max-w-4xl mx-auto px-4 flex justify-center">
           <Image
             src="/images/logos/bandeau-logos-stages.png"
             alt={t('hero.logosAlt')}
-            width={1000}
-            height={180}
+            width={2000}
+            height={360}
             priority
+            unoptimized
             quality={100}
             className="w-full max-w-3xl h-auto object-contain drop-shadow-md"
           />

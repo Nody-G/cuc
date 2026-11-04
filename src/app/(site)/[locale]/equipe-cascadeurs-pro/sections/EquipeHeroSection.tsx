@@ -44,9 +44,9 @@ export const EquipeHeroSection: React.FC<EquipeHeroSectionProps> = ({
                     fill
                     priority
                     sizes="100vw"
-                    className="object-cover object-center brightness-70 contrast-110"
+                    className="object-cover object-center brightness-90 contrast-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#060608]/70 via-[#060608]/20 to-transparent pointer-events-none" />
             </div>
 
             <div className="relative z-10 page-shell">
