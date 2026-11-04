@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Play, ExternalLink } from 'lucide-react';
 import { InstagramFollowerBadge } from '@/components/ui/InstagramFollowerBadge';
 import { InstagramLogo } from '@/components/ui/logos/SocialLogos';
+import { ReelViewCounterBadge } from '@/components/ui/ReelViewCounterBadge';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import type { InstagramReel, ReelSortOption } from '@/data/instagram-reels';
 
@@ -102,6 +103,11 @@ export const VideosReelsSection: React.FC<VideosReelsSectionProps> = ({
                                         {reel.date}
                                     </div>
                                 )}
+
+                                {/* Compteur de vues certifié Meta Graph API */}
+                                <div className="absolute top-2.5 right-2.5 z-20 pointer-events-none">
+                                    <ReelViewCounterBadge views={reel.views} viewsFormatted={reel.viewsFormatted} />
+                                </div>
 
                                 {/* Bouton Play central avec halo */}
                                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">

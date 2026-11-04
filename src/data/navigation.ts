@@ -547,8 +547,8 @@ export const DEFAULT_SOCIAL_LINKS: SiteSocialLink[] = [
         id: 'youtube',
         platform: 'youtube',
         label: 'YouTube',
-        handle: '@campusuniverscascades',
-        url: 'https://www.youtube.com/@campusuniverscascades',
+        handle: '@campus.univers.cascades',
+        url: 'https://www.youtube.com/@campus.univers.cascades',
         // Indice d'affichage : DONNÉE de `site_social_links`, jamais une copie FR
         // en dur — sinon il fuite en anglais (repli SSR, segment caché).
         display_hint: '',
@@ -563,7 +563,7 @@ export const DEFAULT_SOCIAL_LINKS: SiteSocialLink[] = [
         id: 'tiktok',
         platform: 'tiktok',
         label: 'TikTok',
-        handle: '@campusuniverscascades',
+        handle: '@campus.univers.cascades',
         url: 'https://www.tiktok.com/@campusuniverscascades',
         display_hint: '@campusuniverscascades',
         brand_color: '#25F4EE',

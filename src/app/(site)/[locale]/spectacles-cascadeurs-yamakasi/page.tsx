@@ -18,6 +18,7 @@ import {
 import { usePageDynamicContent } from '@/lib/hooks/usePageDynamicContent';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import { withContactIntent } from '@/lib/contact-intent';
+import { useHeroParallax } from '@/lib/hooks/useHeroParallax';
 import {
   SPECTACLE_TYPES,
   SpectacleTypeCard,
@@ -26,6 +27,7 @@ import {
 
 export default function SpectaclesCascadeursYamakasiPage() {
   const t = useTranslations('spectacles');
+  const parallaxOffset = useHeroParallax();
   const { content } = usePageDynamicContent('spectacles-cascadeurs-yamakasi');
 
   const heroBadge = content.hero?.badge || t('heroBadge');
@@ -50,7 +52,10 @@ export default function SpectaclesCascadeursYamakasiPage() {
       <main id="contenu-principal" className="flex-grow pt-28">
         {/* Hero Header */}
         <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
-          <div className="absolute inset-0 z-0">
+          <div
+            className="absolute inset-x-0 -top-24 -bottom-24 z-0 will-change-transform"
+            style={{ transform: `translate3d(0, ${parallaxOffset}px, 0)` }}
+          >
             <Image
               src={heroBg}
               alt={t('heroImageAlt')}

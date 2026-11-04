@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { ChevronRight, Globe } from 'lucide-react';
+import { useHeroParallax } from '@/lib/hooks/useHeroParallax';
 import type { WorkshopHeroCopy } from './useWorkshopContent';
 
 export interface WorkshopHeroProps {
@@ -12,9 +13,14 @@ export interface WorkshopHeroProps {
     onApply: () => void;
 }
 
-export const WorkshopHero: React.FC<WorkshopHeroProps> = ({ breadcrumbs, hero, onApply }) => (
+export const WorkshopHero: React.FC<WorkshopHeroProps> = ({ breadcrumbs, hero, onApply }) => {
+    const parallaxOffset = useHeroParallax();
+    return (
     <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
-        <div className="absolute inset-0 z-0">
+        <div
+            className="absolute inset-x-0 -top-24 -bottom-24 z-0 will-change-transform"
+            style={{ transform: `translate3d(0, ${parallaxOffset}px, 0)` }}
+        >
             <Image
                 src={hero.bg}
                 alt="CUC International Stunt Workshop"
@@ -105,4 +111,5 @@ export const WorkshopHero: React.FC<WorkshopHeroProps> = ({ breadcrumbs, hero, o
             </div>
         </div>
     </section>
-);
+    );
+};

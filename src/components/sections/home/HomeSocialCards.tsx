@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Play, ExternalLink } from 'lucide-react';
 import { StudioParallaxLayer, StudioParallaxCard } from '@/components/ui/parallax';
+import { ReelViewCounterBadge } from '@/components/ui/ReelViewCounterBadge';
 import type { InstagramReel } from '@/data/instagram-reels';
 
 export interface HomeReelCardProps {
@@ -30,6 +31,11 @@ export const HomeReelCard: React.FC<HomeReelCardProps> = ({ reel }) => (
       <div className="absolute inset-0 bg-gradient-to-b from-[#121218] to-black" />
     )}
     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none" />
+
+    {/* Compteur de vues certifié Meta Graph API */}
+    <div className="absolute top-2.5 right-2.5 z-20 pointer-events-none">
+      <ReelViewCounterBadge views={reel.views} viewsFormatted={reel.viewsFormatted} />
+    </div>
 
     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
       <div className="w-10 h-10 rounded-full bg-black/60 backdrop-blur-md border border-white/20 group-hover:border-[#FFE500] group-hover:scale-110 flex items-center justify-center transition-all duration-300 text-white group-hover:text-[#FFE500]">

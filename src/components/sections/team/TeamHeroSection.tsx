@@ -9,6 +9,7 @@ import { TacticalButton } from '@/components/ui/TacticalButton';
 import { cucField } from '@/lib/preview/cuc-field';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import { withContactIntent } from '@/lib/contact-intent';
+import { useHeroParallax } from '@/lib/hooks/useHeroParallax';
 import { Film, ChevronRight } from 'lucide-react';
 import { SitePageHero } from '@/lib/data/site-service';
 
@@ -33,10 +34,14 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
     hero?.cta_primary_link || '/contact-cuc',
     'tournage-production'
   );
+  const parallaxOffset = useHeroParallax();
 
   return (
     <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
-      <div className="absolute inset-0 z-0">
+      <div
+        className="absolute inset-x-0 -top-24 -bottom-24 z-0 will-change-transform"
+        style={{ transform: `translate3d(0, ${parallaxOffset}px, 0)` }}
+      >
         <Image
           src={bgImage}
           alt={t('hero.bgAlt')}

@@ -10,6 +10,7 @@ import { TacticalButton } from '@/components/ui/TacticalButton';
 import { cucField } from '@/lib/preview/cuc-field';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import { withContactIntent } from '@/lib/contact-intent';
+import { useHeroParallax } from '@/lib/hooks/useHeroParallax';
 import { Sparkles, ChevronRight } from 'lucide-react';
 
 import { SitePageHero } from '@/lib/data/site-service';
@@ -38,29 +39,14 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
   const ctaSecondaryLink = hero?.cta_secondary_link || '/videos-cascadeur';
 
   /** Effet de parallaxe subtil et performant */
-  const [scrollY, setScrollY] = React.useState(0);
-
-  React.useEffect(() => {
-    let ticking = false;
-    const onScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          setScrollY(window.scrollY);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  const parallaxOffset = useHeroParallax();
 
   return (
     <section className="relative py-24 sm:py-32 lg:py-36 min-h-[560px] sm:min-h-[640px] flex items-center bg-black border-b border-zinc-800 overflow-hidden">
       {/* Background avec parallaxe cinématique et cadrage valorisant les silhouettes et costumes */}
       <div
         className="absolute inset-x-0 -top-24 -bottom-24 z-0 will-change-transform"
-        style={{ transform: `translate3d(0, ${Math.min(scrollY * 0.18, 140)}px, 0)` }}
+        style={{ transform: `translate3d(0, ${parallaxOffset}px, 0)` }}
       >
         <Image
           src={bgImage}

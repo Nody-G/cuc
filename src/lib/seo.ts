@@ -51,7 +51,7 @@ export const CAMPUS_ADDRESS = {
 /** Profils sociaux — utilisés pour `sameAs` dans le JSON-LD. */
 export const SOCIAL_PROFILES = [
     "https://www.instagram.com/campus.univers.cascades",
-    "https://www.youtube.com/@campusuniverscascades",
+    "https://www.youtube.com/@campus.univers.cascades",
     "https://www.tiktok.com/@campusuniverscascades",
     "https://www.facebook.com/campus.univers.cascades",
 ];

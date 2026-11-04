@@ -4,7 +4,6 @@ import React from 'react';
 import { StudioParallaxScene, StudioParallaxLayer } from '@/components/ui/parallax';
 import { FilmDetailsModal } from '@/components/sections/hall-of-fame/FilmDetailsModal';
 import { useHomeTournages } from './tournages/useHomeTournages';
-import { TournagesHeader } from './tournages/TournagesHeader';
 import { TournagesPillarsCard } from './tournages/TournagesPillarsCard';
 import type { HomeTournagesData } from './tournages/home-tournages-data';
 
@@ -42,16 +41,13 @@ export const HomeTournagesSection: React.FC<HomeTournagesSectionProps> = ({ tour
       />
 
       <div className="page-shell relative z-10">
-        <TournagesHeader
+        <TournagesPillarsCard
           badge={labels.badge}
           teamTag={labels.teamTag}
           title={labels.title}
           subtitle={labels.subtitle}
           ctaText={labels.ctaText}
           ctaLink={labels.ctaLink}
-        />
-
-        <TournagesPillarsCard
           pillar1Title={labels.pillar1Title}
           pillar1Desc={labels.pillar1Desc}
           pillar2Title={labels.pillar2Title}

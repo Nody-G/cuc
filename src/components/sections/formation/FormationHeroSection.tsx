@@ -11,6 +11,7 @@ import { TacticalButton } from '@/components/ui/TacticalButton';
 
 import { SitePageHero } from '@/lib/data/site-service';
 import { cucMicro } from '@/lib/preview/cuc-micro';
+import { useHeroParallax } from '@/lib/hooks/useHeroParallax';
 
 interface FormationHeroSectionProps {
   onApply: (programId: string) => void;
@@ -22,12 +23,18 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
   heroData,
 }) => {
   const t = useTranslations('formation');
+  const parallaxOffset = useHeroParallax();
 
   return (
     <>
       {/* Page Header Hero */}
       <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
-        <div data-cuc-field="hero.bg_image" data-cuc-kind="image" className="absolute inset-0 z-0">
+        <div
+          data-cuc-field="hero.bg_image"
+          data-cuc-kind="image"
+          className="absolute inset-x-0 -top-24 -bottom-24 z-0 will-change-transform"
+          style={{ transform: `translate3d(0, ${parallaxOffset}px, 0)` }}
+        >
           <Image
             src={heroData?.bg_image || "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/formation-pro-bandeau.webp"}
             alt={t('hero.imageAlt')}

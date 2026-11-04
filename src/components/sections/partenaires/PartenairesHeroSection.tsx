@@ -9,6 +9,7 @@ import { StuntBadge } from '@/components/ui/StuntBadge';
 import { cucField } from '@/lib/preview/cuc-field';
 import { cucMicro } from '@/lib/preview/cuc-micro';
 import { Handshake, ChevronRight } from 'lucide-react';
+import { useHeroParallax } from '@/lib/hooks/useHeroParallax';
 import { SitePageHero } from '@/lib/data/site-service';
 
 interface PartenairesHeroSectionProps {
@@ -17,6 +18,7 @@ interface PartenairesHeroSectionProps {
 
 export const PartenairesHeroSection: React.FC<PartenairesHeroSectionProps> = ({ hero }) => {
   const t = useTranslations('partenaires');
+  const parallaxOffset = useHeroParallax();
   const badge = hero?.badge || t('heroBadge');
   const title = hero?.title || t('heroTitle');
   const subtitle = hero?.subtitle || t('heroSubtitle');
@@ -26,7 +28,10 @@ export const PartenairesHeroSection: React.FC<PartenairesHeroSectionProps> = ({ 
 
   return (
     <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
-      <div className="absolute inset-0 z-0">
+      <div
+        className="absolute inset-x-0 -top-24 -bottom-24 z-0 will-change-transform"
+        style={{ transform: `translate3d(0, ${parallaxOffset}px, 0)` }}
+      >
         <Image
           src={bgImage}
           alt={t('heroImageAlt')}

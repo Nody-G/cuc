@@ -9,6 +9,7 @@ import { Phone, ChevronRight } from 'lucide-react';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { cucField } from '@/lib/preview/cuc-field';
 import { cucMicro } from '@/lib/preview/cuc-micro';
+import { useHeroParallax } from '@/lib/hooks/useHeroParallax';
 
 import { SitePageHero } from '@/lib/data/site-service';
 
@@ -18,9 +19,13 @@ interface ContactHeroSectionProps {
 
 export const ContactHeroSection: React.FC<ContactHeroSectionProps> = ({ heroData }) => {
   const t = useTranslations('contact.hero');
+  const parallaxOffset = useHeroParallax();
   return (
     <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
-      <div className="absolute inset-0 z-0">
+      <div
+        className="absolute inset-x-0 -top-24 -bottom-24 z-0 will-change-transform"
+        style={{ transform: `translate3d(0, ${parallaxOffset}px, 0)` }}
+      >
         <Image
           src={heroData?.bg_image || "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-7-scaled.webp"}
           alt={t('imageAlt')}

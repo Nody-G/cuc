@@ -44,7 +44,7 @@ describe('seo — educationalOrganizationJsonLd()', () => {
         expect(Array.isArray(jsonLd.sameAs)).toBe(true);
         expect(jsonLd.sameAs.length).toBeGreaterThan(0);
         expect(jsonLd.sameAs).toContain(
-            'https://www.youtube.com/@campusuniverscascades'
+            'https://www.youtube.com/@campus.univers.cascades'
         );
     });
 

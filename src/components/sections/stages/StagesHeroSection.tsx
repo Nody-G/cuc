@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { cucField } from '@/lib/preview/cuc-field';
 import { cucMicro } from '@/lib/preview/cuc-micro';
+import { useHeroParallax } from '@/lib/hooks/useHeroParallax';
 import { Sparkles, ChevronRight } from 'lucide-react';
 
 import { SitePageHero } from '@/lib/data/site-service';
@@ -18,12 +19,18 @@ interface StagesHeroSectionProps {
 
 export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }) => {
   const t = useTranslations('stages');
+  const parallaxOffset = useHeroParallax();
 
   return (
     <>
       {/* Hero Header */}
       <section className="relative py-24 sm:py-28 lg:py-32 min-h-[520px] sm:min-h-[580px] flex items-center bg-black border-b border-zinc-800 overflow-hidden">
-        <div data-cuc-field="hero.bg_image" data-cuc-kind="image" className="absolute inset-0 z-0">
+        <div
+          data-cuc-field="hero.bg_image"
+          data-cuc-kind="image"
+          className="absolute inset-x-0 -top-24 -bottom-24 z-0 will-change-transform"
+          style={{ transform: `translate3d(0, ${parallaxOffset}px, 0)` }}
+        >
           <Image
             src={heroData?.bg_image || "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/stages-parkour-bandeau.webp"}
             alt={t('hero.bgAlt')}

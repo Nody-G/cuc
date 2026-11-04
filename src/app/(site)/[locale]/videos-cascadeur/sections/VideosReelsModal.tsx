@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ReelViewCounterBadge } from '@/components/ui/ReelViewCounterBadge';
 import type { InstagramReel } from './instagram-reels.data';
 
 export interface VideosReelsModalProps {
@@ -19,7 +20,7 @@ export interface VideosReelsModalProps {
 
 /**
  * Modale de lecture d'un Reel Instagram officiel du CUC.
- * Format smartphone cinématique 9:16, lecture iframe officielle sans badge.
+ * Format smartphone cinématique 9:16, lecture iframe officielle avec compteur de vues certifié Meta.
  */
 export const VideosReelsModal: React.FC<VideosReelsModalProps> = ({
     reel,
@@ -55,23 +56,26 @@ export const VideosReelsModal: React.FC<VideosReelsModalProps> = ({
                 className="relative w-full max-w-[400px] bg-[#0c0c10] border border-zinc-800 shadow-[0_0_50px_rgba(0,0,0,0.9)] flex flex-col rounded-xl overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Header épuré */}
-                <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-800/80 bg-[#121218]">
-                    <div className="flex items-center gap-2 truncate pr-2">
-                        <span className="w-2 h-2 rounded-full bg-[#FFE500]" />
+                {/* Header épuré avec compteur de vues certifié Meta et bouton fermer */}
+                <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-800/80 bg-[#121218] gap-3">
+                    <div className="flex items-center gap-2 truncate pr-1">
+                        <span className="w-2 h-2 rounded-full bg-[#FFE500] shrink-0" />
                         <span className="text-xs font-mono-tech uppercase tracking-wider text-zinc-300 truncate">
                             {reel.title}
                         </span>
                     </div>
-                    <button
-                        type="button"
-                        onClick={onClose}
-                        title={labels.closeTitle}
-                        className="p-1.5 text-zinc-400 hover:text-white hover:bg-white/10 rounded transition-colors"
-                        aria-label={labels.closeTitle}
-                    >
-                        <X className="w-5 h-5" />
-                    </button>
+                    <div className="flex items-center gap-2 shrink-0">
+                        <ReelViewCounterBadge views={reel.views} viewsFormatted={reel.viewsFormatted} />
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            title={labels.closeTitle}
+                            className="p-1.5 text-zinc-400 hover:text-white hover:bg-white/10 rounded transition-colors"
+                            aria-label={labels.closeTitle}
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+                    </div>
                 </div>
 
                 {/* Lecteur iframe officiel Instagram au format vertical */}

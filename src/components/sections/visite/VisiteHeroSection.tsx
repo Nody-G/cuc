@@ -9,6 +9,7 @@ import { ChevronRight, Layers, Compass } from 'lucide-react';
 import { TacticalButton } from '@/components/ui/TacticalButton';
 import { cucField } from '@/lib/preview/cuc-field';
 import { cucMicro } from '@/lib/preview/cuc-micro';
+import { useHeroParallax } from '@/lib/hooks/useHeroParallax';
 import type { SitePageHero } from '@/lib/data/site-service';
 
 interface HeroStatCopy {
@@ -23,6 +24,7 @@ interface VisiteHeroSectionProps {
 
 export const VisiteHeroSection: React.FC<VisiteHeroSectionProps> = ({ hero }) => {
   const t = useTranslations('visite');
+  const parallaxOffset = useHeroParallax();
   const stats = t.raw('hero.stats') as HeroStatCopy[];
   const bgImage =
     hero?.bg_image ||
@@ -32,7 +34,12 @@ export const VisiteHeroSection: React.FC<VisiteHeroSectionProps> = ({ hero }) =>
     <>
       {/* Hero Header */}
       <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
-        <div data-cuc-field="hero.bg_image" data-cuc-kind="image" className="absolute inset-0 z-0">
+        <div
+          data-cuc-field="hero.bg_image"
+          data-cuc-kind="image"
+          className="absolute inset-x-0 -top-24 -bottom-24 z-0 will-change-transform"
+          style={{ transform: `translate3d(0, ${parallaxOffset}px, 0)` }}
+        >
           <Image
             src={bgImage}
             alt={t('hero.bgAlt')}

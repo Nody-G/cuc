@@ -7,8 +7,15 @@ import { StudioParallaxCard } from '@/components/ui/parallax';
 import type { FilmCredit } from '@/types';
 import { type HighlightProject } from './home-tournages-data';
 import { CoordinatedFilmsCarousel } from './CoordinatedFilmsCarousel';
+import { TournagesHeader } from './TournagesHeader';
 
 interface TournagesPillarsCardProps {
+    badge?: string;
+    teamTag?: string;
+    title?: string;
+    subtitle?: string;
+    ctaText?: string;
+    ctaLink?: string;
     pillar1Title: string;
     pillar1Desc: string;
     pillar2Title: string;
@@ -29,6 +36,12 @@ interface TournagesPillarsCardProps {
  * coordonnés en cascade par Lucas Dollfus.
  */
 export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
+    badge,
+    teamTag,
+    title,
+    subtitle,
+    ctaText,
+    ctaLink,
     pillar1Title,
     pillar1Desc,
     pillar2Title,
@@ -43,6 +56,19 @@ export const TournagesPillarsCard: React.FC<TournagesPillarsCardProps> = ({
     return (
         <StudioParallaxCard maxTilt={2}>
             <div className="bg-[#0e0e14]/95 backdrop-blur-md border border-[#FFE500]/50 p-6 sm:p-8 lg:p-10 relative shadow-[0_0_40px_rgba(255,229,0,0.08)] flex flex-col gap-8">
+                {/* En-tête éditorial intégré directement au bloc avec les 3 piliers et le carrousel */}
+                {title && (
+                    <TournagesHeader
+                        badge={badge || ''}
+                        teamTag={teamTag || ''}
+                        title={title}
+                        subtitle={subtitle || ''}
+                        ctaText={ctaText || ''}
+                        ctaLink={ctaLink || '/cuc-team-cascadeur'}
+                        className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 sm:pb-8 border-b border-zinc-800/80"
+                    />
+                )}
+
                 {/* 1. Les 3 Piliers éditoriaux en grille horizontale 3 colonnes */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     {/* Pilier 1 */}

@@ -12,6 +12,7 @@ interface TournagesHeaderProps {
     subtitle: string;
     ctaText: string;
     ctaLink: string;
+    className?: string;
 }
 
 /** En-tête du bloc tournages : badge, titre, sous-titre et CTA équipe. */
@@ -22,8 +23,9 @@ export const TournagesHeader: React.FC<TournagesHeaderProps> = ({
     subtitle,
     ctaText,
     ctaLink,
+    className,
 }) => (
-    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-10">
+    <div className={className || "flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-10"}>
         <div className="space-y-3">
             <div className="flex items-center gap-2">
                 <span

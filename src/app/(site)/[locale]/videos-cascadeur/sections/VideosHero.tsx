@@ -3,6 +3,7 @@ import React from 'react';
 import Image from 'next/image';
 import { StuntBadge } from '@/components/ui/StuntBadge';
 import { ChevronRight, Tv } from 'lucide-react';
+import { useHeroParallax } from '@/lib/hooks/useHeroParallax';
 import type { VideosHeroCopy, VideosLabels } from './useVideosPage';
 
 export interface VideosHeroProps {
@@ -10,9 +11,14 @@ export interface VideosHeroProps {
     labels: VideosLabels;
 }
 
-export const VideosHero: React.FC<VideosHeroProps> = ({ hero, labels }) => (
+export const VideosHero: React.FC<VideosHeroProps> = ({ hero, labels }) => {
+    const parallaxOffset = useHeroParallax();
+    return (
     <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
-        <div className="absolute inset-0 z-0">
+        <div
+            className="absolute inset-x-0 -top-24 -bottom-24 z-0 will-change-transform"
+            style={{ transform: `translate3d(0, ${parallaxOffset}px, 0)` }}
+        >
             <Image
                 src={hero.bg}
                 alt={labels.heroImageAlt}
@@ -72,4 +78,5 @@ export const VideosHero: React.FC<VideosHeroProps> = ({ hero, labels }) => (
             </p>
         </div>
     </section>
-);
+    );
+};
