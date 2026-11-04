@@ -112,19 +112,18 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
             </div>
           </div>
 
-          {/* Cinematic Textured CUC Emblem Showcase */}
+          {/* CUC Stunt Team Emblem Showcase — Sans cadre, fond transparent */}
           <div className="hidden lg:flex lg:col-span-4 justify-center items-center">
-            <div className="relative w-64 h-64 border border-zinc-800 p-2 bg-[#0a0a0e] shadow-2xl group">
-              <div className="relative w-full h-full overflow-hidden border border-zinc-800/80">
-                <Image
-                  src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/cuc-team-badge.webp"
-                  alt={t('hero.emblemAlt')}
-                  fill
-                  priority
-                  sizes="256px"
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
+            <div className="relative w-72 h-64 flex items-center justify-center filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.65)] hover:scale-105 transition-transform duration-500">
+              <Image
+                src="/images/logos/cuc-stunt-team-logo.png"
+                alt={t('hero.emblemAlt')}
+                width={300}
+                height={266}
+                priority
+                unoptimized
+                className="w-auto h-auto max-w-full max-h-full object-contain"
+              />
             </div>
           </div>
         </div>

@@ -62,59 +62,78 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
       </div>
 
       <div className="relative z-10 page-shell w-full">
-        <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
-          <Link href="/" className="hover:text-[#FFE500] transition-colors">
-            <span {...cucMicro('commonChrome.breadcrumbHome')}>{chrome('breadcrumbHome')}</span>
-          </Link>
-          <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-          <span className="text-[#FFE500]" {...cucMicro('eventsAgence.breadcrumbCurrent')}>
-            {t('breadcrumbCurrent')}
-          </span>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="lg:col-span-8">
+            <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
+              <Link href="/" className="hover:text-[#FFE500] transition-colors">
+                <span {...cucMicro('commonChrome.breadcrumbHome')}>{chrome('breadcrumbHome')}</span>
+              </Link>
+              <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
+              <span className="text-[#FFE500]" {...cucMicro('eventsAgence.breadcrumbCurrent')}>
+                {t('breadcrumbCurrent')}
+              </span>
+            </div>
 
-        <div className="inline-flex items-center gap-2 mb-4">
-          <StuntBadge variant="yellow" icon={<Sparkles className="w-3.5 h-3.5" />}>
-            <span {...cucField('hero.badge')}>{badge}</span>
-          </StuntBadge>
-          <span {...cucField('hero.meta')} className="text-xs font-mono-tech text-zinc-400">
-            {hero?.meta || 'SPECTACLES • ANIMATIONS • TEAM BUILDING'}
-          </span>
-        </div>
+            <div className="inline-flex items-center gap-2 mb-4">
+              <StuntBadge variant="yellow" icon={<Sparkles className="w-3.5 h-3.5" />}>
+                <span {...cucField('hero.badge')}>{badge}</span>
+              </StuntBadge>
+              <span {...cucField('hero.meta')} className="text-xs font-mono-tech text-zinc-400">
+                {hero?.meta || 'SPECTACLES • ANIMATIONS • TEAM BUILDING'}
+              </span>
+            </div>
 
-        <h1
-          {...cucField('hero.title')}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
-        >
-          {title.includes(':') ? (
-            <>
-              {title.split(':')[0]} :{' '}
-              <span className="text-[#FFE500]">{title.split(':')[1]}</span>
-            </>
-          ) : (
-            title
-          )}
-        </h1>
+            <h1
+              {...cucField('hero.title')}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
+            >
+              {title.includes(':') ? (
+                <>
+                  {title.split(':')[0]} :{' '}
+                  <span className="text-[#FFE500]">{title.split(':')[1]}</span>
+                </>
+              ) : (
+                title
+              )}
+            </h1>
 
-        <p
-          {...cucField('hero.subtitle', 'textarea')}
-          className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
-        >
-          {subtitle}
-        </p>
+            <p
+              {...cucField('hero.subtitle', 'textarea')}
+              className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
+            >
+              {subtitle}
+            </p>
 
-        <div className="flex flex-wrap gap-4 mt-8">
-          <Link href={ctaPrimaryLink}>
-            <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
-              <span {...cucField('hero.cta_primary_text')}>{ctaPrimaryText}</span>
-            </TacticalButton>
-          </Link>
-          {ctaSecondaryText && (
-            <Link href={ctaSecondaryLink}>
-              <TacticalButton variant="secondary" size="lg">
-                <span {...cucField('hero.cta_secondary_text')}>{ctaSecondaryText}</span>
-              </TacticalButton>
-            </Link>
-          )}
+            <div className="flex flex-wrap gap-4 mt-8">
+              <Link href={ctaPrimaryLink}>
+                <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
+                  <span {...cucField('hero.cta_primary_text')}>{ctaPrimaryText}</span>
+                </TacticalButton>
+              </Link>
+              {ctaSecondaryText && (
+                <Link href={ctaSecondaryLink}>
+                  <TacticalButton variant="secondary" size="lg">
+                    <span {...cucField('hero.cta_secondary_text')}>{ctaSecondaryText}</span>
+                  </TacticalButton>
+                </Link>
+              )}
+            </div>
+          </div>
+
+          {/* CUC Stunt Team Emblem Showcase — Sans cadre, fond transparent */}
+          <div className="hidden lg:flex lg:col-span-4 justify-center items-center">
+            <div className="relative w-72 h-64 flex items-center justify-center filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.65)] hover:scale-105 transition-transform duration-500">
+              <Image
+                src="/images/logos/cuc-stunt-team-logo.png"
+                alt="CUC Stunt Team"
+                width={300}
+                height={266}
+                priority
+                unoptimized
+                className="w-auto h-auto max-w-full max-h-full object-contain"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -54,7 +54,7 @@ export const VideosMediaSection: React.FC<VideosMediaSectionProps> = ({
                 </a>
 
                 <a
-                    href="https://www.tiktok.com/@campusuniverscascades"
+                    href="https://www.tiktok.com/@campus.univers.cascades"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-5 py-3 bg-[#121218] border border-zinc-800 hover:border-[#FFE500] text-xs font-mono-tech text-zinc-300 hover:text-white flex items-center gap-2 transition-colors"
