@@ -412,7 +412,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/contact-cuc',
       cta_secondary_text: 'Voir les vidéos de shows',
       cta_secondary_link: '/videos-cascadeur',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-bonus-2.webp',
+      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-hero-hq.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Spectacles & Shows Vivants', order: 1, is_visible: true },

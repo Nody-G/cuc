@@ -35,7 +35,7 @@ export default function SpectaclesCascadeursYamakasiPage() {
   const heroSubtitle = content.hero?.subtitle || t('heroSubtitle');
   const heroBg =
     content.hero?.bg_image ||
-    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-bonus-2.webp';
+    'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/events/spectacles-hero-hq.webp';
   const ctaPrimaryText = content.hero?.cta_primary_text || t('ctaPrimaryText');
   /** CTA spectacles → page contact, pré-remplie « devis CUC Events ». */
   const ctaPrimaryLink = withContactIntent(
