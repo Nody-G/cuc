@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { StuntBadge } from '@/components/ui/StuntBadge';
-import { ChevronDown, ChevronUp, ExternalLink, Play, Video } from 'lucide-react';
+import { ChevronDown, ChevronUp, Play, Video } from 'lucide-react';
 import type { SelectedDmVideo, VideosLabels } from './useVideosPage';
 import type { VideosProgram } from './videos-copy';
 
@@ -73,10 +73,6 @@ export const VideosDocusGrid: React.FC<VideosDocusGridProps> = ({
                                     {v.title}
                                 </h3>
                                 <p className="text-xs font-tech text-zinc-400 line-clamp-2 mt-1">{v.sub}</p>
-                                <div className="mt-3 pt-2 border-t border-zinc-800/60 flex items-center justify-between text-[11px] font-mono-tech text-zinc-500 group-hover:text-[#FFE500] transition-colors">
-                                    <span>Visionner sur Dailymotion</span>
-                                    <ExternalLink className="w-3 h-3 text-[#FFE500]" />
-                                </div>
                             </a>
                         );
                     })}

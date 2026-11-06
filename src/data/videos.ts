@@ -49,6 +49,12 @@ export const PROGRAMMES_TV: ProgrammeTvItem[] = [
     dmId: 'x8mmmm3',
   },
   {
+    title: "KONBINI — BIENVENUE À L'ÉCOLE DES CASCADEURS",
+    sub: 'Reportage Konbini • Immersion avec Sarah Belala au CUC',
+    img: 'https://s1.dmcdn.net/v/Srzv81gwkZb-jEe2X/x720',
+    dmId: 'x803uq0',
+  },
+  {
     title: 'WARLIKE — GUN FIGHT CONCEPT',
     sub: "Concept scène d'action • Production Big Films",
     img: 'https://s2.dmcdn.net/v/U1N4b1ep9v8jKsTvO/x720',
