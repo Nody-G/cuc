@@ -32,8 +32,8 @@ export const VisiteHeroSection: React.FC<VisiteHeroSectionProps> = ({ hero }) =>
 
   return (
     <>
-      {/* Hero Header */}
-      <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
+      {/* Hero Header standardisé à la hauteur Équipe (~380px) */}
+      <section className="relative py-12 sm:py-14 bg-black border-b border-zinc-800 overflow-hidden">
         <div
           data-cuc-field="hero.bg_image"
           data-cuc-kind="image"
@@ -52,7 +52,7 @@ export const VisiteHeroSection: React.FC<VisiteHeroSectionProps> = ({ hero }) =>
         </div>
 
         <div className="relative z-10 page-shell">
-          <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
+          <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-3">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">
               <span {...cucMicro('visite.hero.breadcrumbHome')}>{t('hero.breadcrumbHome')}</span>
             </Link>
@@ -62,7 +62,7 @@ export const VisiteHeroSection: React.FC<VisiteHeroSectionProps> = ({ hero }) =>
             </span>
           </div>
 
-          <div className="flex items-center gap-2 mb-4 text-xs font-mono-tech uppercase font-bold tracking-wider text-[#FFE500]">
+          <div className="flex items-center gap-2 mb-3 text-xs font-mono-tech uppercase font-bold tracking-wider text-[#FFE500]">
             <span {...cucField('hero.badge')}>{hero?.badge || t('hero.badge')}</span>
             <span className="text-zinc-600">•</span>
             <span className="text-zinc-400">{t('hero.location')}</span>
@@ -70,7 +70,7 @@ export const VisiteHeroSection: React.FC<VisiteHeroSectionProps> = ({ hero }) =>
 
           <h1
             {...cucField('hero.title')}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tight text-white max-w-4xl leading-tight"
           >
             {hero?.title ? (
               hero.title
@@ -86,16 +86,16 @@ export const VisiteHeroSection: React.FC<VisiteHeroSectionProps> = ({ hero }) =>
 
           <p
             {...cucField('hero.subtitle', 'textarea')}
-            className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
+            className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-3 leading-relaxed"
           >
             {hero?.subtitle || t('hero.subtitle')}
           </p>
 
-          <div className="flex flex-wrap gap-4 mt-8">
+          <div className="flex flex-wrap gap-4 mt-5">
             <a href="#installations-detail">
               <TacticalButton
                 variant="primary"
-                size="lg"
+                size="md"
                 icon={<Layers className="w-4 h-4 text-black" />}
               >
                 <span {...cucField('hero.cta_primary_text')}>
@@ -106,7 +106,7 @@ export const VisiteHeroSection: React.FC<VisiteHeroSectionProps> = ({ hero }) =>
             <a href="#visite-virtuelle-360">
               <TacticalButton
                 variant="secondary"
-                size="lg"
+                size="md"
                 icon={<Compass className="w-4 h-4 text-[#FFE500]" />}
               >
                 <span {...cucField('hero.cta_secondary_text')}>
@@ -119,7 +119,7 @@ export const VisiteHeroSection: React.FC<VisiteHeroSectionProps> = ({ hero }) =>
       </section>
 
       {/* Chiffres Clés du Site */}
-      <section className="py-8 bg-[#0c0c10] border-b border-zinc-800">
+      <section className="py-5 sm:py-6 bg-[#0c0c10] border-b border-zinc-800">
         <div className="page-shell">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 font-mono-tech text-xs">
             {stats.map((stat, idx) => (

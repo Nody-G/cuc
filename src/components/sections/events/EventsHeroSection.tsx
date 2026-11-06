@@ -42,7 +42,7 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
   const parallaxOffset = useHeroParallax();
 
   return (
-    <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
+    <section className="relative py-12 sm:py-14 bg-black border-b border-zinc-800 overflow-hidden">
       {/* Background avec parallaxe cinématique et cadrage valorisant les silhouettes et costumes */}
       <div
         data-cuc-field="hero.bg_image"
@@ -64,7 +64,7 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
       <div className="relative z-10 page-shell w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8">
-            <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
+            <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-3">
               <Link href="/" className="hover:text-[#FFE500] transition-colors">
                 <span {...cucMicro('commonChrome.breadcrumbHome')}>{chrome('breadcrumbHome')}</span>
               </Link>
@@ -74,7 +74,7 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
               </span>
             </div>
 
-            <div className="inline-flex items-center gap-2 mb-4">
+            <div className="inline-flex items-center gap-2 mb-3">
               <StuntBadge variant="yellow" icon={<Sparkles className="w-3.5 h-3.5" />}>
                 <span {...cucField('hero.badge')}>{badge}</span>
               </StuntBadge>
@@ -85,7 +85,7 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
 
             <h1
               {...cucField('hero.title')}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tight text-white max-w-4xl leading-tight"
             >
               {title.includes(':') ? (
                 <>
@@ -99,20 +99,20 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
 
             <p
               {...cucField('hero.subtitle', 'textarea')}
-              className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
+              className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-3 leading-relaxed"
             >
               {subtitle}
             </p>
 
-            <div className="flex flex-wrap gap-4 mt-8">
+            <div className="flex flex-wrap gap-4 mt-5">
               <Link href={ctaPrimaryLink}>
-                <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
+                <TacticalButton variant="primary" size="md" icon={<ChevronRight className="w-4 h-4" />}>
                   <span {...cucField('hero.cta_primary_text')}>{ctaPrimaryText}</span>
                 </TacticalButton>
               </Link>
               {ctaSecondaryText && (
                 <Link href={ctaSecondaryLink}>
-                  <TacticalButton variant="secondary" size="lg">
+                  <TacticalButton variant="secondary" size="md">
                     <span {...cucField('hero.cta_secondary_text')}>{ctaSecondaryText}</span>
                   </TacticalButton>
                 </Link>
@@ -122,7 +122,7 @@ export const EventsHeroSection: React.FC<EventsHeroSectionProps> = ({ hero }) =>
 
           {/* CUC Events Emblem Showcase — Sans cadre, fond transparent */}
           <div className="hidden lg:flex lg:col-span-4 justify-center items-center">
-            <div className="relative w-72 h-64 flex items-center justify-center filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.65)] hover:scale-105 transition-transform duration-500">
+            <div className="relative w-56 h-48 flex items-center justify-center filter drop-shadow-[0_12px_24px_rgba(0,0,0,0.65)] hover:scale-105 transition-transform duration-500">
               <Image
                 src="/images/logos/cuc-events-logo.png"
                 alt="CUC Events - Break The Limits"

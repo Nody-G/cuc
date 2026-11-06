@@ -37,7 +37,7 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
   const parallaxOffset = useHeroParallax();
 
   return (
-    <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
+    <section className="relative py-12 sm:py-14 bg-black border-b border-zinc-800 overflow-hidden">
       <div
         data-cuc-field="hero.bg_image"
         data-cuc-kind="image"
@@ -58,7 +58,7 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
       <div className="relative z-10 page-shell">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8">
-            <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
+            <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-3">
               <Link href="/" className="hover:text-[#FFE500] transition-colors">
                 <span {...cucMicro('teamProduction.hero.breadcrumbHome')}>
                   {t('hero.breadcrumbHome')}
@@ -70,13 +70,13 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
               </span>
             </div>
 
-            <div className="flex items-center gap-2 mb-4 text-xs font-mono-tech uppercase font-bold tracking-wider text-[#FFE500]">
+            <div className="flex items-center gap-2 mb-3 text-xs font-mono-tech uppercase font-bold tracking-wider text-[#FFE500]">
               <span {...cucField('hero.badge')}>{badge}</span>
             </div>
 
             <h1
               {...cucField('hero.title')}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tight text-white max-w-4xl leading-tight"
             >
               {title.includes('&') ? (
                 <>
@@ -91,20 +91,20 @@ export const TeamHeroSection: React.FC<TeamHeroSectionProps> = ({ hero }) => {
 
             <p
               {...cucField('hero.subtitle', 'textarea')}
-              className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
+              className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-3 leading-relaxed"
             >
               {subtitle}
             </p>
 
-            <div className="flex flex-wrap gap-4 mt-8">
+            <div className="flex flex-wrap gap-4 mt-5">
               <Link href={ctaPrimaryLink}>
-                <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
+                <TacticalButton variant="primary" size="md" icon={<ChevronRight className="w-4 h-4" />}>
                   <span {...cucField('hero.cta_primary_text')}>{ctaPrimaryText}</span>
                 </TacticalButton>
               </Link>
               <a
                 href="#filmographie"
-                className="inline-flex items-center gap-2 px-5 py-3 border border-zinc-700 bg-zinc-900/80 hover:bg-zinc-800 text-xs font-mono-tech uppercase tracking-wider text-zinc-300 hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 border border-zinc-700 bg-zinc-900/80 hover:bg-zinc-800 text-xs font-mono-tech uppercase tracking-wider text-zinc-300 hover:text-white transition-colors"
               >
                 <Film className="w-4 h-4 text-[#FFE500]" />
                 <span {...cucMicro('teamProduction.hero.posters')}>{t('hero.posters')}</span>

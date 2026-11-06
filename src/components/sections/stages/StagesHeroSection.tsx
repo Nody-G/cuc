@@ -23,8 +23,8 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
 
   return (
     <>
-      {/* Hero Header standardisé à la hauteur et l'assombrissement de l'équipe */}
-      <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
+      {/* Hero Header standardisé à la hauteur (~380px) et l'assombrissement de l'équipe */}
+      <section className="relative py-14 sm:py-16 bg-black border-b border-zinc-800 overflow-hidden">
         <div
           data-cuc-field="hero.bg_image"
           data-cuc-kind="image"
@@ -43,7 +43,7 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
         </div>
 
         <div className="relative z-10 page-shell w-full">
-          <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
+          <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-3">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">
               <span {...cucMicro('stages.hero.breadcrumbHome')}>{t('hero.breadcrumbHome')}</span>
             </Link>
@@ -53,7 +53,7 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
             </span>
           </div>
 
-          <div className="inline-flex items-center gap-2 mb-4">
+          <div className="inline-flex items-center gap-2 mb-3">
             <StuntBadge variant="yellow" icon={<Sparkles className="w-3.5 h-3.5" />}>
               <span {...cucField('hero.badge')}>{heroData?.badge || t('hero.badge')}</span>
             </StuntBadge>
@@ -64,7 +64,7 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
 
           <h1
             {...cucField('hero.title')}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tight text-white max-w-4xl leading-tight"
           >
             {heroData?.title ? (
               <span>{heroData.title}</span>
@@ -75,7 +75,7 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
 
           <p
             {...cucField('hero.subtitle', 'textarea')}
-            className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
+            className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-3 leading-relaxed"
           >
             {heroData?.subtitle || t('hero.subtitle')}
           </p>
@@ -83,7 +83,7 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
       </section>
 
       {/* Bandeau des logos d'accréditations & filières stages — Version Haute Résolution 2x non compressée */}
-      <section className="py-8 bg-[#09090d] border-b border-zinc-800">
+      <section className="py-5 sm:py-6 bg-[#09090d] border-b border-zinc-800">
         <div className="max-w-4xl mx-auto px-4 flex justify-center">
           <Image
             src="/images/logos/bandeau-logos-stages.png"

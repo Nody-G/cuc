@@ -16,7 +16,7 @@ export interface WorkshopHeroProps {
 export const WorkshopHero: React.FC<WorkshopHeroProps> = ({ breadcrumbs, hero, onApply }) => {
     const parallaxOffset = useHeroParallax();
     return (
-    <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
+    <section className="relative py-12 sm:py-14 bg-black border-b border-zinc-800 overflow-hidden">
         <div
             data-cuc-field="hero.bg_image"
             data-cuc-kind="image"
@@ -35,7 +35,7 @@ export const WorkshopHero: React.FC<WorkshopHeroProps> = ({ breadcrumbs, hero, o
         </div>
 
         <div className="relative z-10 page-shell">
-            <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
+            <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-3">
                 <Link
                     href="/"
                     data-cuc-field="sections_data.workshop.breadcrumb_home"
@@ -52,7 +52,7 @@ export const WorkshopHero: React.FC<WorkshopHeroProps> = ({ breadcrumbs, hero, o
                 </span>
             </div>
 
-            <div className="inline-flex items-center gap-2 mb-4">
+            <div className="inline-flex items-center gap-2 mb-3">
                 <StuntBadge variant="yellow" icon={<Globe className="w-3.5 h-3.5" />}>
                     <span data-cuc-field="hero.badge" data-cuc-kind="text">
                         {hero.badge}
@@ -70,7 +70,7 @@ export const WorkshopHero: React.FC<WorkshopHeroProps> = ({ breadcrumbs, hero, o
             <h1
                 data-cuc-field="hero.title"
                 data-cuc-kind="text"
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tight text-white max-w-4xl leading-tight"
             >
                 {hero.title.includes(' ') ? (
                     <>
@@ -87,15 +87,15 @@ export const WorkshopHero: React.FC<WorkshopHeroProps> = ({ breadcrumbs, hero, o
             <p
                 data-cuc-field="hero.subtitle"
                 data-cuc-kind="textarea"
-                className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
+                className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-3 leading-relaxed"
             >
                 {hero.subtitle}
             </p>
 
-            <div className="flex flex-wrap gap-4 mt-8">
+            <div className="flex flex-wrap gap-4 mt-5">
                 <TacticalButton
                     variant="primary"
-                    size="lg"
+                    size="md"
                     icon={<ChevronRight className="w-4 h-4" />}
                     onClick={onApply}
                 >
@@ -110,7 +110,7 @@ export const WorkshopHero: React.FC<WorkshopHeroProps> = ({ breadcrumbs, hero, o
                         rel="noopener noreferrer"
                         download="Plaquette-International-Stunt-Workshop-CUC.pdf"
                     >
-                        <TacticalButton variant="secondary" size="lg" type="button" className="pointer-events-none">
+                        <TacticalButton variant="secondary" size="md" type="button" className="pointer-events-none">
                             <span data-cuc-field="hero.cta_secondary_text" data-cuc-kind="text">
                                 {hero.ctaSecondaryText}
                             </span>
@@ -118,7 +118,7 @@ export const WorkshopHero: React.FC<WorkshopHeroProps> = ({ breadcrumbs, hero, o
                     </a>
                 ) : (
                     <Link href={hero.ctaSecondaryLink}>
-                        <TacticalButton variant="secondary" size="lg">
+                        <TacticalButton variant="secondary" size="md">
                             <span data-cuc-field="hero.cta_secondary_text" data-cuc-kind="text">
                                 {hero.ctaSecondaryText}
                             </span>

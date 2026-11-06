@@ -48,8 +48,8 @@ export default function AnimationsAirbagParkourPage() {
       <Navbar />
 
       <main id="contenu-principal" className="flex-grow pt-28">
-        {/* Hero Header */}
-        <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
+        {/* Hero Header standardisé à la hauteur Équipe (~380px) */}
+        <section className="relative py-12 sm:py-14 bg-black border-b border-zinc-800 overflow-hidden">
           <div
             data-cuc-field="hero.bg_image"
             data-cuc-kind="image"
@@ -68,7 +68,7 @@ export default function AnimationsAirbagParkourPage() {
           </div>
 
           <div className="relative z-10 page-shell">
-            <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
+            <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-3">
               <Link href="/" className="hover:text-[#FFE500] transition-colors">
                 <span {...cucMicro('animations.breadcrumbHome')}>{t('breadcrumbHome')}</span>
               </Link>
@@ -82,7 +82,7 @@ export default function AnimationsAirbagParkourPage() {
               </span>
             </div>
 
-            <div className="inline-flex items-center gap-2 mb-4">
+            <div className="inline-flex items-center gap-2 mb-3">
               <StuntBadge variant="yellow" icon={<Flame className="w-3.5 h-3.5" />}>
                 <span data-cuc-field="hero.badge" data-cuc-kind="text">
                   {heroBadge}
@@ -100,7 +100,7 @@ export default function AnimationsAirbagParkourPage() {
             <h1
               data-cuc-field="hero.title"
               data-cuc-kind="text"
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tight text-white max-w-4xl leading-tight"
             >
               {heroTitle.includes('&') ? (
                 <>
@@ -115,14 +115,14 @@ export default function AnimationsAirbagParkourPage() {
             <p
               data-cuc-field="hero.subtitle"
               data-cuc-kind="textarea"
-              className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
+              className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-3 leading-relaxed"
             >
               {heroSubtitle}
             </p>
 
-            <div className="flex flex-wrap gap-4 mt-8">
+            <div className="flex flex-wrap gap-4 mt-5">
               <Link href={ctaPrimaryLink}>
-                <TacticalButton variant="primary" size="lg" icon={<ChevronRight className="w-4 h-4" />}>
+                <TacticalButton variant="primary" size="md" icon={<ChevronRight className="w-4 h-4" />}>
                   <span data-cuc-field="hero.cta_primary_text" data-cuc-kind="text">
                     {ctaPrimaryText}
                   </span>
@@ -130,7 +130,7 @@ export default function AnimationsAirbagParkourPage() {
               </Link>
               {ctaSecondaryText && (
                 <Link href={ctaSecondaryLink}>
-                  <TacticalButton variant="secondary" size="lg">
+                  <TacticalButton variant="secondary" size="md">
                     <span data-cuc-field="hero.cta_secondary_text" data-cuc-kind="text">
                       {ctaSecondaryText}
                     </span>

@@ -169,7 +169,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '#dates',
       cta_secondary_text: "Modalités d'inscription",
       cta_secondary_link: '/contact-cuc',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/stages-parkour-bandeau.webp',
+      bg_image: '/images/stages/stages-parkour-hero.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête des Stages', order: 1, is_visible: true },

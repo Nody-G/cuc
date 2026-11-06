@@ -27,8 +27,8 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
 
   return (
     <>
-      {/* Page Header Hero */}
-      <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
+      {/* Page Header Hero standardisé sur le gabarit Équipe (~380px) */}
+      <section className="relative py-12 sm:py-14 bg-black border-b border-zinc-800 overflow-hidden">
         <div
           data-cuc-field="hero.bg_image"
           data-cuc-kind="image"
@@ -48,7 +48,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
 
         <div className="relative z-10 page-shell">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
+          <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-3">
             <Link href="/" className="hover:text-[#FFE500] transition-colors">
               <span {...cucMicro('formation.hero.breadcrumbHome')}>{t('hero.breadcrumbHome')}</span>
             </Link>
@@ -58,13 +58,13 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
             </span>
           </div>
 
-          <div className="inline-flex items-center gap-3 mb-4">
-            <div className="relative w-9 h-9 shrink-0">
+          <div className="inline-flex items-center gap-3 mb-3">
+            <div className="relative w-8 h-8 shrink-0">
               <Image
                 src="/images/logos/cuc-logo-yellow.png"
                 alt="Logo CUC"
-                width={36}
-                height={36}
+                width={32}
+                height={32}
                 className="object-contain drop-shadow-[0_0_8px_rgba(255,229,0,0.4)]"
               />
             </div>
@@ -85,7 +85,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
           <h1
             data-cuc-field="hero.title"
             data-cuc-kind="text"
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tight text-white max-w-4xl leading-tight"
           >
             {heroData?.title ? (
               <span>{heroData.title}</span>
@@ -97,12 +97,12 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
           <p
             data-cuc-field="hero.subtitle"
             data-cuc-kind="textarea"
-            className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
+            className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-3 leading-relaxed"
           >
             {heroData?.subtitle || t('hero.subtitle')}
           </p>
 
-          <div className="flex flex-wrap items-center gap-4 mt-8">
+          <div className="flex flex-wrap items-center gap-4 mt-5">
             <TacticalButton
               variant="primary"
               size="md"
@@ -135,7 +135,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
       </section>
 
       {/* Chiffres clés & indicateurs */}
-      <section className="py-8 bg-[#0c0c10] border-b border-zinc-800">
+      <section className="py-5 sm:py-6 bg-[#0c0c10] border-b border-zinc-800">
         <div className="page-shell">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 items-center">
             <div className="border-l-2 border-[#FFE500] pl-4 py-1">

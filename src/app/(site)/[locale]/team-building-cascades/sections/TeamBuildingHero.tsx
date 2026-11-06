@@ -25,7 +25,7 @@ export const TeamBuildingHero: React.FC<TeamBuildingHeroProps> = ({ copy, meta }
     const parallaxOffset = useHeroParallax();
 
     return (
-        <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
+        <section className="relative py-12 sm:py-14 bg-black border-b border-zinc-800 overflow-hidden">
             <div
                 data-cuc-field="hero.bg_image"
                 data-cuc-kind="image"
@@ -44,7 +44,7 @@ export const TeamBuildingHero: React.FC<TeamBuildingHeroProps> = ({ copy, meta }
             </div>
 
             <div className="relative z-10 page-shell">
-                <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-4">
+                <div className="flex items-center gap-2 text-xs font-mono-tech text-zinc-400 mb-3">
                     <Link href="/" className="hover:text-[#FFE500] transition-colors">
                         <span {...cucMicro('commonChrome.breadcrumbHome')}>
                             {chrome('breadcrumbHome')}
@@ -60,7 +60,7 @@ export const TeamBuildingHero: React.FC<TeamBuildingHeroProps> = ({ copy, meta }
                     </span>
                 </div>
 
-                <div className="inline-flex items-center gap-2 mb-4">
+                <div className="inline-flex items-center gap-2 mb-3">
                     <StuntBadge variant="yellow" icon={<Users className="w-3.5 h-3.5" />}>
                         <span data-cuc-field="hero.badge" data-cuc-kind="text">
                             {copy.badge}
@@ -78,7 +78,7 @@ export const TeamBuildingHero: React.FC<TeamBuildingHeroProps> = ({ copy, meta }
                 <h1
                     data-cuc-field="hero.title"
                     data-cuc-kind="text"
-                    className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight text-white max-w-5xl leading-none"
+                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tight text-white max-w-4xl leading-tight"
                 >
                     {title.accent ? (
                         <>
@@ -93,16 +93,16 @@ export const TeamBuildingHero: React.FC<TeamBuildingHeroProps> = ({ copy, meta }
                 <p
                     data-cuc-field="hero.subtitle"
                     data-cuc-kind="textarea"
-                    className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-4 leading-relaxed"
+                    className="text-base sm:text-lg text-zinc-300 font-tech max-w-3xl mt-3 leading-relaxed"
                 >
                     {copy.subtitle}
                 </p>
 
-                <div className="flex flex-wrap gap-4 mt-8">
+                <div className="flex flex-wrap gap-4 mt-5">
                     <Link href={copy.ctaPrimaryLink}>
                         <TacticalButton
                             variant="primary"
-                            size="lg"
+                            size="md"
                             icon={<ChevronRight className="w-4 h-4" />}
                         >
                             <span data-cuc-field="hero.cta_primary_text" data-cuc-kind="text">
