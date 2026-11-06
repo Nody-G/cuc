@@ -103,13 +103,28 @@ export const WorkshopHero: React.FC<WorkshopHeroProps> = ({ breadcrumbs, hero, o
                         {hero.ctaPrimaryText}
                     </span>
                 </TacticalButton>
-                <Link href={hero.ctaSecondaryLink}>
-                    <TacticalButton variant="secondary" size="lg">
-                        <span data-cuc-field="hero.cta_secondary_text" data-cuc-kind="text">
-                            {hero.ctaSecondaryText}
-                        </span>
-                    </TacticalButton>
-                </Link>
+                {hero.ctaSecondaryLink.endsWith('.pdf') ? (
+                    <a
+                        href={hero.ctaSecondaryLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download="Plaquette-International-Stunt-Workshop-CUC.pdf"
+                    >
+                        <TacticalButton variant="secondary" size="lg" type="button" className="pointer-events-none">
+                            <span data-cuc-field="hero.cta_secondary_text" data-cuc-kind="text">
+                                {hero.ctaSecondaryText}
+                            </span>
+                        </TacticalButton>
+                    </a>
+                ) : (
+                    <Link href={hero.ctaSecondaryLink}>
+                        <TacticalButton variant="secondary" size="lg">
+                            <span data-cuc-field="hero.cta_secondary_text" data-cuc-kind="text">
+                                {hero.ctaSecondaryText}
+                            </span>
+                        </TacticalButton>
+                    </Link>
+                )}
             </div>
         </div>
     </section>

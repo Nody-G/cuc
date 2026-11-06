@@ -229,12 +229,12 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp',
     hero: {
       badge: 'INTERNATIONAL STUNT WORKSHOP',
-      title: 'INTERNATIONAL STUNT WORKSHOP',
-      subtitle: "Join performers and stuntmen from across the globe (USA, UK, Europe, Australia, Asia) at the world's premier stunt training facility. 2 weeks of full immersion, 10 physical disciplines, full board on our 6-hectare private estate in France.",
+      title: 'CUC STUNT WORLDWIDE',
+      subtitle: "From July 18th to July 30th 2027. Exclusively reserved for foreigners and professional stunt performers from all around the world. 10 days of full immersion, high falls, wire stunts, parkour & fight choreography on our private estate in France.",
       cta_primary_text: 'Apply for Next Session',
       cta_primary_link: '#apply',
-      cta_secondary_text: 'Inquire & Information',
-      cta_secondary_link: '/contact-cuc',
+      cta_secondary_text: 'Download Brochure (PDF)',
+      cta_secondary_link: '/documents/Plaquette-International-Stunt-Workshop-CUC.pdf',
       bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/workshop-bandeau-workshop.webp',
     },
     layout_sections: [

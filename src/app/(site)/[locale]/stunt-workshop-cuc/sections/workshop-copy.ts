@@ -41,10 +41,10 @@ export interface WorkshopSectionData {
 }
 
 export const HIGHLIGHTS_DEFAULT: Required<WorkshopHighlight>[] = [
-    { value: '14 DAYS', label: 'Intensive Training Camp' },
+    { value: '10 DAYS', label: 'Intensive Training Camp' },
+    { value: '€ 1,600', label: 'All-Inclusive Full Board' },
     { value: '21M', label: 'CUC Stunt High Fall Tower' },
-    { value: '90 BEDS', label: 'On-Site Accommodation' },
-    { value: '100%', label: 'Real Action Showreel Video' },
+    { value: '80 BEDS', label: 'On-Site Accommodation' },
 ];
 
 export const CURRICULUM_DEFAULT: Required<WorkshopCurriculumItem>[] = [

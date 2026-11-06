@@ -38,11 +38,16 @@ export const WorkshopApplyBox: React.FC<WorkshopApplyBoxProps> = ({ cta, onApply
             <TacticalButton variant="primary" size="lg" onClick={onApply}>
                 <span data-cuc-field="sections_data.workshop.cta_primary">{cta.primary}</span>
             </TacticalButton>
-            <Link href={withContactIntent('/contact-cuc', 'workshop-international')}>
-                <TacticalButton variant="secondary" size="lg">
+            <a
+                href="/documents/Plaquette-International-Stunt-Workshop-CUC.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download="Plaquette-International-Stunt-Workshop-CUC.pdf"
+            >
+                <TacticalButton variant="secondary" size="lg" type="button" className="pointer-events-none">
                     <span data-cuc-field="sections_data.workshop.cta_secondary">{cta.secondary}</span>
                 </TacticalButton>
-            </Link>
+            </a>
         </div>
     </div>
 );

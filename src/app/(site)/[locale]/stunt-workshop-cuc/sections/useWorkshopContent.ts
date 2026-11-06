@@ -93,35 +93,35 @@ export function useWorkshopContent(): UseWorkshopContentResult {
     const locationNote =
         workshop?.location_note ||
         'Airport shuttles and train station pickups available upon booking.';
-    const housingTitle = workshop?.housing_title || 'FULL BOARD HOUSING';
+    const housingTitle = workshop?.housing_title || 'FULL BOARD & FACILITIES';
     const housingBody =
         workshop?.housing_body ||
-        'Stay on-site in student housing facilities (90 beds total). All three meals (breakfast, lunch, dinner) are served daily by our professional catering staff, specifically calibrated for high athletic performance.';
+        'Stay on-site in student accommodation (80 beds capacity). All meals included. Living and relaxation facilities: Spas, City stadium, Billiards, Babyfoot, TV room and video games.';
     const housingNote =
         workshop?.housing_note ||
-        'Single or shared rooms with high-speed Wi-Fi and laundry facilities.';
-    const certificateTitle = workshop?.certificate_title || 'OFFICIAL CERTIFICATE';
+        'Single or shared rooms with high-speed Wi-Fi, laundry facilities and catering centre.';
+    const certificateTitle = workshop?.certificate_title || 'PRICE & ALL-INCLUSIVE';
     const certificateBody =
         workshop?.certificate_body ||
-        'Graduates receive the official CUC Workshop Certificate detailing all hours and disciplines completed during the session.';
+        'Price: € 1,600.00 all inclusive (10 days workshop, all nights and meals included during this period, stunt insurance, CUC t-shirt, official certification).';
     const certificateNote =
-        workshop?.certificate_note || 'Includes raw 4K footage of your choreographed action scenes.';
+        workshop?.certificate_note || 'Contact: farah@campus-universcascades.com | +33 6 81 00 48 59';
     const ctaTitle = workshop?.cta_title || 'READY TO ELEVATE YOUR ACTION CAREER?';
     const ctaBody =
         workshop?.cta_body ||
-        'Spaces are limited to ensure maximum individual camera time and safety coaching. Apply today to secure your spot for the upcoming international session.';
+        'Exclusively reserved for foreigners and professional stunt performers from all around the world. Next session: July 18th to July 30th 2027. Apply today to secure your spot.';
     const ctaPrimary = workshop?.cta_primary || 'Apply for International Workshop';
-    const ctaSecondary = workshop?.cta_secondary || 'Contact Admissions';
+    const ctaSecondary = workshop?.cta_secondary || 'Download Brochure (PDF)';
 
     const heroBadge = (content.hero?.badge && content.hero.badge !== 'STAGE INTERNATIONAL') ? content.hero.badge : 'INTERNATIONAL STUNT WORKSHOP';
-    const heroTitle = content.hero?.title || 'INTERNATIONAL STUNT WORKSHOP';
+    const heroTitle = content.hero?.title || 'CUC STUNT WORLDWIDE';
     const heroSubtitle =
         content.hero?.subtitle ||
-        "Join performers and stuntmen from across the globe (USA, UK, Europe, Australia, Asia) at the world's premier stunt training facility. 2 weeks of full immersion, 10 physical disciplines, full board on our 6-hectare private estate in France.";
+        "From July 18th to July 30th 2027. Exclusively reserved for foreigners and professional stunt performers from all around the world. 10 days of full immersion, high falls, wire stunts, parkour & fight choreography on our private estate in France.";
     const heroBg = content.hero?.bg_image || WORKSHOP_MEDIA.heroFallback;
     const ctaPrimaryText = content.hero?.cta_primary_text || 'Apply for Next Session';
-    const ctaSecondaryText = content.hero?.cta_secondary_text || 'Inquire & Information';
-    const ctaSecondaryLink = content.hero?.cta_secondary_link || '/contact-cuc';
+    const ctaSecondaryText = content.hero?.cta_secondary_text || 'Download Brochure (PDF)';
+    const ctaSecondaryLink = content.hero?.cta_secondary_link || '/documents/Plaquette-International-Stunt-Workshop-CUC.pdf';
 
     return {
         hero: {
