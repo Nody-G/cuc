@@ -78,10 +78,10 @@ export function useWorkshopContent(): UseWorkshopContentResult {
         workshop?.curriculum ? { items: workshop.curriculum } : null
     );
 
-    const breadcrumbHome = workshop?.breadcrumb_home || 'HOME / ACCUEIL';
+    const breadcrumbHome = workshop?.breadcrumb_home || 'HOME';
     const breadcrumbCurrent = workshop?.breadcrumb_current || 'INTERNATIONAL STUNT WORKSHOP';
-    const programBadge = workshop?.program_badge || 'PROGRAMME INTENSIF';
-    const programTag = workshop?.program_tag || 'CURRICULUM INTERNATIONAL';
+    const programBadge = workshop?.program_badge || 'INTENSIVE PROGRAM';
+    const programTag = workshop?.program_tag || 'INTERNATIONAL CURRICULUM';
     const programTitle = workshop?.program_title || 'INTERNATIONAL STUNT PERFORMER TRAINING';
     const programIntro =
         workshop?.program_intro ||
@@ -113,7 +113,7 @@ export function useWorkshopContent(): UseWorkshopContentResult {
     const ctaPrimary = workshop?.cta_primary || 'Apply for International Workshop';
     const ctaSecondary = workshop?.cta_secondary || 'Contact Admissions';
 
-    const heroBadge = content.hero?.badge || 'STAGE INTERNATIONAL';
+    const heroBadge = (content.hero?.badge && content.hero.badge !== 'STAGE INTERNATIONAL') ? content.hero.badge : 'INTERNATIONAL STUNT WORKSHOP';
     const heroTitle = content.hero?.title || 'INTERNATIONAL STUNT WORKSHOP';
     const heroSubtitle =
         content.hero?.subtitle ||

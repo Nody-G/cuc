@@ -162,14 +162,13 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
   const contentEditors = (
     <ContentEditorsSwitch
       slug={draft.formData.slug}
-      activeData={draft.activeData}
-      setActiveData={draft.setActiveData}
+      activeData={draft.activeData} setActiveData={draft.setActiveData}
       isTranslationLoading={draft.isTranslationLoading}
       editorLocale={editorLocale}
       coverageMissing={draft.translation.coverage.missing}
       coverageStale={draft.translation.coverage.staleArrays.map((s) => s.path)}
       onMediaRequest={mediaPicker.request}
-      handlers={handlers}
+      handlers={handlers} showToast={showToast}
     />
   );
 
@@ -266,10 +265,8 @@ export const PagesEditorView: React.FC<PagesEditorViewProps> = ({
       {activeTab === 'seo' && (
         <SeoTabPanel
           slug={draft.formData.slug}
-          activeData={draft.activeData}
-          setActiveData={draft.setActiveData}
-          formData={draft.formData}
-          setFormData={draft.setFormData}
+          activeData={draft.activeData} setActiveData={draft.setActiveData}
+          formData={draft.formData} setFormData={draft.setFormData}
           editorLocale={editorLocale}
           onMediaRequest={mediaPicker.request}
         />

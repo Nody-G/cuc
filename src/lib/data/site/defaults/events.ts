@@ -35,7 +35,7 @@ export const DEFAULT_EVENTS: SiteEvent[] = [
     description:
       'Faites vivre au grand public les sensations uniques de la chute libre sur coussin d’air géant (sauts de 4 à 8 mètres). Encadrement assuré par des cascadeurs professionnels certifiés.',
     features: [
-      '+20 000 chutes encadrées en sécurité',
+      '50 à 80 sauts par heure',
       'Airbag géant homologué cinéma & spectacle',
       'Ateliers d’initiation au parkour et parcours d’obstacles',
       'Assurance professionnelle et encadrement certifié',

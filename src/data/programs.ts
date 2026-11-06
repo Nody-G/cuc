@@ -9,7 +9,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
     highlight: true,
     tagline: 'Devenez cascadeur professionnel polyvalent pour le cinéma d\'action international.',
     duration: '2 Ans (Cursus de 9 à 10 stages)',
-    hours: '720h à 800h de pratique intensive',
+    hours: '720h de pratique intensive',
     location: 'Campus CUC — Le Cateau-Cambrésis (59)',
     price: 'Sur devis / Éligible financements',
     priceNote: 'Prise en charge AFDAS, France Travail et financements pro possibles',
@@ -46,7 +46,7 @@ export const STUNT_PROGRAMS: StuntProgram[] = [
     ],
     certification: 'Certification QUALIOPI & Éligibilité AFDAS',
     ctaText: 'Postuler au Cursus Pro',
-    brochureUrl: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/document/21452296-CHALLENGE-EUROPE-PRODUCTIONS-Qualiopi.pdf'
+    brochureUrl: '/documents/Presentation-Campus-Univers-Cascades.pdf'
   },
   {
     id: 'stage-decouverte',

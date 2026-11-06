@@ -145,7 +145,7 @@ export const FormationDisciplinesExplorer: React.FC = () => {
               {activeDiscipline.fullDesc}
             </p>
 
-            <div className="space-y-4 pt-4 border-t border-zinc-800 text-xs font-tech">
+            <div className="pt-4 border-t border-zinc-800 text-xs font-tech">
               <div>
                 <strong className="text-[#FFE500] font-mono-tech block mb-1 uppercase">
                   <span {...cucMicro('formation.disciplines.cinemaContextLabel')}>
@@ -153,24 +153,6 @@ export const FormationDisciplinesExplorer: React.FC = () => {
                   </span>
                 </strong>
                 <p className="text-zinc-400">{activeDiscipline.cinemaContext}</p>
-              </div>
-
-              <div>
-                <strong className="text-[#FFE500] font-mono-tech block mb-1 uppercase">
-                  <span {...cucMicro('formation.disciplines.equipmentLabel')}>
-                    {t('disciplines.equipmentLabel')}
-                  </span>
-                </strong>
-                <div className="flex flex-wrap gap-1.5 mt-1">
-                  {activeDiscipline.equipment.map((item, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2 py-0.5 bg-zinc-800/80 border border-zinc-700 text-[11px] text-zinc-300"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
               </div>
             </div>
           </div>

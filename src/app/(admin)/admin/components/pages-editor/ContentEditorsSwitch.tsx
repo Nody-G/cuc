@@ -27,6 +27,7 @@ export interface ContentEditorsSwitchProps {
     coverageStale: string[];
     onMediaRequest: (target: string) => void;
     handlers: SectionHandlers;
+    showToast?: (msg: string) => void;
 }
 
 /**
@@ -43,6 +44,7 @@ export const ContentEditorsSwitch: React.FC<ContentEditorsSwitchProps> = ({
     coverageStale,
     onMediaRequest,
     handlers,
+    showToast,
 }) => {
     // En anglais, on n'affiche jamais la traduction d'une autre page : le temps du
     // chargement, on montre un état explicite plutôt qu'un formulaire trompeur.

@@ -23,24 +23,23 @@ export const StagesHeroSection: React.FC<StagesHeroSectionProps> = ({ heroData }
 
   return (
     <>
-      {/* Hero Header avec cadrage valorisant les cascadeurs et le matériel en bas d'image */}
-      <section className="relative py-24 sm:py-28 lg:py-32 min-h-[520px] sm:min-h-[580px] flex items-center bg-black border-b border-zinc-800 overflow-hidden">
+      {/* Hero Header standardisé à la hauteur et l'assombrissement de l'équipe */}
+      <section className="relative py-20 bg-black border-b border-zinc-800 overflow-hidden">
         <div
           data-cuc-field="hero.bg_image"
           data-cuc-kind="image"
-          className="absolute inset-x-0 -top-16 bottom-0 z-0 will-change-transform"
+          className="absolute inset-x-0 -top-24 -bottom-24 z-0 will-change-transform"
           style={{ transform: `translate3d(0, ${parallaxOffset}px, 0)` }}
         >
           <Image
-            src={heroData?.bg_image || "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/stages-parkour-bandeau.webp"}
+            src={heroData?.bg_image || "/images/stages/stages-parkour-hero.webp"}
             alt={t('hero.bgAlt')}
             fill
             priority
             sizes="100vw"
-            className="object-cover object-bottom brightness-95 contrast-105"
+            className="object-cover object-center brightness-75 contrast-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#060608]/60 via-[#060608]/15 to-transparent pointer-events-none" />
-          <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/75 to-[#060608]/35 pointer-events-none" />
         </div>
 
         <div className="relative z-10 page-shell w-full">

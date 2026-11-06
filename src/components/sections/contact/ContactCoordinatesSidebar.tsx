@@ -250,44 +250,20 @@ export const ContactCoordinatesSidebar: React.FC<ContactCoordinatesSidebarProps>
           <span {...cucMicro('contact.sidebar.entitiesTitle')}>{t('entitiesTitle')}</span>
         </span>
         <div className="flex items-center justify-center gap-6 pt-2">
-          <div className="flex flex-col items-center">
-            <Image
-              src="/images/logos/cuc-logo-yellow.png"
-              alt={t('logoAltCuc')}
-              width={60}
-              height={60}
-              className="object-contain p-1"
-            />
-            <span className="text-[10px] font-mono-tech text-zinc-400 mt-1">
-              <span {...cucMicro('commonChrome.siteCampus')}>{chrome('siteCampus')}</span>
-            </span>
-          </div>
-
-          <div className="flex flex-col items-center">
-            <Image
-              src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/logo-CUC-Events-150x150.png"
-              alt={t('logoAltEvents')}
-              width={60}
-              height={60}
-              className="rounded-full border border-zinc-700 object-cover"
-            />
-            <span className="text-[10px] font-mono-tech text-zinc-400 mt-1">
-              <span {...cucMicro('commonChrome.siteEvents')}>{chrome('siteEvents')}</span>
-            </span>
-          </div>
-
-          <div className="flex flex-col items-center">
-            <Image
-              src="https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/CUC-TEAM-fond-noir-Website-1-150x150.png"
-              alt={t('logoAltTeam')}
-              width={60}
-              height={60}
-              className="rounded-full border border-zinc-700 object-cover"
-            />
-            <span className="text-[10px] font-mono-tech text-zinc-400 mt-1">
-              <span {...cucMicro('commonChrome.siteStuntTeam')}>{chrome('siteStuntTeam')}</span>
-            </span>
-          </div>
+          {[
+            { src: '/images/logos/cuc-logo-yellow.png', alt: t('logoAltCuc'), key: 'siteCampus', imgClass: 'object-contain scale-110', w: 56, h: 56 },
+            { src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/logo-CUC-Events-150x150.png', alt: t('logoAltEvents'), key: 'siteEvents', imgClass: 'object-cover', w: 60, h: 60 },
+            { src: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/partner-logo/CUC-TEAM-fond-noir-Website-1-150x150.png', alt: t('logoAltTeam'), key: 'siteStuntTeam', imgClass: 'object-cover', w: 60, h: 60 }
+          ].map((item) => (
+            <div key={item.key} className="flex flex-col items-center">
+              <div className="w-[60px] h-[60px] rounded-full border border-zinc-700 bg-black flex items-center justify-center overflow-hidden">
+                <Image src={item.src} alt={item.alt} width={item.w} height={item.h} className={item.imgClass} />
+              </div>
+              <span className="text-[10px] font-mono-tech text-zinc-400 mt-1">
+                <span {...cucMicro(`commonChrome.${item.key}`)}>{chrome(item.key as any)}</span>
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

@@ -82,7 +82,7 @@
       ],
       "step1Cta": "Réserver la Session Découverte",
       "step2Badge": "ÉTAPE 02 • FORMATION PROFESSIONNELLE",
-      "step2Hours": "720 À 800 HEURES",
+      "step2Hours": "720 HEURES",
       "step2Title": "FORMATION PROFESSIONNELLE 2 ANS",
       "step2Desc": "9 à 10 stages de 12 jours échelonnés sur deux ans. Le cursus complet qui forme les cascadeurs polyvalents aptes à tourner immédiatement pour le cinéma international.",
       "labelRhythm": "Rythme :",
@@ -165,7 +165,7 @@
     },
     "stats": {
       "practiceLabel": "Pratique Intensive Plateau",
-      "graduatesLabel": "Stagiaires Certifiés",
+      "graduatesLabel": "Cascadeurs Certifiés",
       "satisfactionLabel": "Taux de Satisfaction",
       "referenceLabel": "Formation Référente en France",
       "since": "DEPUIS 2011"
@@ -424,14 +424,18 @@
         "tournage-production": "Production de Cinéma / Tournage / Coordination",
         "cuc-events": "CUC Events / Spectacles & Animations Live",
         "autre": "Autre question générale"
-      }
+      },
+      "labelFirstName": "Prénom *",
+      "placeholderFirstName": "Ex : Alexandre",
+      "labelLastName": "Nom *",
+      "placeholderLastName": "Ex : Dubois"
     },
     "sidebar": {
       "standardTitle": "STANDARD ADMISSIONS & DIRECTION",
       "directPhone": "TÉLÉPHONE DIRECT :",
       "email": "EMAIL :",
       "hours": "HORAIRES DU STANDARD :",
-      "hoursValue": "Du Lundi au Vendredi : 09h00 - 18h30",
+      "hoursValue": "Du Lundi au Vendredi : 09h30 - 17h30",
       "hoursSaturday": "Samedi (jours de stage) : 09h00 - 17h00",
       "train": "TRAIN :",
       "road": "ROUTE :",
@@ -1195,14 +1199,14 @@
     }
   },
   "stuntWorkshop": {
-    "heroMeta": "EN ANGLAIS & FRANÇAIS",
-    "briAlt": "CUC BRI — Formation cascade Brigade de Recherche et d'Intervention",
-    "posterBadge": "AFFICHE OFFICIELLE",
-    "posterTitle": "Session Internationale CUC",
-    "posterSubtitle": "Certification Pro Action Performer",
-    "towerCaption": "Tour de chute 21m",
-    "tacticalCaption": "Intervention & Armurerie",
-    "crowdCaption": "Performers du Monde Entier au CUC"
+    "heroMeta": "100% IN ENGLISH & FRENCH",
+    "briAlt": "CUC BRI — Tactical Stunt & High-Risk Team Training",
+    "posterBadge": "OFFICIAL POSTER",
+    "posterTitle": "CUC International Session",
+    "posterSubtitle": "Pro Action Performer Certification",
+    "towerCaption": "21m High-Fall Tower",
+    "tacticalCaption": "Tactical & Armoury",
+    "crowdCaption": "Performers from Around the World at CUC"
   },
   "visiteGuidee": {
     "accessBadge": "ACCÈS & TRANSPORT",
@@ -1252,7 +1256,7 @@
       "studioBadge": "INFRASTRUCTURES DE TOURNAGE",
       "studioTitle": "LE STUDIO & LA SALLE D'ACTION",
       "doublesBadge": "DOUBLURES & CHORÉGRAPHES",
-      "doublesTitle": "LES CASCADEURS EN ACTION",
+      "doublesTitle": "NOS CASCADEURS",
       "equipmentBadge": "MATÉRIEL TECHNIQUE CINÉMA",
       "equipmentTitle": "LES ÉQUIPEMENTS DE TOURNAGE",
       "zoomStudio": "Cliquer pour voir en plein écran",
@@ -1269,8 +1273,8 @@
       "title": "HALL OF FAME DU CINÉMA D'ACTION",
       "subtitle": "Retrouvez une sélection de productions audiovisuelles et cinématographiques sur lesquelles sont intervenus les cascadeurs et formateurs du CUC.",
       "actorsBadge": "ACTEURS & TOURNAGES",
-      "actorsTitle": "LES COMÉDIENS DOUBLÉS PAR LE CUC",
-      "actorsIntro": "Les formateurs et cascadeurs du Campus Univers Cascades interviennent sur les scènes d'action des tournages français et internationaux.",
+      "actorsTitle": "LES COMÉDIENS AVEC QUI NOUS AVONS COLLABORÉ",
+      "actorsIntro": "Les cascadeurs du Campus Univers Cascades interviennent sur les scènes d'action des tournages français et internationaux.",
       "photoAlt": "Comédien doublé {name}",
       "imdbTitle": "Voir la filmographie IMDb de {name}",
       "filmsLabel": "Films :"

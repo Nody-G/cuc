@@ -87,7 +87,7 @@ export const DbEventPillarCard: React.FC<DbEventPillarCardProps> = ({ evt, isRev
                             alt={evt.title}
                             fill
                             sizes="(max-width: 1024px) 100vw, 40vw"
-                            className="object-cover"
+                            className="object-cover object-top"
                         />
                     ) : (
                         <div className="w-full h-full flex items-center justify-center bg-zinc-900 text-zinc-600 font-mono text-xs">

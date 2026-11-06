@@ -40,7 +40,8 @@ export const ContactForm: React.FC = () => {
 
   // Préremplissage depuis le paramètre d'URL `?demande=...` si présent, sinon 'autre'.
   const [formData, setFormData] = useState(() => ({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     phone: '',
     program: resolveInitialProgram(),
@@ -61,8 +62,9 @@ export const ContactForm: React.FC = () => {
     const progId = formData.program || 'autre';
     const programTitle = t(`options.${progId}` as any) || t('options.autre');
 
+    const fullName = `${formData.firstName} ${formData.lastName}`.trim();
     const res = await submitInquiry({
-      full_name: formData.name,
+      full_name: fullName,
       email: formData.email,
       phone: formData.phone,
       program_id: progId,
@@ -125,25 +127,48 @@ export const ContactForm: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label
-                htmlFor="contact-name"
+                htmlFor="contact-firstname"
                 className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
               >
-                <span {...cucMicro('contact.form.labelName')}>{t('labelName')}</span>
+                <span {...cucMicro('contact.form.labelFirstName')}>{t('labelFirstName')}</span>
               </label>
               <input
-                id="contact-name"
+                id="contact-firstname"
                 type="text"
                 required
-                autoComplete="name"
-                value={formData.name}
+                autoComplete="given-name"
+                value={formData.firstName}
                 onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
+                  setFormData({ ...formData, firstName: e.target.value })
                 }
-                placeholder={t('placeholderName')}
+                placeholder={t('placeholderFirstName')}
                 className="w-full bg-[#14141c] border border-zinc-800 p-3 text-white focus:border-[#FFE500] focus:outline-hidden"
               />
             </div>
 
+            <div>
+              <label
+                htmlFor="contact-lastname"
+                className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
+              >
+                <span {...cucMicro('contact.form.labelLastName')}>{t('labelLastName')}</span>
+              </label>
+              <input
+                id="contact-lastname"
+                type="text"
+                required
+                autoComplete="family-name"
+                value={formData.lastName}
+                onChange={(e) =>
+                  setFormData({ ...formData, lastName: e.target.value })
+                }
+                placeholder={t('placeholderLastName')}
+                className="w-full bg-[#14141c] border border-zinc-800 p-3 text-white focus:border-[#FFE500] focus:outline-hidden"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label
                 htmlFor="contact-phone"
@@ -164,27 +189,27 @@ export const ContactForm: React.FC = () => {
                 className="w-full bg-[#14141c] border border-zinc-800 p-3 text-white focus:border-[#FFE500] focus:outline-hidden"
               />
             </div>
-          </div>
 
-          <div>
-            <label
-              htmlFor="contact-email"
-              className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
-            >
-              <span {...cucMicro('contact.form.labelEmail')}>{t('labelEmail')}</span>
-            </label>
-            <input
-              id="contact-email"
-              type="email"
-              required
-              autoComplete="email"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-              placeholder={t('placeholderEmail')}
-              className="w-full bg-[#14141c] border border-zinc-800 p-3 text-white focus:border-[#FFE500] focus:outline-hidden"
-            />
+            <div>
+              <label
+                htmlFor="contact-email"
+                className="block font-mono-tech uppercase text-zinc-300 mb-1 cursor-pointer"
+              >
+                <span {...cucMicro('contact.form.labelEmail')}>{t('labelEmail')}</span>
+              </label>
+              <input
+                id="contact-email"
+                type="email"
+                required
+                autoComplete="email"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                placeholder={t('placeholderEmail')}
+                className="w-full bg-[#14141c] border border-zinc-800 p-3 text-white focus:border-[#FFE500] focus:outline-hidden"
+              />
+            </div>
           </div>
 
           <div>

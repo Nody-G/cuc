@@ -36,14 +36,14 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
           style={{ transform: `translate3d(0, ${parallaxOffset}px, 0)` }}
         >
           <Image
-            src={heroData?.bg_image || "https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/formation-pro-bandeau.webp"}
+            src={heroData?.bg_image || "/images/formation-pro-bandeau-hq.webp"}
             alt={t('hero.imageAlt')}
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center brightness-90 contrast-105"
+            className="object-cover object-center brightness-75 contrast-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#060608]/70 via-[#060608]/20 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/75 to-[#060608]/35 pointer-events-none" />
         </div>
 
         <div className="relative z-10 page-shell">
@@ -113,15 +113,23 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
                 {heroData?.cta_primary_text || t('ctaApplyPro')}
               </span>
             </TacticalButton>
-            <TacticalButton
-              variant="secondary"
-              size="md"
-              onClick={() => onApply('stage-decouverte')}
+            <a
+              href={heroData?.cta_secondary_link || "/documents/Presentation-Campus-Univers-Cascades.pdf"}
+              target="_blank"
+              rel="noopener noreferrer"
+              download="Presentation-Campus-Univers-Cascades.pdf"
             >
-              <span data-cuc-field="hero.cta_secondary_text" data-cuc-kind="text">
-                {heroData?.cta_secondary_text || t('hero.ctaDiscovery')}
-              </span>
-            </TacticalButton>
+              <TacticalButton
+                variant="secondary"
+                size="md"
+                type="button"
+                className="pointer-events-none"
+              >
+                <span data-cuc-field="hero.cta_secondary_text" data-cuc-kind="text">
+                  {heroData?.cta_secondary_text || 'Télécharger la brochure'}
+                </span>
+              </TacticalButton>
+            </a>
           </div>
         </div>
       </section>
@@ -141,7 +149,7 @@ export const FormationHeroSection: React.FC<FormationHeroSectionProps> = ({
 
             <div className="border-l-2 border-[#FFE500] pl-4 py-1">
               <div className="text-3xl sm:text-4xl font-display text-[#FFE500]">
-                224
+                324
               </div>
               <div className="text-xs font-mono-tech text-zinc-400 uppercase tracking-wider">
                 <span {...cucMicro('formation.stats.graduatesLabel')}>{t('stats.graduatesLabel')}</span>

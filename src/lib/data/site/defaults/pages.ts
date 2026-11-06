@@ -102,8 +102,8 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_text: 'Candidater à la sélection',
       cta_primary_link: '/stages-cascades-parkour-2',
       cta_secondary_text: 'Télécharger la brochure',
-      cta_secondary_link: '/contact-cuc',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/formation-pro-bandeau.webp',
+      cta_secondary_link: '/documents/Presentation-Campus-Univers-Cascades.pdf',
+      bg_image: '/images/formation-pro-bandeau-hq.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête & Titre Programme', order: 1, is_visible: true },
@@ -228,9 +228,9 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
     meta_description: "Stage international de cascade en anglais et français. 2 semaines résidentielles d'immersion au Cateau-Cambrésis.",
     og_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/slider-8-scaled.webp',
     hero: {
-      badge: 'STAGE INTERNATIONAL',
+      badge: 'INTERNATIONAL STUNT WORKSHOP',
       title: 'INTERNATIONAL STUNT WORKSHOP',
-      subtitle: "Rejoignez des cascadeurs et performeurs venus du monde entier (USA, UK, Europe, Australie) pour 2 semaines d'immersion totale au CUC.",
+      subtitle: "Join performers and stuntmen from across the globe (USA, UK, Europe, Australia, Asia) at the world's premier stunt training facility. 2 weeks of full immersion, 10 physical disciplines, full board on our 6-hectare private estate in France.",
       cta_primary_text: 'Apply for Next Session',
       cta_primary_link: '#apply',
       cta_secondary_text: 'Inquire & Information',
@@ -262,7 +262,7 @@ export const DEFAULT_PAGE_CONTENTS: Record<string, SitePageContent> = {
       cta_primary_link: '/formation-de-cascadeur',
       cta_secondary_text: 'Prendre contact',
       cta_secondary_link: '/contact-cuc',
-      bg_image: 'https://xkbkcsypftvspmkfnrfm.supabase.co/storage/v1/object/public/cuc-vitrine-assets/media/cuc-visual/equipe-pro-bandeau-equipe.webp',
+      bg_image: '/images/equipe-pro-bandeau-hq.webp',
     },
     layout_sections: [
       { id: 'hero', name: 'En-tête Équipe & Instructeurs', order: 1, is_visible: true },

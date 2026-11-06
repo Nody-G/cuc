@@ -62,9 +62,9 @@ export default function AnimationsAirbagParkourPage() {
               fill
               priority
               sizes="100vw"
-              className="object-cover object-center brightness-90 contrast-105"
+              className="object-cover object-top brightness-75 contrast-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#060608]/70 via-[#060608]/20 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-[#060608]/75 to-[#060608]/35 pointer-events-none" />
           </div>
 
           <div className="relative z-10 page-shell">
@@ -235,7 +235,7 @@ export default function AnimationsAirbagParkourPage() {
                       alt={t('panelImageAlt')}
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"
-                      className="object-cover object-center"
+                      className="object-cover object-top"
                     />
                   </div>
                 </div>

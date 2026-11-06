@@ -5,11 +5,13 @@ import type { SitePageContent } from '@/lib/data/site-service';
 import { ReelEditorCard } from './videos-page/ReelEditorCard';
 import { VideosSectionSettingsPanel } from './videos-page/VideosSectionSettingsPanel';
 import { useVideosPageEditor } from './videos-page/useVideosPageEditor';
+import { VideosCrudManager } from '../instagram-monitor/VideosCrudManager';
 
 interface VideosPageEditorProps {
     formData: SitePageContent;
     setFormData: React.Dispatch<React.SetStateAction<SitePageContent>>;
     setMediaPickerTarget: (target: string) => void;
+    showToast?: (msg: string) => void;
 }
 
 /**
@@ -26,11 +28,14 @@ export const VideosPageEditor: React.FC<VideosPageEditorProps> = ({
     formData,
     setFormData,
     setMediaPickerTarget,
+    showToast,
 }) => {
     const editor = useVideosPageEditor({ formData, setFormData });
 
     return (
         <div className="space-y-6">
+            {/* Espace dédié pour réordonner et gérer les vidéos et reportages TV */}
+            <VideosCrudManager showToast={showToast || (() => {})} />
             <VideosSectionSettingsPanel
                 section={editor.reelsSection}
                 reelCount={editor.reelsList.length}
